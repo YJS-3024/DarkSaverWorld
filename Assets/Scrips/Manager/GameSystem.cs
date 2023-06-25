@@ -1,0 +1,41 @@
+﻿using System.Collections;
+using UnityEngine;
+
+public class GameSystem : MonoSingleton<GameSystem>
+{
+    private IEnumerator Start()
+    {
+        var isLoad = Initialize();
+        yield return new WaitUntil(() => isLoad);
+
+        isLoad = ResourceManager.I.Initialize();
+        ResourceManager.I.SetParent(transform);
+        yield return new WaitUntil(() => isLoad);
+
+        isLoad = PathManager.I.Initialize();
+        PathManager.I.SetParent(transform);
+        yield return new WaitUntil(() => isLoad);
+
+        isLoad = PlayerManager.I.Initialize();
+        PlayerManager.I.SetParent(transform);
+        yield return new WaitUntil(() => isLoad);
+        
+        isLoad = EnemyManager.I.Initialize();
+        EnemyManager.I.SetParent(transform);
+        yield return new WaitUntil(() => isLoad);
+
+        isLoad = InputManager.I.Initialize();
+        InputManager.I.SetParent(transform);
+        yield return new WaitUntil(() => isLoad);
+        
+    }
+
+    public override bool Initialize()
+    {
+        return true;
+    }
+
+    protected override void Destroy()
+    {
+    }
+}
