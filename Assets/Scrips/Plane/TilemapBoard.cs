@@ -15,6 +15,10 @@ public class TilemapBoard : MonoBehaviour
     private Tilemap tilemapBoard;
     private Tilemap tilemapBlock;
 
+    public Vector3 MaxSize => tilemapBoard.localBounds.max;
+    public Vector3 MinSize => tilemapBoard.localBounds.min;
+    public Vector3 Center => tilemapBoard.localBounds.center;
+
     private void Awake()
     {
         if (_tilemapList is null)
@@ -39,7 +43,7 @@ public class TilemapBoard : MonoBehaviour
     {
         if (tilemapBoard is null)
             return new PlanePathNode[0,0];
-
+        
         var bounds = tilemapBoard.cellBounds;
         var pathNodes = new PlanePathNode[bounds.size.x, bounds.size.y];
 

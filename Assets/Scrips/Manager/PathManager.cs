@@ -21,6 +21,11 @@ public partial class PathManager : MonoSingleton<PathManager>
     private PlanePathNode endNode;   //목적지 노드
     private bool bFindGoal;          //목적지 찾은값
 
+    public Vector3 MapMaxSize => field_Board.MaxSize;
+    public Vector3 MapMinSize => field_Board.MinSize;
+
+    public Vector3 MapCenter => field_Board.Center;
+
     public override bool Initialize()
     {
         var list = FindObjectsOfType<TilemapBoard>();

@@ -9,7 +9,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
     {
         if (MainPlayer is null)
         {
-            var prefab = ResourceManager.I.Road<GameObject>(eResourceType.Prefabs, "Character/Player");
+            var prefab = ResourceManager.I.Road<GameObject>(eResourceType.Prefabs, "Character/PlayerChar");
             if (prefab != null)
             {
                 var go = Instantiate(prefab);

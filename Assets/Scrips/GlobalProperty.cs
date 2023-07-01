@@ -23,4 +23,12 @@ namespace GlobalEnum
 
         Max
     }
+
+    public enum eCharDirectionType
+    {
+        Back,
+        Forward,
+        Left,
+        Right,
+    }
 }

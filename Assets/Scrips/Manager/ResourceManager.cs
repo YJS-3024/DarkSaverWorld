@@ -43,4 +43,10 @@ public class ResourceManager : MonoSingleton<ResourceManager>
 
         return null;
     }
+
+    public Sprite[] RoadSpritesAll(string pathName)
+    {
+        var path =  $"Sprite/{pathName}";
+        return Resources.LoadAll<Sprite>(path);   
+    }
 }

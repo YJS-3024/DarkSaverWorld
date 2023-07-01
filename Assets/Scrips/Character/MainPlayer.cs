@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class MainPlayer : BaseCharObject
 {
-    private Coroutine _moving = null;
+    [SerializeField] public Transform CameraFollowPos;
 
+    private Coroutine _moving = null;
+    
     public override void StartMove(List<PlanePathNode> nodes)
     {
         if (_moving != null)
@@ -41,8 +43,9 @@ public class MainPlayer : BaseCharObject
         while (PathManager.I.MoveListLength > 0)
         {
             var node = PathManager.I.CunNode();
-            PlayerManager.I.MainPlayer.transform.position = node.centerPos + (Vector2.one * 0.5f);
 
+            SetPosition(node.centerPos);
+            
             yield return new WaitForSeconds(0.05f);
         }
     }

@@ -27,7 +27,10 @@ public class GameSystem : MonoSingleton<GameSystem>
         isLoad = InputManager.I.Initialize();
         InputManager.I.SetParent(transform);
         yield return new WaitUntil(() => isLoad);
-        
+     
+        isLoad = CameraManager.I.Initialize();
+        CameraManager.I.SetParent(transform);
+        yield return new WaitUntil(() => isLoad);
     }
 
     public override bool Initialize()

@@ -6,7 +6,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
 {
     protected override void Destroy()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override bool Initialize()
