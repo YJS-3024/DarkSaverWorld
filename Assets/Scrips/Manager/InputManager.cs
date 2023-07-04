@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+using System.Linq;
 using UnityEngine;
 
 public class InputManager : MonoSingleton<InputManager>
@@ -20,48 +20,53 @@ public class InputManager : MonoSingleton<InputManager>
         //터치 했을시
         if (Input.touchCount > 0)
         {
-            Input_Touch();
+            Input_Move(Input.touches.FirstOrDefault().position);
         }
         else
         {
             //마우스 클릭시
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(0))
             {
-                Input_Mouse();
+                Input_Move(Input.mousePosition);
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                Input_Move(Input.mousePosition);
             }
         }
     }
 
-    public void Input_Mouse()
+    public void Input_Move(Vector3 screenPos)
     {
-        // 바로 이동
-        // Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        // var endNode = PlaneManager.I.GetNode_WorldPos(worldPos);
-        // if (endNode == null ||
-        //     PlaneManager.I.IsMoveAble(endNode.indexX, endNode.indexY) == false)
-        //     return;
-        //
-        // var mainPlayer = PlayerManager.I.MainPlayer;
-        // if (mainPlayer != null)
-        // {
-        //     mainPlayer.transform.position = endNode.centerPos + (Vector2.one * 0.5f);
-        // }
-
         // 패스 이동
-        var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        var charPos = PathManager.I.MoveListLength > 0
-            ? (Vector3)(PathManager.I.LastNode().centerPos + (Vector2.one * 0.5f))
+        var worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+        var charPos = TilemapManager.I.Path.MoveListLength > 0
+            ? (Vector3)(TilemapManager.I.Path.LastNode().centerPos + (Vector2.one * 0.5f))
             : PlayerManager.I.MainPlayer.transform.position;
 
-        var nodes = PathManager.I.FindPath(charPos, worldPos, true);
+        var nodes = TilemapManager.I.Path.FindPath(charPos, worldPos, true);
         if (nodes != null)
         {
             PlayerManager.I.MainPlayer.StartMove(nodes);
         }
     }
 
-    public void Input_Touch()
-    {
+    // public void Input_Attack(Vector3 screenPos)
+    // {
+    //     var worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+    // }
 
+    public void Touch_Move(Vector3 screenPos)
+    {
+        var worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+        var charPos = TilemapManager.I.Path.MoveListLength > 0
+            ? (Vector3)(TilemapManager.I.Path.LastNode().centerPos + (Vector2.one * 0.5f))
+            : PlayerManager.I.MainPlayer.transform.position;
+
+        var nodes = TilemapManager.I.Path.FindPath(charPos, worldPos, true);
+        if (nodes != null)
+        {
+            PlayerManager.I.MainPlayer.StartMove(nodes);
+        }
     }
 }

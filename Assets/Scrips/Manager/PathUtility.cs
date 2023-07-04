@@ -5,42 +5,17 @@ using System.Linq;
 using GlobalEnum;
 using UnityEngine;
 
-public partial class PathManager : MonoSingleton<PathManager>
+public partial class PathUtility : MonoBehaviour
 {
-    //노드 배열
-    [SerializeField] private PlanePathNode[,] pathNodes;
-
     private readonly List<PlanePathNode> openNodeList = new List<PlanePathNode>();  //오픈노드 리스트
     private readonly List<PlanePathNode> closeNodeList = new List<PlanePathNode>(); //클로즈 노드 리스트
 
     private readonly List<PlanePathNode> result = new List<PlanePathNode>();      //결과 벡터
     private readonly List<PlanePathNode> resultStack = new List<PlanePathNode>(); //결과 스택(백트레킹 때문에 쓴다.)
 
-    private TilemapBoard field_Board;
     private PlanePathNode startNode; //시작 노드
     private PlanePathNode endNode;   //목적지 노드
     private bool bFindGoal;          //목적지 찾은값
-
-    public Vector3 MapMaxSize => field_Board.MaxSize;
-    public Vector3 MapMinSize => field_Board.MinSize;
-
-    public Vector3 MapCenter => field_Board.Center;
-
-    public override bool Initialize()
-    {
-        var list = FindObjectsOfType<TilemapBoard>();
-        if (field_Board == null)
-            field_Board = list.FirstOrDefault(x => x.gameObject.layer == (byte)eLayer.Field_Board);
-
-        pathNodes = field_Board.InitPlane();
-
-        return true;
-    }
-
-    protected override void Destroy()
-    {
-        pathNodes = null;
-    }
 
     /// <summary>
     /// 알고리즘으로 경로 찾기
@@ -52,8 +27,8 @@ public partial class PathManager : MonoSingleton<PathManager>
     public List<PlanePathNode> FindPath(Vector3 startPos, Vector3 endPos, bool bDiagonal)
     {
         //위치에 따른 시작노드와 종료 노드를 얻는다.
-        startNode = GetNode_WorldPos(startPos);
-        endNode = GetNode_WorldPos(endPos);
+        startNode = TilemapManager.I.GetNode_WorldPos(startPos);
+        endNode = TilemapManager.I.GetNode_WorldPos(endPos);
 
         //유효하지 않는 경로다.
         if (startNode == null || endNode == null)
@@ -141,33 +116,17 @@ public partial class PathManager : MonoSingleton<PathManager>
         //     return pathNodes[idxX, idxY];
         // }
 
-        return pathNodes[(int)pos.x, (int)pos.y];
+        return null; //TilemapManager.I.GetNode[(int)pos.x, (int)pos.y];
     }
-
-    public PlanePathNode GetNode_WorldPos(Vector3 pos)
-    {
-        var vec3Int = field_Board.GetPlanePosWorld(pos);
-        foreach (var node in pathNodes)
-        {
-            if (node.centerPos.x.Equals(vec3Int.x) &&
-                node.centerPos.y.Equals(vec3Int.y))
-            {
-                return node;
-            }
-        }
-
-        return null;
-    }
-
 
     //해당 인덱스의 위치가 갈수 있는 노드인지 확인
     public bool IsMoveAble(int indexX, int indexY)
     {
         //  0부터 만들어진 필드플랜의 갯수 유효한 노드인지를 판단합니다.
-        if (0 <= indexX && indexX < field_Board.CellMaxWidth &&
-            0 <= indexY && indexY < field_Board.CellMaxHeight)
+        if (0 <= indexX && indexX < TilemapManager.I.CellMaxWidth &&
+            0 <= indexY && indexY < TilemapManager.I.CellMaxHeight)
         {
-            return pathNodes[indexX, indexY].isMoveAble;
+            return TilemapManager.I.GetNode(indexX, indexY).isMoveAble;
         }
 
         return false;
@@ -218,7 +177,7 @@ public partial class PathManager : MonoSingleton<PathManager>
     /// <param name="parent">누구로 부터왓니?</param>
     private void AddOpenList(int indexX, int indexY, PlanePathNode parent)
     {
-        PlanePathNode node = pathNodes[indexX, indexY];
+        PlanePathNode node = TilemapManager.I.GetNode(indexX, indexY);
 
         if (closeNodeList.Contains(node))
             return;
@@ -276,7 +235,7 @@ public partial class PathManager : MonoSingleton<PathManager>
     }
 }
 
-public partial class PathManager
+public partial class PathUtility
 {
     private readonly Queue<PlanePathNode> moveList = new Queue<PlanePathNode>();
     public int MoveListLength => moveList.Count;

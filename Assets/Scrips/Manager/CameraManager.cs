@@ -28,9 +28,9 @@ public class CameraManager : MonoSingleton<CameraManager>
         _height = mainCamera.orthographicSize;
         _width = _height * Screen.width / Screen.height;
 
-        center = PathManager.I.MapCenter;
-        mapMaxSize = PathManager.I.MapMaxSize;
-        mapMinSize = PathManager.I.MapMinSize;
+        center = TilemapManager.I.Center;
+        mapMaxSize = TilemapManager.I.MaxSize;
+        mapMinSize = TilemapManager.I.MinSize;
         
         return true;
     }
@@ -46,10 +46,14 @@ public class CameraManager : MonoSingleton<CameraManager>
         mainCamera.transform.position = mainChar.CameraFollowPos.position;
 
         float lx = mapMaxSize.x - _width;
-        float clampX = Mathf.Clamp(mainCamera.transform.position.x, -lx + center.x, lx + center.x);
+        float clampX = lx >= 0 
+            ? Mathf.Clamp(mainCamera.transform.position.x, -lx + center.x, lx + center.x)
+            : 0f;
 
         float ly = mapMaxSize.y - _height;
-        float clampY = Mathf.Clamp(mainCamera.transform.position.y, -ly + center.y, ly + center.y);
+        float clampY = ly >= 0
+            ? Mathf.Clamp(mainCamera.transform.position.y, -ly + center.y, ly + center.y)
+            : 0f;
         
         mainCamera.transform.position = new Vector3(clampX, clampY, -10);
     }

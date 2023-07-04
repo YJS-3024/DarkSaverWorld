@@ -38,11 +38,11 @@ public class MainPlayer : BaseCharObject
 
     private IEnumerator OnStartMove(List<PlanePathNode> nodes)
     {
-        PathManager.I.ResistNodeList(nodes);
+        TilemapManager.I.Path.ResistNodeList(nodes);
 
-        while (PathManager.I.MoveListLength > 0)
+        while (TilemapManager.I.Path.MoveListLength > 0)
         {
-            var node = PathManager.I.CunNode();
+            var node = TilemapManager.I.Path.CunNode();
 
             SetPosition(node.centerPos);
             

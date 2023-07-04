@@ -12,8 +12,8 @@ public class GameSystem : MonoSingleton<GameSystem>
         ResourceManager.I.SetParent(transform);
         yield return new WaitUntil(() => isLoad);
 
-        isLoad = PathManager.I.Initialize();
-        PathManager.I.SetParent(transform);
+        isLoad = TilemapManager.I.Initialize();
+        TilemapManager.I.SetParent(transform);
         yield return new WaitUntil(() => isLoad);
 
         isLoad = PlayerManager.I.Initialize();
