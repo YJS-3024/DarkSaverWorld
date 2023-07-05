@@ -41,8 +41,8 @@ public class InputManager : MonoSingleton<InputManager>
         // 패스 이동
         var worldPos = Camera.main.ScreenToWorldPoint(screenPos);
         var charPos = TilemapManager.I.Path.MoveListLength > 0
-            ? (Vector3)(TilemapManager.I.Path.LastNode().centerPos + (Vector2.one * 0.5f))
-            : PlayerManager.I.MainPlayer.transform.position;
+            ? TilemapManager.I.Path.LastNode().centerPos
+            : TilemapManager.I.GetNode_WorldPos(PlayerManager.I.MainPlayer.transform.position).centerPos;
 
         var nodes = TilemapManager.I.Path.FindPath(charPos, worldPos, true);
         if (nodes != null)

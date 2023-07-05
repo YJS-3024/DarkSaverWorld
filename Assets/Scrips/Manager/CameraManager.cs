@@ -11,7 +11,7 @@ public class CameraManager : MonoSingleton<CameraManager>
     [SerializeField] private Vector2 mapMaxSize;
     [SerializeField] private Vector2 mapMinSize;
 
-    [SerializeField] private float camMoveSpeed = 4;
+    [SerializeField] private float camMoveSpeed = 3;
 
     private float _width = 0;
     private float _height = 0;

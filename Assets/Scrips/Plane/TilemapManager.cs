@@ -44,10 +44,10 @@ public class TilemapManager : MonoSingleton<TilemapManager>
     {
         if (_tilemapList is null)
         {
-            _tilemapList = GetComponentsInChildren<Tilemap>().ToList();
+            _tilemapList = FindObjectsOfType<Tilemap>().ToList();
 
             tilemapBoard = _tilemapList.FirstOrDefault(x=>x.gameObject.layer == (int)eLayer.Field_Board);
-            if (tilemapBoard != null)
+             if (tilemapBoard != null)
             {
                 tilemapBoard.CompressBounds();
             }

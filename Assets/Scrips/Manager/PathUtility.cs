@@ -42,6 +42,10 @@ public partial class PathUtility : MonoBehaviour
         if (endNode.isMoveAble == false)
             return null;
 
+        //적을 선택했다.
+        if (EnemyManager.I.GetIsEnemy(endNode.centerPos))
+            return null;
+
         //경로 검색전 리셋 작업
         //모든 리스트 초기화
         result.Clear();
@@ -98,27 +102,6 @@ public partial class PathUtility : MonoBehaviour
         return null;
     }
 
-
-
-    //해당위치가 유효한 위치인지 파악
-    //유효한 위치면 해당위치 패스 리턴
-    //유효하지 않으면 null을 리천
-    public PlanePathNode GetPathNode(Vector2 pos)
-    {
-        // if (pos.x > m_ControlPlane.m_worldMinPos.x &&
-        //     pos.x < m_ControlPlane.m_worldMaxPos.x &&
-        //     pos.y > m_ControlPlane.m_worldMinPos.y &&
-        //     pos.y < m_ControlPlane.m_worldMaxPos.y)
-        // {
-        //     int idxX = (int)((pos.x - m_ControlPlane.m_worldMinPos.x));
-        //     int idxY = (int)((pos.y - m_ControlPlane.m_worldMinPos.y));
-        //
-        //     return pathNodes[idxX, idxY];
-        // }
-
-        return null; //TilemapManager.I.GetNode[(int)pos.x, (int)pos.y];
-    }
-
     //해당 인덱스의 위치가 갈수 있는 노드인지 확인
     public bool IsMoveAble(int indexX, int indexY)
     {
@@ -126,9 +109,17 @@ public partial class PathUtility : MonoBehaviour
         if (0 <= indexX && indexX < TilemapManager.I.CellMaxWidth &&
             0 <= indexY && indexY < TilemapManager.I.CellMaxHeight)
         {
-            return TilemapManager.I.GetNode(indexX, indexY).isMoveAble;
+            //  적 배치
+            var tileNode = TilemapManager.I.GetNode(indexX, indexY);
+            var isEnemy = EnemyManager.I.GetIsEnemy(tileNode.centerPos);
+            if (isEnemy)
+            {
+                return false;
+            }
+  
+            return tileNode.isMoveAble;
         }
-
+        
         return false;
     }
 
