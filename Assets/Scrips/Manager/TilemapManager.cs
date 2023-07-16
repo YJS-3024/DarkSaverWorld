@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using System.Linq;
 using GlobalEnum;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-public class TilemapManager : MonoSingleton<TilemapManager>
+public partial class TilemapManager : MonoSingleton<TilemapManager>
 {
     public int CellMaxWidth => tilemapBoard?.cellBounds.size.x ?? -1;
     public int CellMaxHeight => tilemapBoard?.cellBounds.size.y ?? -1;
@@ -116,5 +117,76 @@ public class TilemapManager : MonoSingleton<TilemapManager>
     public bool GetIsMove(Vector3Int pos)
     {
         return !tilemapBlock.HasTile(pos);
+    }
+}
+
+public partial class TilemapManager
+{
+    public class ScheduleChar
+    {
+        public GameObject targetGo;
+        public PlanePathNode startNode;
+        public PlanePathNode destinationNode;
+        public Coroutine movingAction;
+    }
+
+    private List<ScheduleChar> _scheduleList = new List<ScheduleChar>();
+    private Dictionary<GameObject, ScheduleChar> _curMoveList;
+
+    /// <summary>
+    /// 추가
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="startNode"></param>
+    /// <param name="destNode"></param>
+    /// <param name="movingAction"></param>
+    public void AddMoveSchedule(GameObject go, PlanePathNode startNode, PlanePathNode destNode, Coroutine movingAction)
+    {
+        var movingChar = new ScheduleChar()
+        {
+            targetGo = go,
+            startNode = startNode,
+            destinationNode = destNode,
+            movingAction = movingAction,
+        };
+
+        if (_curMoveList.ContainsKey(go))
+        {
+            _scheduleList.Add(movingChar);
+        }
+        else
+        {
+            _curMoveList.Add(go, movingChar);
+        }
+    }
+
+    /// <summary>
+    /// 삭제
+    /// </summary>
+    /// <param name="go"></param>
+    public void RemoveMoveSchedule(GameObject go)
+    {
+        if (_curMoveList.TryGetValue(go, out var data))
+        {
+            _curMoveList.Remove(go);
+        }
+
+        var scheduleData = _scheduleList.FirstOrDefault(x => x.targetGo == go);
+        if (scheduleData != null)
+        {
+            _curMoveList.Add(scheduleData.targetGo, scheduleData);
+        }
+    }
+
+    /// <summary>
+    /// 시작
+    /// </summary>
+    /// <param name="schedule"></param>
+    public void SetMoveSchedule(ScheduleChar schedule)
+    {
+        if (_curMoveList.ContainsKey(schedule.targetGo) == false)
+        {
+            _curMoveList.Add(schedule.targetGo, schedule);
+        }
     }
 }

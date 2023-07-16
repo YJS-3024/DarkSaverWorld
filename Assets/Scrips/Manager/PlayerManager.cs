@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class PlayerManager : MonoSingleton<PlayerManager>
 {
-    public MainPlayer MainPlayer { get; private set; }
+    public PlayerChar PlayerChar { get; private set; }
     
     public override bool Initialize()
     {
-        if (MainPlayer is null)
+        if (PlayerChar is null)
         {
             var prefab = ResourceManager.I.Road<GameObject>(eResourceType.Prefabs, "Character/PlayerChar");
             if (prefab != null)
             {
                 var go = Instantiate(prefab);
                 go.transform.localPosition = new Vector3(0.5f, -0.5f, 0);
-                MainPlayer = go.GetComponent<MainPlayer>();
+                PlayerChar = go.GetComponent<PlayerChar>();
             }
         }
 

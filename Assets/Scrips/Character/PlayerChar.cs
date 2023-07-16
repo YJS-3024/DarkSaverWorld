@@ -1,14 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GlobalEnum;
 using UnityEngine;
 
-public class MainPlayer : BaseCharObject
+public class PlayerChar : BaseCharObject
 {
     [SerializeField] public Transform CameraFollowPos;
 
     private Coroutine _moving = null;
-    
+
+    public bool IsMainPlayer { get; } = true;
+
+    public eCharAction CharAction {
+        get => _charStatus.CharAction;
+        set => _charStatus.CharAction = value;
+    }
+
     public override void StartMove(List<PlanePathNode> nodes)
     {
         if (_moving != null)
@@ -18,6 +26,9 @@ public class MainPlayer : BaseCharObject
         }
 
         _moving = StartCoroutine(OnStartMove(nodes));
+
+        _charStatus.GetStatus.actPoint -= 5;
+        CharAction = eCharAction.None;
     }
 
     public override void StartAttack()

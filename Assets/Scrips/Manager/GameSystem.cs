@@ -35,6 +35,11 @@ public class GameSystem : MonoSingleton<GameSystem>
         isLoad = EffectManager.I.Initialize();
         EffectManager.I.SetParent(transform);
         yield return new WaitUntil(() => isLoad);
+        
+        isLoad = UIManager.I.Initialize();
+        UIManager.I.SetParent(transform);
+        yield return new WaitUntil(() => isLoad);
+
     }
 
     public override bool Initialize()

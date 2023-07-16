@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyChar : MonoBehaviour
+public class EnemyChar : BaseCharObject
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void StartMove(List<PlanePathNode> nodes)
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void StartAttack()
     {
-        
+    }
+
+    public override void StartMagic()
+    {
+    }
+
+    public override void Move()
+    {
+    }
+
+    public override void Recess()
+    {
     }
 }

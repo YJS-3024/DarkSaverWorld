@@ -7,8 +7,52 @@ public abstract class BaseCharObject : MonoBehaviour
 {
     private CharSpriteRender _charSpriteRender;
     
+    protected CharStatus _charStatus;
+    
     protected Vector3 BeforePos = Vector3.zero;
     
+    private void Awake()
+    {
+        if (_charSpriteRender is null)
+            _charSpriteRender = GetComponentInChildren<CharSpriteRender>();
+
+        _charStatus = Utility.Component.GetComponent<CharStatus>(gameObject, true);
+    }
+
+
+    protected void SetPosition(Vector2 worldPos)
+    {
+        BeforePos = gameObject.transform.position;
+        gameObject.transform.position = worldPos + (Vector2.one * 0.5f);
+
+        var direction = gameObject.transform.position - BeforePos;
+        if (direction == Vector3.zero)
+        {
+            return;
+        }
+        
+        if (direction.y > 0)
+        {
+            _charSpriteRender.SetSpriteDirection(eCharDirectionType.Back);
+            if (direction.x == 0)
+                return;
+
+            _charSpriteRender.SetSpriteDirection(direction.x > 0 
+                ? eCharDirectionType.Right 
+                : eCharDirectionType.Left);
+        }
+        else
+        {
+            _charSpriteRender.SetSpriteDirection(eCharDirectionType.Forward);
+            if (direction.x == 0)
+                return;
+
+            _charSpriteRender.SetSpriteDirection(direction.x > 0 
+                ? eCharDirectionType.Right 
+                : eCharDirectionType.Left);
+        }
+    }
+
     /// <summary>
     /// 이동 시작
     /// </summary>
@@ -33,56 +77,5 @@ public abstract class BaseCharObject : MonoBehaviour
     /// 휴식
     /// </summary>
     public abstract void Recess();
-    
-    
-    private void Awake()
-    {
-        if (_charSpriteRender is null)
-        {
-            _charSpriteRender = GetComponentInChildren<CharSpriteRender>();
-        }
-    }
 
-
-    protected void SetPosition(Vector2 worldPos)
-    {
-        BeforePos = PlayerManager.I.MainPlayer.transform.position;
-        PlayerManager.I.MainPlayer.transform.position = worldPos + (Vector2.one * 0.5f);
-
-        var direction = PlayerManager.I.MainPlayer.transform.position - BeforePos;
-        SetDirection(direction);
-    }
-
-    protected void SetDirection(Vector2 directPos)
-    {
-        if (directPos == Vector2.zero)
-        {
-            return;
-        }
-        
-        if (directPos.y > 0)
-        {
-            _charSpriteRender.SetSpriteDirection(eCharDirectionType.Back);
-            if (directPos.x > 0)
-            {
-                _charSpriteRender.SetSpriteDirection(eCharDirectionType.Right);
-            }
-            else if (directPos.x < 0)
-            {
-                _charSpriteRender.SetSpriteDirection(eCharDirectionType.Left);
-            }
-        }
-        else
-        {
-            _charSpriteRender.SetSpriteDirection(eCharDirectionType.Forward);
-            if (directPos.x > 0)
-            {
-                _charSpriteRender.SetSpriteDirection(eCharDirectionType.Right);
-            }
-            else if (directPos.x < 0)
-            {
-                _charSpriteRender.SetSpriteDirection(eCharDirectionType.Left);
-            }
-        }
-    }
 }
