@@ -86,7 +86,7 @@ public class Create_TableData : Editor
     {
         var sb = new StringBuilder();
 
-        sb.AppendLine($"public class {fileName}");
+        sb.AppendLine($"public partial class {fileName} : BaseTableData");
         sb.AppendLine("{");
 
         foreach (var strType in constantList)
@@ -124,6 +124,10 @@ public class Create_TableData : Editor
             }
         }
 
+        // sb.AppendLine(" ");
+        // sb.AppendLine("     public override void ParseData(string[] arrVariables, string[] arrValues)");
+        // sb.AppendLine("     {");
+        // sb.AppendLine("     }");
         sb.AppendLine("}");
         return sb.ToString();
     }

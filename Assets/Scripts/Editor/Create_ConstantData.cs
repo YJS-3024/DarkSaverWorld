@@ -20,6 +20,7 @@ public class Create_ConstantData : Editor
     private const string CheckFieldName = "Index";
     private const string SaveFilePath = "Assets/Scripts/TableData";
     private const string SaveFileName = "ConstantData";
+    private const string LoadFileName = "Data_Constant";
 
     [MenuItem("Assets/Table/Convert_Constant")]
     public static void Convert()
@@ -27,24 +28,36 @@ public class Create_ConstantData : Editor
         if (Selection.objects.Length <= 0 ||
             Selection.objects.Length > 1)
         {
+            Debug.LogWarning("하나의 테이블만 선택해 주세요.");
             return;
         }
 
         var textAsset = LoadTable();
         if (textAsset is null)
+        {
+            Debug.LogWarning("테이블 파일만 선택해 주세요.");
             return;
+        }
+
+        if (textAsset.name.Equals(LoadFileName) == false)
+        {
+            Debug.LogWarning("Constant 테이블을 선택해 주세요.");
+            return;
+        }
 
         var values = textAsset.text.Split(new char[]{'\n','\r'}, StringSplitOptions.RemoveEmptyEntries);
         var fieldName = values[0].Split(',').ToList();
         var checkIndex = fieldName.FindIndex(x => x == CheckFieldName);
 
-        List<string> typeList = new List<string>();
+        List<KeyValuePair<string, string>> typeList = new List<KeyValuePair<string, string>>();
         for (int i = 1; i < values.Length; i++)
         {
             var fieldValue = values[i].Split(',');
             if (fieldValue.Length >= checkIndex && string.IsNullOrEmpty(fieldValue[checkIndex]) == false)
             {
-                typeList.Add(fieldValue[checkIndex]);
+                var key = fieldValue[checkIndex];
+                var value = fieldValue[checkIndex + 1];
+                typeList.Add(new KeyValuePair<string, string>(key, value));
             }
         }
 
@@ -58,8 +71,10 @@ public class Create_ConstantData : Editor
     /// </summary>
     private static TextAsset LoadTable()
     {
-        if (Selection.objects.FirstOrDefault() is TextAsset textAsset)
-            return textAsset;
+        if (Selection.objects.FirstOrDefault() is TextAsset asset)
+        {
+            return asset;
+        }
 
         return null;
     }
@@ -69,7 +84,7 @@ public class Create_ConstantData : Editor
     /// </summary>
     /// <param name="path"></param>
     /// <param name="typeList"></param>
-    private static void WriteFile(string path, List<string> typeList)
+    private static void WriteFile(string path, List<KeyValuePair<string, string>> typeList)
     {
         var directoryInfo = new DirectoryInfo(Path.GetDirectoryName(path) ?? string.Empty);
         if (directoryInfo.Exists == false)
@@ -103,19 +118,50 @@ public class Create_ConstantData : Editor
     /// </summary>
     /// <param name="constantList"></param>
     /// <returns></returns>
-    private static string CreateScript(List<string> constantList)
+    private static string CreateScript(List<KeyValuePair<string, string>> constantList)
     {
         var sb = new StringBuilder();
 
-        sb.AppendLine("public enum Enum_DataConstant");
+        sb.AppendLine("public class ConstantData");
         sb.AppendLine("{");
 
-        foreach (var strType in constantList)
+        foreach (var constant in constantList)
         {
-            sb.AppendLine($"    {strType},");
+            var valueType = GetCheckValueType(constant.Value);
+            var floatCode = valueType.Equals("float") ? "f" : "";
+            sb.AppendLine($"   public const {valueType} {constant.Key} = {constant.Value}{floatCode};");
+            sb.AppendLine("");
         }
 
         sb.AppendLine("}");
         return sb.ToString();
+    }
+
+    /// <summary>
+    /// 형태에 맞는 스트링
+    /// </summary>
+    /// <param name="strValue"></param>
+    /// <returns></returns>
+    private static string GetCheckValueType(string strValue)
+    {
+        if (strValue.Contains("."))
+        {
+            return "float";
+        }
+
+        var value = System.Convert.ToInt64(strValue);
+        if (value > 0)
+        {
+            if (int.MaxValue < value)
+            {
+                return "long";
+            }
+            else if (short.MaxValue >= value)
+            {
+                return "short";
+            }
+        }
+
+        return "int";
     }
 }

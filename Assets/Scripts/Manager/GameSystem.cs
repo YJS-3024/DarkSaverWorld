@@ -40,6 +40,10 @@ public class GameSystem : MonoSingleton<GameSystem>
         UIManager.I.SetParent(transform);
         yield return new WaitUntil(() => isLoad);
 
+        isLoad = TableManager.I.Initialize();
+        TableManager.I.SetParent(transform);
+        yield return new WaitUntil(() => isLoad);
+
     }
 
     public override bool Initialize()

@@ -8,17 +8,17 @@ using UnityEditor;
 using UnityEngine;
 
 /// <summary>
-/// ¼³¸í¼­
-/// > EnumÀ» ¸ğ¾ÆµĞ Å×ÀÌºí µ¥ÀÌÅÍ¸¦ ½ºÅ©¸³Æ®¸¦ »ı¼º
+/// ì„¤ëª…ì„œ
+/// > Enumì„ ëª¨ì•„ë‘” í…Œì´ë¸” ë°ì´í„°ë¥¼ ìŠ¤í¬ë¦½íŠ¸ë¥¼ ìƒì„±
 ///
-/// 1. ÇØ´ç Å×ÀÌºíÀÇ ¿À¸¥ÂÊ Å¬¸¯
-/// 2. Convert_Constant Å¬¸¯
-/// 3. ´ë±âÇÏ¸é ½ºÅ©¸³Æ® »ı±ä´Ù.
+/// 1. í•´ë‹¹ í…Œì´ë¸”ì˜ ì˜¤ë¥¸ìª½ í´ë¦­
+/// 2. Convert_Constant í´ë¦­
+/// 3. ëŒ€ê¸°í•˜ë©´ ìŠ¤í¬ë¦½íŠ¸ ìƒê¸´ë‹¤.
 /// </summary>
 public class Create_EnumData : Editor
 {
-    private const string CheckEnumName = "Group";       //  EnumNameÀ¸·Î ¼ÂÆÃÇÒ Ä®·³
-    private const string CheckTypeName = "Index";       //  Enum¿¡ Ãß°¡ÇÒ Å¸ÀÔÀÇ Ä®·³
+    private const string CheckEnumName = "Group";       //  EnumNameìœ¼ë¡œ ì…‹íŒ…í•  ì¹¼ëŸ¼
+    private const string CheckTypeName = "Index";       //  Enumì— ì¶”ê°€í•  íƒ€ì…ì˜ ì¹¼ëŸ¼
     private const string SaveFilePath = "Assets/Scripts/TableData";
     private const string SaveFileName = "EnumData";
 
@@ -65,7 +65,7 @@ public class Create_EnumData : Editor
     }
 
     /// <summary>
-    /// CSV ³»¿ë
+    /// CSV ë‚´ìš©
     /// </summary>
     private static TextAsset LoadTable()
     {
@@ -76,7 +76,7 @@ public class Create_EnumData : Editor
     }
 
     /// <summary>
-    /// ÆÄÀÏ ¾²±â
+    /// íŒŒì¼ ì“°ê¸°
     /// </summary>
     /// <param name="path"></param>
     /// <param name="typeList"></param>
@@ -97,7 +97,7 @@ public class Create_EnumData : Editor
     }
 
     /// <summary>
-    /// ÆÄÀÏ ÀĞ±â
+    /// íŒŒì¼ ì½ê¸°
     /// </summary>
     /// <param name="path"></param>
     private static void ReadFile(string path)
@@ -110,7 +110,7 @@ public class Create_EnumData : Editor
     }
 
     /// <summary>
-    /// C# ½ºÅ©¸³Æ® »ı¼º
+    /// C# ìŠ¤í¬ë¦½íŠ¸ ìƒì„±
     /// </summary>
     /// <param name="enumList"></param>
     /// <returns></returns>
