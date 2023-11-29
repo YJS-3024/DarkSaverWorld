@@ -5,19 +5,19 @@ using UnityEngine.Serialization;
 
 public class PlayerManager : MonoSingleton<PlayerManager>
 {
-    public PlayerChar PlayerChar { get; private set; }
+    public MainPlayerChar MainPlayerChar { get; private set; }
     public CreateActionPlate ActionPlate;
 
     public override bool Initialize()
     {
-        if (PlayerChar is null)
+        if (MainPlayerChar is null)
         {
             var prefab = ResourceManager.I.Load<GameObject>(eResourceType.Prefabs, "Character/PlayerChar");
             if (prefab != null)
             {
                 var go = Instantiate(prefab);
                 go.transform.localPosition = new Vector3(0.5f, -0.5f, 0);
-                PlayerChar = go.GetComponent<PlayerChar>();
+                MainPlayerChar = go.GetComponent<MainPlayerChar>();
             }
         }
 
@@ -37,7 +37,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
     public void CreateMovePlates(Vector2 pos)
     {
-        ActionPlate.CreateMovePlate(pos, PlayerChar.CharMoveCount);
+        ActionPlate.CreateMovePlate(pos, MainPlayerChar.CharMoveCount);
     }
 
     protected override void Destroy()

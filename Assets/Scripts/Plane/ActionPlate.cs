@@ -29,7 +29,7 @@ public class ActionPlate : MonoBehaviour
                 var plate = hit.collider.GetComponent<ActionPlate>();
                 if (plate == this)
                 {
-                    switch (PlayerManager.I.PlayerChar.CharAction)
+                    switch (PlayerManager.I.MainPlayerChar.CharAction)
                     {
                         case eCharAction.Move:
                         {
@@ -60,12 +60,12 @@ public class ActionPlate : MonoBehaviour
     {
         var charPos = TilemapManager.I.Path.MoveListLength > 0
             ? TilemapManager.I.Path.LastNode().centerPos
-            : TilemapManager.I.GetNode_WorldPos(PlayerManager.I.PlayerChar.transform.position).centerPos;
+            : TilemapManager.I.GetNode_WorldPos(PlayerManager.I.MainPlayerChar.transform.position).centerPos;
 
         var nodes = TilemapManager.I.Path.FindPath(charPos, pos, true);
         if (nodes != null)
         {
-            PlayerManager.I.PlayerChar.StartMove(nodes);
+            PlayerManager.I.MainPlayerChar.StartMove(nodes);
         }
     }
 
@@ -86,7 +86,7 @@ public class ActionPlate : MonoBehaviour
 
     private string GetActionPlateColor()
     {
-        var mainPlayer = PlayerManager.I.PlayerChar;
+        var mainPlayer = PlayerManager.I.MainPlayerChar;
         switch (mainPlayer.CharAction)
         {
             case eCharAction.Move:

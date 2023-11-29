@@ -33,23 +33,23 @@ public abstract class BaseCharObject : MonoBehaviour
         
         if (direction.y > 0)
         {
-            _charSpriteRender.SetSpriteDirection(eCharDirectionType.Back);
-            if (direction.x == 0)
-                return;
-
-            _charSpriteRender.SetSpriteDirection(direction.x > 0 
-                ? eCharDirectionType.Right 
-                : eCharDirectionType.Left);
+            // _charSpriteRender.SetSpriteDirection(eCharDirectionType.Back);
+            // if (direction.x == 0)
+            //     return;
+            //
+            // _charSpriteRender.SetSpriteDirection(direction.x > 0
+            //     ? eCharDirectionType.Right
+            //     : eCharDirectionType.Left);
         }
         else
         {
-            _charSpriteRender.SetSpriteDirection(eCharDirectionType.Forward);
-            if (direction.x == 0)
-                return;
-
-            _charSpriteRender.SetSpriteDirection(direction.x > 0 
-                ? eCharDirectionType.Right 
-                : eCharDirectionType.Left);
+            // _charSpriteRender.SetSpriteDirection(eCharDirectionType.Forward);
+            // if (direction.x == 0)
+            //     return;
+            //
+            // _charSpriteRender.SetSpriteDirection(direction.x > 0
+            //     ? eCharDirectionType.Right
+            //     : eCharDirectionType.Left);
         }
     }
 

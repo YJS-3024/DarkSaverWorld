@@ -29,18 +29,19 @@ public class InputManager : MonoSingleton<InputManager>
             //마우스 클릭시
             if (Input.GetMouseButtonUp(0))
             {
-                var mainPlayer = PlayerManager.I.PlayerChar;
+                var mainPlayer = PlayerManager.I.MainPlayerChar;
                 
                 var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 
                 var targetPos = TilemapManager.I.GetNode_WorldPos(worldPos)?.centerPos;
-                var mainCharPos = PlayerManager.I.PlayerChar.GetNodePos;
+                var mainCharPos = PlayerManager.I.MainPlayerChar.GetNodePos;
                 if (mainCharPos == targetPos)
                 {
                     switch (mainPlayer.CharAction)
                     {
                         case eCharAction.None:
                         {
+                            mainPlayer.StartAction();
                             break;
                         }
                         case eCharAction.Move:
@@ -64,7 +65,7 @@ public class InputManager : MonoSingleton<InputManager>
 
     private void TestPlayerState()
     {
-        var mainPlayer = PlayerManager.I.PlayerChar;
+        var mainPlayer = PlayerManager.I.MainPlayerChar;
 
         var action = eCharAction.None;
         if (Input.GetKeyUp(KeyCode.Alpha1)) mainPlayer.CharAction =(eCharAction.Move);
