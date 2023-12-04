@@ -46,10 +46,10 @@ public class CameraManager : MonoSingleton<CameraManager>
 
     private void SetLimitCameraArea()
     {
-        var mainChar = PlayerManager.I.MainPlayerChar;
+        var mainChar = PlayerManager.I.PlayerChar;
         mainCamera.transform.position = Vector3.Lerp(
             mainCamera.transform.position,
-            mainChar.cameraFollowPos.position,
+            mainChar.CameraFollowPos.position,
             camMoveSpeed * Time.deltaTime);
 
         float lx = mapMaxSize.x - _width;

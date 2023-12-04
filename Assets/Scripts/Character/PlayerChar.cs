@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using GlobalEnum;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class MainPlayerChar : BaseCharObject
+public class PlayerChar : BaseCharObject
 {
-    [SerializeField] public Transform cameraFollowPos;
-    [SerializeField] private PlayerActionPlate actionPlate;
+    [SerializeField] public Transform CameraFollowPos;
 
     private Coroutine _moving = null;
 
@@ -18,7 +16,7 @@ public class MainPlayerChar : BaseCharObject
     {
         get
         {
-            return TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
+            return TilemapManager.I.GetNode_WorldPos(transform.position)?.centerPos ?? Vector2.zero;
         }
     }
 
@@ -61,11 +59,6 @@ public class MainPlayerChar : BaseCharObject
 
     public override void Recess()
     {
-    }
-
-    public void StartAction()
-    {
-        actionPlate.SetActionPlate(this.GetNodePos);
     }
 
     private IEnumerator OnStartMove(List<PlanePathNode> nodes)

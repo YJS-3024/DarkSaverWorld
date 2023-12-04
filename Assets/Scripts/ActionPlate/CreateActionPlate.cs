@@ -39,7 +39,7 @@ public class CreateActionPlate : MonoBehaviour
         var endNum = rangeCount;
 
         var charNode = TilemapManager.I.GetNode_WorldPos(pos);
-        var charPos = new Vector2(charNode.centerPos.x + 0.5f, charNode.centerPos.y +0.5f);
+        var charPos = new Vector2(charNode.centerPos.x + 0.5f, charNode.centerPos.y + 0.5f);
         
         for (int y = startNum; y <= endNum; y++)
         {
@@ -51,12 +51,20 @@ public class CreateActionPlate : MonoBehaviour
                 var calc = Mathf.Abs(x) + Mathf.Abs(y);
                 if (calc <= rangeCount)
                 {
+                    var xPos = Convert.ToInt32(charNode.centerPos.x + x * PosValue);
+                    var yPos = Convert.ToInt32(charNode.centerPos.y + y * PosValue);
+                    if (EnemyManager.I.GetIsEnemy(xPos, yPos))
+                        continue;
+
+                    if (TilemapManager.I.IsMove(xPos, yPos) == false)
+                        continue;
+
                     var go = Instantiate(movePlateGo.gameObject, this.transform);
                     if (go != null)
                     {
                         var plate = go.GetComponent<ActionPlate>();
-                        plate.transform.localPosition = new Vector3(charPos.x + x * PosValue, charPos.y + y * PosValue, -1.5f);
-                        plate.transform.localScale = Vector3.one * 0.09f;
+                        plate.transform.localPosition = new Vector3(xPos + 0.5f, yPos + 0.5f, 1);
+                        plate.transform.localScale = Vector3.one;
 
                         plate.gameObject.SetActive(true);
                         plate.SetMeshRenderColor();

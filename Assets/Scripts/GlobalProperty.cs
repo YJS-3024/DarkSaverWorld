@@ -16,6 +16,7 @@ namespace GlobalEnum
     
     public enum eLayer
     {
+        MainPlayer = 3,
         Player = 6,
         Field_Board,
         Field_Block,

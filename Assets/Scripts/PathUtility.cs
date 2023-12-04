@@ -43,7 +43,7 @@ public partial class PathUtility : MonoBehaviour
             return null;
 
         //적을 선택했다.
-        if (EnemyManager.I.GetIsEnemy(endNode.centerPos))
+        if (EnemyManager.I.GetIsEnemy((int)endNode.centerPos.x, (int)endNode.centerPos.y))
             return null;
 
         //경로 검색전 리셋 작업

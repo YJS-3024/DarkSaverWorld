@@ -22,12 +22,27 @@ public class EnemyManager : MonoSingleton<EnemyManager>
         return true;
     }
 
-    public bool GetIsEnemy(Vector2 worldPos)
+    public bool GetIsEnemy(Vector2 posVec)
     {
         foreach (var enemy in _activeEnemyList)
         {
             var pos = TilemapManager.I.GetNode_WorldPos(enemy.transform.position).centerPos;
-            if (pos.Equals(worldPos))
+            if (pos.Equals(posVec))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool GetIsEnemy(int posX, int posY)
+    {
+        var posVec = new Vector2(posX, posY);
+        foreach (var enemy in _activeEnemyList)
+        {
+            var pos = TilemapManager.I.GetNode_WorldPos(enemy.transform.position).centerPos;
+            if (pos.Equals(posVec))
             {
                 return true;
             }

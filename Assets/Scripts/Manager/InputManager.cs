@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using GlobalEnum;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InputManager : MonoSingleton<InputManager>
 {
@@ -29,46 +28,82 @@ public class InputManager : MonoSingleton<InputManager>
             //마우스 클릭시
             if (Input.GetMouseButtonUp(0))
             {
-                var mainPlayer = PlayerManager.I.MainPlayerChar;
-                
-                var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                
-                var targetPos = TilemapManager.I.GetNode_WorldPos(worldPos)?.centerPos;
-                var mainCharPos = PlayerManager.I.MainPlayerChar.GetNodePos;
-                if (mainCharPos == targetPos)
+                if (EventSystem.current.IsPointerOverGameObject())
                 {
-                    switch (mainPlayer.CharAction)
-                    {
-                        case eCharAction.None:
-                        {
-                            mainPlayer.StartAction();
-                            break;
-                        }
-                        case eCharAction.Move:
-                        {
-                            PlayerManager.I.CreateMovePlates(mainCharPos);
-                            break;
-                        }
-                    }
+                    return;
                 }
-                else
-                {
-                    // PlayerManager.I.ActionPlate.ClearPlate();
-                }
+
+                var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var hit = Physics2D.RaycastAll(mousePos, Camera.main.transform.position);
+
+                if(hit.Length <= 0)
+                    return;
+
+                SetClick_Player(hit);
+                SetClick_ActionPlate(hit);
             }
         }
     }
-    
-    public void Click_Move(Vector2 screenPos)
+
+    private void SetClick_Player(RaycastHit2D[] hit)
     {
+        var playerChar = hit
+            .Where(x=>x.collider.gameObject.layer == (int)eLayer.MainPlayer)
+            .Select(x=>x.collider.GetComponent<PlayerChar>())
+            .FirstOrDefault();
+
+        if (playerChar is null)
+            return;
+
+        switch (playerChar.CharAction)
+        {
+            case eCharAction.Move:
+            {
+                PlayerManager.I.CreateMovePlates(playerChar.transform.position);
+                break;
+            }
+            case eCharAction.UseItem:
+                break;
+            case eCharAction.Attack:
+                break;
+            case eCharAction.Magic:
+                break;
+            case eCharAction.Attack_Special:
+                break;
+            case eCharAction.Recess:
+                break;
+            case eCharAction.Management:
+                break;
+            case eCharAction.System_Option:
+                break;
+
+            case eCharAction.None:
+            default:
+            {
+                UIManager.I.GameUI.SetCommander(playerChar.transform.position);
+                break;
+            }
+        }
+    }
+
+    private void SetClick_ActionPlate(RaycastHit2D[] hit)
+    {
+        var actionPlate = hit
+            .Select(x=>x.collider.GetComponent<ActionPlate>())
+            .FirstOrDefault();
+
+        if (actionPlate is null)
+            return;
+
+        actionPlate.ClickedPlate(actionPlate.transform.position);
     }
 
     private void TestPlayerState()
     {
-        var mainPlayer = PlayerManager.I.MainPlayerChar;
+        var mainPlayer = PlayerManager.I.PlayerChar;
 
         var action = eCharAction.None;
-        if (Input.GetKeyUp(KeyCode.Alpha1)) mainPlayer.CharAction =(eCharAction.Move);
+        if (Input.GetKeyUp(KeyCode.Alpha1)) mainPlayer.CharAction = (eCharAction.Move);
         else if (Input.GetKeyUp(KeyCode.Alpha2)) mainPlayer.CharAction = (eCharAction.UseItem);
         else if (Input.GetKeyUp(KeyCode.Alpha3)) mainPlayer.CharAction = (eCharAction.Attack);
         else if (Input.GetKeyUp(KeyCode.Alpha4)) mainPlayer.CharAction = (eCharAction.Magic);

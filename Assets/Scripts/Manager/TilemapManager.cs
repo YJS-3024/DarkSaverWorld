@@ -58,26 +58,30 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
             {
                 tilemapBlock.CompressBounds();
             }
-            
-            
-            var bounds = tilemapBoard.cellBounds;
-            _planePathNodes = new PlanePathNode[bounds.size.x, bounds.size.y];
 
-            for (int y = bounds.yMin, posY = 0; y < bounds.yMax; y++, posY++)
+
+            if (tilemapBoard != null)
             {
-                for (int x = bounds.xMin, posX = 0; x < bounds.xMax; x++, posX++)
-                {
-                    var node = new PlanePathNode(x, y)
-                    {
-                        indexX = posX,
-                        indexY = posY,
-                        costTotal = int.MaxValue,
-                        pParent = null,
-                        centerPos = tilemapBoard.CellToWorld(new Vector3Int(x, y, 0)),
-                        isMoveAble = !tilemapBlock.HasTile(new Vector3Int(x, y, 0))
-                    };
+                var bounds = tilemapBoard.cellBounds;
+                _planePathNodes = new PlanePathNode[bounds.size.x, bounds.size.y];
 
-                    _planePathNodes[posX, posY] = node;
+                for (int y = bounds.yMin, posY = 0; y < bounds.yMax; y++, posY++)
+                {
+                    for (int x = bounds.xMin, posX = 0; x < bounds.xMax; x++, posX++)
+                    {
+                        var pos = new Vector3Int(x, y, 0);
+                        var node = new PlanePathNode(x, y)
+                        {
+                            indexX = posX,
+                            indexY = posY,
+                            costTotal = int.MaxValue,
+                            pParent = null,
+                            centerPos = tilemapBoard.CellToWorld(pos),
+                            isMoveAble = !tilemapBlock?.HasTile(pos) ?? true,
+                        };
+
+                        _planePathNodes[posX, posY] = node;
+                    }
                 }
             }
         }
@@ -113,10 +117,11 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
 
         return null;
     }
-    
-    public bool GetIsMove(Vector3Int pos)
+
+    public bool IsMove(int posX, int posY)
     {
-        return !tilemapBlock.HasTile(pos);
+        var posInt = new Vector3Int(posX, posY, 0);
+        return tilemapBoard.HasTile(posInt) && !tilemapBlock.HasTile(posInt);
     }
 }
 

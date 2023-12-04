@@ -73,7 +73,7 @@ public partial class UIManager : MonoSingleton<UIManager>
             }
         }
 
-        ShowPanel(UIType.MainPanel);
+        // ShowPanel(UIType.MainPanel);
         
         return true;
     }

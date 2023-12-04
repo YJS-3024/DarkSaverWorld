@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class CommonUI : MonoBehaviour
 {
+    public Transform GameParentTf;
+
     public Transform PanelParentTf;
 
     public Transform PopupParentTf;
@@ -27,7 +29,7 @@ public class CommonUI : MonoBehaviour
     {
         get
         {
-            if (_gameUI != null)
+            if (_gameUI is null)
             {
                 CreateGameUI();
             }
@@ -66,15 +68,12 @@ public class CommonUI : MonoBehaviour
 
     private void CreateGameUI()
     {
-        if (_gameUI != null)
-            return;
-
         var path = UiUtil.GetPanelPath(UIType.GameUI);
         var prefab = ResourceManager.I.Load<GameObject>(eResourceType.Prefabs, path);
         if (prefab != null)
         {
             //  게임 오브젝트 셋팅
-            var go = Instantiate(prefab.gameObject, GameUI.transform);
+            var go = Instantiate(prefab.gameObject, GameParentTf);
             go.layer = LayerMask.NameToLayer("UI");
 
             //  UI Rect 셋팅
