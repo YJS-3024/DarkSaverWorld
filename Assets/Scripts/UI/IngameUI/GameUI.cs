@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using GlobalEnum;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,11 +20,14 @@ public class GameUI : MonoBehaviour
 
     public void SetCommander(Vector3 worldPos)
     {
-        //  commanderRectÀÇ ·ºÆ® ¾ŞÄ¿°¡ min,max°¡ ¸ğµÎ 0ÀÌ¿©¾ßÇÑ´Ù.
+        //  commanderRectì˜ ë ‰íŠ¸ ì•µì»¤ê°€ min,maxê°€ ëª¨ë‘ 0ì´ì—¬ì•¼í•œë‹¤.
         var screenPoint = Camera.main.WorldToScreenPoint(worldPos);
-        var uiPosX = screenPoint.x - (UIManager.I.CanvasScale.x * 0.5f);
-        var uiPosY = screenPoint.y - (UIManager.I.CanvasScale.y * 0.5f);
-        commanderRect.localPosition = new Vector2(uiPosX, uiPosY);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)transform,screenPoint, Camera.main, out var localPoint);
+        commanderRect.anchoredPosition = new Vector2(localPoint.x, localPoint.y);
+
+        var referenceResolution = UIManager.I.CanvasScaler.referenceResolution;
+        var radioFactor = UIManager.I.CanvasScale.y / referenceResolution.y;
+        commanderRect.localScale = new Vector2(radioFactor,radioFactor);
 
         commanderRect.gameObject.SetActive(!commanderRect.gameObject.activeSelf);
     }

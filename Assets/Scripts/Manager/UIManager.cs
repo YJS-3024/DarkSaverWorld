@@ -54,6 +54,7 @@ public partial class UIManager : MonoSingleton<UIManager>
 
     private UIType lastUIType = UIType.None;
 
+    public CanvasScaler CanvasScaler => _commonUI.CanvasScaler;
     public GameUI GameUI => _commonUI.GameUI;
     public TopUI TopUI => _commonUI.TopUI;
     public Vector2 CanvasScale => _commonUI.CanvasScale;

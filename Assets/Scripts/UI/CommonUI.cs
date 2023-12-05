@@ -22,6 +22,7 @@ public class CommonUI : MonoBehaviour
     public Transform TopParentTf;
 
     public Canvas MainCanvas { get; private set; }
+    public CanvasScaler CanvasScaler { get; private set; }
     public Vector2 CanvasScale { get; private set; } = Vector2.zero;
 
     private GameUI _gameUI = null;
@@ -59,10 +60,15 @@ public class CommonUI : MonoBehaviour
             MainCanvas = GetComponentInChildren<Canvas>();
         }
 
+        if (CanvasScaler == null)
+        {
+            CanvasScaler = MainCanvas.GetComponent<CanvasScaler>();
+        }
+
         if (CanvasScale == Vector2.zero)
         {
             var rectTf = (RectTransform)MainCanvas.transform;
-            CanvasScale = rectTf.sizeDelta;
+            CanvasScale = new Vector2(rectTf.sizeDelta.x, rectTf.sizeDelta.y);
         }
     }
 
