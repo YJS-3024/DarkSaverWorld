@@ -45,6 +45,8 @@ namespace GlobalEnum
         Management,     // 용병관리
         System_Option,  // 시스템 설정
         
+        MoveField       // 이동 (마을)
+        
     }
 
     public enum eCharacter

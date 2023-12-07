@@ -16,8 +16,8 @@ public class CameraManager : MonoSingleton<CameraManager>
     private float _width = 0;
     private float _height = 0;
 
-    private float _uiTop = -1;
-    private float _uiBottom = 1;
+    private float _uiTop = 0;//-1;
+    private float _uiBottom = 0;//1;
     
     
     protected override void Destroy()
@@ -28,13 +28,17 @@ public class CameraManager : MonoSingleton<CameraManager>
     public override bool Initialize()
     {
         mainCamera = Camera.main;
+        Camera.main.orthographicSize = Screen.orientation == ScreenOrientation.Portrait
+            ? 7
+            : 4;
 
-        _height = mainCamera.orthographicSize;
+        _height = Camera.main.orthographicSize;
         _width = _height * Screen.width / Screen.height;
 
         center = TilemapManager.I.Center;
         mapMaxSize = TilemapManager.I.MaxSize;
         mapMinSize = TilemapManager.I.MinSize;
+
         
         return true;
     }

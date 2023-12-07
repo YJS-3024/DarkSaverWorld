@@ -1,3 +1,4 @@
+using System;
 using GlobalEnum;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,18 +17,17 @@ public class GameUI : MonoBehaviour
         commanderRect.gameObject.SetActive(false);
 
         btnMove.onClick.AddListener(OnClick_Move);
+        btnAttack.onClick.AddListener(OnClick_Attack);
     }
 
     public void SetCommander(Vector3 worldPos)
     {
         //  commanderRect의 렉트 앵커가 min,max가 모두 0이여야한다.
         var screenPoint = Camera.main.WorldToScreenPoint(worldPos);
-        RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)transform,screenPoint, Camera.main, out var localPoint);
-        commanderRect.anchoredPosition = new Vector2(localPoint.x, localPoint.y);
 
-        var referenceResolution = UIManager.I.CanvasScaler.referenceResolution;
-        var radioFactor = UIManager.I.CanvasScale.y / referenceResolution.y;
-        commanderRect.localScale = new Vector2(radioFactor,radioFactor);
+        var uiPosX = screenPoint.x - (UIManager.I.CanvasScale.x * 0.5f);
+        var uiPosY = screenPoint.y - (UIManager.I.CanvasScale.y * 0.5f);
+        commanderRect.anchoredPosition = new Vector2(uiPosX, uiPosY);
 
         commanderRect.gameObject.SetActive(!commanderRect.gameObject.activeSelf);
     }
@@ -36,7 +36,16 @@ public class GameUI : MonoBehaviour
     {
         PlayerManager.I.PlayerChar.CharAction = eCharAction.Move;
         var pos = PlayerManager.I.PlayerChar.transform.position;
-        PlayerManager.I.CreateMovePlates(pos);
+        PlayerManager.I.CreatePlates(pos);
+
+        commanderRect.gameObject.SetActive(false);
+    }
+
+    private void OnClick_Attack()
+    {
+        PlayerManager.I.PlayerChar.CharAction = eCharAction.Attack;
+        var pos = PlayerManager.I.PlayerChar.transform.position;
+        PlayerManager.I.CreatePlates(pos);
 
         commanderRect.gameObject.SetActive(false);
     }

@@ -33,6 +33,7 @@ public class ActionPlate : MonoBehaviour
                 Move(node.centerPos);
                 break;
             }
+
         }
     }
 
@@ -69,11 +70,15 @@ public class ActionPlate : MonoBehaviour
         var mainPlayer = PlayerManager.I.PlayerChar;
         switch (mainPlayer.CharAction)
         {
+            case eCharAction.Attack:
+            {
+                return "#ff0000";
+            }
             case eCharAction.Move:
             case eCharAction.None:
             default:
             {
-                return "ffffff";
+                return "#ffffff";
             }
         }
     }

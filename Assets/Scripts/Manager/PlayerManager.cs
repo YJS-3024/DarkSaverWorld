@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GlobalEnum;
 using UnityEngine;
@@ -35,9 +36,21 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         return true;
     }
 
-    public void CreateMovePlates(Vector2 pos)
+    public void CreatePlates(Vector2 pos)
     {
-        ActionPlate.CreateMovePlate(pos, PlayerChar.CharMoveCount);
+        switch (PlayerChar.CharAction)
+        {
+            case eCharAction.Move:
+            {
+                ActionPlate.CreateMovePlate(pos, PlayerChar.MoveRange);
+                break;
+            }
+            case eCharAction.Attack:
+            {
+                ActionPlate.CreateAttackPlate(pos, PlayerChar.AttackRange);
+                break;
+            }
+        }
     }
 
     protected override void Destroy()

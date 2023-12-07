@@ -25,10 +25,16 @@ public class PlayerChar : BaseCharObject
         set => CharStatus.CharAction = value;
     }
 
-    public int CharMoveCount
+    public int MoveRange
     {
-        get => CharStatus.GetStatus.MoveCount;
-        set => CharStatus.GetStatus.MoveCount = value;
+        get => CharStatus.GetStatus.MoveRange;
+        set => CharStatus.GetStatus.MoveRange = value;
+    }
+
+    public int AttackRange
+    {
+        get => CharStatus.GetStatus.AttackRange;
+        set => CharStatus.GetStatus.AttackRange = value;
     }
 
     public override void StartMove(List<PlanePathNode> nodes)

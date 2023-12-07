@@ -57,26 +57,6 @@ public class InputManager : MonoSingleton<InputManager>
 
         switch (playerChar.CharAction)
         {
-            case eCharAction.Move:
-            {
-                PlayerManager.I.CreateMovePlates(playerChar.transform.position);
-                break;
-            }
-            case eCharAction.UseItem:
-                break;
-            case eCharAction.Attack:
-                break;
-            case eCharAction.Magic:
-                break;
-            case eCharAction.Attack_Special:
-                break;
-            case eCharAction.Recess:
-                break;
-            case eCharAction.Management:
-                break;
-            case eCharAction.System_Option:
-                break;
-
             case eCharAction.None:
             default:
             {

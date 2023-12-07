@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using GlobalEnum;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class StatusInfo
@@ -28,8 +29,9 @@ public class StatusInfo
     public int MagicAtkPoint; //마법공격력
     public int MagicDefPoint; //마법방어력
 
-    public int MoveCount = 3;
-    
+    public int MoveRange = 3;
+    public int AttackRange = 1;
+
     public int HoldMoney; //수중의 돈
 }
 
