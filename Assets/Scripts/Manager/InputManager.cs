@@ -33,8 +33,8 @@ public class InputManager : MonoSingleton<InputManager>
                     return;
                 }
 
-                var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                var hit = Physics2D.RaycastAll(mousePos, Camera.main.transform.position);
+                var mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
+                var hit = Physics2D.RaycastAll(mousePos.origin, mousePos.direction);
 
                 if(hit.Length <= 0)
                     return;
@@ -55,14 +55,22 @@ public class InputManager : MonoSingleton<InputManager>
         if (playerChar is null)
             return;
 
-        switch (playerChar.CharAction)
+        if (playerChar.CharAction != eCharAction.None)
         {
-            case eCharAction.None:
-            default:
+            PlayerManager.I.ClearPlates();
+            playerChar.CharAction = eCharAction.None;
+        }
+        else
+        {
+            switch (playerChar.CharAction)
             {
-                UIManager.I.GameUI.SetCommander(playerChar.transform.position);
-                break;
-            }
+                case eCharAction.None:
+                default:
+                {
+                    UIManager.I.GameUI.SetCommander(playerChar.transform.position);
+                    break;
+                }
+            }   
         }
     }
 

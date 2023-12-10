@@ -18,7 +18,7 @@ public class MessagePopup : BasePopup
     private bool _isOn = false;
 
     /// <summary>
-    /// ÀÏ¹İ ¸Ş¼¼Áö ÆË¾÷
+    /// ì¼ë°˜ ë©”ì„¸ì§€ íŒì—…
     /// </summary>
     /// <param name="title"></param>
     /// <param name="description"></param>
@@ -38,7 +38,7 @@ public class MessagePopup : BasePopup
     }
 
     /// <summary>
-    /// ÀÏ¹İ ¸Ş¼¼Áö ÆË¾÷
+    /// ì¼ë°˜ ë©”ì„¸ì§€ íŒì—…
     /// </summary>
     /// <param name="title"></param>
     /// <param name="onConfirm"></param>
@@ -51,7 +51,7 @@ public class MessagePopup : BasePopup
     }
 
     /// <summary>
-    /// Ã¼Å© ¹Ú½º ÆË¾÷
+    /// ì²´í¬ ë°•ìŠ¤ íŒì—…
     /// </summary>
     /// <param name="title"></param>
     /// <param name="description"></param>

@@ -118,5 +118,7 @@ public class CreateActionPlate : MonoBehaviour
                 }
             }
         }
+        
+        createdList.AddRange(plateList);
     }
 }

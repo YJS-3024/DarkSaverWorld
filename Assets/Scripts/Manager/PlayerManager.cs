@@ -53,6 +53,11 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         }
     }
 
+    public void ClearPlates()
+    {
+        ActionPlate.ClearPlate();
+    }
+
     protected override void Destroy()
     {
 
