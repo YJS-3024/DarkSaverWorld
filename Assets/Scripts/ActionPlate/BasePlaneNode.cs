@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 public class PlanePathNode
 {
     //노드의 위치값
-    public Vector2 centerPos;   //노드의 센터위치
+    public Vector3 centerPos;   //노드의 센터위치
     // public Vector2 minPos;   //노드의 최소위치
     // public Vector2 maxPos;   //노드의 최대위치
 

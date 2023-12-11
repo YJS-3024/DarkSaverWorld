@@ -58,6 +58,7 @@ public class ActionPlate : MonoBehaviour
             var strColor = GetActionPlateColor();
             if (ColorUtility.TryParseHtmlString(strColor, out var color))
             {
+                color.a = 0.4f;
                 spriteRenderer.color = color;
                 // spriteRenderer.sprite = material;
             }
