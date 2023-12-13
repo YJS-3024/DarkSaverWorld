@@ -29,7 +29,7 @@ public class SpriteFinderEditor : EditorWindow
     private List<SpriteInfo> m_spriteList = new List<SpriteInfo>();
     private Vector2 m_scrollPos = Vector2.zero;
 
-    [MenuItem("FGUI/Tools/SpriteFinder &v")]
+    [MenuItem("Utility/Tools/SpriteFinder &v")]
     public static void OpenWindow()
     {
         SpriteFinderEditor window = GetWindow<SpriteFinderEditor>(true, "SpriteFinder");
