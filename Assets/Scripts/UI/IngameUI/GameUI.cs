@@ -34,8 +34,8 @@ public class GameUI : MonoBehaviour
 
     private void OnClick_Move()
     {
-        PlayerManager.I.PlayerChar.CharAction = eCharAction.Move;
-        var pos = PlayerManager.I.PlayerChar.transform.position;
+        PlayerManager.I.MainPlayer.CharAction = eCharAction.Move;
+        var pos = PlayerManager.I.MainPlayer.transform.position;
         PlayerManager.I.CreatePlates(pos);
 
         commanderRect.gameObject.SetActive(false);
@@ -43,8 +43,8 @@ public class GameUI : MonoBehaviour
 
     private void OnClick_Attack()
     {
-        PlayerManager.I.PlayerChar.CharAction = eCharAction.Attack;
-        var pos = PlayerManager.I.PlayerChar.transform.position;
+        PlayerManager.I.MainPlayer.CharAction = eCharAction.Attack;
+        var pos = PlayerManager.I.MainPlayer.transform.position;
         PlayerManager.I.CreatePlates(pos);
 
         commanderRect.gameObject.SetActive(false);

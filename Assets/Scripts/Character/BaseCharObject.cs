@@ -10,6 +10,8 @@ public abstract class BaseCharObject : MonoBehaviour
     public CharStatus CharStatus;
     
     protected Vector3 BeforePos = Vector3.zero;
+
+    protected Coroutine MoveCoroutine = null;
     
     private void Awake()
     {
@@ -29,27 +31,6 @@ public abstract class BaseCharObject : MonoBehaviour
         if (direction == Vector3.zero)
         {
             return;
-        }
-        
-        if (direction.y > 0)
-        {
-            // _charSpriteRender.SetSpriteDirection(eCharDirectionType.Back);
-            // if (direction.x == 0)
-            //     return;
-            //
-            // _charSpriteRender.SetSpriteDirection(direction.x > 0
-            //     ? eCharDirectionType.Right
-            //     : eCharDirectionType.Left);
-        }
-        else
-        {
-            // _charSpriteRender.SetSpriteDirection(eCharDirectionType.Forward);
-            // if (direction.x == 0)
-            //     return;
-            //
-            // _charSpriteRender.SetSpriteDirection(direction.x > 0
-            //     ? eCharDirectionType.Right
-            //     : eCharDirectionType.Left);
         }
     }
 
@@ -78,4 +59,32 @@ public abstract class BaseCharObject : MonoBehaviour
     /// </summary>
     public abstract void Recess();
 
+    public virtual bool OnSearch_EnemyTeams(int range)
+    {
+        return false;
+    }
+
+    public virtual bool OnSearch_PlayerTeams(int range)
+    {
+        return false;
+    }
+
+    protected IEnumerator OnStartMove(List<PlanePathNode> nodes, float delayTime = 0.05f)
+    {
+        if (GetComponent<EnemyChar>())
+        {
+            yield return new WaitForSeconds(delayTime);
+        }
+
+        TilemapManager.I.Path.ResistNodeList(nodes);
+
+        while (TilemapManager.I.Path.MoveListLength > 0)
+        {
+            var node = TilemapManager.I.Path.CunNode();
+
+            SetPosition(node.centerPos);
+
+            yield return new WaitForSeconds(delayTime);
+        }
+    }
 }

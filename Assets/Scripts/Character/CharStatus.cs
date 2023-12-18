@@ -29,9 +29,10 @@ public class StatusInfo
     public int MagicAtkPoint; //마법공격력
     public int MagicDefPoint; //마법방어력
 
-    public int MoveRange = 3;
-    public int AttackRange = 1;
-
+    public int SearchRange = 4;     //  탐색 범위
+    public int MoveRange = 3;       //  이동 범위
+    public int AttackRange = 1;     //  공격 범위
+    
     public int HoldMoney; //수중의 돈
 }
 

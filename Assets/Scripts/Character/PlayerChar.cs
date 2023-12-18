@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using GlobalEnum;
 using UnityEngine;
 
@@ -53,6 +54,17 @@ public class PlayerChar : BaseCharObject
 
     public override void StartAttack()
     {
+        var searchRange = CharStatus.GetStatus.AttackRange;
+        var mainPlayer = PlayerManager.I.MainPlayer;
+
+        var pos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
+        var targetPos = TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
+        var nodes = TilemapManager.I.Path.FindPath(pos, targetPos, false);
+        if (nodes.Count <= searchRange)
+        {
+            var enemy = EnemyManager.I.GetEnemy(nodes.FirstOrDefault().centerPos);
+            Debug.Log($"{enemy.name} 공~격~!");
+        }
     }
 
     public override void StartMagic()
@@ -65,19 +77,5 @@ public class PlayerChar : BaseCharObject
 
     public override void Recess()
     {
-    }
-
-    private IEnumerator OnStartMove(List<PlanePathNode> nodes)
-    {
-        TilemapManager.I.Path.ResistNodeList(nodes);
-
-        while (TilemapManager.I.Path.MoveListLength > 0)
-        {
-            var node = TilemapManager.I.Path.CunNode();
-
-            SetPosition(node.centerPos);
-            
-            yield return new WaitForSeconds(0.05f);
-        }
     }
 }

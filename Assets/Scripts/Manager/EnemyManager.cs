@@ -36,6 +36,20 @@ public class EnemyManager : MonoSingleton<EnemyManager>
         return false;
     }
 
+    public EnemyChar GetEnemy(Vector2 posVec)
+    {
+        foreach (var enemy in _activeEnemyList)
+        {
+            var pos = TilemapManager.I.GetNode_WorldPos(enemy.transform.position).centerPos;
+            if (pos.Equals(posVec))
+            {
+                return enemy;
+            }
+        }
+
+        return null;
+    }
+
     public bool GetIsEnemy(int posX, int posY)
     {
         var posVec = new Vector2(posX, posY);

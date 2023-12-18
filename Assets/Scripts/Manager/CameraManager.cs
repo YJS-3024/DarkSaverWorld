@@ -50,7 +50,7 @@ public class CameraManager : MonoSingleton<CameraManager>
 
     private void SetLimitCameraArea()
     {
-        var mainChar = PlayerManager.I.PlayerChar;
+        var mainChar = PlayerManager.I.MainPlayer;
         mainCamera.transform.position = Vector3.Lerp(
             mainCamera.transform.position,
             mainChar.CameraFollowPos.position,

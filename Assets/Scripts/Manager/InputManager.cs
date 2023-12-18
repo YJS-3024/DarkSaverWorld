@@ -88,7 +88,7 @@ public class InputManager : MonoSingleton<InputManager>
 
     private void TestPlayerState()
     {
-        var mainPlayer = PlayerManager.I.PlayerChar;
+        var mainPlayer = PlayerManager.I.MainPlayer;
 
         var action = eCharAction.None;
         if (Input.GetKeyUp(KeyCode.Alpha1)) mainPlayer.CharAction = (eCharAction.Move);
