@@ -8,26 +8,27 @@ public class NormalEnemyAI : MonoBehaviour
 {
     private EnemyChar _enemyChar;
     private CharStatus _charStatus;
-    private void Awake()
+
+
+    public IEnumerator Start()
     {
         if (TryGetComponent<BaseCharObject>( out var component))
         {
             _enemyChar = component as EnemyChar;
             _charStatus = component.CharStatus;
         }
-    }
 
-
-    public IEnumerator Start()
-    {
         var root = new BTRoot();
-        var sequence = new BTSequence();
-        var condition = new BTCondition(SearchMove_PlayerTeams);
-        var action = new BTAction(Move);
 
-        root.AddChild(sequence);
-        sequence.AddChild(condition);
-        sequence.AddChild(action);
+        var attackSequence = new BTSequence();
+        root.AddChild(attackSequence);
+        attackSequence.AddChild(new BTCondition(SearchAttack_Enemy));
+        attackSequence.AddChild(new BTAction(Attack));
+
+        var moveSequence = new BTSequence();
+        root.AddChild(moveSequence);
+        moveSequence.AddChild(new BTCondition(SearchMove_Enemy));
+        moveSequence.AddChild(new BTAction(Move));
 
         while (true)
         {
@@ -36,17 +37,38 @@ public class NormalEnemyAI : MonoBehaviour
         }
     }
 
-    private bool SearchMove_PlayerTeams()
+    private bool SearchMove_Enemy()
     {
+        if (_charStatus is null)
+            return false;
+
         var searchRange = _charStatus.GetStatus.SearchRange;
 
         return _charStatus.IsPossibleAction &&
-               _enemyChar.OnSearch_PlayerTeams(searchRange);
+               _enemyChar.OnSearchEnemy(searchRange);
     }
 
     private void Move()
     {
-        _charStatus.GetStatus.actPoint -= 10;
+        Debug.Log("플레이어에게 이동");
+        _charStatus.GetStatus.actPoint -= 4;
         _enemyChar.Move();
+    }
+
+    private bool SearchAttack_Enemy()
+    {
+        if (_charStatus is null)
+            return false;
+
+        var searchRange = _charStatus.GetStatus.AttackRange;
+
+        return _charStatus.IsPossibleAction &&
+               _enemyChar.OnSearchEnemy(searchRange);
+    }
+    private void Attack()
+    {
+        Debug.Log("플레이어 공격");
+        _charStatus.GetStatus.actPoint -= 2;
+        _enemyChar.Attack();
     }
 }

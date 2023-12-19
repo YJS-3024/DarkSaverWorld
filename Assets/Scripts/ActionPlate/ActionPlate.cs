@@ -21,19 +21,24 @@ public class ActionPlate : MonoBehaviour
 
     public void ClickedPlate(Vector3 pos)
     {
+        SetMeshRenderColor();
+
         switch (PlayerManager.I.MainPlayer.CharAction)
         {
             case eCharAction.Move:
             {
                 PlayerManager.I.ActionPlate.ClearPlate();
 
-                SetMeshRenderColor();
-
                 var node = TilemapManager.I.GetNode_WorldPos(pos);
                 Move(node.centerPos);
                 break;
             }
-
+            case eCharAction.Attack:
+            {
+                var node = TilemapManager.I.GetNode_WorldPos(pos);
+                PlayerManager.I.MainPlayer.Attack(node);
+                break;
+            }
         }
     }
 
@@ -46,7 +51,7 @@ public class ActionPlate : MonoBehaviour
         var nodes = TilemapManager.I.Path.FindPath(charPos, pos, true);
         if (nodes != null)
         {
-            PlayerManager.I.MainPlayer.StartMove(nodes);
+            PlayerManager.I.MainPlayer.Move(nodes);
         }
     }
 

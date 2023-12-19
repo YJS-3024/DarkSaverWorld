@@ -35,36 +35,28 @@ public abstract class BaseCharObject : MonoBehaviour
     }
 
     /// <summary>
-    /// 이동 시작
-    /// </summary>
-    public abstract void StartMove(List<PlanePathNode> nodes);
-
-    /// <summary>
     /// 공격 시작
     /// </summary>
-    public abstract void StartAttack();
+    public abstract void Attack(PlanePathNode node);
 
     /// <summary>
     /// 마법 공격 시작
     /// </summary>
-    public abstract void StartMagic();
+    public abstract void Magic();
 
     /// <summary>
     /// 이동
     /// </summary>
-    public abstract void Move();
+    public abstract void Move(List<PlanePathNode> nodes = null);
 
     /// <summary>
     /// 휴식
     /// </summary>
     public abstract void Recess();
 
-    public virtual bool OnSearch_EnemyTeams(int range)
-    {
-        return false;
-    }
+    public abstract void HitDamage(int damage);
 
-    public virtual bool OnSearch_PlayerTeams(int range)
+    public virtual bool OnSearchEnemy(int range)
     {
         return false;
     }

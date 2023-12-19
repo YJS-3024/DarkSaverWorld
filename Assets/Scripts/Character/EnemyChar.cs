@@ -5,29 +5,38 @@ using UnityEngine;
 
 public class EnemyChar : BaseCharObject
 {
-    public override void StartMove(List<PlanePathNode> nodes)
+    public override void Attack(PlanePathNode node = null)
+    {
+        var mainPlayer = PlayerManager.I.MainPlayer;
+        var attackRange = CharStatus.GetStatus.AttackRange;
+
+        var myPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
+        var targetPos = TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
+
+        var nodes = TilemapManager.I.Path.FindPath(myPos, targetPos, false);
+        if (nodes.Count <= attackRange)
+        {
+            mainPlayer.HitDamage(CharStatus.GetStatus.AttackPoint);
+            Debug.Log($"{mainPlayer.name} 공~격~!");
+        }
+    }
+
+    public override void Magic()
     {
     }
 
-    public override void StartAttack()
-    {
-    }
-
-    public override void StartMagic()
-    {
-    }
-
-    public override void Move()
+    public override void Move(List<PlanePathNode> nodes = null)
     {
         var searchRange = CharStatus.GetStatus.SearchRange;
         var mainPlayer = PlayerManager.I.MainPlayer;
 
-        var enemyPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
-        var charPos = TilemapManager.I.Path.MoveListLength > 0
+        var myPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
+        var targetPos = TilemapManager.I.Path.MoveListLength > 0
             ? TilemapManager.I.Path.LastNode().centerPos
             : TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
-        var nodes = TilemapManager.I.Path.FindPath(enemyPos, charPos, false);
-        if (nodes.Count <= searchRange)
+
+        nodes = TilemapManager.I.Path.FindPath(myPos, targetPos, false);
+        if (nodes.Count <= searchRange + 1)
         {
             nodes.RemoveAt(nodes.Count - 1);
             MoveCoroutine = StartCoroutine(OnStartMove(nodes));
@@ -38,24 +47,29 @@ public class EnemyChar : BaseCharObject
     {
     }
 
-    public override bool OnSearch_PlayerTeams(int range)
+    public override void HitDamage(int damage)
+    {
+
+    }
+
+    public override bool OnSearchEnemy(int range)
     {
         var mainPlayer = PlayerManager.I.MainPlayer;
         if (mainPlayer is null)
             return false;
 
-        var enemyPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
-        var charPos = TilemapManager.I.Path.MoveListLength > 0
+        var myPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
+        var targetPos = TilemapManager.I.Path.MoveListLength > 0
             ? TilemapManager.I.Path.LastNode().centerPos
             : TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
-        var nodes = TilemapManager.I.Path.FindPath(enemyPos, charPos, false);
-        if (nodes.Count <= range)
+        var nodes = TilemapManager.I.Path.FindPath(myPos, targetPos, false);
+        if (nodes.Count <= range + 1)
         {
-            Debug.Log("이동하겠소");
+            // Debug.Log("이동하겠소");
             return true;
         }
 
-        Debug.Log("이동하지 않겠소");
+        // Debug.Log("이동하지 않겠소");
         return false;
     }
 }

@@ -40,6 +40,7 @@ public class InputManager : MonoSingleton<InputManager>
                     return;
 
                 SetClick_Player(hit);
+                SetClick_Enemy(hit);
                 SetClick_ActionPlate(hit);
             }
         }
@@ -84,6 +85,32 @@ public class InputManager : MonoSingleton<InputManager>
             return;
 
         actionPlate.ClickedPlate(actionPlate.transform.position);
+    }
+
+    private void SetClick_Enemy(RaycastHit2D[] hit)
+    {
+        var enemy = hit
+            .Select(x=>x.collider.GetComponent<EnemyChar>())
+            .FirstOrDefault();
+
+        if (enemy is null)
+            return;
+
+        var mainPlayer = PlayerManager.I.MainPlayer;
+        switch (mainPlayer.CharAction)
+        {
+            case eCharAction.Attack:
+            {
+                var targetNode = TilemapManager.I.GetNode_WorldPos(enemy.transform.position);
+                PlayerManager.I.MainPlayer.Attack(targetNode);
+                break;
+            }
+            case eCharAction.None:
+            default:
+            {
+                break;
+            }
+        }
     }
 
     private void TestPlayerState()

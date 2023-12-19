@@ -38,8 +38,11 @@ public class PlayerChar : BaseCharObject
         set => CharStatus.GetStatus.AttackRange = value;
     }
 
-    public override void StartMove(List<PlanePathNode> nodes)
+    public override void Move(List<PlanePathNode> nodes = null)
     {
+        if (nodes == null)
+            return;
+
         if (_moving != null)
         {
             StopCoroutine(_moving);
@@ -52,30 +55,29 @@ public class PlayerChar : BaseCharObject
         CharAction = eCharAction.None;
     }
 
-    public override void StartAttack()
+    public override void Attack(PlanePathNode node)
     {
-        var searchRange = CharStatus.GetStatus.AttackRange;
-        var mainPlayer = PlayerManager.I.MainPlayer;
-
-        var pos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
-        var targetPos = TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
-        var nodes = TilemapManager.I.Path.FindPath(pos, targetPos, false);
-        if (nodes.Count <= searchRange)
+        var enemy = EnemyManager.I.GetEnemy(node.centerPos);
+        if (enemy != null)
         {
-            var enemy = EnemyManager.I.GetEnemy(nodes.FirstOrDefault().centerPos);
+            enemy.HitDamage(CharStatus.GetStatus.AttackPoint);
             Debug.Log($"{enemy.name} 공~격~!");
         }
+
+        CharStatus.GetStatus.actPoint -= 2;
+        CharAction = eCharAction.None;
     }
 
-    public override void StartMagic()
-    {
-    }
-
-    public override void Move()
+    public override void Magic()
     {
     }
 
     public override void Recess()
     {
+    }
+
+    public override void HitDamage(int damage)
+    {
+
     }
 }

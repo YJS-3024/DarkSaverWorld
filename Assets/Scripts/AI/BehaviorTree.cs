@@ -102,7 +102,7 @@ namespace BehaviorTree
                     var state = node.Evaluate();
                     if (state == BTNodeState.Failure)
                     {
-                        return state;
+                        continue;
                     }
                 }
 
