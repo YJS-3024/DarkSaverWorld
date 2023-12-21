@@ -22,8 +22,8 @@ public class StatusInfo
 
     //전투관련
     public int AttackMotion; //어떤공격을 받는가
-    public int AttackPoint; //공격력
-    public int DefensePoint; //방어력
+    public int AttackValue; //공격력
+    public int DefenseValue; //방어력
 
     public int MagicMotion; //어떤공격을 받는가
     public int MagicAtkPoint; //마법공격력

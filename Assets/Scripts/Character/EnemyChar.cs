@@ -16,7 +16,7 @@ public class EnemyChar : BaseCharObject
         var nodes = TilemapManager.I.Path.FindPath(myPos, targetPos, false);
         if (nodes.Count <= attackRange)
         {
-            mainPlayer.HitDamage(CharStatus.GetStatus.AttackPoint);
+            mainPlayer.HitDamage(CharStatus.GetStatus.AttackValue);
             Debug.Log($"{mainPlayer.name} 공~격~!");
         }
     }
@@ -63,6 +63,9 @@ public class EnemyChar : BaseCharObject
             ? TilemapManager.I.Path.LastNode().centerPos
             : TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
         var nodes = TilemapManager.I.Path.FindPath(myPos, targetPos, false);
+        if (nodes is null)
+            return false;
+
         if (nodes.Count <= range + 1)
         {
             // Debug.Log("이동하겠소");

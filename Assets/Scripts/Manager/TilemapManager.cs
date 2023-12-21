@@ -122,4 +122,22 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
         var posInt = new Vector3Int(posX, posY, 0);
         return tilemapBoard.HasTile(posInt) && !tilemapBlock.HasTile(posInt);
     }
+
+    /// <summary>
+    /// 해당위치에 캐릭터가 서있는가
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns></returns>
+    public bool IsStandChar(Vector3 pos)
+    {
+        var isPlayer = PlayerManager.I.MainPlayer.GetNodePos == pos;
+        var isEnemy = EnemyManager.I.GetIsEnemy(pos);
+        return (isEnemy || isPlayer);
+    }
+
+    public bool IsStandEnemy(Vector3 pos)
+    {
+        var isEnemy = EnemyManager.I.GetIsEnemy(pos);
+        return isEnemy;
+    }
 }

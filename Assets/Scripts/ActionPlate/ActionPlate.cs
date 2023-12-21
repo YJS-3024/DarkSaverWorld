@@ -1,11 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using GlobalEnum;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 public class ActionPlate : MonoBehaviour
 {
@@ -23,12 +17,12 @@ public class ActionPlate : MonoBehaviour
     {
         SetMeshRenderColor();
 
+        PlayerManager.I.ActionPlate.ClearPlate();
+
         switch (PlayerManager.I.MainPlayer.CharAction)
         {
             case eCharAction.Move:
             {
-                PlayerManager.I.ActionPlate.ClearPlate();
-
                 var node = TilemapManager.I.GetNode_WorldPos(pos);
                 Move(node.centerPos);
                 break;

@@ -16,8 +16,6 @@ public class InputManager : MonoSingleton<InputManager>
 
     void Update()
     {
-        TestPlayerState();
-
         //터치 했을시
         if (Input.touchCount > 0)
         {
@@ -40,7 +38,7 @@ public class InputManager : MonoSingleton<InputManager>
                     return;
 
                 SetClick_Player(hit);
-                SetClick_Enemy(hit);
+                // SetClick_Enemy(hit);
                 SetClick_ActionPlate(hit);
             }
         }
@@ -78,8 +76,8 @@ public class InputManager : MonoSingleton<InputManager>
     private void SetClick_ActionPlate(RaycastHit2D[] hit)
     {
         var actionPlate = hit
-            .Select(x=>x.collider.GetComponent<ActionPlate>())
-            .FirstOrDefault();
+            .Select(x => x.collider.GetComponent<ActionPlate>())
+            .FirstOrDefault(x => x != null);
 
         if (actionPlate is null)
             return;
@@ -87,45 +85,29 @@ public class InputManager : MonoSingleton<InputManager>
         actionPlate.ClickedPlate(actionPlate.transform.position);
     }
 
-    private void SetClick_Enemy(RaycastHit2D[] hit)
-    {
-        var enemy = hit
-            .Select(x=>x.collider.GetComponent<EnemyChar>())
-            .FirstOrDefault();
-
-        if (enemy is null)
-            return;
-
-        var mainPlayer = PlayerManager.I.MainPlayer;
-        switch (mainPlayer.CharAction)
-        {
-            case eCharAction.Attack:
-            {
-                var targetNode = TilemapManager.I.GetNode_WorldPos(enemy.transform.position);
-                PlayerManager.I.MainPlayer.Attack(targetNode);
-                break;
-            }
-            case eCharAction.None:
-            default:
-            {
-                break;
-            }
-        }
-    }
-
-    private void TestPlayerState()
-    {
-        var mainPlayer = PlayerManager.I.MainPlayer;
-
-        var action = eCharAction.None;
-        if (Input.GetKeyUp(KeyCode.Alpha1)) mainPlayer.CharAction = (eCharAction.Move);
-        else if (Input.GetKeyUp(KeyCode.Alpha2)) mainPlayer.CharAction = (eCharAction.UseItem);
-        else if (Input.GetKeyUp(KeyCode.Alpha3)) mainPlayer.CharAction = (eCharAction.Attack);
-        else if (Input.GetKeyUp(KeyCode.Alpha4)) mainPlayer.CharAction = (eCharAction.Magic);
-        else if (Input.GetKeyUp(KeyCode.Alpha5)) mainPlayer.CharAction = (eCharAction.Attack_Special);
-        else if (Input.GetKeyUp(KeyCode.Alpha6)) mainPlayer.CharAction = (eCharAction.Recess);
-        else if (Input.GetKeyUp(KeyCode.Alpha7)) mainPlayer.CharAction = (eCharAction.Management);
-        else if (Input.GetKeyUp(KeyCode.Alpha8)) mainPlayer.CharAction = (eCharAction.System_Option);
-        else if (Input.GetKeyUp(KeyCode.Alpha9)) mainPlayer.CharAction = (eCharAction.Attack);
-    }
+    // private void SetClick_Enemy(RaycastHit2D[] hit)
+    // {
+    //     var enemy = hit
+    //         .Select(x=>x.collider.GetComponent<EnemyChar>())
+    //         .FirstOrDefault();
+    //
+    //     if (enemy is null)
+    //         return;
+    //
+    //     var mainPlayer = PlayerManager.I.MainPlayer;
+    //     switch (mainPlayer.CharAction)
+    //     {
+    //         case eCharAction.Attack:
+    //         {
+    //             var targetNode = TilemapManager.I.GetNode_WorldPos(enemy.transform.position);
+    //             PlayerManager.I.MainPlayer.Attack(targetNode);
+    //             break;
+    //         }
+    //         case eCharAction.None:
+    //         default:
+    //         {
+    //             break;
+    //         }
+    //     }
+    // }
 }

@@ -111,8 +111,9 @@ public partial class PathUtility : MonoBehaviour
         {
             //  적 배치
             var tileNode = TilemapManager.I.GetNode(indexX, indexY);
-            var isEnemy = EnemyManager.I.GetIsEnemy(tileNode.centerPos);
-            if (isEnemy)
+            var centerPos = tileNode.centerPos;
+            if (tileNode != endNode &&
+                TilemapManager.I.IsStandChar(centerPos))
             {
                 return false;
             }

@@ -49,13 +49,14 @@ namespace GlobalEnum
         
     }
 
-    public enum eCharacter
+    public enum eCharType
     {
         NONE,
         PLAYER = 1,
         NPC,
         
         ENEMY = 11,
+        ELETE,
         BOSS,
     }
 

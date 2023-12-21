@@ -9,6 +9,7 @@ public class NormalEnemyAI : MonoBehaviour
     private EnemyChar _enemyChar;
     private CharStatus _charStatus;
 
+    public float actPoint = 0;
 
     public IEnumerator Start()
     {
@@ -16,6 +17,7 @@ public class NormalEnemyAI : MonoBehaviour
         {
             _enemyChar = component as EnemyChar;
             _charStatus = component.CharStatus;
+            _charStatus.GetStatus.actPoint = actPoint;
         }
 
         var root = new BTRoot();

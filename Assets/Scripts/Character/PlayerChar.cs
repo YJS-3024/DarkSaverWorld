@@ -13,13 +13,7 @@ public class PlayerChar : BaseCharObject
 
     public bool IsMainPlayer { get; } = true;
 
-    public Vector2 GetNodePos
-    {
-        get
-        {
-            return TilemapManager.I.GetNode_WorldPos(transform.position)?.centerPos ?? Vector2.zero;
-        }
-    }
+    public Vector3 GetNodePos => TilemapManager.I.GetNode_WorldPos(transform.position)?.centerPos ?? Vector3.zero;
 
     public eCharAction CharAction {
         get => CharStatus.CharAction;
@@ -60,7 +54,7 @@ public class PlayerChar : BaseCharObject
         var enemy = EnemyManager.I.GetEnemy(node.centerPos);
         if (enemy != null)
         {
-            enemy.HitDamage(CharStatus.GetStatus.AttackPoint);
+            enemy.HitDamage(CharStatus.GetStatus.AttackValue);
             Debug.Log($"{enemy.name} 공~격~!");
         }
 
