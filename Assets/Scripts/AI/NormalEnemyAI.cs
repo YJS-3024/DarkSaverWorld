@@ -9,14 +9,14 @@ public class NormalEnemyAI : MonoBehaviour
     private EnemyChar _enemyChar;
     private CharStatus _charStatus;
 
-    public float actPoint = 0;
+    public float actPoint = 10;
 
     public IEnumerator Start()
     {
         if (TryGetComponent<BaseCharObject>( out var component))
         {
             _enemyChar = component as EnemyChar;
-            _charStatus = component.CharStatus;
+            _charStatus = component.charStatus;
             _charStatus.GetStatus.actPoint = actPoint;
         }
 
@@ -29,7 +29,7 @@ public class NormalEnemyAI : MonoBehaviour
 
         var moveSequence = new BTSequence();
         root.AddChild(moveSequence);
-        moveSequence.AddChild(new BTCondition(SearchMove_Enemy));
+        moveSequence.AddChild(new BTCondition(SearchMove_Player));
         moveSequence.AddChild(new BTAction(Move));
 
         while (true)
@@ -39,7 +39,7 @@ public class NormalEnemyAI : MonoBehaviour
         }
     }
 
-    private bool SearchMove_Enemy()
+    private bool SearchMove_Player()
     {
         if (_charStatus is null)
             return false;
@@ -47,7 +47,7 @@ public class NormalEnemyAI : MonoBehaviour
         var searchRange = _charStatus.GetStatus.SearchRange;
 
         return _charStatus.IsPossibleAction &&
-               _enemyChar.OnSearchEnemy(searchRange);
+               _enemyChar.OnSearchPlayer(searchRange);
     }
 
     private void Move()
@@ -65,7 +65,7 @@ public class NormalEnemyAI : MonoBehaviour
         var searchRange = _charStatus.GetStatus.AttackRange;
 
         return _charStatus.IsPossibleAction &&
-               _enemyChar.OnSearchEnemy(searchRange);
+               _enemyChar.OnSearchPlayer(searchRange);
     }
     private void Attack()
     {

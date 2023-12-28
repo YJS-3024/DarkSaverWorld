@@ -32,7 +32,7 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
     {
         if(gameObject.TryGetComponent(out _pathUtility) == false);
         {
-            _pathUtility = gameObject.AddComponent<PathUtility>();
+            _pathUtility = new PathUtility();
         }
         
         Reset();

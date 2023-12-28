@@ -38,11 +38,11 @@ public class ActionPlate : MonoBehaviour
 
     private void Move(Vector3 pos)
     {
-        var charPos = TilemapManager.I.Path.MoveListLength > 0
-            ? TilemapManager.I.Path.LastNode().centerPos
+        var charPos = PlayerManager.I.MainPlayer.CharPath.MoveListLength > 0
+            ? PlayerManager.I.MainPlayer.CharPath.LastNode().centerPos
             : TilemapManager.I.GetNode_WorldPos(PlayerManager.I.MainPlayer.transform.position).centerPos;
 
-        var nodes = TilemapManager.I.Path.FindPath(charPos, pos, true);
+        var nodes = TilemapManager.I.Path.FindPath_IncludeFindEnemy(charPos, pos, true);
         if (nodes != null)
         {
             PlayerManager.I.MainPlayer.Move(nodes);

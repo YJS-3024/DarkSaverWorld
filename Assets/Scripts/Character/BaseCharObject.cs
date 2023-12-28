@@ -1,24 +1,77 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using GlobalEnum;
 using UnityEngine;
+using UnityEngine.Serialization;
+
+
+public class CharPath
+{
+    private readonly Queue<PlanePathNode> moveList = new Queue<PlanePathNode>();
+    public int MoveListLength => moveList.Count;
+
+    public void ResistNodeList(List<PlanePathNode> nodes)
+    {
+        for (var index = 0; index < nodes.Count; index++)
+        {
+            var node = nodes[index];
+            if (Contains(node))
+                continue;
+
+            moveList.Enqueue(node);
+        }
+    }
+
+    public PlanePathNode CunNode()
+    {
+        return moveList.Dequeue();
+    }
+
+    public PlanePathNode LastNode()
+    {
+        return moveList.LastOrDefault();
+    }
+
+    public bool Contains(PlanePathNode node)
+    {
+        foreach (var check in moveList)
+        {
+            if (check.centerPos.Equals(node.centerPos))
+                return true;
+        }
+
+        return false;
+    }
+}
 
 public abstract class BaseCharObject : MonoBehaviour
 {
     private CharSpriteRender _charSpriteRender;
-    
-    public CharStatus CharStatus;
+
+    public CharStatus charStatus;
     
     protected Vector3 BeforePos = Vector3.zero;
 
-    protected Coroutine MoveCoroutine = null;
-    
+    private CharPath _charPath;
+    public CharPath CharPath
+    {
+        get
+        {
+            if (_charPath is null)
+                _charPath = new CharPath();
+
+            return _charPath;
+        }
+    }
+
     private void Awake()
     {
         if (_charSpriteRender is null)
             _charSpriteRender = GetComponentInChildren<CharSpriteRender>();
 
-        CharStatus = Utility.Component.GetComponent<CharStatus>(gameObject, true);
+        charStatus = Utility.Component.GetComponent<CharStatus>(gameObject, true);
     }
 
 
@@ -48,19 +101,6 @@ public abstract class BaseCharObject : MonoBehaviour
     /// 이동
     /// </summary>
     public abstract void Move(List<PlanePathNode> nodes = null);
-
-    /// <summary>
-    /// 휴식
-    /// </summary>
-    public abstract void Recess();
-
-    public abstract void HitDamage(int damage);
-
-    public virtual bool OnSearchEnemy(int range)
-    {
-        return false;
-    }
-
     protected IEnumerator OnStartMove(List<PlanePathNode> nodes, float delayTime = 0.05f)
     {
         if (GetComponent<EnemyChar>())
@@ -68,15 +108,22 @@ public abstract class BaseCharObject : MonoBehaviour
             yield return new WaitForSeconds(delayTime);
         }
 
-        TilemapManager.I.Path.ResistNodeList(nodes);
+        CharPath.ResistNodeList(nodes);
 
-        while (TilemapManager.I.Path.MoveListLength > 0)
+        while (CharPath.MoveListLength > 0)
         {
-            var node = TilemapManager.I.Path.CunNode();
+            var node = CharPath.CunNode();
 
             SetPosition(node.centerPos);
 
             yield return new WaitForSeconds(delayTime);
         }
     }
+
+    /// <summary>
+    /// 휴식
+    /// </summary>
+    public abstract void Recess();
+
+    public abstract void HitDamage(int damage);
 }

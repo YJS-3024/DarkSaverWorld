@@ -16,20 +16,20 @@ public class PlayerChar : BaseCharObject
     public Vector3 GetNodePos => TilemapManager.I.GetNode_WorldPos(transform.position)?.centerPos ?? Vector3.zero;
 
     public eCharAction CharAction {
-        get => CharStatus.CharAction;
-        set => CharStatus.CharAction = value;
+        get => charStatus.CharAction;
+        set => charStatus.CharAction = value;
     }
 
     public int MoveRange
     {
-        get => CharStatus.GetStatus.MoveRange;
-        set => CharStatus.GetStatus.MoveRange = value;
+        get => charStatus.GetStatus.MoveRange;
+        set => charStatus.GetStatus.MoveRange = value;
     }
 
     public int AttackRange
     {
-        get => CharStatus.GetStatus.AttackRange;
-        set => CharStatus.GetStatus.AttackRange = value;
+        get => charStatus.GetStatus.AttackRange;
+        set => charStatus.GetStatus.AttackRange = value;
     }
 
     public override void Move(List<PlanePathNode> nodes = null)
@@ -45,7 +45,7 @@ public class PlayerChar : BaseCharObject
 
         _moving = StartCoroutine(OnStartMove(nodes));
 
-        CharStatus.GetStatus.actPoint -= 5;
+        charStatus.GetStatus.actPoint -= 5;
         CharAction = eCharAction.None;
     }
 
@@ -54,11 +54,11 @@ public class PlayerChar : BaseCharObject
         var enemy = EnemyManager.I.GetEnemy(node.centerPos);
         if (enemy != null)
         {
-            enemy.HitDamage(CharStatus.GetStatus.AttackValue);
+            enemy.HitDamage(charStatus.GetStatus.AttackValue);
             Debug.Log($"{enemy.name} 공~격~!");
         }
 
-        CharStatus.GetStatus.actPoint -= 2;
+        charStatus.GetStatus.actPoint -= 2;
         CharAction = eCharAction.None;
     }
 
