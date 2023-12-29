@@ -16,9 +16,6 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
     private Tilemap tilemapBoard;
     private Tilemap tilemapBlock;
 
-    private PathUtility _pathUtility;
-    public PathUtility Path => _pathUtility;
-    
     public Vector3 MaxSize => tilemapBoard?.localBounds.max ?? Vector3.zero;
     public Vector3 MinSize => tilemapBoard?.localBounds.min ?? Vector3.zero;
     public Vector3 Center => tilemapBoard?.localBounds.center ?? Vector3.zero;
@@ -30,11 +27,6 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
 
     public override bool Initialize()
     {
-        if(gameObject.TryGetComponent(out _pathUtility) == false);
-        {
-            _pathUtility = new PathUtility();
-        }
-        
         Reset();
 
         return true;
@@ -130,14 +122,11 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
     /// <returns></returns>
     public bool IsStandChar(Vector3 pos)
     {
-        var isPlayer = PlayerManager.I.MainPlayer.GetNodePos == pos;
-        var isEnemy = EnemyManager.I.GetIsEnemy(pos);
-        return (isEnemy || isPlayer);
+        return PlayerManager.I.MainPlayer.GetNodePos == pos;
     }
 
     public bool IsStandEnemy(Vector3 pos)
     {
-        var isEnemy = EnemyManager.I.GetIsEnemy(pos);
-        return isEnemy;
+        return EnemyManager.I.GetIsEnemy(pos);
     }
 }

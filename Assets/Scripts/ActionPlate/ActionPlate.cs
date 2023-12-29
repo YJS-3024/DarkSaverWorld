@@ -42,7 +42,7 @@ public class ActionPlate : MonoBehaviour
             ? PlayerManager.I.MainPlayer.CharPath.LastNode().centerPos
             : TilemapManager.I.GetNode_WorldPos(PlayerManager.I.MainPlayer.transform.position).centerPos;
 
-        var nodes = TilemapManager.I.Path.FindPath_IncludeFindEnemy(charPos, pos, true);
+        var nodes = PlayerManager.I.MainPlayer.Path.FindPath_IncludeFindEnemy(charPos, pos, true);
         if (nodes != null)
         {
             PlayerManager.I.MainPlayer.Move(nodes);

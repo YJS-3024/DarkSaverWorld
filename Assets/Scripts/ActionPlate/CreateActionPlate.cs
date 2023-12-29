@@ -57,8 +57,9 @@ public class CreateActionPlate : MonoBehaviour
                     if (TilemapManager.I.IsMove(xPos, yPos) == false)
                         continue;
 
-                    var pathNodes = TilemapManager.I.Path.FindPath_IncludeFindEnemy(charNode.centerPos, new Vector3(xPos, yPos), false);
-                    if (pathNodes.Count > rangeCount + 1)
+                    var pathNodes = PlayerManager.I.MainPlayer.Path.FindPath_IncludeFindEnemy(charNode.centerPos, new Vector3(xPos, yPos), false);
+                    if (pathNodes is null ||
+                        pathNodes.Count > rangeCount + 1)
                         continue;
 
                     var go = Instantiate(movePlateGo.gameObject, this.transform);

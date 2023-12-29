@@ -13,7 +13,7 @@ public class EnemyChar : BaseCharObject
         var myPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
         var targetPos = TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
 
-        var nodes = TilemapManager.I.Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
+        var nodes = Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
         if (nodes.Count <= attackRange)
         {
             mainPlayer.HitDamage(charStatus.GetStatus.AttackValue);
@@ -35,7 +35,7 @@ public class EnemyChar : BaseCharObject
             ? CharPath.LastNode().centerPos
             : TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
 
-        nodes = TilemapManager.I.Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
+        nodes = Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
         if (nodes.IsUnityNull())
             return;
 
@@ -72,12 +72,12 @@ public class EnemyChar : BaseCharObject
             : TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
 
         //  적 발견
-        var searchNodes = TilemapManager.I.Path.FindPath(myPos, targetPos, false);
+        var searchNodes = Path.FindPath(myPos, targetPos, false);
         if (searchNodes is null)
             return false;
 
         //  적에게 가는 경로 검색(못가는 경우를 위한 체크)
-        var possibleMoveNodes = TilemapManager.I.Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
+        var possibleMoveNodes = Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
         if (possibleMoveNodes is null)
             return false;
 

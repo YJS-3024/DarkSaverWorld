@@ -5,7 +5,7 @@ using System.Linq;
 using GlobalEnum;
 using UnityEngine;
 
-public partial class PathUtility
+public partial class PathUtility : MonoBehaviour
 {
     private readonly List<PlanePathNode> openNodeList = new List<PlanePathNode>();  //오픈노드 리스트
     private readonly List<PlanePathNode> closeNodeList = new List<PlanePathNode>(); //클로즈 노드 리스트
@@ -102,8 +102,8 @@ public partial class PathUtility
     public List<PlanePathNode> FindPath_IncludeFindEnemy(Vector3 startPos, Vector3 endPos, bool bDiagonal)
     {
         //위치에 따른 시작노드와 종료 노드를 얻는다.
-        var startNode = TilemapManager.I.GetNode_WorldPos(startPos);
-        var endNode = TilemapManager.I.GetNode_WorldPos(endPos);
+        startNode = TilemapManager.I.GetNode_WorldPos(startPos);
+        endNode = TilemapManager.I.GetNode_WorldPos(endPos);
 
         //유효하지 않는 경로다.
         if (startNode == null || endNode == null)
