@@ -9,21 +9,26 @@ public class RespawnEnemys : MonoBehaviour
     [SerializeField] private int createCountMax = 3;
 
     private float createInterval = 10f;
-    private List<BaseCharObject> _enemyList = new List<BaseCharObject>();
+    private readonly List<BaseCharObject> _enemyList = new List<BaseCharObject>();
 
     private Vector3 _curPos = Vector3.zero;
 
     // Start is called before the first frame update
     private IEnumerator Start()
     {
-        yield return new WaitForSeconds(1f);
-
         _curPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
 
         while (true)
         {
-            yield return new WaitUntil(() => !TilemapManager.I.IsStandChar(_curPos));
+            yield return new WaitForSeconds(1f);
+            
+            if (TilemapManager.I.IsStandChar(_curPos) &&
+                TilemapManager.I.IsStandEnemy(_curPos))
+                continue;
 
+            if(_enemyList.Count >= createCountMax)
+                continue;
+            
             _enemyList.Add(EnemyManager.I.CreateEnemy(eCharType.ENEMY, transform.position));
 
             yield return new WaitForSeconds(createInterval);

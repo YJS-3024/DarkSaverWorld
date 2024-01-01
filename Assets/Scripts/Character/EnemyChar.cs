@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyChar : BaseCharObject
@@ -36,7 +34,7 @@ public class EnemyChar : BaseCharObject
             : TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
 
         nodes = Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
-        if (nodes.IsUnityNull())
+        if (nodes is null)
             return;
 
         if (nodes.Count <= searchRange + 1)
@@ -81,6 +79,13 @@ public class EnemyChar : BaseCharObject
         if (possibleMoveNodes is null)
             return false;
 
+        //  이동거리보다 검색 거리가 높으면 하위 검색거리 삭제
+        if (searchNodes.Count > charStatus.GetStatus.MoveRange)
+        {
+            var tempValue = searchNodes.Count - charStatus.GetStatus.MoveRange;
+            searchNodes.RemoveRange(charStatus.GetStatus.MoveRange,tempValue);
+        }
+        
         if (searchNodes.Count <= range + 1)
         {
             // Debug.Log("이동하겠소");

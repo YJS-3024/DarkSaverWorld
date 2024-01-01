@@ -177,53 +177,6 @@ public partial class PathUtility : MonoBehaviour
         return null;
     }
 
-    //해당 인덱스의 위치가 갈수 있는 노드인지 확인
-    public bool IsMoveAble(int indexX, int indexY)
-    {
-        //  0부터 만들어진 필드플랜의 갯수 유효한 노드인지를 판단합니다.
-        if (0 <= indexX && indexX < TilemapManager.I.CellMaxWidth &&
-            0 <= indexY && indexY < TilemapManager.I.CellMaxHeight)
-        {
-            //  적 배치
-            var tileNode = TilemapManager.I.GetNode(indexX, indexY);
-            var centerPos = tileNode.centerPos;
-            if (tileNode != endNode &&
-                TilemapManager.I.IsStandChar(centerPos))
-            {
-                return false;
-            }
-  
-            return tileNode.isMoveAble;
-        }
-        
-        return false;
-    }
-
-
-    //해당 인덱스의 위치가 갈수 있는 노드인지 확인
-    public bool IsMoveAble(int indexX, int indexY, bool ignoreCheckChar = false)
-    {
-        //  0부터 만들어진 필드플랜의 갯수 유효한 노드인지를 판단합니다.
-        if (0 <= indexX && indexX < TilemapManager.I.CellMaxWidth &&
-            0 <= indexY && indexY < TilemapManager.I.CellMaxHeight)
-        {
-            var tileNode = TilemapManager.I.GetNode(indexX, indexY);
-            if (ignoreCheckChar)
-            {
-                //  적 배치
-                var centerPos = tileNode.centerPos;
-                if (tileNode != endNode &&
-                    TilemapManager.I.IsStandChar(centerPos))
-                {
-                    return false;
-                }
-            }
-
-            return tileNode.isMoveAble;
-        }
-
-        return false;
-    }
 
 
 
@@ -261,6 +214,53 @@ public partial class PathUtility : MonoBehaviour
             if (IsMoveAble(curNode.indexX - 1, curNode.indexY - 1, bCheckChar))
                 AddOpenList(curNode.indexX - 1, curNode.indexY - 1, curNode);
         }
+    }
+    
+
+    //해당 인덱스의 위치가 갈수 있는 노드인지 확인
+    public bool IsMoveAble(int indexX, int indexY, bool ignoreCheckChar = false)
+    {
+        //  0부터 만들어진 필드플랜의 갯수 유효한 노드인지를 판단합니다.
+        if (0 <= indexX && indexX < TilemapManager.I.CellMaxWidth &&
+            0 <= indexY && indexY < TilemapManager.I.CellMaxHeight)
+        {
+            var tileNode = TilemapManager.I.GetNode(indexX, indexY);
+            if (ignoreCheckChar)
+            {
+                //  적 배치
+                var centerPos = tileNode.centerPos;
+                if (tileNode != endNode &&
+                    IsDontStandAble(indexX, indexY))
+                {
+                    return false;
+                }
+            }
+
+            return tileNode.isMoveAble;
+        }
+
+        return false;
+    }
+    
+    
+    //해당 인덱스의 위치가 갈수 있는 노드인지 확인
+    public bool IsDontStandAble(int indexX, int indexY)
+    {
+        //  0부터 만들어진 필드플랜의 갯수 유효한 노드인지를 판단합니다.
+        if (0 <= indexX && indexX < TilemapManager.I.CellMaxWidth &&
+            0 <= indexY && indexY < TilemapManager.I.CellMaxHeight)
+        {
+            var tileNode = TilemapManager.I.GetNode(indexX, indexY);
+            var centerPos = tileNode.centerPos;
+            
+            if (TilemapManager.I.IsStandChar(centerPos))
+                return true;
+            
+            if (TilemapManager.I.IsStandEnemy(centerPos))
+                return true;
+        }
+
+        return false;
     }
 
     /// <summary>
