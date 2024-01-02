@@ -49,13 +49,18 @@ public class PlayerChar : BaseCharObject
         CharAction = eCharAction.None;
     }
 
+    public override void Dead()
+    {
+
+    }
+
     public override void Attack(PlanePathNode node)
     {
         var enemy = EnemyManager.I.GetEnemy(node.centerPos);
         if (enemy != null)
         {
-            enemy.HitDamage(charStatus.GetStatus.AttackValue);
             Debug.Log($"{enemy.name} 공~격~!");
+            enemy.HitDamage(charStatus.GetStatus.AttackValue);
         }
 
         charStatus.GetStatus.actPoint -= 2;
@@ -66,7 +71,7 @@ public class PlayerChar : BaseCharObject
     {
     }
 
-    public override void Recess()
+    public override void Rest()
     {
     }
 

@@ -113,6 +113,9 @@ public abstract class BaseCharObject : MonoBehaviour
     /// 이동
     /// </summary>
     public abstract void Move(List<PlanePathNode> nodes = null);
+
+    public abstract void Dead();
+
     protected IEnumerator OnStartMove(List<PlanePathNode> nodes, float delayTime = 0.05f)
     {
         if (GetComponent<EnemyChar>())
@@ -135,7 +138,7 @@ public abstract class BaseCharObject : MonoBehaviour
     /// <summary>
     /// 휴식
     /// </summary>
-    public abstract void Recess();
+    public abstract void Rest();
 
     public abstract void HitDamage(int damage);
 }

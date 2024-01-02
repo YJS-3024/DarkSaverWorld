@@ -16,6 +16,8 @@ public class RespawnEnemys : MonoBehaviour
     // Start is called before the first frame update
     private IEnumerator Start()
     {
+        yield return new WaitForSeconds(1f);
+
         _curPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
 
         while (true)

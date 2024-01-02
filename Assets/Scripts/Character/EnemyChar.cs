@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EnemyChar : BaseCharObject
 {
+    public bool isDead = false;
+
     public override void Attack(PlanePathNode node = null)
     {
         var mainPlayer = PlayerManager.I.MainPlayer;
@@ -49,12 +51,31 @@ public class EnemyChar : BaseCharObject
         }
     }
 
-    public override void Recess()
+    public override void Dead()
+    {
+        if(charStatus.GetStatus.CurHP > 0)
+            return;
+
+        isDead = true;
+
+        DestroyImmediate(this.gameObject);
+    }
+
+    public override void Rest()
     {
     }
 
     public override void HitDamage(int damage)
     {
+        var status = charStatus.GetStatus;
+
+        var beforeHP = status.CurHP;
+        var DemagedHP = status.CurHP - damage;
+
+        if (DemagedHP <= 0)
+        {
+            Dead();
+        }
 
     }
 
@@ -85,7 +106,7 @@ public class EnemyChar : BaseCharObject
             var tempValue = searchNodes.Count - charStatus.GetStatus.MoveRange;
             searchNodes.RemoveRange(charStatus.GetStatus.MoveRange,tempValue);
         }
-        
+
         if (searchNodes.Count <= range + 1)
         {
             // Debug.Log("이동하겠소");
