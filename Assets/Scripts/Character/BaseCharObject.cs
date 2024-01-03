@@ -51,7 +51,9 @@ public abstract class BaseCharObject : MonoBehaviour
     private CharSpriteRender _charSpriteRender;
 
     public CharStatus charStatus;
-    
+
+    protected long charID = 0;
+
     protected Vector3 BeforePos = Vector3.zero;
 
     private CharPath _charPath;

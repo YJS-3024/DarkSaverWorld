@@ -31,7 +31,7 @@ public class RespawnEnemys : MonoBehaviour
             if(_enemyList.Count >= createCountMax)
                 continue;
             
-            _enemyList.Add(EnemyManager.I.CreateEnemy(eCharType.ENEMY, transform.position));
+            _enemyList.Add(EnemyManager.I.CreateEnemy(1, transform.position));
 
             yield return new WaitForSeconds(createInterval);
         }

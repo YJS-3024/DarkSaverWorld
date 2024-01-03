@@ -4,7 +4,7 @@ using BehaviorTree;
 using GlobalEnum;
 using UnityEngine;
 
-public class EnemyAI_Normal : EnemyAI_Base
+public class EnemyMonsterAI_Normal : EnemyAI_Base
 {
 
 

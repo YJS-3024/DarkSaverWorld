@@ -37,7 +37,8 @@ public class Create_TableData : Editor
 
             var fullPath = $"{FilePath}/{resultFileName}.cs";
             ReadFile(fullPath);
-            WriteFile(fullPath, resultFileName, fieldName);
+            WriteFile_Data(fullPath, resultFileName, fieldName);
+            WriteFile_Table(resultFileName, fieldName);
         }
     }
 
@@ -47,7 +48,7 @@ public class Create_TableData : Editor
     /// <param name="path"></param>
     /// <param name="fileName"></param>
     /// <param name="typeList"></param>
-    private static void WriteFile(string path, string fileName, List<string> typeList)
+    private static void WriteFile_Data(string path, string fileName, List<string> typeList)
     {
         var directoryInfo = new DirectoryInfo(Path.GetDirectoryName(path) ?? string.Empty);
         if (directoryInfo.Exists == false)
@@ -123,6 +124,58 @@ public class Create_TableData : Editor
                 sb.AppendLine($"public double {value};");
             }
         }
+
+        // sb.AppendLine(" ");
+        // sb.AppendLine("     public override void ParseData(string[] arrVariables, string[] arrValues)");
+        // sb.AppendLine("     {");
+        // sb.AppendLine("     }");
+        sb.AppendLine("}");
+        return sb.ToString();
+    }
+
+    /// <summary>
+    /// 파일 쓰기
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="fileName"></param>
+    /// <param name="typeList"></param>
+    private static void WriteFile_Table(string fileName, List<string> typeList)
+    {
+        var dataName = fileName.Clone().ToString();
+        fileName = $"TableManager_{fileName.Replace("Data", "")}";
+        var path = $"Assets/Scripts/TableData/TableManagers/{fileName}.cs";
+        var directoryInfo = new DirectoryInfo(Path.GetDirectoryName(path) ?? string.Empty);
+        if (directoryInfo.Exists == false)
+        {
+            directoryInfo.Create();
+        }
+
+        var fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+        var writer = new StreamWriter(fileStream, System.Text.Encoding.Unicode);
+
+        writer.WriteLine(CreateTableScript(fileName, dataName));
+
+        writer.Close();
+    }
+
+    private static string CreateTableScript(string fileName, string dataName)
+    {
+        var sb = new StringBuilder();
+
+        sb.AppendLine("using System.Collections.Generic;");
+
+        sb.AppendLine($"public partial class {fileName}");
+        sb.AppendLine("{");
+
+        sb.Append("     ");
+        sb.AppendLine($"public Dictionary<int, {dataName}> Dic{dataName}s = new Dictionary<int, {dataName}>();");
+
+        // sb.Append("     ");
+        // if (strType.Contains("i_"))
+        // {
+        //     var value = strType.Replace("i_","");
+        //     sb.AppendLine($"public int {value};");
+        // }
 
         // sb.AppendLine(" ");
         // sb.AppendLine("     public override void ParseData(string[] arrVariables, string[] arrValues)");

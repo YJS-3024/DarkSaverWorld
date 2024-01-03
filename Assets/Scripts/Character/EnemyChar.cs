@@ -5,6 +5,12 @@ public class EnemyChar : BaseCharObject
 {
     public bool isDead = false;
 
+    public long EnemyID
+    {
+        get => charID;
+        set => charID = value;
+    }
+
     public override void Attack(PlanePathNode node = null)
     {
         var mainPlayer = PlayerManager.I.MainPlayer;
@@ -57,6 +63,8 @@ public class EnemyChar : BaseCharObject
             return;
 
         isDead = true;
+
+        EnemyManager.I.RemoveEnemy(EnemyID);
 
         DestroyImmediate(this.gameObject);
     }

@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class EnemyManager : MonoSingleton<EnemyManager>
 {
-    private List<EnemyChar> _activeEnemyList;
+    private Dictionary<long, EnemyChar> _activeEnemyList;
+
+    private long _createIndex = 0;
 
     protected override void Destroy()
     {
@@ -17,15 +19,16 @@ public class EnemyManager : MonoSingleton<EnemyManager>
     {
         if (_activeEnemyList is null)
         {
-            _activeEnemyList = FindObjectsOfType<EnemyChar>().ToList();
+            _activeEnemyList = new Dictionary<long, EnemyChar>();
         }
         
         return true;
     }
 
-    public EnemyChar CreateEnemy(eCharType charType, Vector3 createPos)
+    public EnemyChar CreateEnemy(int monId, Vector3 createPos)
     {
-        var path = "Character/EnemyChar";
+        var enemyType = eCharType.Monster_Normal;
+        var path = $"Character/Enemy{enemyType.ToString()}";
         var o = ResourceManager.I.Load<GameObject>(eResourceType.Prefabs, path);
         if (o is null)
             return null;
@@ -38,7 +41,9 @@ public class EnemyManager : MonoSingleton<EnemyManager>
             go.transform.localScale = Vector3.one;
 
             var comp = go.GetComponent<EnemyChar>();
-            _activeEnemyList.Add(comp);
+            comp.EnemyID = ++_createIndex;
+
+            _activeEnemyList.Add(comp.EnemyID, comp);
             return comp;
         }
 
@@ -50,7 +55,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
         var pos = TilemapManager.I.GetNode_WorldPos(posVec).centerPos;
         foreach (var enemy in _activeEnemyList)
         {
-            var targetPos = TilemapManager.I.GetNode_WorldPos(enemy.transform.position).centerPos;
+            var targetPos = TilemapManager.I.GetNode_WorldPos(enemy.Value.transform.position).centerPos;
             if (pos.Equals(targetPos))
             {
                 return true;
@@ -64,10 +69,10 @@ public class EnemyManager : MonoSingleton<EnemyManager>
     {
         foreach (var enemy in _activeEnemyList)
         {
-            var pos = TilemapManager.I.GetNode_WorldPos(enemy.transform.position).centerPos;
+            var pos = TilemapManager.I.GetNode_WorldPos(enemy.Value.transform.position).centerPos;
             if (pos.Equals(posVec))
             {
-                return enemy;
+                return enemy.Value;
             }
         }
 
@@ -79,7 +84,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
         var posVec = new Vector2(posX, posY);
         foreach (var enemy in _activeEnemyList)
         {
-            var pos = TilemapManager.I.GetNode_WorldPos(enemy.transform.position).centerPos;
+            var pos = TilemapManager.I.GetNode_WorldPos(enemy.Value.transform.position).centerPos;
             if (pos.Equals(posVec))
             {
                 return true;
@@ -87,5 +92,13 @@ public class EnemyManager : MonoSingleton<EnemyManager>
         }
 
         return false;
+    }
+
+    public void RemoveEnemy(long enemyId)
+    {
+        if (_activeEnemyList.ContainsKey(enemyId))
+        {
+            _activeEnemyList.Remove(enemyId);
+        }
     }
 }

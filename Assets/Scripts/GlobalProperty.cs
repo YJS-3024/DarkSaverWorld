@@ -55,9 +55,9 @@ namespace GlobalEnum
         PLAYER = 1,
         NPC,
         
-        ENEMY = 11,
-        ELETE,
-        BOSS,
+        Monster_Normal = 11,
+        Monster_Elete,
+        Monster_Boss,
     }
 
     public enum ePanelType
