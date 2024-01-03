@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using GlobalEnum;
 using Unity.Mathematics;
 using UnityEngine;
@@ -27,7 +26,11 @@ public class EnemyManager : MonoSingleton<EnemyManager>
 
     public EnemyChar CreateEnemy(int monId, Vector3 createPos)
     {
-        var enemyType = eCharType.Monster_Normal;
+        var monData = TableManager.I.Monster.GetData(monId);
+        if (monData is null)
+            return null;
+
+        var enemyType = (eCharType)monData.MonsterType;
         var path = $"Character/Enemy{enemyType.ToString()}";
         var o = ResourceManager.I.Load<GameObject>(eResourceType.Prefabs, path);
         if (o is null)
@@ -41,9 +44,10 @@ public class EnemyManager : MonoSingleton<EnemyManager>
             go.transform.localScale = Vector3.one;
 
             var comp = go.GetComponent<EnemyChar>();
-            comp.EnemyID = ++_createIndex;
+            comp.EnemyIdx = ++_createIndex;
+            comp.charStatus.SetStatus(new StatusInfo(monData));
 
-            _activeEnemyList.Add(comp.EnemyID, comp);
+            _activeEnemyList.Add(comp.EnemyIdx, comp);
             return comp;
         }
 
@@ -94,11 +98,11 @@ public class EnemyManager : MonoSingleton<EnemyManager>
         return false;
     }
 
-    public void RemoveEnemy(long enemyId)
+    public void RemoveEnemy(long enemyIdx)
     {
-        if (_activeEnemyList.ContainsKey(enemyId))
+        if (_activeEnemyList.ContainsKey(enemyIdx))
         {
-            _activeEnemyList.Remove(enemyId);
+            _activeEnemyList.Remove(enemyIdx);
         }
     }
 }

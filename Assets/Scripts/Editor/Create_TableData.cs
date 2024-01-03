@@ -18,6 +18,7 @@ using UnityEngine;
 public class Create_TableData : Editor
 {
     private const string FilePath = "Assets/Scripts/TableData";
+    private const string OneTab = "     ";
 
     [MenuItem("Assets/Table/Convert_TableData")]
     public static void Convert()
@@ -92,7 +93,7 @@ public class Create_TableData : Editor
 
         foreach (var strType in constantList)
         {
-            sb.Append("     ");
+            sb.Append(OneTab);
             if (strType.Contains("i_"))
             {
                 var value = strType.Replace("i_","");
@@ -125,10 +126,6 @@ public class Create_TableData : Editor
             }
         }
 
-        // sb.AppendLine(" ");
-        // sb.AppendLine("     public override void ParseData(string[] arrVariables, string[] arrValues)");
-        // sb.AppendLine("     {");
-        // sb.AppendLine("     }");
         sb.AppendLine("}");
         return sb.ToString();
     }
@@ -144,11 +141,17 @@ public class Create_TableData : Editor
         var dataName = fileName.Clone().ToString();
         fileName = $"TableManager_{fileName.Replace("Data", "")}";
         var path = $"Assets/Scripts/TableData/TableManagers/{fileName}.cs";
+
+        //  해당 파일까지의 폴더 확인후 없으면 생성
         var directoryInfo = new DirectoryInfo(Path.GetDirectoryName(path) ?? string.Empty);
         if (directoryInfo.Exists == false)
         {
             directoryInfo.Create();
         }
+
+        //  해당 파일이 없다면 생성 있다면 작업종료
+        if (File.Exists(path))
+            return;
 
         var fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
         var writer = new StreamWriter(fileStream, System.Text.Encoding.Unicode);
@@ -163,25 +166,26 @@ public class Create_TableData : Editor
         var sb = new StringBuilder();
 
         sb.AppendLine("using System.Collections.Generic;");
+        sb.AppendLine();
 
-        sb.AppendLine($"public partial class {fileName}");
+        sb.AppendLine("namespace Table");
         sb.AppendLine("{");
 
-        sb.Append("     ");
+        sb.Append(OneTab);
+        sb.AppendLine($"public partial class {fileName}");
+
+        sb.Append(OneTab);
+        sb.AppendLine($""+"{");
+
+        sb.Append(OneTab);
+        sb.Append(OneTab);
         sb.AppendLine($"public Dictionary<int, {dataName}> Dic{dataName}s = new Dictionary<int, {dataName}>();");
 
-        // sb.Append("     ");
-        // if (strType.Contains("i_"))
-        // {
-        //     var value = strType.Replace("i_","");
-        //     sb.AppendLine($"public int {value};");
-        // }
-
-        // sb.AppendLine(" ");
-        // sb.AppendLine("     public override void ParseData(string[] arrVariables, string[] arrValues)");
-        // sb.AppendLine("     {");
-        // sb.AppendLine("     }");
+        sb.Append(OneTab);
         sb.AppendLine("}");
+
+        sb.AppendLine("}");
+
         return sb.ToString();
     }
 }

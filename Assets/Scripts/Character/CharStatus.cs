@@ -34,6 +34,28 @@ public class StatusInfo
     public int AttackRange = 1;     //  공격 범위
     
     public int HoldMoney; //수중의 돈
+
+    public StatusInfo()
+    {
+
+    }
+
+    public StatusInfo(MonsterData data)
+    {
+        UserName = data.ID.ToString();
+
+        CurHP = MaxHP = data.MaxHp;
+
+        AttackValue = data.Atk;
+        MagicAtkPoint = data.Atk;
+
+        DefenseValue = data.Def;
+        MagicDefPoint = data.Def;
+
+        SearchRange = data.SearchRange;
+        MoveRange = data.MoveRange;
+        AttackRange = data.AtkRange;
+    }
 }
 
 public class CharStatus : MonoBehaviour
@@ -66,6 +88,11 @@ public class CharStatus : MonoBehaviour
                 CharAction = eCharAction.None;
             }
         }
+    }
+
+    public void SetStatus(StatusInfo status)
+    {
+        MyCharacter = status;
     }
 
     public void ResetAction()

@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Table;
 
 public partial class TableManager : MonoSingleton<TableManager>
 {
