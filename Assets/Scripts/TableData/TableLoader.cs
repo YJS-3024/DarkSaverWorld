@@ -21,6 +21,10 @@ public class TableLoader
 
             var values = lineDatas[i].Split(',');
 
+            //  ID 조차 없다.
+            if (string.IsNullOrEmpty(values.FirstOrDefault()))
+                continue;
+
             var data = new T();
             var type = data.GetType();
             var fieldList = type.GetFields().ToList();
@@ -29,6 +33,10 @@ public class TableLoader
                 //  데이터 필드들
                 var strVariable = variables[v];
                 var variable = strVariable.Split('_').LastOrDefault();
+
+                //  필드가 공백
+                if (string.IsNullOrEmpty(variable))
+                    continue;
 
                 //  공백 및 잘못된 값에 대한 에러 표시
                 if (string.IsNullOrEmpty(values[v]))

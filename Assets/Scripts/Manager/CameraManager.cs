@@ -30,7 +30,7 @@ public class CameraManager : MonoSingleton<CameraManager>
         mainCamera = Camera.main;
         Camera.main.orthographicSize = Screen.orientation == ScreenOrientation.Portrait
             ? 7
-            : 4;
+            : 5;
 
         _height = Camera.main.orthographicSize;
         _width = _height * Screen.width / Screen.height;
