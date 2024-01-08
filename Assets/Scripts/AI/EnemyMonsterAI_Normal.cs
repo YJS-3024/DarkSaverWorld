@@ -44,7 +44,7 @@ public class EnemyMonsterAI_Normal : EnemyAI_Base
         if (CharStatus is null)
             return false;
 
-        var searchRange = CharStatus.GetStatus.SearchRange;
+        var searchRange = CharStatus.GetStatus.searchRange;
 
         return CharStatus.IsPossibleAction &&
                EnemyChar.OnSearchPlayer(searchRange);
@@ -52,7 +52,7 @@ public class EnemyMonsterAI_Normal : EnemyAI_Base
 
     protected override bool IsAlive()
     {
-        return CharStatus.GetStatus.CurHP > 0;
+        return CharStatus.GetStatus.curHp > 0;
     }
 
     protected override void Move()
@@ -67,7 +67,7 @@ public class EnemyMonsterAI_Normal : EnemyAI_Base
         if (CharStatus is null)
             return false;
 
-        var searchRange = CharStatus.GetStatus.AttackRange;
+        var searchRange = CharStatus.GetStatus.attackRange;
 
         return CharStatus.IsPossibleAction &&
                EnemyChar.OnSearchPlayer(searchRange);

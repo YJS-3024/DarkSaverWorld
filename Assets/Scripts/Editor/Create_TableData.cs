@@ -39,7 +39,7 @@ public class Create_TableData : Editor
             var fullPath = $"{FilePath}/{resultFileName}.cs";
             ReadFile(fullPath);
             WriteFile_Data(fullPath, resultFileName, fieldName);
-            WriteFile_Table(resultFileName, fieldName);
+            WriteFile_Table(resultFileName, fieldName.FirstOrDefault());
         }
     }
 
@@ -93,37 +93,12 @@ public class Create_TableData : Editor
 
         foreach (var strType in constantList)
         {
+            var type = GetType(strType, out var value);
+            if (string.IsNullOrEmpty(value))
+                continue;
+
             sb.Append(OneTab);
-            if (strType.Contains("i_"))
-            {
-                var value = strType.Replace("i_","");
-                sb.AppendLine($"public int {value};");
-            }
-            else if (strType.Contains("f_"))
-            {
-                var value = strType.Replace("f_","");
-                sb.AppendLine($"public float {value};");
-            }
-            else if (strType.Contains("s_"))
-            {
-                var value = strType.Replace("s_","");
-                sb.AppendLine($"public string {value};");
-            }
-            else if (strType.Contains("b_"))
-            {
-                var value = strType.Replace("b_","");
-                sb.AppendLine($"public bool {value};");
-            }
-            else if (strType.Contains("sh_"))
-            {
-                var value = strType.Replace("sh_","");
-                sb.AppendLine($"public short {value};");
-            }
-            else if (strType.Contains("d_"))
-            {
-                var value = strType.Replace("d_","");
-                sb.AppendLine($"public double {value};");
-            }
+            sb.AppendLine($"public {type} {value};");
         }
 
         sb.AppendLine("}");
@@ -136,7 +111,7 @@ public class Create_TableData : Editor
     /// <param name="path"></param>
     /// <param name="fileName"></param>
     /// <param name="typeList"></param>
-    private static void WriteFile_Table(string fileName, List<string> typeList)
+    private static void WriteFile_Table(string fileName, string typeFirst)
     {
         var dataName = fileName.Clone().ToString();
         fileName = $"TableManager_{fileName.Replace("Data", "")}";
@@ -156,13 +131,15 @@ public class Create_TableData : Editor
         var fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
         var writer = new StreamWriter(fileStream, System.Text.Encoding.Unicode);
 
-        writer.WriteLine(CreateTableScript(fileName, dataName));
+        writer.WriteLine(CreateTableScript(fileName, dataName, typeFirst));
 
         writer.Close();
     }
 
-    private static string CreateTableScript(string fileName, string dataName)
+    private static string CreateTableScript(string fileName, string dataName, string typeFirst)
     {
+        var typeResult = GetType(typeFirst, out var s);
+
         var sb = new StringBuilder();
 
         sb.AppendLine("using System.Collections.Generic;");
@@ -179,7 +156,7 @@ public class Create_TableData : Editor
 
         sb.Append(OneTab);
         sb.Append(OneTab);
-        sb.AppendLine($"public Dictionary<int, {dataName}> Dic{dataName}s = new Dictionary<int, {dataName}>();");
+        sb.AppendLine($"public Dictionary<{typeResult}, {dataName}> Dic{dataName}s = new Dictionary<{typeResult}, {dataName}>();");
 
         sb.Append(OneTab);
         sb.AppendLine("}");
@@ -187,5 +164,48 @@ public class Create_TableData : Editor
         sb.AppendLine("}");
 
         return sb.ToString();
+    }
+
+    private static string GetType(string strTable, out string value)
+    {
+        var strType = strTable;
+        if (strType.Contains("f_"))
+        {
+            value = strType.Replace("f_","");
+            return "float";
+        }
+        else if (strType.Contains("i_"))
+        {
+            value = strType.Replace("i_","");
+            return "int";
+        }
+        else if (strType.Contains("is_"))
+        {
+            value = strType.Replace("is_","");
+            return "bool";
+        }
+        else if (strType.Contains("sh_"))
+        {
+            value = strType.Replace("sh_","");
+            return "short";
+        }
+        else if (strType.Contains("d_"))
+        {
+            value = strType.Replace("d_","");
+            return "double";
+        }
+        else if (strType.Contains("b_"))
+        {
+            value = strType.Replace("b_","");
+            return "byte";
+        }
+        else if (strType.Contains("s_"))
+        {
+            value = strType.Replace("s_","");
+            return "string";
+        }
+
+        value = string.Empty;
+        return "string";
     }
 }

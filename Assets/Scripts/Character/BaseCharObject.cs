@@ -52,7 +52,7 @@ public abstract class BaseCharObject : MonoBehaviour
 
     public CharStatus charStatus;
 
-    protected long charIDX = 0;
+    protected long CharIdx = 0;
 
     protected Vector3 BeforePos = Vector3.zero;
 

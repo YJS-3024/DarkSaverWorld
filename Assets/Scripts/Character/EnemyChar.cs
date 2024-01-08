@@ -7,14 +7,14 @@ public class EnemyChar : BaseCharObject
 
     public long EnemyIdx
     {
-        get => charIDX;
-        set => charIDX = value;
+        get => CharIdx;
+        set => CharIdx = value;
     }
 
     public override void Attack(PlanePathNode node = null)
     {
         var mainPlayer = PlayerManager.I.MainPlayer;
-        var attackRange = charStatus.GetStatus.AttackRange;
+        var attackRange = charStatus.GetStatus.attackRange;
 
         var myPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
         var targetPos = TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
@@ -22,7 +22,7 @@ public class EnemyChar : BaseCharObject
         var nodes = Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
         if (nodes.Count <= attackRange)
         {
-            mainPlayer.HitDamage(charStatus.GetStatus.AttackValue);
+            mainPlayer.HitDamage(charStatus.GetStatus.attackValue);
             Debug.Log($"{mainPlayer.name} 공~격~!");
         }
     }
@@ -33,7 +33,7 @@ public class EnemyChar : BaseCharObject
 
     public override void Move(List<PlanePathNode> nodes = null)
     {
-        var searchRange = charStatus.GetStatus.SearchRange;
+        var searchRange = charStatus.GetStatus.searchRange;
         var mainPlayer = PlayerManager.I.MainPlayer;
 
         var myPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
@@ -59,7 +59,7 @@ public class EnemyChar : BaseCharObject
 
     public override void Dead()
     {
-        if(charStatus.GetStatus.CurHP > 0)
+        if(charStatus.GetStatus.curHp > 0)
             return;
 
         isDead = true;
@@ -77,8 +77,8 @@ public class EnemyChar : BaseCharObject
     {
         var status = charStatus.GetStatus;
 
-        var beforeHP = status.CurHP;
-        var DemagedHP = status.CurHP - damage;
+        var beforeHP = status.curHp;
+        var DemagedHP = status.curHp - damage;
 
         if (DemagedHP <= 0)
         {
@@ -109,10 +109,10 @@ public class EnemyChar : BaseCharObject
             return false;
 
         //  이동거리보다 검색 거리가 높으면 하위 검색거리 삭제
-        if (searchNodes.Count > charStatus.GetStatus.MoveRange)
+        if (searchNodes.Count > charStatus.GetStatus.moveRange)
         {
-            var tempValue = searchNodes.Count - charStatus.GetStatus.MoveRange;
-            searchNodes.RemoveRange(charStatus.GetStatus.MoveRange,tempValue);
+            var tempValue = searchNodes.Count - charStatus.GetStatus.moveRange;
+            searchNodes.RemoveRange(charStatus.GetStatus.moveRange,tempValue);
         }
 
         if (searchNodes.Count <= range + 1)

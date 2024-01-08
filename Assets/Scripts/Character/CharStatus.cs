@@ -6,34 +6,34 @@ using UnityEngine.Serialization;
 [System.Serializable]
 public class StatusInfo
 {
-    public string UserName; //유저 이름
+    public string userName; //유저 이름
 
     public string charClass; //캐릭터 직업이름
-    public int charLavel; //캐릭터 레벨
+    public int charLevel; //캐릭터 레벨
 
     //게이지 관련
     public float actPoint = 10.0f; //행동치
-    public float CurHP; //현재체력
-    public float MaxHP; //맥스체력
-    public float CurMP; //현재마법력
-    public float MaxMP; //맥스마법력
-    public float RealExp; //경험치
-    public float MaxExp; //목표경험치
+    public float curHp; //현재체력
+    public float maxHp; //맥스체력
+    public float curMp; //현재마법력
+    public float maxMp; //맥스마법력
+    public float realExp; //경험치
+    public float maxExp; //목표경험치
 
     //전투관련
-    public int AttackMotion; //어떤공격을 받는가
-    public int AttackValue; //공격력
-    public int DefenseValue; //방어력
+    public int attackMotion; //어떤공격을 받는가
+    public int attackValue; //공격력
+    public int defenseValue; //방어력
 
-    public int MagicMotion; //어떤공격을 받는가
-    public int MagicAtkPoint; //마법공격력
-    public int MagicDefPoint; //마법방어력
+    public int magicMotion; //어떤공격을 받는가
+    public int magicAtkValue; //마법공격력
+    public int magicDefValue; //마법방어력
 
-    public int SearchRange = 4;     //  탐색 범위
-    public int MoveRange = 3;       //  이동 범위
-    public int AttackRange = 1;     //  공격 범위
-    
-    public int HoldMoney; //수중의 돈
+    public int searchRange = 4;     //  탐색 범위
+    public int moveRange = 3;       //  이동 범위
+    public int attackRange = 1;     //  공격 범위
+
+    public int holdMoney; //수중의 돈
 
     public StatusInfo()
     {
@@ -42,19 +42,39 @@ public class StatusInfo
 
     public StatusInfo(MonsterData data)
     {
-        UserName = data.ID.ToString();
+        userName = data.ID.ToString();
+        charLevel = 1;
+        realExp = maxExp = 0;
 
-        CurHP = MaxHP = data.MaxHp;
+        curHp = maxHp = data.MaxHp;
+        curMp = maxMp = 0;
 
-        AttackValue = data.Atk;
-        MagicAtkPoint = data.Atk;
+        attackValue = data.Atk;
+        magicAtkValue = data.Atk;
 
-        DefenseValue = data.Def;
-        MagicDefPoint = data.Def;
+        defenseValue = data.Def;
+        magicDefValue = data.Def;
 
-        SearchRange = data.SearchRange;
-        MoveRange = data.MoveRange;
-        AttackRange = data.AtkRange;
+        searchRange = data.SearchRange;
+        moveRange = data.MoveRange;
+        attackRange = data.AtkRange;
+    }
+
+    public StatusInfo(CharLevelData lvData, CharJobData jobData)
+    {
+        curHp = maxHp = jobData.MaxHp;
+        curMp = maxMp = jobData.MaxMp;
+        realExp = 0;
+        maxExp = lvData.ClassMaxExp;
+
+        attackValue = jobData.MinAttack;
+        defenseValue = jobData.MinDef;
+        magicAtkValue = jobData.MinMagic;
+        magicDefValue = jobData.MinResist;
+
+        searchRange = 0;
+        moveRange = jobData.MoveRange;
+        attackRange = jobData.AttackRange;
     }
 }
 
@@ -70,8 +90,8 @@ public class CharStatus : MonoBehaviour
     private void Awake()
     {
         MyCharacter = new StatusInfo();
-        MyCharacter.CurHP = MyCharacter.MaxHP;
-        MyCharacter.CurMP = MyCharacter.MaxMP;
+        MyCharacter.curHp = MyCharacter.maxHp;
+        MyCharacter.curMp = MyCharacter.maxMp;
     }
 
     // Update is called once per frame

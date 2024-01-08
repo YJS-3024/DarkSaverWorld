@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GlobalEnum;
+using Table;
 using UnityEngine;
 
 public class PlayerChar : BaseCharObject
@@ -22,14 +23,24 @@ public class PlayerChar : BaseCharObject
 
     public int MoveRange
     {
-        get => charStatus.GetStatus.MoveRange;
-        set => charStatus.GetStatus.MoveRange = value;
+        get => charStatus.GetStatus.moveRange;
+        set => charStatus.GetStatus.moveRange = value;
     }
 
     public int AttackRange
     {
-        get => charStatus.GetStatus.AttackRange;
-        set => charStatus.GetStatus.AttackRange = value;
+        get => charStatus.GetStatus.attackRange;
+        set => charStatus.GetStatus.attackRange = value;
+    }
+
+    private void Start()
+    {
+        var testLv = (short)1;
+        var testJobID = (short)101;
+
+        var lvData = TableManager.I.CharLevel.GetData(testLv);
+        var jobData = TableManager.I.CharJob.GetData(testJobID);
+        charStatus.SetStatus(new StatusInfo(lvData, jobData));
     }
 
     public override void Move(List<PlanePathNode> nodes = null)
@@ -60,7 +71,7 @@ public class PlayerChar : BaseCharObject
         if (enemy != null)
         {
             Debug.Log($"{enemy.name} 공~격~!");
-            enemy.HitDamage(charStatus.GetStatus.AttackValue);
+            enemy.HitDamage(charStatus.GetStatus.attackValue);
         }
 
         charStatus.GetStatus.actPoint -= 2;

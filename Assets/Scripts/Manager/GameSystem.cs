@@ -12,6 +12,10 @@ public class GameSystem : MonoSingleton<GameSystem>
         ResourceManager.I.SetParent(transform);
         yield return new WaitUntil(() => isLoad);
 
+        isLoad = TableManager.I.Initialize();
+        TableManager.I.SetParent(transform);
+        yield return new WaitUntil(() => isLoad);
+
         isLoad = TilemapManager.I.Initialize();
         TilemapManager.I.SetParent(transform);
         yield return new WaitUntil(() => isLoad);
@@ -39,11 +43,6 @@ public class GameSystem : MonoSingleton<GameSystem>
         isLoad = UIManager.I.Initialize();
         UIManager.I.SetParent(transform);
         yield return new WaitUntil(() => isLoad);
-
-        isLoad = TableManager.I.Initialize();
-        TableManager.I.SetParent(transform);
-        yield return new WaitUntil(() => isLoad);
-
     }
 
     public override bool Initialize()
