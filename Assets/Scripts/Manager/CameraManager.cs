@@ -27,7 +27,6 @@ public class CameraManager : MonoSingleton<CameraManager>
 
     public override bool Initialize()
     {
-        mainCamera = Camera.main;
         Camera.main.orthographicSize = Screen.orientation == ScreenOrientation.Portrait
             ? 7
             : 5;
@@ -51,6 +50,12 @@ public class CameraManager : MonoSingleton<CameraManager>
     private void SetLimitCameraArea()
     {
         var mainChar = PlayerManager.I.MainPlayer;
+        if (mainChar is null)
+            return;
+
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+
         mainCamera.transform.position = Vector3.Lerp(
             mainCamera.transform.position,
             mainChar.CameraFollowPos.position,

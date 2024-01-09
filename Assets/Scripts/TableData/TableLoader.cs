@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class TableLoader
 {
-    public void LoadTable<T>(string tableName, ref Dictionary<int, T> dic) where T : new()
+    public bool LoadTable<T>(string tableName, ref Dictionary<int, T> dic) where T : new()
     {
         var strData = GetBinaryTable(tableName);
         var lineDatas = strData.Split(new char[]{'\n','\r'}, StringSplitOptions.RemoveEmptyEntries);
         if (lineDatas.Length == 0)
-            return;
+            return false;
 
         var variables = lineDatas[0].Split(',');
         for (int i = 1; i < lineDatas.Length; i++)
@@ -59,6 +59,8 @@ public class TableLoader
                 dic[key] = data;
             }
         }
+
+        return true;
     }
 
     private string GetBinaryTable(string fileName)

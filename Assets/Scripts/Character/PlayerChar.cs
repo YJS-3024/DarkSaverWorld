@@ -33,13 +33,16 @@ public class PlayerChar : BaseCharObject
         set => charStatus.GetStatus.attackRange = value;
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return null;
+
         var testLv = (short)1;
         var testJobID = (short)101;
 
         var lvData = TableManager.I.CharLevel.GetData(testLv);
         var jobData = TableManager.I.CharJob.GetData(testJobID);
+
         charStatus.SetStatus(new StatusInfo(lvData, jobData));
     }
 

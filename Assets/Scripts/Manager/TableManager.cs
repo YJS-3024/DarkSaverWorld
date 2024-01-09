@@ -1,5 +1,13 @@
 using Table;
 
+namespace Table
+{
+    public interface Table_Interface
+    {
+        public bool IsLoadSuccess { get; set; }
+    }
+}
+
 public partial class TableManager : MonoSingleton<TableManager>
 {
     private TableLoader loader = new TableLoader();
@@ -16,11 +24,11 @@ public partial class TableManager : MonoSingleton<TableManager>
 
     public override bool Initialize()
     {
-        loader.LoadTable("Data_CharLevel", ref Item.DicItemDatas);
-        loader.LoadTable("Data_Job", ref Item.DicItemDatas);
-        loader.LoadTable("Data_Item", ref Item.DicItemDatas);
-        loader.LoadTable("Data_String", ref String.DicStringDatas);
-        loader.LoadTable("Data_Monster", ref Monster.DicMonsterDatas);
+        CharLevel.IsLoadSuccess = loader.LoadTable("Data_CharLevel", ref CharLevel.DicCharLevelDatas);
+        CharLevel.IsLoadSuccess = loader.LoadTable("Data_Job", ref CharJob.DicCharJobDatas);
+        CharLevel.IsLoadSuccess = loader.LoadTable("Data_Item", ref Item.DicItemDatas);
+        CharLevel.IsLoadSuccess = loader.LoadTable("Data_String", ref String.DicStringDatas);
+        CharLevel.IsLoadSuccess = loader.LoadTable("Data_Monster", ref Monster.DicMonsterDatas);
 
         return true;
     }

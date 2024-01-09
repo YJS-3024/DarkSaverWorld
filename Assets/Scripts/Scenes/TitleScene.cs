@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Scene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TitleScene : MonoBehaviour
+public class TitleScene : SceneController
 {
     [SerializeField] private Text txtTitleScene;
     [SerializeField] private Button btnNextScene;
@@ -14,8 +15,12 @@ public class TitleScene : MonoBehaviour
 
     private const float ReturnTime = 1f;
 
-    private void Awake()
+    public override SceneType GetSceneType() => SceneType.Scene_Title;
+
+    protected override void Awake()
     {
+        base.Awake();
+
         btnNextScene.onClick.AddListener(OnClick_NextScene);
     }
 
@@ -37,6 +42,6 @@ public class TitleScene : MonoBehaviour
 
     private void OnClick_NextScene()
     {
-        SceneManager.LoadScene("Tilemap_Field_1");
+        SceneManager.LoadScene("2D_Scene");
     }
 }

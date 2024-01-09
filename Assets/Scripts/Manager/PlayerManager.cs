@@ -11,17 +11,6 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
     public override bool Initialize()
     {
-        if (MainPlayer is null)
-        {
-            var prefab = ResourceManager.I.Load<GameObject>(eResourceType.Prefabs, "Character/MainPlayer");
-            if (prefab != null)
-            {
-                var go = Instantiate(prefab);
-                go.transform.localPosition = new Vector3(0.5f, -0.5f, 0);
-                MainPlayer = go.GetComponent<PlayerChar>();
-            }
-        }
-
         if (ActionPlate is null)
         {
             var prefab = ResourceManager.I.Load<GameObject>(eResourceType.Prefabs, "ActionPlates");
@@ -34,6 +23,20 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         }
 
         return true;
+    }
+
+    public void CreatePlayer(bool isMainPlayer)
+    {
+        if (MainPlayer is null)
+        {
+            var prefab = ResourceManager.I.Load<GameObject>(eResourceType.Prefabs, "Character/MainPlayer");
+            if (prefab != null)
+            {
+                var go = Instantiate(prefab);
+                go.transform.localPosition = new Vector3(0.5f, -0.5f, 0);
+                MainPlayer = go.GetComponent<PlayerChar>();
+            }
+        }
     }
 
     public void CreatePlates(Vector2 pos)

@@ -149,14 +149,18 @@ public class Create_TableData : Editor
         sb.AppendLine("{");
 
         sb.Append(OneTab);
-        sb.AppendLine($"public partial class {fileName}");
+        sb.AppendLine($"public partial class {fileName} : {nameof(Table.Table_Interface)}");
 
         sb.Append(OneTab);
         sb.AppendLine($""+"{");
 
         sb.Append(OneTab);
         sb.Append(OneTab);
-        sb.AppendLine($"public Dictionary<{typeResult}, {dataName}> Dic{dataName}s = new Dictionary<{typeResult}, {dataName}>();");
+        sb.AppendLine($"public Dictionary<int, {dataName}> Dic{dataName}s = new Dictionary<int, {dataName}>();");
+
+        sb.AppendLine(OneTab);
+
+        sb.AppendLine("public bool IsLoadSuccess { get; set; } = false;");
 
         sb.Append(OneTab);
         sb.AppendLine("}");
