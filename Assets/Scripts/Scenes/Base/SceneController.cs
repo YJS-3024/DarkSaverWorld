@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using Scene;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Scene
 {
@@ -12,10 +15,15 @@ namespace Scene
 
 public abstract class SceneController : MonoBehaviour
 {
+    private Dictionary<SceneType, string> dicScenes = new Dictionary<SceneType, string>();
+    
     public abstract Scene.SceneType GetSceneType();
 
     protected virtual void Awake()
     {
+        dicScenes.Add(SceneType.Scene_Title, "TitleScene");
+        dicScenes.Add(SceneType.Scene_Battle, "2D_Scene");
+
         Init();
     }
 
@@ -26,5 +34,13 @@ public abstract class SceneController : MonoBehaviour
             return;
 
         GameSystem.I.Initialize();
+    }
+
+    public void ChangeScene(SceneType type)
+    {
+        if (dicScenes.TryGetValue(type, out var sceneName))
+        {
+            SceneManager.LoadSceneAsync(sceneName);
+        }
     }
 }

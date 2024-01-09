@@ -57,6 +57,7 @@ public partial class UIManager : MonoSingleton<UIManager>
     public CanvasScaler CanvasScaler => _commonUI.CanvasScaler;
     public GameUI GameUI => _commonUI.GameUI;
     public TopUI TopUI => _commonUI.TopUI;
+    public LoadingUI LoadingUI => _commonUI.LoadingUI;
     public Vector2 CanvasScale => _commonUI.CanvasScale;
 
     protected override void Destroy(){ }

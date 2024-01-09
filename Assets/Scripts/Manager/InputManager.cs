@@ -19,7 +19,17 @@ public class InputManager : MonoSingleton<InputManager>
         //터치 했을시
         if (Input.touchCount > 0)
         {
-            // Click_Move(Input.touches.FirstOrDefault().position);
+            var touch = Input.touches.First();
+            if (touch.phase == TouchPhase.Began)
+            {
+                var mousePos = Camera.main.ScreenPointToRay(touch.position);
+                var hit = Physics2D.RaycastAll(mousePos.origin, mousePos.direction);
+
+                if(hit.Length <= 0)
+                    return;
+
+                SetClick_Hit(hit);
+            }
         }
         else
         {
@@ -37,11 +47,16 @@ public class InputManager : MonoSingleton<InputManager>
                 if(hit.Length <= 0)
                     return;
 
-                SetClick_Player(hit);
-                // SetClick_Enemy(hit);
-                SetClick_ActionPlate(hit);
+                SetClick_Hit(hit);
             }
         }
+    }
+
+    private void SetClick_Hit(RaycastHit2D[] hit)
+    {
+        SetClick_Player(hit);
+        // SetClick_Enemy(hit);
+        SetClick_ActionPlate(hit);
     }
 
     private void SetClick_Player(RaycastHit2D[] hit)

@@ -25,10 +25,10 @@ public partial class TableManager : MonoSingleton<TableManager>
     public override bool Initialize()
     {
         CharLevel.IsLoadSuccess = loader.LoadTable("Data_CharLevel", ref CharLevel.DicCharLevelDatas);
-        CharLevel.IsLoadSuccess = loader.LoadTable("Data_Job", ref CharJob.DicCharJobDatas);
-        CharLevel.IsLoadSuccess = loader.LoadTable("Data_Item", ref Item.DicItemDatas);
-        CharLevel.IsLoadSuccess = loader.LoadTable("Data_String", ref String.DicStringDatas);
-        CharLevel.IsLoadSuccess = loader.LoadTable("Data_Monster", ref Monster.DicMonsterDatas);
+        CharJob.IsLoadSuccess = loader.LoadTable("Data_CharJob", ref CharJob.DicCharJobDatas);
+        Item.IsLoadSuccess = loader.LoadTable("Data_Item", ref Item.DicItemDatas);
+        String.IsLoadSuccess = loader.LoadTable("Data_String", ref String.DicStringDatas);
+        Monster.IsLoadSuccess = loader.LoadTable("Data_Monster", ref Monster.DicMonsterDatas);
 
         return true;
     }

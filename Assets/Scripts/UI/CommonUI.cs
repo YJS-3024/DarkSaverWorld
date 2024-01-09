@@ -53,6 +53,21 @@ public class CommonUI : MonoBehaviour
         }
     }
 
+    private LoadingUI _loadingUI;
+
+    public LoadingUI LoadingUI
+    {
+        get
+        {
+            if (_loadingUI is null)
+            {
+                _loadingUI = GetComponentInChildren<LoadingUI>();
+            }
+            
+            return _loadingUI;
+        }
+    }
+
     private void Awake()
     {
         if (MainCanvas is null)

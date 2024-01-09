@@ -43,7 +43,10 @@ public class PlayerChar : BaseCharObject
         var lvData = TableManager.I.CharLevel.GetData(testLv);
         var jobData = TableManager.I.CharJob.GetData(testJobID);
 
-        charStatus.SetStatus(new StatusInfo(lvData, jobData));
+        if (lvData != null && jobData != null)
+        {
+            charStatus.SetStatus(new StatusInfo(lvData, jobData));
+        }
     }
 
     public override void Move(List<PlanePathNode> nodes = null)

@@ -34,7 +34,8 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
 
     public void Reset()
     {
-        if (_tilemapList is null)
+        if (_tilemapList is null || 
+            _tilemapList.Count == 0)
         {
             _tilemapList = FindObjectsOfType<Tilemap>().ToList();
 

@@ -13,11 +13,13 @@ public class RespawnEnemys : MonoBehaviour
 
     private Vector3 _curPos = Vector3.zero;
 
+    public bool IsInit = false;
+
     // Start is called before the first frame update
     private IEnumerator Start()
     {
-        yield return new WaitForSeconds(1f);
-
+        yield return new WaitUntil(() => IsInit);
+        
         _curPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
 
         while (true)

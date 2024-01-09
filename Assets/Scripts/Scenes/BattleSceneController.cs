@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Scene;
 using UnityEngine;
 
-public class BattleScene : SceneController
+public class BattleSceneController : SceneController
 {
     public override Scene.SceneType GetSceneType() => SceneType.Scene_Battle;
 
@@ -15,8 +15,9 @@ public class BattleScene : SceneController
     // Start is called before the first frame update
     private IEnumerator Start()
     {
-        yield return null;
-
+        yield return new WaitUntil(()=>TilemapManager.I.Initialize());
+        yield return new WaitUntil(()=>CameraManager.I.Initialize());
+        
         PlayerManager.I.CreatePlayer(true);
     }
 }
