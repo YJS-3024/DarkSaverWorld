@@ -61,7 +61,7 @@ public class CommonUI : MonoBehaviour
         {
             if (_loadingUI is null)
             {
-                _loadingUI = GetComponentInChildren<LoadingUI>();
+                _loadingUI = GetComponentInChildren<LoadingUI>(true);
             }
             
             return _loadingUI;

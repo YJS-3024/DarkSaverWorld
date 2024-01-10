@@ -27,9 +27,9 @@ public class CameraManager : MonoSingleton<CameraManager>
 
     public override bool Initialize()
     {
-        Camera.main.orthographicSize = Screen.orientation == ScreenOrientation.Portrait
-            ? 7
-            : 5;
+        // Camera.main.orthographicSize = Screen.orientation == ScreenOrientation.Portrait
+        //     ? 7
+        //     : 5;
 
         _height = Camera.main.orthographicSize;
         _width = _height * Screen.width / Screen.height;

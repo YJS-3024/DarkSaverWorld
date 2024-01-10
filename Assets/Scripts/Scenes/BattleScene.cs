@@ -1,15 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
-using Scene;
 using UnityEngine;
 
-public class BattleSceneController : SceneController
+public class BattleScene : MonoBehaviour
 {
-    public override Scene.SceneType GetSceneType() => SceneType.Scene_Battle;
-
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
+
     }
 
     // Start is called before the first frame update

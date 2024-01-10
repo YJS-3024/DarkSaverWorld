@@ -25,6 +25,13 @@ namespace GlobalEnum
         Max
     }
 
+    public enum SceneType
+    {
+        Scene_Title,
+        Scene_Village,
+        Scene_Battle,
+    }
+
     public enum eCharDirectionType
     {
         Back,

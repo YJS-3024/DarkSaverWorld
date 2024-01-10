@@ -5,44 +5,17 @@ public class GameSystem : MonoSingleton<GameSystem>
 {
     private IEnumerator Start()
     {
-        var isLoad = Initialize();
-        yield return new WaitUntil(() => isLoad);
-
-        isLoad = ResourceManager.I.Initialize();
-        ResourceManager.I.SetParent(transform);
-        yield return new WaitUntil(() => isLoad);
-
-        isLoad = TableManager.I.Initialize();
-        TableManager.I.SetParent(transform);
-        yield return new WaitUntil(() => isLoad);
-
-        isLoad = PlayerManager.I.Initialize();
-        PlayerManager.I.SetParent(transform);
-        yield return new WaitUntil(() => isLoad);
-        
-        isLoad = InputManager.I.Initialize();
-        InputManager.I.SetParent(transform);
-        yield return new WaitUntil(() => isLoad);
-     
-        isLoad = TilemapManager.I.Initialize();
-        TilemapManager.I.SetParent(transform);
-        yield return new WaitUntil(() => isLoad);
-
-        isLoad = EnemyManager.I.Initialize();
-        EnemyManager.I.SetParent(transform);
-        yield return new WaitUntil(() => isLoad);
-
-        isLoad = CameraManager.I.Initialize();
-        CameraManager.I.SetParent(transform);
-        yield return new WaitUntil(() => isLoad);
-        
-        isLoad = EffectManager.I.Initialize();
-        EffectManager.I.SetParent(transform);
-        yield return new WaitUntil(() => isLoad);
-        
-        isLoad = UIManager.I.Initialize();
-        UIManager.I.SetParent(transform);
-        yield return new WaitUntil(() => isLoad);
+        yield return new WaitUntil(() => InitManger(UIManager.I));
+        yield return new WaitUntil(() => InitManger(SceneController.I));
+        yield return new WaitUntil(() => InitManger(ResourceManager.I));
+        yield return new WaitUntil(() => InitManger(TableManager.I));
+        yield return new WaitUntil(() => InitManger(PlayerManager.I));
+        yield return new WaitUntil(() => InitManger(InputManager.I));
+        yield return new WaitUntil(() => InitManger(TilemapManager.I));
+        yield return new WaitUntil(() => InitManger(EnemyManager.I));
+        yield return new WaitUntil(() => InitManger(CameraManager.I));
+        yield return new WaitUntil(() => InitManger(EffectManager.I));
+        yield return new WaitUntil(() => InitManger(UIManager.I));
     }
 
     public override bool Initialize()
@@ -52,5 +25,12 @@ public class GameSystem : MonoSingleton<GameSystem>
 
     protected override void Destroy()
     {
+    }
+
+    private bool InitManger<T>(T instance) where T : MonoSingleton<T>
+    {
+        var isLoad = instance.Initialize();
+        instance.SetParent(transform);
+        return isLoad;
     }
 }

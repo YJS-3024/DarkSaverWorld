@@ -1,46 +1,66 @@
+using System.Collections;
 using System.Collections.Generic;
-using Scene;
+using GlobalEnum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Scene
-{
-    public enum SceneType
-    {
-        Scene_Title,
-        Scene_Village,
-        Scene_Battle,
-    }
-}
-
-public abstract class SceneController : MonoBehaviour
+public class SceneController : MonoSingleton<SceneController>
 {
     private Dictionary<SceneType, string> dicScenes = new Dictionary<SceneType, string>();
-    
-    public abstract Scene.SceneType GetSceneType();
 
-    protected virtual void Awake()
+    public SceneType CurSceneType { get; private set; }
+
+
+    private Coroutine _continueChange;
+
+    protected override void Destroy() { }
+
+    public override bool Initialize()
     {
         dicScenes.Add(SceneType.Scene_Title, "TitleScene");
         dicScenes.Add(SceneType.Scene_Battle, "2D_Scene");
 
-        Init();
-    }
-
-    public void Init()
-    {
-        var gameSystem = FindObjectOfType<GameSystem>();
-        if (gameSystem != null)
-            return;
-
-        GameSystem.I.Initialize();
+        return true;
     }
 
     public void ChangeScene(SceneType type)
     {
-        if (dicScenes.TryGetValue(type, out var sceneName))
+        if(_continueChange != null)
+            return;
+
+        _continueChange = StartCoroutine(CoLoading(type));
+    }
+
+    private IEnumerator CoLoading(SceneType type)
+    {
+        if(dicScenes.TryGetValue(type, out var sceneName) == false)
+            yield break;
+
+        var async = SceneManager.LoadSceneAsync(sceneName);
+        var progress = 0f;
+
+        while (true)
         {
-            SceneManager.LoadSceneAsync(sceneName);
+            progress = async.progress;
+            UIManager.I.LoadingUI.SetProgress(progress);
+
+            if (async.isDone)
+            {
+                break;
+            }
+
+            yield return new WaitUntil(()=> progress != async.progress);
         }
+
+        yield return new WaitForSeconds(1f);
+
+        CompleteSceneLoad();
+    }
+
+    public void CompleteSceneLoad()
+    {
+        _continueChange = null;
+
+        UIManager.I.LoadingUI.SetActive(false);
     }
 }

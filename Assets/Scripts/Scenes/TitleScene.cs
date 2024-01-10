@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using Scene;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TitleScene : SceneController
+public class TitleScene : MonoBehaviour
 {
     [SerializeField] private Text txtTitleScene;
     [SerializeField] private Button btnNextScene;
@@ -15,13 +11,18 @@ public class TitleScene : SceneController
 
     private const float ReturnTime = 1f;
 
-    public override SceneType GetSceneType() => SceneType.Scene_Title;
-
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
-
         btnNextScene.onClick.AddListener(OnClick_NextScene);
+    }
+
+    public void Start()
+    {
+        var gameSystem = FindObjectOfType<GameSystem>();
+        if (gameSystem != null)
+            return;
+
+        GameSystem.I.Initialize();
     }
 
     // Update is called once per frame
@@ -42,6 +43,6 @@ public class TitleScene : SceneController
 
     private void OnClick_NextScene()
     {
-        SceneManager.LoadScene("2D_Scene");
+        SceneController.I.ChangeScene(GlobalEnum.SceneType.Scene_Battle);
     }
 }
