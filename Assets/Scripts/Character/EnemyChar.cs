@@ -27,10 +27,6 @@ public class EnemyChar : BaseCharObject
         }
     }
 
-    public override void Magic()
-    {
-    }
-
     public override void Move(List<PlanePathNode> nodes = null)
     {
         var searchRange = charStatus.GetStatus.searchRange;

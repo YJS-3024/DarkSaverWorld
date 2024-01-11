@@ -38,7 +38,7 @@ public class PlayerChar : BaseCharObject
         yield return null;
 
         var testLv = (short)1;
-        var testJobID = (short)101;
+        var testJobID = (short)201;
 
         var lvData = TableManager.I.CharLevel.GetData(testLv);
         var jobData = TableManager.I.CharJob.GetData(testJobID);
@@ -84,9 +84,9 @@ public class PlayerChar : BaseCharObject
         CharAction = eCharAction.None;
     }
 
-    public override void Magic()
-    {
-    }
+    public override void MagicSkill(int magicId) { }
+
+    public override void MagicSkill(int magicId, List<PlanePathNode> node) { }
 
     public override void Rest()
     {

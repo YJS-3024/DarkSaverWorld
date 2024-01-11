@@ -110,9 +110,18 @@ public class CharStatus : MonoBehaviour
         }
     }
 
-    public void SetStatus(StatusInfo status)
+    public void SetStatus(StatusInfo status, bool isScarecrow = false)
     {
         MyCharacter = status;
+
+        if (isScarecrow)
+        {
+            var ai = GetComponent<EnemyAI_Base>();
+            if (ai != null)
+            {
+                Destroy(ai);
+            }
+        }
     }
 
     public void ResetAction()

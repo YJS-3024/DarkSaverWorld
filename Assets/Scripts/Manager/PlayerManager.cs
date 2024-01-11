@@ -39,18 +39,23 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         }
     }
 
-    public void CreatePlates(Vector2 pos)
+    public void CreatePlates(Vector2 centerPos,eCharAction actionType, int range)
     {
-        switch (MainPlayer.CharAction)
+        switch (actionType)
         {
             case eCharAction.Move:
             {
-                ActionPlate.CreateMovePlate(pos, MainPlayer.MoveRange);
+                ActionPlate.CreateMovePlate(centerPos, range);
                 break;
             }
             case eCharAction.Attack:
             {
-                ActionPlate.CreateAttackPlate(pos, MainPlayer.AttackRange);
+                ActionPlate.CreateAttackPlate(centerPos, range);
+                break;
+            }
+            case eCharAction.Magic:
+            {
+                ActionPlate.CreateAttackPlate(centerPos, range);
                 break;
             }
         }

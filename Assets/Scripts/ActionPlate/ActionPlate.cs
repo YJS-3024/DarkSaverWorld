@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GlobalEnum;
 using UnityEngine;
 
@@ -31,6 +32,17 @@ public class ActionPlate : MonoBehaviour
             {
                 var node = TilemapManager.I.GetNode_WorldPos(pos);
                 PlayerManager.I.MainPlayer.Attack(node);
+                break;
+            }
+            case eCharAction.Magic:
+            {
+                var magicSkillId = 1;
+                var list = new List<PlanePathNode>
+                {
+                    TilemapManager.I.GetNode_WorldPos(pos)
+                };
+
+                PlayerManager.I.MainPlayer.MagicSkill(magicSkillId, list);
                 break;
             }
         }
@@ -72,6 +84,10 @@ public class ActionPlate : MonoBehaviour
             case eCharAction.Attack:
             {
                 return "#ff0000";
+            }
+            case eCharAction.Magic:
+            {
+                return "#ffff00";
             }
             case eCharAction.Move:
             case eCharAction.None:

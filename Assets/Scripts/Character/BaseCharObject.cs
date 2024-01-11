@@ -109,7 +109,8 @@ public abstract class BaseCharObject : MonoBehaviour
     /// <summary>
     /// 마법 공격 시작
     /// </summary>
-    public abstract void Magic();
+    public virtual void MagicSkill(int skillId) { }
+    public virtual void MagicSkill(int skillId, List<PlanePathNode> node) { }
 
     /// <summary>
     /// 이동

@@ -61,8 +61,9 @@ namespace GlobalEnum
         NONE,
         PLAYER = 1,
         NPC,
-        
-        Monster_Normal = 11,
+
+        Monster_Scarecrow = 10,
+        Monster_Normal,
         Monster_Elete,
         Monster_Boss,
     }

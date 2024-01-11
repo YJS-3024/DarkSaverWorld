@@ -24,7 +24,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
         return true;
     }
 
-    public EnemyChar CreateEnemy(int monId, Vector3 createPos)
+    public EnemyChar CreateEnemy(int monId, Vector3 createPos, bool isScarecrow = false)
     {
         var monData = TableManager.I.Monster.GetData(monId);
         if (monData is null)
@@ -45,7 +45,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
 
             var comp = go.GetComponent<EnemyChar>();
             comp.EnemyIdx = ++_createIndex;
-            comp.charStatus.SetStatus(new StatusInfo(monData));
+            comp.charStatus.SetStatus(new StatusInfo(monData), isScarecrow);
 
             _activeEnemyList.Add(comp.EnemyIdx, comp);
             return comp;

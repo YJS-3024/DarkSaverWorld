@@ -7,6 +7,7 @@ using UnityEngine;
 public class RespawnEnemys : MonoBehaviour
 {
     [SerializeField] private int createCountMax = 3;
+    [SerializeField] private int createMonsterId = 1;
 
     private float createInterval = 10f;
     private readonly List<BaseCharObject> _enemyList = new List<BaseCharObject>();
@@ -14,6 +15,7 @@ public class RespawnEnemys : MonoBehaviour
     private Vector3 _curPos = Vector3.zero;
 
     public bool IsInit = false;
+    public bool IsScarecrow = false;
 
     // Start is called before the first frame update
     private IEnumerator Start()
@@ -33,7 +35,7 @@ public class RespawnEnemys : MonoBehaviour
             if(_enemyList.Count >= createCountMax)
                 continue;
             
-            _enemyList.Add(EnemyManager.I.CreateEnemy(1, transform.position));
+            _enemyList.Add(EnemyManager.I.CreateEnemy(createMonsterId, transform.position, IsScarecrow));
 
             yield return new WaitForSeconds(createInterval);
         }
