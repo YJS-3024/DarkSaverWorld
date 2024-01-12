@@ -10,7 +10,7 @@ public class Create_BinaryFile : Editor
     private const string SaveFileName = "{0}.binary";
 
     // [MenuItem("Assets/Table/Create_BinaryTable")]
-    [MenuItem("Utility/Table/Create_BinaryTable")]
+    [MenuItem("Utility/Table/Create_BinaryFile")]
     public static void Create()
     {
         //  저장할 폴더 체크

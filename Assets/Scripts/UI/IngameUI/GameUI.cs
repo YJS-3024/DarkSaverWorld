@@ -1,9 +1,6 @@
 using System;
-using GlobalEnum;
-using UI.Extension;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
+
 
 public class GameUI : MonoBehaviour
 {
@@ -22,8 +19,20 @@ public class GameUI : MonoBehaviour
 
     private CommanderPageType _curPage = CommanderPageType.PageFirst;
 
+    private void Awake()
+    {
+        EventManager.I.AddEvent("Move_MagicSkillPage", OnMove_MagicSkillPage);
+    }
+
     public void SetCommander(Vector3 worldPos)
     {
+        if (_curPage != CommanderPageType.PageFirst)
+        {
+            useItemPage.gameObject.SetActive(false);
+            magicSkillPage.gameObject.SetActive(false);
+            jobSkillPage.gameObject.SetActive(false);
+        }
+
         _curPage = CommanderPageType.PageFirst;
 
         //  commanderRect의 렉트 앵커가 min,max가 모두 0이여야한다.
@@ -34,5 +43,11 @@ public class GameUI : MonoBehaviour
         commanderPage.Rect.anchoredPosition = new Vector2(uiPosX, uiPosY);
 
         commanderPage.Rect.gameObject.SetActive(!commanderPage.Rect.gameObject.activeSelf);
+    }
+
+    private void OnMove_MagicSkillPage()
+    {
+        magicSkillPage.gameObject.SetActive(true);
+        _curPage = CommanderPageType.PageMagicSkill;
     }
 }

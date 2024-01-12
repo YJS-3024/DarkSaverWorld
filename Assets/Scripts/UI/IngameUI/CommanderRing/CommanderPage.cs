@@ -22,28 +22,28 @@ public class CommanderPage : MonoBehaviour
     {
         gameObject.SetActive(false);
 
-        btnMove.onClick.AddListener(OnClick_Move);
+        btnMove.AddListener(OnClick_Move);
         btnMove.ButtonString = TableManager.I.String.GetString("Action_Move");
 
-        btnItem.onClick.AddListener(OnClick_UseItem);
+        btnItem.AddListener(OnClick_UseItem);
         btnItem.ButtonString = TableManager.I.String.GetString("Action_UseItem");
 
-        btnAttack.onClick.AddListener(OnClick_Attack);
+        btnAttack.AddListener(OnClick_Attack);
         btnAttack.ButtonString = TableManager.I.String.GetString("Action_Attack");
 
-        btnMagicSkill.onClick.AddListener(OnClick_MagicSkill);
+        btnMagicSkill.AddListener(OnClick_MagicSkill);
         btnMagicSkill.ButtonString = TableManager.I.String.GetString("Action_Magic");
 
-        btnJobSkill.onClick.AddListener(OnClick_JobSkill);
+        btnJobSkill.AddListener(OnClick_JobSkill);
         btnJobSkill.ButtonString = TableManager.I.String.GetString("Action_SpecialAttack");
 
-        btnRest.onClick.AddListener(OnClick_Rest);
+        btnRest.AddListener(OnClick_Rest);
         btnRest.ButtonString = TableManager.I.String.GetString("Action_Rest");
 
-        btnOperation.onClick.AddListener(OnClick_Operation);
+        btnOperation.AddListener(OnClick_Operation);
         btnOperation.ButtonString = TableManager.I.String.GetString("Action_Operation");
 
-        btnOption.onClick.AddListener(OnClick_Option);
+        btnOption.AddListener(OnClick_Option);
         btnOption.ButtonString = TableManager.I.String.GetString("Action_Option");
     }
 
@@ -76,6 +76,7 @@ public class CommanderPage : MonoBehaviour
 
     private void OnClick_MagicSkill()
     {
+        EventManager.I.CallEvent("Move_MagicSkillPage")?.Invoke();
         gameObject.SetActive(false);
     }
 

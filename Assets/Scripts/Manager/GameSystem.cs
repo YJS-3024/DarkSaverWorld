@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameSystem : MonoSingleton<GameSystem>
@@ -16,6 +17,7 @@ public class GameSystem : MonoSingleton<GameSystem>
         yield return new WaitUntil(() => InitManger(CameraManager.I));
         yield return new WaitUntil(() => InitManger(EffectManager.I));
         yield return new WaitUntil(() => InitManger(UIManager.I));
+        yield return new WaitUntil(() => InitManger(EventManager.I));
     }
 
     public override bool Initialize()
