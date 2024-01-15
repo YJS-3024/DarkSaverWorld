@@ -40,6 +40,19 @@ namespace GlobalEnum
         Right,
     }
 
+    public enum eCommandType
+    {
+        None,
+        Move,
+        UseItem,
+        Attack,
+        MagicSkill,
+        JobSkill,
+        Rest,
+        Operation,
+        Option,
+    }
+
     public enum eCharAction
     {
         None,

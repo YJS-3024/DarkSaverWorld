@@ -17,6 +17,7 @@ public partial class TableManager : MonoSingleton<TableManager>
     public TableManager_Item Item { get; } = new TableManager_Item();
     public TableManager_String String { get; }  = new TableManager_String();
     public TableManager_Monster Monster { get; }  = new TableManager_Monster();
+    public TableManager_Skill Skill { get; } = new TableManager_Skill();
 
     protected override void Destroy()
     {
@@ -29,6 +30,7 @@ public partial class TableManager : MonoSingleton<TableManager>
         Item.IsLoadSuccess = loader.LoadTable("Data_Item", ref Item.DicItemDatas);
         String.IsLoadSuccess = loader.LoadTable("Data_String", ref String.DicStringDatas);
         Monster.IsLoadSuccess = loader.LoadTable("Data_Monster", ref Monster.DicMonsterDatas);
+        Skill.IsLoadSuccess = loader.LoadTable("Data_Skill", ref Skill.DicSkillDatas);
 
         return true;
     }

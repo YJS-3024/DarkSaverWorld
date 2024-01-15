@@ -48,6 +48,7 @@ public class GameUI : MonoBehaviour
     private void OnMove_MagicSkillPage()
     {
         magicSkillPage.gameObject.SetActive(true);
+        magicSkillPage.SetPage();
         _curPage = CommanderPageType.PageMagicSkill;
     }
 }

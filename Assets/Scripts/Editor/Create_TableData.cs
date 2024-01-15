@@ -160,6 +160,8 @@ public class Create_TableData : Editor
 
         sb.AppendLine(OneTab);
 
+        sb.Append(OneTab);
+        sb.Append(OneTab);
         sb.AppendLine("public bool IsLoadSuccess { get; set; } = false;");
 
         sb.Append(OneTab);

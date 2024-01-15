@@ -2,25 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UI.Extension;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MagicSkillPage : MonoBehaviour
 {
-    [SerializeField] private ButtonEx[] arrSkills;
+    [FormerlySerializedAs("arrSkills")]
+    [SerializeField] private ButtonEx[] arrBtnSkills;
 
     private void Awake()
     {
         gameObject.SetActive(false);
+
+        foreach (var btnSkill in arrBtnSkills)
+            btnSkill.gameObject.SetActive(false);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetPage()
     {
-        
-    }
+        var skills = TableManager.I.Skill.GetSkillList();
+        if (skills.Count == 0)
+            return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        for (int i = 0; i < arrBtnSkills.Length; i++)
+        {
+            var isActive = skills.Count > i;
+            arrBtnSkills[i].gameObject.SetActive(true);
+            arrBtnSkills[i].ButtonString = TableManager.I.String.GetString(isActive
+                ? skills[i].SkillID
+                : 0);
+        }
     }
 }
