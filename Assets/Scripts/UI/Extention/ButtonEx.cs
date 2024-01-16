@@ -37,9 +37,17 @@ namespace UI.Extension
             }
         }
 
-        public void AddListener(UnityAction action)
+        public void AddListener(Action action)
         {
-            Button.onClick.AddListener(action);
+            Button.onClick.AddListener(()=>
+            {
+                action?.Invoke();
+            });
+        }
+
+        public void SetActive(bool isActive)
+        {
+            gameObject.SetActive(isActive);
         }
     }
 }

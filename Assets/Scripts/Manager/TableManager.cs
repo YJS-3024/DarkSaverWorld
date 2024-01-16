@@ -10,7 +10,7 @@ namespace Table
 
 public partial class TableManager : MonoSingleton<TableManager>
 {
-    private TableLoader loader = new TableLoader();
+    private readonly TableLoader _loader = new TableLoader();
 
     public TableManager_CharLevel CharLevel { get; } = new TableManager_CharLevel();
     public TableManager_CharJob CharJob { get; } = new TableManager_CharJob();
@@ -25,12 +25,12 @@ public partial class TableManager : MonoSingleton<TableManager>
 
     public override bool Initialize()
     {
-        CharLevel.IsLoadSuccess = loader.LoadTable("Data_CharLevel", ref CharLevel.DicCharLevelDatas);
-        CharJob.IsLoadSuccess = loader.LoadTable("Data_CharJob", ref CharJob.DicCharJobDatas);
-        Item.IsLoadSuccess = loader.LoadTable("Data_Item", ref Item.DicItemDatas);
-        String.IsLoadSuccess = loader.LoadTable("Data_String", ref String.DicStringDatas);
-        Monster.IsLoadSuccess = loader.LoadTable("Data_Monster", ref Monster.DicMonsterDatas);
-        Skill.IsLoadSuccess = loader.LoadTable("Data_Skill", ref Skill.DicSkillDatas);
+        CharLevel.IsLoadSuccess = _loader.LoadTable("Data_CharLevel", ref CharLevel.DicCharLevelDatas);
+        CharJob.IsLoadSuccess = _loader.LoadTable("Data_CharJob", ref CharJob.DicCharJobDatas);
+        Item.IsLoadSuccess = _loader.LoadTable("Data_Item", ref Item.DicItemDatas);
+        String.IsLoadSuccess = _loader.LoadTable("Data_String", ref String.DicStringDatas);
+        Monster.IsLoadSuccess = _loader.LoadTable("Data_Monster", ref Monster.DicMonsterDatas);
+        Skill.IsLoadSuccess = _loader.LoadTable("Data_Skill", ref Skill.DicSkillDatas);
 
         return true;
     }

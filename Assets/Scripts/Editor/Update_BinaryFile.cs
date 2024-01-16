@@ -3,14 +3,13 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-public class Create_BinaryFile : Editor
+public class Update_BinaryFile : Editor
 {
     private const string TargetPath = "Assets/Resources/Tables/Original/";
     private const string ResultPath = "Assets/Resources/Tables/";
     private const string SaveFileName = "{0}.binary";
 
-    // [MenuItem("Assets/Table/Create_BinaryTable")]
-    [MenuItem("Utility/Table/Create_BinaryFile")]
+    [MenuItem("Utility/Table/Update_BinaryFile")]
     public static void Create()
     {
         //  저장할 폴더 체크

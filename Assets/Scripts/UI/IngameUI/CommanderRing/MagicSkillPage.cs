@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class MagicSkillPage : MonoBehaviour
 {
     [FormerlySerializedAs("arrSkills")]
-    [SerializeField] private ButtonEx[] arrBtnSkills;
+    [SerializeField] private CommandButton[] arrBtnSkills;
 
     private void Awake()
     {
@@ -25,11 +25,15 @@ public class MagicSkillPage : MonoBehaviour
 
         for (int i = 0; i < arrBtnSkills.Length; i++)
         {
-            var isActive = skills.Count > i;
             arrBtnSkills[i].gameObject.SetActive(true);
-            arrBtnSkills[i].ButtonString = TableManager.I.String.GetString(isActive
-                ? skills[i].SkillID
-                : 0);
+
+            var isActive = skills.Count > i;
+            if (isActive)
+            {
+                arrBtnSkills[i].SetCommand_Skill(skills[i].SkillID);
+            }
+
+            arrBtnSkills[i].SetActiveButton(isActive);
         }
     }
 }
