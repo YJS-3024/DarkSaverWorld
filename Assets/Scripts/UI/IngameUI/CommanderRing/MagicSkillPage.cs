@@ -30,10 +30,20 @@ public class MagicSkillPage : MonoBehaviour
             var isActive = skills.Count > i;
             if (isActive)
             {
-                arrBtnSkills[i].SetCommand_Skill(skills[i].SkillID);
+                arrBtnSkills[i].SetCommand_Skill(skills[i].SkillID, OnClick_SelectSkill);
             }
 
             arrBtnSkills[i].SetActiveButton(isActive);
         }
+    }
+
+    private void OnClick_SelectSkill(int skillId)
+    {
+        var skillData = TableManager.I.Skill.GetSkill(skillId);
+        if (skillData is null)
+            return;
+
+        var mainPlayer = PlayerManager.I.MainPlayer;
+        mainPlayer.MagicSkill(skillId);
     }
 }

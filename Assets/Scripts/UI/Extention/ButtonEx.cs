@@ -8,6 +8,8 @@ namespace UI.Extension
     [RequireComponent(typeof(Button))]
     public class ButtonEx : MonoBehaviour
     {
+        private UnityAction _onClick;
+
         private Text _btnText = null;
 
         public Text Text => _btnText != null
@@ -37,12 +39,14 @@ namespace UI.Extension
             }
         }
 
+        private void Awake()
+        {
+            Button.onClick.AddListener(_onClick);
+        }
+
         public void AddListener(Action action)
         {
-            Button.onClick.AddListener(()=>
-            {
-                action?.Invoke();
-            });
+            _onClick = () => action?.Invoke();
         }
 
         public void SetActive(bool isActive)
