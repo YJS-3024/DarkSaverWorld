@@ -1,39 +1,57 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using GlobalEnum;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class CommandPanel : MonoBehaviour
 {
-    [SerializeField] private ScrollRect scrollRect;
-    [SerializeField] private BaseScrollPool scrollPool;
 
-    private readonly List<CommandButton> _activeButtonList = new List<CommandButton>();
 
-    private void OnEnable()
+    public void OnClick_Move()
     {
-        var list = new[] { "Move", "Attack", "Magic", "Rest"};
-        foreach (var command in list)
-        {
-            var item = scrollPool.PopItem(scrollRect.content);
-            if (item is CommandButton btn)
-            {
-                btn.SetCommand($"Action_{command}", null);
-                btn.SetActiveButton(true);
+        PlayerManager.I.MainPlayer.CharAction = eCharAction.Move;
+        var pos = PlayerManager.I.MainPlayer.transform.position;
+        var range = PlayerManager.I.MainPlayer.MoveRange;
 
-                _activeButtonList.Add(btn);
-            }
-        }
+        PlayerManager.I.CreatePlates(pos, eCharAction.Move, range);
+
+        UIManager.I.GameUI.gameObject.SetActive(false);
     }
 
-    private void OnDisable()
+    public void OnClick_UseItem()
     {
-        foreach (var btn in _activeButtonList)
-        {
-            scrollPool.PushItem(btn);
-            _activeButtonList.Remove(btn);
-        }
+    }
+
+    public void OnClick_Attack()
+    {
+        PlayerManager.I.MainPlayer.CharAction = eCharAction.Attack;
+        var pos = PlayerManager.I.MainPlayer.transform.position;
+        var range = PlayerManager.I.MainPlayer.AttackRange;
+
+        PlayerManager.I.CreatePlates(pos, eCharAction.Attack, range);
+
+        UIManager.I.GameUI.gameObject.SetActive(false);
+    }
+
+    public void OnClick_Magic()
+    {
+        EventManager.I.CallEvent("Move_MagicSkillPage")?.Invoke();
+
+        UIManager.I.GameUI.gameObject.SetActive(false);
+    }
+
+    public void OnClick_JobSkill()
+    {
+    }
+
+    public void OnClick_Rest()
+    {
+        UIManager.I.GameUI.gameObject.SetActive(false);
+    }
+
+    public void OnClick_Operation()
+    {
+    }
+
+    public void OnClick_Option()
+    {
     }
 }

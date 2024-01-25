@@ -32,7 +32,7 @@ public class CommanderPage : MonoBehaviour
         btnOption.SetCommand(TableManager.I.String.GetString("Action_Option"), OnClick_Option);
     }
 
-    private void OnClick_Move()
+    public void OnClick_Move()
     {
         PlayerManager.I.MainPlayer.CharAction = eCharAction.Move;
         var pos = PlayerManager.I.MainPlayer.transform.position;
