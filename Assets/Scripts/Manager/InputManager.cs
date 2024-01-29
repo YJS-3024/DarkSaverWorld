@@ -69,6 +69,9 @@ public class InputManager : MonoSingleton<InputManager>
         if (playerChar is null)
             return;
 
+        // if (playerChar.charStatus.IsPossibleAction == false)
+        //     return;
+
         if (playerChar.CharAction != eCharAction.None)
         {
             PlayerManager.I.ClearPlates();

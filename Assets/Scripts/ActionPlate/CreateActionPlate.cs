@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using GlobalEnum;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -103,6 +105,9 @@ public class CreateActionPlate : MonoBehaviour
                     var xPos = Convert.ToInt32(charNode.centerPos.x + x * PosValue);
                     var yPos = Convert.ToInt32(charNode.centerPos.y + y * PosValue);
 
+                    if (TilemapManager.I.IsMove(xPos, yPos) == false)
+                        continue;
+
                     var go = Instantiate(movePlateGo.gameObject, this.transform);
                     if (go != null)
                     {
@@ -122,8 +127,13 @@ public class CreateActionPlate : MonoBehaviour
         createdList.AddRange(plateList);
     }
 
-    public void CreateSkillPlate(Vector2 pos, int rangeCount)
+    public void CreateSkillPlate(Vector2 pos, SkillData skillData)
     {
+        if (skillData is null)
+            return;
+
+        var rangeCount = skillData.SkillRange;
+
         List<ActionPlate> plateList = new List<ActionPlate>();
 
         var startNum = -rangeCount;
@@ -143,6 +153,20 @@ public class CreateActionPlate : MonoBehaviour
                 {
                     var xPos = Convert.ToInt32(charNode.centerPos.x + x * PosValue);
                     var yPos = Convert.ToInt32(charNode.centerPos.y + y * PosValue);
+
+                    // if (TilemapManager.I.IsMove(xPos, yPos) == false)
+                    //     continue;
+
+                    if (skillData.SkillType == (int)eSkillType.AttackSkill &&
+                        PlayerManager.I.GetIsPlayer(xPos, yPos))
+                    {
+                        continue;
+                    }
+                    else if (skillData.SkillType == (int)eSkillType.BuffSkill &&
+                             EnemyManager.I.GetIsEnemy(xPos, yPos))
+                    {
+                        continue;
+                    }
 
                     var go = Instantiate(movePlateGo.gameObject, this.transform);
                     if (go != null)

@@ -21,13 +21,13 @@ public class PlayerChar : BaseCharObject
         set => charStatus.CharAction = value;
     }
 
-    public int MoveRange
+    public short MoveRange
     {
         get => charStatus.GetStatus.moveRange;
         set => charStatus.GetStatus.moveRange = value;
     }
 
-    public int AttackRange
+    public short AttackRange
     {
         get => charStatus.GetStatus.attackRange;
         set => charStatus.GetStatus.attackRange = value;
@@ -96,6 +96,8 @@ public class PlayerChar : BaseCharObject
             return;
         
         Debug.Log($"{skillId} 사용할것");
+        charStatus.GetStatus.actPoint -= skillData.UseActPoint;
+        CharAction = eCharAction.None;
     }
 
     public override void Rest()

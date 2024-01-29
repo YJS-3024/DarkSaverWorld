@@ -29,9 +29,9 @@ public class StatusInfo
     public int magicAtkValue; //마법공격력
     public int magicDefValue; //마법방어력
 
-    public int searchRange = 4;     //  탐색 범위
-    public int moveRange = 3;       //  이동 범위
-    public int attackRange = 1;     //  공격 범위
+    public short searchRange = 4;     //  탐색 범위
+    public short moveRange = 3;       //  이동 범위
+    public short attackRange = 1;     //  공격 범위
 
     public int holdMoney; //수중의 돈
 

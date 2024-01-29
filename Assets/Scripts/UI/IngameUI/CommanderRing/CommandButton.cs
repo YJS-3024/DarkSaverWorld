@@ -20,8 +20,12 @@ public class CommandButton : BaseScrollItem
     public void SetCommand_Skill(int skillId, Action<int> onCallback)
     {
         _value = skillId;
-        if (skillId.Equals(0))
+
+        var skillData = TableManager.I.Skill.GetSkill(skillId);
+        if (skillData is null)
             return;
+
+        btnCommand.ButtonString = TableManager.I.String.GetString(skillData.SkillName);
 
         _onCallback_None = null;
         _onCallback_Value = onCallback;

@@ -82,6 +82,13 @@ namespace GlobalEnum
         Monster_Boss,
     }
 
+    public enum eSkillType
+    {
+        None,
+        AttackSkill,
+        BuffSkill,
+    }
+
     public enum ePanelType
     {
         
