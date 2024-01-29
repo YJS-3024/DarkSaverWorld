@@ -59,8 +59,9 @@ namespace GlobalEnum
         Move,           // 이동
         UseItem,        // 아이템 사용
         Attack,         // 일반 공격
-        Magic,          // 마법
-        Attack_Special, // 특수기
+        Magic_Buff,     // 마법
+        Magic_Attack,   // 마법
+        Magic_JobSkill, // 특수기
         Recess,         // 휴식
         Management,     // 용병관리
         System_Option,  // 시스템 설정

@@ -4,7 +4,7 @@ using GlobalEnum;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerManager : MonoSingleton<PlayerManager>
+public partial class PlayerManager : MonoSingleton<PlayerManager>
 {
     public PlayerChar MainPlayer { get; private set; }
     public CreateActionPlate ActionPlate;
@@ -39,8 +39,9 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         }
     }
 
-    public void CreatePlates(Vector2 centerPos,eCharAction actionType, int range)
+    public void CreatePlates(Vector2 centerPos, eCharAction actionType, int range)
     {
+        MainPlayer.CharAction = actionType;
         switch (actionType)
         {
             case eCharAction.Move:
@@ -53,9 +54,11 @@ public class PlayerManager : MonoSingleton<PlayerManager>
                 ActionPlate.CreateAttackPlate(centerPos, range);
                 break;
             }
-            case eCharAction.Magic:
+            case eCharAction.Magic_Attack:
+            case eCharAction.Magic_Buff:
+            case eCharAction.Magic_JobSkill:
             {
-                ActionPlate.CreateAttackPlate(centerPos, range);
+                ActionPlate.CreateSkillPlate(centerPos, range);
                 break;
             }
         }
@@ -70,4 +73,9 @@ public class PlayerManager : MonoSingleton<PlayerManager>
     {
 
     }
+}
+
+public partial class PlayerManager
+{
+    public int SelectSkillId { get; set; }
 }

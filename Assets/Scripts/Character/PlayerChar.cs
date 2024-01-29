@@ -84,9 +84,19 @@ public class PlayerChar : BaseCharObject
         CharAction = eCharAction.None;
     }
 
-    public override void MagicSkill(int magicId) { }
+    public override void MagicSkill(int skillId)
+    {
 
-    public override void MagicSkill(int magicId, List<PlanePathNode> node) { }
+    }
+
+    public override void MagicSkill(int skillId, List<PlanePathNode> node)
+    {
+        var skillData = TableManager.I.Skill.GetSkill(skillId);
+        if (skillData is null)
+            return;
+        
+        Debug.Log($"{skillId} 사용할것");
+    }
 
     public override void Rest()
     {

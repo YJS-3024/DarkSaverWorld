@@ -34,15 +34,15 @@ public class ActionPlate : MonoBehaviour
                 PlayerManager.I.MainPlayer.Attack(node);
                 break;
             }
-            case eCharAction.Magic:
+            case eCharAction.Magic_Attack:
+            case eCharAction.Magic_Buff:
             {
-                var magicSkillId = 1;
                 var list = new List<PlanePathNode>
                 {
                     TilemapManager.I.GetNode_WorldPos(pos)
                 };
 
-                PlayerManager.I.MainPlayer.MagicSkill(magicSkillId, list);
+                PlayerManager.I.MainPlayer.MagicSkill(PlayerManager.I.SelectSkillId ,list);
                 break;
             }
         }
@@ -85,7 +85,8 @@ public class ActionPlate : MonoBehaviour
             {
                 return "#ff0000";
             }
-            case eCharAction.Magic:
+            case eCharAction.Magic_Attack:
+            case eCharAction.Magic_Buff:
             {
                 return "#ffff00";
             }

@@ -7,7 +7,6 @@ public class CommandPanel : MonoBehaviour
 
     public void OnClick_Move()
     {
-        PlayerManager.I.MainPlayer.CharAction = eCharAction.Move;
         var pos = PlayerManager.I.MainPlayer.transform.position;
         var range = PlayerManager.I.MainPlayer.MoveRange;
 
@@ -22,7 +21,6 @@ public class CommandPanel : MonoBehaviour
 
     public void OnClick_Attack()
     {
-        PlayerManager.I.MainPlayer.CharAction = eCharAction.Attack;
         var pos = PlayerManager.I.MainPlayer.transform.position;
         var range = PlayerManager.I.MainPlayer.AttackRange;
 
@@ -35,7 +33,7 @@ public class CommandPanel : MonoBehaviour
     {
         EventManager.I.CallEvent("Move_MagicSkillPage")?.Invoke();
 
-        UIManager.I.GameUI.gameObject.SetActive(false);
+        // UIManager.I.GameUI.gameObject.SetActive(false);
     }
 
     public void OnClick_JobSkill()
