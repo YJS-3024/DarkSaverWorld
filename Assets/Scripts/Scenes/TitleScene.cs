@@ -43,6 +43,6 @@ public class TitleScene : MonoBehaviour
 
     private void OnClick_NextScene()
     {
-        SceneController.I.ChangeScene(GlobalEnum.SceneType.Scene_Village);
+        SceneController.I.ChangeScene(GlobalEnum.SceneType.Scene_Battle);
     }
 }

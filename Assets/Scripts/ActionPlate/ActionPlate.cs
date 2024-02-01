@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GlobalEnum;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine;
 public class ActionPlate : MonoBehaviour
 {
     [SerializeField] public SpriteRenderer spriteRenderer;
+
+    private Action<Vector3> _onClicked = null;
+    private eCharCommand _commandType = eCharCommand.None;
 
     private void Awake()
     {
@@ -18,34 +22,48 @@ public class ActionPlate : MonoBehaviour
     {
         SetMeshRenderColor();
 
-        PlayerManager.I.ActionPlate.ClearPlate();
-
-        switch (PlayerManager.I.MainPlayer.CharAction)
+        var scene = SceneController.I.CurSceneData;
+        if (scene is BattleScene battleScene)
         {
-            case eCharAction.Move:
-            {
-                var node = TilemapManager.I.GetNode_WorldPos(pos);
-                Move(node.centerPos);
-                break;
-            }
-            case eCharAction.Attack:
-            {
-                var node = TilemapManager.I.GetNode_WorldPos(pos);
-                PlayerManager.I.MainPlayer.Attack(node);
-                break;
-            }
-            case eCharAction.Magic_Attack:
-            case eCharAction.Magic_Buff:
-            {
-                var list = new List<PlanePathNode>
-                {
-                    TilemapManager.I.GetNode_WorldPos(pos)
-                };
-
-                PlayerManager.I.MainPlayer.MagicSkill(PlayerManager.I.SelectSkillId ,list);
-                break;
-            }
+            battleScene.ClearPlates();
         }
+
+        _onClicked?.Invoke(pos);
+
+        // switch (PlayerManager.I.MainPlayer.CharAction)
+        // {
+        //     case eCharAction.Move:
+        //     {
+        //         var node = TilemapManager.I.GetNode_WorldPos(pos);
+        //         Move(node.centerPos);
+        //         break;
+        //     }
+        //     case eCharAction.Attack:
+        //     {
+        //         var node = TilemapManager.I.GetNode_WorldPos(pos);
+        //         PlayerManager.I.MainPlayer.Attack(node);
+        //         break;
+        //     }
+        //     case eCharAction.Magic_Attack:
+        //     case eCharAction.Magic_Buff:
+        //     {
+        //         var list = new List<PlanePathNode>
+        //         {
+        //             TilemapManager.I.GetNode_WorldPos(pos)
+        //         };
+        //
+        //         PlayerManager.I.MainPlayer.MagicSkill(PlayerManager.I.SelectSkillId ,list);
+        //         break;
+        //     }
+        // }
+    }
+
+    public void SetPlate(eCharCommand commandType, Action<Vector3> onClickAction)
+    {
+        _onClicked = onClickAction;
+        _commandType = commandType;
+
+        SetMeshRenderColor();
     }
 
     private void Move(Vector3 pos)
@@ -61,40 +79,38 @@ public class ActionPlate : MonoBehaviour
         }
     }
 
-    public void SetMeshRenderColor()
+    private void SetMeshRenderColor()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
-            var strColor = GetActionPlateColor();
+            string strColor;
+            switch (_commandType)
+            {
+                case eCharCommand.Attack:
+                {
+                    strColor = "#ff0000";
+                    break;
+                }
+                case eCharCommand.Magic_Attack:
+                case eCharCommand.Magic_Buff:
+                {
+                    strColor = "#ffff00";
+                    break;
+                }
+                case eCharCommand.Move:
+                case eCharCommand.None:
+                default:
+                {
+                    strColor = "#ffffff";
+                    break;
+                }
+            }
             if (ColorUtility.TryParseHtmlString(strColor, out var color))
             {
                 color.a = 0.4f;
                 spriteRenderer.color = color;
                 // spriteRenderer.sprite = material;
-            }
-        }
-    }
-
-    private string GetActionPlateColor()
-    {
-        var mainPlayer = PlayerManager.I.MainPlayer;
-        switch (mainPlayer.CharAction)
-        {
-            case eCharAction.Attack:
-            {
-                return "#ff0000";
-            }
-            case eCharAction.Magic_Attack:
-            case eCharAction.Magic_Buff:
-            {
-                return "#ffff00";
-            }
-            case eCharAction.Move:
-            case eCharAction.None:
-            default:
-            {
-                return "#ffffff";
             }
         }
     }

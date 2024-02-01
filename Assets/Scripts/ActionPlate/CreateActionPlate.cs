@@ -10,31 +10,27 @@ public class CreateActionPlate : MonoBehaviour
 {
     [SerializeField] private ActionPlate movePlateGo;
 
-    private readonly List<ActionPlate> createdList = new List<ActionPlate>();
+    private readonly List<ActionPlate> _createdList = new List<ActionPlate>();
     private const float PosValue = 1f;
 
-    public bool IsCreatedPlate() => createdList.Count > 0;
+    public bool IsCreatedPlate() => _createdList.Count > 0;
     
     public void ClearPlate()
     {
-        foreach (var plate in createdList)
+        foreach (var plate in _createdList)
         {
             Destroy(plate.gameObject);
         }
     
-        createdList.Clear();
+        _createdList.Clear();
     }
     
-    public void CreateMovePlate(Vector2 pos, int rangeCount)
+    public void CreatePlate_Move(Vector2 pos, int rangeCount, Action<Vector3> onClickPlate)
     {
-        ClearPlate();
-        
         //1 = 3
         //2 = 5
         //3 = 7
         //4 = 9
-
-        List<ActionPlate> plateList = new List<ActionPlate>();
 
         var startNum = -rangeCount;
         var endNum = rangeCount;
@@ -64,29 +60,20 @@ public class CreateActionPlate : MonoBehaviour
                         pathNodes.Count > rangeCount + 1)
                         continue;
 
-                    var go = Instantiate(movePlateGo.gameObject, this.transform);
-                    if (go != null)
+                    var plate = CreatePlate(xPos, yPos);
+                    if (plate != null)
                     {
-                        var plate = go.GetComponent<ActionPlate>();
-                        plate.transform.localPosition = new Vector3(xPos + 0.5f, yPos + 0.5f, 1);
-                        plate.transform.localScale = Vector3.one;
+                        plate.SetPlate(eCharCommand.Move, onClickPlate);
 
-                        plate.gameObject.SetActive(true);
-                        plate.SetMeshRenderColor();
-
-                        plateList.Add(plate);
+                        _createdList.Add(plate);
                     }
                 }
             }
         }
-
-        createdList.AddRange(plateList);
     }
 
-    public void CreateAttackPlate(Vector2 pos, int rangeCount)
+    public void CreatePlate_Attack(Vector2 pos, int rangeCount, Action<Vector3> onClickPlate)
     {
-        List<ActionPlate> plateList = new List<ActionPlate>();
-
         var startNum = -rangeCount;
         var endNum = rangeCount;
 
@@ -108,33 +95,28 @@ public class CreateActionPlate : MonoBehaviour
                     if (TilemapManager.I.IsMove(xPos, yPos) == false)
                         continue;
 
-                    var go = Instantiate(movePlateGo.gameObject, this.transform);
-                    if (go != null)
+                    var plate = CreatePlate(xPos, yPos);
+                    if (plate != null)
                     {
-                        var plate = go.GetComponent<ActionPlate>();
-                        plate.transform.localPosition = new Vector3(xPos + 0.5f, yPos + 0.5f, 1);
-                        plate.transform.localScale = Vector3.one;
+                        plate.SetPlate(eCharCommand.Attack, onClickPlate);
 
-                        plate.gameObject.SetActive(true);
-                        plate.SetMeshRenderColor();
-
-                        plateList.Add(plate);
+                        _createdList.Add(plate);
                     }
                 }
             }
         }
-
-        createdList.AddRange(plateList);
     }
 
-    public void CreateSkillPlate(Vector2 pos, SkillData skillData)
+    public void CreatePlate_SkillTargetSingle(Vector2 pos, SkillData skillData, Action<Vector3> onClickPlate)
     {
         if (skillData is null)
             return;
 
-        var rangeCount = skillData.SkillRange;
+        var commandType = skillData?.SkillType == (int)eSkillType.AttackSkill
+            ? eCharCommand.Magic_Attack
+            : eCharCommand.Magic_Buff;
 
-        List<ActionPlate> plateList = new List<ActionPlate>();
+        var rangeCount = skillData.SkillRange;
 
         var startNum = -rangeCount;
         var endNum = rangeCount;
@@ -159,31 +141,38 @@ public class CreateActionPlate : MonoBehaviour
 
                     if (skillData.SkillType == (int)eSkillType.AttackSkill &&
                         PlayerManager.I.GetIsPlayer(xPos, yPos))
-                    {
                         continue;
-                    }
-                    else if (skillData.SkillType == (int)eSkillType.BuffSkill &&
-                             EnemyManager.I.GetIsEnemy(xPos, yPos))
-                    {
+
+                    if (skillData.SkillType == (int)eSkillType.BuffSkill &&
+                        EnemyManager.I.GetIsEnemy(xPos, yPos))
                         continue;
-                    }
 
-                    var go = Instantiate(movePlateGo.gameObject, this.transform);
-                    if (go != null)
+                    var plate = CreatePlate(xPos, yPos);
+                    if (plate != null)
                     {
-                        var plate = go.GetComponent<ActionPlate>();
-                        plate.transform.localPosition = new Vector3(xPos + 0.5f, yPos + 0.5f, 1);
-                        plate.transform.localScale = Vector3.one;
+                        plate.SetPlate(commandType, onClickPlate);
 
-                        plate.gameObject.SetActive(true);
-                        plate.SetMeshRenderColor();
-
-                        plateList.Add(plate);
+                        _createdList.Add(plate);
                     }
                 }
             }
         }
+    }
 
-        createdList.AddRange(plateList);
+    private ActionPlate CreatePlate(int x, int y)
+    {
+        var go = Instantiate(movePlateGo.gameObject, this.transform);
+        if (go != null)
+        {
+            var plate = go.GetComponent<ActionPlate>();
+            plate.transform.localPosition = new Vector3(x + 0.5f, y + 0.5f, 1);
+            plate.transform.localScale = Vector3.one;
+
+            plate.gameObject.SetActive(true);
+
+            return plate;
+        }
+
+        return null;
     }
 }

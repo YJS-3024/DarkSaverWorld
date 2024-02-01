@@ -1,16 +1,31 @@
 using GlobalEnum;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CommandPanel : MonoBehaviour
 {
-
-
     public void OnClick_Move()
     {
         var pos = PlayerManager.I.MainPlayer.transform.position;
         var range = PlayerManager.I.MainPlayer.MoveRange;
 
-        PlayerManager.I.CreatePlates(pos, eCharAction.Move, range);
+        var sceneData = SceneController.I.CurSceneData;
+        if (sceneData is BattleScene battleScene)
+        {
+            battleScene.CreatePlates(pos, eCharCommand.Move, range, (vec) =>
+            {
+                var node = TilemapManager.I.GetNode_WorldPos(vec);
+                var charPos = PlayerManager.I.MainPlayer.CharPath.MoveListLength > 0
+                    ? PlayerManager.I.MainPlayer.CharPath.LastNode().centerPos
+                    : TilemapManager.I.GetNode_WorldPos(PlayerManager.I.MainPlayer.transform.position).centerPos;
+
+                var nodes = PlayerManager.I.MainPlayer.Path.FindPath_IncludeFindEnemy(charPos, node.centerPos, true);
+                if (nodes != null)
+                {
+                    PlayerManager.I.MainPlayer.Move(nodes);
+                }
+            });
+        }
 
         UIManager.I.GameUI.gameObject.SetActive(false);
     }
@@ -24,7 +39,15 @@ public class CommandPanel : MonoBehaviour
         var pos = PlayerManager.I.MainPlayer.transform.position;
         var range = PlayerManager.I.MainPlayer.AttackRange;
 
-        PlayerManager.I.CreatePlates(pos, eCharAction.Attack, range);
+        var sceneData = SceneController.I.CurSceneData;
+        if (sceneData is BattleScene battleScene)
+        {
+            battleScene.CreatePlates(pos, eCharCommand.Attack, range, (vec) =>
+            {
+                var node = TilemapManager.I.GetNode_WorldPos(pos);
+                PlayerManager.I.MainPlayer.Attack(node);
+            });
+        }
 
         UIManager.I.GameUI.gameObject.SetActive(false);
     }

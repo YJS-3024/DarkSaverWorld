@@ -53,7 +53,7 @@ namespace GlobalEnum
         Option,
     }
 
-    public enum eCharAction
+    public enum eCharCommand
     {
         None,
         Move,           // 이동

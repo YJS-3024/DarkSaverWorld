@@ -4,21 +4,37 @@ using GlobalEnum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public abstract class SceneData : MonoBehaviour
+{
+    public abstract SceneType SceneType();
+}
+
 public class SceneController : MonoSingleton<SceneController>
 {
     private Dictionary<SceneType, string> dicScenes = new Dictionary<SceneType, string>();
 
-    public SceneType CurSceneType { get; private set; }
+    public SceneType CurSceneType
+    {
+        get
+        {
+            return _curSceneData != null
+                ? _curSceneData.SceneType()
+                : SceneType.Scene_Village;
+        }
+    }
 
 
     private Coroutine _continueChange;
+    private SceneData _curSceneData = null;
+    public SceneData CurSceneData => _curSceneData;
 
     protected override void Destroy() { }
 
     public override bool Initialize()
     {
         dicScenes.Add(SceneType.Scene_Title, "TitleScene");
-        dicScenes.Add(SceneType.Scene_Battle, "2D_Scene");
+        dicScenes.Add(SceneType.Scene_Village, "Scene_Village");
+        dicScenes.Add(SceneType.Scene_Battle, "Scene_Battle");
 
         return true;
     }
@@ -60,6 +76,8 @@ public class SceneController : MonoSingleton<SceneController>
     public void CompleteSceneLoad()
     {
         _continueChange = null;
+
+        _curSceneData = GameObject.FindObjectOfType<SceneData>();
 
         UIManager.I.LoadingUI.SetActive(false);
     }

@@ -83,8 +83,8 @@ public class CharStatus : MonoBehaviour
     protected StatusInfo MyCharacter;
     public StatusInfo GetStatus => MyCharacter;
 
-    public eCharAction CharAction = eCharAction.None;
-    public bool IsPossibleAction => CharAction == eCharAction.None && MyCharacter.actPoint >= 10;
+    [FormerlySerializedAs("CharAction")] public eCharCommand charCommand = eCharCommand.None;
+    public bool IsPossibleAction => charCommand == eCharCommand.None && MyCharacter.actPoint >= 10;
     
     
     private void Awake()
@@ -103,9 +103,9 @@ public class CharStatus : MonoBehaviour
             float deltaPoint = 0.5f * Time.deltaTime;
             MyCharacter.actPoint += deltaPoint;
             
-            if (MyCharacter.actPoint >= 10 && CharAction != eCharAction.None)
+            if (MyCharacter.actPoint >= 10 && charCommand != eCharCommand.None)
             {
-                CharAction = eCharAction.None;
+                charCommand = eCharCommand.None;
             }
         }
     }

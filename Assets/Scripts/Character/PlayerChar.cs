@@ -16,9 +16,9 @@ public class PlayerChar : BaseCharObject
 
     public Vector3 GetNodePos => TilemapManager.I.GetNode_WorldPos(transform.position)?.centerPos ?? Vector3.zero;
 
-    public eCharAction CharAction {
-        get => charStatus.CharAction;
-        set => charStatus.CharAction = value;
+    public eCharCommand CharCommand {
+        get => charStatus.charCommand;
+        set => charStatus.charCommand = value;
     }
 
     public short MoveRange
@@ -63,7 +63,7 @@ public class PlayerChar : BaseCharObject
         _moving = StartCoroutine(OnStartMove(nodes));
 
         charStatus.GetStatus.actPoint -= 5;
-        CharAction = eCharAction.None;
+        CharCommand = eCharCommand.None;
     }
 
     public override void Dead()
@@ -81,7 +81,7 @@ public class PlayerChar : BaseCharObject
         }
 
         charStatus.GetStatus.actPoint -= 2;
-        CharAction = eCharAction.None;
+        CharCommand = eCharCommand.None;
     }
 
     public override void MagicSkill(int skillId)
@@ -97,7 +97,7 @@ public class PlayerChar : BaseCharObject
         
         Debug.Log($"{skillId} 사용할것");
         charStatus.GetStatus.actPoint -= skillData.UseActPoint;
-        CharAction = eCharAction.None;
+        CharCommand = eCharCommand.None;
     }
 
     public override void Rest()

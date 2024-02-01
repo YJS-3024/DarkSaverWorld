@@ -34,12 +34,6 @@ public class CommanderPage : MonoBehaviour
 
     public void OnClick_Move()
     {
-        PlayerManager.I.MainPlayer.CharAction = eCharAction.Move;
-        var pos = PlayerManager.I.MainPlayer.transform.position;
-        var range = PlayerManager.I.MainPlayer.MoveRange;
-
-        PlayerManager.I.CreatePlates(pos, eCharAction.Move, range);
-
         gameObject.SetActive(false);
     }
 
@@ -50,18 +44,11 @@ public class CommanderPage : MonoBehaviour
 
     private void OnClick_Attack()
     {
-        PlayerManager.I.MainPlayer.CharAction = eCharAction.Attack;
-        var pos = PlayerManager.I.MainPlayer.transform.position;
-        var range = PlayerManager.I.MainPlayer.AttackRange;
-
-        PlayerManager.I.CreatePlates(pos, eCharAction.Attack, range);
-
         gameObject.SetActive(false);
     }
 
     private void OnClick_MagicSkill()
     {
-        EventManager.I.CallEvent("Move_MagicSkillPage")?.Invoke();
         gameObject.SetActive(false);
     }
 

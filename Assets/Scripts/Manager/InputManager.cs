@@ -72,16 +72,20 @@ public class InputManager : MonoSingleton<InputManager>
         // if (playerChar.charStatus.IsPossibleAction == false)
         //     return;
 
-        if (playerChar.CharAction != eCharAction.None)
+        if (playerChar.CharCommand != eCharCommand.None)
         {
-            PlayerManager.I.ClearPlates();
-            playerChar.CharAction = eCharAction.None;
+            var sceneData = SceneController.I.CurSceneData;
+            if (sceneData is BattleScene battleScene)
+            {
+                battleScene.ClearPlates();
+            }
+            playerChar.CharCommand = eCharCommand.None;
         }
         else
         {
-            switch (playerChar.CharAction)
+            switch (playerChar.CharCommand)
             {
-                case eCharAction.None:
+                case eCharCommand.None:
                 default:
                 {
                     UIManager.I.GameUI.SetCommander(playerChar.transform.position);

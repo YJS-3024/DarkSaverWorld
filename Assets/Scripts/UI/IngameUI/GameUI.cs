@@ -4,6 +4,10 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
+public static class CommandUtility
+{
+    
+}
 
 public class GameUI : MonoBehaviour
 {
