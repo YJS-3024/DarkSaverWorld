@@ -1,8 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
+using GlobalEnum;
 using UnityEngine;
 
-public class FieldScene : MonoBehaviour
+public partial class FieldScene : SceneData
 {
     // Start is called before the first frame update
     private IEnumerator Start()
@@ -16,5 +16,9 @@ public class FieldScene : MonoBehaviour
         yield return new WaitUntil(()=>CameraManager.I.Initialize());
 
         PlayerManager.I.CreatePlayer(true);
+
+        SceneController.I.CompleteSceneLoad();
     }
+
+    public override SceneType SceneType() => GlobalEnum.SceneType.Scene_Field;
 }

@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
+using System.Linq;
 using GlobalEnum;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Utility;
 
-public class BattleScene : SceneData
+public partial class BattleScene : SceneData
 {
     public CreateActionPlate ActionPlate;
 
@@ -22,8 +25,10 @@ public class BattleScene : SceneData
 
         yield return new WaitUntil(()=>TilemapManager.I.Initialize());
         yield return new WaitUntil(()=>CameraManager.I.Initialize());
-        
+
         PlayerManager.I.CreatePlayer(true);
+
+        SceneController.I.CompleteSceneLoad();
     }
 
     private void InitPlate()
