@@ -2,9 +2,16 @@ using System.Linq;
 using GlobalEnum;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Utility;
 
-public class InputManager : MonoSingleton<InputManager>
+
+public partial class InputManager : MonoSingleton<InputManager>
 {
+    private readonly RaycastHit2D[] _results = new RaycastHit2D[10];
+
+
+    public iInputData InputData { get; set; } = null;
+
     public override bool Initialize()
     {
         return true;
@@ -23,12 +30,13 @@ public class InputManager : MonoSingleton<InputManager>
             if (touch.phase == TouchPhase.Began)
             {
                 var mousePos = Camera.main.ScreenPointToRay(touch.position);
-                var hit = Physics2D.RaycastAll(mousePos.origin, mousePos.direction);
-
-                if(hit.Length <= 0)
+                var size = Physics2D.RaycastNonAlloc(mousePos.origin, mousePos.direction, _results);
+                if (size <= 0)
                     return;
 
-                SetClick_Hit(hit);
+                InputData?.OnClick_Player(_results);
+                // SetClick_Enemy(hit);
+                InputData?.OnClick_ActionPlate(_results);
             }
         }
         else
@@ -37,33 +45,33 @@ public class InputManager : MonoSingleton<InputManager>
             if (Input.GetMouseButtonUp(0))
             {
                 if (EventSystem.current.IsPointerOverGameObject())
-                {
                     return;
-                }
 
                 var mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
-                var hit = Physics2D.RaycastAll(mousePos.origin, mousePos.direction);
-
-                if(hit.Length <= 0)
+                var size = Physics2D.RaycastNonAlloc(mousePos.origin, mousePos.direction, _results);
+                if (size <= 0)
                     return;
 
-                SetClick_Hit(hit);
+                InputData?.OnClick_Player(_results);
+                // SetClick_Enemy(hit);
+                InputData?.OnClick_ActionPlate(_results);
             }
         }
     }
+}
 
-    private void SetClick_Hit(RaycastHit2D[] hit)
+
+public class BattleInputData : iInputData
+{
+    public void OnClick_Ground(RaycastHit2D[] hit)
     {
-        SetClick_Player(hit);
-        // SetClick_Enemy(hit);
-        SetClick_ActionPlate(hit);
     }
 
-    private void SetClick_Player(RaycastHit2D[] hit)
+    public void OnClick_Player(RaycastHit2D[] hit)
     {
         var playerChar = hit
-            .Where(x=>x.collider.gameObject.layer == (int)eLayer.MainPlayer)
-            .Select(x=>x.collider.GetComponent<PlayerChar>())
+            .Where(x => x.collider.gameObject.layer == (int)eLayer.MainPlayer)
+            .Select(x => x.collider.GetComponent<PlayerChar>())
             .FirstOrDefault();
 
         if (playerChar is null)
@@ -79,6 +87,7 @@ public class InputManager : MonoSingleton<InputManager>
             {
                 battleScene.ClearPlates();
             }
+
             playerChar.CharCommand = eCharCommand.None;
         }
         else
@@ -91,11 +100,37 @@ public class InputManager : MonoSingleton<InputManager>
                     UIManager.I.GameUI.SetCommander(playerChar.transform.position);
                     break;
                 }
-            }   
+            }
         }
     }
 
-    private void SetClick_ActionPlate(RaycastHit2D[] hit)
+    public void OnClick_Enemy(RaycastHit2D[] hit)
+    {
+        //     var enemy = hit
+        //         .Select(x=>x.collider.GetComponent<EnemyChar>())
+        //         .FirstOrDefault();
+        //
+        //     if (enemy is null)
+        //         return;
+        //
+        //     var mainPlayer = PlayerManager.I.MainPlayer;
+        //     switch (mainPlayer.CharAction)
+        //     {
+        //         case eCharAction.Attack:
+        //         {
+        //             var targetNode = TilemapManager.I.GetNode_WorldPos(enemy.transform.position);
+        //             PlayerManager.I.MainPlayer.Attack(targetNode);
+        //             break;
+        //         }
+        //         case eCharAction.None:
+        //         default:
+        //         {
+        //             break;
+        //         }
+        //     }
+    }
+
+    public void OnClick_ActionPlate(RaycastHit2D[] hit)
     {
         var actionPlate = hit
             .Select(x => x.collider.GetComponent<ActionPlate>())
@@ -106,30 +141,23 @@ public class InputManager : MonoSingleton<InputManager>
 
         actionPlate.ClickedPlate(actionPlate.transform.position);
     }
+}
 
-    // private void SetClick_Enemy(RaycastHit2D[] hit)
-    // {
-    //     var enemy = hit
-    //         .Select(x=>x.collider.GetComponent<EnemyChar>())
-    //         .FirstOrDefault();
-    //
-    //     if (enemy is null)
-    //         return;
-    //
-    //     var mainPlayer = PlayerManager.I.MainPlayer;
-    //     switch (mainPlayer.CharAction)
-    //     {
-    //         case eCharAction.Attack:
-    //         {
-    //             var targetNode = TilemapManager.I.GetNode_WorldPos(enemy.transform.position);
-    //             PlayerManager.I.MainPlayer.Attack(targetNode);
-    //             break;
-    //         }
-    //         case eCharAction.None:
-    //         default:
-    //         {
-    //             break;
-    //         }
-    //     }
-    // }
+public class FieldInputData : iInputData
+{
+    public void OnClick_Ground(RaycastHit2D[] hit)
+    {
+    }
+
+    public void OnClick_Player(RaycastHit2D[] hit)
+    {
+    }
+
+    public void OnClick_Enemy(RaycastHit2D[] hit)
+    {
+    }
+
+    public void OnClick_ActionPlate(RaycastHit2D[] hit)
+    {
+    }
 }

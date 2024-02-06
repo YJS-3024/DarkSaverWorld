@@ -29,6 +29,7 @@ namespace GlobalEnum
     {
         Scene_Title,
         Scene_Village,
+        Scene_Field,
         Scene_Battle,
     }
 
