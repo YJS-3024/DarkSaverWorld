@@ -90,7 +90,6 @@ public class InputManager : MonoSingleton<InputManager>
             case SceneType.Scene_Title:
                 break;
             case SceneType.Scene_Village:
-                break;
             case SceneType.Scene_Field:
             {
                 var ground = hit.First(x =>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using GlobalEnum;
@@ -34,6 +35,7 @@ public class SceneController : MonoSingleton<SceneController>
     {
         dicScenes.Add(SceneType.Scene_Title, "TitleScene");
         dicScenes.Add(SceneType.Scene_Village, "Scene_Village");
+        dicScenes.Add(SceneType.Scene_Field, "Scene_Field_1");
         dicScenes.Add(SceneType.Scene_Battle, "Scene_Battle");
 
         return true;
