@@ -33,6 +33,11 @@ namespace GlobalEnum
         Scene_Battle,
     }
 
+    public enum TriggerType
+    {
+        Portal,
+    }
+
     public enum eCharDirectionType
     {
         Back,

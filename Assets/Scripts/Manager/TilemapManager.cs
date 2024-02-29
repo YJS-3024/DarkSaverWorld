@@ -34,8 +34,10 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
 
     public void Reset()
     {
-        if (_tilemapList is null || 
-            _tilemapList.Count == 0)
+        if (_tilemapList != null || tilemapBoard != null)
+            Clear();
+
+        if (_tilemapList is null || _tilemapList.Count == 0)
         {
             _tilemapList = FindObjectsOfType<Tilemap>().ToList();
 
@@ -81,10 +83,12 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
 
     public void Clear()
     {
-        tilemapBoard.ClearAllTiles();
+        // tilemapBoard.ClearAllTiles();
         tilemapBoard = null;
 
         _planePathNodes = null;
+
+        _tilemapList.Clear();
     }
 
     public PlanePathNode GetNode(int x, int y)

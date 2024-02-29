@@ -23,8 +23,10 @@ public partial class BattleScene : SceneData
             yield return new WaitUntil(()=>GameSystem.I.Initialize());
         }
 
-        yield return new WaitUntil(()=>TilemapManager.I.Initialize());
-        yield return new WaitUntil(()=>CameraManager.I.Initialize());
+        yield return new WaitUntil(()=>
+            TilemapManager.I.Initialize());
+        yield return new WaitUntil(()=>
+            CameraManager.I.Initialize());
 
         PlayerManager.I.CreatePlayer(true);
 
