@@ -85,4 +85,10 @@ namespace GlobalEnum
     {
         
     }
+
+    public enum TriggerType
+    {
+        None,
+        Portal,
+    }
 }
