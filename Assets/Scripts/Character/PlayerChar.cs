@@ -16,18 +16,18 @@ public class PlayerChar : BaseCharObject
 
     public Vector3 GetNodePos => SceneController.I.CurScene.Map.GetNode_WorldPos(transform.position)?.centerPos ?? Vector3.zero;
 
-    public eCharCommand CharCommand {
-        get => charStatus.charCommand;
-        set => charStatus.charCommand = value;
+    public eCharAction CharAction {
+        get => charStatus.CharAction;
+        set => charStatus.CharAction = value;
     }
 
-    public short MoveRange
+    public int MoveRange
     {
         get => charStatus.GetStatus.moveRange;
         set => charStatus.GetStatus.moveRange = value;
     }
 
-    public short AttackRange
+    public int AttackRange
     {
         get => charStatus.GetStatus.attackRange;
         set => charStatus.GetStatus.attackRange = value;
@@ -63,7 +63,7 @@ public class PlayerChar : BaseCharObject
         _moving = StartCoroutine(OnStartMove(nodes));
 
         charStatus.GetStatus.actPoint -= 5;
-        CharCommand = eCharCommand.None;
+        CharAction = eCharAction.None;
     }
 
     public override void Dead()
@@ -81,24 +81,12 @@ public class PlayerChar : BaseCharObject
         }
 
         charStatus.GetStatus.actPoint -= 2;
-        CharCommand = eCharCommand.None;
+        CharAction = eCharAction.None;
     }
 
-    public override void MagicSkill(int skillId)
-    {
+    public override void MagicSkill(int magicId) { }
 
-    }
-
-    public override void MagicSkill(int skillId, List<PlanePathNode> node)
-    {
-        var skillData = TableManager.I.Skill.GetSkill(skillId);
-        if (skillData is null)
-            return;
-        
-        Debug.Log($"{skillId} 사용할것");
-        charStatus.GetStatus.actPoint -= skillData.UseActPoint;
-        CharCommand = eCharCommand.None;
-    }
+    public override void MagicSkill(int magicId, List<PlanePathNode> node) { }
 
     public override void Rest()
     {

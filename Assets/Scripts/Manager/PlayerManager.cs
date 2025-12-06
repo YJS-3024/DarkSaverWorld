@@ -1,14 +1,24 @@
 using GlobalEnum;
 using UnityEngine;
 
-public partial class PlayerManager : MonoSingleton<PlayerManager>
+public class PlayerManager : MonoSingleton<PlayerManager>
 {
     public PlayerChar MainPlayer { get; private set; }
-
-    public List<PlayerChar> playerList = new List<PlayerChar>();
+    public CreateActionPlate ActionPlate;
 
     public override bool Initialize()
     {
+        if (ActionPlate is null)
+        {
+            var prefab = ResourceManager.I.Load<GameObject>(eResourceType.Prefabs, "ActionPlates");
+            if (prefab != null)
+            {
+                var go = Instantiate(prefab, transform);
+                go.transform.localPosition = new Vector3(0, 0, 0);
+                ActionPlate = go.GetComponent<CreateActionPlate>();
+            }
+        }
+
         return true;
     }
 
@@ -26,26 +36,35 @@ public partial class PlayerManager : MonoSingleton<PlayerManager>
         }
     }
 
-    public bool GetIsPlayer(int posX, int posY)
+    public void CreatePlates(Vector2 centerPos,eCharAction actionType, int range)
     {
-        var pos = new Vector2(posX, posY);
-        var checkPos =  TilemapManager.I.GetNode_WorldPos(pos).centerPos;
-        var targetPos = TilemapManager.I.GetNode_WorldPos(MainPlayer.transform.position).centerPos;
-        if (targetPos.Equals(checkPos))
-            return true;
+        switch (actionType)
+        {
+            case eCharAction.Move:
+            {
+                ActionPlate.CreateMovePlate(centerPos, range);
+                break;
+            }
+            case eCharAction.Attack:
+            {
+                ActionPlate.CreateAttackPlate(centerPos, range);
+                break;
+            }
+            case eCharAction.Magic:
+            {
+                ActionPlate.CreateAttackPlate(centerPos, range);
+                break;
+            }
+        }
+    }
 
-        //플레이어들 위치 추가할곳
-
-        return false;
+    public void ClearPlates()
+    {
+        ActionPlate.ClearPlate();
     }
 
     protected override void Destroy()
     {
 
     }
-}
-
-public partial class PlayerManager
-{
-    public int SelectSkillId { get; set; }
 }

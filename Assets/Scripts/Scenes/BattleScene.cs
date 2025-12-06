@@ -1,20 +1,10 @@
-using System;
 using System.Collections;
 using System.Linq;
 using GlobalEnum;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Utility;
 
 public partial class BattleScene : BaseScene
 {
-    public CreateActionPlate ActionPlate;
-
-    private void Awake()
-    {
-        InitPlate();
-    }
-
     // Start is called before the first frame update
     private IEnumerator Start()
     {
@@ -26,8 +16,6 @@ public partial class BattleScene : BaseScene
         yield return new WaitUntil(() => CameraManager.I.Initialize());
         
         PlayerManager.I.CreatePlayer(true);
-
-        SceneController.I.CompleteSceneLoad();
     }
 
     public override SceneType SceneType() => GlobalEnum.SceneType.Scene_Battle;

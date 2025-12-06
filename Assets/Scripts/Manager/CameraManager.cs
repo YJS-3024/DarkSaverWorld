@@ -54,7 +54,7 @@ public class CameraManager : MonoSingleton<CameraManager>
     private void SetLimitCameraArea()
     {
         var mainChar = PlayerManager.I.MainPlayer;
-        if (mainChar == null)
+        if (mainChar is null)
             return;
 
         if (mainCamera == null)

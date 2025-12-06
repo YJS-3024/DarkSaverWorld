@@ -3,57 +3,42 @@ using UI.Extension;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CommandButton : BaseScrollItem
+public class CommandButton : MonoBehaviour
 {
     [SerializeField] private ButtonEx btnCommand;
     [SerializeField] private Image btnIcon;
 
-    private Action _onCallback_None;
-    private Action<int> _onCallback_Value;
-    private int _value = -1;
+    private Action _onCallback;
 
     private void Awake()
     {
-        btnCommand.AddListener(OnClick_Command);
+        btnCommand.AddListener(_onCallback);
     }
 
-    public void SetCommand_Skill(int skillId, Action<int> onCallback)
+    public void SetCommand_Skill(int skillId = 0)
     {
-        _value = skillId;
-
-        var skillData = TableManager.I.Skill.GetSkill(skillId);
-        if (skillData is null)
+        if (skillId.Equals(0))
             return;
 
-        btnCommand.ButtonString = TableManager.I.String.GetString(skillData.SkillName);
+        _onCallback = () =>
+        {
+            var skillData = TableManager.I.Skill.GetSkill(skillId);
+            if (skillData is null)
+                return;
 
-        _onCallback_None = null;
-        _onCallback_Value = onCallback;
+            var mainPlayer = PlayerManager.I.MainPlayer;
+            mainPlayer.MagicSkill(skillId);
+        };
     }
 
     public void SetCommand(string text, Action onCallback)
     {
-        _value = -1;
         btnCommand.ButtonString = text;
-
-        _onCallback_None = onCallback;
-        _onCallback_Value = null;
+        _onCallback = onCallback;
     }
 
     public void SetActiveButton(bool isActive)
     {
         btnCommand.SetActive(isActive);
-    }
-
-    private void OnClick_Command()
-    {
-        if (_value == -1)
-        {
-            _onCallback_None?.Invoke();
-        }
-        else
-        {
-            _onCallback_Value?.Invoke(_value);
-        }
     }
 }

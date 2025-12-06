@@ -29,9 +29,9 @@ public class StatusInfo
     public int magicAtkValue; //마법공격력
     public int magicDefValue; //마법방어력
 
-    public short searchRange = 4;     //  탐색 범위
-    public short moveRange = 3;       //  이동 범위
-    public short attackRange = 1;     //  공격 범위
+    public int searchRange = 4;     //  탐색 범위
+    public int moveRange = 3;       //  이동 범위
+    public int attackRange = 1;     //  공격 범위
 
     public int holdMoney; //수중의 돈
 
@@ -83,8 +83,8 @@ public class CharStatus : MonoBehaviour
     protected StatusInfo MyCharacter;
     public StatusInfo GetStatus => MyCharacter;
 
-    [FormerlySerializedAs("CharAction")] public eCharCommand charCommand = eCharCommand.None;
-    public bool IsPossibleAction => charCommand == eCharCommand.None && MyCharacter.actPoint >= 10;
+    public eCharAction CharAction = eCharAction.None;
+    public bool IsPossibleAction => CharAction == eCharAction.None && MyCharacter.actPoint >= 10;
     
     
     private void Awake()
@@ -103,9 +103,9 @@ public class CharStatus : MonoBehaviour
             float deltaPoint = 0.5f * Time.deltaTime;
             MyCharacter.actPoint += deltaPoint;
             
-            if (MyCharacter.actPoint >= 10 && charCommand != eCharCommand.None)
+            if (MyCharacter.actPoint >= 10 && CharAction != eCharAction.None)
             {
-                charCommand = eCharCommand.None;
+                CharAction = eCharAction.None;
             }
         }
     }

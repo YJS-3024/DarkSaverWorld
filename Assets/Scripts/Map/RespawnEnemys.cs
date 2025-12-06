@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RespawnObjet : MonoBehaviour
+public class RespawnEnemys : MonoBehaviour
 {
     [SerializeField] private int createCountMax = 3;
     [SerializeField] private int createMonsterId = 1;

@@ -1,28 +1,39 @@
+using System.Collections;
 using System.Collections.Generic;
+using UI.Extension;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MagicSkillPage : MonoBehaviour
 {
-    public void OnClick_SelectSkill(int skillId)
+    [FormerlySerializedAs("arrSkills")]
+    [SerializeField] private CommandButton[] arrBtnSkills;
+
+    private void Awake()
     {
-        var pos = PlayerManager.I.MainPlayer.transform.position;
+        gameObject.SetActive(false);
 
-            var scene = SceneController.I.CurSceneData;
-            if (scene is BattleScene battleScene)
-            {
-                battleScene.CreatePlates(pos, skillId, OnClickSkill);
-            }
-
-        UIManager.I.GameUI.gameObject.SetActive(false);
+        foreach (var btnSkill in arrBtnSkills)
+            btnSkill.gameObject.SetActive(false);
     }
 
-    private void OnClickSkill(Vector3 pos)
+    public void SetPage()
     {
-        var list = new List<PlanePathNode>
-        {
-            TilemapManager.I.GetNode_WorldPos(pos)
-        };
+        var skills = TableManager.I.Skill.GetSkillList();
+        if (skills.Count == 0)
+            return;
 
-        PlayerManager.I.MainPlayer.MagicSkill(PlayerManager.I.SelectSkillId ,list);
+        for (int i = 0; i < arrBtnSkills.Length; i++)
+        {
+            arrBtnSkills[i].gameObject.SetActive(true);
+
+            var isActive = skills.Count > i;
+            if (isActive)
+            {
+                arrBtnSkills[i].SetCommand_Skill(skills[i].SkillID);
+            }
+
+            arrBtnSkills[i].SetActiveButton(isActive);
+        }
     }
 }
