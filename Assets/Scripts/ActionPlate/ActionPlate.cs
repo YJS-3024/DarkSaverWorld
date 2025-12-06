@@ -6,6 +6,8 @@ public class ActionPlate : MonoBehaviour
 {
     [SerializeField] public SpriteRenderer spriteRenderer;
 
+    private TileMap tileMap => SceneController.I.CurTileMap;
+    
     private void Awake()
     {
         if (spriteRenderer is null)
@@ -24,13 +26,13 @@ public class ActionPlate : MonoBehaviour
         {
             case eCharAction.Move:
             {
-                var node = TilemapManager.I.GetNode_WorldPos(pos);
+                var node = tileMap.GetNode_WorldPos(pos);
                 Move(node.centerPos);
                 break;
             }
             case eCharAction.Attack:
             {
-                var node = TilemapManager.I.GetNode_WorldPos(pos);
+                var node = tileMap.GetNode_WorldPos(pos);
                 PlayerManager.I.MainPlayer.Attack(node);
                 break;
             }
@@ -39,7 +41,7 @@ public class ActionPlate : MonoBehaviour
                 var magicSkillId = 1;
                 var list = new List<PlanePathNode>
                 {
-                    TilemapManager.I.GetNode_WorldPos(pos)
+                    tileMap.GetNode_WorldPos(pos)
                 };
 
                 PlayerManager.I.MainPlayer.MagicSkill(magicSkillId, list);
@@ -52,9 +54,9 @@ public class ActionPlate : MonoBehaviour
     {
         var charPos = PlayerManager.I.MainPlayer.CharPath.MoveListLength > 0
             ? PlayerManager.I.MainPlayer.CharPath.LastNode().centerPos
-            : TilemapManager.I.GetNode_WorldPos(PlayerManager.I.MainPlayer.transform.position).centerPos;
+            : tileMap.GetNode_WorldPos(PlayerManager.I.MainPlayer.transform.position).centerPos;
 
-        var nodes = PlayerManager.I.MainPlayer.Path.FindPath_IncludeFindEnemy(charPos, pos, true);
+        var nodes = SceneController.I.CurScene.Path.FindPath_IncludeFindEnemy(charPos, pos, true);
         if (nodes != null)
         {
             PlayerManager.I.MainPlayer.Move(nodes);

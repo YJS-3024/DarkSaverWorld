@@ -1,7 +1,8 @@
+using GlobalEnum;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TitleScene : MonoBehaviour
+public partial class TitleScene : BaseScene
 {
     [SerializeField] private Text txtTitleScene;
     [SerializeField] private Button btnNextScene;
@@ -10,11 +11,6 @@ public class TitleScene : MonoBehaviour
     private bool isForward = true;
 
     private const float ReturnTime = 1f;
-
-    protected void Awake()
-    {
-        btnNextScene.onClick.AddListener(OnClick_NextScene);
-    }
 
     public void Start()
     {
@@ -26,7 +22,7 @@ public class TitleScene : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (curTime >= ReturnTime)
         {
@@ -40,9 +36,18 @@ public class TitleScene : MonoBehaviour
 
         curTime += Time.deltaTime;
     }
+    
 
-    private void OnClick_NextScene()
+
+    public override SceneType SceneType() => GlobalEnum.SceneType.Scene_Title;
+}
+
+public partial class TitleScene
+{
+    public override void ClickEvent(Vector2 screenPosition)
     {
-        SceneController.I.ChangeScene(GlobalEnum.SceneType.Scene_Battle);
+        base.ClickEvent(screenPosition);
+        
+        SceneController.I.ChangeScene(GlobalEnum.SceneType.Scene_Village);
     }
 }

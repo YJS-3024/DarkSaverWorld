@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-public partial class TilemapManager : MonoSingleton<TilemapManager>
+public partial class TileMap : MonoBehaviour
 {
     public int CellMaxWidth => tilemapBoard?.cellBounds.size.x ?? -1;
     public int CellMaxHeight => tilemapBoard?.cellBounds.size.y ?? -1;
@@ -14,41 +14,29 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
     private PlanePathNode[,] _planePathNodes;
 
     private Tilemap tilemapBoard;
-    private Tilemap tilemapBlock;
+    private List<Tilemap> tilemapBlock;
 
     public Vector3 MaxSize => tilemapBoard?.localBounds.max ?? Vector3.zero;
     public Vector3 MinSize => tilemapBoard?.localBounds.min ?? Vector3.zero;
     public Vector3 Center => tilemapBoard?.localBounds.center ?? Vector3.zero;
 
-    protected override void Destroy()
-    {
-        
-    }
-
-    public override bool Initialize()
-    {
-        Reset();
-
-        return true;
-    }
-
-    public void Reset()
+    public void Start()
     {
         if (_tilemapList is null || 
             _tilemapList.Count == 0)
         {
             _tilemapList = FindObjectsOfType<Tilemap>().ToList();
 
-            tilemapBoard = _tilemapList.FirstOrDefault(x=>x.gameObject.layer == (int)eLayer.Field_Board);
-             if (tilemapBoard != null)
+            tilemapBoard = _tilemapList.FindLast(x => x.gameObject.layer == (int)eLayer.Field_Board);
+            if (tilemapBoard != null)
             {
                 tilemapBoard.CompressBounds();
             }
 
-            tilemapBlock = _tilemapList.FirstOrDefault(x=>x.gameObject.layer == (int)eLayer.Field_Block);
-            if (tilemapBlock != null)
+            tilemapBlock = _tilemapList.FindAll(x=>x.gameObject.layer == (int)eLayer.Field_Block);
+            foreach (var block in tilemapBlock)
             {
-                tilemapBlock.CompressBounds();
+                block.CompressBounds();
             }
 
 
@@ -62,6 +50,7 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
                     for (int x = bounds.xMin, posX = 0; x < bounds.xMax; x++, posX++)
                     {
                         var pos = new Vector3Int(x, y, 0);
+                        var isMove = IsMove(x, y);
                         var node = new PlanePathNode(x, y)
                         {
                             indexX = posX,
@@ -69,7 +58,7 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
                             costTotal = int.MaxValue,
                             pParent = null,
                             centerPos = tilemapBoard.CellToWorld(pos),
-                            isMoveAble = !tilemapBlock?.HasTile(pos) ?? true,
+                            isMoveAble = true,
                         };
 
                         _planePathNodes[posX, posY] = node;
@@ -112,10 +101,21 @@ public partial class TilemapManager : MonoSingleton<TilemapManager>
 
     public bool IsMove(int posX, int posY)
     {
+        bool isMoveAble = true;
         var posInt = new Vector3Int(posX, posY, 0);
-        return tilemapBoard.HasTile(posInt) && !tilemapBlock.HasTile(posInt);
+        
+        foreach (var blockTile in tilemapBlock)
+        {
+            if (blockTile.HasTile(posInt))
+            {
+                isMoveAble = false;
+                break;
+            }
+        }
+        
+        return isMoveAble;
     }
-
+    
     /// <summary>
     /// 해당위치에 캐릭터가 서있는가
     /// </summary>

@@ -5,8 +5,16 @@ using UnityEngine.EventSystems;
 
 public class InputManager : MonoSingleton<InputManager>
 {
+    public InputUI InputUI { get; private set; }
+
     public override bool Initialize()
     {
+        if (InputUI == null)
+        {
+            InputUI = FindFirstObjectByType<InputUI>();
+            InputUI.gameObject.SetActive(false);
+        }
+        
         return true;
     }
 

@@ -9,6 +9,8 @@ public class EnemyManager : MonoSingleton<EnemyManager>
 
     private long _createIndex = 0;
 
+    private TileMap TileMap => SceneController.I.CurTileMap;
+    
     protected override void Destroy()
     {
         
@@ -56,10 +58,10 @@ public class EnemyManager : MonoSingleton<EnemyManager>
 
     public bool GetIsEnemy(Vector2 posVec)
     {
-        var pos = TilemapManager.I.GetNode_WorldPos(posVec).centerPos;
+        var pos = TileMap.GetNode_WorldPos(posVec).centerPos;
         foreach (var enemy in _activeEnemyList)
         {
-            var targetPos = TilemapManager.I.GetNode_WorldPos(enemy.Value.transform.position).centerPos;
+            var targetPos = TileMap.GetNode_WorldPos(enemy.Value.transform.position).centerPos;
             if (pos.Equals(targetPos))
             {
                 return true;
@@ -73,7 +75,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
     {
         foreach (var enemy in _activeEnemyList)
         {
-            var pos = TilemapManager.I.GetNode_WorldPos(enemy.Value.transform.position).centerPos;
+            var pos = TileMap.GetNode_WorldPos(enemy.Value.transform.position).centerPos;
             if (pos.Equals(posVec))
             {
                 return enemy.Value;
@@ -88,7 +90,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
         var posVec = new Vector2(posX, posY);
         foreach (var enemy in _activeEnemyList)
         {
-            var pos = TilemapManager.I.GetNode_WorldPos(enemy.Value.transform.position).centerPos;
+            var pos = TileMap.GetNode_WorldPos(enemy.Value.transform.position).centerPos;
             if (pos.Equals(posVec))
             {
                 return true;
