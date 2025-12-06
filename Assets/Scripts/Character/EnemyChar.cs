@@ -5,6 +5,9 @@ public class EnemyChar : BaseCharObject
 {
     public bool isDead = false;
 
+    private TileMap TileMap => SceneController.I.CurScene.Map;
+    private PathUtility Path => SceneController.I.CurScene.Path;
+    
     public long EnemyIdx
     {
         get => CharIdx;
@@ -16,8 +19,8 @@ public class EnemyChar : BaseCharObject
         var mainPlayer = PlayerManager.I.MainPlayer;
         var attackRange = charStatus.GetStatus.attackRange;
 
-        var myPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
-        var targetPos = TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
+        var myPos = TileMap.GetNode_WorldPos(transform.position).centerPos;
+        var targetPos = TileMap.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
 
         var nodes = Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
         if (nodes.Count <= attackRange)
@@ -32,10 +35,10 @@ public class EnemyChar : BaseCharObject
         var searchRange = charStatus.GetStatus.searchRange;
         var mainPlayer = PlayerManager.I.MainPlayer;
 
-        var myPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
+        var myPos = TileMap.GetNode_WorldPos(transform.position).centerPos;
         var targetPos = CharPath.MoveListLength > 0
             ? CharPath.LastNode().centerPos
-            : TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
+            : TileMap.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
 
         nodes = Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
         if (nodes is null)
@@ -89,10 +92,10 @@ public class EnemyChar : BaseCharObject
         if (mainPlayer is null)
             return false;
 
-        var myPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
+        var myPos = TileMap.GetNode_WorldPos(transform.position).centerPos;
         var targetPos = CharPath.MoveListLength > 0
             ? CharPath.LastNode().centerPos
-            : TilemapManager.I.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
+            : TileMap.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
 
         //  적 발견
         var searchNodes = Path.FindPath(myPos, targetPos, false);

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using GlobalEnum;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public partial class PathUtility : MonoBehaviour
@@ -17,6 +13,8 @@ public partial class PathUtility : MonoBehaviour
     private PlanePathNode endNode;   //목적지 노드
     private bool bFindGoal;          //목적지 찾은값
 
+    private TileMap tileMap => SceneController.I.CurTileMap;
+    
     /// <summary>
     /// 알고리즘으로 경로 찾기
     /// </summary>
@@ -27,8 +25,8 @@ public partial class PathUtility : MonoBehaviour
     public List<PlanePathNode> FindPath(Vector3 startPos, Vector3 endPos, bool bDiagonal)
     {
         //위치에 따른 시작노드와 종료 노드를 얻는다.
-        startNode = TilemapManager.I.GetNode_WorldPos(startPos);
-        endNode = TilemapManager.I.GetNode_WorldPos(endPos);
+        startNode = tileMap.GetNode_WorldPos(startPos);
+        endNode = tileMap.GetNode_WorldPos(endPos);
 
         //유효하지 않는 경로다.
         if (startNode == null || endNode == null)
@@ -39,7 +37,8 @@ public partial class PathUtility : MonoBehaviour
             return null;
 
         //갈수 없는 목적지를 선택햇다면 
-        if (endNode.isMoveAble == false)
+        if (endNode.isMoveAble == false ||
+            tileMap.IsMove((int)endNode.centerPos.x, (int)endNode.centerPos.y) == false)
             return null;
 
         //경로 검색전 리셋 작업
@@ -102,8 +101,8 @@ public partial class PathUtility : MonoBehaviour
     public List<PlanePathNode> FindPath_IncludeFindEnemy(Vector3 startPos, Vector3 endPos, bool bDiagonal)
     {
         //위치에 따른 시작노드와 종료 노드를 얻는다.
-        startNode = TilemapManager.I.GetNode_WorldPos(startPos);
-        endNode = TilemapManager.I.GetNode_WorldPos(endPos);
+        startNode = tileMap.GetNode_WorldPos(startPos);
+        endNode = tileMap.GetNode_WorldPos(endPos);
 
         //유효하지 않는 경로다.
         if (startNode == null || endNode == null)
@@ -221,10 +220,10 @@ public partial class PathUtility : MonoBehaviour
     public bool IsMoveAble(int indexX, int indexY, bool ignoreCheckChar = false)
     {
         //  0부터 만들어진 필드플랜의 갯수 유효한 노드인지를 판단합니다.
-        if (0 <= indexX && indexX < TilemapManager.I.CellMaxWidth &&
-            0 <= indexY && indexY < TilemapManager.I.CellMaxHeight)
+        if (0 <= indexX && indexX < tileMap.CellMaxWidth &&
+            0 <= indexY && indexY < tileMap.CellMaxHeight)
         {
-            var tileNode = TilemapManager.I.GetNode(indexX, indexY);
+            var tileNode = tileMap.GetNode(indexX, indexY);
             if (ignoreCheckChar)
             {
                 //  적 배치
@@ -236,6 +235,9 @@ public partial class PathUtility : MonoBehaviour
                 }
             }
 
+            if (tileMap.IsMove((int)tileNode.centerPos.x, (int)tileNode.centerPos.y) == false)
+                return false;
+            
             return tileNode.isMoveAble;
         }
 
@@ -247,16 +249,16 @@ public partial class PathUtility : MonoBehaviour
     public bool IsDontStandAble(int indexX, int indexY)
     {
         //  0부터 만들어진 필드플랜의 갯수 유효한 노드인지를 판단합니다.
-        if (0 <= indexX && indexX < TilemapManager.I.CellMaxWidth &&
-            0 <= indexY && indexY < TilemapManager.I.CellMaxHeight)
+        if (0 <= indexX && indexX < tileMap.CellMaxWidth &&
+            0 <= indexY && indexY < tileMap.CellMaxHeight)
         {
-            var tileNode = TilemapManager.I.GetNode(indexX, indexY);
+            var tileNode = tileMap.GetNode(indexX, indexY);
             var centerPos = tileNode.centerPos;
             
-            if (TilemapManager.I.IsStandChar(centerPos))
+            if (tileMap.IsStandChar(centerPos))
                 return true;
             
-            if (TilemapManager.I.IsStandEnemy(centerPos))
+            if (tileMap.IsStandEnemy(centerPos))
                 return true;
         }
 
@@ -271,7 +273,7 @@ public partial class PathUtility : MonoBehaviour
     /// <param name="parent">누구로 부터왓니?</param>
     private void AddOpenList(int indexX, int indexY, PlanePathNode parent)
     {
-        PlanePathNode node = TilemapManager.I.GetNode(indexX, indexY);
+        PlanePathNode node = tileMap.GetNode(indexX, indexY);
 
         if (closeNodeList.Contains(node))
             return;

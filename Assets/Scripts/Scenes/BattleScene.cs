@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utility;
 
-public partial class BattleScene : SceneData
+public partial class BattleScene : BaseScene
 {
     public CreateActionPlate ActionPlate;
 
@@ -23,77 +23,71 @@ public partial class BattleScene : SceneData
             yield return new WaitUntil(()=>GameSystem.I.Initialize());
         }
 
-        yield return new WaitUntil(()=>
-            TilemapManager.I.Initialize());
-        yield return new WaitUntil(()=>
-            CameraManager.I.Initialize());
-
+        yield return new WaitUntil(() => CameraManager.I.Initialize());
+        
         PlayerManager.I.CreatePlayer(true);
 
         SceneController.I.CompleteSceneLoad();
     }
 
-    private void InitPlate()
-    {
+    public override SceneType SceneType() => GlobalEnum.SceneType.Scene_Battle;
+}
 
-        if (ActionPlate is null)
-        {
-            var prefab = ResourceManager.I.Load<GameObject>(eResourceType.Prefabs, "ActionPlates");
-            if (prefab != null)
-            {
-                var go = Instantiate(prefab, transform);
-                go.transform.localPosition = new Vector3(0, 0, 0);
-                ActionPlate = go.GetComponent<CreateActionPlate>();
-            }
-        }
-    }
-
-    public void CreatePlates(Vector2 centerPos, eCharCommand commandType, short range, Action<Vector3> onClickPlate)
+public partial class BattleScene
+{
+    public override void ClickEvent(Vector2 screenPosition)
     {
-        PlayerManager.I.MainPlayer.CharCommand = commandType;
-        switch (commandType)
-        {
-            case eCharCommand.Move:
-            {
-                ActionPlate.CreatePlate_Move(centerPos, range, onClickPlate);
-                break;
-            }
-            case eCharCommand.Attack:
-            {
-                ActionPlate.CreatePlate_Attack(centerPos, range, onClickPlate);
-                break;
-            }
-        }
-    }
+        base.ClickEvent(screenPosition);
+        
+        var mousePos = Camera.main.ScreenPointToRay(screenPosition);
+        var hit = Physics2D.RaycastAll(mousePos.origin, mousePos.direction);
 
-    public void CreatePlates(Vector2 centerPos, int skillId, Action<Vector3> onClickPlate)
-    {
-        var skillData = TableManager.I.Skill.GetSkill(skillId);
-        if (skillData is null)
+        if(hit.Length <= 0)
             return;
 
-        var actionType = skillData.SkillType == 1
-            ? eCharCommand.Magic_Attack
-            : eCharCommand.Magic_Buff;
+        SetClick_Player(hit);
+        // SetClick_Enemy(hit);
+        SetClick_ActionPlate(hit);
+    }
 
-        PlayerManager.I.MainPlayer.CharCommand = actionType;
-        switch (actionType)
+    private void SetClick_Player(RaycastHit2D[] hit)
+    {
+        var playerChar = hit
+            .Where(x=>x.collider.gameObject.layer == (int)eLayer.MainPlayer)
+            .Select(x=>x.collider.GetComponent<PlayerChar>())
+            .FirstOrDefault();
+
+        if (playerChar is null)
+            return;
+
+        if (playerChar.CharAction != eCharAction.None)
         {
-            case eCharCommand.Magic_Attack:
-            case eCharCommand.Magic_Buff:
-            case eCharCommand.Magic_JobSkill:
+            PlayerManager.I.ClearPlates();
+            playerChar.CharAction = eCharAction.None;
+        }
+        else
+        {
+            switch (playerChar.CharAction)
             {
-                PlayerManager.I.SelectSkillId = skillId;
-                ActionPlate.CreatePlate_SkillTargetSingle(centerPos, skillData, onClickPlate);
-                break;
-            }
+                case eCharAction.None:
+                default:
+                {
+                    UIManager.I.GameUI.SetCommander(playerChar.transform.position);
+                    break;
+                }
+            }   
         }
     }
 
-    public void ClearPlates()
+    private void SetClick_ActionPlate(RaycastHit2D[] hit)
     {
-        ActionPlate.ClearPlate();
-    }
+        var actionPlate = hit
+            .Select(x => x.collider.GetComponent<ActionPlate>())
+            .FirstOrDefault(x => x != null);
 
-    public override SceneType SceneType() => GlobalEnum.SceneType.Scene_Battle;
+        if (actionPlate is null)
+            return;
+
+        actionPlate.ClickedPlate(actionPlate.transform.position);
+    }
 }

@@ -14,7 +14,7 @@ public class PlayerChar : BaseCharObject
 
     public bool IsMainPlayer { get; } = true;
 
-    public Vector3 GetNodePos => TilemapManager.I.GetNode_WorldPos(transform.position)?.centerPos ?? Vector3.zero;
+    public Vector3 GetNodePos => SceneController.I.CurScene.Map.GetNode_WorldPos(transform.position)?.centerPos ?? Vector3.zero;
 
     public eCharCommand CharCommand {
         get => charStatus.charCommand;

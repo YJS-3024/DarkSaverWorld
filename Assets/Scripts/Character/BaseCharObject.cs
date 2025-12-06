@@ -68,22 +68,11 @@ public abstract class BaseCharObject : MonoBehaviour
         }
     }
 
-    private PathUtility _pathUtility;
-    public PathUtility Path => _pathUtility;
-
     private void Awake()
     {
         if (_charSpriteRender is null)
             _charSpriteRender = GetComponentInChildren<CharSpriteRender>();
 
-        if (_pathUtility is null)
-        {
-            _pathUtility = GetComponent<PathUtility>();
-            if (_pathUtility is null)
-            {
-                _pathUtility = gameObject.AddComponent<PathUtility>();
-            }
-        }
 
         charStatus = Utility.Component.GetComponent<CharStatus>(gameObject, true);
     }

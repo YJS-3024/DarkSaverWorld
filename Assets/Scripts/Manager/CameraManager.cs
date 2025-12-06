@@ -18,7 +18,8 @@ public class CameraManager : MonoSingleton<CameraManager>
 
     private float _uiTop = 0;//-1;
     private float _uiBottom = 0;//1;
-    
+
+    private TileMap TileMap => SceneController.I.CurTileMap;
     
     protected override void Destroy()
     {
@@ -27,6 +28,9 @@ public class CameraManager : MonoSingleton<CameraManager>
 
     public override bool Initialize()
     {
+        if (TileMap == null)
+            return true;
+        
         // Camera.main.orthographicSize = Screen.orientation == ScreenOrientation.Portrait
         //     ? 7
         //     : 5;
@@ -34,9 +38,9 @@ public class CameraManager : MonoSingleton<CameraManager>
         _height = Camera.main.orthographicSize;
         _width = _height * Screen.width / Screen.height;
 
-        center = TilemapManager.I.Center;
-        mapMaxSize = TilemapManager.I.MaxSize;
-        mapMinSize = TilemapManager.I.MinSize;
+        center = TileMap.Center;
+        mapMaxSize = TileMap.MaxSize;
+        mapMinSize = TileMap.MinSize;
 
         
         return true;

@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using GlobalEnum;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CreateActionPlate : MonoBehaviour
 {
@@ -13,7 +11,9 @@ public class CreateActionPlate : MonoBehaviour
     private readonly List<ActionPlate> _createdList = new List<ActionPlate>();
     private const float PosValue = 1f;
 
-    public bool IsCreatedPlate() => _createdList.Count > 0;
+    private TileMap TileMap => SceneController.I.CurTileMap;
+    private PathUtility Path => SceneController.I.CurScene.Path;
+    public bool IsCreatedPlate() => createdList.Count > 0;
     
     public void ClearPlate()
     {
@@ -25,7 +25,12 @@ public class CreateActionPlate : MonoBehaviour
         _createdList.Clear();
     }
     
-    public void CreatePlate_Move(Vector2 pos, int rangeCount, Action<Vector3> onClickPlate)
+    /// <summary>
+    /// 이동 범위 플레이트 생성
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="rangeCount"></param>
+    public void CreateMovePlate(Vector2 pos, int rangeCount)
     {
         //1 = 3
         //2 = 5
@@ -35,7 +40,7 @@ public class CreateActionPlate : MonoBehaviour
         var startNum = -rangeCount;
         var endNum = rangeCount;
 
-        var charNode = TilemapManager.I.GetNode_WorldPos(pos);
+        var charNode = TileMap.GetNode_WorldPos(pos);
         
         for (int y = startNum; y <= endNum; y++)
         {
@@ -52,10 +57,10 @@ public class CreateActionPlate : MonoBehaviour
                     if (EnemyManager.I.GetIsEnemy(xPos, yPos))
                         continue;
 
-                    if (TilemapManager.I.IsMove(xPos, yPos) == false)
+                    if (TileMap.IsMove(xPos, yPos) == false)
                         continue;
 
-                    var pathNodes = PlayerManager.I.MainPlayer.Path.FindPath_IncludeFindEnemy(charNode.centerPos, new Vector3(xPos, yPos), false);
+                    var pathNodes = Path.FindPath_IncludeFindEnemy(charNode.centerPos, new Vector3(xPos, yPos), false);
                     if (pathNodes is null ||
                         pathNodes.Count > rangeCount + 1)
                         continue;
@@ -72,12 +77,17 @@ public class CreateActionPlate : MonoBehaviour
         }
     }
 
-    public void CreatePlate_Attack(Vector2 pos, int rangeCount, Action<Vector3> onClickPlate)
+    /// <summary>
+    /// 공격 범위 플레이트 생성
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="rangeCount"></param>
+    public void CreateAttackPlate(Vector2 pos, int rangeCount)
     {
         var startNum = -rangeCount;
         var endNum = rangeCount;
 
-        var charNode = TilemapManager.I.GetNode_WorldPos(pos);
+        var charNode = TileMap.GetNode_WorldPos(pos);
 
         for (int y = startNum; y <= endNum; y++)
         {

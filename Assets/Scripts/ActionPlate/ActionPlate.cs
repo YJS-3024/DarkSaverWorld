@@ -7,9 +7,8 @@ public class ActionPlate : MonoBehaviour
 {
     [SerializeField] public SpriteRenderer spriteRenderer;
 
-    private Action<Vector3> _onClicked = null;
-    private eCharCommand _commandType = eCharCommand.None;
-
+    private TileMap tileMap => SceneController.I.CurTileMap;
+    
     private void Awake()
     {
         if (spriteRenderer is null)
@@ -25,7 +24,29 @@ public class ActionPlate : MonoBehaviour
         var scene = SceneController.I.CurSceneData;
         if (scene is BattleScene battleScene)
         {
-            battleScene.ClearPlates();
+            case eCharAction.Move:
+            {
+                var node = tileMap.GetNode_WorldPos(pos);
+                Move(node.centerPos);
+                break;
+            }
+            case eCharAction.Attack:
+            {
+                var node = tileMap.GetNode_WorldPos(pos);
+                PlayerManager.I.MainPlayer.Attack(node);
+                break;
+            }
+            case eCharAction.Magic:
+            {
+                var magicSkillId = 1;
+                var list = new List<PlanePathNode>
+                {
+                    tileMap.GetNode_WorldPos(pos)
+                };
+
+                PlayerManager.I.MainPlayer.MagicSkill(magicSkillId, list);
+                break;
+            }
         }
 
         _onClicked?.Invoke(pos);
@@ -70,9 +91,9 @@ public class ActionPlate : MonoBehaviour
     {
         var charPos = PlayerManager.I.MainPlayer.CharPath.MoveListLength > 0
             ? PlayerManager.I.MainPlayer.CharPath.LastNode().centerPos
-            : TilemapManager.I.GetNode_WorldPos(PlayerManager.I.MainPlayer.transform.position).centerPos;
+            : tileMap.GetNode_WorldPos(PlayerManager.I.MainPlayer.transform.position).centerPos;
 
-        var nodes = PlayerManager.I.MainPlayer.Path.FindPath_IncludeFindEnemy(charPos, pos, true);
+        var nodes = SceneController.I.CurScene.Path.FindPath_IncludeFindEnemy(charPos, pos, true);
         if (nodes != null)
         {
             PlayerManager.I.MainPlayer.Move(nodes);

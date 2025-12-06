@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using GlobalEnum;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public partial class PlayerManager : MonoSingleton<PlayerManager>
 {

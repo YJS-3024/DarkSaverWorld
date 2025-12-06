@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using GlobalEnum;
 using UnityEngine;
 
 public class RespawnObjet : MonoBehaviour
@@ -17,19 +15,21 @@ public class RespawnObjet : MonoBehaviour
     public bool IsInit = false;
     public bool IsScarecrow = false;
 
+    private TileMap TileMap => SceneController.I.CurTileMap;
+
     // Start is called before the first frame update
     private IEnumerator Start()
     {
         yield return new WaitUntil(() => IsInit);
         
-        _curPos = TilemapManager.I.GetNode_WorldPos(transform.position).centerPos;
+        _curPos = TileMap.GetNode_WorldPos(transform.position).centerPos;
 
         while (true)
         {
             yield return new WaitForSeconds(1f);
             
-            if (TilemapManager.I.IsStandChar(_curPos) &&
-                TilemapManager.I.IsStandEnemy(_curPos))
+            if (TileMap.IsStandChar(_curPos) &&
+                TileMap.IsStandEnemy(_curPos))
                 continue;
 
             if(_enemyList.Count >= createCountMax)
