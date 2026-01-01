@@ -12,7 +12,7 @@ public class CommandButton : MonoBehaviour
 
     private void Awake()
     {
-        btnCommand.AddListener(_onCallback);
+        btnCommand?.AddListener(_onCallback);
     }
 
     public void SetCommand_Skill(int skillId = 0)

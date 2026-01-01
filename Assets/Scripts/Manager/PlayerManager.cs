@@ -8,7 +8,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
     public override bool Initialize()
     {
-        if (ActionPlate is null)
+        if (ActionPlate == null)
         {
             var prefab = ResourceManager.I.Load<GameObject>(eResourceType.Prefabs, "ActionPlates");
             if (prefab != null)
@@ -24,7 +24,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
     public void CreatePlayer(bool isMainPlayer)
     {
-        if (MainPlayer is null)
+        if (MainPlayer == null)
         {
             var prefab = ResourceManager.I.Load<GameObject>(eResourceType.Prefabs, "Character/MainPlayer");
             if (prefab != null)
