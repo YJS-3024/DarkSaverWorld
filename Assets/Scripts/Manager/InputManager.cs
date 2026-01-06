@@ -9,9 +9,8 @@ public class InputManager : MonoSingleton<InputManager>
 
     public override bool Initialize()
     {
-        if (InputUI == null)
+        if (InputUI != null)
         {
-            InputUI = FindFirstObjectByType<InputUI>();
             InputUI.gameObject.SetActive(false);
         }
         
@@ -133,4 +132,18 @@ public class InputManager : MonoSingleton<InputManager>
     //         }
     //     }
     // }
+
+    /// <summary>
+    /// 특정 상황시 프레스 상태를 강제로 풀어준다.
+    /// </summary>
+    public void SetForcePressUI(bool isPressState)
+    {
+        if (InputUI == null)
+            InputUI = FindFirstObjectByType<InputUI>();
+
+        if (InputUI != null)
+        {
+            InputUI.IsPressed = isPressState;
+        }
+    }
 }

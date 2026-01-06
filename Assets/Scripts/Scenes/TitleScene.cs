@@ -14,7 +14,7 @@ public partial class TitleScene : BaseScene
 
     public void Start()
     {
-        var gameSystem = FindObjectOfType<GameSystem>();
+        var gameSystem = FindAnyObjectByType<GameSystem>();
         if (gameSystem != null)
             return;
 

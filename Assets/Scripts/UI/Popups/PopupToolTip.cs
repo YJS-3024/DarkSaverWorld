@@ -21,8 +21,6 @@ public class PopupToolTip : MonoBehaviour
     [SerializeField] private Button btnTestActive;
     [SerializeField] private RectTransform rectCheckArea;
 
-    private eToolTipType _toolTipType = eToolTipType.Dir_Center_Bot;
-
     private void Awake()
     {
         btnBg.onClick.AddListener(() =>

@@ -25,7 +25,7 @@ public partial class TileMap : MonoBehaviour
         if (_tilemapList is null || 
             _tilemapList.Count == 0)
         {
-            _tilemapList = FindObjectsOfType<Tilemap>().ToList();
+            _tilemapList = FindObjectsByType<Tilemap>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)?.ToList();
 
             tilemapBoard = _tilemapList.FindLast(x => x.gameObject.layer == (int)eLayer.Field_Board);
             if (tilemapBoard != null)

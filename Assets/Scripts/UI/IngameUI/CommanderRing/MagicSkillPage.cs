@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UI.Extension;
 using UnityEngine;
 using UnityEngine.Serialization;
 

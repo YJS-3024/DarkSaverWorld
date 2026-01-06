@@ -1,7 +1,6 @@
 using System.Collections;
 using GlobalEnum;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public partial class ViliageScene : BaseScene
 {
@@ -23,11 +22,15 @@ public partial class ViliageScene : BaseScene
 
 public partial class ViliageScene
 {
-    public override void ClickEvent(Vector2 screenPosition)
+    public override void PressEvent(Vector2 eventDataPosition)
     {
-        var mainPlayer = PlayerManager.I.MainPlayer;
+        base.PressEvent(eventDataPosition);
         
-        var uiPos = screenPosition;
+        var mainPlayer = PlayerManager.I.MainPlayer;
+        if (mainPlayer.IsMoving)
+            return;
+        
+        var uiPos = eventDataPosition;
         var worldPos = Camera.main.ScreenToWorldPoint(uiPos);
         var posList = SceneController.I.CurScene.Path.FindPath(mainPlayer.transform.position, worldPos, false);
         if (posList != null)

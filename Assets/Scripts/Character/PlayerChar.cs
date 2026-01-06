@@ -1,16 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using GlobalEnum;
-using Table;
 using UnityEngine;
 
-public class PlayerChar : BaseCharObject
+public class PlayerChar : BaseCharObject, i_PlayerChar
 {
     [SerializeField] public Transform CameraFollowPos;
 
     private Coroutine _moving = null;
+    public bool IsMoving => _moving != null;
 
     public bool IsMainPlayer { get; } = true;
 
@@ -49,7 +47,7 @@ public class PlayerChar : BaseCharObject
         }
     }
 
-    public override void Move(List<PlanePathNode> nodes = null)
+    public void Move(List<PlanePathNode> nodes = null)
     {
         if (nodes == null)
             return;
@@ -60,18 +58,18 @@ public class PlayerChar : BaseCharObject
             _moving = null;
         }
 
-        _moving = StartCoroutine(OnStartMove(nodes));
+        _moving = StartCoroutine(OnStartMove(nodes, EndMove));
 
         charStatus.GetStatus.actPoint -= 5;
         CharAction = eCharAction.None;
     }
 
-    public override void Dead()
+    public void Dead()
     {
 
     }
 
-    public override void Attack(PlanePathNode node)
+    public  void Attack(PlanePathNode node)
     {
         var enemy = EnemyManager.I.GetEnemy(node.centerPos);
         if (enemy != null)
@@ -84,16 +82,25 @@ public class PlayerChar : BaseCharObject
         CharAction = eCharAction.None;
     }
 
-    public override void MagicSkill(int magicId) { }
+    public void MagicSkill(int magicId) { }
 
-    public override void MagicSkill(int magicId, List<PlanePathNode> node) { }
+    public void MagicSkill(int magicId, List<PlanePathNode> node) { }
 
-    public override void Rest()
+    public void Rest()
     {
     }
 
-    public override void HitDamage(int damage)
+    public void HitDamage(int damage)
     {
 
+    }
+
+    private void EndMove()
+    {
+        if (_moving != null)
+        {
+            StopCoroutine(_moving);
+            _moving = null;
+        }
     }
 }

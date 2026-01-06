@@ -13,25 +13,11 @@ public class GameUI : MonoBehaviour
     }
 
     [SerializeField] private CommanderPage commanderPage;
-    [SerializeField] private UseItemPage useItemPage;
-    [SerializeField] private MagicSkillPage magicSkillPage;
-    [SerializeField] private JobSkillPage jobSkillPage;
 
     private CommanderPageType _curPage = CommanderPageType.PageFirst;
 
-    private void Awake()
-    {
-        EventManager.I.AddEvent("Move_MagicSkillPage", OnMove_MagicSkillPage);
-    }
-
     public void SetCommander(Vector3 worldPos)
     {
-        if (_curPage != CommanderPageType.PageFirst)
-        {
-            useItemPage.gameObject.SetActive(false);
-            magicSkillPage.gameObject.SetActive(false);
-            jobSkillPage.gameObject.SetActive(false);
-        }
 
         _curPage = CommanderPageType.PageFirst;
 
@@ -40,15 +26,8 @@ public class GameUI : MonoBehaviour
 
         var uiPosX = screenPoint.x - (UIManager.I.CanvasScale.x * 0.5f);
         var uiPosY = screenPoint.y - (UIManager.I.CanvasScale.y * 0.5f);
-        commanderPage.Rect.anchoredPosition = new Vector2(uiPosX, uiPosY);
+        commanderPage.Rect.localPosition = new Vector2(uiPosX, uiPosY);
 
         commanderPage.Rect.gameObject.SetActive(!commanderPage.Rect.gameObject.activeSelf);
-    }
-
-    private void OnMove_MagicSkillPage()
-    {
-        magicSkillPage.gameObject.SetActive(true);
-        magicSkillPage.SetPage();
-        _curPage = CommanderPageType.PageMagicSkill;
     }
 }

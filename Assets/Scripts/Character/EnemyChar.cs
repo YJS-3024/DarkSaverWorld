@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyChar : BaseCharObject
+public class EnemyChar : BaseCharObject, i_Enemy_Battle
 {
     public bool isDead = false;
 
@@ -14,7 +14,7 @@ public class EnemyChar : BaseCharObject
         set => CharIdx = value;
     }
 
-    public override void Attack(PlanePathNode node = null)
+    public void Attack(PlanePathNode node = null)
     {
         var mainPlayer = PlayerManager.I.MainPlayer;
         var attackRange = charStatus.GetStatus.attackRange;
@@ -30,7 +30,7 @@ public class EnemyChar : BaseCharObject
         }
     }
 
-    public override void Move(List<PlanePathNode> nodes = null)
+    public void Move(List<PlanePathNode> nodes = null)
     {
         var searchRange = charStatus.GetStatus.searchRange;
         var mainPlayer = PlayerManager.I.MainPlayer;
@@ -56,7 +56,7 @@ public class EnemyChar : BaseCharObject
         }
     }
 
-    public override void Dead()
+    public void Dead()
     {
         if(charStatus.GetStatus.curHp > 0)
             return;
@@ -68,11 +68,11 @@ public class EnemyChar : BaseCharObject
         DestroyImmediate(this.gameObject);
     }
 
-    public override void Rest()
+    public void Rest()
     {
     }
 
-    public override void HitDamage(int damage)
+    public void HitDamage(int damage)
     {
         var status = charStatus.GetStatus;
 

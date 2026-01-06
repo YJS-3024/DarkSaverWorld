@@ -49,6 +49,11 @@ public abstract class BaseScene : MonoBehaviour
     {
         
     }
+
+    public virtual void PressEvent(Vector2 eventDataPosition)
+    {
+        
+    }
 }
 
 public class SceneController : MonoSingleton<SceneController>
@@ -68,7 +73,8 @@ public class SceneController : MonoSingleton<SceneController>
     public override bool Initialize()
     {
         dicScenes.Add(SceneType.Scene_Title, "TitleScene");
-        dicScenes.Add(SceneType.Scene_Village, "Scene_Viliiage");
+        dicScenes.Add(SceneType.Scene_Village, "Scene_Village");
+        dicScenes.Add(SceneType.Scene_Shop, "Scene_Shop");
         dicScenes.Add(SceneType.Scene_Battle, "2D_Scene");
 
         CompleteSceneLoad(SceneType.Scene_Title);
@@ -169,5 +175,6 @@ public class SceneController : MonoSingleton<SceneController>
         IsLoadComplete = true;
 
         UIManager.I.LoadingUI.SetActive(false);
+        InputManager.I.SetForcePressUI(false);
     }
 }

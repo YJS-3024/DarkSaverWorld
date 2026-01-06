@@ -13,13 +13,30 @@ public class TriggerObject : MonoBehaviour
 
         switch (triggerType)
         {
-            case TriggerType.Portal:
+            case TriggerType.Village:
+            {
+                SceneController.I.ChangeScene(SceneType.Scene_Village);
+                break;
+            }
+            case TriggerType.Shop:
+            {
+                SceneController.I.ChangeScene(SceneType.Scene_Shop);
+                break;
+            }
+            case TriggerType.Field:
+            {
+                break;
+            }
+            case TriggerType.Dungeon:
             {
                 SceneController.I.ChangeScene(SceneType.Scene_Battle);
                 break;
             }
+            case TriggerType.None:
             default:
-                throw new ArgumentOutOfRangeException();
+            {
+                break;
+            }
         }
     }
 

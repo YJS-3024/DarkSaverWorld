@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -90,25 +91,7 @@ public abstract class BaseCharObject : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 공격 시작
-    /// </summary>
-    public abstract void Attack(PlanePathNode node);
-
-    /// <summary>
-    /// 마법 공격 시작
-    /// </summary>
-    public virtual void MagicSkill(int skillId) { }
-    public virtual void MagicSkill(int skillId, List<PlanePathNode> node) { }
-
-    /// <summary>
-    /// 이동
-    /// </summary>
-    public abstract void Move(List<PlanePathNode> nodes = null);
-
-    public abstract void Dead();
-
-    protected IEnumerator OnStartMove(List<PlanePathNode> nodes, float delayTime = 0.05f)
+    protected IEnumerator OnStartMove(List<PlanePathNode> nodes, Action onEndMove = null, float delayTime = 0.05f)
     {
         if (GetComponent<EnemyChar>())
         {
@@ -125,12 +108,7 @@ public abstract class BaseCharObject : MonoBehaviour
 
             yield return new WaitForSeconds(delayTime);
         }
+        
+        onEndMove?.Invoke();
     }
-
-    /// <summary>
-    /// 휴식
-    /// </summary>
-    public abstract void Rest();
-
-    public abstract void HitDamage(int damage);
 }

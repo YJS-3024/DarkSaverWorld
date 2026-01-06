@@ -107,8 +107,8 @@ public class TableLoader
         }
         catch (Exception e)
         {
+            Debug.LogError($"{e.Message}");
             return -1;
-            throw;
         }
     }
 }

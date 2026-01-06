@@ -1,20 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using GlobalEnum;
-using UI.Extension;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CommanderPage : MonoBehaviour
 {
     [SerializeField] private CommandButton btnMove;
-    [SerializeField] private CommandButton btnItem;
+    // [SerializeField] private CommandButton btnItem;
     [SerializeField] private CommandButton btnAttack;
-    [SerializeField] private CommandButton btnMagicSkill;
-    [SerializeField] private CommandButton btnJobSkill;
-    [SerializeField] private CommandButton btnRest;
-    [SerializeField] private CommandButton btnOperation;
-    [SerializeField] private CommandButton btnOption;
+    // [SerializeField] private CommandButton btnMagicSkill;
+    // [SerializeField] private CommandButton btnJobSkill;
+    // [SerializeField] private CommandButton btnRest;
+    // [SerializeField] private CommandButton btnOperation;
+    // [SerializeField] private CommandButton btnOption;
 
     public RectTransform Rect => (RectTransform)transform;
 
@@ -23,13 +19,13 @@ public class CommanderPage : MonoBehaviour
         gameObject.SetActive(false);
 
         btnMove.SetCommand(TableManager.I.String.GetString("Action_Move"), OnClick_Move);
-        btnItem.SetCommand(TableManager.I.String.GetString("Action_UseItem"), OnClick_UseItem);
+        // btnItem.SetCommand(TableManager.I.String.GetString("Action_UseItem"), OnClick_UseItem);
         btnAttack.SetCommand(TableManager.I.String.GetString("Action_Attack"), OnClick_Attack);
-        btnMagicSkill.SetCommand(TableManager.I.String.GetString("Action_Magic"), OnClick_MagicSkill);
-        btnJobSkill.SetCommand(TableManager.I.String.GetString("Action_SpecialAttack"), OnClick_JobSkill);
-        btnRest.SetCommand(TableManager.I.String.GetString("Action_Rest"), OnClick_Rest);
-        btnOperation.SetCommand(TableManager.I.String.GetString("Action_Operation"), OnClick_Operation);
-        btnOption.SetCommand(TableManager.I.String.GetString("Action_Option"), OnClick_Option);
+        // btnMagicSkill.SetCommand(TableManager.I.String.GetString("Action_Magic"), OnClick_MagicSkill);
+        // btnJobSkill.SetCommand(TableManager.I.String.GetString("Action_SpecialAttack"), OnClick_JobSkill);
+        // btnRest.SetCommand(TableManager.I.String.GetString("Action_Rest"), OnClick_Rest);
+        // btnOperation.SetCommand(TableManager.I.String.GetString("Action_Operation"), OnClick_Operation);
+        // btnOption.SetCommand(TableManager.I.String.GetString("Action_Option"), OnClick_Option);
     }
 
     private void OnClick_Move()

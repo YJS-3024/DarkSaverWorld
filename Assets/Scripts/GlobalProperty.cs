@@ -29,6 +29,7 @@ namespace GlobalEnum
     {
         Scene_Title,
         Scene_Village,
+        Scene_Shop,
         Scene_Battle,
     }
 
@@ -89,6 +90,9 @@ namespace GlobalEnum
     public enum TriggerType
     {
         None,
-        Portal,
+        Village,
+        Shop,
+        Field,
+        Dungeon,
     }
 }
