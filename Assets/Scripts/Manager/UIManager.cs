@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GlobalEnum;
@@ -12,7 +11,7 @@ public enum UIType
     GameUI = 1,
 
     MainPanel = 10,
-    CharPanel,
+    CharacterPanel,
     InventoryPanel,
 
     TestPanel = 999,
@@ -20,6 +19,14 @@ public enum UIType
     TopUI = 1000,
 
     MessagePopup = 2000,
+}
+
+/// <summary>
+/// UI별 UI 타입 셋팅용 인터페이스
+/// </summary>
+public interface IUIType
+{
+    public UIType GetUIType();
 }
 
 public static class UiUtil
@@ -32,7 +39,7 @@ public static class UiUtil
             case UIType.TopUI: return "UI/Game/TopUI";
 
             case UIType.MainPanel: return "UI/Panel/MainPanel";
-            case UIType.CharPanel: return "UI/Panel/CharPanel";
+            case UIType.CharacterPanel: return "UI/Panel/CharPanel";
             case UIType.InventoryPanel: return "UI/Panel/InvenPanel";
 
             case UIType.MessagePopup: return "UI/Popup/MessagePopup";
@@ -46,11 +53,11 @@ public static class UiUtil
 public partial class UIManager : MonoSingleton<UIManager>
 {
     private CommonUI _commonUI;
-    private readonly Dictionary<UIType, BasePanel> _dicPanels = new Dictionary<UIType, BasePanel>();
-    private readonly Dictionary<UIType, BasePopup> _dicPopups = new Dictionary<UIType, BasePopup>();
+    private readonly Dictionary<UIType, UIBasePanel> _dicPanels = new Dictionary<UIType, UIBasePanel>();
+    private readonly Dictionary<UIType, UIBasePopup> _dicPopups = new Dictionary<UIType, UIBasePopup>();
 
-    private readonly Stack<BasePanel> _panelHistory = new Stack<BasePanel>();
-    private readonly Stack<BasePopup> _popupHistory = new Stack<BasePopup>();
+    private readonly Stack<UIBasePanel> _panelHistory = new Stack<UIBasePanel>();
+    private readonly Stack<UIBasePopup> _popupHistory = new Stack<UIBasePopup>();
 
     private UIType lastUIType = UIType.None;
 
@@ -88,7 +95,7 @@ public partial class UIManager : MonoSingleton<UIManager>
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    private BasePanel CreatePanel(UIType type)
+    private UIBasePanel CreatePanel(UIType type)
     {
         if (_dicPanels.TryGetValue(type, out var panel))
             return panel;
@@ -127,10 +134,10 @@ public partial class UIManager : MonoSingleton<UIManager>
                 .FirstOrDefault();
 
             //  생성된 패널 등록
-            var component = go.GetComponent<BasePanel>();
+            var component = go.GetComponent<UIBasePanel>();
             if (component != null)
             {
-                component.CreatedPanel();
+                component.Created();
                 _dicPanels.Add(type, component);
             }
 
@@ -162,14 +169,14 @@ public partial class UIManager : MonoSingleton<UIManager>
         if (panel is null)
             return;
 
-        panel.ShowPanel();
+        panel.Show();
         panel.SetActive(true);
 
-        TopUI.SetPanelName(panel.GetPanelName());
+        TopUI.SetPanelName(panel.UIPanelName());
 
         _panelHistory.Push(panel);
 
-        lastUIType = panel.GetPanelType();
+        lastUIType = panel.GetUIType();
     }
 
     /// <summary>
@@ -177,21 +184,21 @@ public partial class UIManager : MonoSingleton<UIManager>
     /// </summary>
     public void HidePanel()
     {
-        if (_panelHistory.Peek().GetPanelType() != UIType.MainPanel)
+        if (_panelHistory.Peek().GetUIType() != UIType.MainPanel)
         {
             var curPanel = _panelHistory.Pop();
-            curPanel.HidePanel();
+            curPanel.Hide();
             curPanel.SetActive(false);
 
             var beforePanel = _panelHistory.Peek();
-            beforePanel.ShowPanel();
+            beforePanel.Show();
             beforePanel.SetActive(true);
 
-            lastUIType = beforePanel.GetPanelType();
+            lastUIType = beforePanel.GetUIType();
         }
     }
 
-    public BasePanel GetPanel()
+    public UIBasePanel GetPanel()
     {
         return _panelHistory.Peek();
     }
@@ -204,7 +211,7 @@ public partial class UIManager : MonoSingleton<UIManager>
 
     #region [Popup]
 
-    public BasePopup CreatePopup(UIType type)
+    public UIBasePopup CreatePopup(UIType type)
     {
         if (_dicPopups.TryGetValue(type, out var popup))
             return popup;
@@ -224,7 +231,7 @@ public partial class UIManager : MonoSingleton<UIManager>
             rect.localScale = Vector3.one;
 
             //  생성 팝업 등록
-            var component = go.GetComponent<BasePopup>();
+            var component = go.GetComponent<UIBasePopup>();
             if (component != null)
             {
                 _dicPopups.Add(type, component);
@@ -238,7 +245,7 @@ public partial class UIManager : MonoSingleton<UIManager>
         return null;
     }
 
-    public BasePopup ShowPopup(UIType type)
+    public UIBasePopup ShowPopup(UIType type)
     {
         if (_dicPopups.TryGetValue(type, out var popup) == false)
         {
@@ -248,7 +255,7 @@ public partial class UIManager : MonoSingleton<UIManager>
         if (popup is null)
             return null;
 
-        popup.ShowPopup();
+        popup.Show();
         popup.SetActive(true);
 
         _popupHistory.Push(popup);
@@ -265,7 +272,7 @@ public partial class UIManager : MonoSingleton<UIManager>
             var popup = _popupHistory.Pop();
             if (popup != null)
             {
-                popup.HidePopup();
+                popup.Hide();
                 popup.SetActive(false);
             }
         }

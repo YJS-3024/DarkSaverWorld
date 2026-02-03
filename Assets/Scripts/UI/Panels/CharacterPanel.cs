@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ItemDetailPopup : UIBasePopup
+public class CharacterPanel : UIBasePanel
 {
+
     public override void Created()
     {
     }
@@ -20,4 +17,8 @@ public class ItemDetailPopup : UIBasePopup
     {
         return true;
     }
+
+    public override string UIPanelName() => "CharacterPanel";
+
+    public override UIType GetUIType()=>UIType.CharacterPanel;
 }

@@ -15,8 +15,8 @@ public class GameSystem : MonoSingleton<GameSystem>
         yield return new WaitUntil(() => InitManger(EnemyManager.I));
         yield return new WaitUntil(() => InitManger(CameraManager.I));
         yield return new WaitUntil(() => InitManger(EffectManager.I));
-        yield return new WaitUntil(() => InitManger(UIManager.I));
         yield return new WaitUntil(() => InitManger(EventManager.I));
+        yield return new WaitUntil(() => InitManger(ServerManager.I));
     }
 
     public override bool Initialize()

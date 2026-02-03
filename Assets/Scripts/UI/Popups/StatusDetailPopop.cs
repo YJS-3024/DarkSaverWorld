@@ -2,13 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatusDetailPopop : BasePopup
+public class StatusDetailPopop : UIBasePopup
 {
-    public override void ShowPopup()
+    public override void Created()
+    {
+        
+    }
+
+    public override void Show()
     {
     }
 
-    public override void HidePopup()
+    public override void Hide()
     {
+    }
+
+    public override bool IsProcessEscape()
+    {
+        return true;
     }
 }

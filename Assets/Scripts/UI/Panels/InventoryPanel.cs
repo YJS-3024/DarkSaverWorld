@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ItemDetailPopup : UIBasePopup
+public class InventoryPanel : UIBasePanel
 {
     public override void Created()
     {
@@ -20,4 +16,8 @@ public class ItemDetailPopup : UIBasePopup
     {
         return true;
     }
+    
+    public override string UIPanelName() => "InventoryPanel";
+
+    public override UIType GetUIType() => UIType.InventoryPanel;
 }

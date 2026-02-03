@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MessagePopup : BasePopup
+public class MessagePopup : UIBasePopup
 {
     [SerializeField] private Text txtTitle;
     [SerializeField] private Text txtDescription;
@@ -66,13 +66,22 @@ public class MessagePopup : BasePopup
         SetButton(btnCancel, () => onCheck.Invoke(_isOn));
     }
 
-    public override void ShowPopup() { }
+    public override void Created()
+    {
+    }
 
-    public override void HidePopup()
+    public override void Show() { }
+
+    public override void Hide()
     {
         tglCheckBox?.onValueChanged.RemoveAllListeners();
         btnConfirm?.onClick.RemoveAllListeners();
         btnCancel?.onClick.RemoveAllListeners();
+    }
+
+    public override bool IsProcessEscape()
+    {
+        return true;
     }
 
     private void SetTitle(string strTitle)

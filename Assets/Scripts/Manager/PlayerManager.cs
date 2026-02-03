@@ -58,6 +58,15 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         }
     }
 
+    public PlayerChar GetPlayerChar(long playerId)
+    {
+        if (MainPlayer.CharIdx == playerId)
+            return MainPlayer;
+
+        //  TODO :: 플레이어 리스트 생기면 추가
+        return null;
+    }
+
     public void ClearPlates()
     {
         ActionPlate.ClearPlate();

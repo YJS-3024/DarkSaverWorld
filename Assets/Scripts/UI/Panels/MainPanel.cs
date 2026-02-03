@@ -1,16 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainPanel : BasePanel
+public class MainPanel : UIBasePanel
 {
     [SerializeField] private Button btnChar;
     [SerializeField] private Button btnInven;
     [SerializeField] private Button btnMsg;
 
-    public override void CreatedPanel()
+    public override void Created()
     {
         btnChar.onClick.AddListener(OnClick_OpenChar);
         btnInven.onClick.AddListener(OnClick_OpenInventory);
@@ -19,7 +16,7 @@ public class MainPanel : BasePanel
 
     private void OnClick_Msg()
     {
-        UIManager.I.ShowConfirmPopup("Å×½ºÆ® Å¸ÀÌÆ²", "Å×½ºÆ® ¼³¸í", () =>
+        UIManager.I.ShowConfirmPopup("ï¿½×½ï¿½Æ® Å¸ï¿½ï¿½Æ²", "ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½", () =>
         {
             UIManager.I.HidePopup();
         });
@@ -27,7 +24,7 @@ public class MainPanel : BasePanel
 
     private void OnClick_OpenChar()
     {
-        UIManager.I.ShowPanel(UIType.CharPanel);
+        UIManager.I.ShowPanel(UIType.CharacterPanel);
     }
 
     private void OnClick_OpenInventory()
@@ -35,11 +32,11 @@ public class MainPanel : BasePanel
         UIManager.I.ShowPanel(UIType.InventoryPanel);
     }
 
-    public override void ShowPanel()
+    public override void Show()
     {
     }
 
-    public override void HidePanel()
+    public override void Hide()
     {
     }
 
@@ -48,7 +45,6 @@ public class MainPanel : BasePanel
         return true;
     }
 
-    public override string GetPanelName() => string.Empty;
-
-    public override UIType GetPanelType() => UIType.MainPanel;
+    public override string UIPanelName() => "MainPanel";
+    public override UIType GetUIType() => UIType.MainPanel;
 }

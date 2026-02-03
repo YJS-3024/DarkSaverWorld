@@ -16,21 +16,20 @@ public class CameraManager : MonoSingleton<CameraManager>
     private float _width = 0;
     private float _height = 0;
 
-    private float _uiTop = 0;//-1;
-    private float _uiBottom = 0;//1;
+    private float _uiTop = 0; //-1;
+    private float _uiBottom = 0; //1;
 
     private TileMap TileMap => SceneController.I.CurTileMap;
-    
+
     protected override void Destroy()
     {
-        
     }
 
     public override bool Initialize()
     {
         if (TileMap == null)
             return true;
-        
+
         // Camera.main.orthographicSize = Screen.orientation == ScreenOrientation.Portrait
         //     ? 7
         //     : 5;
@@ -42,7 +41,7 @@ public class CameraManager : MonoSingleton<CameraManager>
         mapMaxSize = TileMap.MaxSize;
         mapMinSize = TileMap.MinSize;
 
-        
+
         return true;
     }
 
@@ -54,11 +53,13 @@ public class CameraManager : MonoSingleton<CameraManager>
     private void SetLimitCameraArea()
     {
         var mainChar = PlayerManager.I.MainPlayer;
-        if (mainChar is null)
+        if (mainChar == null)
             return;
 
         if (mainCamera == null)
+        {
             mainCamera = Camera.main;
+        }
 
         mainCamera.transform.position = Vector3.Lerp(
             mainCamera.transform.position,
@@ -66,7 +67,7 @@ public class CameraManager : MonoSingleton<CameraManager>
             camMoveSpeed * Time.deltaTime);
 
         float lx = mapMaxSize.x - _width;
-        float clampX = lx >= 0 
+        float clampX = lx >= 0
             ? Mathf.Clamp(mainCamera.transform.position.x, -lx + center.x, lx + center.x)
             : 0f;
 
@@ -74,14 +75,13 @@ public class CameraManager : MonoSingleton<CameraManager>
         float clampY = ly >= 0
             ? Mathf.Clamp(mainCamera.transform.position.y, -ly + center.y + _uiTop, ly + center.y + _uiBottom)
             : 0f;
-        
+
         mainCamera.transform.position = new Vector3(clampX, clampY, -10);
     }
-    
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(center, mapMaxSize * 2);
     }
-    
 }

@@ -22,6 +22,7 @@ namespace GlobalEnum
         Field_Block,
         Field_Upper,
 
+        NonPlayerChar = 20,
         Max
     }
 

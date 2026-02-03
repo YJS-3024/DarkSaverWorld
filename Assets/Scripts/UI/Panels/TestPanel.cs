@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPanel : BasePanel
+public class TestPanel : UIBasePanel
 {
-    public override void CreatedPanel()
+    public override void Created()
     {
     }
 
-    public override void ShowPanel()
+    public override void Show()
     {
     }
 
-    public override void HidePanel()
+    public override void Hide()
     {
     }
 
@@ -21,7 +21,8 @@ public class TestPanel : BasePanel
         return true;
     }
 
-    public override string GetPanelName() => "테스트용 패널";
+    public override string UIPanelName() => "TestPanel";
 
-    public override UIType GetPanelType() => UIType.TestPanel;
+    public override UIType GetUIType() => UIType.TestPanel;
+
 }
