@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using BehaviorTree;
-using GlobalEnum;
 using UnityEngine;
 
 public class EnemyMonsterAI_Normal : EnemyAI_Base

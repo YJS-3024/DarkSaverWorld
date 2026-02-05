@@ -329,5 +329,52 @@ public partial class PathUtility : MonoBehaviour
 
         return minimumNode;
     }
+
+    /// <summary>
+    /// 센터 위치 기준의 범위에 위치한 플레이어 유닛 아래의 노드를 반환
+    /// </summary>
+    /// <param name="center"></param>
+    /// <param name="range"></param>
+    /// <returns></returns>
+    public List<PlanePathNode> FindUnitNodeList(Vector2 center, int range)
+    {
+        var list = new List<PlanePathNode>();
+        var unitList = PlayerManager.I.GetPlayerList();
+
+        var centerPos = SceneController.I.CurScene.Map.GetNode_WorldPos(center).centerPos;
+        foreach (var unit in unitList)
+        {
+            var targetPos = SceneController.I.CurScene.Map.GetNode_WorldPos(unit.transform.position).centerPos;
+            var pathList = FindPath_IncludeFindEnemy(centerPos, targetPos, false);
+
+            foreach (var node in pathList)
+            {
+                if(node.centerPos == centerPos)
+                    continue;
+            
+                list.Add(node);
+            }
+        }
+        
+        return list;
+    }
+
+    /// <summary>
+    /// 노드 위에 있는 플레이어 유닛 리턴
+    /// </summary>
+    /// <param name="node"></param>
+    /// <returns></returns>
+    public PlayerUnit CheckNodeInPlayerUnitList(PlanePathNode node)
+    {
+        var unitList = PlayerManager.I.GetPlayerList();
+        foreach (var unit in unitList)
+        {
+            var centerPos = SceneController.I.CurScene.Map.GetNode_WorldPos(unit.transform.position).centerPos;
+            if (node.centerPos == centerPos)
+                return unit;
+        }
+
+        return null;
+    }
 }
 

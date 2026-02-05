@@ -6,7 +6,7 @@ public class CommanderPage : MonoBehaviour
     [SerializeField] private CommandButton btnMove;
     // [SerializeField] private CommandButton btnItem;
     [SerializeField] private CommandButton btnAttack;
-    // [SerializeField] private CommandButton btnMagicSkill;
+    [SerializeField] private CommandButton btnMagicSkill;
     // [SerializeField] private CommandButton btnJobSkill;
     // [SerializeField] private CommandButton btnRest;
     // [SerializeField] private CommandButton btnOperation;
@@ -21,7 +21,7 @@ public class CommanderPage : MonoBehaviour
         btnMove.SetCommand(TableManager.I.String.GetString("Action_Move"), OnClick_Move);
         // btnItem.SetCommand(TableManager.I.String.GetString("Action_UseItem"), OnClick_UseItem);
         btnAttack.SetCommand(TableManager.I.String.GetString("Action_Attack"), OnClick_Attack);
-        // btnMagicSkill.SetCommand(TableManager.I.String.GetString("Action_Magic"), OnClick_MagicSkill);
+        btnMagicSkill.SetCommand(TableManager.I.String.GetString("Action_Magic"), OnClick_MagicSkill);
         // btnJobSkill.SetCommand(TableManager.I.String.GetString("Action_SpecialAttack"), OnClick_JobSkill);
         // btnRest.SetCommand(TableManager.I.String.GetString("Action_Rest"), OnClick_Rest);
         // btnOperation.SetCommand(TableManager.I.String.GetString("Action_Operation"), OnClick_Operation);
@@ -57,7 +57,8 @@ public class CommanderPage : MonoBehaviour
 
     private void OnClick_MagicSkill()
     {
-        EventManager.I.CallEvent("Move_MagicSkillPage")?.Invoke();
+        UIManager.I.ShowPopup(UIType.MagicSkillPopup);
+        
         gameObject.SetActive(false);
     }
 

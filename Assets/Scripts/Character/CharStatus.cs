@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 [System.Serializable]
 public class StatusInfo
 {
+    public long unitID; //  유닛 ID
     public string userName; //유저 이름
 
     public string charClass; //캐릭터 직업이름
@@ -42,6 +43,7 @@ public class StatusInfo
 
     public StatusInfo(MonsterData data)
     {
+        unitID = data.ID;
         userName = data.ID.ToString();
         charLevel = 1;
         realExp = maxExp = 0;

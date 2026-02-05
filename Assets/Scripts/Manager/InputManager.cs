@@ -70,7 +70,7 @@ public class InputManager : MonoSingleton<InputManager>
     {
         var playerChar = hit
             .Where(x=>x.collider.gameObject.layer == (int)eLayer.MainPlayer)
-            .Select(x=>x.collider.GetComponent<PlayerChar>())
+            .Select(x=>x.collider.GetComponent<PlayerUnit>())
             .FirstOrDefault();
 
         if (playerChar is null)

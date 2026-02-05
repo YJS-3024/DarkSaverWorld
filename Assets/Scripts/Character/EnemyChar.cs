@@ -16,17 +16,34 @@ public class EnemyChar : BaseCharObject, i_Enemy_Battle
 
     public void Attack(PlanePathNode node = null)
     {
-        var mainPlayer = PlayerManager.I.MainPlayer;
+        // var playerChar = PlayerManager.I.MainPlayer;
+        // var attackRange = charStatus.GetStatus.attackRange;
+        //
+        // var myPos = TileMap.GetNode_WorldPos(transform.position).centerPos;
+        // var targetPos = TileMap.GetNode_WorldPos(playerChar.transform.position).centerPos;
+        //
+        // var nodes = Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
+        // if (nodes.Count <= attackRange)
+        // {
+        //     playerChar.HitDamage(charStatus.GetStatus.attackValue);
+        //     Debug.Log($"{playerChar.name} 공~격~!");
+        // }
+        
         var attackRange = charStatus.GetStatus.attackRange;
-
         var myPos = TileMap.GetNode_WorldPos(transform.position).centerPos;
-        var targetPos = TileMap.GetNode_WorldPos(mainPlayer.transform.position).centerPos;
 
-        var nodes = Path.FindPath_IncludeFindEnemy(myPos, targetPos, false);
-        if (nodes.Count <= attackRange)
+        var nodes = Path.FindUnitNodeList(myPos, attackRange);
+        if (nodes.Count == 0)
+            return;
+
+        foreach (var n in nodes)
         {
-            mainPlayer.HitDamage(charStatus.GetStatus.attackValue);
-            Debug.Log($"{mainPlayer.name} 공~격~!");
+            var playerUnit = Path.CheckNodeInPlayerUnitList(n);
+            if (playerUnit != null)
+            {
+                playerUnit.HitDamage(charStatus.GetStatus.attackValue);
+                Debug.Log($"{playerUnit.name} 공~격~!");
+            }
         }
     }
 

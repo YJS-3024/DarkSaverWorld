@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GlobalEnum;
 using UnityEngine;
 
-public class PlayerChar : BaseCharObject, i_PlayerChar
+public class PlayerUnit : BaseCharObject, i_PlayerChar
 {
     [SerializeField] public Transform CameraFollowPos;
 
@@ -66,7 +66,9 @@ public class PlayerChar : BaseCharObject, i_PlayerChar
 
     public void Dead()
     {
-
+        Debug.Log($"{charStatus.GetStatus.unitID}의 hp가 모두 소진되어 마을로 이동");
+        
+        SceneController.I.ChangeScene(SceneType.Scene_Village);
     }
 
     public  void Attack(PlanePathNode node)
@@ -92,7 +94,13 @@ public class PlayerChar : BaseCharObject, i_PlayerChar
 
     public void HitDamage(int damage)
     {
-
+        // charStatus.GetStatus.curHp -= damage;
+        Debug.Log($"{charStatus.GetStatus.unitID}가 {damage} 피격");
+        
+        if (charStatus.GetStatus.curHp <= 0)
+        {
+            Dead();
+        }
     }
 
     private void EndMove()

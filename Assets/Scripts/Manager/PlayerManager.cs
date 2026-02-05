@@ -1,9 +1,13 @@
+using System.Collections.Generic;
+using System.Linq;
 using GlobalEnum;
 using UnityEngine;
 
 public class PlayerManager : MonoSingleton<PlayerManager>
 {
-    public PlayerChar MainPlayer { get; private set; }
+    private readonly Dictionary<long, PlayerUnit> _dicUnits = new Dictionary<long, PlayerUnit>();
+
+    public PlayerUnit MainPlayer { get; private set; }
     public CreateActionPlate ActionPlate;
 
     public override bool Initialize()
@@ -31,12 +35,14 @@ public class PlayerManager : MonoSingleton<PlayerManager>
             {
                 var go = Instantiate(prefab);
                 go.transform.localPosition = new Vector3(0.5f, -0.5f, 0);
-                MainPlayer = go.GetComponent<PlayerChar>();
+                MainPlayer = go.GetComponent<PlayerUnit>();
+
+                _dicUnits.TryAdd(MainPlayer.CharIdx, MainPlayer);
             }
         }
     }
 
-    public void CreatePlates(Vector2 centerPos,eCharAction actionType, int range)
+    public void CreatePlates(Vector2 centerPos, eCharAction actionType, int range)
     {
         switch (actionType)
         {
@@ -58,13 +64,21 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         }
     }
 
-    public PlayerChar GetPlayerChar(long playerId)
+    public PlayerUnit GetPlayer(long playerId)
     {
         if (MainPlayer.CharIdx == playerId)
             return MainPlayer;
 
         //  TODO :: 플레이어 리스트 생기면 추가
+        if (_dicUnits.TryGetValue(playerId, out var playerUnit))
+            return playerUnit;
+
         return null;
+    }
+
+    public List<PlayerUnit> GetPlayerList()
+    {
+        return _dicUnits.Values.ToList();
     }
 
     public void ClearPlates()
@@ -74,6 +88,5 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
     protected override void Destroy()
     {
-
     }
 }

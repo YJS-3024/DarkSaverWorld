@@ -27,8 +27,8 @@ public partial class ServerManager : MonoSingleton<ServerManager>
         method.Invoke(this, new object[] { packetData });
     }
 
-    public void Request_MovePlayer(long playerID, 
-        Vector2 currentPosition, 
+    public void Request_MovePlayer(long playerID,
+        Vector2 currentPosition,
         Vector2 destinationPosition)
     {
         // if (playerID == 0)
@@ -39,12 +39,25 @@ public partial class ServerManager : MonoSingleton<ServerManager>
 
     public void Response_MovePlayer(Server_MovePlayer packetData)
     {
-        var player = PlayerManager.I.GetPlayerChar(packetData.PlayerID);
-        
+        var player = PlayerManager.I.GetPlayer(packetData.PlayerID);
+
         var posList = SceneController.I.CurScene.Path.FindPath(packetData.CurPos, packetData.DestinationPos, false);
         if (posList != null)
         {
             PlayerManager.I.MainPlayer.Move(posList);
         }
+    }
+
+    public void Request_Attack(long skillId, long attackerID, long receiverId)
+    {
+        SendLocalPacket(new Server_Attack(skillId, attackerID, receiverId));
+    }
+
+    public void Response_Attack(Server_Attack packetData)
+    {
+        if (packetData.AttackerId == 0 || packetData.ReceiverId == 0)
+            return;
+        
+        
     }
 }

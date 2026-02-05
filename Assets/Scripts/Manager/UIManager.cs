@@ -19,6 +19,7 @@ public enum UIType
     TopUI = 1000,
 
     MessagePopup = 2000,
+    MagicSkillPopup,
 }
 
 /// <summary>
@@ -43,6 +44,7 @@ public static class UiUtil
             case UIType.InventoryPanel: return "UI/Panel/InvenPanel";
 
             case UIType.MessagePopup: return "UI/Popup/MessagePopup";
+            case UIType.MagicSkillPopup: return "UI/Popup/MagicSkillPopup";
             case UIType.None:
             default:
                 return string.Empty;
