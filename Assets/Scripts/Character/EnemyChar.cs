@@ -30,9 +30,8 @@ public class EnemyChar : BaseCharObject, i_Enemy_Battle
         // }
         
         var attackRange = charStatus.GetStatus.attackRange;
-        var myPos = TileMap.GetNode_WorldPos(transform.position).centerPos;
 
-        var nodes = Path.FindUnitNodeList(myPos, attackRange);
+        var nodes = Path.FindUnitNodeList(transform.position, attackRange);
         if (nodes.Count == 0)
             return;
 

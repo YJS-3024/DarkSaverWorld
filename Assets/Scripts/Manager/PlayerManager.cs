@@ -42,6 +42,11 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         }
     }
 
+    public void RemovePlayer(long playerId)
+    {
+        _dicUnits.Remove(playerId);
+    }
+
     public void CreatePlates(Vector2 centerPos, eCharAction actionType, int range)
     {
         switch (actionType)

@@ -6,6 +6,7 @@ using UnityEngine;
 public class CameraManager : MonoSingleton<CameraManager>
 {
     private Camera mainCamera;
+    public Camera UICamera { get; private set; }
 
     [SerializeField] private Vector2 center;
     [SerializeField] private Vector2 mapMaxSize;
@@ -41,6 +42,10 @@ public class CameraManager : MonoSingleton<CameraManager>
         mapMaxSize = TileMap.MaxSize;
         mapMinSize = TileMap.MinSize;
 
+        if (UICamera == null)
+        {
+            UICamera ??= UIManager.I.GetComponentInChildren<Camera>();
+        }
 
         return true;
     }

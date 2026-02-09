@@ -3,18 +3,18 @@ using UnityEngine;
 
 public partial class PathUtility : MonoBehaviour
 {
-    private readonly List<PlanePathNode> openNodeList = new List<PlanePathNode>();  //오픈노드 리스트
+    private readonly List<PlanePathNode> openNodeList = new List<PlanePathNode>(); //오픈노드 리스트
     private readonly List<PlanePathNode> closeNodeList = new List<PlanePathNode>(); //클로즈 노드 리스트
 
-    private readonly List<PlanePathNode> result = new List<PlanePathNode>();      //결과 벡터
+    private readonly List<PlanePathNode> result = new List<PlanePathNode>(); //결과 벡터
     private readonly List<PlanePathNode> resultStack = new List<PlanePathNode>(); //결과 스택(백트레킹 때문에 쓴다.)
 
     private PlanePathNode startNode; //시작 노드
-    private PlanePathNode endNode;   //목적지 노드
-    private bool bFindGoal;          //목적지 찾은값
+    private PlanePathNode endNode; //목적지 노드
+    private bool bFindGoal; //목적지 찾은값
 
     private TileMap tileMap => SceneController.I.CurTileMap;
-    
+
     /// <summary>
     /// 알고리즘으로 경로 찾기
     /// </summary>
@@ -177,9 +177,6 @@ public partial class PathUtility : MonoBehaviour
     }
 
 
-
-
-
     /// <summary>
     /// 현재 노드 중심으로 갈수있는 노드를 오픈리스트에 추가
     /// </summary>
@@ -214,7 +211,7 @@ public partial class PathUtility : MonoBehaviour
                 AddOpenList(curNode.indexX - 1, curNode.indexY - 1, curNode);
         }
     }
-    
+
 
     //해당 인덱스의 위치가 갈수 있는 노드인지 확인
     public bool IsMoveAble(int indexX, int indexY, bool ignoreCheckChar = false)
@@ -237,14 +234,14 @@ public partial class PathUtility : MonoBehaviour
 
             if (tileMap.IsMove((int)tileNode.centerPos.x, (int)tileNode.centerPos.y) == false)
                 return false;
-            
+
             return tileNode.isMoveAble;
         }
 
         return false;
     }
-    
-    
+
+
     //해당 인덱스의 위치가 갈수 있는 노드인지 확인
     public bool IsDontStandAble(int indexX, int indexY)
     {
@@ -254,10 +251,10 @@ public partial class PathUtility : MonoBehaviour
         {
             var tileNode = tileMap.GetNode(indexX, indexY);
             var centerPos = tileNode.centerPos;
-            
+
             if (tileMap.IsStandChar(centerPos))
                 return true;
-            
+
             if (tileMap.IsStandEnemy(centerPos))
                 return true;
         }
@@ -344,18 +341,21 @@ public partial class PathUtility : MonoBehaviour
         var centerPos = SceneController.I.CurScene.Map.GetNode_WorldPos(center).centerPos;
         foreach (var unit in unitList)
         {
+            if (unit == null)
+                continue;
+
             var targetPos = SceneController.I.CurScene.Map.GetNode_WorldPos(unit.transform.position).centerPos;
             var pathList = FindPath_IncludeFindEnemy(centerPos, targetPos, false);
 
             foreach (var node in pathList)
             {
-                if(node.centerPos == centerPos)
+                if (node.centerPos == centerPos)
                     continue;
-            
+
                 list.Add(node);
             }
         }
-        
+
         return list;
     }
 
@@ -377,4 +377,3 @@ public partial class PathUtility : MonoBehaviour
         return null;
     }
 }
-

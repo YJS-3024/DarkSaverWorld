@@ -23,10 +23,18 @@ public class GameUI : MonoBehaviour
 
         //  commanderRect의 렉트 앵커가 min,max가 모두 0이여야한다.
         var screenPoint = Camera.main.WorldToScreenPoint(worldPos);
+        
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            UIManager.I.GameUI.transform as RectTransform, 
+            screenPoint, 
+            CameraManager.I.UICamera, 
+            out var localPos
+        );
+        commanderPage.Rect.localPosition = localPos;
 
-        var uiPosX = screenPoint.x - (UIManager.I.CanvasScale.x * 0.5f);
-        var uiPosY = screenPoint.y - (UIManager.I.CanvasScale.y * 0.5f);
-        commanderPage.Rect.localPosition = new Vector2(uiPosX, uiPosY);
+        // var uiPosX = Screen.width - screenPoint.x;// - (UIManager.I.CanvasScale.x * 0.5f);
+        // var uiPosY = Screen.height - screenPoint.y;// - (UIManager.I.CanvasScale.y * 0.5f);
+        // commanderPage.Rect.localPosition = new Vector2(uiPosX, uiPosY);
 
         commanderPage.Rect.gameObject.SetActive(!commanderPage.Rect.gameObject.activeSelf);
     }

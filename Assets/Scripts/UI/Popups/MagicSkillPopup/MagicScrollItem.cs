@@ -1,6 +1,7 @@
 using skfksky1004.DevKit.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MagicScrollData : BaseScrollData
 {
@@ -18,13 +19,13 @@ public class MagicScrollData : BaseScrollData
 
 public class MagicScrollItem : BaseScrollItem
 {
-    [SerializeField] private TextMeshProUGUI txtMagicName;
+    [SerializeField] private Text txtMagicName;
     
     public override void UpdateItem(BaseScrollData data)
     {
         if(data is not MagicScrollData magicScrollData)
             return;
         
-        txtMagicName?.SetText(TableManager.I.String.GetString(magicScrollData.SkillNameId));   
+        txtMagicName.text = TableManager.I.String.GetString(magicScrollData.SkillNameId);   
     }
 }
