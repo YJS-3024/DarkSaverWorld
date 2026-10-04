@@ -6,48 +6,20 @@ namespace DarkSaver.Prototype
     public sealed class DarkSaverPrototype : MonoBehaviour
     {
         private enum Mode { Title, Field, Battle, Result }
-        private enum Command { None, Move, Attack, Magic }
-
-        private sealed class Unit
-        {
-            public string Name;
-            public Vector2Int Cell;
-            public int Hp;
-            public int MaxHp;
-            public int Mp;
-            public int MaxMp;
-            public int Ap;
-            public int MaxAp;
-            public int Attack;
-            public int Defense;
-            public bool Enemy;
-            public bool CanMagic;
-            public string Mark;
-            public Color Color;
-            public int Level = 1;
-            public int Experience;
-            public float ActionCharge;
-
-            public bool Alive => Hp > 0;
-            public int NextLevelExperience => Level * 60;
-        }
+        private enum Command { None, Move, Attack, Skill, Magic }
 
         private const int Columns = 10;
         private const int Rows = 8;
         private const float ReferenceWidth = 960f;
         private const float ReferenceHeight = 540f;
 
-        private readonly List<Unit> enemies = new List<Unit>();
-        private readonly List<Unit> party = new List<Unit>();
+        private readonly List<BattleUnit> enemies = new List<BattleUnit>();
+        private readonly List<BattleUnit> party = new List<BattleUnit>();
         private readonly HashSet<Vector2Int> obstacles = new HashSet<Vector2Int>
         {
             new Vector2Int(4, 1), new Vector2Int(4, 2),
             new Vector2Int(4, 5), new Vector2Int(5, 5),
             new Vector2Int(7, 4)
-        };
-        private static readonly Vector2Int[] Directions =
-        {
-            Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left
         };
         private readonly Vector2Int[] fieldMonsters =
         {
@@ -56,7 +28,7 @@ namespace DarkSaver.Prototype
 
         private Mode mode = Mode.Title;
         private Command command;
-        private Unit selectedUnit;
+        private BattleUnit selectedUnit;
         private Vector2Int fieldPlayer = new Vector2Int(2, 5);
         private Vector2Int fieldDestination;
         private bool hasFieldDestination;
@@ -65,6 +37,7 @@ namespace DarkSaver.Prototype
         private int gold;
         private int lastRewardGold;
         private int lastRewardExperience;
+        private int healingPotionCount;
         private string message = "카오시아의 용병대가 새로운 의뢰를 기다립니다.";
         private bool victory;
         private float nextEnemyActionAt;
@@ -158,6 +131,7 @@ namespace DarkSaver.Prototype
             hasFieldDestination = false;
             defeated = 0;
             gold = 0;
+            healingPotionCount = 3;
             InitializeParty();
             message = "방향키/WASD 또는 목적지 타일 클릭으로 이동할 수 있습니다.";
         }
@@ -292,33 +266,14 @@ namespace DarkSaver.Prototype
             }
             selectedUnit = party[0].Alive ? party[0] : ClosestLivingPartyMember(Vector2Int.zero);
             enemies.Clear();
-            enemies.Add(new Unit { Name = "황야 고블린", Cell = new Vector2Int(7, 2), Hp = 55, MaxHp = 55, Ap = 6, MaxAp = 10, Attack = 18, Defense = 3, Enemy = true });
-            enemies.Add(new Unit { Name = "황야 고블린", Cell = new Vector2Int(8, 5), Hp = 55, MaxHp = 55, Ap = 4, MaxAp = 10, Attack = 18, Defense = 3, Enemy = true });
-            enemies.Add(new Unit { Name = "오크 척후병", Cell = new Vector2Int(6, 6), Hp = 80, MaxHp = 80, Ap = 2, MaxAp = 10, Attack = 23, Defense = 6, Enemy = true });
+            enemies.AddRange(BattleRoster.CreateEnemies());
             message = "아군을 클릭해 선택한 뒤 명령과 대상 타일을 선택하세요.";
         }
 
         private void InitializeParty()
         {
             party.Clear();
-            party.Add(new Unit
-            {
-                Name = "아켄 용병대장", Mark = "대장", Color = new Color(.18f, .50f, .92f),
-                Cell = new Vector2Int(1, 4), Hp = 120, MaxHp = 120,
-                Mp = 30, MaxMp = 30, Ap = 10, MaxAp = 10, Attack = 26, Defense = 7
-            });
-            party.Add(new Unit
-            {
-                Name = "브란 전사", Mark = "전", Color = new Color(.28f, .70f, .45f),
-                Cell = new Vector2Int(1, 5), Hp = 145, MaxHp = 145,
-                Mp = 15, MaxMp = 15, Ap = 10, MaxAp = 10, Attack = 31, Defense = 11
-            });
-            party.Add(new Unit
-            {
-                Name = "세라 마법사", Mark = "법", Color = new Color(.62f, .35f, .92f),
-                Cell = new Vector2Int(2, 4), Hp = 85, MaxHp = 85,
-                Mp = 70, MaxMp = 70, Ap = 10, MaxAp = 10, Attack = 17, Defense = 3, CanMagic = true
-            });
+            party.AddRange(BattleRoster.CreateParty());
             selectedUnit = party[0];
         }
 
@@ -369,22 +324,33 @@ namespace DarkSaver.Prototype
             DrawBar(new Rect(750, 195, 160, 14), "AP", selectedUnit.Ap, selectedUnit.MaxAp, new Color(.90f, .65f, .12f));
 
             GUI.Label(new Rect(746, 216, 170, 26), "행동 명령", title);
-            CommandButton(new Rect(750, 250, 74, 38), "이동 4", Command.Move, selectedUnit.Ap >= 4);
-            CommandButton(new Rect(836, 250, 74, 38), "공격 2", Command.Attack, selectedUnit.Ap >= 2);
-            CommandButton(new Rect(750, 300, 74, 38), "마법 6", Command.Magic,
-                selectedUnit.CanMagic && selectedUnit.Ap >= 6 && selectedUnit.Mp >= 10);
+            CommandButton(new Rect(750, 250, 74, 38), "이동 4", Command.Move,
+                selectedUnit.Ap >= BattleRules.MoveActionPointCost);
+            CommandButton(new Rect(836, 250, 74, 38), "공격 2", Command.Attack,
+                selectedUnit.Ap >= BattleRules.AttackActionPointCost);
+            CommandButton(new Rect(750, 294, 74, 38), "스킬 5", Command.Skill,
+                selectedUnit.CanUseSkill && selectedUnit.Ap >= BattleRules.SkillActionPointCost);
+            CommandButton(new Rect(836, 294, 74, 38), "마법 6", Command.Magic,
+                selectedUnit.CanMagic && selectedUnit.Ap >= BattleRules.MagicActionPointCost &&
+                selectedUnit.Mp >= BattleRules.MagicManaCost);
             var oldEnabled = GUI.enabled;
-            GUI.enabled = selectedUnit.Ap >= 4;
-            if (GUI.Button(new Rect(836, 300, 74, 38), "휴식 4", button))
+            GUI.enabled = healingPotionCount > 0 && selectedUnit.Hp < selectedUnit.MaxHp &&
+                selectedUnit.Ap >= BattleRules.ItemActionPointCost;
+            if (GUI.Button(new Rect(750, 338, 74, 38), $"물약 {healingPotionCount}", button))
+                UseHealingPotion();
+            GUI.enabled = selectedUnit.Ap >= BattleRules.RestActionPointCost;
+            if (GUI.Button(new Rect(836, 338, 74, 38), "휴식 4", button))
             {
-                selectedUnit.Ap -= 4;
-                selectedUnit.Hp = Mathf.Min(selectedUnit.MaxHp, selectedUnit.Hp + 18);
-                selectedUnit.Mp = Mathf.Min(selectedUnit.MaxMp, selectedUnit.Mp + 8);
+                selectedUnit.Ap -= BattleRules.RestActionPointCost;
+                selectedUnit.Hp = BattleRules.ApplyRecovery(
+                    selectedUnit.Hp, selectedUnit.MaxHp, BattleRules.RestHealthAmount);
+                selectedUnit.Mp = BattleRules.ApplyRecovery(
+                    selectedUnit.Mp, selectedUnit.MaxMp, BattleRules.RestManaAmount);
                 message = $"{selectedUnit.Name}이 휴식으로 체력과 마력을 회복했습니다.";
             }
             GUI.enabled = oldEnabled;
-            if (GUI.Button(new Rect(750, 354, 160, 36), "명령 취소", button)) command = Command.None;
-            GUI.Label(new Rect(750, 402, 160, 70),
+            if (GUI.Button(new Rect(750, 382, 160, 32), "명령 취소", button)) command = Command.None;
+            GUI.Label(new Rect(750, 420, 160, 58),
                 $"EXP {selectedUnit.Experience} / {selectedUnit.NextLevelExperience}\n" +
                 $"공격 {selectedUnit.Attack}  방어 {selectedUnit.Defense}\n" +
                 $"남은 적 {AliveEnemyCount()}  {CommandName(command)}", centered);
@@ -401,13 +367,30 @@ namespace DarkSaver.Prototype
             {
                 command = value;
                 message = value == Command.Move ? "2칸 안의 빈 타일을 선택하세요." :
-                    value == Command.Attack ? "인접한 적을 선택하세요." : "3칸 안의 적에게 화염 마법을 사용합니다.";
+                    value == Command.Attack ? "인접한 적을 선택하세요." :
+                    value == Command.Skill ? $"인접한 적에게 {selectedUnit.SkillName}을 사용합니다." :
+                    "3칸 안의 적에게 화염 마법을 사용합니다.";
             }
             button.normal.background = oldBackground;
             GUI.enabled = oldEnabled;
         }
 
-        private void SelectPartyUnit(Unit member)
+        private void UseHealingPotion()
+        {
+            if (healingPotionCount <= 0 || selectedUnit == null ||
+                selectedUnit.Hp >= selectedUnit.MaxHp ||
+                !BattleRules.CanAfford(selectedUnit.Ap, BattleRules.ItemActionPointCost))
+                return;
+
+            selectedUnit.Ap -= BattleRules.ItemActionPointCost;
+            selectedUnit.Hp = BattleRules.ApplyRecovery(
+                selectedUnit.Hp, selectedUnit.MaxHp, BattleRules.HealingPotionAmount);
+            healingPotionCount--;
+            command = Command.None;
+            message = $"{selectedUnit.Name}이 회복 물약을 사용했습니다.";
+        }
+
+        private void SelectPartyUnit(BattleUnit member)
         {
             selectedUnit = member;
             command = Command.None;
@@ -421,7 +404,7 @@ namespace DarkSaver.Prototype
             if (command == Command.Move) return CanReach(selectedUnit.Cell, cell, 2);
             var target = UnitAt(cell);
             if (target == null || !target.Enemy || !target.Alive) return false;
-            return command == Command.Attack ? distance == 1 : distance <= 3;
+            return command == Command.Magic ? distance <= 3 : distance == 1;
         }
 
         private void ExecuteCommand(Vector2Int cell)
@@ -429,7 +412,7 @@ namespace DarkSaver.Prototype
             if (command == Command.Move)
             {
                 selectedUnit.Cell = cell;
-                selectedUnit.Ap -= 4;
+                selectedUnit.Ap -= BattleRules.MoveActionPointCost;
                 message = $"{selectedUnit.Name}이 진형을 이동했습니다.";
             }
             else
@@ -437,12 +420,16 @@ namespace DarkSaver.Prototype
                 var target = UnitAt(cell);
                 if (target == null) return;
                 var magic = command == Command.Magic;
-                var rawDamage = magic ? 42 : selectedUnit.Attack;
-                var damage = Mathf.Max(1, rawDamage - (magic ? target.Defense / 2 : target.Defense));
+                var skill = command == Command.Skill;
+                var rawDamage = magic ? BattleRules.MagicDamage :
+                    skill ? selectedUnit.Attack + selectedUnit.SkillPower : selectedUnit.Attack;
+                var damage = BattleRules.CalculateDamage(rawDamage, target.Defense, magic);
                 target.Hp = Mathf.Max(0, target.Hp - damage);
-                selectedUnit.Ap -= magic ? 6 : 2;
-                if (magic) selectedUnit.Mp -= 10;
-                message = $"{selectedUnit.Name}: {target.Name}에게 {damage} 피해!" +
+                selectedUnit.Ap -= magic ? BattleRules.MagicActionPointCost :
+                    skill ? BattleRules.SkillActionPointCost : BattleRules.AttackActionPointCost;
+                if (magic) selectedUnit.Mp -= BattleRules.MagicManaCost;
+                var actionName = skill ? selectedUnit.SkillName : magic ? "화염 마법" : "공격";
+                message = $"{selectedUnit.Name}의 {actionName}: {target.Name}에게 {damage} 피해!" +
                     (target.Alive ? "" : "  격파했습니다.");
             }
             command = Command.None;
@@ -466,16 +453,16 @@ namespace DarkSaver.Prototype
                 if (target == null)
                     break;
                 var distance = Manhattan(enemy.Cell, target.Cell);
-                if (distance == 1 && enemy.Ap >= 2)
+                if (distance == 1 && enemy.Ap >= BattleRules.AttackActionPointCost)
                 {
-                    enemy.Ap -= 2;
-                    var damage = Mathf.Max(1, enemy.Attack - target.Defense);
+                    enemy.Ap -= BattleRules.AttackActionPointCost;
+                    var damage = BattleRules.CalculateDamage(enemy.Attack, target.Defense, false);
                     target.Hp = Mathf.Max(0, target.Hp - damage);
                     message = $"{enemy.Name}의 반격! {target.Name}이 {damage} 피해를 받았습니다.";
                 }
-                else if (distance > 1 && enemy.Ap >= 4)
+                else if (distance > 1 && enemy.Ap >= BattleRules.MoveActionPointCost)
                 {
-                    enemy.Ap -= 4;
+                    enemy.Ap -= BattleRules.MoveActionPointCost;
                     var destination = FindNextStep(enemy.Cell, target.Cell);
                     if (destination != enemy.Cell) enemy.Cell = destination;
                 }
@@ -499,16 +486,17 @@ namespace DarkSaver.Prototype
             RechargeGroup(enemies, deltaTime, .85f);
         }
 
-        private static void RechargeGroup(List<Unit> units, float deltaTime, float rate)
+        private static void RechargeGroup(List<BattleUnit> units, float deltaTime, float rate)
         {
             foreach (var unit in units)
             {
                 if (!unit.Alive || unit.Ap >= unit.MaxAp) continue;
-                unit.ActionCharge += deltaTime * rate;
-                var recovered = Mathf.FloorToInt(unit.ActionCharge);
+                var totalCharge = unit.ActionCharge + Mathf.Max(0f, deltaTime) * Mathf.Max(0f, rate);
+                var recovered = BattleRules.CalculateRecoveredActionPoints(
+                    unit.ActionCharge, deltaTime, rate);
                 if (recovered <= 0) continue;
                 unit.Ap = Mathf.Min(unit.MaxAp, unit.Ap + recovered);
-                unit.ActionCharge -= recovered;
+                unit.ActionCharge = totalCharge - recovered;
             }
         }
 
@@ -579,7 +567,7 @@ namespace DarkSaver.Prototype
             GUI.Label(new Rect(36, 507, 888, 24), message, tiny);
         }
 
-        private void DrawBattleToken(Rect board, float cellW, float cellH, Unit unit, Color color, string mark)
+        private void DrawBattleToken(Rect board, float cellW, float cellH, BattleUnit unit, Color color, string mark)
         {
             var rect = new Rect(board.x + unit.Cell.x * cellW + 8, board.y + unit.Cell.y * cellH + 7, cellW - 16, cellH - 14);
             if (unit == selectedUnit)
@@ -630,78 +618,26 @@ namespace DarkSaver.Prototype
 
         private bool CanReach(Vector2Int start, Vector2Int destination, int range)
         {
-            if (destination == start || !IsInsideBattle(destination) ||
-                obstacles.Contains(destination) || UnitAt(destination) != null)
-                return false;
-
-            var queue = new Queue<Vector2Int>();
-            var distance = new Dictionary<Vector2Int, int> { { start, 0 } };
-            queue.Enqueue(start);
-            while (queue.Count > 0)
-            {
-                var current = queue.Dequeue();
-                var currentDistance = distance[current];
-                if (currentDistance >= range) continue;
-                foreach (var direction in Directions)
-                {
-                    var next = current + direction;
-                    if (!IsInsideBattle(next) || obstacles.Contains(next) ||
-                        distance.ContainsKey(next) || (next != destination && UnitAt(next) != null))
-                        continue;
-                    if (next == destination) return true;
-                    distance.Add(next, currentDistance + 1);
-                    queue.Enqueue(next);
-                }
-            }
-            return false;
+            return BattleGridRules.CanReach(
+                start, destination, range, Columns, Rows, obstacles, cell => UnitAt(cell) != null);
         }
 
         private Vector2Int FindNextStep(Vector2Int start, Vector2Int target)
         {
-            var queue = new Queue<Vector2Int>();
-            var previous = new Dictionary<Vector2Int, Vector2Int>();
-            queue.Enqueue(start);
-            previous.Add(start, start);
-
-            while (queue.Count > 0)
-            {
-                var current = queue.Dequeue();
-                if (current == target) break;
-                foreach (var direction in Directions)
-                {
-                    var next = current + direction;
-                    if (!IsInsideBattle(next) || obstacles.Contains(next) || previous.ContainsKey(next))
-                        continue;
-                    var occupant = UnitAt(next);
-                    if (occupant != null && next != target)
-                        continue;
-                    previous.Add(next, current);
-                    queue.Enqueue(next);
-                }
-            }
-
-            if (!previous.ContainsKey(target)) return start;
-            var step = target;
-            while (previous[step] != start)
-                step = previous[step];
-            return step;
+            return BattleGridRules.FindNextStep(
+                start, target, Columns, Rows, obstacles, cell => UnitAt(cell) != null);
         }
 
-        private static bool IsInsideBattle(Vector2Int cell)
-        {
-            return cell.x >= 0 && cell.x < Columns && cell.y >= 0 && cell.y < Rows;
-        }
-
-        private Unit UnitAt(Vector2Int cell)
+        private BattleUnit UnitAt(Vector2Int cell)
         {
             foreach (var member in party) if (member.Alive && member.Cell == cell) return member;
             foreach (var enemy in enemies) if (enemy.Alive && enemy.Cell == cell) return enemy;
             return null;
         }
 
-        private Unit ClosestLivingPartyMember(Vector2Int origin)
+        private BattleUnit ClosestLivingPartyMember(Vector2Int origin)
         {
-            Unit closest = null;
+            BattleUnit closest = null;
             var bestDistance = int.MaxValue;
             foreach (var member in party)
             {
@@ -736,6 +672,7 @@ namespace DarkSaver.Prototype
             {
                 case Command.Move: return "이동";
                 case Command.Attack: return "공격";
+                case Command.Skill: return "스킬";
                 case Command.Magic: return "마법";
                 default: return "대기";
             }
