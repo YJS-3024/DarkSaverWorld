@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,13 +6,17 @@ namespace DarkSaver.Prototype
 {
     public sealed class DarkSaverPrototype : MonoBehaviour
     {
-        private enum Mode { Title, Field, Battle, Result }
+        private enum Mode { Title, Field, Inventory, Battle, Result }
         private enum Command { None, Move, Attack, Skill, Magic }
 
         private const int Columns = 10;
         private const int Rows = 8;
-        private const float ReferenceWidth = 960f;
-        private const float ReferenceHeight = 540f;
+        private const float ReferenceWidth = 640f;
+        private const float ReferenceHeight = 480f;
+        private const float FieldTileSize = 32f;
+        private static readonly Vector2 FieldOrigin = new Vector2(16f, 38f);
+        private static readonly Vector2Int FieldMerchant = new Vector2Int(6, 4);
+        private static readonly Vector2Int QuestFieldItemCell = new Vector2Int(9, 6);
 
         private readonly List<BattleUnit> enemies = new List<BattleUnit>();
         private readonly List<BattleUnit> party = new List<BattleUnit>();
@@ -27,12 +32,24 @@ namespace DarkSaver.Prototype
         };
 
         private Mode mode = Mode.Title;
+        private Mode inventoryReturnMode = Mode.Field;
+        private bool inventoryEquipmentTab;
+        private int inventoryMemberIndex;
         private Command command;
         private BattleUnit selectedUnit;
         private Vector2Int fieldPlayer = new Vector2Int(2, 5);
         private Vector2Int fieldDestination;
         private bool hasFieldDestination;
         private float nextFieldStepAt;
+        private SpriteFacing fieldFacing = SpriteFacing.Down;
+        private int fieldWalkFrame = 1;
+        private float fieldWalkFrameEndsAt;
+        private bool merchantDialogueOpen;
+        private QuestStage questStage;
+        private int questMonsterKills;
+        private bool questFieldItemCollected;
+        private int questMonsterDropCount;
+        private bool lastBattleDroppedQuestItem;
         private int defeated;
         private int gold;
         private int lastRewardGold;
@@ -51,6 +68,25 @@ namespace DarkSaver.Prototype
         private Texture2D panelTexture;
         private Texture2D buttonTexture;
         private Texture2D selectedTexture;
+        private Texture2D fieldTileTexture;
+        private Texture2D partySpriteSheet;
+        private Texture2D monsterSpriteSheet;
+        private Texture2D itemSpriteSheet;
+        private Texture2D interfaceAtlas;
+        private bool originalAssetsLoaded;
+        private OriginalScreenLayout screenLayout;
+
+        private void Awake()
+        {
+#if UNITY_ANDROID || UNITY_IOS
+            Input.simulateMouseWithTouches = true;
+            Screen.orientation = ScreenOrientation.AutoRotation;
+            Screen.autorotateToLandscapeLeft = true;
+            Screen.autorotateToLandscapeRight = true;
+            Screen.autorotateToPortrait = false;
+            Screen.autorotateToPortraitUpsideDown = false;
+#endif
+        }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -82,18 +118,17 @@ namespace DarkSaver.Prototype
         private void OnGUI()
         {
             EnsureStyles();
-            var scale = Mathf.Min(Screen.width / ReferenceWidth, Screen.height / ReferenceHeight);
+            EnsureOriginalAssets();
+            UpdateScreenLayout();
             var old = GUI.matrix;
-            GUI.matrix = Matrix4x4.TRS(
-                new Vector3((Screen.width - ReferenceWidth * scale) * .5f,
-                    (Screen.height - ReferenceHeight * scale) * .5f, 0f),
-                Quaternion.identity, new Vector3(scale, scale, 1f));
+            GUI.matrix = screenLayout.Matrix;
 
             DrawBackdrop();
             switch (mode)
             {
                 case Mode.Title: DrawTitle(); break;
                 case Mode.Field: DrawField(); break;
+                case Mode.Inventory: DrawInventory(); break;
                 case Mode.Battle: DrawBattle(); break;
                 case Mode.Result: DrawResult(); break;
             }
@@ -111,24 +146,36 @@ namespace DarkSaver.Prototype
         private void DrawTitle()
         {
             GUI.color = new Color(.12f, .18f, .13f);
-            GUI.DrawTexture(new Rect(0, 0, 960, 540), Texture2D.whiteTexture);
+            GUI.DrawTexture(new Rect(0, 0, ReferenceWidth, ReferenceHeight), Texture2D.whiteTexture);
             GUI.color = Color.white;
 
-            GUI.Label(new Rect(170, 90, 620, 80), "DARK SAVER WORLD", title);
-            GUI.Label(new Rect(220, 165, 520, 36), "고전 온라인 SRPG 프로토타입", centered);
-            GUI.Box(new Rect(280, 230, 400, 170), GUIContent.none, panel);
-            GUI.Label(new Rect(310, 255, 340, 58),
+            GUI.Label(new Rect(80, 55, 480, 70), "DARK SAVER WORLD", title);
+            GUI.Label(new Rect(100, 125, 440, 32), "고전 온라인 SRPG 프로토타입", centered);
+            DrawHudPanel(new Rect(140, 180, 360, 180));
+            GUI.Label(new Rect(165, 205, 310, 60),
                 "카오시아 외곽에 출몰한 마물을 토벌하고\n용병대의 첫 임무를 완수하십시오.", centered);
-            if (GUI.Button(new Rect(365, 330, 230, 48), "모험 시작", button))
+            if (GUI.Button(new Rect(175, 285, 135, 48), "새 모험", button))
                 StartField();
-            GUI.Label(new Rect(280, 458, 400, 28), "1990년대 PC RPG 화면 구성을 재해석한 독립 제작 프로토타입", tiny);
+            var oldEnabled = GUI.enabled;
+            GUI.enabled = PrototypeSaveStore.Exists();
+            if (GUI.Button(new Rect(330, 285, 135, 48), "이어하기", button))
+                LoadGame();
+            GUI.enabled = oldEnabled;
+            GUI.Label(new Rect(100, 420, 440, 24), "1990년대 PC RPG 화면 구성을 재해석한 독립 제작 프로토타입", tiny);
         }
 
         private void StartField()
         {
             mode = Mode.Field;
             fieldPlayer = new Vector2Int(2, 5);
+            fieldFacing = SpriteFacing.Down;
+            fieldWalkFrame = 1;
             hasFieldDestination = false;
+            merchantDialogueOpen = false;
+            questStage = QuestStage.NotAccepted;
+            questMonsterKills = 0;
+            questFieldItemCollected = false;
+            questMonsterDropCount = 0;
             defeated = 0;
             gold = 0;
             healingPotionCount = 3;
@@ -138,17 +185,16 @@ namespace DarkSaver.Prototype
 
         private void DrawField()
         {
-            const float tile = 48f;
-            var origin = new Vector2(92, 54);
+            const float tile = FieldTileSize;
+            var origin = FieldOrigin;
             for (var y = 0; y < 9; y++)
             for (var x = 0; x < 13; x++)
             {
-                var color = ((x + y) & 1) == 0
-                    ? new Color(.20f, .34f, .20f)
-                    : new Color(.17f, .29f, .18f);
-                if (x == 0 || y == 0 || x == 12 || y == 8)
-                    color = new Color(.16f, .20f, .13f);
-                DrawCell(new Rect(origin.x + x * tile, origin.y + y * tile, tile - 1, tile - 1), color, "");
+                var rect = new Rect(origin.x + x * tile, origin.y + y * tile, tile - 1, tile - 1);
+                if (fieldTileTexture != null)
+                    GUI.DrawTexture(rect, fieldTileTexture, ScaleMode.StretchToFill, true);
+                else
+                    DrawCell(rect, new Color(.20f, .34f, .20f), "");
             }
 
             HandleFieldMouseInput(origin, tile);
@@ -164,27 +210,250 @@ namespace DarkSaver.Prototype
                 GUI.color = Color.white;
             }
 
-            GUI.Label(new Rect(105, 65, 260, 30), "엔트리아 외곽", title);
-            DrawToken(origin, fieldPlayer, tile, new Color(.22f, .55f, .95f), "대");
+            GUI.Label(new Rect(28, 44, 260, 30), "엔트리아 외곽", title);
+            var playerFrame = Time.unscaledTime < fieldWalkFrameEndsAt ? fieldWalkFrame : 1;
+            DrawFieldToken(origin, fieldPlayer, tile, false,
+                OriginalSpriteAnimation.GetColumn(fieldFacing, playerFrame), 0);
+            DrawFieldToken(origin, FieldMerchant, tile, false, 7, 4);
+            if (questStage == QuestStage.Active && !questFieldItemCollected)
+                DrawSpriteCell(itemSpriteSheet, 100, 10, 85, 0,
+                    new Rect(origin.x + QuestFieldItemCell.x * tile + 4,
+                        origin.y + QuestFieldItemCell.y * tile + 4, tile - 8, tile - 8));
             for (var i = 0; i < fieldMonsters.Length; i++)
             {
                 if (i < defeated)
                     continue;
-                DrawToken(origin, fieldMonsters[i], tile, new Color(.78f, .18f, .12f), "魔");
+                DrawFieldToken(origin, fieldMonsters[i], tile, true, 6 + i * 3, 0);
             }
 
-            GUI.Box(new Rect(734, 54, 190, 432), GUIContent.none, panel);
-            GUI.Label(new Rect(752, 70, 154, 30), "원정 정보", title);
-            GUI.Label(new Rect(754, 115, 150, 120),
-                $"지역  엔트리아\n단계  1단\n토벌  {defeated} / 3\n소지금  {gold} G\n\n이동\n방향키 / WASD\n또는 타일 클릭", body);
-            GUI.Label(new Rect(754, 280, 150, 100), "심벌 엔카운트\n마물과 닿으면\n전술 전투 진입", centered);
-            if (GUI.Button(new Rect(760, 420, 138, 40), "타이틀", button))
+            DrawHudPanel(new Rect(448, 16, 176, 408));
+            GUI.Label(new Rect(458, 26, 156, 30), "원정 정보", title);
+            GUI.Label(new Rect(462, 76, 148, 142),
+                $"지역  엔트리아\n단계  1단\n토벌  {defeated} / 3\n소지금  {gold} G\n\n{QuestStatusText()}", body);
+            GUI.Label(new Rect(462, 250, 148, 92), "심벌 엔카운트\n마물과 닿으면\n전술 전투 진입", centered);
+            var sidePanelEnabled = GUI.enabled;
+            GUI.enabled = !merchantDialogueOpen;
+            if (GUI.Button(new Rect(466, 280, 140, 36), "소지품", button))
+                OpenInventory();
+            if (GUI.Button(new Rect(466, 326, 140, 36), "저장", button))
+                SaveGame();
+            if (GUI.Button(new Rect(466, 372, 140, 36), "타이틀", button))
                 mode = Mode.Title;
+            GUI.enabled = sidePanelEnabled;
             DrawMessage();
+            if (merchantDialogueOpen)
+                DrawMerchantDialogue();
+        }
+
+        private void DrawMerchantDialogue()
+        {
+            GUI.Box(new Rect(40, 270, 560, 170), GUIContent.none, panel);
+            GUI.Label(new Rect(58, 282, 524, 48), MerchantDialogueText(), body);
+            GUI.Label(new Rect(58, 334, 230, 34),
+                $"물약 {healingPotionCount}개   소지금 {gold} G", body);
+            if (questStage == QuestStage.NotAccepted &&
+                GUI.Button(new Rect(58, 374, 130, 42), "의뢰 수락", button))
+                AcceptMerchantQuest();
+            else if (questStage == QuestStage.ReadyToDeliver &&
+                     GUI.Button(new Rect(58, 374, 130, 42), "의뢰품 납품", button))
+                DeliverMerchantQuest();
+            var oldEnabled = GUI.enabled;
+            GUI.enabled = gold >= ShopRules.HealingPotionPrice;
+            if (GUI.Button(new Rect(302, 374, 130, 42),
+                    $"물약 구매 {ShopRules.HealingPotionPrice}G", button))
+                BuyHealingPotion();
+            GUI.enabled = oldEnabled;
+            if (GUI.Button(new Rect(446, 374, 130, 42), "대화 종료", button))
+            {
+                merchantDialogueOpen = false;
+                message = "원정을 계속합니다.";
+            }
+        }
+
+        private void BuyHealingPotion()
+        {
+            message = ShopRules.TryBuyHealingPotion(ref gold, ref healingPotionCount)
+                ? "회복 물약을 구매했습니다."
+                : "소지금이 부족합니다.";
+        }
+
+        private string MerchantDialogueText()
+        {
+            switch (questStage)
+            {
+                case QuestStage.NotAccepted:
+                    return "엔트리아 상인\n마물 처리와 약초·마력 결정 수집을 부탁드립니다.";
+                case QuestStage.Active:
+                    return $"엔트리아 상인\n처치 {questMonsterKills}/{QuestRules.RequiredMonsterKills} · " +
+                           $"약초 {(questFieldItemCollected ? 1 : 0)}/1 · 결정 {questMonsterDropCount}/1";
+                case QuestStage.ReadyToDeliver:
+                    return "엔트리아 상인\n모든 목표를 달성했군요. 의뢰품을 납품해 주십시오.";
+                default:
+                    return "엔트리아 상인\n덕분에 황야의 위협을 처리하고 물자도 확보했습니다.";
+            }
+        }
+
+        private string QuestStatusText()
+        {
+            if (questStage == QuestStage.NotAccepted) return "상인의 의뢰 대기";
+            if (questStage == QuestStage.Completed) return "상인의 의뢰 완료";
+            return $"처치 {questMonsterKills}/{QuestRules.RequiredMonsterKills}\n" +
+                   $"약초 {(questFieldItemCollected ? 1 : 0)}/1  결정 {questMonsterDropCount}/1";
+        }
+
+        private void AcceptMerchantQuest()
+        {
+            questStage = QuestStage.Active;
+            message = "상인의 복합 의뢰를 수락했습니다.";
+        }
+
+        private void DeliverMerchantQuest()
+        {
+            if (questStage != QuestStage.ReadyToDeliver) return;
+            questMonsterDropCount--;
+            gold += QuestRules.DeliveryGoldReward;
+            healingPotionCount += QuestRules.DeliveryPotionReward;
+            questStage = QuestStage.Completed;
+            message = $"의뢰 완료: {QuestRules.DeliveryGoldReward} G와 물약 {QuestRules.DeliveryPotionReward}개를 받았습니다.";
+        }
+
+        private void OpenInventory()
+        {
+            inventoryReturnMode = mode;
+            mode = Mode.Inventory;
+            inventoryEquipmentTab = false;
+            inventoryMemberIndex = Mathf.Clamp(inventoryMemberIndex, 0, Mathf.Max(0, party.Count - 1));
+            message = "회복시킬 파티원을 선택하세요.";
+        }
+
+        private void DrawInventory()
+        {
+            if (interfaceAtlas != null)
+            {
+                GUI.color = Color.white;
+                DrawAtlasPixelRegion(interfaceAtlas, new Rect(8, 2, 624, 476),
+                    new RectInt(790, 44, 421, 322));
+            }
+            else
+            {
+                DrawHudPanel(new Rect(8, 8, 624, 432));
+            }
+
+            GUI.Label(new Rect(190, 22, 260, 34), "소지품", title);
+            if (GUI.Button(new Rect(180, 62, 120, 34), "소비", button))
+            {
+                inventoryEquipmentTab = false;
+                message = "회복시킬 파티원을 선택하세요.";
+            }
+            if (GUI.Button(new Rect(310, 62, 120, 34), "장비", button))
+            {
+                inventoryEquipmentTab = true;
+                message = "장비를 맡길 파티원을 선택하세요.";
+            }
+
+            if (inventoryEquipmentTab)
+                DrawEquipmentInventory();
+            else
+                DrawConsumableInventory();
+
+            GUI.Label(new Rect(40, 396, 180, 26), $"소지금  {gold} G", body);
+            if (GUI.Button(new Rect(430, 396, 150, 38), "돌아가기", button))
+                mode = inventoryReturnMode;
+            DrawMessage();
+        }
+
+        private void DrawConsumableInventory()
+        {
+            DrawSpriteCell(itemSpriteSheet, 100, 10, 87, 0, new Rect(38, 104, 48, 48));
+            DrawSpriteCell(itemSpriteSheet, 100, 10, 85, 0, new Rect(118, 104, 48, 48));
+            DrawSpriteCell(itemSpriteSheet, 100, 10, 91, 0, new Rect(198, 104, 48, 48));
+            GUI.Label(new Rect(28, 158, 110, 26), $"회복 물약 × {healingPotionCount}", centered);
+            GUI.Label(new Rect(108, 158, 90, 38),
+                $"황야 약초 × {(questFieldItemCollected ? 1 : 0)}", tiny);
+            GUI.Label(new Rect(188, 158, 100, 38),
+                $"마력 결정 × {questMonsterDropCount}", tiny);
+            GUI.Label(new Rect(28, 188, 150, 46), $"HP {BattleRules.HealingPotionAmount} 회복", tiny);
+
+            GUI.Box(new Rect(390, 66, 220, 316), GUIContent.none, panel);
+            GUI.Label(new Rect(410, 78, 180, 30), "사용 대상", title);
+            for (var i = 0; i < party.Count; i++)
+            {
+                var member = party[i];
+                var canUse = healingPotionCount > 0 && member.Alive && member.Hp < member.MaxHp;
+                var oldEnabled = GUI.enabled;
+                GUI.enabled = canUse;
+                if (GUI.Button(new Rect(410, 120 + i * 58, 180, 48),
+                        $"{member.Name}\nHP {member.Hp} / {member.MaxHp}", button))
+                    UseInventoryPotion(member);
+                GUI.enabled = oldEnabled;
+            }
+        }
+
+        private void DrawEquipmentInventory()
+        {
+            DrawSpriteCell(itemSpriteSheet, 100, 10, 0, 0, new Rect(38, 104, 48, 48));
+            DrawSpriteCell(itemSpriteSheet, 100, 10, 23, 1, new Rect(104, 104, 48, 48));
+            GUI.Label(new Rect(24, 158, 76, 42), $"용병검\n공격 +{EquipmentRules.RecruitSwordAttackBonus}", tiny);
+            GUI.Label(new Rect(92, 158, 88, 42), $"가죽갑옷\n방어 +{EquipmentRules.LeatherArmorDefenseBonus}", tiny);
+
+            GUI.Box(new Rect(390, 104, 220, 278), GUIContent.none, panel);
+            for (var i = 0; i < party.Count; i++)
+            {
+                if (GUI.Button(new Rect(408, 118 + i * 48, 184, 40), party[i].Name, button))
+                    inventoryMemberIndex = i;
+            }
+
+            if (party.Count == 0) return;
+            var member = party[Mathf.Clamp(inventoryMemberIndex, 0, party.Count - 1)];
+            GUI.Label(new Rect(410, 266, 180, 38),
+                $"공격 {member.EffectiveAttack}  방어 {member.EffectiveDefense}", centered);
+            if (GUI.Button(new Rect(408, 308, 86, 42),
+                    member.SwordEquipped ? "용병검 해제" : "용병검 장착", button))
+                EquipExclusive(member, true);
+            if (GUI.Button(new Rect(506, 308, 86, 42),
+                    member.ArmorEquipped ? "갑옷 해제" : "갑옷 장착", button))
+                EquipExclusive(member, false);
+        }
+
+        private void EquipExclusive(BattleUnit member, bool weapon)
+        {
+            var removing = weapon ? member.SwordEquipped : member.ArmorEquipped;
+            foreach (var partyMember in party)
+            {
+                if (weapon) partyMember.SwordEquipped = false;
+                else partyMember.ArmorEquipped = false;
+            }
+
+            if (!removing)
+            {
+                if (weapon) member.SwordEquipped = true;
+                else member.ArmorEquipped = true;
+            }
+            message = removing ? "장비를 해제했습니다." : $"{member.Name}에게 장비했습니다.";
+        }
+
+        private void UseInventoryPotion(BattleUnit member)
+        {
+            var before = member.Hp;
+            member.Hp = BattleRules.ApplyRecovery(
+                member.Hp, member.MaxHp, BattleRules.HealingPotionAmount);
+            healingPotionCount--;
+            message = $"{member.Name}의 HP가 {member.Hp - before} 회복되었습니다.";
         }
 
         private void UpdateFieldInput()
         {
+            if (merchantDialogueOpen)
+                return;
+
+            UpdateScreenLayout();
+            if (Input.touchCount > 0)
+            {
+                var touch = Input.GetTouch(0);
+                if (touch.phase == TouchPhase.Began)
+                    SetFieldDestination(screenLayout.ScreenToReference(touch.position, Screen.height), FieldOrigin, FieldTileSize);
+            }
+
             var delta = Vector2Int.zero;
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) delta.x = -1;
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) delta.x = 1;
@@ -217,15 +486,26 @@ namespace DarkSaver.Prototype
 
         private void HandleFieldMouseInput(Vector2 origin, float tile)
         {
+            if (Input.touchCount > 0)
+                return;
+
             var current = Event.current;
             if (current.type != EventType.MouseDown || current.button != 0)
                 return;
 
-            var board = new Rect(origin.x + tile, origin.y + tile, tile * 11, tile * 7);
-            if (!board.Contains(current.mousePosition))
+            if (!SetFieldDestination(current.mousePosition, origin, tile))
                 return;
 
-            var local = current.mousePosition - origin;
+            current.Use();
+        }
+
+        private bool SetFieldDestination(Vector2 referencePoint, Vector2 origin, float tile)
+        {
+            var board = new Rect(origin.x + tile, origin.y + tile, tile * 11, tile * 7);
+            if (!board.Contains(referencePoint))
+                return false;
+
+            var local = referencePoint - origin;
             fieldDestination = new Vector2Int(
                 Mathf.Clamp(Mathf.FloorToInt(local.x / tile), 1, 11),
                 Mathf.Clamp(Mathf.FloorToInt(local.y / tile), 1, 7));
@@ -234,14 +514,27 @@ namespace DarkSaver.Prototype
             message = hasFieldDestination
                 ? $"목적지 ({fieldDestination.x}, {fieldDestination.y})로 이동합니다."
                 : "현재 위치입니다.";
-            current.Use();
+            return true;
         }
 
         private void MoveFieldPlayer(Vector2Int delta)
         {
-            fieldPlayer += delta;
-            fieldPlayer.x = Mathf.Clamp(fieldPlayer.x, 1, 11);
-            fieldPlayer.y = Mathf.Clamp(fieldPlayer.y, 1, 7);
+            fieldFacing = OriginalSpriteAnimation.GetFacing(delta, fieldFacing);
+            fieldWalkFrame = (fieldWalkFrame + 1) % OriginalSpriteAnimation.FramesPerDirection;
+            fieldWalkFrameEndsAt = Time.unscaledTime + .16f;
+            var next = fieldPlayer + delta;
+            next.x = Mathf.Clamp(next.x, 1, 11);
+            next.y = Mathf.Clamp(next.y, 1, 7);
+            if (next == FieldMerchant)
+            {
+                hasFieldDestination = false;
+                merchantDialogueOpen = true;
+                message = "엔트리아 상인과 대화합니다.";
+                return;
+            }
+
+            fieldPlayer = next;
+            TryCollectQuestFieldItem();
             if (defeated < fieldMonsters.Length && fieldPlayer == fieldMonsters[defeated])
             {
                 hasFieldDestination = false;
@@ -279,8 +572,8 @@ namespace DarkSaver.Prototype
 
         private void DrawBattle()
         {
-            var board = new Rect(42, 64, 650, 416);
-            GUI.Box(new Rect(24, 45, 686, 454), GUIContent.none, panel);
+            var board = new Rect(16, 48, 400, 320);
+            GUI.Box(new Rect(8, 40, 416, 336), GUIContent.none, panel);
             var cellW = board.width / Columns;
             var cellH = board.height / Rows;
 
@@ -316,30 +609,31 @@ namespace DarkSaver.Prototype
             foreach (var enemy in enemies)
                 if (enemy.Alive) DrawBattleToken(board, cellW, cellH, enemy, new Color(.78f, .18f, .12f), "적");
 
-            GUI.Box(new Rect(728, 45, 208, 454), GUIContent.none, panel);
-            GUI.Label(new Rect(744, 59, 176, 30), "실시간 전투", title);
-            GUI.Label(new Rect(750, 88, 160, 18), $"Lv.{selectedUnit.Level}  {selectedUnit.Name}", tiny);
-            DrawBar(new Rect(750, 131, 160, 14), "HP", selectedUnit.Hp, selectedUnit.MaxHp, new Color(.75f, .12f, .12f));
-            DrawBar(new Rect(750, 163, 160, 14), "MP", selectedUnit.Mp, selectedUnit.MaxMp, new Color(.12f, .35f, .8f));
-            DrawBar(new Rect(750, 195, 160, 14), "AP", selectedUnit.Ap, selectedUnit.MaxAp, new Color(.90f, .65f, .12f));
+            DrawHudPanel(new Rect(432, 16, 200, 408));
+            GUI.Label(new Rect(444, 24, 176, 28), "실시간 전투", title);
+            GUI.Label(new Rect(448, 55, 168, 18), $"Lv.{selectedUnit.Level}  {selectedUnit.Name}", tiny);
+            DrawBar(new Rect(448, 92, 168, 14), "HP", selectedUnit.Hp, selectedUnit.MaxHp, new Color(.75f, .12f, .12f));
+            DrawBar(new Rect(448, 120, 168, 14), "MP", selectedUnit.Mp, selectedUnit.MaxMp, new Color(.12f, .35f, .8f));
+            DrawBar(new Rect(448, 148, 168, 14), "AP", selectedUnit.Ap, selectedUnit.MaxAp, new Color(.90f, .65f, .12f));
 
-            GUI.Label(new Rect(746, 216, 170, 26), "행동 명령", title);
-            CommandButton(new Rect(750, 250, 74, 38), "이동 4", Command.Move,
+            GUI.Label(new Rect(446, 172, 170, 26), "행동 명령", title);
+            CommandButton(new Rect(446, 202, 80, 36), "이동 4", Command.Move,
                 selectedUnit.Ap >= BattleRules.MoveActionPointCost);
-            CommandButton(new Rect(836, 250, 74, 38), "공격 2", Command.Attack,
+            CommandButton(new Rect(536, 202, 80, 36), "공격 2", Command.Attack,
                 selectedUnit.Ap >= BattleRules.AttackActionPointCost);
-            CommandButton(new Rect(750, 294, 74, 38), "스킬 5", Command.Skill,
+            CommandButton(new Rect(446, 242, 80, 36), "스킬 5", Command.Skill,
                 selectedUnit.CanUseSkill && selectedUnit.Ap >= BattleRules.SkillActionPointCost);
-            CommandButton(new Rect(836, 294, 74, 38), "마법 6", Command.Magic,
+            CommandButton(new Rect(536, 242, 80, 36), "마법 6", Command.Magic,
                 selectedUnit.CanMagic && selectedUnit.Ap >= BattleRules.MagicActionPointCost &&
                 selectedUnit.Mp >= BattleRules.MagicManaCost);
             var oldEnabled = GUI.enabled;
             GUI.enabled = healingPotionCount > 0 && selectedUnit.Hp < selectedUnit.MaxHp &&
                 selectedUnit.Ap >= BattleRules.ItemActionPointCost;
-            if (GUI.Button(new Rect(750, 338, 74, 38), $"물약 {healingPotionCount}", button))
+            if (GUI.Button(new Rect(446, 282, 80, 36), $"    물약 {healingPotionCount}", button))
                 UseHealingPotion();
+            DrawSpriteCell(itemSpriteSheet, 100, 10, 87, 0, new Rect(450, 286, 28, 28));
             GUI.enabled = selectedUnit.Ap >= BattleRules.RestActionPointCost;
-            if (GUI.Button(new Rect(836, 338, 74, 38), "휴식 4", button))
+            if (GUI.Button(new Rect(536, 282, 80, 36), "휴식 4", button))
             {
                 selectedUnit.Ap -= BattleRules.RestActionPointCost;
                 selectedUnit.Hp = BattleRules.ApplyRecovery(
@@ -349,10 +643,10 @@ namespace DarkSaver.Prototype
                 message = $"{selectedUnit.Name}이 휴식으로 체력과 마력을 회복했습니다.";
             }
             GUI.enabled = oldEnabled;
-            if (GUI.Button(new Rect(750, 382, 160, 32), "명령 취소", button)) command = Command.None;
-            GUI.Label(new Rect(750, 420, 160, 58),
+            if (GUI.Button(new Rect(446, 324, 170, 30), "명령 취소", button)) command = Command.None;
+            GUI.Label(new Rect(446, 360, 170, 55),
                 $"EXP {selectedUnit.Experience} / {selectedUnit.NextLevelExperience}\n" +
-                $"공격 {selectedUnit.Attack}  방어 {selectedUnit.Defense}\n" +
+                $"공격 {selectedUnit.EffectiveAttack}  방어 {selectedUnit.EffectiveDefense}\n" +
                 $"남은 적 {AliveEnemyCount()}  {CommandName(command)}", centered);
             DrawMessage();
         }
@@ -422,8 +716,8 @@ namespace DarkSaver.Prototype
                 var magic = command == Command.Magic;
                 var skill = command == Command.Skill;
                 var rawDamage = magic ? BattleRules.MagicDamage :
-                    skill ? selectedUnit.Attack + selectedUnit.SkillPower : selectedUnit.Attack;
-                var damage = BattleRules.CalculateDamage(rawDamage, target.Defense, magic);
+                    skill ? selectedUnit.EffectiveAttack + selectedUnit.SkillPower : selectedUnit.EffectiveAttack;
+                var damage = BattleRules.CalculateDamage(rawDamage, target.EffectiveDefense, magic);
                 target.Hp = Mathf.Max(0, target.Hp - damage);
                 selectedUnit.Ap -= magic ? BattleRules.MagicActionPointCost :
                     skill ? BattleRules.SkillActionPointCost : BattleRules.AttackActionPointCost;
@@ -456,7 +750,7 @@ namespace DarkSaver.Prototype
                 if (distance == 1 && enemy.Ap >= BattleRules.AttackActionPointCost)
                 {
                     enemy.Ap -= BattleRules.AttackActionPointCost;
-                    var damage = BattleRules.CalculateDamage(enemy.Attack, target.Defense, false);
+                    var damage = BattleRules.CalculateDamage(enemy.EffectiveAttack, target.EffectiveDefense, false);
                     target.Hp = Mathf.Max(0, target.Hp - damage);
                     message = $"{enemy.Name}의 반격! {target.Name}이 {damage} 피해를 받았습니다.";
                 }
@@ -500,14 +794,33 @@ namespace DarkSaver.Prototype
             }
         }
 
+        private void TryCollectQuestFieldItem()
+        {
+            if (questStage != QuestStage.Active || questFieldItemCollected ||
+                fieldPlayer != QuestFieldItemCell)
+                return;
+
+            questFieldItemCollected = true;
+            UpdateQuestDeliveryState();
+            message = "지정 위치에서 황야 약초를 획득했습니다.";
+        }
+
+        private void UpdateQuestDeliveryState()
+        {
+            if (questStage == QuestStage.Active && QuestRules.IsReadyToDeliver(
+                    questMonsterKills, questFieldItemCollected, questMonsterDropCount))
+                questStage = QuestStage.ReadyToDeliver;
+        }
+
         private void DrawResult()
         {
-            GUI.Box(new Rect(225, 92, 510, 350), GUIContent.none, panel);
-            GUI.Label(new Rect(280, 125, 400, 58), victory ? "전투 승리" : "전투 패배", title);
-            GUI.Label(new Rect(300, 205, 360, 70), victory
-                ? $"마물 심벌을 격파했습니다.\nEXP +{lastRewardExperience}   {lastRewardGold} G\n원정 진척도 {defeated} / 3"
+            DrawHudPanel(new Rect(100, 70, 440, 330));
+            GUI.Label(new Rect(140, 100, 360, 50), victory ? "전투 승리" : "전투 패배", title);
+            GUI.Label(new Rect(150, 180, 340, 70), victory
+                ? $"마물 심벌을 격파했습니다.\nEXP +{lastRewardExperience}   {lastRewardGold} G" +
+                  (lastBattleDroppedQuestItem ? "\n마력 결정을 획득했습니다." : $"\n원정 진척도 {defeated} / 3")
                 : "진형과 행동력을 정비한 뒤\n다시 도전하십시오.", centered);
-            if (GUI.Button(new Rect(325, 315, 140, 46), victory ? "필드 복귀" : "다시 도전", button))
+            if (GUI.Button(new Rect(150, 300, 150, 44), victory ? "필드 복귀" : "다시 도전", button))
             {
                 if (victory)
                 {
@@ -518,6 +831,7 @@ namespace DarkSaver.Prototype
                         message = "토벌 임무 완료! 새로운 원정을 시작할 수 있습니다.";
                     }
                     mode = Mode.Field;
+                    SaveGame();
                 }
                 else
                 {
@@ -525,7 +839,7 @@ namespace DarkSaver.Prototype
                     StartBattle();
                 }
             }
-            if (GUI.Button(new Rect(495, 315, 140, 46), "타이틀", button)) mode = Mode.Title;
+            if (GUI.Button(new Rect(340, 300, 150, 44), "타이틀", button)) mode = Mode.Title;
         }
 
         private void AwardVictory()
@@ -533,6 +847,15 @@ namespace DarkSaver.Prototype
             lastRewardExperience = 35 + defeated * 5;
             lastRewardGold = 45 + defeated * 10;
             gold += lastRewardGold;
+            lastBattleDroppedQuestItem = false;
+            if (questStage == QuestStage.Active)
+            {
+                questMonsterKills++;
+                lastBattleDroppedQuestItem = QuestRules.IsMonsterDrop(
+                    UnityEngine.Random.Range(0, 100));
+                if (lastBattleDroppedQuestItem) questMonsterDropCount++;
+                UpdateQuestDeliveryState();
+            }
 
             foreach (var member in party)
             {
@@ -563,8 +886,25 @@ namespace DarkSaver.Prototype
 
         private void DrawMessage()
         {
-            GUI.Box(new Rect(24, 505, 912, 28), GUIContent.none, panel);
-            GUI.Label(new Rect(36, 507, 888, 24), message, tiny);
+            GUI.Box(new Rect(8, 446, 624, 28), GUIContent.none, panel);
+            GUI.Label(new Rect(16, 448, 608, 24), message, tiny);
+        }
+
+        private void DrawHudPanel(Rect rect)
+        {
+            GUI.Box(rect, GUIContent.none, panel);
+            if (interfaceAtlas != null)
+                DrawAtlasPixelRegion(interfaceAtlas, new Rect(rect.x + 4, rect.y + 4, Mathf.Min(132, rect.width - 8), 35), new RectInt(0, 0, 264, 70));
+        }
+
+        private static void DrawAtlasPixelRegion(Texture2D atlas, Rect destination, RectInt source)
+        {
+            var uv = new Rect(
+                (float)source.x / atlas.width,
+                (float)(atlas.height - source.y - source.height) / atlas.height,
+                (float)source.width / atlas.width,
+                (float)source.height / atlas.height);
+            GUI.DrawTextureWithTexCoords(destination, atlas, uv, true);
         }
 
         private void DrawBattleToken(Rect board, float cellW, float cellH, BattleUnit unit, Color color, string mark)
@@ -575,10 +915,17 @@ namespace DarkSaver.Prototype
                 GUI.color = new Color(1f, .82f, .22f);
                 GUI.DrawTexture(new Rect(rect.x - 4, rect.y - 4, rect.width + 8, rect.height + 8), Texture2D.whiteTexture);
             }
-            GUI.color = color;
-            GUI.DrawTexture(rect, Texture2D.whiteTexture);
+            var sheet = unit.Enemy ? monsterSpriteSheet : partySpriteSheet;
             GUI.color = Color.white;
-            GUI.Label(rect, $"{mark}\nAP {unit.Ap}", tiny);
+            var drawn = DrawSpriteCell(sheet, unit.Enemy ? 18 : 12, unit.Enemy ? 16 : 8,
+                unit.SpriteColumn, unit.SpriteRow, rect);
+            if (!drawn)
+            {
+                GUI.color = color;
+                GUI.DrawTexture(rect, Texture2D.whiteTexture);
+            }
+            GUI.color = Color.white;
+            GUI.Label(new Rect(rect.x, rect.y + rect.height - 16, rect.width, 16), $"AP {unit.Ap}", tiny);
             if (unit.Enemy)
             {
                 GUI.color = new Color(.08f, .08f, .08f);
@@ -589,13 +936,36 @@ namespace DarkSaver.Prototype
             }
         }
 
-        private void DrawToken(Vector2 origin, Vector2Int cell, float size, Color color, string mark)
+        private void DrawFieldToken(
+            Vector2 origin, Vector2Int cell, float size, bool enemy, int spriteColumn, int spriteRow)
         {
-            var rect = new Rect(origin.x + cell.x * size + 8, origin.y + cell.y * size + 8, size - 16, size - 16);
-            GUI.color = color;
+            var rect = new Rect(origin.x + cell.x * size + 7, origin.y + cell.y * size + 5,
+                size - 14, size - 10);
+            var sheet = enemy ? monsterSpriteSheet : partySpriteSheet;
+            GUI.color = Color.white;
+            var drawn = DrawSpriteCell(sheet, enemy ? 18 : 12, enemy ? 16 : 8,
+                spriteColumn, spriteRow, rect);
+            if (drawn) return;
+
+            GUI.color = enemy ? new Color(.78f, .18f, .12f) : new Color(.22f, .55f, .95f);
             GUI.DrawTexture(rect, Texture2D.whiteTexture);
             GUI.color = Color.white;
-            GUI.Label(rect, mark, centered);
+            GUI.Label(rect, enemy ? "魔" : "대", centered);
+        }
+
+        private static bool DrawSpriteCell(
+            Texture2D sheet, int columns, int rows, int column, int row, Rect destination)
+        {
+            if (sheet == null || column < 0 || column >= columns || row < 0 || row >= rows)
+                return false;
+
+            var uv = new Rect(
+                (float)column / columns,
+                1f - (float)(row + 1) / rows,
+                1f / columns,
+                1f / rows);
+            GUI.DrawTextureWithTexCoords(destination, sheet, uv, true);
+            return true;
         }
 
         private static void DrawCell(Rect rect, Color color, string mark)
@@ -690,6 +1060,117 @@ namespace DarkSaver.Prototype
             centered = new GUIStyle(body) { alignment = TextAnchor.MiddleCenter };
             tiny = new GUIStyle(centered) { fontSize = 12 };
             button = new GUIStyle(GUI.skin.button) { fontSize = 14, fontStyle = FontStyle.Bold, normal = { background = buttonTexture, textColor = Color.white }, hover = { textColor = new Color(1f, .82f, .3f) } };
+        }
+
+        private void EnsureOriginalAssets()
+        {
+            if (originalAssetsLoaded) return;
+            originalAssetsLoaded = true;
+            fieldTileTexture = Resources.Load<Texture2D>("Original/Map/field_grass");
+            partySpriteSheet = Resources.Load<Texture2D>("Original/Characters/party_bobyeong");
+            monsterSpriteSheet = Resources.Load<Texture2D>("Original/Monsters/monster00");
+            itemSpriteSheet = Resources.Load<Texture2D>("Original/Items/item");
+            interfaceAtlas = Resources.Load<Texture2D>("Original/UI/interface");
+        }
+
+        private void UpdateScreenLayout()
+        {
+            screenLayout = OriginalScreenLayout.Create(
+                Screen.width, Screen.height, Screen.safeArea, ReferenceWidth, ReferenceHeight);
+        }
+
+        private void SaveGame()
+        {
+            var data = new PrototypeSaveData
+            {
+                defeated = defeated,
+                gold = gold,
+                healingPotionCount = healingPotionCount,
+                fieldX = fieldPlayer.x,
+                fieldY = fieldPlayer.y,
+                questStage = (int)questStage,
+                questMonsterKills = questMonsterKills,
+                questFieldItemCollected = questFieldItemCollected,
+                questMonsterDropCount = questMonsterDropCount
+            };
+            foreach (var member in party)
+            {
+                data.party.Add(new PrototypePartySaveData
+                {
+                    name = member.Name,
+                    hp = member.Hp,
+                    maxHp = member.MaxHp,
+                    mp = member.Mp,
+                    maxMp = member.MaxMp,
+                    attack = member.Attack,
+                    defense = member.Defense,
+                    level = member.Level,
+                    experience = member.Experience,
+                    swordEquipped = member.SwordEquipped,
+                    armorEquipped = member.ArmorEquipped
+                });
+            }
+
+            try
+            {
+                PrototypeSaveStore.Save(data);
+                message = "원정 기록을 저장했습니다.";
+            }
+            catch (Exception exception)
+            {
+                Debug.LogException(exception);
+                message = "저장하지 못했습니다. 저장 공간을 확인해 주세요.";
+            }
+        }
+
+        private void LoadGame()
+        {
+            try
+            {
+                if (!PrototypeSaveStore.TryLoad(out var data))
+                {
+                    message = "불러올 수 있는 원정 기록이 없습니다.";
+                    return;
+                }
+
+                InitializeParty();
+                defeated = Mathf.Clamp(data.defeated, 0, fieldMonsters.Length);
+                gold = Mathf.Max(0, data.gold);
+                healingPotionCount = Mathf.Max(0, data.healingPotionCount);
+                fieldPlayer = new Vector2Int(
+                    Mathf.Clamp(data.fieldX, 1, 11), Mathf.Clamp(data.fieldY, 1, 7));
+                questStage = (QuestStage)Mathf.Clamp(
+                    data.questStage, (int)QuestStage.NotAccepted, (int)QuestStage.Completed);
+                questMonsterKills = Mathf.Max(0, data.questMonsterKills);
+                questFieldItemCollected = data.questFieldItemCollected;
+                questMonsterDropCount = Mathf.Max(0, data.questMonsterDropCount);
+                UpdateQuestDeliveryState();
+                var savedParty = data.party ?? new List<PrototypePartySaveData>();
+                for (var i = 0; i < party.Count && i < savedParty.Count; i++)
+                {
+                    var source = savedParty[i];
+                    var member = party[i];
+                    member.MaxHp = Mathf.Max(1, source.maxHp);
+                    member.Hp = Mathf.Clamp(source.hp, 1, member.MaxHp);
+                    member.MaxMp = Mathf.Max(0, source.maxMp);
+                    member.Mp = Mathf.Clamp(source.mp, 0, member.MaxMp);
+                    member.Attack = Mathf.Max(1, source.attack);
+                    member.Defense = Mathf.Max(0, source.defense);
+                    member.Level = Mathf.Max(1, source.level);
+                    member.Experience = Mathf.Max(0, source.experience);
+                    member.SwordEquipped = source.swordEquipped;
+                    member.ArmorEquipped = source.armorEquipped;
+                }
+
+                mode = Mode.Field;
+                hasFieldDestination = false;
+                message = "저장한 원정을 이어서 시작합니다.";
+            }
+            catch (Exception exception)
+            {
+                Debug.LogException(exception);
+                message = "원정 기록을 불러오지 못했습니다.";
+            }
         }
 
         private static Texture2D Solid(Color color)

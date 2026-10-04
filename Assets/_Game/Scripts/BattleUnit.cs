@@ -20,12 +20,18 @@ namespace DarkSaver.Prototype
         public int SkillPower;
         public string Mark;
         public Color Color;
+        public int SpriteColumn;
+        public int SpriteRow;
+        public bool SwordEquipped;
+        public bool ArmorEquipped;
         public int Level = 1;
         public int Experience;
         public float ActionCharge;
 
         public bool Alive => Hp > 0;
         public bool CanUseSkill => !string.IsNullOrEmpty(SkillName) && SkillPower > 0;
+        public int EffectiveAttack => EquipmentRules.GetAttack(Attack, SwordEquipped);
+        public int EffectiveDefense => EquipmentRules.GetDefense(Defense, ArmorEquipped);
         public int NextLevelExperience => BattleRules.GetNextLevelExperience(Level);
     }
 }
