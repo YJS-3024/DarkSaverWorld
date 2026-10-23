@@ -1,13 +1,7 @@
 {
   "name": "DarkSaver.Tests.EditMode",
-  "rootNamespace": "DarkSaver.Prototype.Tests",
-  "references": [
-    "DarkSaver.Runtime"
-  ],
-  "optionalUnityReferences": [
-    "TestAssemblies"
-  ],
-  "includePlatforms": [
-    "Editor"
-  ]
+  "rootNamespace": "DarkSaver.Tests",
+  "references": ["DarkSaver.Runtime", "DarkSaver.Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "includePlatforms": ["Editor"]
 }

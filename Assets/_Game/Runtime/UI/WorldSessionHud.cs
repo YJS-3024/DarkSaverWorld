@@ -1,0 +1,131 @@
+using DarkSaver.Combat;
+using DarkSaver.World;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+namespace DarkSaver.UI
+{
+    // Native Unity presentation, not a reconstruction of the original client's HUD.
+    [DisallowMultipleComponent]
+    [RequireComponent(typeof(BattleTransitionController))]
+    [RequireComponent(typeof(BattleFormationPanel))]
+    public sealed class WorldSessionHud : MonoBehaviour
+    {
+        [SerializeField] private string trackedScenarioKey = "01";
+        private BattleTransitionController session;
+        private InGameUi ui;
+        private Rect pointerBounds;
+        private string trainingEntryMessage;
+        public void SetTrainingEntryMessage(string message) => trainingEntryMessage = message;
+        public bool ReturnFromTraining()
+        {
+            if (!IsVisible) return false;
+            for (int id = 101; id <= 107; id++)
+                if (SceneManager.GetSceneByName("Training" + id + "_Runtime").isLoaded)
+                { var coordinator = FindAnyObjectByType<WorldSceneCoordinator>(); return coordinator != null && coordinator.TryTravelTo("Kaosia", "FromTraining"); }
+            return false;
+        }
+
+        public bool BlocksWorldPointer(Vector2 screenPoint) => isActiveAndEnabled && IsVisible &&
+            ((GetComponent<TownServicesPanel>()?.IsOpen ?? false) || (GetComponent<BattleFormationPanel>()?.IsOpen ?? false) ||
+             !Rendering.GameScreen.TryScreenToGui(screenPoint, out var point) || pointerBounds.Contains(point));
+
+        private void Awake()
+        {
+            // Existing scenes gain the preparation panel without rewriting scene YAML.
+            if (GetComponent<BattleFormationPanel>() == null) gameObject.AddComponent<BattleFormationPanel>();
+            if (GetComponent<TownServicesPanel>() == null) gameObject.AddComponent<TownServicesPanel>();
+        }
+
+        public bool IsVisible => !SceneManager.GetSceneByName("Battle").isLoaded;
+        public bool TravelScenarioDemo()
+        {
+            var inDemo = SceneManager.GetSceneByName("Brugos01_Runtime").isLoaded;
+            var inTown = SceneManager.GetSceneByName("Town_Runtime").isLoaded;
+            if (!IsVisible || (!inDemo && !inTown)) return false;
+            var coordinator = FindAnyObjectByType<WorldSceneCoordinator>();
+            return coordinator != null && coordinator.TryTravelTo(inDemo ? "Kaosia" : "Brugos01", inDemo ? "FromField" : "DemoEntry");
+        }
+        public string SummaryText
+        {
+            get
+            {
+                if (session == null) session = GetComponent<BattleTransitionController>();
+                var text = $"경험치 {session.PlayerExperience}\n완료 시나리오 {session.ClearedScenarioCount}개";
+                if (session.HasCreatedCharacter) text = $"{session.PlayerName} / 직업 {session.PlayerJobId}\n" + text;
+                if (session.OwnedUnitCount > 0) text += $"\n추가 보유 유닛 {session.OwnedUnitCount}명";
+                if (!string.IsNullOrEmpty(session.LastTransitionMessage)) text += "\n" + session.LastTransitionMessage;
+                if (session.HasPlayerVitals)
+                {
+                    text += $"\nHP {session.PlayerHp}/{session.PlayerMaxHp}  MP {session.PlayerMp}/{session.PlayerMaxMp}";
+                    if (!session.CanEnterBattle) text += "\n전투 불능: 재조우 불가 (부활 미연결)";
+                }
+                if (!string.IsNullOrWhiteSpace(trackedScenarioKey))
+                    text += $"\n시나리오 {trackedScenarioKey}: {(session.IsScenarioCleared(trackedScenarioKey) ? "완료" : "미완료")}";
+                if (!string.IsNullOrEmpty(session.LastSaveMessage)) text += "\n" + session.LastSaveMessage;
+                return text;
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (!IsVisible) { ui?.Hide(); return; }
+            InGameUi.Ensure(ref ui, this);
+            ui.Begin();
+            if (!SceneManager.GetSceneByName("Town_Runtime").isLoaded) trainingEntryMessage = null;
+            if (session == null) session = GetComponent<BattleTransitionController>();
+            var width = Mathf.Min(260f, Rendering.GameScreen.Width - 24f);
+            if (width <= 0f) { ui.Hide(); return; }
+            var panel = new Rect(12, 12, width, 180);
+            pointerBounds = panel;
+            ui.Panel("world", panel, SceneManager.GetSceneByName("Town_Runtime").isLoaded ? "카오시아" : "모험");
+            ui.Label("player", new Rect(24, 42, width - 24, 24), session.HasCreatedCharacter ? session.PlayerName : "용병대장", 18);
+            ui.Bar("hp", new Rect(24, 74, width - 24, 22), "HP", session.PlayerHp, session.PlayerMaxHp, new Color(.55f, .2f, .18f));
+            ui.Bar("mp", new Rect(24, 102, width - 24, 22), "MP", session.PlayerMp, session.PlayerMaxMp, new Color(.18f, .35f, .55f));
+            var profile = session.CaptureCharacterProfile();
+            string levelText = profile != null && profile.hasLevels ? $"베이스 {profile.baseLevel} / 직업 {profile.jobLevel}" : "레벨 미확인";
+            ui.Label("progress", new Rect(24, 132, width - 24, 48), $"{levelText}\n경험치 {session.PlayerExperience}\n시나리오 {trackedScenarioKey}: {(session.IsScenarioCleared(trackedScenarioKey) ? "완료" : "진행 중")}", 12);
+            var items = GetComponent<ItemCatalogPanel>();
+            var magic = GetComponent<MagicCatalogPanel>();
+            var formation = GetComponent<BattleFormationPanel>();
+            var town = GetComponent<TownServicesPanel>();
+            if ((town != null && town.IsOpen) || (items != null && items.IsOpen) || (magic != null && magic.IsOpen) || (formation != null && formation.IsOpen)) { ui.End(); return; }
+            var buttonY = panel.yMax + 4f;
+            if (town != null && town.CanOpen)
+            {
+                ui.Button("town-services", new Rect(12, buttonY, width, 28), "마을 시설", () => town.Open(TownService.Overview, FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>()));
+                buttonY += 32f;
+                ui.Button("town-inventory", new Rect(12, buttonY, width, 28), "소지품", () => town.Open(TownService.Inventory, FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>()));
+                buttonY += 32f;
+                ui.Button("town-character-info", new Rect(12, buttonY, width, 28), "자기 정보", () => town.Open(TownService.CharacterInfo, FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>()));
+                buttonY += 32f;
+            }
+            if (formation != null)
+            {
+                ui.Button("formation", new Rect(12, buttonY, width, 28), "부대 편성", () => session.OpenFormationPreparation());
+                buttonY += 32f;
+            }
+            ui.Button("save", new Rect(12, buttonY, width, 28), "저장", () => session.SaveWorld());
+            buttonY += 32f;
+            for (int id = 101; id <= 107; id++)
+                if (SceneManager.GetSceneByName("Training" + id + "_Runtime").isLoaded)
+                { ui.Button("training-return", new Rect(12, buttonY, width, 28), "카오시아로 복귀", () => ReturnFromTraining()); buttonY += 32f; break; }
+            var demo = SceneManager.GetSceneByName("Brugos01_Runtime").isLoaded;
+            if (demo || SceneManager.GetSceneByName("Town_Runtime").isLoaded)
+            {
+                ui.Button("travel", new Rect(12, buttonY, width, 28), demo ? "카오시아로 복귀" : "시나리오 1 입장", () => TravelScenarioDemo());
+                buttonY += 32f;
+            }
+            pointerBounds.yMax = buttonY;
+            var message = !string.IsNullOrEmpty(trainingEntryMessage) ? trainingEntryMessage
+                : string.IsNullOrEmpty(session.LastSaveMessage) ? session.LastTransitionMessage : session.LastSaveMessage;
+            if (!string.IsNullOrEmpty(message))
+            {
+                ui.Panel("notice", new Rect(12, buttonY, width, 64));
+                ui.Label("notice-text", new Rect(24, buttonY + 4, width - 24, 56), message);
+                pointerBounds.yMax += 64;
+            }
+            ui.End();
+        }
+    }
+}
