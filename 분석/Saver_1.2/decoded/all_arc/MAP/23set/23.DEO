@@ -1,0 +1,16 @@
+LOADSCENE 23
+SETPOSITION 19 15
+CHARPOS 731 700 21 15
+DO 200
+MAGIC 11201 700 19 7
+CHARPOS 733 701 18 15
+CHARDIR 700 LEFT
+CHARDIR 701 RIGHT
+MESSAGE 1 733 0 0 벨제뷔트, 방심하지 마라.|그자는 선택 받은 자. |그자의 힘을 가볍게 여겼다가는...
+MESSAGE 2 731 0 0 흐흐흐, 겁이 많구나 네르갈.|그자가 어떤 자이건 나의 앞에서는 |한낱 인간에 지나지 않는다.|나의 힘 앞에 그자는 쓰러질 것이다.
+MESSAGE 1 733 0 0 분명히 경고 했다 벨제뷔트, 방심하지 마라.
+MAGIC 11201 700 19 7
+KILLCHAR1 701
+DO 300
+MESSAGE 2 731 0 0 인간 따위가...
+END

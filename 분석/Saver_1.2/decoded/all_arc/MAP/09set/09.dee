@@ -1,0 +1,32 @@
+LOADSCENE 09
+SETPOSITION 39 27
+CHARPOS COM0 301 39 27
+CHARPOS COM1 302 40 27
+CHARPOS COM2 303 41 27
+CHARPOS 107 801 40 39
+DO 2000
+CHARMOVE 801 40 28
+DO 1000
+MESSAGE 2 COM0 0 COM0 이제 섬으로 들어가면 되는건가..
+FIRSTCLEAR
+TEST
+(
+MESSAGE 1 107 801 ID  잠깐만요.저도 데려가주십시요...
+MESSAGE 2 COM0 0 COM0 자네는 누구인가? 
+MESSAGE 1 107 801 ID  저는 이 마을의 영주의 아들입니다. 
+MESSAGE 2 COM0 0 COM0 그런데 왜 나를 따라가고 싶어 하지?
+MESSAGE 1 107 801 ID  제 약혼녀를 구하고 싶어서입니다.
+MESSAGE 2 COM0 0 COM0 약혼녀? 그게 무슨 말인가?
+MESSAGE 1 107 801 ID  용사께서 가시려는 곳에 나이아드란 악령이 |살고 있는데 그곳에 제 약혼녀가 |끌려 갔습니다.
+MESSAGE 2 COM0 0 COM0 그게 무슨 말인가?
+MESSAGE 1 107 801 ID  어느날 평화로운 저의 마을 호수에 |나이아드라는 물의 악령이 나타나 |마을 처녀에게 영원한 생명과 미를 주겠다고 |속여 모두 님프로 만들어버리고 |모든 물이란 물에는 독을 뿌렸습니다. |그런데 님프가 된 쳐녀 중에 제 약혼녀가| 포함되어 있습니다. |용사시여. 저의 힘만으론 상대할수가 | 없습니다. 제발 저를 도와주십시요. |제가 가면 섬의 지리나 괴물들을 |쳐부수는데 도움이 될 것입니다. 
+MESSAGE 2 COM0 0 COM0 음. 좋네. |  |어차피 우리도 지리와 정보가 허술하니 |자네가 많은 도움을 줄수 있겠군.
+GETGENERAL 107
+SAVECLEAR
+)
+TESTNOT
+(
+MESSAGE 1 COM1 0 COM1 서두르시죠...
+)
+DO 100
+END

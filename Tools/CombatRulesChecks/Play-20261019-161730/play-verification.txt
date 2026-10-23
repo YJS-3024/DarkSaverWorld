@@ -1,0 +1,6 @@
+Loading isolated Kaosia training connection verification
+Native item detail fixture; quotes 30/10 and gold1000 are isolated, not original town stock/prices
+FAIL: System.InvalidOperationException: Focus loss completed a trade
+  at DarkSaver.EditorTools.BattlePlayVerification.TickTownDragItems (System.Int32 stage) [0x00acf] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.TownDragItems.cs:148 
+  at DarkSaver.EditorTools.BattlePlayVerification.TickTownItems (System.Int32 stage) [0x00015] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.TownItems.cs:71 
+  at DarkSaver.EditorTools.BattlePlayVerification.Tick () [0x0004a] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:270 ; move=0, attack=0, rest=0

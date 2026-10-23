@@ -1,0 +1,12 @@
+Loading training verification core; no scenario objective or original training spawn assumed
+Training map 101 prepared: user-approved themed monster 302, native base stats, no scenario objective
+Encounter accepted
+FAIL: System.NullReferenceException: Object reference not set to an instance of an object
+  at UnityEngine.UIElements.PointerEnterEvent.PreDispatch (UnityEngine.UIElements.IPanel panel) [0x0000d] in <ae6c47847bbd4816bc952948c8cebf30>:0 
+  at UnityEngine.UIElements.EventDispatcher.ProcessEvent (UnityEngine.UIElements.EventBase evt, UnityEngine.UIElements.BaseVisualElementPanel panel) [0x00029] in <ae6c47847bbd4816bc952948c8cebf30>:0 
+  at UnityEngine.UIElements.EventDispatcher.Dispatch (UnityEngine.UIElements.EventBase evt, UnityEngine.UIElements.BaseVisualElementPanel panel, UnityEngine.UIElements.DispatchMode dispatchMode) [0x0002e] in <ae6c47847bbd4816bc952948c8cebf30>:0 
+  at UnityEngine.UIElements.BaseVisualElementPanel.SendEvent (UnityEngine.UIElements.EventBase e, UnityEngine.UIElements.DispatchMode dispatchMode) [0x00030] in <ae6c47847bbd4816bc952948c8cebf30>:0 
+  at UnityEngine.UIElements.VisualElement.SendEvent (UnityEngine.UIElements.EventBase e) [0x0000a] in <ae6c47847bbd4816bc952948c8cebf30>:0 
+  at DarkSaver.EditorTools.NativeRosterVisualFixture.HoverStat (System.Boolean enter) [0x0003b] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\NativeRosterVisualFixture.cs:409 
+  at DarkSaver.EditorTools.NativeRosterVisualFixture.Tick (DarkSaver.Combat.BattleSceneRoot source, DarkSaver.Combat.BattleMapPresentation sourceView, System.String output) [0x013a9] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\NativeRosterVisualFixture.cs:300 
+  at DarkSaver.EditorTools.BattlePlayVerification.Tick () [0x003e8] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:309 ; move=0, attack=0, rest=0

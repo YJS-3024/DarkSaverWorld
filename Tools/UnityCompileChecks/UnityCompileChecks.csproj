@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Assets/_Game/Runtime/**/*.cs" />
+    <Reference Include="$(UnityManagedPath)/UnityEngine/UnityEngine*.dll" />
+    <Reference Include="$(UnityManagedPath)/UnityEngine/Unity.Scripting.dll" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(CheckBrugosEditor)' == 'true'">
+    <Compile Include="../../Assets/_Game/Editor/BrugosScenarioSceneGenerator.cs" />
+    <Compile Include="../../Assets/_Game/Editor/KisraSpriteConverter.cs" />
+    <Compile Include="../../Assets/_Game/Editor/ScenarioDialogueConverter.cs" />
+    <Compile Include="../../Assets/_Game/Editor/ScenarioIntroConverter.cs" />
+    <Compile Include="../../Assets/_Game/Editor/ScenarioDialoguePreviewWindow.cs" />
+    <Compile Include="../../Assets/_Game/Editor/ItemCatalogConverter.cs" />
+    <Compile Include="../../Assets/_Game/Editor/JobCatalogConverter.cs" />
+    <Compile Include="../../Assets/_Game/Editor/MagicCatalogConverter.cs" />
+    <Compile Include="../../Assets/_Game/Editor/JobCatalogPreviewWindow.cs" />
+    <Compile Include="../../Assets/_Game/Editor/BattleEnemyDefinitionInspector.cs" />
+    <Reference Include="$(UnityManagedPath)/UnityEditor/UnityEditor*.dll" />
+    <Reference Include="$(UnityManagedPath)/UnityEditor.dll" Condition="Exists('$(UnityManagedPath)/UnityEditor.dll')" />
+  </ItemGroup>
+  <Target Name="CheckUnityPath" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(UnityManagedPath)/UnityEngine/UnityEngine.CoreModule.dll')" Text="Pass UnityManagedPath pointing to the installed Editor/Data/Managed directory." />
+  </Target>
+</Project>

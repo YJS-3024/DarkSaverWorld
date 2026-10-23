@@ -1,0 +1,53 @@
+LOADSCENE 02
+PLAYMIDI bgm\nce02.mid 1
+SETPOSITION 22 20
+CHARPOS 803 800 21 17
+CHARDIR 800 RIGHT
+CHARPOS COM0 301 25 17
+CHARDIR 301 LEFT
+DO 100
+CHARMOVE 301 23 17
+DO2 301
+CHARDIR 301 LEFT
+DO 1000
+CHARDIR 800 UP
+DO 500
+CHARDIR 800 LEFT
+DO 500
+CHARDIR 800 DOWN
+DO 500
+CHARDIR 800 RIGHT
+DO 500
+CHARDIR 800 UP
+DO 200
+CHARDIR 800 LEFT
+DO 200
+CHARDIR 800 DOWN
+DO 200
+CHARDIR 800 RIGHT
+DO 200
+MESSAGE 1 COM0 0 COM0 무사하셔서 다행입니다.
+MESSAGE 2 803 0 800 용사님......|||이 고마움을 어떻게 표현해야 할지..| 아바마마는 무사하신지요?
+MESSAGE 1 COM0 0 COM0 물론입니다. 자. 어서 왕궁으로 돌아가시지요.
+MESSAGE 2 803 0 800 같이 가주시는 거겠죠?
+FIRSTCLEAR
+TEST
+(
+MESSAGE 1 COM0 0 COM0 그럼 왕궁으로 출발할까요?
+MESSAGE 2 803 0 800 아니요... 먼저 보검을 찾으러 떠나야합니다.
+MESSAGE 1 COM0 0 COM0 하지만 그렇게 위험한 일에 |공주님을 데리고 갈 수는 없습니다.
+MESSAGE 2 803 0 800 아닙니다.. 저도 한나라의 공주로서| 보고만 있을 수는 없습니다.|싫다고 해도 같이 가겠습니다.
+MESSAGE 2 803 0 800 몬스터들이 하는 이야기도 들었고, 그것보다| 저는 하겐이 가르쳐준 마법의 덕인지 항상| 저는 보검의 기운을 알 수가 있답니다.먼저| 보검을 찾고 아바마마를 뵙겠습니다.
+MESSAGE 1 COM0 0 COM0 그러셔도 될는지... 몸도 많이 상하셨을| 텐데....
+MESSAGE 2 803 0 800 전 괜찮습니다. 용사여. 어서 출발하시지요.
+MESSAGE 2 803 0 800 참, 그리고 얼마 전에 물 속에서 반짝거리는| 물건을 본 적이 있는데 혹시 중요한 물건인지도 |모르니, 나중에 한번 찾아 보십시오.| 요새의 남쪽에서 보았습니다.
+GETGENERAL 102
+SAVECLEAR
+)
+TESTNOT
+(
+MESSAGE 1 COM0 0 COM0 아니.. 저는 보검을 찾으러 가야됩니다. | 그럼 이만...
+MESSAGE 2 803 0 800 참, 그리고 얼마 전에 물 속에서 반짝거리는| 물건을 본 적이 있는데 혹시 중요한 물건인지도 |모르니, 나중에 한번 찾아 보십시오.| 요새의 남쪽에서 보았습니다.
+)
+DO 100
+END

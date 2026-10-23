@@ -1,0 +1,62 @@
+{
+    "format": "DarkSaverWorld.NativeSave",
+    "version": 2,
+    "mapScene": "Kaosia_Map",
+    "runtimeScene": "Town_Runtime",
+    "worldX": 21.5,
+    "worldY": 2.5,
+    "experience": 4321,
+    "hasVitals": true,
+    "hp": 17,
+    "maxHp": 200,
+    "mp": 3,
+    "maxMp": 45,
+    "lifeState": 0,
+    "clearedScenarios": [],
+    "character": {
+        "hasClassAbilities": false,
+        "learnedMagicIds": [],
+        "usableSkillIds": [],
+        "name": "전투검증",
+        "jobId": 100,
+        "hasLevels": true,
+        "baseLevel": 12,
+        "jobLevel": 5,
+        "unspentClassChangeStatPoints": 18,
+        "allocatedAttack": 3,
+        "allocatedDefense": 3,
+        "allocatedMagicAttack": 0,
+        "allocatedMagicDefense": 0
+    },
+    "hasCharacter": true,
+    "ownedRoster": {
+        "units": [
+            {
+                "persistentId": "a",
+                "name": "검증 용병",
+                "instanceId": 20000,
+                "jobId": 200,
+                "hp": 1,
+                "maxHp": 1,
+                "mp": 0,
+                "maxMp": 0,
+                "attack": 0,
+                "defense": 0,
+                "lifeState": 0,
+                "experience": 0,
+                "teamId": 1,
+                "recordEligible": false,
+                "finalStateConfirmed": true,
+                "learnedMagicIds": [],
+                "hireType": "보병용병고용",
+                "hireOwnerId": 100
+            }
+        ]
+    },
+    "hasOwnedRoster": true,
+    "hasInventory": true,
+    "inventory": {
+        "gold": 0,
+        "items": []
+    }
+}

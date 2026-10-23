@@ -1,0 +1,27 @@
+LOADSCENE 13
+PLAYMIDI bgm\nco03.mid 1
+SETPOSITION 19 20
+CHARPOS COM0 301 19 26
+CHARPOS COM1 302 17 28
+CHARPOS COM2 303 21 28
+CHARPOS 713 700 19 1
+DO 200
+
+MESSAGE 1 COM0 0 COM0 여기가 세번째 봉인의 마지막 관문이다. | 그러나 일반 왕의 무덤과 다른것이 없지 않은가..
+DO 500
+MOVEPOSITION 19 4
+DO 2000
+CHARMOVE 713 19 5
+DO 1000
+MESSAGE 1 713 700 ID  여기까지 들어올 수가 있었다니.....| 과연 아흐리만께서 주의 하라 할만 하군. 
+SETPOSITION 19 20
+DO 100
+MESSAGE 1 COM0 0 COM0 아흐리만? 그럼 네가 원혼들이 하늘로 | 올라가는 것을 방해한 몬스터인가?
+SETPOSITION 19 7
+DO 100
+MESSAGE 1 713 700 ID  방해는 아니지. 그들은 위대한 아흐리만께서 | 이 제국을 차지하는데 있어 영광의 제물이 | 된것이니 감사해야 할 것이다.
+SETPOSITION 19 20
+DO 100
+SETPOSITION 19 7
+MESSAGE 1 COM0 0 COM0 뭣이.... 그것을 말이라고 하고 있는가? | 내 당장 너를 응징하리라..
+ENDDD

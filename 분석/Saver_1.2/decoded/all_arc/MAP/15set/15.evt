@@ -1,0 +1,436 @@
+EVENT 01
+COMMANDER
+ONCE
+1 CHARPOS 38 57
+2 CHARPOS 37 58
+3 CHARPOS 39 58
+MESSAGE 2 815 0 0 안녕하시오. 난 이 마을의 주민이었지..|그런데 어느날부터 마을 사람들이 변해가고 있소|하지만 아직 괜찮은 사람들이 있으니|많이 도움을 줄 것이오.
+MESSAGE 1 ME 0 0 거 이상한 현상이군|난 바빠서 이만 가봐야겠소.
+MESSAGE 2 815 0 0 잠깐 한가지 힌트를 드리겠소|마을 곳곳에 피어 있는 꽃은 여러가지|아이템을 만들수 있는 재료입니다.|구하셔서 마을의 주술사에게 가져다주면|아주 귀한 아이템을 줄것이오.|하지만 어떤 꽃은 독이 있으니 조심하시오.
+MESSAGE 1 ME 0 0 고맙소.. 아참 한가지 물어볼게 있는데|이 마을에 좋은 무기상점이 있다고|들었는데 거기가 어딘지 아시오?
+MESSAGE 2 815 0 0 마을이 변하면서부터 좋은 무기들도|모두 같이 없어졌다오.
+MESSAGE 1 ME 0 0 아무튼 고맙소 몸조심하시오.
+END
+
+EVENT 02
+COMMANDER
+1 CHARPOS 40 52
+MESSAGE 1 0 0 A 여기는 이름없는 마을입니다.|옛날 전쟁터였던 곳이라|길이 아닌곳에는 지뢰가 있을|수 있습니다. 조심하세요.
+END
+
+EVENT 03
+COMMANDER
+1 CHARPOS 16 36
+MESSAGE 1 0 0 A 오른쪽 맨 위에 있는 나무에서 오른쪽으로|8칸에 보물이 묻혀 있습니다. 하지만 주위에 함정이|도사리고 있으니 조심하십시오.
+END
+
+EVENT 04
+COMMANDER
+ONCE
+1 CHARPOS 57 3
+MESSAGE 1 ME 0 0 드디어 찾았다.
+RANDOM 70
+TEST
+(
+MESSAGE 0 0 ME 0 %S님이 3000 GOLD를 얻으셨습니다.
+GOLD 3000
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 아니 비었잖아..| 누가 먼저 가져가 버렸군.
+)
+END
+
+EVENT 05
+COMMANDER
+1 CHARPOS 48 31
+MESSAGE 1 0 0 A 여기까지 오시느라 수고하셨습니다.|이 표지판은 썰렁~
+END
+
+EVENT 06
+COMMANDER
+1 CHARPOS 21 42
+MESSAGE 1 0 0 A 주술사가 있는 곳은|왼쪽 게시판에 써 있습니다.
+END
+
+EVENT 07
+COMMANDER
+1 CHARPOS 9 43
+MESSAGE 1 0 0 A 주술사가 있는 곳은|오른쪽 게시판에 써 있습니다.
+END
+
+EVENT 08
+COMMANDER
+ONCE
+1 CHARPOS 9 1
+1 ITEM 397
+USEITEM 397
+MESSAGE 1 802 801 ID 노란꽃을 가져오셨군요. 제가 돌뱀을 만들어드리죠.
+MESSAGE 0 0 ME 0 %s님이 돌뱀을 얻었습니다.
+GETITEM 315
+END
+
+
+EVENT 10
+COMMANDER
+ONCE
+1 CHARPOS 16 42
+MESSAGE 1 ME 0 0 이런곳에 꽃이..
+RANDOM 20
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 아 이것은 아이템의 재료가 되는|노란꽃이네.
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 향기도 좋고 아름다운 꽃이다.|||헉 이것은 독....
+MAGIC 1602 -1 16 42
+)
+END
+
+EVENT 11
+COMMANDER
+ONCE
+1 CHARPOS 21 38
+MESSAGE 1 ME 0 0 노란 꽃이다.
+RANDOM 20
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 아 이것은 아이템의 재료가 되는|노란꽃이네.
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 이렇게 아름다운 꽃에 독이라니..
+MAGIC 1602 -1 21 38
+)
+END
+
+EVENT 12
+COMMANDER
+ONCE
+1 CHARPOS 27 33
+MESSAGE 1 ME 0 0 어디서 향긋한 냄새가 풍겨온다.
+RANDOM 20
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 아이템의 재료가 될 수 있겠다.
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 .....독꽃이다.
+MAGIC 1602 -1 27 33
+)
+END
+
+EVENT 13
+COMMANDER
+ONCE
+1 CHARPOS 56 19
+MESSAGE 0 ME 0 0 이런곳에 꽃이..
+RANDOM 20
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 너무나 아름답다. 유용한 가치가 있겠다.
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 앗! 속았다. 우욱...
+MAGIC 1602 -1 56 19
+)
+END
+
+EVENT 14
+COMMANDER
+ONCE
+1 CHARPOS 54 48
+MESSAGE 1 ME 0 0 이런곳에 꽃이..
+RANDOM 50
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 노란꽃이다.| 빨리 주술사에게 가져다 주자
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 줄기에 독이.. 이런....
+MAGIC 1602 -1 54 48
+)
+END
+
+EVENT 15
+COMMANDER
+ONCE
+1 CHARPOS 12 27
+MESSAGE 1 ME 0 0 이런곳에 꽃이..
+RANDOM 50
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 노란꽃이다.| 빨리 주술사에게 가져다 주자
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 줄기에 독이.. 제길...
+MAGIC 1602 -1 12 27
+)
+END
+
+EVENT 16
+COMMANDER
+ONCE
+1 CHARPOS 4 19
+MESSAGE 1 ME 0 0 이런 외진곳에 예쁜 꽃이군.
+RANDOM 40
+TEST
+(
+GETITEM 397
+MESSAGE 1 COM2 0 0 이것은 아이템의 재료로 쓰이는 그 꽃..
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 도도도도.. 독이다.
+MAGIC 1602 -1 4 19
+)
+END
+
+EVENT 17
+COMMANDER
+ONCE
+1 CHARPOS 3 18
+MESSAGE 1 ME 0 0 어디보자 이꽃은..
+RANDOM 80
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 드디어 찾았군.
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 이속에는.. 독이....
+MAGIC 1602 -1 3 18
+)
+END
+
+EVENT 18
+COMMANDER
+ONCE
+1 CHARPOS 16 3
+MESSAGE 1 ME 0 0 우리가 찾는 꽃일까?
+RANDOM 50
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 드디어 찾았군.
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 윽.. 아니다.
+MAGIC 1602 -1 16 3
+)
+END
+
+EVENT 19
+COMMANDER
+ONCE
+1 CHARPOS 24 2
+MESSAGE 1 ME 0 0 예쁜 꽃이다.
+RANDOM 50
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 행운이다 노란꽃을 얻었다.
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 독기운이 온몸에 퍼진다...
+MAGIC 1602 -1 24 2
+)
+END
+
+EVENT 20
+COMMANDER
+ONCE
+1 CHARPOS 44 9
+MESSAGE 1 ME 0 0 예쁜꽃이지만 꺾어야겠군.
+RANDOM 50
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 역시 우리가 찾던 꽃.
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 우... 도..독이...
+MAGIC 1602 -1 44 9
+)
+END
+
+EVENT 21
+COMMANDER
+ONCE
+1 CHARPOS 45 19
+MESSAGE 1 ME 0 0 이건 무슨 꽃일까?
+RANDOM 50
+TEST
+(
+GETITEM 397
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 혹시 독이..
+MAGIC 1602 -1 45 19
+)
+END
+
+EVENT 22
+COMMANDER
+ONCE
+1 CHARPOS 39 25
+MESSAGE 1 ME 0 0 독꽃은 아닐테지 이렇게 예쁜데..
+RANDOM 50
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 드디어 찾았군.
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 아니.. 속았다.
+MAGIC 1602 -1 39 25
+)
+END
+
+EVENT 23
+COMMANDER
+ONCE
+1 CHARPOS 45 34
+MESSAGE 1 ME 0 0 어디보자 이꽃은..
+RANDOM 50
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 드디어 찾았군.
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 믿은 내가 바보지....
+MAGIC 1602 -1 45 34
+)
+END
+
+EVENT 24
+COMMANDER
+ONCE
+1 CHARPOS 23 28
+MESSAGE 1 ME 0 0 이런곳에 꽃이
+RANDOM 50
+TEST
+(
+GETITEM 397
+MESSAGE 1 ME 0 0 노란꽃! 찾았다!!
+MESSAGE 0 0 ME 0 %S님은 노란꽃을 얻었습니다.
+)
+TESTNOT
+(
+MESSAGE 1 ME 0 0 독이 퍼진다 빨리 해독을..
+MAGIC 1602 -1 23 28
+)
+END
+
+EVENT 30
+COMMANDER
+ONCE
+1 CHARPOS 40 49
+MAGIC 3602 -1 40 49
+MASSAGE 1 ME 0 0 앗 문에서 무언가 나와서 우리 주위를 감쌌다.|몸을 움직일 수가 없어..
+END
+
+EVENT 31
+COMMANDER
+ONCE
+1 CHARPOS 8 12
+MASSAGE 1 ME 0 0 앗 지뢰다.
+MAGIC 0203 -1 8 12
+END
+
+EVENT 32
+COMMANDER
+ONCE
+1 CHARPOS 38 15
+MASSAGE 1 ME 0 0 앗 지뢰다.
+MAGIC 0203 -1 38 15
+END
+
+EVENT 33
+COMMANDER
+ONCE
+1 CHARPOS 57 4
+MASSAGE 1 ME 0 0 앗 지뢰다.
+MAGIC 0203 -1 57 4
+END
+
+EVENT 34
+COMMANDER
+ONCE
+1 CHARPOS 49 3
+MASSAGE 1 ME 0 0 앗 지뢰다.
+MAGIC 0203 -1 49 3
+END
+
+EVENT 35
+COMMANDER
+ONCE
+1 CHARPOS 38 27
+MASSAGE 1 ME 0 0 앗 지뢰다.
+MAGIC 0203 -1 38 27
+END
+
+EVENT 36
+COMMANDER
+ONCE
+1 CHARPOS 8 27
+MASSAGE 1 ME 0 0 앗 지뢰다.
+MAGIC 0203 -1 8 27
+END
+
+EVENT 37
+COMMANDER
+ONCE
+1 CHARPOS 52 35
+MASSAGE 1 ME 0 0 앗 지뢰다.
+MAGIC 0203 -1 52 35
+END
+
+EVENT 90
+ALL
+1 ONLY_CHAR 600
+1 CHARDEAD 600
+1 DUTY_STEP_TRUE 15 1
+1 DUTY_STEP_FALSE 15 2
+SET_DUTY_STEP 15 2
+END
+
+EVENT 99
+ALL
+1 CHARDEAD 600
+SCENECLEAR
+END
+;999

@@ -1,0 +1,7 @@
+Loading training verification core; no scenario objective or original training spawn assumed
+Training map 101 prepared: user-approved themed monster 302, native base stats, no scenario objective
+Encounter accepted
+FAIL: System.InvalidOperationException: Native target rendering or resource isolation failed.
+  at DarkSaver.EditorTools.NativeRosterVisualFixture.ShowNativeTargetForCapture (System.Int16 id, System.String output, System.Int32 beamDirection) [0x0057d] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\NativeRosterVisualFixture.cs:475 
+  at DarkSaver.EditorTools.NativeRosterVisualFixture.Tick (DarkSaver.Combat.BattleSceneRoot source, DarkSaver.Combat.BattleMapPresentation sourceView, System.String output) [0x00483] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\NativeRosterVisualFixture.cs:73 
+  at DarkSaver.EditorTools.BattlePlayVerification.Tick () [0x003e8] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:317 ; move=0, attack=0, rest=0

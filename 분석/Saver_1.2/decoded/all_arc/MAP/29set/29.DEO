@@ -1,0 +1,41 @@
+LOADSCENE 32
+SETPOSITION 19 7 
+CHARPOS 752 700 19 7
+CHARDIR 700 UP
+MESSAGE 1 752 0 0 불쌍한 녀석, 경솔함이 결국 목숨을 앗아가고 말았군
+MESSAGE 1 752 0 0 다음은 마르타니의 차례인가?
+CHARPOS 750 701 19 13
+MAGIC 1201 701 -1 -1 701
+DO 200
+MESSAGE 2 750 0 0 제이드님, 에르기온이.....
+CHARDIR 700 DOWN
+MESSAGE 1 752 0 0 알고 있다.
+MESSAGE 2 750 0 0 염려하시던 대로 역시 택자의 힘은...
+MESSAGE 1 752 0 0 음... 인간의 힘이 이다지도 강하단 말인가?
+MESSAGE 2 750 0 0 하지만 이번 상대는 우리들도 두려워하는 마르타니입니다.
+MESSAGE 1 752 0 0 조심해야 한다.
+MESSAGE 2 750 0 0 걱정 마십시오, 반드시 막아 보이겠습니다.
+MESSAGE 1 752 0 0 만일의 경우에 대비하는 것이 좋을 것이다.
+MESSAGE 2 750 0 0 알겠습니다. 조심하겠습니다.
+MAGIC 1201 701 -1 -1 701
+DO 300
+KILLCHAR1 701
+DO 50
+CHARDIR 700 UP
+MESSAGE 1 752 0 0 역시.. 그 힘은 신에게서 받은 것이란 말인가?
+DO 300
+LOADSCENE 29
+SETPOSITION 19 7 
+CHARPOS 749 700 19 7
+MESSAGE 1 749 0 0 키키키키키키키키키키
+CHARPOS COM0 301 14 32
+SETPOSITION 14 32 
+DO 500
+MESSAGE 1 ME 0 0 이런 흉칙한! 네가 이 성의 주인인가?
+SETPOSITION 19 7
+MESSAGE 1 749 0 0 키키키! 너는 제이드님의 상대로는 아직 부족하다.| 내가 여기서 그것을 보여 주겠다. 죽어라!
+SETPOSITION 14 32 
+MESSAGE 1 ME 0 0 제이드? 그게 누구지?
+SETPOSITION 19 7
+MESSAGE 1 749 0 0 키키키! 그런 질문은 나를 쓰러뜨리고 하는게 좋을 것이다. 덤벼라!
+END

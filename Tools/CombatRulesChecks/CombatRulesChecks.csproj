@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Assets/_Game/Runtime/Events/EventScriptParser.cs" Link="EventScriptParser.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/CombatModel.cs" Link="CombatModel.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/CombatGroupSnapshot.cs" Link="CombatGroupSnapshot.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/CombatActionPoints.cs" Link="CombatActionPoints.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/GameConstants.cs" Link="GameConstants.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/GameConstants.TemporaryCombat.cs" Link="GameConstants.TemporaryCombat.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/TemporaryCombatDamageRules.cs" Link="TemporaryCombatDamageRules.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/BattleVictoryRules.cs" Link="BattleVictoryRules.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/CombatFlow.cs" Link="CombatFlow.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/LocalCombatAuthority.cs" Link="LocalCombatAuthority.cs" />
+  </ItemGroup>
+</Project>

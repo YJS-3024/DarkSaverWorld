@@ -1,0 +1,38 @@
+{
+  "sources": {
+    "GameCtl.dll": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+    "UserUnit.dll": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711"
+  },
+  "checks": [
+    "direct label push",
+    "attack label push",
+    "defense label push",
+    "three choices",
+    "callback setsolai",
+    "import signature",
+    "direct mode 1",
+    "attack mode 2",
+    "defense mode 8"
+  ],
+  "choices": [
+    {
+      "name": "direct",
+      "string": "0x1001a4ac",
+      "push": "0x1000c071",
+      "choice": 1
+    },
+    {
+      "name": "attack",
+      "string": "0x1001a4a0",
+      "push": "0x1000c0a5",
+      "choice": 2
+    },
+    {
+      "name": "defense",
+      "string": "0x1001a494",
+      "push": "0x1000c0d9",
+      "choice": 3
+    }
+  ],
+  "scope": "Original three-choice menu and commander mode storage only. Local targeting, range, tie policy, AP and damage are not recovered server rules."
+}

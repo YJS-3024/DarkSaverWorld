@@ -1,0 +1,4 @@
+Loading training verification core; no scenario objective or original training spawn assumed
+FAIL: System.InvalidOperationException: Training verification dependencies are missing.
+  at DarkSaver.EditorTools.TrainingBattleVerificationSetup.Prepare (System.Int32 mapId, System.String savePath) [0x001ef] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\TrainingBattleVerificationSetup.cs:45 
+  at DarkSaver.EditorTools.BattlePlayVerification.Tick () [0x000f6] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:198 ; move=0, attack=0, rest=0

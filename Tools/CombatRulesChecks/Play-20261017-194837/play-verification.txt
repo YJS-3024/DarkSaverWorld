@@ -1,0 +1,7 @@
+Loading training verification core; no scenario objective or original training spawn assumed
+Training map 101 prepared: user-approved themed monster 302, native base stats, no scenario objective
+Encounter accepted
+FAIL: System.InvalidOperationException: Pointer target obstructed: system-retreat
+  at DarkSaver.EditorTools.NativeRosterVisualFixture.Click (System.String key, System.String output) [0x00144] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\NativeRosterVisualFixture.cs:179 
+  at DarkSaver.EditorTools.NativeRosterVisualFixture.Tick (DarkSaver.Combat.BattleSceneRoot source, DarkSaver.Combat.BattleMapPresentation sourceView, System.String output) [0x0079b] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\NativeRosterVisualFixture.cs:143 
+  at DarkSaver.EditorTools.BattlePlayVerification.Tick () [0x0037c] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:247 ; move=0, attack=0, rest=0

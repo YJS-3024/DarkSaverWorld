@@ -1,0 +1,41 @@
+LOADSCENE 32
+SETPOSITION 19 7 
+CHARPOS 752 700 19 7
+CHARDIR 700 UP
+MESSAGE 1 752 0 0 사천왕의 두명째... | 드디어 나에게 도전하는 것인가 택자여..
+MESSAGE 1 752 0 0 그분께 맞서는 인간이라...| 훗 어리석군...
+CHARPOS 750 701 19 13
+MAGIC 1201 701 -1 -1 701
+DO 200
+MESSAGE 2 750 0 0 제이드님, 드디어 그가 왔습니다.
+CHARDIR 700 DOWN
+MESSAGE 1 752 0 0 블린이냐? 택자의 기운은 이미 느끼고 있다. 
+MESSAGE 2 750 0 0 괜찮으시겠습니까? 인간을 상대로...
+MESSAGE 1 752 0 0 쓸데 없는 걱정을... | 이미 인간의 마음은 버린지 오래이다.
+MESSAGE 2 750 0 0 예.. 옛, 죄송합니다.
+MESSAGE 1 752 0 0 모두들 준비는 철저히 하고 있겠지?
+MESSAGE 2 750 0 0 만반의 준비를 갖추고 각자의 성을 지키고 있습니다.| 제 아무리 택자라 하여도...
+MESSAGE 1 752 0 0 방심은 금물, 그는 네르갈을 쓰러뜨린 자이다.
+MESSAGE 2 750 0 0 알겠습니다. 조심하겠습니다.
+MESSAGE 1 752 0 0 우선은 에르기온을 상대하게 될 텐데... 걱정이 되는군.
+MESSAGE 2 750 0 0 에르기온은 조금 경솔하기는 해도 실력은 믿을 수 있습니다.
+MESSAGE 1 752 0 0 그 경솔함이 목숨을 앗아갈 수도 있을텐데..
+MESSAGE 2 750 0 0 일단은 그를 믿어보시는게... 이만 물러가겠습니다.
+MAGIC 1201 701 -1 -1 701
+DO 300
+KILLCHAR1 701
+DO 50
+CHARDIR 700 UP
+MESSAGE 1 752 0 0 인간을 증오하는 자와 인간을 지키려는 자의 싸움이라.. | 재미있군...
+DO 300
+LOADSCENE 28
+SETPOSITION 19 7 
+CHARPOS 748 700 19 7
+MESSAGE 1 748 0 0 후후후후후!
+CHARPOS COM0 301 14 32
+SETPOSITION 14 32 
+DO 500
+MESSAGE 1 ME 0 0 네놈은?
+SETPOSITION 19 7
+MESSAGE 1 748 0 0 나 에르기온, 제이드님의 명에 따라 너를 죽이겠다! | 나의 힘을 보아라!
+END

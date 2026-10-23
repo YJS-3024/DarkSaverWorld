@@ -1,0 +1,6 @@
+order,call,confirmed_role,unity_equivalent,confidence
+1,_UpdateCharacter(0),타일별 유닛 인덱스/점유 표 갱신,논리 그리드 갱신,high
+2,_UpdateCharacter(1),화면 타일 순회 및 캐릭터 본체·동작·캐릭터 결합 효과 렌더,캐릭터 본체 패스,high
+3,BBDX_MapManager::SpriteDraw,MRC 전경 스프라이트를 파일 레코드 순서로 렌더,전경 오브젝트 패스,high
+4,_UpdateCharacter(2),상태 플래그 0x40 유닛의 이름·수치 등 보조 표시 재렌더,월드 UI/상태 오버레이,high
+5,UI scene draw,LSC 기반 창·버튼과 일반 UI 렌더,Canvas UI,medium

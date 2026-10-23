@@ -1,0 +1,15 @@
+Loading training verification core; no scenario objective or original training spawn assumed
+Training map 101 prepared: user-approved themed monster 302, native base stats, no scenario objective
+Encounter accepted
+Display 791x593; viewport=(x:0.17, y:0.00, width:790.67, height:593.00); camera=(x:0.00, y:0.00, width:1.00, height:1.00); size=7.5
+PASS: native 32px world/UI scale matches: 39.533/39.533 screen pixels
+Action menu captured: frame 0
+PASS: action menu attached and visible after fixture reactivation
+Action menu captured: frame 1
+Roster state captured: 0
+Roster state captured: 1
+Roster state captured: 2
+PASS: six native menu entries; hit-tested PointerDown/Up minimap/alliance/victory/help/info/retreat; cancel and menu return
+Confirmed retreat requested from the owning Battle scene
+PASS: training return preserves zero scenario clears and restores maximum MP
+PASS: explicit retreat confirmed, Battle unloaded, world input restored; move=0, attack=0, rest=0

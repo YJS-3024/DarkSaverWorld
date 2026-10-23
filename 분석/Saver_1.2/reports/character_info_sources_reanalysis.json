@@ -1,0 +1,215 @@
+{
+  "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe",
+  "sha256": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0",
+  "method": "Static PE/x86 inspection only; no original execution or network exchange",
+  "instruction_checks_passed": 39,
+  "dispatch_checks_passed": 2,
+  "fallback_string_check_passed": true,
+  "header_opcode": "0x32",
+  "records_opcode": "0x34",
+  "no_name_text": "없음",
+  "checks": [
+    {
+      "address": "0x43ba57",
+      "instruction": "mov al, byte ptr [ebx]",
+      "meaning": "Dispatch reads message byte"
+    },
+    {
+      "address": "0x43ba59",
+      "instruction": "add eax, -0x32",
+      "meaning": "Dispatch index begins at 0x32"
+    },
+    {
+      "address": "0x43babf",
+      "instruction": "call 0x42c3b0",
+      "meaning": "Header response updates separate state"
+    },
+    {
+      "address": "0x43bb2e",
+      "instruction": "call 0x42c4f0",
+      "meaning": "Record response updates information slots"
+    },
+    {
+      "address": "0x43e53f",
+      "instruction": "call 0x43e310",
+      "meaning": "Header reads string byte length after six words"
+    },
+    {
+      "address": "0x43e544",
+      "instruction": "mov cl, byte ptr [eax]",
+      "meaning": "String byte length"
+    },
+    {
+      "address": "0x43e560",
+      "instruction": "call 0x43e330",
+      "meaning": "Copies length-delimited string"
+    },
+    {
+      "address": "0x43e56e",
+      "instruction": "call 0x43e310",
+      "meaning": "Header reads following flag byte"
+    },
+    {
+      "address": "0x43e57a",
+      "instruction": "and ecx, 0x80000001",
+      "meaning": "Zero-extended flag is reduced to its low bit"
+    },
+    {
+      "address": "0x43e366",
+      "instruction": "mov byte ptr [ebx + eax], 0",
+      "meaning": "String helper appends terminator"
+    },
+    {
+      "address": "0x42c3f6",
+      "instruction": "mov al, byte ptr [edi + 0xc]",
+      "meaning": "Decoded header string length at +0xc"
+    },
+    {
+      "address": "0x42c3fb",
+      "instruction": "je 0x42c412",
+      "meaning": "Zero name length selects fallback"
+    },
+    {
+      "address": "0x42c3fd",
+      "instruction": "lea eax, [edi + 0xd]",
+      "meaning": "Decoded name bytes start at +0xd"
+    },
+    {
+      "address": "0x42c400",
+      "instruction": "lea ecx, [esi + 0x10]",
+      "meaning": "State string destination is +0x10"
+    },
+    {
+      "address": "0x42c412",
+      "instruction": "push 0x450ce4",
+      "meaning": "Fallback string is supplied by original data"
+    },
+    {
+      "address": "0x41334c",
+      "instruction": "mov edx, dword ptr [esi + 0xb0]",
+      "meaning": "Weapon label reads separate state"
+    },
+    {
+      "address": "0x413356",
+      "instruction": "mov ecx, dword ptr [edx + 0x10]",
+      "meaning": "Weapon label reads string, no item lookup here"
+    },
+    {
+      "address": "0x42c4f9",
+      "instruction": "movsx eax, word ptr [esi]",
+      "meaning": "Record storage slot comes from first signed word"
+    },
+    {
+      "address": "0x42c50b",
+      "instruction": "mov ecx, 0xb5",
+      "meaning": "Copies 181 dwords = 724 bytes"
+    },
+    {
+      "address": "0x42c510",
+      "instruction": "lea edi, [eax + 4]",
+      "meaning": "Record payload follows four-byte prefix"
+    },
+    {
+      "address": "0x42c513",
+      "instruction": "rep movsd dword ptr es:[edi], dword ptr [esi]",
+      "meaning": "Whole decoded payload copied without local hire aggregation"
+    },
+    {
+      "address": "0x42c516",
+      "instruction": "mov dword ptr [eax + 0x2d8], 1",
+      "meaning": "Information slot marked occupied"
+    },
+    {
+      "address": "0x42c754",
+      "instruction": "cmp dword ptr [ecx], 0",
+      "meaning": "Selection walks occupied slots"
+    },
+    {
+      "address": "0x42c759",
+      "instruction": "inc esi",
+      "meaning": "Occupied-record ordinal"
+    },
+    {
+      "address": "0x42c75a",
+      "instruction": "cmp esi, edi",
+      "meaning": "Compares requested ordinal"
+    },
+    {
+      "address": "0x42c75f",
+      "instruction": "add ecx, 0x2dc",
+      "meaning": "Slot stride is 732 bytes"
+    },
+    {
+      "address": "0x42c765",
+      "instruction": "cmp eax, 0x14",
+      "meaning": "Selection scans at most 20 slots"
+    },
+    {
+      "address": "0x413849",
+      "instruction": "mov ecx, dword ptr [esi + 0xb0]",
+      "meaning": "Information selection uses separate state manager"
+    },
+    {
+      "address": "0x41384f",
+      "instruction": "call 0x42c740",
+      "meaning": "Selects information record by ordinal"
+    },
+    {
+      "address": "0x41385a",
+      "instruction": "mov dword ptr [esi + 0xb4], eax",
+      "meaning": "Stores selected record pointer"
+    },
+    {
+      "address": "0x412a85",
+      "instruction": "mov eax, dword ptr [esi + 0xb4]",
+      "meaning": "Small picture uses selected record"
+    },
+    {
+      "address": "0x412a8b",
+      "instruction": "add eax, 4",
+      "meaning": "Skips record prefix"
+    },
+    {
+      "address": "0x412a8e",
+      "instruction": "mov ax, word ptr [eax + 0x96]",
+      "meaning": "Small picture class field at payload +0x96"
+    },
+    {
+      "address": "0x412a95",
+      "instruction": "cmp ax, 0xffff",
+      "meaning": "Minus one suppresses class picture"
+    },
+    {
+      "address": "0x412aa1",
+      "instruction": "call 0x428010",
+      "meaning": "Maps class to character picture"
+    },
+    {
+      "address": "0x412aa9",
+      "instruction": "call dword ptr [0x446668]",
+      "meaning": "Uses UserUnit character surface"
+    },
+    {
+      "address": "0x412b4a",
+      "instruction": "mov ebp, dword ptr [esi + 0xb4]",
+      "meaning": "Quantity uses same selected record"
+    },
+    {
+      "address": "0x412b64",
+      "instruction": "add ebp, 4",
+      "meaning": "Skips record prefix for text"
+    },
+    {
+      "address": "0x412b92",
+      "instruction": "movsx edx, word ptr [ebp + 0x98]",
+      "meaning": "Quantity is signed word at payload +0x98"
+    }
+  ],
+  "limits": [
+    "Per-record class/count fields do not establish their game-level ownership semantics.",
+    "No proof that +0x98 is the total of all hired units or living/deployed units.",
+    "Separate weapon-label text does not establish an item ID, equipment slot, or modifier formula.",
+    "Global header text and selected record have different provenance; do not assume all fields are per-selected-unit.",
+    "Wire dispatch byte values do not establish a complete transport framing contract."
+  ]
+}

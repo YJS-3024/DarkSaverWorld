@@ -1,0 +1,11 @@
+Loading isolated Kaosia training connection verification
+PASS: town overview/save/formation lock/class preview/quantity shop/inventory/disk persistence; shop quotes are isolated fixtures
+PASS: native town panel hired two soldiers separately; isolated funding/wounded starting fixture only
+Walking to the western training entrance via normal movement.
+PASS: Training101 map/runtime, preserved GameCore session, native save/readback.
+Primary slots 101/102 confirmed; normal training encounter accepted
+PASS: two native bodies deployed and soldier action menu opened
+PASS: hired soldier moved via command/world target and rested
+FAIL: System.InvalidOperationException: Town input not restored
+  at DarkSaver.EditorTools.BattlePlayVerification.TickMercenaryDeployment (System.Int32 stage) [0x005bf] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.Mercenaries.cs:195 
+  at DarkSaver.EditorTools.BattlePlayVerification.Tick () [0x0004a] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:266 ; move=1, attack=0, rest=1

@@ -1,0 +1,27 @@
+LOADSCENE 04
+PLAYMIDI bgm\nco02.mid 1
+SETPOSITION 19 5
+CHARPOS COM0 301 20 5
+DO 1000
+MESSAGE 1 COM0 0 COM0 점점 힘든 싸움이 되가는군.... 이제 | 보름스국과 브리힐트국의 접경지대로 갈수| 있겠군.. 그런데 보검을 줄때 하겐은 무엇인가| 생각이 있어 보였는데, 음..... 나중에 이유를| 알 수 있겠지.
+DO 100
+FIRSTCLEAR
+TEST
+(
+CHARPOS 101 304 20 20
+MESSAGE 1 101 0 0 잠깐만! 기다려 주시오!
+CHARDIR 301 DOWN
+CHARMOVE 304 20 7
+DO 500
+MESSAGE 2 COM0 0 COM0 아니, 당신은 누구요?
+MESSAGE 1 101 0 0 저는 당신을 돕기 위해 왕께서 보내신 사람입니다.| 이제부터 당신을 따르겠습니다.
+MESSAGE 2 COM0 0 COM0 고맙습니다. 큰 도움이 될 것이요.
+GETGENERAL 101
+SAVECLEAR
+)
+TESTNOT
+(
+MESSAGE 2 COM0 0 COM0 자, 서두르자.
+)
+DO 100
+END

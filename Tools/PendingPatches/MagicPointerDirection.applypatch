@@ -1,0 +1,67 @@
+*** Begin Patch
+*** Update File: Assets/_Game/Runtime/Combat/BattleMapPresentation.cs
+@@
+-        public Rect MagicDirectionRect => new Rect(Rendering.GameScreen.Width - 380, 12, 360, 145);
++        public Rect MagicDirectionRect => battle != null && battle.IsPrototypeHudVisible
++            ? new Rect(Rendering.GameScreen.Width - 380, 12, 360, 145) : default;
++        public static BattleMagicDirection DirectionFromPointerDelta(Vector2 delta)
++        {
++            // GameCtl 0x1000A18B..A1D7: screen Y grows down; ties select vertical.
++            if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
++                return delta.x > 0 ? BattleMagicDirection.Right : BattleMagicDirection.Left;
++            return delta.y <= 0 ? BattleMagicDirection.Up : BattleMagicDirection.Down;
++        }
++        public bool TryPreviewMagicDirectionAt(Vector3 position)
++        {
++            if (!isActiveAndEnabled || !IsBound || !RequiresMagicDirection || view == null || ground == null
++                || !battle.TryGetSelectedUnit(out var actor)) return false;
++            // Native origin is the caster tile's top-left (tile*32), not the sprite/foot pivot.
++            var origin = ground.CellToWorld(new Vector3Int(actor.X, bounds.yMax - actor.Y, 0));
++            var start = view.WorldToScreenPoint(origin); var end = view.WorldToScreenPoint(position);
++            return TryChooseMagicDirection(DirectionFromPointerDelta(new Vector2(end.x-start.x, start.y-end.y)));
++        }
+@@
+-            LastInputMessage = "방향 미리보기: 시전 확인 전에는 요청과 비용 차감이 없습니다.";
++            LastInputMessage = "마법 방향 미리보기: 바닥 클릭으로 시전, 우클릭 취소.";
+@@
+-            if (RequiresMagicDirection) { LastInputMessage = "방향 버튼으로 선택한 뒤 시전을 확인하세요."; return false; }
++            if (RequiresMagicDirection) return TryPreviewMagicDirectionAt(position) && TryConfirmMagicDirection();
+@@
+-            if (IsMagicTargeting && previewMagic != null
++            if (RequiresMagicDirection) TryPreviewMagicDirectionAt(position);
++            else if (IsMagicTargeting && previewMagic != null
+@@
+-            if (RequiresMagicDirection)
++            if (RequiresMagicDirection && battle.IsPrototypeHudVisible)
+*** Update File: Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs
+@@
+     public sealed class BattleMapPresentationTests
+     {
++        [TestCase(5,2,BattleMagicDirection.Right)]
++        [TestCase(-5,2,BattleMagicDirection.Left)]
++        [TestCase(2,-5,BattleMagicDirection.Up)]
++        [TestCase(2,5,BattleMagicDirection.Down)]
++        [TestCase(3,3,BattleMagicDirection.Down)]
++        [TestCase(-3,-3,BattleMagicDirection.Up)]
++        [TestCase(0,0,BattleMagicDirection.Up)]
++        public void PointerDirectionUsesNativeDominantAxisAndVerticalTie(float x, float y, BattleMagicDirection expected)
++        {
++            Assert.That(BattleMapPresentation.DirectionFromPointerDelta(new Vector2(x,y)), Is.EqualTo(expected));
++        }
++
+@@
+-        public void MagicDirectionUsesNativeScreenMappingWithoutClickFallbackOrCost()
++        public void MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady()
+@@
+                     Assert.That(calls, Is.Zero); Assert.That(f.Battle.PlayerAp, Is.EqualTo(6)); Assert.That(f.Battle.PlayerMp, Is.EqualTo(30));
++                    Assert.That(f.View.MagicDirectionRect, Is.EqualTo(default(Rect)));
++                    f.Battle.SetPrototypeHudVisible(true);
+                     var center = f.View.MagicDirectionRect.center;
+@@
+                     f.View.TryBeginNativeMagicTargeting(catalog, command, _ => true, _ => 1, null, null);
+-                    f.View.TryChooseMagicDirection(BattleMagicDirection.Right);
++                    Assert.That(f.View.TryPreviewMagicDirectionAt(f.Enemy.transform.position), Is.True);
+                     Assert.That(f.Battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp)); Assert.That(received, Is.Null);
+-                    Assert.That(f.View.TryConfirmMagicDirection(), Is.True);
++                    Assert.That(f.View.TryHandleWorldClick(f.Enemy.transform.position), Is.True);
+*** End Patch

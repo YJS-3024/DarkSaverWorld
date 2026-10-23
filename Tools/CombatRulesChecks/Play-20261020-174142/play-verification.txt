@@ -1,0 +1,15 @@
+Loading training verification core; no scenario objective or original training spawn assumed
+Training map 101 prepared: user-approved themed monster 302, native base stats, no scenario objective
+Encounter accepted
+Display 791x593; viewport=(x:0.17, y:0.00, width:790.67, height:593.00); camera=(x:0.00, y:0.00, width:1.00, height:1.00); size=7.5
+PASS: native 32px world/UI scale matches: 39.533/39.533 screen pixels
+Action menu captured: frame 0
+PASS: action menu attached and visible after fixture reactivation
+Action menu captured: frame 1
+Roster state captured: 0
+Roster state captured: 1
+Roster state captured: 2
+PASS: original alliance minimize/restore through hit-tested PointerDown/Up
+FAIL: System.InvalidOperationException: Information window did not reopen
+  at DarkSaver.EditorTools.BattlePlayVerification.VerifyNativeBattleMenu () [0x004b6] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.NativeMenu.cs:124 
+  at DarkSaver.EditorTools.BattlePlayVerification.Tick () [0x00957] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:426 ; move=0, attack=0, rest=0

@@ -1,0 +1,61 @@
+{
+  "cellOffsets": [
+    [
+      -32,
+      -32
+    ],
+    [
+      0,
+      -32
+    ],
+    [
+      32,
+      -32
+    ],
+    [
+      -32,
+      32
+    ],
+    [
+      0,
+      32
+    ],
+    [
+      32,
+      32
+    ],
+    [
+      -32,
+      0
+    ],
+    [
+      32,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "source": "GameCtl.dll",
+  "sha256": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+  "checks": {
+    "0x10009399": "8b480c",
+    "0x1000939f": "83f907",
+    "0x100093a2": "752c",
+    "0x100093bc": "8994ce04020000",
+    "0x100093ad": "8984d608020000",
+    "0x100093c9": "40",
+    "0x1000ae3d": "68a0000000",
+    "0x1000ae42": "6a40",
+    "0x1000ae4a": "6880000000",
+    "0x1000ae4f": "6a20",
+    "0x1000afad": "68a0000000",
+    "0x1000afb2": "6a60",
+    "0x1000afba": "6880000000",
+    "0x1000afbf": "6a40",
+    "0x10009b57": "83c606",
+    "0x10009b5a": "83c0fa"
+  },
+  "meaning": "Tool constructor reads itemrecord+0x0c, includes only type 7, copies item ID and quantity. No item use effect, AP cost, target or consumption is inferred."
+}

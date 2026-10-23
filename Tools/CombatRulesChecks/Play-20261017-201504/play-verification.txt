@@ -1,0 +1,22 @@
+Loading training verification core; no scenario objective or original training spawn assumed
+Training map 101 prepared: user-approved themed monster 302, native base stats, no scenario objective
+Encounter accepted
+Display 795x596; viewport=(x:0.17, y:0.00, width:794.67, height:596.00); camera=(x:0.00, y:0.00, width:1.00, height:1.00); size=7.5
+PASS: native 32px world/UI scale matches: 39.733/39.733 screen pixels
+Action menu captured: frame 0
+PASS: action menu attached and visible after fixture reactivation
+Action menu captured: frame 1
+Roster state captured: 0
+Roster state captured: 1
+Roster state captured: 2
+Movement accepted: 13,6
+Attack accepted: enemy HP=135, player AP=3
+Attack accepted: enemy HP=112, player AP=3
+Rest accepted
+Rest accepted
+Rest accepted
+Attack accepted: enemy HP=89, player AP=3
+Attack accepted: enemy HP=66, player AP=3
+Outcome: victory=False, HP=0, MP=45
+PASS: training return preserves zero scenario clears and restores maximum MP
+PASS: real combat outcome acknowledged, Battle unloaded, world input restored; move=1, attack=4, rest=3

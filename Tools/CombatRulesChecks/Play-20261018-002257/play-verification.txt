@@ -1,0 +1,6 @@
+Loading training verification core; no scenario objective or original training spawn assumed
+Training map 101 prepared: user-approved themed monster 302, native base stats, no scenario objective
+Encounter accepted
+FAIL: System.InvalidOperationException: Heal menu-to-target cast failed.
+  at DarkSaver.EditorTools.NativeRosterVisualFixture.Tick (DarkSaver.Combat.BattleSceneRoot source, DarkSaver.Combat.BattleMapPresentation sourceView, System.String output) [0x012f2] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\NativeRosterVisualFixture.cs:307 
+  at DarkSaver.EditorTools.BattlePlayVerification.Tick () [0x003e8] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:309 ; move=0, attack=0, rest=0

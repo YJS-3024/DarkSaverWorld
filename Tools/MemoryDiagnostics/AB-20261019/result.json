@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-19",
+  "unity": "6000.5.7f1",
+  "assistantPackage": "com.unity.ai.assistant@2.20.0-pre.2",
+  "comparison": {
+    "sameProjectAndStartScene": true,
+    "gameplayExecuted": false,
+    "mcpCommandsExecutedDuringMeasurement": 0,
+    "postGcSamplingSecondsAfterReady": [0, 15, 45],
+    "ON": {
+      "pid": 937516,
+      "assistantAssemblies": 12,
+      "monoUsedMiB": [694, 5604, 1033],
+      "monoHeapMiB": [958, 8679, 12043],
+      "nativeAllocatedMiB": [527, 671, 674],
+      "osObservedPrivateGiBAfterSampling": 13.40
+    },
+    "OFF": {
+      "pid": 1440624,
+      "assistantAssemblies": 0,
+      "monoUsedMiB": [511, 514, 512],
+      "monoHeapMiB": [651, 651, 651],
+      "nativeAllocatedMiB": [527, 568, 569],
+      "osObservedPrivateGiBAfterSampling": 2.020,
+      "osObservedWorkingSetGiBAfterSampling": 1.880
+    }
+  },
+  "finding": "Large managed-heap expansion reproduced during Assistant-enabled editor startup without gameplay or MCP commands. It did not reproduce during the matched Assistant-disabled observation. Assistant startup/background work is implicated at package level; a specific allocation stack and permanent leak classification remain unproven.",
+  "limitations": [
+    "Three post-GC samples and one cold startup per condition, not long-duration or repeated statistical testing.",
+    "Package initialization can overlap asynchronous tasks; exact allocation peak may fall between samples.",
+    "ON was measured before OFF; import/cache warmness and startup compilation times differ.",
+    "Probe Process privateMB/workingSetMB returned zero in this Unity environment and must not be interpreted as real process memory. Use the separately recorded Windows process readings.",
+    "The previous 16980MiB heap was not reproduced at precisely the same size; this comparison reproduced 12043MiB expansion with zero MCP commands."
+  ],
+  "restoration": {
+    "manifestOriginalSHA256": "9F8788DDA1EC53BE4470D7C1BA96F95FD962CF88E3BDAA7F21B2F6FBF49AA5AE",
+    "lockOriginalSHA256": "AE6ACC9B93CBC2E902A67898DDD4D8AB7E20E33EE862CAA97A27BD7B7394B84D",
+    "manifestAndLockExactBeforeRelaunch": true,
+    "originalPackageCacheRestoredFromBackup": true,
+    "restoredEditorPID": 1015744,
+    "mcpRespondingAfterRestoration": true,
+    "playModeAfterRestoration": false,
+    "compilingAfterRestoration": false,
+    "scriptCompilationFailedAfterRestoration": false,
+    "startSceneDirtyAfterRestoration": false,
+    "manifestAndLockExactAfterRelaunch": true,
+    "probeInactiveWithoutCustomCommandLineFlag": true
+  }
+}

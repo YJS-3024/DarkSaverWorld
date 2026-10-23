@@ -1,0 +1,24 @@
+LOADSCENE 10
+SETPOSITION 25 16
+DO 100
+CHARPOS COM0 301 24 16
+CHARPOS COM1 302 26 16
+CHARDIR 301 RIGHT
+CHARDIR 302 LEFT
+CHARPOS 811 801 15 11
+CHARPOS 812 802 17 11
+CHARPOS 813 803 22 13
+CHARPOS 814 804 24 14
+CHARPOS 811 805 26 14
+CHARPOS 812 806 29 13
+CHARPOS 813 807 30 12
+CHARPOS 814 808 32 12
+DO 1000
+MESSAGE 1 COM0 0 COM0 끔찍하군요.| 아무것도 모르는 여자들을 유혹해서 마물로 만들어| 자기와 생명의 끈을 연결해 놓다니......
+MESSAGE 2 COM1 0 COM1 그러니 유혹의 봉인이겠지요. |하지만,이제 겨우 봉인의 반을 막았을 |뿐입니다.
+MESSAGE 1 COM0 0 COM0 도대체 누가 무엇 때문에 봉인을 | 깬 것일까요? 이렇게 비참한 모습을 보다면 |자신이 얼마나 끔찍한 일을 저지른| 것인지를 알 수 있을 텐데....
+MESSAGE 2 COM1 0 COM1 더이상의 불행을 막기위해서라도 | 봉인을 깬자를 찾아내어 막아야만 합니다.
+MESSAGE 1 COM0 0 COM0 그렇고 말구요.| 어서 3봉인이 있는 곳을 찾아야 겠습니다. 
+MESSAGE 2 COM1 0 COM1 사막의 여행이 될 것 같습니다. 길을 잃지않아야 할텐데......
+DO 100
+END

@@ -1,0 +1,6 @@
+Loading original scenario 01 entry
+Encounter accepted
+FAIL: System.InvalidOperationException: Pointer fixture button not ready: radial-5
+  at DarkSaver.EditorTools.NativeRosterVisualFixture.Click (System.String key, System.String output) [0x0005c] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\NativeRosterVisualFixture.cs:139 
+  at DarkSaver.EditorTools.NativeRosterVisualFixture.Tick (DarkSaver.Combat.BattleSceneRoot source, DarkSaver.Combat.BattleMapPresentation sourceView, System.String output) [0x0065b] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\NativeRosterVisualFixture.cs:122 
+  at DarkSaver.EditorTools.BattlePlayVerification.Tick () [0x001bd] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:193 ; move=0, attack=0, rest=0

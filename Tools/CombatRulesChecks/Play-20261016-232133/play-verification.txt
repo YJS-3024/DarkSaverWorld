@@ -1,0 +1,6 @@
+Loading original scenario 01 entry
+Encounter accepted
+FAIL: System.InvalidOperationException: 출전 좌표가 맵 밖이거나 상태 좌표와 불일치하거나 중복됩니다.
+  at DarkSaver.EditorTools.BattlePlayVerification.<PreviewMagicUi>g__Knowledge|26_0 (System.Int16[] ids, DarkSaver.EditorTools.BattlePlayVerification+<>c__DisplayClass26_0& ) [0x00146] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:270 
+  at DarkSaver.EditorTools.BattlePlayVerification.PreviewMagicUi () [0x0009e] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:272 
+  at DarkSaver.EditorTools.BattlePlayVerification.Tick () [0x002af] in E:\Backup\Project\unity\Unity 6\DarkSaverWorld\Assets\_Game\Editor\BattlePlayVerification.cs:192 ; move=0, attack=0, rest=0

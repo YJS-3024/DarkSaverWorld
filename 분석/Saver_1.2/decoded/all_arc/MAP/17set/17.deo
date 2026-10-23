@@ -1,0 +1,33 @@
+LOADSCENE 17
+SETPOSITION 21 23
+CHARPOS COM0 301 23 26
+CHARPOS COM1 302 19 26	
+CHARDIR 301 UP
+CHARDIR 302 UP
+DO 500
+CHARMOVE 301 23 19
+CHARMOVE 302 19 19
+DO 1000
+MOVEPOSITION 21 19
+DO 1000
+MOVEPOSITION 21 6
+DO 1500
+MOVEPOSITION 21 17
+DO 1500
+MESSAGE 1 COM0 0 COM0 드디어 마지막 관문까지 왔다. | 과연 나는 비공정에게 선택 받을 수 있을까. | 만약 여기서 선택이 안된다면 나는 헛수고만 한 것이 아닌가....
+DO 100
+CHARMOVE 302 21 19
+DO 500
+MESSAGE 1 COM1 0 COM1 나약한 마음을 가지면 안됩니다. | 이 세계의 운명이 당신의 어깨위에 달려 있습니다.
+DO 100
+MESSAGE 1 COM0 0 COM0  압니다. 하지만 의심이 생기는군요.... 
+DO 100
+MESSAGE 1 COM1 0 COM1 여기는 순수의 봉인입니다. 인간이 순수하지 | 못할 경우 당신은 이미 패자가 될것입니다.
+DO 100
+MESSAGE 1 COM0 0 COM0  알겠습니다. 끝까지 최선을 다하겠습니다. | 아니 내가 택자라는 믿음을 가지고 가겠습니다.
+DO 100
+MESSAGE 1 COM1 0 COM1 당신의 앞길에 축복이 있길 기원합니다.
+DO 100
+CHARMOVE 301 26 19
+DO 1000
+END

@@ -1,0 +1,10 @@
+flow,packet_or_call,size,fields,client_behavior,authority,confidence
+request,normal_attack,10,"0x5C 0x82; targetUnit:int16; attackerUnit:int16; targetTileAttr:int16; attackerTileAttr:int16",서버 전송 직후 effect=0으로 AttackChar를 호출해 선행 공격 동작 시작,server_result,high
+response,AttackChar,6,"targetUnit:int16; attackerUnit:int16; effect:int16",양측 방향·상대 인덱스·공격 애니메이션 상태 설정; HP 산술 없음,server,high
+request,magic,"16 + 2*N","0x5C; opcode 0x89 또는 0x92; mode; magicId:int16; caster:int16; x:int16; y:int16; computedCost:int32; targetCount:uint8; targets:int16[N]",대상 검사 결과와 마법표 기반 비용값을 직렬화해 전송,server_result,high
+response,Magic,"20 + 2*N in client structure","magicId:int16; caster:int16; x:int16; y:int16; value:int32; targetCount:uint8; targetList:pointer",시전자와 대상에 마법 효과 상태·좌표·시작 시각 설정; HP/MP 산술 없음,server,high
+response,SetHpDisplay,4,"unitIndex:int16; newHp:int16",새 HP를 기록하고 이전 값과의 차이를 표시용 필드에 저장,server,high
+response,SetMpDisplay,4,"unitIndex:int16; newMp:int16",새 MP를 기록하고 이전 값과의 차이를 표시용 필드에 저장,server,high
+response,SetExp,8_aligned,"unitIndex:int16; padding:int16; absoluteExp:uint32",경험치를 가산하지 않고 수신 절대값으로 교체,server,high
+response,dmKillChar,2,"unitIndex:int16",유닛 활성값을 0으로 만들고 맵 점유 칸을 즉시 비움; corpse 비트가 이미 있으면 유지,server,high
+response,dmKillChar2,2,"unitIndex:int16",유닛 상태에 0x80 corpse/death 비트를 설정해 렌더 가능한 시체 상태로 유지,server,high

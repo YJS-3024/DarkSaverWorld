@@ -1,0 +1,39 @@
+LOADSCENE 32
+SETPOSITION 19 7 
+CHARPOS 752 700 19 7
+CHARDIR 700 UP
+MESSAGE 1 752 0 0 결국.. 블린마저 당한 것인가?
+DO 300
+MESSAGE 2 751 0 0 히히히, 결국 모든 부하를 잏고 마셨군요.. 제이드님..
+CHARDIR 700 DOWN
+MESSAGE 1 752 0 0 네놈인가? 지금 장난칠 기분이 아니니 어서 모습을 드러내라.
+CHARPOS 751 701 19 13
+MAGIC 1201 701 -1 -1 701
+DO 200
+MESSAGE 2 751 0 0 진작 저를 부르시지 그러셨습니까?
+MESSAGE 1 752 0 0 나를 놀리겠다는 거냐?
+MESSAGE 2 750 0 0 마계의 해결사인 제가 나서면 일이 금새 해결되는 것을..
+MESSAGE 1 752 0 0 네놈에게 일을 시키는 것은 내키지 않지만..
+MESSAGE 2 750 0 0 끝까지 자존심을 세우시는군요. 그럼 다녀오겠습니다.
+MAGIC 1201 701 -1 -1 701
+DO 300
+KILLCHAR1 701
+DO 50
+CHARDIR 700 UP
+MESSAGE 1 752 0 0 건방진 놈... 
+DO 300
+LOADSCENE 31
+SETPOSITION 19 7 
+CHARPOS 751 700 19 7
+MESSAGE 1 751 0 0 히히히히히, 당신이 그 유명한 택자이십니까?
+CHARPOS COM0 301 14 32
+SETPOSITION 14 32 
+DO 500
+MESSAGE 1 ME 0 0 네놈 역시 제이드의 부하인가?
+SETPOSITION 19 7
+MESSAGE 1 751 0 0 히히히. 부하라고는 할 수 없지만 당신을 죽여야 하는 것은 틀림없습니다.
+SETPOSITION 14 32 
+MESSAGE 1 ME 0 0 기분나쁜 놈이군.
+SETPOSITION 19 7
+MESSAGE 1 751 0 0 히히히히. 자, 제 실력을 보여드리겠습니다. 각오하십시오.
+END
