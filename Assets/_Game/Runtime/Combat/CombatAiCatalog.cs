@@ -59,8 +59,12 @@ namespace DarkSaver.Combat
         public short? TargetUnitId => hasTargetUnit ? targetUnit : (short?)null;
         public int ActionCount => actions.Length;
         public CombatAiAction GetAction(int index) => actions[index];
-        public bool HasSupportedMode => (aiType == "ODNORMAL" && ModeCode == 2)
-            || (aiType == "ODDEFENCE" && ModeCode == 4) || (aiType == "ODATTACK" && ModeCode == 8);
+        // userunit.dll 0x10002D47: native parser, not the separate setsolai troop orders.
+        public static int? NativeModeCode(string token) => token switch
+        {
+            "ODNORMAL" => 2, "ODATTACK" => 4, "ODDEFENCE" => 8, _ => null
+        };
+        public bool HasSupportedMode => NativeModeCode(aiType).HasValue && ModeCode == NativeModeCode(aiType);
 
         public bool TrySelectAction(int roll, out CombatAiAction action)
         {

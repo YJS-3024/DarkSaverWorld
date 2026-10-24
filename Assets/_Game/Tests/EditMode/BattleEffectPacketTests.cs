@@ -22,7 +22,7 @@ namespace DarkSaver.Tests
                 var packet = new AttackEffectNotification(800, 100, short.MinValue);
                 receiver.AttackEffectReceived += value =>
                 {
-                    Assert.That(value, Is.SameAs(packet));
+                    Assert.That((value.TargetUnitId,value.AttackerUnitId,value.Effect),Is.EqualTo((packet.TargetUnitId,packet.AttackerUnitId,packet.Effect)));
                     Assert.That(receiver.LastAttackEffect, Is.SameAs(value));
                     order.Add("effect");
                 };
@@ -140,7 +140,7 @@ namespace DarkSaver.Tests
                 var packet = new AttackEffectNotification(800, 100, 3);
                 Assert.Throws<InvalidOperationException>(() => server.SendToClient(packet));
                 Assert.That(calls, Is.EqualTo(1)); Assert.That(handled, Is.Zero);
-                Assert.That(receiver.LastAttackEffect, Is.SameAs(packet));
+                Assert.That(receiver.LastAttackEffect.Effect, Is.EqualTo(packet.Effect));
                 Assert.That(battle.EnemyHp, Is.EqualTo(75));
             });
         }

@@ -60,6 +60,8 @@ namespace DarkSaver.Combat
         public bool TryGetReservation(CombatGridCell cell, out short unitId) => reservations.TryGetValue(cell, out unitId);
         public bool TryGetPosition(short unitId, out CombatGridCell cell) => positions.TryGetValue(unitId, out cell);
 
+        public bool CanReviveAt(short unitId,CombatGridCell cell)
+        {return Contains(cell) && !occupants.ContainsKey(cell) && !reservations.ContainsKey(cell) && world.TryGetSnapshot(unitId,out var unit) && !unit.Alive && placementAllows(unit,cell);}
         public bool TryPlace(short unitId, CombatGridCell cell)
         {
             return TryPlaceUnits(new[] { new CombatGridPlacement(unitId, cell) });

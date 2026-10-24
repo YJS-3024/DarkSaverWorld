@@ -54,6 +54,8 @@ namespace DarkSaver.Combat
         }
         void OnLocalMagicCast(MagicRequest request)
         {
+            if(learnedMagic.TryGetValue(request.ActingUnitId,out var known) && known.Catalog.TryGet(request.MagicId,out var ability))
+                AddCombatFeedback(request.ActingUnitId,ability.Name,1);
             var targets = new short[request.TargetUnitIds.Count];
             for (int i = 0; i < targets.Length; i++) targets[i] = request.TargetUnitIds[i];
             // Reuse the recovered visual path without dispatching a fake response.

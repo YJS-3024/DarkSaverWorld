@@ -1,0 +1,742 @@
+{
+  "authoredIndoorNpcs": [
+    {
+      "nativeMap": "2000",
+      "name": "무기점 주인",
+      "texture": "809",
+      "appearanceId": 809,
+      "x": 9,
+      "y": 6,
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/809R.bmp",
+      "sourceSha256": "be7aff8daf7bc839b1e7ef04faf88193d01fb8b0d3df30c243bde69879a3f1e1",
+      "placementPolicy": "authored one staff member per connected interior; original identity/placement not claimed"
+    },
+    {
+      "nativeMap": "2100",
+      "name": "방어구점 주인",
+      "texture": "810",
+      "appearanceId": 810,
+      "x": 9,
+      "y": 6,
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/810R.bmp",
+      "sourceSha256": "422e5358364fc490e1c5188ef69e298783a2dfaa62156d55201fc1fd27509c27",
+      "placementPolicy": "authored one staff member per connected interior; original identity/placement not claimed"
+    },
+    {
+      "nativeMap": "2200",
+      "name": "장신구점 주인",
+      "texture": "805",
+      "appearanceId": 805,
+      "x": 9,
+      "y": 6,
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/805R.bmp",
+      "sourceSha256": "e729d4b3645355b35dc2fb78541533f00577af2671176459723422426388433b",
+      "placementPolicy": "authored one staff member per connected interior; original identity/placement not claimed"
+    },
+    {
+      "nativeMap": "2300",
+      "name": "마법도구점 주인",
+      "texture": "816",
+      "appearanceId": 816,
+      "x": 9,
+      "y": 6,
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/816R.bmp",
+      "sourceSha256": "b2769f01dffbeb14b928c18c86c71ad8217d83953c8c1ac3800f8c7b57c6f123",
+      "placementPolicy": "authored one staff member per connected interior; original identity/placement not claimed"
+    },
+    {
+      "nativeMap": "2400",
+      "name": "은행 직원",
+      "texture": "807",
+      "appearanceId": 807,
+      "x": 9,
+      "y": 6,
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/807R.bmp",
+      "sourceSha256": "eca8deae59a3d25a268b7a69131375e16caa0c8dfacc30175597d6794afd1869",
+      "placementPolicy": "authored one staff member per connected interior; original identity/placement not claimed"
+    },
+    {
+      "nativeMap": "2510",
+      "name": "창고 직원",
+      "texture": "827",
+      "appearanceId": 827,
+      "x": 9,
+      "y": 6,
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/827r.bmp",
+      "sourceSha256": "7aa2049078db6803b1d6efa6b73394e4e8e9ecadf347d3732d1cfbf6915bf012",
+      "placementPolicy": "authored one staff member per connected interior; original identity/placement not claimed"
+    },
+    {
+      "nativeMap": "2600",
+      "name": "신전 관리인",
+      "texture": "817",
+      "appearanceId": 817,
+      "x": 9,
+      "y": 8,
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/817R.bmp",
+      "sourceSha256": "b256a0b1c38fda7eb7736c458eeac6656a3efae472a7214879562814bf75dea6",
+      "placementPolicy": "authored one staff member per connected interior; original identity/placement not claimed"
+    }
+  ],
+  "kaosiaFacilities": [
+    {
+      "key": "KaosiaAccessoryShop",
+      "title": "카오시아 장신구점",
+      "nativeMap": "2200",
+      "height": 15,
+      "buildingIndex": 166,
+      "buildingGroup": 14,
+      "door": [
+        28.5,
+        6.5
+      ],
+      "returnPoint": [
+        28.5,
+        3.5
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/KaosiaAccessoryShop_Map.unity",
+        "Assets/_Game/Scenes/Runtime/KaosiaAccessoryShop_Runtime.unity"
+      ],
+      "association": "authored single-player routing; native building and interior artwork"
+    },
+    {
+      "key": "KaosiaBank",
+      "title": "카오시아 은행",
+      "nativeMap": "2400",
+      "height": 15,
+      "buildingIndex": 68,
+      "buildingGroup": 3,
+      "door": [
+        37.5,
+        33.5
+      ],
+      "returnPoint": [
+        37.5,
+        31.5
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/KaosiaBank_Map.unity",
+        "Assets/_Game/Scenes/Runtime/KaosiaBank_Runtime.unity"
+      ],
+      "association": "authored single-player routing; native building and interior artwork"
+    },
+    {
+      "key": "KaosiaWarehouse",
+      "title": "카오시아 창고",
+      "nativeMap": "2510",
+      "height": 15,
+      "buildingIndex": 99,
+      "buildingGroup": 3,
+      "door": [
+        29.5,
+        24.5
+      ],
+      "returnPoint": [
+        29.5,
+        21.5
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/KaosiaWarehouse_Map.unity",
+        "Assets/_Game/Scenes/Runtime/KaosiaWarehouse_Runtime.unity"
+      ],
+      "association": "authored single-player routing; native building and interior artwork"
+    },
+    {
+      "key": "KaosiaTemple",
+      "title": "카오시아 신전",
+      "nativeMap": "2600",
+      "height": 20,
+      "buildingIndex": 67,
+      "buildingGroup": 1,
+      "door": [
+        10.5,
+        34.5
+      ],
+      "returnPoint": [
+        10.5,
+        31.5
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/KaosiaTemple_Map.unity",
+        "Assets/_Game/Scenes/Runtime/KaosiaTemple_Runtime.unity"
+      ],
+      "association": "authored single-player routing; native building and interior artwork"
+    },
+    {
+      "key": "KaosiaMagicTools",
+      "title": "카오시아 마법도구·소모품점",
+      "nativeMap": "2300",
+      "height": 15,
+      "buildingIndex": 75,
+      "buildingGroup": 10,
+      "door": [
+        28.5,
+        33.5
+      ],
+      "returnPoint": [
+        28.5,
+        30.5
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/KaosiaMagicTools_Map.unity",
+        "Assets/_Game/Scenes/Runtime/KaosiaMagicTools_Runtime.unity"
+      ],
+      "association": "authored single-player routing; native building and interior artwork"
+    }
+  ],
+  "nativeInteriorMaps": [
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior1500_Play.unity",
+      "key": "Interior1500",
+      "nativeMap": "1500",
+      "title": "무기·방패 벽면 실내; 시설 미확정",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior1500_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior1500_Runtime.unity"
+      ],
+      "sourceSha256": "7a1d715703d1c9298d62579da859aa0d732cd160dbbc237b3fda2ead9881012a",
+      "cells": 300,
+      "objects": 181,
+      "uniqueFloorTiles": 1,
+      "reachableCells": 125
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2000_Play.unity",
+      "key": "Interior2000",
+      "nativeMap": "2000",
+      "title": "무기점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2000_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2000_Runtime.unity"
+      ],
+      "sourceSha256": "0b60d6df6a92399153626ba59f531fa1fa4e0db1808d07f8e10cfb5b94fbea20",
+      "cells": 300,
+      "objects": 175,
+      "uniqueFloorTiles": 1,
+      "reachableCells": 86
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2010_Play.unity",
+      "key": "Interior2010",
+      "nativeMap": "2010",
+      "title": "주거/사무형 실내; 역할 미확정",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2010_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2010_Runtime.unity"
+      ],
+      "sourceSha256": "efdd3b689b8f4060d0b69b6ce440e89c6dd4904171f15183acdeabe62be5adf1",
+      "cells": 300,
+      "objects": 25,
+      "uniqueFloorTiles": 17,
+      "reachableCells": 133
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2100_Play.unity",
+      "key": "Interior2100",
+      "nativeMap": "2100",
+      "title": "방어구점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2100_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2100_Runtime.unity"
+      ],
+      "sourceSha256": "151bacf83345447e16a0b17f4dadb0fa918e502c3338dd3a61ef9f5813c70200",
+      "cells": 300,
+      "objects": 173,
+      "uniqueFloorTiles": 1,
+      "reachableCells": 86
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2110_Play.unity",
+      "key": "Interior2110",
+      "nativeMap": "2110",
+      "title": "용병상점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2110_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2110_Runtime.unity"
+      ],
+      "sourceSha256": "6dc3823635d87a6ca4d112f80683d5a2dab3ccd73873ce3c5e448c32596e5b02",
+      "cells": 300,
+      "objects": 19,
+      "uniqueFloorTiles": 15,
+      "reachableCells": 158
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2120_Play.unity",
+      "key": "Interior2120",
+      "nativeMap": "2120",
+      "title": "무기점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2120_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2120_Runtime.unity"
+      ],
+      "sourceSha256": "7dc3cd822a54b2e95498f9d01301941281b140589d2a4dd5af33d2a28c420525",
+      "cells": 300,
+      "objects": 21,
+      "uniqueFloorTiles": 15,
+      "reachableCells": 156
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2130_Play.unity",
+      "key": "Interior2130",
+      "nativeMap": "2130",
+      "title": "방어구점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2130_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2130_Runtime.unity"
+      ],
+      "sourceSha256": "18e8c5cd6a483c265f1e429514768f0adfaa692ab02ad968a2473cfb988ebf7c",
+      "cells": 300,
+      "objects": 19,
+      "uniqueFloorTiles": 15,
+      "reachableCells": 158
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2140_Play.unity",
+      "key": "Interior2140",
+      "nativeMap": "2140",
+      "title": "주점형 실내",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2140_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2140_Runtime.unity"
+      ],
+      "sourceSha256": "3cc0b6f9005cd415d346fcb7187c7d9a4a5fb44fc87aa879796fbae36848b389",
+      "cells": 300,
+      "objects": 60,
+      "uniqueFloorTiles": 12,
+      "reachableCells": 125
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2150_Play.unity",
+      "key": "Interior2150",
+      "nativeMap": "2150",
+      "title": "무기점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2150_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2150_Runtime.unity"
+      ],
+      "sourceSha256": "2f373c7bc8e0aa2aabffaddb0e6c1f3fcb55e0b456261e0c7c4c2ac05895b388",
+      "cells": 300,
+      "objects": 27,
+      "uniqueFloorTiles": 11,
+      "reachableCells": 138
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2160_Play.unity",
+      "key": "Interior2160",
+      "nativeMap": "2160",
+      "title": "방어구점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2160_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2160_Runtime.unity"
+      ],
+      "sourceSha256": "e45f7f9d7c914cb628e29c252cb8fb2e36986d4cb1fa4e01aa400d55bf1da63f",
+      "cells": 300,
+      "objects": 27,
+      "uniqueFloorTiles": 11,
+      "reachableCells": 138
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2170_Play.unity",
+      "key": "Interior2170",
+      "nativeMap": "2170",
+      "title": "장신구점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2170_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2170_Runtime.unity"
+      ],
+      "sourceSha256": "75aaa5c590fe86f2e9de4e2c0da181a0cf78dad5afd8a55eda798475c747301d",
+      "cells": 300,
+      "objects": 27,
+      "uniqueFloorTiles": 11,
+      "reachableCells": 138
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2180_Play.unity",
+      "key": "Interior2180",
+      "nativeMap": "2180",
+      "title": "소모품점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2180_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2180_Runtime.unity"
+      ],
+      "sourceSha256": "7b9af1ab6ac8f7022ccc05088c88374c0b58af7f88ce3628b2a351ee998da47c",
+      "cells": 300,
+      "objects": 27,
+      "uniqueFloorTiles": 11,
+      "reachableCells": 138
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2190_Play.unity",
+      "key": "Interior2190",
+      "nativeMap": "2190",
+      "title": "장비 진열 실내; 간판 없음",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2190_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2190_Runtime.unity"
+      ],
+      "sourceSha256": "959f68bbd09507324937c28997977892adec515f7dcad7524cde899a94635467",
+      "cells": 300,
+      "objects": 18,
+      "uniqueFloorTiles": 11,
+      "reachableCells": 158
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2200_Play.unity",
+      "key": "Interior2200",
+      "nativeMap": "2200",
+      "title": "장신구점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2200_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2200_Runtime.unity"
+      ],
+      "sourceSha256": "05c882eefa4ce1c34703a745f6308f848e3cfdbf210db5a37ab84041efbbe00a",
+      "cells": 300,
+      "objects": 175,
+      "uniqueFloorTiles": 1,
+      "reachableCells": 88
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2300_Play.unity",
+      "key": "Interior2300",
+      "nativeMap": "2300",
+      "title": "소모품점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2300_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2300_Runtime.unity"
+      ],
+      "sourceSha256": "2974ec42adf6e2d15aa7c53c9cd55260ffc0a4324bb8e8c1cac82596665b949b",
+      "cells": 300,
+      "objects": 175,
+      "uniqueFloorTiles": 3,
+      "reachableCells": 86
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2400_Play.unity",
+      "key": "Interior2400",
+      "nativeMap": "2400",
+      "title": "은행",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2400_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2400_Runtime.unity"
+      ],
+      "sourceSha256": "1ed7350c5fc78c6ce7d70198dd2f63f71ff12fe444c4f8ee98ccce5b1ecbc270",
+      "cells": 300,
+      "objects": 173,
+      "uniqueFloorTiles": 1,
+      "reachableCells": 84
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2510_Play.unity",
+      "key": "Interior2510",
+      "nativeMap": "2510",
+      "title": "창고",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2510_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2510_Runtime.unity"
+      ],
+      "sourceSha256": "9c789a013e62c121f3a3c21f9e17c3ebb8bcee687a4d953ab7d98db54da1c937",
+      "cells": 300,
+      "objects": 171,
+      "uniqueFloorTiles": 1,
+      "reachableCells": 86
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2600_Play.unity",
+      "key": "Interior2600",
+      "nativeMap": "2600",
+      "title": "교회형 실내",
+      "width": 20,
+      "height": 20,
+      "spawnNative": [
+        9,
+        9
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2600_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2600_Runtime.unity"
+      ],
+      "sourceSha256": "531611186a48ae21119362c12bd6374b0ff8bba3de8c39cf79eb18e8eb310138",
+      "cells": 400,
+      "objects": 80,
+      "uniqueFloorTiles": 4,
+      "reachableCells": 262
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2700_Play.unity",
+      "key": "Interior2700",
+      "nativeMap": "2700",
+      "title": "주점형 실내",
+      "width": 20,
+      "height": 20,
+      "spawnNative": [
+        9,
+        9
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2700_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2700_Runtime.unity"
+      ],
+      "sourceSha256": "3a68b6d0b9ca897adeeb6b10af7df3272127fa40af383d09116ffc5871015ece",
+      "cells": 400,
+      "objects": 187,
+      "uniqueFloorTiles": 1,
+      "reachableCells": 130
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2800_Play.unity",
+      "key": "Interior2800",
+      "nativeMap": "2800",
+      "title": "서가·마법 문양 실내; 역할 미확정",
+      "width": 20,
+      "height": 20,
+      "spawnNative": [
+        9,
+        9
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2800_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2800_Runtime.unity"
+      ],
+      "sourceSha256": "919632f122b00905e6f9d0e4b4d41460da1d81d4daf113462e22ea2c5d3c898b",
+      "cells": 400,
+      "objects": 113,
+      "uniqueFloorTiles": 1,
+      "reachableCells": 177
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior2900_Play.unity",
+      "key": "Interior2900",
+      "nativeMap": "2900",
+      "title": "용병상점",
+      "width": 20,
+      "height": 15,
+      "spawnNative": [
+        9,
+        7
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior2900_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior2900_Runtime.unity"
+      ],
+      "sourceSha256": "fcbc416d5942eae32cc10929f5c398120e862dac520a471bbaa38b40d7b8591e",
+      "cells": 300,
+      "objects": 175,
+      "uniqueFloorTiles": 1,
+      "reachableCells": 86
+    },
+    {
+      "playScene": "Assets/_Game/Scenes/Entry/Interior3000_Play.unity",
+      "key": "Interior3000",
+      "nativeMap": "3000",
+      "title": "복합 사무/주거형 실내; 역할 미확정",
+      "width": 30,
+      "height": 30,
+      "spawnNative": [
+        14,
+        16
+      ],
+      "scenes": [
+        "Assets/_Game/Scenes/Maps/Interior3000_Map.unity",
+        "Assets/_Game/Scenes/Runtime/Interior3000_Runtime.unity"
+      ],
+      "sourceSha256": "db546ff53777ef98999ab704091def5f97fbb62fc5987917c4b5f27b657e95bb",
+      "cells": 900,
+      "objects": 392,
+      "uniqueFloorTiles": 1,
+      "reachableCells": 430
+    }
+  ],
+  "scenes": [
+    "Assets/_Game/Scenes/Maps/Interior1500_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior1500_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior1500_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2000_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2000_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2000_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2010_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2010_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2010_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2100_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2100_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2100_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2110_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2110_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2110_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2120_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2120_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2120_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2130_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2130_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2130_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2140_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2140_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2140_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2150_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2150_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2150_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2160_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2160_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2160_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2170_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2170_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2170_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2180_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2180_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2180_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2190_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2190_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2190_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2200_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2200_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2200_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2300_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2300_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2300_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2400_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2400_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2400_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2510_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2510_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2510_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2600_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2600_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2600_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2700_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2700_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2700_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2800_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2800_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2800_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior2900_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior2900_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior2900_Play.unity",
+    "Assets/_Game/Scenes/Maps/Interior3000_Map.unity",
+    "Assets/_Game/Scenes/Runtime/Interior3000_Runtime.unity",
+    "Assets/_Game/Scenes/Entry/Interior3000_Play.unity",
+    "Assets/_Game/Scenes/Maps/KaosiaWeaponShop_Map.unity",
+    "Assets/_Game/Scenes/Runtime/KaosiaWeaponShop_Runtime.unity",
+    "Assets/_Game/Scenes/Maps/KaosiaArmorShop_Map.unity",
+    "Assets/_Game/Scenes/Runtime/KaosiaArmorShop_Runtime.unity",
+    "Assets/_Game/Scenes/Maps/KaosiaAccessoryShop_Map.unity",
+    "Assets/_Game/Scenes/Runtime/KaosiaAccessoryShop_Runtime.unity",
+    "Assets/_Game/Scenes/Maps/KaosiaBank_Map.unity",
+    "Assets/_Game/Scenes/Runtime/KaosiaBank_Runtime.unity",
+    "Assets/_Game/Scenes/Maps/KaosiaWarehouse_Map.unity",
+    "Assets/_Game/Scenes/Runtime/KaosiaWarehouse_Runtime.unity",
+    "Assets/_Game/Scenes/Maps/KaosiaTemple_Map.unity",
+    "Assets/_Game/Scenes/Runtime/KaosiaTemple_Runtime.unity",
+    "Assets/_Game/Scenes/Maps/KaosiaMagicTools_Map.unity",
+    "Assets/_Game/Scenes/Runtime/KaosiaMagicTools_Runtime.unity"
+  ],
+  "nativeGeometryAndArtwork": true,
+  "kaosiaBindings": {
+    "KaosiaWeaponShop": "2000",
+    "KaosiaArmorShop": "2100"
+  },
+  "bindingPolicy": "Authored town association; original interior geometry/artwork. Five more facilities connected by authored policy; remaining interiors have no invented town entrances.",
+  "merchantNpcAdded": true,
+  "unityPlay": false
+}

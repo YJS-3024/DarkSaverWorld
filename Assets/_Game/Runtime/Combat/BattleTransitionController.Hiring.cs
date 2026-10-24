@@ -29,6 +29,9 @@ namespace DarkSaver.Combat
         public bool TryHireMercenary(int skillId, int jobId, ExperienceProgressionTable progression,
             MercenaryHireCatalog skills, JobCatalog jobs, out string message)
         {
+            if(!processingSessionRequest)
+            {serverProgression=progression;serverHireSkills=skills;serverHireJobs=jobs;return SubmitSession(new DarkSaver.Network.LocalHireRequest(skillId,jobId),out message);}
+
             if (!PrepareMercenaryHire(skillId, jobId, progression, skills, jobs, out var job, out int instance, out message)) return false;
             var roster = ownedRoster?.Clone() ?? new NativeOwnedRoster {units = Array.Empty<NativeOwnedUnitData>()};
             skills.TryGet(skillId, out var skill);
@@ -60,7 +63,7 @@ namespace DarkSaver.Combat
         {
             job = null; instance = 0;
             message = "고용 조건·기술·재화·용병 정보를 확인하세요.";
-            if (character == null || inventory == null || transitioning || !SceneManager.GetSceneByName("Town_Runtime").isLoaded
+            if (character == null || inventory == null || transitioning || !DarkSaver.World.TownSceneContext.IsReady
                 || SceneManager.GetSceneByName("Battle").isLoaded || GetComponent<DarkSaver.UI.BattleFormationPanel>()?.IsOpen == true)
             { message = "마을의 정상 캐릭터·재화 상태에서만 고용할 수 있습니다."; return false; }
             if (skills == null || jobs == null || !skills.TryGet(skillId, out var skill))

@@ -13,6 +13,18 @@ namespace DarkSaver.Tests
 {
     public sealed class CombatAiCatalogTests
     {
+        [TestCase("ODNORMAL", 2)]
+        [TestCase("ODATTACK", 4)]
+        [TestCase("ODDEFENCE", 8)]
+        public void ModeMatchesOriginalUserunitParser(string token, int mode)
+        {
+            var steps = new[] { new CombatAiAction("ATTACK", "ATTACK", null, 100) };
+            var valid = new CombatAiRule(1, "01", false, 400, token, mode, "AREA", 0, 0, 1, null, steps);
+            Assert.That(valid.HasSupportedMode, Is.True);
+            var wrong = new CombatAiRule(1, "01", false, 400, token, mode == 4 ? 8 : 4, "AREA", 0, 0, 1, null, steps);
+            Assert.That(wrong.HasSupportedMode, Is.False);
+        }
+
         private static CombatAiCatalog Native() => AssetDatabase.LoadAssetAtPath<CombatAiCatalog>(CombatAiCatalogConverter.Output);
 
         [Test]

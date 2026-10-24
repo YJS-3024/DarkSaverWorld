@@ -14,7 +14,10 @@ namespace DarkSaver.Network
         public bool Send(ServerPacket packet)
         {
             var handler = ResponseSent;
-            if (owner == null || !owner.isActiveAndEnabled || packet == null || handler == null) return false;
+            if (owner == null || !owner.isActiveAndEnabled || packet == null) return false;
+            packet=(ServerPacket)owner.Transfer(packet);
+            owner.LocalServer.Record(packet);
+            if (handler == null) return false;
             handler(packet); // Local synchronous delivery, not successful client application.
             return true;
         }

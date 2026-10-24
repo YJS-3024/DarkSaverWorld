@@ -25,6 +25,8 @@ namespace DarkSaver.Combat
         public bool ConfigurePhysicalAccuracy(short unitId, double accuracyPercent, double evasionPercent) =>
             world.TryGet(unitId, out _) && authority.ConfigurePhysicalAccuracy(unitId, accuracyPercent, evasionPercent);
 
+        public bool ConfigureAbility(SinglePlayerAbilityRule rule)=>authority.ConfigureAbility(rule);
+        public bool IsRevivalMagic(int id)=>authority.IsRevivalMagic(id);
         public bool ConfigureTemporaryDamageMagic(int id, int mpCost, int range, int powerBonus, int defenseDivisor) =>
             authority.ConfigureTemporaryDamageMagic(id, mpCost, range, powerBonus, defenseDivisor);
         public bool TryGetTemporaryMagicRange(int id, out int range) => authority.TryGetTemporaryMagicRange(id, out range);
@@ -191,8 +193,9 @@ namespace DarkSaver.Combat
             {
                 if (!world.TryGet(tick.Target, out var target) || !target.Alive) continue;
                 var source = world.TryGet(tick.Source, out var origin) ? origin : target;
-                int damage = Math.Min(target.Hp, tick.Damage);
-                Apply(new CombatResult(source.Id, target.Id, target.Hp-damage, source.Mp, damage, false));
+                if(tick.Damage<0)
+                {int hp=(int)Math.Min(target.MaxHp,(long)target.Hp-(long)tick.Damage);Apply(new CombatResult(source.Id,target.Id,hp,source.Mp,0,false,healing:hp-target.Hp));}
+                else {int damage = Math.Min(target.Hp, tick.Damage);Apply(new CombatResult(source.Id, target.Id, target.Hp-damage, source.Mp, damage, false));}
             }
             if (!useActionPoints) return true;
             foreach (var unit in world.Units)
@@ -348,7 +351,19 @@ namespace DarkSaver.Combat
             for (int i = 1; i < requests.Count; i++) AdditionalMagicTargetStarted?.Invoke(requests[i]);
             var results = new CombatResult[requests.Count];
             for (int i = 0; i < requests.Count; i++) results[i] = authority.Resolve(world, requests[i]);
-            var previous = new (int Hp, int Mp)[results.Length];
+            var caster=world.Get(casterId);authority.TryGetTemporaryMagicMpCost(magicId,out var mpCost);
+            int baselineMp=caster.Mp-mpCost;long gains=0,hpGains=0;bool hasHp=false;
+            foreach(var r in results)
+            {
+                long mpGain=Math.Max(0,r.AbsoluteMp-baselineMp);
+                if(r.TargetId==casterId && r.TargetMp>=0)mpGain=Math.Max(mpGain,r.TargetMp-baselineMp);
+                gains+=mpGain;
+                if(r.ActorHp>=0){hasHp=true;hpGains+=Math.Max(0,r.ActorHp-caster.Hp);}
+            }
+            int finalMp=(int)Math.Min(caster.MaxMp,(long)baselineMp+gains);
+            int finalHp=hasHp?(int)Math.Min(caster.MaxHp,(long)caster.Hp+hpGains):-1;
+            for(int i=0;i<results.Length;i++)results[i]=results[i].WithCasterTotals(finalHp,finalMp);
+            var previous = new (int Hp, int Mp,int ActorHp,int TargetMp)[results.Length];
             for (int i = 0; i < results.Length; i++) previous[i] = ApplyState(results[i]);
             // All target state is committed before listeners can inspect a partially applied area.
             for (int i = 0; i < results.Length; i++) PublishResult(results[i], previous[i]);
@@ -361,26 +376,31 @@ namespace DarkSaver.Combat
             PublishResult(result, previous);
         }
 
-        private (int Hp, int Mp) ApplyState(CombatResult result)
+        private (int Hp, int Mp,int ActorHp,int TargetMp) ApplyState(CombatResult result)
         {
             var actor = world.Get(result.ActorId);
             var target = world.Get(result.TargetId);
-            var previousMp = actor.Mp; var previousHp = target.Hp;
+            var previousMp = actor.Mp; var previousHp = target.Hp;var previousActorHp=actor.Hp;var previousTargetMp=target.Mp;
             actor.Mp = result.AbsoluteMp;
             target.Hp = result.AbsoluteHp;
+            if(result.ActorHp>=0)actor.Hp=Math.Min(actor.MaxHp,result.ActorHp);
+            if(result.TargetMp>=0)target.Mp=Math.Min(target.MaxMp,result.TargetMp);
+            if(result.Revive && target.Hp>0){target.LifeState=UnitLifeState.Active;authority.RemoveTemporaryBuffs(target.Id);}
             authority.ApplyTemporaryBuff(result);
             if (target.Hp == 0)
             {
                 target.LifeState = result.LeaveCorpse ? UnitLifeState.Corpse : UnitLifeState.Removed;
                 authority.RemoveTemporaryBuffs(target.Id);
             }
-            return (previousHp, previousMp);
+            return (previousHp, previousMp,previousActorHp,previousTargetMp);
         }
 
-        private void PublishResult(CombatResult result, (int Hp, int Mp) previous)
+        private void PublishResult(CombatResult result, (int Hp, int Mp,int ActorHp,int TargetMp) previous)
         {
             NotifyVitals(result.TargetId, previous.Hp, result.AbsoluteHp, false);
-            NotifyVitals(result.ActorId, previous.Mp, result.AbsoluteMp, true);
+            NotifyVitals(result.ActorId, previous.Mp, world.Get(result.ActorId).Mp, true);
+            if(result.ActorHp>=0 && result.ActorId!=result.TargetId)NotifyVitals(result.ActorId,previous.ActorHp,result.ActorHp,false);
+            if(result.TargetMp>=0 && result.TargetId!=result.ActorId)NotifyVitals(result.TargetId,previous.TargetMp,result.TargetMp,true);
             ResultApplied?.Invoke(result);
         }
     }

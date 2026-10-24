@@ -26,6 +26,12 @@ namespace DarkSaver.Network
             sending = true;
             try
             {
+                if (battle.TemporaryLocalRulesEnabled)
+                {
+                    var accepted = battle.TrySubmitLocalRequest(packet,out reason);
+                    if (accepted) { LastMagicRequest=packet; MagicRequestDispatched?.Invoke(packet); }
+                    return accepted;
+                }
                 var delivered = server.SendToServer(packet, () =>
                 {
                     if (!battle.TryStartMagicRequest(packet, out var startReason))
@@ -40,7 +46,8 @@ namespace DarkSaver.Network
         }
 
         // Caller supplies both raw tile attributes; do not invent them from missing map data.
-        // True means delivered, not approved. Server responses remain independent packets.
+        // Local mode returns explicit acceptance; external mode reports delivery only.
+        // Neither means that a battle animation has finished.
         public bool TrySendAttack(AttackRequest packet, out string reason)
         {
             reason = string.Empty;
@@ -54,6 +61,7 @@ namespace DarkSaver.Network
             sending = true;
             try
             {
+                if (battle.TemporaryLocalRulesEnabled) return battle.TrySubmitLocalRequest(packet,out reason);
                 var delivered = server.SendToServer(packet, () =>
                 {
                     if (!battle.TryStartAttackRequest(packet.TargetUnitId, packet.AttackerUnitId, out var startReason))

@@ -71,6 +71,13 @@ namespace DarkSaver.Combat
             nextJobId = row.nextJobId; magicIds = magic; skillIds = skills; return true;
         }
 
+        public bool TryGetLevelAbilities(int job,int level,out int[] learned,out int[] skills)
+        {
+            learned=skills=Array.Empty<int>();
+            if(!TryGet(job,level,out var row) || !TryReadAbilityIds(row.learnedMagic,out var magic) || !TryReadAbilityIds(row.usableSkills,out var usable))return false;
+            foreach(int id in magic)if(id>=10000)return false;
+            learned=magic;skills=usable;return true;
+        }
         private static bool TryReadAbilityIds(string raw, out int[] ids)
         {
             ids = Array.Empty<int>();

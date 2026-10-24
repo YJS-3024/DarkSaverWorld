@@ -35,12 +35,14 @@ namespace DarkSaver.World
             var resuming = NativeSaveStore.TakeResume(out var saved, out var savePath);
             if (resuming)
             {
+                ScenePortal2D.SetRequestedSpawn(null);
                 mapScene = saved.mapScene; runtimeScene = saved.runtimeScene;
                 useEntryPosition = true; entryPosition = new Vector2(saved.worldX, saved.worldY);
             }
             yield return LoadIfNeeded(coreScene);
             yield return LoadIfNeeded(mapScene);
             yield return LoadIfNeeded(runtimeScene);
+            WorldRouteInstaller.EnsureForLoadedScenes();
 
             if (resuming)
             {
@@ -81,6 +83,8 @@ namespace DarkSaver.World
                 camera.Configure(player.transform, new Vector2(bounds.size.x, bounds.size.y));
                 break;
             }
+            DarkSaver.UI.FirstPlayTutorial.Ensure(characterSession, player);
+            DarkSaver.Events.Scenario01Controller.EnsureForLoadedScene();
         }
 
         private static IEnumerator LoadIfNeeded(string sceneName)

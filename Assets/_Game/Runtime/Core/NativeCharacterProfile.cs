@@ -10,6 +10,7 @@ namespace DarkSaver.Core
         public const int SupportedStartingJob = 100;
         public string name;
         public int jobId;
+        public NativeTutorialProgress tutorial;
         // Optional for legacy saves: unknown levels stay unknown, never inferred from XP.
         public bool hasLevels;
         public int baseLevel, jobLevel;
@@ -27,12 +28,12 @@ namespace DarkSaver.Core
             foreach (var c in value) if (char.IsControl(c) || char.IsSurrogate(c)) return false;
             return true;
         }
-        public bool IsValid => IsValidName(name) && IsEquipmentStateValid && IsClassAbilityStateValid && IsBattleMagicSelectionValid && unspentClassChangeStatPoints>=0 &&
+        public bool IsValid => (tutorial == null || tutorial.IsValid) && IsValidName(name) && IsEquipmentStateValid && IsClassAbilityStateValid && IsBattleMagicSelectionValid && unspentClassChangeStatPoints>=0 &&
             allocatedAttack>=0 && allocatedDefense>=0 && allocatedMagicAttack>=0 && allocatedMagicDefense>=0 &&
             (hasLevels ? baseLevel >= 1 && jobLevel >= 1 && jobLevel <= 100 && baseLevel >= jobLevel
                 : baseLevel == 0 && jobLevel == 0);
         public NativeCharacterProfile Clone() => new NativeCharacterProfile {
-            name = name, jobId = jobId, hasClassAbilities = hasClassAbilities,
+            name = name, jobId = jobId, tutorial = tutorial?.Clone(), hasClassAbilities = hasClassAbilities,
             equipmentItemIds=equipmentItemIds==null ? null : (int[])equipmentItemIds.Clone(),
             hasLevels = hasLevels, baseLevel = baseLevel, jobLevel = jobLevel,
             unspentClassChangeStatPoints=unspentClassChangeStatPoints,
@@ -69,7 +70,7 @@ namespace DarkSaver.Core
         {
             ClearPending();
             var profile = new NativeCharacterProfile { name = name?.Trim(), jobId = jobId,
-                hasLevels = true, baseLevel = 1, jobLevel = 1 };
+                hasLevels = true, baseLevel = 1, jobLevel = 1, tutorial = new NativeTutorialProgress() };
             message = $"이름은 1~{GameConstants.CharacterNameMaxLength}자여야 하며 현재 지원 직업은 100입니다.";
             if (jobId != SupportedStartingJob || !profile.IsValid) return false;
             string fullPath;

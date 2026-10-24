@@ -14,13 +14,18 @@ namespace DarkSaver.Events
             Text = text;
         }
 
-        // Keep the four original header tokens. ME/COM0 and mode-specific roles are unresolved.
+        // Original header order: mode, portrait reference, format argument 1, format argument 2.
+        // Retain legacy property names so converted assets and callers remain compatible.
         public string OptionToken { get; }
         public string DefinitionToken { get; }
         public string SpeakerToken { get; }
         public string VariantToken { get; }
         public string Text { get; }
-        public string DisplayText => Text?.Replace("|", "\n") ?? string.Empty;
+        public string ModeToken => OptionToken;
+        public string PortraitToken => DefinitionToken;
+        public string FirstFormatToken => SpeakerToken;
+        public string SecondFormatToken => VariantToken;
+        public string DisplayText => ScenarioDialogueLayout.DisplayText(OptionToken, Text);
     }
 
     public readonly struct SceneCharacterPlacement
@@ -71,7 +76,9 @@ namespace DarkSaver.Events
         public string SourceText { get; }
         // Preserved syntax value, not an inferred condition-group or logical operator.
         public int? NumericPrefix { get; }
-        public bool UsesReversedCoordinates => Name == "CHANGETILE" || Name == "CHANGETILE2" || Name == "CHANGESPRITE";
+        // Native map mutation exports receive source X then Y; API byte-field
+        // reordering must not transpose map coordinates.
+        public bool UsesReversedCoordinates => false;
 
         public bool TryReadMessage(out EventMessage message)
         {
@@ -148,9 +155,9 @@ namespace DarkSaver.Events
                 if (tokens.Length == 0) continue;
                 var commandIndex = 0;
                 int? numericPrefix = null;
-                // Confirmed EVT form: "1 CHARDEAD 700". Other numeric tokens stay raw
-                // until their command-specific schema is verified.
-                if (tokens.Length >= 3 && tokens[1].Equals("CHARDEAD", StringComparison.OrdinalIgnoreCase) &&
+                // Known numbered conditions only. Unknown syntax stays raw and cannot
+                // accidentally become a scene action/spawn. Bare numeric rows stay raw.
+                if (tokens.Length >= 2 && IsCondition(tokens[1].ToUpperInvariant()) &&
                     int.TryParse(tokens[0], out var prefix))
                 {
                     numericPrefix = prefix;
@@ -162,5 +169,10 @@ namespace DarkSaver.Events
             }
             return result;
         }
+
+        public static bool IsCondition(string name) => name == "CHARPOS" || name == "CHARPOS2" || name == "CHARPOS3"
+            || name == "CHARDEAD" || name == "ITEM" || name == "DUTY_STEP_TRUE" || name == "DUTY_STEP_FALSE"
+            || name == "ONLY_CHAR" || name == "ONLY_MONSTER" || name == "CAUSE_OF_DEATH"
+            || name == "ALL_MOB_DEAD" || name == "RANDOM" || name == "TICK";
     }
 }

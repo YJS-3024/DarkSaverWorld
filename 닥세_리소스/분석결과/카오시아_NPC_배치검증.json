@@ -1,0 +1,379 @@
+{
+  "scope": "Installed client resource audit plus explicitly recorded public-source observations; no original server/session or Unity Play execution",
+  "nativeMapKey": "1000",
+  "mapCopies": [
+    {
+      "file": "닥세_리소스/설치본_추출/Saver_Files/Saver/MAP/1000.mrc",
+      "sha256": "1f0c8634e58d06e1ebb9808e125fd3c3ec99f2a3ef6acc4091a9d1bd35135d39",
+      "bytes": 16587,
+      "width": 43,
+      "height": 43,
+      "decorations": 225,
+      "parsedToExactEOF": true
+    },
+    {
+      "file": "닥세_리소스/설치본_추출/Saver_Files/Saver/MAP/1000t.mrc",
+      "sha256": "1f0c8634e58d06e1ebb9808e125fd3c3ec99f2a3ef6acc4091a9d1bd35135d39",
+      "bytes": 16587,
+      "width": 43,
+      "height": 43,
+      "decorations": 225,
+      "parsedToExactEOF": true
+    },
+    {
+      "file": "닥세_리소스/설치본_추출/NetGame_Files/Saver/MAP/1000.mrc",
+      "sha256": "1f0c8634e58d06e1ebb9808e125fd3c3ec99f2a3ef6acc4091a9d1bd35135d39",
+      "bytes": 16587,
+      "width": 43,
+      "height": 43,
+      "decorations": 225,
+      "parsedToExactEOF": true
+    },
+    {
+      "file": "닥세_리소스/설치본_추출/NetGame_Files/Saver/MAP/1000t.mrc",
+      "sha256": "1f0c8634e58d06e1ebb9808e125fd3c3ec99f2a3ef6acc4091a9d1bd35135d39",
+      "bytes": 16587,
+      "width": 43,
+      "height": 43,
+      "decorations": 225,
+      "parsedToExactEOF": true
+    },
+    {
+      "file": "닥세_리소스/설치본_추출/Shared_DLLs/Saver/MAP/1000.mrc",
+      "sha256": "1f0c8634e58d06e1ebb9808e125fd3c3ec99f2a3ef6acc4091a9d1bd35135d39",
+      "bytes": 16587,
+      "width": 43,
+      "height": 43,
+      "decorations": 225,
+      "parsedToExactEOF": true
+    },
+    {
+      "file": "닥세_리소스/설치본_추출/Shared_DLLs/Saver/MAP/1000t.mrc",
+      "sha256": "1f0c8634e58d06e1ebb9808e125fd3c3ec99f2a3ef6acc4091a9d1bd35135d39",
+      "bytes": 16587,
+      "width": 43,
+      "height": 43,
+      "decorations": 225,
+      "parsedToExactEOF": true
+    }
+  ],
+  "mapFormat": "resource table + seven-byte tile cells + sixteen-byte static decoration records; exact EOF, no trailing NPC roster",
+  "decodedScenarioArchiveCount": 104,
+  "kaosiaScenarioArchivePresent": false,
+  "scenarioPlacementFileCount": 38,
+  "kaosiaSetOrPosPresent": false,
+  "shopBuildings": [
+    {
+      "name": "무기점",
+      "mapKey": "1000",
+      "mrcObjectIndex": 163,
+      "resource": 20,
+      "spriteGroup": 9,
+      "frame": 0,
+      "objectOriginX": 36,
+      "objectOriginY": 29,
+      "coordinateMeaning": "zero-based original MRC building top-left tile; not an NPC standing tile or player world coordinate",
+      "pixelWidth": 192,
+      "pixelHeight": 224,
+      "rgbaSha256": "0183127a87aed1642242bd183f202928b7c474265dfce22c41b127ba2f9f562f",
+      "resourceFile": "닥세_리소스/설치본_추출/Saver_Files/Saver/MAP/mdsr20.grs",
+      "resourceFileSha256": "deb83ae39563396524aa0d789035bfeef3f45b0bc9b680190c229a3afe28935a",
+      "visualReviewedOn": "2026-10-24",
+      "identification": "native building sign and roof emblem inspected; no separate human actor in this building image",
+      "npcName": null,
+      "npcAppearanceId": null,
+      "npcInstanceId": null,
+      "npcX": null,
+      "npcY": null,
+      "separateShopkeeperExistenceConfirmed": false,
+      "originalBuildingAlreadyInUnity": true,
+      "qualifiedForNpcPlacement": false
+    },
+    {
+      "name": "방어구점",
+      "mapKey": "1000",
+      "mrcObjectIndex": 141,
+      "resource": 20,
+      "spriteGroup": 2,
+      "frame": 0,
+      "objectOriginX": 30,
+      "objectOriginY": 23,
+      "coordinateMeaning": "zero-based original MRC building top-left tile; not an NPC standing tile or player world coordinate",
+      "pixelWidth": 192,
+      "pixelHeight": 224,
+      "rgbaSha256": "89703ad71ea072b0e3df707dee575587b5732ac01480e6c96ac5444345c26880",
+      "resourceFile": "닥세_리소스/설치본_추출/Saver_Files/Saver/MAP/mdsr20.grs",
+      "resourceFileSha256": "deb83ae39563396524aa0d789035bfeef3f45b0bc9b680190c229a3afe28935a",
+      "visualReviewedOn": "2026-10-24",
+      "identification": "native building sign and roof emblem inspected; no separate human actor in this building image",
+      "npcName": null,
+      "npcAppearanceId": null,
+      "npcInstanceId": null,
+      "npcX": null,
+      "npcY": null,
+      "separateShopkeeperExistenceConfirmed": false,
+      "originalBuildingAlreadyInUnity": true,
+      "qualifiedForNpcPlacement": false
+    }
+  ],
+  "candidates": [
+    {
+      "name": "케인",
+      "quest": 1,
+      "dialogueHeaderValue": 805,
+      "abilityTableName": "마을사람",
+      "dialogue": "분석/Saver_1.2/decoded/all_arc/gameres/duty/duty1-1.txt",
+      "dialogueSha256": "6579c27aeddb06270784cdef3a80b22cd94c312d943f005f1e7bd0d7b210ba59",
+      "characterSheet": "분석/Saver_1.2/decoded/all_arc/gameres/char4/805R.bmp",
+      "characterSheetSha256": "e729d4b3645355b35dc2fb78541533f00577af2671176459723422426388433b",
+      "portrait": "분석/Saver_1.2/decoded/all_arc/gameres/face/805.bmp",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "availableDirectionalFrames": 12,
+      "nativeTownMembershipDirectlyConfirmed": false,
+      "originalMapKey": null,
+      "originalX": null,
+      "originalY": null,
+      "qualifiedForOriginalPlacement": false
+    },
+    {
+      "name": "타란",
+      "quest": 2,
+      "dialogueHeaderValue": 806,
+      "abilityTableName": "마을사람",
+      "dialogue": "분석/Saver_1.2/decoded/all_arc/gameres/duty/duty2-1.txt",
+      "dialogueSha256": "8a8aebb2720b5e451f911642a3ff390f8f60d2bb97ea8d6b051a6d3c3df41f42",
+      "characterSheet": "분석/Saver_1.2/decoded/all_arc/gameres/char4/806R.bmp",
+      "characterSheetSha256": "65dae34d7b26423688b9732cb12f809edac4d6e316956a765ac53f2425e6062b",
+      "portrait": "분석/Saver_1.2/decoded/all_arc/gameres/face/806.bmp",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "availableDirectionalFrames": 12,
+      "nativeTownMembershipDirectlyConfirmed": false,
+      "originalMapKey": null,
+      "originalX": null,
+      "originalY": null,
+      "qualifiedForOriginalPlacement": false
+    }
+  ],
+  "reusedDialogueHeaders": [
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/gameres/duty/duty1-1.txt",
+      "headerValue": 805
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/gameres/duty/duty1-3.txt",
+      "headerValue": 805
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/gameres/duty/duty13-1.TXT",
+      "headerValue": 806
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/gameres/duty/duty13-4.TXT",
+      "headerValue": 806
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/gameres/duty/duty13-6.TXT",
+      "headerValue": 806
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/gameres/duty/duty2-1.txt",
+      "headerValue": 806
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/gameres/duty/duty2-3.txt",
+      "headerValue": 806
+    }
+  ],
+  "disambiguation": [
+    "805 is also the portrait token for Kane's son in01.evt.",
+    "806 is also the header of Kim-ses' duty13 dialogue; it is not a unique world instance identity.",
+    "Kaosia mentions in56/57/59 quiz events do not locate NPCs in town1000.",
+    "Shop/church/bank signs in the native rendered map locate buildings, not their NPC standing positions."
+  ],
+  "kaosiaTextMentions": [
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/56set/56.evt",
+      "line": 215,
+      "text": "MESSAGE 1 142 0 0 7. 다음중 카오시아 무기점에서 판매 하지 않는 아이템은 무엇일까? | 1. 어새신나이프 2.대거 3. 롱소드  4.롱보우"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/57set/57.evt",
+      "line": 147,
+      "text": "MESSAGE 1 142 0 0 ME 0  5. 카오시아 마을에서 위로 나와 오른쪽으로 들어가면 갈수 있는 | 대륙의 이름은?1. 앤트리아  2.아모리아  3. 가르시아 4.아르니아"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/59set/59.evt",
+      "line": 636,
+      "text": "MESSAGE 1 142 0 0  19. 카오시아 마을에 있는 교회의 의자 갯수는 총 몇개?|1. 14 개 2. 18개 3. 16개  4. 20개"
+    }
+  ],
+  "scenarioAppearanceOccurrences": [
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEE",
+      "line": 6,
+      "raw": "CHARPOS 805 804 22 7",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEE",
+      "line": 8,
+      "raw": "CHARPOS 805 805 22 8",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEE",
+      "line": 10,
+      "raw": "CHARPOS 805 806 17 6",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEE",
+      "line": 12,
+      "raw": "CHARPOS 805 807 17 7",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEE",
+      "line": 14,
+      "raw": "CHARPOS 805 808 17 8",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEO",
+      "line": 23,
+      "raw": "CHARPOS 805 801 19 6",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEO",
+      "line": 24,
+      "raw": "CHARPOS 806 802 18 7",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEO",
+      "line": 25,
+      "raw": "CHARPOS 805 803 20 7",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEO",
+      "line": 26,
+      "raw": "CHARPOS 806 804 19 8",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.DEE",
+      "line": 8,
+      "raw": "CHARPOS 806 804 22 7",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.DEE",
+      "line": 10,
+      "raw": "CHARPOS 806 805 22 8",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.DEE",
+      "line": 12,
+      "raw": "CHARPOS 806 806 17 6",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.DEE",
+      "line": 14,
+      "raw": "CHARPOS 806 807 17 7",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.DEE",
+      "line": 16,
+      "raw": "CHARPOS 806 808 17 8",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/05set/05.DEE",
+      "line": 13,
+      "raw": "CHARPOS 805 800 24 07",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/06set/06.deo",
+      "line": 13,
+      "raw": "CHARPOS 806 801 15 25",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/MAP/06set/06.deo",
+      "line": 14,
+      "raw": "CHARPOS 806 802 21 24",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    },
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/gameres/tutorial/TUTORIAL.DEO",
+      "line": 427,
+      "raw": "CHARPOS 805 800 18 11",
+      "scope": "scenario actor occurrence; not a Kaosia town placement"
+    }
+  ],
+  "publicSourceReview": {
+    "reviewedOn": "2026-10-24",
+    "refreshPolicy": "Public observations were reviewed manually; rerunning this tool rechecks installed files, not remote pages.",
+    "sources": [
+      {
+        "url": "https://lastlangrisser.tistory.com/63",
+        "kind": "2013 repost of 2003-2004 notices; author states partial editing",
+        "observations": [
+          {
+            "originalNoticeDate": "2003-12-18",
+            "npc": "Santa",
+            "locationDescription": "below a Christmas tree in Kaosia",
+            "exactTile": null,
+            "scope": "seasonal event; no permanent placement inferred"
+          },
+          {
+            "originalNoticeDate": "2004-03-11",
+            "npc": "pirate",
+            "locationDescription": "Kaosia center",
+            "exactTile": null,
+            "scope": "limited White Day event; no appearance ID established"
+          },
+          {
+            "originalNoticeDate": "2004-03-11",
+            "npc": "male and female NPCs",
+            "locationDescription": "Kaosia/Belpueus",
+            "exactTile": null,
+            "scope": "presence only; cannot identify them as Kane/Taran"
+          }
+        ]
+      },
+      {
+        "url": "https://lastlangrisser.tistory.com/255",
+        "kind": "town images article",
+        "visualVerification": false,
+        "limitation": "HTML/image links found; first image returned403 and other fetched images were not exposed as inspectable image bytes by the tool. No coordinates inferred."
+      },
+      {
+        "url": "https://lastlangrisser.tistory.com/132",
+        "kind": "screenshot collection",
+        "visualVerification": false,
+        "limitation": "Collection page found; no verifiable NPC-to-native-map coordinate match established."
+      }
+    ],
+    "shopReview": {
+      "reviewedOn": "2026-10-24",
+      "url": "https://lastlangrisser.tistory.com/65",
+      "kind": "2013 Kaosia weapon stock compilation",
+      "finding": "Weapon stock descriptions found; author reports other shop material was not collected. No merchant name, portrait/appearance or standing coordinate established.",
+      "excluded": "Later Lapis NPC names and quests are not transferred to the original game."
+    },
+    "excluded": "Neo DarkSaver/Lapis and later remakes are not used as original installation NPC placement evidence."
+  },
+  "confirmedOriginalNpcPlacements": 0,
+  "unityNpcPlacementsAdded": 0,
+  "decision": "Keep town services/quest board; do not substitute scenario coordinates or invented NPC positions.",
+  "neededEvidence": "Original town NPC spawn list, authenticated packet capture, or identifiable original screenshot/recording with map coordinates"
+}

@@ -278,8 +278,8 @@ namespace DarkSaver.Combat
                     mpCost, System.Array.Empty<short>()), useArea);
                 temporaryAreaTargeting = started && useArea;
                 if (started) LastInputMessage = useArea
-                    ? "임시 로컬 판정: 원본 범위 안의 유효 대상을 선택합니다. 우클릭 취소."
-                    : "임시 단일 대상 시전: 원본 그룹 정보는 추정하지 않습니다. 우클릭 취소.";
+                    ? "범위 안의 대상을 선택하세요. 우클릭 취소."
+                    : "대상 부대를 선택하세요. 우클릭 취소.";
                 return started;
             }
             if (!IsMagicChoiceOpen || !TryGetDisplayedCommandIndex(index, out var commandIndex))
@@ -667,7 +667,7 @@ namespace DarkSaver.Combat
                         if (!CombatMagicArea.TryGetWeight(previewMagic, origin, cell, targetCell,
                             bounds.size.x, bounds.size.y, out int weight))
                         { LastInputMessage = "마법 범위 정보를 확인할 수 없습니다."; return false; }
-                        if (weight <= 0 || !battle.TryGetGridOccupant(targetCell, out short id) || !seen.Add(id)) continue;
+                        if (weight <= 0 || !battle.TryGetMagicTargetAt(command.MagicId,targetCell, out short id) || !seen.Add(id)) continue;
                         // Temporary authority supplies effect/team/range validity. Native team IDs are not guessed.
                         if (!battle.CanStartMagicRequest(command.MagicId, actor.Id, new[] { id }, out _)) continue;
                         if (targets.Count == byte.MaxValue)
@@ -683,9 +683,16 @@ namespace DarkSaver.Combat
                 short[] targets = System.Array.Empty<short>();
                 if (!magicTargetsPosition)
                 {
-                    if (!battle.TryGetGridOccupant(cell, out var id) || !battle.TryGetUnit(id, out var target) || !target.Alive)
-                    { LastInputMessage = "살아 있는 대상 유닛을 클릭하세요."; return false; }
-                    targets = new[] { id };
+                    if (!battle.TryGetMagicTargetAt(command.MagicId,cell, out var id) || !battle.TryGetUnit(id, out var target) || !target.Alive && !battle.IsRevivalMagic(command.MagicId))
+                    { LastInputMessage = "유효한 대상 유닛 또는 부활할 아군의 위치를 클릭하세요."; return false; }
+                    if(battle.TemporaryLocalRulesEnabled && previewMagic!=null && previewMagic.Unit==8)
+                    {
+                        var group=new List<short>();int commander=id/10*10;
+                        for(int offset=0;offset<9;offset++)
+                        {short member=(short)(commander+offset);if(battle.CanStartMagicRequest(command.MagicId,actor.Id,new[]{member},out _))group.Add(member);}
+                        targets=group.ToArray();
+                    }
+                    else targets = new[] { id };
                 }
                 packet = new MagicRequest(command.MagicId, actor.Id, (short)cell.X, (short)cell.Y,
                     command.ComputedCost, targets, command.OriginalOpcode, command.Mode);
@@ -694,7 +701,7 @@ namespace DarkSaver.Combat
             if (sender == null) { LastInputMessage = "마법 요청 연결이 없습니다."; return false; }
             var delivered = sender.TrySendMagic(packet, out var reason);
             LastInputMessage = delivered ? (battle.TemporaryLocalRulesEnabled
-                ? "임시 로컬 마법 판정 적용됨" : "마법 요청 전달됨: 승인·효과·MP는 독립 응답을 기다립니다.") : reason;
+                ? "시전했습니다." : "마법 요청 전달됨: 승인·효과·MP는 독립 응답을 기다립니다.") : reason;
             if (delivered && ReferenceEquals(pendingMagic, command)) CancelMagicTargeting();
             return delivered;
         }
@@ -804,6 +811,7 @@ namespace DarkSaver.Combat
                 GameConstants.BattlePreventDiagonalCornerCutting,
                 movementCost: (unit, cell) => TryGetMovement(groundMap, terrainMap, area, unit.Id, cell, out var cost)
                     ? cost : (int?)null)) return false;
+            audioLifeStates.Clear();
             ground = groundMap; terrain = terrainMap; view = camera; bounds = area;
             foreach (var visual in pending)
             {
@@ -1116,6 +1124,7 @@ namespace DarkSaver.Combat
             if (Input.GetMouseButtonDown(0)) TryHandleWorldClick(position);
         }
 
+        private readonly Dictionary<short,UnitLifeState> audioLifeStates=new();
         public void RefreshVisualState()
         {
             if (!IsBound) return;
@@ -1130,6 +1139,9 @@ namespace DarkSaver.Combat
             for (var i = 0; i < visuals.Count; i++)
                 if (visuals[i].Body != null && battle.TryGetUnit(visuals[i].UnitId, out var unit))
                 {
+                    if(audioLifeStates.TryGetValue(unit.Id,out var before) && before==UnitLifeState.Active && unit.LifeState!=UnitLifeState.Active)
+                        DarkSaver.World.WorldAudioService.PlayDefeat(unit.JobId);
+                    audioLifeStates[unit.Id]=unit.LifeState;
                     visuals[i].Body.enabled = originalEnabled[i] && unit.LifeState == UnitLifeState.Active;
                     if (animators[i] != null) animators[i].SetMovingPresentation(unit.Alive && battle.IsMovementInProgress(unit.Id));
                     // World infantry colliders must not displace confirmed combat

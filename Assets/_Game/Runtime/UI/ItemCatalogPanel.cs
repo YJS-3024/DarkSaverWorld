@@ -37,6 +37,7 @@ namespace DarkSaver.UI
 
         public bool Open()
         {
+            if (FirstPlayTutorial.BlocksWorldActions) return false;
             if (!isActiveAndEnabled || catalog == null || player == null || SceneManager.GetSceneByName("Battle").isLoaded) return false;
             if (IsOpen) return true;
             GetComponent<TownServicesPanel>()?.Close();

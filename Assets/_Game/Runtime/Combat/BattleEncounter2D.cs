@@ -7,6 +7,8 @@ namespace DarkSaver.Combat
     public sealed class BattleEncounter2D : MonoBehaviour
     {
         private bool armed = true;
+        private bool retireAfterDefeat;
+        public void ConfigureFieldLifecycle() => retireAfterDefeat = true;
         private TopDownPlayerController encounteredPlayer;
         public bool IsArmed => armed;
         [SerializeField] private BattleObjectiveDefinition victoryObjective;
@@ -26,7 +28,7 @@ namespace DarkSaver.Combat
 
         public bool TryEncounter(TopDownPlayerController player)
         {
-            if (!isActiveAndEnabled || !armed || player == null || !player.isActiveAndEnabled) return false;
+            if (TryRetireDefeatedFieldEncounter() || !isActiveAndEnabled || !armed || player == null || !player.isActiveAndEnabled || player.UiInputBlocked) return false;
             var transition = FindFirstObjectByType<BattleTransitionController>();
             if (transition == null || !transition.TryEnterBattle(victoryObjective, enemyDefinition, GetComponent<SpriteRenderer>())) return false;
             armed = false;
@@ -43,7 +45,7 @@ namespace DarkSaver.Combat
         // only after world input/physics return and the player actually left.
         public bool TryRearm()
         {
-            if (armed || !isActiveAndEnabled || encounteredPlayer == null || !encounteredPlayer.isActiveAndEnabled) return false;
+            if (TryRetireDefeatedFieldEncounter() || armed || !isActiveAndEnabled || encounteredPlayer == null || !encounteredPlayer.isActiveAndEnabled) return false;
             var body = encounteredPlayer.GetComponent<Rigidbody2D>();
             var other = encounteredPlayer.GetComponent<Collider2D>();
             var trigger = GetComponent<BoxCollider2D>();
@@ -53,6 +55,19 @@ namespace DarkSaver.Combat
             armed = true; return true;
         }
 
-        private void Update() { if (!armed) TryRearm(); }
+        private bool TryRetireDefeatedFieldEncounter()
+        {
+            if (!retireAfterDefeat || encounteredPlayer == null || GetComponent<SpriteRenderer>().enabled
+                || UnityEngine.SceneManagement.SceneManager.GetSceneByName("Battle").isLoaded) return false;
+            var session = FindFirstObjectByType<BattleTransitionController>();
+            if (session?.IsTransitioning ?? false) return false;
+            // A confirmed dead source body must not leave an invisible trigger.
+            GetComponent<BoxCollider2D>().enabled = false; enabled = false; return true;
+        }
+        private void Update()
+        {
+            if (TryRetireDefeatedFieldEncounter()) return;
+            if (!armed) TryRearm();
+        }
     }
 }

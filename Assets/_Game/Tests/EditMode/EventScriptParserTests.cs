@@ -60,7 +60,7 @@ namespace DarkSaver.Tests
             Assert.That(message.SpeakerToken, Is.EqualTo("700"));
             Assert.That(message.VariantToken, Is.EqualTo("A"));
             Assert.That(message.Text, Is.EqualTo("으..  분하다.. | 물러나야겠군..  "));
-            Assert.That(message.DisplayText, Is.EqualTo("으..  분하다.. \n 물러나야겠군..  "));
+            Assert.That(message.DisplayText, Is.EqualTo("으..  분하다..\n물러나야겠군.."));
         }
 
         [TestCase("MESSAGE 0 0 ME 0 %s가 상자를 열었습니다.", "0", "ME", "0", "%s가 상자를 열었습니다.")]
@@ -134,10 +134,10 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void ChangeSprite_UsesYThenXWhileCharacterPositionUsesXThenY()
+        public void ChangeSprite_AndCharacterPositionUseSourceXY()
         {
             var commands = EventScriptParser.Parse("CHANGESPRITE 5 15 0 1 0 22\nCHARPOS 800 15 5");
-            Assert.That(commands[0].ReadCoordinates(0), Is.EqualTo((15, 5)));
+            Assert.That(commands[0].ReadCoordinates(0), Is.EqualTo((5, 15)));
             Assert.That(commands[1].ReadCoordinates(1), Is.EqualTo((15, 5)));
         }
     }

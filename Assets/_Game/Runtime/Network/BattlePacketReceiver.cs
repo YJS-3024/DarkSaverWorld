@@ -16,6 +16,8 @@ namespace DarkSaver.Network
         public event Action<ServerPacket, bool> PacketHandled;
         // Bounded, immutable latest notifications. Acceptance is not visual playback.
         // Effect/Value are uninterpreted; never feed them into damage or AP/MP costs.
+        public LocalCommandResponse LastCommandResponse {get;private set;}
+        public BattleStateNotification LastServerState {get;private set;}
         public AttackEffectNotification LastAttackEffect { get; private set; }
         public MagicEffectNotification LastMagicEffect { get; private set; }
         public event Action<AttackEffectNotification> AttackEffectReceived;
@@ -48,6 +50,11 @@ namespace DarkSaver.Network
             if (!isActiveAndEnabled || packet == null) return false;
             if (battle == null) battle = GetComponent<BattleSceneRoot>();
             if (battle == null) return false;
+            if (packet is BattleStateNotification snapshot) { LastServerState=snapshot;return true; }
+            if (packet is LocalCombatResolvedNotification resolved) return battle.ReceiveLocalCombatResult(resolved.Result);
+            if (packet is LocalVitalsDisplayNotification display) return battle.ReceiveLocalVitals(display.UnitId,display.Delta,display.Mp);
+            if (packet is LocalMagicPresentationNotification cast) return battle.ReceiveLocalMagic(cast.Action,cast.Cast);
+            if (packet is LocalCommandResponse acknowledgement) { LastCommandResponse=acknowledgement;return acknowledgement.Accepted; }
             // PGSNEWEXP is an absolute uint32 assignment. No reward/level/AP inference.
             if (packet is ExperienceSetNotification experience)
                 return battle.ApplyExperience(new CombatExperienceResult(experience.UnitId, experience.AbsoluteExperience));

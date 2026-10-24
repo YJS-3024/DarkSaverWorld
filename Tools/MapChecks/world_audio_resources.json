@@ -1,0 +1,48 @@
+{
+  "regionBindings": 44,
+  "nativeBindings": 40,
+  "authoredFallbacks": [
+    {
+      "map": "1111",
+      "clip": "World/Audio/Music/game2",
+      "midi": "game2.mid",
+      "sourceSha256": "202f5ee0948afafce3bbb2bc26bd6ef8828b74884208e7a00dff6977d89b90e2",
+      "audioSha256": "7aa9c65898b23c8200c478448bc2016711d594710dbeb32da5b43c9ba4fbafdc",
+      "authored": true,
+      "inheritedFrom": "1110"
+    },
+    {
+      "map": "1410",
+      "clip": "World/Audio/Music/game8",
+      "midi": "game8.mid",
+      "sourceSha256": "789838ad6e554e4534db506fe425a6073802a3d158768e0d8fb40077f41c57ff",
+      "audioSha256": "b56a7f6ba6f5eec88e9198a15f54df54621d5d12a93a6d18240c5e77c28838b3",
+      "authored": true,
+      "inheritedFrom": "1400"
+    },
+    {
+      "map": "1500",
+      "clip": "World/Audio/Music/game5",
+      "midi": "game5.mid",
+      "sourceSha256": "0ac5c361b5509677754c81adf5116d8fb7fdae3c2387d3dfaa2c3c223baa4d55",
+      "audioSha256": "b6b00d9990824488228032b6bc9635ce82178d1f7963cb3163d8979e8db15a0b",
+      "authored": true,
+      "inheritedFrom": "2000"
+    },
+    {
+      "map": "2510",
+      "clip": "World/Audio/Music/game5",
+      "midi": "game5.mid",
+      "sourceSha256": "0ac5c361b5509677754c81adf5116d8fb7fdae3c2387d3dfaa2c3c223baa4d55",
+      "audioSha256": "b6b00d9990824488228032b6bc9635ce82178d1f7963cb3163d8979e8db15a0b",
+      "authored": true,
+      "inheritedFrom": "2500"
+    }
+  ],
+  "soundFiles": 20,
+  "midiRenderer": "FluidSynth/TimGM; original score, adapted synthesizer timbre",
+  "soundConversion": "exact unsigned8 -> signed16, 22050Hz mono",
+  "automaticEffects": "battle magic and supported scenario spell cues + sound1 on death excluding native appearance700..799; current singleplayer presentation timing",
+  "notAssigned": "Unconfirmed attack/movement/shop/UI sound IDs are not invented.",
+  "unityPlay": false
+}

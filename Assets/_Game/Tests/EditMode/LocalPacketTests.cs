@@ -409,7 +409,9 @@ namespace DarkSaver.Tests
                     Assert.That(manager.SendToClient(new ExperienceSetNotification(100, uint.MaxValue)), Is.True);
                 };
                 Assert.That(manager.SendToServer(request), Is.True);
-                Assert.That(received.Count, Is.EqualTo(4)); Assert.That(received[0], Is.SameAs(request));
+                Assert.That(received.Count, Is.EqualTo(4)); Assert.That(received[0], Is.Not.SameAs(request));
+                Assert.That(((AttackRequest)received[0]).TargetUnitId,Is.EqualTo(request.TargetUnitId));
+                Assert.That(manager.OriginalFrameCount,Is.EqualTo(3));
                 Assert.That(received[1], Is.InstanceOf<AttackEffectNotification>());
                 Assert.That(received[2], Is.InstanceOf<HpSetNotification>());
                 Assert.That(received[3], Is.InstanceOf<ExperienceSetNotification>());

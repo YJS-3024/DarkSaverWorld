@@ -1,0 +1,49 @@
+{
+  "source_hash": "c29c31e7746b27f39b7c4da3e35039798efff4b9310e4c5063b61dd546a90426",
+  "intro": 72,
+  "outro": 41,
+  "events": 24,
+  "authored_enemies": 33,
+  "source_character_frames": 84,
+  "reachable_deployments": 33,
+  "placement_adjustments": [
+    {
+      "unit": 700,
+      "fromX": 19,
+      "fromY": 1,
+      "toX": 19,
+      "toY": 9,
+      "reason": "authored supplemental position is not reachable under Unity01 terrain collision"
+    },
+    {
+      "unit": 701,
+      "fromX": 18,
+      "fromY": 1,
+      "toX": 18,
+      "toY": 10,
+      "reason": "authored supplemental position is not reachable under Unity01 terrain collision"
+    },
+    {
+      "unit": 702,
+      "fromX": 20,
+      "fromY": 1,
+      "toX": 20,
+      "toY": 10,
+      "reason": "authored supplemental position is not reachable under Unity01 terrain collision"
+    }
+  ],
+  "required_build_scenes": 6,
+  "music_clips": [
+    "nco01.ogg",
+    "ncr04.ogg"
+  ],
+  "scope": "Offline source pixels, resource bindings, build-list entries and authored deployment checks; not Unity import or PlayMode.",
+  "source_portraits": 8,
+  "opened_chest_bindings": 7,
+  "undefined_source_magic": [
+    1
+  ],
+  "presentation_gaps": [
+    "Actual Unity import, dialogue window chrome/input, and full sequence playback/timing remain unverified."
+  ]
+}

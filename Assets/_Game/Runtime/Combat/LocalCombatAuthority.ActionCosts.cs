@@ -14,7 +14,7 @@ namespace DarkSaver.Combat
         {
             if (id <= 0 || id > short.MaxValue || mp < 0 || range < 0 || range > 255
                 || percent < 1 || percent > 99 || float.IsNaN(seconds) || float.IsInfinity(seconds) || seconds <= 0) return false;
-            quickRules[id] = (mp, range, percent, seconds);
+            abilityRules.Remove(id);quickRules[id] = (mp, range, percent, seconds);
             magicRules.Remove(id); buffRules.Remove(id); statusRules.Remove(id); return true;
         }
 
@@ -28,10 +28,13 @@ namespace DarkSaver.Combat
 
         public int EffectiveActionCost(CombatUnit unit, int cost)
         {
-            // Preserve invalid/disabled costs; Quick must not enable an unset action.
-            if (unit == null || cost <= 0 || cost > unit.ActionPoints.Maximum
-                || !TryGetTemporaryQuick(unit, out int percent, out _)) return cost;
-            return (int)Math.Max(1, ((long)cost * (100 - percent) + 99) / 100);
+            if(unit==null || cost<=0 || cost>unit.ActionPoints.Maximum)return cost;
+            long result=cost;
+            // Discrete AP must still benefit from a positive Quick/Rapid percentage.
+            if(TryGetTemporaryQuick(unit,out int percent,out _))
+                result=cost<=1?1:Math.Max(1,Math.Min(cost-1,(result*(100-percent)+99)/100));
+            if(TryGetTemporaryStatus(unit,TemporaryStatusEffect.Slow,out int slow,out _))result=Math.Min(unit.ActionPoints.Maximum,(result*(100+Math.Min(90,slow))+99)/100);
+            return (int)result;
         }
 
         private void AdvanceQuick(CombatWorld world, float seconds)

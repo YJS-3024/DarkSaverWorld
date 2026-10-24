@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace DarkSaver.Network
 {
-    // In-memory messages, not original binary layouts, IDs, padding or pointers.
+    // Owned typed messages. OriginalLocalPacketCodec supports the confirmed subset;
+    // remaining fields/messages are not assumed to have original binary packing.
     public enum LocalPacketDirection { ClientToServer, ServerToClient }
     public abstract class LocalPacket { public abstract LocalPacketDirection Direction { get; } }
     public abstract class ClientPacket : LocalPacket

@@ -16,6 +16,7 @@ namespace DarkSaver.UI
         private InGameUi ui;
         private Rect pointerBounds;
         private string trainingEntryMessage;
+        private bool emotesOpen;private Rect emoteBounds;private string emoteMessage;
         public void SetTrainingEntryMessage(string message) => trainingEntryMessage = message;
         public bool ReturnFromTraining()
         {
@@ -28,7 +29,7 @@ namespace DarkSaver.UI
 
         public bool BlocksWorldPointer(Vector2 screenPoint) => isActiveAndEnabled && IsVisible &&
             ((GetComponent<TownServicesPanel>()?.IsOpen ?? false) || (GetComponent<BattleFormationPanel>()?.IsOpen ?? false) ||
-             !Rendering.GameScreen.TryScreenToGui(screenPoint, out var point) || pointerBounds.Contains(point));
+             !Rendering.GameScreen.TryScreenToGui(screenPoint, out var point) || pointerBounds.Contains(point) || emotesOpen && emoteBounds.Contains(point));
 
         private void Awake()
         {
@@ -37,7 +38,7 @@ namespace DarkSaver.UI
             if (GetComponent<TownServicesPanel>() == null) gameObject.AddComponent<TownServicesPanel>();
         }
 
-        public bool IsVisible => !SceneManager.GetSceneByName("Battle").isLoaded;
+        public bool IsVisible => !FirstPlayTutorial.BlocksWorldActions && !SceneManager.GetSceneByName("Battle").isLoaded && !DarkSaver.Events.Scenario01Controller.BlocksWorldActions;
         public bool TravelScenarioDemo()
         {
             var inDemo = SceneManager.GetSceneByName("Brugos01_Runtime").isLoaded;
@@ -51,6 +52,7 @@ namespace DarkSaver.UI
             get
             {
                 if (session == null) session = GetComponent<BattleTransitionController>();
+                var displayScenarioKey = DarkSaver.Events.Scenario01Controller.ActiveKey ?? trackedScenarioKey;
                 var text = $"경험치 {session.PlayerExperience}\n완료 시나리오 {session.ClearedScenarioCount}개";
                 if (session.HasCreatedCharacter) text = $"{session.PlayerName} / 직업 {session.PlayerJobId}\n" + text;
                 if (session.OwnedUnitCount > 0) text += $"\n추가 보유 유닛 {session.OwnedUnitCount}명";
@@ -61,7 +63,7 @@ namespace DarkSaver.UI
                     if (!session.CanEnterBattle) text += "\n전투 불능: 재조우 불가 (부활 미연결)";
                 }
                 if (!string.IsNullOrWhiteSpace(trackedScenarioKey))
-                    text += $"\n시나리오 {trackedScenarioKey}: {(session.IsScenarioCleared(trackedScenarioKey) ? "완료" : "미완료")}";
+                    text += $"\n시나리오 {displayScenarioKey}: {(session.IsScenarioCleared(displayScenarioKey) ? "완료" : "미완료")}";
                 if (!string.IsNullOrEmpty(session.LastSaveMessage)) text += "\n" + session.LastSaveMessage;
                 return text;
             }
@@ -69,22 +71,23 @@ namespace DarkSaver.UI
 
         private void LateUpdate()
         {
-            if (!IsVisible) { ui?.Hide(); return; }
+            if (!IsVisible) { emotesOpen=false;ui?.Hide(); return; }
             InGameUi.Ensure(ref ui, this);
             ui.Begin();
-            if (!SceneManager.GetSceneByName("Town_Runtime").isLoaded) trainingEntryMessage = null;
+            if (!TownSceneContext.IsReady) trainingEntryMessage = null;
             if (session == null) session = GetComponent<BattleTransitionController>();
             var width = Mathf.Min(260f, Rendering.GameScreen.Width - 24f);
             if (width <= 0f) { ui.Hide(); return; }
             var panel = new Rect(12, 12, width, 180);
             pointerBounds = panel;
-            ui.Panel("world", panel, SceneManager.GetSceneByName("Town_Runtime").isLoaded ? "카오시아" : "모험");
+            ui.Panel("world", panel, TownSceneContext.Current?.Title ?? FieldSceneContext.Current?.Title ?? DarkSaver.Events.Scenario01Controller.CurrentScenario?.Title ?? "모험");
             ui.Label("player", new Rect(24, 42, width - 24, 24), session.HasCreatedCharacter ? session.PlayerName : "용병대장", 18);
             ui.Bar("hp", new Rect(24, 74, width - 24, 22), "HP", session.PlayerHp, session.PlayerMaxHp, new Color(.55f, .2f, .18f));
             ui.Bar("mp", new Rect(24, 102, width - 24, 22), "MP", session.PlayerMp, session.PlayerMaxMp, new Color(.18f, .35f, .55f));
             var profile = session.CaptureCharacterProfile();
             string levelText = profile != null && profile.hasLevels ? $"베이스 {profile.baseLevel} / 직업 {profile.jobLevel}" : "레벨 미확인";
-            ui.Label("progress", new Rect(24, 132, width - 24, 48), $"{levelText}\n경험치 {session.PlayerExperience}\n시나리오 {trackedScenarioKey}: {(session.IsScenarioCleared(trackedScenarioKey) ? "완료" : "진행 중")}", 12);
+            var displayScenarioKey = DarkSaver.Events.Scenario01Controller.ActiveKey ?? trackedScenarioKey;
+            ui.Label("progress", new Rect(24, 132, width - 24, 48), $"{levelText}\n경험치 {session.PlayerExperience}\n시나리오 {displayScenarioKey}: {(session.IsScenarioCleared(displayScenarioKey) ? "완료" : "진행 중")}", 12);
             var items = GetComponent<ItemCatalogPanel>();
             var magic = GetComponent<MagicCatalogPanel>();
             var formation = GetComponent<BattleFormationPanel>();
@@ -93,20 +96,31 @@ namespace DarkSaver.UI
             var buttonY = panel.yMax + 4f;
             if (town != null && town.CanOpen)
             {
-                ui.Button("town-services", new Rect(12, buttonY, width, 28), "마을 시설", () => town.Open(TownService.Overview, FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>()));
+                ui.Button("town-services", new Rect(12, buttonY, width, 28), ShopInteriorContext.Current!=null?"상점 이용":"마을 시설", () => town.Open(ShopInteriorContext.Current!=null?TownService.Shop:TownService.Overview, FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>()));
                 buttonY += 32f;
                 ui.Button("town-inventory", new Rect(12, buttonY, width, 28), "소지품", () => town.Open(TownService.Inventory, FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>()));
                 buttonY += 32f;
                 ui.Button("town-character-info", new Rect(12, buttonY, width, 28), "자기 정보", () => town.Open(TownService.CharacterInfo, FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>()));
                 buttonY += 32f;
             }
-            if (formation != null)
+            if (formation != null && ShopInteriorContext.Current==null)
             {
                 ui.Button("formation", new Rect(12, buttonY, width, 28), "부대 편성", () => session.OpenFormationPreparation());
                 buttonY += 32f;
             }
             ui.Button("save", new Rect(12, buttonY, width, 28), "저장", () => session.SaveWorld());
             buttonY += 32f;
+            ui.Button("emote-open",new Rect(12,buttonY,width,28),"감정표현",()=>{emotesOpen=!emotesOpen;emoteMessage=null;});buttonY+=32;
+            if(emotesOpen)
+            {
+                emoteBounds=new Rect(Rendering.GameScreen.Width-330,16,318,280);ui.Panel("emotes",emoteBounds);
+                for(int index=0;index<15;index++)
+                {
+                    int id=29001+index;
+                    ui.Button("emote-"+id,new Rect(emoteBounds.x+8+(index%2)*152,emoteBounds.y+8+(index/2)*30,146,26),"표현 "+(index+1),()=>{session.TryEmote(id,out emoteMessage);emotesOpen=false;});
+                }
+                ui.Button("emote-close",new Rect(emoteBounds.x+8,emoteBounds.y+250,302,24),"닫기",()=>emotesOpen=false);
+            }
             for (int id = 101; id <= 107; id++)
                 if (SceneManager.GetSceneByName("Training" + id + "_Runtime").isLoaded)
                 { ui.Button("training-return", new Rect(12, buttonY, width, 28), "카오시아로 복귀", () => ReturnFromTraining()); buttonY += 32f; break; }
@@ -117,7 +131,7 @@ namespace DarkSaver.UI
                 buttonY += 32f;
             }
             pointerBounds.yMax = buttonY;
-            var message = !string.IsNullOrEmpty(trainingEntryMessage) ? trainingEntryMessage
+            var message = !string.IsNullOrEmpty(emoteMessage)?emoteMessage:!string.IsNullOrEmpty(trainingEntryMessage) ? trainingEntryMessage
                 : string.IsNullOrEmpty(session.LastSaveMessage) ? session.LastTransitionMessage : session.LastSaveMessage;
             if (!string.IsNullOrEmpty(message))
             {

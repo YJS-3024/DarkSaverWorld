@@ -1,4 +1,4 @@
-using System;
+using DarkSaver.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,13 +20,12 @@ namespace DarkSaver.World
 
         private static void Apply(Scene scene)
         {
-            if (scene.name != "Kaosia_Map" && scene.name != "World1010_Map") return;
+            if (!OriginalRenderRules.IsNativeMapScene(scene.name)) return;
             foreach (var root in scene.GetRootGameObjects())
             foreach (var renderer in root.GetComponentsInChildren<SpriteRenderer>(true))
             {
-                if (!renderer.name.StartsWith("Object_", StringComparison.Ordinal) ||
-                    !int.TryParse(renderer.name.Substring(7), out var sourceIndex)) continue;
-                renderer.sortingOrder = 30000 + sourceIndex;
+                if (!OriginalRenderRules.TryGetForegroundSortingOrder(renderer.name, out var order)) continue;
+                renderer.sortingOrder = order;
             }
         }
     }

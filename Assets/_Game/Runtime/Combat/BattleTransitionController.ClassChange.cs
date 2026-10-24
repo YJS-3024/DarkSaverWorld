@@ -1,4 +1,4 @@
-﻿using DarkSaver.Core;
+using DarkSaver.Core;
 using DarkSaver.Jobs;
 using DarkSaver.Magic;
 using DarkSaver.Player;
@@ -46,9 +46,10 @@ namespace DarkSaver.Combat
 
         public bool TryAllocateCharacterStats(NativeCharacterProfile baseline,int attack,int defense,int magicAttack,int magicDefense,out string reason,int[] battleMagic=null)
         {
+            if(!processingSessionRequest)return SubmitSession(new DarkSaver.Network.LocalStatAllocationRequest(baseline,attack,defense,magicAttack,magicDefense,battleMagic),out reason);
             reason="마을의 생존 캐릭터와 최신 배분 상태가 필요합니다.";
             if(!isActiveAndEnabled || transitioning || activeBattle!=null || !CanEnterBattle
-                || SceneManager.GetSceneByName(BattleSceneName).isLoaded || !SceneManager.GetSceneByName("Town_Runtime").isLoaded
+                || SceneManager.GetSceneByName(BattleSceneName).isLoaded || !DarkSaver.World.TownSceneContext.IsReady
                 || FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling==true
                 || GetComponent<DarkSaver.UI.BattleFormationPanel>()?.IsOpen==true
                 || !IsStatAllocationCurrent(baseline)
@@ -85,7 +86,7 @@ namespace DarkSaver.Combat
             changed = null; maximumHp = maximumMp = 0;
             reason = "마을의 생존 캐릭터와 확인된 레벨·전직 데이터가 필요합니다.";
             if (!isActiveAndEnabled || transitioning || activeBattle != null || !CanEnterBattle
-                || SceneManager.GetSceneByName(BattleSceneName).isLoaded || !SceneManager.GetSceneByName("Town_Runtime").isLoaded
+                || SceneManager.GetSceneByName(BattleSceneName).isLoaded || !DarkSaver.World.TownSceneContext.IsReady
                 || FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling == true
                 || GetComponent<DarkSaver.UI.BattleFormationPanel>()?.IsOpen == true
                 || player == null || !player.isActiveAndEnabled || character == null
@@ -116,6 +117,8 @@ namespace DarkSaver.Combat
 
         public bool TryChangeClass(ExperienceProgressionTable table, MagicCatalog magic, TopDownPlayerController player, out string reason)
         {
+            if(!processingSessionRequest)
+            {serverProgression=table;serverMagic=magic;serverPlayer=player;return SubmitSession(new DarkSaver.Network.LocalClassChangeRequest(),out reason);}
             if (!PrepareClassChange(table, magic, player, out var changed, out int hp, out int mp, out reason)) return false;
             if (!classArtwork.TryApply(changed.jobId, player.GetComponent<DirectionalSpriteAnimator>()))
             { reason = "전직 외형 적용에 실패했습니다."; return false; }

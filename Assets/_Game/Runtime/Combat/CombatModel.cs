@@ -62,7 +62,7 @@ namespace DarkSaver.Combat
     public readonly struct CombatResult
     {
         public CombatResult(short actorId, short targetId, int absoluteHp, int absoluteMp,
-            int damage, bool leaveCorpse, bool hit = true, int healing = 0, int attackBonus = 0, int defenseBonus = 0, float buffSeconds = 0, int actionCostReduction = 0, TemporaryStatusEffect statusEffect = TemporaryStatusEffect.None, int statusPower = 0, float statusSeconds = 0)
+            int damage, bool leaveCorpse, bool hit = true, int healing = 0, int attackBonus = 0, int defenseBonus = 0, float buffSeconds = 0, int actionCostReduction = 0, TemporaryStatusEffect statusEffect = TemporaryStatusEffect.None, int statusPower = 0, float statusSeconds = 0,int actorHp=-1,int targetMp=-1,bool revive=false)
         {
             ActorId = actorId;
             TargetId = targetId;
@@ -73,7 +73,7 @@ namespace DarkSaver.Combat
             Hit = hit;
             Healing = healing;
             AttackBonus = attackBonus; DefenseBonus = defenseBonus; BuffSeconds = buffSeconds; ActionCostReduction = actionCostReduction;
-            StatusEffect = statusEffect; StatusPower = statusPower; StatusSeconds = statusSeconds;
+            StatusEffect = statusEffect; StatusPower = statusPower; StatusSeconds = statusSeconds;ActorHp=actorHp;TargetMp=targetMp;Revive=revive;
         }
 
         public short ActorId { get; }
@@ -91,6 +91,8 @@ namespace DarkSaver.Combat
         public TemporaryStatusEffect StatusEffect { get; }
         public int StatusPower { get; }
         public float StatusSeconds { get; }
+        public int ActorHp {get;} public int TargetMp {get;} public bool Revive {get;}
+        public CombatResult WithCasterTotals(int hp,int mp)=>new CombatResult(ActorId,TargetId,AbsoluteHp,mp,Damage,LeaveCorpse,Hit,Healing,AttackBonus,DefenseBonus,BuffSeconds,ActionCostReduction,StatusEffect,StatusPower,StatusSeconds,hp,TargetId==ActorId && TargetMp>=0?mp:TargetMp,Revive);
     }
 
     public sealed class CombatWorld

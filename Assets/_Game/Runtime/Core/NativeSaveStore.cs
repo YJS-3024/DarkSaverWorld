@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Security.Cryptography;
 using UnityEngine;
 
 namespace DarkSaver.Core
@@ -26,6 +27,9 @@ namespace DarkSaver.Core
         public bool hasOwnedRoster;
         public bool hasInventory;
         public NativeInventory inventory;
+        public bool hasScenario01;
+        public DarkSaver.Events.Scenario01Progress scenario01;
+        public DarkSaver.Events.Scenario01Progress[] campaign;
     }
 
     // Native single-player state only; no original file references or server formulas.
@@ -34,6 +38,17 @@ namespace DarkSaver.Core
         public const string Format = "DarkSaverWorld.NativeSave";
         public const int Version = 1;
         public const int RosterVersion = 2;
+        public const int ScenarioVersion = 3;
+        public const int CampaignVersion = 4;
+        private const string CheckedFormat = "DarkSaverWorld.NativeSave.Checked";
+        [Serializable]
+        private sealed class SaveEnvelope
+        {
+            public string format;
+            public int version;
+            public string payload;
+            public string sha256;
+        }
         public static string DefaultPath => Path.Combine(Application.persistentDataPath, "native-save-v1.json");
         public string FilePath { get; }
         private static NativeSaveData pending;
@@ -43,14 +58,14 @@ namespace DarkSaver.Core
 
         public static bool IsValid(NativeSaveData data)
         {
-            if (data == null || data.format != Format || (data.version != Version && data.version != RosterVersion) ||
+            if (data == null || data.format != Format || (data.version != Version && data.version != RosterVersion && data.version != ScenarioVersion && data.version != CampaignVersion) ||
                 !IsSupportedMap(data.mapScene, data.runtimeScene) ||
                 float.IsNaN(data.worldX) || float.IsInfinity(data.worldX) ||
                 float.IsNaN(data.worldY) || float.IsInfinity(data.worldY) ||
                 data.clearedScenarios == null || data.clearedScenarios.Length > 10000) return false;
             // Unity JSON may materialize a null inline class as an empty object.
-            if (data.version == Version ? data.hasOwnedRoster || (data.ownedRoster?.units?.Length ?? 0) != 0
-                : !data.hasOwnedRoster || data.ownedRoster == null || !data.ownedRoster.IsValid) return false;
+            if (data.hasOwnedRoster ? data.version == Version || data.ownedRoster == null || !data.ownedRoster.IsValid
+                : data.version == RosterVersion || (data.ownedRoster?.units?.Length ?? 0) != 0) return false;
             if (data.hasVitals && (data.maxHp <= 0 || data.hp < 0 || data.hp > data.maxHp ||
                 data.maxMp < 0 || data.mp < 0 || data.mp > data.maxMp || data.lifeState < 0 || data.lifeState > 2 ||
                 (data.lifeState != 0 && data.hp > 0))) return false;
@@ -58,6 +73,20 @@ namespace DarkSaver.Core
             if (data.hasInventory ? !data.hasCharacter || data.inventory == null || !data.inventory.IsValid
                 : data.inventory != null && (data.inventory.gold != 0 || (data.inventory.items?.Length ?? 0) != 0)) return false;
             if(data.hasCharacter && !data.character.IsEquipmentOwned(data.hasInventory ? data.inventory : null))return false;
+            if (data.hasScenario01 && (!data.hasCharacter || !data.hasInventory || data.scenario01 == null || !data.scenario01.IsValid)) return false;
+            if (data.hasScenario01 && data.version < ScenarioVersion || data.version == ScenarioVersion && !data.hasScenario01) return false;
+            if (data.version == CampaignVersion)
+            {
+                if (!data.hasCharacter || !data.hasInventory || data.campaign == null || data.campaign.Length == 0 || data.campaign.Length > 16) return false;
+                var scenarioKeys = new HashSet<string>();
+                foreach (var state in data.campaign)
+                    if (state == null || state.version != 2 || !state.IsValid || !ScenarioCatalog.TryGet(state.scenarioKey, out var definition) || definition.Key == "01"
+                        || !scenarioKeys.Add(state.scenarioKey) || (state.phase == DarkSaver.Events.Scenario01Progress.Complete) != Array.Exists(data.clearedScenarios, k => k == state.scenarioKey)) return false;
+            }
+            else if ((data.campaign?.Length ?? 0) != 0) return false;
+            if (data.hasScenario01 && (data.scenario01.phase == DarkSaver.Events.Scenario01Progress.Complete)
+                != Array.Exists(data.clearedScenarios, key => key == "01")) return false;
+            if (!data.hasScenario01 && data.scenario01 != null && !string.IsNullOrEmpty(data.scenario01.sourceHash)) return false;
             if (!data.hasCharacter && data.character != null &&
                 (!string.IsNullOrEmpty(data.character.name) || data.character.jobId != 0)) return false;
             var keys = new HashSet<string>(StringComparer.Ordinal);
@@ -70,24 +99,53 @@ namespace DarkSaver.Core
         {
             for (int id = 101; id <= 107; id++)
                 if (map == "Map_" + id + "_;" && runtime == "Training" + id + "_Runtime") return true;
-            return (map == "Kaosia_Map" && runtime == "Town_Runtime") ||
-            (map == "World1010_Map" && runtime == "Field_Runtime") ||
+            return KaosiaFacilityCatalog.IsPair(map,runtime) || NativeInteriorCatalog.IsPair(map,runtime) || ShopInteriorCatalog.IsPair(map,runtime) || ScenarioCatalog.IsPair(map, runtime) || TownCatalog.IsPair(map, runtime) ||
+            FieldCatalog.IsPair(map, runtime) ||
             (map == "Brugos01_Map" && runtime == "Brugos01_Runtime");
         }
 
         public bool TryLoad(out NativeSaveData data, out string message)
         {
-            data = null;
-            message = "저장된 게임이 없습니다.";
+            if (TryRead(FilePath, out data, out var future)) { message = string.Empty; return true; }
+            // An unknown schema must not silently resume an older campaign.
+            if (future) { message = "새로운 버전의 저장 파일입니다."; return false; }
+            if (TryRead(FilePath + ".bak", out data, out _))
+            { message = "이전 정상 백업을 불러왔습니다."; return true; }
+            message = File.Exists(FilePath) ? "저장 데이터가 손상되었거나 형식이 맞지 않습니다." : "저장된 게임이 없습니다.";
+            return false;
+        }
+
+        private static string Checksum(string payload)
+        {
+            using var sha = SHA256.Create();
+            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(payload));
+            var hex = new StringBuilder(64);
+            foreach (var value in bytes) hex.Append(value.ToString("x2"));
+            return hex.ToString();
+        }
+
+        private static bool TryRead(string path, out NativeSaveData data, out bool future)
+        {
+            data = null; future = false;
             try
             {
-                if (!File.Exists(FilePath)) return false;
-                if (new FileInfo(FilePath).Length > 1024 * 1024) { message = "저장 파일이 너무 큽니다."; return false; }
-                var candidate = JsonUtility.FromJson<NativeSaveData>(File.ReadAllText(FilePath, Encoding.UTF8));
-                if (!IsValid(candidate)) { message = "저장 데이터의 형식 또는 값이 맞지 않습니다."; return false; }
-                data = candidate; message = string.Empty; return true;
+                if (!File.Exists(path) || new FileInfo(path).Length > 1024 * 1024) return false;
+                var json = File.ReadAllText(path, Encoding.UTF8);
+                var header = JsonUtility.FromJson<SaveEnvelope>(json);
+                if (header == null) return false;
+                if (header.format == CheckedFormat)
+                {
+                    if (header.version != 1) { future = true; return false; }
+                    if (header.payload == null || header.sha256 != Checksum(header.payload)) return false;
+                    json = header.payload;
+                }
+                var candidate = JsonUtility.FromJson<NativeSaveData>(json);
+                if (candidate != null && candidate.format == Format && candidate.version > CampaignVersion)
+                { future = true; return false; }
+                if (!IsValid(candidate)) return false;
+                data = candidate; return true;
             }
-            catch (Exception) { message = "저장 파일을 읽을 수 없습니다."; return false; }
+            catch (Exception) { return false; }
         }
 
         public bool TrySave(NativeSaveData data, out string message)
@@ -98,18 +156,39 @@ namespace DarkSaver.Core
             try
             {
                 // Preserve an unreadable/unknown-version slot rather than overwriting it.
-                if (File.Exists(FilePath) && !TryLoad(out _, out _))
-                { message = "기존 저장 파일에 오류가 있어 덮어쓰지 않았습니다."; return false; }
+                var primaryValid = TryRead(FilePath, out var previous, out var future);
+                var recovered = false;
+                if (File.Exists(FilePath) && !primaryValid)
+                {
+                    recovered = !future && TryRead(FilePath + ".bak", out previous, out _);
+                    if (!recovered)
+                    { message = "기존 저장 파일에 오류가 있어 덮어쓰지 않았습니다."; return false; }
+                }
+                else if (!File.Exists(FilePath))
+                {
+                    // A missing primary can still have a newer valid roster backup.
+                    var backupValid = TryRead(FilePath + ".bak", out previous, out var backupFuture);
+                    if (backupFuture || (File.Exists(FilePath + ".bak") && !backupValid))
+                    { message = "기존 백업의 오류 또는 새로운 버전을 확인해야 합니다."; return false; }
+                }
                 // Never silently drop a newer roster through a legacy writer.
-                if (File.Exists(FilePath) && TryLoad(out var previous, out _) && previous.version > data.version)
+                if (previous != null && previous.version > data.version)
                 { message = "보유 목록이 있는 저장을 이전 버전으로 덮어쓰지 않았습니다."; return false; }
-                var json = JsonUtility.ToJson(data, true);
+                var payload = JsonUtility.ToJson(data);
+                var json = JsonUtility.ToJson(new SaveEnvelope
+                { format = CheckedFormat, version = 1, payload = payload, sha256 = Checksum(payload) }, true);
                 if (Encoding.UTF8.GetByteCount(json) > 1024 * 1024)
                 { message = "저장 데이터가 너무 큽니다."; return false; }
                 Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
                 temporary = FilePath + ".tmp-" + Guid.NewGuid().ToString("N");
-                File.WriteAllText(temporary, json, new UTF8Encoding(false));
-                if (File.Exists(FilePath)) File.Replace(temporary, FilePath, FilePath + ".bak");
+                using (var stream = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                {
+                    var bytes = new UTF8Encoding(false).GetBytes(json);
+                    stream.Write(bytes, 0, bytes.Length);
+                    stream.Flush(true);
+                }
+                // Never replace a good backup with the corrupt primary during recovery.
+                if (File.Exists(FilePath)) File.Replace(temporary, FilePath, recovered ? null : FilePath + ".bak");
                 else File.Move(temporary, FilePath);
                 message = "저장했습니다."; return true;
             }

@@ -463,11 +463,12 @@ namespace DarkSaver.UI
                 elements[key + "-icon"].style.opacity = enabled || !dimDisabledIcon ? 1 : .4f;
             }
         }
-        public void TextInput(string key, Rect rect, string value, int maximum, Action<string> changed, VisualElement parent = null)
+        public void TextInput(string key, Rect rect, string value, int maximum, Action<string> changed, VisualElement parent = null, bool password = false)
         {
             var isNew = !elements.ContainsKey(key);
             var field = Element<TextField>(key, rect, parent);
             field.maxLength = maximum;
+            field.isPasswordField = password;field.maskChar = '*';
             textChanges[key] = changed;
             if (isNew) field.RegisterValueChangedCallback(e => {
                 if (owner != null && owner.isActiveAndEnabled && textChanges.TryGetValue(key, out var callback)) callback?.Invoke(e.newValue);
@@ -544,6 +545,11 @@ namespace DarkSaver.UI
         {
             var element = Element<VisualElement>(key, rect, parent); element.pickingMode = PickingMode.Ignore;
             element.style.backgroundImage = sprite == null ? StyleKeyword.None : new StyleBackground(sprite);
+        }
+        public void PortraitTexture(string key, Rect rect, Texture2D texture)
+        {
+            var element = Element<VisualElement>(key, rect); element.pickingMode = PickingMode.Ignore;
+            element.style.backgroundImage = texture == null ? StyleKeyword.None : new StyleBackground(texture);
         }
         private void OnDestroy()
         {

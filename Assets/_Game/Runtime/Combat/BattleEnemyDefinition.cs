@@ -22,6 +22,20 @@ namespace DarkSaver.Combat
         [SerializeField] private int baseAttack;
         [SerializeField] private int baseDefense;
         [SerializeField] private BattleObjectiveDefinition victoryObjective;
+        private DarkSaver.Events.Scenario01Unit scenarioUnit;
+        private DarkSaver.Events.Scenario01EnemyState scenarioSnapshot;
+
+        // Explicit baked source base stats and authored placement. No server level
+        // growth/distribution formula is inferred. One encounter uses existing combat.
+        public void InitializeScenarioUnit(DarkSaver.Events.Scenario01Unit unit, DarkSaver.Events.Scenario01EnemyState snapshot = null)
+        {
+            if (unit == null || unit.id < 400 || unit.id >= 800 || unit.hp <= 0) throw new ArgumentException("Invalid scenario unit.");
+            scenarioUnit = unit; instanceId = checked((short)unit.id); jobId = unit.job; displayName = unit.name;
+            scenarioSnapshot = snapshot;
+            scriptPosition = new Vector2Int(unit.x, unit.y); useJobCatalogBaseStats = false;
+            baseHp = unit.hp; baseMp = unit.mp; baseAttack = unit.attack; baseDefense = unit.defense;
+            useNativeBaseDefeatExperience = true; victoryObjective = null;
+        }
 
         public int JobId => jobId;
         public bool UsesJobCatalogBaseStats => useJobCatalogBaseStats;
@@ -31,6 +45,7 @@ namespace DarkSaver.Combat
         public bool TryGetDefeatExperience(out uint experience)
         {
             experience = 0;
+            if (scenarioUnit != null) { experience = scenarioUnit.experience; return true; }
             if (!useNativeBaseDefeatExperience) return true;
             if (jobCatalog == null || !jobCatalog.TryGet(jobId, out var entry)) return false;
             var value = entry.GetNumericValue(32); // 획득경; preserve invalid sentinels rather than clamp.
@@ -43,7 +58,7 @@ namespace DarkSaver.Combat
         public bool TryCreateUnit(out CombatUnit unit)
         {
             unit = null;
-            long hp = baseHp, mp = baseMp, attack = baseAttack, defense = baseDefense,magicAttack=0,magicDefense=0;
+            long hp = baseHp, mp = baseMp, attack = baseAttack, defense = baseDefense,magicAttack=scenarioUnit?.magicAttack ?? 0,magicDefense=scenarioUnit?.magicDefense ?? 0;
             if (useJobCatalogBaseStats)
             {
                 if (jobCatalog == null || !jobCatalog.TryGet(jobId, out var entry)) return false;
@@ -62,9 +77,16 @@ namespace DarkSaver.Combat
                 Id = instanceId, Name = displayName, Enemy = true,
                 X = scriptPosition.x, Y = scriptPosition.y,
                 Hp = (int)hp, MaxHp = (int)hp, Mp = (int)mp, MaxMp = (int)mp,
-                Attack = (int)attack, Defense = (int)defense,HasMagicAttack=useJobCatalogBaseStats && IsNonNegativeInt(magicAttack),HasMagicDefense=useJobCatalogBaseStats && IsNonNegativeInt(magicDefense),
+                Attack = (int)attack, Defense = (int)defense,HasMagicAttack=(useJobCatalogBaseStats || scenarioUnit != null) && IsNonNegativeInt(magicAttack),HasMagicDefense=(useJobCatalogBaseStats || scenarioUnit != null) && IsNonNegativeInt(magicDefense),
                 MagicAttack=IsNonNegativeInt(magicAttack)?(int)magicAttack:0,MagicDefense=IsNonNegativeInt(magicDefense)?(int)magicDefense:0
             };
+            if (scenarioSnapshot != null)
+            {
+                if (scenarioSnapshot.id != instanceId || scenarioSnapshot.hp <= 0 || scenarioSnapshot.hp > unit.MaxHp
+                    || scenarioSnapshot.mp < 0 || scenarioSnapshot.mp > unit.MaxMp) { unit = null; return false; }
+                unit.Hp = scenarioSnapshot.hp; unit.Mp = scenarioSnapshot.mp;
+                unit.X = scenarioSnapshot.x; unit.Y = scenarioSnapshot.y;
+            }
             return true;
         }
 

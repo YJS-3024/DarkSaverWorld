@@ -20,9 +20,9 @@ namespace DarkSaver.CameraSystem
             target = followTarget;
             var view = GetComponent<Camera>();
             Rendering.GameScreen.ApplyCamera(view);
-            view.orthographicSize = GameConstants.WorldCameraOrthographicSize;
-            minimum = new Vector2(GameConstants.WorldCameraOrthographicSize * view.aspect,
-                GameConstants.WorldCameraOrthographicSize);
+            float size=Mathf.Min(GameConstants.WorldCameraOrthographicSize,Mathf.Max(.5f,mapSize.y*.5f),Mathf.Max(.5f,mapSize.x/(2*view.aspect)));
+            view.orthographicSize = size;
+            minimum = new Vector2(size * view.aspect,size);
             maximum = mapSize - minimum;
         }
 

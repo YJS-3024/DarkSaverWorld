@@ -22,9 +22,9 @@ namespace DarkSaver.Combat
         {
             if (id <= 0 || id > short.MaxValue || mpCost < 0 || range < 0 || attack < 0 || defense < 0
                 || (attack == 0 && defense == 0) || float.IsNaN(seconds) || float.IsInfinity(seconds) || seconds <= 0) return false;
-            buffRules[id] = (mpCost, range, attack, defense, seconds); magicRules.Remove(id); quickRules.Remove(id); statusRules.Remove(id); return true;
+            abilityRules.Remove(id);buffRules[id] = (mpCost, range, attack, defense, seconds); magicRules.Remove(id); quickRules.Remove(id); statusRules.Remove(id); return true;
         }
-        public bool IsTemporarySupportMagic(int id) => IsTemporaryHealingMagic(id)
+        public bool IsTemporarySupportMagic(int id) => TemporaryRulesEnabled && abilityRules.TryGetValue(id,out var ability) && ability.Support || IsTemporaryHealingMagic(id)
             || TemporaryRulesEnabled && (buffRules.ContainsKey(id) || quickRules.ContainsKey(id) || IsSupportStatusMagic(id));
         public int EffectiveAttack(CombatUnit unit) => EffectiveStat(unit, true);
         public int EffectiveDefense(CombatUnit unit) => EffectiveStat(unit, false);
@@ -39,6 +39,8 @@ namespace DarkSaver.Combat
         {
             long value = attack ? unit.Attack : unit.Defense;
             if (TemporaryRulesEnabled && unit.Alive && buffs.TryGetValue((unit.Id, attack), out var buff)) value += buff.Amount;
+            if(TryGetTemporaryStatus(unit,TemporaryStatusEffect.AttackDown,out var penalty,out _) && attack)value-=penalty;
+            if(TryGetTemporaryStatus(unit,TemporaryStatusEffect.Berserk,out var percent,out _))value=attack?value*(100L+Math.Min(300,percent))/100:value*75/100;
             return (int)Math.Min(int.MaxValue, Math.Max(0, value));
         }
         public void ApplyTemporaryBuff(CombatResult result)
@@ -65,13 +67,13 @@ namespace DarkSaver.Combat
         public bool ConfigureTemporaryDamageMagic(int id, int mpCost, int range, int powerBonus, int defenseDivisor)
         {
             if (id <= 0 || id > short.MaxValue || mpCost < 0 || range < 0 || powerBonus < 0 || defenseDivisor <= 0) return false;
-            magicRules[id] = (mpCost, range, powerBonus, defenseDivisor, 0); buffRules.Remove(id); quickRules.Remove(id); statusRules.Remove(id); return true;
+            abilityRules.Remove(id);magicRules[id] = (mpCost, range, powerBonus, defenseDivisor, 0); buffRules.Remove(id); quickRules.Remove(id); statusRules.Remove(id); return true;
         }
 
         public bool ConfigureTemporaryHealingMagic(int id, int mpCost, int range, int healing)
         {
             if (id <= 0 || id > short.MaxValue || mpCost < 0 || range < 0 || healing <= 0) return false;
-            magicRules[id] = (mpCost, range, 0, 1, healing); buffRules.Remove(id); quickRules.Remove(id); statusRules.Remove(id); return true;
+            abilityRules.Remove(id);magicRules[id] = (mpCost, range, 0, 1, healing); buffRules.Remove(id); quickRules.Remove(id); statusRules.Remove(id); return true;
         }
 
         public bool IsTemporaryHealingMagic(int id) => TemporaryRulesEnabled
@@ -93,6 +95,8 @@ namespace DarkSaver.Combat
 
         private bool TryGetMagicRule(int id, out (int Mp, int Range, int Bonus, int Divisor, int Healing) rule)
         {
+            if(TemporaryRulesEnabled && abilityRules.TryGetValue(id,out var ability))
+            {rule=(ability.Mp,ability.Range,ability.Power,2,ability.Effect==AbilityEffect.Heal?ability.Power:0);return true;}
             if (TemporaryRulesEnabled && magicRules.TryGetValue(id, out rule)) return true;
             if (TemporaryRulesEnabled && buffRules.TryGetValue(id, out var buff))
             { rule = (buff.Mp, buff.Range, 0, 1, 0); return true; }
@@ -143,13 +147,15 @@ namespace DarkSaver.Combat
                 reason = "아직 지원하지 않는 행동입니다.";
             else if ((request.Action == CombatActionType.Magic && !TryGetMagicRule(request.MagicId, out _))
                 || (request.Action == CombatActionType.Attack && request.MagicId != 0))
-                reason = "현재 시연에서 지원하지 않는 마법 요청입니다.";
+                reason = "사용할 수 없는 기술입니다.";
             else if (!world.TryGet(request.ActorId, out var actor) || !world.TryGet(request.TargetId, out var target))
                 reason = "행동자 또는 대상이 없습니다.";
             else if (request.ActorId == request.TargetId && !(request.Action == CombatActionType.Magic && IsTemporarySupportMagic(request.MagicId)))
-                reason = "현재 공격 시연은 자신을 대상으로 할 수 없습니다.";
-            else if (!actor.Alive || !target.Alive)
+                reason = "이 기술은 자신을 대상으로 사용할 수 없습니다.";
+            else if (!actor.Alive || !target.Alive && !(request.Action==CombatActionType.Magic && IsRevivalMagic(request.MagicId)))
                 reason = "전투 불능 개체는 공격에 참여할 수 없습니다.";
+            else if(request.Action==CombatActionType.Magic && TemporaryRulesEnabled && abilityRules.TryGetValue(request.MagicId,out var ability)
+                && !ValidateAbility(actor,target,ability,out reason)) { }
             else if (!CanAct(actor)) reason = "수면 중에는 행동할 수 없습니다.";
             else if (request.Action == CombatActionType.Magic && !item && !CanCast(actor)) reason = "뮤트 상태에서는 마법을 시전할 수 없습니다.";
             else if (request.Action == CombatActionType.Magic && IsTemporarySupportMagic(request.MagicId) && actor.Enemy != target.Enemy)
@@ -185,6 +191,7 @@ namespace DarkSaver.Combat
             var magic = request.Action == CombatActionType.Magic;
             TryGetMagicRule(request.MagicId, out var magicRule);
             var manaCost = magic && !item ? magicRule.Mp : 0;
+            if(magic && TemporaryRulesEnabled && abilityRules.TryGetValue(request.MagicId,out var ability))return ResolveAbility(actor,target,ability,!item);
             if (magic && TemporaryRulesEnabled && statusRules.TryGetValue(request.MagicId, out var statusRule))
                 return new CombatResult(actor.Id, target.Id, target.Hp, actor.Mp - manaCost, 0, false,
                     statusEffect: statusRule.Effect, statusPower: statusRule.Power, statusSeconds: statusRule.Seconds);
@@ -206,6 +213,7 @@ namespace DarkSaver.Combat
                     ? actorRates.Accuracy : GameConstants.BattleTemporaryAccuracyPercent;
                 var evasion = physicalRates.TryGetValue(target.Id, out var targetRates)
                     ? targetRates.Evasion : GameConstants.BattleTemporaryEvasionPercent;
+                if(TryGetTemporaryStatus(actor,TemporaryStatusEffect.Accuracy,out var aim,out _))accuracy=Math.Min(100,accuracy+aim);
                 var chance = physicalHitRule(accuracy, evasion);
                 if (double.IsNaN(chance) || double.IsInfinity(chance) || chance < 0 || chance > 1)
                     throw new InvalidOperationException("Invalid physical hit probability.");
@@ -220,8 +228,9 @@ namespace DarkSaver.Combat
                     (long)(actor.HasMagicAttack ? actor.MagicAttack : EffectiveAttack(actor)) + magicRule.Bonus
                     - Math.Max(0, (target.HasMagicDefense ? target.MagicDefense : EffectiveDefense(target)) / magicRule.Divisor)))
                 : TemporaryCombatDamageRules.Calculate(EffectiveAttack(actor), EffectiveDefense(target), false);
+            int venom=0;bool poisoned=!magic && TryGetTemporaryStatus(actor,TemporaryStatusEffect.PoisonWeapon,out venom,out _);
             return new CombatResult(actor.Id, target.Id, Math.Max(0, target.Hp - damage),
-                actor.Mp - manaCost, damage, !TemporaryRulesEnabled);
+                actor.Mp - manaCost, damage, !TemporaryRulesEnabled,statusEffect:poisoned?TemporaryStatusEffect.Poison:TemporaryStatusEffect.None,statusPower:poisoned?venom:0,statusSeconds:poisoned?20:0);
         }
     }
 }

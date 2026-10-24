@@ -1,4 +1,4 @@
-﻿using DarkSaver.Core;
+using DarkSaver.Core;
 using DarkSaver.Items;
 using DarkSaver.Jobs;
 using UnityEngine;
@@ -17,9 +17,10 @@ namespace DarkSaver.Combat
         }
         public bool TryChangeEquipment(int slot,int itemId,NativeCharacterProfile baseline,out string reason)
         {
+            if(!processingSessionRequest)return SubmitSession(new DarkSaver.Network.LocalEquipmentChangeRequest(slot,itemId,baseline),out reason);
             reason="마을에서 최신 장비를 선택하세요.";
             if(!isActiveAndEnabled || transitioning || activeBattle!=null || !CanEnterBattle || character==null || inventory==null
-                || !SceneManager.GetSceneByName("Town_Runtime").isLoaded || SceneManager.GetSceneByName(BattleSceneName).isLoaded
+                || !DarkSaver.World.TownSceneContext.IsReady || SceneManager.GetSceneByName(BattleSceneName).isLoaded
                 || FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling==true
                 || GetComponent<DarkSaver.UI.BattleFormationPanel>()?.IsOpen==true || baseline==null
                 || JsonUtility.ToJson(baseline)!=JsonUtility.ToJson(character))return false;

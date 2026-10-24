@@ -73,7 +73,7 @@ Check(commands[2].LineNumber == 3, "event source line preserved");
 var unknown = EventScriptParser.Parse("7 UNKNOWN 42")[0];
 Check(unknown.Name == "7" && unknown.NumericPrefix == null, "unverified numeric syntax preserved");
 var coordinates = EventScriptParser.Parse("CHANGESPRITE 5 15 0 1\nCHARPOS 800 15 5");
-Check(coordinates[0].ReadCoordinates(0) == (15, 5) && coordinates[1].ReadCoordinates(1) == (15, 5),
+Check(coordinates[0].ReadCoordinates(0) == (5, 15) && coordinates[1].ReadCoordinates(1) == (15, 5),
     "command-specific coordinate order");
 var spawnCommand = EventScriptParser.Parse("CHARPOS 701 700 19 10")[0];
 Check(spawnCommand.TryReadScenePlacement(out var bossPlacement) && bossPlacement.DefinitionToken == "701" &&

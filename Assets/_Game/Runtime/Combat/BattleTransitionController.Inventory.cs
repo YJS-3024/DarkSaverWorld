@@ -1,4 +1,4 @@
-﻿using DarkSaver.Core;
+using DarkSaver.Core;
 using DarkSaver.Items;
 using UnityEngine.SceneManagement;
 
@@ -45,6 +45,11 @@ namespace DarkSaver.Combat
         }
         public bool TryUseBattleRecoveryItem(BattleSceneRoot source,int itemId,short targetId,NativeInventory baseline,out string reason)
         {
+            if(!processingSessionRequest)
+            {
+                if(source!=activeBattle){reason="현재 전투가 아닙니다.";return false;}
+                return SubmitSession(new DarkSaver.Network.LocalBattleItemUseRequest(itemId,targetId,baseline),out reason);
+            }
             if(!CanUseBattleRecoveryItem(source,itemId,targetId,baseline,out reason)
                 || !inventory.TryConsume(itemId,1,out var changed))return false;
             var itemCatalog=GetComponent<DarkSaver.UI.ItemCatalogPanel>().Catalog;
@@ -67,16 +72,25 @@ namespace DarkSaver.Combat
         public bool CanTrade(NativeShopOffer offer, int quantity, bool buying, ItemCatalog catalog, out string message)
         {
             message = "거래할 수 없습니다. 품목·가격·소지 상태를 확인하세요.";
+            var interior=DarkSaver.World.ShopInteriorContext.Current;
+            if(interior!=null && (offer==null || catalog==null || !catalog.TryGet(offer.itemId,out var entry) || !interior.OffersPosition(entry.GetNumericValue(3))))
+            {message="이 상점에서 취급하지 않는 품목입니다.";return false;}
+            if(UnityEngine.Object.FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling==true)return false;
             if(!buying && offer!=null && inventory!=null && inventory.IsValid && (character?.EquippedCount(offer.itemId)??0)>0
                 && inventory.Count(offer.itemId)-(character?.EquippedCount(offer.itemId)??0)<quantity)
             {message="장착 중인 수량은 판매할 수 없습니다.";return false;}
-            return HasCreatedCharacter && inventory != null && !transitioning && SceneManager.GetSceneByName("Town_Runtime").isLoaded
+            return HasCreatedCharacter && inventory != null && !transitioning && DarkSaver.World.TownSceneContext.IsReady
                 && !SceneManager.GetSceneByName("Battle").isLoaded && offer != null && catalog != null
                 && catalog.TryGet(offer.itemId, out _)
                 && inventory.CanTrade(offer.itemId, quantity, buying ? offer.buyPrice : offer.sellPrice, buying, out message);
         }
         public bool TryTrade(NativeShopOffer offer, int quantity, bool buying, ItemCatalog catalog, out string message)
         {
+            if(!processingSessionRequest)
+            {
+                if(offer==null || catalog!=serverShopCatalog){message="서버 상점 정보가 다릅니다.";return false;}
+                return SubmitSession(new DarkSaver.Network.LocalTradeRequest(offer.itemId,quantity,buying),out message);
+            }
             if (!CanTrade(offer, quantity, buying, catalog, out message) || !inventory.TryTrade(offer.itemId, quantity,
                     buying ? offer.buyPrice : offer.sellPrice, buying, out var changed)) return false;
             inventory = changed; message = buying ? "구매했습니다. 저장 버튼으로 보관하세요." : "판매했습니다. 저장 버튼으로 보관하세요.";

@@ -4,7 +4,7 @@ param(
 )
 
 $data = Get-Content -Raw -LiteralPath $InputPath | ConvertFrom-Json
-$modeCodes = @{ ODNORMAL = 2; ODDEFENCE = 4; ODATTACK = 8 }
+$modeCodes = @{ ODNORMAL = 2; ODATTACK = 4; ODDEFENCE = 8 }
 $ruleRows = [System.Collections.Generic.List[object]]::new()
 $actionRows = [System.Collections.Generic.List[object]]::new()
 

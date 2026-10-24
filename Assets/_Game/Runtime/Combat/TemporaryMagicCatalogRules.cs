@@ -11,59 +11,8 @@ namespace DarkSaver.Combat
         public static int Configure(BattleSceneRoot battle, MagicCatalog catalog)
         {
             if (battle == null || catalog == null || !battle.TemporaryLocalRulesEnabled) return 0;
-            int count = 0;
-            for (int i = 0; i < catalog.Count; i++)
-            {
-                var entry = catalog.GetAt(i);
-                if (battle.TryGetTemporaryMagicMpCost(entry.Id, out _) || !TryClassify(entry, out var effect, out var level)) continue;
-                int extra = level - 1;
-                if (effect == TemporaryMagicEffect.Poison || effect == TemporaryMagicEffect.CurePoison || effect == TemporaryMagicEffect.MovementReduction
-                    || effect == TemporaryMagicEffect.Silence || effect == TemporaryMagicEffect.Sleep || effect == TemporaryMagicEffect.Wake)
-                {
-                    if (entry.Mp < 0 || entry.Mp > int.MaxValue || entry.Range < 0 || entry.Range > 255) continue;
-                    var status = effect == TemporaryMagicEffect.Poison ? TemporaryStatusEffect.Poison
-                        : effect == TemporaryMagicEffect.CurePoison ? TemporaryStatusEffect.CurePoison : effect == TemporaryMagicEffect.Silence ? TemporaryStatusEffect.Silence
-                        : effect == TemporaryMagicEffect.Sleep ? TemporaryStatusEffect.Sleep
-                        : effect == TemporaryMagicEffect.Wake ? TemporaryStatusEffect.Wake : TemporaryStatusEffect.MovementReduction;
-                    // Data-derived poison magnitude; fixed local timing/movement policy, not server formulas.
-                    int power = status == TemporaryStatusEffect.Poison ? (int)Math.Max(1, Math.Min(1000, entry.GetNumericValue(9)))
-                        : status == TemporaryStatusEffect.MovementReduction ? Math.Min(60, 25 + extra * 5) : 1;
-                    if (battle.ConfigureTemporaryStatusMagic(entry.Id, (int)entry.Mp, (int)entry.Range, status, power, 20))
-                    { battle.ConfigureMagicApCost(entry.Id, GameConstants.BattleTemporaryBuffApCost); count++; }
-                    continue;
-                }
-                if (effect == TemporaryMagicEffect.Quick)
-                {
-                    // Native MP/range; local percentage/duration/cost, not decoded EA/EB semantics.
-                    if (entry.Mp < 0 || entry.Mp > int.MaxValue || entry.Range < 0 || entry.Range > 255) continue;
-                    if (battle.ConfigureTemporaryQuickMagic(entry.Id, (int)entry.Mp, (int)entry.Range,
-                        Math.Min(45, 20 + extra * 5), GameConstants.BattleTemporaryBuffSeconds))
-                    { battle.ConfigureMagicApCost(entry.Id, GameConstants.BattleTemporaryBuffApCost); count++; }
-                    continue;
-                }
-                int mp = (effect == TemporaryMagicEffect.Damage ? GameConstants.BattleTemporaryMagic101MpCost
-                    : effect == TemporaryMagicEffect.Healing ? GameConstants.BattleTemporaryHeal2401MpCost : GameConstants.BattleTemporaryBuffMpCost)
-                    + extra * GameConstants.BattleTemporaryMagicMpPerLevel;
-                bool success;
-                if (effect == TemporaryMagicEffect.Damage)
-                    success = battle.ConfigureTemporaryDamageMagic(entry.Id, mp, GameConstants.BattleTemporaryMagic101Range,
-                        GameConstants.BattleTemporaryMagicPowerBonus + extra * GameConstants.BattleTemporaryMagicPowerPerLevel,
-                        GameConstants.BattleTemporaryMagicDefenseDivisor);
-                else if (effect == TemporaryMagicEffect.Healing)
-                    success = battle.ConfigureTemporaryHealingMagic(entry.Id, mp, GameConstants.BattleTemporaryHeal2401Range,
-                        GameConstants.BattleTemporaryHeal2401Amount + extra * GameConstants.BattleTemporaryHealPerLevel);
-                else
-                {
-                    int bonus = GameConstants.BattleTemporaryBuffAmount + extra * GameConstants.BattleTemporaryBuffPerLevel;
-                    success = battle.ConfigureTemporaryBuffMagic(entry.Id, mp, GameConstants.BattleTemporaryBuffRange,
-                        effect == TemporaryMagicEffect.AttackBuff ? bonus : 0, effect == TemporaryMagicEffect.DefenseBuff ? bonus : 0,
-                        GameConstants.BattleTemporaryBuffSeconds);
-                }
-                if (!success) continue;
-                battle.ConfigureMagicApCost(entry.Id, effect == TemporaryMagicEffect.Damage
-                    ? GameConstants.BattleTemporaryMagic101ApCost : GameConstants.BattleTemporaryBuffApCost);
-                count++;
-            }
+            int count=0;
+            for(int i=0;i<catalog.Count;i++)if(battle.ConfigureSinglePlayerAbility(catalog.GetAt(i)))count++;
             return count;
         }
 

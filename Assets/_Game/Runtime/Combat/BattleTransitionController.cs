@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using DarkSaver.Player;
 using DarkSaver.Core;
@@ -95,10 +95,32 @@ namespace DarkSaver.Combat
             if (character != null && character.hasLevels && !character.TryAdvanceLevels(
                 GetComponent<DarkSaver.UI.TownServicesPanel>()?.Progression, primary.Experience, out progressed, out remainingExperience))
             { reason = "확인된 레벨의 원본 성장 행을 검증할 수 없습니다. 복귀 상태를 보존합니다."; return false; }
+            var scenarioReturn = scenario01?.Clone();
+            if ((DarkSaver.Events.Scenario01Controller.ActiveKey == "01" || string.IsNullOrEmpty(DarkSaver.Events.Scenario01Controller.ActiveKey)) && scenarioReturn != null && scenarioReturn.pendingBattle != -1)
+            {
+                var content = DarkSaver.Events.Scenario01Controller.Definition;
+                if (content == null || !battle.TryGetUnit((short)scenarioReturn.pendingBattle, out var opponent)
+                    || !DarkSaver.Events.Scenario01Rules.RecordBattleReturn(content, scenarioReturn, scenarioReturn.pendingBattle,
+                        opponent.LifeState != UnitLifeState.Active,
+                        new DarkSaver.Events.Scenario01EnemyState { id = opponent.Id, hp = opponent.Hp, mp = opponent.Mp, x = opponent.X, y = opponent.Y }))
+                { reason = "시나리오 조우 결과를 확인할 수 없습니다."; return false; }
+            }
+            var campaignKey = DarkSaver.Events.Scenario01Controller.ActiveKey;
+            var campaignReturn = CaptureCampaign(campaignKey);
+            if (campaignReturn != null && campaignReturn.pendingBattle != -1)
+            {
+                var definition = DarkSaver.Events.Scenario01Controller.LoadDefinition(campaignKey);
+                if (!battle.TryGetUnit((short)campaignReturn.pendingBattle,out var target)
+                    || !DarkSaver.Events.Scenario01Rules.RecordBattleReturn(definition,campaignReturn,campaignReturn.pendingBattle,target.LifeState != UnitLifeState.Active,
+                        new DarkSaver.Events.Scenario01EnemyState {id=target.Id,hp=target.Hp,mp=target.Mp,x=target.X,y=target.Y}))
+                {reason="시나리오 전투 복귀 상태가 올바르지 않습니다.";return false;}
+            }
             // Publish only after both primary and additional results validate.
             playerHp = primary.Hp; playerMaxHp = primary.MaxHp; playerMp = primary.MaxMp; playerMaxMp = primary.MaxMp;
             playerExperience = remainingExperience; character = progressed;
             playerLifeState = primary.LifeState; hasPlayerVitals = true;
+            if (scenarioReturn != null) { scenario01 = scenarioReturn; Scenario01Revision++; }
+            if (campaignReturn != null) { campaign[campaignKey] = campaignReturn; CampaignRevision++; }
             if (updated != null)
             {
                 ownedRoster = updated; OwnedRosterRevision++;
@@ -112,6 +134,7 @@ namespace DarkSaver.Combat
         public NativeOwnedRoster CaptureOwnedRoster() => ownedRoster?.Clone();
         public bool TrySetOwnedRoster(NativeOwnedRoster source, out string reason)
         {
+            if(!processingSessionRequest)return SubmitSession(new DarkSaver.Network.LocalFormationRequest(source),out reason);
             reason = "보유 목록을 변경할 준비가 되지 않았습니다.";
             if (source == null || !source.IsValid || transitioning || SceneManager.GetSceneByName(BattleSceneName).isLoaded ||
                 GetComponent<DarkSaver.UI.BattleFormationPanel>()?.IsOpen == true) return false;
@@ -163,13 +186,16 @@ namespace DarkSaver.Combat
             var keys = new List<string>(clearedScenarioKeys); keys.Sort(System.StringComparer.Ordinal);
             return new NativeSaveData
             {
-                format = NativeSaveStore.Format, version = ownedRoster == null ? NativeSaveStore.Version : NativeSaveStore.RosterVersion,
+                format = NativeSaveStore.Format, version = campaign.Count > 0 ? NativeSaveStore.CampaignVersion : scenario01 != null ? NativeSaveStore.ScenarioVersion
+                    : ownedRoster == null ? NativeSaveStore.Version : NativeSaveStore.RosterVersion,
                 mapScene = map, runtimeScene = runtime, worldX = position.x, worldY = position.y,
                 experience = playerExperience, hasVitals = hasPlayerVitals,
                 hp = playerHp, maxHp = playerMaxHp, mp = playerMp, maxMp = playerMaxMp,
                 lifeState = (int)playerLifeState, clearedScenarios = keys.ToArray(), character = character?.Clone(), hasCharacter = character != null,
                 ownedRoster = ownedRoster?.Clone(), hasOwnedRoster = ownedRoster != null,
-                inventory = inventory?.Clone(), hasInventory = inventory != null
+                inventory = inventory?.Clone(), hasInventory = inventory != null,
+                hasScenario01 = scenario01 != null, scenario01 = scenario01?.Clone(),
+                campaign = CaptureCampaignStates()
             };
         }
 
@@ -184,6 +210,8 @@ namespace DarkSaver.Combat
             character = data.hasCharacter ? data.character.Clone() : null;
             ownedRoster = restoredRoster; OwnedRosterRevision++;
             inventory = data.hasInventory ? data.inventory.Clone() : null;
+            scenario01 = data.hasScenario01 ? data.scenario01.Clone() : null; Scenario01Revision++;
+            RestoreCampaignStates(data.campaign);
             GetComponent<DarkSaver.UI.BattleFormationPanel>()?.UseSessionRoster();
             clearedScenarioKeys.Clear(); clearedScenarioKeys.UnionWith(keys);
             return true;
@@ -191,14 +219,18 @@ namespace DarkSaver.Combat
 
         public bool SaveWorld()
         {
+            if(!processingSessionRequest)return SubmitSession(new DarkSaver.Network.SaveWorldRequest(),out lastSaveMessage);
             var player = FindAnyObjectByType<TopDownPlayerController>();
             var coordinator = FindAnyObjectByType<WorldSceneCoordinator>();
             if (transitioning || SceneManager.GetSceneByName(BattleSceneName).isLoaded || player == null ||
                 !player.isActiveAndEnabled || (coordinator != null && coordinator.IsTravelling))
             { lastSaveMessage = "전투 또는 맵 이동 중에는 저장할 수 없습니다."; return false; }
-            var town = SceneManager.GetSceneByName("Kaosia_Map").isLoaded && SceneManager.GetSceneByName("Town_Runtime").isLoaded;
-            var field = SceneManager.GetSceneByName("World1010_Map").isLoaded && SceneManager.GetSceneByName("Field_Runtime").isLoaded;
-            var scenario = SceneManager.GetSceneByName("Brugos01_Map").isLoaded && SceneManager.GetSceneByName("Brugos01_Runtime").isLoaded;
+            var townDefinition = DarkSaver.World.TownSceneContext.Current;
+            var town = townDefinition != null && SceneManager.GetSceneByName(townDefinition.MapScene).isLoaded;
+            var fieldDefinition = DarkSaver.World.FieldSceneContext.Current;
+            var field = fieldDefinition != null && SceneManager.GetSceneByName(fieldDefinition.MapScene).isLoaded;
+            var scenarioDefinition = DarkSaver.Events.Scenario01Controller.CurrentScenario;
+            var scenario = scenarioDefinition != null && SceneManager.GetSceneByName(scenarioDefinition.MapScene).isLoaded;
             string trainingMap = null, trainingRuntime = null; int trainingCount = 0;
             for (int id = 101; id <= 107; id++)
                 if (SceneManager.GetSceneByName("Map_" + id + "_;").isLoaded && SceneManager.GetSceneByName("Training" + id + "_Runtime").isLoaded)
@@ -206,8 +238,8 @@ namespace DarkSaver.Combat
             if ((town ? 1 : 0) + (field ? 1 : 0) + (scenario ? 1 : 0) + trainingCount != 1)
             { lastSaveMessage = "현재 맵의 저장 준비가 되지 않았습니다."; return false; }
             if (saveStore == null) saveStore = new NativeSaveStore(NativeSaveStore.DefaultPath);
-            return saveStore.TrySave(CaptureSaveState(town ? "Kaosia_Map" : field ? "World1010_Map" : scenario ? "Brugos01_Map" : trainingMap,
-                town ? "Town_Runtime" : field ? "Field_Runtime" : scenario ? "Brugos01_Runtime" : trainingRuntime, player.transform.position), out lastSaveMessage);
+            return saveStore.TrySave(CaptureSaveState(town ? townDefinition.MapScene : field ? fieldDefinition.MapScene : scenario ? scenarioDefinition.MapScene : trainingMap,
+                town ? townDefinition.RuntimeScene : field ? fieldDefinition.RuntimeScene : scenario ? scenarioDefinition.RuntimeScene : trainingRuntime, player.transform.position), out lastSaveMessage);
         }
 
         public bool IsScenarioCleared(string mapKey) =>
@@ -217,6 +249,7 @@ namespace DarkSaver.Combat
         {
             if (battle == null) return false;
             var key = battle.ClearedScenarioKey;
+            if (key != null && campaign.ContainsKey(key) || key == "01" && scenario01 != null) return false; // DEE and its reward must complete first.
             return !string.IsNullOrWhiteSpace(key) && clearedScenarioKeys.Add(key);
         }
 
@@ -256,7 +289,13 @@ namespace DarkSaver.Combat
         public bool TryEnterBattle(BattleObjectiveDefinition objective = null, BattleEnemyDefinition enemy = null,
             SpriteRenderer enemyVisual = null)
         {
-            if (!isActiveAndEnabled || !CanEnterBattle || transitioning ||
+            if(!processingSessionRequest)
+            {
+                serverEncounterObjective=objective;serverEncounterEnemy=enemy;serverEncounterVisual=enemyVisual;
+                try{return SubmitSession(new DarkSaver.Network.LocalBattleTransitionRequest(true),out _);}
+                finally{serverEncounterObjective=null;serverEncounterEnemy=null;serverEncounterVisual=null;}
+            }
+            if (HasPendingTutorial || DarkSaver.Events.Scenario01Controller.BlocksWorldActions || !isActiveAndEnabled || !CanEnterBattle || transitioning ||
                 GetComponent<DarkSaver.UI.BattleFormationPanel>()?.IsOpen == true ||
                 SceneManager.GetSceneByName(BattleSceneName).isLoaded ||
                 !Application.CanStreamedLevelBeLoaded(BattleSceneName)) return false;
@@ -288,12 +327,15 @@ namespace DarkSaver.Combat
                     { LastTransitionMessage = "출전 칩 또는 직업별 통행을 확인할 수 없습니다."; return false; }
             }
             LastTransitionMessage = string.Empty;
+            // Keep the world encounter location before disabling the player/loading battle.
+            if(HasCreatedCharacter && !SaveWorld()){LastTransitionMessage=lastSaveMessage;return false;}
             StartCoroutine(EnterRoutine(objective, enemy, player.GetComponent<SpriteRenderer>(), enemyVisual, formation, art));
             return true;
         }
 
         public void ExitBattle()
         {
+            if(!processingSessionRequest){SubmitSession(new DarkSaver.Network.LocalBattleTransitionRequest(false),out _);return;}
             if (!transitioning && SceneManager.GetSceneByName(BattleSceneName).isLoaded)
                 StartCoroutine(ExitRoutine());
         }
@@ -443,7 +485,7 @@ namespace DarkSaver.Combat
 
         public static bool IsSupportedBattleMapScene(string name)
         {
-            if (name == "Kaosia_Map" || name == "World1010_Map" || name == "Brugos01_Map") return true;
+            if (DarkSaver.Core.ScenarioCatalog.IsMap(name) || DarkSaver.Core.TownCatalog.IsMap(name) || DarkSaver.Core.FieldCatalog.IsMap(name) || name == "Brugos01_Map") return true;
             for (int id = 101; id <= 107; id++) if (name == "Map_" + id + "_;") return true;
             return false;
         }

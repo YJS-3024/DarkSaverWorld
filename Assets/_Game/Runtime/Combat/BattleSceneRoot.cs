@@ -5,7 +5,7 @@ using DarkSaver.Network;
 
 namespace DarkSaver.Combat
 {
-    public sealed class BattleSceneRoot : MonoBehaviour
+    public sealed partial class BattleSceneRoot : MonoBehaviour
     {
         private const short PlayerId = 100;
         private short EnemyId = 800;
@@ -328,6 +328,7 @@ namespace DarkSaver.Combat
 
         public bool TryMoveTo(short unitId, CombatGridCell destination, out string reason)
         {
+            if (TemporaryLocalRulesEnabled && !processingServerRequest) return TrySubmitLocalRequest(new BattleMoveRequest(unitId,destination.X,destination.Y),out reason);
             EnsureInitialized();
             if (!isActiveAndEnabled || occupancy == null || !world.TryGet(unitId, out var actor) || !actor.Alive)
             { reason = "이동할 유닛과 활성 전투 격자가 필요합니다."; return false; }
@@ -552,6 +553,7 @@ namespace DarkSaver.Combat
                 : occupancy.TryGetReachableDestinations(unit.Id, out cells);
         }
 
+        private readonly System.Collections.Generic.Dictionary<short,int> fallenMovementBudgets=new();
         private void SynchronizeGridState(short unitId)
         {
             if (!world.TryGetSnapshot(unitId, out var unit)) return;
@@ -559,13 +561,42 @@ namespace DarkSaver.Combat
             // tickets. HP recovery must never make a pre-HP0 ticket valid again.
             if (!unit.Alive) CancelMovementStep(unitId);
             if (unit.LifeState != UnitLifeState.Active)
-            { occupancy?.ReleaseUnit(unitId); movementTickets.Remove(unitId); movementRoutes.Remove(unitId); movementBudgets.Remove(unitId); }
+            { if(movementBudgets.TryGetValue(unitId,out var fallenBudget))fallenMovementBudgets[unitId]=fallenBudget;occupancy?.ReleaseUnit(unitId); movementTickets.Remove(unitId); movementRoutes.Remove(unitId); movementBudgets.Remove(unitId); }
             if (selectedUnitId == unitId && !unit.Alive) ClearUnitSelection();
         }
 
         public event System.Action<CombatResult> CombatResultApplied;
         public event System.Action<short, int, bool> VitalsDisplayChanged;
         private void OnCombatResultApplied(CombatResult result)
+        {
+            if(!TemporaryLocalRulesEnabled){PresentCombatResult(result);return;}
+            if(result.Revive && occupancy!=null)
+            {
+                var placements=new System.Collections.Generic.List<CombatGridPlacement>();
+                var restoredIds=new System.Collections.Generic.HashSet<short>();
+                var requested=localMagicPresentation?.TargetUnitIds ?? (System.Collections.Generic.IReadOnlyList<short>)new[]{result.TargetId};
+                foreach(short id in requested)
+                    if(restoredIds.Add(id) && world.TryGet(id,out var restored) && restored.Alive && !occupancy.TryGetPosition(id,out _))
+                        placements.Add(new CombatGridPlacement(id,new CombatGridCell(restored.X,restored.Y)));
+                if(placements.Count>0)
+                {
+                    if(!occupancy.TryPlaceUnits(placements))Debug.LogError("Revived units could not reclaim validated grid cells.");
+                    else foreach(var placement in placements)
+                        if(fallenMovementBudgets.TryGetValue(placement.UnitId,out var restoredBudget))
+                        {movementBudgets[placement.UnitId]=restoredBudget;fallenMovementBudgets.Remove(placement.UnitId);}
+                }
+            }
+            SynchronizeGridState(result.ActorId); SynchronizeGridState(result.TargetId);
+            if (TemporaryLocalRulesEnabled) TryAwardDefeatExperience();
+            if(result.AbsoluteHp>=0 && result.AbsoluteHp<=short.MaxValue)SendLocalNotification(new HpSetNotification(result.TargetId,(short)result.AbsoluteHp));
+            if(result.AbsoluteMp>=0 && result.AbsoluteMp<=short.MaxValue)SendLocalNotification(new MpSetNotification(result.ActorId,(short)result.AbsoluteMp));
+            if(world.TryGet(result.TargetId,out var resolved) && resolved.LifeState!=UnitLifeState.Active)
+                SendLocalNotification(resolved.LifeState==UnitLifeState.Corpse ? new UnitCorpseNotification(result.TargetId) : new UnitRemoveNotification(result.TargetId));
+            if(result.ActorHp>=0 && result.ActorHp<=short.MaxValue)SendLocalNotification(new HpSetNotification(result.ActorId,(short)result.ActorHp));
+            if(result.TargetMp>=0 && result.TargetMp<=short.MaxValue)SendLocalNotification(new MpSetNotification(result.TargetId,(short)result.TargetMp));
+            SendLocalNotification(new LocalCombatResolvedNotification(result));
+        }
+        private void PresentCombatResult(CombatResult result)
         {
             if (result.StatusEffect == TemporaryStatusEffect.MovementReduction || result.StatusEffect == TemporaryStatusEffect.Sleep) CancelMovementStep(result.TargetId);
             if (result.BuffSeconds > 0 && world.TryGet(result.TargetId, out var buffTarget))
@@ -591,7 +622,6 @@ namespace DarkSaver.Combat
             SynchronizeGridState(result.ActorId); SynchronizeGridState(result.TargetId);
             // The existing opt-in base reward also belongs to the current local
             // attack/magic path, not only the legacy diagnostic round buttons.
-            if (TemporaryLocalRulesEnabled) TryAwardDefeatExperience();
             CombatResultApplied?.Invoke(result);
         }
         [SerializeField] private short[] victoryTargetInstanceIds;
@@ -640,6 +670,7 @@ namespace DarkSaver.Combat
 
         public bool AdvanceActionPoints(float seconds)
         {
+            if (TemporaryLocalRulesEnabled && !processingServerRequest) return TrySubmitLocalRequest(new BattleClockRequest(seconds),out _);
             EnsureInitialized();
             // Primary death alone does not finish a battle with another living commander.
             if (IsBattleFinished) return true;
@@ -890,12 +921,18 @@ namespace DarkSaver.Combat
 
         private void OnActionStarted(CombatRequest request)
         {
+            if(!TemporaryLocalRulesEnabled)
+            {
+                if(request.Action==CombatActionType.Attack)RecordAttackPresentation(request.TargetId,request.ActorId,0,true);
+                else if(request.Action==CombatActionType.Magic)
+                {if(localMagicPresentation!=null)MagicCastPresentationStarted?.Invoke(localMagicPresentation);else MagicPresentationStarted?.Invoke(request);}
+                return;
+            }
             if (request.Action == CombatActionType.Attack)
-                RecordAttackPresentation(request.TargetId, request.ActorId, 0, true);
+                SendLocalNotification(new AttackEffectNotification(request.TargetId, request.ActorId, 0));
             else if (request.Action == CombatActionType.Magic)
             {
-                if (localMagicPresentation != null) MagicCastPresentationStarted?.Invoke(localMagicPresentation);
-                else MagicPresentationStarted?.Invoke(request);
+                SendLocalNotification(new LocalMagicPresentationNotification(request,localMagicPresentation));
             }
         }
         public event System.Action<CombatRequest> MagicPresentationStarted;
@@ -918,6 +955,7 @@ namespace DarkSaver.Combat
 
         public bool TryStartAttackRequest(short targetId, short attackerId, out string reason)
         {
+            if (TemporaryLocalRulesEnabled && !processingServerRequest) return TrySubmitLocalRequest(new BattleAttackCommand(targetId,attackerId),out reason);
             EnsureInitialized();
             if (!isActiveAndEnabled) { reason = "전투가 비활성 상태입니다."; return false; }
             if (IsBattleFinished) { reason = "전투가 종료되었습니다."; return false; }
@@ -934,6 +972,22 @@ namespace DarkSaver.Combat
             return flow.ConfigureMagicApCost(magicId, cost);
         }
 
+        private readonly System.Collections.Generic.HashSet<int> completeAbilitiesConfigured=new();
+        public bool ConfigureSinglePlayerAbility(DarkSaver.Magic.MagicCatalogEntry entry)
+        {
+            EnsureInitialized();
+            if(entry!=null && completeAbilitiesConfigured.Contains(entry.Id))return true;
+            if(!SinglePlayerAbilityRules.TryCreate(entry,out var rule) || !rule.Combat || !flow.ConfigureAbility(rule) || !flow.ConfigureMagicApCost(entry.Id,rule.Ap))return false;
+            completeAbilitiesConfigured.Add(entry.Id);return true;
+        }
+        public bool IsRevivalMagic(int id){EnsureInitialized();return flow.IsRevivalMagic(id);}
+        public bool TryGetMagicTargetAt(int magicId,CombatGridCell cell,out short id)
+        {
+            if(TryGetGridOccupant(cell,out id))return true;
+            if(IsRevivalMagic(magicId))foreach(var unit in world.Units)
+                if(!unit.Alive && unit.X==cell.X && unit.Y==cell.Y){id=unit.Id;return true;}
+            id=-1;return false;
+        }
         public bool ConfigureTemporaryDamageMagic(int magicId, int mpCost, int range, int powerBonus, int defenseDivisor)
         {
             EnsureInitialized();
@@ -999,13 +1053,22 @@ namespace DarkSaver.Combat
             {
                 if (!flow.TryGetTemporaryMagicRange(magicId, out var range) || targets == null || targets.Count == 0
                     || !world.TryGet(casterId, out var caster))
-                { reason = "등록한 임시 마법의 대상 진영과 사거리를 확인하세요."; return false; }
+                { reason = "이 기술의 대상 진영과 사거리를 확인하세요."; return false; }
+                var checkedTargets=new System.Collections.Generic.HashSet<short>();
+                var revivalCells=new System.Collections.Generic.HashSet<CombatGridCell>();
                 foreach (short id in targets)
                 {
+                    if(!checkedTargets.Add(id))continue;
                     if (!world.TryGet(id, out var target)
                         || (flow.IsTemporarySupportMagic(magicId) ? caster.Enemy != target.Enemy : caster.Enemy == target.Enemy)
                         || GridDistance(new CombatGridCell(caster.X, caster.Y), new CombatGridCell(target.X, target.Y)) > range)
-                    { reason = "등록한 임시 마법의 대상 진영과 사거리를 확인하세요."; return false; }
+                    { reason = "이 기술의 대상 진영과 사거리를 확인하세요."; return false; }
+                    if(flow.IsRevivalMagic(magicId) && occupancy!=null)
+                    {
+                        var cell=new CombatGridCell(target.X,target.Y);
+                        if(!revivalCells.Add(cell) || !occupancy.CanReviveAt(id,cell))
+                        {reason="부활할 자리가 다른 유닛에 점유되어 있습니다.";return false;}
+                    }
                     if (!flow.CanStartAction(new CombatRequest(casterId, id, CombatActionType.Magic, magicId), out reason)) return false;
                 }
                 reason = string.Empty; return true;
@@ -1015,6 +1078,7 @@ namespace DarkSaver.Combat
 
         public bool TryStartMagicRequest(MagicRequest packet, out string reason)
         {
+            if (TemporaryLocalRulesEnabled && !processingServerRequest) return TrySubmitLocalRequest(packet,out reason);
             if (packet == null || localMagicPresentation != null)
             { reason = "유효하지 않거나 중첩된 마법 요청입니다."; return false; }
             // Preserve the cast's clicked XY/direction and complete target list.
@@ -1026,6 +1090,11 @@ namespace DarkSaver.Combat
 
         public bool TryStartMagicRequest(int magicId, short casterId, System.Collections.Generic.IReadOnlyList<short> targets, out string reason)
         {
+            if (TemporaryLocalRulesEnabled && !processingServerRequest)
+            {
+                if(magicId<short.MinValue || magicId>short.MaxValue){reason="마법 ID 범위를 확인하세요.";return false;}
+                return TrySubmitLocalRequest(new MagicRequest((short)magicId,casterId,-1,-1,0,System.Linq.Enumerable.ToArray(targets ?? System.Array.Empty<short>())),out reason);
+            }
             EnsureInitialized();
             if (!isActiveAndEnabled) { reason = "전투가 비활성 상태입니다."; return false; }
             if (IsBattleFinished) { reason = "전투가 종료되었습니다."; return false; }
@@ -1115,6 +1184,7 @@ namespace DarkSaver.Combat
 
         public bool TryTemporaryRestUnit(short unitId)
         {
+            if (TemporaryLocalRulesEnabled && !processingServerRequest) return TrySubmitLocalRequest(new BattleRestRequest(unitId),out _);
             EnsureInitialized();
             return CanTemporaryRestUnit(unitId, out _) && flow.TryTemporaryRest(unitId);
         }
@@ -1295,19 +1365,21 @@ namespace DarkSaver.Combat
             flow = new CombatFlow(world, new LocalCombatAuthority(), useActionPoints: true);
             flow.ActionStarted += OnActionStarted;
             flow.AdditionalMagicTargetStarted += request => {
-                if (localMagicPresentation == null) MagicPresentationStarted?.Invoke(request);
+                if (localMagicPresentation == null) SendLocalNotification(new LocalMagicPresentationNotification(request));
             };
             flow.ResultApplied += OnCombatResultApplied;
-            flow.VitalsDisplayChanged += (id, delta, mp) => VitalsDisplayChanged?.Invoke(id, delta, mp);
+            flow.VitalsDisplayChanged += (id, delta, mp) => {
+                if(TemporaryLocalRulesEnabled)SendLocalNotification(new LocalVitalsDisplayNotification(id,delta,mp));
+                else VitalsDisplayChanged?.Invoke(id,delta,mp);
+            };
         }
 
         private void Update()
         {
             if (MapPresentationActive && Input.GetKeyDown(GameConstants.BattlePrototypeHudKey))
                 SetPrototypeHudVisible(!prototypeHudVisible);
-            AdvanceActionPoints(Time.deltaTime);
-            AdvanceMovement(Time.unscaledDeltaTime);
-            AdvanceTemporaryMonsterAi(Time.deltaTime);
+            if(TemporaryLocalRulesEnabled)TrySubmitLocalRequest(new BattleSimulationTickRequest(Time.deltaTime,Time.unscaledDeltaTime),out _);
+            else { AdvanceActionPoints(Time.deltaTime);AdvanceMovement(Time.unscaledDeltaTime); }
             // Map input owns cancellation and explicit retreat confirmation.
             if (!MapPresentationActive && Input.GetKeyDown(KeyCode.Escape)) ReturnToWorld();
         }
@@ -1384,8 +1456,12 @@ namespace DarkSaver.Combat
             {
                 var dialogueRect = new Rect(panel.x, MapPresentationActive ? Mathf.Max(0, panel.y - 96) : panel.y + 300, panel.width, 90);
                 ui.Panel("dialogue", dialogueRect);
-                ui.Label("dialogue-text", new Rect(dialogueRect.x + 12, dialogueRect.y + 10,
-                    dialogueRect.width - 24, dialogueRect.height - 20), dialogue.Replace("|", "\n"));
+                var displayText = victoryObjective.TryGetCompletionMessage(world, out var message)
+                    ? message.DisplayText
+                    : string.Join("\n", DarkSaver.Events.ScenarioDialogueLayout.SplitLines(dialogue));
+                ui.NativeBitmapText("dialogue-text", new Rect(dialogueRect.x + 12, dialogueRect.y + 10,
+                    dialogueRect.width - 24, dialogueRect.height - 20), displayText, Color.white,
+                    maximumLines: int.MaxValue);
             }
             if (MapPresentationActive && IsBattleFinished && !OutcomeAcknowledged)
             {
@@ -1507,8 +1583,11 @@ namespace DarkSaver.Combat
                 world.Get(EnemyId).LifeState == UnitLifeState.Active) return false;
             var total = (ulong)actor.Experience + defeatExperience;
             if (total > uint.MaxValue) return false; // Never wrap or silently discard overflow.
-            if (!flow.TryApplyExperience(new CombatExperienceResult(PlayerId, (uint)total))) return false;
+            // Reserve the receipt before publishing: response listeners must not regrant XP.
             defeatExperienceGranted = true;
+            if (!flow.TryApplyExperience(new CombatExperienceResult(PlayerId,(uint)total)))
+            {defeatExperienceGranted=false;return false;}
+            SendLocalNotification(new ExperienceSetNotification(PlayerId,(uint)total));
             return true;
         }
 

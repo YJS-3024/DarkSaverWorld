@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Assets/_Game/Runtime/Events/EventScriptParser.cs" Link="EventScriptParser.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Events/ScenarioDialogueLayout.cs" Link="ScenarioDialogueLayout.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Events/Scenario01Model.cs" Link="Scenario01Model.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/CombatAiCatalog.cs" Link="CombatAiCatalog.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/CombatAiSelection.cs" Link="CombatAiSelection.cs" />
+    <Compile Include="../../Assets/_Game/Editor/CombatAiCatalogConverter.cs" Link="CombatAiCatalogConverter.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/NativeSaveStore.cs" Link="NativeSaveStore.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/NativeInventory.cs" Link="NativeInventory.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Rendering/OriginalRenderRules.cs" Link="OriginalRenderRules.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/NativeTutorialProgress.cs" Link="NativeTutorialProgress.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/NativeCharacterSlots.cs" Link="NativeCharacterSlots.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Events/TownQuestRules.cs" Link="TownQuestRules.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Items/ItemCatalog.cs" Link="ItemCatalog.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Items/NativeShopOffer.cs" Link="NativeShopOffer.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Items/KaosiaShopRules.cs" Link="KaosiaShopRules.cs" />
+    <Compile Include="../../Assets/_Game/Editor/ItemCatalogConverter.cs" Link="ItemCatalogConverter.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/TownCatalog.cs" Link="TownCatalog.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/FieldCatalog.cs" Link="FieldCatalog.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/ScenarioCatalog.cs" Link="ScenarioCatalog.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/CampaignEntranceData.cs" Link="CampaignEntranceData.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/LocalPackets.cs" Link="LocalPackets.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/LocalServerDispatcher.cs" Link="LocalServerDispatcher.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/LocalScenarioServer.cs" Link="LocalScenarioServer.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/OriginalLocalPacketCodec.cs" Link="OriginalLocalPacketCodec.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/NativeLoginHistory.cs" Link="NativeLoginHistory.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/NativeAccountStore.cs" Link="NativeAccountStore.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/ShopInteriorCatalog.cs" Link="ShopInteriorCatalog.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/NativeInteriorCatalog.cs" Link="NativeInteriorCatalog.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/KaosiaFacilityCatalog.cs" Link="KaosiaFacilityCatalog.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/WorldAudioData.cs" Link="WorldAudioData.cs" />
+  </ItemGroup>
+</Project>

@@ -20,6 +20,53 @@ namespace DarkSaver.Tests
         };
 
         [Test]
+        public void ChecksumFailureRecoversBackupAndPreservesItOnNextSave()
+        {
+            Files(store =>
+            {
+                var data = Sample(); Assert.That(store.TrySave(data, out _), Is.True);
+                data.experience = 12; Assert.That(store.TrySave(data, out _), Is.True);
+                var backup = File.ReadAllText(store.FilePath + ".bak");
+                // Valid JSON and valid state values still fail the unchanged checksum.
+                var text = File.ReadAllText(store.FilePath);
+                Assert.That(text.Contains("sha256"), Is.True);
+                File.WriteAllText(store.FilePath, text.Replace("experience\\\":12", "experience\\\":13"));
+                Assert.That(File.ReadAllText(store.FilePath), Is.Not.EqualTo(text));
+                Assert.That(store.TryLoad(out var recovered, out _), Is.True);
+                Assert.That(recovered.experience, Is.EqualTo(uint.MaxValue));
+                Assert.That(store.TrySave(recovered, out _), Is.True);
+                Assert.That(File.ReadAllText(store.FilePath + ".bak"), Is.EqualTo(backup));
+            });
+        }
+
+        [Test]
+        public void FutureVersionDoesNotFallBackToOlderValidBackup()
+        {
+            Files(store =>
+            {
+                Assert.That(store.TrySave(Sample(), out _), Is.True);
+                Assert.That(store.TrySave(Sample(), out _), Is.True);
+                File.WriteAllText(store.FilePath, "{\"format\":\"DarkSaverWorld.NativeSave\",\"version\":99}");
+                Assert.That(store.TryLoad(out _, out _), Is.False);
+                Assert.That(store.TrySave(Sample(), out _), Is.False);
+            });
+        }
+
+        [Test]
+        public void LegacyPlainSaveLoadsAndUpgradesWithoutChangingItsState()
+        {
+            Files(store =>
+            {
+                var source = Sample(); File.WriteAllText(store.FilePath, JsonUtility.ToJson(source));
+                Assert.That(store.TryLoad(out var legacy, out _), Is.True);
+                Assert.That(store.TrySave(legacy, out _), Is.True);
+                Assert.That(store.TryLoad(out var upgraded, out _), Is.True);
+                Assert.That(JsonUtility.ToJson(upgraded), Is.EqualTo(JsonUtility.ToJson(source)));
+                Assert.That(File.ReadAllText(store.FilePath), Does.Contain("sha256"));
+            });
+        }
+
+        [Test]
         public void BattleMagicSelectionRoundTripsWithoutDeletingLearnedLevels()
         {
             Files(store => {

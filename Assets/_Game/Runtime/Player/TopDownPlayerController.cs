@@ -1,3 +1,4 @@
+using DarkSaver.Network;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -8,6 +9,33 @@ namespace DarkSaver.Player
     [RequireComponent(typeof(Rigidbody2D), typeof(CapsuleCollider2D), typeof(SpriteRenderer))]
     public sealed class TopDownPlayerController : MonoBehaviour
     {
+        private ServerManager protocol;
+        private System.IDisposable movementBinding;
+        private bool RequestMove(Vector2 position)
+        {
+            if(protocol==null)
+            {
+                protocol=GetComponent<ServerManager>();if(protocol==null)protocol=gameObject.AddComponent<ServerManager>();
+                movementBinding=protocol.RegisterRequestHandler<WorldMoveRequest>(HandleMove);
+                protocol.ResponseReceived+=ReceiveMove;
+            }
+            return protocol.TryRequest(new WorldMoveRequest(position.x,position.y),out _);
+        }
+        private LocalCommandResponse HandleMove(WorldMoveRequest request)
+        {
+            var target=new Vector2(request.X,request.Y);
+            if(!isActiveAndEnabled || UiInputBlocked || !body.simulated || float.IsNaN(request.X) || float.IsNaN(request.Y)
+                || float.IsInfinity(request.X) || float.IsInfinity(request.Y)
+                || Vector2.Distance(body.position,target)>GameConstants.PlayerMoveSpeed*Time.fixedDeltaTime+.001f)
+                return new WorldMoveNotification(reason:"이동할 수 없는 상태 또는 거리입니다.");
+            // Collision resolution remains the native Unity Rigidbody2D solver after approval.
+            // The packet does not bypass walls by assigning the Transform.
+            return new WorldMoveNotification(true,request.X,request.Y);
+        }
+        private void ReceiveMove(ServerPacket packet)
+        {if(packet is WorldMoveNotification result && result.Accepted)body.MovePosition(new Vector2(result.X,result.Y));}
+        private void OnDestroy()
+        {movementBinding?.Dispose();if(protocol!=null)protocol.ResponseReceived-=ReceiveMove;}
         private Rigidbody2D body;
         private SpriteRenderer spriteRenderer;
         private DirectionalSpriteAnimator directionalAnimator;
@@ -19,10 +47,27 @@ namespace DarkSaver.Player
         private Tilemap terrain;
         private Vector3Int? heldMouseCell;
         private bool uiInputBlocked;
+        private bool scenarioInputBlocked;
+        private bool tutorialInputBlocked;
         private bool suppressMouseUntilRelease;
         private WorldSessionHud worldHud;
 
-        public bool UiInputBlocked => uiInputBlocked;
+        public bool UiInputBlocked => uiInputBlocked || scenarioInputBlocked || tutorialInputBlocked;
+
+        public void SetTutorialInputBlocked(bool blocked)
+        {
+            if (tutorialInputBlocked == blocked) return;
+            tutorialInputBlocked = blocked; suppressMouseUntilRelease = true;
+            if (blocked) StopWorldMotion();
+        }
+
+        public void SetScenarioInputBlocked(bool blocked)
+        {
+            if (scenarioInputBlocked == blocked) return;
+            scenarioInputBlocked = blocked;
+            suppressMouseUntilRelease = true;
+            if (blocked) StopWorldMotion();
+        }
 
         public void SetUiInputBlocked(bool blocked)
         {
@@ -30,6 +75,13 @@ namespace DarkSaver.Player
             uiInputBlocked = blocked;
             suppressMouseUntilRelease = true;
             if (!blocked) return;
+            StopWorldMotion();
+        }
+
+        public void StopForSceneTravel() { StopWorldMotion(); suppressMouseUntilRelease = true; }
+
+        private void StopWorldMotion()
+        {
             movement = Vector2.zero;
             followingClickPath = false;
             waypoints.Clear();
@@ -52,15 +104,17 @@ namespace DarkSaver.Player
 
         private void Update()
         {
-            if (uiInputBlocked) return;
+            if (UiInputBlocked) return;
             if (worldHud == null) worldHud = FindAnyObjectByType<WorldSessionHud>();
+            if (Input.GetMouseButton(0) && FirstPlayTutorial.BlocksPointer(Input.mousePosition)) suppressMouseUntilRelease = true;
             if (Input.GetMouseButton(0) && worldHud != null && worldHud.BlocksWorldPointer(Input.mousePosition))
                 suppressMouseUntilRelease = true;
             if (suppressMouseUntilRelease && !Input.GetMouseButton(0)) suppressMouseUntilRelease = false;
             if (!suppressMouseUntilRelease && Input.GetMouseButtonDown(0) && Camera.main != null
                 && Rendering.GameScreen.TryScreenToGui(Input.mousePosition, out _)
-                && DarkSaver.World.TownNpcInteraction.TryInteractAt(Camera.main.ScreenToWorldPoint(Input.mousePosition), this,
-                    worldHud != null ? worldHud.GetComponent<TownServicesPanel>() : null)) return;
+                && (DarkSaver.World.ShopCounter2D.TryInteractAt(Camera.main.ScreenToWorldPoint(Input.mousePosition),this)
+                    || DarkSaver.World.TownNpcInteraction.TryInteractAt(Camera.main.ScreenToWorldPoint(Input.mousePosition), this,
+                    worldHud != null ? worldHud.GetComponent<TownServicesPanel>() : null))) return;
             var keyboard = new Vector2(
                 (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) ? 1f : 0f) -
                 (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A) ? 1f : 0f),
@@ -97,7 +151,7 @@ namespace DarkSaver.Player
 
         public bool TryMoveToWorld(Vector2 destination)
         {
-            if (uiInputBlocked) return false;
+            if (UiInputBlocked) return false;
             followingClickPath = false;
             waypoints.Clear();
             waypointIndex = 0;
@@ -120,7 +174,7 @@ namespace DarkSaver.Player
 
         private void FixedUpdate()
         {
-            if (uiInputBlocked) return;
+            if (UiInputBlocked) return;
             if (followingClickPath && waypointIndex < waypoints.Count)
             {
                 var target = (Vector2)waypoints[waypointIndex];
@@ -128,7 +182,7 @@ namespace DarkSaver.Player
                 var step = GameConstants.PlayerMoveSpeed * Time.fixedDeltaTime;
                 if (delta.magnitude <= step)
                 {
-                    body.MovePosition(target);
+                    if(!RequestMove(target)){StopWorldMotion();return;}
                     waypointIndex++;
                     if (waypointIndex == waypoints.Count)
                     {
@@ -136,10 +190,10 @@ namespace DarkSaver.Player
                         movement = Vector2.zero;
                     }
                 }
-                else body.MovePosition(body.position + delta.normalized * step);
+                else if(!RequestMove(body.position+delta.normalized*step))StopWorldMotion();
                 return;
             }
-            body.MovePosition(body.position + movement * (GameConstants.PlayerMoveSpeed * Time.fixedDeltaTime));
+            if(movement.sqrMagnitude>0 && !RequestMove(body.position+movement*(GameConstants.PlayerMoveSpeed*Time.fixedDeltaTime)))StopWorldMotion();
         }
 
         private void OnDisable()

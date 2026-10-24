@@ -6,7 +6,7 @@ namespace DarkSaver.Core
     {
         // User-confirmed local progression policy. The current job-level row supplies
         // the cost to advance; a class-change edge holds XP until explicit class change.
-        // Does not grant stats/points, spells, gold, heal, or perform a class change.
+        // Applies confirmed per-level ability rows; no stats/gold/healing or automatic class change.
         public bool TryAdvanceLevels(ExperienceProgressionTable table, uint availableExperience,
             out NativeCharacterProfile progressed, out uint remainingExperience)
         {
@@ -22,6 +22,12 @@ namespace DarkSaver.Core
                 if (candidate.baseLevel == int.MaxValue || !table.TryGet(candidate.jobId, candidate.jobLevel + 1, out _)) return false;
                 remaining -= (uint)row.requiredXp;
                 candidate.jobLevel++; candidate.baseLevel++;
+                if(candidate.hasClassAbilities && table.TryGetLevelAbilities(candidate.jobId,candidate.jobLevel,out var gained,out var skills))
+                {
+                    var magic=new System.Collections.Generic.List<int>(candidate.learnedMagicIds);
+                    foreach(int id in gained)if(!magic.Contains(id))magic.Add(id);
+                    candidate.learnedMagicIds=magic.ToArray();candidate.usableSkillIds=skills;
+                }
             }
             if (!candidate.IsValid) return false;
             progressed = candidate; remainingExperience = remaining; return true;

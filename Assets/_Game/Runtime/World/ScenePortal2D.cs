@@ -12,6 +12,9 @@ namespace DarkSaver.World
 
         public static string RequestedSpawnId { get; private set; }
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetSpawnRequest() => RequestedSpawnId = null;
+
         public static void SetRequestedSpawn(string spawnId) => RequestedSpawnId = spawnId;
 
         public void Configure(string sceneName, string spawnId)

@@ -8,6 +8,7 @@ using DarkSaver.CameraSystem;
 using DarkSaver.Maps;
 using DarkSaver.Player;
 using DarkSaver.World;
+using DarkSaver.Rendering;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -129,8 +130,8 @@ namespace DarkSaver.Editor
                         var grid = new GameObject(title, typeof(Grid));
                         grid.AddComponent<MapSceneDefinition>().Configure(mapKey, title, "분석 기반 네이티브 타일맵");
                         var bounds = new BoundsInt(0, 0, 0, map.Width, map.Height, 1);
-                        CreateTilemap("Ground", grid.transform, 0).SetTilesBlock(bounds, groundTiles);
-                        CreateTilemap("Detail", grid.transform, 10).SetTilesBlock(bounds, detailTiles);
+                        CreateTilemap("Ground", grid.transform, OriginalRenderRules.GroundSortingOrder).SetTilesBlock(bounds, groundTiles);
+                        CreateTilemap("Detail", grid.transform, OriginalRenderRules.DetailSortingOrder).SetTilesBlock(bounds, detailTiles);
                         var terrain = CreateTilemap("TerrainAttributes", grid.transform, 0);
                         terrain.SetTilesBlock(bounds, terrainTiles);
                         terrain.GetComponent<TilemapRenderer>().enabled = false;
@@ -143,7 +144,7 @@ namespace DarkSaver.Editor
                             instance.transform.SetParent(objects.transform, false);
                             instance.transform.position = new Vector3(source.X, map.Height - source.Y, 0);
                             var renderer = instance.GetComponent<SpriteRenderer>();
-                            renderer.sprite = objectSprites[i]; renderer.sortingOrder = 30000 + source.SourceIndex;
+                            renderer.sprite = objectSprites[i]; renderer.sortingOrder = OriginalRenderRules.ForegroundSortingOrder(source.SourceIndex);
                         }
                         if (!EditorSceneManager.SaveScene(scene, path)) throw new IOException("씬 저장 실패: " + path);
                         converted++;
@@ -213,6 +214,13 @@ namespace DarkSaver.Editor
                     var ground = tilemaps.Single(value => value.name == "Ground");
                     var detail = tilemaps.Single(value => value.name == "Detail");
                     var terrain = tilemaps.Single(value => value.name == "TerrainAttributes");
+                    var groundRenderer = ground.GetComponent<TilemapRenderer>();
+                    var detailRenderer = detail.GetComponent<TilemapRenderer>();
+                    if (groundRenderer.sortingOrder != OriginalRenderRules.GroundSortingOrder
+                        || detailRenderer.sortingOrder != OriginalRenderRules.DetailSortingOrder
+                        || groundRenderer.sortingLayerID != detailRenderer.sortingLayerID
+                        || terrain.GetComponent<TilemapRenderer>().enabled)
+                        throw new InvalidDataException("타일 표시 패스 불일치: " + key);
                     for (var index = 0; index < map.Tiles.Length; index++)
                     {
                         var position = new Vector3Int(index % map.Width, map.Height - 1 - index / map.Width, 0);
@@ -236,7 +244,9 @@ namespace DarkSaver.Editor
                     {
                         var source = map.Sprites[i]; var shown = sprites[i];
                         if (shown.sprite == null || AssetDatabase.GetAssetPath(shown.sprite) != RestoredSpriteFolder + "/" + SafeKey(catalog.Secondary(source.Raw[0], source.Raw[12], source.Raw[13])) + ".png" ||
-                            shown.transform.position != new Vector3(source.X, map.Height - source.Y, 0) || shown.sortingOrder != 30000 + source.SourceIndex)
+                            shown.transform.position != new Vector3(source.X, map.Height - source.Y, 0)
+                            || shown.sortingOrder != OriginalRenderRules.ForegroundSortingOrder(source.SourceIndex)
+                            || shown.sortingLayerID != groundRenderer.sortingLayerID)
                             throw new InvalidDataException("오브젝트 배치 불일치: " + key + "/" + i);
                     }
                     if (roots.SelectMany(root => root.GetComponentsInChildren<MonoBehaviour>(true)).Any(value => value == null))
@@ -333,8 +343,8 @@ namespace DarkSaver.Editor
 
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var gridObject = new GameObject(displayName, typeof(Grid));
-            var ground = CreateTilemap("Ground", gridObject.transform, 0);
-            var detail = CreateTilemap("Detail", gridObject.transform, 10);
+            var ground = CreateTilemap("Ground", gridObject.transform, OriginalRenderRules.GroundSortingOrder);
+            var detail = CreateTilemap("Detail", gridObject.transform, OriginalRenderRules.DetailSortingOrder);
             var terrain = CreateTilemap("TerrainAttributes", gridObject.transform, 0);
             terrain.GetComponent<TilemapRenderer>().enabled = false;
             terrain.gameObject.AddComponent<TilemapCollider2D>();
@@ -371,7 +381,7 @@ namespace DarkSaver.Editor
                 var renderer = instance.GetComponent<SpriteRenderer>();
                 renderer.sprite = sprite;
                 // MRC sprites are drawn after unit bodies, in source record order.
-                renderer.sortingOrder = 30000 + spriteData.SourceIndex;
+                renderer.sortingOrder = OriginalRenderRules.ForegroundSortingOrder(spriteData.SourceIndex);
             }
 
             if (!mapOnly)

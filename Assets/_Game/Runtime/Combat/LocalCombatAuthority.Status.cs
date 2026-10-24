@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DarkSaver.Combat
 {
-    public enum TemporaryStatusEffect { None, Poison, CurePoison, MovementReduction, Silence, Sleep, Wake }
+    public enum TemporaryStatusEffect { None, Poison, CurePoison, MovementReduction, Silence, Sleep, Wake,AttackDown,MagicDefenseDown,MagicDefenseUp,MagicAttackUp,Slow,Regeneration,PoisonWeapon,Accuracy,Berserk,SleepWard }
 
     public sealed partial class LocalCombatAuthority
     {
@@ -17,7 +17,7 @@ namespace DarkSaver.Combat
                     && effect != TemporaryStatusEffect.Silence && effect != TemporaryStatusEffect.Sleep && effect != TemporaryStatusEffect.Wake)
                 || (effect == TemporaryStatusEffect.MovementReduction && power > 99)
                 || float.IsNaN(seconds) || float.IsInfinity(seconds) || seconds <= 0) return false;
-            statusRules[id] = (mp, range, effect, power, seconds);
+            abilityRules.Remove(id);statusRules[id] = (mp, range, effect, power, seconds);
             magicRules.Remove(id); buffRules.Remove(id); quickRules.Remove(id); return true;
         }
 
@@ -40,6 +40,7 @@ namespace DarkSaver.Combat
         {
             if (!TemporaryRulesEnabled) return;
             if (result.Damage > 0) statuses.Remove((result.TargetId, TemporaryStatusEffect.Sleep));
+            if(result.StatusEffect==TemporaryStatusEffect.SleepWard)statuses.Remove((result.TargetId,TemporaryStatusEffect.Sleep));
             if (result.StatusEffect == TemporaryStatusEffect.Wake) statuses.Remove((result.TargetId, TemporaryStatusEffect.Sleep));
             else if (result.StatusEffect == TemporaryStatusEffect.CurePoison)
                 statuses.Remove((result.TargetId, TemporaryStatusEffect.Poison));
@@ -49,10 +50,7 @@ namespace DarkSaver.Combat
 
         private void RemoveStatuses(short id)
         {
-            statuses.Remove((id, TemporaryStatusEffect.Poison));
-            statuses.Remove((id, TemporaryStatusEffect.MovementReduction));
-            statuses.Remove((id, TemporaryStatusEffect.Silence));
-            statuses.Remove((id, TemporaryStatusEffect.Sleep));
+            foreach(var key in new List<(short Id,TemporaryStatusEffect Effect)>(statuses.Keys))if(key.Id==id)statuses.Remove(key);
         }
 
         // Local timing policy: poison ticks every two seconds, including the final expiry tick.
@@ -64,10 +62,10 @@ namespace DarkSaver.Combat
                 var state = statuses[key];
                 if (!world.TryGet(key.Id, out var unit) || !unit.Alive) { statuses.Remove(key); continue; }
                 double active = Math.Min(seconds, state.Remaining), elapsed = state.Elapsed + active;
-                if (key.Effect == TemporaryStatusEffect.Poison)
+                if (key.Effect == TemporaryStatusEffect.Poison || key.Effect==TemporaryStatusEffect.Regeneration)
                 {
                     double count = Math.Floor(elapsed / 2);
-                    if (count > 0) ticks.Add((key.Id, state.Source, (int)Math.Min(int.MaxValue, count * state.Power)));
+                    if (count > 0) ticks.Add((key.Id, state.Source, (int)Math.Min(int.MaxValue, count * state.Power)*(key.Effect==TemporaryStatusEffect.Regeneration?-1:1)));
                     elapsed %= 2;
                 }
                 double remaining = state.Remaining - seconds;

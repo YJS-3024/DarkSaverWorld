@@ -12,6 +12,23 @@ namespace DarkSaver.Tests
 {
     public sealed class NativeCharacterTests
     {
+        [Test]
+        public void LevelUpGrantsExplicitSourceAbilitiesWithoutMutatingSavedSelection()
+        {
+            var table=ScriptableObject.CreateInstance<DarkSaver.Combat.ExperienceProgressionTable>();
+            try
+            {
+                table.Initialize(new[]{
+                    new DarkSaver.Combat.ExperienceLevelEntry {jobId=155,level=20,nextJobId=155,requiredXp=10,learnedMagic="0",usableSkills="10105"},
+                    new DarkSaver.Combat.ExperienceLevelEntry {jobId=155,level=21,nextJobId=155,requiredXp=20,learnedMagic="901",usableSkills="10106"}});
+                var profile=new NativeCharacterProfile {name="검증",jobId=155,hasLevels=true,baseLevel=60,jobLevel=20,hasClassAbilities=true,learnedMagicIds=new[]{701},usableSkillIds=new[]{10105},hasBattleMagicSelection=true,battleMagicIds=new[]{701}};
+                Assert.That(profile.TryAdvanceLevels(table,10,out var changed,out var remaining),Is.True);
+                Assert.That(changed.learnedMagicIds,Is.EqualTo(new[]{701,901}));Assert.That(changed.usableSkillIds,Is.EqualTo(new[]{10106}));
+                Assert.That(changed.battleMagicIds,Is.EqualTo(new[]{701}));Assert.That(profile.learnedMagicIds,Is.EqualTo(new[]{701}));Assert.That(remaining,Is.Zero);
+            }
+            finally{UnityEngine.Object.DestroyImmediate(table);}
+        }
+
         private static NativeSaveData Sample() => new NativeSaveData
         {
             format = NativeSaveStore.Format, version = NativeSaveStore.Version,
@@ -126,7 +143,7 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void StartButtonOpensCreationAndRejectsInvalidSubmissionWithoutLoading()
+        public void StartButtonOpensLoginThenFirstLoginOpensCharacterSelection()
         {
             var scene = EditorSceneManager.NewPreviewScene();
             var root = new GameObject("creation menu fixture"); SceneManager.MoveGameObjectToScene(root, scene);
@@ -134,8 +151,19 @@ namespace DarkSaver.Tests
             {
                 var menu = root.AddComponent<StartMenuController>();
                 Assert.That(menu.CreateCharacter("전사"), Is.False);
+                var directory=Path.Combine(Path.GetTempPath(),"ds-menu-"+Guid.NewGuid().ToString("N"));
+                Assert.That(menu.ConfigureLocalLogin(Path.Combine(directory,"login.json"),System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Select(System.Linq.Enumerable.Range(0,NativeCharacterSlots.Count),i=>Path.Combine(directory,"slot-"+i+".json")))),Is.True);
                 menu.StartGame();
-                Assert.That(menu.IsCreatingCharacter, Is.True);
+                Assert.That(menu.IsLoggingIn,Is.True);Assert.That(menu.IsSelectingCharacter,Is.False);
+                Assert.That(menu.SelectSlot(0),Is.False);
+                Assert.That(menu.Login(),Is.True);Assert.That(menu.IsLoggingIn,Is.False);
+                Assert.That(menu.IsSelectingCharacter, Is.True);
+                Assert.That(root.GetComponent<DarkSaver.Network.ServerManager>().TryRequest(new DarkSaver.Network.CharacterListRequest(),out var list),Is.True);
+                Assert.That(((DarkSaver.Network.CharacterListResponse)list).SlotCount,Is.EqualTo(10));
+                Assert.That(menu.SelectSlot(9),Is.True);
+                Assert.That(menu.IsCreatingCharacter, Is.False);
+                Assert.That(menu.SelectSlot(-1), Is.False);
+                Assert.That(menu.SelectSlot(NativeCharacterSlots.Count), Is.False);
                 Assert.That(menu.CreateCharacter(""), Is.False);
                 Assert.That(menu.CreateCharacter("전사", 200), Is.False);
                 Assert.That(NativeCharacterProfile.TakePending(out _, out _), Is.False);

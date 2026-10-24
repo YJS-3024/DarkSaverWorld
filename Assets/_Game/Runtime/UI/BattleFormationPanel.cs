@@ -78,6 +78,7 @@ namespace DarkSaver.UI
 
         public bool Open()
         {
+            if (FirstPlayTutorial.BlocksWorldActions) return false;
             var session = GetComponent<BattleTransitionController>();
             if (!isActiveAndEnabled || SceneManager.GetSceneByName("Battle").isLoaded ||
                 (session != null && session.IsTransitioning)) return false;

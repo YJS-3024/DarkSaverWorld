@@ -9,10 +9,34 @@ namespace DarkSaver.UI
         [SerializeField] private ItemCatalog shopItems;
         [SerializeField] private NativeShopOffer[] shopOffers = System.Array.Empty<NativeShopOffer>();
         private int shopPage;
+        private bool shopConfiguredExplicitly;
+        private bool settingAutomaticStock;
+        private string automaticStockTown;
         private NativeShopOffer pendingTrade;
         private int pendingTradeQuantity;
         private bool pendingTradeBuying;
         private NativeBattleWindows confirmationCatalog;
+        public int ConfiguredShopOfferCount => shopOffers.Length;
+        public bool HasShopItemCatalog => shopItems != null;
+        private void Start() => EnsureAnalyzedTownBindings();
+        private void EnsureAnalyzedTownBindings()
+        {
+            if (shopItems == null) shopItems = GetComponent<ItemCatalogPanel>()?.Catalog;
+            string townKey = DarkSaver.World.TownSceneContext.Current?.Key;
+            var interior=DarkSaver.World.ShopInteriorContext.Current;
+            string stockKey=interior?.Key ?? townKey;
+            if (shopItems == null || townKey == null || shopConfiguredExplicitly || automaticStockTown == stockKey) return;
+            if (automaticStockTown == null && shopOffers.Length != 0) { shopConfiguredExplicitly = true; return; }
+            var stock = new System.Collections.Generic.List<NativeShopOffer>();
+            if (townKey == "Kaosia")
+                for (int i = 0; i < shopItems.Count; i++)
+                    if ((KaosiaShopRules.TryCreateOffer(shopItems.GetAt(i), out var offer)
+                        || interior!=null && interior.AdditionalPosition!=0 && KaosiaShopRules.TryCreateAdditionalOffer(shopItems.GetAt(i),interior.AdditionalPosition,out offer))
+                        && (interior==null || interior.OffersPosition(shopItems.GetAt(i).GetNumericValue(3)))) stock.Add(offer);
+            settingAutomaticStock = true;
+            try { if (ConfigureShop(shopItems, stock.ToArray())) automaticStockTown = stockKey; }
+            finally { settingAutomaticStock = false; }
+        }
         public bool HasPendingTrade => pendingTrade != null;
         public string PendingTradeText { get; private set; }
         public bool RequestTrade(int itemId, int quantity, bool buying)
@@ -115,7 +139,7 @@ namespace DarkSaver.UI
                 DrawItemDetails("shop-detail", new Rect(panel.x + 20, panel.y + 190, 375, 60), selected, nativePaper: true);
                 ui.Raise("shop-detail-icon"); ui.Raise("shop-detail-scroll");
             }
-            else ui.Label("shop-message", new Rect(panel.x + 20, panel.y + 202, 375, 48), shopMessage ?? (shopOffers.Length == 0 ? "확인된 판매 품목이 아직 연결되지 않았습니다." : "클릭: 정보 조회 / 반대쪽 물건 영역으로 드래그: 구매·판매"), 12, color: new Color(.17f, .09f, .035f));
+            else ui.Label("shop-message", new Rect(panel.x + 20, panel.y + 202, 375, 48), shopMessage ?? (shopOffers.Length == 0 ? "원본 판매 목록·매입가가 미확정이라 거래를 열지 않았습니다." : "클릭: 정보 조회 / 반대쪽 물건 영역으로 드래그: 구매·판매"), 12, color: new Color(.17f, .09f, .035f));
             ui.Raise("shop-gold"); ui.Raise("shop-page"); ui.Raise("shop-message");
             // Explicit local convenience strip; not part of the original 419x303 window.
             ui.Panel("shop-local-tools", new Rect(panel.x, 374, panel.width, 48));
@@ -183,9 +207,10 @@ namespace DarkSaver.UI
                     || offer.buyPrice < -1 || offer.sellPrice < -1) return false;
                 copy[i] = new NativeShopOffer {itemId = offer.itemId, buyPrice = offer.buyPrice, sellPrice = offer.sellPrice};
             }
+            GetComponent<BattleTransitionController>()?.ConfigureLocalShop(catalog,copy);
             CancelPendingTrade();
             ui?.CancelItemDrags();
-            shopItems = catalog; shopOffers = copy; shopPage = 0; ClearShopInspection(); shopMessage = null; return true;
+            shopConfiguredExplicitly = !settingAutomaticStock; shopItems = catalog; shopOffers = copy; shopPage = 0; ClearShopInspection(); shopMessage = null; return true;
         }
         public bool Trade(int itemId, bool buying) => Trade(itemId, 1, buying);
 
@@ -240,7 +265,7 @@ namespace DarkSaver.UI
             ui.Label("shop-quantity-label", new Rect(panel.xMax - 146, 104, 48, 24), "수량");
             ui.TextInput("shop-quantity", new Rect(panel.xMax - 94, 102, 74, 28), shopQuantity, 10, value => shopQuantity = value);
             if (shopItems == null || shopOffers.Length == 0)
-                ui.Label("shop-empty", new Rect(panel.x + 20, 138, panel.width - 40, 100), "확인된 판매 품목이 아직 연결되지 않았습니다.\n임의 물품·초기 자금은 지급하지 않습니다.");
+                ui.Label("shop-empty", new Rect(panel.x + 20, 138, panel.width - 40, 100), "원본 판매 목록·매입가가 미확정이라 거래를 열지 않았습니다.\n임의 물품·초기 자금은 지급하지 않습니다.");
             else
             {
                 var selected = SelectedShopItem;

@@ -9,9 +9,9 @@ CHARPOS,charId x y,x_y,캐릭터 위치 조건 또는 배치 참조,"01.evt 좌�
 CHARPOS3,charId x y range,x_y,범위를 포함한 캐릭터 위치 조건,CHARPOS 변형의 인수 패턴,medium
 WARPCHAR,x y,x_y,플레이어/대상 캐릭터 좌표 이동,장면 스크립트의 목적지 좌표 반복,high
 MAGIC,magicId casterOrMode x y,x_y,지정 좌표에 마법 효과 실행,"MAGIC 2901 -2 16 9 등과 맵 좌표 범위",high
-CHANGETILE,y x resource group frame,y_x,타일 프레임 교체,"01.evt 05 15가 MRC (15,5)를 지목",high
-CHANGETILE2,y x resource group frame attr animation,y_x,속성·애니메이션 포함 타일 교체,7개 인수와 TileChange 레코드 대조,high
-CHANGESPRITE,y x resource group frame state,y_x,해당 위치 스프라이트 교체,"01.evt 5 15가 MRC 스프라이트 (15,5)를 지목",high
+CHANGETILE,x y resource group frame,x_y,구형 문법의 실행 여부 별도 확인,원본 TileChange 좌표 XY; 구형 명령은 현재 step에서 무처리,high
+CHANGETILE2,x y resource group frame attr animation,x_y,속성·애니메이션 포함 타일 교체,7개 인수와 TileChange 레코드 대조,high
+CHANGESPRITE,x y resource group frame attribute,x_y,첫 좌표 일치 스프라이트 교체 및 지형 속성 변경,"DManage 0x100090D0; 01.evt 5 15는 MRC 레코드63 (5,15)",high
 GETITEM,itemId,-,아이템 지급,items.csv ID와 대조,high
 KILLCHAR1,charId,-,런타임 캐릭터 제거,"01.evt의 800/810 제거 이벤트",high
 SCENECLEAR,optionalMode,-,장면의 현재 유닛/상태 정리,장면 종료부의 반복 위치,medium

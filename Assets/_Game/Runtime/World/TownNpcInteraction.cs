@@ -23,7 +23,7 @@ namespace DarkSaver.World
 
         public bool TryInteract(TopDownPlayerController player, TownServicesPanel panel)
         {
-            if (!isActiveAndEnabled || gameObject.scene.name != "Town_Runtime" || player == null || panel == null
+            if (!isActiveAndEnabled || !DarkSaver.Core.TownCatalog.IsRuntime(gameObject.scene.name) || player == null || panel == null
                 || player.UiInputBlocked || Vector2.Distance(player.transform.position, transform.position) > GameConstants.TownNpcInteractionDistance) return false;
             return panel.OpenDialogue(speaker, dialogue, player, destination);
         }
@@ -34,7 +34,7 @@ namespace DarkSaver.World
             foreach (var hit in Physics2D.OverlapPointAll(world))
             {
                 var npc = hit.GetComponentInParent<TownNpcInteraction>();
-                if (npc == null || !npc.isActiveAndEnabled || npc.gameObject.scene.name != "Town_Runtime") continue;
+                if (npc == null || !npc.isActiveAndEnabled || !DarkSaver.Core.TownCatalog.IsRuntime(npc.gameObject.scene.name)) continue;
                 int candidate = npc.GetComponent<SpriteRenderer>()?.sortingOrder ?? 0;
                 if (selected == null || candidate > order) { selected = npc; order = candidate; }
             }

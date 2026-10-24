@@ -71,6 +71,8 @@ namespace DarkSaver.Editor
                 if (!mapFolder.EndsWith("set", StringComparison.OrdinalIgnoreCase) || mapFolder.Length <= 3)
                     throw new InvalidDataException("Invalid AI map key.");
                 if (!bool.TryParse(row[2], out var backup)) throw new InvalidDataException("Invalid backup flag.");
+                if (Optional(row[5]) != CombatAiRule.NativeModeCode(row[4]))
+                    throw new InvalidDataException("AI mode differs from the original userunit parser.");
                 var target = Optional(row[10]);
                 if (target.HasValue && (target < short.MinValue || target > short.MaxValue))
                     throw new InvalidDataException("AI target ID outside short range.");

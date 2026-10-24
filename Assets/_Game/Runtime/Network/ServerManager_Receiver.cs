@@ -3,7 +3,7 @@ using System;
 namespace DarkSaver.Network
 {
     // Server perspective: client -> local server. Owned by one ServerManager;
-    // not a new scene component, socket listener or original binary decoder.
+    // not a new scene component or socket listener. Known payloads use the shared codec.
     public sealed class ServerManager_Receiver
     {
         private readonly ServerManager owner;
@@ -17,13 +17,16 @@ namespace DarkSaver.Network
         {
             var handler = RequestReceived;
             if (owner == null || !owner.isActiveAndEnabled || packet == null) return false;
-            if (handler == null)
+            if (owner.LocalServer.HasHandler(packet))
             {
-                var battle = owner.GetComponent<DarkSaver.Combat.BattleSceneRoot>();
-                if (onDispatch == null || battle == null || !battle.TemporaryLocalRulesEnabled
-                    || (packet is not AttackRequest && packet is not MagicRequest)) return false;
-                onDispatch(); return true;
+                onDispatch?.Invoke();
+                owner.TryRequest(packet, out _);
+                handler?.Invoke(packet);
+                return true;
             }
+            if (handler == null) return false;
+            packet=(ClientPacket)owner.Transfer(packet);
+            owner.LocalServer.Record(packet);
             onDispatch?.Invoke();
             handler(packet); // Exceptions propagate; never retry or manufacture an acknowledgement.
             return true;
