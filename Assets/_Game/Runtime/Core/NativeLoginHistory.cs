@@ -57,7 +57,11 @@ namespace DarkSaver.Core
                 temporary=path+".tmp-"+Guid.NewGuid().ToString("N");
                 using(var stream=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None))
                 {var bytes=System.Text.Encoding.UTF8.GetBytes(JsonUtility.ToJson(record));stream.Write(bytes,0,bytes.Length);stream.Flush(true);}
-                File.Move(temporary,path,true);temporary=null;return true;
+                // Unity's .NET profile has no File.Move(source, destination, overwrite).
+                // Replace an existing record without deleting it before the new file is ready.
+                if(File.Exists(path))File.Replace(temporary,path,null);
+                else File.Move(temporary,path);
+                temporary=null;return true;
             }
             catch(Exception){reason="마지막 캐릭터 기록을 저장할 수 없습니다.";return false;}
             finally{if(temporary!=null)try{File.Delete(temporary);}catch(IOException){}}
