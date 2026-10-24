@@ -1,0 +1,33 @@
+﻿direction,opcode,handler_va,payload_offset,type,field
+C2S,5C 82,0x1000e2a0,2,uint16_le,input_short0
+C2S,5C 82,0x1000e2a0,4,uint16_le,input_short1
+C2S,5C 82,0x1000e2a0,6,uint16_le,input_short2
+C2S,5C 82,0x1000e2a0,8,uint16_le,input_short3
+C2S,5C 89,0x1000e3e0,2,uint8,flag_zero_1_else_2
+C2S,5C 89,0x1000e3e0,3,uint16_le,input_short0
+C2S,5C 89,0x1000e3e0,5,uint16_le,input_short1
+C2S,5C 89,0x1000e3e0,7,uint16_le,input_short2
+C2S,5C 89,0x1000e3e0,9,uint16_le,input_short3
+C2S,5C 89,0x1000e3e0,11,uint32_le,table_derived_value
+C2S,5C 89,0x1000e3e0,15,uint8,target_count
+C2S,5C 89,0x1000e3e0,16,uint16_le[],target_indices
+C2S,5C 92,0x1000e3e0,2,uint8,flag_zero_1_else_2
+C2S,5C 92,0x1000e3e0,3,uint16_le,input_short0
+C2S,5C 92,0x1000e3e0,5,uint16_le,input_short1
+C2S,5C 92,0x1000e3e0,7,uint16_le,input_short2
+C2S,5C 92,0x1000e3e0,9,uint16_le,input_short3
+C2S,5C 92,0x1000e3e0,11,uint32_le,table_derived_value
+C2S,5C 92,0x1000e3e0,15,uint8,target_count
+C2S,5C 92,0x1000e3e0,16,uint16_le[],target_indices
+S2C,2B,0x43c170,1,uint8,status
+S2C,2B,0x43c170,2,uint16_le,map_number
+S2C,2B,0x43c170,4,uint16_le,world_x
+S2C,2B,0x43c170,6,uint16_le,world_y
+S2C,2B,0x43c170,8,uint16_le,local_unit_id
+S2C,2B,0x43c170,10,uint8,mode
+S2C,7C,0x43c360,1,uint16_le,echo_word0
+S2C,7C,0x43c360,3,uint16_le,echo_word1
+S2C,7C,0x43c360,5,uint16_le,echo_word2
+C2S,2A,0x43c360,1,uint16_le,echo_word0
+C2S,2A,0x43c360,3,uint16_le,echo_word1
+C2S,2A,0x43c360,5,uint16_le,echo_word2

@@ -1,0 +1,62 @@
+{
+  "scope": "Supplied original game client packet contracts and known send/receive paths; launcher FTP/serial classified separately",
+  "server_internals": "excluded by user",
+  "historical_total_server_send_order": "excluded by user",
+  "full_original_windows_session": "not executed",
+  "wire": {
+    "header": "AA5501",
+    "length": "u16_le decoded payload byte count; length bytes are escaped too",
+    "checksum": "(1 + length_low + length_high + sum(payload)) & 255",
+    "trailer": "55AA",
+    "escaping": {
+      "09": "4750",
+      "47": "4747"
+    },
+    "original_send_payload_limit": 2048
+  },
+  "tables": [
+    {
+      "file": "패킷_Saver_송신전수_명세.csv",
+      "rows": 91,
+      "sha256": "33ac0bb681ed36183ee4ff3cd10a354ec6803bc8d8c5e605563799a1f304e707"
+    },
+    {
+      "file": "패킷_GameCtl_수신명세.csv",
+      "rows": 36,
+      "sha256": "1642a08fca85a70e9e30d083089d50cabcc5f071fc00b2dfe1a298de491b7e9e"
+    },
+    {
+      "file": "패킷_Saver_가변명세.csv",
+      "rows": 6,
+      "sha256": "b1a33f282731683681e6b9b96b2ea9ab3030316b2844155bee52003eaafbd5c5"
+    },
+    {
+      "file": "패킷_파일전송_명세.csv",
+      "rows": 6,
+      "sha256": "9996612e928ab448270955d75b17509d9cfd4a243db6a769ceae4a3247ec7479"
+    },
+    {
+      "file": "패킷_추가송신_명세.csv",
+      "rows": 9,
+      "sha256": "9dd40c20841a8d756174b7f637b5cd4230d6cc614d1852ee25484783ca824cda"
+    },
+    {
+      "file": "맵진입_2B_필드.csv",
+      "rows": 7,
+      "sha256": "a42e6230a978827b9fe29e578965e3f9311acac5fed432a32dd42c7fe970ed31"
+    },
+    {
+      "file": "패킷_설치본전체_모듈분류.csv",
+      "rows": 12,
+      "sha256": "f590f48f64c7edba8f6a15c07682b73b9d531a98bf5e0de7184130384542b817"
+    },
+    {
+      "file": "패킷_송신_직접호출.csv",
+      "rows": 114,
+      "sha256": "988ae566742235aee77877ae4cf282ab0dbd08a86c420940fc3755549d60bfa8"
+    }
+  ],
+  "source_field_policy": "Use original offsets/consumer identities for fields without evidenced product labels; do not invent gameplay/server rules",
+  "verified_transport": "5 messages over real loopback TCP with synthetic peer and isolated original x86 kernels",
+  "runtime_qualification": "Native fragments and modeled boundaries are identified per verification result; inventories are static coverage rather than live session proof"
+}

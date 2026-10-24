@@ -1,0 +1,7 @@
+﻿opcode,body,payload_length,status
+32,u16[6];u8 L;bytes[L];u8 flag(bit0),15+L,original decoder verified with synthetic valid inputs; fields neutral unless consumer verified
+34,"u8 N; {u16[6],u32[2],u16[22],three counted short lists(max20/10/10),u16[16],u8 L,bytes[L],u16[10]} repeated",2+sum(123+2*(A+B+C)+L); normal N>=1; zero count original loops256,original decoder verified with synthetic valid inputs; fields neutral unless consumer verified
+36,i16 N; i16[2*N],3+4N,original decoder verified with synthetic valid inputs; fields neutral unless consumer verified
+38,"i16 N; {u8 L,bytes[L]} repeated",3+sum(1+L),original decoder verified with synthetic valid inputs; fields neutral unless consumer verified
+3A,u32 value,5,original decoder verified with synthetic valid inputs; fields neutral unless consumer verified
+53,u8 status; if1:u16[11],2 if status!=1 else24,original decoder verified with synthetic valid inputs; fields neutral unless consumer verified

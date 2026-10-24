@@ -1,0 +1,31 @@
+{
+  "evidence_ranges": 10,
+  "attack_overlay_counter_samples": 16,
+  "attack_sprite_frames": 4,
+  "attack_ticks_per_sprite_frame": 2,
+  "hp_delta": "received_new_hp - previous_hp",
+  "hp_display_flag": "0x40",
+  "attack_display_flag": "0x4",
+  "alpha_archives": [
+    {
+      "archive": "effect1.arc",
+      "mask_count": 5,
+      "cover_count": 0,
+      "verified_mask_files": 5,
+      "external_color_array_required_for_safe_current_draw_path": true,
+      "skill_binding": "unresolved",
+      "delay_ms": "caller dependent; constructor default 300"
+    },
+    {
+      "archive": "effect2.arc",
+      "mask_count": 3,
+      "cover_count": 0,
+      "verified_mask_files": 3,
+      "external_color_array_required_for_safe_current_draw_path": true,
+      "skill_binding": "unresolved",
+      "delay_ms": "caller dependent; constructor default 300"
+    }
+  ],
+  "original_binary_execution": false,
+  "server_damage_formula_analyzed": false
+}

@@ -1,0 +1,4 @@
+﻿state,asset,color,timing,transition,scope
+moving,effect1.arc,white,"elapsed > script delay, one step per draw; no catch-up",step exceeds script steps; replace alpha object with effect2,COMBINE_CLASS visual effect only
+hold,effect2.arc,white,elapsed >= 3000ms,"state 2, reset falling counter and fade alpha",COMBINE_CLASS visual effect only
+fall_and_fade,effect2.arc,white,one falling/fade step per call,alpha+8 >255; state3 done,"y offset=6*old counter, alpha 0..248; ToTheColor output not native-pixel verified"

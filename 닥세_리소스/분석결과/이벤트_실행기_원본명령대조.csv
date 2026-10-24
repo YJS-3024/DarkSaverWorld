@@ -1,0 +1,75 @@
+﻿case,result,match
+token_1000f020_43484152504f5320312032,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f220_43484152504f5320312032,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f020_444f2020202031303020,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f220_444f2020202031303020,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f020_454e44,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f220_454e44,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f020_,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f220_,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f020_204d455353414745206869,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f220_204d455353414745206869,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f020_43484152504f530931,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f220_43484152504f530931,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f020_4d45535341474520bfebbbe7bfa92020bec8b3e7,native ASCII-space split and trim match; CP949 preserved,True
+token_1000f220_4d45535341474520bfebbbe7bfa92020bec8b3e7,native ASCII-space split and trim match; CP949 preserved,True
+timed_wait_0,native elapsed >= delay releases next command; line already advanced on DO,True
+timed_wait_99,native elapsed >= delay releases next command; line already advanced on DO,True
+timed_wait_100,native elapsed >= delay releases next command; line already advanced on DO,True
+move_wait_0,native unit+100 bit1 gate; END follows only after movement clears,True
+move_wait_1,native unit+100 bit1 gate; END follows only after movement clears,True
+random_0_0,native rand modulo101 strictly less than threshold,True
+random_0_1,native rand modulo101 strictly less than threshold,True
+random_0_49,native rand modulo101 strictly less than threshold,True
+random_0_50,native rand modulo101 strictly less than threshold,True
+random_0_99,native rand modulo101 strictly less than threshold,True
+random_0_100,native rand modulo101 strictly less than threshold,True
+random_0_101,native rand modulo101 strictly less than threshold,True
+random_1_0,native rand modulo101 strictly less than threshold,True
+random_1_1,native rand modulo101 strictly less than threshold,True
+random_1_49,native rand modulo101 strictly less than threshold,True
+random_1_50,native rand modulo101 strictly less than threshold,True
+random_1_99,native rand modulo101 strictly less than threshold,True
+random_1_100,native rand modulo101 strictly less than threshold,True
+random_1_101,native rand modulo101 strictly less than threshold,True
+random_50_0,native rand modulo101 strictly less than threshold,True
+random_50_1,native rand modulo101 strictly less than threshold,True
+random_50_49,native rand modulo101 strictly less than threshold,True
+random_50_50,native rand modulo101 strictly less than threshold,True
+random_50_99,native rand modulo101 strictly less than threshold,True
+random_50_100,native rand modulo101 strictly less than threshold,True
+random_50_101,native rand modulo101 strictly less than threshold,True
+random_100_0,native rand modulo101 strictly less than threshold,True
+random_100_1,native rand modulo101 strictly less than threshold,True
+random_100_49,native rand modulo101 strictly less than threshold,True
+random_100_50,native rand modulo101 strictly less than threshold,True
+random_100_99,native rand modulo101 strictly less than threshold,True
+random_100_100,native rand modulo101 strictly less than threshold,True
+random_100_101,native rand modulo101 strictly less than threshold,True
+random_101_0,native rand modulo101 strictly less than threshold,True
+random_101_1,native rand modulo101 strictly less than threshold,True
+random_101_49,native rand modulo101 strictly less than threshold,True
+random_101_50,native rand modulo101 strictly less than threshold,True
+random_101_99,native rand modulo101 strictly less than threshold,True
+random_101_100,native rand modulo101 strictly less than threshold,True
+random_101_101,native rand modulo101 strictly less than threshold,True
+test_TEST_0,native TEST copies prior result; TESTNOT normalizes inverse; no expression evaluation,True
+test_TEST_1,native TEST copies prior result; TESTNOT normalizes inverse; no expression evaluation,True
+test_TEST_2,native TEST copies prior result; TESTNOT normalizes inverse; no expression evaluation,True
+test_TESTNOT_0,native TEST copies prior result; TESTNOT normalizes inverse; no expression evaluation,True
+test_TESTNOT_1,native TEST copies prior result; TESTNOT normalizes inverse; no expression evaluation,True
+test_TESTNOT_2,native TEST copies prior result; TESTNOT normalizes inverse; no expression evaluation,True
+block_camera_0,native RANDOM/TEST/(commands)/TESTNOT choose exactly one camera branch,True
+block_camera_50,native RANDOM/TEST/(commands)/TESTNOT choose exactly one camera branch,True
+block_camera_100,native RANDOM/TEST/(commands)/TESTNOT choose exactly one camera branch,True
+native_action_HPSET,native numeric parser packs unit/value shorts into existing state API,True
+native_action_MPSET,native numeric parser packs unit/value shorts into existing state API,True
+completion_END,native completion side effects captured: scene_done,True
+completion_ENDGAME,"native completion side effects captured: end_mode,post_message,send5B",True
+event_activate_1_-1,native 399-line context copy; event/actor identity and wait/cursor reset,True
+event_activate_1_7,native 399-line context copy; event/actor identity and wait/cursor reset,True
+event_activate_3_-1,native 399-line context copy; event/actor identity and wait/cursor reset,True
+event_activate_3_7,native 399-line context copy; event/actor identity and wait/cursor reset,True
+event_activate_99_-1,native 399-line context copy; event/actor identity and wait/cursor reset,True
+event_activate_99_7,native 399-line context copy; event/actor identity and wait/cursor reset,True
+event_queue_capacity,native 100 queued event/actor pairs; 101st ignored while busy,True

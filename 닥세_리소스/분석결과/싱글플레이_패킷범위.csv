@@ -1,0 +1,37 @@
+﻿opcode,subtype,singleplayer_scope,consumer,policy,wire_schema_file
+0x5a,,scene_or_presentation,InitValue,retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x5b,,scene_or_presentation,string read; S_PlaySound(1),retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x5c,0x1,state_or_battle,MoveChar,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x3,state_or_battle,dmKillChar,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x4,state_or_battle,IncTick,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x5,state_or_battle,SetHpDisplay,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x6,state_or_battle,SetMpDisplay,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x7,state_or_battle,dmKillChar2(first short only),retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0xc,state_or_battle,setmonsterai + AIStart,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0xd,state_or_battle,internal packed handler ef80,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0xe,state_or_battle,MoveFail,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0xf,state_or_battle,SetFail,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x13,state_or_battle,MagicFlag,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x15,state_or_battle,per-unit internal f620,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x20,scene_or_presentation,name comparison/message,retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x5c,0x30,scene_or_presentation,slot grid update,retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x5c,0x31,state_or_battle,displayed ability list,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x40,scene_or_presentation,global1001a4b8,retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x5c,0x50,state_or_battle,resetcharacter short form,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x51,state_or_battle,resetcharacter long form,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x52,state_or_battle,SetTickMenu,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x53,state_or_battle,SetExp,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x54,state_or_battle,battle results,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x5c,scene_or_presentation,scenario control byte,retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x5c,0x60,scene_or_presentation,name list; own team name CString,retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x5c,0x61,scene_or_presentation,completion/UI branch,retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x5c,0x64,scene_or_presentation,camera focus and magic4001 request,retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x5c,0x65,scene_or_presentation,same handler as64,retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x5c,0x66,scene_or_presentation,CString clear or append(value+0x60 byte),retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x5c,0x67,state_or_battle,Magic; no targets -> no playback,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x68,state_or_battle,CheckMagicTarget then optional request/playback,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x82,state_or_battle,AttackChar,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0x89,state_or_battle,Magic,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x5c,0xb2,state_or_battle,SetAllyInfo,retain original state semantics,패킷_GameCtl_수신명세.csv
+0x7a,,scene_or_presentation,chat/internal eda0; type modulo9,retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv
+0x7b,,scene_or_presentation,value6 UI key sequence,retain only when the corresponding local scenario/UI uses it,패킷_GameCtl_수신명세.csv

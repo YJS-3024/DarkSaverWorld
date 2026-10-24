@@ -1,0 +1,13 @@
+﻿case,detail,match
+request_-1_False_False,"{'payload': '2c259401ca002f01ffff', 'busy': False}",True
+request_-1_True_False,"{'payload': '2c259401ca002f01ffff', 'busy': True}",True
+request_-1_False_True,"{'payload': '2c259401ca002f01ffff', 'busy': True}",True
+request_0_False_False,"{'payload': '2c259401ca002f010000', 'busy': True}",True
+request_2_False_False,"{'payload': '2c259401ca002f010200', 'busy': True}",True
+callback_False_False_1,"{'calls': [], 'payloads': []}",True
+callback_True_True_1,"{'calls': ['notice'], 'payloads': []}",True
+callback_True_False_1,"{'calls': ['notice', 'remove_2c'], 'payloads': ['2c259401ca002f01ffff']}",True
+callback_True_False_0,"{'calls': ['notice', 'remove_2c', 'ui_17', 'save_name'], 'payloads': []}",True
+resource_False_False,"{'load_ok': True, 'calls': ['file_ctor', 'open', 'close', 'resource_ids', 'prepare', 'string_copy', 'path', 'load_resource', 'parse_mrc', 'post_load', 'save_name', 'file_dtor', 'string_dtor']}",True
+resource_False_True,"{'load_ok': True, 'calls': ['file_ctor', 'open', 'close', 'resource_ids', 'prepare', 'string_copy', 'path', 'load_resource', 'build_resource', 'parse_mrc', 'post_load', 'save_name', 'file_dtor', 'string_dtor']}",True
+resource_True_False,"{'load_ok': True, 'calls': ['file_ctor', 'open', 'close', 'resource_ids', 'prepare', 'string_copy', 'path', 'parse_mrc', 'post_load', 'save_name', 'file_dtor', 'string_dtor']}",True

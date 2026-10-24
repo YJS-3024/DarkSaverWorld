@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "binding": "127.0.0.1 ephemeral port",
+  "tcp_messages": 5,
+  "events": [
+    "synthetic peer received19",
+    "synthetic peer received2D",
+    "original parser decoded2D,5C01,5C05"
+  ],
+  "scope": "synthetic Python peer + original x86 encoder/receiver kernels over real loopback TCP; no Windows client, original app handshake/state machine, login/map/gameplay session"
+}

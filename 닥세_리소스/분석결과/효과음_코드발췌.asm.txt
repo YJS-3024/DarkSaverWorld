@@ -1,0 +1,95 @@
+LoadSound: slots 0..99, two-digit names for 0..9, null for missing archive entries
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/Saver/soundll.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+100020a3 <.text+0x10a3>:
+100020a3:	mov    edi,0x100060b0
+100020a8:	push   ebx
+100020a9:	lea    ecx,[esp+0x14]
+100020ad:	push   0x1000603c
+100020b2:	push   ecx
+100020b3:	call   0x1000266c
+100020b8:	add    esp,0xc
+100020bb:	cmp    edi,0x100060d8
+100020c1:	jge    0x100020d6
+100020c3:	push   ebx
+100020c4:	lea    edx,[esp+0x14]
+100020c8:	push   0x10006034
+100020cd:	push   edx
+100020ce:	call   0x1000266c
+100020d3:	add    esp,0xc
+100020d6:	mov    eax,DWORD PTR [esp+0x10]
+100020da:	push   eax
+100020db:	call   DWORD PTR [esp+0x3c]
+100020df:	add    esp,0x4
+100020e2:	test   eax,eax
+100020e4:	je     0x1000213a
+100020e6:	call   DWORD PTR [esp+0x24]
+100020ea:	mov    esi,eax
+100020ec:	push   0x34
+100020ee:	add    esi,0x28
+100020f1:	mov    ebp,DWORD PTR [esi]
+100020f3:	add    esi,0x4
+100020f6:	call   0x1000264e
+100020fb:	add    esp,0x4
+100020fe:	mov    DWORD PTR [esp+0x5c],eax
+10002102:	test   eax,eax
+10002104:	mov    BYTE PTR [esp+0x54],0x2
+10002109:	je     0x10002114
+1000210b:	mov    ecx,eax
+1000210d:	call   0x10001bf0
+10002112:	jmp    0x10002116
+10002114:	xor    eax,eax
+10002116:	mov    ecx,eax
+10002118:	mov    BYTE PTR [esp+0x54],0x1
+1000211d:	mov    DWORD PTR [edi],eax
+1000211f:	call   0x10001c60
+10002124:	mov    ecx,DWORD PTR [edi]
+10002126:	push   0x0
+10002128:	push   0x1
+1000212a:	push   0x8
+1000212c:	push   0x5622
+10002131:	push   ebp
+10002132:	push   esi
+10002133:	call   0x10001cc0
+10002138:	jmp    0x10002140
+1000213a:	mov    DWORD PTR [edi],0x0
+10002140:	add    edi,0x4
+10002143:	inc    ebx
+10002144:	cmp    edi,0x10006240
+1000214a:	jl     0x100020a8
+
+Play/stop checks indexed slot for null
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/Saver/soundll.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10002190 <.text+0x1190>:
+10002190:	mov    eax,DWORD PTR [esp+0x4]
+10002194:	mov    ecx,DWORD PTR [eax*4+0x100060b0]
+1000219b:	test   ecx,ecx
+1000219d:	je     0x100021a4
+1000219f:	jmp    0x10001df0
+100021a4:	ret
+100021a5:	nop
+100021a6:	nop
+100021a7:	nop
+100021a8:	nop
+100021a9:	nop
+100021aa:	nop
+100021ab:	nop
+100021ac:	nop
+100021ad:	nop
+100021ae:	nop
+100021af:	nop
+100021b0:	mov    eax,DWORD PTR [esp+0x4]
+100021b4:	mov    ecx,DWORD PTR [eax*4+0x100060b0]
+100021bb:	test   ecx,ecx
+100021bd:	je     0x100021c4
+100021bf:	jmp    0x10001e20
+100021c4:	ret

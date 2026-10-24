@@ -1,0 +1,43 @@
+{
+  "scenarios": 104,
+  "effective_event_definitions": 1238,
+  "source_event_definitions": 1241,
+  "scene_blocks": 130,
+  "condition_rows": 2099,
+  "source_reward_counts": {
+    "GETITEM": 159,
+    "GOLD": 26,
+    "USEITEM": 5
+  },
+  "effective_reward_counts": {
+    "GETITEM": 157,
+    "GOLD": 26,
+    "USEITEM": 5
+  },
+  "position_linked_reward_blocks": 167,
+  "tile_links": 924,
+  "acquisition_source_blocks": 191,
+  "effective_acquisition_source_blocks": 189,
+  "structural_checks": 4,
+  "actor_slot_records": 2383,
+  "map_sprite_records": 2200,
+  "issues": {
+    "set_missing": 85,
+    "pos_missing": 85,
+    "reward_without_position_condition": 17,
+    "reward_text_opcode_conflict": 1,
+    "slot_type_reuse": 10,
+    "ai_slot_without_spawn_or_type": 821,
+    "chest_text_without_reward_opcode": 5,
+    "duplicate_event_overwritten": 3,
+    "opening_source_absent": 42,
+    "ending_source_absent": 39,
+    "empty_set_roster": 3,
+    "native_event_invalid": 2
+  },
+  "native_cases": 14,
+  "native_mismatches": 0,
+  "scope": "Installed source evidence integration and selected isolated native paths; not original Windows gameplay or server condition/reward decisions",
+  "source_files_hash_verified": 508,
+  "source_manifest_sha256": "7b6eeb21ada292b05812847df795ac1e0b933d8b1d1326e2e39e81db74c0d4c1"
+}

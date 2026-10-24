@@ -1,0 +1,16 @@
+{
+  "frame_header": "aa5501",
+  "frame_trailer": "55aa",
+  "length": "little endian uint16, sender uses <=2048",
+  "checksum": "(1+len_low+len_high+sum(payload)) &255",
+  "escape": {
+    "09": "4750",
+    "47": "4747"
+  },
+  "gamectl_dispatch_entries": 36,
+  "initial_request_opcode": "0x19",
+  "initial_ready_response_opcode": "0x2d",
+  "ready_ack_opcode": "0x2d",
+  "endpoint": "argc10 argv7 host argv8 port; no fixed host/port established",
+  "scope": "offline static analysis plus separate native-instruction framing tests; login/map session not implemented"
+}

@@ -1,0 +1,7 @@
+﻿opcode,body,payload_length,scope
+64,"u32 blockCount,u32 totalBytes,u8 L,filename",10+L,file transfer context; not GameCtl5C subtype
+65,"u32 index,u32 byteOffset,u32 bytes,data",13+N,file transfer context; not GameCtl5C subtype
+66,"u8 L,filename",2+L,file transfer context; not GameCtl5C subtype
+67,u32 acknowledgedIndex,5,file transfer context; not GameCtl5C subtype
+68,u32 requestedIndex,5,file transfer context; not GameCtl5C subtype
+69,"u8 L,filename",2+L,file transfer context; not GameCtl5C subtype

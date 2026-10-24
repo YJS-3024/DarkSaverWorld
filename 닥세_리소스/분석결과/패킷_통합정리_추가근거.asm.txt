@@ -1,0 +1,1152 @@
+Saver.exe sha256=9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/Saver/Saver.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00405b20 <.text+0x4b20>:
+  405b20:	mov    eax,0x37
+  405b25:	ret
+  405b26:	nop
+  405b27:	nop
+  405b28:	nop
+  405b29:	nop
+  405b2a:	nop
+  405b2b:	nop
+  405b2c:	nop
+  405b2d:	nop
+  405b2e:	nop
+  405b2f:	nop
+  405b30:	push   esi
+  405b31:	mov    esi,ecx
+  405b33:	call   0x405b50
+  405b38:	test   BYTE PTR [esp+0x8],0x1
+  405b3d:	je     0x405b48
+  405b3f:	push   esi
+  405b40:	call   0x44072e
+  405b45:	add    esp,0x4
+  405b48:	mov    eax,esi
+  405b4a:	pop    esi
+  405b4b:	ret    0x4
+  405b4e:	nop
+  405b4f:	nop
+  405b50:	mov    DWORD PTR [ecx],0x446b08
+  405b56:	jmp    0x428000
+  405b5b:	nop
+  405b5c:	nop
+  405b5d:	nop
+  405b5e:	nop
+  405b5f:	nop
+  405b60:	mov    eax,DWORD PTR [esp+0x4]
+  405b64:	push   esi
+  405b65:	sub    eax,0x0
+  405b68:	mov    esi,ecx
+  405b6a:	je     0x405b73
+  405b6c:	dec    eax
+  405b6d:	je     0x405b9f
+  405b6f:	pop    esi
+  405b70:	ret    0x4
+  405b73:	mov    ecx,DWORD PTR [esi+0xa0]
+  405b79:	push   0x1
+  405b7b:	push   0x1a
+  405b7d:	mov    eax,DWORD PTR [ecx]
+  405b7f:	call   DWORD PTR [eax+0x4]
+  405b82:	mov    ecx,DWORD PTR [esi+0xa0]
+  405b88:	push   0x1a
+  405b8a:	call   0x427270
+  405b8f:	test   eax,eax
+  405b91:	je     0x405bd0
+  405b93:	mov    DWORD PTR [eax+0xd0],0x432760
+  405b9d:	jmp    0x405bd0
+  405b9f:	mov    ecx,DWORD PTR ds:0x4533e0
+  405ba5:	add    ecx,0x160
+  405bab:	push   ecx
+  405bac:	lea    ecx,[esp+0xc]
+  405bb0:	call   0x44088a
+  405bb5:	mov    eax,DWORD PTR [esp+0x8]
+  405bb9:	push   eax
+  405bba:	push   eax
+  405bbb:	push   0x0
+  405bbd:	push   0x1
+  405bbf:	call   0x43d680
+  405bc4:	add    esp,0x10
+  405bc7:	lea    ecx,[esp+0x8]
+  405bcb:	call   0x440848
+  405bd0:	mov    edx,DWORD PTR [esi]
+  405bd2:	mov    ecx,esi
+  405bd4:	call   DWORD PTR [edx+0x4]
+  405bd7:	mov    ecx,DWORD PTR [esi+0xa0]
+  405bdd:	push   eax
+  405bde:	call   0x426f40
+  405be3:	pop    esi
+  405be4:	ret    0x4
+
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/Saver/Saver.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00417ee0 <.text+0x16ee0>:
+  417ee0:	mov    eax,fs:0x0
+  417ee6:	push   0xffffffff
+  417ee8:	push   0x442b28
+  417eed:	push   eax
+  417eee:	mov    eax,DWORD PTR [esp+0x10]
+  417ef2:	mov    DWORD PTR fs:0x0,esp
+  417ef9:	push   esi
+  417efa:	cmp    eax,0x3
+  417efd:	mov    esi,ecx
+  417eff:	ja     0x417fd5
+  417f05:	jmp    DWORD PTR [eax*4+0x417fe8]
+  417f0c:	mov    eax,DWORD PTR [esi+0xe0]
+  417f12:	cmp    eax,0xffffffff
+  417f15:	jne    0x417f62
+  417f17:	push   0x4507f8
+  417f1c:	lea    ecx,[esp+0x18]
+  417f20:	call   0x4408d2
+  417f25:	mov    ecx,DWORD PTR [esi+0xa0]
+  417f2b:	lea    eax,[esp+0x14]
+  417f2f:	push   0x0
+  417f31:	push   eax
+  417f32:	mov    DWORD PTR [esp+0x14],0x0
+  417f3a:	call   0x427600
+  417f3f:	lea    ecx,[esp+0x14]
+  417f43:	mov    DWORD PTR [esp+0xc],0xffffffff
+  417f4b:	call   0x440848
+  417f50:	mov    ecx,DWORD PTR [esp+0x4]
+  417f54:	mov    DWORD PTR fs:0x0,ecx
+  417f5b:	pop    esi
+  417f5c:	add    esp,0xc
+  417f5f:	ret    0x4
+  417f62:	mov    ecx,DWORD PTR [esi+0xd0]
+  417f68:	mov    edx,DWORD PTR [ecx+eax*4]
+  417f6b:	mov    ecx,esi
+  417f6d:	cmp    WORD PTR [edx+0x4],0x2
+  417f72:	jne    0x417f8b
+  417f74:	call   0x418ca0
+  417f79:	mov    ecx,DWORD PTR [esp+0x4]
+  417f7d:	mov    DWORD PTR fs:0x0,ecx
+  417f84:	pop    esi
+  417f85:	add    esp,0xc
+  417f88:	ret    0x4
+  417f8b:	call   0x418c00
+  417f90:	mov    eax,DWORD PTR [esi]
+  417f92:	mov    ecx,esi
+  417f94:	call   DWORD PTR [eax+0x4]
+  417f97:	mov    ecx,DWORD PTR [esi+0xa0]
+  417f9d:	push   eax
+  417f9e:	call   0x426f40
+  417fa3:	mov    ecx,DWORD PTR [esp+0x4]
+  417fa7:	mov    DWORD PTR fs:0x0,ecx
+  417fae:	pop    esi
+  417faf:	add    esp,0xc
+  417fb2:	ret    0x4
+  417fb5:	mov    ecx,esi
+  417fb7:	call   0x418000
+  417fbc:	mov    ecx,DWORD PTR [esp+0x4]
+  417fc0:	mov    DWORD PTR fs:0x0,ecx
+  417fc7:	pop    esi
+  417fc8:	add    esp,0xc
+  417fcb:	ret    0x4
+  417fce:	mov    ecx,esi
+  417fd0:	call   0x418020
+  417fd5:	.byte 0x8b
+  417fd6:	dec    esp
+  417fd7:	.byte 0x24
+
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/Saver/Saver.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00418b80 <.text+0x17b80>:
+  418b80:	push   ecx
+  418b81:	push   esi
+  418b82:	push   edi
+  418b83:	mov    edi,ecx
+  418b85:	push   0x12c
+  418b8a:	call   0x440728
+  418b8f:	mov    esi,eax
+  418b91:	lea    eax,[esp+0xc]
+  418b95:	push   0x50
+  418b97:	push   eax
+  418b98:	push   esi
+  418b99:	mov    DWORD PTR [esp+0x18],0x0
+  418ba1:	call   0x43d0e0
+  418ba6:	mov    ecx,DWORD PTR [edi+0xc8]
+  418bac:	lea    eax,[esp+0x18]
+  418bb0:	mov    edx,DWORD PTR [ecx-0x8]
+  418bb3:	push   edx
+  418bb4:	push   eax
+  418bb5:	push   esi
+  418bb6:	call   0x43d0e0
+  418bbb:	mov    edi,DWORD PTR [edi+0xc8]
+  418bc1:	lea    edx,[esp+0x24]
+  418bc5:	mov    ecx,DWORD PTR [edi-0x8]
+  418bc8:	push   ecx
+  418bc9:	push   edi
+  418bca:	push   edx
+  418bcb:	push   esi
+  418bcc:	call   0x43d100
+  418bd1:	mov    eax,DWORD PTR [esp+0x34]
+  418bd5:	mov    ecx,DWORD PTR ds:0x4533e0
+  418bdb:	add    esp,0x2c
+  418bde:	push   esi
+  418bdf:	push   eax
+  418be0:	call   0x43b840
+  418be5:	push   esi
+  418be6:	call   0x44072e
+  418beb:	add    esp,0x4
+  418bee:	pop    edi
+  418bef:	pop    esi
+  418bf0:	pop    ecx
+  418bf1:	ret
+  418bf2:	nop
+  418bf3:	nop
+  418bf4:	nop
+  418bf5:	nop
+  418bf6:	nop
+  418bf7:	nop
+  418bf8:	nop
+  418bf9:	nop
+  418bfa:	nop
+  418bfb:	nop
+  418bfc:	nop
+  418bfd:	nop
+  418bfe:	nop
+  418bff:	nop
+  418c00:	mov    eax,fs:0x0
+  418c06:	push   0xffffffff
+  418c08:	push   0x442bf8
+  418c0d:	push   eax
+  418c0e:	mov    DWORD PTR fs:0x0,esp
+  418c15:	mov    eax,DWORD PTR [ecx+0xe0]
+  418c1b:	sub    esp,0x8
+  418c1e:	cmp    eax,0xffffffff
+  418c21:	push   esi
+  418c22:	je     0x418c8d
+  418c24:	mov    edx,DWORD PTR [ecx+0xd0]
+  418c2a:	mov    esi,DWORD PTR [edx+eax*4]
+  418c2d:	cmp    WORD PTR [esi+0x4],0x2
+  418c32:	jne    0x418c49
+  418c34:	call   0x418ca0
+  418c39:	mov    ecx,DWORD PTR [esp+0xc]
+  418c3d:	mov    DWORD PTR fs:0x0,ecx
+  418c44:	pop    esi
+  418c45:	add    esp,0x14
+  418c48:	ret
+  418c49:	lea    ecx,[esp+0x4]
+  418c4d:	call   0x44085a
+  418c52:	push   ecx
+  418c53:	lea    eax,[esp+0x8]
+  418c57:	mov    ecx,esp
+  418c59:	mov    DWORD PTR [esp+0xc],esp
+  418c5d:	push   eax
+  418c5e:	mov    DWORD PTR [esp+0x1c],0x0
+  418c66:	call   0x44088a
+  418c6b:	movsx  ecx,WORD PTR [esi+0x6]
+  418c6f:	push   0x1
+  418c71:	push   0x1
+  418c73:	push   ecx
+  418c74:	call   0x43d810
+  418c79:	add    esp,0x10
+  418c7c:	lea    ecx,[esp+0x4]
+  418c80:	mov    DWORD PTR [esp+0x14],0xffffffff
+  418c88:	call   0x440848
+  418c8d:	mov    ecx,DWORD PTR [esp+0xc]
+  418c91:	pop    esi
+  418c92:	mov    DWORD PTR fs:0x0,ecx
+  418c99:	add    esp,0x14
+  418c9c:	ret
+  418c9d:	nop
+  418c9e:	nop
+  418c9f:	nop
+  418ca0:	push   esi
+  418ca1:	mov    esi,ecx
+  418ca3:	push   0x1
+  418ca5:	push   0x1a
+  418ca7:	mov    ecx,DWORD PTR [esi+0xa0]
+  418cad:	mov    eax,DWORD PTR [ecx]
+  418caf:	call   DWORD PTR [eax+0x4]
+  418cb2:	mov    ecx,DWORD PTR [esi+0xa0]
+  418cb8:	push   0x1a
+  418cba:	call   0x427270
+  418cbf:	test   eax,eax
+  418cc1:	pop    esi
+  418cc2:	je     0x418cce
+  418cc4:	mov    DWORD PTR [eax+0xd0],0x418cd0
+  418cce:	ret
+  418ccf:	nop
+  418cd0:	mov    eax,fs:0x0
+  418cd6:	push   0xffffffff
+  418cd8:	push   0x442c18
+  418cdd:	push   eax
+  418cde:	mov    DWORD PTR fs:0x0,esp
+  418ce5:	push   esi
+  418ce6:	mov    eax,ds:0x451230
+  418ceb:	mov    DWORD PTR [esp+0xc],0x0
+  418cf3:	test   eax,eax
+  418cf5:	je     0x418d3d
+  418cf7:	mov    ecx,DWORD PTR [esp+0x14]
+  418cfb:	test   ecx,ecx
+  418cfd:	je     0x418d3d
+  418cff:	mov    ecx,DWORD PTR [eax+0xe0]
+  418d05:	mov    edx,DWORD PTR [eax+0xd0]
+  418d0b:	push   ecx
+  418d0c:	lea    eax,[esp+0x1c]
+  418d10:	mov    esi,DWORD PTR [edx+ecx*4]
+  418d13:	mov    ecx,esp
+  418d15:	mov    DWORD PTR [esp+0x18],esp
+  418d19:	push   eax
+  418d1a:	call   0x44088a
+  418d1f:	movsx  ecx,WORD PTR [esi+0x6]
+  418d23:	push   0x1
+  418d25:	push   0x2
+  418d27:	push   ecx
+  418d28:	call   0x43d810
+  418d2d:	mov    ecx,DWORD PTR ds:0x451230
+  418d33:	add    esp,0x10
+  418d36:	mov    edx,DWORD PTR [ecx]
+  418d38:	push   0x1
+  418d3a:	call   DWORD PTR [edx+0x10]
+  418d3d:	lea    ecx,[esp+0x18]
+  418d41:	mov    DWORD PTR [esp+0xc],0xffffffff
+  418d49:	call   0x440848
+  418d4e:	mov    ecx,DWORD PTR [esp+0x4]
+  418d52:	pop    esi
+  418d53:	mov    DWORD PTR fs:0x0,ecx
+  418d5a:	add    esp,0xc
+  418d5d:	ret
+
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/Saver/Saver.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00432760 <.text+0x31760>:
+  432760:	mov    eax,fs:0x0
+  432766:	push   0xffffffff
+  432768:	push   0x444608
+  43276d:	push   eax
+  43276e:	mov    DWORD PTR fs:0x0,esp
+  432775:	mov    eax,ds:0x451298
+  43277a:	mov    DWORD PTR [esp+0x8],0x0
+  432782:	test   eax,eax
+  432784:	je     0x4327c0
+  432786:	mov    eax,DWORD PTR [esp+0x10]
+  43278a:	test   eax,eax
+  43278c:	je     0x4327c0
+  43278e:	mov    eax,ds:0x4533e0
+  432793:	lea    ecx,[esp+0x10]
+  432797:	add    eax,0x160
+  43279c:	push   eax
+  43279d:	call   0x44088a
+  4327a2:	mov    eax,DWORD PTR [esp+0x10]
+  4327a6:	mov    ecx,DWORD PTR [esp+0x14]
+  4327aa:	push   eax
+  4327ab:	push   eax
+  4327ac:	push   ecx
+  4327ad:	push   0x2
+  4327af:	call   0x43d680
+  4327b4:	add    esp,0x10
+  4327b7:	lea    ecx,[esp+0x10]
+  4327bb:	call   0x440848
+  4327c0:	lea    ecx,[esp+0x14]
+  4327c4:	mov    DWORD PTR [esp+0x8],0xffffffff
+  4327cc:	call   0x440848
+  4327d1:	mov    ecx,DWORD PTR [esp+0x0]
+  4327d5:	mov    DWORD PTR fs:0x0,ecx
+  4327dc:	add    esp,0xc
+  4327df:	ret
+
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/Saver/Saver.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00402900 <.text+0x1900>:
+  402900:	mov    eax,DWORD PTR [esp+0x8]
+  402904:	push   edi
+  402905:	mov    edi,ecx
+  402907:	xor    ecx,ecx
+  402909:	mov    cl,BYTE PTR [eax]
+  40290b:	sub    ecx,0x2c
+  40290e:	je     0x40292f
+  402910:	sub    ecx,0x64
+  402913:	jne    0x402a04
+  402919:	push   0x1
+  40291b:	mov    ecx,edi
+  40291d:	call   0x402ce0
+  402922:	push   0x0
+  402924:	mov    ecx,edi
+  402926:	call   0x402ce0
+  40292b:	pop    edi
+  40292c:	ret    0x8
+  40292f:	xor    ecx,ecx
+  402931:	mov    cl,BYTE PTR [eax+0x1]
+  402934:	add    ecx,0xffffffe0
+  402937:	cmp    ecx,0x20
+  40293a:	ja     0x402a04
+  402940:	xor    edx,edx
+  402942:	mov    dl,BYTE PTR [ecx+0x402a1c]
+  402948:	jmp    DWORD PTR [edx*4+0x402a08]
+  40294f:	push   0x1
+  402951:	mov    ecx,edi
+  402953:	call   0x402a60
+  402958:	push   0x0
+  40295a:	mov    ecx,edi
+  40295c:	call   0x402a60
+  402961:	pop    edi
+  402962:	ret    0x8
+  402965:	push   eax
+  402966:	mov    eax,DWORD PTR [esp+0xc]
+  40296a:	push   eax
+  40296b:	mov    ecx,edi
+  40296d:	call   0x402a40
+  402972:	pop    edi
+  402973:	ret    0x8
+  402976:	mov    ecx,DWORD PTR [esp+0x8]
+  40297a:	push   eax
+  40297b:	push   ecx
+  40297c:	mov    ecx,edi
+  40297e:	call   0x402a40
+  402983:	pop    edi
+  402984:	ret    0x8
+  402987:	push   esi
+  402988:	push   0x14
+  40298a:	call   0x440728
+  40298f:	lea    edx,[esp+0x10]
+  402993:	mov    esi,eax
+  402995:	push   0x2c
+  402997:	push   edx
+  402998:	push   esi
+  402999:	mov    DWORD PTR [esp+0x1c],0x0
+  4029a1:	call   0x43d0e0
+  4029a6:	lea    eax,[esp+0x1c]
+  4029aa:	push   0x41
+  4029ac:	push   eax
+  4029ad:	push   esi
+  4029ae:	call   0x43d0e0
+  4029b3:	lea    ecx,[esp+0x28]
+  4029b7:	push   0x1
+  4029b9:	push   ecx
+  4029ba:	push   esi
+  4029bb:	call   0x43d0c0
+  4029c0:	lea    edx,[esp+0x34]
+  4029c4:	push   0x1
+  4029c6:	push   edx
+  4029c7:	push   esi
+  4029c8:	call   0x43d0c0
+  4029cd:	lea    eax,[esp+0x40]
+  4029d1:	push   0x13
+  4029d3:	push   eax
+  4029d4:	push   esi
+  4029d5:	call   0x43d0c0
+  4029da:	add    esp,0x40
+  4029dd:	lea    ecx,[esp+0xc]
+  4029e1:	push   0x7
+  4029e3:	push   ecx
+  4029e4:	push   esi
+  4029e5:	call   0x43d0c0
+  4029ea:	mov    edx,DWORD PTR [esp+0x18]
+  4029ee:	add    esp,0xc
+  4029f1:	mov    ecx,edi
+  4029f3:	push   esi
+  4029f4:	push   edx
+  4029f5:	call   0x402a40
+  4029fa:	push   esi
+  4029fb:	call   0x44072e
+  402a00:	add    esp,0x4
+  402a03:	pop    esi
+  402a04:	pop    edi
+  402a05:	ret    0x8
+  402a08:	dec    edi
+  402a09:	sub    DWORD PTR [eax+0x0],eax
+  402a0c:	sub    DWORD PTR gs:[eax+0x0],eax
+  402a10:	jbe    0x402a3b
+  402a12:	inc    eax
+  402a13:	add    BYTE PTR [edi+0x4004029],al
+  402a19:	sub    al,BYTE PTR [eax+0x0]
+  402a1c:	add    BYTE PTR [ecx+eax*1],al
+  402a1f:	add    al,0x4
+  402a21:	add    al,BYTE PTR [esp+eax*1]
+  402a24:	add    al,0x4
+  402a26:	add    al,0x4
+  402a28:	add    al,0x4
+  402a2a:	add    al,0x4
+  402a2c:	add    al,0x4
+  402a2e:	add    al,0x4
+  402a30:	add    al,0x4
+  402a32:	add    al,0x4
+  402a34:	add    al,0x4
+  402a36:	add    al,0x4
+  402a38:	add    al,0x4
+  402a3a:	add    al,0x4
+  402a3c:	add    edx,DWORD PTR [eax+0x448b9090]
+  402a42:	and    al,0x8
+  402a44:	mov    ecx,DWORD PTR [esp+0x4]
+  402a48:	push   eax
+  402a49:	push   ecx
+  402a4a:	mov    ecx,DWORD PTR ds:0x4533e0
+  402a50:	call   0x43c0e0
+  402a55:	ret    0x8
+
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/Saver/Saver.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+0043b820 <.text+0x3a820>:
+  43b820:	push   ecx
+  43b821:	mov    ecx,DWORD PTR [ecx+0xc0]
+  43b827:	lea    eax,[esp+0x3]
+  43b82b:	push   eax
+  43b82c:	push   0x1
+  43b82e:	mov    BYTE PTR [esp+0xb],0x30
+  43b833:	call   0x439320
+  43b838:	pop    ecx
+  43b839:	ret
+  43b83a:	nop
+  43b83b:	nop
+  43b83c:	nop
+  43b83d:	nop
+  43b83e:	nop
+  43b83f:	nop
+  43b840:	mov    eax,DWORD PTR [ecx+0x104]
+  43b846:	test   eax,eax
+  43b848:	je     0x43b862
+  43b84a:	mov    eax,DWORD PTR [esp+0x8]
+  43b84e:	mov    edx,DWORD PTR [esp+0x4]
+  43b852:	mov    ecx,DWORD PTR [ecx+0xc4]
+  43b858:	push   eax
+  43b859:	push   edx
+  43b85a:	call   0x402900
+  43b85f:	ret    0x8
+  43b862:	mov    eax,DWORD PTR [esp+0x4]
+  43b866:	test   eax,eax
+  43b868:	je     0x43b87b
+  43b86a:	mov    edx,DWORD PTR [esp+0x8]
+  43b86e:	mov    ecx,DWORD PTR [ecx+0xc0]
+  43b874:	push   edx
+  43b875:	push   eax
+  43b876:	call   0x439320
+  43b87b:	ret    0x8
+  43b87e:	nop
+  43b87f:	nop
+  43b880:	push   ecx
+  43b881:	mov    ecx,DWORD PTR [ecx+0xc0]
+  43b887:	lea    eax,[esp+0x3]
+  43b88b:	push   eax
+  43b88c:	push   0x1
+  43b88e:	mov    BYTE PTR [esp+0xb],0x0
+  43b893:	call   0x439320
+  43b898:	pop    ecx
+  43b899:	ret
+
+userunit.dll sha256=be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/Saver/userunit.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10004f90 <.text+0x3f90>:
+10004f90:	mov    eax,DWORD PTR [esp+0x4]
+10004f94:	mov    ecx,DWORD PTR [esp+0x8]
+10004f98:	mov    edx,DWORD PTR ds:0x1010a3e8
+10004f9e:	push   eax
+10004f9f:	push   ecx
+10004fa0:	push   0x52c
+10004fa5:	push   edx
+10004fa6:	call   DWORD PTR ds:0x10012134
+10004fac:	ret
+10004fad:	nop
+10004fae:	nop
+10004faf:	nop
+10004fb0:	mov    eax,DWORD PTR [esp+0x8]
+10004fb4:	mov    dx,WORD PTR [esp+0xc]
+10004fb9:	push   esi
+10004fba:	mov    esi,DWORD PTR [esp+0x8]
+10004fbe:	mov    ecx,DWORD PTR [eax]
+10004fc0:	mov    WORD PTR [ecx+esi*1],dx
+10004fc4:	mov    ecx,DWORD PTR [eax]
+10004fc6:	add    ecx,0x2
+10004fc9:	pop    esi
+10004fca:	mov    DWORD PTR [eax],ecx
+10004fcc:	ret
+10004fcd:	nop
+10004fce:	nop
+10004fcf:	nop
+10004fd0:	mov    eax,DWORD PTR [esp+0x8]
+10004fd4:	mov    dl,BYTE PTR [esp+0xc]
+10004fd8:	push   esi
+10004fd9:	mov    esi,DWORD PTR [esp+0x8]
+10004fdd:	mov    ecx,DWORD PTR [eax]
+10004fdf:	mov    BYTE PTR [ecx+esi*1],dl
+10004fe2:	mov    ecx,DWORD PTR [eax]
+10004fe4:	inc    ecx
+10004fe5:	pop    esi
+10004fe6:	mov    DWORD PTR [eax],ecx
+10004fe8:	ret
+10004fe9:	nop
+10004fea:	nop
+10004feb:	nop
+10004fec:	nop
+10004fed:	nop
+10004fee:	nop
+10004fef:	nop
+10004ff0:	mov    eax,DWORD PTR [esp+0x8]
+10004ff4:	mov    edx,DWORD PTR [esp+0xc]
+10004ff8:	push   esi
+10004ff9:	mov    esi,DWORD PTR [esp+0x8]
+10004ffd:	mov    ecx,DWORD PTR [eax]
+10004fff:	mov    DWORD PTR [ecx+esi*1],edx
+10005002:	mov    ecx,DWORD PTR [eax]
+10005004:	add    ecx,0x4
+10005007:	pop    esi
+10005008:	mov    DWORD PTR [eax],ecx
+1000500a:	ret
+1000500b:	nop
+1000500c:	nop
+1000500d:	nop
+1000500e:	nop
+1000500f:	nop
+10005010:	push   ecx
+10005011:	mov    eax,ds:0x1010a3d8
+10005016:	test   eax,eax
+10005018:	je     0x100050a6
+1000501e:	push   ebx
+1000501f:	push   esi
+10005020:	push   edi
+10005021:	push   0x18
+10005023:	mov    DWORD PTR [esp+0x10],0x0
+1000502b:	call   0x100117e6
+10005030:	mov    esi,eax
+10005032:	lea    eax,[esp+0x10]
+10005036:	push   0x5c
+10005038:	push   eax
+10005039:	push   esi
+1000503a:	call   0x10004fd0
+1000503f:	lea    ecx,[esp+0x1c]
+10005043:	push   0x43
+10005045:	push   ecx
+10005046:	push   esi
+10005047:	call   0x10004fd0
+1000504c:	mov    edi,DWORD PTR [esp+0x30]
+10005050:	lea    eax,[esp+0x28]
+10005054:	mov    dx,WORD PTR [edi]
+10005057:	push   edx
+10005058:	push   eax
+10005059:	push   esi
+1000505a:	call   0x10004fb0
+1000505f:	add    esp,0x28
+10005062:	add    edi,0x4
+10005065:	mov    ebx,0x5
+1000506a:	mov    cx,WORD PTR [edi-0x2]
+1000506e:	lea    edx,[esp+0xc]
+10005072:	push   ecx
+10005073:	push   edx
+10005074:	push   esi
+10005075:	call   0x10004fb0
+1000507a:	mov    ax,WORD PTR [edi]
+1000507d:	lea    ecx,[esp+0x18]
+10005081:	push   eax
+10005082:	push   ecx
+10005083:	push   esi
+10005084:	call   0x10004fb0
+10005089:	add    esp,0x18
+1000508c:	add    edi,0x4
+1000508f:	dec    ebx
+10005090:	jne    0x1000506a
+10005092:	push   0x18
+10005094:	push   esi
+10005095:	call   0x10004f90
+1000509a:	push   esi
+1000509b:	call   0x100117da
+100050a0:	add    esp,0xc
+100050a3:	pop    edi
+100050a4:	pop    esi
+100050a5:	pop    ebx
+100050a6:	pop    ecx
+100050a7:	ret
+100050a8:	nop
+100050a9:	nop
+100050aa:	nop
+100050ab:	nop
+100050ac:	nop
+100050ad:	nop
+100050ae:	nop
+100050af:	nop
+100050b0:	push   ecx
+100050b1:	mov    eax,ds:0x1010a3d8
+100050b6:	push   ebx
+100050b7:	xor    ebx,ebx
+100050b9:	cmp    eax,ebx
+100050bb:	je     0x100051f0
+100050c1:	push   ebp
+100050c2:	push   esi
+100050c3:	mov    esi,DWORD PTR [esp+0x14]
+100050c7:	xor    eax,eax
+100050c9:	push   edi
+100050ca:	mov    DWORD PTR [esp+0x10],ebx
+100050ce:	mov    al,BYTE PTR [esi+0xc]
+100050d1:	lea    ebp,[eax+eax*1+0x10]
+100050d5:	push   ebp
+100050d6:	call   0x100117e6
+100050db:	movsx  ecx,WORD PTR [esi]
+100050de:	push   ecx
+100050df:	mov    edi,eax
+100050e1:	call   DWORD PTR ds:0x1001215c
+100050e7:	mov    edx,DWORD PTR [eax+0x170]
+100050ed:	mov    ecx,DWORD PTR [eax+0x14]
+100050f0:	add    edx,ecx
+100050f2:	mov    ecx,DWORD PTR [eax+0x10]
+100050f5:	add    edx,ecx
+100050f7:	mov    ecx,DWORD PTR [eax+0xc]
+100050fa:	add    edx,ecx
+100050fc:	mov    ecx,DWORD PTR [eax+0x8]
+100050ff:	add    edx,ecx
+10005101:	push   0x5c
+10005103:	imul   edx,DWORD PTR [eax]
+10005106:	lea    eax,[esp+0x1c]
+1000510a:	mov    DWORD PTR [esi+0x8],edx
+1000510d:	push   eax
+1000510e:	push   edi
+1000510f:	call   0x10004fd0
+10005114:	add    esp,0x14
+10005117:	cmp    WORD PTR [esi],0x2710
+1000511c:	jge    0x1000512a
+1000511e:	lea    ecx,[esp+0x10]
+10005122:	push   0x89
+10005127:	push   ecx
+10005128:	jmp    0x10005134
+1000512a:	lea    edx,[esp+0x10]
+1000512e:	push   0x92
+10005133:	push   edx
+10005134:	push   edi
+10005135:	call   0x10004fd0
+1000513a:	mov    eax,DWORD PTR [esp+0x28]
+1000513e:	add    esp,0xc
+10005141:	cmp    eax,ebx
+10005143:	lea    ecx,[esp+0x10]
+10005147:	setne  al
+1000514a:	inc    eax
+1000514b:	push   eax
+1000514c:	push   ecx
+1000514d:	push   edi
+1000514e:	call   0x10004fd0
+10005153:	mov    dx,WORD PTR [esi]
+10005156:	lea    eax,[esp+0x1c]
+1000515a:	push   edx
+1000515b:	push   eax
+1000515c:	push   edi
+1000515d:	call   0x10004fb0
+10005162:	mov    cx,WORD PTR [esi+0x2]
+10005166:	lea    edx,[esp+0x28]
+1000516a:	push   ecx
+1000516b:	push   edx
+1000516c:	push   edi
+1000516d:	call   0x10004fb0
+10005172:	mov    ax,WORD PTR [esi+0x4]
+10005176:	lea    ecx,[esp+0x34]
+1000517a:	push   eax
+1000517b:	push   ecx
+1000517c:	push   edi
+1000517d:	call   0x10004fb0
+10005182:	mov    dx,WORD PTR [esi+0x6]
+10005186:	lea    eax,[esp+0x40]
+1000518a:	push   edx
+1000518b:	push   eax
+1000518c:	push   edi
+1000518d:	call   0x10004fb0
+10005192:	mov    ecx,DWORD PTR [esi+0x8]
+10005195:	lea    edx,[esp+0x4c]
+10005199:	push   ecx
+1000519a:	push   edx
+1000519b:	push   edi
+1000519c:	call   0x10004ff0
+100051a1:	mov    al,BYTE PTR [esi+0xc]
+100051a4:	add    esp,0x48
+100051a7:	lea    ecx,[esp+0x10]
+100051ab:	push   eax
+100051ac:	push   ecx
+100051ad:	push   edi
+100051ae:	call   0x10004fd0
+100051b3:	mov    al,BYTE PTR [esi+0xc]
+100051b6:	add    esp,0xc
+100051b9:	cmp    al,bl
+100051bb:	jbe    0x100051dd
+100051bd:	mov    edx,DWORD PTR [esi+0x10]
+100051c0:	lea    ecx,[esp+0x10]
+100051c4:	mov    ax,WORD PTR [edx+ebx*2]
+100051c8:	push   eax
+100051c9:	push   ecx
+100051ca:	push   edi
+100051cb:	call   0x10004fb0
+100051d0:	xor    edx,edx
+100051d2:	add    esp,0xc
+100051d5:	mov    dl,BYTE PTR [esi+0xc]
+100051d8:	inc    ebx
+100051d9:	cmp    ebx,edx
+100051db:	jl     0x100051bd
+100051dd:	push   ebp
+100051de:	push   edi
+100051df:	call   0x10004f90
+100051e4:	push   edi
+100051e5:	call   0x100117da
+100051ea:	add    esp,0xc
+100051ed:	pop    edi
+100051ee:	pop    esi
+100051ef:	pop    ebp
+100051f0:	pop    ebx
+100051f1:	pop    ecx
+100051f2:	ret
+100051f3:	nop
+100051f4:	nop
+100051f5:	nop
+100051f6:	nop
+100051f7:	nop
+100051f8:	nop
+100051f9:	nop
+100051fa:	nop
+100051fb:	nop
+100051fc:	nop
+100051fd:	nop
+100051fe:	nop
+100051ff:	nop
+10005200:	push   ecx
+10005201:	mov    eax,ds:0x1010a3d8
+10005206:	test   eax,eax
+10005208:	je     0x10005258
+1000520a:	push   esi
+1000520b:	push   0x4
+1000520d:	mov    DWORD PTR [esp+0x8],0x0
+10005215:	call   0x100117e6
+1000521a:	mov    esi,eax
+1000521c:	lea    eax,[esp+0x8]
+10005220:	push   0x5c
+10005222:	push   eax
+10005223:	push   esi
+10005224:	call   0x10004fd0
+10005229:	lea    ecx,[esp+0x14]
+1000522d:	push   0xb
+1000522f:	push   ecx
+10005230:	push   esi
+10005231:	call   0x10004fd0
+10005236:	mov    edx,DWORD PTR [esp+0x28]
+1000523a:	lea    eax,[esp+0x20]
+1000523e:	push   edx
+1000523f:	push   eax
+10005240:	push   esi
+10005241:	call   0x10004fb0
+10005246:	push   0x4
+10005248:	push   esi
+10005249:	call   0x10004f90
+1000524e:	push   esi
+1000524f:	call   0x100117da
+10005254:	add    esp,0x34
+10005257:	pop    esi
+10005258:	pop    ecx
+10005259:	ret
+1000525a:	nop
+1000525b:	nop
+1000525c:	nop
+1000525d:	nop
+1000525e:	nop
+1000525f:	nop
+10005260:	push   ecx
+10005261:	mov    eax,ds:0x1010a3d8
+10005266:	test   eax,eax
+10005268:	je     0x100052f7
+1000526e:	push   esi
+1000526f:	push   edi
+10005270:	push   0xa
+10005272:	mov    DWORD PTR [esp+0xc],0x0
+1000527a:	call   0x100117e6
+1000527f:	mov    esi,eax
+10005281:	lea    eax,[esp+0xc]
+10005285:	push   0x5c
+10005287:	push   eax
+10005288:	push   esi
+10005289:	call   0x10004fd0
+1000528e:	lea    ecx,[esp+0x18]
+10005292:	push   0x82
+10005297:	push   ecx
+10005298:	push   esi
+10005299:	call   0x10004fd0
+1000529e:	mov    edi,DWORD PTR [esp+0x2c]
+100052a2:	lea    eax,[esp+0x24]
+100052a6:	mov    dx,WORD PTR [edi]
+100052a9:	push   edx
+100052aa:	push   eax
+100052ab:	push   esi
+100052ac:	call   0x10004fb0
+100052b1:	mov    cx,WORD PTR [edi+0x2]
+100052b5:	lea    edx,[esp+0x30]
+100052b9:	push   ecx
+100052ba:	push   edx
+100052bb:	push   esi
+100052bc:	call   0x10004fb0
+100052c1:	mov    ax,WORD PTR [edi+0x4]
+100052c5:	lea    ecx,[esp+0x3c]
+100052c9:	push   eax
+100052ca:	push   ecx
+100052cb:	push   esi
+100052cc:	call   0x10004fb0
+100052d1:	mov    dx,WORD PTR [edi+0x6]
+100052d5:	add    esp,0x40
+100052d8:	lea    eax,[esp+0x8]
+100052dc:	push   edx
+100052dd:	push   eax
+100052de:	push   esi
+100052df:	call   0x10004fb0
+100052e4:	push   0xa
+100052e6:	push   esi
+100052e7:	call   0x10004f90
+100052ec:	push   esi
+100052ed:	call   0x100117da
+100052f2:	add    esp,0x18
+100052f5:	pop    edi
+100052f6:	pop    esi
+100052f7:	pop    ecx
+
+NetGame.exe sha256=5e8c8c13e95d796036648bbcac46e1476ea10857624f9664a5dee2e0502b7dda
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/NetGame.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+0040c4a0 <.text+0xb4a0>:
+  40c4a0:	push   ebp
+  40c4a1:	mov    ebp,esp
+  40c4a3:	sub    esp,0x1c
+  40c4a6:	mov    DWORD PTR [ebp-0x1c],ecx
+  40c4a9:	mov    DWORD PTR [ebp-0x4],0x0
+  40c4b0:	push   0x464864
+  40c4b5:	call   DWORD PTR ds:0x474e54
+  40c4bb:	mov    ds:0x46e894,eax
+  40c4c0:	cmp    DWORD PTR ds:0x46e894,0x0
+  40c4c7:	je     0x40c6bd
+  40c4cd:	push   0x464870
+  40c4d2:	mov    eax,ds:0x46e894
+  40c4d7:	push   eax
+  40c4d8:	call   DWORD PTR ds:0x474e84
+  40c4de:	mov    ds:0x46e868,eax
+  40c4e3:	cmp    DWORD PTR ds:0x46e868,0x0
+  40c4ea:	jne    0x40c4f5
+  40c4ec:	mov    ecx,DWORD PTR [ebp-0x4]
+  40c4ef:	or     ecx,0x1
+  40c4f2:	mov    DWORD PTR [ebp-0x4],ecx
+  40c4f5:	push   0x46487c
+  40c4fa:	mov    edx,DWORD PTR ds:0x46e894
+  40c500:	push   edx
+  40c501:	call   DWORD PTR ds:0x474e84
+  40c507:	mov    ds:0x46e86c,eax
+  40c50c:	cmp    DWORD PTR ds:0x46e86c,0x0
+  40c513:	jne    0x40c51d
+  40c515:	mov    eax,DWORD PTR [ebp-0x4]
+  40c518:	or     al,0x2
+  40c51a:	mov    DWORD PTR [ebp-0x4],eax
+  40c51d:	push   0x464888
+  40c522:	mov    ecx,DWORD PTR ds:0x46e894
+  40c528:	push   ecx
+  40c529:	call   DWORD PTR ds:0x474e84
+  40c52f:	mov    ds:0x46e870,eax
+  40c534:	cmp    DWORD PTR ds:0x46e870,0x0
+  40c53b:	jne    0x40c546
+  40c53d:	mov    edx,DWORD PTR [ebp-0x4]
+  40c540:	or     edx,0x4
+  40c543:	mov    DWORD PTR [ebp-0x4],edx
+  40c546:	push   0x464890
+  40c54b:	mov    eax,ds:0x46e894
+  40c550:	push   eax
+  40c551:	call   DWORD PTR ds:0x474e84
+  40c557:	mov    ds:0x46e874,eax
+  40c55c:	cmp    DWORD PTR ds:0x46e874,0x0
+  40c563:	jne    0x40c56e
+  40c565:	mov    ecx,DWORD PTR [ebp-0x4]
+  40c568:	or     ecx,0x8
+  40c56b:	mov    DWORD PTR [ebp-0x4],ecx
+  40c56e:	push   0x46489c
+  40c573:	mov    edx,DWORD PTR ds:0x46e894
+  40c579:	push   edx
+  40c57a:	call   DWORD PTR ds:0x474e84
+  40c580:	mov    ds:0x46e878,eax
+  40c585:	cmp    DWORD PTR ds:0x46e878,0x0
+  40c58c:	jne    0x40c596
+  40c58e:	mov    eax,DWORD PTR [ebp-0x4]
+  40c591:	or     al,0x10
+  40c593:	mov    DWORD PTR [ebp-0x4],eax
+  40c596:	push   0x4648b0
+  40c59b:	mov    ecx,DWORD PTR ds:0x46e894
+  40c5a1:	push   ecx
+  40c5a2:	call   DWORD PTR ds:0x474e84
+  40c5a8:	mov    ds:0x46e87c,eax
+  40c5ad:	cmp    DWORD PTR ds:0x46e87c,0x0
+  40c5b4:	jne    0x40c5bf
+  40c5b6:	mov    edx,DWORD PTR [ebp-0x4]
+  40c5b9:	or     edx,0x20
+  40c5bc:	mov    DWORD PTR [ebp-0x4],edx
+  40c5bf:	push   0x4648c0
+  40c5c4:	mov    eax,ds:0x46e894
+  40c5c9:	push   eax
+  40c5ca:	call   DWORD PTR ds:0x474e84
+  40c5d0:	mov    ds:0x46e880,eax
+  40c5d5:	cmp    DWORD PTR ds:0x46e880,0x0
+  40c5dc:	jne    0x40c5e7
+  40c5de:	mov    ecx,DWORD PTR [ebp-0x4]
+  40c5e1:	or     ecx,0x40
+  40c5e4:	mov    DWORD PTR [ebp-0x4],ecx
+  40c5e7:	push   0x4648d0
+  40c5ec:	mov    edx,DWORD PTR ds:0x46e894
+  40c5f2:	push   edx
+  40c5f3:	call   DWORD PTR ds:0x474e84
+  40c5f9:	mov    ds:0x46e884,eax
+  40c5fe:	cmp    DWORD PTR ds:0x46e884,0x0
+  40c605:	jne    0x40c60f
+  40c607:	mov    eax,DWORD PTR [ebp-0x4]
+  40c60a:	or     al,0x80
+  40c60c:	mov    DWORD PTR [ebp-0x4],eax
+  40c60f:	push   0x4648dc
+  40c614:	mov    ecx,DWORD PTR ds:0x46e894
+  40c61a:	push   ecx
+  40c61b:	call   DWORD PTR ds:0x474e84
+  40c621:	mov    ds:0x46e888,eax
+  40c626:	cmp    DWORD PTR ds:0x46e888,0x0
+  40c62d:	jne    0x40c638
+  40c62f:	mov    edx,DWORD PTR [ebp-0x4]
+  40c632:	or     dh,0x1
+  40c635:	mov    DWORD PTR [ebp-0x4],edx
+  40c638:	push   0x4648ec
+  40c63d:	mov    eax,ds:0x46e894
+  40c642:	push   eax
+  40c643:	call   DWORD PTR ds:0x474e84
+  40c649:	mov    ds:0x46e88c,eax
+  40c64e:	cmp    DWORD PTR ds:0x46e88c,0x0
+  40c655:	jne    0x40c660
+  40c657:	mov    ecx,DWORD PTR [ebp-0x4]
+  40c65a:	or     ch,0x2
+  40c65d:	mov    DWORD PTR [ebp-0x4],ecx
+  40c660:	push   0x4648fc
+  40c665:	mov    edx,DWORD PTR ds:0x46e894
+  40c66b:	push   edx
+  40c66c:	call   DWORD PTR ds:0x474e84
+  40c672:	mov    ds:0x46e890,eax
+  40c677:	cmp    DWORD PTR ds:0x46e890,0x0
+  40c67e:	jne    0x40c689
+  40c680:	mov    eax,DWORD PTR [ebp-0x4]
+  40c683:	or     ah,0x4
+  40c686:	mov    DWORD PTR [ebp-0x4],eax
+  40c689:	cmp    DWORD PTR [ebp-0x4],0x0
+  40c68d:	jle    0x40c6bb
+  40c68f:	mov    ecx,DWORD PTR [ebp-0x4]
+  40c692:	push   ecx
+  40c693:	push   0x464910
+  40c698:	lea    edx,[ebp-0x18]
+  40c69b:	push   edx
+  40c69c:	call   0x4164f5
+  40c6a1:	add    esp,0xc
+  40c6a4:	push   0x0
+  40c6a6:	push   0x464918
+  40c6ab:	lea    eax,[ebp-0x18]
+  40c6ae:	push   eax
+  40c6af:	push   0x0
+  40c6b1:	call   DWORD PTR ds:0x4752e4
+  40c6b7:	xor    al,al
+  40c6b9:	jmp    0x40c6c3
+  40c6bb:	jmp    0x40c6c1
+  40c6bd:	xor    al,al
+  40c6bf:	.byte 0xeb
+
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/NetGame.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+0040e5ee <.text+0xd5ee>:
+  40e5ee:	mov    ecx,DWORD PTR [ebp-0x48]
+  40e5f1:	add    ecx,0x68
+  40e5f4:	call   0x4011b3
+  40e5f9:	push   eax
+  40e5fa:	lea    eax,[ebp-0x34]
+  40e5fd:	push   eax
+  40e5fe:	call   0x4157d0
+  40e603:	add    esp,0x8
+  40e606:	mov    ecx,DWORD PTR [ebp-0x48]
+  40e609:	add    ecx,0x6c
+  40e60c:	call   0x4011b3
+  40e611:	push   eax
+  40e612:	lea    ecx,[ebp-0x20]
+  40e615:	push   ecx
+  40e616:	call   0x4157d0
+  40e61b:	add    esp,0x8
+  40e61e:	push   0x0
+  40e620:	push   0x0
+  40e622:	push   0x1
+  40e624:	lea    edx,[ebp-0x20]
+  40e627:	push   edx
+  40e628:	lea    eax,[ebp-0x34]
+  40e62b:	push   eax
+  40e62c:	push   0x15
+  40e62e:	push   0x46c6b0
+  40e633:	mov    ecx,DWORD PTR ds:0x46c734
+  40e639:	push   ecx
+  40e63a:	call   DWORD PTR ds:0x4753c8
+  40e640:	mov    ds:0x46c730,eax
+
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/NetGame.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+0040e7a7 <.text+0xd7a7>:
+  40e7a7:	push   0x0
+  40e7a9:	push   0x2
+  40e7ab:	push   0x80000000
+  40e7b0:	mov    ecx,DWORD PTR [ebp+0x8]
+  40e7b3:	push   ecx
+  40e7b4:	mov    edx,DWORD PTR ds:0x46c730
+  40e7ba:	push   edx
+  40e7bb:	call   DWORD PTR ds:0x4753d0
+  40e7c1:	.byte 0x89
+  40e7c2:	test   eax,esp
+  40e7c4:	sti
+
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/NetGame.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+0040e8e9 <.text+0xd8e9>:
+  40e8e9:	lea    ecx,[ebp-0x10]
+  40e8ec:	push   ecx
+  40e8ed:	push   0x400
+  40e8f2:	lea    edx,[ebp-0x418]
+  40e8f8:	push   edx
+  40e8f9:	mov    eax,DWORD PTR [ebp-0x420]
+  40e8ff:	push   eax
+  40e900:	call   DWORD PTR ds:0x4753d4
+
+
+/workspace/DarkSaverWorld/닥세_리소스/설치본_추출/Saver_Files/NetGame.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+0040d9a6 <.text+0xc9a6>:
+  40d9a6:	mov    ecx,DWORD PTR [ebp-0x134]
+  40d9ac:	call   0x40100a
+  40d9b1:	push   0x4
+  40d9b3:	push   0x464c50
+  40d9b8:	call   DWORD PTR ds:0x46e874
+

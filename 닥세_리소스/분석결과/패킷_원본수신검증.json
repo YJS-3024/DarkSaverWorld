@@ -1,0 +1,28 @@
+{
+  "cases": 702,
+  "mismatches": 0,
+  "return_semantics": "EAX1=frame success,0=no complete frame; decoded length is output ring count",
+  "observations": [
+    {
+      "case": "noise",
+      "decoded": [
+        "676f6f64"
+      ],
+      "after_empty_poll": [],
+      "after_new_frame": [
+        "6e657874"
+      ],
+      "scope": "observed original parser behavior"
+    },
+    {
+      "case": "bad_checksum",
+      "decoded": [],
+      "after_empty_poll": [],
+      "after_new_frame": [
+        "6e657874"
+      ],
+      "scope": "observed original parser behavior"
+    }
+  ],
+  "scope": "original receive instructions and synthetic ring/malloc model; fixed capacity16384; original socket and ring-growth path not executed"
+}

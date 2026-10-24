@@ -1,0 +1,67 @@
+{
+  "scope": "installed map data and client map handling",
+  "complete_within_stated_scope": true,
+  "all_unknowns_eliminated": false,
+  "items": [
+    {
+      "item": "format_and_loader",
+      "status": "verified",
+      "evidence": "verify_complete_mrc_loader.py"
+    },
+    {
+      "item": "sprite_attribute_mutation_all_maps",
+      "status": "verified",
+      "evidence": "analyze_map_runtime_completion.py"
+    },
+    {
+      "item": "terrain_table_selection_and_store",
+      "status": "verified",
+      "evidence": "analyze_map_runtime_completion.py"
+    },
+    {
+      "item": "tile_animation_and_timer",
+      "status": "verified",
+      "evidence": "analyze_map_runtime_completion.py"
+    },
+    {
+      "item": "tile_sprite_mutators",
+      "status": "verified",
+      "evidence": "analyze_map_runtime_completion.py"
+    },
+    {
+      "item": "viewport_sprite_cache",
+      "status": "verified_with_rect_api_models",
+      "evidence": "analyze_map_runtime_completion.py"
+    },
+    {
+      "item": "terrain_flood_and_path",
+      "status": "verified_with_tile_provider_models",
+      "evidence": "analyze_movement_pathfinding.py"
+    },
+    {
+      "item": "actual_map_lookup_and_movement",
+      "status": "verified",
+      "evidence": "analyze_map_movement_updates.py"
+    },
+    {
+      "item": "entry_transitions_and_failures",
+      "status": "verified_with_external_effect_models",
+      "evidence": "analyze_map_entry_details.py"
+    },
+    {
+      "item": "native_complete_screen_and_wall_clock",
+      "status": "unavailable_original_runtime",
+      "evidence": "not claimed"
+    },
+    {
+      "item": "server_eligibility",
+      "status": "excluded_by_user",
+      "evidence": "not claimed"
+    },
+    {
+      "item": "event_quest_vm",
+      "status": "separate_feature_scope",
+      "evidence": "not claimed"
+    }
+  ]
+}

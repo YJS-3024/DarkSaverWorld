@@ -1,0 +1,27 @@
+{
+  "cases": 270,
+  "mismatches": 0,
+  "source_command_counts": {
+    "SETPOSITION": 161,
+    "CHARDIR": 135,
+    "PLAYMIDI": 56,
+    "MOVEPOSITION": 57,
+    "CAHRDIR": 3
+  },
+  "clock_cases": 42,
+  "frame_selector_cases": 120,
+  "native_body_asset_cases": 18,
+  "audio_mode_cases": 16,
+  "missing_midi_assets": [
+    "bgm\\nco02.mid"
+  ],
+  "gif_encoded_delay_ms": 330,
+  "preview": "Original BMP crops selected by native body renderer at controlled times. GIF delay is centisecond-quantized (see gif_encoded_delay_ms); not original gameplay/video, DirectDraw palette/transparency or measured scheduler cadence.",
+  "scope": "Original isolated x86 execution; CString/clock/audio/display/system APIs modeled or captured. No server/Windows app or actual MIDI playback.",
+  "binary_sha256": {
+    "GameCtl.dll": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+    "userunit.dll": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711",
+    "Saver.exe": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0",
+    "soundll.dll": "553a8f3a7385c422ddfcc42ff54f695cf817b2f571cb4de13caab1f7e6562211"
+  }
+}

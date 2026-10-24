@@ -1,0 +1,8 @@
+﻿offset,type,meaning,evidence
+0,u8,opcode_2B,43C170
+1,u8,status_success_1,43C1F4
+2,i16_le,map_number,42EBF0 formats Map/%d.mrc
+4,i16_le,world_x,431870 unit+0C; stage+7C
+6,i16_le,world_y,431870 unit+0E; stage+80
+8,i16_le,local_unit_id,431870 unit+06; stage+78
+10,u8,transition_mode,43C1F9; mode1 calls world map load

@@ -1,0 +1,17 @@
+﻿case,detail,match
+load_False_False_False_False,"{'ok': False, 'calls': ['file_ctor', 'open', 'file_dtor', 'string_dtor']}",True
+load_False_False_True_False,"{'ok': False, 'calls': ['file_ctor', 'open', 'close', 'read_resource_ids', 'prepare_resources', 'string_copy', 'resource_path', 'parse_mrc', 'file_dtor', 'string_dtor']}",True
+load_False_False_True_True,"{'ok': True, 'calls': ['file_ctor', 'open', 'close', 'read_resource_ids', 'prepare_resources', 'string_copy', 'resource_path', 'parse_mrc', 'post_load', 'save_name', 'file_dtor', 'string_dtor']}",True
+load_True_True_False_False,"{'ok': True, 'calls': ['string_dtor']}",True
+load_True_False_False_True,"{'ok': False, 'calls': ['file_ctor', 'open', 'file_dtor', 'string_dtor']}",True
+world_position_202_303_True,"{'stage': (404, 202, 303), 'camera': (192, 296)}",True
+world_position_-2_-3_True,"{'stage': (404, 4294967294, 4294967293), 'camera': (-12, -10)}",True
+world_position_202_303_False,"{'stage': (404, 202, 303), 'camera': None}",True
+deferred_position_202_303,"[[404, 202, 303]]",True
+deferred_position_-2_-3,"[[404, 65534, 65533]]",True
+actual_mrc_payloads,"{'files': 647, 'all_payload_reads_reached': True}",True
+mrc_open_fail,"{'payload_read': False, 'reads': []}",True
+mrc_empty,"{'payload_read': False, 'reads': [(4, 0), (4, 0)]}",True
+mrc_truncated_header,"{'payload_read': False, 'reads': [(4, 4), (4, 4), (4, 0)]}",True
+mrc_truncated_tile,"{'payload_read': False, 'reads': [(4, 4), (4, 4), (4, 4), (4, 4), (1600, 1600), (1600, 1600), (8000, 8000), (2544, 2543)]}",True
+mrc_allocation_fail,"{'payload_read': False, 'reads': [(4, 4), (4, 4), (4, 4), (4, 4), (1600, 1600), (1600, 1600)]}",True

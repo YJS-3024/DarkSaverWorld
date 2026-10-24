@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "profile_id": "singleplayer_scenario_v1",
+  "provenance": "authored singleplayer design; not recovered server rules",
+  "placement": {
+    "source_rosters": "preserve every populated SET/POS row; flag collisions separately",
+    "missing_rosters": "include AI slots and condition-required enemy slots400..799; default301 leaders/401 followers only when no literal source identity",
+    "staging": "max12 active enemies per authored cohort, or available unique cells if fewer; other units wait for next wave; never drop required slots",
+    "followers": "two authored followers for AI slots ending0, if slots are unused",
+    "empty_ai": "training fallback400..402/410..412; authored",
+    "entry": "authored nearest anchor inside largest traversable component; do not preserve isolated prologue actor placement as actual entry",
+    "positions": "nearest unique ground-category0 TileAttb cell in entry-connected component; source AI AREA center is only an authored anchor",
+    "reserved": "party entry, position-trigger/reward tiles, sprite origins, existing slots; not complete visual collision proof",
+    "terrain_overrides": {
+      "22": 1,
+      "24": 1
+    },
+    "terrain_override_scope": "authored floor cost1 for unloaded terrain rows22/24;126/127 void blocked; not recovered native collision",
+    "confidence": "all generated rows require play/balance review; never original initial deployment"
+  },
+  "conditions": {
+    "group": "same numeric group AND; groups OR; chosen singleplayer policy",
+    "CHARPOS": "actor exact XY",
+    "CHARPOS3": "actor exact firstXY; extra operands retained as metadata and no automatic transfer; explicit local scene transition actions only",
+    "CHARPOS2": "opaque authored quest flag charpos2:<args>; default false; four legacy conditions need content override",
+    "CHARDEAD": "death tombstone exists; missing/unspawned is false",
+    "DUTY_STEP_TRUE": "quest,step pair in persistent reached set",
+    "DUTY_STEP_FALSE": "quest,step pair absent from persistent reached set",
+    "ITEM": "party shared item count>=1",
+    "ONLY_CHAR": "target death record killer_side=party",
+    "ONLY_MONSTER": "target death record killer_side=enemy; absent target uses event actor",
+    "CAUSE_OF_DEATH": "exact stored action cause tag; no numeric decoding invented",
+    "ALL_MOB_DEAD": "initial encounter was spawned and all required enemies dead, no pending wave",
+    "rng_algorithm": "LCG32 a1664525 c1013904223; output next_u32 modulo101; seed deterministically from save-slot/scenario/run/event; model seed73 is fixture",
+    "RANDOM": "seeded integer0..100 < clamped threshold, persisted per activation attempt",
+    "TICK": "mission virtual seconds; one activation per period; no offline catch-up"
+  },
+  "events": {
+    "ONCE": "one completed activation per save-slot/scenario, including empty-chest outcome",
+    "CHARONCE": "one completed activation per persistent party-member GUID/scenario",
+    "INF": "repeat only after completion, predicate exit/reentry or next tick period",
+    "order": "source final event definitions, numeric event ID order; clear before regen in same tick",
+    "actions": "source ordinal order, queue nested activation, no reentrant double execution",
+    "unknown": "invalid/unsupported commands fail closed into a persisted review flag; no silent reward/clear"
+  },
+  "rewards": {
+    "transaction": "consume requirements, RNG outcome, grant item/gold, map changes, quest flags and completion marker committed atomically",
+    "GETITEM": "grant one unit of source item ID; chosen singleplayer behavior, original native main step does not directly grant",
+    "USEITEM": "consume one; abort whole transaction if unavailable",
+    "GOLD": "grant source amount locally; do not reinterpret as item ID based on text",
+    "conflict": "01 EVENT51 GOLD399 + key message stays flagged; no automatic key399 grant",
+    "repeat": "idempotency key includes save-slot/scenario/event/actor scope/activation; reward ledger persists",
+    "legacy_drop": "existing prototype40% quest drop remains distinct from script RANDOM%101"
+  },
+  "respawn": {
+    "scenario": "no initial-enemy respawn on ordinary reentry/load; explicit replay creates new run and rewards no campaign unique objects twice",
+    "REGEN": "authored: revive up to N completely dead10-slot groups, same planned cells if free; move to nearest valid cell if occupied",
+    "period": "source TICK periods in virtual seconds; delay while scene dialogue/clear in progress",
+    "limits": "one active instance per unit+generation; no boss/unique reward respawn; no reward from repeated farming waves",
+    "clear": "cancel all pending waves and commit clear before respawn"
+  },
+  "save": {
+    "unity_wire_shape": "JsonUtility integration must use sorted List records for items/units/ledgers/map deltas, not Dictionary; Python dict is logical reference only",
+    "migration": "future savev4 preserves prototypev3 gold/party/quest/field progress in its own namespace; initialize original-scenario state empty, never infer original scenario clears from defeated counter",
+    "version": "new scenario subdocument v1; existing prototype version3 remains unchanged; future integration migrates explicitly",
+    "keys": [
+      "profile_hash",
+      "source_hash",
+      "save_slot_guid",
+      "scenario_id",
+      "run_guid",
+      "actor_guid",
+      "units_and_generations",
+      "death_tombstones",
+      "inventory",
+      "gold",
+      "quest_steps",
+      "once_charonce",
+      "event_activation_ledger",
+      "loot_rng_state",
+      "virtual_time",
+      "next_wave_at",
+      "map_deltas",
+      "scene_cursor_and_wait",
+      "clear_flags"
+    ],
+    "write": "canonical JSON checksum, same-directory temporary file and atomic replace; keep last valid backup; durable fsync is a separate platform concern",
+    "load": "validate version/checksum/profile; no reroll, reward repetition, instant offline respawn, or defaulting corrupted data to valid new game",
+    "checkpoint": "after completed reward/event transaction, victory/return, safe field save; not in the middle of unresolved transaction"
+  },
+  "timing": {
+    "scene_DO": "virtual unscaled active milliseconds; deliberately enforce delays even where legacy negative actor bypasses",
+    "body": "native333ms0,1,2,1; simulation clock freezes on explicit pause",
+    "dialogue": "three lines/page; source mode0 notice expiry>10000ms; persist cursor",
+    "prototype": "existing field0.12s/step, enemy0.55s, AP1.15/0.85 per second are prototype values, not recovered originals",
+    "CHAR_DIR": "enable explicit cardinal orientation as authored enhancement; native main step ignored source CHARDIR",
+    "MOVEPOSITION": "same immediate centered-camera placement as SETPOSITION, per native path"
+  },
+  "source_manifest_sha256": "7b6eeb21ada292b05812847df795ac1e0b933d8b1d1326e2e39e81db74c0d4c1",
+  "profile_hash": "49b13f2f5701f32da7d1a22ca18956faca5a483633cd188411e9bdb570dc60f8"
+}

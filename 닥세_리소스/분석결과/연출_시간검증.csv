@@ -1,0 +1,271 @@
+﻿case,result,match
+wait_1000_0_0,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_0_1,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_0_2147483647,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_0_2147483648,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_1_0,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_1_1,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_1_2,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_1_2147483647,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_1_2147483648,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_100_0,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_100_99,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_100_100,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_100_101,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_100_2147483647,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_100_2147483648,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_1000_0,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_1000_999,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_1000_1000,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_1000_1001,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_1000_2147483647,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_1000_1000_2147483648,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_0_0,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_0_1,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_0_2147483647,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_0_2147483648,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_1_0,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_1_1,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_1_2,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_1_2147483647,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_1_2147483648,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_100_0,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_100_99,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_100_100,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_100_101,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_100_2147483647,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_100_2147483648,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_1000_0,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_1000_999,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_1000_1000,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_1000_1001,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_1000_2147483647,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+wait_4294967280_1000_2147483648,native DO uses signed int32(now-start) >= duration; wrapping near DWORD end tested,True
+negative_actor_wait_-1,negative related actor bypasses wait gate; not a universal enforced scene delay,True
+negative_actor_wait_0,negative related actor bypasses wait gate; not a universal enforced scene delay,True
+move_release_0,DO2 movement clear returns once before next command; elapsed time alone does not release,True
+move_release_1,DO2 movement clear returns once before next command; elapsed time alone does not release,True
+global_pause_0,global1001C4D4 holds cursor after initialization; no command consumed,True
+global_pause_1,global1001C4D4 holds cursor after initialization; no command consumed,True
+message_entry_0,native MESSAGE dispatch: busy query and render helper capture; context+1C/+30 latch; text layout not emulated,True
+message_entry_1,native MESSAGE dispatch: busy query and render helper capture; context+1C/+30 latch; text layout not emulated,True
+midi_PLAYMIDI BGM\NCE01.MID 0,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI BGM\NCE04.MID 1,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI BGM\NCG09.MID,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\GAME9.MID,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\game8.mid 1,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\nce01.mid 1,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\nce02.mid 1,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\nce05.mid 1,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\ncg03.mid 0,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\ncg08.mid 0,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\ncg09.mid 0,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\nco01.mid 1,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\nco02.mid 1,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\nco03.mid 1,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\nco04.mid 1,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\ncr04.mid 0,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\ncr04.mid 2,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\ncr05.mid 0,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\ncr05.mid 2,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\ncr06.mid 0,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\test.mid,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\test.mid 0,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+midi_PLAYMIDI bgm\test.mid 2,native token parser forwards filename and mode; absent mode defaults1; playback API captured,True
+source_direction_CAHRDIR 301 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CAHRDIR 302 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CAHRDIR 303 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 301 DOWN,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 301 LEFT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 301 RIGHT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 301 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 302 DOWN,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 302 LEFT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 302 RIGHT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 302 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 303 DOWN,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 303 LEFT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 303 RIGHT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 303 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 304 RIGHT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 305 LEFT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 400 RIGHT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 401 LEFT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 700 DOWN,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 700 LEFT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 700 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 701 DOWN,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 701 RIGHT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 701 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 702 DOWN,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 702 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 703 DOWN,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 703 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 704 DOWN,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 704 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 800 DOWN,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 800 LEFT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 800 RIGHT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 800 UP,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 803 LEFT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 804 LEFT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 805 LEFT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 806 RIGHT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 807 RIGHT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+source_direction_CHARDIR 808 RIGHT,native main step consumes source CHARDIR/CAHRDIR; no direction command dispatch identified; no actor renderer entered,True
+camera_SETPOSITION,same native target-camera helper; no interpolated camera operation in this dispatch,True
+camera_MOVEPOSITION,same native target-camera helper; no interpolated camera operation in this dispatch,True
+audio_mode_0_0_0,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_0_0_1,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_0_0_2,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_0_0_3,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_0_1_0,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_0_1_1,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_0_1_2,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_0_1_3,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_1_0_0,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_1_0_1,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_1_0_2,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_1_0_3,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_1_1_0,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_1_1_1,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_1_1_2,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+audio_mode_1_1_3,"native soundll wrapper mode0/1/2/3, file/BGM gate and return1 verified; DirectMusic call captured",True
+frame_1000ac40_100_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_100_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_100_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_100_99,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_100_99,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_100_99,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_100_100,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_100_100,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_100_100,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_100_101,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_100_101,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_100_101,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_100_199,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_100_199,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_100_199,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_100_200,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_100_200,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_100_200,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_100_300,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_100_300,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_100_300,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_100_400,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_100_400,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_100_400,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_100_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_100_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_100_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_100_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_100_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_100_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_150_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_150_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_150_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_150_149,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_150_149,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_150_149,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_150_150,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_150_150,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_150_150,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_150_151,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_150_151,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_150_151,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_150_299,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_150_299,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_150_299,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_150_300,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_150_300,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_150_300,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_150_450,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_150_450,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_150_450,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_150_600,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_150_600,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_150_600,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_150_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_150_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_150_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_150_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_150_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_150_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_333_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_333_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_333_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_333_332,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_333_332,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_333_332,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_333_333,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_333_333,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_333_333,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_333_334,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_333_334,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_333_334,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_333_665,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_333_665,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_333_665,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_333_666,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_333_666,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_333_666,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_333_999,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_333_999,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_333_999,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_333_1332,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_333_1332,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_333_1332,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_333_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_333_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_333_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_333_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_333_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_333_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_1000_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_1000_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_1000_0,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_1000_999,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_1000_999,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_1000_999,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_1000_1000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_1000_1000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_1000_1000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_1000_1001,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_1000_1001,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_1000_1001,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_1000_1999,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_1000_1999,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_1000_1999,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_1000_2000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_1000_2000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_1000_2000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_1000_3000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_1000_3000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_1000_3000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_1000_4000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_1000_4000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_1000_4000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_1000_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_1000_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_1000_100000,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac40_1000_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac50_1000_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+frame_1000ac70_1000_4294967295,native unsigned GetTickCount division and frame cycle matched,True
+body_asset_301_0,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_700_0,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_301_332,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_700_332,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_301_333,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_700_333,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_301_665,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_700_665,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_301_666,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_700_666,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_301_998,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_700_998,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_301_999,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_700_999,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_301_1331,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_700_1331,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_301_1332,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True
+body_asset_700_1332,native body source rectangle matches selected BMP crop at real clock boundary; terrain0/facing3,True

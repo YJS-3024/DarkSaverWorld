@@ -1,0 +1,35 @@
+{
+  "cases": 124,
+  "flood_cases": 76,
+  "flood_cells_checked": 4864,
+  "mismatches": 0,
+  "binary_sha256": {
+    "userunit.dll": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711",
+    "setunit.dll": "cd100adb77d8fe3e5e1b1a206e3c1900bd3bffae0de88fd09cddd525454a8c43"
+  },
+  "scope": "native reset/recursive weighted flood/occupancy lookup/gradient path; map tile and attribute providers, list append/free modeled; no full Windows runtime",
+  "directions": {
+    "1": [
+      1,
+      0
+    ],
+    "2": [
+      -1,
+      0
+    ],
+    "3": [
+      0,
+      1
+    ],
+    "4": [
+      0,
+      -1
+    ]
+  },
+  "blocked_costs": [
+    99,
+    -99
+  ],
+  "occupancy": "nonnegative occupied ID /50 must match moving ID /50; do not infer faction name",
+  "limitations": "synthetic nonnegative costs except blocked -99; not all production maps or negative cost behavior; uniform-cost path optimality only"
+}

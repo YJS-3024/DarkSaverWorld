@@ -1,0 +1,27 @@
+"""Evidence-scoped progress ledger. Partial checks are never promoted to complete."""
+from analyze_special_skills import OUT,table,write
+import json
+
+def main():
+ entries=[
+ ('마법 표와 패턴 연결','확인','439개 항목/80패턴, 참조 누락 0','특수기_전체_연출대응.csv','표에는 아이템/감정표현 포함','없음'),
+ ('표시 함수 분기','확인','시전자/대상 및 영역 후처리의 실제 점프 주소','특수기_패턴_표시함수.csv','개별 함수의 모든 입력 조합 검증과 구분','없음'),
+ ('중심 효과 5·7·9·22','확인','22패턴 150단계 실제 자산/위치식; 명령 추적과 독립 대조','특수기_중심효과_프레임.csv','표시 카운터 기반; 서버 상태 지속 시간 제외','없음'),
+ ('전용 레이저·다중 광선·영역 연출','조건부 검증','65개 비99 패턴과 49개 종류/역할 경로에서 6886개 입력 표본 정상 반환','특수기_격리명령추적.json','API 대체, 범위3·고정 난수·샘플 카운터; 모든 실전 분기/타이밍을 증명하지 않음','실제 전투 입력/난수·화면 캡처와 명령 대조'),
+ ('사방 광선 조각 경계','확인','가로 포함/세로 미포함 반복 끝점, 초기 2/6/10/14 조각','특수기_전용함수_코드발췌.asm.txt','분석한 종류16의 함수에 한정','없음'),
+ ('효과음 번호와 자산','확인','로더 100슬롯; 특수기 양수 참조 16종 모두 파일 존재','특수기_효과음_파일대응.csv','소리의 제품상 이름/청각적 해석과 분리','없음'),
+ ('공통 본체의 전투 플래그 영향','확인','6개 표시ID×8방향×6플래그=288개 대조에서 본체 소스 사각형 동일','전투_본체표시플래그_대조.csv','공통 대기 본체 렌더러 한정; 모든 외부 호출자/변신 상태 전체 증명이 아님','없음'),
+ ('80ms 이동 게이트와 표시 카운터','확인','18개 시간/카운터 경계 실험; 80ms 미만에도 공격/HP 증가','전투_80ms게이트_검증.csv','실제 프레임률과 서버 틱을 뜻하지 않음','없음'),
+ ('실제 공격/특수기 재생 속도','원본 환경 부재로 대조 불가','호출 단계와 내부 게이트는 확인; 실행 시 프레임 호출 간격은 미측정','전투_갱신단계_코드발췌.asm.txt','80ms에서 160ms 공격 프레임을 유도하지 않음','원본 Windows 실행의 프레임/이벤트 시간 계측'),
+ ('본체 추가 행과 특수 상태 전체','부분 확인','기존288조건+시간/방향/지형448조건; 공통 본체는4방향 행, 큰 본체64px 및 잠김 자르기 확인','전투_본체_시간지형_원본명령대조.csv','외부 표면 참조16지점 목록 확보; 모든 추가 행의 의미 확정 아님','전용 상태가 발생하는 입력 또는 실행 영상 및 호출 추적'),
+ ('RBM 실제 호출 용도','확인','COMBINE_CLASS 3개 장면 -> effect1/effect2, 흰색 1색, 마스크 300ms','RBM_실제호출_코드근거.csv','클래스 합성 장면 연출; 전투 기술의 마스크로 일반화하지 않음','없음'),
+ ('조건부 추가 타격의 제품 의미','구조 확인·명칭 미확정','공격 수신→대상+294 signed값; 거리/상대ID 선행 게이트와0..15카운터의 비영 FX를 원본 실행','전투_공격연결_원본명령대조.csv','명중/피해 산식 아님; 크리티컬 명칭 미확정; 음수도비영','원본 이벤트 정의/실전 발생 사례 대조; 서버 공식 제외'),
+ ('RBM 픽셀 커널 수식','확인','RGB565/555의 원본 이미지/단색 픽셀 명령 3864조건, 계산식과 불일치0','RBM_픽셀커널_검증요약.json','격리 픽셀 루프 한정; 표면 잠금/화면 드라이버 출력 제외','없음'),
+ ('공격·HP 표시 생명주기','확인','공격 초기화·역할·거리·FX·48/26카운터 경계의 원본 실행','전투_공격연결검증.json','표시 카운터를 실시간 ms로 바꾸지 않음','없음'),
+ ('사망 표시·점유 해제','확인','HP표시 종료 대기, 일반19단계와표시ID700..799즉시해제','전투_공격연결검증.json','서버 사망 판정과분리; 사용필드+0유지/+4해제 구분','없음'),
+ ('네이티브 픽셀 동일성','원본 환경 부재로 대조 불가','명령·좌표·비어있는 사각형 조기 반환은 확인','특수기_원시그리기_범위분류.csv','PNG는 RGB 근사; DirectDraw 555/565·드라이버 결과 미대조','원본 Windows 출력 캡처와 픽셀/비트 깊이 대조')]
+ rows=[dict(item=a,status=b,evidence=c,artifact=d,scope=e,next_required=f) for a,b,c,d,e,f in entries];write('전투_항목별_확인상태.csv',rows)
+ pts={int(t[0]) for t in table('MagicPtn')};used={int(t[14]) for t in table('Magictbl')}
+ summary=dict(items=len(rows),statuses={s:sum(r['status']==s for r in rows) for s in sorted(set(r['status'] for r in rows))},unreferenced_pattern_ids=sorted(pts-used),all_unconfirmed_eliminated=False,original_runtime_available=False,runtime_constraint='User reports service ended and original cannot be installed/run on current Windows; no further live-gameplay requirement imposed',server_processing_excluded=True,note='No future permission required for in-scope analysis; evidence gaps remain explicitly open.')
+ (OUT/'전투_확인상태_요약.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2));print(json.dumps(summary,ensure_ascii=False))
+if __name__=='__main__':main()

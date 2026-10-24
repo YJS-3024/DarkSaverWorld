@@ -1,0 +1,9 @@
+﻿message,record_offset,type,meaning,consumer_va,scope
+5C54,6,int16_le,growth display code,0x100078da,"record base is payload14+32*i; display semantics, server computation unknown"
+5C54,28,int32_le,experience gained display,0x100078e4,"record base is payload14+32*i; display semantics, server computation unknown"
+5C54,2,int16_le,ability ID used for character surface,0x10007679,"record base is payload14+32*i; display semantics, server computation unknown"
+5C54,4,int16_le,item-display block enabled when value2; product category name unresolved,0x100076e2,"record base is payload14+32*i; display semantics, server computation unknown"
+5C54,8,int16_le,secondary ability ID if positive,0x100077f4,"record base is payload14+32*i; display semantics, server computation unknown"
+5C54,10,int16_le,secondary surface repeat count,0x10007831,"record base is payload14+32*i; display semantics, server computation unknown"
+5C54,12,int16_le,overlay repeat count,0x1000788e,"record base is payload14+32*i; display semantics, server computation unknown"
+5C54,14,int16_le[7],seven item IDs via GetItemTable; negative skipped,0x1000772d,"record base is payload14+32*i; display semantics, server computation unknown"

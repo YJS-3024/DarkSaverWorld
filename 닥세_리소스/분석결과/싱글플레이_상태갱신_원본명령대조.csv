@@ -1,0 +1,576 @@
+﻿case,detail,match
+stat_0_100_75,"{'value': 75, 'display_delta': -25, 'type': 0}",True
+stat_0_75_100,"{'value': 100, 'display_delta': 25, 'type': 0}",True
+stat_0_100_0,"{'value': 0, 'display_delta': -100, 'type': 0}",True
+stat_0_100_150,"{'value': 150, 'display_delta': 50, 'type': 0}",True
+stat_0_100_-1,"{'value': -1, 'display_delta': -101, 'type': 0}",True
+stat_0_0_32767,"{'value': 32767, 'display_delta': 32767, 'type': 0}",True
+stat_1_100_75,"{'value': 75, 'display_delta': -25, 'type': 1}",True
+stat_1_75_100,"{'value': 100, 'display_delta': 25, 'type': 1}",True
+stat_1_100_0,"{'value': 0, 'display_delta': -100, 'type': 1}",True
+stat_1_100_150,"{'value': 150, 'display_delta': 50, 'type': 1}",True
+stat_1_100_-1,"{'value': -1, 'display_delta': -101, 'type': 1}",True
+stat_1_0_32767,"{'value': 32767, 'display_delta': 32767, 'type': 1}",True
+hp_mp_fail_sequence,"{'hp': 75, 'mp': 40, 'last_delta': -10, 'last_display_type': 2}",True
+absolute_exp_0,0,True
+absolute_exp_50,50,True
+absolute_exp_100000,100000,True
+absolute_exp_4294967295,4294967295,True
+"move_fail_(7, 8)_(9, 10)","{'position': (9, 10), 'state_flags': 'A0', 'path_flags': '11'}",True
+"move_fail_(7, 8)_(7, 8)","{'position': (7, 8), 'state_flags': 'A0', 'path_flags': '11'}",True
+"move_fail_(0, 0)_(1, 0)","{'position': (1, 0), 'state_flags': 'A0', 'path_flags': '11'}",True
+remove_unit_protected_False,"{'active': 0, 'occupancy': 4294967295}",True
+remove_unit_protected_True,"{'active': 1, 'occupancy': 3}",True
+mark_then_remove_then_clear,"{'mark_does_not_remove': True, 'protected_remove_ignored': True, 'clear_then_remove': True}",True
+status_0x0,0x0,True
+status_0x1,0x40,True
+status_0x2,0x20,True
+status_0x3,0x60,True
+status_0x4,0x4,True
+status_0x5,0x44,True
+status_0x6,0x24,True
+status_0x7,0x64,True
+status_0x8,0x80,True
+status_0x9,0xc0,True
+status_0xa,0xa0,True
+status_0xb,0xe0,True
+status_0xc,0x84,True
+status_0xd,0xc4,True
+status_0xe,0xa4,True
+status_0xf,0xe4,True
+status_0x10,0x10,True
+status_0x11,0x50,True
+status_0x12,0x30,True
+status_0x13,0x70,True
+status_0x14,0x14,True
+status_0x15,0x54,True
+status_0x16,0x34,True
+status_0x17,0x74,True
+status_0x18,0x90,True
+status_0x19,0xd0,True
+status_0x1a,0xb0,True
+status_0x1b,0xf0,True
+status_0x1c,0x94,True
+status_0x1d,0xd4,True
+status_0x1e,0xb4,True
+status_0x1f,0xf4,True
+status_0x20,0x8,True
+status_0x21,0x48,True
+status_0x22,0x28,True
+status_0x23,0x68,True
+status_0x24,0xc,True
+status_0x25,0x4c,True
+status_0x26,0x2c,True
+status_0x27,0x6c,True
+status_0x28,0x88,True
+status_0x29,0xc8,True
+status_0x2a,0xa8,True
+status_0x2b,0xe8,True
+status_0x2c,0x8c,True
+status_0x2d,0xcc,True
+status_0x2e,0xac,True
+status_0x2f,0xec,True
+status_0x30,0x18,True
+status_0x31,0x58,True
+status_0x32,0x38,True
+status_0x33,0x78,True
+status_0x34,0x1c,True
+status_0x35,0x5c,True
+status_0x36,0x3c,True
+status_0x37,0x7c,True
+status_0x38,0x98,True
+status_0x39,0xd8,True
+status_0x3a,0xb8,True
+status_0x3b,0xf8,True
+status_0x3c,0x9c,True
+status_0x3d,0xdc,True
+status_0x3e,0xbc,True
+status_0x3f,0xfc,True
+status_0x40,0x1,True
+status_0x41,0x41,True
+status_0x42,0x21,True
+status_0x43,0x61,True
+status_0x44,0x5,True
+status_0x45,0x45,True
+status_0x46,0x25,True
+status_0x47,0x65,True
+status_0x48,0x81,True
+status_0x49,0xc1,True
+status_0x4a,0xa1,True
+status_0x4b,0xe1,True
+status_0x4c,0x85,True
+status_0x4d,0xc5,True
+status_0x4e,0xa5,True
+status_0x4f,0xe5,True
+status_0x50,0x11,True
+status_0x51,0x51,True
+status_0x52,0x31,True
+status_0x53,0x71,True
+status_0x54,0x15,True
+status_0x55,0x55,True
+status_0x56,0x35,True
+status_0x57,0x75,True
+status_0x58,0x91,True
+status_0x59,0xd1,True
+status_0x5a,0xb1,True
+status_0x5b,0xf1,True
+status_0x5c,0x95,True
+status_0x5d,0xd5,True
+status_0x5e,0xb5,True
+status_0x5f,0xf5,True
+status_0x60,0x9,True
+status_0x61,0x49,True
+status_0x62,0x29,True
+status_0x63,0x69,True
+status_0x64,0xd,True
+status_0x65,0x4d,True
+status_0x66,0x2d,True
+status_0x67,0x6d,True
+status_0x68,0x89,True
+status_0x69,0xc9,True
+status_0x6a,0xa9,True
+status_0x6b,0xe9,True
+status_0x6c,0x8d,True
+status_0x6d,0xcd,True
+status_0x6e,0xad,True
+status_0x6f,0xed,True
+status_0x70,0x19,True
+status_0x71,0x59,True
+status_0x72,0x39,True
+status_0x73,0x79,True
+status_0x74,0x1d,True
+status_0x75,0x5d,True
+status_0x76,0x3d,True
+status_0x77,0x7d,True
+status_0x78,0x99,True
+status_0x79,0xd9,True
+status_0x7a,0xb9,True
+status_0x7b,0xf9,True
+status_0x7c,0x9d,True
+status_0x7d,0xdd,True
+status_0x7e,0xbd,True
+status_0x7f,0xfd,True
+status_0x80,0x100,True
+status_0x81,0x140,True
+status_0x82,0x120,True
+status_0x83,0x160,True
+status_0x84,0x104,True
+status_0x85,0x144,True
+status_0x86,0x124,True
+status_0x87,0x164,True
+status_0x88,0x180,True
+status_0x89,0x1c0,True
+status_0x8a,0x1a0,True
+status_0x8b,0x1e0,True
+status_0x8c,0x184,True
+status_0x8d,0x1c4,True
+status_0x8e,0x1a4,True
+status_0x8f,0x1e4,True
+status_0x90,0x110,True
+status_0x91,0x150,True
+status_0x92,0x130,True
+status_0x93,0x170,True
+status_0x94,0x114,True
+status_0x95,0x154,True
+status_0x96,0x134,True
+status_0x97,0x174,True
+status_0x98,0x190,True
+status_0x99,0x1d0,True
+status_0x9a,0x1b0,True
+status_0x9b,0x1f0,True
+status_0x9c,0x194,True
+status_0x9d,0x1d4,True
+status_0x9e,0x1b4,True
+status_0x9f,0x1f4,True
+status_0xa0,0x108,True
+status_0xa1,0x148,True
+status_0xa2,0x128,True
+status_0xa3,0x168,True
+status_0xa4,0x10c,True
+status_0xa5,0x14c,True
+status_0xa6,0x12c,True
+status_0xa7,0x16c,True
+status_0xa8,0x188,True
+status_0xa9,0x1c8,True
+status_0xaa,0x1a8,True
+status_0xab,0x1e8,True
+status_0xac,0x18c,True
+status_0xad,0x1cc,True
+status_0xae,0x1ac,True
+status_0xaf,0x1ec,True
+status_0xb0,0x118,True
+status_0xb1,0x158,True
+status_0xb2,0x138,True
+status_0xb3,0x178,True
+status_0xb4,0x11c,True
+status_0xb5,0x15c,True
+status_0xb6,0x13c,True
+status_0xb7,0x17c,True
+status_0xb8,0x198,True
+status_0xb9,0x1d8,True
+status_0xba,0x1b8,True
+status_0xbb,0x1f8,True
+status_0xbc,0x19c,True
+status_0xbd,0x1dc,True
+status_0xbe,0x1bc,True
+status_0xbf,0x1fc,True
+status_0xc0,0x101,True
+status_0xc1,0x141,True
+status_0xc2,0x121,True
+status_0xc3,0x161,True
+status_0xc4,0x105,True
+status_0xc5,0x145,True
+status_0xc6,0x125,True
+status_0xc7,0x165,True
+status_0xc8,0x181,True
+status_0xc9,0x1c1,True
+status_0xca,0x1a1,True
+status_0xcb,0x1e1,True
+status_0xcc,0x185,True
+status_0xcd,0x1c5,True
+status_0xce,0x1a5,True
+status_0xcf,0x1e5,True
+status_0xd0,0x111,True
+status_0xd1,0x151,True
+status_0xd2,0x131,True
+status_0xd3,0x171,True
+status_0xd4,0x115,True
+status_0xd5,0x155,True
+status_0xd6,0x135,True
+status_0xd7,0x175,True
+status_0xd8,0x191,True
+status_0xd9,0x1d1,True
+status_0xda,0x1b1,True
+status_0xdb,0x1f1,True
+status_0xdc,0x195,True
+status_0xdd,0x1d5,True
+status_0xde,0x1b5,True
+status_0xdf,0x1f5,True
+status_0xe0,0x109,True
+status_0xe1,0x149,True
+status_0xe2,0x129,True
+status_0xe3,0x169,True
+status_0xe4,0x10d,True
+status_0xe5,0x14d,True
+status_0xe6,0x12d,True
+status_0xe7,0x16d,True
+status_0xe8,0x189,True
+status_0xe9,0x1c9,True
+status_0xea,0x1a9,True
+status_0xeb,0x1e9,True
+status_0xec,0x18d,True
+status_0xed,0x1cd,True
+status_0xee,0x1ad,True
+status_0xef,0x1ed,True
+status_0xf0,0x119,True
+status_0xf1,0x159,True
+status_0xf2,0x139,True
+status_0xf3,0x179,True
+status_0xf4,0x11d,True
+status_0xf5,0x15d,True
+status_0xf6,0x13d,True
+status_0xf7,0x17d,True
+status_0xf8,0x199,True
+status_0xf9,0x1d9,True
+status_0xfa,0x1b9,True
+status_0xfb,0x1f9,True
+status_0xfc,0x19d,True
+status_0xfd,0x1dd,True
+status_0xfe,0x1bd,True
+status_0xff,0x1fd,True
+status_0x100,0x200,True
+status_0x200,0x400,True
+status_0x400,0x800,True
+status_0x800,0x1000,True
+status_0x1000,0x2000,True
+status_0x2000,0x4000,True
+status_0x4000,0x2,True
+status_0x8000,0x8000,True
+status_0x10000,0x0,True
+status_0x20000,0x0,True
+status_0x40000,0x0,True
+status_0x80000,0x0,True
+status_0x100000,0x0,True
+status_0x200000,0x0,True
+status_0x400000,0x0,True
+status_0x800000,0x0,True
+status_0x1000000,0x0,True
+status_0x2000000,0x0,True
+status_0x4000000,0x0,True
+status_0x8000000,0x0,True
+status_0x10000000,0x0,True
+status_0x20000000,0x0,True
+status_0x40000000,0x0,True
+status_0x80000000,0x0,True
+status_0xffff,0xffff,True
+status_0x55aa,0x2baa,True
+status_0xaa55,0xd455,True
+status_0xffffffff,0xffff,True
+status_inactive_unit,{'unchanged': True},True
+negative_unit_guard_0x1000efe0,{'unchanged': True},True
+negative_unit_guard_0x1000f030,{'unchanged': True},True
+tick_menu_0,"{'mask': '0x0', 'tick': 0}",True
+tick_menu_1,"{'mask': '0x2', 'tick': 0}",True
+tick_menu_2,"{'mask': '0x10', 'tick': 4}",True
+tick_menu_3,"{'mask': '0x12', 'tick': 10}",True
+tick_menu_4,"{'mask': '0x8', 'tick': 0}",True
+tick_menu_5,"{'mask': '0xa', 'tick': 0}",True
+tick_menu_6,"{'mask': '0x18', 'tick': 4}",True
+tick_menu_7,"{'mask': '0x1a', 'tick': 10}",True
+tick_menu_8,"{'mask': '0x20', 'tick': 0}",True
+tick_menu_9,"{'mask': '0x22', 'tick': 0}",True
+tick_menu_10,"{'mask': '0x30', 'tick': 4}",True
+tick_menu_11,"{'mask': '0x32', 'tick': 10}",True
+tick_menu_12,"{'mask': '0x28', 'tick': 0}",True
+tick_menu_13,"{'mask': '0x2a', 'tick': 0}",True
+tick_menu_14,"{'mask': '0x38', 'tick': 4}",True
+tick_menu_15,"{'mask': '0x3a', 'tick': 10}",True
+tick_menu_16,"{'mask': '0x1', 'tick': 0}",True
+tick_menu_17,"{'mask': '0x3', 'tick': 0}",True
+tick_menu_18,"{'mask': '0x11', 'tick': 4}",True
+tick_menu_19,"{'mask': '0x13', 'tick': 10}",True
+tick_menu_20,"{'mask': '0x9', 'tick': 0}",True
+tick_menu_21,"{'mask': '0xb', 'tick': 0}",True
+tick_menu_22,"{'mask': '0x19', 'tick': 4}",True
+tick_menu_23,"{'mask': '0x1b', 'tick': 10}",True
+tick_menu_24,"{'mask': '0x21', 'tick': 0}",True
+tick_menu_25,"{'mask': '0x23', 'tick': 0}",True
+tick_menu_26,"{'mask': '0x31', 'tick': 4}",True
+tick_menu_27,"{'mask': '0x33', 'tick': 10}",True
+tick_menu_28,"{'mask': '0x29', 'tick': 0}",True
+tick_menu_29,"{'mask': '0x2b', 'tick': 0}",True
+tick_menu_30,"{'mask': '0x39', 'tick': 4}",True
+tick_menu_31,"{'mask': '0x3b', 'tick': 10}",True
+tick_menu_32,"{'mask': '0x4', 'tick': 0}",True
+tick_menu_33,"{'mask': '0x6', 'tick': 0}",True
+tick_menu_34,"{'mask': '0x14', 'tick': 4}",True
+tick_menu_35,"{'mask': '0x16', 'tick': 10}",True
+tick_menu_36,"{'mask': '0xc', 'tick': 0}",True
+tick_menu_37,"{'mask': '0xe', 'tick': 0}",True
+tick_menu_38,"{'mask': '0x1c', 'tick': 4}",True
+tick_menu_39,"{'mask': '0x1e', 'tick': 10}",True
+tick_menu_40,"{'mask': '0x24', 'tick': 0}",True
+tick_menu_41,"{'mask': '0x26', 'tick': 0}",True
+tick_menu_42,"{'mask': '0x34', 'tick': 4}",True
+tick_menu_43,"{'mask': '0x36', 'tick': 10}",True
+tick_menu_44,"{'mask': '0x2c', 'tick': 0}",True
+tick_menu_45,"{'mask': '0x2e', 'tick': 0}",True
+tick_menu_46,"{'mask': '0x3c', 'tick': 4}",True
+tick_menu_47,"{'mask': '0x3e', 'tick': 10}",True
+tick_menu_48,"{'mask': '0x5', 'tick': 0}",True
+tick_menu_49,"{'mask': '0x7', 'tick': 0}",True
+tick_menu_50,"{'mask': '0x15', 'tick': 4}",True
+tick_menu_51,"{'mask': '0x17', 'tick': 10}",True
+tick_menu_52,"{'mask': '0xd', 'tick': 0}",True
+tick_menu_53,"{'mask': '0xf', 'tick': 0}",True
+tick_menu_54,"{'mask': '0x1d', 'tick': 4}",True
+tick_menu_55,"{'mask': '0x1f', 'tick': 10}",True
+tick_menu_56,"{'mask': '0x25', 'tick': 0}",True
+tick_menu_57,"{'mask': '0x27', 'tick': 0}",True
+tick_menu_58,"{'mask': '0x35', 'tick': 4}",True
+tick_menu_59,"{'mask': '0x37', 'tick': 10}",True
+tick_menu_60,"{'mask': '0x2d', 'tick': 0}",True
+tick_menu_61,"{'mask': '0x2f', 'tick': 0}",True
+tick_menu_62,"{'mask': '0x3d', 'tick': 4}",True
+tick_menu_63,"{'mask': '0x3f', 'tick': 10}",True
+tick_menu_64,"{'mask': '0x40', 'tick': 0}",True
+tick_menu_65,"{'mask': '0x42', 'tick': 0}",True
+tick_menu_66,"{'mask': '0x50', 'tick': 4}",True
+tick_menu_67,"{'mask': '0x52', 'tick': 10}",True
+tick_menu_68,"{'mask': '0x48', 'tick': 0}",True
+tick_menu_69,"{'mask': '0x4a', 'tick': 0}",True
+tick_menu_70,"{'mask': '0x58', 'tick': 4}",True
+tick_menu_71,"{'mask': '0x5a', 'tick': 10}",True
+tick_menu_72,"{'mask': '0x60', 'tick': 0}",True
+tick_menu_73,"{'mask': '0x62', 'tick': 0}",True
+tick_menu_74,"{'mask': '0x70', 'tick': 4}",True
+tick_menu_75,"{'mask': '0x72', 'tick': 10}",True
+tick_menu_76,"{'mask': '0x68', 'tick': 0}",True
+tick_menu_77,"{'mask': '0x6a', 'tick': 0}",True
+tick_menu_78,"{'mask': '0x78', 'tick': 4}",True
+tick_menu_79,"{'mask': '0x7a', 'tick': 10}",True
+tick_menu_80,"{'mask': '0x41', 'tick': 0}",True
+tick_menu_81,"{'mask': '0x43', 'tick': 0}",True
+tick_menu_82,"{'mask': '0x51', 'tick': 4}",True
+tick_menu_83,"{'mask': '0x53', 'tick': 10}",True
+tick_menu_84,"{'mask': '0x49', 'tick': 0}",True
+tick_menu_85,"{'mask': '0x4b', 'tick': 0}",True
+tick_menu_86,"{'mask': '0x59', 'tick': 4}",True
+tick_menu_87,"{'mask': '0x5b', 'tick': 10}",True
+tick_menu_88,"{'mask': '0x61', 'tick': 0}",True
+tick_menu_89,"{'mask': '0x63', 'tick': 0}",True
+tick_menu_90,"{'mask': '0x71', 'tick': 4}",True
+tick_menu_91,"{'mask': '0x73', 'tick': 10}",True
+tick_menu_92,"{'mask': '0x69', 'tick': 0}",True
+tick_menu_93,"{'mask': '0x6b', 'tick': 0}",True
+tick_menu_94,"{'mask': '0x79', 'tick': 4}",True
+tick_menu_95,"{'mask': '0x7b', 'tick': 10}",True
+tick_menu_96,"{'mask': '0x44', 'tick': 0}",True
+tick_menu_97,"{'mask': '0x46', 'tick': 0}",True
+tick_menu_98,"{'mask': '0x54', 'tick': 4}",True
+tick_menu_99,"{'mask': '0x56', 'tick': 10}",True
+tick_menu_100,"{'mask': '0x4c', 'tick': 0}",True
+tick_menu_101,"{'mask': '0x4e', 'tick': 0}",True
+tick_menu_102,"{'mask': '0x5c', 'tick': 4}",True
+tick_menu_103,"{'mask': '0x5e', 'tick': 10}",True
+tick_menu_104,"{'mask': '0x64', 'tick': 0}",True
+tick_menu_105,"{'mask': '0x66', 'tick': 0}",True
+tick_menu_106,"{'mask': '0x74', 'tick': 4}",True
+tick_menu_107,"{'mask': '0x76', 'tick': 10}",True
+tick_menu_108,"{'mask': '0x6c', 'tick': 0}",True
+tick_menu_109,"{'mask': '0x6e', 'tick': 0}",True
+tick_menu_110,"{'mask': '0x7c', 'tick': 4}",True
+tick_menu_111,"{'mask': '0x7e', 'tick': 10}",True
+tick_menu_112,"{'mask': '0x45', 'tick': 0}",True
+tick_menu_113,"{'mask': '0x47', 'tick': 0}",True
+tick_menu_114,"{'mask': '0x55', 'tick': 4}",True
+tick_menu_115,"{'mask': '0x57', 'tick': 10}",True
+tick_menu_116,"{'mask': '0x4d', 'tick': 0}",True
+tick_menu_117,"{'mask': '0x4f', 'tick': 0}",True
+tick_menu_118,"{'mask': '0x5d', 'tick': 4}",True
+tick_menu_119,"{'mask': '0x5f', 'tick': 10}",True
+tick_menu_120,"{'mask': '0x65', 'tick': 0}",True
+tick_menu_121,"{'mask': '0x67', 'tick': 0}",True
+tick_menu_122,"{'mask': '0x75', 'tick': 4}",True
+tick_menu_123,"{'mask': '0x77', 'tick': 10}",True
+tick_menu_124,"{'mask': '0x6d', 'tick': 0}",True
+tick_menu_125,"{'mask': '0x6f', 'tick': 0}",True
+tick_menu_126,"{'mask': '0x7d', 'tick': 4}",True
+tick_menu_127,"{'mask': '0x7f', 'tick': 10}",True
+tick_menu_128,"{'mask': '0x80', 'tick': 0}",True
+tick_menu_129,"{'mask': '0x82', 'tick': 0}",True
+tick_menu_130,"{'mask': '0x90', 'tick': 4}",True
+tick_menu_131,"{'mask': '0x92', 'tick': 10}",True
+tick_menu_132,"{'mask': '0x88', 'tick': 0}",True
+tick_menu_133,"{'mask': '0x8a', 'tick': 0}",True
+tick_menu_134,"{'mask': '0x98', 'tick': 4}",True
+tick_menu_135,"{'mask': '0x9a', 'tick': 10}",True
+tick_menu_136,"{'mask': '0xa0', 'tick': 0}",True
+tick_menu_137,"{'mask': '0xa2', 'tick': 0}",True
+tick_menu_138,"{'mask': '0xb0', 'tick': 4}",True
+tick_menu_139,"{'mask': '0xb2', 'tick': 10}",True
+tick_menu_140,"{'mask': '0xa8', 'tick': 0}",True
+tick_menu_141,"{'mask': '0xaa', 'tick': 0}",True
+tick_menu_142,"{'mask': '0xb8', 'tick': 4}",True
+tick_menu_143,"{'mask': '0xba', 'tick': 10}",True
+tick_menu_144,"{'mask': '0x81', 'tick': 0}",True
+tick_menu_145,"{'mask': '0x83', 'tick': 0}",True
+tick_menu_146,"{'mask': '0x91', 'tick': 4}",True
+tick_menu_147,"{'mask': '0x93', 'tick': 10}",True
+tick_menu_148,"{'mask': '0x89', 'tick': 0}",True
+tick_menu_149,"{'mask': '0x8b', 'tick': 0}",True
+tick_menu_150,"{'mask': '0x99', 'tick': 4}",True
+tick_menu_151,"{'mask': '0x9b', 'tick': 10}",True
+tick_menu_152,"{'mask': '0xa1', 'tick': 0}",True
+tick_menu_153,"{'mask': '0xa3', 'tick': 0}",True
+tick_menu_154,"{'mask': '0xb1', 'tick': 4}",True
+tick_menu_155,"{'mask': '0xb3', 'tick': 10}",True
+tick_menu_156,"{'mask': '0xa9', 'tick': 0}",True
+tick_menu_157,"{'mask': '0xab', 'tick': 0}",True
+tick_menu_158,"{'mask': '0xb9', 'tick': 4}",True
+tick_menu_159,"{'mask': '0xbb', 'tick': 10}",True
+tick_menu_160,"{'mask': '0x84', 'tick': 0}",True
+tick_menu_161,"{'mask': '0x86', 'tick': 0}",True
+tick_menu_162,"{'mask': '0x94', 'tick': 4}",True
+tick_menu_163,"{'mask': '0x96', 'tick': 10}",True
+tick_menu_164,"{'mask': '0x8c', 'tick': 0}",True
+tick_menu_165,"{'mask': '0x8e', 'tick': 0}",True
+tick_menu_166,"{'mask': '0x9c', 'tick': 4}",True
+tick_menu_167,"{'mask': '0x9e', 'tick': 10}",True
+tick_menu_168,"{'mask': '0xa4', 'tick': 0}",True
+tick_menu_169,"{'mask': '0xa6', 'tick': 0}",True
+tick_menu_170,"{'mask': '0xb4', 'tick': 4}",True
+tick_menu_171,"{'mask': '0xb6', 'tick': 10}",True
+tick_menu_172,"{'mask': '0xac', 'tick': 0}",True
+tick_menu_173,"{'mask': '0xae', 'tick': 0}",True
+tick_menu_174,"{'mask': '0xbc', 'tick': 4}",True
+tick_menu_175,"{'mask': '0xbe', 'tick': 10}",True
+tick_menu_176,"{'mask': '0x85', 'tick': 0}",True
+tick_menu_177,"{'mask': '0x87', 'tick': 0}",True
+tick_menu_178,"{'mask': '0x95', 'tick': 4}",True
+tick_menu_179,"{'mask': '0x97', 'tick': 10}",True
+tick_menu_180,"{'mask': '0x8d', 'tick': 0}",True
+tick_menu_181,"{'mask': '0x8f', 'tick': 0}",True
+tick_menu_182,"{'mask': '0x9d', 'tick': 4}",True
+tick_menu_183,"{'mask': '0x9f', 'tick': 10}",True
+tick_menu_184,"{'mask': '0xa5', 'tick': 0}",True
+tick_menu_185,"{'mask': '0xa7', 'tick': 0}",True
+tick_menu_186,"{'mask': '0xb5', 'tick': 4}",True
+tick_menu_187,"{'mask': '0xb7', 'tick': 10}",True
+tick_menu_188,"{'mask': '0xad', 'tick': 0}",True
+tick_menu_189,"{'mask': '0xaf', 'tick': 0}",True
+tick_menu_190,"{'mask': '0xbd', 'tick': 4}",True
+tick_menu_191,"{'mask': '0xbf', 'tick': 10}",True
+tick_menu_192,"{'mask': '0xc0', 'tick': 0}",True
+tick_menu_193,"{'mask': '0xc2', 'tick': 0}",True
+tick_menu_194,"{'mask': '0xd0', 'tick': 4}",True
+tick_menu_195,"{'mask': '0xd2', 'tick': 10}",True
+tick_menu_196,"{'mask': '0xc8', 'tick': 0}",True
+tick_menu_197,"{'mask': '0xca', 'tick': 0}",True
+tick_menu_198,"{'mask': '0xd8', 'tick': 4}",True
+tick_menu_199,"{'mask': '0xda', 'tick': 10}",True
+tick_menu_200,"{'mask': '0xe0', 'tick': 0}",True
+tick_menu_201,"{'mask': '0xe2', 'tick': 0}",True
+tick_menu_202,"{'mask': '0xf0', 'tick': 4}",True
+tick_menu_203,"{'mask': '0xf2', 'tick': 10}",True
+tick_menu_204,"{'mask': '0xe8', 'tick': 0}",True
+tick_menu_205,"{'mask': '0xea', 'tick': 0}",True
+tick_menu_206,"{'mask': '0xf8', 'tick': 4}",True
+tick_menu_207,"{'mask': '0xfa', 'tick': 10}",True
+tick_menu_208,"{'mask': '0xc1', 'tick': 0}",True
+tick_menu_209,"{'mask': '0xc3', 'tick': 0}",True
+tick_menu_210,"{'mask': '0xd1', 'tick': 4}",True
+tick_menu_211,"{'mask': '0xd3', 'tick': 10}",True
+tick_menu_212,"{'mask': '0xc9', 'tick': 0}",True
+tick_menu_213,"{'mask': '0xcb', 'tick': 0}",True
+tick_menu_214,"{'mask': '0xd9', 'tick': 4}",True
+tick_menu_215,"{'mask': '0xdb', 'tick': 10}",True
+tick_menu_216,"{'mask': '0xe1', 'tick': 0}",True
+tick_menu_217,"{'mask': '0xe3', 'tick': 0}",True
+tick_menu_218,"{'mask': '0xf1', 'tick': 4}",True
+tick_menu_219,"{'mask': '0xf3', 'tick': 10}",True
+tick_menu_220,"{'mask': '0xe9', 'tick': 0}",True
+tick_menu_221,"{'mask': '0xeb', 'tick': 0}",True
+tick_menu_222,"{'mask': '0xf9', 'tick': 4}",True
+tick_menu_223,"{'mask': '0xfb', 'tick': 10}",True
+tick_menu_224,"{'mask': '0xc4', 'tick': 0}",True
+tick_menu_225,"{'mask': '0xc6', 'tick': 0}",True
+tick_menu_226,"{'mask': '0xd4', 'tick': 4}",True
+tick_menu_227,"{'mask': '0xd6', 'tick': 10}",True
+tick_menu_228,"{'mask': '0xcc', 'tick': 0}",True
+tick_menu_229,"{'mask': '0xce', 'tick': 0}",True
+tick_menu_230,"{'mask': '0xdc', 'tick': 4}",True
+tick_menu_231,"{'mask': '0xde', 'tick': 10}",True
+tick_menu_232,"{'mask': '0xe4', 'tick': 0}",True
+tick_menu_233,"{'mask': '0xe6', 'tick': 0}",True
+tick_menu_234,"{'mask': '0xf4', 'tick': 4}",True
+tick_menu_235,"{'mask': '0xf6', 'tick': 10}",True
+tick_menu_236,"{'mask': '0xec', 'tick': 0}",True
+tick_menu_237,"{'mask': '0xee', 'tick': 0}",True
+tick_menu_238,"{'mask': '0xfc', 'tick': 4}",True
+tick_menu_239,"{'mask': '0xfe', 'tick': 10}",True
+tick_menu_240,"{'mask': '0xc5', 'tick': 0}",True
+tick_menu_241,"{'mask': '0xc7', 'tick': 0}",True
+tick_menu_242,"{'mask': '0xd5', 'tick': 4}",True
+tick_menu_243,"{'mask': '0xd7', 'tick': 10}",True
+tick_menu_244,"{'mask': '0xcd', 'tick': 0}",True
+tick_menu_245,"{'mask': '0xcf', 'tick': 0}",True
+tick_menu_246,"{'mask': '0xdd', 'tick': 4}",True
+tick_menu_247,"{'mask': '0xdf', 'tick': 10}",True
+tick_menu_248,"{'mask': '0xe5', 'tick': 0}",True
+tick_menu_249,"{'mask': '0xe7', 'tick': 0}",True
+tick_menu_250,"{'mask': '0xf5', 'tick': 4}",True
+tick_menu_251,"{'mask': '0xf7', 'tick': 10}",True
+tick_menu_252,"{'mask': '0xed', 'tick': 0}",True
+tick_menu_253,"{'mask': '0xef', 'tick': 0}",True
+tick_menu_254,"{'mask': '0xfd', 'tick': 4}",True
+tick_menu_255,"{'mask': '0xff', 'tick': 10}",True
+tick_menu_inactive,{'unchanged': True},True
+initvalue_transient_only,"{'slots': 3000, 'active_hp_position_preserved': True, 'flags_cleared': True}",True
+inctick_eligibility_cap,"{'slots': 3000, 'cases': [(3, 1, 1, 10, 9, 10), (4, 1, 0, 10, 9, 9), (5, 0, 1, 10, 9, 9), (6, 1, 1, 10, 20, 10)]}",True
+"move_1_1_1_(9, 10)_False_False","{'position': (7, 8), 'pathfinder_modeled': True}",True
+"move_1_0_0_(9, 10)_False_False","{'position': (9, 10), 'pathfinder_modeled': True}",True
+"move_1_0_0_(9, 10)_True_False","{'position': (7, 8), 'pathfinder_modeled': True}",True
+"move_1_0_0_(9, 10)_False_True","{'position': (9, 10), 'pathfinder_modeled': True}",True
+"move_0_0_0_(9, 10)_False_False","{'position': (7, 8), 'pathfinder_modeled': True}",True
+"move_1_0_0_(0, 0)_False_False","{'position': (7, 8), 'pathfinder_modeled': True}",True

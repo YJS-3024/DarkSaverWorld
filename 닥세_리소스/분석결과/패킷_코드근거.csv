@@ -1,0 +1,15 @@
+﻿file,start_va,end_va_exclusive,sha256,observation
+Saver.exe,0x439320,0x439418,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,"Sender frame: AA5501, escaped LE length/payload/checksum, 55AA"
+Saver.exe,0x439f30,0x439f96,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,Escape 09 -> 4750; 47 -> 4747
+Saver.exe,0x439a60,0x439e9a,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,"Receive ring parser: header, unescape, length and checksum"
+Saver.exe,0x439560,0x439630,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,Socket queued Send and WSAEWOULDBLOCK
+Saver.exe,0x439630,0x4397c9,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,"Socket receive ring, multiple parsed-frame dispatch"
+Saver.exe,0x4397d0,0x4398a2,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,ReadFile handle transport and mode2 text branch
+Saver.exe,0x43df20,0x43e0a0,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,argc8/10 launcher input fields including endpoint string and port
+Saver.exe,0x43b640,0x43b6cd,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,Socket Create/Connect wrapper
+Saver.exe,0x43cff0,0x43d0a5,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,Initial opcode19 request serialization
+Saver.exe,0x43cf30,0x43cfeb,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,Server response2D sets ready flag and sends2D plus 3 shorts
+Saver.exe,0x43ba55,0x43c0e0,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,Application dispatch tables
+Saver.exe,0x42a4a0,0x42a5e3,9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0,Forward application message to GameCtl
+GameCtl.dll,0x10002ca0,0x10002cb4,e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67,OnPacketReceive forwards positive length
+GameCtl.dll,0x1000ea20,0x1000ed96,e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67,Game message and subtype dispatch tables

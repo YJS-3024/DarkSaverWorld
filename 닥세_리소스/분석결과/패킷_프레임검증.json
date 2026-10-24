@@ -1,0 +1,16 @@
+{
+  "native_sender_cases": 269,
+  "native_mismatches": 0,
+  "reference_bytewise_roundtrips": 269,
+  "reference_extra_checks": [
+    "noise+three coalesced frames",
+    "bad checksum followed by valid frame",
+    "2049-byte rejection"
+  ],
+  "original_sha256": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0",
+  "emulation_range": [
+    "0x439320",
+    "0x439418 exclusive"
+  ],
+  "scope": "isolated original x86 encoding only; reference decoder recovery is not original receiver verification; no socket/session/Windows execution"
+}

@@ -1,0 +1,280 @@
+{
+  "suites": 34,
+  "passed": 34,
+  "loopback_requested": false,
+  "scope": "Isolated native analysis/static inventory; not full original Windows application",
+  "results": [
+    {
+      "script": "analyze_packet_requests.py",
+      "script_sha256": "721d5b4d6073dc74d08ad4aeea668698005f252e339edc5ceb20705f85b863e2",
+      "exit_code": 0,
+      "seconds": 0.4,
+      "output": "{\"cases\": 35, \"mismatches\": 0, \"scope\": \"original serializer and app handler instructions with allocation/send/GetMagicTbl/stage-switch stubs; no live session; table-derived90 is synthetic fixture\", \"external_effects\": \"captured before OS messaging/socket send; stage transition mocked\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_world_packets.py",
+      "script_sha256": "3be29f0d4fef508a41424967e670d097e650810f7445f2283b2a10568a06dea2",
+      "exit_code": 0,
+      "seconds": 0.26,
+      "output": "{\"cases\": 34, \"mismatches\": 0, \"character50\": \"16 shorts + 2 dwords + byte length + string; payload43+L\", \"character51\": \"45 shorts + 4 dwords + two byte-length strings; payload110+L1+L2\", \"movement\": \"C2S 5C43 + unit short + five coordinate short pairs =24 bytes\", \"scope\": \"isolated original handlers; resetcharacter, CString side effects and sender external effects stubbed; map response decoder and scenario kickoff emulated with external calls stubbed; file/graphics loading static only; not full session\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_initialization_flow.py",
+      "script_sha256": "638893ab7f5c9d8a6a19877f98432a6484d63dcdb4b7bb0bf5dca658730ffdea",
+      "exit_code": 0,
+      "seconds": 0.26,
+      "output": "{\"cases\": 21, \"mismatches\": 0, \"scope\": \"isolated original copy/dispatch/suffix with external effects stubbed; five list combinations; no live session or full ordering proof\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_packet_meanings.py",
+      "script_sha256": "c1e636452fb3687072817b231a0f630cf07ba575e7b00163160bd1849c1742d1",
+      "exit_code": 0,
+      "seconds": 0.2,
+      "output": "{\"cases\": 17, \"mismatches\": 0, \"result54_labels\": {\"1\": \"승리\", \"2\": \"도망\", \"3\": \"패배\", \"4\": \"종료\"}, \"list1\": \"magic menu IDs\", \"list2\": \"skill menu IDs; filtered ranges [10000,20000),[30000,32000)\", \"third_list\": \"7 shorts parsed; five differential fixtures leave captured resetcharacter argument and CString assignments unchanged\", \"scope\": \"isolated UI branches and differential receive-handler fixtures, not live gameplay or full server ordering\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_result_fields.py",
+      "script_sha256": "3cbfd18684e229ccb7e31d1e8abb9dc589984eddb209ff19a5ae3b3f730a3c05",
+      "exit_code": 0,
+      "seconds": 0.16,
+      "output": "{\"cases\": 21, \"mismatches\": 0, \"scope\": \"isolated original result branches/argument forwarding and SetArea; no full AI, UI or server execution\", \"scalar\": \"runtime30 -> candidate-search area parameter; SetArea radius input+1; product stat name unresolved\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_result_display.py",
+      "script_sha256": "c40384d579c1b2b57510df223aafa55516d03ba64a94360ddd3558f43720061e",
+      "exit_code": 0,
+      "seconds": 0.19,
+      "output": "{\"cases\": 24, \"mismatches\": 0, \"scope\": \"isolated original item helper and branch gates; item table mocked; no complete UI or server session\", \"item_ids\": \"record offsets14..26 are item IDs used by GetItemTable and GetItemSurface\", \"category\": \"record offset4 ==2 enables item-display block; original category name unresolved\", \"order\": \"activation and result data are separate display prerequisites; no unique wire ordering established\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_packet_catalog.py",
+      "script_sha256": "4b8dc7ab5468462ec16448d86041c07aa27bf37be610a35de1b0fbf4b0379a92",
+      "exit_code": 0,
+      "seconds": 0.29,
+      "output": "{\"receive_branches\": 36, \"wire_layouts_cataloged\": 36, \"new_cases\": 48, \"mismatches\": 0, \"scope\": \"all GameCtl branch read layouts cataloged statically; new isolated tests cover seven fixed receivers,two list receivers,nine sender functions; not all application layers or handler side effects verified\", \"excluded\": [\"server internal decisions\", \"historical full send order\"]}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_saver_messages.py",
+      "script_sha256": "0781826cabe82b5d5c5275602f02db25ca401494b61e8ebbc30d552fd2d52f69",
+      "exit_code": 0,
+      "seconds": 0.52,
+      "output": "{\"cases\": 49, \"mismatches\": 0, \"messages\": [\"32\", \"34\", \"36\", \"38\", \"3A\", \"53\"], \"additional_sender\": \"54\", \"transition\": \"WM403 bridge to scenario kickoff verified with external effects stubbed\", \"record34\": \"123+2*(A+B+C)+string bytes; stored724 in732-stride manager\", \"zero34\": \"original byte decrement loop executes256 records; isolated zero-filled fixture only\", \"scope\": \"isolated decoders, manager copy, transition bridge and54 sender; CString/external effects/hash and validation helpers stubbed where needed; no Windows/session execution\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_local_packet_helpers.py",
+      "script_sha256": "a6a6a783f268ab00723c9f48a3213e13fa80e3ff1b7184ce208523174f71c1d4",
+      "exit_code": 0,
+      "seconds": 3.07,
+      "output": "{\"mrc_files\": 647, \"additional_cases\": 22, \"mismatches\": 0, \"scope\": \"full original helper control/arithmetic with modeled CString,CFile,MulDiv,archive boundaries; installed MRC bytes; archive extraction success/failure fixtures; no OS or original session\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_file_transfer_packets.py",
+      "script_sha256": "9c5b18198fd08b2c587c3b0238d915f5bff392c094b23b78b0789336b62a2aa0",
+      "exit_code": 0,
+      "seconds": 0.26,
+      "output": "{\"cases\": 19, \"mismatches\": 0, \"scope\": \"original file transfer control/serializer with in-memory Win32 I/O; no actual filesystem writes or original server\", \"blocks\": 512}\n",
+      "error": ""
+    },
+    {
+      "script": "verify_packet_framing.py",
+      "script_sha256": "a23b3a078d88beae954749ee4f62237ff426fecf7e7ad4f2e8f5cd2ab07cdff5",
+      "exit_code": 0,
+      "seconds": 3.31,
+      "output": "{\"native_sender_cases\": 269, \"native_mismatches\": 0, \"reference_bytewise_roundtrips\": 269, \"reference_extra_checks\": [\"noise+three coalesced frames\", \"bad checksum followed by valid frame\", \"2049-byte rejection\"], \"original_sha256\": \"9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0\", \"emulation_range\": [\"0x439320\", \"0x439418 exclusive\"], \"scope\": \"isolated original x86 encoding only; reference decoder recovery is not original receiver verification; no socket/session/Windows execution\"}\n",
+      "error": ""
+    },
+    {
+      "script": "verify_native_receive.py",
+      "script_sha256": "c5c2f5918984fdeee547149bde585324ee9ee0bc233875e095738a6e1214102c",
+      "exit_code": 0,
+      "seconds": 4.86,
+      "output": "{\"cases\": 702, \"mismatches\": 0, \"return_semantics\": \"EAX1=frame success,0=no complete frame; decoded length is output ring count\", \"observations\": [{\"case\": \"noise\", \"decoded\": [\"676f6f64\"], \"after_empty_poll\": [], \"after_new_frame\": [\"6e657874\"], \"scope\": \"observed original parser behavior\"}, {\"case\": \"bad_checksum\", \"decoded\": [], \"after_empty_poll\": [], \"after_new_frame\": [\"6e657874\"], \"scope\": \"observed original parser behavior\"}], \"scope\": \"original receive instructions and synthetic ring/malloc model; fixed capacity16384; original socket and ring-growth path not executed\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_map_entry.py",
+      "script_sha256": "770465ef83bf277013233aad6f01ec568806aa6e570b15089e67a2060cda4759",
+      "exit_code": 0,
+      "seconds": 0.15,
+      "output": "{\"cases\": 14, \"mismatches\": 0}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_map_entry_details.py",
+      "script_sha256": "55472fea0a621cad5e2b551e3668d64ef2fad033f5d0fb457e348377292525b4",
+      "exit_code": 0,
+      "seconds": 2.38,
+      "output": "{\"cases\": 16, \"actual_mrc_files\": 647, \"mismatches\": 0}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_map_entry_continuation.py",
+      "script_sha256": "2d6bccf5311b92100fb0298265e3e9585a4965287f83e3b75aac8550494df0f0",
+      "exit_code": 0,
+      "seconds": 0.15,
+      "output": "{\"cases\": 12, \"mismatches\": 0}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_scenario_entry_response.py",
+      "script_sha256": "ed16ea3cb99c51a0c5569f592cd46311e2d8d16b0cb724c5da3152a1731e978d",
+      "exit_code": 0,
+      "seconds": 0.17,
+      "output": "{\"cases\": 12, \"mismatches\": 0}\n",
+      "error": ""
+    },
+    {
+      "script": "verify_remaining_saver_senders.py",
+      "script_sha256": "6fc6c5cab6298c173bb1b19813b40020274c8bfde76eeb10d47feaf0e45774fc",
+      "exit_code": 0,
+      "seconds": 0.25,
+      "output": "{\"cases\": 68, \"functions\": 34, \"mismatches\": 0}\n",
+      "error": ""
+    },
+    {
+      "script": "verify_userunit_packet_senders.py",
+      "script_sha256": "80cf66e30b7450075614ca6330f224fc0c26c73bb5b78d4b0f02bf6e9f007ef5",
+      "exit_code": 0,
+      "seconds": 0.23,
+      "output": "{\"cases\": 46, \"functions\": 4, \"mismatches\": 0}\n",
+      "error": ""
+    },
+    {
+      "script": "verify_scenario_ui_requests.py",
+      "script_sha256": "d9fddfba2adc3d98c61d6ad9da20b41930413a0358f9506e02e8932902cecd25",
+      "exit_code": 0,
+      "seconds": 0.13,
+      "output": "{\"cases\": 8, \"mismatches\": 0}\n",
+      "error": ""
+    },
+    {
+      "script": "inventory_packet_paths.py",
+      "script_sha256": "ea1d004ea1a5be060ad2d2b34c35da2056eac7f77df335d4a632eaf71431c8a6",
+      "exit_code": 0,
+      "seconds": 0.81,
+      "output": "{\"modules\": 8, \"direct_send_calls\": 114, \"writer_calls\": 337, \"saver_application_send_calls\": 91, \"gamectl_bridge_calls\": 15, \"userunit_bridge_calls\": 4, \"scope\": \"exhaustive direct calls to listed known targets in selected supplied binaries; indirect/dynamic calls and unknown bridges outside coverage\"}\n",
+      "error": ""
+    },
+    {
+      "script": "audit_saver_packet_coverage.py",
+      "script_sha256": "533fe6461eb5832208488bf3208cb50528d23bb7cbe7e1512e299cbee465d85e",
+      "exit_code": 0,
+      "seconds": 0.49,
+      "output": "{\"direct_calls\": 91, \"functions\": 90, \"unclassified_direct_calls\": 0}\n",
+      "error": ""
+    },
+    {
+      "script": "verify_local_packet_router.py",
+      "script_sha256": "1caf9c564f497f603a858fe99814e37fdec0b970c4779c0c133ac6e519dbf6d4",
+      "exit_code": 0,
+      "seconds": 0.57,
+      "output": "{\"cases\": 268, \"mismatches\": 0}\n",
+      "error": ""
+    },
+    {
+      "script": "audit_installer_communications.py",
+      "script_sha256": "5fe2858df4bbf6541e0c68d34227e880bdeaa80044a0e062e6f17171e1bd77b1",
+      "exit_code": 0,
+      "seconds": 0.43,
+      "output": "{\"unique_pe_modules\": 12, \"physical_pe_files\": 34, \"scope\": \"All extracted PE files by SHA256; imports/exports classification is not proof of every runtime dynamic target\", \"external_connections\": 0}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_singleplayer_state_updates.py",
+      "script_sha256": "62e47cf4b073653d53a687bb19d31b6540b48f039a5a2edeab4e0baba64ce0e0",
+      "exit_code": 0,
+      "seconds": 1.27,
+      "output": "{\"cases\": 575, \"mismatches\": 0, \"scope\": \"Original stat/status/remove/rollback/reset/tick consumers and occupancy writes; movement pathfinder/preprocessing modeled; no OS, renderer or server decisions\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_singleplayer_inventory_dialogue.py",
+      "script_sha256": "228ec35e18015d36fce423b6e02408940304f324b2cd583412838536b090fa7f",
+      "exit_code": 0,
+      "seconds": 0.27,
+      "output": "{\"cases\": 45, \"mismatches\": 0, \"binary_sha256\": \"9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0\", \"scope\": \"original x86 consumers/serializers; allocation/free, UI, CString and virtual sell predicate modeled; no complete Windows session\", \"opaque_fields\": \"inventory auxiliary and equipment auxiliary fields preserved, not guessed\", \"quest_boundary\": \"dialogue transport and presentation confirmed; historical quest eligibility/reward decisions belong to excluded server logic\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_movement_pathfinding.py",
+      "script_sha256": "cf9f0a1f0c8fe466832815cba692fd96c585fd63b5b477b7567c401437fd1353",
+      "exit_code": 0,
+      "seconds": 0.76,
+      "output": "{\"cases\": 124, \"flood_cases\": 76, \"flood_cells_checked\": 4864, \"mismatches\": 0, \"binary_sha256\": {\"userunit.dll\": \"be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711\", \"setunit.dll\": \"cd100adb77d8fe3e5e1b1a206e3c1900bd3bffae0de88fd09cddd525454a8c43\"}, \"scope\": \"native reset/recursive weighted flood/occupancy lookup/gradient path; map tile and attribute providers, list append/free modeled; no full Windows runtime\", \"directions\": {\"1\": [1, 0], \"2\": [-1, 0], \"3\": [0, 1], \"4\": [0, -1]}, \"blocked_costs\": [99, -99], \"occupancy\": \"nonnegative occupied ID /50 must match moving ID /50; do not infer faction name\", \"limitations\": \"synthetic nonnegative costs except blocked -99; not all production maps or negative cost behavior; uniform-cost path optimality only\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_map_movement_updates.py",
+      "script_sha256": "16877193db69bf2432c4320fd800b4a4d379c9f8f9c1ea829e52ef9a4afe5a58",
+      "exit_code": 0,
+      "seconds": 0.63,
+      "output": "{\"cases\": 1152, \"distinct_maps\": 155, \"tiles\": 353342, \"mismatches\": 0, \"scope\": \"MRC records parsed, native tile getter copied without modifications; original attribute lookup/position/occupancy/phase/screen offset instructions; native path postprocess/list primitives with pool allocation/free modeled; step fixtures model next-direction pop, UI, visibility; stop before unrelated action branches\", \"limits\": \"not original map loader execution or full render; actual wall-clock update interval not established\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_map_runtime_completion.py",
+      "script_sha256": "c327959833248bcc644098b3938952a670859a88f9774bb54f1277d73793c13f",
+      "exit_code": 0,
+      "seconds": 2.12,
+      "output": "{\"cases\": 210, \"mismatches\": 0, \"maps\": 155, \"maps_with_sprite_changes\": 120, \"changed_cells\": 22137, \"terrain_filenames\": {\"0x10005098\": \"tileattb.atr\", \"0x10005294\": \"tileattr.atr\"}, \"scope\": \"native sprite footprint/mutators/viewport cache, tile animation/frame lookup, table selector/parser pointer order; rectangle APIs/draw/CString/sscanf and x87 truncation helper modeled; resource dimensions from original GRS\", \"limits\": \"no Windows graphics/device or full application; historical frame interval not established\", \"hashes\": {\"DManage.dll\": \"b2e1812372991c0984401c700b0800562ac2cc19ae3a937c7a2f36612b0da967\", \"setunit.dll\": \"cd100adb77d8fe3e5e1b1a206e3c1900bd3bffae0de88fd09cddd525454a8c43\", \"GameCtl.dll\": \"e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67\"}}\n",
+      "error": ""
+    },
+    {
+      "script": "verify_complete_mrc_loader.py",
+      "script_sha256": "96f8896bfd78ebf4eae82fd492949085fa8dd3ae9f76b2459b3371957f5b103c",
+      "exit_code": 0,
+      "seconds": 7.32,
+      "output": "{\"cases\": 159, \"distinct_maps\": 155, \"mismatches\": 0, \"scope\": \"complete native LoadMap through return; CFile/allocator/CPtrArray resize/time/srand/rand modeled; rand supplies7; raw maps unmodified; no Windows or graphics\", \"binary_sha256\": \"b2e1812372991c0984401c700b0800562ac2cc19ae3a937c7a2f36612b0da967\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_combat_attack_lifecycle.py",
+      "script_sha256": "9848015edd53882e5d890c92edb7325beee7fd7177f40cbdfa797651358b71a8",
+      "exit_code": 0,
+      "seconds": 1.47,
+      "output": "{\"cases\": 680, \"mismatches\": 0, \"scope\": \"native AttackChar writes, overlay draw block and attack/HP counter update instructions; SetRect/BltFast modeled; no Windows or damage calculation\", \"extra_semantics\": \"signed short preserved; all nonzero values enable optional overlay if prior draw gate passes; no named critical-hit interpretation established\", \"binary_sha256\": \"be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_combat_body_selection.py",
+      "script_sha256": "c1ade5ccefad9586bd4c426fe9649a3338da9136325c6a8837ba930f0c86db42",
+      "exit_code": 0,
+      "seconds": 2.02,
+      "output": "{\"cases\": 448, \"mismatches\": 0, \"scope\": \"common body renderer original instructions; clock/tile/surface palette selector/rect/draw modeled; preloaded surfaces; not all callers or complete Windows render\", \"frame\": \"floor(GetTickCount/333)&3, index3 becomes1; 0,1,2,1\", \"additional_rows\": \"extra physical sheet rows are not selected by this normal body path; no unsupported attack/hit naming\", \"external_surface_reference_sites\": 16, \"binary_sha256\": \"be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_script_executor.py",
+      "script_sha256": "8bbbca1cd28ae8a63704b70bbdd9177eece317b38c6afe3deeda94fde70955a6",
+      "exit_code": 0,
+      "seconds": 0.91,
+      "output": "{\"cases\": 74, \"mismatches\": 0, \"dispatcher_reference_sites\": 78, \"dispatcher_unique_keywords\": 73, \"script_files\": 338, \"script_file_types\": {\"ai\": 104, \"dee\": 68, \"deo\": 62, \"evt\": 104}, \"event_blocks\": 1241, \"lexical_keywords\": 63, \"scope\": \"native token helpers and full scene step for selected commands/waits/END; CString primitives, condition evaluator, RNG/time/unit API/notifications modeled; not every scene/condition handler or full app\", \"server_processing_excluded\": true, \"binary_sha256\": \"e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_map_event_loading.py",
+      "script_sha256": "ed87cbdc4867005e5c39a3d5394de8a049b456fe250a10b34821476f056feafa",
+      "exit_code": 0,
+      "seconds": 31.45,
+      "output": "{\"cases\": 129, \"mismatches\": 0, \"event_files\": 104, \"events\": 1238, \"positive_numeric_lines_skipped\": 2100, \"scope\": \"native text-line loading loop with modeled static empty CString construction/ReadString; original notification parse/control with activation/step effects captured; native map command parsing and camera bounds; no eligibility engine or full app\", \"finding\": \"positive numeric-prefix condition lines are excluded from client action storage; server/internal trigger decisions not reconstructed\", \"binary_sha256\": \"e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67\"}\n",
+      "error": ""
+    },
+    {
+      "script": "analyze_monster_placements.py",
+      "script_sha256": "082eef66879059a48e1a0f14758c8d5db8f9ecb610b2c8f4c43219e46abfe739",
+      "exit_code": 0,
+      "seconds": 1.66,
+      "output": "{\"source_files\": 338, \"source_types\": {\"ai\": 104, \"dee\": 68, \"deo\": 62, \"evt\": 104}, \"appearance_occurrences\": 832, \"dynamic_COM_occurrences\": 114, \"action_counts\": {\"CHARPOS\": 832, \"CHARDIR\": 135, \"CHARMOVE\": 221, \"DO2\": 31, \"ATTACK\": 12, \"KILLCHAR2\": 39, \"MAGIC\": 190, \"KILLCHAR1\": 40}, \"condition_rows\": 2099, \"ai_rows\": 1087, \"ai_modes\": {\"ODNORMAL\": 527, \"ODATTACK\": 557, \"ODATTACKL\": 3}, \"ai_selectors\": {\"AREA\": 1065, \"SOILDER\": 22}, \"ai_empty_actions\": 129, \"ai_weight_sum_distribution\": {\"100\": 859, \"110\": 31, \"120\": 32, \"0\": 129, \"130\": 20, \"140\": 11, \"180\": 4, \"170\": 1}, \"slot_evidence\": {\"scripted actor only; no matching AI source\": 598, \"AI and scripted appearances\": 143, \"AI only; spawn/type not established\": 943}, \"missing_magic_ids\": [\"80601\", \"90\"], \"literal_ability_missing\": {\"ability\": [\"999\"], \"ability1\": [\"999\"]}, \"native_CHARPOS_cases\": 786, \"unitinfo_cases\": 24, \"ai_mode_cases\": 4, \"cases\": 814, \"mismatches\": 0, \"scope\": \"All raw installed scenario source occurrences; native CHARPOS parsing with modeled CString/CRT and final dmSetChar capture, COM fixture values100..104. Not full app/AI executor/server deployment.\", \"server_internal_decisions_excluded\": true}\n",
+      "error": ""
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "cases": 34,
+  "mismatches": 0,
+  "character50": "16 shorts + 2 dwords + byte length + string; payload43+L",
+  "character51": "45 shorts + 4 dwords + two byte-length strings; payload110+L1+L2",
+  "movement": "C2S 5C43 + unit short + five coordinate short pairs =24 bytes",
+  "scope": "isolated original handlers; resetcharacter, CString side effects and sender external effects stubbed; map response decoder and scenario kickoff emulated with external calls stubbed; file/graphics loading static only; not full session"
+}

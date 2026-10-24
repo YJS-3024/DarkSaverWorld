@@ -1,0 +1,92 @@
+﻿callsite_va,entry_va,opcode,wire_fields_after_opcode,wire_length,source_role,analysis
+0x4013f3,0x4013b0,67,u32,5,file_ack,static serialization and branch inspection; product names not inferred
+0x401443,0x401400,68,u32,5,file_retry,static serialization and branch inspection; product names not inferred
+0x401bf8,0x401a40,62,"h,s",variable,file_upload_start,static serialization and branch inspection; product names not inferred
+0x401ce9,0x401c60,64,"u32,u32,s",variable,file_metadata,static serialization and branch inspection; product names not inferred
+0x401df7,0x401d10,65,"u32,u32,u32,bytes[N]",variable,file_chunk_or_completion,static serialization and branch inspection; product names not inferred
+0x401e5b,0x401d10,66,s,variable,file_chunk_or_completion,static serialization and branch inspection; product names not inferred
+0x401f0a,0x401eb0,69,s,variable,file_cancel,static serialization and branch inspection; product names not inferred
+0x401ffa,0x401f30,60,"h,s",variable,file_download_start,static serialization and branch inspection; product names not inferred
+0x4061d9,0x4061a0,93,,1,ui_action,static serialization and branch inspection; product names not inferred
+0x406652,0x406620,9D,,1,ui_action,static serialization and branch inspection; product names not inferred
+0x406ca8,0x406c10,9B / 9C,s,variable,this+E0 selects opcode,static serialization and branch inspection; product names not inferred
+0x40725b,0x4071f0,72,"h,h",5,ui_values,static serialization and branch inspection; product names not inferred
+0x4084af,0x408400,71,"h,s",variable,ui_value_and_text,static serialization and branch inspection; product names not inferred
+0x408963,0x408930,00,,1,periodic_counter_over_3000,static serialization and branch inspection; product names not inferred
+0x409172,0x409140,D8,,1,ui_action,static serialization and branch inspection; product names not inferred
+0x40a209,0x40a1c0,4B,h,3,ui_selected_value,static serialization and branch inspection; product names not inferred
+0x40a315,0x40a2d0,4C,"h,h",5,ui_selected_values,static serialization and branch inspection; product names not inferred
+0x40cc70,0x40cc20,D6,h,3,this+C8[this+3FC],static serialization and branch inspection; product names not inferred
+0x40ccc2,0x40cc90,D9,,1,ui_action,static serialization and branch inspection; product names not inferred
+0x40db47,0x40da90,C1,h,3,parent+4 nonzero=>5 else6,static serialization and branch inspection; product names not inferred
+0x40f25b,0x40f200,C1,h,3,parent+4 nonzero=>3 else4,static serialization and branch inspection; product names not inferred
+0x40f4c2,0x40f280,7F,"h,h,u32",9,numeric_ui_value,static serialization and branch inspection; product names not inferred
+0x40f6b0,0x40f640,2C 29,"h,h,h",8,ui_values,static serialization and branch inspection; product names not inferred
+0x40faf6,0x40fab0,C3,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x40fda3,0x40fd50,AC,u32,5,ui_value,static serialization and branch inspection; product names not inferred
+0x411a0f,0x4119d0,58,h,3,input_record,static serialization and branch inspection; product names not inferred
+0x4139bf,0x413910,3E,"h,s",variable,ui_value_and_text,static serialization and branch inspection; product names not inferred
+0x413e72,0x413e10,AF,"h,h",5,ui_values,static serialization and branch inspection; product names not inferred
+0x414567,0x414500,E7,"h,h",5,this+B8; flag0=>2 else1,static serialization and branch inspection; product names not inferred
+0x4149b9,0x414970,7D,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x415278,0x415230,A0,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x415655,0x4155b0,9C,s,variable,ui_text,static serialization and branch inspection; product names not inferred
+0x4157ac,0x415790,BA,,1,ui_state_update,static serialization and branch inspection; product names not inferred
+0x415aac,0x4159f0,9B / BB,s,variable,argument nonzero=>9B elseBB,static serialization and branch inspection; product names not inferred
+0x4161a6,0x416070,23,"h,s,s,s,h",variable,"mode0=>100,1=>101,2=>103,other=>100",static serialization and branch inspection; product names not inferred
+0x41679e,0x4166e0,AE,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x416da1,0x416d50,2C 53,u32,6,ui_value,static serialization and branch inspection; product names not inferred
+0x41754d,0x417500,A7,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x418be0,0x418b80,50,s,variable,scenario_name_this+C8,static serialization and branch inspection; product names not inferred
+0x41901b,0x418fd0,9E,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x419ef4,0x419d80,82,"h,h,h",7,unit_id;stat_index;change,static serialization and branch inspection; product names not inferred
+0x41a052,0x419f40,84,"h,h,h",7,argument;unit_id;selected_entry,static serialization and branch inspection; product names not inferred
+0x41a0fd,0x41a080,83,"h,h",5,unit_id;selected_entry,static serialization and branch inspection; product names not inferred
+0x41a18a,0x41a110,85,"h,h",5,unit_id;selected_entry,static serialization and branch inspection; product names not inferred
+0x41a276,0x41a210,86,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x41a68b,0x41a640,88,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x41a6eb,0x41a6a0,89,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x41a7ae,0x41a700,81,"h,h",5,unit_id;mode_selected_value,static serialization and branch inspection; product names not inferred
+0x41a81b,0x41a7d0,8A,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x41c700,0x41c650,3B,"h,h",5,ui_values,static serialization and branch inspection; product names not inferred
+0x41ca17,0x41c9c0,42,"h,h",5,ui_values,static serialization and branch inspection; product names not inferred
+0x41d3bd,0x41d310,3B,"h,h",5,ui_values,static serialization and branch inspection; product names not inferred
+0x41f553,0x41f4f0,AD,"h,h",5,ui_values,static serialization and branch inspection; product names not inferred
+0x420895,0x420800,40,"h,h,h,h,h",11,unit_id;four_input_values,static serialization and branch inspection; product names not inferred
+0x42099b,0x420930,A2,"h,h,h",7,ui_values,static serialization and branch inspection; product names not inferred
+0x420a0c,0x4209b0,2C 26,"h,h",6,ui_values,static serialization and branch inspection; product names not inferred
+0x421156,0x4210d0,A9,"h,h",5,valid_slot_first_record_values,static serialization and branch inspection; product names not inferred
+0x42242b,0x4223d0,2C 30,h,4,ui_value,static serialization and branch inspection; product names not inferred
+0x422763,0x4226f0,2C 31,"h,h",6,this+BC;flag0=>2 else1,static serialization and branch inspection; product names not inferred
+0x422c16,0x422b70,95 / 96,u32,variable,this+CC selects opcode;numeric_text,static serialization and branch inspection; product names not inferred
+0x42391f,0x423810,4D,"h,h,h",7,ui_values,static serialization and branch inspection; product names not inferred
+0x4239c9,0x423940,4E,"h,h",5,ui_values,static serialization and branch inspection; product names not inferred
+0x424599,0x424520,9A,"h,h,h",7,ui_values,static serialization and branch inspection; product names not inferred
+0x42465a,0x4245c0,99,"h,h,h",7,ui_values,static serialization and branch inspection; product names not inferred
+0x424838,0x4247f0,97,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x424d92,0x424d60,90,,1,ui_action,static serialization and branch inspection; product names not inferred
+0x425924,0x4258d0,A4,h,3,ui_value,static serialization and branch inspection; product names not inferred
+0x42a06f,0x42a020,5C 5C,,2,scenario_kickoff,static serialization and branch inspection; product names not inferred
+0x42d658,0x42d640,2C 20,,2,world_state_request,static serialization and branch inspection; product names not inferred
+0x42da1f,0x42d990,2C 22,"h,h,h",8,unit_id;X;Y gated by this+60,static serialization and branch inspection; product names not inferred
+0x42daad,0x42da30,7A,"u8,s",variable,chat,static serialization and branch inspection; product names not inferred
+0x431aa7,0x431a20,2C 25,"h,h,h,h",10,unit_id;X;Y;selection,static serialization and branch inspection; product names not inferred
+0x431b2c,0x431af0,2C 27,,2,world_list_request,static serialization and branch inspection; product names not inferred
+0x431b7c,0x431b40,2C 40,,2,world_list_request,static serialization and branch inspection; product names not inferred
+0x432431,0x432310,7A,"u8,s,s",variable,chat_with_recipient,static serialization and branch inspection; product names not inferred
+0x4326be,0x432600,2C 55,"h,h,h,h",10,movement_helper_values,static serialization and branch inspection; product names not inferred
+0x434da3,0x434d00,21,"s,s,h",variable,login_related_values,static serialization and branch inspection; product names not inferred
+0x434e3e,0x434dc0,20,s,variable,resource_string_EF1A,static serialization and branch inspection; product names not inferred
+0x436826,0x436680,90,,1,scene_action,static serialization and branch inspection; product names not inferred
+0x43aca6,0x43ac20,2A,"h,h,h",7,map_number;X;Y clipped_nonnegative,static serialization and branch inspection; product names not inferred
+0x43accd,0x43acc0,25,,1,app_action,static serialization and branch inspection; product names not inferred
+0x43b339,0x43b2f0,5C 61,,2,scenario_control,static serialization and branch inspection; product names not inferred
+0x43bd1a,0x43b8a0,6F,u32,5,receive_handler_reply,static serialization and branch inspection; product names not inferred
+0x43c299,0x43c170,2A,"h,h,h",7,failed_2B_recovery,static serialization and branch inspection; product names not inferred
+0x43c3cc,0x43c360,2A,"h,h,h",7,7C_echo,static serialization and branch inspection; product names not inferred
+0x43c4ee,0x43c4a0,5B,,1,scene_end,static serialization and branch inspection; product names not inferred
+0x43cd1a,0x43cd10,passthrough,bytes[N],variable,WM52C_GameCtl_bridge,static serialization and branch inspection; product names not inferred
+0x43cfde,0x43cf30,2D,"h,h,h",7,2D_echo,static serialization and branch inspection; product names not inferred
+0x43d091,0x43cff0,19,"s,s,h",variable,login,static serialization and branch inspection; product names not inferred
+0x43d7c8,0x43d680,52,"h,h,[mode2:s],s,u32,s",variable,scenario_request,static serialization and branch inspection; product names not inferred
+0x43d8e0,0x43d810,54,"h,h,[mode2:s],h,u32",variable,scenario_selection,static serialization and branch inspection; product names not inferred

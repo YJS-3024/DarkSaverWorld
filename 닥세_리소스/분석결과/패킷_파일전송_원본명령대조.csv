@@ -1,0 +1,20 @@
+﻿case,packets,result
+send_file_0,2,"metadata,512-byte chunks,offsets and completion matched"
+send_file_1,3,"metadata,512-byte chunks,offsets and completion matched"
+send_file_511,3,"metadata,512-byte chunks,offsets and completion matched"
+send_file_512,3,"metadata,512-byte chunks,offsets and completion matched"
+send_file_513,4,"metadata,512-byte chunks,offsets and completion matched"
+send_file_1024,4,"metadata,512-byte chunks,offsets and completion matched"
+receive_chunk_0_expected_0,1,write+ACK67 or no write+retry68 matched
+receive_chunk_1_expected_0,1,write+ACK67 or no write+retry68 matched
+receive_chunk_0_expected_1,1,write+ACK67 or no write+retry68 matched
+upload_control_67_0,1,next/retry data or cancel69 matched
+upload_control_67_1,1,next/retry data or cancel69 matched
+upload_control_68_1,1,next/retry data or cancel69 matched
+upload_control_68_2,1,next/retry data or cancel69 matched
+control_send_67_0,1,exact u32 control frame payload
+control_send_67_7,1,exact u32 control frame payload
+control_send_67_4294967295,1,exact u32 control frame payload
+control_send_68_0,1,exact u32 control frame payload
+control_send_68_7,1,exact u32 control frame payload
+control_send_68_4294967295,1,exact u32 control frame payload

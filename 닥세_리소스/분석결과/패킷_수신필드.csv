@@ -1,0 +1,19 @@
+﻿opcode,subtype,payload_offset,type,field,handler_va,scope
+0x5c,0x1,2,int16_le,unit_index,0x1000d560,client receive; additional hit value product name unresolved
+0x5c,0x1,4,int16_le,x,0x1000d560,client receive; additional hit value product name unresolved
+0x5c,0x1,6,int16_le,y,0x1000d560,client receive; additional hit value product name unresolved
+0x5c,0xe,2,int16_le,unit_index,0x1000d5c0,client receive; additional hit value product name unresolved
+0x5c,0xe,4,int16_le,x,0x1000d5c0,client receive; additional hit value product name unresolved
+0x5c,0xe,6,int16_le,y,0x1000d5c0,client receive; additional hit value product name unresolved
+0x5c,0x5,2,int16_le,unit_index,0x1000d680,client receive; additional hit value product name unresolved
+0x5c,0x5,4,int16_le,hp_display,0x1000d680,client receive; additional hit value product name unresolved
+0x5c,0x6,2,int16_le,unit_index,0x1000d6d0,client receive; additional hit value product name unresolved
+0x5c,0x6,4,int16_le,mp_display,0x1000d6d0,client receive; additional hit value product name unresolved
+0x5c,0x82,2,int16_le,short0,0x1000d620,client receive; additional hit value product name unresolved
+0x5c,0x82,4,int16_le,short1,0x1000d620,client receive; additional hit value product name unresolved
+0x5c,0x82,6,int16_le,additional_hit_value,0x1000d620,client receive; additional hit value product name unresolved
+0x5c,0x89,2,int16_le,magic_short0,0x1000d930,field semantic names require further confirmation
+0x5c,0x89,4,int16_le,magic_short1,0x1000d930,field semantic names require further confirmation
+0x5c,0x89,6,int16_le,magic_short2,0x1000d930,field semantic names require further confirmation
+0x5c,0x89,8,int16_le,magic_short3,0x1000d930,field semantic names require further confirmation
+0x5c,0x89,10,uint8,target_count,0x1000d930,followed by target_count int16_le unit indices at offset11

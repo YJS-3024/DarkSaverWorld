@@ -1,0 +1,7 @@
+{
+  "cases": 680,
+  "mismatches": 0,
+  "scope": "native AttackChar writes, overlay draw block and attack/HP counter update instructions; SetRect/BltFast modeled; no Windows or damage calculation",
+  "extra_semantics": "signed short preserved; all nonzero values enable optional overlay if prior draw gate passes; no named critical-hit interpretation established",
+  "binary_sha256": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711"
+}

@@ -1,0 +1,27 @@
+{
+  "editor_on_path": [
+    null,
+    null,
+    null
+  ],
+  "editor_known_paths": [],
+  "restricted_root_path_not_inspected": true,
+  "project_version_file": false,
+  "prototype_save_version": 3,
+  "current_missing_features": [
+    "scenario ID/run GUID in save",
+    "event completion/loot transaction ledger",
+    "persistent RNG state",
+    "per-unit deaths and generations",
+    "map mutation persistence",
+    "104-scenario deployment loader",
+    "original script predicate/action interpreter"
+  ],
+  "existing_prototype_limits": [
+    "hardcoded3 enemies; small generated field/battle grid",
+    "unscaled real-time/AP cadence differs from proposed paused virtual clock",
+    "JSON WriteAllText lacks atomic replace/checksum/backup",
+    "JsonUtility cannot directly persist dictionary-shaped proposed ledgers; serialize typed list records"
+  ],
+  "scope": "static source audit and environment availability; no Unity compilation/PlayMode"
+}

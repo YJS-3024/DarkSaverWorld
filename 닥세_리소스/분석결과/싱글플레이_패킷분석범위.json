@@ -1,0 +1,24 @@
+{
+  "scope": "Single player implementation; game state and local scenario presentation",
+  "retained": [
+    "local profile and character snapshot",
+    "map/scenario initialization and transitions",
+    "movement and occupancy correction",
+    "player/NPC battle, action tick, statuses, HP/MP",
+    "experience, rewards, items and companion state"
+  ],
+  "excluded": [
+    "launcher FTP update protocol",
+    "dialup/modem/serial protocol",
+    "outgoing player chat/whisper UI and remote recipient routing"
+  ],
+  "conditional": {
+    "file_transfer_60_69": "unneeded when every required resource is provided locally; retain its precondition checks if using original client",
+    "incoming_chat_or_names": "may carry NPC/system text; not globally discarded",
+    "account_server_login": "may be replaced by local profile loading in Unity; preserve if retaining original executable handshake"
+  },
+  "state_update_verification": "싱글플레이_상태갱신검증.json",
+  "field_policy": "Opaque or generic fields are retained when their single-player dependency cannot be disproven; no multiplayer exclusion by guesswork",
+  "original_server_internal_rules": "not reconstructed",
+  "persistence": "Original server database/progress storage cannot be inferred from client display setters; a Unity local save format is a separate implementation choice"
+}

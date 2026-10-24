@@ -1,0 +1,35 @@
+﻿case,payload_length,read_operations,result
+char_50_0_0,43,20,original reader executed; string assignments captured
+char_50_3_5,46,20,original reader executed; string assignments captured
+char_50_255_255,298,20,original reader executed; string assignments captured
+char_51_0_0,110,53,original reader executed; string assignments captured
+char_51_3_5,118,53,original reader executed; string assignments captured
+char_51_255_255,620,53,original reader executed; string assignments captured
+char_50_signed,43,0,short0 sign extended to -1
+char_51_signed,110,0,short0 sign extended to -1
+move_0_0,0,0,exact original serializer bytes and state gate matched
+move_0_65535,0,0,exact original serializer bytes and state gate matched
+move_200_0,0,0,exact original serializer bytes and state gate matched
+move_200_65535,0,0,exact original serializer bytes and state gate matched
+move_400_0,24,0,exact original serializer bytes and state gate matched
+move_400_65535,24,0,exact original serializer bytes and state gate matched
+path_padding_1,0,0,original suffix writes -1/-1 in unused coordinate slots
+path_padding_2,0,0,original suffix writes -1/-1 in unused coordinate slots
+path_padding_3,0,0,original suffix writes -1/-1 in unused coordinate slots
+path_padding_4,0,0,original suffix writes -1/-1 in unused coordinate slots
+map55_4_1_2,29,0,original decoder name/bounds/flag matched
+map55_4_1_3,29,0,original decoder name/bounds/flag matched
+map55_4_1_65533,29,0,original decoder name/bounds/flag matched
+map55_4_65535_2,29,0,original decoder name/bounds/flag matched
+map55_4_65535_3,29,0,original decoder name/bounds/flag matched
+map55_4_65535_65533,29,0,original decoder name/bounds/flag matched
+map55_255_1_2,280,0,original decoder name/bounds/flag matched
+map55_255_1_3,280,0,original decoder name/bounds/flag matched
+map55_255_1_65533,280,0,original decoder name/bounds/flag matched
+map55_255_65535_2,280,0,original decoder name/bounds/flag matched
+map55_255_65535_3,280,0,original decoder name/bounds/flag matched
+map55_255_65535_65533,280,0,original decoder name/bounds/flag matched
+map55_status_0,2,0,non-success decoder branches before success fields
+map55_status_2,2,0,non-success decoder branches before success fields
+map55_status_255,2,0,non-success decoder branches before success fields
+scenario_kickoff,2,0,stored name forwarded to scenario setter then 5C5C request captured

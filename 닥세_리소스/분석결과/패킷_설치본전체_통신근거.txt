@@ -1,0 +1,84 @@
+charview.exe
+0002e110  <none>  0000  LoadLibraryExA
+0002e134  <none>  0000  WriteFile
+0002e144  <none>  0000  ReadFile
+0002e1cc  <none>  0000  WriteFile
+0002e1f4  <none>  0000  ReadFile
+0002e204  <none>  0000  LoadLibraryA
+0002e240  <none>  0000  GetProcAddress
+0002e41c  <none>  0000  SendMessageA
+
+NGpdll.dll
+00043114  <none>  0000  LoadLibraryExA
+00043140  <none>  0000  WriteFile
+00043150  <none>  0000  ReadFile
+000431e0  <none>  0000  WriteFile
+00043220  <none>  0000  SetCommTimeouts
+00043224  <none>  0000  SetCommState
+00043234  <none>  0000  ReadFile
+00043248  <none>  0000  LoadLibraryA
+00043284  <none>  0000  GetProcAddress
+000432b4  <none>  0000  GetCommState
+00043424  <none>  0000  SendMessageA
+[   2] +base[   3]  0000 AddResponseData
+[   3] +base[   4]  0001 AddTrigData
+[   6] +base[   7]  0004 GetConnectStatus
+[  10] +base[  11]  0008 ModuleInit
+[   7] +base[   8]  000a SerialSend
+
+NetGame.exe
+DLL Name: WININET.dll
+000753c0  <none>  0056  InternetCloseHandle
+000753c4  <none>  006f  InternetOpenA
+000753c8  <none>  005a  InternetConnectA
+000753cc  <none>  0020  FtpFindFirstFileA
+000753d0  <none>  0026  FtpOpenFileA
+000753d4  <none>  0077  InternetReadFile
+00074e54  <none>  01c2  LoadLibraryA
+00074e68  <none>  00c8  GetCommState
+00074e6c  <none>  023a  SetCommState
+00074e70  <none>  023b  SetCommTimeouts
+00074e78  <none>  02df  WriteFile
+00074e7c  <none>  0218  ReadFile
+00074e84  <none>  013e  GetProcAddress
+000752cc  <none>  0214  SendMessageA
+DLL Name: WSOCK32.dll
+
+Compress.dll
+00079110  <none>  0000  LoadLibraryExA
+00079134  <none>  0000  WriteFile
+00079144  <none>  0000  ReadFile
+000791d4  <none>  0000  WriteFile
+000791fc  <none>  0000  ReadFile
+0007920c  <none>  0000  LoadLibraryA
+00079248  <none>  0000  GetProcAddress
+00079420  <none>  0000  SendMessageA
+
+DManage.dll
+0000d08c  <none>  013e  GetProcAddress
+
+GameCtl.dll
+000161d8  <none>  0214  SendMessageA
+
+MapCheckSum.exe
+00003240  <none>  0214  SendMessageA
+
+Saver.exe
+00046180  <none>  0218  ReadFile
+00046184  <none>  02df  WriteFile
+00046624  <none>  0214  SendMessageA
+DLL Name: WSOCK32.dll
+
+setunit.dll
+
+
+soundll.dll
+
+
+userunit.dll
+00012134  <none>  0214  SendMessageA
+
+UpGrade.exe
+00005310  <none>  0116  GetProcAddress
+00005314  <none>  0190  LoadLibraryA
+00005540  <none>  01da  SendMessageA

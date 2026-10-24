@@ -1,0 +1,46 @@
+﻿case,result,match
+inventory_0,36 decoder -> full replacement; signed pairs and prior-array release,True
+inventory_1,36 decoder -> full replacement; signed pairs and prior-array release,True
+inventory_3,36 decoder -> full replacement; signed pairs and prior-array release,True
+inventory_28,36 decoder -> full replacement; signed pairs and prior-array release,True
+catalog_100,local 100-ID range enumerated twice; only matching existing item table rows retained,True
+catalog_500,local 100-ID range enumerated twice; only matching existing item table rows retained,True
+equipment_snapshot34,seven wire pairs deinterleaved into record9A item IDs and A8 auxiliary shorts,True
+money_0,"absolute dword assignment, no addition",True
+money_1,"absolute dword assignment, no addition",True
+money_999999,"absolute dword assignment, no addition",True
+money_4294967295,"absolute dword assignment, no addition",True
+buy_0,4B selected catalog item; capacity gate; no local inventory/money change,True
+buy_27,4B selected catalog item; capacity gate; no local inventory/money change,True
+buy_28,4B selected catalog item; capacity gate; no local inventory/money change,True
+buy_29,4B selected catalog item; capacity gate; no local inventory/money change,True
+sell_0,4C item ID plus auxiliary low16; virtual acceptance gate; no local mutation,True
+sell_1,4C item ID plus auxiliary low16; virtual acceptance gate; no local mutation,True
+equipment_0_-1,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_0_321,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_1_-1,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_1_321,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_2_-1,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_2_321,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_3_-1,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_3_321,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_4_-1,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_4_321,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_5_-1,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_5_321,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_6_-1,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+equipment_6_321,40 unit/slot/item/aux/aux; optimistic equipment ID write,True
+dialogue_request_0,72 dialogue ID/action; next action reset to2; repeated action2 sets D4,True
+dialogue_request_1,72 dialogue ID/action; next action reset to2; repeated action2 sets D4,True
+dialogue_request_2,72 dialogue ID/action; next action reset to2; repeated action2 sets D4,True
+"dialogue_open_1_(0, 1)","dialogue UI branch, normalized flags, automatic72 request for kinds1/2",True
+"dialogue_open_1_(2, 2)","dialogue UI branch, normalized flags, automatic72 request for kinds1/2",True
+"dialogue_open_1_(-1, 3)","dialogue UI branch, normalized flags, automatic72 request for kinds1/2",True
+"dialogue_open_2_(0, 1)","dialogue UI branch, normalized flags, automatic72 request for kinds1/2",True
+"dialogue_open_2_(2, 2)","dialogue UI branch, normalized flags, automatic72 request for kinds1/2",True
+"dialogue_open_2_(-1, 3)","dialogue UI branch, normalized flags, automatic72 request for kinds1/2",True
+"dialogue_open_3_(0, 1)","dialogue UI branch, normalized flags, automatic72 request for kinds1/2",True
+"dialogue_open_3_(2, 2)","dialogue UI branch, normalized flags, automatic72 request for kinds1/2",True
+"dialogue_open_3_(-1, 3)","dialogue UI branch, normalized flags, automatic72 request for kinds1/2",True
+"dialogue_response_(0, 0, 0)","73 dword, two shorts, three u8-length strings -> UI display helper",True
+"dialogue_response_(3, 3, 2)","73 dword, two shorts, three u8-length strings -> UI display helper",True

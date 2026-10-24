@@ -1,0 +1,94 @@
+{
+  "supplemental": {
+    "resource_files": 508,
+    "resource_types": {
+      ".ai": 104,
+      ".dee": 68,
+      ".deo": 62,
+      ".evt": 104,
+      ".srf": 96,
+      ".bak": 35,
+      ".pos": 19,
+      ".set": 19,
+      ".all": 1
+    },
+    "pos_rows": 824,
+    "pos_coordinates_in_map": 824,
+    "pos_map_missing": 0,
+    "set_rows": 610,
+    "set_with_position": 610,
+    "pos_without_set": 214,
+    "backup_reference_rows": 83,
+    "set_metadata_rows": 137,
+    "briefing_files": 96,
+    "missing_set_abilities": {
+      "ability": [],
+      "ability1": []
+    }
+  },
+  "source_files": 338,
+  "source_types": {
+    "ai": 104,
+    "dee": 68,
+    "deo": 62,
+    "evt": 104
+  },
+  "appearance_occurrences": 832,
+  "dynamic_COM_occurrences": 114,
+  "action_counts": {
+    "CHARPOS": 832,
+    "CHARDIR": 135,
+    "CHARMOVE": 221,
+    "DO2": 31,
+    "ATTACK": 12,
+    "KILLCHAR2": 39,
+    "MAGIC": 190,
+    "KILLCHAR1": 40
+  },
+  "condition_rows": 2099,
+  "ai_rows": 1087,
+  "ai_modes": {
+    "ODNORMAL": 527,
+    "ODATTACK": 557,
+    "ODATTACKL": 3
+  },
+  "ai_selectors": {
+    "AREA": 1065,
+    "SOILDER": 22
+  },
+  "ai_empty_actions": 129,
+  "ai_weight_sum_distribution": {
+    "100": 859,
+    "110": 31,
+    "120": 32,
+    "0": 129,
+    "130": 20,
+    "140": 11,
+    "180": 4,
+    "170": 1
+  },
+  "slot_evidence": {
+    "scripted actor only; no matching AI source": 598,
+    "AI and scripted appearances": 143,
+    "AI only; spawn/type not established": 943
+  },
+  "missing_magic_ids": [
+    "80601",
+    "90"
+  ],
+  "literal_ability_missing": {
+    "ability": [
+      "999"
+    ],
+    "ability1": [
+      "999"
+    ]
+  },
+  "native_CHARPOS_cases": 786,
+  "unitinfo_cases": 24,
+  "ai_mode_cases": 4,
+  "cases": 814,
+  "mismatches": 0,
+  "scope": "All raw installed scenario source occurrences; native CHARPOS parsing with modeled CString/CRT and final dmSetChar capture, COM fixture values100..104. Not full app/AI executor/server deployment.",
+  "server_internal_decisions_excluded": true
+}
