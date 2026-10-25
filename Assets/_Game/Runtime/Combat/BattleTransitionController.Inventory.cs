@@ -78,7 +78,7 @@ namespace DarkSaver.Combat
             reason="신전 관리인에게 가까이 가서 회복을 요청하세요.";
             var player=UnityEngine.Object.FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>();
             if(!isActiveAndEnabled || !HasCreatedCharacter || !hasPlayerVitals || playerMaxHp<=0 || playerMaxMp<0
-                || HasPendingTutorial || transitioning || !IsTempleReady || player==null || !player.isActiveAndEnabled
+                || HasPendingTutorial || transitioning || !IsTempleReady || player==null || !player.isActiveAndEnabled || player.IsMoving
                 || SceneManager.GetSceneByName(BattleSceneName).isLoaded
                 || UnityEngine.Object.FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling==true)return false;
             bool near=false;

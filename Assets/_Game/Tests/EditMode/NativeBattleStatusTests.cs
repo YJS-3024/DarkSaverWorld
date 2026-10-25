@@ -7,6 +7,42 @@ namespace DarkSaver.Tests
 {
     public sealed class NativeBattleStatusTests
     {
+        [Test] public void InitiallyDeadGaugeKeepsAllRevivedDigitsAboveItsNewFill()
+        {
+            var go=new GameObject("Revived gauge layering");
+            try
+            {
+                var owner=go.AddComponent<StartMenuController>();InGameUi ui=null;InGameUi.Ensure(ref ui,owner);
+                var root=ui.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("LogicalScreen");
+                ui.Begin();ui.NativeStatusGauge("hp",new Vector2(30,156),0,200,1);ui.End();
+                ui.Begin();ui.NativeStatusGauge("hp",new Vector2(30,156),200,200,1);ui.End();
+                var fill=root.Q<VisualElement>("hp-clip");Assert.IsNotNull(fill);
+                for(int i=0;i<"200/200".Length;i++)
+                    Assert.Greater(root.IndexOf(root.Q<VisualElement>("hp-digit-"+i)),root.IndexOf(fill));
+            }
+            finally { Object.DestroyImmediate(go); }
+        }
+
+        [Test] public void ResultConfirmationRetainsNativeArtworkAcrossRedraws()
+        {
+            var go=new GameObject("Retained result confirmation");
+            try
+            {
+                var owner=go.AddComponent<StartMenuController>();InGameUi ui=null;InGameUi.Ensure(ref ui,owner);
+                var root=ui.GetComponent<UIDocument>().rootVisualElement;
+                var artwork=Resources.Load<Texture2D>("UI/NativeResultConfirm0");Assert.IsNotNull(artwork);
+                Button original=null;
+                for(int pass=0;pass<2;pass++)
+                {
+                    ui.Begin();ui.DungeonResult("result",new Rect(0,0,434,344),"검증",()=>{});ui.End();
+                    var button=root.Q<Button>("result-confirm");
+                    Assert.AreSame(artwork,button.style.backgroundImage.value.texture);
+                    if(pass==0)original=button;else Assert.AreSame(original,button);
+                }
+            }
+            finally { Object.DestroyImmediate(go); }
+        }
+
         [Test] public void RosterWindowTransitionsReleaseBoundsWithoutChangingCombat()
         {
             var go = new GameObject("Roster window transitions");

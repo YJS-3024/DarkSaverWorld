@@ -204,7 +204,7 @@ namespace DarkSaver.Tests
                 Assert.IsTrue(b.TryConfigureGrid(6,6,new[] {
                     new CombatGridPlacement(100,Cell(0,0)),new CombatGridPlacement(101,Cell(2,2)),
                     new CombatGridPlacement(800,Cell(3,2)) },(_,_)=>true,(_,_)=>true));
-                b.SetTemporaryLocalRules(true);b.ConfigurePhysicalAccuracy(101,100,0);b.AdvanceActionPoints(20);
+                b.SetTemporaryLocalRules(true);b.ConfigurePhysicalAccuracy(101,100,0);b.ConfigurePhysicalAccuracy(800,100,0);b.AdvanceActionPoints(20);
                 int hp=b.EnemyHp,ap=b.PlayerAp;
                 Assert.IsTrue(b.TrySetTroopOrder(100,BattleSceneRoot.TroopOrder.AutomaticDefense));
                 b.AdvanceTemporaryMonsterAi(.2f);

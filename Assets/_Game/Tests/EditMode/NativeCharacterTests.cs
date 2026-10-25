@@ -27,7 +27,16 @@ namespace DarkSaver.Tests
                 var catalog = UnityEditor.AssetDatabase.LoadAssetAtPath<DarkSaver.Jobs.JobCatalog>("Assets/_Game/Runtime/Jobs/JobCatalog.asset");
                 Assert.IsTrue(session.ConfigureFormationSupport(new[] {catalog}, new System.Collections.Generic.Dictionary<int, DarkSaver.Player.DirectionalSpriteAnimator>()));
                 Assert.IsTrue(catalog.TryGet(100, out var job));
+                Assert.IsFalse(session.InitializeCharacter(profile), "Missing starting-ability catalogs must not partially create a character.");
+                Assert.IsFalse(session.HasPlayerVitals); Assert.IsNull(session.CaptureInventory());
+                root.AddComponent<TownServicesPanel>().ConfigureProgression(UnityEditor.AssetDatabase.LoadAssetAtPath<ExperienceProgressionTable>("Assets/_Game/Runtime/Combat/ExperienceProgression.asset"));
+                root.AddComponent<MagicCatalogPanel>().Configure(UnityEditor.AssetDatabase.LoadAssetAtPath<DarkSaver.Magic.MagicCatalog>("Assets/_Game/Runtime/Magic/MagicCatalog.asset"), root.AddComponent<DarkSaver.Player.TopDownPlayerController>());
                 Assert.IsTrue(session.InitializeCharacter(profile));
+                Assert.IsFalse(profile.hasClassAbilities, "Creation must not mutate the caller's candidate.");
+                var created = session.CaptureCharacterProfile();
+                Assert.IsTrue(created.hasClassAbilities);
+                CollectionAssert.AreEqual(new[] {101}, created.learnedMagicIds);
+                CollectionAssert.AreEqual(new[] {10101, 21101}, created.usableSkillIds);
                 Assert.AreEqual(30000L, session.CaptureInventory().gold);
                 Assert.IsFalse(session.InitializeCharacter(profile));
                 Assert.AreEqual(30000L, session.CaptureInventory().gold, "Repeated initialization must not grant funds twice.");
@@ -45,6 +54,10 @@ namespace DarkSaver.Tests
                 save.inventory.gold = 0;
                 Assert.IsTrue(session.RestoreSaveState(save));
                 Assert.AreEqual(0L, session.CaptureInventory().gold, "An existing zero-gold save must stay unchanged.");
+                save.character.hasClassAbilities = false;
+                save.character.learnedMagicIds = null; save.character.usableSkillIds = null;
+                Assert.IsTrue(session.RestoreSaveState(save));
+                Assert.IsFalse(session.CaptureCharacterProfile().hasClassAbilities, "Do not backfill unknown ownership in existing saves.");
             }
             finally { EditorSceneManager.ClosePreviewScene(scene); }
         }
@@ -52,8 +65,11 @@ namespace DarkSaver.Tests
         [Test]
         public void TempleRecoveryRequiresNpcAndSavesBeforePublishingWithoutGrantingGold()
         {
-            var map=SceneManager.CreateScene("KaosiaTemple_Map");
-            var runtime=SceneManager.CreateScene("KaosiaTemple_Runtime");
+            var map=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive);map.name="KaosiaTemple_Map";
+            string mapFolder="Assets/_Game/Tests/EditMode/TempleFixture-"+Guid.NewGuid().ToString("N");
+            Directory.CreateDirectory(mapFolder);
+            Assert.IsTrue(EditorSceneManager.SaveScene(map,mapFolder+"/KaosiaTemple_Map.unity"));
+            var runtime=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive);runtime.name="KaosiaTemple_Runtime";
             string directory=Path.Combine(Path.GetTempPath(),"ds-temple-"+Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);
             try
@@ -76,6 +92,10 @@ namespace DarkSaver.Tests
                 Assert.IsFalse(session.TryTempleRecovery(out _));
                 Assert.AreEqual(0,session.PlayerHp);Assert.AreEqual(7,session.PlayerMp);Assert.IsFalse(session.CanEnterBattle);
                 string path=Path.Combine(directory,"save.json");session.ConfigureSaveFile(path);
+                var body=actor.GetComponent<Rigidbody2D>();body.linearVelocity=Vector2.right;
+                Assert.IsFalse(session.TryTempleRecovery(out _),"Moving must reject recovery without publishing vitals.");
+                Assert.AreEqual(0,session.PlayerHp);Assert.AreEqual(7,session.PlayerMp);
+                body.linearVelocity=Vector2.zero;
                 root.AddComponent<TownServicesPanel>();
                 Assert.IsTrue(staff.GetComponent<DarkSaver.World.ShopCounter2D>().TryOpen(player));
                 Assert.IsTrue(session.TryTempleRecovery(out var reason),reason);
@@ -89,6 +109,7 @@ namespace DarkSaver.Tests
             finally
             {
                 EditorSceneManager.CloseScene(runtime,true);EditorSceneManager.CloseScene(map,true);
+                UnityEditor.AssetDatabase.DeleteAsset(mapFolder);
                 Directory.Delete(directory,true);
             }
         }

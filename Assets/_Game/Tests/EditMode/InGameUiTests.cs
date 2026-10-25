@@ -303,7 +303,7 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void BattleSkinUsesConvertedResourcesAndDoesNotStyleWorldPanels()
+        public void BattleAndWorldPanelsUseConvertedPaperResources()
         {
             Assert.NotNull(Resources.Load<Texture2D>("UI/BattlePaper"));
             Assert.NotNull(Resources.Load<Sprite>("UI/BattlePortraitFrame"));
@@ -319,7 +319,7 @@ namespace DarkSaver.Tests
                 ui.Panel("world-test", new Rect(240, 0, 220, 260), "마을");
                 ui.End();
                 Assert.NotNull(root.Q<VisualElement>("battle-test").style.backgroundImage.value.texture);
-                Assert.IsNull(root.Q<VisualElement>("world-test").style.backgroundImage.value.texture);
+                Assert.AreSame(Resources.Load<Texture2D>("UI/BattlePaper"),root.Q<VisualElement>("world-test").style.backgroundImage.value.texture);
                 Assert.NotNull(root.Q<VisualElement>("portrait-test-frame").style.backgroundImage.value.sprite);
                 Assert.AreEqual(PickingMode.Ignore, root.Q<VisualElement>("portrait-test-frame").pickingMode);
                 Assert.Less(root.Q<Label>("battle-test-title").style.color.value.r, .3f);

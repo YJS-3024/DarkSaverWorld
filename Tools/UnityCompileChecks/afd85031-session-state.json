@@ -1,0 +1,80 @@
+{
+  "baseCommit": "afd85031",
+  "branch": "work",
+  "date": "2026-10-25",
+  "sourceChangesUncommitted": true,
+  "fixture": "Tools/UnityCompileChecks/afd85031-play-ea5fb712a71b4772ac7bd509d2c500b2",
+  "startingMagicFixture": "Tools/UnityCompileChecks/afd85031-starting-magic-cd86951d63944780802a0bfcc7595fd7",
+  "priorFailureFilesHashed": 4,
+  "priorFailureChanged": 0,
+  "latestCompletedEditMode": {
+    "total": 1173,
+    "passed": 1173,
+    "failed": 0,
+    "scope": "Includes creation abilities, battle Awake initialization and scripted terrain collider rebuild."
+  },
+  "offlineIntegration": {
+    "passed": 26903,
+    "scope": "Linked production with offline host/JSON adapters; not Unity Play/NUnit."
+  },
+  "offlineCombat": {
+    "passed": 5251,
+    "jobs": 70,
+    "abilityCases": 357,
+    "scope": "Actual production CombatFlow/LocalCombatAuthority offline."
+  },
+  "apiBuild": {
+    "errors": 0,
+    "warnings": 75
+  },
+  "actualEditorRestart": {
+    "confirmed": true,
+    "observedNewEditorUptimeSeconds": 35.4222951,
+    "jobWindowCount": 1,
+    "query": "100",
+    "selectedJob": 100
+  },
+  "actualPlay": {
+    "newStart": "Passed: registration, explicit selection/creation, HP200 MP45 gold30000, physical tutorial movement, Kaosia21,21, save/reconnect.",
+    "temple": "Passed: actual training death HP0/MP45, caretaker free revival, guards and disk failure atomicity.",
+    "shop": "Passed: dagger buy8000/sell4000, equipped-with-spare rejection, invalid/duplicate guards, gear persistence.",
+    "startingAbilities": "Passed in separate new account: magic101 skills10101/21101, save/reconnect, displayed/selectable spell; actual MP45->40 AP10->8 and duplicate rejection. Existing unknown saved ownership not backfilled.",
+    "scenario01": {
+      "status": "Passed",
+      "defeated": 33,
+      "phase": 3,
+      "reward398": 1,
+      "completedReconnect": true
+    },
+    "scenario02": {
+      "status": "Failed progression gate; partially passed",
+      "defeated": 6,
+      "phase": 1,
+      "bridge50": true,
+      "colliderFixRestoreAndPhysicalCross": true,
+      "bridge51": false,
+      "normalBombPurchase": 2000,
+      "bomb398": 1,
+      "gold": 899,
+      "hp": 141,
+      "mp": 45,
+      "xp": 871,
+      "position": [
+        21.5,
+        5.5
+      ],
+      "checkpoint": "scenario02-bridge51-blocked.json",
+      "blocker": "Original bridge51 requires x35, but the authored single-commander start can reach only x33; closed x34 blocks x35 and remaining wave0 enemies. Await user decision on allowing the same bomb/ONCE event from x33; no prerequisite bypass."
+    },
+    "scenarios03to17": "Not run: scenario02 incomplete.",
+    "sound": "Audio source observations only; no listening validation.",
+    "balance": "Not final. No nerfs; QA extra trade loss8000 and idle-battle deaths excluded from balance conclusions.",
+    "recruitedCharacters": "User clarified scenario-clear recruitment of unowned characters, not village mercenaries; details deferred to development chat. Existing unlock flags do not establish owned units or their magic."
+  },
+  "limitations": [
+    "Public UI/local request APIs plus physical movement/trigger execution; not full physical mouse/keyboard verification.",
+    "Missing Script0 in the loaded766-object scenario01 snapshot; not all project assets.",
+    "The first chest5 contact followed a diagnostic collider rebuild and is excluded from post-fix fresh-acquisition proof.",
+    "An initial correct-password rejection after a bad-password attempt was not reproduced or explained."
+  ]
+}

@@ -172,6 +172,18 @@ namespace DarkSaver.Combat
             // Legacy unknown vitals remain unknown until restored through their existing path.
             if (profile.hasLevels && profile.tutorial != null)
             {
+                // New characters start with their class's first-row abilities. RestoreSaveState
+                // deliberately leaves older saves with unknown ownership unchanged.
+                var progression = GetComponent<DarkSaver.UI.TownServicesPanel>()?.Progression;
+                var magic = GetComponent<DarkSaver.UI.MagicCatalogPanel>()?.Catalog;
+                if (progression == null || magic == null
+                    || !progression.TryGetClassEntryAbilities(profile.jobId, out var startingMagic, out var startingSkills)
+                    || !magic.TryMergeLearnedMagic(System.Array.Empty<int>(), startingMagic, out var learned)) return false;
+                profile = profile.Clone();
+                profile.hasClassAbilities = true;
+                profile.learnedMagicIds = learned;
+                profile.usableSkillIds = startingSkills;
+                if (!profile.IsValid) return false;
                 if (!DarkSaver.Items.SinglePlayerEquipmentRules.TryResolve(profile, FindEquipmentJob(profile.jobId),
                     GetComponent<DarkSaver.UI.ItemCatalogPanel>()?.Catalog, out var stats)) return false;
                 playerHp = playerMaxHp = stats.Hp; playerMp = playerMaxMp = stats.Mp;
@@ -418,7 +430,13 @@ namespace DarkSaver.Combat
                     var display = battle.gameObject.AddComponent<BattleMapPresentation>();
                     if (!display.TryBind(ground, terrain, Camera.main, new[] {
                         new BattleMapVisual(100, playerVisual), new BattleMapVisual(battle.PrimaryEnemyId, enemyVisual) }))
-                        Debug.LogWarning("Native battle map binding rejected; retaining legacy presentation without guessed placement.");
+                    {
+                        LastTransitionMessage = "전투 격자 배치에 실패했습니다. 월드에서 다시 접근해 주세요.";
+                        Debug.LogWarning("Native battle map binding rejected; returning to world without changing combat results.");
+                        activeBattle = null;
+                        if (scene.IsValid() && scene.isLoaded) yield return SceneManager.UnloadSceneAsync(scene);
+                        SetPlayerEnabled(true);
+                    }
                 }
             }
             if (activeBattle != null && character != null && character.hasClassAbilities)
@@ -473,6 +491,7 @@ namespace DarkSaver.Combat
             var player = FindFirstObjectByType<TopDownPlayerController>();
             if (player != null)
             {
+                if (!value) player.StopForSceneTravel();
                 player.enabled = value;
                 var body = player.GetComponent<Rigidbody2D>();
                 if (!value) body.linearVelocity = Vector2.zero;

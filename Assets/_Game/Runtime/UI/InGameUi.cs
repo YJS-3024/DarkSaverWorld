@@ -405,7 +405,7 @@ namespace DarkSaver.UI
             button.text = text; button.tooltip = tooltip; button.SetEnabled(enabled);
             button.style.marginLeft = button.style.marginRight = button.style.marginTop = button.style.marginBottom = 0;
             if (battlePaper == null) battlePaper = Resources.Load<Texture2D>("UI/BattlePaper");
-            button.style.backgroundImage = battlePaper == null ? StyleKeyword.None : new StyleBackground(battlePaper);
+            if (isNew) button.style.backgroundImage = battlePaper == null ? StyleKeyword.None : new StyleBackground(battlePaper);
             button.style.backgroundColor = selected ? new Color(.58f, .37f, .17f) : new Color(.72f, .52f, .29f);
             button.style.color = enabled ? PaperInk : new Color(.40f, .32f, .24f);
             button.style.whiteSpace = singleLine ? WhiteSpace.NoWrap : WhiteSpace.Normal;
@@ -535,7 +535,11 @@ namespace DarkSaver.UI
         {
             if (text == null) return;
             for (int i = 0; i < text.Length; i++)
+            {
                 Portrait(key + "-digit-" + i, new Rect(position.x + i * 5, position.y, 5, 7), NativeBattleStatus.Digit(text[i]));
+                // A gauge first created after revival must stay behind retained digits.
+                elements[key + "-digit-" + i].BringToFront();
+            }
             if (!string.IsNullOrEmpty(tooltip) && text.Length > 0)
             {
                 var hitKey = key + "-tooltip";

@@ -30,8 +30,9 @@ namespace DarkSaver.Tests
                 Assert.That(server.Login(new LoginRequest("hero_01","wrong-password!")).Accepted,Is.False);
                 Assert.That(server.List(new CharacterListRequest()).Accepted,Is.False);
                 var login=(LoginResponse)server.Login(new LoginRequest("hero_01","sample-password!"));
-                Assert.That(login.Accepted,Is.True);Assert.That(login.Authenticated,Is.True);Assert.That(login.RequiresCharacterSelection,Is.False);
-                Assert.That(server.Select(new CharacterSelectRequest(login.ResumePath)).Accepted,Is.True);
+                Assert.That(login.Accepted,Is.True);Assert.That(login.Authenticated,Is.True);Assert.That(login.RequiresCharacterSelection,Is.True);
+                Assert.That(login.ResumePath,Is.Null);
+                Assert.That(server.Select(new CharacterSelectRequest(paths[0])).Accepted,Is.True);
                 Assert.That(NativeSaveStore.TakeResume(out var saved,out _),Is.True);Assert.That(saved.worldX,Is.EqualTo(21));Assert.That(saved.worldY,Is.EqualTo(21));
             }
             finally{NativeSaveStore.ClearResume();NativeCharacterProfile.ClearPending();Directory.Delete(directory,true);}

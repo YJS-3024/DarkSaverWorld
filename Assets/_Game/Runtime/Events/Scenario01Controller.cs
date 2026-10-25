@@ -299,7 +299,9 @@ namespace DarkSaver.Events
             view.GetComponent<SpriteRenderer>().sortingOrder = 20000 - Mathf.RoundToInt(view.transform.position.y * 10f);
             if (encounter)
             {
-                var trigger = view.AddComponent<BoxCollider2D>(); trigger.size = new Vector2(.7f, .7f); trigger.isTrigger = true;
+                // Encounter before the player enters the occupied tile. A .7-tile
+                // trigger could first overlap inside the same cell, rejecting the combat grid.
+                var trigger = view.AddComponent<BoxCollider2D>(); trigger.size = new Vector2(1.4f, 1.4f); trigger.isTrigger = true;
                 view.AddComponent<Scenario01Encounter>().Configure(this, id);
             }
             return view;
@@ -421,6 +423,15 @@ namespace DarkSaver.Events
                 attribute.colliderType=operation.attribute==3 || operation.attribute==6 || operation.attribute==9 ? Tile.ColliderType.Grid : Tile.ColliderType.None;
                 for(int y=0;y<operation.heightTiles;y++)for(int x=0;x<operation.widthTiles;x++)
                     terrain.SetTile(new Vector3Int(operation.x+x,Content.height-1-operation.y-y,0),attribute);
+            }
+            // Unity's incremental tile collider can retain the old bridge shapes even
+            // when GetColliderType already reports None. Rebuild after the whole batch,
+            // including restoration of saved map changes, before allowing world travel.
+            var terrainCollider = terrain.GetComponent<TilemapCollider2D>();
+            if (terrainCollider != null && terrainCollider.enabled)
+            {
+                terrainCollider.enabled = false;
+                terrainCollider.enabled = true;
             }
             appliedChanges=progress.mapChanges.ToArray();
         }

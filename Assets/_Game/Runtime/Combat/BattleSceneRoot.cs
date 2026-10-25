@@ -1165,7 +1165,9 @@ namespace DarkSaver.Combat
             return true;
         }
 
-        private void Awake() => EnsureInitialized();
+        // Scene-load continuations bind learned abilities before Start. Enable their
+        // execution rules in Awake so catalog registration cannot silently be skipped.
+        private void Awake() => SetTemporaryLocalRules(GameConstants.BattleUseTemporaryLocalRules);
 
         private float temporaryAiDebt;
         private readonly System.Collections.Generic.HashSet<short> returningMonsters = new();
@@ -1203,8 +1205,6 @@ namespace DarkSaver.Combat
             { reason = "휴식 조정값이 유효하지 않습니다."; return false; }
             return true;
         }
-
-        private void Start() => SetTemporaryLocalRules(GameConstants.BattleUseTemporaryLocalRules);
 
         // Temporary Chebyshev geometry matches eight-direction movement; not native range evidence.
         private static long GridDistance(CombatGridCell a, CombatGridCell b) =>

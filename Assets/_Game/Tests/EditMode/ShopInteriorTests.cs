@@ -72,7 +72,7 @@ namespace DarkSaver.Tests
                 var staff=go.GetComponentsInChildren<IndoorNpcLabel>();Assert.That(staff.Length,Is.EqualTo(1));
                 var renderer=staff[0].GetComponent<SpriteRenderer>();Assert.That(renderer.sprite,Is.Not.Null);
                 Assert.That(renderer.sortingOrder,Is.LessThan(30000));
-                Assert.That(staff[0].GetComponent<ShopCounter2D>()!=null,Is.EqualTo(ShopInteriorCatalog.TryGet(key,out _)));
+                Assert.That(staff[0].GetComponent<ShopCounter2D>()!=null,Is.EqualTo(key=="KaosiaTemple" || ShopInteriorCatalog.TryGet(key,out _)));
             }
             finally{UnityEngine.Object.DestroyImmediate(go);EditorSceneManager.ClosePreviewScene(scene);}
         }

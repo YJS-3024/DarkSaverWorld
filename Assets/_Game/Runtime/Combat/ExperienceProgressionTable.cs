@@ -47,7 +47,7 @@ namespace DarkSaver.Combat
             return found;
         }
 
-        // Class-change input only: read the new class's first row, not all level rewards.
+        // Creation/class-change input: read the class's first row, not all level rewards.
         // This does not grant ownership, merge previous spells, or resolve skill effects.
         public bool TryGetClassEntryAbilities(int jobId, out int[] magicIds, out int[] skillIds)
         {

@@ -53,6 +53,8 @@ namespace DarkSaver.Player
         private WorldSessionHud worldHud;
 
         public bool UiInputBlocked => uiInputBlocked || scenarioInputBlocked || tutorialInputBlocked;
+        public bool IsMoving => followingClickPath || movement.sqrMagnitude > .0001f
+            || (body != null ? body : GetComponent<Rigidbody2D>()).linearVelocity.sqrMagnitude > .0001f;
 
         public void SetTutorialInputBlocked(bool blocked)
         {

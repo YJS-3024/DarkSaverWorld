@@ -19,7 +19,7 @@ namespace DarkSaver.Core
                 if(record==null || (record.version!=1 && record.version!=2) || string.IsNullOrWhiteSpace(record.savePath))
                 {reason="마지막 캐릭터 기록이 올바르지 않습니다.";return false;}
                 // Old records can originate from automatic test-save migration, not an explicit selection.
-                if(record.version!=2 || !string.Equals(record.accountId,accountId,StringComparison.Ordinal))return false;
+                if(record.version!=2 || !string.Equals(record.accountId ?? "",accountId ?? "",StringComparison.Ordinal))return false;
                 savePath=Path.GetFullPath(record.savePath);return true;
             }
             catch(Exception){reason="마지막 캐릭터 기록을 읽을 수 없습니다.";return false;}
