@@ -22,6 +22,9 @@ namespace DarkSaver.Core
         // Optional additive v1 field. Legacy snapshots have no created character.
         public NativeCharacterProfile character;
         public bool hasCharacter;
+        // JsonUtility materializes null inline classes. Preserve optional tutorial presence explicitly.
+        public int tutorialPresenceVersion;
+        public bool hasTutorial;
         // v2 only; null is retained for v1, never synthesized from a catalog.
         public NativeOwnedRoster ownedRoster;
         public bool hasOwnedRoster;
@@ -140,6 +143,7 @@ namespace DarkSaver.Core
                     json = header.payload;
                 }
                 var candidate = JsonUtility.FromJson<NativeSaveData>(json);
+                RestoreTutorialPresence(candidate, json);
                 if (candidate != null && candidate.format == Format && candidate.version > CampaignVersion)
                 { future = true; return false; }
                 if (!IsValid(candidate)) return false;
@@ -174,7 +178,7 @@ namespace DarkSaver.Core
                 // Never silently drop a newer roster through a legacy writer.
                 if (previous != null && previous.version > data.version)
                 { message = "보유 목록이 있는 저장을 이전 버전으로 덮어쓰지 않았습니다."; return false; }
-                var payload = JsonUtility.ToJson(data);
+                var payload = SerializePayload(data);
                 var json = JsonUtility.ToJson(new SaveEnvelope
                 { format = CheckedFormat, version = 1, payload = payload, sha256 = Checksum(payload) }, true);
                 if (Encoding.UTF8.GetByteCount(json) > 1024 * 1024)
@@ -208,7 +212,9 @@ namespace DarkSaver.Core
             string fullPath;
             try { fullPath = Path.GetFullPath(filePath); }
             catch (ArgumentException) { return false; }
-            pending = JsonUtility.FromJson<NativeSaveData>(JsonUtility.ToJson(data));
+            string payload = SerializePayload(data);
+            pending = JsonUtility.FromJson<NativeSaveData>(payload);
+            RestoreTutorialPresence(pending, payload);
             pendingPath = fullPath;
             return true;
         }
@@ -217,6 +223,22 @@ namespace DarkSaver.Core
         {
             data = pending; filePath = pendingPath; ClearResume();
             return data != null;
+        }
+
+        private static string SerializePayload(NativeSaveData data)
+        {
+            data.tutorialPresenceVersion = 1;
+            data.hasTutorial = data.hasCharacter && data.character?.tutorial != null;
+            return JsonUtility.ToJson(data);
+        }
+
+        private static void RestoreTutorialPresence(NativeSaveData data, string json)
+        {
+            if (data?.character == null) return;
+            // Older explicit tutorial objects retain their progress; absent fields never start onboarding.
+            bool present = data.tutorialPresenceVersion == 1 ? data.hasTutorial
+                : System.Text.RegularExpressions.Regex.IsMatch(json, @"(?<!\\)""tutorial""\s*:\s*\{");
+            if (!present) data.character.tutorial = null;
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]

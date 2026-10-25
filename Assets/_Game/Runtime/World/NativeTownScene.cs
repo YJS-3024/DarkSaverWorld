@@ -30,6 +30,9 @@ namespace DarkSaver.World
                 if(!WorldRouteContent.Resolve(townKey,out var town) || town.Key=="Kaosia" || town.Key=="WorldField1010")throw new InvalidOperationException("Unknown generated town.");
                 var text=Resources.Load<TextAsset>(ResourceRoot+"/Map");
                 var data=text==null?null:JsonUtility.FromJson<MapData>(text.text);
+                // Unity creates an empty inline NPC even when the map JSON omits it.
+                // Only an explicit NPC object authorizes spawning an interior actor.
+                if (data != null && !System.Text.RegularExpressions.Regex.IsMatch(text.text, @"(?<!\\)""npc""\s*:\s*\{")) data.npc=null;
                 if(data==null || data.width!=town.Width || data.height!=town.Height || data.attributes==null
                     || data.attributes.Length!=data.width*data.height || data.objects==null)throw new InvalidOperationException("Invalid town resources.");
                 if(runtimeOnly) BuildRuntime(town,data); else BuildMap(town,data);

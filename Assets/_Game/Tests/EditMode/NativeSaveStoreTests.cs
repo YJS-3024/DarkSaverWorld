@@ -61,6 +61,8 @@ namespace DarkSaver.Tests
                 Assert.That(store.TryLoad(out var legacy, out _), Is.True);
                 Assert.That(store.TrySave(legacy, out _), Is.True);
                 Assert.That(store.TryLoad(out var upgraded, out _), Is.True);
+                Assert.That(upgraded.tutorialPresenceVersion, Is.EqualTo(1));
+                source.tutorialPresenceVersion = 1;
                 Assert.That(JsonUtility.ToJson(upgraded), Is.EqualTo(JsonUtility.ToJson(source)));
                 Assert.That(File.ReadAllText(store.FilePath), Does.Contain("sha256"));
             });

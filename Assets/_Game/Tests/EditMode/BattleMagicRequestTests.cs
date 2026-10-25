@@ -148,7 +148,11 @@ namespace DarkSaver.Tests
                 };
                 server.RequestReceived += value =>
                 {
-                    order.Add("server"); Assert.That(value, Is.SameAs(packet));
+                    order.Add("server"); Assert.That(value, Is.Not.SameAs(packet));
+                    var decoded = (MagicRequest)value;
+                    Assert.That((decoded.MagicId, decoded.ActingUnitId, decoded.X, decoded.Y, decoded.ComputedCost),
+                        Is.EqualTo((packet.MagicId, packet.ActingUnitId, packet.X, packet.Y, packet.ComputedCost)));
+                    Assert.That(decoded.TargetUnitIds, Is.EqualTo(packet.TargetUnitIds));
                     Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp - 3)); Assert.That(battle.PlayerMp, Is.EqualTo(30));
                     Assert.That(server.SendToClient(new MagicEffectNotification(201, 100, -2, short.MaxValue, int.MaxValue, new short[] { 800, 100, 800 })), Is.True);
                 };

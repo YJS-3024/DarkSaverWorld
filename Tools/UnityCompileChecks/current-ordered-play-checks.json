@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-25",
+  "branch": "work",
+  "scope": "Actual Unity PlayMode in the user-requested order. Public UI/local request APIs and real player path/physics portal movement; not physical mouse/keyboard automation.",
+  "fixture": "Tools/UnityCompileChecks/ordered-play-6806eb2d1d5045d3b0c737c2b3b34f77",
+  "userDecision": "Preserve current failure state and record blocked steps. No test money, HP restoration, previous-save rollback, or scenario prerequisite bypass.",
+  "steps": [
+    {
+      "step": 1,
+      "name": "최초 로그인",
+      "status": "통과",
+      "evidence": "Fresh account registration, first login, slot0 creation, HP200/200 MP45/45, actual tutorial movement, tutorial completion at Kaosia21,21, save."
+    },
+    {
+      "step": 2,
+      "name": "이후 로그인",
+      "status": "통과",
+      "evidence": "Play stopped and restarted. Wrong password rejected; correct login resumed same character at21,21 with vitals and tutorial4."
+    },
+    {
+      "step": 3,
+      "name": "마을→훈련장 전투",
+      "status": "통과",
+      "evidence": "Real movement through Kaosia training entrance to Training101. Physical monster approach entered tactical battle against skeleton800 HP135. Normal local attack requests at naturally full AP. Character died; battle returned to training area and town. HP0/200 MP45/45 XP0 gold0. Victory path not verified."
+    },
+    {
+      "step": 4,
+      "name": "마을 아이템 구매·판매",
+      "status": "실패",
+      "evidence": "Real weapon shop entrance and staff interaction opened112-offer shop. Dagger1 buyPrice8000; playerGold0, owned0, sellPrice-1. Successful buy/sell blocked. Rejected buy/sell preserved gold/quantity.",
+      "guardChecks": "통과"
+    },
+    {
+      "step": 5,
+      "name": "마을 밖 필드 이동",
+      "status": "통과",
+      "evidence": "Closed shop, used actual interior exit and Kaosia field gate at21.5,41.5. World1010_Map and Field_Runtime loaded; HP0/gold0 preserved."
+    },
+    {
+      "step": 6,
+      "name": "필드에서 시나리오 순차 진행",
+      "status": "실패",
+      "evidence": "Real field portal79.5,77.5 enteredScenario01; normal intro completed. Approached first encounter401; request rejected because CanEnterBattle=false atHP0. pendingBattle remained-1; XP0/gold0 unchanged. Scenario02 request rejected because01 uncleared.",
+      "scenario02to17": "미실행",
+      "guardChecks": "통과"
+    }
+  ],
+  "finalState": {
+    "character": "순서검증",
+    "hp": 0,
+    "maxHp": 200,
+    "mp": 45,
+    "maxMp": 45,
+    "gold": 0,
+    "experience": 0,
+    "scenario": "01",
+    "phase": "Playing",
+    "position": [
+      13.5,
+      8.5
+    ],
+    "pendingBattle": -1,
+    "clearedScenarios": [],
+    "saved": true
+  },
+  "consoleErrorsExceptionsAsserts": 0,
+  "sourceCodeChanged": false,
+  "limitations": [
+    "Only basic physical attacks were used in one training battle; this is not a final balance judgment.",
+    "Successful trade requires funding and inventory; sale pricing is currently unconfirmed.",
+    "No revival/recovery mechanism or initial money rules were invented."
+  ],
+  "transcript": "[Log] 6 field portal and01 intro PASS; at=(13.50, 8.50, 0.00) HP0 encounter=False 02travel=False locked=16 XP0/gold0/pending-1 preserved; saved\n[Log] 1 PASS first signup/login/character/tutorial/Kaosia21,21/save\n2 PASS subsequent login, wrong password rejection, character/position/vitals/tutorial restored\n3 training battle returned HP=0 XP=0 gold=0\n4 unfunded/unowned buy/sell rejected atomically; normal success blocked by gold0/items0\n5 PASS physical Kaosia gate to WorldField1010, HP0/gold0 preserved\n6 field->Scenario01 intro PASS; combat401 blocked HP0; Scenario02 request rejected, 02-17 prerequisites locked; no partial resource/state mutation\n"
+}

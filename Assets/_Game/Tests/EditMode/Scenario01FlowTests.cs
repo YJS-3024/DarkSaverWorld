@@ -9,6 +9,25 @@ namespace DarkSaver.Tests
 {
     public sealed class Scenario01FlowTests
     {
+        [TestCase(false)] [TestCase(true)]
+        public void NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp(bool defeated)
+        {
+            var definition = Content();
+            var source = Array.Find(definition.units, u => u.id == 401);
+            Assert.AreEqual(-1, source.mp);
+            var state = Scenario01Progress.Create(definition);
+            state.phase = Scenario01Progress.Playing; state.cursor=0; state.pendingBattle=401;
+            var snapshot = new Scenario01EnemyState { id=401, hp=defeated ? 0 : 70, mp=1, x=13, y=30 };
+            Assert.IsFalse(Scenario01Rules.RecordBattleReturn(definition,state,401,defeated,snapshot));
+            Assert.AreEqual(401,state.pendingBattle); Assert.IsEmpty(state.defeated);
+            snapshot.mp=0;
+            Assert.IsTrue(Scenario01Rules.RecordBattleReturn(definition,state,401,defeated,snapshot));
+            Assert.IsTrue(state.Matches(definition));
+            var restored = JsonUtility.FromJson<Scenario01Progress>(JsonUtility.ToJson(state));
+            Assert.IsTrue(restored.Matches(definition)); Assert.AreEqual(0,restored.enemies[0].mp);
+            Assert.AreEqual(defeated,restored.defeated.Contains(401)); Assert.AreEqual(-1,source.mp);
+        }
+
         private static Scenario01Definition Content()
         {
             var asset = Resources.Load<TextAsset>("Scenarios/01/Content"); Assert.That(asset, Is.Not.Null);

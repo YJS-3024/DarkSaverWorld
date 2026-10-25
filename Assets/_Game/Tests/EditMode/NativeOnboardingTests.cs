@@ -19,7 +19,22 @@ namespace DarkSaver.Tests
                 var clone = profile.Clone(); clone.tutorial.step = 4;
                 Assert.AreEqual(0, profile.tutorial.step);
                 var legacy = JsonUtility.FromJson<NativeCharacterProfile>("{\"name\":\"기존\",\"jobId\":100}");
-                Assert.IsTrue(legacy.IsValid); Assert.IsNull(legacy.tutorial);
+                Assert.IsTrue(legacy.IsValid);
+                string path = Path.Combine(Path.GetTempPath(), "ds-legacy-tutorial-" + Guid.NewGuid().ToString("N") + ".json");
+                try
+                {
+                    File.WriteAllText(path, "{\"format\":\"DarkSaverWorld.NativeSave\",\"version\":1,\"mapScene\":\"Kaosia_Map\",\"runtimeScene\":\"Town_Runtime\",\"clearedScenarios\":[],\"hasCharacter\":true,\"character\":{\"name\":\"기존\",\"jobId\":100}}");
+                    var store = new NativeSaveStore(path);
+                    Assert.IsTrue(store.TryLoad(out var loaded, out var reason), reason);
+                    Assert.IsNull(loaded.character.tutorial);
+                    Assert.IsTrue(store.TrySave(loaded, out reason), reason);
+                    Assert.IsTrue(store.TryLoad(out loaded, out reason), reason);
+                    Assert.IsNull(loaded.character.tutorial);
+                    Assert.IsTrue(NativeSaveStore.QueueResume(loaded, path));
+                    Assert.IsTrue(NativeSaveStore.TakeResume(out loaded, out _));
+                    Assert.IsNull(loaded.character.tutorial);
+                }
+                finally { NativeSaveStore.ClearResume(); File.Delete(path); File.Delete(path + ".bak"); }
             }
             finally { NativeCharacterProfile.ClearPending(); }
         }

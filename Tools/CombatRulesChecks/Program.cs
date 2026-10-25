@@ -109,7 +109,7 @@ var dialogueCommand = EventScriptParser.Parse("  MESSAGE 1 701 700 A 으..  분�
 Check(dialogueCommand.TryReadMessage(out var dialogue) && dialogue.DefinitionToken == "701" &&
     dialogue.SpeakerToken == "700" && dialogue.VariantToken == "A", "message header tokens remain distinct");
 Check(dialogue.Text == "으..  분하다.. | 물러나야겠군..  ", "dialogue spacing and trailing whitespace preserved");
-Check(dialogue.DisplayText == "으..  분하다.. \n 물러나야겠군..  ", "pipe marker displays as newline without changing source text");
+Check(dialogue.DisplayText == "으..  분하다..\n물러나야겠군..", "portrait display trims line edges while preserving source text");
 var dynamicMessage = EventScriptParser.Parse("MESSAGE 0 0 ME 0 %s가 상자를 열었습니다.")[0];
 Check(dynamicMessage.TryReadMessage(out var dynamicDialogue) && dynamicDialogue.SpeakerToken == "ME" &&
     dynamicDialogue.Text.StartsWith("%s"), "dynamic speaker and printf placeholder remain unresolved");

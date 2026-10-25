@@ -458,11 +458,11 @@ namespace DarkSaver.Tests
                 Assert.IsTrue(f.View.TryOpenActionMenu()); Assert.IsTrue(f.View.TryChooseCommand(BattleMapCommand.Magic));
                 Assert.IsTrue(f.View.TrySelectDisplayedMagic(0));
                 Assert.IsTrue(f.View.TryHandleWorldClick(f.Ally.transform.position));
-                Assert.AreEqual(120, f.Battle.PlayerHp); Assert.AreEqual(23, f.Battle.PlayerMp);
+                Assert.AreEqual(120, f.Battle.PlayerHp); Assert.AreEqual(27, f.Battle.PlayerMp);
                 Assert.AreEqual(75, f.Battle.EnemyHp);
-                Assert.AreEqual(GameConstants.BattleMaximumAp - 4, f.Battle.PlayerAp);
+                Assert.AreEqual(GameConstants.BattleMaximumAp - 2, f.Battle.PlayerAp);
                 Assert.IsFalse(f.View.IsMagicTargeting);
-                Assert.AreEqual("+10", f.View.GetCombatFeedbackText(feedback));
+                Assert.AreEqual("힐(Lv1)", f.View.GetCombatFeedbackText(feedback));
                 Assert.AreEqual(1, f.View.GetCombatFeedbackColorRow(feedback));
                 Assert.AreEqual(1, f.View.ActiveMagicEffectCount);
             });
@@ -497,7 +497,7 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void TemporaryCatalogRegistersRecognizedLevelsWithoutGrantingSkillsOrOverwritingRules()
+        public void CatalogRegistersOriginalCostsWithoutGrantingSkillsAndRepeatedConfigurationIsStable()
         {
             WithMap(f => {
                 f.Bind(); f.Battle.TrySelectUnit(100);
@@ -514,14 +514,14 @@ namespace DarkSaver.Tests
                     supported++; Assert.IsTrue(f.Battle.TryGetTemporaryMagicMpCost(entry.Id, out _), entry.Name);
                 }
                 Debug.Log($"Temporary catalog recognized {supported}/{catalog.Count}; no skill grants, single-target effects only.");
-                Assert.IsTrue(f.Battle.TryGetTemporaryMagicMpCost(201, out var cost)); Assert.AreEqual(1, cost);
-                Assert.IsTrue(f.Battle.TryGetTemporaryMagicMpCost(2402, out cost)); Assert.AreEqual(9, cost);
-                Assert.AreEqual(0, TemporaryMagicCatalogRules.Configure(f.Battle, catalog));
+                Assert.IsTrue(f.Battle.TryGetTemporaryMagicMpCost(201, out var cost)); Assert.AreEqual(10, cost);
+                Assert.IsTrue(f.Battle.TryGetTemporaryMagicMpCost(2402, out cost)); Assert.AreEqual(6, cost);
+                Assert.Greater(TemporaryMagicCatalogRules.Configure(f.Battle, catalog), 4);
                 Assert.AreEqual(0, f.View.DisplayedMagicCount);
                 f.Battle.ApplyHp(100, 90); f.Battle.AdvanceActionPoints(20);
                 Assert.IsTrue(f.Battle.TryStartMagicRequest(2402, 100, new short[] { 100 }, out _));
-                Assert.AreEqual(120, f.Battle.PlayerHp); Assert.AreEqual(21, f.Battle.PlayerMp);
-                Assert.IsFalse(f.Battle.TryGetTemporaryMagicMpCost(13101, out _));
+                Assert.AreEqual(120, f.Battle.PlayerHp); Assert.AreEqual(24, f.Battle.PlayerMp);
+                Assert.IsTrue(f.Battle.TryGetTemporaryMagicMpCost(13101, out _));
                 f.Battle.SetTemporaryLocalRules(false);
                 Assert.IsFalse(f.Battle.TryGetTemporaryMagicMpCost(2402, out _));
             });
@@ -1399,7 +1399,7 @@ namespace DarkSaver.Tests
                     new BattleMapVisual(100, f.Ally), new BattleMapVisual(800, f.Enemy), new BattleMapVisual(810, body) }), Is.True);
                 f.Battle.SetTemporaryLocalRules(true); f.Battle.ConfigureTemporaryDamageMagic(201, 7, 6, 10, 2);
                 f.Battle.ConfigureMagicApCost(201, 3); f.Battle.AdvanceActionPoints(14); f.Battle.TrySelectUnit(100);
-                var data = new long[MagicCatalogEntry.NumericColumnCount]; data[0] = 201; data[2] = 3; data[3] = 1; data[7] = 1;
+                var data = new long[MagicCatalogEntry.NumericColumnCount]; data[0] = 201; data[2] = 3; data[3] = 1; data[7] = 1; data[4] = 7; data[11] = 15;
                 var catalog = ScriptableObject.CreateInstance<MagicCatalog>();
                 try {
                     catalog.Initialize(new[] { new MagicCatalogEntry(data, "파이어볼(Lv1)") }); ConfigureLearnedFixture(f, catalog, 201);
@@ -1423,7 +1423,7 @@ namespace DarkSaver.Tests
             WithMap(f => {
                 Assert.That(f.Bind(), Is.True); f.Battle.TrySelectUnit(100); f.Battle.SetTemporaryLocalRules(true);
                 f.Battle.ConfigureTemporaryDamageMagic(701, 5, 6, 10, 2); f.Battle.ConfigureMagicApCost(701, 3); f.Battle.AdvanceActionPoints(14);
-                var data = new long[MagicCatalogEntry.NumericColumnCount]; data[0] = 701; data[2] = -1; data[3] = 2; data[7] = 1;
+                var data = new long[MagicCatalogEntry.NumericColumnCount]; data[0] = 701; data[2] = -1; data[3] = 2; data[7] = 1; data[4] = 5; data[11] = 15;
                 var catalog = ScriptableObject.CreateInstance<MagicCatalog>();
                 try {
                     catalog.Initialize(new[] { new MagicCatalogEntry(data, "윈드커터(Lv1)") }); ConfigureLearnedFixture(f, catalog, 701);
@@ -1452,7 +1452,7 @@ namespace DarkSaver.Tests
             WithMap(f => {
                 f.Bind(); f.Battle.TrySelectUnit(100); f.Battle.SetTemporaryLocalRules(true);
                 f.Battle.ConfigureTemporaryDamageMagic(201, 5, 6, 10, 2); f.Battle.ConfigureMagicApCost(201, 3); f.Battle.AdvanceActionPoints(14);
-                var data = new long[MagicCatalogEntry.NumericColumnCount]; data[0] = 201; data[7] = 8;
+                var data = new long[MagicCatalogEntry.NumericColumnCount]; data[0] = 201; data[7] = 8; data[4] = 5; data[11] = 15;
                 var catalog = ScriptableObject.CreateInstance<MagicCatalog>();
                 try {
                     catalog.Initialize(new[] { new MagicCatalogEntry(data, "파이어볼(Lv1)") }); ConfigureLearnedFixture(f, catalog, 201);

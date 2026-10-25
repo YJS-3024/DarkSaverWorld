@@ -107,7 +107,7 @@ namespace DarkSaver.Tests
             WithBattle((battle,session)=> {
                 battle.AdvanceActionPoints(20); battle.ApplyMp(100,0);
                 Assert.IsTrue(session.TryUseBattleRecoveryItem(battle,310,100,session.CaptureInventory(),out _));
-                Assert.IsTrue(battle.TryGetTemporaryQuick(100,out int percent,out _));Assert.AreEqual(30,percent);
+                Assert.IsTrue(battle.TryGetTemporaryQuick(100,out int percent,out _));Assert.AreEqual(65,percent);
                 Assert.AreEqual(0,battle.PlayerMp);Assert.AreEqual(0,session.OwnedItemCount(310));
                 battle.AdvanceActionPoints(10); var before=session.CaptureInventory();int hp=battle.EnemyHp;
                 Assert.IsFalse(session.TryUseBattleRecoveryItem(battle,311,100,before,out _));

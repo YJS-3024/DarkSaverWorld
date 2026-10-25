@@ -11,6 +11,13 @@ internal static class LoginFlowChecks
             check(NativeLoginHistory.TryResolve(history,slots,out var path,out var selection,out _) && selection && path==null,"first login requires character selection");
             check(NativeLoginHistory.TryRemember(history,slots[1],out _),"selected new character is remembered atomically");
             check(NativeLoginHistory.TryRead(history,out path,out _) && path==slots[1],"last slot path survives reload");
+            check(NativeLoginHistory.TryRemember(history,slots[0],out _) && NativeLoginHistory.TryRead(history,out path,out _) && path==slots[0],"existing login history is replaced with newly selected slot");
+            byte[] previous=File.ReadAllBytes(history);
+            using(var locked=new FileStream(history,FileMode.Open,FileAccess.Read,FileShare.Read))
+                check(!NativeLoginHistory.TryRemember(history,slots[1],out var failure) && !string.IsNullOrEmpty(failure),"locked login history replacement reports failure");
+            check(File.ReadAllBytes(history).SequenceEqual(previous) && NativeLoginHistory.TryRead(history,out path,out _) && path==slots[0],"failed replacement preserves previous login history bytes and selection");
+            check(!Directory.GetFiles(directory,"*.tmp-*").Any(),"failed login replacement cleans temporary file");
+            check(NativeLoginHistory.TryRemember(history,slots[1],out _),"login replacement succeeds after lock release");
             check(NativeLoginHistory.TryResolve(history,slots,out path,out selection,out _) && selection,"interrupted creation does not fabricate a resume save");
             NativeSaveData Save(string name,string map,string runtime,float x,float y)=>new NativeSaveData {format=NativeSaveStore.Format,version=NativeSaveStore.Version,mapScene=map,runtimeScene=runtime,
                 worldX=x,worldY=y,hasCharacter=true,character=new NativeCharacterProfile {name=name,jobId=100},clearedScenarios=Array.Empty<string>()};

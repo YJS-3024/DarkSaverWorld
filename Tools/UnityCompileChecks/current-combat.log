@@ -1,0 +1,54 @@
+PASS: live target blocks victory
+PASS: target death wins with other enemies alive
+PASS: elimination waits for every enemy
+PASS: job ID is not a missing instance
+PASS: multiple targets require all deaths
+PASS: HP zero alone does not confirm target death
+PASS: all explicit targets defeated
+PASS: demo elimination succeeds
+PASS: empty world cannot win
+PASS: friendly target cannot win
+PASS: absolute HP result applied
+PASS: absolute MP result applied
+PASS: death retains corpse state
+PASS: action notification precedes applied result
+PASS: XP preserves unsigned values above int32 max
+PASS: repeated absolute XP is not added
+PASS: lower authoritative XP replaces old value
+PASS: XP preserves full uint32 range
+PASS: zero XP applies before notification
+PASS: unknown XP instance leaves state and events unchanged
+PASS: XP update does not revive units or alter combat stats
+PASS: death condition prefix and instance separated
+PASS: event source line preserved
+PASS: unverified numeric syntax preserved
+PASS: command-specific coordinate order
+PASS: scene placement separates job reference and instance
+PASS: dynamic commander reference preserved
+PASS: reject non-spawn/invalid syntax: CHARPOS 800 15 5
+PASS: reject non-spawn/invalid syntax: 1 CHARPOS 6 15
+PASS: reject non-spawn/invalid syntax: CHARPOS 701 99999 19 10
+PASS: reject non-spawn/invalid syntax: CHARPOS 701 700 invalid 10
+PASS: reject non-spawn/invalid syntax: CHARPOS3 701 700 19 10
+PASS: scene move preserves target, coordinates, line and source
+PASS: reject unsupported scene move: CHARMOVE 301 14
+PASS: reject unsupported scene move: CHARMOVE 301 14 28 1
+PASS: reject unsupported scene move: CHARMOVE COM0 14 28
+PASS: reject unsupported scene move: CHARMOVE 99999 14 28
+PASS: reject unsupported scene move: CHARMOVE 301 invalid 28
+PASS: reject unsupported scene move: CHARMOVE 301 14 2147483648
+PASS: reject unsupported scene move: 1 CHARMOVE 301 14 28
+PASS: reject unsupported scene move: CHARPOS 301 14 28
+PASS: reused scene instance IDs keep ordered moves
+PASS: negative move values preserved, not resolved
+PASS: null/default and prefixed scene move rejected
+PASS: message header tokens remain distinct
+PASS: dialogue spacing and trailing whitespace preserved
+PASS: portrait display trims line edges while preserving source text
+PASS: dynamic speaker and printf placeholder remain unresolved
+PASS: commander message references preserved
+PASS: reject unsupported dialogue: MESSAGE 1 701 700 A
+PASS: reject unsupported dialogue: MESSAGE 1 701 700
+PASS: reject unsupported dialogue: 1 MESSAGE 1 701 700 A 대사
+PASS: reject unsupported dialogue: UNKNOWN 1 701 700 A 대사
+Completed 53 checks using linked Unity-independent runtime sources.

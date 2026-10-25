@@ -11,6 +11,25 @@ namespace DarkSaver.Tests
     public sealed class WorldFieldTests
     {
         [Test]
+        public void GeneratedOutdoorRuntimeDoesNotInventIndoorNpcsFromMissingJsonFields()
+        {
+            foreach (var region in TownCatalog.All.Concat(FieldCatalog.All).Where(r=>r.Key!="Kaosia" && r.Key!="WorldField1010"))
+            {
+                var scene = UnityEditor.SceneManagement.EditorSceneManager.NewPreviewScene();
+                try
+                {
+                    var root = new GameObject("outdoor runtime " + region.Key);
+                    UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(root,scene);
+                    var loader = root.AddComponent<NativeTownScene>();
+                    Assert.IsTrue(loader.Configure(region.Key,true),region.Key);
+                    Assert.IsEmpty(root.GetComponentsInChildren<IndoorNpcLabel>(true),region.Key);
+                    Assert.IsNotEmpty(root.GetComponentsInChildren<SceneSpawnPoint>(true),region.Key);
+                }
+                finally { UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(scene); }
+            }
+        }
+
+        [Test]
         public void AllFieldDestinationsResolveAndTheNetworkIsReciprocal()
         {
             Assert.AreEqual(18,FieldCatalog.All.Count);

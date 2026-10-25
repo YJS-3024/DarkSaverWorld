@@ -12,6 +12,26 @@ namespace DarkSaver.Tests
 {
     public sealed class BattleEnemyCatalogTests
     {
+        [Test]
+        public void ScenarioNonCasterMpSentinelCreatesZeroMpWithoutChangingSource()
+        {
+            var source = new DarkSaver.Events.Scenario01Unit { id=401, job=401, name="들개", hp=100, mp=-1, attack=91, defense=41, magicAttack=-1, magicDefense=25, experience=23 };
+            var definition = ScriptableObject.CreateInstance<BattleEnemyDefinition>();
+            try
+            {
+                definition.InitializeScenarioUnit(source);
+                Assert.IsTrue(definition.TryCreateUnit(out var unit));
+                Assert.AreEqual(0, unit.Mp); Assert.AreEqual(0, unit.MaxMp);
+                Assert.AreEqual(-1, source.mp); Assert.AreEqual(100, unit.Hp);
+                Assert.IsTrue(definition.TryGetDefeatExperience(out var experience)); Assert.AreEqual(23, experience);
+                definition.InitializeScenarioUnit(source, new DarkSaver.Events.Scenario01EnemyState { id=401, hp=70, mp=0 });
+                Assert.IsTrue(definition.TryCreateUnit(out unit)); Assert.AreEqual(70, unit.Hp);
+                source.mp=-2; definition.InitializeScenarioUnit(source);
+                Assert.IsFalse(definition.TryCreateUnit(out _));
+            }
+            finally { Object.DestroyImmediate(definition); }
+        }
+
         private const string EnemyPath = "Assets/_Game/Runtime/Combat/Brugos01Kisra.asset";
 
         [Test]

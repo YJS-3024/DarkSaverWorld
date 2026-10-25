@@ -26,7 +26,8 @@ namespace DarkSaver.Tests
                 Assert.That(battle.TryGetLatestAttacker(800, out var attacker), Is.True);
                 Assert.That(attacker, Is.EqualTo(100));
                 Assert.That(sender.TrySendAttack(packet, out _), Is.False);
-                Assert.That(server.SendToServer(packet), Is.False); // No unvalidated direct loopback.
+                Assert.That(server.SendToServer(packet), Is.True); // Delivered; server authority rejects the stale AP state.
+                Assert.That(battle.EnemyHp, Is.EqualTo(before - 21));
                 battle.AdvanceActionPoints(GameConstants.BattleTemporaryAttackApCost);
                 battle.SetTemporaryLocalRules(false);
                 Assert.That(sender.TrySendAttack(packet, out _), Is.False);
@@ -62,7 +63,10 @@ namespace DarkSaver.Tests
                 battle.AttackPresentationStarted += p => order.Add(p.IsAnticipation ? "start" : "effect");
                 server.RequestReceived += value =>
                 {
-                    order.Add("server"); Assert.That(value, Is.SameAs(packet));
+                    order.Add("server"); Assert.That(value, Is.Not.SameAs(packet));
+                    var decoded = (AttackRequest)value;
+                    Assert.That((decoded.TargetUnitId, decoded.AttackerUnitId, decoded.TargetTileAttribute, decoded.AttackerTileAttribute),
+                        Is.EqualTo((packet.TargetUnitId, packet.AttackerUnitId, packet.TargetTileAttribute, packet.AttackerTileAttribute)));
                     Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp - 2));
                     Assert.That(battle.EnemyHp, Is.EqualTo(75));
                     Assert.That(packet.TargetTileAttribute, Is.EqualTo(-1));

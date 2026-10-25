@@ -13,6 +13,31 @@ namespace DarkSaver.Tests
     public sealed class NativeCharacterTests
     {
         [Test]
+        public void NewCharacterInitializesConfirmedJobVitalsBeforeFirstBattleAndFailsAtomicallyWithoutCatalog()
+        {
+            var scene = EditorSceneManager.NewPreviewScene();
+            try
+            {
+                var root = new GameObject("new character vitals"); SceneManager.MoveGameObjectToScene(root, scene);
+                var session = root.AddComponent<BattleTransitionController>();
+                var profile = new NativeCharacterProfile { name="신규", jobId=100, hasLevels=true, baseLevel=1, jobLevel=1, tutorial=new NativeTutorialProgress() };
+                Assert.IsFalse(session.InitializeCharacter(profile));
+                Assert.IsFalse(session.HasCreatedCharacter); Assert.IsFalse(session.HasPlayerVitals);
+                var catalog = UnityEditor.AssetDatabase.LoadAssetAtPath<DarkSaver.Jobs.JobCatalog>("Assets/_Game/Runtime/Jobs/JobCatalog.asset");
+                Assert.IsTrue(session.ConfigureFormationSupport(new[] {catalog}, new System.Collections.Generic.Dictionary<int, DarkSaver.Player.DirectionalSpriteAnimator>()));
+                Assert.IsTrue(catalog.TryGet(100, out var job));
+                Assert.IsTrue(session.InitializeCharacter(profile));
+                Assert.IsTrue(session.HasPlayerVitals);
+                Assert.AreEqual(job.GetNumericValue(2), session.PlayerHp);
+                Assert.AreEqual(job.GetNumericValue(4), session.PlayerMp);
+                var save = session.CaptureSaveState("Kaosia_Map", "Town_Runtime", Vector2.one);
+                Assert.IsTrue(save.hasVitals); Assert.IsTrue(session.RestoreSaveState(save));
+                Assert.AreEqual(save.maxHp, session.PlayerHp); Assert.AreEqual(save.maxMp, session.PlayerMp);
+            }
+            finally { EditorSceneManager.ClosePreviewScene(scene); }
+        }
+
+        [Test]
         public void LevelUpGrantsExplicitSourceAbilitiesWithoutMutatingSavedSelection()
         {
             var table=ScriptableObject.CreateInstance<DarkSaver.Combat.ExperienceProgressionTable>();

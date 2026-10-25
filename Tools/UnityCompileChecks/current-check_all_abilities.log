@@ -1,0 +1,4 @@
+WARN `--no-project` was provided, but no project was found
+C:\Project\DarkSaverWorld\Tools\MapChecks\check_all_abilities.py:54: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  expected.putdata([(r,g,b,0 if (r,g,b)==(0,0,0) else a) for r,g,b,a in expected.getdata()])
+{"total": 439, "combatMagic": 289, "combatSpecials": 85, "hiring": 50, "hireJobs": 67, "emotes": 15, "originalEmoteFrames": 59, "classAbilityIds": 178, "presentationMetadata": 439, "nativeNoGraphicCombatIds": [1101, 1102, 1103, 1104, 1105, 1106], "checks": 5251, "allClassIdsRouted": true, "originalEmotePixelsPreserved": true, "unityPlay": false, "scope": "Source catalog and class/hire linkage, native metadata, emote pixels/timing, GUIDs; core combat execution in all_abilities_check.json. No Unity import/playback or original-server formula validation."}

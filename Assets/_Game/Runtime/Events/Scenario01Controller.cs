@@ -195,6 +195,12 @@ namespace DarkSaver.Events
                 if (progress == null || !progress.Matches(Content)) { Fail("시나리오 복원 상태를 확인할 수 없습니다."); return; }
                 Reconcile();
             }
+            // A rejected asynchronous battle load must not leave this encounter locked.
+            if (progress.pendingBattle != -1)
+            {
+                if (!Request(ScenarioOperation.CancelEncounter)) return;
+                Reconcile();
+            }
             if (scenarioKey != "01" && progress.phase == Scenario01Progress.Complete)
             { AbortToTown(); return; }
             player.SetScenarioInputBlocked(ScriptActive);

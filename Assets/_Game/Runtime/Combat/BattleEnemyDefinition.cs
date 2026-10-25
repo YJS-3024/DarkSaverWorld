@@ -33,7 +33,9 @@ namespace DarkSaver.Combat
             scenarioUnit = unit; instanceId = checked((short)unit.id); jobId = unit.job; displayName = unit.name;
             scenarioSnapshot = snapshot;
             scriptPosition = new Vector2Int(unit.x, unit.y); useJobCatalogBaseStats = false;
-            baseHp = unit.hp; baseMp = unit.mp; baseAttack = unit.attack; baseDefense = unit.defense;
+            // Native non-caster rows use -1 for unused MP. Keep the source row intact;
+            // the single-player combat unit has zero MP rather than a negative resource.
+            baseHp = unit.hp; baseMp = unit.CombatMp; baseAttack = unit.attack; baseDefense = unit.defense;
             useNativeBaseDefeatExperience = true; victoryObjective = null;
         }
 

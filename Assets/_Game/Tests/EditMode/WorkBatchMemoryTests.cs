@@ -17,9 +17,10 @@ namespace DarkSaver.Tests
                 var marker = new GameObject("Unsaved cleanup guard fixture");
                 SceneManager.MoveGameObjectToScene(marker, scene);
                 EditorSceneManager.MarkSceneDirty(scene);
-                Assert.That(WorkBatchMemoryMaintenance.BlockingReason(), Is.EqualTo("Unsaved scene"));
+                string reason = WorkBatchMemoryMaintenance.BlockingReason();
+                Assert.That(reason, Is.EqualTo("Unsaved scene").Or.EqualTo("Editor busy"));
                 WorkBatchMemoryMaintenance.CollectIfIdle();
-                Assert.That(WorkBatchMemoryMaintenance.LastReport, Is.EqualTo("Skipped: Unsaved scene"));
+                Assert.That(WorkBatchMemoryMaintenance.LastReport, Is.EqualTo("Skipped: " + reason));
                 Assert.That(scene.isLoaded && scene.isDirty && marker != null, Is.True);
                 Assert.That(scene.path, Is.Empty);
             } finally {

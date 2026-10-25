@@ -15,7 +15,8 @@ namespace DarkSaver.Tests
         {
             if (SceneManager.GetSceneByName(sceneName).IsValid())
                 Assert.Ignore("Close the matching map scene before this isolated scene test.");
-            var scene = SceneManager.CreateScene(sceneName);
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+            scene.name = sceneName;
             try
             {
                 var foreground = new GameObject("Object_007", typeof(SpriteRenderer));

@@ -168,6 +168,15 @@ namespace DarkSaver.Combat
             if (profile == null || !profile.IsValid || character != null || transitioning ||
                 playerExperience != 0 || hasPlayerVitals || ownedRoster != null || inventory != null || clearedScenarioKeys.Count != 0 ||
                 SceneManager.GetSceneByName(BattleSceneName).isLoaded) return false;
+            // Only newly authored profiles have confirmed starting levels and onboarding.
+            // Legacy unknown vitals remain unknown until restored through their existing path.
+            if (profile.hasLevels && profile.tutorial != null)
+            {
+                if (!DarkSaver.Items.SinglePlayerEquipmentRules.TryResolve(profile, FindEquipmentJob(profile.jobId),
+                    GetComponent<DarkSaver.UI.ItemCatalogPanel>()?.Catalog, out var stats)) return false;
+                playerHp = playerMaxHp = stats.Hp; playerMp = playerMaxMp = stats.Mp;
+                playerLifeState = UnitLifeState.Active; hasPlayerVitals = true;
+            }
             character = profile.Clone(); inventory = new NativeInventory(); return true;
         }
         public int ClearedScenarioCount => clearedScenarioKeys.Count;
@@ -192,6 +201,7 @@ namespace DarkSaver.Combat
                 experience = playerExperience, hasVitals = hasPlayerVitals,
                 hp = playerHp, maxHp = playerMaxHp, mp = playerMp, maxMp = playerMaxMp,
                 lifeState = (int)playerLifeState, clearedScenarios = keys.ToArray(), character = character?.Clone(), hasCharacter = character != null,
+                tutorialPresenceVersion = 1, hasTutorial = character?.tutorial != null,
                 ownedRoster = ownedRoster?.Clone(), hasOwnedRoster = ownedRoster != null,
                 inventory = inventory?.Clone(), hasInventory = inventory != null,
                 hasScenario01 = scenario01 != null, scenario01 = scenario01?.Clone(),
@@ -208,6 +218,7 @@ namespace DarkSaver.Combat
             playerHp = data.hp; playerMaxHp = data.maxHp; playerMp = data.mp; playerMaxMp = data.maxMp;
             playerLifeState = (UnitLifeState)data.lifeState;
             character = data.hasCharacter ? data.character.Clone() : null;
+            if (character != null && data.tutorialPresenceVersion == 1 && !data.hasTutorial) character.tutorial = null;
             ownedRoster = restoredRoster; OwnedRosterRevision++;
             inventory = data.hasInventory ? data.inventory.Clone() : null;
             scenario01 = data.hasScenario01 ? data.scenario01.Clone() : null; Scenario01Revision++;

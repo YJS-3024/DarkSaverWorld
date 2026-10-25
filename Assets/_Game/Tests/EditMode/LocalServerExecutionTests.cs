@@ -105,6 +105,9 @@ namespace DarkSaver.Tests
                 var go=new GameObject("Local server execution");SceneManager.MoveGameObjectToScene(go,scene);
                 var sender=go.AddComponent<BattleRequestSender>();var battle=go.GetComponent<BattleSceneRoot>();
                 battle.SetTemporaryLocalRules(true);battle.ConfigureActionPointCosts(1,1);
+                battle.AdvanceActionPoints(GameConstants.BattleMaximumAp);
+                battle.ConfigurePhysicalAccuracy(100, 100, 0);
+                battle.ConfigurePhysicalAccuracy(800, 100, 0);
                 var order=new List<Type>();var manager=go.GetComponent<ServerManager>();
                 manager.ResponseReceived+=p=>order.Add(p.GetType());
                 int applied=0;battle.CombatResultApplied+=_=>applied++;

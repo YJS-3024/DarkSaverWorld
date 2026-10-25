@@ -29,6 +29,8 @@ namespace DarkSaver.Events
         public int id, job, x, y, wave;
         public string name;
         public int hp, mp, attack, defense, magicAttack, magicDefense;
+        // Single-player resource interpretation; the baked original -1 sentinel is preserved.
+        public int CombatMp => mp == -1 ? 0 : mp;
         public uint experience;
     }
     [Serializable] public sealed class ScenarioEnding
@@ -128,7 +130,7 @@ namespace DarkSaver.Events
         public bool Matches(Scenario01Definition definition)
         {
             if (!IsValid || !definition.IsValid || (version == 2 && scenarioKey != definition.Key) || sourceHash != definition.sourceHash || profileHash != definition.profileHash
-                || !enemies.All(e => definition.units.Any(u => u.id == e.id && e.hp <= u.hp && e.mp <= u.mp))
+                || !enemies.All(e => definition.units.Any(u => u.id == e.id && e.hp <= u.hp && e.mp <= u.CombatMp))
                 || activeEvent != 0 && (phase != Playing || definition.Event(activeEvent) == null)
                 || !defeated.All(id => definition.units.Any(u => u.id == id))
                 || !activatedEvents.Concat(insideEvents).All(id => definition.Event(id) != null)
@@ -375,7 +377,7 @@ namespace DarkSaver.Events
             if (!state.Matches(definition) || state.phase != Scenario01Progress.Playing || state.pendingBattle != id
                 || !definition.units.Any(u => u.id == id && u.wave == state.wave) || state.defeated.Contains(id)) return false;
             if (snapshot != null && (snapshot.id != id || snapshot.hp < 0 || snapshot.mp < 0 || snapshot.x < 0 || snapshot.x >= definition.width
-                || snapshot.y < 0 || snapshot.y >= definition.height || !definition.units.Any(u => u.id == id && snapshot.hp <= u.hp && snapshot.mp <= u.mp))) return false;
+                || snapshot.y < 0 || snapshot.y >= definition.height || !definition.units.Any(u => u.id == id && snapshot.hp <= u.hp && snapshot.mp <= u.CombatMp))) return false;
             state.pendingBattle = -1;
             if (snapshot != null)
             { state.enemies.RemoveAll(e => e.id == id); state.enemies.Add(snapshot.Clone()); }

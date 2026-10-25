@@ -1,0 +1,19 @@
+WARN `--no-project` was provided, but no project was found
+C:\Project\DarkSaverWorld\Tools\MapChecks\check_scenario01_resources.py:36: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for pixel, source_pixel in zip(actual.getdata(), expected.getdata()):
+Traceback (most recent call last):
+  File "C:\Project\DarkSaverWorld\Tools\MapChecks\check_scenario01_resources.py", line 79, in <module>
+    main()
+    ~~~~^^
+  File "C:\Project\DarkSaverWorld\Tools\MapChecks\check_scenario01_resources.py", line 51, in main
+    mrc = read_mrc(native / '01.mrc'); grs = read_grs(native / 'mdsr0.grs')
+  File "C:\Project\DarkSaverWorld\닥세_리소스\분석도구\decode_visuals.py", line 45, in read_mrc
+    r=Reader(p.read_bytes());ids=[r.u32() for _ in range(r.u32())];w,h,n=r.u32(),r.u32(),r.u32();c=w*h
+             ~~~~~~~~~~~~^^
+  File "C:\Users\skfks\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\pathlib\__init__.py", line 777, in read_bytes
+    with self.open(mode='rb', buffering=0) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\skfks\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\pathlib\__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Project\\DarkSaverWorld\\닥세_리소스\\설치본_추출\\Saver_Files\\Saver\\MAP\\01.mrc'

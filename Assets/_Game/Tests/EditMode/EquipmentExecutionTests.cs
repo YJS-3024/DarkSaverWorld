@@ -55,6 +55,7 @@ namespace DarkSaver.Tests
                 Assert.IsTrue(session.TryGetPlayerPhysicalStats(out int a,out int d,out int attack,out int defense));Assert.AreEqual(a+40,attack);Assert.AreEqual(d,defense);
                 Assert.AreEqual(17,session.PlayerHp);Assert.AreEqual(3,session.PlayerMp);Assert.AreEqual(77,session.CurrentGold);
                 var quote=new NativeShopOffer {itemId=1,buyPrice=1,sellPrice=1};
+                session.ConfigureLocalShop(Items, new[] { quote });
                 Assert.IsFalse(session.TryTrade(quote,2,false,Items,out _));
                 Assert.IsTrue(session.TryTrade(quote,1,false,Items,out _));Assert.AreEqual(1,session.OwnedItemCount(1));
                 Assert.IsFalse(session.TryTrade(quote,1,false,Items,out _));
