@@ -54,8 +54,8 @@ internal static class TownQuestChecks
         check(offers.Length == 202, "user tier1-3 scope reconstructs202 priced weapon/armor candidates");
         foreach (var item in offers)
         {
-            check(DarkSaver.Items.KaosiaShopRules.TryCreateOffer(item,out var offer) && offer.buyPrice == item.GetNumericValue(16) && offer.sellPrice == -1,
-                "Kaosia purchase uses exact source price and leaves buyback unknown");
+            check(DarkSaver.Items.KaosiaShopRules.TryCreateOffer(item,out var offer) && offer.buyPrice == item.GetNumericValue(16) && offer.sellPrice == offer.buyPrice / 2,
+                "Kaosia purchase uses exact source price and uses user-confirmed half-price buyback");
         }
         foreach(int id in new[]{0,98,99,174,303,929})
             check(!DarkSaver.Items.KaosiaShopRules.TryCreateOffer(sourceItems.Single(i=>i.Id==id),out _),"zero-priced/special/higher-tier/non-equipment stock excluded");
@@ -77,7 +77,7 @@ internal static class TownQuestChecks
         check(bought.TryTrade(1,2,quote.buyPrice,true,out var purchased) && purchased.gold==4000 && purchased.Count(1)==2,
             "reconstructed source dagger quote reaches production quantity trade");
         check(bought.gold==20000 && bought.Count(1)==0,"purchase does not mutate inventory baseline");
-        check(!purchased.TryTrade(1,1,quote.sellPrice,false,out _),"unknown buyback cannot grant gold");
+        check(purchased.TryTrade(1,1,quote.sellPrice,false,out var sold) && sold.gold==8000 && sold.Count(1)==1,"half-price sale returns 4000 and removes one dagger");
         check(!purchased.TryTrade(1,1,quote.buyPrice,true,out _),"insufficient gold cannot buy an additional weapon");
         var definition = UnityEngine.JsonUtility.FromJson<Scenario01Definition>(File.ReadAllText("Assets/_Game/Resources/Scenarios/01/Content.json"));
         var content = UnityEngine.JsonUtility.FromJson<TownQuestContent>(File.ReadAllText("Assets/_Game/Resources/Town/Quests.json"));

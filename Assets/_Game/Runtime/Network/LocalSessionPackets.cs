@@ -10,6 +10,7 @@ namespace DarkSaver.Network
         private readonly NativeOwnedRoster roster;public NativeOwnedRoster CaptureRoster()=>roster?.Clone();
         public LocalFormationRequest(NativeOwnedRoster units){roster=units?.Clone();}
     }
+    public sealed class LocalTempleRecoveryRequest : ClientPacket { }
     public sealed class SaveWorldRequest : ClientPacket { }
     public sealed class TownQuestRequest : ClientPacket
     {public int QuestId {get;} public bool Claim {get;} public TownQuestRequest(int id,bool claim){QuestId=id;Claim=claim;}}

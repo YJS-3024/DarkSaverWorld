@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-25",
+  "baseCommit": "2ef69baa",
+  "workingTreeChangesIncluded": true,
+  "executionEnvironment": "Linux; Unity6000.5.7f1 API references; bundled .NET8 SDK",
+  "runtimeApiSources": 200,
+  "editorApiSources": 73,
+  "testApiSources": 113,
+  "apiCompileErrors": 0,
+  "integrationChecks": 26903,
+  "integrationScope": "Linked production C# with explicit host/JSON adapters; not Unity JsonUtility or Play",
+  "combatChecks": 5251,
+  "nativeClassAbilityCases": 357,
+  "resourceChecks": [
+    {
+      "name": "check_scenario01_resources",
+      "exit": 0
+    },
+    {
+      "name": "check_campaign_resources",
+      "exit": 0
+    },
+    {
+      "name": "check_four_towns",
+      "exit": 0
+    },
+    {
+      "name": "check_world_fields",
+      "exit": 0
+    },
+    {
+      "name": "check_shop_interiors",
+      "exit": 0
+    },
+    {
+      "name": "check_world_audio",
+      "exit": 0
+    },
+    {
+      "name": "check_render_depth",
+      "exit": 0
+    }
+  ],
+  "unityEditorRunning": false,
+  "localPersonalLicenseFound": false,
+  "unityEditModeExecuted": false,
+  "unityPlayExecuted": false,
+  "originalWindowLayoutReconstructionComplete": false,
+  "preservedFailureSaveModified": false,
+  "resolvedIssues": [
+    "Login history sharing-lock check before replacement; full offline integration now passes",
+    "Local-only text inputs explicitly use paper background/dark text",
+    "World notice height fits640x480 beneath the compact status menu"
+  ],
+  "notExecuted": [
+    "New account30,000 gold, save and reconnect through actual UI",
+    "Temple revival/full recovery, rejected disk write, and battle retry in Unity",
+    "Successful buy/sell and equipped-sale rejection through actual pointer input",
+    "Latest Unity EditMode suite",
+    "Scenario01 completion then02-17 sequential Play",
+    "Complete visual timing/audio/balance gameplay"
+  ],
+  "notes": [
+    "Earlier1,169 Unity tests are an imported report for older code, not a current execution.",
+    "Counts overlap and must not be added.",
+    "Ability runner was executed using installed net8 references/runtime instead of its net10 defaults."
+  ],
+  "sourceTreeSha256": "79864835a5195bee6fd946dd59963c404f102f0b4fe4c302261606ed33ead682",
+  "sourceDigestAlgorithm": "SHA256 of sorted relative-path:SHA256(file) lines for Runtime, Editor, Tests/EditMode C# sources"
+}

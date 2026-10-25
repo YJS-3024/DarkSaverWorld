@@ -24,6 +24,7 @@ namespace DarkSaver.UI
         private VisualElement root;
         private string hoveredStatKey;
         private static readonly Color Ink = new(.91f, .88f, .77f);
+        private static readonly Color PaperInk = new(.17f, .09f, .035f);
         private static readonly Color Gold = new(.55f, .43f, .22f);
 
         public static InGameUi Ensure(ref InGameUi ui, Behaviour owner, int order = 20)
@@ -53,7 +54,7 @@ namespace DarkSaver.UI
             ui.font = Font.CreateDynamicFontFromOSFont(new[] { "Malgun Gothic", "Arial" }, 16);
             ui.root.style.unityFontDefinition = FontDefinition.FromFont(ui.font);
             ui.root.style.fontSize = 14;
-            ui.root.style.color = Ink;
+            ui.root.style.color = PaperInk;
             return ui;
         }
 
@@ -125,7 +126,7 @@ namespace DarkSaver.UI
         {
             element.style.borderTopWidth = element.style.borderBottomWidth = element.style.borderLeftWidth = element.style.borderRightWidth = 1;
             element.style.borderTopColor = element.style.borderBottomColor = element.style.borderLeftColor = element.style.borderRightColor = Gold;
-            element.style.borderTopLeftRadius = element.style.borderTopRightRadius = element.style.borderBottomLeftRadius = element.style.borderBottomRightRadius = 4;
+            element.style.borderTopLeftRadius = element.style.borderTopRightRadius = element.style.borderBottomLeftRadius = element.style.borderBottomRightRadius = 0;
         }
         public void SolidRect(string key,Rect rect,Color color)
         {
@@ -137,7 +138,10 @@ namespace DarkSaver.UI
         public void Panel(string key, Rect rect, string title = "")
         {
             var panel = Element<VisualElement>(key, rect);
-            panel.style.backgroundColor = new Color(.055f, .07f, .085f, .96f);
+            // Original paper artwork is reused for local-only screens; their layout is not native.
+            if (battlePaper == null) battlePaper = Resources.Load<Texture2D>("UI/BattlePaper");
+            panel.style.backgroundImage = battlePaper == null ? StyleKeyword.None : new StyleBackground(battlePaper);
+            panel.style.backgroundColor = new Color(.72f, .52f, .29f);
             Border(panel);
             if (!string.IsNullOrEmpty(title)) Label(key + "-title", new Rect(rect.x + 12, rect.y + 4, rect.width - 24, 22), title, 15);
         }
@@ -386,7 +390,7 @@ namespace DarkSaver.UI
         {
             var label = Element<Label>(key, rect, parent);
             label.text = text ?? ""; label.pickingMode = PickingMode.Ignore;
-            label.style.color = color ?? Ink;
+            label.style.color = color ?? PaperInk;
             label.style.whiteSpace = WhiteSpace.Normal; label.style.fontSize = size;
             label.style.unityTextAlign = alignment;
         }
@@ -400,8 +404,10 @@ namespace DarkSaver.UI
             if (isNew) button.clicked += () => { if (owner != null && owner.isActiveAndEnabled && actions.TryGetValue(key, out var callback)) callback?.Invoke(); };
             button.text = text; button.tooltip = tooltip; button.SetEnabled(enabled);
             button.style.marginLeft = button.style.marginRight = button.style.marginTop = button.style.marginBottom = 0;
-            button.style.backgroundColor = selected ? new Color(.32f, .25f, .12f) : new Color(.12f, .15f, .17f);
-            button.style.color = enabled ? Ink : new Color(.46f, .47f, .45f);
+            if (battlePaper == null) battlePaper = Resources.Load<Texture2D>("UI/BattlePaper");
+            button.style.backgroundImage = battlePaper == null ? StyleKeyword.None : new StyleBackground(battlePaper);
+            button.style.backgroundColor = selected ? new Color(.58f, .37f, .17f) : new Color(.72f, .52f, .29f);
+            button.style.color = enabled ? PaperInk : new Color(.40f, .32f, .24f);
             button.style.whiteSpace = singleLine ? WhiteSpace.NoWrap : WhiteSpace.Normal;
             button.style.overflow = Overflow.Hidden; button.style.textOverflow = TextOverflow.Ellipsis;
             button.style.fontSize = fontSize; Border(button);
@@ -467,6 +473,16 @@ namespace DarkSaver.UI
         {
             var isNew = !elements.ContainsKey(key);
             var field = Element<TextField>(key, rect, parent);
+            field.style.color = PaperInk;
+            var input = field.Q<VisualElement>(className: TextField.inputUssClassName);
+            if (input != null)
+            {
+                if (battlePaper == null) battlePaper = Resources.Load<Texture2D>("UI/BattlePaper");
+                input.style.backgroundImage = battlePaper == null ? StyleKeyword.None : new StyleBackground(battlePaper);
+                input.style.backgroundColor = new Color(.86f, .71f, .48f);
+                input.style.color = PaperInk;
+                Border(input);
+            }
             field.maxLength = maximum;
             field.isPasswordField = password;field.maskChar = '*';
             textChanges[key] = changed;

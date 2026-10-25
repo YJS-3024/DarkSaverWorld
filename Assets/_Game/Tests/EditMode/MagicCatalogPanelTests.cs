@@ -14,16 +14,15 @@ namespace DarkSaver.Tests
     public sealed class MagicCatalogPanelTests
     {
         [TestCase(true)] [TestCase(false)]
-        public void OpenCloseStopsMovementWithoutChangingEnabled(bool enabled)
+        public void RemovedCatalogDoesNotChangeMovementOrEnabled(bool enabled)
         {
             WithPanel((panel, player, items) =>
             {
                 player.enabled = enabled;
                 player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.one;
-                Assert.That(panel.Open(), Is.True); Assert.That(panel.Open(), Is.True);
-                Assert.That(player.UiInputBlocked, Is.True);
-                Assert.That(player.GetComponent<Rigidbody2D>().linearVelocity, Is.EqualTo(Vector2.zero));
-                Assert.That(player.TryMoveToWorld(Vector2.one), Is.False);
+                Assert.That(panel.Open(), Is.False); Assert.That(panel.Open(), Is.False);
+                Assert.That(player.UiInputBlocked, Is.False);
+                Assert.That(player.GetComponent<Rigidbody2D>().linearVelocity, Is.EqualTo(Vector2.one));
                 panel.Close(); panel.Close();
                 Assert.That(player.UiInputBlocked, Is.False);
                 Assert.That(player.enabled, Is.EqualTo(enabled));
@@ -51,17 +50,22 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void SwitchingPanelsKeepsSingleInputOwner()
+        public void RemovedCatalogsCannotAcquireOrReleaseAnotherInputOwner()
         {
             WithPanel((panel, player, items) =>
             {
-                Assert.That(items.Open(), Is.True); Assert.That(panel.Open(), Is.True);
-                Assert.That(items.IsOpen, Is.False); Assert.That(player.UiInputBlocked, Is.True);
-                items.Close(); Assert.That(player.UiInputBlocked, Is.True);
-                Assert.That(items.Open(), Is.True); Assert.That(panel.IsOpen, Is.False);
-                Assert.That(player.UiInputBlocked, Is.True);
-                panel.Close(); Assert.That(player.UiInputBlocked, Is.True);
+                Assert.That(items.Open(), Is.False); Assert.That(panel.Open(), Is.False);
+                Assert.That(items.IsOpen, Is.False); Assert.That(player.UiInputBlocked, Is.False);
                 items.Close(); Assert.That(player.UiInputBlocked, Is.False);
+                Assert.That(items.Open(), Is.False); Assert.That(panel.IsOpen, Is.False);
+                Assert.That(player.UiInputBlocked, Is.False);
+                panel.Close(); Assert.That(player.UiInputBlocked, Is.False);
+                items.Close(); Assert.That(player.UiInputBlocked, Is.False);
+                player.SetUiInputBlocked(true);
+                Assert.That(panel.Open(), Is.False); Assert.That(items.Open(), Is.False);
+                panel.Close(); items.Close();
+                Assert.That(player.UiInputBlocked, Is.True, "Removed catalogs must not release an unrelated UI lock.");
+                player.SetUiInputBlocked(false);
             });
         }
 
@@ -78,7 +82,7 @@ namespace DarkSaver.Tests
                 var controller = next.AddComponent<TopDownPlayerController>();
                 panel.Configure(AssetDatabase.LoadAssetAtPath<MagicCatalog>("Assets/_Game/Runtime/Magic/MagicCatalog.asset"), controller);
                 Assert.That(player.UiInputBlocked, Is.False); Assert.That(panel.IsOpen, Is.False);
-                panel.Open(); Assert.That(controller.UiInputBlocked, Is.True);
+                panel.Open(); Assert.That(controller.UiInputBlocked, Is.False);
                 panel.Close(); Assert.That(controller.UiInputBlocked, Is.False);
             });
         }

@@ -7,6 +7,8 @@ namespace DarkSaver
         // Visual estimate, not an original executable/server constant.
         public const float PlayerMoveSpeed = 6f;
         public const int CharacterNameMaxLength = 20;
+        // User-confirmed single-player starting funds; never applied during save restoration.
+        public const long NewCharacterStartingGold = 30000;
         // User-confirmed reward per completed class change; not an inferred original server constant.
         public const int ClassChangeAdditionalStatPoints = 20;
         public const int ClassStatAttackPointCost = 2;

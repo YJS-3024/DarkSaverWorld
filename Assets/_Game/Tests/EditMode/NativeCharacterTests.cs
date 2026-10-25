@@ -23,18 +23,74 @@ namespace DarkSaver.Tests
                 var profile = new NativeCharacterProfile { name="신규", jobId=100, hasLevels=true, baseLevel=1, jobLevel=1, tutorial=new NativeTutorialProgress() };
                 Assert.IsFalse(session.InitializeCharacter(profile));
                 Assert.IsFalse(session.HasCreatedCharacter); Assert.IsFalse(session.HasPlayerVitals);
+                Assert.IsNull(session.CaptureInventory(), "Failed creation must not grant funds.");
                 var catalog = UnityEditor.AssetDatabase.LoadAssetAtPath<DarkSaver.Jobs.JobCatalog>("Assets/_Game/Runtime/Jobs/JobCatalog.asset");
                 Assert.IsTrue(session.ConfigureFormationSupport(new[] {catalog}, new System.Collections.Generic.Dictionary<int, DarkSaver.Player.DirectionalSpriteAnimator>()));
                 Assert.IsTrue(catalog.TryGet(100, out var job));
                 Assert.IsTrue(session.InitializeCharacter(profile));
+                Assert.AreEqual(30000L, session.CaptureInventory().gold);
+                Assert.IsFalse(session.InitializeCharacter(profile));
+                Assert.AreEqual(30000L, session.CaptureInventory().gold, "Repeated initialization must not grant funds twice.");
                 Assert.IsTrue(session.HasPlayerVitals);
                 Assert.AreEqual(job.GetNumericValue(2), session.PlayerHp);
                 Assert.AreEqual(job.GetNumericValue(4), session.PlayerMp);
                 var save = session.CaptureSaveState("Kaosia_Map", "Town_Runtime", Vector2.one);
                 Assert.IsTrue(save.hasVitals); Assert.IsTrue(session.RestoreSaveState(save));
                 Assert.AreEqual(save.maxHp, session.PlayerHp); Assert.AreEqual(save.maxMp, session.PlayerMp);
+                Assert.AreEqual(30000L, session.CaptureInventory().gold);
+                save.inventory.gold = 22000; // Spending 8,000 must survive restoration without a top-up.
+                Assert.IsTrue(session.RestoreSaveState(save));
+                Assert.IsTrue(session.RestoreSaveState(save));
+                Assert.AreEqual(22000L, session.CaptureInventory().gold);
+                save.inventory.gold = 0;
+                Assert.IsTrue(session.RestoreSaveState(save));
+                Assert.AreEqual(0L, session.CaptureInventory().gold, "An existing zero-gold save must stay unchanged.");
             }
             finally { EditorSceneManager.ClosePreviewScene(scene); }
+        }
+
+        [Test]
+        public void TempleRecoveryRequiresNpcAndSavesBeforePublishingWithoutGrantingGold()
+        {
+            var map=SceneManager.CreateScene("KaosiaTemple_Map");
+            var runtime=SceneManager.CreateScene("KaosiaTemple_Runtime");
+            string directory=Path.Combine(Path.GetTempPath(),"ds-temple-"+Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(directory);
+            try
+            {
+                var root=new GameObject("temple recovery fixture");SceneManager.MoveGameObjectToScene(root,runtime);
+                var session=root.AddComponent<BattleTransitionController>();
+                Assert.IsTrue(session.InitializeCharacter(new NativeCharacterProfile {name="부활검증",jobId=100}));
+                var data=session.CaptureSaveState("KaosiaTemple_Map","KaosiaTemple_Runtime",Vector2.one);
+                data.hasVitals=true;data.hp=0;data.maxHp=200;data.mp=7;data.maxMp=45;data.lifeState=(int)UnitLifeState.Removed;
+                Assert.IsTrue(session.RestoreSaveState(data));
+                var actor=new GameObject("temple visitor");SceneManager.MoveGameObjectToScene(actor,runtime);
+                var player=actor.AddComponent<DarkSaver.Player.TopDownPlayerController>();
+                Assert.IsFalse(session.TryTempleRecovery(out _),"No NPC must reject recovery.");
+                var staff=new GameObject("temple staff");SceneManager.MoveGameObjectToScene(staff,runtime);
+                staff.AddComponent<DarkSaver.World.ShopCounter2D>();staff.transform.position=Vector3.right*10;
+                Assert.IsFalse(session.TryTempleRecovery(out _),"A distant NPC must reject recovery.");
+                staff.transform.position=actor.transform.position;
+                string blocked=Path.Combine(directory,"blocked");File.WriteAllText(blocked,"retained");
+                session.ConfigureSaveFile(Path.Combine(blocked,"save.json"));
+                Assert.IsFalse(session.TryTempleRecovery(out _));
+                Assert.AreEqual(0,session.PlayerHp);Assert.AreEqual(7,session.PlayerMp);Assert.IsFalse(session.CanEnterBattle);
+                string path=Path.Combine(directory,"save.json");session.ConfigureSaveFile(path);
+                root.AddComponent<TownServicesPanel>();
+                Assert.IsTrue(staff.GetComponent<DarkSaver.World.ShopCounter2D>().TryOpen(player));
+                Assert.IsTrue(session.TryTempleRecovery(out var reason),reason);
+                Assert.AreEqual(200,session.PlayerHp);Assert.AreEqual(45,session.PlayerMp);
+                Assert.IsTrue(session.CanEnterBattle);Assert.AreEqual(0L,session.CurrentGold);
+                Assert.IsTrue(new NativeSaveStore(path).TryLoad(out var restored,out reason),reason);
+                Assert.AreEqual(200,restored.hp);Assert.AreEqual((int)UnitLifeState.Active,restored.lifeState);
+                Assert.AreEqual(0L,restored.inventory.gold);
+                Assert.IsFalse(session.TryTempleRecovery(out _),"Repeated full-health recovery is a no-op.");
+            }
+            finally
+            {
+                EditorSceneManager.CloseScene(runtime,true);EditorSceneManager.CloseScene(map,true);
+                Directory.Delete(directory,true);
+            }
         }
 
         [Test]
@@ -117,6 +173,7 @@ namespace DarkSaver.Tests
                 var session = root.AddComponent<BattleTransitionController>();
                 var profile = new NativeCharacterProfile { name = "카오스", jobId = 100 };
                 Assert.That(session.InitializeCharacter(profile), Is.True);
+                Assert.AreEqual(0L, session.CaptureInventory().gold, "Legacy profiles do not receive new-character funds.");
                 profile.name = "변경";
                 var save = session.CaptureSaveState("Kaosia_Map", "Town_Runtime", Vector2.one);
                 Assert.That(save.character.name, Is.EqualTo("카오스"));

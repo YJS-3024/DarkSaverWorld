@@ -20,7 +20,6 @@ namespace DarkSaver.UI
         private int selectedId = -1;
         private Vector2 listScroll;
         private Vector2 detailScroll;
-        [SerializeField] private bool showDeveloperCatalog;
         public bool IsOpen { get; private set; }
         public int MatchCount => matches.Count;
         public MagicCatalogEntry SelectedMagic => catalog != null && catalog.TryGet(selectedId, out var entry) ? entry : null;
@@ -31,17 +30,8 @@ namespace DarkSaver.UI
             Close(); catalog = source; player = controller; Filter(string.Empty);
         }
 
-        public bool Open()
-        {
-            if (FirstPlayTutorial.BlocksWorldActions) return false;
-            if (!isActiveAndEnabled || catalog == null || player == null || SceneManager.GetSceneByName("Battle").isLoaded) return false;
-            if (IsOpen) return true;
-            GetComponent<TownServicesPanel>()?.Close();
-            GetComponent<BattleFormationPanel>()?.Cancel();
-            GetComponent<ItemCatalogPanel>()?.Close();
-            Filter(query); IsOpen = true; player.SetUiInputBlocked(true);
-            return true;
-        }
+        // Developer catalog UI was removed; gameplay uses native inventory/magic windows.
+        public bool Open() => false;
 
         public void Close()
         {
@@ -80,43 +70,7 @@ namespace DarkSaver.UI
             $"EA: {entry.GetNumericValue(9)} / EB: {entry.GetNumericValue(10)} / EC: {entry.GetNumericValue(11)}\n" +
             $"LVPT: {entry.LevelPoints} / 패턴 ID: {entry.PatternId}\n아이콘 좌표: {entry.IconX}, {entry.IconY}";
 
-        private void Update()
-        {
-            if (!showDeveloperCatalog) { Close(); return; }
-            if (SceneManager.GetSceneByName("Battle").isLoaded) { Close(); return; }
-            var items = GetComponent<ItemCatalogPanel>();
-            if (GetComponent<BattleFormationPanel>()?.IsOpen == true) return;
-            if (items != null && items.IsOpen) return;
-            if (Input.GetKeyDown(KeyCode.M) && (!IsOpen || GUIUtility.keyboardControl == 0)) { if (IsOpen) Close(); else Open(); }
-            if (IsOpen && Input.GetKeyDown(KeyCode.Escape)) Close();
-        }
         private void OnDisable() => Close();
 
-        private void OnGUI()
-        {
-            if (!showDeveloperCatalog || !IsOpen || SceneManager.GetSceneByName("Battle").isLoaded) return;
-            var width = Mathf.Min(760f, Rendering.GameScreen.Width - 24f); var height = Mathf.Min(520f, Rendering.GameScreen.Height - 24f);
-            if (width < 300f || height < 160f) return;
-            var area = new Rect((Rendering.GameScreen.Width - width) / 2f, (Rendering.GameScreen.Height - height) / 2f, width, height);
-            var previous = GUI.color;
-            GUI.color = new Color(.07f, .09f, .11f, 1f); GUI.DrawTexture(area, Texture2D.whiteTexture); GUI.color = previous;
-            GUILayout.BeginArea(area, GUI.skin.box);
-            GUILayout.BeginHorizontal(); GUILayout.Label("마법 카탈로그 — 조회 전용");
-            if (GUILayout.Button("닫기 (Esc)", GUILayout.Width(110f))) Close();
-            GUILayout.EndHorizontal();
-            GUILayout.Label("습득·시전 목록이 아닙니다. AP 환산과 마법 효과는 미연결입니다.");
-            GUILayout.BeginHorizontal(); GUILayout.Label("ID / 이름", GUILayout.Width(70f));
-            var edited = GUILayout.TextField(query); if (edited != query) Filter(edited);
-            GUILayout.Label($"{MatchCount} / {catalog.Count}", GUILayout.Width(90f)); GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal(); listScroll = GUILayout.BeginScrollView(listScroll, GUILayout.Width(width * .4f));
-            foreach (var id in matches)
-            {
-                catalog.TryGet(id, out var entry);
-                if (GUILayout.Button($"{(id == selectedId ? "> " : "")}{id}  {DisplayName(entry)}", GUILayout.Height(24f))) SelectMagic(id);
-            }
-            GUILayout.EndScrollView(); detailScroll = GUILayout.BeginScrollView(detailScroll);
-            GUILayout.Label(DetailText(SelectedMagic), new GUIStyle(GUI.skin.label) { wordWrap = true });
-            GUILayout.EndScrollView(); GUILayout.EndHorizontal(); GUILayout.EndArea();
-        }
     }
 }

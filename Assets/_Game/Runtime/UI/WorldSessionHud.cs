@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace DarkSaver.UI
 {
-    // Native Unity presentation, not a reconstruction of the original client's HUD.
+    // Original status artwork; local session commands remain a single-player extension.
     [DisallowMultipleComponent]
     [RequireComponent(typeof(BattleTransitionController))]
     [RequireComponent(typeof(BattleFormationPanel))]
@@ -14,6 +14,7 @@ namespace DarkSaver.UI
         [SerializeField] private string trackedScenarioKey = "01";
         private BattleTransitionController session;
         private InGameUi ui;
+        private CharacterPortraitCatalog portraits;
         private Rect pointerBounds;
         private string trainingEntryMessage;
         private bool emotesOpen;private Rect emoteBounds;private string emoteMessage;
@@ -78,22 +79,27 @@ namespace DarkSaver.UI
             if (session == null) session = GetComponent<BattleTransitionController>();
             var width = Mathf.Min(260f, Rendering.GameScreen.Width - 24f);
             if (width <= 0f) { ui.Hide(); return; }
-            var panel = new Rect(12, 12, width, 180);
+            var panel = new Rect(12, 12, 120, 213);
             pointerBounds = panel;
-            ui.Panel("world", panel, TownSceneContext.Current?.Title ?? FieldSceneContext.Current?.Title ?? DarkSaver.Events.Scenario01Controller.CurrentScenario?.Title ?? "모험");
-            ui.Label("player", new Rect(24, 42, width - 24, 24), session.HasCreatedCharacter ? session.PlayerName : "용병대장", 18);
-            ui.Bar("hp", new Rect(24, 74, width - 24, 22), "HP", session.PlayerHp, session.PlayerMaxHp, new Color(.55f, .2f, .18f));
-            ui.Bar("mp", new Rect(24, 102, width - 24, 22), "MP", session.PlayerMp, session.PlayerMaxMp, new Color(.18f, .35f, .55f));
+            ui.NativeStatusPanel("world", panel);
+            ui.NativeStatusName("world-name", new Rect(panel.x + 9, panel.y + 7, 68, 14),
+                session.HasCreatedCharacter ? session.PlayerName : "용병대장");
             var profile = session.CaptureCharacterProfile();
-            string levelText = profile != null && profile.hasLevels ? $"베이스 {profile.baseLevel} / 직업 {profile.jobLevel}" : "레벨 미확인";
-            var displayScenarioKey = DarkSaver.Events.Scenario01Controller.ActiveKey ?? trackedScenarioKey;
-            ui.Label("progress", new Rect(24, 132, width - 24, 48), $"{levelText}\n경험치 {session.PlayerExperience}\n시나리오 {displayScenarioKey}: {(session.IsScenarioCleared(displayScenarioKey) ? "완료" : "진행 중")}", 12);
+            if (portraits == null) portraits = Resources.Load<CharacterPortraitCatalog>("UI/CharacterPortraits/CharacterPortraits");
+            if (profile != null && portraits != null && portraits.TryGet(profile.jobId, out var portrait))
+                ui.PortraitTexture("world-portrait", new Rect(panel.x + 44, panel.y + 79, 32, 32), portrait);
+            // Original layout includes AP; it has no meaning outside combat, so do not fabricate a value.
+            ui.NativeStatusGauge("world-hp", new Vector2(panel.x + 30, panel.y + 156), session.PlayerHp, session.PlayerMaxHp, 1);
+            ui.NativeStatusGauge("world-mp", new Vector2(panel.x + 30, panel.y + 169), session.PlayerMp, session.PlayerMaxMp, 2);
+            ui.NativeStatusNumber("world-exp", new Vector2(panel.x + 34, panel.y + 183),
+                session.PlayerExperience.ToString(System.Globalization.CultureInfo.InvariantCulture));
             var items = GetComponent<ItemCatalogPanel>();
             var magic = GetComponent<MagicCatalogPanel>();
             var formation = GetComponent<BattleFormationPanel>();
             var town = GetComponent<TownServicesPanel>();
             if ((town != null && town.IsOpen) || (items != null && items.IsOpen) || (magic != null && magic.IsOpen) || (formation != null && formation.IsOpen)) { ui.End(); return; }
             var buttonY = panel.yMax + 4f;
+            width = 120;
             if (town != null && town.CanOpen)
             {
                 ui.Button("town-services", new Rect(12, buttonY, width, 28), ShopInteriorContext.Current!=null?"상점 이용":"마을 시설", () => town.Open(ShopInteriorContext.Current!=null?TownService.Shop:TownService.Overview, FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>()));
@@ -135,9 +141,9 @@ namespace DarkSaver.UI
                 : string.IsNullOrEmpty(session.LastSaveMessage) ? session.LastTransitionMessage : session.LastSaveMessage;
             if (!string.IsNullOrEmpty(message))
             {
-                ui.Panel("notice", new Rect(12, buttonY, width, 64));
-                ui.Label("notice-text", new Rect(24, buttonY + 4, width - 24, 56), message);
-                pointerBounds.yMax += 64;
+                ui.Panel("notice", new Rect(12, buttonY, width, 56));
+                ui.Label("notice-text", new Rect(24, buttonY + 4, width - 24, 48), message);
+                pointerBounds.yMax += 56;
             }
             ui.End();
         }

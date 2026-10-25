@@ -104,7 +104,7 @@ namespace DarkSaver.World
                 renderer.sprite=FullSprite(Resources.Load<Texture2D>("Interiors/Npcs/"+npc.texture),new Vector2(.5f,.1f));
                 renderer.sortingOrder=20000-Mathf.RoundToInt(actor.transform.position.y*10);
                 actor.AddComponent<IndoorNpcLabel>().Configure(npc.name);
-                if(ShopInteriorCatalog.TryGet(townKey,out _))
+                if(ShopInteriorCatalog.TryGet(townKey,out _) || townKey=="KaosiaTemple")
                 {
                     var trigger=actor.AddComponent<BoxCollider2D>();trigger.isTrigger=true;trigger.offset=new Vector2(0,.45f);trigger.size=new Vector2(1,1.4f);
                     actor.AddComponent<ShopCounter2D>();

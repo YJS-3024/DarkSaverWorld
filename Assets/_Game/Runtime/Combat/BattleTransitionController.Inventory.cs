@@ -69,6 +69,34 @@ namespace DarkSaver.Combat
             finally {usingBattleItem=false;}
         }
 
+        public static bool IsTempleReady => DarkSaver.World.FieldSceneContext.Current?.Key == "KaosiaTemple"
+            && SceneManager.GetSceneByName("KaosiaTemple_Map").isLoaded;
+        // User-approved local service: free primary-character revival and full HP/MP.
+        public bool TryTempleRecovery(out string reason)
+        {
+            if(!processingSessionRequest)return SubmitSession(new DarkSaver.Network.LocalTempleRecoveryRequest(),out reason);
+            reason="신전 관리인에게 가까이 가서 회복을 요청하세요.";
+            var player=UnityEngine.Object.FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>();
+            if(!isActiveAndEnabled || !HasCreatedCharacter || !hasPlayerVitals || playerMaxHp<=0 || playerMaxMp<0
+                || HasPendingTutorial || transitioning || !IsTempleReady || player==null || !player.isActiveAndEnabled
+                || SceneManager.GetSceneByName(BattleSceneName).isLoaded
+                || UnityEngine.Object.FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling==true)return false;
+            bool near=false;
+            foreach(var npc in UnityEngine.Object.FindObjectsByType<DarkSaver.World.ShopCounter2D>())
+                if(npc.isActiveAndEnabled && npc.gameObject.scene.name=="KaosiaTemple_Runtime"
+                    && UnityEngine.Vector2.Distance(player.transform.position,npc.transform.position)<=4f){near=true;break;}
+            if(!near)return false;
+            if(playerHp==playerMaxHp && playerMp==playerMaxMp && playerLifeState==UnitLifeState.Active)
+            {reason="이미 건강한 상태입니다.";return false;}
+            var region=DarkSaver.World.FieldSceneContext.Current;
+            var candidate=CaptureSaveState(region.MapScene,region.RuntimeScene,player.transform.position);
+            candidate.hp=playerMaxHp;candidate.mp=playerMaxMp;candidate.lifeState=(int)UnitLifeState.Active;
+            if(saveStore==null)saveStore=new NativeSaveStore(NativeSaveStore.DefaultPath);
+            if(!saveStore.TrySave(candidate,out reason))return false;
+            playerHp=playerMaxHp;playerMp=playerMaxMp;playerLifeState=UnitLifeState.Active;
+            reason="생명력과 마력이 모두 회복되었습니다. 저장했습니다.";return true;
+        }
+
         public bool CanTrade(NativeShopOffer offer, int quantity, bool buying, ItemCatalog catalog, out string message)
         {
             message = "거래할 수 없습니다. 품목·가격·소지 상태를 확인하세요.";
@@ -76,9 +104,8 @@ namespace DarkSaver.Combat
             if(interior!=null && (offer==null || catalog==null || !catalog.TryGet(offer.itemId,out var entry) || !interior.OffersPosition(entry.GetNumericValue(3))))
             {message="이 상점에서 취급하지 않는 품목입니다.";return false;}
             if(UnityEngine.Object.FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling==true)return false;
-            if(!buying && offer!=null && inventory!=null && inventory.IsValid && (character?.EquippedCount(offer.itemId)??0)>0
-                && inventory.Count(offer.itemId)-(character?.EquippedCount(offer.itemId)??0)<quantity)
-            {message="장착 중인 수량은 판매할 수 없습니다.";return false;}
+            if(!buying && offer!=null && inventory!=null && inventory.IsValid && (character?.EquippedCount(offer.itemId)??0)>0)
+            {message="장착 중인 품목은 장비를 해제한 뒤 판매하세요.";return false;}
             return HasCreatedCharacter && inventory != null && !transitioning && DarkSaver.World.TownSceneContext.IsReady
                 && !SceneManager.GetSceneByName("Battle").isLoaded && offer != null && catalog != null
                 && catalog.TryGet(offer.itemId, out _)

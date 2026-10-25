@@ -8,7 +8,7 @@ namespace DarkSaver.Tests
     public sealed class KaosiaShopTests
     {
         [Test]
-        public void NativeCatalogProducesTierScopeWithSourcePricesAndNoInventedBuyback()
+        public void NativeCatalogProducesTierScopeWithConfirmedHalfPriceBuyback()
         {
             var catalog=AssetDatabase.LoadAssetAtPath<ItemCatalog>("Assets/_Game/Runtime/Items/ItemCatalog.asset");
             Assert.IsNotNull(catalog);int count=0;
@@ -17,7 +17,7 @@ namespace DarkSaver.Tests
                 var item=catalog.GetAt(i);
                 if(!KaosiaShopRules.TryCreateOffer(item,out var offer))continue;
                 count++;Assert.AreEqual(item.Id,offer.itemId);
-                Assert.AreEqual(item.GetNumericValue(16),offer.buyPrice);Assert.AreEqual(-1,offer.sellPrice);
+                Assert.AreEqual(item.GetNumericValue(16),offer.buyPrice);Assert.AreEqual(offer.buyPrice/2,offer.sellPrice);
                 Assert.LessOrEqual(item.GetNumericValue(4),30);Assert.Greater(offer.buyPrice,0);
             }
             Assert.AreEqual(202,count);

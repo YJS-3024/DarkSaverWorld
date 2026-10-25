@@ -9,9 +9,9 @@ namespace DarkSaver.World
         private InGameUi ui;
         public bool TryOpen(TopDownPlayerController player)
         {
-            if(ShopInteriorContext.Current==null || player==null || !player.isActiveAndEnabled || player.UiInputBlocked
+            if((ShopInteriorContext.Current==null && !DarkSaver.Combat.BattleTransitionController.IsTempleReady) || player==null || !player.isActiveAndEnabled || player.UiInputBlocked
                 || FindAnyObjectByType<WorldSceneCoordinator>()?.IsTravelling==true)return false;
-            return FindAnyObjectByType<TownServicesPanel>()?.Open(TownService.Shop,player) ?? false;
+            return FindAnyObjectByType<TownServicesPanel>()?.Open(DarkSaver.Combat.BattleTransitionController.IsTempleReady ? TownService.Temple : TownService.Shop,player) ?? false;
         }
         public static bool TryInteractAt(Vector2 world,TopDownPlayerController player)
         {
@@ -34,7 +34,7 @@ namespace DarkSaver.World
             var screen=Camera.main.WorldToScreenPoint(transform.position);
             if(screen.z<=0 || !DarkSaver.Rendering.GameScreen.TryScreenToGui(screen,out var point)){ui?.Hide();return;}
             InGameUi.Ensure(ref ui,this,20);ui.Begin();
-            ui.Button("counter",new Rect(point.x-90,point.y+8,180,28),"상점 이용",()=>TryOpen(player));ui.End();
+            ui.Button("counter",new Rect(point.x-90,point.y+8,180,28),DarkSaver.Combat.BattleTransitionController.IsTempleReady ? "신전 이용" : "상점 이용",()=>TryOpen(player));ui.End();
         }
         private void OnDisable()=>ui?.Hide();
     }

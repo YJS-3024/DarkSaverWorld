@@ -10,7 +10,7 @@ namespace DarkSaver.Items
             offer=null;
             if(item==null || item.Id<=0 || (position!=6 && position!=7) || item.GetNumericValue(3)!=position
                 || item.GetNumericValue(4)<0 || item.GetNumericValue(4)>MaximumRequiredLevel || item.GetNumericValue(ItemCatalogEntry.PriceColumn)<=0)return false;
-            offer=new NativeShopOffer {itemId=item.Id,buyPrice=item.GetNumericValue(ItemCatalogEntry.PriceColumn),sellPrice=-1};return true;
+            offer=new NativeShopOffer {itemId=item.Id,buyPrice=item.GetNumericValue(ItemCatalogEntry.PriceColumn),sellPrice=item.GetNumericValue(ItemCatalogEntry.PriceColumn)/2};return true;
         }
         public const int MaximumRequiredLevel = 30;
         public static bool TryCreateOffer(ItemCatalogEntry item, out NativeShopOffer offer)
@@ -29,9 +29,8 @@ namespace DarkSaver.Items
                 wearable |= permission == 1;
             }
             if (!wearable) return false;
-            // Table price is the local purchase quote. Buyback remains unknown;
-            // never infer a half-price rule or sell a zero-price quest reward.
-            offer = new NativeShopOffer { itemId = item.Id, buyPrice = price, sellPrice = -1 };
+            // User-confirmed single-player buyback: half the positive native price, rounded down.
+            offer = new NativeShopOffer { itemId = item.Id, buyPrice = price, sellPrice = price / 2 };
             return true;
         }
     }

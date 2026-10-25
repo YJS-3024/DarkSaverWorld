@@ -18,7 +18,7 @@ namespace DarkSaver.Network
         public LocalCommandResponse Status(LoginStatusRequest request)=>InspectLogin();
         private LoginResponse InspectLogin(bool authenticated=false)
         {
-            bool ready=NativeLoginHistory.TryResolve(historyPath,slotPaths,out var resume,out var selection,out var reason);
+            bool ready=NativeLoginHistory.TryResolve(historyPath,slotPaths,out var resume,out var selection,out var reason,accounts.AccountId);
             return new LoginResponse(ready,reason,selection,resume,accounts.HasAccount,accounts.AccountId,authenticated);
         }
         public LocalCommandResponse Register(AccountRegisterRequest request)
@@ -55,7 +55,7 @@ namespace DarkSaver.Network
             if(!connected || prepared || string.IsNullOrWhiteSpace(request.LocalSavePath))return new CharacterCreateResponse(false,"캐릭터 생성 연결 상태를 확인하세요.");
             if(NativeCharacterSlots.IsOccupied(request.LocalSavePath))return new CharacterCreateResponse(false,"이미 저장된 슬롯입니다. 다른 빈 슬롯을 선택해 주세요.");
             if(!NativeCharacterProfile.TryQueue(request.Name,request.Job,request.LocalSavePath,out var reason))return new CharacterCreateResponse(false,reason);
-            if(!NativeLoginHistory.TryRemember(historyPath,request.LocalSavePath,out reason))
+            if(!NativeLoginHistory.TryRemember(historyPath,request.LocalSavePath,out reason,accounts.AccountId))
             {NativeCharacterProfile.ClearPending();return new CharacterCreateResponse(false,reason);}
             prepared=true;return new CharacterCreateResponse(true);
         }
@@ -65,7 +65,7 @@ namespace DarkSaver.Network
             var store=new NativeSaveStore(request.LocalSavePath);
             if(!store.TryLoad(out var data,out var reason))return new LocalCommandResponse(false,reason);
             if(!data.hasCharacter)return new LocalCommandResponse(false,"이 저장에는 선택할 캐릭터가 없습니다.");
-            if(!NativeLoginHistory.TryRemember(historyPath,store.FilePath,out reason))return new LocalCommandResponse(false,reason);
+            if(!NativeLoginHistory.TryRemember(historyPath,store.FilePath,out reason,accounts.AccountId))return new LocalCommandResponse(false,reason);
             if(!NativeSaveStore.QueueResume(data,store.FilePath))return new LocalCommandResponse(false,"캐릭터 복원 준비에 실패했습니다.");
             prepared=true;return new LocalCommandResponse(true);
         }

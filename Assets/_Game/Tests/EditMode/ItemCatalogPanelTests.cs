@@ -14,18 +14,17 @@ namespace DarkSaver.Tests
     {
         [TestCase(true)]
         [TestCase(false)]
-        public void OpenCloseStopsMovementWithoutChangingControllerEnabled(bool enabled)
+        public void RemovedCatalogDoesNotChangeMovementOrControllerEnabled(bool enabled)
         {
             WithPanel((panel, player, catalog) =>
             {
                 player.enabled = enabled;
                 var body = player.GetComponent<Rigidbody2D>();
                 body.linearVelocity = Vector2.one;
-                Assert.That(panel.Open(), Is.True);
-                Assert.That(panel.Open(), Is.True);
-                Assert.That(player.UiInputBlocked, Is.True);
-                Assert.That(body.linearVelocity, Is.EqualTo(Vector2.zero));
-                Assert.That(player.TryMoveToWorld(Vector2.one), Is.False);
+                Assert.That(panel.Open(), Is.False);
+                Assert.That(panel.Open(), Is.False);
+                Assert.That(player.UiInputBlocked, Is.False);
+                Assert.That(body.linearVelocity, Is.EqualTo(Vector2.one));
                 Assert.That(player.enabled, Is.EqualTo(enabled));
                 panel.Close(); panel.Close();
                 Assert.That(panel.IsOpen, Is.False);
@@ -81,15 +80,15 @@ namespace DarkSaver.Tests
         {
             WithPanel((panel, player, catalog) =>
             {
-                Assert.That(panel.Open(), Is.True);
+                Assert.That(panel.Open(), Is.False);
                 var next = new GameObject("Next player");
                 SceneManager.MoveGameObjectToScene(next, player.gameObject.scene);
                 var controller = next.AddComponent<TopDownPlayerController>();
                 panel.Configure(catalog, controller);
                 Assert.That(player.UiInputBlocked, Is.False);
                 Assert.That(panel.IsOpen, Is.False);
-                Assert.That(panel.Open(), Is.True);
-                Assert.That(controller.UiInputBlocked, Is.True);
+                Assert.That(panel.Open(), Is.False);
+                Assert.That(controller.UiInputBlocked, Is.False);
                 panel.Close();
                 Assert.That(controller.UiInputBlocked, Is.False);
             });

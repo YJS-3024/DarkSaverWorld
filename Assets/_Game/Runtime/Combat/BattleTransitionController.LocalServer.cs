@@ -67,6 +67,7 @@ namespace DarkSaver.Combat
                 if(quote==null)return new LocalCommandResponse(false,"로컬 서버의 판매 목록에 없는 품목입니다.");
                 return new LocalCommandResponse(TryTrade(quote,p.Quantity,p.Buying,serverShopCatalog,out var reason),reason);
             })));
+            sessionBindings.Add(sessionProtocol.RegisterRequestHandler<LocalTempleRecoveryRequest>(p=>Handle(()=>new LocalCommandResponse(TryTempleRecovery(out var reason),reason))));
             RegisterEmoteHandler();
             return sessionProtocol;
         }

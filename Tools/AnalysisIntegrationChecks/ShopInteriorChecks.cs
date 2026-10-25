@@ -80,7 +80,7 @@ internal static class ShopInteriorChecks
             {
                 var values=new long[DarkSaver.Items.ItemCatalogEntry.NumericColumnCount];values[0]=2000+position;values[3]=position;values[4]=0;values[16]=500;
                 var item=new DarkSaver.Items.ItemCatalogEntry(values,"500","","검증품","","검증");
-                check(DarkSaver.Items.KaosiaShopRules.TryCreateAdditionalOffer(item,position,out var offer) && offer.buyPrice==500 && offer.sellPrice==-1,"additional shop quotes use positive native price with buyback disabled");
+                check(DarkSaver.Items.KaosiaShopRules.TryCreateAdditionalOffer(item,position,out var offer) && offer.buyPrice==500 && offer.sellPrice==250,"additional shop quotes use positive native price with confirmed half-price buyback");
                 check(!DarkSaver.Items.KaosiaShopRules.TryCreateAdditionalOffer(item,position==6?7:6,out _),"additional shop rejects wrong category");
                 values[16]=0;item=new DarkSaver.Items.ItemCatalogEntry(values,"0","","검증품","","검증");
                 check(!DarkSaver.Items.KaosiaShopRules.TryCreateAdditionalOffer(item,position,out _),"additional shop excludes zero price rewards");

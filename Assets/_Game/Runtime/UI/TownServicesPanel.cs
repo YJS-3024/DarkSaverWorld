@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace DarkSaver.UI
 {
-    public enum TownService { Overview, Shop, ClassChange, Mercenary, Dialogue, Inventory, CharacterInfo, Quests }
+    public enum TownService { Overview, Shop, ClassChange, Mercenary, Dialogue, Inventory, CharacterInfo, Quests, Temple }
 
     [DisallowMultipleComponent]
     public sealed partial class TownServicesPanel : MonoBehaviour
@@ -21,7 +21,7 @@ namespace DarkSaver.UI
         public TownService Service { get; private set; }
         public string Speaker => speaker;
         public string CurrentLine => lineIndex < lines.Length ? lines[lineIndex] : string.Empty;
-        public bool CanOpen => !FirstPlayTutorial.BlocksWorldActions && isActiveAndEnabled && DarkSaver.World.TownSceneContext.IsReady
+        public bool CanOpen => !FirstPlayTutorial.BlocksWorldActions && isActiveAndEnabled && (DarkSaver.World.TownSceneContext.IsReady || BattleTransitionController.IsTempleReady)
             && !SceneManager.GetSceneByName("Battle").isLoaded
             && !(GetComponent<BattleTransitionController>()?.IsTransitioning ?? false);
 
@@ -32,6 +32,8 @@ namespace DarkSaver.UI
                 if(service==TownService.Overview)service=TownService.Shop;
                 if(service!=TownService.Shop && service!=TownService.Inventory && service!=TownService.CharacterInfo)return false;
             }
+            if(BattleTransitionController.IsTempleReady && service!=TownService.Temple)return false;
+            if(service==TownService.Temple && !BattleTransitionController.IsTempleReady)return false;
             if (service == TownService.Quests && DarkSaver.World.TownSceneContext.Current?.Key != "Kaosia") return false;
             if (!CanOpen || controller == null || !controller.isActiveAndEnabled
                 || !System.Enum.IsDefined(typeof(TownService), service)) return false;
@@ -150,6 +152,13 @@ namespace DarkSaver.UI
                 var campaignSession=GetComponent<BattleTransitionController>();
                 int unlocked=campaignSession?.CaptureUnlockedGenerals().Length ?? 0;
                 if(unlocked>0)ui.Label("general-unlocks",new Rect(panel.x+20,294,width-40,18),"해금된 지휘관 기록: "+unlocked+"명",12);
+            }
+            else if (Service == TownService.Temple)
+            {
+                ui.Label("temple-description", new Rect(panel.x+20,110,width-40,80), "주인공을 부활시키고 생명력과 마력을 모두 회복합니다.\n비용은 무료입니다.");
+                ui.Button("temple-recover", new Rect(panel.x+20,210,width-40,32), "부활 · 전회복", () => {
+                    GetComponent<BattleTransitionController>().TryTempleRecovery(out var message); SaveMessage=message;
+                });
             }
             else if (Service == TownService.Quests) DrawQuests(panel);
             else if (Service == TownService.Shop) {

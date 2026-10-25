@@ -4,9 +4,12 @@ using System.Globalization;
 using DarkSaver.Jobs;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace DarkSaver.Editor
 {
+    // Preserve saved window layouts from before the Editor asmdef was introduced.
+    [MovedFrom(true, sourceNamespace: "DarkSaver.Editor", sourceAssembly: "Assembly-CSharp-Editor", sourceClassName: "JobCatalogPreviewWindow")]
     public sealed class JobCatalogPreviewWindow : EditorWindow
     {
         [SerializeField] private int catalogSelection;

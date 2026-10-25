@@ -177,7 +177,11 @@ namespace DarkSaver.Combat
                 playerHp = playerMaxHp = stats.Hp; playerMp = playerMaxMp = stats.Mp;
                 playerLifeState = UnitLifeState.Active; hasPlayerVitals = true;
             }
-            character = profile.Clone(); inventory = new NativeInventory(); return true;
+            character = profile.Clone();
+            inventory = new NativeInventory { gold = profile.hasLevels && profile.baseLevel == 1 && profile.jobLevel == 1
+                && profile.jobId == NativeCharacterProfile.SupportedStartingJob && profile.tutorial?.step == 0
+                ? GameConstants.NewCharacterStartingGold : 0 };
+            return true;
         }
         public int ClearedScenarioCount => clearedScenarioKeys.Count;
         public bool HasPlayerVitals => hasPlayerVitals;

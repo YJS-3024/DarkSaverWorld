@@ -2,6 +2,7 @@ using DarkSaver.Core;
 
 internal static class LoginFlowChecks
 {
+    [Serializable] private sealed class LegacyHistory {public int version;public string savePath;}
     public static void Run(Action<bool,string> check)
     {
         string directory=Path.Combine(Path.GetTempPath(),"ds-login-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(directory);
@@ -35,7 +36,12 @@ internal static class LoginFlowChecks
             File.WriteAllText(slots[1]+".bak","corrupt");
             check(!NativeLoginHistory.TryResolve(history,slots,out path,out selection,out _) && path==slots[1] && !selection,"corrupt last save is not silently replaced by another character");
             File.Delete(history);
-            check(NativeLoginHistory.TryResolve(history,slots,out path,out selection,out _) && path==slots[0] && !selection,"legacy installation chooses latest valid character without history");
+            check(NativeLoginHistory.TryResolve(history,slots,out path,out selection,out _) && path==null && selection,"existing test saves without history require explicit character selection");
+            File.WriteAllText(history,UnityEngine.JsonUtility.ToJson(new LegacyHistory {version=1,savePath=slots[0]}));
+            check(NativeLoginHistory.TryResolve(history,slots,out path,out selection,out _) && selection && path==null,"legacy auto-resume history requires explicit selection");
+            check(NativeLoginHistory.TryRemember(history,slots[0],out _,"old_account"),"account-bound selection is remembered");
+            check(NativeLoginHistory.TryResolve(history,slots,out path,out selection,out _,"new_account") && selection && path==null,"new account cannot inherit another account resume preference");
+            check(NativeLoginHistory.TryResolve(history,slots,out path,out selection,out _,"old_account") && !selection && path==slots[0],"matching account retains selected resume");
             File.WriteAllText(history,"invalid preference");
             check(!NativeLoginHistory.TryResolve(history,slots,out _,out selection,out _) && !selection,"corrupt history offers explicit recovery rather than auto-switch");
             check(NativeLoginHistory.TryRemember(history,slots[0],out _),"explicit character selection repairs preference");

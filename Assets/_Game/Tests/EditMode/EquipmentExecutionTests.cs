@@ -57,10 +57,10 @@ namespace DarkSaver.Tests
                 var quote=new NativeShopOffer {itemId=1,buyPrice=1,sellPrice=1};
                 session.ConfigureLocalShop(Items, new[] { quote });
                 Assert.IsFalse(session.TryTrade(quote,2,false,Items,out _));
-                Assert.IsTrue(session.TryTrade(quote,1,false,Items,out _));Assert.AreEqual(1,session.OwnedItemCount(1));
+                Assert.IsFalse(session.TryTrade(quote,1,false,Items,out _));Assert.AreEqual(2,session.OwnedItemCount(1));
                 Assert.IsFalse(session.TryTrade(quote,1,false,Items,out _));
                 Assert.IsTrue(session.TryChangeEquipment(2,0,session.CaptureCharacterProfile(),out _));
-                Assert.IsTrue(session.TryTrade(quote,1,false,Items,out _));Assert.AreEqual(0,session.OwnedItemCount(1));
+                Assert.IsTrue(session.TryTrade(quote,2,false,Items,out _));Assert.AreEqual(0,session.OwnedItemCount(1));
             });
         }
         [Test]
