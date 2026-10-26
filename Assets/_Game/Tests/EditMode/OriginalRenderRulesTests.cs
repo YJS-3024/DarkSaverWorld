@@ -8,6 +8,14 @@ namespace DarkSaver.Tests
 {
     public sealed class OriginalRenderRulesTests
     {
+        [Test]
+        public void FlatDecorationsStayBelowActorsWhileTallObjectsUseGroundContact()
+        {
+            Assert.That(OriginalRenderRules.WorldObjectSortingOrder(200,32,20),Is.LessThan(20000-20*10));
+            int tree=OriginalRenderRules.WorldObjectSortingOrder(200,96,20);
+            Assert.That(tree,Is.GreaterThan(20000-21*10)); // Actor behind tree.
+            Assert.That(tree,Is.LessThan(20000-19*10)); // Actor in front of tree.
+        }
         [TestCase("Map_329_RenderPassTest", true)]
         [TestCase("Brugos01_Map", true)]
         [TestCase("Brugos01_Runtime", false)]

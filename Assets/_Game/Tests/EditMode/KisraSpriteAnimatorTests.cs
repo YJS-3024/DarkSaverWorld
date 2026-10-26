@@ -95,7 +95,9 @@ namespace DarkSaver.Tests
                 animator.SetMotion(motion);
                 if (stop) animator.SetMotion(Vector2.zero);
                 Invoke(animator, "Update");
-                Assert.That(Frames(sourceRow), Does.Contain(go.GetComponent<SpriteRenderer>().sprite));
+                var shown=go.GetComponent<SpriteRenderer>().sprite;
+                Assert.IsTrue(Frames(sourceRow).Any(frame=>frame.texture==shown.texture && frame.rect==shown.rect));
+                Assert.That(shown.bounds.center.sqrMagnitude,Is.LessThan(.00001f));
             }
             finally { EditorSceneManager.ClosePreviewScene(preview); }
         }

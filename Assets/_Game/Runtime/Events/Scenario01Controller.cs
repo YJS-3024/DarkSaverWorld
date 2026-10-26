@@ -56,11 +56,18 @@ namespace DarkSaver.Events
         private static void ResetStatics() { current = null; definition = null; definitions.Clear(); }
 
         public static bool BlocksWorldActions => current != null && !current.aborting && current.player != null
-            && (current.progress == null || current.ScriptActive || !string.IsNullOrEmpty(current.error));
+            && (current.progress == null || current.ScriptActive || current.completionResultPending || !string.IsNullOrEmpty(current.error));
         public bool ScriptActive => progress != null && (progress.phase == Scenario01Progress.Intro
             || progress.phase == Scenario01Progress.Outro || progress.activeEvent != 0);
         private bool CinematicActive => progress != null && progress.activeEvent == 0
             && (progress.phase == Scenario01Progress.Intro || progress.phase == Scenario01Progress.Outro);
+        private bool completionResultPending;
+        public bool CompletionResultPending=>completionResultPending;
+        public bool AcknowledgeCompletionResult()
+        {
+            if(!completionResultPending || progress==null || progress.phase!=Scenario01Progress.Complete)return false;
+            completionResultPending=false;player?.SetScenarioInputBlocked(false);return true;
+        }
         public string Error => error;
         public static void EnsureForLoadedScene()
         {
@@ -240,6 +247,8 @@ namespace DarkSaver.Events
             {
                 progress = CaptureProgress(); revision = ProgressRevision;
                 if (progress == null || !progress.Matches(Content)) { Fail("시나리오 복원 상태를 확인할 수 없습니다."); return; }
+            if(completionResultPending)
+            {player.SetScenarioInputBlocked(true);TickActors(Time.unscaledDeltaTime);return;}
                 Reconcile();
             }
             // A rejected asynchronous battle load must not leave this encounter locked.
@@ -282,6 +291,7 @@ namespace DarkSaver.Events
                 if(result==Scenario01Rules.StepResult.Waiting)return false;
                 if (result == Scenario01Rules.StepResult.Finished)
                 {
+                    if(wasOutro && progress.phase==Scenario01Progress.Complete)completionResultPending=true;
                     if (wasIntro) SetPlayerPosition(World(Content.entryX, Content.entryY));
                     else if (wasOutro && scenarioKey != "01") SetPlayerPosition(ground.GetCellCenterWorld(new Vector3Int(Content.entryX,Content.height-1-Content.entryY,0)));
                     else if (wasOutro)
@@ -397,7 +407,7 @@ namespace DarkSaver.Events
                     }
                     else cameraFollow.Configure(player.transform, new Vector2(Content.width, Content.height));
                 }
-                player.SetScenarioInputBlocked(ScriptActive);
+                player.SetScenarioInputBlocked(ScriptActive || completionResultPending);
                 if (playerBody != null) playerBody.enabled = CinematicActive ? false : previousPlayerVisible;
             }
             catch (Exception ex) { Fail(ex.Message); }
@@ -602,6 +612,13 @@ namespace DarkSaver.Events
             }
         }
 
+        private void DrawNotice()
+        {
+            if(progress==null || progress.noticeSeconds<=0 || string.IsNullOrEmpty(progress.noticeText))return;
+            ui.NativeTexturePanel("notice",new Rect(40,130,561,65),Resources.Load<Texture2D>("UI/ScenarioNotice"));
+            ui.NativeBitmapText("notice-text",new Rect(52,153,537,18),progress.noticeText.Replace("%s",session.PlayerName ?? ""),Color.white,
+                alignment:TextAnchor.MiddleCenter);
+        }
         private void LateUpdate()
         {
             if (aborting || player == null || FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling == true || SceneManager.GetSceneByName("Battle").isLoaded) { ui?.Hide(); return; }
@@ -618,14 +635,20 @@ namespace DarkSaver.Events
                 ui.End(); return;
             }
             if (!initialized) { ui?.Hide(); return; }
+            if(completionResultPending)
+            {
+                InGameUi.Ensure(ref ui,this,120);ui.Begin();
+                ui.DungeonResult("scenario-result",default,session.PlayerName,()=>AcknowledgeCompletionResult(),
+                    "처치한 몬스터: 총 "+progress.defeated.Count+"명",progress.hasBattleExperienceLedger?
+                        progress.battleExperienceEarned.ToString(System.Globalization.CultureInfo.InvariantCulture):string.Empty,"승리");
+                DrawNotice();ui.End();return;
+            }
             var commands = Scenario01Rules.CurrentCommands(Content, progress);
             if (progress.cursor >= commands.Length || commands[progress.cursor].name != "MESSAGE" || commands[progress.cursor].args[0] == "0")
             {
                 if (progress.noticeSeconds > 0 && !string.IsNullOrEmpty(progress.noticeText))
                 {
-                    InGameUi.Ensure(ref ui, this, 120); ui.Begin(); ui.Panel("notice", new Rect(40, 130, 561, 65));
-                    ui.NativeBitmapText("notice-text", new Rect(52, 153, 537, 18), progress.noticeText.Replace("%s", session.PlayerName ?? ""), Color.white,
-                        alignment: TextAnchor.MiddleCenter); ui.End();
+                    InGameUi.Ensure(ref ui, this, 120); ui.Begin();DrawNotice();ui.End();
                 }
                 else ui?.Hide();
                 return;

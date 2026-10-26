@@ -114,7 +114,9 @@ namespace DarkSaver.Player
             if (suppressMouseUntilRelease && !Input.GetMouseButton(0)) suppressMouseUntilRelease = false;
             if (!suppressMouseUntilRelease && Input.GetMouseButtonDown(0) && Camera.main != null
                 && Rendering.GameScreen.TryScreenToGui(Input.mousePosition, out _)
-                && (DarkSaver.World.TownServiceNpc.TryInteractAt(Camera.main.ScreenToWorldPoint(Input.mousePosition),this,
+                && (worldHud!=null && worldHud.TryRestoreStatusAt(Camera.main.ScreenToWorldPoint(Input.mousePosition))
+                    || DarkSaver.World.ScenarioGuideNpc.TryInteractAt(Camera.main.ScreenToWorldPoint(Input.mousePosition),this)
+                    || DarkSaver.World.TownServiceNpc.TryInteractAt(Camera.main.ScreenToWorldPoint(Input.mousePosition),this,
                         worldHud != null ? worldHud.GetComponent<TownServicesPanel>() : null)
                     || DarkSaver.World.ShopCounter2D.TryInteractAt(Camera.main.ScreenToWorldPoint(Input.mousePosition),this)
                     || DarkSaver.World.TownNpcInteraction.TryInteractAt(Camera.main.ScreenToWorldPoint(Input.mousePosition), this,

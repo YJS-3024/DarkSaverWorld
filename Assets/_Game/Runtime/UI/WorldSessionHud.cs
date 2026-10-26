@@ -16,6 +16,13 @@ namespace DarkSaver.UI
         private InGameUi ui;
         private Rect pointerBounds;
         private string trainingEntryMessage;
+        public bool IsStatusMinimized { get; private set; }
+        public bool IsStatusClosed { get; private set; }
+        public void MinimizeStatus(){IsStatusMinimized=true;IsStatusClosed=false;}
+        public void CloseStatus(){IsStatusClosed=true;IsStatusMinimized=false;}
+        public void RestoreStatus(){IsStatusClosed=IsStatusMinimized=false;}
+        // World scenes have no combat status window to restore by clicking the player.
+        public bool TryRestoreStatusAt(Vector2 world) => false;
         public void SetTrainingEntryMessage(string message) => trainingEntryMessage = message;
         public bool ReturnFromTraining()
         {
@@ -35,6 +42,7 @@ namespace DarkSaver.UI
             // Existing scenes gain the preparation panel without rewriting scene YAML.
             if (GetComponent<BattleFormationPanel>() == null) gameObject.AddComponent<BattleFormationPanel>();
             if (GetComponent<TownServicesPanel>() == null) gameObject.AddComponent<TownServicesPanel>();
+            if (GetComponent<ScenarioRoomPanel>() == null) gameObject.AddComponent<ScenarioRoomPanel>();
         }
 
         public bool IsVisible => !FirstPlayTutorial.BlocksWorldActions && !SceneManager.GetSceneByName("Battle").isLoaded && !DarkSaver.Events.Scenario01Controller.BlocksWorldActions;
@@ -82,31 +90,16 @@ namespace DarkSaver.UI
             ui.Begin();
             if (!TownSceneContext.IsReady) trainingEntryMessage = null;
             if (session == null) session = GetComponent<BattleTransitionController>();
-            var width = Mathf.Min(260f, Rendering.GameScreen.Width - 24f);
-            if (width <= 0f) { ui.Hide(); return; }
-            var panel = new Rect(12, 12, 120, 213);
-            pointerBounds = panel;
-            ui.NativeStatusPanel("world", panel);
-            ui.NativeStatusName("world-name", new Rect(panel.x + 9, panel.y + 7, 68, 14),
-                session.HasCreatedCharacter ? session.PlayerName : "용병대장");
-            var playerBody = FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>()?.GetComponent<SpriteRenderer>();
-            ui.Portrait("world-portrait", new Rect(panel.x + 44, panel.y + 79, 32, 32),
-                NativeBattleStatus.UnitPicture(playerBody, session.PlayerJobId));
-            // Original layout includes AP; it has no meaning outside combat, so do not fabricate a value.
-            ui.NativeStatusGauge("world-hp", new Vector2(panel.x + 30, panel.y + 156), session.PlayerHp, session.PlayerMaxHp, 1);
-            ui.NativeStatusGauge("world-mp", new Vector2(panel.x + 30, panel.y + 169), session.PlayerMp, session.PlayerMaxMp, 2);
-            ui.NativeStatusNumber("world-exp", new Vector2(panel.x + 34, panel.y + 183),
-                session.PlayerExperience.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            pointerBounds=default;
             var controller=FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>();
             if(controller!=null && !controller.UiInputBlocked)
             {
                 if(Input.GetKeyDown(KeyCode.I))OpenPersonalWindow(TownService.Inventory);
                 else if(Input.GetKeyDown(KeyCode.C))OpenPersonalWindow(TownService.CharacterInfo);
+                if(Input.GetKeyDown(KeyCode.F5) && FindAnyObjectByType<WorldSceneCoordinator>()?.IsTravelling!=true)session.SaveWorld();
             }
-            ui.NativeRosterSelection("world-inventory-open",new Rect(panel.x+44,panel.y+79,32,32),
-                ()=>OpenPersonalWindow(TownService.Inventory),controller!=null && !controller.UiInputBlocked,"장비·소지품 (I)");
-            if(Input.GetKeyDown(KeyCode.F5) && controller!=null && !controller.UiInputBlocked
-                && FindAnyObjectByType<WorldSceneCoordinator>()?.IsTravelling!=true)session.SaveWorld();
+            // Character combat status belongs to BattleSceneRoot only. World scenes keep
+            // personal-window shortcuts and notices without drawing a combat panel.
             var message=!string.IsNullOrEmpty(trainingEntryMessage)?trainingEntryMessage
                 : string.IsNullOrEmpty(session.LastSaveMessage)?session.LastTransitionMessage:session.LastSaveMessage;
             if(!string.IsNullOrEmpty(message))ui.NativeBitmapText("world-notice",new Rect(144,12,480,32),message,Color.white,2);

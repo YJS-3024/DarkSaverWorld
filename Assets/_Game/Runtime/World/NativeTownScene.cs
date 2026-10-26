@@ -91,7 +91,7 @@ namespace DarkSaver.World
                 var renderer=Child("Object_"+record.index.ToString("000")).AddComponent<SpriteRenderer>();
                 renderer.sprite=FullSprite(Resources.Load<Texture2D>(ResourceRoot+"/"+record.texture),new Vector2(0,1));
                 renderer.transform.localPosition=new Vector3(record.x,data.height-record.y,0);
-                renderer.sortingOrder=OriginalRenderRules.ForegroundSortingOrder(record.index);
+                renderer.sortingOrder=OriginalRenderRules.WorldObjectSortingOrder(record.index,renderer.sprite.rect.height,renderer.bounds.min.y);
             }
         }
         private void BuildRuntime(TownDefinition town,MapData data)

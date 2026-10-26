@@ -824,7 +824,11 @@ namespace DarkSaver.Combat
                 var cell = groundMap.WorldToCell(visual.Body.transform.position);
                 visibleCells.Add(new CombatGridCell(cell.x, area.yMax - 1 - cell.y));
             }
-            configured = true; IsBound = true; battle.SetMapPresentationActive(true); Listen(); RefreshVisualState(); return true;
+            configured = true; IsBound = true; battle.SetMapPresentationActive(true);
+            // A free-walking player can enter combat between cell centres. Snap on bind,
+            // rather than waiting for the first grid step to align the visual and body.
+            for(int i=0;i<visuals.Count;i++)SynchronizePosition(i,visibleCells[i]);
+            Listen(); RefreshVisualState(); return true;
         }
 
         private void Listen()

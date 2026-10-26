@@ -85,6 +85,9 @@ namespace DarkSaver.Events
         public float cameraX = 14, cameraY = 32;
         public bool clearRequested;
         public bool firstClearSaved, branchTest, repeatEvent;
+        // Display-only aggregate; combat has already granted the experience.
+        public long battleExperienceEarned;
+        public bool hasBattleExperienceLedger;
         public string scenarioKey, nextScenario, presentationMap, endingVariant;
         public List<int> mapChanges = new(), unlockedGenerals = new();
         public List<string> deathSides = new();
@@ -111,6 +114,7 @@ namespace DarkSaver.Events
             && (pendingBattle == -1 || pendingBattle >= 400 && pendingBattle < 800)
             && Scenario01Definition.IsHash(sourceHash) && Scenario01Definition.IsHash(profileHash)
             && Guid.TryParse(actorGuid, out _) && !double.IsNaN(wait) && !double.IsInfinity(wait) && wait >= 0 && wait <= 3600
+            && battleExperienceEarned>=0
             && !double.IsNaN(noticeSeconds) && !double.IsInfinity(noticeSeconds) && noticeSeconds >= 0 && noticeSeconds <= 11
             && musicMode >= 0 && musicMode <= (version == 1 ? 1 : 2)
             && Finite(cameraX) && Finite(cameraY) && cameraX >= (version == 1 ? 0 : -1000) && cameraX < (version == 1 ? 40 : 1000) && cameraY >= (version == 1 ? 0 : -1000) && cameraY < (version == 1 ? 40 : 1000)
@@ -147,7 +151,7 @@ namespace DarkSaver.Events
             var guid = Guid.NewGuid();
             return new Scenario01Progress { version = definition.version == 1 ? 1 : 2, scenarioKey = definition.Key, endingVariant = definition.defaultEnding, sourceHash = definition.sourceHash, profileHash = definition.profileHash,
                 actorGuid = guid.ToString("N"), rng = BitConverter.ToUInt32(guid.ToByteArray(), 0),
-                phase = legacyClear ? Complete : Intro };
+                phase = legacyClear ? Complete : Intro,hasBattleExperienceLedger=!legacyClear };
         }
     }
 

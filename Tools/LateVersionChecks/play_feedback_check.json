@@ -1,0 +1,54 @@
+{
+  "baseCommit": "3c82cad4",
+  "source": "user Play observations; no original runtime execution in this environment",
+  "changes": {
+    "1_results": "Scenario encounter victories return automatically; scenario end emits one completion result. Party defeat and failed return retain an explicit outcome/retry path. Confirmation now actually requests world return. Display-only experience ledger is saved without granting experience twice; old saves without a complete ledger do not invent a total.",
+    "1_tile_alignment": "Imported foot-pivot character frames are presented with centre-pivot copies without moving roots/colliders or editing source assets. Successful battle binding snaps units to their validated cell centres immediately.",
+    "2_music": "No guessed replacement. Original early and late Nco01.mid SHA256 match; source intro explicitly requests nco01/ncr04/nco01. Current FluidSynth/TimGM synthesis may sound different; listening comparison remains unverified.",
+    "3_depth": "Tile-high decorations below actors; taller objects sort at ground contact. This is the single-player presentation correction, not newly recovered native server metadata.",
+    "4_status": "User-confirmed policy: no combat status panel or minimized icon in world scenes, including towns and fields. I/C/F5 and notices remain; battle status is unchanged.",
+    "5_scenario_placement": "Existing 25 authored entrance coordinates retained; scenario portal markers replaced with guides. Exact original field entrance coordinates remain unconfirmed.",
+    "6_field_objects": "Depth correction applied; object source placements and map assets not moved. No specific erroneous object coordinates were supplied.",
+    "7_scenario_guides": "Field guide NPC click opens local room list through ServerManager list/entry requests. Only current character progress is shown; no fake online players/rooms. Native Wlib scene12 artwork/controls reused as a local lobby, not a recovered original room protocol or guaranteed native lobby position.",
+    "8_item_notice": "Paper popup replaced with native dark Wlib scene28 artwork; original notice duration/text rules retained."
+  },
+  "protected": [
+    "User is editing Kaosia map: scene, map resources and route/entrance coordinates were not changed",
+    "Existing credentials, character slots and failure saves were not edited",
+    "Prior uncommitted login/UI and screenshot analysis changes preserved"
+  ],
+  "verification": {
+    "apiCompileErrors": {
+      "runtime": 0,
+      "editor": 0,
+      "editModeSources": 0
+    },
+    "runtimeSources": 217,
+    "editModeSources": 124,
+    "offlineIntegrationChecks": 35563,
+    "nativeRoomControls": 4,
+    "buttonFrames": 12,
+    "guideTexture": [
+      32,
+      32
+    ],
+    "noticeTexture": [
+      562,
+      84
+    ],
+    "scenarioEntrances": 25,
+    "actualEditModeExecuted": false,
+    "actualUnityPlayExecuted": false,
+    "actualAudioListening": false
+  },
+  "requiresActualPlay": [
+    "Scenario01 multiple encounter victories without popups; one end result; no duplicate XP/bomb/recruit awards",
+    "Interrupt and resume result ledger; old saves with unknown total; storage failure retry",
+    "Player/monster alignment at start and after grid movement,32/64px frames and selection/effects",
+    "Decoration front/behind occlusion; flat floor patches; unchanged physical collisions",
+    "No world combat panel/icon after travel, return or relogin; I/C/F5 and NPC interaction retained; battle minimize/close remain",
+    "Guide NPC distance, locked stages, own saved room/new room/completed record, stale request rejection/cancel, enter/return",
+    "Bomb notice dark frame and text timing",
+    "Listen to original score vs Unity synth; exact field object/entrance positions need a specified reference"
+  ]
+}

@@ -38,11 +38,13 @@ namespace DarkSaver.Network
         private readonly Func<bool> alreadyCleared;
         private Scenario01Progress working;
         private int knownRevision=-1;
+        public string LastFailureDiagnostic { get; private set; }
         public LocalScenarioServer(Scenario01Definition definition,Func<Scenario01Progress> capture,Func<NativeInventory> inventory,
             Func<int> revision,Func<int> job,Func<bool> alreadyCleared,SaveScenarioCandidate save,Func<bool> canRetrySave=null)
         { this.definition=definition;this.capture=capture;this.inventory=inventory;this.revision=revision;this.job=job;this.alreadyCleared=alreadyCleared;this.save=save;this.canRetrySave=canRetrySave; }
         public LocalCommandResponse Handle(ScenarioCommandRequest request)
         {
+            LastFailureDiagnostic=null;
             int current=revision();
             if(knownRevision!=current){working=capture()?.Clone();knownRevision=current;}
             ScenarioStateNotification Reply(bool accepted,string reason=null,bool changed=false,Scenario01Rules.StepResult result=Scenario01Rules.StepResult.Waiting)
@@ -89,7 +91,11 @@ namespace DarkSaver.Network
                     retryableSaveFailure:canRetrySave?.Invoke()==true);
                 knownRevision=revision();working=next.Clone();return Reply(true,changed:true,result:step);
             }
-            catch(Exception ex){return Reply(false,"시나리오 서버 처리 실패: "+ex.Message);}
+            catch(Exception ex)
+            {
+                LastFailureDiagnostic=ex.GetType().Name+"/0x"+ex.HResult.ToString("X8");
+                return Reply(false,"시나리오 처리 중 오류가 발생했습니다.");
+            }
         }
     }
 }

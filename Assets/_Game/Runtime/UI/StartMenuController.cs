@@ -50,7 +50,7 @@ namespace DarkSaver.UI
         private void OnDestroy()
         {foreach(var binding in bindings)binding.Dispose();if(protocol!=null)protocol.ResponseReceived-=ReceiveCharacterPacket;}
         private const string GameSceneName = "Kaosia_Play";
-        private bool loading,loggingIn,authenticated;
+        private bool loading,loggingIn=true,authenticated;
         private bool firstLogin=true,loginFailed,loginCanRecover,registering,hasAccount;
         private string loginUserId="",loginPassword="",registrationId="",registrationPassword="",registrationConfirmation="";
         public bool IsRegistering=>registering;
@@ -69,7 +69,7 @@ namespace DarkSaver.UI
         private void Start()
         {
             EnsureEntryCamera();
-            RefreshContinue();
+            StartGame();
         }
         public void RefreshContinue()
         {
@@ -104,7 +104,7 @@ namespace DarkSaver.UI
                 if(registering)DrawRegistration(panel);
                 else DrawCharacterSelection(panel);
             }
-            else DrawNativeStart();
+            else DrawLogin(panel);
             ui.End();
         }
 
@@ -116,7 +116,7 @@ namespace DarkSaver.UI
             authenticated=false;ClearAccountSelection();
             BindLocalServer();protocol.TryRequest(new LogoutRequest(),out _);
             RefreshContinue();selecting=false;creating=false;registering=false;loggingIn=true;loginFailed=false;loginCanRecover=false;loginPassword="";
-            loadMessage=string.Empty;
+            entryOptions=false;loadMessage=string.Empty;
         }
 
         public bool Login(string userId=null,string password=null)

@@ -85,6 +85,17 @@
       ],
       "sourceSha256": "be189051d4a5b54b14d6ae5ddcbb1872434d67f45a0b4fc0922c3b2a9012e933",
       "pixelSha256": "9ce4d05645a66f171b60675b540894845cfa3163b88e580f93d453abfcacf1f4"
+    },
+    {
+      "asset": "Assets/_Game/Resources/UI/Entry/LoginAtlas.png",
+      "source": "login.bmp",
+      "sourceRect": null,
+      "size": [
+        640,
+        480
+      ],
+      "sourceSha256": "d8a49250bc822c851324f0431e6dadbb3b879b6965d24cafe390aa9c1f71bb29",
+      "pixelSha256": "218ebf04d9ef078c0c6fa3b3c4196aa01e82a32abd4814913ac2db4dc9f821f2"
     }
   ],
   "panelFillRGB": [
@@ -92,8 +103,8 @@
     247,
     255
   ],
-  "placement": "Native login origin226,279 and sourceRect9,9,206,96 verified in entry/layout.json; Unity uses the native-size BltFast geometry. Title start buttons remain local.",
-  "removed": "Unused original options/billing controls; retained local account registration",
+  "placement": "Native stage-zero login directly on Logo6; login226,279 at197x87; connect239,339; join294,339; options334,339; exit374,339. Native BltFast branch.",
+  "removed": "Extra local start buttons and action-strip fill removed; server selection remains omitted by user request.",
   "unityPlay": false,
   "apiCompilation": {
     "runtimeSources": 211,
@@ -115,5 +126,47 @@
     ],
     "placement": "local origin, original frame and card labels",
     "blackColorKey": true
+  },
+  "nativeLayoutRestoration": {
+    "verifiedInstructionFixtures": 28,
+    "sourceLayout": "분석/Saver_Late/entry/layout.json",
+    "atlasPixelsMatch": true,
+    "buttonStatePatches": "Native-size child RawImages; idle panel retained, hover and pressed frames do not stretch",
+    "inputHitAreasLTRB": [
+      [
+        298,
+        296,
+        408,
+        316
+      ],
+      [
+        298,
+        320,
+        408,
+        338
+      ]
+    ],
+    "inputBackground": "transparent over original pixels",
+    "textColor": "white from GDI color instruction0x40c36e",
+    "optionsDrawer": [
+      226,
+      360,
+      197,
+      45
+    ],
+    "actualUnityPlay": false,
+    "actualEditModeExecuted": false,
+    "apiCompilationErrors": 0,
+    "intentionalOrUnresolvedDifferences": [
+      "existing local signup form replaces retired registration website",
+      "server selection omitted by prior user instruction",
+      "retired billing and unconfirmed mode selection backend are inactive",
+      "native DirectDraw stretch branch, original OS font rasterization and pointer-hotspot equivalence require original runtime comparison"
+    ],
+    "font": {
+      "native": "굴림 height12 width5 weight600",
+      "unity": "Gulim OS font preferred;12px Bold;fallback if unavailable",
+      "exactGdiRasterizationVerified": false
+    }
   }
 }

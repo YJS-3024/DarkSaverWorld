@@ -13,6 +13,7 @@ namespace DarkSaver.UI
         private readonly HashSet<string> used=new();
         private readonly Dictionary<string,Action> actions=new();
         private readonly Dictionary<string,Action<string>> textChanges=new();
+        private readonly List<string> inputOrder=new();
         private readonly Dictionary<string,(string Text,string[] Rows)> resultRows=new();
         private Behaviour owner;
         private Canvas canvas;
@@ -61,14 +62,46 @@ namespace DarkSaver.UI
         {var image=Component<RawImage>(node);image.texture=texture;image.color=color;image.uvRect=new Rect(0,0,1,1);image.raycastTarget=raycast;return image;}
         private static void Clip(RectTransform node)=>Component<RectMask2D>(node);
         private bool Active(string key)=>owner!=null && owner.isActiveAndEnabled && root.gameObject.activeInHierarchy && used.Contains(key) && elements[key].gameObject.activeInHierarchy;
-        private void Update(){if(owner==null || !owner.isActiveAndEnabled)Hide();}
+        private void Update()
+        {
+            if(owner==null || !owner.isActiveAndEnabled){Hide();return;}
+            if(Input.GetKeyDown(KeyCode.Tab))MoveInputFocus(Input.GetKey(KeyCode.LeftShift)||Input.GetKey(KeyCode.RightShift));
+        }
+        public bool MoveInputFocus(bool reverse=false)
+        {
+            var system=EventSystem.current;
+            if(system==null || root==null || !root.gameObject.activeInHierarchy || owner==null || !owner.isActiveAndEnabled)return false;
+            var selected=system.currentSelectedGameObject;
+            if(selected!=null && !selected.transform.IsChildOf(root))return false;
+            var fields=new List<InputField>();
+            foreach(var key in inputOrder)
+            {
+                var field=Find<InputField>(key);
+                if(Active(key) && field!=null && field.isActiveAndEnabled && field.IsInteractable() && !field.readOnly)fields.Add(field);
+            }
+            if(fields.Count==0)return false;
+            int current=fields.FindIndex(f=>f.gameObject==selected);
+            int next=current<0?(reverse?fields.Count-1:0):(current+(reverse?-1:1)+fields.Count)%fields.Count;
+            fields[next].Select();fields[next].ActivateInputField();return true;
+        }
         private void SyncViewport()
         {
             var v=Rendering.GameScreen.Viewport;root.anchoredPosition=new Vector2(v.x,-v.y);
             float scale=v.width/Rendering.GameScreen.Width;root.localScale=new Vector3(scale,scale,1);
         }
         public void Begin(){canvas.sortingOrder=normalSortingOrder;SyncViewport();used.Clear();root.gameObject.SetActive(true);}
-        public void Hide(){CancelItemDrags();hoveredStatKey=null;resultRows.Clear();if(root!=null)root.gameObject.SetActive(false);}
+        public void Hide()
+        {
+            CancelItemDrags();hoveredStatKey=null;resultRows.Clear();
+            if(root!=null)root.gameObject.SetActive(false);
+            ReleaseHiddenSelection();
+        }
+        private void ReleaseHiddenSelection()
+        {
+            var system=EventSystem.current;var selected=system!=null?system.currentSelectedGameObject:null;
+            if(root!=null && selected!=null && selected.transform.IsChildOf(root) && !selected.activeInHierarchy)
+                system.SetSelectedGameObject(null);
+        }
         public void End()
         {
             DrawItemDrag();
@@ -78,6 +111,7 @@ namespace DarkSaver.UI
                 Label("native-stat-detail-text",new Rect(Mathf.Clamp(r.x+8,0,380)+8,Mathf.Clamp(r.y-60,0,424)+5,244,46),Find<CanvasUiEvents>(hoveredStatKey)?.Tooltip,12);
             }
             foreach(var pair in elements)pair.Value.gameObject.SetActive(used.Contains(pair.Key));
+            ReleaseHiddenSelection();
         }
         public void Raise(string key){if(elements.TryGetValue(key,out var node))node.SetAsLastSibling();}
         public void SolidRect(string key,Rect rect,Color color){Graphic(Node(key,rect),null,color);}
@@ -124,6 +158,7 @@ namespace DarkSaver.UI
         public void TextInput(string key,Rect rect,string value,int maximum,Action<string> changed,RectTransform parent=null,bool password=false)
         {
             bool fresh=!elements.ContainsKey(key);var node=Node(key,rect,parent);var image=Graphic(node,null,new Color(.86f,.71f,.48f),true);
+            if(fresh)inputOrder.Add(key);
             var field=Component<InputField>(node);field.targetGraphic=image;field.characterLimit=maximum;field.contentType=password?InputField.ContentType.Password:InputField.ContentType.Standard;field.asteriskChar='*';
             if(fresh)Label(key+"-text",new Rect(2,0,Mathf.Max(0,rect.width-4),rect.height),"",14,node);
             else Node(key+"-text",new Rect(2,0,Mathf.Max(0,rect.width-4),rect.height),node);
@@ -172,6 +207,10 @@ namespace DarkSaver.UI
             var parent=Scroll(scrollKey,rect,Mathf.Max(rect.height,cached.Rows.Length*20),changed);
             for(int i=0;i<cached.Rows.Length;i++)BattleLabel(i==0?key:key+"-"+i,new Rect(0,i*20,rect.width-20,20),cached.Rows[i],14,parent,true);
         }
-        private void OnDestroy(){if(font!=null){if(Application.isPlaying)Destroy(font);else DestroyImmediate(font);}}
+        private void OnDestroy()
+        {
+            if(font!=null){if(Application.isPlaying)Destroy(font);else DestroyImmediate(font);}
+            if(entryFont!=null){if(Application.isPlaying)Destroy(entryFont);else DestroyImmediate(entryFont);}
+        }
     }
 }

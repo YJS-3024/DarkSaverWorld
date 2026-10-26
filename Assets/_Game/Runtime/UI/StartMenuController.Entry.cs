@@ -4,7 +4,8 @@ namespace DarkSaver.UI
 {
     public sealed partial class StartMenuController
     {
-        private Texture2D entryBackground,entryPanel,entryConnect,entryJoin,entryExit;
+        private Texture2D entryBackground,entryPanel,entryAtlas;
+        private bool entryOptions;
         private Camera entryCamera;
         private void EnsureEntryCamera()
         {
@@ -32,15 +33,7 @@ namespace DarkSaver.UI
             if(entryBackground!=null)return;
             entryBackground=Resources.Load<Texture2D>("UI/Entry/Background");
             entryPanel=Resources.Load<Texture2D>("UI/Entry/LoginPanel");
-            entryConnect=Resources.Load<Texture2D>("UI/Entry/Connect");
-            entryJoin=Resources.Load<Texture2D>("UI/Entry/Join");
-            entryExit=Resources.Load<Texture2D>("UI/Entry/Exit");
-        }
-        private void DrawNativeStart()
-        {
-            ui.EntryButton("new",new Rect(254,92,51,17),entryConnect,"시작",StartGame,!loading);
-            ui.EntryButton("quit",new Rect(349,92,37,17),entryExit,"종료",Quit,!loading);
-            DrawEntryMessage(new Rect(110,128,420,52));
+            entryAtlas=Resources.Load<Texture2D>("UI/Entry/LoginAtlas");
         }
         private void DrawLogin(Rect unused)
         {
@@ -48,13 +41,22 @@ namespace DarkSaver.UI
             // Use the BltFast-size native crop; DirectDraw has a slightly larger destination.
             const float x=226,y=279;
             ui.EntryArtwork("entry-login-panel",new Rect(x,y,197,87),entryPanel);
-            // Remove unused billing/options controls from the original four-button strip.
-            ui.SolidRect("entry-login-action-fill",new Rect(x+5,y+55,187,27),new Color32(247,247,255,255));
-            ui.EntryInput("login-id",new Rect(x+74,y+13,108,14),loginUserId,20,v=>loginUserId=v,submit:()=>Login());
-            ui.EntryInput("login-password",new Rect(x+74,y+36,108,14),loginPassword,64,v=>loginPassword=v,password:true,submit:()=>Login());
-            ui.EntryButton("login",new Rect(x+13,y+60,51,17),entryConnect,"로그인",()=>Login(),!loading);
-            ui.EntryButton("open-register",new Rect(x+68,y+60,36,17),entryJoin,"회원가입",()=>OpenRegistration(),!loading);
-            ui.EntryButton("login-back",new Rect(x+148,y+60,37,17),entryExit,"시작 화면으로 돌아가기",()=>{loggingIn=false;loginPassword="";},!loading);
+            ui.EntryInput("login-id",new Rect(298,296,110,20),loginUserId,20,v=>loginUserId=v,submit:()=>Login());
+            ui.EntryInput("login-password",new Rect(298,320,110,18),loginPassword,64,v=>loginPassword=v,password:true,submit:()=>Login());
+            // BltFast destinations and native atlas patches from 0x40b630.
+            ui.EntryAtlasButton("login",new Rect(239,339,55,19),entryAtlas,new Rect(10,379,55,19),new Rect(77,379,50,16),"접속",()=>Login(),!loading);
+            ui.EntryAtlasButton("open-register",new Rect(294,339,38,19),entryAtlas,new Rect(209,55,38,19),new Rect(209,79,38,16),"가입",()=>OpenRegistration(),!loading);
+            ui.EntryAtlasButton("login-options",new Rect(334,339,38,19),entryAtlas,new Rect(209,10,38,19),new Rect(209,34,35,16),"옵션",()=>entryOptions=!entryOptions,!loading);
+            ui.EntryAtlasButton("quit",new Rect(374,339,38,19),entryAtlas,new Rect(252,54,38,19),new Rect(252,79,35,16),"종료",Quit,!loading);
+            if(entryOptions)
+            {
+                ui.EntryAtlasArtwork("entry-options",new Rect(226,360,197,45),entryAtlas,new Rect(9,100,197,45));
+                // Original billing and legacy mode services have no local counterpart.
+                // Preserve their artwork without executing retired web/DirectDraw actions.
+                ui.EntryAtlasButton("entry-billing",new Rect(240,378,35,20),entryAtlas,new Rect(10,149,35,20),new Rect(10,173,35,18),"과금 서비스는 사용하지 않습니다.",null,false);
+                ui.EntryAtlasButton("entry-billing-info",new Rect(284,378,57,20),entryAtlas,new Rect(53,149,57,20),new Rect(53,173,57,18),"과금 서비스는 사용하지 않습니다.",null,false);
+                ui.EntryAtlasButton("entry-mode",new Rect(350,378,57,20),entryAtlas,new Rect(119,149,57,20),new Rect(119,173,57,18),"원작 모드 전환 동작은 확인되지 않았습니다.",null,false);
+            }
             if(loginFailed && loginCanRecover)
                 ui.Button("login-recovery",new Rect(226,373,197,26),"캐릭터 선택으로 복구",()=>
                 {authenticated=true;RefreshContinue();loggingIn=false;selecting=true;},!loading,fontSize:12);

@@ -14,6 +14,7 @@ namespace DarkSaver.Player
         private Sprite[] current;
         private Vector2 facing = Vector2.down;
         private bool moving;
+        private readonly System.Collections.Generic.Dictionary<Sprite,Sprite> centeredFrames=new();
         public Vector2 Facing => facing;
         public bool IsMoving => moving;
         // Native status source: (32,32)-(64,64), or (64,64)-(128,128)
@@ -88,7 +89,23 @@ namespace DarkSaver.Player
             if (current == null || current.Length == 0) return;
             if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
             var frame = FrameAtMilliseconds(elapsedMilliseconds, current.Length, moving);
-            spriteRenderer.sprite = current[frame];
+            spriteRenderer.sprite = GridCenteredFrame(current[frame]);
+        }
+
+        private Sprite GridCenteredFrame(Sprite source)
+        {
+            if(source==null || (source.pivot-source.rect.size*.5f).sqrMagnitude<.001f)return source;
+            if(centeredFrames.TryGetValue(source,out var centered))return centered;
+            // Root transforms, colliders and grid occupancy stay at tile centres.
+            // Early player sheets used a foot pivot while scenario actors used a centre pivot.
+            centered=Sprite.Create(source.texture,source.rect,new Vector2(.5f,.5f),source.pixelsPerUnit,0,SpriteMeshType.FullRect);
+            centered.name=source.name;centeredFrames.Add(source,centered);return centered;
+        }
+        private void OnDestroy()
+        {
+            foreach(var sprite in centeredFrames.Values)
+                if(sprite!=null){if(Application.isPlaying)Destroy(sprite);else DestroyImmediate(sprite);}
+            centeredFrames.Clear();
         }
 
         public static int FrameAtMilliseconds(long elapsedMilliseconds, int frameCount, bool isMoving)

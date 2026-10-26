@@ -15,6 +15,30 @@ namespace DarkSaver.Tests
 {
     public sealed class BattleMapPresentationTests
     {
+        [Test]
+        public void BindingAlignsFreeWalkingBodiesBeforeTheirFirstGridStep()
+        {
+            WithMap(f=>{
+                f.Ally.transform.position=new Vector3(1.11f,2.22f,0);
+                Assert.IsTrue(f.Bind());
+                Assert.AreEqual(new Vector3(1.5f,2.5f,0),f.Ally.transform.position);
+                Assert.IsTrue(f.Battle.TryGetUnit(100,out var unit));
+                Assert.AreEqual(1,unit.X);Assert.AreEqual(1,unit.Y);
+            });
+        }
+        [Test]
+        public void ScenarioEncounterSuppressesResultButTrainingAndFailedReturnCanShowIt()
+        {
+            WithMap(f=>{
+                Assert.IsTrue(f.Bind());f.Battle.SetScenarioOutcomeDeferred(true);
+                Assert.IsTrue(f.Battle.ApplyHp(800,0));Assert.IsTrue(f.Battle.ApplyDeath(800,false));
+                Assert.IsTrue(f.Battle.IsBattleFinished);Assert.IsFalse(f.Battle.ShowsEncounterOutcome);
+                Assert.IsTrue(f.Battle.TryAcknowledgeOutcome());
+                f.Battle.SetScenarioOutcomeDeferred(false);
+                Assert.IsTrue(f.Battle.ShowsEncounterOutcome);
+                Assert.IsTrue(f.Battle.TryGetUnit(100,out var actor));Assert.AreEqual(0,actor.Experience);
+            });
+        }
         [TestCase(5,2,BattleMagicDirection.Right)]
         [TestCase(-5,2,BattleMagicDirection.Left)]
         [TestCase(2,-5,BattleMagicDirection.Up)]
@@ -785,14 +809,14 @@ namespace DarkSaver.Tests
                 Assert.That(left, Is.Not.Null); Assert.That(right, Is.Not.Null);
                 animator.Configure(null, new[] { down }, new[] { left }, new[] { right });
                 Assert.That(animator.TrySetFacing(new Vector2(1, 1)), Is.True);
-                animator.PresentFrame(0); Assert.That(f.Ally.sprite, Is.SameAs(left));
+                animator.PresentFrame(0); AssertNativeFrame(f.Ally.sprite, left);
                 Assert.That(animator.TrySetFacing(Vector2.left), Is.True);
-                animator.PresentFrame(0); Assert.That(f.Ally.sprite, Is.SameAs(right));
+                animator.PresentFrame(0); AssertNativeFrame(f.Ally.sprite, right);
                 Assert.That(animator.TrySetFacing(Vector2.zero), Is.False);
                 Assert.That(animator.TrySetFacing(new Vector2(float.NaN, 0)), Is.False);
                 Assert.That(animator.Facing, Is.EqualTo(Vector2.left));
                 animator.TrySetFacing(Vector2.up); animator.PresentFrame(0);
-                Assert.That(f.Ally.sprite, Is.SameAs(right)); // Missing row preserves existing sprite.
+                AssertNativeFrame(f.Ally.sprite, right); // Missing row preserves existing sprite.
             });
         }
 
@@ -806,16 +830,16 @@ namespace DarkSaver.Tests
                 Assert.That(frame1, Is.Not.Null);
                 animator.Configure(null, null, new[] { frame0, frame1, frame0 }, null);
                 animator.SetMotion(Vector2.right); animator.PresentFrame(150);
-                Assert.That(animator.IsMoving, Is.True); Assert.That(f.Ally.sprite, Is.SameAs(frame1));
+                Assert.That(animator.IsMoving, Is.True); AssertNativeFrame(f.Ally.sprite, frame1);
                 var position = f.Ally.transform.position;
                 Assert.That(f.Bind(), Is.True);
                 Assert.That(animator.IsMoving, Is.False); Assert.That(animator.Facing, Is.EqualTo(Vector2.right));
-                animator.PresentFrame(150); Assert.That(f.Ally.sprite, Is.SameAs(frame0));
+                animator.PresentFrame(150); AssertNativeFrame(f.Ally.sprite, frame0);
                 animator.SetMotion(Vector2.right); f.View.RefreshVisualState();
                 Assert.That(animator.IsMoving, Is.False); Assert.That(f.Ally.transform.position, Is.EqualTo(position));
                 Assert.That(f.Battle.PlayerHp, Is.EqualTo(120)); Assert.That(f.Battle.PlayerAp, Is.EqualTo(6));
                 f.View.SuspendPresentation(); Assert.That(animator.IsMoving, Is.True);
-                animator.PresentFrame(150); Assert.That(f.Ally.sprite, Is.SameAs(frame1));
+                animator.PresentFrame(150); AssertNativeFrame(f.Ally.sprite, frame1);
                 Assert.That(f.View.ResumePresentation(), Is.True); Assert.That(animator.IsMoving, Is.False);
                 f.View.SuspendPresentation(); Assert.That(animator.IsMoving, Is.True);
             });
@@ -1787,6 +1811,13 @@ namespace DarkSaver.Tests
                     check(f, formation, new System.Collections.Generic.Dictionary<int, DirectionalSpriteAnimator> { [100] = animator });
                 } finally { UnityEngine.Object.DestroyImmediate(jobs); }
             });
+        }
+
+        private static void AssertNativeFrame(Sprite shown,Sprite source)
+        {
+            Assert.IsNotNull(shown);Assert.AreSame(source.texture,shown.texture);
+            Assert.AreEqual(source.rect,shown.rect);Assert.AreEqual(source.pixelsPerUnit,shown.pixelsPerUnit);
+            Assert.That(shown.bounds.center.sqrMagnitude,Is.LessThan(.00001f));
         }
 
         private sealed class Fixture

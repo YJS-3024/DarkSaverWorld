@@ -60,10 +60,11 @@ internal static class LocalServerChecks
     private static void CheckScenario(int number,Action<bool,string> check)
     {
         string key=number.ToString("00");var definition=UnityEngine.JsonUtility.FromJson<Scenario01Definition>(File.ReadAllText("Assets/_Game/Resources/Scenarios/"+key+"/Content.json"));
-        Scenario01Progress saved=null;var items=new NativeInventory();int revision=0,saves=0;bool fail=false;
+        Scenario01Progress saved=null;var items=new NativeInventory();int revision=0,saves=0;bool fail=false,throwSave=false;
         var server=new LocalScenarioServer(definition,()=>saved?.Clone(),()=>items.Clone(),()=>revision,()=>100,()=>false,
             (Scenario01Progress state,NativeInventory inventory,out string reason)=>
             {
+                if(throwSave)throw new IOException("private fixture /accounts/secret/native-save.json");
                 if(fail){reason="disk fixture";return false;}saved=state.Clone();items=inventory.Clone();saves++;revision++;reason="";return true;
             },()=>fail);
         var bus=new LocalServerDispatcher();using var binding=bus.Register<ScenarioCommandRequest>(server.Handle);
@@ -72,8 +73,13 @@ internal static class LocalServerChecks
             check(bus.TryDispatch(new ScenarioCommandRequest(key,revision,operation,x,y,seconds),out var raw),"scenario request dispatched "+key);
             var packet=(ScenarioStateNotification)raw;check(packet.Accepted,"scenario response accepted "+key+": "+packet.Reason);return packet;
         }
-        fail=true;
+        throwSave=true;
+        var exception=(ScenarioStateNotification)server.Handle(new ScenarioCommandRequest(key,revision,ScenarioOperation.Initialize));
+        check(!exception.Accepted && !exception.RetryableSaveFailure && !exception.Reason.Contains("secret") && !exception.Reason.Contains("accounts"),"unexpected save exception never publishes a private path "+key);
+        check(saved==null && revision==0 && saves==0 && server.LastFailureDiagnostic.StartsWith("IOException/0x"),"unexpected save exception preserves state and sanitized diagnostic "+key);
+        throwSave=false;fail=true;
         var firstAttempt=(ScenarioStateNotification)server.Handle(new ScenarioCommandRequest(key,revision,ScenarioOperation.Initialize));
+        check(server.LastFailureDiagnostic==null,"diagnostic is reset for the next request "+key);
         check(!firstAttempt.Accepted && firstAttempt.RetryableSaveFailure && saved==null && revision==0,"initial save failure retains an uninitialized session for retry "+key);
         var staleDuringFailure=(ScenarioStateNotification)server.Handle(new ScenarioCommandRequest(key,-1,ScenarioOperation.Initialize));
         check(!staleDuringFailure.Accepted && !staleDuringFailure.RetryableSaveFailure,"stale request is not mislabeled as retryable I/O "+key);

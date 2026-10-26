@@ -124,6 +124,10 @@ CampaignChecks.Run(Check);
 LateWorldChecks.Run(Check);
 ScreenshotConfirmedChecks.Run(Check);
 LocalServerChecks.Run(Check);
+Check(!DarkSaver.Network.ScenarioRoomRules.IsOngoing(null), "no saved progress is not an ongoing room");
+for(int phase=-1;phase<=4;phase++)
+    Check(DarkSaver.Network.ScenarioRoomRules.IsOngoing(new DarkSaver.Events.Scenario01Progress {phase=phase})==(phase>=0 && phase<3), "local room phase "+phase);
+
 LoginFlowChecks.Run(Check);
 AccountChecks.Run(Check);
 DarkSaver.Tests.NativeMultiAccountChecks.Run(Check);

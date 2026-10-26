@@ -119,6 +119,7 @@ namespace DarkSaver.Combat
             }
             var campaignKey = DarkSaver.Events.Scenario01Controller.ActiveKey;
             var campaignReturn = CaptureCampaign(campaignKey);
+            bool hadCampaignEncounter=campaignReturn!=null && campaignReturn.pendingBattle!=-1;
             if (campaignReturn != null && campaignReturn.pendingBattle != -1)
             {
                 var definition = DarkSaver.Events.Scenario01Controller.LoadDefinition(campaignKey);
@@ -127,6 +128,15 @@ namespace DarkSaver.Combat
                     || !DarkSaver.Events.Scenario01Rules.RecordBattleReturn(definition,campaignReturn,campaignReturn.pendingBattle,target.LifeState != UnitLifeState.Active,
                         new DarkSaver.Events.Scenario01EnemyState {id=target.Id,hp=target.Hp,mp=target.Mp,x=target.X,y=target.Y}))
                 {reason="시나리오 전투 복귀 상태가 올바르지 않습니다.";return false;}
+            }
+            if(long.TryParse(battle.OutcomeGrantedExperience,out var earned) && earned>0)
+            {
+                var result=hadCampaignEncounter?campaignReturn:scenario01!=null && scenario01.pendingBattle!=-1?scenarioReturn:null;
+                if(result!=null)
+                {
+                    if(earned>long.MaxValue-result.battleExperienceEarned){reason="시나리오 경험치 결과 합계를 확인할 수 없습니다.";return false;}
+                    result.battleExperienceEarned+=earned;
+                }
             }
             if (checkpoint != null)
             {
@@ -486,7 +496,13 @@ namespace DarkSaver.Combat
             }
             if(activeBattle!=null) activeBattle.GetComponent<BattleMapPresentation>()?.TryBindSessionToolDisplay(this);
             transitioning = false;
-            if (activeBattle != null) activeBattle.CombatResultApplied += SaveCombatResultCheckpoint;
+            if (activeBattle != null)
+            {
+                var key=DarkSaver.Events.Scenario01Controller.ActiveKey;
+                var progress=key=="01"?CaptureScenario01():string.IsNullOrEmpty(key)?null:CaptureCampaign(key);
+                activeBattle.SetScenarioOutcomeDeferred(progress!=null && progress.pendingBattle!=-1);
+                activeBattle.CombatResultApplied += SaveCombatResultCheckpoint;
+            }
         }
 
         private IEnumerator ExitRoutine()
@@ -495,6 +511,7 @@ namespace DarkSaver.Combat
             if (!TryCaptureBattleReturn(activeBattle, activeFormation, out var reason))
             {
                 LastTransitionMessage = "복귀 결과 반영 실패: " + reason;
+                activeBattle.SetScenarioOutcomeDeferred(false);
                 transitioning = false; yield break; // Retain live battle for a safe retry; never save partial state.
             }
             LastTransitionMessage = string.Empty;

@@ -1,8 +1,8 @@
 {
-  "sourceFiles": 25,
-  "uniqueImages": 23,
+  "sourceFiles": 58,
+  "uniqueImages": 56,
   "duplicateFiles": 2,
-  "reviewedUniqueImages": 23,
+  "reviewedUniqueImages": 56,
   "manualReview": true,
   "unityPlay": false,
   "images": [
@@ -363,6 +363,549 @@
         "HEKETO",
         "MAP_UI"
       ]
+    },
+    {
+      "file": "닥세_리소스/050805120946168.jpg",
+      "aliases": [],
+      "sha256": "952a0a25bd940bbf9deaaa24a28f4af33da6e4b78ab8ee710ab1874d9cc35a83",
+      "size": [
+        641,
+        480
+      ],
+      "kind": "실제 교회형 실내",
+      "manualVisualReview": true,
+      "observation": "중앙 제단 뒤 사제형 인물과 여러 플레이어가 보임. 중심 인물은818 Down 후보가 상위이나 JPEG/가림 때문에 외형 후보로만 취급. 현재 신전817/중앙 통로 임의 배치와 구분.",
+      "findings": [
+        "TEMPLE_STAFF"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/050808161655882.jpg",
+      "aliases": [],
+      "sha256": "59d09b0322f74254a07a10a012a2e39b9847f07998b961ed26db9a6894c5eec2",
+      "size": [
+        640,
+        480
+      ],
+      "kind": "실제 모임 화면",
+      "manualVisualReview": true,
+      "observation": "바다 위 석조 플랫폼·붉은 대형 조형물·플레이어·이름표·하단 채팅 UI. 조형물을 조우 몬스터로 확정하거나 맵ID/편성을 생성하지 않음.",
+      "findings": [
+        "WORLD_DECOR",
+        "HUD"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/2.jpg",
+      "aliases": [],
+      "sha256": "73d43384f61fb23efc6a204d58437f2040c63205e77a95c7110653b0084c5905",
+      "size": [
+        640,
+        480
+      ],
+      "kind": "실제 전투 화면",
+      "manualVisualReview": true,
+      "observation": "목재 플랫폼·수면·상자·적/아군·우측 상태창·우상단 미니맵. 상태창은 본체/장비를 보이며 초상으로 대체할 근거가 아님. 해골 HP0/110·MP0/0은 이 개체의 관측값.",
+      "findings": [
+        "BATTLE_STATUS",
+        "MINIMAP"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/231169_2.jpg",
+      "aliases": [],
+      "sha256": "d8336cdd272bac0b43ef981aaba6f254c3a7f2fb052f6d3205ba048fd395d7c7",
+      "size": [
+        640,
+        480
+      ],
+      "kind": "실제 필드 전투",
+      "manualVisualReview": true,
+      "observation": "길 위 아군 편성과 노란 격자 및 효과 아이콘. 몬스터 원본 초기 배치나 서버 사거리 공식은 사진만으로 복원하지 않음.",
+      "findings": [
+        "BATTLE_GRID"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/9단무기상인.png",
+      "aliases": [],
+      "sha256": "e4f850be984a0b48a39d05369de2f1c3abc29f230dc0b543c20fc8bc8a2b698d",
+      "size": [
+        800,
+        516
+      ],
+      "kind": "편집된 9단 무기 안내표",
+      "manualVisualReview": true,
+      "observation": "무기8종·가격/공격/범위/명중/특수효과. 프랑베르그1억/공320/범위2, 드래코니아2억/공350 등 안내값. 파일명만으로 판매 마을과 맵ID를 확정하지 않음.",
+      "findings": [
+        "TIER9_ITEMS"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/9단방어구상인.png",
+      "aliases": [],
+      "sha256": "8d46a13f285db0dd3f7b65166022809a608d6b815f0fd4ad75ada170e856407c",
+      "size": [
+        800,
+        1222
+      ],
+      "kind": "편집된 9단 방어구 안내표",
+      "manualVisualReview": true,
+      "observation": "방어구20종의 가격·방어·마법/회피/이동 보정. 네 종류 실전 장비의 실제 판매 UI 화면이 아닌 편집 안내 자료.",
+      "findings": [
+        "TIER9_ITEMS"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/9단약초상인.png",
+      "aliases": [],
+      "sha256": "392fdb448f4bcdfe24d17f5135e7c37db5e376c57510a68cdb54430d2c230834",
+      "size": [
+        800,
+        162
+      ],
+      "kind": "편집된 9단 약초 안내표",
+      "manualVisualReview": true,
+      "observation": "홀리워터100만, 닥세 사이다5000. 아이템 설명과 실제 회복/부활 거래 로직은 분리.",
+      "findings": [
+        "TIER9_ITEMS"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/9단장신구.png",
+      "aliases": [],
+      "sha256": "c66808ea077785d0b2de97f918a68cd050630015cc3d72f8e783392cc76b81f3",
+      "size": [
+        800,
+        221
+      ],
+      "kind": "편집된 9단 장신구 안내표",
+      "manualVisualReview": true,
+      "observation": "Green/Red/Yello Crystal 각10억, 공격/방어/마법방어 차이 기재. 영문 철자와 수치의 버전/표기 차이를 유지.",
+      "findings": [
+        "TIER9_ITEMS"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/KakaoTalk_20150424_030754859.png",
+      "aliases": [],
+      "sha256": "d81dd8a4d601a803604abe9bc703252390cd6085f346dbbdd8e57b91cb3664f7",
+      "size": [
+        642,
+        480
+      ],
+      "kind": "실제 중문 방어구점",
+      "manualVisualReview": true,
+      "observation": "간판防具店, 같은 화면에서 좌807·우810 외형 후보 직원2명 확인. 두 카운터 동일 높이. 이 사진이 카오시아에서 촬영되었다는 근거는 없음.",
+      "findings": [
+        "ARMOR_TWO_STAFF"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/KakaoTalk_20150424_030809998.png",
+      "aliases": [],
+      "sha256": "9dda8434be7cf8ab41a0ba0221a4b01f18e47376cb7778b2bb7d5fc505ce5038",
+      "size": [
+        642,
+        476
+      ],
+      "kind": "실제 중문 상점 UI",
+      "manualVisualReview": true,
+      "observation": "9번과 같은 실내 위 소유/구매 창. 소유품·판매품·금액·확인·목록 스크롤이 보임. 보이는 칸 수를 전체 소지 한도로 단정하지 않음.",
+      "findings": [
+        "SHOP_UI"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/KakaoTalk_20150424_030933176.png",
+      "aliases": [],
+      "sha256": "7699e25e96da761a493913b0c48db5132e594c1c77d3669c95684ff0faca8f2b",
+      "size": [
+        639,
+        479
+      ],
+      "kind": "실제 중문 수상 이동 화면",
+      "manualVisualReview": true,
+      "observation": "Grandfather 이름의 배 모양 개체와 부두/바다. 선박 표현의 근거이며 이동 가능한 수면 규칙·승선 조건·맵ID는 미확정.",
+      "findings": [
+        "BOAT"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/KakaoTalk_20150424_030946051.png",
+      "aliases": [],
+      "sha256": "d7dd525ca6754579156f2b384bbe8434acae71fbbea401d6a8b3e9c16b0968f0",
+      "size": [
+        639,
+        482
+      ],
+      "kind": "실제 중문 공중 섬 화면",
+      "manualVisualReview": true,
+      "observation": "같은 이름의 개체와 공중 성·구름·하부 섬. 비공정/거점 표현 후보, 해당 장면의 진입·운송 규칙은 미확정.",
+      "findings": [
+        "FLOATING_ISLAND"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/ffeawf2.jpg",
+      "aliases": [],
+      "sha256": "876409d37ab9ae85ae29c50b9ec5c209a82b62e611721095638c315d6d7df0cc",
+      "size": [
+        640,
+        480
+      ],
+      "kind": "실제 창고 화면",
+      "manualVisualReview": true,
+      "observation": "창고 간판과 왼쪽 카운터807 외형 후보가 명확. 오른쪽은 물건/장비 창으로 가려짐. 기존 자료의 오른쪽810과 합쳐 동일 시점 직원2명으로 확정하지 않음.",
+      "findings": [
+        "WAREHOUSE_LEFT_STAFF",
+        "STORAGE_UI"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/fff2.jpg",
+      "aliases": [],
+      "sha256": "c9c15a155bdc3572b00d40a37b2429be81c3012818bdf03c59a0208aeb64eebb",
+      "size": [
+        640,
+        480
+      ],
+      "kind": "실제 필드 전투",
+      "manualVisualReview": true,
+      "observation": "닌자마스터Lv1 상태창·본체/장비·미니맵·노란 전투 격자. HP800/800·MP82/82는 표시 관측이며 촬영 버전/장비를 분리해야 함.",
+      "findings": [
+        "BATTLE_STATUS",
+        "BATTLE_GRID"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/ㅇㅋㅇ1.jpg",
+      "aliases": [],
+      "sha256": "c7c274d9f827d7eaa494031c55b9a30e651b5390f658e0e88ef04f74fccd0d69",
+      "size": [
+        640,
+        480
+      ],
+      "kind": "실제 시나리오 결과창",
+      "manualVisualReview": true,
+      "observation": "결과보고 시나리오/아군/적·경험치407840·처치100·승리·이벤트1/1·확인. 현재 결과창의 목록/배치와 대조할 근거이나 단일 사진으로 고정 창 원점을 확정하지 않음.",
+      "findings": [
+        "RESULT_UI"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/능력치창.png",
+      "aliases": [],
+      "sha256": "2ae90b0f2dd05404271f30687c91c62e631bdc8c63b81812694be9b15378f124",
+      "size": [
+        1144,
+        717
+      ],
+      "kind": "실제 능력치 조절 확대 화면",
+      "manualVisualReview": true,
+      "observation": "능력치 조절에는 얼굴 초상·작은 본체·습득/사용 마법 칸·이전/현재/다음과 수평전환·능력치 좌우 조절이 보임. 전투 상태창의 얼굴 초상 허용 근거와 구분. 숫자14/3의 소비 정책은 미확정.",
+      "findings": [
+        "STAT_ADJUSTMENT_UI"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/벨퓌어스무기점.png",
+      "aliases": [],
+      "sha256": "d691be70b54ddaf7423a1fdc175cdc34129616d7b42a7e63427de18c9f985144",
+      "size": [
+        800,
+        3487
+      ],
+      "kind": "편집된 벨퓌어스 무기 안내표",
+      "manualVisualReview": true,
+      "observation": "브론즈/아이언/실버·속성 무기와3~5 접미 장비 판매 후보. 실버 크로스보우 가격 및 썬더 세이버4 중복 등 오기 가능성이 있어 표를 무조건 원본 ATR보다 우선하지 않음.",
+      "findings": [
+        "REGIONAL_STOCK"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/벨퓌어스방어구점.png",
+      "aliases": [],
+      "sha256": "b46e3e5ad403097c0b3415ee68a172c84e57732e700ead7077fa6be3c36678fa",
+      "size": [
+        800,
+        3455
+      ],
+      "kind": "편집된 벨퓌어스 방어구 안내표",
+      "manualVisualReview": true,
+      "observation": "실드/헬멧/갑옷/부츠/로브·3~5 접미 장비의 지역 판매 후보. 현재 공통 레벨/장착위 필터와 별도 명시 재고를 구분할 근거.",
+      "findings": [
+        "REGIONAL_STOCK"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/벨퓌어스술집.png",
+      "aliases": [],
+      "sha256": "71ee943355c0a101e82c5b5f5729ee71c4bba51906ec29ebef055c90d183fe10",
+      "size": [
+        800,
+        224
+      ],
+      "kind": "편집된 벨퓌어스 술집 안내표",
+      "manualVisualReview": true,
+      "observation": "닥세 콜라50000·닥세 사이다5000·사이다세트200만. MP 회복/즉석 소생 설명. 실제 서비스 조건/전투중 사용 허용을 사진만으로 추가하지 않음.",
+      "findings": [
+        "REGIONAL_STOCK",
+        "PUB_ITEMS"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/시시리오무기점.png",
+      "aliases": [],
+      "sha256": "552436f1996b1f79f2dfbadeb4fc59fcb017184d60fd97d5d5f11384aafc5f85",
+      "size": [
+        800,
+        2704
+      ],
+      "kind": "편집된 시시리오 무기 안내표",
+      "manualVisualReview": true,
+      "observation": "미스릴/골드 및6~7 접미/속성/흡수/치유 무기. 판매 후보와 특수 효과 설명은 확인되나 행별 ATR 전체 대조는 이번 정규화 범위 밖.",
+      "findings": [
+        "REGIONAL_STOCK"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/시시리오방어구점.png",
+      "aliases": [],
+      "sha256": "0aab8104280aad262b29e6bc43df27b6a906ad4691f788f6436b37ad8412cefb",
+      "size": [
+        800,
+        2162
+      ],
+      "kind": "편집된 시시리오 방어구 안내표",
+      "manualVisualReview": true,
+      "observation": "미스릴/골드·속성 장비와6~7 접미 방어구. 가격·방어·마법·이동 보정 기재. 촬영 자료 버전 미확정.",
+      "findings": [
+        "REGIONAL_STOCK"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/시시리오장신구점.png",
+      "aliases": [],
+      "sha256": "c110ee249678acbbecd412a8890f57aaf1ddecab3cec7ef9fd99d7c2ae5eebcd",
+      "size": [
+        800,
+        804
+      ],
+      "kind": "편집된 시시리오 장신구 안내표",
+      "manualVisualReview": true,
+      "observation": "검술교본50000·검술의 기본을 배울 수 있음, 아뮬렛/반지/목걸이/가디언스/패리디온 등. 교본의 정확한 마법/기술 연결은 표만으로 확정하지 않음.",
+      "findings": [
+        "REGIONAL_STOCK",
+        "SKILL_BOOK"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/엔트리아8단시나.png",
+      "aliases": [],
+      "sha256": "17a54388544d6807db2507a8eab64082021d0f5dccda3904ea49190dec8b1bcf",
+      "size": [
+        800,
+        4372
+      ],
+      "kind": "편집된 엔트리아8단 아이템 안내표",
+      "manualVisualReview": true,
+      "observation": "가격/획득 조건 없이 무기·방어구·회복 장신구·달리기 바톤·한가위/결혼 아이템까지 혼재. 파일명8단시나를 근거로 전 항목을 시나리오 확정 보상으로 지급하지 않음.",
+      "findings": [
+        "ENTRIA",
+        "MIXED_ITEM_GUIDE"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/엔트리아무기상인.png",
+      "aliases": [],
+      "sha256": "526f64755e3b380bab79f8257d03a5afd439078e277a400948f16e6c4243ccf4",
+      "size": [
+        800,
+        745
+      ],
+      "kind": "편집된 엔트리아 무기 안내표",
+      "manualVisualReview": true,
+      "observation": "카리반100만·공180·범위1, 제노사이드150만 등과 지팡이. 엔트리아 지명은 자료 표기 근거이며 현용 맵ID와 연결되지 않음.",
+      "findings": [
+        "ENTRIA",
+        "REGIONAL_STOCK"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/엔트리아방어구상인.png",
+      "aliases": [],
+      "sha256": "8a5741c567acef8fab55fe2281198ea4c5d87cc34bd2d22e1f1ca687bc0a06fd",
+      "size": [
+        800,
+        1222
+      ],
+      "kind": "편집된 엔트리아 방어구 안내표",
+      "manualVisualReview": true,
+      "observation": "아머/로브/부츠/슈즈/헬멧/햇/실드20종의 지역 판매 후보. 현재4마을 카탈로그에는 엔트리아 이름이 없으며 캐슬림과 동일시하지 않음.",
+      "findings": [
+        "ENTRIA",
+        "REGIONAL_STOCK"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/엔트리아약초상인.png",
+      "aliases": [],
+      "sha256": "a3e0a8fb34dd43d0b0e90f8cb6abf0dee762aee737c9d6a033e767dc6a88b479",
+      "size": [
+        800,
+        162
+      ],
+      "kind": "편집된 엔트리아 약초 안내표",
+      "manualVisualReview": true,
+      "observation": "희귀한약초묶음36000·닥세 사이다5000. 카오시아 약초묶음 값과 비교 가능하나 지역 연결은 별도.",
+      "findings": [
+        "ENTRIA",
+        "REGIONAL_STOCK"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/잇힝.png",
+      "aliases": [],
+      "sha256": "807e9fff01b7315cc99d79378e05bb9caa9a908506a618d3488f2102af50f04f",
+      "size": [
+        640,
+        480
+      ],
+      "kind": "실제 은행 화면",
+      "manualVisualReview": true,
+      "observation": "은행 간판·오른쪽 카운터810 외형 후보(상단22행 MSE33.89)·금액 입력·저축한다/찾는다가 직접 보임. 은행 기능의 시각 근거가 추가됨. 왼쪽 직원 유무/수수료/계정 공유/한도는 미확정.",
+      "findings": [
+        "BANK_STAFF",
+        "BANK_UI"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/제목_없음.png",
+      "aliases": [],
+      "sha256": "c04f5bc6fc213a38946259d41a66a85a228eefad9bb932f7789202f133202658",
+      "size": [
+        587,
+        722
+      ],
+      "kind": "편집된 경험치 안내표",
+      "manualVisualReview": true,
+      "observation": "1~7단별 요구 경험치140개와 승급 지점 표시. 대표 후기 직업 행과17개 일치/123개 차이. 1단 클레릭처럼 같은 단계 내 예외도 있어 전 직업 공통 공식으로 대체하지 않음.",
+      "findings": [
+        "XP_GUIDE"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/카오시아_무기점.png",
+      "aliases": [],
+      "sha256": "31d21ac6125e37d95c74e736d74941e56c6a1df690270f216faa34023a2900be",
+      "size": [
+        800,
+        1351
+      ],
+      "kind": "편집된 카오시아 무기 안내표",
+      "manualVisualReview": true,
+      "observation": "판매 후보22행을 수기 정규화. 대거8000·공40/범위1은 일치, 크리스2=10000·드래곤스피어2=20000은 후기 ATR의 각100000/200000과 다름.",
+      "findings": [
+        "KAOSIA_STOCK",
+        "PRICE_DIFFERENCE"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/카오시아_소모품점.png",
+      "aliases": [],
+      "sha256": "b91da51bac7dd3b30dfd1a5e85ab1db90bf08d8e592d506f9d309095b30eb701",
+      "size": [
+        800,
+        1399
+      ],
+      "kind": "편집된 카오시아 소모품 안내표",
+      "manualVisualReview": true,
+      "observation": "판매 후보23행 정규화. 힐포션/싸구려약초500, 흔한1000·귀한2000·희귀3000, 묶음/한박스는 별도 품목과 가격.",
+      "findings": [
+        "KAOSIA_STOCK"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/카오시아마법사의집.png",
+      "aliases": [],
+      "sha256": "79cdae8d06d6213d90872bfc28ec7a14382ff67a993374c8de7ce11b5653c0f2",
+      "size": [
+        800,
+        403
+      ],
+      "kind": "편집된 카오시아 마법사의 집 안내표",
+      "manualVisualReview": true,
+      "observation": "귀환의돌100·공간이동의마석20000·자물쇠30000·귀환돌2=1000·마석2=240000·암네시안워터50000000의6행. 자물쇠↔자물쇠한박스는 이름 대응 후보로 구분.",
+      "findings": [
+        "KAOSIA_STOCK",
+        "MAGIC_HOUSE"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/카오시아방어구점.png",
+      "aliases": [],
+      "sha256": "b5af5316483cc522e8a59e22d808b664ba03e4e2deb4614542458f0a7f4247a2",
+      "size": [
+        800,
+        1222
+      ],
+      "kind": "편집된 카오시아 방어구 안내표",
+      "manualVisualReview": true,
+      "observation": "판매 후보20행 정규화. 크라운2·실크로브2는 각10000으로 후기 ATR100000과 다름. 화이트 햇/슈즈는 후기 동명 품목이 둘씩 있어 ID를 강제로 선택하지 않음.",
+      "findings": [
+        "KAOSIA_STOCK",
+        "PRICE_DIFFERENCE"
+      ],
+      "batchCommit": "3c82cad4"
+    },
+    {
+      "file": "닥세_리소스/확인_11.jpg",
+      "aliases": [],
+      "sha256": "fa69b83b0fd5f94e448a2318ecd37a79d095781c9ac72fe1a510cb46369fdd8c",
+      "size": [
+        640,
+        480
+      ],
+      "kind": "실제 개인 소지품 화면",
+      "manualVisualReview": true,
+      "observation": "자기정보/대화창·기능 버튼·환경설정·도움말·게임종료 버튼, 장비창 본체 실루엣/슬롯과 빛의검 사용회수1000 툴팁이 보임. 소비/파손 규칙은 한 사진으로 확정하지 않음.",
+      "findings": [
+        "PERSONAL_UI",
+        "ITEM_TOOLTIP"
+      ],
+      "batchCommit": "3c82cad4"
     }
   ],
   "evidenceChecks": {
@@ -431,5 +974,36 @@
     "kisraMaximumHp": 450,
     "sourceContentHashUnchanged": true,
     "unityPlay": false
+  },
+  "addedReferenceBatch": {
+    "baseCommit": "5c77d5cb",
+    "pulledCommit": "3c82cad4",
+    "files": 33,
+    "unique": 33,
+    "actualGameScreenshots": 14,
+    "editedGuides": 19,
+    "allImagesVisuallyReviewed": true,
+    "fullyStructuredTables": {
+      "KaosiaShopRows": 71,
+      "experienceCells": 140
+    },
+    "otherGuideRowsFullyNormalized": false,
+    "shopComparisonCounts": {
+      "match": 65,
+      "price-difference": 4,
+      "ambiguous": 2
+    },
+    "npcMatching": "added_reference_npc_matches.json",
+    "shopTranscription": "added_kaosia_shop_reference.csv",
+    "experienceTranscription": "added_experience_reference.csv",
+    "npcFramePixelsAreLogicalServerCoordinates": false,
+    "runtimeGameplayChangedInThisAnalysis": false,
+    "sourceSaveFilesChanged": false,
+    "notes": [
+      "31,32 filenames are reference provenance, not a client version guarantee",
+      "same screenshot has two armor staff; warehouse left/right seen in different files are not proven simultaneous",
+      "No new startup/login screenshot was included",
+      "55a8c909 also adds actual Unity1235 tests/4 failures; separate from screenshot analysis"
+    ]
   }
 }

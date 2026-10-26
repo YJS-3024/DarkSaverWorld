@@ -62,5 +62,23 @@
     "scenario03 start save failure -> retry -> same cursor/position/economy once",
     "normal return primary and deployed allies maximum MP; interrupted checkpoint current MP",
     "scenario03 original intermittent I/O cause investigation with new diagnostics"
-  ]
+  ],
+  "reviewPlanFollowup": {
+    "baseCommit": "5c77d5cb",
+    "changes": [
+      "uGUI Tab/Shift+Tab input focus order, skip hidden/disabled/read-only fields; release hidden selection",
+      "scenario exception responses omit exception message and private paths; expose exception type/HResult diagnostic",
+      "validation plan distinguishes already-applied 25-failure source fixes from pending actual Unity execution"
+    ],
+    "apiCompilationErrors": {
+      "runtime": 0,
+      "editor": 0,
+      "editModeSources": 0
+    },
+    "offlineIntegrationChecks": 35556,
+    "exceptionRegressionChecksAdded": 51,
+    "actualUnityEditModeExecuted": false,
+    "actualUnityPlayExecuted": false,
+    "note": "Check totals depend on safe resume cell count; restored Kaosia has fewer cells than the previous 61x61 layout. No tests were skipped to reduce this count. Original scenario03 failure cause remains unconfirmed."
+  }
 }

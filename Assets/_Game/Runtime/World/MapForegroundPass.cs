@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace DarkSaver.World
 {
-    // Original MRC object sprites are drawn after unit bodies, in record order.
+    // Keep flat decorations below actors and depth-sort tall objects at ground contact.
     internal static class MapForegroundPass
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -25,7 +25,8 @@ namespace DarkSaver.World
             foreach (var renderer in root.GetComponentsInChildren<SpriteRenderer>(true))
             {
                 if (!OriginalRenderRules.TryGetForegroundSortingOrder(renderer.name, out var order)) continue;
-                renderer.sortingOrder = order;
+                renderer.sortingOrder = renderer.sprite==null ? order : OriginalRenderRules.WorldObjectSortingOrder(
+                    order-OriginalRenderRules.ForegroundSortingBase,renderer.sprite.rect.height,renderer.bounds.min.y);
             }
         }
     }

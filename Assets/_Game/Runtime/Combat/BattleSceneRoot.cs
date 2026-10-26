@@ -229,6 +229,9 @@ namespace DarkSaver.Combat
             }
         }
         public bool OutcomeAcknowledged { get; private set; }
+        public bool DefersOutcomeToScenario { get; private set; }
+        public bool ShowsEncounterOutcome=>MapPresentationActive && IsBattleFinished && !OutcomeAcknowledged && !DefersOutcomeToScenario;
+        public void SetScenarioOutcomeDeferred(bool value) { DefersOutcomeToScenario=value;if(!value)OutcomeAcknowledged=false; }
         public string OutcomeAllies => BuildOutcomeNames(false);
         public string OutcomeEnemies => BuildOutcomeNames(true);
         public string OutcomeGrantedExperience => IsBattleFinished && defeatExperienceGranted
@@ -1380,6 +1383,15 @@ namespace DarkSaver.Combat
                 SetPrototypeHudVisible(!prototypeHudVisible);
             if(TemporaryLocalRulesEnabled)TrySubmitLocalRequest(new BattleSimulationTickRequest(Time.deltaTime,Time.unscaledDeltaTime),out _);
             else { AdvanceActionPoints(Time.deltaTime);AdvanceMovement(Time.unscaledDeltaTime); }
+            if(MapPresentationActive && DefersOutcomeToScenario && IsBattleFinished && !OutcomeAcknowledged)
+            {
+                if(!VictoryAchieved)SetScenarioOutcomeDeferred(false); // A party defeat still ends this attempt explicitly.
+                else
+                {
+                    var session=FindFirstObjectByType<BattleTransitionController>();
+                    if(session!=null && !session.IsTransitioning){OutcomeAcknowledged=true;session.ExitBattle();}
+                }
+            }
             // Map input owns cancellation and explicit retreat confirmation.
             if (!MapPresentationActive && Input.GetKeyDown(KeyCode.Escape)) ReturnToWorld();
         }
@@ -1463,10 +1475,10 @@ namespace DarkSaver.Combat
                     dialogueRect.width - 24, dialogueRect.height - 20), displayText, Color.white,
                     maximumLines: int.MaxValue);
             }
-            if (MapPresentationActive && IsBattleFinished && !OutcomeAcknowledged)
+            if (ShowsEncounterOutcome)
             {
                 var outcome = OutcomeRect;
-                ui.DungeonResult("outcome", outcome, OutcomeAllies, () => TryAcknowledgeOutcome(),
+                ui.DungeonResult("outcome", outcome, OutcomeAllies, () => {if(TryAcknowledgeOutcome())ReturnToWorld();},
                     OutcomeEnemies, OutcomeGrantedExperience, OutcomeSummary);
             }
             ui.End();

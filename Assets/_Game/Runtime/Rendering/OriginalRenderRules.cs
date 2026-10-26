@@ -18,6 +18,12 @@ namespace DarkSaver.Rendering
         public const int ForegroundSortingBase = 30000;
         public const int MaximumForegroundIndex = short.MaxValue - ForegroundSortingBase;
 
+        // Presentation correction: flat tile-high decorations belong below actors;
+        // taller objects sort at their ground contact, so walking in front remains visible.
+        public static int WorldObjectSortingOrder(int sourceIndex,float heightPixels,float bottomWorldY)
+            => heightPixels<=TileSize ? DetailSortingOrder+sourceIndex
+                : System.Math.Clamp(20000-(int)System.Math.Round(bottomWorldY*10),short.MinValue,short.MaxValue);
+
         public static int ForegroundSortingOrder(int sourceIndex)
         {
             if (sourceIndex < 0 || sourceIndex > MaximumForegroundIndex)

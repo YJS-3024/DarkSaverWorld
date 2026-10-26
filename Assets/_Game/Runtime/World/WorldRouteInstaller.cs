@@ -37,6 +37,7 @@ namespace DarkSaver.World
             var go=new GameObject("World route gates");SceneManager.MoveGameObjectToScene(go,scene);
             go.AddComponent<WorldRouteInstaller>().Build(region.Key);
         }
+        private Sprite guideSprite;
         private void Build(string key)
         {
             if(TownCatalog.TryGet(key,out _))gameObject.AddComponent<TownServiceNpcInstaller>().Build(key);
@@ -62,9 +63,27 @@ namespace DarkSaver.World
                 }
                 var gate=new GameObject("Route to "+route.toKey,typeof(SpriteRenderer),typeof(BoxCollider2D));gate.transform.SetParent(transform,false);
                 gate.transform.position=new Vector3(route.portalX,route.portalY,0);
-                var renderer=gate.GetComponent<SpriteRenderer>();renderer.sprite=markerSprite;renderer.sortingOrder=31000;
-                gate.GetComponent<BoxCollider2D>().size=new Vector2(1.1f,1.1f);
-                gate.AddComponent<ScenePortal2D>().Configure(route.toKey,route.targetSpawnId);
+                var renderer=gate.GetComponent<SpriteRenderer>();
+                bool scenarioGuide=FieldCatalog.TryGet(key,out _) && ScenarioCatalog.TryGet(route.toKey,out _);
+                if(scenarioGuide)
+                {
+                    if(guideSprite==null)
+                    {
+                        var texture=Resources.Load<Texture2D>("UI/ScenarioRooms/Guide");
+                        guideSprite=Sprite.Create(texture,new Rect(0,0,texture.width,texture.height),new Vector2(.5f,.5f),32);
+                    }
+                    gate.name="Scenario guide "+route.toKey;renderer.sprite=guideSprite;
+                    renderer.sortingOrder=20000-Mathf.RoundToInt(gate.transform.position.y*10);
+                    gate.GetComponent<BoxCollider2D>().size=new Vector2(.9f,.9f);
+                    gate.GetComponent<BoxCollider2D>().isTrigger=true;
+                    gate.AddComponent<ScenarioGuideNpc>().Configure(route);
+                }
+                else
+                {
+                    renderer.sprite=markerSprite;renderer.sortingOrder=31000;
+                    gate.GetComponent<BoxCollider2D>().size=new Vector2(1.1f,1.1f);
+                    gate.AddComponent<ScenePortal2D>().Configure(route.toKey,route.targetSpawnId);
+                }
                 labels.Add((route,gate.transform));
             }
         }
@@ -89,10 +108,11 @@ namespace DarkSaver.World
                 else continue;
                 var screen=Camera.main.WorldToScreenPoint(pair.Marker.position);
                 if(screen.z<=0 || !DarkSaver.Rendering.GameScreen.TryScreenToGui(screen,out var point))continue;
-                ui.NativeBitmapText("route-"+pair.Route.toKey,new Rect(point.x-150,point.y-42,300,34),title+" 입구",Color.yellow,maximumLines:2,alignment:TextAnchor.MiddleCenter);
+                string action=pair.Marker.GetComponent<ScenarioGuideNpc>()!=null?" 안내인":" 입구";
+                ui.NativeBitmapText("route-"+pair.Route.toKey,new Rect(point.x-150,point.y-42,300,34),title+action,Color.yellow,maximumLines:2,alignment:TextAnchor.MiddleCenter);
             }
             ui.End();
         }
-        private void OnDestroy(){ui?.Hide();if(markerSprite!=null)Destroy(markerSprite);if(markerTexture!=null)Destroy(markerTexture);}
+        private void OnDestroy(){ui?.Hide();if(guideSprite!=null)Destroy(guideSprite);if(markerSprite!=null)Destroy(markerSprite);if(markerTexture!=null)Destroy(markerTexture);}
     }
 }
