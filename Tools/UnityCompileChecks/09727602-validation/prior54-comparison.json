@@ -1,0 +1,218 @@
+[
+  {
+    "Test": "DarkSaver.Tests.BattleAttackPresentationTests.ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.AwardedTotalSurvivesNativeSaveAndSessionRestore",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(False,False)",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(False,True)",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(True,False)",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(True,True)",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketRewardOverflowNeverWraps(False)",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketRewardOverflowNeverWraps(True)",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.DefeatAwardsNativeBaseOnceAndSessionRetainsTotal",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.DisabledRewardAndRejectedActionDoNotGrantExperience",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.ExactUint32LimitIsAllowed",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.HpZeroAloneDoesNotPermitRewardAndDeathDoesNotAutomaticallyAwardIt",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.MissingNegativeOversizedAndZeroRewardsAreDistinguished",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.Uint32OverflowDoesNotWrapOrGrantTwice",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFeedbackTests.ActualAttackShowsDamageAndMissWithoutTreatingHpSyncAsAnAttack",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVictoryRulesTests.KisraAsset_CreatesIndependentInstanceWithMatchingObjective",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(0)",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.UnknownVitalsLevelsAndXpTargetsAreNotSynthesized",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ItemCatalogPanelTests.FilterSelectPreservesLargeValuesAndNativeNames",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ItemCatalogPanelTests.MissingFilterClearsSelectionAndEmptyNamesRemainInCatalog",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ItemCatalogTests.NativeAssetPreservesAllItemsAndHasNoCsvDependency",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ItemDefinitionTests.IndividualAssetsPreserveEveryNativeFieldAndNeedNoOriginalFiles",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobActionCostTests.KisraUsesJob701NotInstance700AndPlayerBindPreservesVitals",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCatalogPreviewTests.DefaultFilterReadsSelectedNativeCatalog(\"Assets/_Game/Runtime/Jobs/JobCatalog.asset\",70)",
+    "Result": "NotFound"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCatalogPreviewTests.DefaultFilterReadsSelectedNativeCatalog(\"Assets/_Game/Runtime/Jobs/MonsterJobCatalog.asset\",324)",
+    "Result": "NotFound"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCatalogPreviewTests.DefaultFilterReadsSelectedNativeCatalog(\"Assets/_Game/Runtime/Jobs/NpcSpecialJobCatalog.asset\",35)",
+    "Result": "NotFound"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCatalogPreviewTests.MismatchFilterKeepsJobAndSpriteIdsSeparate",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeEntryUiTests.NativeEntryArtworkKeepsPasswordMaskingAndRegistrationNavigation",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.ClearSurvivesBattleRemovalAndDoesNotRepeatOrReward",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(False,\"01\",False)",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(True,\"\",False)",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(True,\" \",False)",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(True,\"01\",True)",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.OrdinaryVictoryDoesNotClearScenario",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave(\"World1010_Map\",\"Field_Runtime\")",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave(\"Brugos01_Map\",\"Brugos01_Runtime\")",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave(\"Map_101_;\",\"Training101_Runtime\")",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownInteractionTests.CharacterInfoLifecyclePreservesExistingServiceIdsAndReleasesModalInput",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownInteractionTests.TownFacilitiesDialogueDistanceAndModalLifecycleWorkTogether",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Kaosia\")",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Belpueus\")",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Sisirio\")",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Castlelim\")",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(0,1)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(3,1)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(4,1)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(7,1)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(12,1)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(13,2)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(15,2)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(16,3)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopTradeAndSaveFeedbackDoNotOverlapAndHideWhenCleared",
+    "Result": "NotFound"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopUiSessionTradeAndDiskRestorePreserveInventoryAndUnknownLegacyState",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.WorkBatchMemoryTests.CleanupSkipsUnsavedSceneWithoutSavingOrClosingIt",
+    "Result": "Failed"
+  }
+]
