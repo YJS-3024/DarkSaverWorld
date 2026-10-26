@@ -65,19 +65,29 @@ internal static class LocalServerChecks
             (Scenario01Progress state,NativeInventory inventory,out string reason)=>
             {
                 if(fail){reason="disk fixture";return false;}saved=state.Clone();items=inventory.Clone();saves++;revision++;reason="";return true;
-            });
+            },()=>fail);
         var bus=new LocalServerDispatcher();using var binding=bus.Register<ScenarioCommandRequest>(server.Handle);
         ScenarioStateNotification Send(ScenarioOperation operation,int x=0,int y=0,double seconds=0)
         {
             check(bus.TryDispatch(new ScenarioCommandRequest(key,revision,operation,x,y,seconds),out var raw),"scenario request dispatched "+key);
             var packet=(ScenarioStateNotification)raw;check(packet.Accepted,"scenario response accepted "+key+": "+packet.Reason);return packet;
         }
+        fail=true;
+        var firstAttempt=(ScenarioStateNotification)server.Handle(new ScenarioCommandRequest(key,revision,ScenarioOperation.Initialize));
+        check(!firstAttempt.Accepted && firstAttempt.RetryableSaveFailure && saved==null && revision==0,"initial save failure retains an uninitialized session for retry "+key);
+        var staleDuringFailure=(ScenarioStateNotification)server.Handle(new ScenarioCommandRequest(key,-1,ScenarioOperation.Initialize));
+        check(!staleDuringFailure.Accepted && !staleDuringFailure.RetryableSaveFailure,"stale request is not mislabeled as retryable I/O "+key);
+        fail=false;
         var initialized=Send(ScenarioOperation.Initialize);var original=initialized.CaptureState();original.phase=Scenario01Progress.Complete;
         check(saved.phase==Scenario01Progress.Intro,"client cannot mutate server snapshot "+key);
-        var bad=(ScenarioStateNotification)server.Handle(new ScenarioCommandRequest(key,revision-1,ScenarioOperation.Step));check(!bad.Accepted,"stale request rejected "+key);
+        var bad=(ScenarioStateNotification)server.Handle(new ScenarioCommandRequest(key,revision-1,ScenarioOperation.Step));check(!bad.Accepted && !bad.RetryableSaveFailure,"stale request rejected without offering save retry "+key);
         fail=true;int before=saves;var rejected=(ScenarioStateNotification)server.Handle(new ScenarioCommandRequest(key,revision,ScenarioOperation.Step));
-        check(!rejected.Accepted && saves==before && saved.cursor==0,"save failure preserves script cursor "+key);fail=false;
-        var state=initialized.CaptureState();int guard=0;
+        check(!rejected.Accepted && rejected.RetryableSaveFailure && saves==before && saved.cursor==0,"save failure preserves script cursor and offers explicit retry "+key);
+        var repeated=(ScenarioStateNotification)server.Handle(new ScenarioCommandRequest(key,revision,ScenarioOperation.Step));
+        check(!repeated.Accepted && repeated.RetryableSaveFailure && saves==before && saved.cursor==0,"repeated failed save remains atomic "+key);fail=false;
+        var retry=(ScenarioStateNotification)server.Handle(new ScenarioCommandRequest(key,revision,ScenarioOperation.Step));
+        check(retry.Accepted && !retry.RetryableSaveFailure && saves==before+1,"same command retry commits once after storage recovers "+key);
+        var state=retry.CaptureState();int guard=0;
         while(state.phase==Scenario01Progress.Intro && guard++<10000)
         {
             var packet=Send(ScenarioOperation.Step);state=packet.CaptureState();

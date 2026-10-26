@@ -1,0 +1,66 @@
+{
+  "baseCommit": "3b5aa545",
+  "reportedPlayCommit": "09727602",
+  "reportedEditMode": {
+    "total": 1225,
+    "passed": 1200,
+    "failed": 25
+  },
+  "sourceRemediation": {
+    "fixturePreparationCases": 22,
+    "specialVisualMapping": {
+      "menuEntries": 86,
+      "mapped": 85,
+      "unconfirmed": [
+        30901
+      ]
+    },
+    "npcSpriteAliases": [
+      [
+        988,
+        989
+      ],
+      [
+        989,
+        988
+      ]
+    ],
+    "normalReturnMp": "restore maximum for all deployed allies (existing user-confirmed rule)",
+    "interruptedCheckpointMp": "preserve observed current MP for primary and deployed allies"
+  },
+  "fixtureStrategy": "create and open fixture-owned temporary .unity asset with EditorSceneManager.OpenScene(Additive); close/delete only owned scenes and restore prior active scene",
+  "scenario03": {
+    "originalFailureCause": "unconfirmed; not reproduced here",
+    "changes": [
+      "record save phase, exception type and HResult without private path",
+      "classify I/O/permission failure as manually retryable",
+      "retain exact scenario operation and offer explicit retry through local server",
+      "hold input and preserve cursor/items/revision during failed save",
+      "invalid state/stale request/asset errors do not offer I/O retry"
+    ],
+    "automaticRetries": false
+  },
+  "verification": {
+    "apiCompilationErrors": 0,
+    "runtimeSources": 211,
+    "editorSources": 73,
+    "editModeSources": 120,
+    "offlineIntegrationChecks": 35829,
+    "productionCombatChecks": 4829,
+    "classSkillCombinations": 393,
+    "scenarioRewardChecks": 214,
+    "actualUnityEditModeExecuted": false,
+    "actualUnityPlayExecuted": false,
+    "limitation": "previously confirmed missing Unity Editor license; fixture import/UI retry/MP regressions require actual rerun"
+  },
+  "runtimeAssemblySha256": "0f3fd8a6bd7793922156163df10e0bdb00cd6447372c90c02b3589130fb29348",
+  "evidenceXmlSha256": "11c52de0fe227851fd702be4e24398f23f223d278b484ec8b4c9108c9e1dc16c",
+  "originalDataAndValidationEvidenceChanged": false,
+  "requiresActualVerification": [
+    "full EditMode including22 fixture cases",
+    "temporary scene import/close/cleanup without user scene changes",
+    "scenario03 start save failure -> retry -> same cursor/position/economy once",
+    "normal return primary and deployed allies maximum MP; interrupted checkpoint current MP",
+    "scenario03 original intermittent I/O cause investigation with new diagnostics"
+  ]
+}

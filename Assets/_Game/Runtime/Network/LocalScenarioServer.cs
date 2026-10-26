@@ -16,11 +16,12 @@ namespace DarkSaver.Network
     {
         private readonly Scenario01Progress state;
         public string Key { get; } public int Revision { get; } public bool Changed { get; }
+        public bool RetryableSaveFailure { get; }
         public Scenario01Rules.StepResult StepResult { get; }
         public Scenario01Progress CaptureState()=>state?.Clone();
         public ScenarioStateNotification(string key,int revision,bool accepted,string reason,Scenario01Progress progress,
-            bool changed=false,Scenario01Rules.StepResult result=Scenario01Rules.StepResult.Waiting):base(accepted,reason)
-        { Key=key;Revision=revision;Changed=changed;StepResult=result;state=progress?.Clone(); }
+            bool changed=false,Scenario01Rules.StepResult result=Scenario01Rules.StepResult.Waiting,bool retryableSaveFailure=false):base(accepted,reason)
+        { Key=key;Revision=revision;Changed=changed;StepResult=result;state=progress?.Clone();RetryableSaveFailure=retryableSaveFailure; }
     }
     public delegate bool SaveScenarioCandidate(Scenario01Progress state,NativeInventory inventory,out string reason);
 
@@ -33,12 +34,13 @@ namespace DarkSaver.Network
         private readonly Func<NativeInventory> inventory;
         private readonly Func<int> revision,job;
         private readonly SaveScenarioCandidate save;
+        private readonly Func<bool> canRetrySave;
         private readonly Func<bool> alreadyCleared;
         private Scenario01Progress working;
         private int knownRevision=-1;
         public LocalScenarioServer(Scenario01Definition definition,Func<Scenario01Progress> capture,Func<NativeInventory> inventory,
-            Func<int> revision,Func<int> job,Func<bool> alreadyCleared,SaveScenarioCandidate save)
-        { this.definition=definition;this.capture=capture;this.inventory=inventory;this.revision=revision;this.job=job;this.alreadyCleared=alreadyCleared;this.save=save; }
+            Func<int> revision,Func<int> job,Func<bool> alreadyCleared,SaveScenarioCandidate save,Func<bool> canRetrySave=null)
+        { this.definition=definition;this.capture=capture;this.inventory=inventory;this.revision=revision;this.job=job;this.alreadyCleared=alreadyCleared;this.save=save;this.canRetrySave=canRetrySave; }
         public LocalCommandResponse Handle(ScenarioCommandRequest request)
         {
             int current=revision();
@@ -83,7 +85,8 @@ namespace DarkSaver.Network
                     }
                 }
                 if(!changed)return Reply(true,result:step);
-                if(!save(next,items,out var reason))return Reply(false,reason);
+                if(!save(next,items,out var reason))return new ScenarioStateNotification(definition.Key,knownRevision,false,reason,working,
+                    retryableSaveFailure:canRetrySave?.Invoke()==true);
                 knownRevision=revision();working=next.Clone();return Reply(true,changed:true,result:step);
             }
             catch(Exception ex){return Reply(false,"시나리오 서버 처리 실패: "+ex.Message);}

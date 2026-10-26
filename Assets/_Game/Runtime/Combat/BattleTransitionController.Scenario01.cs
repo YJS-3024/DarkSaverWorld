@@ -10,6 +10,8 @@ namespace DarkSaver.Combat
     public sealed partial class BattleTransitionController
     {
         private Scenario01Progress scenario01;
+        public bool CanRetryScenarioSave { get; private set; }
+        public string ScenarioSaveDiagnostic { get; private set; } = string.Empty;
         public int Scenario01Revision { get; private set; }
         public Scenario01Progress CaptureScenario01() => scenario01?.Clone();
 
@@ -18,6 +20,7 @@ namespace DarkSaver.Combat
         public bool TryCommitScenario01(int expectedRevision, Scenario01Progress progress, NativeInventory items,
             out string reason)
         {
+            CanRetryScenarioSave=false; ScenarioSaveDiagnostic=string.Empty;
             reason = "시나리오 진행을 저장할 수 없습니다.";
             if (expectedRevision != Scenario01Revision || transitioning || !HasCreatedCharacter
                 || progress == null || Scenario01Controller.Definition == null || !progress.Matches(Scenario01Controller.Definition)
@@ -38,7 +41,8 @@ namespace DarkSaver.Combat
             }
             if (!StageScenarioGeneralRewards(snapshot, out reason)) return false;
             if (saveStore == null) saveStore = new NativeSaveStore(NativeSaveStore.DefaultPath);
-            if (!saveStore.TrySave(snapshot, out reason)) { lastSaveMessage = reason; return false; }
+            if (!saveStore.TrySave(snapshot, out reason))
+            { CanRetryScenarioSave=saveStore.CanRetryLastWrite; ScenarioSaveDiagnostic=saveStore.LastWriteDiagnostic; lastSaveMessage=reason; return false; }
             PublishScenarioGeneralRewards(snapshot);
             scenario01 = snapshot.scenario01; inventory = snapshot.inventory;
             if (progress.phase == Scenario01Progress.Complete) clearedScenarioKeys.Add("01");

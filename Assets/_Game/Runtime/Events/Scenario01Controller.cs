@@ -89,13 +89,55 @@ namespace DarkSaver.Events
         private ServerManager protocol;
         private IDisposable scenarioBinding;
         private ScenarioStateNotification lastResponse;
+        private ScenarioCommandRequest pendingSaveRequest;
+        public bool CanRetrySave => pendingSaveRequest!=null;
         private bool Request(ScenarioOperation operation,int x=0,int y=0,double seconds=0)
         {
             lastResponse=null;
-            bool accepted=protocol.TryRequest(new ScenarioCommandRequest(scenarioKey,revision,operation,x,y,seconds),out var response);
-            if(!accepted) { Fail(response?.Reason ?? "로컬 시나리오 서버가 없습니다."); return false; }
+            var request=new ScenarioCommandRequest(scenarioKey,revision,operation,x,y,seconds);
+            bool accepted=protocol.TryRequest(request,out var response);
+            if(!accepted)
+            {
+                if(response is ScenarioStateNotification failed && failed.RetryableSaveFailure)
+                {
+                    pendingSaveRequest=request;error=failed.Reason;
+                    if(player!=null)player.SetScenarioInputBlocked(true);
+                    Debug.LogWarning("Scenario "+scenarioKey+" save postponed: "+session.ScenarioSaveDiagnostic);
+                }
+                else {pendingSaveRequest=null;Fail(response?.Reason ?? "로컬 시나리오 서버가 없습니다.");}
+                return false;
+            }
+            pendingSaveRequest=null;
             if(lastResponse==null) { Fail("시나리오 응답을 받지 못했습니다."); return false; }
             return true;
+        }
+        public bool RetrySave()
+        {
+            var request=pendingSaveRequest;
+            if(request==null || session==null || session.IsTransitioning || swappingView
+                || FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling==true
+                || SceneManager.GetSceneByName("Battle").isLoaded)return false;
+            string previousError=error;
+            error=null;
+            if(request.Operation==ScenarioOperation.Step)Step();
+            else if(request.Operation==ScenarioOperation.BeginEncounter)
+            {
+                if(!views.TryGetValue(request.X,out var view)) {pendingSaveRequest=null;Fail("조우 대상을 확인할 수 없습니다.");return false;}
+                player.SetScenarioInputBlocked(false);
+                TryEncounter(request.X,view.GetComponent<SpriteRenderer>());
+            }
+            else if(Request(request.Operation,request.X,request.Y,request.Seconds))
+            {
+                if(!initialized)
+                {
+                    if(progress.pendingBattle!=-1 && !Request(ScenarioOperation.CancelEncounter))return false;
+                    CompleteInitialization();
+                }
+                else Reconcile();
+            }
+            if(pendingSaveRequest!=null && string.IsNullOrEmpty(error))
+            {error=previousError;if(player!=null)player.SetScenarioInputBlocked(true);}
+            return pendingSaveRequest==null && string.IsNullOrEmpty(error);
         }
         private void ReceiveScenarioPacket(ServerPacket packet)
         {
@@ -162,12 +204,17 @@ namespace DarkSaver.Events
                 ()=>session.PlayerJobId,()=>session.IsScenarioCleared(scenarioKey),
                 (Scenario01Progress candidate,NativeInventory items,out string reason)=>scenarioKey=="01"
                     ? session.TryCommitScenario01(ProgressRevision,candidate,items,out reason)
-                    : session.TryCommitCampaign(scenarioKey,ProgressRevision,candidate,items,out reason));
+                    : session.TryCommitCampaign(scenarioKey,ProgressRevision,candidate,items,out reason),()=>session.CanRetryScenarioSave);
             scenarioBinding=protocol.RegisterRequestHandler<ScenarioCommandRequest>(local.Handle);
             protocol.ResponseReceived+=ReceiveScenarioPacket;
             if(!Request(ScenarioOperation.Initialize))return;
             // An interrupted battle does not manufacture a victory when resumed.
             if(progress.pendingBattle!=-1 && !Request(ScenarioOperation.CancelEncounter))return;
+            CompleteInitialization();
+        }
+
+        private void CompleteInitialization()
+        {
             var visuals = Resources.Load<TextAsset>("Scenarios/" + scenarioKey + "/Visuals");
             visualBindings = visuals == null ? null : JsonUtility.FromJson<VisualBindings>(visuals.text);
             if (visualBindings == null || visualBindings.contentHash != Content.sourceHash || (scenarioKey == "01" ? visualBindings.chests == null : visualBindings.operations == null))
@@ -178,7 +225,7 @@ namespace DarkSaver.Events
         }
 
         private void Fail(string message)
-        { error = message; if (player != null) player.SetScenarioInputBlocked(true); Debug.LogError("Scenario01: " + message); }
+        { pendingSaveRequest=null;error = message; if (player != null) player.SetScenarioInputBlocked(true); Debug.LogError("Scenario01: " + message); }
 
         private void Update()
         {
@@ -562,7 +609,13 @@ namespace DarkSaver.Events
             {
                 InGameUi.Ensure(ref ui, this, 120); ui.Begin(); ui.ModalBlocker("block");
                 ui.Panel("error", new Rect(60, 120, 520, 200)); ui.Label("error-message", new Rect(80, 140, 480, 100), error);
-                ui.Button("leave", new Rect(180, 260, 280, 32), "필드로 돌아가기", AbortToTown); ui.End(); return;
+                if(CanRetrySave)
+                {
+                    ui.Button("retry-save",new Rect(80,260,220,32),"저장 다시 시도",()=>RetrySave());
+                    ui.Button("leave",new Rect(320,260,220,32),"필드로 돌아가기",AbortToTown);
+                }
+                else ui.Button("leave", new Rect(180, 260, 280, 32), "필드로 돌아가기", AbortToTown);
+                ui.End(); return;
             }
             if (!initialized) { ui?.Hide(); return; }
             var commands = Scenario01Rules.CurrentCommands(Content, progress);

@@ -18,8 +18,8 @@ namespace DarkSaver.Tests
         public void ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(string key)
         {
             Assert.IsTrue(TownCatalog.TryGet(key,out var town));
-            var map=SceneManager.CreateScene(town.MapScene);
-            var runtime=SceneManager.CreateScene(town.RuntimeScene);
+            var map=EditModeSceneFixture.Create(town.MapScene);
+            var runtime=EditModeSceneFixture.Create(town.RuntimeScene);
             try
             {
                 var root=new GameObject("service actors test");SceneManager.MoveGameObjectToScene(root,runtime);
@@ -53,7 +53,7 @@ namespace DarkSaver.Tests
                 }
                 actor.enabled=false;Assert.IsFalse(actor.TryInteract(player,panel));
             }
-            finally{EditorSceneManager.CloseScene(runtime,true);EditorSceneManager.CloseScene(map,true);}
+            finally{EditModeSceneFixture.Close(runtime);EditModeSceneFixture.Close(map);}
         }
     }
 }

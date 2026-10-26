@@ -152,9 +152,10 @@ internal static class CampaignChecks
         var stock=new NativeInventory {gold=899,items=new[]{new NativeItemStack {itemId=398,quantity=1}}};int revision=0;bool canSave=false;
         var server=new DarkSaver.Network.LocalScenarioServer(definition,()=>live,()=>stock,()=>revision,()=>100,()=>false,
             (Scenario01Progress candidate,NativeInventory inventory,out string reason)=>{
-                reason=canSave?"":"write rejected";if(!canSave)return false;live=candidate.Clone();stock=inventory.Clone();revision++;return true;});
+                reason=canSave?"":"write rejected";if(!canSave)return false;live=candidate.Clone();stock=inventory.Clone();revision++;return true;},()=>!canSave);
         var failed=server.Handle(new DarkSaver.Network.ScenarioCommandRequest("02",0,DarkSaver.Network.ScenarioOperation.Probe,33,20));
-        check(!failed.Accepted && revision==0 && stock.Count(398)==1 && !live.activatedEvents.Contains(51),"failed bridge commit is atomic");
+        check(!failed.Accepted && failed is DarkSaver.Network.ScenarioStateNotification {RetryableSaveFailure:true}
+            && revision==0 && stock.Count(398)==1 && !live.activatedEvents.Contains(51),"failed bridge commit is atomic and offers explicit save retry");
         canSave=true;
         var accepted=server.Handle(new DarkSaver.Network.ScenarioCommandRequest("02",0,DarkSaver.Network.ScenarioOperation.Probe,33,20));
         check(accepted.Accepted && revision==1 && stock.Count(398)==0 && live.activatedEvents.Contains(51),"bridge retry uses original local packet commit");

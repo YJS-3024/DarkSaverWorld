@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -55,6 +55,8 @@ namespace DarkSaver.Core
         }
         public static string DefaultPath => Path.Combine(Application.persistentDataPath, "native-save-v1.json");
         public string FilePath { get; }
+        public bool CanRetryLastWrite { get; private set; }
+        public string LastWriteDiagnostic { get; private set; } = string.Empty;
         private static NativeSaveData pending;
         private static string pendingPath;
 
@@ -159,9 +161,10 @@ namespace DarkSaver.Core
 
         public bool TrySave(NativeSaveData data, out string message)
         {
+            CanRetryLastWrite=false; LastWriteDiagnostic=string.Empty;
             message = "저장할 상태가 올바르지 않습니다.";
             if (!IsValid(data)) return false;
-            string temporary = null;
+            string temporary = null, operation="기존 저장 확인";
             try
             {
                 // Preserve an unreadable/unknown-version slot rather than overwriting it.
@@ -183,13 +186,16 @@ namespace DarkSaver.Core
                 // Never silently drop a newer roster through a legacy writer.
                 if (previous != null && previous.version > data.version)
                 { message = "보유 목록이 있는 저장을 이전 버전으로 덮어쓰지 않았습니다."; return false; }
+                operation="직렬화";
                 var payload = SerializePayload(data);
                 var json = JsonUtility.ToJson(new SaveEnvelope
                 { format = CheckedFormat, version = 1, payload = payload, sha256 = Checksum(payload) }, true);
                 if (Encoding.UTF8.GetByteCount(json) > 1024 * 1024)
                 { message = "저장 데이터가 너무 큽니다."; return false; }
+                operation="저장 폴더 준비";
                 Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
                 temporary = FilePath + ".tmp-" + Guid.NewGuid().ToString("N");
+                operation="임시 파일 기록";
                 using (var stream = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None))
                 {
                     var bytes = new UTF8Encoding(false).GetBytes(json);
@@ -197,11 +203,18 @@ namespace DarkSaver.Core
                     stream.Flush(true);
                 }
                 // Never replace a good backup with the corrupt primary during recovery.
+                operation="원자 교체";
                 if (File.Exists(FilePath)) File.Replace(temporary, FilePath, recovered ? null : FilePath + ".bak");
                 else File.Move(temporary, FilePath);
                 message = "저장했습니다."; return true;
             }
-            catch (Exception) { message = "저장 파일을 기록할 수 없습니다."; return false; }
+            catch (Exception exception)
+            {
+                CanRetryLastWrite=exception is IOException || exception is UnauthorizedAccessException;
+                // Do not expose a path/account or raw exception message to the game UI.
+                LastWriteDiagnostic=operation+": "+exception.GetType().Name+" (0x"+exception.HResult.ToString("X8")+")";
+                message = "저장 파일을 기록할 수 없습니다."; return false;
+            }
             finally
             {
                 if (temporary != null && File.Exists(temporary))

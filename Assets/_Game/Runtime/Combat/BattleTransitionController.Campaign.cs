@@ -72,6 +72,7 @@ namespace DarkSaver.Combat
 
         public bool TryCommitCampaign(string key,int revision,Scenario01Progress state,NativeInventory items,out string reason)
         {
+            CanRetryScenarioSave=false; ScenarioSaveDiagnostic=string.Empty;
             reason="시나리오 진행을 저장할 수 없습니다.";
             if(!ScenarioCatalog.TryGet(key,out var metadata) || metadata.Key=="01" || revision!=CampaignRevision || !HasCreatedCharacter || transitioning
                 || items==null || !items.IsValid || state==null || !state.Matches(Scenario01Controller.LoadDefinition(key))
@@ -86,7 +87,8 @@ namespace DarkSaver.Combat
             if(state.phase==Scenario01Progress.Complete)snapshot.clearedScenarios=snapshot.clearedScenarios.Concat(new[]{key}).Distinct().OrderBy(k=>k,StringComparer.Ordinal).ToArray();
             if(!StageScenarioGeneralRewards(snapshot,out reason))return false;
             if(saveStore==null)saveStore=new NativeSaveStore(NativeSaveStore.DefaultPath);
-            if(!saveStore.TrySave(snapshot,out reason))return false;
+            if(!saveStore.TrySave(snapshot,out reason))
+            {CanRetryScenarioSave=saveStore.CanRetryLastWrite;ScenarioSaveDiagnostic=saveStore.LastWriteDiagnostic;return false;}
             PublishScenarioGeneralRewards(snapshot);
             campaign[key]=state.Clone();inventory=items.Clone();CampaignRevision++;
             if(state.phase==Scenario01Progress.Complete)clearedScenarioKeys.Add(key);

@@ -211,6 +211,36 @@ namespace DarkSaver.Tests
         }
 
         [Test]
+        public void InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster()
+        {
+            Session((session,panel,player)=>{
+                Assert.That(session.RestoreSaveState(Save(true)),Is.True);
+                var original=session.CaptureOwnedRoster();var formation=DeployTwo(original);
+                int liveMp=session.PlayerMp;
+                var go=new GameObject("Interrupted formation battle");SceneManager.MoveGameObjectToScene(go,session.gameObject.scene);
+                var battle=go.AddComponent<BattleSceneRoot>();Assert.That(battle.TryRegisterAlliedFormation(formation,out _),Is.True);
+                Assert.That(battle.ApplyMp(100,1),Is.True);Assert.That(battle.ApplyMp(200,2),Is.True);
+                Assert.That(battle.ApplyMp(209,0),Is.True);Assert.That(battle.ApplyDeath(209,false),Is.True);
+                var candidate=session.CaptureSaveState("Kaosia_Map","Town_Runtime",Vector2.zero);
+                var method=typeof(BattleTransitionController).GetMethod("TryCaptureBattleState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+                var args=new object[]{battle,formation,candidate,null};
+                Assert.That((bool)method.Invoke(session,args),Is.True,args[3]?.ToString());
+                Assert.That(candidate.mp,Is.EqualTo(1));Assert.That(candidate.ownedRoster.units[0].mp,Is.EqualTo(2));
+                Assert.That(candidate.ownedRoster.units[1].mp,Is.Zero);Assert.That(candidate.ownedRoster.units[1].lifeState,Is.EqualTo(2));
+                Assert.That(candidate.ownedRoster.units[2].mp,Is.EqualTo(original.units[2].mp));
+                Assert.That(session.PlayerMp,Is.EqualTo(liveMp));
+                Assert.That(session.CaptureOwnedRoster().units[0].mp,Is.EqualTo(original.units[0].mp));
+                Assert.That(session.MatchesOwnedFormation(formation),Is.True);
+                Files(store=>{
+                    Assert.That(store.TrySave(candidate,out var reason),Is.True,reason);
+                    Assert.That(store.TryLoad(out var loaded,out reason),Is.True,reason);
+                    Assert.That(loaded.mp,Is.EqualTo(1));Assert.That(loaded.ownedRoster.units[0].mp,Is.EqualTo(2));
+                    Assert.That(loaded.ownedRoster.units[1].mp,Is.Zero);
+                });
+            });
+        }
+
+        [Test]
         public void SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip()
         {
             Session((session, panel, player) => {

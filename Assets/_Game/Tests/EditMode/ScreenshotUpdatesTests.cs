@@ -24,8 +24,8 @@ namespace DarkSaver.Tests
         [TestCase("Map_101_;","Training101_Runtime")]
         public void PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave(string mapName,string runtimeName)
         {
-            var map=SceneManager.CreateScene(mapName);
-            var runtime=SceneManager.CreateScene(runtimeName);
+            var map=EditModeSceneFixture.Create(mapName);
+            var runtime=EditModeSceneFixture.Create(runtimeName);
             string directory=Path.Combine(Path.GetTempPath(),"ds-personal-"+Guid.NewGuid().ToString("N"));
             try
             {
@@ -49,23 +49,23 @@ namespace DarkSaver.Tests
                 Assert.IsTrue(session.TryChangeEquipment(2,0,session.CaptureCharacterProfile(),out _));Assert.AreEqual(0,session.EquipmentItemAt(2));
                 panel.Close();Assert.IsFalse(player.UiInputBlocked);
                 Assert.IsTrue(panel.Open(TownService.CharacterInfo,player));panel.Close();
-                var battle=SceneManager.CreateScene("Battle");
+                var battle=EditModeSceneFixture.Create("Battle");
                 try
                 {
                     Assert.IsFalse(panel.Open(TownService.Inventory,player));
                     Assert.IsFalse(session.TryChangeEquipment(2,1,session.CaptureCharacterProfile(),out _));
                     Assert.AreEqual(0,session.EquipmentItemAt(2));Assert.AreEqual(77,session.CurrentGold);
                 }
-                finally{EditorSceneManager.CloseScene(battle,true);}
+                finally{EditModeSceneFixture.Close(battle);}
             }
-            finally{EditorSceneManager.CloseScene(runtime,true);EditorSceneManager.CloseScene(map,true);if(Directory.Exists(directory))Directory.Delete(directory,true);}
+            finally{EditModeSceneFixture.Close(runtime);EditModeSceneFixture.Close(map);if(Directory.Exists(directory))Directory.Delete(directory,true);}
         }
         [TestCase(400)] [TestCase(50)] [TestCase(0)]
         public void BattleCheckpointPersistsDetachedCurrentVitalsAndRetainsLiveEncounter(int remainingHp)
         {
             var directory=Path.Combine(Path.GetTempPath(),"darksaver-checkpoint-"+Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);
-            var scene=SceneManager.CreateScene("CheckpointSession_"+Guid.NewGuid().ToString("N"));
+            var scene=EditModeSceneFixture.Create("CheckpointSession_"+Guid.NewGuid().ToString("N"));
             Scene battleScene=default;
             var enemy=ScriptableObject.CreateInstance<BattleEnemyDefinition>();
             try
@@ -82,7 +82,7 @@ namespace DarkSaver.Tests
                 Assert.IsTrue(session.RestoreSaveState(state));
                 var path=Path.Combine(directory,"slot.json");var store=new NativeSaveStore(path);
                 Assert.IsTrue(store.TrySave(state,out var reason),reason);session.ConfigureSaveFile(path);
-                battleScene=SceneManager.CreateScene("Battle");
+                battleScene=EditModeSceneFixture.Create("Battle");
                 var battleObject=new GameObject("checkpoint battle");SceneManager.MoveGameObjectToScene(battleObject,battleScene);
                 var battle=battleObject.AddComponent<BattleSceneRoot>();enemy.InitializeScenarioUnit(source);
                 Assert.IsTrue(battle.ConfigureEnemy(enemy));Assert.IsTrue(battle.ApplyHp(700,remainingHp));
@@ -116,13 +116,13 @@ namespace DarkSaver.Tests
                     Assert.IsTrue(battle.ApplyHp(700,remainingHp));
                 }
                 Assert.IsTrue(session.TryCaptureBattleReturn(battle,null,out reason),reason);
-                Assert.AreEqual(3,session.PlayerMp,"normal battle return must preserve spent MP");
+                Assert.AreEqual(battle.PlayerMaxMp,session.PlayerMp,"confirmed battle-end policy restores MP; checkpoints preserve spent MP");
                 Assert.AreEqual(-1,session.CaptureScenario01().pendingBattle);
             }
             finally
             {
-                if(battleScene.IsValid())EditorSceneManager.CloseScene(battleScene,true);
-                EditorSceneManager.CloseScene(scene,true);UnityEngine.Object.DestroyImmediate(enemy);
+                if(battleScene.IsValid())EditModeSceneFixture.Close(battleScene);
+                EditModeSceneFixture.Close(scene);UnityEngine.Object.DestroyImmediate(enemy);
                 Directory.Delete(directory,true);
             }
         }

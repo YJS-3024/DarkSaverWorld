@@ -6,6 +6,22 @@ internal static class ScreenshotConfirmedChecks
 {
     public static void Run(Action<bool,string> check)
     {
+        var directory=Path.Combine(Path.GetTempPath(),"ds-write-diagnostic-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(directory);
+        try
+        {
+            var blocked=Path.Combine(directory,"blocked");File.WriteAllText(blocked,"preserve");
+            var store=new NativeSaveStore(Path.Combine(blocked,"save.json"));
+            var sample=new NativeSaveData {format=NativeSaveStore.Format,version=NativeSaveStore.Version,mapScene="Kaosia_Map",runtimeScene="Town_Runtime",clearedScenarios=Array.Empty<string>()};
+            check(!store.TrySave(sample,out _) && store.CanRetryLastWrite,"I/O failure marked retryable without replacing data");
+            check(store.LastWriteDiagnostic.Contains("IOException") && store.LastWriteDiagnostic.Contains("0x") && !store.LastWriteDiagnostic.Contains(directory),"diagnostic includes phase/type/code without private path");
+            check(File.ReadAllText(blocked)=="preserve" && Directory.GetFiles(directory).Length==1,"failed write leaves existing files and no temporary files");
+            File.Delete(blocked);Directory.CreateDirectory(blocked);
+            check(store.TrySave(sample,out _) && !store.CanRetryLastWrite && store.LastWriteDiagnostic=="","same save retries after I/O recovery and clears diagnostic");
+            check(store.TryLoad(out var restored,out _) && restored.mapScene==sample.mapScene,"recovered save remains readable");
+            sample.hp=-1;sample.hasVitals=true;
+            check(!store.TrySave(sample,out _) && !store.CanRetryLastWrite,"invalid data never offered as a retryable I/O failure");
+        }
+        finally{Directory.Delete(directory,true);}
         var lateItems=DarkSaver.Editor.ItemCatalogConverter.Parse(File.ReadAllText("분석/Saver_Late/unity_catalogs/items.csv"));
         check(lateItems.Length==1212 && lateItems.Single(r=>r.Id==1245).GetNumericValue(16)==80000000000L,"late prices parse all rows without rounding");
         check(lateItems.Count(r=>r.PriceNotation=="1.00E+11")==9

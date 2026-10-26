@@ -95,8 +95,13 @@ namespace DarkSaver.Combat
             if (battle == null || !battle.TryGetUnit(100, out var primary) || primary.MaxHp <= 0
                 || primary.Hp < 0 || primary.Hp > primary.MaxHp || primary.MaxMp < 0 || primary.Mp < 0 || primary.Mp > primary.MaxMp) return false;
             NativeOwnedRoster updated = null;
-            if (formation != null && (ownedRoster == null || !battle.TryCaptureFormationReturn(formation, out var returned, out reason)
-                || !ownedRoster.TryApplyBattleReturn(returned, out updated, out reason))) return false;
+            if (formation != null)
+            {
+                if(ownedRoster==null || !battle.TryCaptureFormationReturn(formation,out var returned,out reason))return false;
+                bool accepted=checkpoint==null ? ownedRoster.TryApplyBattleReturn(returned,out updated,out reason)
+                    : ownedRoster.TryApplyObservedReturn(returned,out updated,out reason);
+                if(!accepted)return false;
+            }
             var progressed = character; uint remainingExperience = primary.Experience;
             if (character != null && character.hasLevels && !character.TryAdvanceLevels(
                 GetComponent<DarkSaver.UI.TownServicesPanel>()?.Progression, primary.Experience, out progressed, out remainingExperience))
@@ -138,7 +143,7 @@ namespace DarkSaver.Combat
                 reason = string.Empty; return true;
             }
             // Publish only after both primary and additional results validate.
-            playerHp = primary.Hp; playerMaxHp = primary.MaxHp; playerMp = primary.Mp; playerMaxMp = primary.MaxMp;
+            playerHp = primary.Hp; playerMaxHp = primary.MaxHp; playerMp = primary.MaxMp; playerMaxMp = primary.MaxMp;
             playerExperience = remainingExperience; character = progressed;
             playerLifeState = primary.LifeState; hasPlayerVitals = true;
             if (scenarioReturn != null) { scenario01 = scenarioReturn; Scenario01Revision++; }

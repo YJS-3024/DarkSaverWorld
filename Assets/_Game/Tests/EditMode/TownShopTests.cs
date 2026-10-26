@@ -57,7 +57,7 @@ namespace DarkSaver.Tests
         {
             var active = SceneManager.GetActiveScene();
             var town = SceneManager.GetSceneByName("Town_Runtime"); bool created = !town.isLoaded;
-            if (created) { town = SceneManager.CreateScene("Town_Runtime"); }
+            if (created) { town = EditModeSceneFixture.Create("Town_Runtime"); }
             var root = new GameObject("Shop page fixture"); SceneManager.MoveGameObjectToScene(root, town);
             var catalog = ScriptableObject.CreateInstance<ItemCatalog>();
             try {
@@ -100,7 +100,7 @@ namespace DarkSaver.Tests
                 Assert.That(panel.ShopPageIndex, Is.Zero); panel.Close();
             } finally {
                 UnityEngine.Object.DestroyImmediate(root); UnityEngine.Object.DestroyImmediate(catalog);
-                if (created) EditorSceneManager.CloseScene(town, true);
+                if (created) EditModeSceneFixture.Close(town);
                 if (active.IsValid() && active.isLoaded) SceneManager.SetActiveScene(active);
             }
         }
@@ -165,7 +165,7 @@ namespace DarkSaver.Tests
         {
             var before = SceneManager.GetActiveScene(); var town = SceneManager.GetSceneByName("Town_Runtime");
             bool created = !town.isLoaded;
-            if (created) { town = SceneManager.CreateScene("Town_Runtime"); }
+            if (created) { town = EditModeSceneFixture.Create("Town_Runtime"); }
             var root = new GameObject("Shop check"); SceneManager.MoveGameObjectToScene(root, town);
             var catalog = ScriptableObject.CreateInstance<ItemCatalog>();
             var folder = Path.Combine(Application.temporaryCachePath, "TownShop-" + Guid.NewGuid().ToString("N"));
@@ -333,7 +333,7 @@ namespace DarkSaver.Tests
             finally
             {
                 UnityEngine.Object.DestroyImmediate(root); UnityEngine.Object.DestroyImmediate(catalog);
-                if (created) EditorSceneManager.CloseScene(town, true);
+                if (created) EditModeSceneFixture.Close(town);
                 if (before.IsValid() && before.isLoaded) SceneManager.SetActiveScene(before);
                 if (File.Exists(Path.Combine(folder, "save.json"))) File.Delete(Path.Combine(folder, "save.json"));
                 if (Directory.Exists(folder)) Directory.Delete(folder);

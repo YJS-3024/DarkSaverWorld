@@ -20,6 +20,26 @@ namespace DarkSaver.Tests
         };
 
         [Test]
+        public void IoFailureCanRetryWithoutPublishingAndDiagnosticsDoNotExposePath()
+        {
+            var directory=Path.Combine(Path.GetTempPath(),"ds-save-retry-"+System.Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(directory);
+            try
+            {
+                var blocked=Path.Combine(directory,"blocked");File.WriteAllText(blocked,"preserve");
+                var store=new NativeSaveStore(Path.Combine(blocked,"slot.json"));
+                Assert.That(store.TrySave(Sample(),out _),Is.False);Assert.That(store.CanRetryLastWrite,Is.True);
+                Assert.That(store.LastWriteDiagnostic,Does.Contain("IOException").And.Contain("0x").And.Not.Contain(directory));
+                Assert.That(File.ReadAllText(blocked),Is.EqualTo("preserve"));Assert.That(Directory.GetFiles(directory).Length,Is.EqualTo(1));
+                File.Delete(blocked);Directory.CreateDirectory(blocked);
+                Assert.That(store.TrySave(Sample(),out var reason),Is.True,reason);
+                Assert.That(store.CanRetryLastWrite,Is.False);Assert.That(store.LastWriteDiagnostic,Is.Empty);
+                Assert.That(store.TryLoad(out _,out reason),Is.True,reason);
+            }
+            finally{Directory.Delete(directory,true);}
+        }
+
+        [Test]
         public void ChecksumFailureRecoversBackupAndPreservesItOnNextSave()
         {
             Files(store =>

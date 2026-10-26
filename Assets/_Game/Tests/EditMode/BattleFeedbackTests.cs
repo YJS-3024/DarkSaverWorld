@@ -504,6 +504,7 @@ namespace DarkSaver.Tests
                 var plasmaBeams=Resources.Load<NativeThrustBeamEffects>("Effects/NativePlasmaBeamEffects");Assert.IsNotNull(plasmaBeams);
                 enemy.gameObject.layer = 23;
                 int specialRecords = 0, mappedRecords = 0;
+                var unmappedIds=new System.Collections.Generic.List<int>();
                 for (int i = 0; i < magicCatalog.Count; i++)
                 {
                     var entry = magicCatalog.GetAt(i);
@@ -511,7 +512,7 @@ namespace DarkSaver.Tests
                     specialRecords++;
                     Assert.IsTrue(view.TryGetSpecialVisualMapping(magicCatalog, entry.Id, out var patternId, out var mapped));
                     Assert.AreEqual(entry.PatternId, patternId);
-                    if (!mapped) continue;
+                    if (!mapped) {unmappedIds.Add(entry.Id);continue;}
                     mappedRecords++;
                     Assert.IsTrue(receiver.TryApplyPacket(new MagicEffectNotification((short)entry.Id, 100, 0, 0, 0, new short[] { 800 })));
                     Assert.AreEqual(plasmaBeams.TryGetLifetime(entry.Id,out _) || doubleBeams.TryGetLifetime(entry.Id,out _) || expandingEffects.TryGet(entry.Id,out _) || entry.Id>=10601 && entry.Id<=10606 || entry.Id>=10701 && entry.Id<=10706 || entry.Id>=10101 && entry.Id<=10106?2:1, view.ActiveMagicEffectCount, entry.Name);
@@ -522,7 +523,8 @@ namespace DarkSaver.Tests
                     view.AdvanceMagicEffects(GameConstants.BattleMagicEffectCounterSeconds * 1000);
                     Assert.AreEqual(0, view.ActiveMagicEffectCount, entry.Name);
                 }
-                Assert.AreEqual(86, specialRecords); Assert.AreEqual(specialRecords, mappedRecords);
+                Assert.AreEqual(86, specialRecords); Assert.AreEqual(85, mappedRecords);
+                CollectionAssert.AreEquivalent(new[]{30901},unmappedIds,"Curism remains explicitly unconfirmed; do not manufacture an effect");
                 for (short groundId = 10601; groundId <= 10606; groundId++)
                 {
                     Assert.IsTrue(receiver.TryApplyPacket(new MagicEffectNotification(groundId, 100, 0, 0, 0, new short[] { 800,800 })));

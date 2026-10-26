@@ -28,8 +28,9 @@ namespace DarkSaver.Tests
             Assert.That(rows.Count, Is.EqualTo(130));
             Assert.That(rows.All(row => row.Id != row.SpriteId), Is.True);
             Assert.That(rows.Single(row => row.Id == 799).SpriteId, Is.EqualTo(713));
-            foreach (var path in new[] { JobCatalogConverter.Output, JobCatalogConverter.NpcOutput })
-                Assert.That(JobCatalogPreviewWindow.GetMatches(AssetDatabase.LoadAssetAtPath<JobCatalog>(path), "", true, "").Count, Is.Zero);
+            Assert.That(JobCatalogPreviewWindow.GetMatches(AssetDatabase.LoadAssetAtPath<JobCatalog>(JobCatalogConverter.Output), "", true, ""),Is.Empty);
+            var npcRows=JobCatalogPreviewWindow.GetMatches(AssetDatabase.LoadAssetAtPath<JobCatalog>(JobCatalogConverter.NpcOutput),"",true,"");
+            CollectionAssert.AreEquivalent(new[]{(988,989),(989,988)},npcRows.Select(row=>(row.Id,row.SpriteId)).ToArray());
         }
 
         [Test]
