@@ -1,0 +1,272 @@
+[
+  {
+    "Test": "DarkSaver.Tests.BattleAttackPresentationTests.ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats",
+    "Message": "  Expected: (120, 30, 300, 6)\n  But was:  (120, 30, 450, 6)\nat DarkSaver.Tests.BattleAttackPresentationTests+<>c.<ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats>b__0_0 (DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle, DarkSaver.Combat.BattleEnemyDefinition enemy) [0x000da] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:33\nat DarkSaver.Tests.BattleAttackPresentationTests.WithBattle (System.Action`3[T1,T2,T3] check) [0x00050] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:114\nat DarkSaver.Tests.BattleAttackPresentationTests.ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:17\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.AwardedTotalSurvivesNativeSaveAndSessionRestore",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.AwardedTotalSurvivesNativeSaveAndSessionRestore () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:110\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(False,False)",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce (System.Boolean magic, System.Boolean enabled) [0x00014] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:23\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(False,True)",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce (System.Boolean magic, System.Boolean enabled) [0x00014] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:23\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(True,False)",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce (System.Boolean magic, System.Boolean enabled) [0x00014] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:23\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(True,True)",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce (System.Boolean magic, System.Boolean enabled) [0x00014] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:23\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketRewardOverflowNeverWraps(False)",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketRewardOverflowNeverWraps (System.Boolean magic) [0x0000d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:48\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketRewardOverflowNeverWraps(True)",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketRewardOverflowNeverWraps (System.Boolean magic) [0x0000d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:48\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.DefeatAwardsNativeBaseOnceAndSessionRetainsTotal",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.DefeatAwardsNativeBaseOnceAndSessionRetainsTotal () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:78\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.DisabledRewardAndRejectedActionDoNotGrantExperience",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.DisabledRewardAndRejectedActionDoNotGrantExperience () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:97\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.ExactUint32LimitIsAllowed",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.ExactUint32LimitIsAllowed () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:146\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.HpZeroAloneDoesNotPermitRewardAndDeathDoesNotAutomaticallyAwardIt",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.HpZeroAloneDoesNotPermitRewardAndDeathDoesNotAutomaticallyAwardIt () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:184\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.MissingNegativeOversizedAndZeroRewardsAreDistinguished",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.MissingNegativeOversizedAndZeroRewardsAreDistinguished () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:158\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.Uint32OverflowDoesNotWrapOrGrantTwice",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleDefeatExperienceTests.WithBattle (System.Boolean rewardEnabled, System.Action`3[T1,T2,T3] check) [0x0009d] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:221\nat DarkSaver.Tests.BattleDefeatExperienceTests.Uint32OverflowDoesNotWrapOrGrantTwice () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleDefeatExperienceTests.cs:132\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFeedbackTests.ActualAttackShowsDamageAndMissWithoutTreatingHpSyncAsAnAttack",
+    "Message": "  Expected: 85\n  But was:  86\nat DarkSaver.Tests.BattleFeedbackTests.ActualAttackShowsDamageAndMissWithoutTreatingHpSyncAsAnAttack () [0x00d31] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleFeedbackTests.cs:525\n",
+    "Category": "Expected: 85"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVictoryRulesTests.KisraAsset_CreatesIndependentInstanceWithMatchingObjective",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.BattleVictoryRulesTests.KisraAsset_CreatesIndependentInstanceWithMatchingObjective () [0x0007e] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleVictoryRulesTests.cs:20\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(0)",
+    "Message": "  Expected: String containing \"전투 불능: 재조우 불가\"\n  But was:  \"경험치 0\n완료 시나리오 0개\nHP 0/120  MP 30/30\n전투 불능: 신전 관리인에게 부활을 요청하세요.\n시나리오 01: 미완료\"\nat DarkSaver.Tests.BattleVitalsSessionTests+<>c__DisplayClass6_0.<HudReadsVitalsAndEntryRestrictionWithoutChangingThem>b__0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x00044] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:126\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:169\nat DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem (System.Int32 hp) [0x0000c] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:122\n",
+    "Category": "Expected: String containing \"전투 불능: 재조우 불가\""
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.UnknownVitalsLevelsAndXpTargetsAreNotSynthesized",
+    "Message": "  String lengths are both 6. Strings differ at index 5.\n  Expected: \"1234/-\"\n  But was:  \"1234/?\"\n  ----------------^\nat DarkSaver.Tests.ClassChangeExecutionTests+<>c.<UnknownVitalsLevelsAndXpTargetsAreNotSynthesized>b__11_0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.UI.TownServicesPanel panel, DarkSaver.Player.TopDownPlayerController player) [0x001d1] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ClassChangeExecutionTests.cs:125\nat DarkSaver.Tests.ClassChangeExecutionTests.WithTown (System.Action`3[T1,T2,T3] check) [0x0016a] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ClassChangeExecutionTests.cs:517\nat DarkSaver.Tests.ClassChangeExecutionTests.UnknownVitalsLevelsAndXpTargetsAreNotSynthesized () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ClassChangeExecutionTests.cs:104\n",
+    "Category": "String lengths are both 6. Strings differ at index 5."
+  },
+  {
+    "Test": "DarkSaver.Tests.ItemCatalogPanelTests.FilterSelectPreservesLargeValuesAndNativeNames",
+    "Message": "  Expected: 100000000000\n  But was:  80000000000\nat DarkSaver.Tests.ItemCatalogPanelTests+<>c.<FilterSelectPreservesLargeValuesAndNativeNames>b__1_0 (DarkSaver.UI.ItemCatalogPanel panel, DarkSaver.Player.TopDownPlayerController player, DarkSaver.Items.ItemCatalog catalog) [0x00065] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ItemCatalogPanelTests.cs:46\nat DarkSaver.Tests.ItemCatalogPanelTests.WithPanel (System.Action`3[T1,T2,T3] check) [0x00069] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ItemCatalogPanelTests.cs:124\nat DarkSaver.Tests.ItemCatalogPanelTests.FilterSelectPreservesLargeValuesAndNativeNames () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ItemCatalogPanelTests.cs:39\n",
+    "Category": "Expected: 100000000000"
+  },
+  {
+    "Test": "DarkSaver.Tests.ItemCatalogPanelTests.MissingFilterClearsSelectionAndEmptyNamesRemainInCatalog",
+    "Message": "Expected original empty name.at DarkSaver.Tests.ItemCatalogPanelTests+<>c.<MissingFilterClearsSelectionAndEmptyNamesRemainInCatalog>b__2_0 (DarkSaver.UI.ItemCatalogPanel panel, DarkSaver.Player.TopDownPlayerController player, DarkSaver.Items.ItemCatalog catalog) [0x000af] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ItemCatalogPanelTests.cs:74\nat DarkSaver.Tests.ItemCatalogPanelTests.WithPanel (System.Action`3[T1,T2,T3] check) [0x00069] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ItemCatalogPanelTests.cs:124\nat DarkSaver.Tests.ItemCatalogPanelTests.MissingFilterClearsSelectionAndEmptyNamesRemainInCatalog () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ItemCatalogPanelTests.cs:59\n",
+    "Category": "Expected original empty name.at DarkSaver.Tests.ItemCatalogPanelTests+<>c.<MissingFilterClearsSelectionAndEmptyNamesRemainInCatalog>b__2_0 (DarkSaver.UI.ItemCatalogPanel panel, DarkSaver.Player.TopDownPlayerController player, DarkSaver.Items.ItemCatalog catalog) [0x000af] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ItemCatalogPanelTests.cs:74"
+  },
+  {
+    "Test": "DarkSaver.Tests.ItemCatalogTests.NativeAssetPreservesAllItemsAndHasNoCsvDependency",
+    "Message": "  Expected string length 5 but was 11. Strings differ at index 0.\n  Expected: \"1E+11\"\n  But was:  \"80000000000\"\n  -----------^\nat DarkSaver.Tests.ItemCatalogTests.NativeAssetPreservesAllItemsAndHasNoCsvDependency () [0x00074] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ItemCatalogTests.cs:77\n",
+    "Category": "Expected string length 5 but was 11. Strings differ at index 0."
+  },
+  {
+    "Test": "DarkSaver.Tests.ItemDefinitionTests.IndividualAssetsPreserveEveryNativeFieldAndNeedNoOriginalFiles",
+    "Message": "System.IO.InvalidDataException : Invalid integer price.  at DarkSaver.Editor.ItemCatalogConverter.IntegerPrice (System.String text) [0x0008b] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Editor\\ItemCatalogConverter.cs:92 \n  at DarkSaver.Editor.ItemCatalogConverter.Parse (System.String csv) [0x00093] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Editor\\ItemCatalogConverter.cs:58 \n  at DarkSaver.Tests.ItemDefinitionTests.IndividualAssetsPreserveEveryNativeFieldAndNeedNoOriginalFiles () [0x0000b] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ItemDefinitionTests.cs:17 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "System.IO.InvalidDataException : Invalid integer price.  at DarkSaver.Editor.ItemCatalogConverter.IntegerPrice (System.String text) [0x0008b] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Editor\\ItemCatalogConverter.cs:92"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobActionCostTests.KisraUsesJob701NotInstance700AndPlayerBindPreservesVitals",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.JobActionCostTests.KisraUsesJob701NotInstance700AndPlayerBindPreservesVitals () [0x000a3] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\JobActionCostTests.cs:61\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCatalogPreviewTests.DefaultFilterReadsSelectedNativeCatalog(\"Assets/_Game/Runtime/Jobs/JobCatalog.asset\",70)",
+    "Message": "  Expected: 70\n  But was:  73\nat DarkSaver.Tests.JobCatalogPreviewTests.DefaultFilterReadsSelectedNativeCatalog (System.String path, System.Int32 count) [0x00016] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\JobCatalogPreviewTests.cs:20\n",
+    "Category": "Expected: 70"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCatalogPreviewTests.DefaultFilterReadsSelectedNativeCatalog(\"Assets/_Game/Runtime/Jobs/MonsterJobCatalog.asset\",324)",
+    "Message": "  Expected: 324\n  But was:  337\nat DarkSaver.Tests.JobCatalogPreviewTests.DefaultFilterReadsSelectedNativeCatalog (System.String path, System.Int32 count) [0x00016] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\JobCatalogPreviewTests.cs:20\n",
+    "Category": "Expected: 324"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCatalogPreviewTests.DefaultFilterReadsSelectedNativeCatalog(\"Assets/_Game/Runtime/Jobs/NpcSpecialJobCatalog.asset\",35)",
+    "Message": "  Expected: 35\n  But was:  37\nat DarkSaver.Tests.JobCatalogPreviewTests.DefaultFilterReadsSelectedNativeCatalog (System.String path, System.Int32 count) [0x00016] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\JobCatalogPreviewTests.cs:20\n",
+    "Category": "Expected: 35"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCatalogPreviewTests.MismatchFilterKeepsJobAndSpriteIdsSeparate",
+    "Message": "  Expected: 123\n  But was:  130\nat DarkSaver.Tests.JobCatalogPreviewTests.MismatchFilterKeepsJobAndSpriteIdsSeparate () [0x0001a] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\JobCatalogPreviewTests.cs:28\n",
+    "Category": "Expected: 123"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeEntryUiTests.NativeEntryArtworkKeepsPasswordMaskingAndRegistrationNavigation",
+    "Message": "Unhandled log message: '[Assert] Assertion failed on expression: 'ShouldRunBehaviour()''. Use UnityEngine.TestTools.LogAssert.ExpectUnityEngine.GameObject:SendMessage (string)\nDarkSaver.Tests.NativeEntryUiTests:NativeEntryArtworkKeepsPasswordMaskingAndRegistrationNavigation () (at Assets/_Game/Tests/EditMode/NativeEntryUiTests.cs:22)\nSystem.Reflection.MethodBase:Invoke (object,object[])\nNUnit.Framework.Internal.Reflect:InvokeMethod (System.Reflection.MethodInfo,object,object[])\nNUnit.Framework.Internal.MethodWrapper:Invoke (object,object[])\nNUnit.Framework.Internal.Commands.TestMethodCommand:RunNonAsyncTestMethod (NUnit.Framework.Internal.ITestExecutionContext)\nNUnit.Framework.Internal.Commands.TestMethodCommand:RunTestMethod (NUnit.Framework.Internal.ITestExecutionContext)\nNUnit.Framework.Internal.Commands.TestMethodCommand:Execute (NUnit.Framework.Internal.ITestExecutionContext)\nUnityEditor.TestTools.TestRunner.Api.TestRunnerApi:Execute (UnityEditor.TestTools.TestRunner.Api.ExecutionSettings)\nDarkSaver.Editor.ProjectValidationRunner:RunEditMode (bool) (at Assets/_Game/Editor/ProjectValidationRunner.cs:18)\nUnity.AI.Assistant.Agent.Dynamic.Extension.Editor.CommandScript:Execute (Unity.AI.Assistant.Agent.Dynamic.Extension.Editor.ExecutionResult)\nUnity.AI.Assistant.Editor.RunCommand.AgentRunCommand:Execute (Unity.AI.Assistant.Agent.Dynamic.Extension.Editor.ExecutionResult&,string) (at ./Library/PackageCache/com.unity.ai.assistant@1b11b9bfd84a/Editor/Assistant/RunCommand/AgentRunCommand.cs:68)\nUnity.AI.Assistant.Editor.RunCommand.RunCommandUtils:Execute (Unity.AI.Assistant.Editor.RunCommand.AgentRunCommand,string) (at ./Library/PackageCache/com.unity.ai.assistant@1b11b9bfd84a/Editor/Assistant/RunCommand/RunCommandUtils.cs:128)\nUnity.AI.Assistant.Tools.Editor.RunCommandTool/<ExecuteCommand>d__6:MoveNext () (at ./Library/PackageCache/com.unity.ai.assistant@1b11b9bfd84a/Modules/Unity.AI.Assistant.Tools/Scripting/RunCommandTool.cs:74)\nSystem.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<Unity.AI.Assistant.Tools.Editor.RunCommandTool/ExecutionOutput>:Start<Unity.AI.Assistant.Tools.Editor.RunCommandTool/<ExecuteCommand>d__6> (Unity.AI.Assistant.Tools.E\n\n",
+    "Category": "Unhandled log message: '[Assert] Assertion failed on expression: 'ShouldRunBehaviour()''. Use UnityEngine.TestTools.LogAssert.ExpectUnityEngine.GameObject:SendMessage (string)"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.ClearSurvivesBattleRemovalAndDoesNotRepeatOrReward",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.ScenarioCompletionTests.CheckSession (System.Action`3[T1,T2,T3] check) [0x000a6] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:95\nat DarkSaver.Tests.ScenarioCompletionTests.ClearSurvivesBattleRemovalAndDoesNotRepeatOrReward () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:37\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(False,\"01\",False)",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.ScenarioCompletionTests.CheckSession (System.Action`3[T1,T2,T3] check) [0x000a6] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:95\nat DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey (System.Boolean flag, System.String key, System.Boolean expected) [0x0001a] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:18\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(True,\"\",False)",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.ScenarioCompletionTests.CheckSession (System.Action`3[T1,T2,T3] check) [0x000a6] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:95\nat DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey (System.Boolean flag, System.String key, System.Boolean expected) [0x0001a] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:18\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(True,\" \",False)",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.ScenarioCompletionTests.CheckSession (System.Action`3[T1,T2,T3] check) [0x000a6] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:95\nat DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey (System.Boolean flag, System.String key, System.Boolean expected) [0x0001a] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:18\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(True,\"01\",True)",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.ScenarioCompletionTests.CheckSession (System.Action`3[T1,T2,T3] check) [0x000a6] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:95\nat DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey (System.Boolean flag, System.String key, System.Boolean expected) [0x0001a] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:18\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.OrdinaryVictoryDoesNotClearScenario",
+    "Message": "  Expected: 300\n  But was:  450\nat DarkSaver.Tests.ScenarioCompletionTests.CheckSession (System.Action`3[T1,T2,T3] check) [0x000a6] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:95\nat DarkSaver.Tests.ScenarioCompletionTests.OrdinaryVictoryDoesNotClearScenario () [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScenarioCompletionTests.cs:66\n",
+    "Category": "Expected300 vs450"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave(\"World1010_Map\",\"Field_Runtime\")",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave (System.String mapName, System.String runtimeName) [0x00010] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScreenshotUpdatesTests.cs:28 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave(\"Brugos01_Map\",\"Brugos01_Runtime\")",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave (System.String mapName, System.String runtimeName) [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScreenshotUpdatesTests.cs:27 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave(\"Map_101_;\",\"Training101_Runtime\")",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave (System.String mapName, System.String runtimeName) [0x00000] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\ScreenshotUpdatesTests.cs:27 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownInteractionTests.CharacterInfoLifecyclePreservesExistingServiceIdsAndReleasesModalInput",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownInteractionTests.CharacterInfoLifecyclePreservesExistingServiceIdsAndReleasesModalInput () [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownInteractionTests.cs:92 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownInteractionTests.TownFacilitiesDialogueDistanceAndModalLifecycleWorkTogether",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownInteractionTests.TownFacilitiesDialogueDistanceAndModalLifecycleWorkTogether () [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownInteractionTests.cs:259 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Kaosia\")",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown (System.String key) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownServiceNpcTests.cs:21 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Belpueus\")",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown (System.String key) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownServiceNpcTests.cs:21 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Sisirio\")",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown (System.String key) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownServiceNpcTests.cs:21 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Castlelim\")",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown (System.String key) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownServiceNpcTests.cs:21 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(0,1)",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade (System.Int32 count, System.Int32 pages) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownShopTests.cs:57 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(3,1)",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade (System.Int32 count, System.Int32 pages) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownShopTests.cs:57 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(4,1)",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade (System.Int32 count, System.Int32 pages) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownShopTests.cs:57 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(7,1)",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade (System.Int32 count, System.Int32 pages) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownShopTests.cs:57 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(12,1)",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade (System.Int32 count, System.Int32 pages) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownShopTests.cs:57 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(13,2)",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade (System.Int32 count, System.Int32 pages) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownShopTests.cs:57 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(15,2)",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade (System.Int32 count, System.Int32 pages) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownShopTests.cs:57 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(16,3)",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade (System.Int32 count, System.Int32 pages) [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownShopTests.cs:57 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopTradeAndSaveFeedbackDoNotOverlapAndHideWhenCleared",
+    "Message": "System.NullReferenceException : Object reference not set to an instance of an object  at DarkSaver.Tests.TownShopTests.ShopTradeAndSaveFeedbackDoNotOverlapAndHideWhenCleared () [0x000a2] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownShopTests.cs:31 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "System.NullReferenceException : Object reference not set to an instance of an object  at DarkSaver.Tests.TownShopTests.ShopTradeAndSaveFeedbackDoNotOverlapAndHideWhenCleared () [0x000a2] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownShopTests.cs:31"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopUiSessionTradeAndDiskRestorePreserveInventoryAndUnknownLegacyState",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.TownShopTests.ShopUiSessionTradeAndDiskRestorePreserveInventoryAndUnknownLegacyState () [0x0001f] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\TownShopTests.cs:165 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  },
+  {
+    "Test": "DarkSaver.Tests.WorkBatchMemoryTests.CleanupSkipsUnsavedSceneWithoutSavingOrClosingIt",
+    "Message": "System.InvalidOperationException : Current mode does not support additive creation of new scenes.  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0 \n  at DarkSaver.Tests.WorkBatchMemoryTests.CleanupSkipsUnsavedSceneWithoutSavingOrClosingIt () [0x00006] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\WorkBatchMemoryTests.cs:15 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ",
+    "Category": "Scene fixture mode"
+  }
+]
