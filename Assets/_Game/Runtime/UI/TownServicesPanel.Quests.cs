@@ -8,8 +8,7 @@ namespace DarkSaver.UI
 {
     public sealed partial class TownServicesPanel
     {
-        // Source NPC identities/dialogue; access through a local board until town
-        // NPC placement is recovered. No source map coordinates are invented.
+        // Source NPC identities/dialogue; each user-authorized local NPC selects its own quest.
         private static TownQuestContent questContent;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetQuestContent() => questContent = null;
@@ -33,12 +32,6 @@ namespace DarkSaver.UI
             if (content == null) { ui.Label("quest-unavailable", new Rect(panel.x + 20, 110, panel.width - 40, 80), "의뢰 자료를 불러올 수 없습니다."); return; }
             var session = GetComponent<BattleTransitionController>();
             var state = session?.CaptureScenario01();
-            foreach (var row in content.rows)
-            {
-                int id = row.id;
-                ui.Button("quest-" + id, new Rect(panel.x + 20 + (id - 1) * 200, 104, 190, 30), row.npcName + "의 의뢰",
-                    () => { selectedQuest = id; questPage = 0; questReply = null; }, true, selectedQuest == id);
-            }
             var quest = Array.Find(content.rows, q => q.id == selectedQuest);
             if (quest == null) return;
             int stage = TownQuestRules.Stage(state, quest.id);
@@ -62,7 +55,6 @@ namespace DarkSaver.UI
                 ui.Button("quest-decline", new Rect(panel.x + 180, 368, 150, 28), "아니오", () => { questReply = quest.no; questPage = 0; }, read);
             }
             else if (stage == 2) ui.Button("quest-claim", new Rect(panel.x + 20, 368, 250, 28), "보고하고 보상 받기", () => ApplyTownQuest(true), read);
-            ui.Button("quest-back", new Rect(panel.x + 20, 410, 150, 28), "시설 목록", () => Open(TownService.Overview, player));
         }
         private void ApplyTownQuest(bool claim)
         {

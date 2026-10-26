@@ -1,0 +1,84 @@
+{
+  "starterJobs": [
+    {
+      "job": 100,
+      "name": "파이터",
+      "hp": 200,
+      "mp": 45,
+      "magic": [
+        101
+      ],
+      "skills": [
+        10101,
+        21101
+      ]
+    },
+    {
+      "job": 101,
+      "name": "나이트",
+      "hp": 210,
+      "mp": 40,
+      "magic": [
+        301
+      ],
+      "skills": [
+        10101,
+        21201
+      ]
+    },
+    {
+      "job": 103,
+      "name": "매지션",
+      "hp": 180,
+      "mp": 65,
+      "magic": [
+        101,
+        301
+      ],
+      "skills": [
+        12101,
+        11101,
+        21701
+      ]
+    }
+  ],
+  "startingGold": 30000,
+  "personalEquipment": {
+    "open": "I or native world body picture click; C for personal information",
+    "contexts": [
+      "town",
+      "field",
+      "scenario",
+      "training",
+      "interiors"
+    ],
+    "blocked": [
+      "battle",
+      "travel",
+      "tutorial",
+      "scenario script"
+    ]
+  },
+  "kisra": {
+    "job": 701,
+    "sourceHp": 300,
+    "combatMaximumHp": 450,
+    "remainingSavedHp": "preserved without refill",
+    "sourceContentHashUnchanged": true,
+    "globalMultiplierApplied": false
+  },
+  "verification": {
+    "growthHost": 63,
+    "integrationHost": 35749,
+    "productionCombat": 4829,
+    "classSkillCases": 393,
+    "scenarioRewards": 214,
+    "runtimeSources": 211,
+    "editorSources": 73,
+    "editModeSources": 119,
+    "apiErrors": 0,
+    "editModeExecuted": false,
+    "unityPlay": false
+  },
+  "runtimeAssemblySha256": "a59aab140b6a64ebd74a5e89617c455994c8398384206cde924e49b39fc42b80"
+}

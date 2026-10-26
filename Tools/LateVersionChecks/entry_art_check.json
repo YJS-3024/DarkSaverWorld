@@ -74,6 +74,17 @@
       ],
       "sourceSha256": "d8a49250bc822c851324f0431e6dadbb3b879b6965d24cafe390aa9c1f71bb29",
       "pixelSha256": "39c25cfe2bc09963721e3c49a592e1c217454e22835338a45e533f884dc8cea9"
+    },
+    {
+      "asset": "Assets/_Game/Resources/UI/Entry/CharacterCreation.png",
+      "source": "Wlib/scene24.lsc+waitlib",
+      "sourceRect": null,
+      "size": [
+        397,
+        300
+      ],
+      "sourceSha256": "be189051d4a5b54b14d6ae5ddcbb1872434d67f45a0b4fc0922c3b2a9012e933",
+      "pixelSha256": "9ce4d05645a66f171b60675b540894845cfa3163b88e580f93d453abfcacf1f4"
     }
   ],
   "panelFillRGB": [
@@ -84,17 +95,25 @@
   "placement": "Native login origin226,279 and sourceRect9,9,206,96 verified in entry/layout.json; Unity uses the native-size BltFast geometry. Title start buttons remain local.",
   "removed": "Unused original options/billing controls; retained local account registration",
   "unityPlay": false,
-  "layoutEvidence": "분석/Saver_Late/entry/layout.json",
-  "nativeLoginOrigin": [
-    226,
-    279
-  ],
-  "chosenNativeRenderer": "BltFast,197x87; DirectDraw stretch destination206x96 retained in analysis",
   "apiCompilation": {
-    "runtimeSources": 206,
+    "runtimeSources": 211,
     "editorSources": 73,
-    "editModeSources": 117,
+    "editModeSources": 119,
     "errors": 0,
     "editModeExecuted": false
+  },
+  "characterCreation": {
+    "nativeScene": "Wlib/scene24.lsc",
+    "size": [
+      397,
+      300
+    ],
+    "choices": [
+      100,
+      101,
+      103
+    ],
+    "placement": "local origin, original frame and card labels",
+    "blackColorKey": true
   }
 }

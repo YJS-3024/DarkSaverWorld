@@ -21,21 +21,38 @@ namespace DarkSaver.UI
         public TownService Service { get; private set; }
         public string Speaker => speaker;
         public string CurrentLine => lineIndex < lines.Length ? lines[lineIndex] : string.Empty;
-        public bool CanOpen => !FirstPlayTutorial.BlocksWorldActions && isActiveAndEnabled && (DarkSaver.World.TownSceneContext.IsReady || BattleTransitionController.IsTempleReady)
-            && !SceneManager.GetSceneByName("Battle").isLoaded
-            && !(GetComponent<BattleTransitionController>()?.IsTransitioning ?? false);
+        public bool CanOpen => CanOpenService(IsOpen?Service:TownService.Inventory);
+        public bool CanOpenService(TownService service)
+        {
+            if(FirstPlayTutorial.BlocksWorldActions || !isActiveAndEnabled || SceneManager.GetSceneByName("Battle").isLoaded
+                || DarkSaver.Events.Scenario01Controller.BlocksWorldActions
+                || (GetComponent<BattleTransitionController>()?.IsTransitioning ?? false)
+                || FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling==true)return false;
+            return service==TownService.Inventory || service==TownService.CharacterInfo
+                ? DarkSaver.World.PersonalEquipmentContext.IsReady
+                : DarkSaver.World.TownSceneContext.IsReady || service==TownService.Temple && BattleTransitionController.IsTempleReady;
+        }
+
+        public bool OpenFromNpc(TownService service,TopDownPlayerController controller,string name,int questId=0)
+        {
+            if(service==TownService.Quests && (QuestContent==null || System.Array.Find(QuestContent.rows,q=>q.id==questId)==null))return false;
+            if(!Open(service,controller))return false;
+            speaker=name;
+            if(service==TownService.Quests)selectedQuest=questId;
+            return true;
+        }
 
         public bool Open(TownService service, TopDownPlayerController controller)
         {
+            if(service==TownService.Overview)return false;
             if(DarkSaver.World.ShopInteriorContext.Current!=null)
             {
-                if(service==TownService.Overview)service=TownService.Shop;
                 if(service!=TownService.Shop && service!=TownService.Inventory && service!=TownService.CharacterInfo)return false;
             }
-            if(BattleTransitionController.IsTempleReady && service!=TownService.Temple)return false;
+            if(BattleTransitionController.IsTempleReady && service!=TownService.Temple && service!=TownService.Inventory && service!=TownService.CharacterInfo)return false;
             if(service==TownService.Temple && !BattleTransitionController.IsTempleReady)return false;
             if (service == TownService.Quests && DarkSaver.World.TownSceneContext.Current?.Key != "Kaosia") return false;
-            if (!CanOpen || controller == null || !controller.isActiveAndEnabled
+            if (!CanOpenService(service) || controller == null || !controller.isActiveAndEnabled
                 || !System.Enum.IsDefined(typeof(TownService), service)) return false;
             if (!IsOpen)
             {
@@ -118,7 +135,7 @@ namespace DarkSaver.UI
             var controller = player; var previous = Service;
             Close();
             if (session.OpenFormationPreparation()) return true;
-            Open(previous == TownService.Dialogue ? TownService.Overview : previous, controller);
+            if(previous!=TownService.Dialogue && previous!=TownService.Overview)Open(previous,controller);
             return false;
         }
 
@@ -140,25 +157,14 @@ namespace DarkSaver.UI
             var panel = new Rect((Rendering.GameScreen.Width - width) / 2, 64, width, tallLayout ? 400 : 328);
             if (nativeShopLayout) ui.NativeTexturePanel("town-service-native", new Rect(panel.position, new Vector2(419, 303)), NativeShopWindow.background);
             else if (nativeInventoryLayout) ui.NativeTexturePanel("inventory-native", new Rect(panel.position, new Vector2(409, 227)), NativeInventoryWindow.background);
-            else ui.Panel("town-service", panel, Service == TownService.Dialogue ? speaker : (DarkSaver.World.TownSceneContext.Current?.Title ?? "마을") + " 마을 시설");
-            if (Service == TownService.Overview)
-            {
-                var services = new[] {TownService.Inventory, TownService.Shop, TownService.ClassChange, TownService.Mercenary, TownService.Quests};
-                var labels = new[] {"소지품", "상점", "클래스 체인지", "용병 고용", "시나리오1 의뢰"};
-                for (int i = 0; i < services.Length; i++)
-                { var selected = services[i]; ui.Button("service-" + i, new Rect(panel.x + 20 + (i % 2) * ((width - 48) / 2 + 8), 104 + (i / 2) * 38, (width - 48) / 2, 32), labels[i], () => Open(selected, player), selected != TownService.Quests || DarkSaver.World.TownSceneContext.Current?.Key == "Kaosia"); }
-                ui.Button("town-formation", new Rect(panel.x + 20, 256, (width - 48) / 2, 32), "주인공 부대 편성", () => OpenFormation());
-                ui.Button("town-character-info", new Rect(panel.x + 24 + (width - 48) / 2, 256, (width - 48) / 2, 32), "자기 정보", () => Open(TownService.CharacterInfo, player));
-                var campaignSession=GetComponent<BattleTransitionController>();
-                int unlocked=campaignSession?.CaptureUnlockedGenerals().Length ?? 0;
-                if(unlocked>0)ui.Label("general-unlocks",new Rect(panel.x+20,294,width-40,18),"해금된 지휘관 기록: "+unlocked+"명",12);
-            }
-            else if (Service == TownService.Temple)
+            else ui.Panel("town-service", panel, speaker ?? "대화");
+            if (Service == TownService.Temple)
             {
                 ui.Label("temple-description", new Rect(panel.x+20,110,width-40,80), "주인공을 부활시키고 생명력과 마력을 모두 회복합니다.\n비용은 무료입니다.");
                 ui.Button("temple-recover", new Rect(panel.x+20,210,width-40,32), "부활 · 전회복", () => {
                     GetComponent<BattleTransitionController>().TryTempleRecovery(out var message); SaveMessage=message;
                 });
+                ui.Label("temple-response",new Rect(panel.x+20,252,width-40,54),SaveMessage ?? "",12);
             }
             else if (Service == TownService.Quests) DrawQuests(panel);
             else if (Service == TownService.Shop) {
@@ -174,13 +180,9 @@ namespace DarkSaver.UI
                 ui.Label("content", new Rect(panel.x + 20, 110, width - 40, 150), text);
                 if (Service == TownService.Dialogue)
                     ui.Button("next", new Rect(panel.x + 20, 270, width - 40, 32), lineIndex + 1 < lines.Length ? "다음" : "대화 종료", () => NextLine());
-                else ui.Button("back", new Rect(panel.x + 20, 270, width - 40, 32), "시설 목록", () => Open(TownService.Overview, player));
+                else ui.NativeLibraryButton("back",new Vector2(panel.x+20,270),38,Close,true,"대화 종료");
             }
-            float saveY = questLayout ? 410 : nativeLayout ? 382 : tallLayout ? 388 : 316;
-            ui.Button("town-save", new Rect(panel.x + (questLayout ? 300 : nativeLayout ? 220 : 20), saveY, questLayout ? width - 320 : nativeLayout ? width - 232 : (width - 48) / 2, 32), "저장", () => SaveTown());
             if (!nativeLayout) ui.NativeLibraryButton("close", new Vector2(panel.xMax - 24, panel.y + 6), 38, Close, true, "닫기");
-            if (!nativeShopLayout) ui.Label("town-save-message", new Rect(panel.x + 20, nativeInventoryLayout ? 458 : saveY + 38, width - 40, nativeInventoryLayout ? 18 : 30), SaveMessage ?? "", nativeInventoryLayout ? 10 : 14);
-            if (nativeLayout) ui.Raise("town-save");
             ui.End();
         }
         private void OnDisable() => Close();

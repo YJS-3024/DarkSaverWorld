@@ -90,7 +90,6 @@ namespace DarkSaver.UI
             ui.Label("class-change-status", new Rect(panel.x + 20, 238, panel.width - 150, 26), classChangeMessage ?? "확인된 직업 레벨·외형이 있어야 전직 가능", 12);
             ui.Button("class-change", new Rect(panel.xMax - 120, 236, 100, 28), pendingClassId == 0 ? "전직" : "전직 확인",
                 () => { if (pendingClassId == 0) RequestClassChange(); else ConfirmClassChange(); });
-            ui.Button("class-back", new Rect(panel.xMax - 100, 268, 80, 28), "시설 목록", () => Open(TownService.Overview, player));
         }
     }
 }

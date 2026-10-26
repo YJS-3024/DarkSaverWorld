@@ -21,7 +21,7 @@ namespace DarkSaver.Tests
             Assert.That(severity, Is.EqualTo(MessageType.Info));
             Assert.That(text, Does.Contain("전투 개체 ID: 700 / 직업 ID: 701"));
             Assert.That(text, Does.Contain("그림 ID: 701"));
-            Assert.That(text, Does.Contain("HP 300 / MP 150 / 공격 126 / 방어 55"));
+            Assert.That(text, Does.Contain("HP 450 / MP 150 / 공격 126 / 방어 55"));
             Assert.That(text, Does.Contain("맵 01 / 개체 일치 (승리 달성 아님)"));
         }
 

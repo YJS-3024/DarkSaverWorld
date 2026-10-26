@@ -160,12 +160,10 @@ namespace DarkSaver.UI
             else ui.Label("inventory-detail-empty", area, count == null ? "이 저장에는 소지품 상태가 없습니다."
                 : count == 0 ? "소지품이 없습니다." : selectedInventoryId >= 0 ? "선택한 아이템의 상세 정보가 없습니다." : "소지품을 선택하세요.");
             ui.Raise("inventory-detail-icon"); ui.Raise("inventory-detail-scroll"); ui.Raise("inventory-detail-empty");
-            ui.Panel("inventory-local-tools", new Rect(panel.x, 374, panel.width, 48)); ui.Raise("inventory-local-tools");
             ui.NativeLibraryButton("inventory-prev", new Vector2(panel.x + 8, 382), 40, () => SetInventoryPage(inventoryPage - 1), inventoryPage > 0, "이전 페이지 (로컬)");
             ui.NativeLibraryButton("inventory-next", new Vector2(panel.x + 30, 382), 39, () => SetInventoryPage(inventoryPage + 1), inventoryPage + 1 < pages, "다음 페이지 (로컬)");
             ui.Label("inventory-page", new Rect(panel.x + 52, 382, 52, 28), (inventoryPage + 1) + "/" + pages, 12);
-            ui.Button("inventory-back", new Rect(panel.x + 106, 382, 106, 32), "시설 (임시)", () => Open(TownService.Overview, player));
-            ui.Raise("inventory-prev"); ui.Raise("inventory-next"); ui.Raise("inventory-page"); ui.Raise("inventory-back");
+            ui.Raise("inventory-prev"); ui.Raise("inventory-next"); ui.Raise("inventory-page");
             DrawEquipmentSlots(panel);
             // Original renderer uses right anchor (104,193); keep digits in its gold box.
             ui.NativeBitmapText("inventory-gold", new Rect(panel.x + 50, panel.y + 193, 54, 14), session?.CurrentGold?.ToString() ?? "미확인",

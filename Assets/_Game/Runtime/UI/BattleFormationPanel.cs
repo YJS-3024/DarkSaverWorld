@@ -35,9 +35,9 @@ namespace DarkSaver.UI
         public bool ReturnToTown()
         {
             if (!CanReturnToTown) return false;
-            // TownServicesPanel.Open cancels this draft and transfers the input lock.
+            // Return to the NPC world without restoring the removed facility overview.
             // Previously confirmed deployment remains unchanged; this is not Confirm.
-            return GetComponent<TownServicesPanel>().Open(TownService.Overview, player);
+            Cancel();return true;
         }
 
         public string MemberStatus(string persistentId)
@@ -340,7 +340,7 @@ namespace DarkSaver.UI
             parent.style.height = y;
             float footerWidth = (width - 40) / 3;
             ui.Button("confirm", new Rect(area.x + 12, area.yMax - 48, footerWidth, 36), "편성 확인", () => Confirm(), draft.Count > 0);
-            ui.Button("town-return", new Rect(area.x + 20 + footerWidth, area.yMax - 48, footerWidth, 36), "마을 시설", () => ReturnToTown(), CanReturnToTown);
+            ui.Button("town-return", new Rect(area.x + 20 + footerWidth, area.yMax - 48, footerWidth, 36), "대화 종료", () => ReturnToTown(), CanReturnToTown);
             ui.Button("cancel", new Rect(area.x + 28 + footerWidth * 2, area.yMax - 48, footerWidth, 36), "취소", Cancel);
             ui.End();
         }

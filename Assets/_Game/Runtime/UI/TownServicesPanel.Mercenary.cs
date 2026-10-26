@@ -87,7 +87,6 @@ namespace DarkSaver.UI
                 blockedReason != null ? "고용 불가 항목: " + blockedReason : hireMessage ?? "한 번에 1명씩 고용 / 원본 가격 차감", 11);
             ui.Label("hire-type-policy",new Rect(panel.x+20,294,panel.width-40,16),"첫 고용 타입만 추가 고용 · 보유 0명일 때 타입 변경",11);
             ui.Button("hire-formation", new Rect(panel.x + 192, 266, 90, 30), "부대 편성", () => OpenFormation());
-            ui.Button("hire-back", new Rect(panel.xMax - 100, 266, 80, 30), "시설 목록", () => Open(TownService.Overview, player));
         }
     }
 }

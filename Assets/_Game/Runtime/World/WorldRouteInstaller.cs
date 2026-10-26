@@ -39,6 +39,7 @@ namespace DarkSaver.World
         }
         private void Build(string key)
         {
+            if(TownCatalog.TryGet(key,out _))gameObject.AddComponent<TownServiceNpcInstaller>().Build(key);
             if (FieldCatalog.TryGet(key,out _))
                 foreach (var root in gameObject.scene.GetRootGameObjects())
                     foreach (var encounter in root.GetComponentsInChildren<DarkSaver.Combat.BattleEncounter2D>(true)) encounter.ConfigureFieldLifecycle();

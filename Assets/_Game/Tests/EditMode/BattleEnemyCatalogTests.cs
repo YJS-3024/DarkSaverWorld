@@ -48,9 +48,9 @@ namespace DarkSaver.Tests
             Assert.That(source, Is.SameAs(catalog));
             var first = enemy.CreateUnit();
             Assert.That((first.Id, first.X, first.Y, first.Name), Is.EqualTo(((short)700, 19, 10, "키스라")));
-            Assert.That((first.Hp, first.Mp, first.Attack, first.Defense), Is.EqualTo((300, 150, 126, 55)));
+            Assert.That((first.Hp, first.Mp, first.Attack, first.Defense), Is.EqualTo((450, 150, 126, 55)));
             first.Hp = 0;
-            Assert.That(enemy.CreateUnit().Hp, Is.EqualTo(300));
+            Assert.That(enemy.CreateUnit().Hp, Is.EqualTo(450));
             Assert.That(EditorJsonUtility.ToJson(enemy), Is.EqualTo(enemyJson));
             Assert.That(EditorJsonUtility.ToJson(catalog), Is.EqualTo(catalogJson));
             Assert.That(EditorUtility.IsDirty(enemy), Is.EqualTo(enemyDirty));

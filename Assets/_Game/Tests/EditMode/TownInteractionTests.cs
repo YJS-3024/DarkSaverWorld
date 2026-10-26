@@ -266,7 +266,7 @@ namespace DarkSaver.Tests
             {
                 var player = actor.AddComponent<TopDownPlayerController>();
                 var panel = root.AddComponent<TownServicesPanel>();
-                Assert.That(panel.Open(TownService.Overview, player), Is.True);
+                Assert.That(panel.Open(TownService.Inventory, player), Is.True);
                 Assert.That(player.UiInputBlocked, Is.True);
                 Assert.That(player.TryMoveToWorld(Vector2.one), Is.False);
                 foreach (var service in new[] {TownService.Shop, TownService.ClassChange, TownService.Mercenary})
@@ -300,9 +300,8 @@ namespace DarkSaver.Tests
                 panel.enabled = true;
                 Assert.That(formation.ReturnToTown(), Is.True);
                 Assert.That(formation.IsOpen, Is.False);
-                Assert.That(panel.IsOpen, Is.True);
-                Assert.That(panel.Service, Is.EqualTo(TownService.Overview));
-                Assert.That(player.UiInputBlocked, Is.True);
+                Assert.That(panel.IsOpen, Is.False);
+                Assert.That(player.UiInputBlocked, Is.False);
                 Assert.That(formation.ConfirmedSnapshot, Is.Null);
                 panel.Close(); Assert.That(player.UiInputBlocked, Is.False);
 
@@ -318,16 +317,16 @@ namespace DarkSaver.Tests
                 Assert.That(panel.NextLine(), Is.True); Assert.That(panel.IsOpen, Is.False);
                 Assert.That(player.UiInputBlocked, Is.False);
                 player.SetUiInputBlocked(true);
-                Assert.That(panel.Open(TownService.Overview, player), Is.False); // Do not steal another system's lock.
+                Assert.That(panel.Open(TownService.Inventory, player), Is.False); // Do not steal another system's lock.
                 player.SetUiInputBlocked(false);
-                Assert.That(panel.Open(TownService.Overview, player), Is.True);
+                Assert.That(panel.Open(TownService.Inventory, player), Is.True);
                 panel.enabled = false;
                 // Direct EditMode invocation does not dispatch PlayMode lifecycle messages.
                 typeof(TownServicesPanel).GetMethod("OnDisable", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).Invoke(panel, null);
                 Assert.That(player.UiInputBlocked, Is.False);
                 panel.enabled = true;
                 formation.Configure(null, 0, 0, null, player);
-                Assert.That(panel.Open(TownService.Overview, player), Is.True);
+                Assert.That(panel.Open(TownService.Inventory, player), Is.True);
                 Assert.That(formation.Open(), Is.True); Assert.That(panel.IsOpen, Is.False);
                 formation.Cancel(); Assert.That(player.UiInputBlocked, Is.False);
             }
@@ -348,7 +347,7 @@ namespace DarkSaver.Tests
                 var root = new GameObject("Outside town test"); SceneManager.MoveGameObjectToScene(root, scene);
                 var player = root.AddComponent<TopDownPlayerController>(); var panel = root.AddComponent<TownServicesPanel>();
                 panel.enabled = false;
-                Assert.That(panel.Open(TownService.Overview, player), Is.False);
+                Assert.That(panel.Open(TownService.Inventory, player), Is.False);
                 Assert.That(player.UiInputBlocked, Is.False);
             }
             finally { EditorSceneManager.ClosePreviewScene(scene); }

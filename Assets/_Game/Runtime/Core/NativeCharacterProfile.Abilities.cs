@@ -32,7 +32,7 @@ namespace DarkSaver.Core
         }
         private bool IsClassAbilityStateValid => hasClassAbilities
             ? DarkSaver.Jobs.NativePlayerJobs.Contains(jobId) && ValidIds(learnedMagicIds, 9999) && ValidIds(usableSkillIds, int.MaxValue)
-            : jobId == SupportedStartingJob && (learnedMagicIds?.Length ?? 0) == 0 && (usableSkillIds?.Length ?? 0) == 0;
+            : IsStartingJob(jobId) && (learnedMagicIds?.Length ?? 0) == 0 && (usableSkillIds?.Length ?? 0) == 0;
 
         private static bool ValidIds(int[] ids, int maximum)
         {

@@ -192,7 +192,7 @@ namespace DarkSaver.Combat
             }
             character = profile.Clone();
             inventory = new NativeInventory { gold = profile.hasLevels && profile.baseLevel == 1 && profile.jobLevel == 1
-                && profile.jobId == NativeCharacterProfile.SupportedStartingJob && profile.tutorial?.step == 0
+                && NativeCharacterProfile.IsStartingJob(profile.jobId) && profile.tutorial?.step == 0
                 ? GameConstants.NewCharacterStartingGold : 0 };
             return true;
         }

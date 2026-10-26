@@ -122,6 +122,7 @@ Scenario01Checks.Run(Check);
 TownQuestChecks.Run(Check);
 CampaignChecks.Run(Check);
 LateWorldChecks.Run(Check);
+ScreenshotConfirmedChecks.Run(Check);
 LocalServerChecks.Run(Check);
 LoginFlowChecks.Run(Check);
 AccountChecks.Run(Check);

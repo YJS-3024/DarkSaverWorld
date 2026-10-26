@@ -12,21 +12,21 @@ namespace DarkSaver.Tests
 {
     public sealed class NativeCharacterTests
     {
-        [Test]
-        public void NewCharacterInitializesConfirmedJobVitalsBeforeFirstBattleAndFailsAtomicallyWithoutCatalog()
+        [TestCase(100)][TestCase(101)][TestCase(103)]
+        public void NewCharacterInitializesConfirmedJobVitalsBeforeFirstBattleAndFailsAtomicallyWithoutCatalog(int startingJob)
         {
             var scene = EditorSceneManager.NewPreviewScene();
             try
             {
                 var root = new GameObject("new character vitals"); SceneManager.MoveGameObjectToScene(root, scene);
                 var session = root.AddComponent<BattleTransitionController>();
-                var profile = new NativeCharacterProfile { name="신규", jobId=100, hasLevels=true, baseLevel=1, jobLevel=1, tutorial=new NativeTutorialProgress() };
+                var profile = new NativeCharacterProfile { name="신규", jobId=startingJob, hasLevels=true, baseLevel=1, jobLevel=1, tutorial=new NativeTutorialProgress() };
                 Assert.IsFalse(session.InitializeCharacter(profile));
                 Assert.IsFalse(session.HasCreatedCharacter); Assert.IsFalse(session.HasPlayerVitals);
                 Assert.IsNull(session.CaptureInventory(), "Failed creation must not grant funds.");
                 var catalog = UnityEditor.AssetDatabase.LoadAssetAtPath<DarkSaver.Jobs.JobCatalog>("Assets/_Game/Runtime/Jobs/JobCatalog.asset");
                 Assert.IsTrue(session.ConfigureFormationSupport(new[] {catalog}, new System.Collections.Generic.Dictionary<int, DarkSaver.Player.DirectionalSpriteAnimator>()));
-                Assert.IsTrue(catalog.TryGet(100, out var job));
+                Assert.IsTrue(catalog.TryGet(startingJob, out var job));
                 Assert.IsFalse(session.InitializeCharacter(profile), "Missing starting-ability catalogs must not partially create a character.");
                 Assert.IsFalse(session.HasPlayerVitals); Assert.IsNull(session.CaptureInventory());
                 root.AddComponent<TownServicesPanel>().ConfigureProgression(UnityEditor.AssetDatabase.LoadAssetAtPath<ExperienceProgressionTable>("Assets/_Game/Runtime/Combat/ExperienceProgression.asset"));
@@ -35,8 +35,8 @@ namespace DarkSaver.Tests
                 Assert.IsFalse(profile.hasClassAbilities, "Creation must not mutate the caller's candidate.");
                 var created = session.CaptureCharacterProfile();
                 Assert.IsTrue(created.hasClassAbilities);
-                CollectionAssert.AreEqual(new[] {101}, created.learnedMagicIds);
-                CollectionAssert.AreEqual(new[] {10101, 21101}, created.usableSkillIds);
+                CollectionAssert.AreEqual(startingJob==101?new[]{301}:startingJob==103?new[]{101,301}:new[]{101},created.learnedMagicIds);
+                CollectionAssert.AreEqual(startingJob==101?new[]{10101,21201}:startingJob==103?new[]{12101,11101,21701}:new[]{10101,21101},created.usableSkillIds);
                 Assert.AreEqual(30000L, session.CaptureInventory().gold);
                 Assert.IsFalse(session.InitializeCharacter(profile));
                 Assert.AreEqual(30000L, session.CaptureInventory().gold, "Repeated initialization must not grant funds twice.");

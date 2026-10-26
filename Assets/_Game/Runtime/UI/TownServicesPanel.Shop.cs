@@ -135,29 +135,12 @@ namespace DarkSaver.UI
             ui.NativeBitmapText("shop-gold", new Rect(panel.x + 54, panel.y + 266, 60, 20), session?.CurrentGold?.ToString() ?? "미확인",
                 new Color(1, 1, .25f), alignment: TextAnchor.MiddleRight);
             var selected = SelectedShopInspectionItem;
-            if (selected != null) {
+            if (selected != null && string.IsNullOrEmpty(shopMessage)) {
                 DrawItemDetails("shop-detail", new Rect(panel.x + 20, panel.y + 190, 375, 60), selected, nativePaper: true);
                 ui.Raise("shop-detail-icon"); ui.Raise("shop-detail-scroll");
             }
             else ui.Label("shop-message", new Rect(panel.x + 20, panel.y + 202, 375, 48), shopMessage ?? (shopOffers.Length == 0 ? "이 상점에서 취급하는 물품이 없습니다." : "클릭: 정보 조회 / 반대쪽 물건 영역으로 드래그: 구매·판매"), 12, color: new Color(.17f, .09f, .035f));
             ui.Raise("shop-gold"); ui.Raise("shop-page"); ui.Raise("shop-message");
-            // Explicit local convenience strip; not part of the original 419x303 window.
-            ui.Panel("shop-local-tools", new Rect(panel.x, 374, panel.width, 48));
-            ui.Raise("shop-local-tools");
-            ui.Button("shop-back", new Rect(panel.x + 12, 382, 180, 28), "시설 목록 (임시)", () => Open(TownService.Overview, player));
-            ui.Raise("shop-back");
-            DrawNativeShopFeedback(panel);
-        }
-        private void DrawNativeShopFeedback(Rect panel)
-        {
-            if (!string.IsNullOrEmpty(shopMessage) || !string.IsNullOrEmpty(SaveMessage)) {
-                ui.Panel("shop-trade-status-panel", new Rect(panel.x, 426, panel.width, 50));
-                ui.Raise("shop-trade-status-panel");
-                ui.Label("shop-trade-status", new Rect(panel.x + 8, 428, panel.width - 16, 20), shopMessage ?? "", 12);
-                ui.Label("town-save-message", new Rect(panel.x + 8, 452, panel.width - 16, 20), SaveMessage ?? "", 12);
-                ui.Raise("shop-trade-status");
-                ui.Raise("town-save-message");
-            }
         }
         public bool TradeDroppedItem(int itemId, bool buying)
         {
@@ -291,7 +274,6 @@ namespace DarkSaver.UI
                 ui.Label("shop-page", new Rect(panel.x + 172, 282, 90, 26), (shopPage + 1) + "/" + ShopPageCount);
                 }
             }
-            ui.Button("shop-back", new Rect(panel.xMax - 146, 330, 126, 32), "시설 목록", () => Open(TownService.Overview, player));
             TryReadShopQuantity(out _, out var quantityReason);
             ui.Label("shop-message", new Rect(panel.x + 20, 316, panel.width - 174, 46), quantityReason ?? shopMessage ?? "");
         }

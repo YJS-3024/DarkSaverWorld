@@ -1181,7 +1181,16 @@
       "npcNames": null,
       "npcAppearanceIds": null,
       "npcCoordinates": null,
-      "reason": "No map-linked actor roster recovered; static image references reviewed separately."
+      "reason": "No map-linked actor roster recovered; static image references reviewed separately.",
+      "screenshotEvidence": {
+        "reference": "닥세_리소스/ĸó1.jpg",
+        "visibleNpcMinimum": 1,
+        "appearanceCandidate": 810,
+        "confidence": "strong visual and upper-sprite-template match",
+        "mapConfidence": "strong shelf texture match",
+        "logicalCoordinatesConfirmed": false,
+        "originalNpcNameConfirmed": false
+      }
     },
     {
       "map": "2600",
@@ -1698,6 +1707,7 @@
     "subtype": "5C50",
     "conclusion": "Received per-unit records carry slot, ability/display fields and coordinates independently of the MRC; synthetic fixtures do not identify historical merchants or actual NPC count."
   },
-  "conclusion": "Original per-interior NPC count/name/appearance/location remain unconfirmed; 25 generic townsperson ability rows exist (not all directional sheets available), but no shop assignment is established.",
-  "unityNpcAdded": false
+  "conclusion": "Original actor rosters/counts/names/logical coordinates remain unconfirmed. Screenshot follow-up strongly matches warehouse2510 and visible staff appearance810; this does not identify bank2400 staff or recover the server NPC table.",
+  "unityNpcAdded": false,
+  "screenshotFollowup": "분석/Saver_Late/screenshots/storage_analysis.json"
 }

@@ -528,6 +528,7 @@ namespace DarkSaver.UI
             Button(key, rect, "", select, enabled, tooltip: tooltip);
             var button = elements[key];
             button.style.backgroundColor = Color.clear;
+            button.style.backgroundImage = StyleKeyword.None;
             button.style.borderTopWidth = button.style.borderBottomWidth = button.style.borderLeftWidth = button.style.borderRightWidth = 0;
             button.style.opacity = enabled ? 1 : .4f;
         }

@@ -56,6 +56,7 @@ namespace DarkSaver.Editor
             var summary = sourceText + $"\n전투 개체 ID: {unit.Id} / 직업 ID: {definition.JobId}\n"
                 + $"표시 이름: {unit.Name} / 배치: ({unit.X}, {unit.Y})\n"
                 + $"적용 수치: HP {unit.Hp} / MP {unit.Mp} / 공격 {unit.Attack} / 방어 {unit.Defense}";
+            if(definition.JobId==701 && unit.MaxHp==450)summary+="\n키스라 HP: 사용자 확정 스크린샷 최대450 적용 (원문 ATR 보존)";
             if (definition.VictoryObjective != null)
             {
                 var candidate = new CombatWorld(); candidate.Add(unit);

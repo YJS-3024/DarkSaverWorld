@@ -17,6 +17,16 @@ class GrowthChecks {
   var table=new ExperienceProgressionTable();table.Initialize(rows);Check(table.Count==3177,"complete later growth data");
   using var doc=JsonDocument.Parse(File.ReadAllText(args[1]));
   var magic=new MagicCatalog();magic.Initialize(doc.RootElement.GetProperty("entries").EnumerateArray().Select(r=>new MagicCatalogEntry(r.GetProperty("numericValues").EnumerateArray().Select(x=>x.GetInt64()).ToArray(),r.GetProperty("magicName").GetString())).ToArray());
+  foreach(int starter in new[]{100,101,103}) {
+   Check(NativeCharacterProfile.TryQueue("초기직업",starter,Path.Combine(Path.GetTempPath(),"ds-start-"+starter+".json"),out _),"all three native starter queues");
+   Check(NativeCharacterProfile.TakePending(out var profile,out _) && profile.IsValid && profile.jobId==starter && profile.tutorial.step==0,"selected class and onboarding preserved");
+   Check(table.TryGetClassEntryAbilities(starter,out var startMagic,out var startSkills),"starter first-row exists");
+   Check(magic.TryMergeLearnedMagic(Array.Empty<int>(),startMagic,out var learned),"starter first-row source spells resolve");
+   profile.hasClassAbilities=true;profile.learnedMagicIds=learned;profile.usableSkillIds=startSkills;
+   Check(profile.IsValid,"starter profile with source spells validates");
+  }
+  Check(!NativeCharacterProfile.TryQueue("불가",102,Path.Combine(Path.GetTempPath(),"ds-invalid-starter.json"),out _),"cleric remains recruit reward, not a starting choice");
+  Check(!NativeCharacterProfile.TakePending(out _,out _),"rejected creation clears pending choice");
   foreach(var pair in new[]{(167,170),(168,171),(169,172)}) {
    int before=pair.Item1,next=pair.Item2;Check(!table.TryGetEligibleClassChange(before,99,out _),"not before level100");
    Check(table.TryGetEligibleClassChange(before,100,out var edge)&&edge.nextJobId==next,"source edge");

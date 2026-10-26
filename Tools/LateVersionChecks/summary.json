@@ -1,19 +1,19 @@
 {
   "sourceVersion": "Saver_Late",
   "sourceInstallerSha256": "a6f518676a5530987c2f20309982d3df5f2bcafb10d0a5273c4ee4da258a21ea",
-  "offlineIntegrationChecks": 35737,
-  "productionCombatChecks": 4823,
+  "offlineIntegrationChecks": 35749,
+  "productionCombatChecks": 4829,
   "classAbilityCombinations": 393,
   "scenarioRewardChecks": 214,
-  "growthHostChecks": 46,
+  "growthHostChecks": 63,
   "apiCompilation": {
-    "runtimeSources": 204,
+    "runtimeSources": 211,
     "editorSources": 73,
-    "editModeSources": 116,
+    "editModeSources": 119,
     "errors": 0,
     "editModeExecuted": false
   },
-  "runtimeAssemblySha256": "ab0907222df669eeaa4634acc5c236cffdd3b8d904b0033794139bdb43933dea",
+  "runtimeAssemblySha256": "a59aab140b6a64ebd74a5e89617c455994c8398384206cde924e49b39fc42b80",
   "unityPlay": false,
   "worldMigrationIncomplete": [],
   "newScenarioGameplayNotAdded": [],
@@ -32,7 +32,8 @@
     "audio_update_check.json",
     "world_migration_check.json",
     "new_scenarios_check.json",
-    "world_campaign_check.json"
+    "world_campaign_check.json",
+    "confirmed_updates_check.json"
   ],
   "registeredPlayableScenarios": 25,
   "newScenariosImplemented": [
@@ -59,5 +60,18 @@
       "growthHostChecks"
     ]
   },
-  "authoredLateScenarioPolicy": "33 after17;330 after17,331 after330,332 after331,333 after332;404 after17,405 after404,406 after405. Reused reviewed single-player rosters where source absent. No18-32 clear injection."
+  "authoredLateScenarioPolicy": "33 after17;330 after17,331 after330,332 after331,333 after332;404 after17,405 after404,406 after405. Reused reviewed single-player rosters where source absent. No18-32 clear injection.",
+  "confirmedScreenshotUpdates": {
+    "growthHost": 63,
+    "integrationHost": 35749,
+    "productionCombat": 4829,
+    "classSkillCases": 393,
+    "scenarioRewards": 214,
+    "runtimeSources": 211,
+    "editorSources": 73,
+    "editModeSources": 119,
+    "apiErrors": 0,
+    "editModeExecuted": false,
+    "unityPlay": false
+  }
 }

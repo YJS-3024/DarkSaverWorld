@@ -1,4 +1,4 @@
-// Managed host substitutes only Unity attributes/base classes and unused save selection.
+// Managed host substitutes only Unity attributes/base classes and save-selection adapters (queue staging only; no save IO).
 // Production profile/table/progression code is compiled unchanged beside this file.
 using System;
 namespace UnityEngine {
@@ -11,5 +11,6 @@ namespace UnityEngine {
  public enum KeyCode {F10}
 }
 namespace DarkSaver.Core {
- public static class NativeSaveStore {public static string DefaultPath=>throw new NotSupportedException("No host save IO");public static void ClearResume()=>throw new NotSupportedException("No host save IO");}
+ public static class NativeSaveStore {public static string DefaultPath=>throw new NotSupportedException("No host save IO");public static void ClearResume(){} // Queue staging adapter; no save IO or resume data.
+ }
 }

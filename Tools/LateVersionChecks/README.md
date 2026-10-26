@@ -46,3 +46,5 @@ python Tools/MapChecks/build_unit_status_pictures.py --check
 관리형 저장/규칙 회귀: `python Tools/AnalysisIntegrationChecks/run_checks.py <dotnet>` (설치 SDK 참조 팩 사용, NuGet 불필요). 신규 분기 실제 Unity 검증은 별도 저장본에서 선행 완료→물리 포털→연출→전투→종료→복귀→재접속 순서로 한다.35,737 호스트 검사와58,018 에셋 검사는 실제 전투/Unity Play 통과 수가 아니다.
 
 시작·로그인 그림 추출은 `apply_entry_art.py`를 사용한다. `entry_art_check.json`에 원본 SHA256/잘라낸 사각형/출력 픽셀 해시와 실제 Unity 검증 여부를 남긴다. 로그인 창 원점226,279는 후기 실행 파일의 두 렌더링 경로에서 확인했고 Unity는197×87 BltFast 크기를 사용한다. `PYTHONPATH=Tools/StaticAnalysisDependencies python Tools/LateVersionChecks/analyze_entry_layout.py <추출루트>`로12개 명령 바이트 근거를 대조한다. 시작 버튼 위치는 로컬 구성이다. login2의 과금/서버오류 표시나 Logo1/2 전환을 임의로 재생하지 않는다.
+
+최근 스크린샷 확정 반영은 `confirmed_updates_check.json`과 진행표 최신 절을 따른다. 초기 직업은100/101/103, 개인 장비는I/월드 본체 그림 클릭(C는 자기정보), 키스라는전투HP450이다.원본 ATR/01 Content.json의300은보존한다. 생성 창도 `apply_entry_art.py`에서 후기Wlib24로 재생성하므로 원본 프레임·레이블과 로컬 선택/입력을 분리해 확인한다.

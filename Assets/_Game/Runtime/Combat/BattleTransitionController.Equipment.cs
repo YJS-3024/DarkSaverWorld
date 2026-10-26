@@ -18,9 +18,9 @@ namespace DarkSaver.Combat
         public bool TryChangeEquipment(int slot,int itemId,NativeCharacterProfile baseline,out string reason)
         {
             if(!processingSessionRequest)return SubmitSession(new DarkSaver.Network.LocalEquipmentChangeRequest(slot,itemId,baseline),out reason);
-            reason="마을에서 최신 장비를 선택하세요.";
+            reason="최신 장비와 현재 월드 상태를 확인하세요.";
             if(!isActiveAndEnabled || transitioning || activeBattle!=null || !CanEnterBattle || character==null || inventory==null
-                || !DarkSaver.World.TownSceneContext.IsReady || SceneManager.GetSceneByName(BattleSceneName).isLoaded
+                || !DarkSaver.World.PersonalEquipmentContext.IsReady || DarkSaver.Events.Scenario01Controller.BlocksWorldActions || DarkSaver.UI.FirstPlayTutorial.BlocksWorldActions || SceneManager.GetSceneByName(BattleSceneName).isLoaded
                 || FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling==true
                 || GetComponent<DarkSaver.UI.BattleFormationPanel>()?.IsOpen==true || baseline==null
                 || JsonUtility.ToJson(baseline)!=JsonUtility.ToJson(character))return false;
@@ -40,7 +40,7 @@ namespace DarkSaver.Combat
             character=candidate;
             if(hasPlayerVitals)
             {playerMaxHp=stats.Hp;playerMaxMp=stats.Mp;playerHp=System.Math.Min(playerHp,playerMaxHp);playerMp=System.Math.Min(playerMp,playerMaxMp);}
-            reason=itemId>0?"장착했습니다. 저장 버튼으로 보관하세요.":"해제했습니다. 저장 버튼으로 보관하세요.";
+            reason=itemId>0?"장착했습니다. 창을 닫고 F5로 저장하세요.":"해제했습니다. 창을 닫고 F5로 저장하세요.";
             return true;
         }
         public string KnownEquipmentWeaponName()

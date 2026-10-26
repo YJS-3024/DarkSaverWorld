@@ -1,0 +1,435 @@
+{
+  "sourceFiles": 25,
+  "uniqueImages": 23,
+  "duplicateFiles": 2,
+  "reviewedUniqueImages": 23,
+  "manualReview": true,
+  "unityPlay": false,
+  "images": [
+    {
+      "file": "닥세_리소스/untitled.png",
+      "aliases": [],
+      "sha256": "5d941aedc5710c9877be3d59477c33e509c76fbdd4c9d008d49e1ba4c0e4677e",
+      "size": [
+        123,
+        214
+      ],
+      "kind": "실제 상태창 잘라내기",
+      "manualVisualReview": true,
+      "observation": "유니콘나이트Lv11,HP370/420·MP29/44. 외형/이름은129와 대응. 장비/레벨을 분리하지 않고 공격255·방어156을 기본값으로 쓰지 않음.",
+      "findings": [
+        "STATUS_BODY",
+        "UNICORN"
+      ]
+    },
+    {
+      "file": "닥세_리소스/ĸó0.jpg",
+      "aliases": [],
+      "sha256": "b664b02e577353c913e8e318471a0bf0956e8791ff31961f57497a8c5eb2e138",
+      "size": [
+        575,
+        435
+      ],
+      "kind": "실제 목록·월드 화면",
+      "manualVisualReview": true,
+      "observation": "가문명단/직업/계위 목록과 채팅. 표의 수치를 캐릭터 레벨로 추정하지 않음. 서버/가문 기능은 싱글판 복원 범위와 구분.",
+      "findings": [
+        "FAMILY_SCOPE"
+      ]
+    },
+    {
+      "file": "닥세_리소스/ĸó1.jpg",
+      "aliases": [],
+      "sha256": "b603160296db609b671be0a782da7e8ae56e57bdb1944ee2ac7bdf79e37d62f7",
+      "size": [
+        580,
+        438
+      ],
+      "kind": "실제 창고·장비 화면",
+      "manualVisualReview": true,
+      "observation": "오른쪽 가판대 안 직원810 외형과2510 실내가 강하게 일치. 좌측 가판대는 창에 가려져 직원 유무 확인 불가.",
+      "findings": [
+        "WAREHOUSE_POSITION",
+        "COUNTER_RULE"
+      ]
+    },
+    {
+      "file": "닥세_리소스/ĸó2.jpg",
+      "aliases": [],
+      "sha256": "9222199a3a315128a4e46bc682b20e8b297798d01e2f2f7741e14434eb55ad7a",
+      "size": [
+        584,
+        438
+      ],
+      "kind": "실제 필드·장비 화면",
+      "manualVisualReview": true,
+      "observation": "케이시르 계곡 표식이 보이는 외부 지형에서 장비 장착 창을 열고 있다. 개인 장비 기능은 마을 NPC 전용이라는 근거가 아님.",
+      "findings": [
+        "FIELD_INVENTORY"
+      ]
+    },
+    {
+      "file": "닥세_리소스/ĸó3.jpg",
+      "aliases": [],
+      "sha256": "5ab8be64345826dd62d64d0b790a5ed6f57ab49b4fd862a94112baecd3953c94",
+      "size": [
+        577,
+        435
+      ],
+      "kind": "실제 창고·보관 화면",
+      "manualVisualReview": true,
+      "observation": "보관 목록·스크롤·보관료0·확인 표시. 화면만으로 영구 무료/전체 용량/계정 공유/금전 입출금 규칙 확정 불가.",
+      "findings": [
+        "WAREHOUSE_POSITION",
+        "STORAGE_POLICY"
+      ]
+    },
+    {
+      "file": "닥세_리소스/ĸó4.jpg",
+      "aliases": [],
+      "sha256": "235eb8be7812447412cff11d08a97137791870219ac33f27616f3b667a4a72e5",
+      "size": [
+        581,
+        437
+      ],
+      "kind": "중문 UI 보관 화면",
+      "manualVisualReview": true,
+      "observation": "유사 실내의 보관 창과保管费0. 중문 표기를 한국어 후기 클라이언트의 정확한 메뉴명으로 덮어쓰지 않음.",
+      "findings": [
+        "STORAGE_POLICY",
+        "VERSION_NAMES"
+      ]
+    },
+    {
+      "file": "닥세_리소스/ĸó8.jpg",
+      "aliases": [],
+      "sha256": "4651150a343a9f30aebcd9691cea55f3121655bfbeaf5923b004344c41b2e93e",
+      "size": [
+        578,
+        433
+      ],
+      "kind": "실제 아이템 획득 화면",
+      "manualVisualReview": true,
+      "observation": "빛의검을 얻었습니다 메시지, 상자·돌벽·붉은 원형 장식은96 맵/이벤트와 대응. 붉은 문양은 MRC 장식에도 존재한다.",
+      "findings": [
+        "MAP96"
+      ]
+    },
+    {
+      "file": "닥세_리소스/닥세_시나리오_13~16.png",
+      "aliases": [],
+      "sha256": "219f5d3aca89dc3fef79886eb0e46348c336964782823949925084f58fc126d6",
+      "size": [
+        625,
+        623
+      ],
+      "kind": "시나리오13~16안내",
+      "manualVisualReview": true,
+      "observation": "14대장몬스터모두처치,15마기,16바르바투.14스크립트4대상과대응하지만현재4와일드독은단기대체편성.",
+      "findings": [
+        "ROSTER14",
+        "CLEAR_CORROBORATION"
+      ]
+    },
+    {
+      "file": "닥세_리소스/닥세_시나리오_17~20.png",
+      "aliases": [],
+      "sha256": "7fae359113e623805209e7125202322a495f9f9055d8d07db60997573a3c7e08",
+      "size": [
+        622,
+        624
+      ],
+      "kind": "시나리오17~20안내",
+      "manualVisualReview": true,
+      "observation": "17비공정탑승,18성안진입,19네상자중하나열기,20페피스트처치.17은위치조건완료와대응하며전멸조건으로읽지않음.",
+      "findings": [
+        "CLEAR_CORROBORATION",
+        "NOT_ALL_PLAYABLE"
+      ]
+    },
+    {
+      "file": "닥세_리소스/닥세_시나리오_1~4.png",
+      "aliases": [],
+      "sha256": "c79625b6a275c7a0b19b804f4cc3d6d11e5707856df5c36441aac68b917610df",
+      "size": [
+        632,
+        623
+      ],
+      "kind": "시나리오1~4안내",
+      "manualVisualReview": true,
+      "observation": "02표제자모라계곡/설명자모라요새.03에트나동굴,04알카디아.일러스트는SET/POS전체목록이아님.",
+      "findings": [
+        "SCENARIO_ALIASES"
+      ]
+    },
+    {
+      "file": "닥세_리소스/닥세_시나리오_21~24.png",
+      "aliases": [],
+      "sha256": "aa45d96ca8f3d793b894951f50be8027e69a5475afadd6d349b89bb6f5e5cd4c",
+      "size": [
+        629,
+        621
+      ],
+      "kind": "시나리오21~24안내",
+      "manualVisualReview": true,
+      "observation": "아이스캐슬/플레임캐슬/부서진성/절벽성.이안내그림이현재각맵의플레이연결완료를뜻하지않음.",
+      "findings": [
+        "NOT_ALL_PLAYABLE"
+      ]
+    },
+    {
+      "file": "닥세_리소스/닥세_시나리오_25~28.png",
+      "aliases": [],
+      "sha256": "dc6f602711a459a44ee64225f392d62d96992b6a7ef529a3bc270e7a605b8882",
+      "size": [
+        630,
+        624
+      ],
+      "kind": "시나리오25~28안내",
+      "manualVisualReview": true,
+      "observation": "암흑성/달표면/사막/교회안내.설명에나오는적과지형으로정확한전체초기편성/원작좌표를확정하지않음.",
+      "findings": [
+        "NOT_ALL_PLAYABLE"
+      ]
+    },
+    {
+      "file": "닥세_리소스/닥세_시나리오_29~32.png",
+      "aliases": [],
+      "sha256": "20f3d928170bdfb3779a8db941a24d6394df59b020e81cb6329dc28f695a189d",
+      "size": [
+        626,
+        620
+      ],
+      "kind": "시나리오29~32안내",
+      "manualVisualReview": true,
+      "observation": "아볼로니아/얼음성/화산/악마성안내.서사표기와원본표의이름/보상을구분하며전체플레이구현으로계산하지않음.",
+      "findings": [
+        "NOT_ALL_PLAYABLE"
+      ]
+    },
+    {
+      "file": "닥세_리소스/닥세_시나리오_5~8.png",
+      "aliases": [],
+      "sha256": "c77b4230d827210330215442ea7ee6ccef971ecc7f38f2591c0f59888d8854ce",
+      "size": [
+        630,
+        622
+      ],
+      "kind": "시나리오5~8안내",
+      "manualVisualReview": true,
+      "observation": "05국경,06비렌시아,07신전안,08사군토항구.06의현재제목이름없는마을과차이.신전명도표기차이를별도기록.",
+      "findings": [
+        "SCENARIO_ALIASES"
+      ]
+    },
+    {
+      "file": "닥세_리소스/닥세_시나리오_9~12.png",
+      "aliases": [],
+      "sha256": "1817efa31f86f651e10f02f10d0d9c7f2d5b9ae88b638dd59bd1fe243292d7d1",
+      "size": [
+        627,
+        624
+      ],
+      "kind": "시나리오9~12안내",
+      "manualVisualReview": true,
+      "observation": "10나이아드/11카론/12만타코라스처치와원문스크립트의필수대상이대응.초기전체편성/보상표는아님.",
+      "findings": [
+        "CLEAR_CORROBORATION"
+      ]
+    },
+    {
+      "file": "닥세_리소스/대련장.png",
+      "aliases": [],
+      "sha256": "a131ead731f6b41950208c12d7b178e760b3dd8a78a4cfbc61d82d2587551a27",
+      "size": [
+        550,
+        412
+      ],
+      "kind": "실제 월드 화면",
+      "manualVisualReview": true,
+      "observation": "원형 건물·게시판·플레이어/채팅이 보인다. 외부 사진만으로101~107 훈련장 내부·부활 정책을 확정하지 않음.",
+      "findings": [
+        "ARENA_SCOPE"
+      ]
+    },
+    {
+      "file": "닥세_리소스/부르고스성.png",
+      "aliases": [],
+      "sha256": "99228dd2587746b4e1d4e68616460a19be78261c41b124b1a67eac9e6a7ddb45",
+      "size": [
+        328,
+        343
+      ],
+      "kind": "월드·몬스터 편집 안내 이미지",
+      "manualVisualReview": true,
+      "observation": "성 입구와몬스터삽입그림.01내부전체맵사진이아니며크롭/삽입그림에서실제동시배치수/좌표를역산하지않음.",
+      "findings": [
+        "WORLD_GATE_SCOPE"
+      ]
+    },
+    {
+      "file": "닥세_리소스/시작 캐릭 선택.jpg",
+      "aliases": [],
+      "sha256": "5b369c9612df122db7a5e0820c9da3a362db0beaf03348b802236debb2160c23",
+      "size": [
+        412,
+        305
+      ],
+      "kind": "중문 캐릭터 생성 화면",
+      "manualVisualReview": true,
+      "observation": "초상3개와직업3개 선택·이름·성별·확인. 원본한국어Wlib/scene24의파이터/나이트/매지션과대조. 후속 구현에100/101/103선택을 연결함.",
+      "findings": [
+        "STARTER_CHOICES"
+      ]
+    },
+    {
+      "file": "닥세_리소스/에트나화산.png",
+      "aliases": [],
+      "sha256": "2273572295b2b951db3b00cadfa1c86003a232bb608229146042c3550df2de6a",
+      "size": [
+        315,
+        364
+      ],
+      "kind": "월드·몬스터 편집 안내 이미지",
+      "manualVisualReview": true,
+      "observation": "화산외부랜드마크와박쥐괴물삽입그림.03동굴내부의초기몬스터좌표증거가아님.",
+      "findings": [
+        "WORLD_GATE_SCOPE"
+      ]
+    },
+    {
+      "file": "닥세_리소스/자모라.png",
+      "aliases": [],
+      "sha256": "d8654284bb9132c2a4653fbf56eabbc2e425f91eb74b3290717024548e48bc35",
+      "size": [
+        333,
+        347
+      ],
+      "kind": "월드·몬스터 편집 안내 이미지",
+      "manualVisualReview": true,
+      "observation": "다리랜드마크와늑대괴물삽입그림.외부출입구사진과02내부다리이벤트좌표를구분.",
+      "findings": [
+        "WORLD_GATE_SCOPE"
+      ]
+    },
+    {
+      "file": "닥세_리소스/클래스 표.png",
+      "aliases": [],
+      "sha256": "205dbca24a8f4c7822c8e4b8584a49e0bdeb8b634481d347d07300658e0133e9",
+      "size": [
+        466,
+        624
+      ],
+      "kind": "직업 계통 안내표",
+      "manualVisualReview": true,
+      "observation": "10계열과상위통합직업/10단계존재.그랜드스워드/그랜드아처/그랜드메이지는후기ATR170~172의그랜드소드/그랜드보우/그랜드매직과표기차이.",
+      "findings": [
+        "VERSION_NAMES"
+      ]
+    },
+    {
+      "file": "닥세_리소스/darksaver_overworld.jpg",
+      "aliases": [
+        "닥세_리소스/스크린샷/darksaver_overworld.jpg"
+      ],
+      "sha256": "6ca5020b5190f4cff27a806b2891dea7e6ccefda8f0e76221130c7e6ed7c6221",
+      "size": [
+        640,
+        480
+      ],
+      "kind": "실제 전투 화면",
+      "manualVisualReview": true,
+      "observation": "키스라Lv1·HP450/450·MP140/150·공격126·방어55. 상태창의 중앙은 본체 그림이며 얼굴 초상이 아니다.",
+      "findings": [
+        "KISRA_HP",
+        "STATUS_BODY",
+        "MAP_UI"
+      ]
+    },
+    {
+      "file": "닥세_리소스/darksaver_combat_magic.jpg",
+      "aliases": [
+        "닥세_리소스/스크린샷/darksaver_combat_magic.jpg"
+      ],
+      "sha256": "501120ac80c112471cf503fd778986b6ff4dfc58ddbcccb762819e4e9a86a249",
+      "size": [
+        634,
+        474
+      ],
+      "kind": "실제 전투 화면",
+      "manualVisualReview": true,
+      "observation": "헤케토HP1454/1500·공격1300·방어600, 좌측 상태창/우측 미니맵, 격자와 광역 번개. 단일 화면으로 마법ID/비용/타이밍 확정 불가.",
+      "findings": [
+        "HEKETO",
+        "MAP_UI"
+      ]
+    }
+  ],
+  "evidenceChecks": {
+    "nativeStarterLabels": [
+      "파이터",
+      "나이트",
+      "매지션"
+    ],
+    "kisraTableHp": 300,
+    "kisraScreenshotMaxHp": 450,
+    "heketoTableHp": 1500,
+    "unicornTableHpMp": [
+      420,
+      44
+    ],
+    "scenario14RequiredTargets": [
+      700,
+      710,
+      720,
+      730
+    ],
+    "scenario14CurrentTargetJobs": [
+      301
+    ],
+    "scenario17ClearCondition": "CHARPOS",
+    "screenshot8Script": "96set.arc/96.evt GETITEM1515",
+    "warehouseVisibleSpriteTopLeftCellAttribute": 9,
+    "map96CircleDecoration": {
+      "resource": 25,
+      "index": 12,
+      "frame": 0,
+      "sourceTopLeft": [
+        12,
+        10
+      ]
+    },
+    "upperStaffVisualRegionIsNotLogicalSpawnCell": true,
+    "tier10Labels": [
+      {
+        "job": 170,
+        "guide": "그랜드스워드",
+        "lateTable": "그랜드소드"
+      },
+      {
+        "job": 171,
+        "guide": "그랜드아처",
+        "lateTable": "그랜드보우"
+      },
+      {
+        "job": 172,
+        "guide": "그랜드메이지",
+        "lateTable": "그랜드매직"
+      }
+    ],
+    "kisraBakedSourceHp": 300,
+    "kisraCombatMaximumHp": 450
+  },
+  "scope": "All source reference screenshots/guides in resource root and screenshot folder. Excludes generated analysis renders, extracted texture/sprite sheets, and Unity QA captures. Native file evidence, authored implementation differences, and unconfirmed screenshot versions remain separate.",
+  "implementationFollowup": {
+    "starterChoices": [
+      100,
+      101,
+      103
+    ],
+    "personalEquipmentAccess": "I or world body picture click, town/field/scenario/training contexts; C for personal information",
+    "kisraMaximumHp": 450,
+    "sourceContentHashUnchanged": true,
+    "unityPlay": false
+  }
+}

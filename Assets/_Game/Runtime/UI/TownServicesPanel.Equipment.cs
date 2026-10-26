@@ -46,7 +46,7 @@ namespace DarkSaver.UI
             ui.Button("equipment-confirm",new Rect(panel.x+8,427,84,28),"장착 확인",()=>ConfirmSelectedEquipment(),selectedEquipmentSlot>=0 && SelectedInventoryItem!=null);
             ui.Button("equipment-remove",new Rect(panel.x+98,427,84,28),"선택 해제",()=>ConfirmSelectedEquipment(true),selectedEquipmentSlot>=0 && session!=null && session.EquipmentItemAt(selectedEquipmentSlot)!=0);
             ui.Button("equipment-clear",new Rect(panel.x+188,427,84,28),"모두 해제",()=>ConfirmSelectedEquipment(true,true),session!=null);
-            ui.Label("equipment-selection",new Rect(panel.x+278,432,123,18),selectedEquipmentSlot<0?"장비 칸을 선택하세요.":EquipmentNames[selectedEquipmentSlot],10);
+            ui.Label("equipment-selection",new Rect(panel.x+278,432,123,18),SaveMessage ?? (selectedEquipmentSlot<0?"장비 칸을 선택하세요.":EquipmentNames[selectedEquipmentSlot]),10);
             foreach(var key in new[]{"equipment-actions","equipment-confirm","equipment-remove","equipment-clear","equipment-selection"})ui.Raise(key);
         }
     }

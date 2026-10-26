@@ -25,6 +25,16 @@ internal static class Program
     public static void Main(string[] args)
     {
         Console.WriteLine("Beginning actual production CombatFlow/LocalCombatAuthority checks (no Unity scene execution).");
+        // Exercise the actual enemy factory while bypassing Unity object construction/lifecycle.
+        var kisra=new DarkSaver.Events.Scenario01Unit {id=700,job=701,name="키스라",hp=300,mp=150,attack=126,defense=55,x=19,y=10};
+        var enemy=(BattleEnemyDefinition)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(BattleEnemyDefinition));
+        enemy.InitializeScenarioUnit(kisra);Check(enemy.TryCreateUnit(out var freshKisra),"Kisra production factory");
+        Check(freshKisra.Hp==450 && freshKisra.MaxHp==450 && freshKisra.Mp==150 && freshKisra.Attack==126 && freshKisra.Defense==55,"screenshot maximum with unchanged other combat stats");
+        foreach(int hp in new[]{150,300,450}) {
+            enemy.InitializeScenarioUnit(kisra,new DarkSaver.Events.Scenario01EnemyState {id=700,hp=hp,mp=140,x=19,y=10});
+            Check(enemy.TryCreateUnit(out var resumedKisra) && resumedKisra.Hp==hp && resumedKisra.MaxHp==450,"production factory preserves saved remaining HP");
+        }
+        Check(kisra.hp==300,"production factory does not mutate baked source");
         var coverage=new List<object>();var rules=new Dictionary<int,SinglePlayerAbilityRule>();int combat=0,hiring=0,emotes=0;var unconfirmed=new List<int>();
         using var fixture=JsonDocument.Parse(File.ReadAllText(args[0]));
         foreach(var item in fixture.RootElement.EnumerateArray())

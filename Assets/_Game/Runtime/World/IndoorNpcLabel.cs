@@ -16,7 +16,7 @@ namespace DarkSaver.World
             {ui?.Hide();return;}
             var screen=Camera.main.WorldToScreenPoint(transform.position+new Vector3(0,1.2f,0));
             if(screen.z<=0 || !DarkSaver.Rendering.GameScreen.TryScreenToGui(screen,out var point)){ui?.Hide();return;}
-            InGameUi.Ensure(ref ui,this,19);ui.Begin();ui.Label("name",new Rect(point.x-90,point.y-16,180,24),title,14);ui.End();
+            InGameUi.Ensure(ref ui,this,19);ui.Begin();ui.NativeWorldName("name",point,title);ui.End();
         }
         private void OnDisable()=>ui?.Hide();
     }

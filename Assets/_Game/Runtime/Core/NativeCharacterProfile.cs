@@ -7,7 +7,9 @@ namespace DarkSaver.Core
     [Serializable]
     public sealed partial class NativeCharacterProfile
     {
-        public const int SupportedStartingJob = 100;
+        public const int SupportedStartingJob = 100; // Default for older callers.
+        public static bool IsStartingJob(int id)=>id==100 || id==101 || id==103;
+        public static string StartingJobName(int id)=>id==100?"파이터":id==101?"나이트":id==103?"매지션":null;
         public string name;
         public int jobId;
         public NativeTutorialProgress tutorial;
@@ -71,8 +73,8 @@ namespace DarkSaver.Core
             ClearPending();
             var profile = new NativeCharacterProfile { name = name?.Trim(), jobId = jobId,
                 hasLevels = true, baseLevel = 1, jobLevel = 1, tutorial = new NativeTutorialProgress() };
-            message = $"이름은 1~{GameConstants.CharacterNameMaxLength}자여야 하며 현재 지원 직업은 100입니다.";
-            if (jobId != SupportedStartingJob || !profile.IsValid) return false;
+            message = $"이름은 1~{GameConstants.CharacterNameMaxLength}자여야 하며 파이터·나이트·매지션을 선택하세요.";
+            if (!IsStartingJob(jobId) || !profile.IsValid) return false;
             string fullPath;
             try { fullPath = Path.GetFullPath(path ?? NativeSaveStore.DefaultPath); }
             catch (Exception) { message = "저장 경로가 올바르지 않습니다."; return false; }

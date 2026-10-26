@@ -1,0 +1,238 @@
+{
+  "referenceFiles": [
+    {
+      "file": "닥세_리소스/ĸó1.jpg",
+      "sha256": "b603160296db609b671be0a782da7e8ae56e57bdb1944ee2ac7bdf79e37d62f7",
+      "size": [
+        580,
+        438
+      ]
+    },
+    {
+      "file": "닥세_리소스/ĸó3.jpg",
+      "sha256": "5ab8be64345826dd62d64d0b790a5ed6f57ab49b4fd862a94112baecd3953c94",
+      "size": [
+        577,
+        435
+      ]
+    },
+    {
+      "file": "닥세_리소스/ĸó4.jpg",
+      "sha256": "235eb8be7812447412cff11d08a97137791870219ac33f27616f3b667a4a72e5",
+      "size": [
+        581,
+        437
+      ]
+    }
+  ],
+  "mapCandidates": [
+    {
+      "nativeMap": "2400",
+      "region": [
+        470,
+        57,
+        543,
+        99
+      ],
+      "mse": 3517.928897586432,
+      "registration": {
+        "scale": 0.89375,
+        "offset": [
+          6,
+          -3
+        ]
+      }
+    },
+    {
+      "nativeMap": "2510",
+      "region": [
+        470,
+        57,
+        543,
+        99
+      ],
+      "mse": 534.7115677321157,
+      "registration": {
+        "scale": 0.9,
+        "offset": [
+          2,
+          3
+        ]
+      }
+    }
+  ],
+  "npcCandidates": [
+    {
+      "appearance": 810,
+      "direction": "Down",
+      "frame": 1,
+      "mse": 905.7141073657928,
+      "frameTopLeft": [
+        434,
+        118
+      ],
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/810R.bmp"
+    },
+    {
+      "appearance": 810,
+      "direction": "Down",
+      "frame": 2,
+      "mse": 2405.7843915343915,
+      "frameTopLeft": [
+        434,
+        117
+      ],
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/810R.bmp"
+    },
+    {
+      "appearance": 810,
+      "direction": "Down",
+      "frame": 0,
+      "mse": 2406.784776902887,
+      "frameTopLeft": [
+        434,
+        117
+      ],
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/810R.bmp"
+    },
+    {
+      "appearance": 804,
+      "direction": "Down",
+      "frame": 1,
+      "mse": 2973.8086419753085,
+      "frameTopLeft": [
+        447,
+        121
+      ],
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/804R.bmp"
+    },
+    {
+      "appearance": 804,
+      "direction": "Down",
+      "frame": 0,
+      "mse": 3052.9814814814813,
+      "frameTopLeft": [
+        447,
+        121
+      ],
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/804R.bmp"
+    },
+    {
+      "appearance": 804,
+      "direction": "Down",
+      "frame": 2,
+      "mse": 3052.9814814814813,
+      "frameTopLeft": [
+        447,
+        121
+      ],
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/804R.bmp"
+    },
+    {
+      "appearance": 809,
+      "direction": "Down",
+      "frame": 1,
+      "mse": 3376.445721583653,
+      "frameTopLeft": [
+        434,
+        118
+      ],
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/809R.bmp"
+    },
+    {
+      "appearance": 827,
+      "direction": "Down",
+      "frame": 1,
+      "mse": 3396.0997023809523,
+      "frameTopLeft": [
+        431,
+        118
+      ],
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/827r.bmp"
+    },
+    {
+      "appearance": 814,
+      "direction": "Down",
+      "frame": 0,
+      "mse": 3495.113475177305,
+      "frameTopLeft": [
+        424,
+        126
+      ],
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/814R.bmp"
+    },
+    {
+      "appearance": 814,
+      "direction": "Down",
+      "frame": 1,
+      "mse": 3495.113475177305,
+      "frameTopLeft": [
+        424,
+        126
+      ],
+      "source": "분석/Saver_1.2/decoded/all_arc/gameres/char4/814R.bmp"
+    }
+  ],
+  "method": "Bilinear scale/translation search for exposed shelves. RGB MSE of opaque upper22 sprite rows; lower body excluded due to counter occlusion. Scores rank candidates, not statistical confidence.",
+  "findings": {
+    "storageUIVisible": true,
+    "displayedStorageFee": 0,
+    "alwaysFreeConfirmed": false,
+    "warehouse2510VisualMatch": "strong",
+    "visibleStaffAppearance810": "strong",
+    "exactNpcName": null,
+    "npcCount": "at least one visible; obscured area uncounted",
+    "spriteTopLeftApproxNativePixels": [
+      480,
+      128
+    ],
+    "spriteTopLeftApproxSourceTile": [
+      15,
+      4
+    ],
+    "logicalNpcCoordinateConfirmed": false,
+    "bank2400StaffConfirmed": false
+  },
+  "currentImplementation": {
+    "warehouseMap": "2510",
+    "warehouseAppearance": 827,
+    "warehouseNativeCell": [
+      9,
+      6
+    ],
+    "warehouseAssignment": "authored placeholder; screenshot corroborates810 instead",
+    "bankAppearance": 807,
+    "bankAssignment": "authored, not resolved by these screenshots"
+  },
+  "unityPlay": false,
+  "uiTemplate": {
+    "scene": "Wlib/scene20.lsc",
+    "width": 419,
+    "height": 303,
+    "headings": [
+      "가진 물건",
+      "맡길 물건"
+    ],
+    "buttons": [
+      {
+        "kind": "button",
+        "id": 40,
+        "x": 384,
+        "y": 35
+      },
+      {
+        "kind": "button",
+        "id": 39,
+        "x": 384,
+        "y": 161
+      },
+      {
+        "kind": "button",
+        "id": 19,
+        "x": 345,
+        "y": 264
+      }
+    ],
+    "scope": "Native storage-style base panel; screenshot fee/items/currency are dynamic overlays. Screenshot/client-version and exact control flow not proven identical."
+  }
+}

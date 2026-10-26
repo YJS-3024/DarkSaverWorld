@@ -141,15 +141,7 @@ namespace DarkSaver.UI
             ui.NativeBitmapText("character-info-job",new Rect(origin+new Vector2(146,58),new Vector2(174,16)),CharacterInfoJobName,Color.black,alignment:TextAnchor.UpperLeft);
             ui.NativeBitmapText("character-info-gold",new Rect(origin+new Vector2(146,124),new Vector2(172,16)),CharacterInfoGoldText,Color.black,alignment:TextAnchor.UpperLeft);
             DrawCharacterInfoValues(origin);
-            ui.Panel("character-info-local-note",new Rect(origin.x,346,335,54)); ui.Raise("character-info-local-note");
-            ui.Label("character-info-note",new Rect(origin.x+8,350,319,46),CharacterInfoValuesAreLocal?CharacterInfoLocalSummaryText:HasCharacterInfoValues?"전달된 원본 정보의 수치입니다. 실제 능력 변경·서버 승인은 미연결입니다.":"이름·직업·돈과 원본 직업 초상입니다. 나머지 수치·추가 기능은 미연결입니다.",12);
-            ui.Raise("character-info-note");
-            if(CharacterInfoValuesAreLocal && CharacterInfoHiresText!=null) {
-                ui.Panel("character-info-hires-panel",new Rect(origin.x,400,335,28)); ui.Raise("character-info-hires-panel");
-                ui.Button("character-info-hires",new Rect(origin.x+4,402,327,24),CharacterInfoHiresText,
-                    ()=>BindSessionCharacterInfoValues(),tooltip:"클릭하여 갱신 · "+CharacterInfoHiresText,singleLine:true,fontSize:12); ui.Raise("character-info-hires");
-            }
-            ui.Button("character-info-back",new Rect(origin.x,CharacterInfoValuesAreLocal?438:410,335,32),"시설 목록 (임시)",()=>Open(TownService.Overview,player));
+
         }
     }
 }

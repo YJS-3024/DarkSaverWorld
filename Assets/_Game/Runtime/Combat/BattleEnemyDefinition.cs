@@ -35,7 +35,7 @@ namespace DarkSaver.Combat
             scriptPosition = new Vector2Int(unit.x, unit.y); useJobCatalogBaseStats = false;
             // Native non-caster rows use -1 for unused MP. Keep the source row intact;
             // the single-player combat unit has zero MP rather than a negative resource.
-            baseHp = unit.hp; baseMp = unit.CombatMp; baseAttack = unit.attack; baseDefense = unit.defense;
+            baseHp = unit.CombatHp; baseMp = unit.CombatMp; baseAttack = unit.attack; baseDefense = unit.defense;
             useNativeBaseDefeatExperience = true; victoryObjective = null;
         }
 
@@ -71,6 +71,7 @@ namespace DarkSaver.Combat
                 defense = entry.GetNumericValue(8);
                 magicAttack=entry.GetNumericValue(10);magicDefense=entry.GetNumericValue(12);
             }
+            if(hp>0 && hp<=int.MaxValue)hp=DarkSaver.Core.OriginalEnemyOverrides.MaximumHp(jobId,(int)hp);
             // Preserve sentinels in the catalog, but never clamp them into usable combat stats.
             if (hp <= 0 || hp > int.MaxValue || !IsNonNegativeInt(mp)
                 || !IsNonNegativeInt(attack) || !IsNonNegativeInt(defense)) return false;

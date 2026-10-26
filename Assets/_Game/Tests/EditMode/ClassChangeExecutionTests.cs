@@ -125,7 +125,7 @@ namespace DarkSaver.Tests
                 Assert.That(panel.CharacterInfoExperienceText,Is.EqualTo("1234/-"));
                 var original=new byte[724]; Assert.That(panel.BindCharacterInfoValues(original),Is.True);
                 Assert.That(panel.CharacterInfoVitalsText,Is.Null); Assert.That(panel.CharacterInfoLocalSummaryText,Is.Null);
-                Assert.That(panel.Open(TownService.Overview,player),Is.True);
+                Assert.That(panel.Open(TownService.Inventory,player),Is.True);
                 Assert.That(panel.CharacterInfoLevelText,Is.Null); Assert.That(panel.CharacterInfoExperienceText,Is.Null);
             });
         }
@@ -167,7 +167,7 @@ namespace DarkSaver.Tests
                 Assert.That(panel.CharacterInfoValueText(0,2),Is.EqualTo("77"));
                 Assert.That(panel.BindSessionCharacterInfoValues(),Is.True);
                 Assert.That(panel.CharacterInfoValueText(0,2),Is.EqualTo((attack+1).ToString()));
-                Assert.That(panel.Open(TownService.Overview,player),Is.True);
+                Assert.That(panel.Open(TownService.Inventory,player),Is.True);
                 Assert.That(panel.HasCharacterInfoValues,Is.False);
                 Assert.That(panel.CharacterInfoValuesAreLocal,Is.False);
                 Assert.That(panel.Open(TownService.CharacterInfo,player),Is.True);
@@ -397,7 +397,7 @@ namespace DarkSaver.Tests
                 Assert.That(panel.CharacterInfoHiresText,Does.Contain("병종 ID 200 × 1"));
                 Assert.That(panel.BindCharacterInfoValues(new byte[724]),Is.True);
                 Assert.That(panel.CharacterInfoHiresText,Is.Null);
-                Assert.That(panel.Open(TownService.Overview,player),Is.True);
+                Assert.That(panel.Open(TownService.Inventory,player),Is.True);
                 Assert.That(panel.CharacterInfoAuxiliaryCountText,Is.Null);
                 Assert.That(panel.CharacterInfoAuxiliaryClassId,Is.EqualTo(-1));
                 Assert.That(panel.Open(TownService.CharacterInfo,player),Is.True);

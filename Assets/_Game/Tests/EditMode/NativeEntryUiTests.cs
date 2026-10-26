@@ -39,6 +39,18 @@ namespace DarkSaver.Tests
                 Assert.AreEqual(DisplayStyle.None,password.style.display.value);Assert.IsNotNull(root.Q<TextField>("register-id"));
                 controller.CancelRegistration();go.SendMessage("LateUpdate");
                 Assert.IsTrue(controller.IsLoggingIn);Assert.AreEqual(DisplayStyle.Flex,password.style.display.value);
+                Assert.IsTrue(controller.Login());Assert.IsTrue(controller.BeginSelectedCharacterCreation());
+                Assert.IsTrue(controller.SelectStartingJob(101));Assert.IsTrue(controller.SelectStartingJob(103));
+                Assert.IsFalse(controller.SelectStartingJob(102));Assert.AreEqual(103,controller.SelectedStartingJob);
+                go.SendMessage("LateUpdate");go.SendMessage("LateUpdate");
+                var logical=root.Q("LogicalScreen");var creation=root.Q("creation-native");
+                Assert.IsNotNull(creation);Assert.AreSame(Resources.Load<Texture2D>("UI/Entry/CharacterCreation"),creation.style.backgroundImage.value.texture);
+                foreach(int job in new[]{100,101,103})
+                {
+                    var face=root.Q("creation-face-"+job);Assert.IsNotNull(face);
+                    Assert.Greater(logical.Children().ToList().IndexOf(face),logical.Children().ToList().IndexOf(creation),"face stays above reused background after redraw");
+                    Assert.IsNull(root.Q("creation-job-"+job).style.backgroundImage.value.texture,"hit area cannot cover original art with paper");
+                }
                 Assert.IsEmpty(Directory.GetFiles(directory,"*",SearchOption.AllDirectories),"drawing/navigation must not create or overwrite saves");
             }
             finally{UnityEngine.Object.DestroyImmediate(go);Directory.Delete(directory,true);}

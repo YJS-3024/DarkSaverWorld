@@ -87,11 +87,11 @@ namespace DarkSaver.UI
             LoadEntryArtwork();
             ui.EntryArtwork("entry-background",new Rect(0,0,Rendering.GameScreen.Width,Rendering.GameScreen.Height),entryBackground,true);
             if(loggingIn){DrawLogin(panel);ui.End();return;}
-            if(registering || creating || selecting)
+            if(creating){DrawCharacterCreation(panel);ui.End();return;}
+            if(registering || selecting)
             {
                 ui.Panel("menu",panel);
                 if(registering)DrawRegistration(panel);
-                else if(creating)DrawCharacterCreation(panel);
                 else DrawCharacterSelection(panel);
             }
             else DrawNativeStart();
@@ -167,7 +167,7 @@ namespace DarkSaver.UI
         public bool BeginSelectedCharacterCreation()
         {
             if (loading || !selecting || occupied[selectedSlot]) return false;
-            creating = true; characterName = string.Empty; loadMessage = string.Empty; return true;
+            creating = true; selectedStartingJob=NativeCharacterProfile.SupportedStartingJob; characterName = string.Empty; loadMessage = string.Empty; return true;
         }
 
         private void DrawCharacterSelection(Rect panel)
@@ -198,18 +198,6 @@ namespace DarkSaver.UI
                 () => BeginSelectedCharacterCreation(), !loading && !occupied[selectedSlot]);
             ui.Button("select-back", new Rect(panel.x + 104, panel.y + 348, panel.width - 128, 28), "시작 화면", () => selecting = false, !loading);
             if (!string.IsNullOrEmpty(loadMessage)) ui.Label("select-message", new Rect(panel.x + 24, panel.y + 382, panel.width - 48, 50), loadMessage, 12);
-        }
-
-        private void DrawCharacterCreation(Rect panel)
-        {
-            ui.Label("name-label", new Rect(panel.x + 30, panel.y + 110, panel.width - 60, 25), "캐릭터 이름");
-            ui.TextInput("name", new Rect(panel.x + 30, panel.y + 140, panel.width - 60, 35), characterName,
-                GameConstants.CharacterNameMaxLength, value => characterName = value);
-            ui.Label("job", new Rect(panel.x + 30, panel.y + 190, panel.width - 60, 50), "용병대장으로 모험을 시작합니다.");
-            ui.Button("create", new Rect(panel.x + 30, panel.y + 255, panel.width - 60, 40), "생성하고 튜토리얼 시작", () => CreateCharacter(characterName), !loading);
-            ui.Button("back", new Rect(panel.x + 30, panel.y + 305, panel.width - 60, 35), "뒤로", () => creating = false, !loading);
-            ui.Label("creation-message", new Rect(panel.x + 30, panel.y + 350, panel.width - 60, 60),
-                string.IsNullOrEmpty(loadMessage) ? "기본 안내 후 카오시아 마을에서 모험을 시작합니다." : loadMessage);
         }
 
         public bool CreateCharacter(string name, int jobId = NativeCharacterProfile.SupportedStartingJob, string filePath = null)
