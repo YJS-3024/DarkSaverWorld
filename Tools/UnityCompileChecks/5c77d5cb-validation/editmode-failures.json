@@ -1,0 +1,22 @@
+[
+  {
+    "Test": "DarkSaver.Tests.BattleFeedbackTests.ActualAttackShowsDamageAndMissWithoutTreatingHpSyncAsAnAttack",
+    "Message": "  Expected: 440\n  But was:  439\n",
+    "Stack": "at DarkSaver.Tests.BattleFeedbackTests.ActualAttackShowsDamageAndMissWithoutTreatingHpSyncAsAnAttack () [0x024fb] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\BattleFeedbackTests.cs:736\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CanvasUiMigrationTests.NativeButtonsAndModalBlockerUseActualGraphicRaycastOrder",
+    "Message": "  Expected: greater than 0\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.CanvasUiMigrationTests.NativeButtonsAndModalBlockerUseActualGraphicRaycastOrder () [0x00158] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\CanvasUiMigrationTests.cs:47\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.InGameUiTests.DungeonResultUsesNativeLayoutAndHidesAfterAcknowledgement",
+    "Message": "  Expected: UpperLeft\n  But was:  MiddleLeft\n",
+    "Stack": "at DarkSaver.Tests.InGameUiTests.DungeonResultUsesNativeLayoutAndHidesAfterAcknowledgement () [0x00158] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\InGameUiTests.cs:383\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCatalogPreviewTests.MismatchFilterKeepsJobAndSpriteIdsSeparate",
+    "Message": "  Expected: equivalent to < (988, 989), (989, 988) >\n  But was:  < (988, 989), (989, 988) >\n",
+    "Stack": "at NUnit.Framework.CollectionAssert.AreEquivalent (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual, System.String message, System.Object[] args) [0x00008] in <8b63e8ac0a4746599ed207982825ae6c>:0\nat NUnit.Framework.CollectionAssert.AreEquivalent (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual) [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0\nat DarkSaver.Tests.JobCatalogPreviewTests.MismatchFilterKeepsJobAndSpriteIdsSeparate () [0x000df] in C:\\Project\\DarkSaverWorld\\Assets\\_Game\\Tests\\EditMode\\JobCatalogPreviewTests.cs:33\n"
+  }
+]
