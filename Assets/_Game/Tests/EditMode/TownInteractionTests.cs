@@ -89,7 +89,7 @@ namespace DarkSaver.Tests
         {
             var before = SceneManager.GetActiveScene();
             var town = SceneManager.GetSceneByName("Town_Runtime"); bool created = !town.isLoaded;
-            if(created) { town=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive); town.name="Town_Runtime"; }
+            if(created) { town=SceneManager.CreateScene("Town_Runtime"); }
             var root = new GameObject("Character info fixture"); SceneManager.MoveGameObjectToScene(root,town);
             try {
                 Assert.That((int)TownService.Inventory, Is.EqualTo(5)); Assert.That((int)TownService.CharacterInfo, Is.EqualTo(6));
@@ -256,8 +256,7 @@ namespace DarkSaver.Tests
             bool createdTown = !town.isLoaded;
             if (createdTown)
             {
-                town = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
-                town.name = "Town_Runtime";
+                town = SceneManager.CreateScene("Town_Runtime");
             }
             var root = new GameObject("Town interaction test"); SceneManager.MoveGameObjectToScene(root, town);
             var actor = new GameObject("Test player"); actor.transform.SetParent(root.transform);

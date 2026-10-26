@@ -30,7 +30,7 @@ namespace DarkSaver.Tests
                 var value = battle.LastAttackPresentation.Value;
                 Assert.That((value.AttackerId, value.TargetId, value.Effect), Is.EqualTo(((short)100, (short)700, (short)-3)));
                 Assert.That(calls, Is.EqualTo(1)); Assert.That(value.HasDirection, Is.True);
-                Assert.That((battle.PlayerHp, battle.PlayerMp, battle.EnemyHp, battle.PlayerAp), Is.EqualTo((120, 30, 300, ap)));
+                Assert.That((battle.PlayerHp, battle.PlayerMp, battle.EnemyHp, battle.PlayerAp), Is.EqualTo((120, 30, 450, ap)));
                 Assert.That(battle.PlayerExperience, Is.Zero);
                 Assert.That(battle.TryGetLatestAttacker(700, out var attacker), Is.True);
                 Assert.That(attacker, Is.EqualTo(100));

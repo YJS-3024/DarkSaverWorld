@@ -17,7 +17,7 @@ namespace DarkSaver.Tests
             var unit = definition.CreateUnit();
             Assert.That(unit.Id, Is.EqualTo(700));
             Assert.That((unit.X, unit.Y), Is.EqualTo((19, 10)));
-            Assert.That(unit.Hp, Is.EqualTo(300));
+            Assert.That(unit.Hp, Is.EqualTo(450));
             Assert.That(unit.Mp, Is.EqualTo(150));
             var world = new CombatWorld();
             world.Add(unit);
@@ -26,7 +26,7 @@ namespace DarkSaver.Tests
             Assert.That(definition.VictoryObjective.IsSatisfied(world), Is.False);
             unit.LifeState = UnitLifeState.Corpse;
             Assert.That(definition.VictoryObjective.IsSatisfied(world), Is.True);
-            Assert.That(definition.CreateUnit().Hp, Is.EqualTo(300));
+            Assert.That(definition.CreateUnit().Hp, Is.EqualTo(450));
         }
 
         [Test]

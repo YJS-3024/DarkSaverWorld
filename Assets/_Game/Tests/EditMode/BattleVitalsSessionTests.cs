@@ -123,7 +123,7 @@ namespace DarkSaver.Tests
             {
                 first.TryRestorePlayerVitals(hp, 5); session.CapturePlayerVitals(first);
                 Assert.That(hud.SummaryText, Does.Contain($"HP {hp}/120  MP 30/30"));
-                if (hp == 0) Assert.That(hud.SummaryText, Does.Contain("전투 불능: 재조우 불가"));
+                if (hp == 0) Assert.That(hud.SummaryText, Does.Contain("전투 불능: 신전 관리인에게 부활을 요청하세요."));
                 else Assert.That(hud.SummaryText, Does.Not.Contain("전투 불능"));
                 Assert.That((session.PlayerHp, session.PlayerMp, session.CanEnterBattle), Is.EqualTo((hp, 30, hp > 0)));
             });

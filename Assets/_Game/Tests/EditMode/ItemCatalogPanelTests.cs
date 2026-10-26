@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using DarkSaver.Items;
 using DarkSaver.Player;
 using DarkSaver.UI;
@@ -43,8 +44,8 @@ namespace DarkSaver.Tests
                 panel.Filter("1245");
                 Assert.That(panel.MatchCount, Is.EqualTo(1));
                 Assert.That(panel.SelectItem(1245), Is.True);
-                Assert.That(panel.SelectedItem.GetNumericValue(ItemCatalogEntry.PriceColumn), Is.EqualTo(100000000000L));
-                Assert.That(panel.SelectedItem.PriceNotation, Is.EqualTo("1E+11"));
+                Assert.That(panel.SelectedItem.GetNumericValue(ItemCatalogEntry.PriceColumn), Is.EqualTo(80000000000L));
+                Assert.That(panel.SelectedItem.PriceNotation, Is.EqualTo("80000000000"));
                 panel.Filter("닥세 사이다세트");
                 Assert.That(panel.SelectItem(1538), Is.True);
                 Assert.That(ItemCatalogPanel.DisplayName(panel.SelectedItem), Is.EqualTo("닥세 사이다세트"));
@@ -64,14 +65,12 @@ namespace DarkSaver.Tests
                 Assert.That(panel.SelectItem(0), Is.False);
                 panel.Filter(null);
                 Assert.That(panel.SelectItem(0), Is.True);
-                for (var i = 0; i < catalog.Count; i++)
-                    if (catalog.GetAt(i).Name == string.Empty)
-                    {
-                        Assert.That(ItemCatalogPanel.DisplayName(catalog.GetAt(i)), Is.EqualTo("(이름 없음)"));
-                        Assert.That(catalog.GetAt(i).Name, Is.Empty);
-                        return;
-                    }
-                Assert.Fail("Expected original empty name.");
+                Assert.That(System.Linq.Enumerable.Range(0,catalog.Count).All(i=>!string.IsNullOrEmpty(catalog.GetAt(i).Name)),Is.True,"late source has no empty names");
+                // Empty-name presentation remains supported without inventing an empty native row.
+                var values=new long[ItemCatalogEntry.NumericColumnCount];values[0]=99999;
+                var unnamed=new ItemCatalogEntry(values,"0","","","","fixture");
+                Assert.That(ItemCatalogPanel.DisplayName(unnamed),Is.EqualTo("(이름 없음)"));
+                Assert.That(unnamed.Name,Is.Empty);
             });
         }
 

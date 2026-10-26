@@ -84,11 +84,32 @@ namespace DarkSaver.Editor
         {
             if (long.TryParse(text, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out var integer)) return integer;
             var parts = text.Split('E', 'e');
-            if (parts.Length != 2 || !long.TryParse(parts[0], NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out integer) ||
-                !int.TryParse(parts[1], NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out var exponent) || exponent < 0 || exponent > 18)
+            if (parts.Length != 2 || !int.TryParse(parts[1], NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out var exponent)
+                || exponent < 0 || exponent > 18) throw new InvalidDataException("Invalid integer price.");
+            string coefficient=parts[0], sign="";
+            if (coefficient.StartsWith("-") || coefficient.StartsWith("+"))
+            { sign=coefficient.Substring(0,1); coefficient=coefficient.Substring(1); }
+            int point=coefficient.IndexOf('.');
+            if (point>=0 && (point==0 || point==coefficient.Length-1 || coefficient.LastIndexOf('.')!=point))
                 throw new InvalidDataException("Invalid integer price.");
-            try { for (var i = 0; i < exponent; i++) integer = checked(integer * 10); }
-            catch (OverflowException error) { throw new InvalidDataException("Item price exceeds int64.", error); }
+            int fraction=point<0?0:coefficient.Length-point-1;
+            string digits=coefficient.Replace(".","");
+            if (digits.Length==0) throw new InvalidDataException("Invalid integer price.");
+            foreach(char digit in digits)
+                if(digit<'0' || digit>'9') throw new InvalidDataException("Invalid integer price.");
+            int shift=exponent-fraction;
+            // Work on decimal digits so huge/precise mantissas cannot round into an integer.
+            while(shift<0)
+            {
+                if(digits.Length==0 || digits[digits.Length-1]!='0') throw new InvalidDataException("Non-integer item price.");
+                digits=digits.Substring(0,digits.Length-1); shift++;
+            }
+            digits=digits.TrimStart('0');
+            if(digits.Length==0)return 0;
+            if(digits.Length+shift>19) throw new InvalidDataException("Item price exceeds int64.");
+            digits+=new string('0',shift);
+            if(!long.TryParse(sign+digits,NumberStyles.AllowLeadingSign,CultureInfo.InvariantCulture,out integer))
+                throw new InvalidDataException("Item price exceeds int64.");
             return integer;
         }
 

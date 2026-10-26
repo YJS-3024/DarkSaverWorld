@@ -16,30 +16,33 @@ namespace DarkSaver.Tests
     public sealed class TownShopTests
     {
         [Test]
-        public void ShopTradeAndSaveFeedbackDoNotOverlapAndHideWhenCleared()
+        public void TradeFeedbackUsesNativeShopBodyWithoutRemovedSaveStrip()
         {
-            var go = new GameObject("Shop feedback fixture");
-            try {
-                var panel = go.AddComponent<TownServicesPanel>();
-                InGameUi ui = null; InGameUi.Ensure(ref ui, panel);
-                const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
-                typeof(TownServicesPanel).GetField("ui", flags).SetValue(panel, ui);
-                var trade = typeof(TownServicesPanel).GetField("shopMessage", flags);
-                var save = typeof(TownServicesPanel).GetField("<SaveMessage>k__BackingField", flags);
-                var draw = typeof(TownServicesPanel).GetMethod("DrawNativeShopFeedback", flags);
-                trade.SetValue(panel, "Trade failed"); save.SetValue(panel, "Saved");
-                ui.Begin(); draw.Invoke(panel, new object[] {new Rect(110,64,419,400)}); ui.End();
-                var root = ui.GetComponent<UnityEngine.UIElements.UIDocument>().rootVisualElement;
-                var status = UnityEngine.UIElements.UQueryExtensions.Q<UnityEngine.UIElements.Label>(root, "shop-trade-status");
-                var saved = UnityEngine.UIElements.UQueryExtensions.Q<UnityEngine.UIElements.Label>(root, "town-save-message");
-                Assert.That(status.text, Is.EqualTo("Trade failed")); Assert.That(saved.text, Is.EqualTo("Saved"));
-                Assert.That(status.style.top.value.value + status.style.height.value.value, Is.LessThanOrEqualTo(saved.style.top.value.value));
-                Assert.That(saved.style.top.value.value + saved.style.height.value.value, Is.LessThanOrEqualTo(480));
-                trade.SetValue(panel, null); save.SetValue(panel, null);
-                ui.Begin(); draw.Invoke(panel, new object[] {new Rect(110,64,419,400)}); ui.End();
-                Assert.That(saved.style.display.value, Is.EqualTo(UnityEngine.UIElements.DisplayStyle.None));
-                Assert.That(status.style.display.value, Is.EqualTo(UnityEngine.UIElements.DisplayStyle.None));
-            } finally { UnityEngine.Object.DestroyImmediate(go); }
+            var go=new GameObject("Shop feedback fixture");
+            try
+            {
+                var panel=go.AddComponent<TownServicesPanel>();
+                InGameUi ui=null;InGameUi.Ensure(ref ui,panel);
+                const System.Reflection.BindingFlags flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+                typeof(TownServicesPanel).GetField("ui",flags).SetValue(panel,ui);
+                var trade=typeof(TownServicesPanel).GetField("shopMessage",flags);
+                var draw=typeof(TownServicesPanel).GetMethod("DrawNativeShopList",flags);
+                var window=Resources.Load<NativeBattleWindows>("UI/TownShop/NativeTownShop")?.Find(10);
+                Assert.IsNotNull(window);Assert.AreEqual(3,window.controls.Length);
+                trade.SetValue(panel,"Trade failed");
+                ui.Begin();draw.Invoke(panel,new object[]{new Rect(110,64,419,303),window});ui.End();
+                var root=ui.GetComponent<UnityEngine.UIElements.UIDocument>().rootVisualElement;
+                var status=UnityEngine.UIElements.UQueryExtensions.Q<UnityEngine.UIElements.Label>(root,"shop-message");
+                Assert.That(status.text,Is.EqualTo("Trade failed"));
+                Assert.That(status.style.top.value.value,Is.GreaterThanOrEqualTo(64));
+                Assert.That(status.style.top.value.value+status.style.height.value.value,Is.LessThanOrEqualTo(367));
+                Assert.That(UnityEngine.UIElements.UQueryExtensions.Q(root,"town-save-message"),Is.Null);
+                Assert.That(UnityEngine.UIElements.UQueryExtensions.Q(root,"shop-trade-status"),Is.Null);
+                trade.SetValue(panel,null);
+                ui.Begin();draw.Invoke(panel,new object[]{new Rect(110,64,419,303),window});ui.End();
+                Assert.That(status.text,Does.Not.Contain("Trade failed"));
+            }
+            finally{UnityEngine.Object.DestroyImmediate(go);}
         }
 
         [TestCase(0, 1)]
@@ -54,7 +57,7 @@ namespace DarkSaver.Tests
         {
             var active = SceneManager.GetActiveScene();
             var town = SceneManager.GetSceneByName("Town_Runtime"); bool created = !town.isLoaded;
-            if (created) { town = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive); town.name = "Town_Runtime"; }
+            if (created) { town = SceneManager.CreateScene("Town_Runtime"); }
             var root = new GameObject("Shop page fixture"); SceneManager.MoveGameObjectToScene(root, town);
             var catalog = ScriptableObject.CreateInstance<ItemCatalog>();
             try {
@@ -162,7 +165,7 @@ namespace DarkSaver.Tests
         {
             var before = SceneManager.GetActiveScene(); var town = SceneManager.GetSceneByName("Town_Runtime");
             bool created = !town.isLoaded;
-            if (created) { town = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive); town.name = "Town_Runtime"; }
+            if (created) { town = SceneManager.CreateScene("Town_Runtime"); }
             var root = new GameObject("Shop check"); SceneManager.MoveGameObjectToScene(root, town);
             var catalog = ScriptableObject.CreateInstance<ItemCatalog>();
             var folder = Path.Combine(Application.temporaryCachePath, "TownShop-" + Guid.NewGuid().ToString("N"));

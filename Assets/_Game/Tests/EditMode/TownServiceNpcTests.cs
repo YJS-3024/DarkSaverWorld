@@ -18,8 +18,8 @@ namespace DarkSaver.Tests
         public void ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(string key)
         {
             Assert.IsTrue(TownCatalog.TryGet(key,out var town));
-            var map=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive);map.name=town.MapScene;
-            var runtime=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive);runtime.name=town.RuntimeScene;
+            var map=SceneManager.CreateScene(town.MapScene);
+            var runtime=SceneManager.CreateScene(town.RuntimeScene);
             try
             {
                 var root=new GameObject("service actors test");SceneManager.MoveGameObjectToScene(root,runtime);
@@ -45,7 +45,7 @@ namespace DarkSaver.Tests
                     {
                         player.transform.position=quest.transform.position;
                         Assert.IsTrue(quest.TryInteract(player,panel));Assert.AreEqual(quest.Definition.name,panel.Speaker);
-                        root.SendMessage("LateUpdate");
+                        typeof(TownServicesPanel).GetMethod("LateUpdate",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(panel,null);
                         var ui=root.GetComponentsInChildren<UIDocument>().First(d=>d.rootVisualElement.Q("quest-status")!=null).rootVisualElement;
                         Assert.IsNull(ui.Q("quest-1"));Assert.IsNull(ui.Q("quest-2"));Assert.IsNull(ui.Q("town-save"));
                         panel.Close();

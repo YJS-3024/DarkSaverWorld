@@ -218,7 +218,7 @@ namespace DarkSaver.Tests
                 var battle = go.AddComponent<BattleSceneRoot>();
                 Assert.That(battle.ConfigureEnemy(definition), Is.True);
                 check(battle, definition, preview);
-                Assert.That(source.CreateUnit().Hp, Is.EqualTo(300));
+                Assert.That(source.CreateUnit().Hp, Is.EqualTo(450));
             }
             finally { UnityEngine.Object.DestroyImmediate(definition); EditorSceneManager.ClosePreviewScene(preview); }
             Assert.That(SceneManager.GetActiveScene(), Is.EqualTo(active)); Assert.That(active.isDirty, Is.EqualTo(dirty));

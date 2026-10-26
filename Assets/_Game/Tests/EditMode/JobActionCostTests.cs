@@ -58,7 +58,7 @@ namespace DarkSaver.Tests
                 var enemy = AssetDatabase.LoadAssetAtPath<BattleEnemyDefinition>("Assets/_Game/Runtime/Combat/Brugos01Kisra.asset");
                 Assert.That(battle.ConfigureEnemy(enemy), Is.True);
                 Assert.That(battle.EnemyJobId, Is.EqualTo(701));
-                Assert.That(battle.EnemyHp, Is.EqualTo(300));
+                Assert.That(battle.EnemyHp, Is.EqualTo(450));
                 Assert.That(battle.PlayerAttackApCost, Is.EqualTo(GameConstants.BattleJob100AttackApCost));
                 Assert.That(battle.EnemyAttackApCost, Is.EqualTo(GameConstants.BattleJob701AttackApCost));
                 Assert.That(battle.SelectedMagicApCost, Is.EqualTo(GameConstants.BattleMagic101ApCost));

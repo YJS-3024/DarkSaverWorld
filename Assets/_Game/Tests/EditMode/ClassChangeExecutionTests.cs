@@ -122,7 +122,7 @@ namespace DarkSaver.Tests
                 save.character.jobLevel=100; save.character.baseLevel=int.MaxValue;
                 Assert.That(session.RestoreSaveState(save),Is.True); Assert.That(panel.BindSessionCharacterInfoValues(),Is.True);
                 Assert.That(panel.CharacterInfoLevelText,Is.EqualTo("100(2147483647)"));
-                Assert.That(panel.CharacterInfoExperienceText,Is.EqualTo("1234/-"));
+                Assert.That(panel.CharacterInfoExperienceText,Is.EqualTo("1234/?"));
                 var original=new byte[724]; Assert.That(panel.BindCharacterInfoValues(original),Is.True);
                 Assert.That(panel.CharacterInfoVitalsText,Is.Null); Assert.That(panel.CharacterInfoLocalSummaryText,Is.Null);
                 Assert.That(panel.Open(TownService.Inventory,player),Is.True);

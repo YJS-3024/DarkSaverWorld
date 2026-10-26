@@ -12,6 +12,7 @@ namespace DarkSaver.Network
     }
     public sealed class LocalTempleRecoveryRequest : ClientPacket { }
     public sealed class SaveWorldRequest : ClientPacket { }
+    public sealed class LocalBattleCheckpointRequest : ClientPacket { }
     public sealed class TownQuestRequest : ClientPacket
     {public int QuestId {get;} public bool Claim {get;} public TownQuestRequest(int id,bool claim){QuestId=id;Claim=claim;}}
     public sealed class TutorialProgressRequest : ClientPacket

@@ -6,6 +6,7 @@ internal static class CampaignChecks
     public static void Run(Action<bool,string> check)
     {
         var definitions=ScenarioCatalog.All.Where(r=>r.Key!="01").ToDictionary(r=>r.Key,r=>UnityEngine.JsonUtility.FromJson<Scenario01Definition>(File.ReadAllText("Assets/_Game/Resources/Scenarios/"+r.Key+"/Content.json")));
+        CheckSecondBridge(definitions["02"], check);
         var ten=UnityEngine.JsonUtility.FromJson<Scenario01Definition>(File.ReadAllText("Assets/_Game/Resources/Scenarios/10/Content.json"));
         ten.outro=new[]{new Scenario01Command {name="GET_GENERAL",args=new[]{"109"}},new Scenario01Command {name="END"}};
         var tenState=Scenario01Progress.Create(ten);tenState.phase=Scenario01Progress.Outro;
@@ -118,4 +119,47 @@ internal static class CampaignChecks
         }
         finally{Directory.Delete(directory,true);}
     }
+    private static void CheckSecondBridge(Scenario01Definition definition,Action<bool,string> check)
+    {
+        foreach(int y in new[]{19,20,21})
+        {
+            var original=Scenario01Progress.Create(definition);original.phase=Scenario01Progress.Playing;
+            original.activatedEvents.Add(50);
+            var items=new NativeInventory {gold=899,items=new[]{new NativeItemStack {itemId=398,quantity=1}}};
+            check(Scenario01Rules.TryActivate(definition,original,items,33,y,out var next,out var remaining)
+                && next.activeEvent==51 && remaining.Count(398)==0 && remaining.gold==899,"bridge51 west bank consumes exactly one bomb "+y);
+            check(original.activatedEvents.SequenceEqual(new[]{50}) && items.Count(398)==1,"bridge candidate leaves source progress and inventory untouched");
+            check(next.mapChanges.SequenceEqual(definition.Event(51).actions.Where(c=>c.name=="CHANGESPRITE").Select(c=>c.line)),"bridge51 preserves all original terrain changes");
+            next.activeEvent=0;next.cursor=0;next.page=0;
+            Scenario01Rules.TryActivate(definition,next,items,33,y,out var replay,out var replayItems);
+            check(replayItems.Count(398)==1 && replay.activatedEvents.Count(e=>e==51)==1 && replay.activeEvent!=51,"bridge51 replay does not consume another bomb");
+        }
+        foreach(var probe in new[]{(32,20),(33,18),(33,22)})
+        {
+            var state=Scenario01Progress.Create(definition);state.phase=Scenario01Progress.Playing;state.activatedEvents.Add(50);
+            Scenario01Rules.TryActivate(definition,state,new NativeInventory {items=new[]{new NativeItemStack {itemId=398,quantity=1}}},probe.Item1,probe.Item2,out var next,out var items);
+            check(!next.activatedEvents.Contains(51) && items.Count(398)==1,"remote bridge probe cannot open or consume");
+        }
+        foreach(bool firstOpen in new[]{false,true})
+        {
+            var state=Scenario01Progress.Create(definition);state.phase=Scenario01Progress.Playing;
+            if(firstOpen)state.activatedEvents.Add(50);
+            var items=new NativeInventory {items=firstOpen?Array.Empty<NativeItemStack>():new[]{new NativeItemStack {itemId=398,quantity=1}}};
+            Scenario01Rules.TryActivate(definition,state,items,33,20,out var next,out var remaining);
+            check(!next.activatedEvents.Contains(51) && remaining.Count(398)==items.Count(398),"west trigger still requires bomb and first bridge");
+        }
+        var live=Scenario01Progress.Create(definition);live.phase=Scenario01Progress.Playing;live.activatedEvents.Add(50);
+        var stock=new NativeInventory {gold=899,items=new[]{new NativeItemStack {itemId=398,quantity=1}}};int revision=0;bool canSave=false;
+        var server=new DarkSaver.Network.LocalScenarioServer(definition,()=>live,()=>stock,()=>revision,()=>100,()=>false,
+            (Scenario01Progress candidate,NativeInventory inventory,out string reason)=>{
+                reason=canSave?"":"write rejected";if(!canSave)return false;live=candidate.Clone();stock=inventory.Clone();revision++;return true;});
+        var failed=server.Handle(new DarkSaver.Network.ScenarioCommandRequest("02",0,DarkSaver.Network.ScenarioOperation.Probe,33,20));
+        check(!failed.Accepted && revision==0 && stock.Count(398)==1 && !live.activatedEvents.Contains(51),"failed bridge commit is atomic");
+        canSave=true;
+        var accepted=server.Handle(new DarkSaver.Network.ScenarioCommandRequest("02",0,DarkSaver.Network.ScenarioOperation.Probe,33,20));
+        check(accepted.Accepted && revision==1 && stock.Count(398)==0 && live.activatedEvents.Contains(51),"bridge retry uses original local packet commit");
+        check(!server.Handle(new DarkSaver.Network.ScenarioCommandRequest("02",0,DarkSaver.Network.ScenarioOperation.Probe,33,20)).Accepted
+            && stock.Count(398)==0 && revision==1,"stale bridge request cannot consume twice");
+    }
+
 }

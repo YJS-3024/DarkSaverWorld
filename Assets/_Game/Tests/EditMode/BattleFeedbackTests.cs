@@ -522,7 +522,7 @@ namespace DarkSaver.Tests
                     view.AdvanceMagicEffects(GameConstants.BattleMagicEffectCounterSeconds * 1000);
                     Assert.AreEqual(0, view.ActiveMagicEffectCount, entry.Name);
                 }
-                Assert.AreEqual(85, specialRecords); Assert.AreEqual(85, mappedRecords);
+                Assert.AreEqual(86, specialRecords); Assert.AreEqual(specialRecords, mappedRecords);
                 for (short groundId = 10601; groundId <= 10606; groundId++)
                 {
                     Assert.IsTrue(receiver.TryApplyPacket(new MagicEffectNotification(groundId, 100, 0, 0, 0, new short[] { 800,800 })));

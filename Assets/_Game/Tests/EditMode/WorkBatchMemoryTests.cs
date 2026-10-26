@@ -12,7 +12,7 @@ namespace DarkSaver.Tests
         public void CleanupSkipsUnsavedSceneWithoutSavingOrClosingIt()
         {
             var previous = SceneManager.GetActiveScene();
-            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+            var scene = SceneManager.CreateScene("Unsaved cleanup fixture");
             try {
                 var marker = new GameObject("Unsaved cleanup guard fixture");
                 SceneManager.MoveGameObjectToScene(marker, scene);

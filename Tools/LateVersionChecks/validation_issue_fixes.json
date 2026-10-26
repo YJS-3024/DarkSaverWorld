@@ -1,0 +1,68 @@
+{
+  "baseCommit": "e54afd51",
+  "reportedPlayCommit": "e39463e7",
+  "reportedEditMode": {
+    "total": 1215,
+    "passed": 1161,
+    "failed": 54,
+    "skipped": 0
+  },
+  "failureSourceRemediation": {
+    "kisraRuntimeHpExpectations": 22,
+    "otherCatalogParserUiExpectations": 13,
+    "fixtureSceneCreation": 19
+  },
+  "status": "source fixes applied; actual Unity rerun blocked by license",
+  "runtimeFixes": [
+    "detached battle checkpoint via local packet on resolved actions, pause and quit",
+    "preserve current MP on normal return",
+    "reject unsynchronized HP0 checkpoint until explicit death",
+    "scenario02 west-bank bridge51 probe after event50 with original item predicate",
+    "exact decimal coefficient scientific item prices without rounding"
+  ],
+  "singlePlayerAdaptation": {
+    "scenario": "02",
+    "event": 51,
+    "additionalNativeX": 33,
+    "nativeY": [
+      19,
+      20,
+      21
+    ],
+    "requiresEvent": 50,
+    "originalPredicateX": 35,
+    "sourceContentChanged": false
+  },
+  "verification": {
+    "apiCompilationErrors": 0,
+    "runtimeSources": 211,
+    "editorSources": 73,
+    "editModeSources": 119,
+    "offlineIntegrationChecks": 35789,
+    "productionCombatChecks": 4829,
+    "classSkillCombinations": 393,
+    "scenarioRewardChecks": 214,
+    "serializedBridgeChecks": 34,
+    "actualUnityEditModeExecuted": false,
+    "actualUnityPlayExecuted": false,
+    "unityExitCode": 198,
+    "unityBlock": "No valid Unity Editor license / com.unity.editor.headless entitlement unavailable"
+  },
+  "runtimeAssemblySha256": "db19010beb6dd764604b40231ecce2254c623dbb58d36d43bb295bd19b4085c5",
+  "failureEvidenceSha256": "bfc67e16ce350a8d38a8fdf1d13b6952451f07e6c047b36946540b226392b4a7",
+  "unchangedPolicies": [
+    "legacy blank-login compatibility",
+    "portal-adjacent safe resume position migration"
+  ],
+  "needsActualReverification": [
+    "full EditMode suite",
+    "Kisra 450 -> 400 -> stop -> reconnect retains400 without MP refill",
+    "scenario02 old save -> west bank -> event51 -> one bomb consumption -> crossing -> save/reload",
+    "scenario02 remainder and03-17"
+  ],
+  "preserved": [
+    "existing tracked Unity verification evidence",
+    "original failed saves",
+    "original01/02 content and map/tile assets"
+  ]
+}

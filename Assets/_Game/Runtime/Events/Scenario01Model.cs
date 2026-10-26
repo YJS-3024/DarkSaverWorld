@@ -300,7 +300,12 @@ namespace DarkSaver.Events
             foreach (var e in definition.events.OrderBy(e => e.id))
             {
                 if (changed.activatedEvents.Contains(e.id)) continue;
-                var groups = e.conditions.GroupBy(c => c.group).Where(g => g.All(c => Predicate(c, candidate, inventory, x, y))).ToArray();
+                // Local progression repair: the source's east-side trigger is behind the
+                // attribute-24 bridge. After bridge 50, allow its equally adjacent west bank.
+                // Keep original commands/content hashes and all item/event predicates intact.
+                int probeX = definition.Key == "02" && e.id == 51 && x == 33 && y >= 19 && y <= 21
+                    && state.activatedEvents.Contains(50) ? 35 : x;
+                var groups = e.conditions.GroupBy(c => c.group).Where(g => g.All(c => Predicate(c, candidate, inventory, probeX, y))).ToArray();
                 if (groups.Length == 0) continue;
                 inside.Add(e.id);
                 if (state.insideEvents.Contains(e.id)) continue;

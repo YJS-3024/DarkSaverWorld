@@ -85,6 +85,11 @@ namespace DarkSaver.Combat
         }
 
         public bool TryCaptureBattleReturn(BattleSceneRoot battle, BattleFormationSnapshot formation, out string reason)
+            => TryCaptureBattleState(battle, formation, null, out reason);
+
+        // A checkpoint builds a detached save candidate; it must not finalize the live encounter.
+        private bool TryCaptureBattleState(BattleSceneRoot battle, BattleFormationSnapshot formation,
+            NativeSaveData checkpoint, out string reason)
         {
             reason = "전투 결과를 확인할 수 없습니다.";
             if (battle == null || !battle.TryGetUnit(100, out var primary) || primary.MaxHp <= 0
@@ -101,6 +106,7 @@ namespace DarkSaver.Combat
             {
                 var content = DarkSaver.Events.Scenario01Controller.Definition;
                 if (content == null || !battle.TryGetUnit((short)scenarioReturn.pendingBattle, out var opponent)
+                    || opponent.Hp == 0 && opponent.LifeState == UnitLifeState.Active
                     || !DarkSaver.Events.Scenario01Rules.RecordBattleReturn(content, scenarioReturn, scenarioReturn.pendingBattle,
                         opponent.LifeState != UnitLifeState.Active,
                         new DarkSaver.Events.Scenario01EnemyState { id = opponent.Id, hp = opponent.Hp, mp = opponent.Mp, x = opponent.X, y = opponent.Y }))
@@ -112,12 +118,27 @@ namespace DarkSaver.Combat
             {
                 var definition = DarkSaver.Events.Scenario01Controller.LoadDefinition(campaignKey);
                 if (!battle.TryGetUnit((short)campaignReturn.pendingBattle,out var target)
+                    || target.Hp == 0 && target.LifeState == UnitLifeState.Active
                     || !DarkSaver.Events.Scenario01Rules.RecordBattleReturn(definition,campaignReturn,campaignReturn.pendingBattle,target.LifeState != UnitLifeState.Active,
                         new DarkSaver.Events.Scenario01EnemyState {id=target.Id,hp=target.Hp,mp=target.Mp,x=target.X,y=target.Y}))
                 {reason="시나리오 전투 복귀 상태가 올바르지 않습니다.";return false;}
             }
+            if (checkpoint != null)
+            {
+                checkpoint.hasVitals = true;
+                checkpoint.hp = primary.Hp; checkpoint.maxHp = primary.MaxHp;
+                checkpoint.mp = primary.Mp; checkpoint.maxMp = primary.MaxMp;
+                checkpoint.lifeState = (int)primary.LifeState;
+                checkpoint.experience = remainingExperience; checkpoint.character = progressed?.Clone();
+                if (scenarioReturn != null) checkpoint.scenario01 = scenarioReturn;
+                if (campaignReturn != null)
+                    for (int i = 0; i < checkpoint.campaign.Length; i++)
+                        if (checkpoint.campaign[i].scenarioKey == campaignKey) checkpoint.campaign[i] = campaignReturn;
+                if (updated != null) { checkpoint.ownedRoster = updated; checkpoint.hasOwnedRoster = true; }
+                reason = string.Empty; return true;
+            }
             // Publish only after both primary and additional results validate.
-            playerHp = primary.Hp; playerMaxHp = primary.MaxHp; playerMp = primary.MaxMp; playerMaxMp = primary.MaxMp;
+            playerHp = primary.Hp; playerMaxHp = primary.MaxHp; playerMp = primary.Mp; playerMaxMp = primary.MaxMp;
             playerExperience = remainingExperience; character = progressed;
             playerLifeState = primary.LifeState; hasPlayerVitals = true;
             if (scenarioReturn != null) { scenario01 = scenarioReturn; Scenario01Revision++; }
@@ -460,6 +481,7 @@ namespace DarkSaver.Combat
             }
             if(activeBattle!=null) activeBattle.GetComponent<BattleMapPresentation>()?.TryBindSessionToolDisplay(this);
             transitioning = false;
+            if (activeBattle != null) activeBattle.CombatResultApplied += SaveCombatResultCheckpoint;
         }
 
         private IEnumerator ExitRoutine()
@@ -471,6 +493,7 @@ namespace DarkSaver.Combat
                 transitioning = false; yield break; // Retain live battle for a safe retry; never save partial state.
             }
             LastTransitionMessage = string.Empty;
+            activeBattle.CombatResultApplied -= SaveCombatResultCheckpoint;
             yield return SceneManager.UnloadSceneAsync(BattleSceneName);
             activeBattle = null;
             activeFormation = null;

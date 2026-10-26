@@ -92,7 +92,7 @@ namespace DarkSaver.Tests
                 var battle = CreateInScene("Completion battle", preview).AddComponent<BattleSceneRoot>();
                 Assert.That(battle.ConfigureEnemy(enemy), Is.True);
                 check(session, battle, objective);
-                Assert.That(source.CreateUnit().Hp, Is.EqualTo(300));
+                Assert.That(source.CreateUnit().Hp, Is.EqualTo(450));
             }
             finally
             {

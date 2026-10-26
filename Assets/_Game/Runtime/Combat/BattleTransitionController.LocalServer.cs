@@ -53,6 +53,7 @@ namespace DarkSaver.Combat
                 if(transitioning || !UnityEngine.SceneManagement.SceneManager.GetSceneByName(BattleSceneName).isLoaded)return new LocalCommandResponse(false,"복귀할 전투가 없습니다.");
                 ExitBattle();return new LocalCommandResponse(true);
             })));
+            sessionBindings.Add(sessionProtocol.RegisterRequestHandler<LocalBattleCheckpointRequest>(p=>Handle(()=>new LocalCommandResponse(SaveBattleCheckpoint(out var reason),reason))));
             sessionBindings.Add(sessionProtocol.RegisterRequestHandler<SaveWorldRequest>(p=>Handle(()=>new LocalCommandResponse(SaveWorld(),lastSaveMessage))));
             sessionBindings.Add(sessionProtocol.RegisterRequestHandler<TownQuestRequest>(p=>Handle(()=>new LocalCommandResponse(TryCommitTownQuest(p.QuestId,p.Claim,out var reason),reason))));
             sessionBindings.Add(sessionProtocol.RegisterRequestHandler<TutorialProgressRequest>(p=>Handle(()=>new LocalCommandResponse(TrySaveTutorial(p.Step,p.Moved,p.Skip,p.Checkpoint,out var reason),reason))));
@@ -80,10 +81,28 @@ namespace DarkSaver.Combat
         private void OnApplicationPause(bool paused){if(paused)SaveExitCheckpoint();}
         private void SaveExitCheckpoint()
         {
-            if(HasCreatedCharacter && !transitioning && !UnityEngine.SceneManagement.SceneManager.GetSceneByName(BattleSceneName).isLoaded)
-                SaveWorld();
+            if (!HasCreatedCharacter || transitioning) return;
+            if (UnityEngine.SceneManagement.SceneManager.GetSceneByName(BattleSceneName).isLoaded)
+                SaveBattleCheckpoint(out _);
+            else SaveWorld();
+        }
+        private void SaveCombatResultCheckpoint(CombatResult result) => SaveBattleCheckpoint(out _);
+
+        public bool SaveBattleCheckpoint(out string reason)
+        {
+            if (!processingSessionRequest) return SubmitSession(new LocalBattleCheckpointRequest(), out reason);
+            reason = "전투 중단 상태를 저장할 수 없습니다.";
+            if (!HasCreatedCharacter || transitioning || activeBattle == null || saveStore == null
+                || !UnityEngine.SceneManagement.SceneManager.GetSceneByName(BattleSceneName).isLoaded
+                || !saveStore.TryLoad(out var previous, out reason)) return false;
+            // Reuse the world location saved before entry, never the battle grid position.
+            var candidate = CaptureSaveState(previous.mapScene, previous.runtimeScene,
+                new UnityEngine.Vector2(previous.worldX, previous.worldY));
+            if (!TryCaptureBattleState(activeBattle, activeFormation, candidate, out reason)) return false;
+            if (!saveStore.TrySave(candidate, out reason)) { lastSaveMessage = reason; return false; }
+            return true;
         }
         private void OnDestroy()
-        {foreach(var binding in sessionBindings)binding.Dispose();sessionBindings.Clear();}
+        {if(activeBattle!=null)activeBattle.CombatResultApplied-=SaveCombatResultCheckpoint;foreach(var binding in sessionBindings)binding.Dispose();sessionBindings.Clear();}
     }
 }

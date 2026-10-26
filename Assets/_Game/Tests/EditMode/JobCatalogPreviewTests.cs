@@ -10,9 +10,9 @@ namespace DarkSaver.Tests
 {
     public sealed class JobCatalogPreviewTests
     {
-        [TestCase(JobCatalogConverter.Output, 70)]
-        [TestCase(JobCatalogConverter.MonsterOutput, 324)]
-        [TestCase(JobCatalogConverter.NpcOutput, 35)]
+        [TestCase(JobCatalogConverter.Output, 73)]
+        [TestCase(JobCatalogConverter.MonsterOutput, 337)]
+        [TestCase(JobCatalogConverter.NpcOutput, 37)]
         public void DefaultFilterReadsSelectedNativeCatalog(string path, int count)
         {
             var catalog = AssetDatabase.LoadAssetAtPath<JobCatalog>(path);
@@ -25,7 +25,7 @@ namespace DarkSaver.Tests
         {
             var catalog = AssetDatabase.LoadAssetAtPath<JobCatalog>(JobCatalogConverter.MonsterOutput);
             var rows = JobCatalogPreviewWindow.GetMatches(catalog, "", true, "");
-            Assert.That(rows.Count, Is.EqualTo(123));
+            Assert.That(rows.Count, Is.EqualTo(130));
             Assert.That(rows.All(row => row.Id != row.SpriteId), Is.True);
             Assert.That(rows.Single(row => row.Id == 799).SpriteId, Is.EqualTo(713));
             foreach (var path in new[] { JobCatalogConverter.Output, JobCatalogConverter.NpcOutput })

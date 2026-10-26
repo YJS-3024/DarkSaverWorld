@@ -24,8 +24,8 @@ namespace DarkSaver.Tests
         [TestCase("Map_101_;","Training101_Runtime")]
         public void PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave(string mapName,string runtimeName)
         {
-            var map=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive);map.name=mapName;
-            var runtime=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive);runtime.name=runtimeName;
+            var map=SceneManager.CreateScene(mapName);
+            var runtime=SceneManager.CreateScene(runtimeName);
             string directory=Path.Combine(Path.GetTempPath(),"ds-personal-"+Guid.NewGuid().ToString("N"));
             try
             {
@@ -49,7 +49,7 @@ namespace DarkSaver.Tests
                 Assert.IsTrue(session.TryChangeEquipment(2,0,session.CaptureCharacterProfile(),out _));Assert.AreEqual(0,session.EquipmentItemAt(2));
                 panel.Close();Assert.IsFalse(player.UiInputBlocked);
                 Assert.IsTrue(panel.Open(TownService.CharacterInfo,player));panel.Close();
-                var battle=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive);battle.name="Battle";
+                var battle=SceneManager.CreateScene("Battle");
                 try
                 {
                     Assert.IsFalse(panel.Open(TownService.Inventory,player));
@@ -59,6 +59,72 @@ namespace DarkSaver.Tests
                 finally{EditorSceneManager.CloseScene(battle,true);}
             }
             finally{EditorSceneManager.CloseScene(runtime,true);EditorSceneManager.CloseScene(map,true);if(Directory.Exists(directory))Directory.Delete(directory,true);}
+        }
+        [TestCase(400)] [TestCase(50)] [TestCase(0)]
+        public void BattleCheckpointPersistsDetachedCurrentVitalsAndRetainsLiveEncounter(int remainingHp)
+        {
+            var directory=Path.Combine(Path.GetTempPath(),"darksaver-checkpoint-"+Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(directory);
+            var scene=SceneManager.CreateScene("CheckpointSession_"+Guid.NewGuid().ToString("N"));
+            Scene battleScene=default;
+            var enemy=ScriptableObject.CreateInstance<BattleEnemyDefinition>();
+            try
+            {
+                var definition=Scenario01Controller.Definition;
+                var source=definition.units.Single(u=>u.id==700);
+                var progress=Scenario01Progress.Create(definition);
+                progress.phase=Scenario01Progress.Playing;progress.wave=source.wave;progress.pendingBattle=700;
+                var root=new GameObject("checkpoint session");SceneManager.MoveGameObjectToScene(root,scene);
+                var session=root.AddComponent<BattleTransitionController>();
+                Assert.IsTrue(session.InitializeCharacter(new NativeCharacterProfile {name="checkpoint",jobId=100}));
+                var state=session.CaptureSaveState("Brugos01_Map","Brugos01_Runtime",new Vector2(13.5f,8.5f));
+                state.version=NativeSaveStore.ScenarioVersion;state.hasScenario01=true;state.scenario01=progress;
+                Assert.IsTrue(session.RestoreSaveState(state));
+                var path=Path.Combine(directory,"slot.json");var store=new NativeSaveStore(path);
+                Assert.IsTrue(store.TrySave(state,out var reason),reason);session.ConfigureSaveFile(path);
+                battleScene=SceneManager.CreateScene("Battle");
+                var battleObject=new GameObject("checkpoint battle");SceneManager.MoveGameObjectToScene(battleObject,battleScene);
+                var battle=battleObject.AddComponent<BattleSceneRoot>();enemy.InitializeScenarioUnit(source);
+                Assert.IsTrue(battle.ConfigureEnemy(enemy));Assert.IsTrue(battle.ApplyHp(700,remainingHp));
+                if(remainingHp==0)Assert.IsTrue(battle.ApplyDeath(700,false));
+                Assert.IsTrue(battle.ApplyHp(100,17));Assert.IsTrue(battle.ApplyMp(100,3));
+                typeof(BattleTransitionController).GetField("activeBattle",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).SetValue(session,battle);
+                Assert.IsFalse(session.SaveWorld(),"manual world save remains blocked during combat");
+                Assert.IsTrue(session.SaveBattleCheckpoint(out reason),reason);
+                Assert.IsTrue(store.TryLoad(out var saved,out reason),reason);
+                Assert.AreEqual(remainingHp,saved.scenario01.enemies.Single(e=>e.id==700).hp);
+                Assert.AreEqual(17,saved.hp);Assert.AreEqual(3,saved.mp);
+                Assert.AreEqual(13.5f,saved.worldX);Assert.AreEqual(8.5f,saved.worldY);
+                Assert.AreEqual(-1,saved.scenario01.pendingBattle);
+                Assert.AreEqual(remainingHp==0,saved.scenario01.defeated.Contains(700));
+                Assert.AreEqual(700,session.CaptureScenario01().pendingBattle,"checkpoint must not finalize the live encounter");
+                Assert.IsEmpty(session.CaptureScenario01().enemies);
+                Assert.IsTrue(session.SaveBattleCheckpoint(out reason),reason);
+                Assert.AreEqual(0,session.ClearedScenarioCount);Assert.AreEqual(state.inventory.gold,session.CurrentGold);
+                // A failed atomic write must not publish the candidate or corrupt the last slot.
+                var preserved=File.ReadAllBytes(path);var blocker=Path.Combine(directory,"not-a-directory");File.WriteAllText(blocker,"blocked");
+                session.ConfigureSaveFile(Path.Combine(blocker,"slot.json"));
+                Assert.IsFalse(session.SaveBattleCheckpoint(out _));
+                CollectionAssert.AreEqual(preserved,File.ReadAllBytes(path));
+                Assert.AreEqual(700,session.CaptureScenario01().pendingBattle);
+                if(remainingHp>0)
+                {
+                    var valid=File.ReadAllBytes(path);session.ConfigureSaveFile(path);
+                    Assert.IsTrue(battle.ApplyHp(700,0));
+                    Assert.IsFalse(session.SaveBattleCheckpoint(out _),"HP0 without a death notification must not create victory or an unspawnable enemy save");
+                    CollectionAssert.AreEqual(valid,File.ReadAllBytes(path));
+                    Assert.IsTrue(battle.ApplyHp(700,remainingHp));
+                }
+                Assert.IsTrue(session.TryCaptureBattleReturn(battle,null,out reason),reason);
+                Assert.AreEqual(3,session.PlayerMp,"normal battle return must preserve spent MP");
+                Assert.AreEqual(-1,session.CaptureScenario01().pendingBattle);
+            }
+            finally
+            {
+                if(battleScene.IsValid())EditorSceneManager.CloseScene(battleScene,true);
+                EditorSceneManager.CloseScene(scene,true);UnityEngine.Object.DestroyImmediate(enemy);
+                Directory.Delete(directory,true);
+            }
         }
         [Test]
         public void KisraUses450AndResumedHpIsNeverRefilled()

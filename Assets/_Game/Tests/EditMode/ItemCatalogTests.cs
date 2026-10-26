@@ -27,6 +27,20 @@ namespace DarkSaver.Tests
             Assert.That(ItemCatalogConverter.Parse(ItemCatalogConverter.Header + "\n" + CsvRow(fields))[0].Name, Is.Empty);
         }
 
+        [TestCase("1.00E+11",100000000000L)]
+        [TestCase("1.23E+2",123L)]
+        [TestCase("9.223372036854775807E+18",long.MaxValue)]
+        [TestCase("-9.223372036854775808E+18",long.MinValue)]
+        public void ScientificPricesPreserveExactIntegers(string price,long expected)
+        {
+            var row=ItemCatalogConverter.Parse(ItemCatalogConverter.Header+"\n"+CsvRow(Fields(price)))[0];
+            Assert.That(row.GetNumericValue(ItemCatalogEntry.PriceColumn),Is.EqualTo(expected));
+            Assert.That(row.PriceNotation,Is.EqualTo(price));
+        }
+
+        [TestCase("1.5E+0")]
+        [TestCase("0.999999999999999999999999999999999999E+18")]
+        [TestCase("9.223372036854775808E+18")]
         [TestCase("0.5")]
         [TestCase("1E-50")]
         [TestCase("1E+30")]
@@ -74,14 +88,14 @@ namespace DarkSaver.Tests
             Assert.That(catalog.TryGet(0, out var first), Is.True);
             Assert.That(first.Name, Is.EqualTo("바늘"));
             Assert.That(catalog.TryGet(1245, out var expensive), Is.True);
-            Assert.That(expensive.PriceNotation, Is.EqualTo("1E+11"));
-            Assert.That(expensive.GetNumericValue(ItemCatalogEntry.PriceColumn), Is.EqualTo(100000000000L));
+            Assert.That(expensive.PriceNotation, Is.EqualTo("80000000000"));
+            Assert.That(expensive.GetNumericValue(ItemCatalogEntry.PriceColumn), Is.EqualTo(80000000000L));
             Assert.That(catalog.TryGet(1538, out var last), Is.True);
             Assert.That(last.Name, Is.EqualTo("닥세_사이다세트"));
             Assert.That(catalog.TryGet(1572, out _), Is.False);
             var blankNames = 0;
             for (var i = 0; i < catalog.Count; i++) if (string.IsNullOrWhiteSpace(catalog.GetAt(i).Name)) blankNames++;
-            Assert.That(blankNames, Is.EqualTo(1));
+            Assert.That(blankNames, Is.Zero);
             foreach (var path in AssetDatabase.GetDependencies(ItemCatalogConverter.Output, true))
                 Assert.That(path.EndsWith(".cs", StringComparison.Ordinal) || path == ItemCatalogConverter.Output, Is.True, path);
         }
