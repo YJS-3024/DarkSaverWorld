@@ -67,6 +67,12 @@ namespace DarkSaver.World
             { player.enabled = false; Debug.LogError("Saved character class artwork is unavailable; world input stopped."); yield break; }
             if (player != null && useEntryPosition)
             {
+                if(resuming && WorldLayoutMigration.AppliesTo(mapScene))
+                {
+                    if(!WorldLayoutMigration.TryResolve(mapScene,entryPosition.x,entryPosition.y,out float x,out float y))
+                    {player.enabled=false;Debug.LogError("Later-layout resume geometry is unavailable; saved file retained.");yield break;}
+                    entryPosition=new Vector2(x,y); // In-memory recovery only; no save, HP or inventory mutation.
+                }
                 player.transform.position = entryPosition;
                 var body = player.GetComponent<Rigidbody2D>();
                 if (body != null)

@@ -33,6 +33,8 @@ def main():
         back=min(candidates,key=lambda p:((p[0]-entry[0])**2+(p[1]-entry[1])**2,p))
         entries.append(dict(key=key,fieldKey=field_key,portalX=portal[0]+.5,portalY=h-1-portal[1]+.5,spawnX=arrival[0]+.5,spawnY=h-1-arrival[1]+.5,
             entryX=entry[0]+.5,entryY=sh-1-entry[1]+.5,returnX=back[0]+.5,returnY=sh-1-back[1]+.5))
-    text_asset(ROOT/'Assets/_Game/Resources/Scenarios/Shared/Entrances.json',dict(version=1,provenance='authored gates over native collision components, unlock after previous clear',entries=entries))
-    print('Baked17 walkable scenario entrances and return pairs.')
+    previous=ROOT/'Assets/_Game/Resources/Scenarios/Shared/Entrances.json'
+    if previous.exists():entries.extend(e for e in json.loads(previous.read_text())['entries'] if int(e['key'])>17)
+    text_asset(previous,dict(version=1,provenance='authored gates over native collision components, unlock after previous clear',entries=entries))
+    print(f'Baked17 original gates; retained {len(entries)-17} late branch gates. Run migrate_world and build_new_scenarios afterwards.')
 if __name__=='__main__':main()

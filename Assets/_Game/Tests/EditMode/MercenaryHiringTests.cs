@@ -24,7 +24,7 @@ namespace DarkSaver.Tests
         public void NativeHireAndMercenaryTablesMatchAndPreserveMinusOneMp()
         {
             MercenaryHireConverter.Verify(Skills, MercenaryHireConverter.Parse(File.ReadAllText("분석/Saver_1.2/converted/solskill.csv")));
-            JobCatalogConverter.Verify(Jobs, JobCatalogConverter.Parse(File.ReadAllText("분석/Saver_1.2/catalogs/mercenaries.csv")));
+            JobCatalogConverter.Verify(Jobs, JobCatalogConverter.Parse(File.ReadAllText("분석/Saver_Late/unity_catalogs/mercenaries.csv")));
             Assert.That(Skills.TryGet(21101, out var infantry), Is.True); Assert.That(infantry.Maximum, Is.EqualTo(2));
             Assert.That(Skills.TryGet(21701, out var monk), Is.True); Assert.That(monk.Maximum, Is.EqualTo(4));
             Assert.That(Jobs.TryGet(200, out var soldier), Is.True); Assert.That(soldier.GetNumericValue(4), Is.EqualTo(-1));

@@ -31,7 +31,7 @@ namespace DarkSaver.Editor
         private static void ConvertCatalog(string sourceFile, string output, string label)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Convert in edit mode only.");
-            var path = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "분석/Saver_1.2/catalogs", sourceFile);
+            var path = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "분석/Saver_Late/unity_catalogs", sourceFile);
             var rows = Parse(File.ReadAllText(path, Encoding.UTF8));
             var catalog = AssetDatabase.LoadAssetAtPath<JobCatalog>(output);
             if (catalog == null)

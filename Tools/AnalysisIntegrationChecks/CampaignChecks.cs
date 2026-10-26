@@ -5,8 +5,16 @@ internal static class CampaignChecks
 {
     public static void Run(Action<bool,string> check)
     {
-        var definitions=Enumerable.Range(2,16).ToDictionary(i=>i.ToString("00"),i=>UnityEngine.JsonUtility.FromJson<Scenario01Definition>(File.ReadAllText("Assets/_Game/Resources/Scenarios/"+i.ToString("00")+"/Content.json")));
-        check(ScenarioCatalog.All.Count==17,"seventeen scenario destinations are registered");
+        var definitions=ScenarioCatalog.All.Where(r=>r.Key!="01").ToDictionary(r=>r.Key,r=>UnityEngine.JsonUtility.FromJson<Scenario01Definition>(File.ReadAllText("Assets/_Game/Resources/Scenarios/"+r.Key+"/Content.json")));
+        var ten=UnityEngine.JsonUtility.FromJson<Scenario01Definition>(File.ReadAllText("Assets/_Game/Resources/Scenarios/10/Content.json"));
+        ten.outro=new[]{new Scenario01Command {name="GET_GENERAL",args=new[]{"109"}},new Scenario01Command {name="END"}};
+        var tenState=Scenario01Progress.Create(ten);tenState.phase=Scenario01Progress.Outro;
+        check(Scenario01Rules.Step(ten,tenState,new NativeInventory(),0,out var skippedGeneral,out _)==Scenario01Rules.StepResult.Advanced
+            && skippedGeneral.unlockedGenerals.Count==0,"original scenario10 underscored spelling grants no character");
+        ten.outro[0].name="GETGENERAL";
+        check(Scenario01Rules.Step(ten,tenState,new NativeInventory(),0,out var grantedGeneral,out _)==Scenario01Rules.StepResult.Advanced
+            && grantedGeneral.unlockedGenerals.SequenceEqual(new[]{109}),"normal GETGENERAL spelling still records the source character");
+        check(ScenarioCatalog.All.Count==25,"twenty-five scenario destinations are registered");
         var legacy=UnityEngine.JsonUtility.FromJson<Scenario01Definition>(File.ReadAllText("Assets/_Game/Resources/Scenarios/01/Content.json"));
         var first=Scenario01Progress.Create(legacy,true);
         var states=new Dictionary<string,Scenario01Progress>();var items=new NativeInventory();
@@ -76,9 +84,9 @@ internal static class CampaignChecks
                 Checkpoint();check(state.Matches(definition),"scenario"+key+" complete save remains valid");
                 check(!Scenario01Rules.TryActivate(definition,state,items,definition.entryX,definition.entryY,out _,out _),"scenario"+key+" completed rewards cannot replay");
             }
-            check(states.Count==16 && states.Values.All(s=>s.phase==Scenario01Progress.Complete),"campaign02-17 retains every completed state");
+            check(states.Count==24 && states.Values.All(s=>s.phase==Scenario01Progress.Complete),"campaign02-17 and eight late scenarios retain every completed state");
             var entrances=UnityEngine.JsonUtility.FromJson<CampaignEntranceData>(File.ReadAllText("Assets/_Game/Resources/Scenarios/Shared/Entrances.json"));
-            check(entrances.IsValid,"all17 physical scenario entrances validate");
+            check(entrances.IsValid,"all25 physical scenario entrances validate");
             foreach(var key in new[]{"02","08","12"})
             {
                 var definition=definitions[key];

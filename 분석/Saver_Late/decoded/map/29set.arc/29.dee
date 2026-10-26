@@ -1,0 +1,12 @@
+LOADSCENE 29
+SETPOSITION 19 7 
+CHARPOS 749 700 19 7
+CHARPOS COM0 301 19 9
+DO 500
+MESSAGE 1 ME 0 0 말해라! 제이드란 어떤 자인가?
+MESSAGE 1 749 0 0 키키키! 사천왕의 한명인 제이드님의 이름을 | 듣지 못했는가? 우리는 오직 제이드님을 위해서 죽을 뿐이다. | 제이드님께 영광을!
+MAGIC 0603 301 -1 -1 700
+DO 1000
+KILLCHAR1 700
+MESSAGE 1 ME 0 0 사천왕의 하나..인가.
+END

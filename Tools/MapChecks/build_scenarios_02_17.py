@@ -101,8 +101,10 @@ def main():
         im=Image.open(file).convert('RGBA');im.putalpha(255);png(out/'Shared/Portraits'/(str(face)+'.png'),im)
     entries=['new ScenarioDefinition("01","브르고스궁","Brugos01_Map","Brugos01_Runtime",40,40)']
     entries += [f'new ScenarioDefinition({json.dumps(k,ensure_ascii=False)},{json.dumps(title,ensure_ascii=False)},{json.dumps(map,ensure_ascii=False)},{json.dumps(runtime)}, {w},{h})' for k,title,map,runtime,w,h in metadata]
-    code='''using System;\nusing System.Collections.Generic;\nnamespace DarkSaver.Core\n{\n    public sealed class ScenarioDefinition\n    {\n        public readonly string Key,Title,MapScene,RuntimeScene;public readonly int Width,Height;\n        public ScenarioDefinition(string key,string title,string map,string runtime,int width,int height){Key=key;Title=title;MapScene=map;RuntimeScene=runtime;Width=width;Height=height;}\n    }\n    public static class ScenarioCatalog\n    {\n        public static readonly IReadOnlyList<ScenarioDefinition> All=Array.AsReadOnly(new[]{\n            '''+',\n            '.join(entries)+'''\n        });\n        public static bool TryGet(string key,out ScenarioDefinition scenario){foreach(var row in All)if(row.Key==key || "Scenario"+row.Key==key){scenario=row;return true;}scenario=null;return false;}\n        public static bool IsPair(string map,string runtime){foreach(var row in All)if(row.MapScene==map && row.RuntimeScene==runtime)return true;return false;}\n        public static bool IsMap(string map){foreach(var row in All)if(row.MapScene==map)return true;return false;}\n    }\n}\n'''
-    file=ROOT/'Assets/_Game/Runtime/Core/ScenarioCatalog.cs';file.write_text(code);file.with_name(file.name+'.meta').write_text('fileFormatVersion: 2\nguid: '+uuid.uuid5(uuid.NAMESPACE_URL,str(file.relative_to(ROOT))).hex+'\n')
+    # The catalog also contains reviewed late branches and unlock policies. Do not overwrite it.
+    catalog=(ROOT/'Assets/_Game/Runtime/Core/ScenarioCatalog.cs').read_text()
+    for key,title,map_name,runtime,w,h in metadata:
+        assert f'new ScenarioDefinition("{key}","{title}","{map_name}","{runtime}"' in catalog, ('Catalog destination missing',key)
     register(scenes)
     text_asset(out/'Shared/MusicSources.json',dict(files=sorted(music)))
     (ROOT/'Tools/MapChecks/scenarios_02_17_resources.json').write_text(json.dumps(dict(scenarios=report,characterJobs=sorted(jobs),portraitIds=sorted(faces),music=sorted(music)),ensure_ascii=False,indent=2)+'\n')

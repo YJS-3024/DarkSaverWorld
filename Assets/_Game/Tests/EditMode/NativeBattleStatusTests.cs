@@ -7,6 +7,47 @@ namespace DarkSaver.Tests
 {
     public sealed class NativeBattleStatusTests
     {
+        [TestCase(100, "Assets/_Game/Art/Converted/Characters/Fighter100/Fighter100")]
+        [TestCase(701, "Assets/_Game/Art/Converted/Monsters/Kisra701")]
+        public void NativeUnitPictureKeepsFixedDownMiddleFrameAcrossFacingAndMotion(int jobId, string prefix)
+        {
+            var go=new GameObject("Fixed native status picture");
+            try
+            {
+                var body=go.AddComponent<SpriteRenderer>();
+                var animator=go.AddComponent<DarkSaver.Player.DirectionalSpriteAnimator>();
+                Sprite[] Frames(string direction)=>System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Select(
+                    System.Linq.Enumerable.Range(0,3),i=>UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(prefix+"_"+direction+"_"+i+".png")));
+                var down=Frames("Down");Assert.IsNotNull(down[1]);
+                Assert.AreEqual(jobId==701 ? 64 : 32,down[1].rect.width);
+                animator.Configure(Frames("Up"),down,Frames("Left"),Frames("Right"));
+                foreach(var facing in new[]{Vector2.up,Vector2.down,Vector2.left,Vector2.right})
+                    foreach(bool moving in new[]{false,true})
+                    {
+                        animator.TrySetFacing(facing);animator.SetMovingPresentation(moving);animator.PresentFrame(0);
+                        Assert.AreSame(down[1],NativeBattleStatus.UnitPicture(body,jobId));
+                        animator.PresentFrame(1000);
+                        Assert.AreSame(down[1],NativeBattleStatus.UnitPicture(body,jobId));
+                    }
+            }
+            finally {Object.DestroyImmediate(go);}
+        }
+
+        [TestCase(301)][TestCase(302)][TestCase(303)][TestCase(304)]
+        public void StaticFieldActorUsesDedicatedNativeStatusCrop(int jobId)
+        {
+            var go=new GameObject("Static field status picture");
+            try
+            {
+                var body=go.AddComponent<SpriteRenderer>();
+                var expected=Resources.Load<Sprite>("UI/UnitStatusPictures/"+jobId);
+                Assert.IsNotNull(expected);Assert.AreEqual(new Vector2(32,32),expected.rect.size);
+                Assert.AreSame(expected,NativeBattleStatus.UnitPicture(body,jobId));
+                Assert.IsNull(NativeBattleStatus.UnitPicture(body,0));
+            }
+            finally {Object.DestroyImmediate(go);}
+        }
+
         [Test] public void InitiallyDeadGaugeKeepsAllRevivedDigitsAboveItsNewFill()
         {
             var go=new GameObject("Revived gauge layering");

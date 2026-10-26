@@ -18,7 +18,7 @@ namespace DarkSaver.Editor
         public static void Convert()
         {
             var source = Path.Combine(Directory.GetParent(Application.dataPath).FullName,
-                "분석/Saver_1.2/catalogs/experience_progression.csv");
+                "분석/Saver_Late/unity_catalogs/experience_progression.csv");
             var rows = Parse(File.ReadAllText(source, Encoding.UTF8));
             var table = AssetDatabase.LoadAssetAtPath<ExperienceProgressionTable>(Output);
             if (table == null)

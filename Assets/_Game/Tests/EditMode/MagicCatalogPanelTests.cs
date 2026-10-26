@@ -34,7 +34,7 @@ namespace DarkSaver.Tests
         {
             WithPanel((panel, player, items) =>
             {
-                Assert.That(panel.MatchCount, Is.EqualTo(439));
+                Assert.That(panel.MatchCount, Is.EqualTo(440));
                 panel.Filter("파이어볼"); Assert.That(panel.SelectMagic(101), Is.True);
                 Assert.That(panel.SelectedMagic.RawTick, Is.EqualTo(10));
                 panel.Filter("201"); Assert.That(panel.SelectMagic(201), Is.True);
@@ -45,7 +45,7 @@ namespace DarkSaver.Tests
                 panel.Filter("no-such-magic-xyz");
                 Assert.That(panel.SelectedMagic, Is.Null); Assert.That(panel.MatchCount, Is.Zero);
                 Assert.That(panel.SelectMagic(101), Is.False);
-                panel.Filter(null); Assert.That(panel.MatchCount, Is.EqualTo(439));
+                panel.Filter(null); Assert.That(panel.MatchCount, Is.EqualTo(440));
             });
         }
 

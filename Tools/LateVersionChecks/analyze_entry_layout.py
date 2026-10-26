@@ -1,0 +1,11 @@
+"""Verify late executable entry-layout instruction evidence without executing it.
+Requires pefile; coordinates are 640x480 client pixels, not BMP atlas origins.
+"""
+from pathlib import Path
+import sys,struct,json,hashlib
+import pefile
+ROOT=Path(__file__).resolve().parents[2];p=Path(sys.argv[1])/'Saver_Files/saver/Saver.exe';pe=pefile.PE(str(p));base=pe.OPTIONAL_HEADER.ImageBase
+fixtures=[(0x406fd0,'68a8ea4800','login.bmp load'),(0x40a517,'bfe2000000','panel destination left226'),(0x40a51c,'bd17010000','panel destination top279'),(0x40a538,'c744244c60000000','source bottom96'),(0x40b6ee,'b8e2000000','second panel draw left226'),(0x40b701,'b917010000','second panel draw top279'),(0x40c9c7,'81fa2a010000','ID/password left test298'),(0x40c9cf,'81fa98010000','ID/password right test408'),(0x40c9dd,'81fe28010000','ID top test296'),(0x40c9e5,'81fe3c010000','ID bottom test316'),(0x40ca14,'81fa40010000','password top test320'),(0x40ca1c,'81fa52010000','password bottom test338')]
+for va,code,meaning in fixtures:assert pe.get_data(va-base,len(bytes.fromhex(code)))==bytes.fromhex(code),(hex(va),meaning)
+report=dict(executable='Saver.exe',sha256=hashlib.sha256(p.read_bytes()).hexdigest(),version='Saver_Late',logicalSize=[640,480],loginAtlas='login.bmp',atlasLoad={'instruction':'0x406fd0','stringVA':'0x48eaa8','surfaceMember':'0x2138'},panel={'sourceRectLTRB':[9,9,206,96],'destinationOrigin':[226,279],'drawSites':['0x40a517','0x40a51c','0x40b6ee','0x40b701'],'fastPathSize':[197,87],'directDrawDestinationRectLTRB':[226,279,432,375],'note':'BltFast keeps native crop size; Blt branch supplies a206x96 destination rect. Common origin is confirmed.'},inputHitTests={'boundsAreExclusive':True,'idLTRB':[298,296,408,316],'passwordLTRB':[298,320,408,338],'function':'0x40c9b0'},scope='Static x86 instruction and import-signature analysis. Not an executed original screen or proof that every rendering branch has identical scaling.',verifiedInstructions=[dict(address=hex(va),bytes=code,meaning=meaning) for va,code,meaning in fixtures])
+out=ROOT/'분석/Saver_Late/entry/layout.json';out.parent.mkdir(exist_ok=True);out.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print('PASS',len(fixtures),'native instruction fixtures; login origin226,279')

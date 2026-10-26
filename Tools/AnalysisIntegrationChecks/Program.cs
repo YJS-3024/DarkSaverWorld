@@ -121,6 +121,7 @@ finally { Directory.Delete(temporary, true); }
 Scenario01Checks.Run(Check);
 TownQuestChecks.Run(Check);
 CampaignChecks.Run(Check);
+LateWorldChecks.Run(Check);
 LocalServerChecks.Run(Check);
 LoginFlowChecks.Run(Check);
 AccountChecks.Run(Check);

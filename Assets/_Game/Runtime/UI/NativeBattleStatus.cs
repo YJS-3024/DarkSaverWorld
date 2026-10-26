@@ -5,6 +5,16 @@ namespace DarkSaver.UI
 {
     public static class NativeBattleStatus
     {
+        public static Sprite UnitPicture(SpriteRenderer body, int jobId)
+        {
+            if (body == null) return null;
+            var fixedFrame = body.GetComponent<DarkSaver.Player.DirectionalSpriteAnimator>()?.StatusPicture;
+            if (fixedFrame != null) return fixedFrame;
+            // Static field actors have only a world frame; use their separately converted native crop.
+            var native = Resources.Load<Sprite>("UI/UnitStatusPictures/" + jobId);
+            // Unmapped/custom artwork is unchanged; do not claim it as recovered native artwork.
+            return native != null ? native : body.sprite;
+        }
         private static Dictionary<string, Sprite> sprites;
         private static Sprite[] buttonSprites;
         public static int CloseButtonState(bool hovered, bool pressed) => hovered ? pressed ? 2 : 1 : 0;

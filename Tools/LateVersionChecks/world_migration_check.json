@@ -1,0 +1,330 @@
+{
+  "sourceVersion": "Saver_Late",
+  "routeProvenance": "Retained single-player identities and topology; native geometry, reviewed building silhouettes, authored thresholds",
+  "areas": {
+    "Kaosia": {
+      "nativeMap": "1000",
+      "width": 61,
+      "height": 61,
+      "sourceSha256": "f5543d704efbdae344cace3eda65dc9cf67bd196b936d2260418f4eab91a8bd3",
+      "cells": 3721,
+      "objects": 320,
+      "uniqueFloorTiles": 17,
+      "reachableCells": 2651
+    },
+    "Belpueus": {
+      "nativeMap": "1002",
+      "width": 65,
+      "height": 65,
+      "sourceSha256": "2becc6fb0098bc58996dbd7ac35c14709711b5f19d0d9e0fa81d5eb690edfd7b",
+      "cells": 4225,
+      "objects": 153,
+      "uniqueFloorTiles": 17,
+      "reachableCells": 3228
+    },
+    "WorldField1010": {
+      "nativeMap": "1010",
+      "width": 160,
+      "height": 160,
+      "sourceSha256": "3edd35a2a5e876d43bdeb3a7a459fc5cf3bd6657aa8c3131ce749b0887189e16",
+      "cells": 25600,
+      "objects": 711,
+      "uniqueFloorTiles": 482,
+      "reachableCells": 6734
+    }
+  },
+  "facilities": {
+    "KaosiaWeaponShop": {
+      "sourceIndex": 108,
+      "resource": 201,
+      "group": 3,
+      "sourcePosition": [
+        45,
+        4
+      ],
+      "portal": [
+        48.5,
+        47.5
+      ],
+      "spawn": [
+        44.5,
+        47.5
+      ],
+      "doorSource": [
+        48,
+        13
+      ],
+      "returnSource": [
+        44,
+        13
+      ],
+      "role": "reviewed silhouette; threshold authored"
+    },
+    "KaosiaArmorShop": {
+      "sourceIndex": 191,
+      "resource": 201,
+      "group": 4,
+      "sourcePosition": [
+        42,
+        31
+      ],
+      "portal": [
+        48.5,
+        20.5
+      ],
+      "spawn": [
+        48.5,
+        17.5
+      ],
+      "doorSource": [
+        48,
+        40
+      ],
+      "returnSource": [
+        48,
+        43
+      ],
+      "role": "reviewed silhouette; threshold authored"
+    },
+    "KaosiaAccessoryShop": {
+      "sourceIndex": 247,
+      "resource": 201,
+      "group": 8,
+      "sourcePosition": [
+        42,
+        44
+      ],
+      "portal": [
+        48.5,
+        10.5
+      ],
+      "spawn": [
+        48.5,
+        2.5
+      ],
+      "doorSource": [
+        48,
+        50
+      ],
+      "returnSource": [
+        48,
+        58
+      ],
+      "role": "reviewed silhouette; threshold authored"
+    },
+    "KaosiaMagicTools": {
+      "sourceIndex": 224,
+      "resource": 201,
+      "group": 2,
+      "sourcePosition": [
+        25,
+        40
+      ],
+      "portal": [
+        28.5,
+        14.5
+      ],
+      "spawn": [
+        28.5,
+        9.5
+      ],
+      "doorSource": [
+        28,
+        46
+      ],
+      "returnSource": [
+        28,
+        51
+      ],
+      "role": "reviewed silhouette; threshold authored"
+    },
+    "KaosiaTemple": {
+      "sourceIndex": 135,
+      "resource": 201,
+      "group": 1,
+      "sourcePosition": [
+        19,
+        8
+      ],
+      "portal": [
+        32.5,
+        40.5
+      ],
+      "spawn": [
+        32.5,
+        37.5
+      ],
+      "doorSource": [
+        32,
+        20
+      ],
+      "returnSource": [
+        32,
+        23
+      ],
+      "role": "reviewed silhouette; threshold authored"
+    },
+    "KaosiaBank": {
+      "sourceIndex": 240,
+      "resource": 201,
+      "group": 13,
+      "sourcePosition": [
+        5,
+        47
+      ],
+      "portal": [
+        11.5,
+        5.5
+      ],
+      "spawn": [
+        11.5,
+        2.5
+      ],
+      "doorSource": [
+        11,
+        55
+      ],
+      "returnSource": [
+        11,
+        58
+      ],
+      "role": "authored unsigned-building assignment"
+    },
+    "KaosiaWarehouse": {
+      "sourceIndex": 197,
+      "resource": 201,
+      "group": 9,
+      "sourcePosition": [
+        5,
+        31
+      ],
+      "portal": [
+        13.5,
+        19.5
+      ],
+      "spawn": [
+        13.5,
+        16.5
+      ],
+      "doorSource": [
+        13,
+        41
+      ],
+      "returnSource": [
+        13,
+        44
+      ],
+      "role": "authored unsigned-building assignment"
+    },
+    "Training": {
+      "sourceIndex": 149,
+      "resource": 201,
+      "group": 7,
+      "sourcePosition": [
+        5,
+        18
+      ],
+      "portal": [
+        11.5,
+        34.5
+      ],
+      "spawn": [
+        11.5,
+        31.5
+      ],
+      "doorSource": [
+        11,
+        26
+      ],
+      "returnSource": [
+        11,
+        29
+      ],
+      "role": "reviewed silhouette; threshold authored"
+    }
+  },
+  "routes": [
+    {
+      "fromKey": "WorldField1010",
+      "toKey": "Belpueus",
+      "portalX": 77.5,
+      "portalY": 153.5,
+      "spawnX": 74.5,
+      "spawnY": 154.5,
+      "spawnId": "Route_Belpueus",
+      "targetSpawnId": "Route_WorldField1010",
+      "legacy": false
+    },
+    {
+      "fromKey": "WorldField1010",
+      "toKey": "Sisirio",
+      "portalX": 84.5,
+      "portalY": 66.5,
+      "spawnX": 81.5,
+      "spawnY": 67.5,
+      "spawnId": "Route_Sisirio",
+      "targetSpawnId": "Route_WorldField1010",
+      "legacy": false
+    },
+    {
+      "fromKey": "WorldField1010",
+      "toKey": "WorldField1011",
+      "portalX": 66.5,
+      "portalY": 15.5,
+      "spawnX": 63.5,
+      "spawnY": 16.5,
+      "spawnId": "Route_WorldField1011",
+      "targetSpawnId": "Route_WorldField1010",
+      "legacy": false
+    },
+    {
+      "fromKey": "WorldField1010",
+      "toKey": "WorldField1020",
+      "portalX": 3.5,
+      "portalY": 65.5,
+      "spawnX": 6.5,
+      "spawnY": 66.5,
+      "spawnId": "Route_WorldField1020",
+      "targetSpawnId": "Route_WorldField1010",
+      "legacy": false
+    },
+    {
+      "fromKey": "Belpueus",
+      "toKey": "WorldField1010",
+      "portalX": 32.5,
+      "portalY": 63.5,
+      "spawnX": 31.5,
+      "spawnY": 60.5,
+      "spawnId": "Route_WorldField1010",
+      "targetSpawnId": "Route_Belpueus",
+      "legacy": false
+    },
+    {
+      "fromKey": "Kaosia",
+      "toKey": "WorldField1010",
+      "portalX": 30.5,
+      "portalY": 59.5,
+      "spawnX": 27.5,
+      "spawnY": 58.5,
+      "spawnId": "FromField",
+      "targetSpawnId": "FromKaosia",
+      "legacy": true
+    },
+    {
+      "fromKey": "WorldField1010",
+      "toKey": "Kaosia",
+      "portalX": 20.5,
+      "portalY": 33.5,
+      "spawnX": 17.5,
+      "spawnY": 32.5,
+      "spawnId": "FromKaosia",
+      "targetSpawnId": "FromField",
+      "legacy": false
+    }
+  ],
+  "initialTownPosition": [
+    21,
+    21
+  ],
+  "saveFilesModified": false
+}

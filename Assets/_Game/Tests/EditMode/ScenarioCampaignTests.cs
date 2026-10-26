@@ -12,6 +12,7 @@ namespace DarkSaver.Tests
     {
         [TestCase(2)][TestCase(3)][TestCase(4)][TestCase(5)][TestCase(6)][TestCase(7)][TestCase(8)][TestCase(9)]
         [TestCase(10)][TestCase(11)][TestCase(12)][TestCase(13)][TestCase(14)][TestCase(15)][TestCase(16)][TestCase(17)]
+        [TestCase(33)][TestCase(330)][TestCase(331)][TestCase(332)][TestCase(333)][TestCase(404)][TestCase(405)][TestCase(406)]
         public void NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(int number)
         {
             string key=number.ToString("00");var definition=JsonUtility.FromJson<Scenario01Definition>(Resources.Load<TextAsset>("Scenarios/"+key+"/Content").text);

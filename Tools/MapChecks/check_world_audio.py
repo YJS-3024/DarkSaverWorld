@@ -6,13 +6,15 @@ from world_asset_baker import ROOT
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():
     folder=ROOT/'Assets/_Game/Resources/World/Audio';data=json.loads((folder/'Manifest.json').read_text())
-    table={r['map_id']:r['midi'].lower() for r in csv.DictReader((ROOT/'닥세_리소스/분석결과/맵_BGM_연결.csv').open(encoding='utf-8-sig'))}
+    table={t[0]:t[1].lower() for line in (ROOT/'분석/Saver_Late/decoded/gameres/set.arc/midiset.txt').read_text().splitlines() if len(t:=line.split())==2 and t[0].isdigit()}
     assert data['version']==1 and len(data['regions'])==44 and len(data['sounds'])==20
     fallbacks={r['map']:r['inheritedFrom'] for r in data['regions'] if r['authored']};assert fallbacks=={'1111':'1110','1410':'1400','1500':'2000','2510':'2500'}
-    clips=set();native=ROOT/'분석/Saver_1.2/extracted/Saver_Files/Saver/BGM'
+    clips=set();native=ROOT/'분석/Saver_Late/native_music'
     sources={p.name.lower():p for p in native.iterdir() if p.is_file()}
     for row in data['regions']:
-        assert row['midi'].lower()==table[row['inheritedFrom'] or row['map']]
+        key=row['inheritedFrom'] or row['map']
+        if key in table:assert row['midi'].lower()==table[key] and not row.get('lateBindingMissing',False)
+        else:assert row.get('lateBindingMissing',False) and row['bindingProvenance'].startswith('legacy binding retained')
         assert sha(sources[row['midi'].lower()])==row['sourceSha256']
         path=ROOT/'Assets/_Game/Resources'/(row['clip']+'.ogg');assert sha(path)==row['audioSha256'];clips.add(path)
     for path in clips:
@@ -36,6 +38,6 @@ def main():
         if path.suffix=='.meta':continue
         meta=Path(str(path)+'.meta');assert meta.exists(),path
         guid=re.search(r'^guid: (\w+)',meta.read_text(),re.M)[1];assert len(guid_paths[guid])==1
-    report=dict(regionBindings=44,nativeBindings=40,authoredFallbacks=fallbacks,uniqueBgmClips=len(clips),exactConvertedSounds=20,exactPcmFrames=frames,metadataUnique=True,scenarioMissingOriginal=['nco02.mid'],scope='Original binding/hash checks, ffprobe codec/duration, exact source PCM sample conversion; no Unity import or listening/playback verification.',unityPlay=False)
+    report=dict(regionBindings=44,nativeBindings=sum(not r['authored'] and not r.get('lateBindingMissing',False) for r in data['regions']),legacyBindingsRetained=[r['map'] for r in data['regions'] if r.get('lateBindingMissing',False)],authoredFallbacks=fallbacks,uniqueBgmClips=len(clips),exactConvertedSounds=20,exactPcmFrames=frames,metadataUnique=True,scenarioMissingOriginal=['nco02.mid'],scope='Original binding/hash checks, ffprobe codec/duration, exact source PCM sample conversion; no Unity import or listening/playback verification.',unityPlay=False)
     (ROOT/'Tools/MapChecks/world_audio_check.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps(report,ensure_ascii=False))
 if __name__=='__main__':main()

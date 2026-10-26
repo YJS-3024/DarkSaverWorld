@@ -1,0 +1,28 @@
+LOADSCENE 14
+PLAYMIDI bgm\nco03.mid 1
+SETPOSITION 28 16
+CHARPOS COM0 301 26 17
+CHARPOS COM1 302 28 17
+CHARPOS 818 802 28 14
+CHARPOS 113 807 36 14
+DO 200
+MESSAGE 1 818 0 802 고맙습니다.| 스케리아는 다시 신성한 곳이 될 것입니다.
+DO 200
+MESSAGE 2 COM0 0 COM0 당연한 도리를 했을 뿐입니다. |하지만 봉인이 풀어져 요괴들이 활보하는 것이니| 안심할 수는 없을 것입니다.
+DO 200
+MESSAGE 1 818 0 802 용사님께서는 나머지 봉인도 닫으시고 |다시 평화로운 세상을 만드시겠지요.| 저희도 열심히 이곳에서 기도를 드리겠습니다.
+DO 200
+MESSAGE 2 COM0 0 COM0 감사합니다. 그럼....
+DO 200
+CHARMOVE 807 27 17
+DO 803
+MESSAGE 1 113 0 807 용사님! 저도 용사님을 돕겠습니다. |미력하나마 짐이 되지 않도록 최선을 다하겠습니다.
+DO 200
+MESSAGE 2 COM0 0 COM0 그렇다면 저야 감사할 따름이지요. |그래도 괜찮으시겠습니까?
+DO 200
+GETGENERAL 113
+DO 200
+MESSAGE 1 818 0 802 이분은 무술도 훌륭하신분이니 |많은 도움이 될것입니다.
+DO 200
+MESSAGE 1 COM0 1 COM0 정말 감사합니다.
+END

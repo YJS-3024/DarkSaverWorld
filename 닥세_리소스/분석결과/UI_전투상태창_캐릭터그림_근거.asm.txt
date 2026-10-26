@@ -1,0 +1,249 @@
+; Source: GameCtl.dll; original routine0x10005410. Static evidence only.
+; Imports distinguish character surfaces from the separate GetFace function.
+	0001626c  <none>  001d  ?GetFace@@YAXPAVCDDSurface@@HHH@Z
+	0001627c  <none>  005f  ?getsnum@@YAHH@Z
+	000162b4  <none>  0016  ?GetCharSurface@@YAPAVCDDSurface@@HH@Z
+
+분석/Saver_1.2/extracted/Saver_Files/Saver/GameCtl.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+100054ab <.text+0x44ab>:
+100054ab:	8b 4e 10             	mov    ecx,DWORD PTR [esi+0x10]
+100054ae:	51                   	push   ecx
+100054af:	ff 15 7c 62 01 10    	call   DWORD PTR ds:0x1001627c
+100054b5:	8b 56 68             	mov    edx,DWORD PTR [esi+0x68]
+100054b8:	50                   	push   eax
+100054b9:	52                   	push   edx
+100054ba:	ff 15 b4 62 01 10    	call   DWORD PTR ds:0x100162b4
+100054c0:	8b 9c 24 c8 00 00 00 	mov    ebx,DWORD PTR [esp+0xc8]
+100054c7:	8b ac 24 c4 00 00 00 	mov    ebp,DWORD PTR [esp+0xc4]
+100054ce:	83 c4 0c             	add    esp,0xc
+100054d1:	89 44 24 18          	mov    DWORD PTR [esp+0x18],eax
+100054d5:	85 c0                	test   eax,eax
+100054d7:	0f 84 c2 00 00 00    	je     0x1000559f
+100054dd:	8b 4e 68             	mov    ecx,DWORD PTR [esi+0x68]
+100054e0:	b8 1f 85 eb 51       	mov    eax,0x51eb851f
+100054e5:	f7 e9                	imul   ecx
+100054e7:	c1 fa 05             	sar    edx,0x5
+100054ea:	8b c2                	mov    eax,edx
+100054ec:	c1 e8 1f             	shr    eax,0x1f
+100054ef:	03 d0                	add    edx,eax
+100054f1:	83 fa 07             	cmp    edx,0x7
+100054f4:	75 6d                	jne    0x10005563
+100054f6:	b9 19 00 00 00       	mov    ecx,0x19
+100054fb:	33 c0                	xor    eax,eax
+100054fd:	8d 7c 24 44          	lea    edi,[esp+0x44]
+10005501:	8d 55 4b             	lea    edx,[ebp+0x4b]
+10005504:	f3 ab                	rep stos DWORD PTR es:[edi],eax
+10005506:	8b 3d cc 61 01 10    	mov    edi,DWORD PTR ds:0x100161cc
+1000550c:	8d 4b 6f             	lea    ecx,[ebx+0x6f]
+1000550f:	51                   	push   ecx
+10005510:	8d 43 4f             	lea    eax,[ebx+0x4f]
+10005513:	52                   	push   edx
+10005514:	8d 4d 2c             	lea    ecx,[ebp+0x2c]
+10005517:	50                   	push   eax
+10005518:	8d 54 24 40          	lea    edx,[esp+0x40]
+1000551c:	51                   	push   ecx
+1000551d:	52                   	push   edx
+1000551e:	c7 44 24 58 64 00 00 	mov    DWORD PTR [esp+0x58],0x64
+10005525:	00 
+10005526:	ff d7                	call   edi
+10005528:	68 80 00 00 00       	push   0x80
+1000552d:	68 80 00 00 00       	push   0x80
+10005532:	6a 40                	push   0x40
+10005534:	8d 44 24 2c          	lea    eax,[esp+0x2c]
+10005538:	6a 40                	push   0x40
+1000553a:	50                   	push   eax
+1000553b:	ff d7                	call   edi
+1000553d:	8b 44 24 18          	mov    eax,DWORD PTR [esp+0x18]
+10005541:	8d 4c 24 44          	lea    ecx,[esp+0x44]
+10005545:	51                   	push   ecx
+10005546:	8d 54 24 24          	lea    edx,[esp+0x24]
+1000554a:	68 00 80 00 00       	push   0x8000
+1000554f:	52                   	push   edx
+10005550:	8d 4c 24 40          	lea    ecx,[esp+0x40]
+10005554:	50                   	push   eax
+10005555:	51                   	push   ecx
+10005556:	8b 0d 70 c4 01 10    	mov    ecx,DWORD PTR ds:0x1001c470
+1000555c:	e8 85 f0 00 00       	call   0x100145e6
+10005561:	eb 42                	jmp    0x100055a5
+10005563:	6a 00                	push   0x0
+10005565:	b8 20 00 00 00       	mov    eax,0x20
+1000556a:	83 ec 10             	sub    esp,0x10
+1000556d:	8b c8                	mov    ecx,eax
+1000556f:	8b fc                	mov    edi,esp
+10005571:	ba 40 00 00 00       	mov    edx,0x40
+10005576:	89 07                	mov    DWORD PTR [edi],eax
+10005578:	8b c2                	mov    eax,edx
+1000557a:	89 4f 04             	mov    DWORD PTR [edi+0x4],ecx
+1000557d:	8d 4d 2c             	lea    ecx,[ebp+0x2c]
+10005580:	89 57 08             	mov    DWORD PTR [edi+0x8],edx
+10005583:	8b 54 24 2c          	mov    edx,DWORD PTR [esp+0x2c]
+10005587:	52                   	push   edx
+10005588:	8b 15 70 c4 01 10    	mov    edx,DWORD PTR ds:0x1001c470
+1000558e:	89 47 0c             	mov    DWORD PTR [edi+0xc],eax
+10005591:	8d 43 4f             	lea    eax,[ebx+0x4f]
+10005594:	50                   	push   eax
+10005595:	51                   	push   ecx
+10005596:	52                   	push   edx
+10005597:	e8 b4 fc ff ff       	call   0x10005250
+1000559c:	83 c4 24             	add    esp,0x24
+1000559f:	8b 3d cc 61 01 10    	mov    edi,DWORD PTR ds:0x100161cc
+
+; Native roster/compact status: same fixed crop and large-unit branch.
+
+분석/Saver_1.2/extracted/Saver_Files/Saver/GameCtl.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+1000641d <.text+0x541d>:
+1000641d:	85 f6                	test   esi,esi
+1000641f:	0f 84 b9 00 00 00    	je     0x100064de
+10006425:	8b 7f 68             	mov    edi,DWORD PTR [edi+0x68]
+10006428:	b8 1f 85 eb 51       	mov    eax,0x51eb851f
+1000642d:	f7 ef                	imul   edi
+1000642f:	c1 fa 05             	sar    edx,0x5
+10006432:	8b c2                	mov    eax,edx
+10006434:	c1 e8 1f             	shr    eax,0x1f
+10006437:	03 d0                	add    edx,eax
+10006439:	83 fa 07             	cmp    edx,0x7
+1000643c:	75 69                	jne    0x100064a7
+1000643e:	b9 19 00 00 00       	mov    ecx,0x19
+10006443:	33 c0                	xor    eax,eax
+10006445:	8d 7c 24 40          	lea    edi,[esp+0x40]
+10006449:	8d 55 28             	lea    edx,[ebp+0x28]
+1000644c:	f3 ab                	rep stos DWORD PTR es:[edi],eax
+1000644e:	8b 3d cc 61 01 10    	mov    edi,DWORD PTR ds:0x100161cc
+10006454:	8d 4b 22             	lea    ecx,[ebx+0x22]
+10006457:	51                   	push   ecx
+10006458:	8d 43 02             	lea    eax,[ebx+0x2]
+1000645b:	52                   	push   edx
+1000645c:	8d 4d 08             	lea    ecx,[ebp+0x8]
+1000645f:	50                   	push   eax
+10006460:	8d 54 24 3c          	lea    edx,[esp+0x3c]
+10006464:	51                   	push   ecx
+10006465:	52                   	push   edx
+10006466:	c7 44 24 54 64 00 00 	mov    DWORD PTR [esp+0x54],0x64
+1000646d:	00 
+1000646e:	ff d7                	call   edi
+10006470:	68 80 00 00 00       	push   0x80
+10006475:	68 80 00 00 00       	push   0x80
+1000647a:	6a 40                	push   0x40
+1000647c:	8d 44 24 2c          	lea    eax,[esp+0x2c]
+10006480:	6a 40                	push   0x40
+10006482:	50                   	push   eax
+10006483:	ff d7                	call   edi
+10006485:	8d 4c 24 40          	lea    ecx,[esp+0x40]
+10006489:	8d 54 24 20          	lea    edx,[esp+0x20]
+1000648d:	51                   	push   ecx
+1000648e:	8b 0d 70 c4 01 10    	mov    ecx,DWORD PTR ds:0x1001c470
+10006494:	68 00 80 00 00       	push   0x8000
+10006499:	52                   	push   edx
+1000649a:	8d 44 24 3c          	lea    eax,[esp+0x3c]
+1000649e:	56                   	push   esi
+1000649f:	50                   	push   eax
+100064a0:	e8 41 e1 00 00       	call   0x100145e6
+100064a5:	eb 3d                	jmp    0x100064e4
+100064a7:	6a 00                	push   0x0
+100064a9:	b8 20 00 00 00       	mov    eax,0x20
+100064ae:	83 ec 10             	sub    esp,0x10
+100064b1:	8b c8                	mov    ecx,eax
+100064b3:	8b fc                	mov    edi,esp
+100064b5:	ba 40 00 00 00       	mov    edx,0x40
+100064ba:	56                   	push   esi
+100064bb:	89 07                	mov    DWORD PTR [edi],eax
+100064bd:	8b c2                	mov    eax,edx
+100064bf:	89 4f 04             	mov    DWORD PTR [edi+0x4],ecx
+100064c2:	8d 4b 02             	lea    ecx,[ebx+0x2]
+100064c5:	51                   	push   ecx
+100064c6:	89 57 08             	mov    DWORD PTR [edi+0x8],edx
+100064c9:	8d 55 08             	lea    edx,[ebp+0x8]
+100064cc:	52                   	push   edx
+100064cd:	89 47 0c             	mov    DWORD PTR [edi+0xc],eax
+100064d0:	a1 70 c4 01 10       	mov    eax,ds:0x1001c470
+100064d5:	50                   	push   eax
+100064d6:	e8 75 ed ff ff       	call   0x10005250
+100064db:	83 c4 24             	add    esp,0x24
+100064de:	8b 3d cc 61 01 10    	mov    edi,DWORD PTR ds:0x100161cc
+
+; Native roster/compact status: same fixed crop and large-unit branch.
+
+분석/Saver_1.2/extracted/Saver_Files/Saver/GameCtl.dll:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10006822 <.text+0x5822>:
+10006822:	8b f0                	mov    esi,eax
+10006824:	83 c4 0c             	add    esp,0xc
+10006827:	85 f6                	test   esi,esi
+10006829:	0f 84 b9 00 00 00    	je     0x100068e8
+1000682f:	8b 7f 68             	mov    edi,DWORD PTR [edi+0x68]
+10006832:	b8 1f 85 eb 51       	mov    eax,0x51eb851f
+10006837:	f7 ef                	imul   edi
+10006839:	c1 fa 05             	sar    edx,0x5
+1000683c:	8b c2                	mov    eax,edx
+1000683e:	c1 e8 1f             	shr    eax,0x1f
+10006841:	03 d0                	add    edx,eax
+10006843:	83 fa 07             	cmp    edx,0x7
+10006846:	75 69                	jne    0x100068b1
+10006848:	b9 19 00 00 00       	mov    ecx,0x19
+1000684d:	33 c0                	xor    eax,eax
+1000684f:	8d 7c 24 3c          	lea    edi,[esp+0x3c]
+10006853:	68 80 00 00 00       	push   0x80
+10006858:	f3 ab                	rep stos DWORD PTR es:[edi],eax
+1000685a:	8b 3d cc 61 01 10    	mov    edi,DWORD PTR ds:0x100161cc
+10006860:	68 80 00 00 00       	push   0x80
+10006865:	6a 40                	push   0x40
+10006867:	8d 4c 24 28          	lea    ecx,[esp+0x28]
+1000686b:	6a 40                	push   0x40
+1000686d:	51                   	push   ecx
+1000686e:	c7 44 24 50 64 00 00 	mov    DWORD PTR [esp+0x50],0x64
+10006875:	00 
+10006876:	ff d7                	call   edi
+10006878:	8d 53 29             	lea    edx,[ebx+0x29]
+1000687b:	8d 45 27             	lea    eax,[ebp+0x27]
+1000687e:	52                   	push   edx
+1000687f:	8d 4b 09             	lea    ecx,[ebx+0x9]
+10006882:	50                   	push   eax
+10006883:	8d 55 07             	lea    edx,[ebp+0x7]
+10006886:	51                   	push   ecx
+10006887:	8d 44 24 38          	lea    eax,[esp+0x38]
+1000688b:	52                   	push   edx
+1000688c:	50                   	push   eax
+1000688d:	ff d7                	call   edi
+1000688f:	8d 4c 24 3c          	lea    ecx,[esp+0x3c]
+10006893:	8d 54 24 1c          	lea    edx,[esp+0x1c]
+10006897:	51                   	push   ecx
+10006898:	8b 0d 70 c4 01 10    	mov    ecx,DWORD PTR ds:0x1001c470
+1000689e:	68 00 80 00 00       	push   0x8000
+100068a3:	52                   	push   edx
+100068a4:	8d 44 24 38          	lea    eax,[esp+0x38]
+100068a8:	56                   	push   esi
+100068a9:	50                   	push   eax
+100068aa:	e8 37 dd 00 00       	call   0x100145e6
+100068af:	eb 3d                	jmp    0x100068ee
+100068b1:	6a 00                	push   0x0
+100068b3:	b8 20 00 00 00       	mov    eax,0x20
+100068b8:	83 ec 10             	sub    esp,0x10
+100068bb:	8b c8                	mov    ecx,eax
+100068bd:	8b fc                	mov    edi,esp
+100068bf:	ba 40 00 00 00       	mov    edx,0x40
+100068c4:	56                   	push   esi
+100068c5:	89 07                	mov    DWORD PTR [edi],eax
+100068c7:	8b c2                	mov    eax,edx
+100068c9:	89 4f 04             	mov    DWORD PTR [edi+0x4],ecx
+100068cc:	8d 4b 09             	lea    ecx,[ebx+0x9]
+100068cf:	51                   	push   ecx
+100068d0:	89 57 08             	mov    DWORD PTR [edi+0x8],edx
+100068d3:	8d 55 07             	lea    edx,[ebp+0x7]
+100068d6:	52                   	push   edx
+100068d7:	89 47 0c             	mov    DWORD PTR [edi+0xc],eax
+100068da:	a1 70 c4 01 10       	mov    eax,ds:0x1001c470
+100068df:	50                   	push   eax
+100068e0:	e8 6b e9 ff ff       	call   0x10005250
+100068e5:	83 c4 24             	add    esp,0x24
+100068e8:	8b 3d cc 61 01 10    	mov    edi,DWORD PTR ds:0x100161cc

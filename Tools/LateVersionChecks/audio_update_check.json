@@ -1,0 +1,85 @@
+{
+  "midisetDeclaredRows": 47,
+  "midisetParsedRows": 50,
+  "regionBindings": 44,
+  "changedBindings": [
+    {
+      "map": "1002",
+      "before": "game3.mid",
+      "after": "game9.mid"
+    },
+    {
+      "map": "1003",
+      "before": "game3.mid",
+      "after": "game10.mid"
+    },
+    {
+      "map": "1004",
+      "before": "sh-fil2.mid",
+      "after": "game3.mid"
+    },
+    {
+      "map": "1012",
+      "before": "sh-fil2.mid",
+      "after": "game12.mid"
+    }
+  ],
+  "legacyBindingsRetained": [
+    {
+      "map": "1011",
+      "lookup": "1011",
+      "retainedMidi": "sh-fil2.mid"
+    },
+    {
+      "map": "1060",
+      "lookup": "1060",
+      "retainedMidi": "sh-fil.mid"
+    },
+    {
+      "map": "1070",
+      "lookup": "1070",
+      "retainedMidi": "sh-field.mid"
+    },
+    {
+      "map": "1080",
+      "lookup": "1080",
+      "retainedMidi": "sh-field.mid"
+    },
+    {
+      "map": "1090",
+      "lookup": "1090",
+      "retainedMidi": "sh-field.mid"
+    },
+    {
+      "map": "1110",
+      "lookup": "1110",
+      "retainedMidi": "game2.mid"
+    },
+    {
+      "map": "1111",
+      "lookup": "1110",
+      "retainedMidi": "game2.mid"
+    }
+  ],
+  "rendered": {
+    "game3": {
+      "sourceSha256": "c6077f1914fe0062317183967312f2ed005ccbeb509332a3034906168bfa9405",
+      "audioSha256": "752e290fed741a7346527ac782a2ef511853a2dd61611ee83ec3014a06103942"
+    },
+    "game9": {
+      "sourceSha256": "6480a2671fbf611fc7612eef38503a204a246a015003522cf59918a3ed21b0e0",
+      "audioSha256": "8c8e50bc5c9d6a0dd8bbf3fdf185d483320e3472f6dbdeea663c0e014ede3f6b"
+    },
+    "game10": {
+      "sourceSha256": "a8f4cd3df0d58fdf19b315fc9150c9b4cddb18eaffae6d0edf5007f17eab0829",
+      "audioSha256": "1d208c2aa97bd2786aa50ea59a7ca7d1ccc9bf4d08fe47705e34b6ae92f10c94"
+    },
+    "game12": {
+      "sourceSha256": "bec3497c66807ad1395d737ed652b9e4875ade14893b7d48c7278521f925c998",
+      "audioSha256": "620ecc145d9651a38e79da1a9e23c2ad714f4bff2cd20efd76faa3768009205d"
+    }
+  },
+  "unitSoundBindings": 542,
+  "renderer": "FluidSynth/TimGM; adapted timbre, no listening or original playback verification",
+  "unityPlay": false
+}

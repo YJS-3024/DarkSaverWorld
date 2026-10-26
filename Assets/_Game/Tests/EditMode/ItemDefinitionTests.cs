@@ -14,7 +14,7 @@ namespace DarkSaver.Tests
         public void IndividualAssetsPreserveEveryNativeFieldAndNeedNoOriginalFiles()
         {
             var catalog = AssetDatabase.LoadAssetAtPath<ItemCatalog>(ItemCatalogConverter.Output);
-            ItemCatalogConverter.Verify(catalog, ItemCatalogConverter.Parse(File.ReadAllText("분석/Saver_1.2/catalogs/items.csv")));
+            ItemCatalogConverter.Verify(catalog, ItemCatalogConverter.Parse(File.ReadAllText("분석/Saver_Late/unity_catalogs/items.csv")));
             Assert.That(Directory.GetFiles(ItemDefinitionGenerator.Output, "Item_*.asset").Length, Is.EqualTo(catalog.Count));
             for (int i = 0; i < catalog.Count; i++) {
                 var source = catalog.GetAt(i);

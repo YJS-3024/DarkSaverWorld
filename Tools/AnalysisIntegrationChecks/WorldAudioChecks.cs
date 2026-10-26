@@ -12,6 +12,9 @@ internal static class WorldAudioChecks
         check(data.FindRegion("1000").clip.EndsWith("/game3") && data.FindRegion("1010").clip.EndsWith("/game2"),"native Kaosia and outside music");
         check(data.FindRegion("2600").clip.EndsWith("/game4"),"native temple music");
         check(data.FindRegion("unknown")==null && data.FindSound(999)==null,"unknown music/sound has no invented substitute");
+        foreach(var expected in new[]{("1002","game9"),("1003","game10"),("1004","game3"),("1012","game12")})
+            check(data.FindRegion(expected.Item1).clip.EndsWith("/"+expected.Item2),"explicit later MIDI mapping "+expected.Item1);
+        check(data.jobs.Length==542,"later unit sound appearance catalog");
         check(data.sounds.Length==20 && data.FindSound(1)!=null,"all original sound files include death1");
         foreach(var job in data.jobs)
             check(data.HasDeathSound(job.job)==(job.appearance<700 || job.appearance>799),"death audio respects native appearance range");

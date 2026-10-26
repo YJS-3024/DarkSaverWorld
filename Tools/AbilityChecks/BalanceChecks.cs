@@ -44,7 +44,7 @@ internal static class BalanceChecks
             }
         }
         if(quickNoGain!=0)throw new Exception("Positive Quick/Rapid has no discrete AP benefit.");
-        File.WriteAllText(output,JsonSerializer.Serialize(new {classes=70,cases,executed,blocked,quickNoGain,issues,rows,scope="Actual combat classes with native class-entry base stats and granted entry abilities; synthetic common opponent; no level growth, equipment, inherited spells, AI encounters or Unity playback",unityPlay=false},new JsonSerializerOptions{WriteIndented=true}));
-        Console.WriteLine($"BALANCE native classes70, cases{cases}, executed{executed}, MP-blocked{blocked}, ineffective Quick{quickNoGain}");
+        File.WriteAllText(output,JsonSerializer.Serialize(new {classes=document.RootElement.GetArrayLength(),cases,executed,blocked,quickNoGain,issues,rows,scope="Actual combat classes with native class-entry base stats and granted entry abilities; synthetic common opponent; no level growth, equipment, inherited spells, AI encounters or Unity playback",unityPlay=false},new JsonSerializerOptions{WriteIndented=true}));
+        Console.WriteLine($"BALANCE native classes{document.RootElement.GetArrayLength()}, cases{cases}, executed{executed}, MP-blocked{blocked}, ineffective Quick{quickNoGain}");
     }
 }

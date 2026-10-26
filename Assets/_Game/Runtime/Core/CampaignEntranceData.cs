@@ -14,7 +14,7 @@ namespace DarkSaver.Core
         {
             get
             {
-                if(version!=1 || entries==null || entries.Length!=17)return false;
+                if(version!=1 || entries==null || entries.Length!=ScenarioCatalog.All.Count)return false;
                 var keys=new HashSet<string>();
                 foreach(var entry in entries)
                 {

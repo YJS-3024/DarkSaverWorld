@@ -16,6 +16,9 @@ namespace DarkSaver.Player
         private bool moving;
         public Vector2 Facing => facing;
         public bool IsMoving => moving;
+        // Native status source: (32,32)-(64,64), or (64,64)-(128,128)
+        // for 64px units. Both are row 1, column 1 of the converted 3-column sheet.
+        public Sprite StatusPicture => down != null && down.Length > 1 ? down[1] : null;
 
         public bool HasCompleteDirections => Complete(up) && Complete(down) && Complete(left) && Complete(right);
         private static bool Complete(Sprite[] frames)

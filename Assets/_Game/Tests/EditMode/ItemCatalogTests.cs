@@ -70,7 +70,7 @@ namespace DarkSaver.Tests
         {
             var catalog = AssetDatabase.LoadAssetAtPath<ItemCatalog>(ItemCatalogConverter.Output);
             Assert.That(catalog, Is.Not.Null);
-            Assert.That(catalog.Count, Is.EqualTo(1180));
+            Assert.That(catalog.Count, Is.EqualTo(1212));
             Assert.That(catalog.TryGet(0, out var first), Is.True);
             Assert.That(first.Name, Is.EqualTo("바늘"));
             Assert.That(catalog.TryGet(1245, out var expensive), Is.True);
@@ -78,7 +78,7 @@ namespace DarkSaver.Tests
             Assert.That(expensive.GetNumericValue(ItemCatalogEntry.PriceColumn), Is.EqualTo(100000000000L));
             Assert.That(catalog.TryGet(1538, out var last), Is.True);
             Assert.That(last.Name, Is.EqualTo("닥세_사이다세트"));
-            Assert.That(catalog.TryGet(1539, out _), Is.False);
+            Assert.That(catalog.TryGet(1572, out _), Is.False);
             var blankNames = 0;
             for (var i = 0; i < catalog.Count; i++) if (string.IsNullOrWhiteSpace(catalog.GetAt(i).Name)) blankNames++;
             Assert.That(blankNames, Is.EqualTo(1));

@@ -1,0 +1,63 @@
+{
+  "sourceVersion": "Saver_Late",
+  "sourceInstallerSha256": "a6f518676a5530987c2f20309982d3df5f2bcafb10d0a5273c4ee4da258a21ea",
+  "offlineIntegrationChecks": 35737,
+  "productionCombatChecks": 4823,
+  "classAbilityCombinations": 393,
+  "scenarioRewardChecks": 214,
+  "growthHostChecks": 46,
+  "apiCompilation": {
+    "runtimeSources": 204,
+    "editorSources": 73,
+    "editModeSources": 116,
+    "errors": 0,
+    "editModeExecuted": false
+  },
+  "runtimeAssemblySha256": "ab0907222df669eeaa4634acc5c236cffdd3b8d904b0033794139bdb43933dea",
+  "unityPlay": false,
+  "worldMigrationIncomplete": [],
+  "newScenarioGameplayNotAdded": [],
+  "knownUnconfirmed": [
+    "30901 Curism effect",
+    "170 allied color palette",
+    "170-172 dialogue faces",
+    "later DLL ABI/dispatch and new UI layout"
+  ],
+  "reports": [
+    "asset_readback_check.json",
+    "bound_art_check.json",
+    "effect_art_check.json",
+    "growth_check.json",
+    "map_migration_check.json",
+    "audio_update_check.json",
+    "world_migration_check.json",
+    "new_scenarios_check.json",
+    "world_campaign_check.json"
+  ],
+  "registeredPlayableScenarios": 25,
+  "newScenariosImplemented": [
+    "33",
+    "330",
+    "331",
+    "332",
+    "333",
+    "404",
+    "405",
+    "406"
+  ],
+  "worldCampaignAssetChecks": 58018,
+  "currentVerification": {
+    "integrationCommand": "python Tools/AnalysisIntegrationChecks/run_checks.py <installed-dotnet>",
+    "integrationScope": "Linked production rules/save IO with host JSON/Unity adapters; all24 non-01 campaign states including eight late branches. Victory fixtures, not actual combat.",
+    "assetCommand": "python Tools/LateVersionChecks/check_world_campaign.py",
+    "unityEditModeExecuted": false,
+    "unityPlayExecuted": false,
+    "historicalUnchangedChecks": [
+      "productionCombatChecks",
+      "classAbilityCombinations",
+      "scenarioRewardChecks",
+      "growthHostChecks"
+    ]
+  },
+  "authoredLateScenarioPolicy": "33 after17;330 after17,331 after330,332 after331,333 after332;404 after17,405 after404,406 after405. Reused reviewed single-player rosters where source absent. No18-32 clear injection."
+}

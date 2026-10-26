@@ -38,7 +38,7 @@ namespace DarkSaver.Tests
         {
             WithPanel((panel, player, catalog) =>
             {
-                Assert.That(panel.MatchCount, Is.EqualTo(1180));
+                Assert.That(panel.MatchCount, Is.EqualTo(1212));
                 Assert.That(panel.SelectedItem.Id, Is.Zero);
                 panel.Filter("1245");
                 Assert.That(panel.MatchCount, Is.EqualTo(1));
@@ -49,7 +49,7 @@ namespace DarkSaver.Tests
                 Assert.That(panel.SelectItem(1538), Is.True);
                 Assert.That(ItemCatalogPanel.DisplayName(panel.SelectedItem), Is.EqualTo("닥세 사이다세트"));
                 Assert.That(panel.SelectedItem.Name, Is.EqualTo("닥세_사이다세트"));
-                Assert.That(catalog.Count, Is.EqualTo(1180));
+                Assert.That(catalog.Count, Is.EqualTo(1212));
             });
         }
 

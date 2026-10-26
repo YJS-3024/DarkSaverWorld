@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -30,7 +30,7 @@ namespace DarkSaver.Core
         }
         public bool IsValid => (tutorial == null || tutorial.IsValid) && IsValidName(name) && IsEquipmentStateValid && IsClassAbilityStateValid && IsBattleMagicSelectionValid && unspentClassChangeStatPoints>=0 &&
             allocatedAttack>=0 && allocatedDefense>=0 && allocatedMagicAttack>=0 && allocatedMagicDefense>=0 &&
-            (hasLevels ? baseLevel >= 1 && jobLevel >= 1 && jobLevel <= 100 && baseLevel >= jobLevel
+            (hasLevels ? baseLevel >= 1 && jobLevel >= 1 && jobLevel <= DarkSaver.Jobs.NativePlayerJobs.MaximumLevel(jobId) && baseLevel >= jobLevel
                 : baseLevel == 0 && jobLevel == 0);
         public NativeCharacterProfile Clone() => new NativeCharacterProfile {
             name = name, jobId = jobId, tutorial = tutorial?.Clone(), hasClassAbilities = hasClassAbilities,

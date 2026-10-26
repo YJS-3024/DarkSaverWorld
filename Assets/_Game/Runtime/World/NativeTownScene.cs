@@ -18,7 +18,7 @@ namespace DarkSaver.World
         [Serializable] private sealed class MapData
         { public int width,height,spawnX,spawnY; public int[] attributes, floorKeys; public ObjectRecord[] objects; public IndoorNpcRecord npc; public DarkSaver.Events.Scenario01Unit[] encounters; }
         private readonly List<UnityEngine.Object> owned=new();
-        private string ResourceRoot => (KaosiaFacilityCatalog.TryGet(townKey,out var facility) ? "Interiors/"+facility.Region.NativeMap : NativeInteriorCatalog.TryGet(townKey,out var interior) ? "Interiors/"+interior.NativeMap : ShopInteriorCatalog.TryGet(townKey,out var shop) ? "Interiors/"+shop.Region.NativeMap : (FieldCatalog.TryGet(townKey,out _) ? "Fields/" : "Towns/")+townKey);
+        private string ResourceRoot => ScenarioCatalog.TryGet(townKey,out var scenario) ? "Scenarios/"+scenario.Key+"/Map" : (KaosiaFacilityCatalog.TryGet(townKey,out var facility) ? "Interiors/"+facility.Region.NativeMap : NativeInteriorCatalog.TryGet(townKey,out var interior) ? "Interiors/"+interior.NativeMap : ShopInteriorCatalog.TryGet(townKey,out var shop) ? "Interiors/"+shop.Region.NativeMap : (FieldCatalog.TryGet(townKey,out _) ? "Fields/" : "Towns/")+townKey);
         private bool built;
         private void Awake(){if(!string.IsNullOrEmpty(townKey))Build();}
         public bool Configure(string key,bool runtime){townKey=key;runtimeOnly=runtime;return Build();}
@@ -27,7 +27,11 @@ namespace DarkSaver.World
             if(built)return true;
             try
             {
-                if(!WorldRouteContent.Resolve(townKey,out var town) || town.Key=="Kaosia" || town.Key=="WorldField1010")throw new InvalidOperationException("Unknown generated town.");
+                if(!WorldRouteContent.Resolve(townKey,out var town))
+                {
+                    if(!ScenarioCatalog.TryGet(townKey,out var scenario))throw new InvalidOperationException("Unknown generated region.");
+                    town=new TownDefinition("Scenario"+scenario.Key,scenario.Title,scenario.MapScene,scenario.RuntimeScene,scenario.Key,scenario.Width,scenario.Height,false);
+                }
                 var text=Resources.Load<TextAsset>(ResourceRoot+"/Map");
                 var data=text==null?null:JsonUtility.FromJson<MapData>(text.text);
                 // Unity creates an empty inline NPC even when the map JSON omits it.
@@ -55,7 +59,7 @@ namespace DarkSaver.World
             var floor=Child("Native ground artwork").AddComponent<SpriteRenderer>();floor.sprite=FullSprite(texture,Vector2.zero);floor.sortingOrder=OriginalRenderRules.GroundSortingOrder;
             var attributeTiles=new Dictionary<int,Tile>();
             var floorTiles=new Dictionary<int,Tile>();
-            bool field=FieldCatalog.TryGet(townKey,out _);
+            bool field=FieldCatalog.TryGet(townKey,out _) || ScenarioCatalog.TryGet(townKey,out _);
             for(int y=0;y<data.height;y++)for(int x=0;x<data.width;x++)
             {
                 var cell=new Vector3Int(x,data.height-1-y,0);

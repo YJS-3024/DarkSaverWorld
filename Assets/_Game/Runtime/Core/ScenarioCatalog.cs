@@ -4,8 +4,8 @@ namespace DarkSaver.Core
 {
     public sealed class ScenarioDefinition
     {
-        public readonly string Key,Title,MapScene,RuntimeScene;public readonly int Width,Height;
-        public ScenarioDefinition(string key,string title,string map,string runtime,int width,int height){Key=key;Title=title;MapScene=map;RuntimeScene=runtime;Width=width;Height=height;}
+        public readonly string Key,Title,MapScene,RuntimeScene,PrerequisiteKey;public readonly int Width,Height;
+        public ScenarioDefinition(string key,string title,string map,string runtime,int width,int height,string prerequisite=null){Key=key;Title=title;MapScene=map;RuntimeScene=runtime;Width=width;Height=height;PrerequisiteKey=prerequisite ?? (key=="01" ? "" : (int.Parse(key)-1).ToString("00"));}
     }
     public static class ScenarioCatalog
     {
@@ -26,9 +26,21 @@ namespace DarkSaver.Core
             new ScenarioDefinition("14","스케리아 마을","Map_14_스케리아 마을","Scenario14_Runtime", 60,60),
             new ScenarioDefinition("15","이름없는 마을","Map_15_이름없는 마을","Scenario15_Runtime", 60,60),
             new ScenarioDefinition("16","발할라 평원","Map_16_발할라 평원","Scenario16_Runtime", 40,40),
-            new ScenarioDefinition("17","비공정 앞","Map_17_비공정 앞","Scenario17_Runtime", 40,40)
+            new ScenarioDefinition("17","비공정 앞","Map_17_비공정 앞","Scenario17_Runtime", 40,40),
+            // Explicit single-player side branches after17; no original server unlock inference.
+            new ScenarioDefinition("33","야누스","Map_33_야누스","Scenario33_Runtime",40,50,"17"),
+            new ScenarioDefinition("330","추가 전장 330","Map_330_추가 전장 330","Scenario330_Runtime",20,15,"17"),
+            new ScenarioDefinition("331","추가 전장 331","Map_331_추가 전장 331","Scenario331_Runtime",20,15,"330"),
+            new ScenarioDefinition("332","추가 전장 332","Map_332_추가 전장 332","Scenario332_Runtime",20,15,"331"),
+            new ScenarioDefinition("333","추가 전장 333","Map_333_추가 전장 333","Scenario333_Runtime",20,15,"332"),
+            new ScenarioDefinition("404","추가 전장 404","Map_404_추가 전장 404","Scenario404_Runtime",20,15,"17"),
+            new ScenarioDefinition("405","추가 전장 405","Map_405_추가 전장 405","Scenario405_Runtime",20,15,"404"),
+            new ScenarioDefinition("406","추가 전장 406","Map_406_추가 전장 406","Scenario406_Runtime",20,15,"405")
         });
         public static bool TryGet(string key,out ScenarioDefinition scenario){foreach(var row in All)if(row.Key==key || "Scenario"+row.Key==key){scenario=row;return true;}scenario=null;return false;}
+        public static bool CanEnter(string key,Func<string,bool> isCleared) =>
+            isCleared!=null && TryGet(key,out var row) && (row.Key=="01" || !isCleared(row.Key) && isCleared(row.PrerequisiteKey));
+        public static bool IsProgressKey(string key)=>key!="01" && TryGet(key,out var row) && row.Key==key;
         public static bool IsPair(string map,string runtime){foreach(var row in All)if(row.MapScene==map && row.RuntimeScene==runtime)return true;return false;}
         public static bool IsMap(string map){foreach(var row in All)if(row.MapScene==map)return true;return false;}
     }

@@ -1160,7 +1160,9 @@ namespace DarkSaver.Combat
         public Sprite GetUnitPortrait(short unitId)
         {
             foreach (var visual in visuals)
-                if (visual.UnitId == unitId && visual.Body != null) return visual.Body.sprite;
+                if (visual.UnitId == unitId && visual.Body != null)
+                    return NativeBattleStatus.UnitPicture(visual.Body,
+                        battle != null && battle.TryGetUnit(unitId, out var unit) ? unit.JobId : 0);
             return null;
         }
 

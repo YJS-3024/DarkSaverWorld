@@ -1,0 +1,2658 @@
+{
+  "scenarios": [
+    {
+      "scenario": "01",
+      "title": "브르고스궁",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 398,
+          "name": "폭탄"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEE",
+          "line": 39,
+          "command": "GETITEM 398",
+          "event": null,
+          "sha256": "37c450d901b7d37c723443e65a1ecb369f480a354e1b2fd62373257cd49cd1be"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "1195e4a533ccd422d2d07829590f5828ff073d69e589aa1b4adbc0dcb39e235c",
+      "lateSources": [
+        "map/01set.arc/01.ai",
+        "map/01set.arc/01.dee",
+        "map/01set.arc/01.deo",
+        "map/01set.arc/01.evt",
+        "map/01set.arc/01.srf"
+      ]
+    },
+    {
+      "scenario": "02",
+      "title": "자모라 요새",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 102,
+          "name": "클레릭"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/02set/02.evt",
+          "line": 338,
+          "command": "GETGENERAL 102",
+          "event": 55,
+          "sha256": "805449bffea8d04b796ba4e702bf02ff1f5c2c8ab0fb4df1a77a27923ced86f2"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/02set/02A.DEE",
+          "line": 43,
+          "command": "GETGENERAL 102",
+          "event": null,
+          "sha256": "ba556fde75aa51102bd9e33a7c07a18d4b42b25702f6ba8be6f80d6a95a521bc"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/02set/02B.DEE",
+          "line": 44,
+          "command": "GETGENERAL 102",
+          "event": null,
+          "sha256": "286c1dba495ee36e905ed208b775181c611fa64103105630024c0e537f93c067"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "e03ab8ee8a5ce060b701cbdf4b9c170073f2ddfcaa974f3233f9d63d847153c3",
+      "lateSources": [
+        "map/02set.arc/02.evt",
+        "map/02set.arc/02.ai",
+        "map/02set.arc/02b.dee",
+        "map/02set.arc/02.deo",
+        "map/02set.arc/02.srf",
+        "map/02set.arc/02a.dee"
+      ]
+    },
+    {
+      "scenario": "03",
+      "title": "에트나 화산동굴",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 100,
+          "name": "파이터"
+        },
+        {
+          "kind": "item",
+          "id": 98,
+          "name": "전설의 보검'"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.DEE",
+          "line": 42,
+          "command": "GETGENERAL 100",
+          "event": null,
+          "sha256": "bd9db59710314e70912257a81fc0c4db538df82ccaf6639f9ee88622ccc8ca73"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.evt",
+          "line": 359,
+          "command": "GETITEM 098",
+          "event": 54,
+          "sha256": "c4bef45fc37c18bc084a4074ab73446500e2f5beeb9b0aac52c5d2c528cf3e97"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.evt",
+          "line": 363,
+          "command": "GETGENERAL 100",
+          "event": 54,
+          "sha256": "c4bef45fc37c18bc084a4074ab73446500e2f5beeb9b0aac52c5d2c528cf3e97"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "813644ac205ed66564d28d361486c7f60a4a6d6cdb7ff35e7f297bb646c00def",
+      "lateSources": [
+        "map/03set.arc/03.ai",
+        "map/03set.arc/03.dee",
+        "map/03set.arc/03.deo",
+        "map/03set.arc/03.srf",
+        "map/03set.arc/03.evt"
+      ]
+    },
+    {
+      "scenario": "04",
+      "title": "알카디아",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 101,
+          "name": "나이트"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/04set/04.DEE",
+          "line": 19,
+          "command": "GETGENERAL 101",
+          "event": null,
+          "sha256": "b971ff845ee4333f201d809a428021a3051b7b6a9a58839fdffe2581d90df789"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/04set/04.evt",
+          "line": 239,
+          "command": "GETGENERAL 101",
+          "event": 24,
+          "sha256": "cf30e1a1a8d3deaadc5ba12a3b33a7f2e09e73260113bb37f68f4755fd4186b2"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "211848c00e6ac95c439f95001d6cb70fa26a2d48e978928d3a1630ac68c048fa",
+      "lateSources": [
+        "map/04set.arc/04.dee",
+        "map/04set.arc/04.deo",
+        "map/04set.arc/04.ai",
+        "map/04set.arc/04.evt",
+        "map/04set.arc/04.srf"
+      ]
+    },
+    {
+      "scenario": "05",
+      "title": "브린힐트 국경",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 103,
+          "name": "매지션"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/05set/05.DEE",
+          "line": 42,
+          "command": "GETGENERAL 103",
+          "event": null,
+          "sha256": "e86b0299a4e3da69831c6f12c88acb9900b34428bfd0d326ea4ddd16a12f92ce"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/05set/05.evt",
+          "line": 238,
+          "command": "GETGENERAL 103",
+          "event": 99,
+          "sha256": "547e7611dac044f93c08253767075a5d1478a93d730c6f8523d31199bd1bd4f1"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "4e22b78590d5cab9f0b3bd9bcd88ac9a4ddf5c45ac5a0feeb69ab2e51e207770",
+      "lateSources": [
+        "map/05set.arc/05.dee",
+        "map/05set.arc/05.deo",
+        "map/05set.arc/05.ai",
+        "map/05set.arc/05.evt",
+        "map/05set.arc/05.srf"
+      ]
+    },
+    {
+      "scenario": "06",
+      "title": "이름없는 마을",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 106,
+          "name": "로드"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/06set/06.dee",
+          "line": 29,
+          "command": "GETGENERAL 106",
+          "event": null,
+          "sha256": "c5fe5cfdd769051d7bcbb0cf264adfb2d810eca503b94ba865868d809f266e06"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/06set/06.evt",
+          "line": 102,
+          "command": "GETGENERAL 106",
+          "event": 6,
+          "sha256": "049f97a6f1aa82b6225ea509f2859a93cbd865dee8beef723d715db6df76171a"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "d60bddd901c8c0688ec2f9e3c17b61f99f3fe136e3a8791288d14f35e8dfad73",
+      "lateSources": [
+        "map/06set.arc/06.evt",
+        "map/06set.arc/06.ai",
+        "map/06set.arc/06.dee",
+        "map/06set.arc/06.deo",
+        "map/06set.arc/06.srf"
+      ]
+    },
+    {
+      "scenario": "07",
+      "title": "사그라하스 신전",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 111,
+          "name": "몽크"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/07set/07.dee",
+          "line": 21,
+          "command": "GETGENERAL 111",
+          "event": null,
+          "sha256": "a181095c60ed1f3621e50879e9aeef4fd977afe8808bdd5ecb290986e20c9807"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/07set/07.evt",
+          "line": 7,
+          "command": "GETGENERAL 111",
+          "event": 1,
+          "sha256": "bd4f9ed414c3be5933ed62d486233711d891f2395099dfe90d29f43b0638cf6b"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "6655e452bdbd690bb1dda3bab8ba9fe9f89b3697f720311dde80c257cbb8b86d",
+      "lateSources": [
+        "map/07set.arc/07.evt",
+        "map/07set.arc/07.ai",
+        "map/07set.arc/07.dee",
+        "map/07set.arc/07.deo",
+        "map/07set.arc/07.srf"
+      ]
+    },
+    {
+      "scenario": "08",
+      "title": "사군토 항구",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 104,
+          "name": "캡틴"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/08set/08.evt",
+          "line": 195,
+          "command": "GETGENERAL 104",
+          "event": 54,
+          "sha256": "2bf8afd84d40d0569601f1a4e26d9f72f47f92d57773b876e0f55c5e5caf7cf4"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/08set/08A.dee",
+          "line": 24,
+          "command": "GETGENERAL 104",
+          "event": null,
+          "sha256": "d6c1a19dc17874aa3e69e6f1768637de5b0ea1596acf2ebbdc3912a9e7d1b892"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/08set/08B.dee",
+          "line": 27,
+          "command": "GETGENERAL 104",
+          "event": null,
+          "sha256": "daff69f138a502da083a19d81c94af0e80cc9305d1cfa5e9018a10556666fa57"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "2abe54c998d9d813c1b606c1b88421a976eebea5663245e8448ecd421326cb0a",
+      "lateSources": [
+        "map/08set.arc/08.evt",
+        "map/08set.arc/08.ai",
+        "map/08set.arc/08.deo",
+        "map/08set.arc/08.srf",
+        "map/08set.arc/08a.dee",
+        "map/08set.arc/08b.dee"
+      ]
+    },
+    {
+      "scenario": "09",
+      "title": "시시리오섬 해안",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 107,
+          "name": "스나이퍼"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/09set/09.EVT",
+          "line": 7,
+          "command": "GETGENERAL 107",
+          "event": 50,
+          "sha256": "0657d3ae5a3a28125f26ed3f6782bb8b13cbbddbb4c9a1b1b6f77bf2a477500e"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/09set/09.dee",
+          "line": 24,
+          "command": "GETGENERAL 107",
+          "event": null,
+          "sha256": "ee65028174abc539a717c2c752585a24593daed8f4e64bdc4c3e6aebfdb03290"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "bb5e35a788602da2540afd32e059e452bf47c9dc9a50745536dd55b143bb8f0d",
+      "lateSources": [
+        "map/09set.arc/09.evt",
+        "map/09set.arc/09.ai",
+        "map/09set.arc/09.dee",
+        "map/09set.arc/09.deo",
+        "map/09set.arc/09.srf"
+      ]
+    },
+    {
+      "scenario": "101",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "e12ae6a4179ab8729bde83bfbaeddd23e71c066c055135900c7a5faaafe88b27",
+      "lateSources": [
+        "map/101set.arc/101.evt",
+        "map/101set.arc/101.srf",
+        "map/101set.arc/101.ai",
+        "map/101set.arc/101.dee",
+        "map/101set.arc/101.deo"
+      ]
+    },
+    {
+      "scenario": "102",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "7e7364d80d2a669282103af62f4ea2ed7e065cdfdc98993ea426bb3e775dd77f",
+      "lateSources": [
+        "map/102set.arc/102.ai",
+        "map/102set.arc/102.dee",
+        "map/102set.arc/102.deo",
+        "map/102set.arc/102.evt",
+        "map/102set.arc/102.srf"
+      ]
+    },
+    {
+      "scenario": "103",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "631c79d9167126fff85e17c6419101fa65838e6dd80fe30eabcfd10d121f5c68",
+      "lateSources": [
+        "map/103set.arc/103.ai",
+        "map/103set.arc/103.dee",
+        "map/103set.arc/103.deo",
+        "map/103set.arc/103.evt",
+        "map/103set.arc/103.srf"
+      ]
+    },
+    {
+      "scenario": "104",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "5b4370db163b535e646bc289d5dd2b046b1bd946769a41881e1ffb6153bce5f9",
+      "lateSources": [
+        "map/104set.arc/104.ai",
+        "map/104set.arc/104.dee",
+        "map/104set.arc/104.deo",
+        "map/104set.arc/104.evt",
+        "map/104set.arc/104.srf"
+      ]
+    },
+    {
+      "scenario": "105",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "6133964eeae20200e8a50e5cfc7b54845ef9810b12129d3467ea00e0bd229db1",
+      "lateSources": [
+        "map/105set.arc/105.ai",
+        "map/105set.arc/105.dee",
+        "map/105set.arc/105.deo",
+        "map/105set.arc/105.evt",
+        "map/105set.arc/105.srf"
+      ]
+    },
+    {
+      "scenario": "106",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "7f17b6a8aa0f0cd87ad9fee1d28428615fc09db9630f3138bf9c571937f9d661",
+      "lateSources": [
+        "map/106set.arc/106.ai",
+        "map/106set.arc/106.dee",
+        "map/106set.arc/106.deo",
+        "map/106set.arc/106.evt",
+        "map/106set.arc/106.srf"
+      ]
+    },
+    {
+      "scenario": "107",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "70bd4639a9d675972ab5956e3c52f2828967fa75fdc7e16e7c22bd004292bd3d",
+      "lateSources": [
+        "map/107set.arc/107.ai",
+        "map/107set.arc/107.dee",
+        "map/107set.arc/107.deo",
+        "map/107set.arc/107.evt",
+        "map/107set.arc/107.srf"
+      ]
+    },
+    {
+      "scenario": "10",
+      "title": "달라이 호수",
+      "status": "late_dispatch_unconfirmed",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [
+        "GET_GENERAL 109 remains in EVT. Late DLL has GETGENERAL string but no GET_GENERAL string. Old x86 probe does not prove late dispatch behavior. No confirmed late clear reward."
+      ],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/10set/10.EVT",
+          "line": 30,
+          "command": "GET_GENERAL 109",
+          "event": 99,
+          "sha256": "11189e6fb0d3e912b108651b4659784b79ffea438b6fb783f926b51cd4079e9b"
+        }
+      ],
+      "confirmedRewards": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "d11d6e6095faf58e62dc7367c0d081339795b5aae6c064c7cfc6c15ace87ad06",
+      "lateSources": [
+        "map/10set.arc/10.ai",
+        "map/10set.arc/10.dee",
+        "map/10set.arc/10.deo",
+        "map/10set.arc/10.evt",
+        "map/10set.arc/10.srf"
+      ]
+    },
+    {
+      "scenario": "11",
+      "title": "아케론 오아시스",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 109,
+          "name": "호크나이트"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [
+        "Same109 as10; do not replace with Sherman113 without evidence"
+      ],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/11set/11.DEE",
+          "line": 22,
+          "command": "GETGENERAL 109",
+          "event": null,
+          "sha256": "01f7fe522b709b8ed55bd536096aea11279c123eb0469f22c75547b370e32c2c"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "0ed10bc3c9aac7bc05863ee7fe33023a3943349d3e9a2233af7bfa2fe641bd1a",
+      "lateSources": [
+        "map/11set.arc/11.dee",
+        "map/11set.arc/11.deo",
+        "map/11set.arc/11.evt",
+        "map/11set.arc/11.srf",
+        "map/11set.arc/11.ai"
+      ]
+    },
+    {
+      "scenario": "12",
+      "title": "아멘호텝 왕릉",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "379cade0dea12cfb8d61161d4fda14a049604dde7c78856cef4f3403081cfa6b",
+      "lateSources": [
+        "map/12set.arc/12.evt",
+        "map/12set.arc/12.ai",
+        "map/12set.arc/12.deo",
+        "map/12set.arc/12.srf",
+        "map/12set.arc/12a.dee",
+        "map/12set.arc/12b.dee"
+      ]
+    },
+    {
+      "scenario": "13",
+      "title": "아멘호텝 왕릉 안",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "db7734a1968c70b7ee2f2c046c3760d3c5e33ffd17c3ce2ba48ff4043f37d392",
+      "lateSources": [
+        "map/13set.arc/13.evt",
+        "map/13set.arc/13.dee",
+        "map/13set.arc/13.deo",
+        "map/13set.arc/13.ai",
+        "map/13set.arc/13.srf"
+      ]
+    },
+    {
+      "scenario": "14",
+      "title": "스케리아 마을",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 113,
+          "name": "셔먼"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/14set/14.dee",
+          "line": 23,
+          "command": "GETGENERAL 113",
+          "event": null,
+          "sha256": "8f150d266c68317ad77f15641d79473e74865a9acb5a895d6022129f922a1174"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/14set/14.evt",
+          "line": 220,
+          "command": "GETGENERAL 113",
+          "event": 70,
+          "sha256": "cd111c8fdbcee1280e00314b26e3c1f97e8745c798bc6216d99337496b1f75e3"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "8f65ea5f6f62abf3900a96ee499d6dda9c500431d827047d3ac5adea1282b473",
+      "lateSources": [
+        "map/14set.arc/14.ai",
+        "map/14set.arc/14.dee",
+        "map/14set.arc/14.deo",
+        "map/14set.arc/14.evt",
+        "map/14set.arc/14.srf"
+      ]
+    },
+    {
+      "scenario": "15",
+      "title": "이름없는 마을",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "931afc4df1b42acd5baf4cee6fe41ef754a9da456d31c6d649279ac9869609bc",
+      "lateSources": [
+        "map/15set.arc/15.evt",
+        "map/15set.arc/15.dee",
+        "map/15set.arc/15.deo",
+        "map/15set.arc/15.ai",
+        "map/15set.arc/15.srf"
+      ]
+    },
+    {
+      "scenario": "16",
+      "title": "발할라 평원",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "f07401a0c15f1cb35fc7452539f96e0d69a4122e2388e5e6bbcb0b19bbdd3c83",
+      "lateSources": [
+        "map/16set.arc/16.dee",
+        "map/16set.arc/16.ai",
+        "map/16set.arc/16.deo",
+        "map/16set.arc/16.evt",
+        "map/16set.arc/16.srf"
+      ]
+    },
+    {
+      "scenario": "17",
+      "title": "비공정 앞",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "ce39bbff903e7b22009bdb49927733a4bb3556d6c662d03fe54308b078fe80fc",
+      "lateSources": [
+        "map/17set.arc/17.ai",
+        "map/17set.arc/17.dee",
+        "map/17set.arc/17.deo",
+        "map/17set.arc/17.evt",
+        "map/17set.arc/17.srf"
+      ]
+    },
+    {
+      "scenario": "18",
+      "title": "아멘트 입구",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "2648cce9e120684808368079336738336aa802bf179167ea22f9f507529d3d9a",
+      "lateSources": [
+        "map/18set.arc/18.ai",
+        "map/18set.arc/18.dee",
+        "map/18set.arc/18.deo",
+        "map/18set.arc/18.evt",
+        "map/18set.arc/18.srf"
+      ]
+    },
+    {
+      "scenario": "19",
+      "title": "아멘트 1층",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 386,
+          "name": "신비의 조각A"
+        },
+        {
+          "kind": "item",
+          "id": 387,
+          "name": "신비의 조각B"
+        },
+        {
+          "kind": "item",
+          "id": 388,
+          "name": "신비의 조각C"
+        },
+        {
+          "kind": "item",
+          "id": 389,
+          "name": "신비의 조각D"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [
+        "Four separate exit-position clear events; not four simultaneous grants"
+      ],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/19set/19.evt",
+          "line": 337,
+          "command": "GETITEM 386",
+          "event": 99,
+          "sha256": "21680fd0ad6f9ca866f07156fa0f50cb7add89747da417e7e32d5b8fd08b337c"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/19set/19.evt",
+          "line": 352,
+          "command": "GETITEM 387",
+          "event": 95,
+          "sha256": "21680fd0ad6f9ca866f07156fa0f50cb7add89747da417e7e32d5b8fd08b337c"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/19set/19.evt",
+          "line": 367,
+          "command": "GETITEM 388",
+          "event": 97,
+          "sha256": "21680fd0ad6f9ca866f07156fa0f50cb7add89747da417e7e32d5b8fd08b337c"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/19set/19.evt",
+          "line": 382,
+          "command": "GETITEM 389",
+          "event": 96,
+          "sha256": "21680fd0ad6f9ca866f07156fa0f50cb7add89747da417e7e32d5b8fd08b337c"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "3ff0fad75a972953e4bba7abbd4edf9da0041490f204777dfbf440e3d0c1920f",
+      "lateSources": [
+        "map/19set.arc/19.ai",
+        "map/19set.arc/19.dee",
+        "map/19set.arc/19.deo",
+        "map/19set.arc/19.evt",
+        "map/19set.arc/19.srf"
+      ]
+    },
+    {
+      "scenario": "201",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "ec89fd880251f9ae40944dec7d3a8355ac773985cb46d829b96c4760baadf7fd",
+      "lateSources": [
+        "map/201set.arc/201.ai",
+        "map/201set.arc/201.dee",
+        "map/201set.arc/201.deo",
+        "map/201set.arc/201.evt",
+        "map/201set.arc/201.srf"
+      ]
+    },
+    {
+      "scenario": "202",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "608e2ef6c4be1ddb88f462a42c6e018281268be83ff93b328df1383067724bac",
+      "lateSources": [
+        "map/202set.arc/202.ai",
+        "map/202set.arc/202.dee",
+        "map/202set.arc/202.deo",
+        "map/202set.arc/202.evt",
+        "map/202set.arc/202.srf"
+      ]
+    },
+    {
+      "scenario": "203",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "f7671635ba7c2860f8c0d07f1cfd6b815237e7ececdcd0bea067ecf9fada550f",
+      "lateSources": [
+        "map/203set.arc/203.ai",
+        "map/203set.arc/203.dee",
+        "map/203set.arc/203.deo",
+        "map/203set.arc/203.evt",
+        "map/203set.arc/203.srf"
+      ]
+    },
+    {
+      "scenario": "204",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "5346e4f5343a9aaa05474773baae9ce8a97a8eb8af11bfdae8cd0db36063f7e9",
+      "lateSources": [
+        "map/204set.arc/204.ai",
+        "map/204set.arc/204.dee",
+        "map/204set.arc/204.deo",
+        "map/204set.arc/204.evt",
+        "map/204set.arc/204.srf"
+      ]
+    },
+    {
+      "scenario": "205",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "2924927dee84f731804ce1cb9ec88c853a9a66681a5b47648cb7badd55cd81ce",
+      "lateSources": [
+        "map/205set.arc/205.ai",
+        "map/205set.arc/205.dee",
+        "map/205set.arc/205.deo",
+        "map/205set.arc/205.evt",
+        "map/205set.arc/205.srf"
+      ]
+    },
+    {
+      "scenario": "206",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "9162351f4985c910a84096e7569e0cccb591ffb464132f0b98ae05d5692bded0",
+      "lateSources": [
+        "map/206set.arc/206.ai",
+        "map/206set.arc/206.dee",
+        "map/206set.arc/206.deo",
+        "map/206set.arc/206.evt",
+        "map/206set.arc/206.srf"
+      ]
+    },
+    {
+      "scenario": "207",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "69ddf46384ee0dbe2fcd7712927ef9c313c4911e3438acdc5bcbe6c56498f35f",
+      "lateSources": [
+        "map/207set.arc/207.ai",
+        "map/207set.arc/207.dee",
+        "map/207set.arc/207.deo",
+        "map/207set.arc/207.evt",
+        "map/207set.arc/207.srf"
+      ]
+    },
+    {
+      "scenario": "20",
+      "title": "아멘트 2충",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "8cbe94897640b27244ce7cbed122f59ea41bdea80bb5dd87ca2d9e5552da9e4a",
+      "lateSources": [
+        "map/20set.arc/20.ai",
+        "map/20set.arc/20.dee",
+        "map/20set.arc/20.deo",
+        "map/20set.arc/20.evt",
+        "map/20set.arc/20.srf"
+      ]
+    },
+    {
+      "scenario": "21",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 970,
+          "name": "이니그마 블레이드"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/21set/21.evt",
+          "line": 36,
+          "command": "GETITEM 970",
+          "event": 99,
+          "sha256": "af6a82224ffaafa74aceeea2146af27d0d5d83808d0ceb58094b80452391b491"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "fd4926667293871858e3cc841adc52c37a4ba931b02cd7529eafedf66c522e37",
+      "lateSources": [
+        "map/21set.arc/21.srf",
+        "map/21set.arc/21.deo",
+        "map/21set.arc/21.dee",
+        "map/21set.arc/21.evt",
+        "map/21set.arc/21.ai"
+      ]
+    },
+    {
+      "scenario": "22",
+      "title": "커디스 공화국의 플래임 캐슬",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 975,
+          "name": "카오스링거"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/22set/22.evt",
+          "line": 36,
+          "command": "GETITEM 975",
+          "event": 99,
+          "sha256": "8f98a8054325aab9281e22a53ec1d660e1203945c9bbaeec4b57f2a4c76f9a69"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "a46436662d82e3803a3947e69a614b3f656ea60fc59ab17421e7b5abbf01fef8",
+      "lateSources": [
+        "map/22set.arc/22.ai",
+        "map/22set.arc/22.srf",
+        "map/22set.arc/22.dee",
+        "map/22set.arc/22.deo",
+        "map/22set.arc/22.evt"
+      ]
+    },
+    {
+      "scenario": "23",
+      "title": "아스타니아 평원의 부서진성",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 984,
+          "name": "실버애로우"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/23set/23.evt",
+          "line": 36,
+          "command": "GETITEM 984",
+          "event": 99,
+          "sha256": "e7b416a16df0ad0349f333a28383acf987496bc1ed7a779f2a70df191207c789"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "3bf00bbafb2aa6f47d4f954ef988a28b498bd15e6876015694964f8c5091f185",
+      "lateSources": [
+        "map/23set.arc/23.srf",
+        "map/23set.arc/23.deo",
+        "map/23set.arc/23.dee",
+        "map/23set.arc/23.evt",
+        "map/23set.arc/23.ai"
+      ]
+    },
+    {
+      "scenario": "24",
+      "title": "게이시르 계곡의 절벽위의 성",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 976,
+          "name": "문라이트"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/24set/24.evt",
+          "line": 36,
+          "command": "GETITEM 976",
+          "event": 99,
+          "sha256": "fe33bb79587e3de217105764688aeb18deb53fc0b841a5453ffeacf64502d71e"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "bde8f3417aa6f566f07e0eea2fc01bb710dbdfde44e813d1a6fd8d777e669727",
+      "lateSources": [
+        "map/24set.arc/24.srf",
+        "map/24set.arc/24.deo",
+        "map/24set.arc/24.dee",
+        "map/24set.arc/24.evt",
+        "map/24set.arc/24.ai"
+      ]
+    },
+    {
+      "scenario": "25",
+      "title": "캘리퍼제국의 저주받은 암흑성",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "316354b0a7de336e9825d242c7945b619ab4ff100cb05d9ea0e9a01322e2dc33",
+      "lateSources": [
+        "map/25set.arc/25.srf",
+        "map/25set.arc/25.deo",
+        "map/25set.arc/25.dee",
+        "map/25set.arc/25.evt",
+        "map/25set.arc/25.ai"
+      ]
+    },
+    {
+      "scenario": "26",
+      "title": "카타리나 행성의  달표면",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "1a2604bc2e22a9a0ecf476e6b57776d24803cd4197cda807676cd92641ed7a4b",
+      "lateSources": [
+        "map/26set.arc/26.ai",
+        "map/26set.arc/26.evt",
+        "map/26set.arc/26.set",
+        "map/26set.arc/26.pos",
+        "map/26set.arc/26.srf"
+      ]
+    },
+    {
+      "scenario": "27",
+      "title": "페르미안의 황량한 페허지역",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "ee95c63a9ce70c514788d6b302785e10422ef67c1bc67123402fab669c76ecf1",
+      "lateSources": [
+        "map/27set.arc/27.ai",
+        "map/27set.arc/27.evt",
+        "map/27set.arc/27.srf"
+      ]
+    },
+    {
+      "scenario": "28",
+      "title": "불타는 엔젤라의 십자가",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "c897a78ac41458fbea5a5b6e3876f788a4dd15d884f8b9dac50fa8065a2d2e9c",
+      "lateSources": [
+        "map/28set.arc/28.ai",
+        "map/28set.arc/28.dee",
+        "map/28set.arc/28.deo",
+        "map/28set.arc/28.evt",
+        "map/28set.arc/28.srf"
+      ]
+    },
+    {
+      "scenario": "29",
+      "title": "파멸의 아빌로니아탑",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "b5e851b1c45df8de0cf502f360a1dd16ceee94440f3f73bce20f5812b3825b1d",
+      "lateSources": [
+        "map/29set.arc/29.ai",
+        "map/29set.arc/29.evt",
+        "map/29set.arc/29.dee",
+        "map/29set.arc/29.deo",
+        "map/29set.arc/29.srf"
+      ]
+    },
+    {
+      "scenario": "301",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "c6b8d551e45519f9a682a24bed794ca345ac0fdf47255e60a518fc9042924e89",
+      "lateSources": [
+        "map/301set.arc/301.ai",
+        "map/301set.arc/301.dee",
+        "map/301set.arc/301.deo",
+        "map/301set.arc/301.evt",
+        "map/301set.arc/301.srf"
+      ]
+    },
+    {
+      "scenario": "302",
+      "status": "no_explicit_grant_command_found",
+      "rewards": [],
+      "notes": [
+        "New or changed archive; no historical server-only reward inferred."
+      ],
+      "evidence": [],
+      "lateArchiveSha256": "289b36d9cae2f797fd252ab6fad8cd1d266ffe6b930ac63450bc001989e04f0d",
+      "lateSources": [
+        "map/302set.arc/302.ai",
+        "map/302set.arc/302.dee",
+        "map/302set.arc/302.deo",
+        "map/302set.arc/302.evt",
+        "map/302set.arc/302.srf"
+      ]
+    },
+    {
+      "scenario": "303",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "3add32979eea9ee9b05ecd40405f85cd920c93c92e67e57b9033100f72e55cdc",
+      "lateSources": [
+        "map/303set.arc/303.ai",
+        "map/303set.arc/303.dee",
+        "map/303set.arc/303.deo",
+        "map/303set.arc/303.evt",
+        "map/303set.arc/303.srf"
+      ]
+    },
+    {
+      "scenario": "304",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "b58847c3f0876128f02903e38ecbb38fbd47385d2048e593ab2a6f45f870715a",
+      "lateSources": [
+        "map/304set.arc/304.ai",
+        "map/304set.arc/304.dee",
+        "map/304set.arc/304.deo",
+        "map/304set.arc/304.evt",
+        "map/304set.arc/304.srf"
+      ]
+    },
+    {
+      "scenario": "305",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "368a5bffeeba8338e6a31fccf6c3a4c36da531e848b2b8f45fced388bf7f98e5",
+      "lateSources": [
+        "map/305set.arc/305.ai",
+        "map/305set.arc/305.dee",
+        "map/305set.arc/305.deo",
+        "map/305set.arc/305.evt",
+        "map/305set.arc/305.srf"
+      ]
+    },
+    {
+      "scenario": "306",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "232e2a09767ba390546f32cfe8e810d2940a657d698ef6ca011b17538edb822d",
+      "lateSources": [
+        "map/306set.arc/306.ai",
+        "map/306set.arc/306.dee",
+        "map/306set.arc/306.deo",
+        "map/306set.arc/306.evt",
+        "map/306set.arc/306.srf"
+      ]
+    },
+    {
+      "scenario": "307",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "dc1967b91a7d8beecd4f3f00359e8938ad865a9d5097212e2548f76a28e9a9e0",
+      "lateSources": [
+        "map/307set.arc/307.ai",
+        "map/307set.arc/307.dee",
+        "map/307set.arc/307.deo",
+        "map/307set.arc/307.evt",
+        "map/307set.arc/307.srf"
+      ]
+    },
+    {
+      "scenario": "309",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "1e31120997a3b52facaf02f2c4b150a519a8e488a9d7d022cc5e62fece9d82af",
+      "lateSources": [
+        "map/309set.arc/309.evt",
+        "map/309set.arc/309.ai",
+        "map/309set.arc/309.dee",
+        "map/309set.arc/309.deo",
+        "map/309set.arc/309.srf"
+      ]
+    },
+    {
+      "scenario": "30",
+      "title": "저주받은 핼리온의 얼음성",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "dfa53be199136e2935974575488197ecb369971cb5e9805d575aef5f2f4e5840",
+      "lateSources": [
+        "map/30set.arc/30.ai",
+        "map/30set.arc/30.evt",
+        "map/30set.arc/30.dee",
+        "map/30set.arc/30.deo",
+        "map/30set.arc/30.srf"
+      ]
+    },
+    {
+      "scenario": "310",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "630e0788aeaa564af937bd1f6af8078572d8614ebaf3958fd50c1c1d3fb6cbe3",
+      "lateSources": [
+        "map/310set.arc/310.evt",
+        "map/310set.arc/310.ai",
+        "map/310set.arc/310.dee",
+        "map/310set.arc/310.deo",
+        "map/310set.arc/310.srf"
+      ]
+    },
+    {
+      "scenario": "311",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "abe1203f73c76f02ee2fc763ae9048422637a0e06bc99012540760a689e346ed",
+      "lateSources": [
+        "map/311set.arc/311.evt",
+        "map/311set.arc/311.ai",
+        "map/311set.arc/311.dee",
+        "map/311set.arc/311.deo",
+        "map/311set.arc/311.srf"
+      ]
+    },
+    {
+      "scenario": "312",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "2ddfb05581ba4288083c463287ff75cb99b3e57a4bec3acbebc8f672a6b31181",
+      "lateSources": [
+        "map/312set.arc/312.evt",
+        "map/312set.arc/312.ai",
+        "map/312set.arc/312.dee",
+        "map/312set.arc/312.deo",
+        "map/312set.arc/312.srf"
+      ]
+    },
+    {
+      "scenario": "313",
+      "title": "던전시나리오7",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 943,
+          "name": "광선검 조각4"
+        },
+        {
+          "kind": "item",
+          "id": 959,
+          "name": "천공 실드조각5"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/313set/313.evt",
+          "line": 7,
+          "command": "GETITEM 943",
+          "event": 99,
+          "sha256": "726d4e3a61b799c9e421a04d1a113bc91372f2e250c598a9a477bfa7f2e3c728"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/313set/313.evt",
+          "line": 8,
+          "command": "GETITEM 959",
+          "event": 99,
+          "sha256": "726d4e3a61b799c9e421a04d1a113bc91372f2e250c598a9a477bfa7f2e3c728"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "67bbb3026999c4035aeb16b1d8b095d23f1d1bc2988592c1f7ec6093251efb1f",
+      "lateSources": [
+        "map/313set.arc/313.srf",
+        "map/313set.arc/313.evt",
+        "map/313set.arc/313.dee",
+        "map/313set.arc/313.deo",
+        "map/313set.arc/313.ai"
+      ]
+    },
+    {
+      "scenario": "314",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1038,
+          "name": "보병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/314set/314.evt",
+          "line": 8,
+          "command": "GETITEM 1038",
+          "event": 1,
+          "sha256": "b523aff71bc1e1d1124b12f9418fc2fa80fb426c1f96175a581c6acf733a6b1f"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "611e7a68aa1aaa760eb6890697967f5d9d1016e7ef192c3bdbee7ed3fa29afba",
+      "lateSources": [
+        "map/314set.arc/314.ai",
+        "map/314set.arc/314.evt",
+        "map/314set.arc/314.pos",
+        "map/314set.arc/314.set",
+        "map/314set.arc/314.srf"
+      ]
+    },
+    {
+      "scenario": "315",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1039,
+          "name": "비병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/315set/315.evt",
+          "line": 8,
+          "command": "GETITEM 1039",
+          "event": 1,
+          "sha256": "673b8e370ce3c5300f57d1e7d972ec08390bce8471a11c1751e9a235c7d03a55"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "66aa7a1b0c13c3c6c59d6419026ba194bf7d52b314cc7445ca6bdc502d6bde47",
+      "lateSources": [
+        "map/315set.arc/315.ai",
+        "map/315set.arc/315.evt",
+        "map/315set.arc/315.pos",
+        "map/315set.arc/315.set",
+        "map/315set.arc/315.srf"
+      ]
+    },
+    {
+      "scenario": "316",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1040,
+          "name": "기병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/316set/316.evt",
+          "line": 8,
+          "command": "GETITEM 1040",
+          "event": 1,
+          "sha256": "0df359c1287089d72d9e3e6b52a406469a6707f145b438d4e51b5355284bacc6"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "f64769f8235c279c99d88c079da8ac97ca706c1fe4488d30cea798feafd3fcb7",
+      "lateSources": [
+        "map/316set.arc/316.pos",
+        "map/316set.arc/316.set",
+        "map/316set.arc/316.srf",
+        "map/316set.arc/316.ai",
+        "map/316set.arc/316.evt"
+      ]
+    },
+    {
+      "scenario": "317",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1041,
+          "name": "수병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/317set/317.evt",
+          "line": 8,
+          "command": "GETITEM 1041",
+          "event": 1,
+          "sha256": "d0d3212755161ca05ed31e4cebf058c235cd44eb058675d090cd511ce97067e7"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "832a808e5f938e37f84e688c1cdef613859ccda43dd3bdab62dd0ace7bca2403",
+      "lateSources": [
+        "map/317set.arc/317.pos",
+        "map/317set.arc/317.set",
+        "map/317set.arc/317.evt",
+        "map/317set.arc/317.srf",
+        "map/317set.arc/317.ai"
+      ]
+    },
+    {
+      "scenario": "318",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1042,
+          "name": "창병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/318set/318.evt",
+          "line": 8,
+          "command": "GETITEM 1042",
+          "event": 1,
+          "sha256": "28e0c978fced55d76589918f7c303f5dd21274d8cf2d66ae0c885f2571e238af"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "d3a762bbea6b1c9d3035b4d18afb306c4d50422a709536aac2b10c5b03a95729",
+      "lateSources": [
+        "map/318set.arc/318.pos",
+        "map/318set.arc/318.set",
+        "map/318set.arc/318.evt",
+        "map/318set.arc/318.srf",
+        "map/318set.arc/318.ai"
+      ]
+    },
+    {
+      "scenario": "319",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1043,
+          "name": "궁병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/319set/319.evt",
+          "line": 8,
+          "command": "GETITEM 1043",
+          "event": 1,
+          "sha256": "e9cfa1728d2784315a86119f9d7f610f7bed378f82a9dd1b2484c8503db79c57"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "890f46be42297f60ed7d897b64651eb359e66ba3a9cba10c0faa6e967e2a3c6e",
+      "lateSources": [
+        "map/319set.arc/319.pos",
+        "map/319set.arc/319.set",
+        "map/319set.arc/319.evt",
+        "map/319set.arc/319.srf",
+        "map/319set.arc/319.ai"
+      ]
+    },
+    {
+      "scenario": "31",
+      "title": "디스트로어 카이거",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "bbd081372d1e956f1c7263743834909c0684ce640c4ed64f9f65ac98e3777224",
+      "lateSources": [
+        "map/31set.arc/31.ai",
+        "map/31set.arc/31.dee",
+        "map/31set.arc/31.deo",
+        "map/31set.arc/31.evt",
+        "map/31set.arc/31.srf"
+      ]
+    },
+    {
+      "scenario": "320",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1044,
+          "name": "승려의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/320set/320.evt",
+          "line": 8,
+          "command": "GETITEM 1044",
+          "event": 1,
+          "sha256": "55d3659cb3250c3cf9ce7f49981df0583900d6818b12a1b26840eec295b38d8a"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "52c536e9f576aceeaefa6c68f49e97d2c80d78608bb6a7fa9c25603f24ee0a31",
+      "lateSources": [
+        "map/320set.arc/320.pos",
+        "map/320set.arc/320.set",
+        "map/320set.arc/320.ai",
+        "map/320set.arc/320.srf",
+        "map/320set.arc/320.evt"
+      ]
+    },
+    {
+      "scenario": "321",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1045,
+          "name": "신관의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/321set/321.evt",
+          "line": 8,
+          "command": "GETITEM 1045",
+          "event": 1,
+          "sha256": "74144a037b441d3f2e7034dead1b8ec92b5b2c0a8266deb44405c678ff960038"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "5038581aaad19588c2288b1c98a5d1daa6d86e4b781cf97c661b6e99856eee23",
+      "lateSources": [
+        "map/321set.arc/321.pos",
+        "map/321set.arc/321.set",
+        "map/321set.arc/321.evt",
+        "map/321set.arc/321.srf",
+        "map/321set.arc/321.ai"
+      ]
+    },
+    {
+      "scenario": "322",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1046,
+          "name": "마법사의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/322set/322.evt",
+          "line": 8,
+          "command": "GETITEM 1046",
+          "event": 1,
+          "sha256": "536210317d966824cfcac5817d1ee263464944b7ec719fa4a7e752091273b663"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "3f31f1ea9407dbe9f6008044c0dc4e9eb777e2e7a7806fb4b15a0bda7cd0fe21",
+      "lateSources": [
+        "map/322set.arc/322.pos",
+        "map/322set.arc/322.set",
+        "map/322set.arc/322.evt",
+        "map/322set.arc/322.srf",
+        "map/322set.arc/322.ai"
+      ]
+    },
+    {
+      "scenario": "323",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1047,
+          "name": "사교의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/323set/323.evt",
+          "line": 8,
+          "command": "GETITEM 1047",
+          "event": 1,
+          "sha256": "66fbedf4f6fd9465755bb0f0f9792054dc10523937d8fc6b707544477c83992f"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "e6f22fe2246a08d1c19cde4ce915d7216f837f33f14e8b5847eb28b6d0a46175",
+      "lateSources": [
+        "map/323set.arc/323.pos",
+        "map/323set.arc/323.set",
+        "map/323set.arc/323.evt",
+        "map/323set.arc/323.srf",
+        "map/323set.arc/323.ai"
+      ]
+    },
+    {
+      "scenario": "324",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "71c142443ece763d898d7073c84b916f276b6ea231cb73f874f6de9814467c27",
+      "lateSources": [
+        "map/324set.arc/324.evt",
+        "map/324set.arc/324.set",
+        "map/324set.arc/324.pos",
+        "map/324set.arc/324.ai",
+        "map/324set.arc/324.srf",
+        "map/324set.arc/324.dee"
+      ]
+    },
+    {
+      "scenario": "325",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "0d949cb6c9489727ef79dc0ce2fb2201e96d51ba0affb65888c30dc12066a685",
+      "lateSources": [
+        "map/325set.arc/325.ai",
+        "map/325set.arc/325.evt",
+        "map/325set.arc/325.pos",
+        "map/325set.arc/325.set",
+        "map/325set.arc/325.dee"
+      ]
+    },
+    {
+      "scenario": "326",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "dd7cdee8ca86ef7ca0b06fd2a3d643ff55b3b77ca664ce506be94ef3c7839aac",
+      "lateSources": [
+        "map/326set.arc/326.ai",
+        "map/326set.arc/326.evt",
+        "map/326set.arc/326.pos",
+        "map/326set.arc/326.set",
+        "map/326set.arc/326.dee"
+      ]
+    },
+    {
+      "scenario": "327",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "d7e17d76e00acf417b3d518ded46e94839cfd72907b2328690080c24b58089d0",
+      "lateSources": [
+        "map/327set.arc/327.evt",
+        "map/327set.arc/327.ai",
+        "map/327set.arc/327.srf"
+      ]
+    },
+    {
+      "scenario": "328",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "f06e19c79d72053191151988ff5ba878a036eed3507dc9e894f143b4307a86ed",
+      "lateSources": [
+        "map/328set.arc/328.evt",
+        "map/328set.arc/328.ai",
+        "map/328set.arc/328.srf"
+      ]
+    },
+    {
+      "scenario": "329",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "86b5bc0d606592ab3517eab51b97c5298510c9279ec0dc2d6a568f3af47127e3",
+      "lateSources": [
+        "map/329set.arc/329.evt",
+        "map/329set.arc/329.ai",
+        "map/329set.arc/329.srf"
+      ]
+    },
+    {
+      "scenario": "32",
+      "title": "제이드",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "68d4b07c4d67900399903fefd04b698ef49574d0ff600e1a6dffd7b1e174a8b1",
+      "lateSources": [
+        "map/32set.arc/32.ai",
+        "map/32set.arc/32.dee",
+        "map/32set.arc/32.deo",
+        "map/32set.arc/32.evt",
+        "map/32set.arc/32.srf"
+      ]
+    },
+    {
+      "scenario": "330",
+      "status": "no_explicit_grant_command_found",
+      "rewards": [],
+      "notes": [
+        "New or changed archive; no historical server-only reward inferred."
+      ],
+      "evidence": [],
+      "lateArchiveSha256": "8eddbd6405f0907bc9a348f166cfa390118d05c6aeedf9ed62ec6d982e98345d",
+      "lateSources": [
+        "map/330set.arc/330.ai",
+        "map/330set.arc/330.srf",
+        "map/330set.arc/330.deo",
+        "map/330set.arc/330.dee",
+        "map/330set.arc/330.evt"
+      ]
+    },
+    {
+      "scenario": "331",
+      "status": "no_explicit_grant_command_found",
+      "rewards": [],
+      "notes": [
+        "New or changed archive; no historical server-only reward inferred."
+      ],
+      "evidence": [],
+      "lateArchiveSha256": "ae7b67f3b3cd7bb3ed19b578d85166134c8b76a81bb9d88f93df36645792d8a9",
+      "lateSources": [
+        "map/331set.arc/331.evt",
+        "map/331set.arc/331.ai",
+        "map/331set.arc/331.srf",
+        "map/331set.arc/331.deo",
+        "map/331set.arc/331.dee"
+      ]
+    },
+    {
+      "scenario": "332",
+      "status": "no_explicit_grant_command_found",
+      "rewards": [],
+      "notes": [
+        "New or changed archive; no historical server-only reward inferred."
+      ],
+      "evidence": [],
+      "lateArchiveSha256": "1c99d4ff98e4f88c6281bf43b65ce742a0a8d26a246d5c355e2a0b6a079465bb",
+      "lateSources": [
+        "map/332set.arc/332.evt",
+        "map/332set.arc/332.ai",
+        "map/332set.arc/332.srf",
+        "map/332set.arc/332.deo",
+        "map/332set.arc/332.dee"
+      ]
+    },
+    {
+      "scenario": "333",
+      "status": "no_explicit_grant_command_found",
+      "rewards": [],
+      "notes": [
+        "New or changed archive; no historical server-only reward inferred."
+      ],
+      "evidence": [],
+      "lateArchiveSha256": "13e0188db5dc79d931bd98c415c8a58958e13398dcdd882b4166548e4f1f9e44",
+      "lateSources": [
+        "map/333set.arc/333.ai",
+        "map/333set.arc/333.srf",
+        "map/333set.arc/333.deo",
+        "map/333set.arc/333.dee",
+        "map/333set.arc/333.evt"
+      ]
+    },
+    {
+      "scenario": "33",
+      "status": "no_explicit_grant_command_found",
+      "rewards": [],
+      "notes": [
+        "New or changed archive; no historical server-only reward inferred."
+      ],
+      "evidence": [],
+      "lateArchiveSha256": "a9cf60b3169b46d45c27598152a8944905edf0c8a687aa2959121b6ba4e819d0",
+      "lateSources": [
+        "map/33set.arc/33.ai",
+        "map/33set.arc/33.dee",
+        "map/33set.arc/33.deo",
+        "map/33set.arc/33.evt",
+        "map/33set.arc/33.srf"
+      ]
+    },
+    {
+      "scenario": "401",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "1215539f263382c2045007443b5e339258e1b1b82de3dab4a4dc19547b52ff52",
+      "lateSources": [
+        "map/401set.arc/401.srf",
+        "map/401set.arc/401.evt",
+        "map/401set.arc/401.ai"
+      ]
+    },
+    {
+      "scenario": "402",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "2e015391cf1898598d9239d074ff641fc78e89cfc1dcd941e60ac314daaae53e",
+      "lateSources": [
+        "map/402set.arc/402.evt",
+        "map/402set.arc/401.srf",
+        "map/402set.arc/402.ai"
+      ]
+    },
+    {
+      "scenario": "403",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "83e9c9f579272ee369accc4712b8bb38f6485edbf742654d09e9fd39768edad5",
+      "lateSources": [
+        "map/403set.arc/403.evt",
+        "map/403set.arc/403.srf",
+        "map/403set.arc/403.ai"
+      ]
+    },
+    {
+      "scenario": "404",
+      "status": "no_explicit_grant_command_found",
+      "rewards": [],
+      "notes": [
+        "New or changed archive; no historical server-only reward inferred."
+      ],
+      "evidence": [],
+      "lateArchiveSha256": "1522e782a522fad28405c12fe480eeebb203eb99d985fe5088dc3dcb708bb172",
+      "lateSources": [
+        "map/404set.arc/404.ai",
+        "map/404set.arc/404.evt",
+        "map/404set.arc/404.srf"
+      ]
+    },
+    {
+      "scenario": "405",
+      "status": "no_explicit_grant_command_found",
+      "rewards": [],
+      "notes": [
+        "New or changed archive; no historical server-only reward inferred."
+      ],
+      "evidence": [],
+      "lateArchiveSha256": "ab7a2e747360a1a639c7ae3deec4567dcc55ac40e53b94160f2876dc46d0d1f7",
+      "lateSources": [
+        "map/405set.arc/405.ai",
+        "map/405set.arc/405.evt",
+        "map/405set.arc/405.srf"
+      ]
+    },
+    {
+      "scenario": "406",
+      "status": "no_explicit_grant_command_found",
+      "rewards": [],
+      "notes": [
+        "New or changed archive; no historical server-only reward inferred."
+      ],
+      "evidence": [],
+      "lateArchiveSha256": "b10c1ca09a208d4cfabca0ec3deeb4f0fc5d943adb146215d5918493e5fd4a9b",
+      "lateSources": [
+        "map/406set.arc/406.ai",
+        "map/406set.arc/406.evt",
+        "map/406set.arc/406.srf"
+      ]
+    },
+    {
+      "scenario": "51",
+      "title": "벨퓌어스지방의 절벽 위 마을",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "714a91e4c61be6dbd39d1e8886d63aed58a6cedf04c668242c27a4b4abb23c90",
+      "lateSources": [
+        "map/51set.arc/51.pos",
+        "map/51set.arc/51.set",
+        "map/51set.arc/51.srf",
+        "map/51set.arc/51.evt",
+        "map/51set.arc/51.ai"
+      ]
+    },
+    {
+      "scenario": "52",
+      "title": "비프로스트 궁전",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "92581b340e64586a74d7a3b5abcf586fe918e14eefa412bfce5fd5aab3729f4e",
+      "lateSources": [
+        "map/52set.arc/52.set",
+        "map/52set.arc/52.pos",
+        "map/52set.arc/52.srf",
+        "map/52set.arc/52.evt",
+        "map/52set.arc/52.ai"
+      ]
+    },
+    {
+      "scenario": "53",
+      "title": "다갈 마을의 지하동굴",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "556321245cd1d0892d64af93b3ee0e5bc9ca07be1a1ccded10c8d7e6d8384e10",
+      "lateSources": [
+        "map/53set.arc/53.set",
+        "map/53set.arc/53.pos",
+        "map/53set.arc/53.srf",
+        "map/53set.arc/53.evt",
+        "map/53set.arc/53.ai"
+      ]
+    },
+    {
+      "scenario": "54",
+      "title": "카이사르 숲속의 로스웰 지대",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "546b981f24eef093b3333e80136fc247e96113c7711e15ddd8382b5fe04d0cd0",
+      "lateSources": [
+        "map/54set.arc/54.set",
+        "map/54set.arc/54.pos",
+        "map/54set.arc/54.srf",
+        "map/54set.arc/54.evt",
+        "map/54set.arc/54.ai"
+      ]
+    },
+    {
+      "scenario": "55",
+      "title": "아르니아의 평화스러운 스노우 월드",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "af262ef2a00dfdf1fb780c5dba08da684b2581730bd62fc7e7ccf547791610bb",
+      "lateSources": [
+        "map/55set.arc/55.set",
+        "map/55set.arc/55.pos",
+        "map/55set.arc/55.srf",
+        "map/55set.arc/55.evt",
+        "map/55set.arc/55.ai"
+      ]
+    },
+    {
+      "scenario": "56",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "65dd414ab2f74226ae36cf83194b4a53290e31569949311bb9bf296ba7e3801d",
+      "lateSources": [
+        "map/56set.arc/56.ai",
+        "map/56set.arc/56.evt"
+      ]
+    },
+    {
+      "scenario": "57",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "5d8481aed5d406f2b5f3e9e5d07257edcb4c7050811d804ed984d36bcd2d80b7",
+      "lateSources": [
+        "map/57set.arc/57.evt",
+        "map/57set.arc/57.ai"
+      ]
+    },
+    {
+      "scenario": "58",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "828f982c7fc7a61343fabe2f3c7585c59572539532915ed33d5012f7d7d922a4",
+      "lateSources": [
+        "map/58set.arc/58.evt",
+        "map/58set.arc/58.ai"
+      ]
+    },
+    {
+      "scenario": "59",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "159ee42404a1bad81896fead928faf046040504f4cfbf1b101ff2b571d7b4d17",
+      "lateSources": [
+        "map/59set.arc/59.evt",
+        "map/59set.arc/59.ai"
+      ]
+    },
+    {
+      "scenario": "60",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "6d8c74a75c5f85e3335f633f19b55cd9522385cf0d9b282631cc39e324d3056c",
+      "lateSources": [
+        "map/60set.arc/60.evt",
+        "map/60set.arc/60.ai"
+      ]
+    },
+    {
+      "scenario": "61",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "c9c99f852e8007530715063d1b09bc1a4274fd5f1b04bde471ce536552b26e8f",
+      "lateSources": [
+        "map/61set.arc/61.evt",
+        "map/61set.arc/61.ai"
+      ]
+    },
+    {
+      "scenario": "71",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1164,
+          "name": "신비의 지도조각1"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/71set/71.evt",
+          "line": 8,
+          "command": "GETITEM 1164",
+          "event": 1,
+          "sha256": "2ab93645e225dbcdf7f522de455be2d98b0a947a9f9ee5a88820872acbd0b46e"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "fd865510f9c44e4c71aa5b08848115ac61c5ae9e0c1fbab937c5391020117a92",
+      "lateSources": [
+        "map/71set.arc/71.ai",
+        "map/71set.arc/71.evt",
+        "map/71set.arc/71.srf"
+      ]
+    },
+    {
+      "scenario": "72",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1165,
+          "name": "신비의 지도조각2"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/72set/72.evt",
+          "line": 8,
+          "command": "GETITEM 1165",
+          "event": 1,
+          "sha256": "6005f919e657c07f23636d118659028ad2458702e5bf2943f8f9cea84033646f"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "2172e4cdf1db210cf00e0add645507519bb7510ea20b5b3578aeda0a2f90255a",
+      "lateSources": [
+        "map/72set.arc/72.ai",
+        "map/72set.arc/72.evt",
+        "map/72set.arc/72.srf"
+      ]
+    },
+    {
+      "scenario": "73",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1165,
+          "name": "신비의 지도조각2"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [
+        "GETITEM1165 gives map fragment2; displayed message says fragment3"
+      ],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/73set/73.evt",
+          "line": 8,
+          "command": "GETITEM 1165",
+          "event": 1,
+          "sha256": "1f24bfa7592d4239b9b3a82467a03b7f7bab5d22b1d1a1124ea25752fe73e37b"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "635644dfcd94197d9dcb05045055fa9fce629ba4b336670a7fb69454cede8bc5",
+      "lateSources": [
+        "map/73set.arc/73.ai",
+        "map/73set.arc/73.evt",
+        "map/73set.arc/73.srf"
+      ]
+    },
+    {
+      "scenario": "81",
+      "title": "던전시나리오1",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 932,
+          "name": "황동열쇠"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/81set/81.evt",
+          "line": 6,
+          "command": "GETITEM 932",
+          "event": 99,
+          "sha256": "6f81345fe5cd5b54f7abcb5fcd44a8722fed90a10853a3ed6938cbbbb3fa4ee0"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "18ae42d2a3625afac4ab161aaed81475a57a80b3fb50d48c57f9b585803a97e6",
+      "lateSources": [
+        "map/81set.arc/81.ai",
+        "map/81set.arc/81.dee",
+        "map/81set.arc/81.evt",
+        "map/81set.arc/81.deo",
+        "map/81set.arc/81.srf"
+      ]
+    },
+    {
+      "scenario": "82",
+      "title": "던전시나리오2",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 933,
+          "name": "구리열쇠"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/82set/82.evt",
+          "line": 6,
+          "command": "GETITEM 933",
+          "event": 99,
+          "sha256": "50e2bfadc6b83a7802a8d595c083e240b5925b54308b6c1293daa465c0009afa"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "6b2180b4af0b9d9e6d8ad3925545a6d0a1036dfda8a50fc15d11eb49e64088d8",
+      "lateSources": [
+        "map/82set.arc/82.ai",
+        "map/82set.arc/82.srf",
+        "map/82set.arc/82.evt",
+        "map/82set.arc/82.dee",
+        "map/82set.arc/82.deo"
+      ]
+    },
+    {
+      "scenario": "83",
+      "title": "던전시나리오3",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "21140d49b42a6cb88e7d2062a4b1182c39b3be27534b1f64e49a9fc8b8ff2860",
+      "lateSources": [
+        "map/83set.arc/83.ai",
+        "map/83set.arc/83.srf",
+        "map/83set.arc/83.evt",
+        "map/83set.arc/83.dee",
+        "map/83set.arc/83.deo"
+      ]
+    },
+    {
+      "scenario": "84",
+      "title": "던전시나리오4",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "04c5a7b3a1c4a7c2e852b2cabe9d9adf9a3deac6bdd73916d8dcfbcab8d061fb",
+      "lateSources": [
+        "map/84set.arc/84.ai",
+        "map/84set.arc/84.srf",
+        "map/84set.arc/84.evt",
+        "map/84set.arc/84.dee",
+        "map/84set.arc/84.deo"
+      ]
+    },
+    {
+      "scenario": "85",
+      "title": "던전시나리오5",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 965,
+          "name": "5층열쇠"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/85set/85.evt",
+          "line": 6,
+          "command": "GETITEM 965",
+          "event": 99,
+          "sha256": "1832ec8a80bdc79f74dbab34840fa75bdeed095e8b277e239924e7071f264657"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "8c34596a39effd64d75a6bfeabbc16d0476a6a748d6e4a567d903314679c3576",
+      "lateSources": [
+        "map/85set.arc/85.ai",
+        "map/85set.arc/85.srf",
+        "map/85set.arc/85.evt",
+        "map/85set.arc/85.dee",
+        "map/85set.arc/85.deo"
+      ]
+    },
+    {
+      "scenario": "86",
+      "title": "던전시나리오6",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 954,
+          "name": "수정 조각"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/86set/86.evt",
+          "line": 5,
+          "command": "GETITEM 954",
+          "event": 99,
+          "sha256": "ed25346c62cd69811301d555dc74c394c99340c41cfef042ec6bd186a4260de2"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "b0cb86e9e4cb5e7637645b58b5c3de4d39a51e97929fc79f8b773decfe690a96",
+      "lateSources": [
+        "map/86set.arc/86.ai",
+        "map/86set.arc/86.srf",
+        "map/86set.arc/86.evt",
+        "map/86set.arc/86.dee",
+        "map/86set.arc/86.deo"
+      ]
+    },
+    {
+      "scenario": "91",
+      "title": "카오스닉던전1층",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1530,
+          "name": "텔레포션3"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/91set/91.evt",
+          "line": 6,
+          "command": "GETITEM 1530",
+          "event": 99,
+          "sha256": "50a2a32681c64d0b88e275403278f1b70aedd048b0f95546631330676000a66a"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "2bd863aa85309bd69b9a9b5a338b1c22dc6067ae4c4d9241913fe3a028171b8a",
+      "lateSources": [
+        "map/91set.arc/91.evt",
+        "map/91set.arc/91.ai",
+        "map/91set.arc/91.srf"
+      ]
+    },
+    {
+      "scenario": "92",
+      "title": "카오스닉던전2층",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1533,
+          "name": "텔레포션6"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/92set/92.evt",
+          "line": 6,
+          "command": "GETITEM 1533",
+          "event": 99,
+          "sha256": "00fd18b3f38b96d72ff9ff639ef11d5050dc9bd42c403e4a9b2947a0c53ed6da"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "f346434fbc8cc4b47084935e577c5d017176df8381ca0e94aa37f0385c4489a3",
+      "lateSources": [
+        "map/92set.arc/92.ai",
+        "map/92set.arc/92.evt",
+        "map/92set.arc/92.srf"
+      ]
+    },
+    {
+      "scenario": "93",
+      "title": "카오스닉던전3층",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1535,
+          "name": "텔레포션8"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/93set/93.evt",
+          "line": 6,
+          "command": "GETITEM 1535",
+          "event": 99,
+          "sha256": "ec3679e99a03fb83d1f7c6eb313929dae1c413f0f1c872316fba76ba7b897c73"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "c87fe2878dd658b909baa25f312d58fffa5b4fa251f85cc86300e01abe186224",
+      "lateSources": [
+        "map/93set.arc/93.ai",
+        "map/93set.arc/93.evt",
+        "map/93set.arc/93.srf"
+      ]
+    },
+    {
+      "scenario": "94",
+      "title": "카오스닉던전4층",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1536,
+          "name": "텔레포션9"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/94set/94.evt",
+          "line": 6,
+          "command": "GETITEM 1536",
+          "event": 99,
+          "sha256": "b1c358d859ea1af881c5cd4778ba46d28bded985abc2535fdfc1d17e3c8dd37b"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "0e3eaeb7cefc4986a2f88e1f31cc749ee38760effe7c3f41b03e0a254864f72a",
+      "lateSources": [
+        "map/94set.arc/94.ai",
+        "map/94set.arc/94.evt",
+        "map/94set.arc/94.srf"
+      ]
+    },
+    {
+      "scenario": "95",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "dee1763012830c823938ed4ae78761b4bd411d7ed72af2156f303d2afb22a10c",
+      "lateSources": [
+        "map/95set.arc/95.ai",
+        "map/95set.arc/95.evt",
+        "map/95set.arc/95.srf"
+      ]
+    },
+    {
+      "scenario": "96",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1515,
+          "name": "빛의검"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/96set/96.evt",
+          "line": 8,
+          "command": "GETITEM 1515",
+          "event": 1,
+          "sha256": "e2b6a2e9246eaba12ad070e25779bb3ac50db081f9adc793404ab65844f8e58a"
+        }
+      ],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "fb01b1190a275a9354c638620e0fecc0e9f3083835e055a1af5b8559be0f3830",
+      "lateSources": [
+        "map/96set.arc/96.ai",
+        "map/96set.arc/96.evt",
+        "map/96set.arc/96.srf"
+      ]
+    },
+    {
+      "scenario": "97",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [],
+      "analysisInheritance": "Identical archive bytes; prior explicit source-command interpretation retained, not late binary/server execution proof",
+      "lateArchiveSha256": "72a722cbe0fdc3e92c81b03da5dc6dc63504eb2560fd7815e4c02fe2026afb4b",
+      "lateSources": [
+        "map/97set.arc/97.ai",
+        "map/97set.arc/97.evt",
+        "map/97set.arc/97.srf"
+      ]
+    }
+  ],
+  "scope": "Explicit script-linked clear rewards, inherited only for byte-identical archives. No blanket first-clear or original server guarantee."
+}

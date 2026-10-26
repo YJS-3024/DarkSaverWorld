@@ -49,7 +49,7 @@ namespace DarkSaver.Events
         public Scenario01Unit[] characters;
         public int[] traversalCells;
         public string Key => version == 1 ? "01" : scenarioKey;
-        public bool IsValid => ((version == 1 && width == 40 && height == 40) || (version == 2 && int.TryParse(scenarioKey,out var key) && key >= 2 && key <= 17 && width > 0 && width <= 512 && height > 0 && height <= 512)) && IsHash(sourceHash) && IsHash(profileHash)
+        public bool IsValid => ((version == 1 && width == 40 && height == 40) || (version == 2 && ScenarioCatalog.IsProgressKey(scenarioKey) && width > 0 && width <= 512 && height > 0 && height <= 512)) && IsHash(sourceHash) && IsHash(profileHash)
             && intro != null && (version == 1 ? intro.Length == 72 : intro.Length > 0) && outro != null && outro.Length > 0
             && events != null && events.Select(e => e.id).Distinct().Count() == events.Length
             && traversalCells != null && traversalCells.Length > 0
@@ -240,8 +240,10 @@ namespace DarkSaver.Events
                     }
                     break;
                 case "SAVECLEAR": next.firstClearSaved = true; break;
-                case "GETGENERAL": case "GET_GENERAL":
+                case "GETGENERAL":
                     if (!next.unlockedGenerals.Contains(command.Int(0))) next.unlockedGenerals.Add(command.Int(0)); break;
+                // Original GameCtl does not dispatch the underscored spelling in scenario10.
+                case "GET_GENERAL": break;
                 case "NEXTSCENE": next.nextScenario = command.args[0]; break;
                 case "SAVE": case "ENDING_DEMO": case "FX1": case "NATIVE_INERT": case "(": case ")": break;
                 case "PLAYMIDI": next.musicSource = command.args[0]; next.musicMode = command.args.Length > 1 ? command.Int(1) : 1; break;

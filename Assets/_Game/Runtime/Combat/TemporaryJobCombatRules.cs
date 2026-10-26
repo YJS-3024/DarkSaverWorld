@@ -9,7 +9,7 @@ namespace DarkSaver.Combat
         public static bool TryGetAttackApCost(JobCatalogEntry job, out int cost)
         {
             cost = 0;
-            if (job == null || job.CategoryLabel != "player_job" || job.Id < 100 || job.Id > 169) return false;
+            if (job == null || job.CategoryLabel != "player_job" || !NativePlayerJobs.Contains(job.Id)) return false;
             long raw = job.GetNumericValue(25);
             if (raw < 1 || raw > int.MaxValue || GameConstants.BattleTemporaryJobAttackTickNumerator < 1
                 || GameConstants.BattleTemporaryJobAttackTickDenominator < 1) return false;

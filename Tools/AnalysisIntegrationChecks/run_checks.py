@@ -15,8 +15,11 @@ dotnet = Path(sys.argv[1]).resolve()
 home = dotnet.parent
 version_key = lambda p: tuple(int(n) for n in p.name.split('.') if n.isdigit())
 compiler = max((home / 'sdk').iterdir(), key=version_key) / 'Roslyn/bincore/csc.dll'
-reference = max((home / 'packs/Microsoft.NETCore.App.Ref').iterdir(), key=version_key) / 'ref/net10.0'
-sources = [folder / 'HostStubs.cs', folder / 'Program.cs', folder / 'Scenario01Checks.cs', folder / 'TownQuestChecks.cs', folder / 'CampaignChecks.cs', folder / 'LocalServerChecks.cs', folder / 'LoginFlowChecks.cs', folder / 'AccountChecks.cs', folder / 'ShopInteriorChecks.cs', folder / 'WorldAudioChecks.cs']
+pack = max((home / 'packs/Microsoft.NETCore.App.Ref').iterdir(), key=version_key)
+major = pack.name.split('.')[0]
+tfm = 'net' + major + '.0'
+reference = pack / 'ref' / tfm
+sources = sorted(folder.glob('*.cs'))
 for node in ET.parse(folder / 'AnalysisIntegrationChecks.csproj').findall('.//Compile'):
     sources.append((folder / node.attrib['Include']).resolve())
 env = dict(os.environ, DOTNET_CLI_HOME=str(Path(tempfile.gettempdir()) / 'ds-dotnet-cli'))
@@ -29,6 +32,6 @@ with tempfile.TemporaryDirectory(prefix='ds-csharp-checks-') as tmp:
     args += list(map(str, sources)) + [str(tmp / 'Usings.cs')]
     subprocess.run(args, cwd=root, env=env, check=True)
     (tmp / 'AnalysisIntegrationChecks.runtimeconfig.json').write_text(json.dumps({
-        'runtimeOptions': {'tfm': 'net10.0', 'framework': {'name': 'Microsoft.NETCore.App', 'version': '10.0.0'}}
+        'runtimeOptions': {'tfm': tfm, 'framework': {'name': 'Microsoft.NETCore.App', 'version': major + '.0.0'}}
     }))
     subprocess.run([str(dotnet), str(output)], cwd=root, env=env, check=True)

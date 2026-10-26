@@ -19,11 +19,11 @@ namespace DarkSaver.Core
     public static class KaosiaFacilityCatalog
     {
         public static readonly IReadOnlyList<KaosiaFacilityDefinition> All=Array.AsReadOnly(new[]{
-            new KaosiaFacilityDefinition("KaosiaAccessoryShop","카오시아 장신구점","2200",15,166,14,28.5f,6.5f,28.5f,3.5f),
-            new KaosiaFacilityDefinition("KaosiaBank","카오시아 은행","2400",15,68,3,37.5f,33.5f,37.5f,31.5f),
-            new KaosiaFacilityDefinition("KaosiaWarehouse","카오시아 창고","2510",15,99,3,29.5f,24.5f,29.5f,21.5f),
-            new KaosiaFacilityDefinition("KaosiaTemple","카오시아 신전","2600",20,67,1,10.5f,34.5f,10.5f,31.5f),
-            new KaosiaFacilityDefinition("KaosiaMagicTools","카오시아 마법도구·소모품점","2300",15,75,10,28.5f,33.5f,28.5f,30.5f)
+            new KaosiaFacilityDefinition("KaosiaAccessoryShop","카오시아 장신구점","2200",15,247,8,48.5f,10.5f,48.5f,2.5f),
+            new KaosiaFacilityDefinition("KaosiaBank","카오시아 은행","2400",15,240,13,11.5f,5.5f,11.5f,2.5f),
+            new KaosiaFacilityDefinition("KaosiaWarehouse","카오시아 창고","2510",15,197,9,13.5f,19.5f,13.5f,16.5f),
+            new KaosiaFacilityDefinition("KaosiaTemple","카오시아 신전","2600",20,135,1,32.5f,40.5f,32.5f,37.5f),
+            new KaosiaFacilityDefinition("KaosiaMagicTools","카오시아 마법도구·소모품점","2300",15,224,2,28.5f,14.5f,28.5f,9.5f)
         });
         public static bool TryGet(string key,out KaosiaFacilityDefinition facility)
         {foreach(var row in All)if(row.Region.Key==key){facility=row;return true;}facility=null;return false;}

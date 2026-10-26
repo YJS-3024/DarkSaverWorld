@@ -6,23 +6,36 @@ from build_scenario01 import ROOT,directory,guid
 sys.path.insert(0,str(ROOT/'닥세_리소스/분석도구'))
 from decode_visuals import read_mrc,read_grs,grs_image
 NATIVE=ROOT/'닥세_리소스/설치본_추출/Saver_Files/Saver/MAP'
+LATE_MAPS=ROOT/'분석/Saver_Late/native_overrides/MAP'
+def native_map_path(id):
+    late=LATE_MAPS/(id+'.mrc')
+    return late if late.exists() else NATIVE/(id+'.mrc')
 GRS={};FRAMES={}
+ACTIVE_LATE=False
 def resource(id):
-    if id not in GRS:GRS[id]=read_grs(NATIVE/('mdsr'+str(id)+'.grs'))
-    return GRS[id]
+    name='mdsr'+str(id)+'.grs'
+    path=LATE_MAPS/name if ACTIVE_LATE and (LATE_MAPS/name).exists() else NATIVE/name
+    key=str(path)
+    if key not in GRS:GRS[key]=read_grs(path)
+    return GRS[key]
 def frame(rid,group,index,sprite=False,transparent=False):
-    key=rid,group,index,sprite,transparent
+    key=ACTIVE_LATE,rid,group,index,sprite,transparent
     if key not in FRAMES:
         g=resource(rid)['sprites' if sprite else 'groups'][group];FRAMES[key]=grs_image(g['palette'],g['images'][index],transparent)
     return FRAMES[key]
 def png(path,image):
     template=(ROOT/'Assets/_Game/Resources/Scenarios/01/Portraits/NoFace.png.meta').read_text()
     template=template.replace('textureType: 8','textureType: 0').replace('spriteMode: 2','spriteMode: 0').replace('textureCompression: 1','textureCompression: 0').replace('maxTextureSize: 2048','maxTextureSize: 4096')
+    if max(image.size)>4096:template=template.replace('maxTextureSize: 4096','maxTextureSize: 8192')
     image.save(path);path.with_name(path.name+'.meta').write_text(re.sub(r'guid: [0-9a-f]{32}','guid: '+guid(path),template,count=1))
 def text_asset(path,data):
     path.write_text(json.dumps(data,ensure_ascii=False,separators=(',',':'))+'\n')
     path.with_name(path.name+'.meta').write_text('fileFormatVersion: 2\nguid: '+guid(path)+'\nTextScriptImporter:\n  externalObjects: {}\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n')
-def load_map(id):return read_mrc(NATIVE/(id+'.mrc'))
+def load_map(id):
+    # Tool calls are sequential. Keep changed GRS resources scoped to upgraded maps.
+    global ACTIVE_LATE
+    path=native_map_path(id);ACTIVE_LATE=path.parent==LATE_MAPS
+    return read_mrc(path)
 def walkable(data,blocked):
     w,h=data['width'],data['height'];remaining={(x,y) for y in range(1,h-1) for x in range(1,w-1) if data['tiles'][y*w+x][3]&127 not in blocked};components=[]
     while remaining:
@@ -56,7 +69,7 @@ def bake(id,folder,blocked):
     x,y=min(candidates,key=lambda p:((p[0]+.5-w/2)**2+(p[1]+.5-h/2)**2,p))
     result=dict(width=w,height=h,spawnX=x,spawnY=y,attributes=[t[3]&127 for t in data['tiles']],floorKeys=keys,objects=objects)
     text_asset(folder/'Map.json',result)
-    return result,dict(sourceSha256=hashlib.sha256((NATIVE/(id+'.mrc')).read_bytes()).hexdigest(),cells=w*h,objects=len(objects),uniqueFloorTiles=len(tile_ids),reachableCells=len(component))
+    return result,dict(sourceSha256=hashlib.sha256(native_map_path(id).read_bytes()).hexdigest(),cells=w*h,objects=len(objects),uniqueFloorTiles=len(tile_ids),reachableCells=len(component))
 def scene(path,key,runtime):
     script=ROOT/'Assets/_Game/Runtime/World/NativeTownScene.cs.meta';script_guid=re.search(r'guid: (\w+)',script.read_text())[1]
     # Same small loader scene schema as existing additional town scenes.

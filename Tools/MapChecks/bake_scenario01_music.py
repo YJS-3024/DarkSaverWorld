@@ -16,7 +16,7 @@ SF2 = Path('/usr/share/sounds/sf2/TimGM6mb.sf2')
 NS = uuid.UUID('23b3f21a-85ac-47cb-a63f-c304722b82c8')
 
 
-def bake(filenames=None, output=None):
+def bake(filenames=None, output=None, source=None):
     OUT = output or globals()["OUT"]
     library = ctypes.util.find_library('fluidsynth')
     if not library or not SF2.exists():
@@ -44,7 +44,7 @@ def bake(filenames=None, output=None):
     OUT.mkdir(parents=True, exist_ok=True)
     folder_meta = OUT.with_name(OUT.name + '.meta')
     if not folder_meta.exists(): folder_meta.write_text('fileFormatVersion: 2\nguid: ' + uuid.uuid5(NS, str(OUT.relative_to(ROOT))).hex + '\nfolderAsset: yes\nDefaultImporter:\n  externalObjects: {}\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n')
-    source = ROOT / '분석/Saver_1.2/extracted/Saver_Files/Saver/BGM'
+    source = source or ROOT / '분석/Saver_1.2/extracted/Saver_Files/Saver/BGM'
     template = (ROOT / 'Assets/_Game/Art/Converted/Audio/Magic/Magic_21.wav.meta').read_text()
     for filename in (filenames or ['Nco01.mid', 'ncr04.mid']):
         with tempfile.TemporaryDirectory(prefix='ds-midi-') as directory:

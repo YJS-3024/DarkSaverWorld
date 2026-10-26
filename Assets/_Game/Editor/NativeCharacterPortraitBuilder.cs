@@ -10,15 +10,15 @@ namespace DarkSaver.Editor
     public static class NativeCharacterPortraitBuilder
     {
         public const string Output="Assets/_Game/Resources/UI/CharacterPortraits/CharacterPortraits.asset";
-        const string Source="분석/Saver_1.2/decoded/all_arc/gameres/";
+        const string Source="분석/Saver_Late/decoded_art/gameres/";
         static int Read(byte[] data,int offset)=>BitConverter.ToInt32(data,offset);
         [MenuItem("DarkSaver/UI/Build Native Character Portraits")]
         public static void Build()
         {
             if(File.Exists(Output)) throw new InvalidOperationException("Portrait catalog already exists");
             var sources=new Dictionary<int,string>();
-            for(int job=100;job<=169;job++) for(int archive=0;archive<4;archive++) {
-                string path=Source+(archive==0?"face":"face"+archive)+"/"+job+".bmp";
+            for(int job=100;job<=172;job++) for(int archive=0;archive<4;archive++) {
+                string path=Source+(archive==0?"face":"face"+archive)+".arc/"+job+".bmp";
                 if(File.Exists(path)) { sources.Add(job,path); break; }
             }
             string directory=Path.GetDirectoryName(Output);
@@ -28,7 +28,7 @@ namespace DarkSaver.Editor
             // Validate all inputs before writing; original archives are never loaded/executed.
             var pixels=new Dictionary<int,Color32[]>();
             foreach(var source in sources) pixels.Add(source.Key,Decode(source.Value));
-            var fallback=Decode(Source+"etc/noface.bmp");
+            var fallback=Decode("분석/Saver_1.2/decoded/all_arc/gameres/etc/noface.bmp");
             Directory.CreateDirectory(directory);
             Save(images[0],fallback);
             foreach(var image in pixels) Save(directory+"/"+image.Key+".png",image.Value);

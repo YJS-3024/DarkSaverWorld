@@ -1,0 +1,166 @@
+{
+  "scenarios": [
+    {
+      "key": "33",
+      "title": "야누스",
+      "width": 40,
+      "height": 50,
+      "template": "32",
+      "fieldKey": "WorldField1410",
+      "prerequisite": "17",
+      "sourceHash": "46ad23f658686a6f388a535b01a929eb49ad15dd8959de377c8e0736f79def42",
+      "units": 55,
+      "requiredDeaths": [
+        700
+      ],
+      "entry": [
+        15,
+        32
+      ]
+    },
+    {
+      "key": "330",
+      "title": "추가 전장 330",
+      "width": 20,
+      "height": 15,
+      "template": "301",
+      "fieldKey": "WorldField1010",
+      "prerequisite": "17",
+      "sourceHash": "2f53e20f366214186be66d4519980a6830ba8ecffdd1f934580cd4e311d09a47",
+      "units": 6,
+      "requiredDeaths": [
+        410
+      ],
+      "entry": [
+        10,
+        10
+      ]
+    },
+    {
+      "key": "331",
+      "title": "추가 전장 331",
+      "width": 20,
+      "height": 15,
+      "template": "302",
+      "fieldKey": "WorldField1020",
+      "prerequisite": "330",
+      "sourceHash": "0ce021eef4a8967d78f3d3bd9c4d9c3cf9a813d3aa8fc86c7ac4d26c2bd3aa1f",
+      "units": 6,
+      "requiredDeaths": [
+        410
+      ],
+      "entry": [
+        10,
+        13
+      ]
+    },
+    {
+      "key": "332",
+      "title": "추가 전장 332",
+      "width": 20,
+      "height": 15,
+      "template": "303",
+      "fieldKey": "WorldField1030",
+      "prerequisite": "331",
+      "sourceHash": "5bbd049d0f808bf66c39fc41610aab195037144d58324a47af50f4e1b122f7c1",
+      "units": 6,
+      "requiredDeaths": [
+        410
+      ],
+      "entry": [
+        10,
+        13
+      ]
+    },
+    {
+      "key": "333",
+      "title": "추가 전장 333",
+      "width": 20,
+      "height": 15,
+      "template": "304",
+      "fieldKey": "WorldField1040",
+      "prerequisite": "332",
+      "sourceHash": "7ccba4a58b207300b776ec9fde3006b0c2b63d590ee84741c5b7253a7901980c",
+      "units": 6,
+      "requiredDeaths": [
+        410
+      ],
+      "entry": [
+        8,
+        13
+      ]
+    },
+    {
+      "key": "404",
+      "title": "추가 전장 404",
+      "width": 20,
+      "height": 15,
+      "template": "401",
+      "fieldKey": "WorldField1060",
+      "prerequisite": "17",
+      "sourceHash": "6f75bce809293f94298e8af11f1cab6dc4491ebe476a901140d1d2e7dab84179",
+      "units": 6,
+      "requiredDeaths": [
+        400
+      ],
+      "entry": [
+        10,
+        10
+      ]
+    },
+    {
+      "key": "405",
+      "title": "추가 전장 405",
+      "width": 20,
+      "height": 15,
+      "template": "402",
+      "fieldKey": "WorldField1110",
+      "prerequisite": "404",
+      "sourceHash": "ca2c7e61904e4a5db96fe270305790a92483fc97d76575e90daa44cbc4cca22e",
+      "units": 6,
+      "requiredDeaths": [
+        400
+      ],
+      "entry": [
+        10,
+        10
+      ]
+    },
+    {
+      "key": "406",
+      "title": "추가 전장 406",
+      "width": 20,
+      "height": 15,
+      "template": "403",
+      "fieldKey": "WorldField1111",
+      "prerequisite": "405",
+      "sourceHash": "39f85b0d1fda0d6566ebb485e3865395be57df046c17f678b3981b6bc4d2ef8b",
+      "units": 6,
+      "requiredDeaths": [
+        400
+      ],
+      "entry": [
+        10,
+        10
+      ]
+    }
+  ],
+  "characterJobs": [
+    301,
+    401,
+    767
+  ],
+  "portraitIds": [
+    0,
+    708,
+    714,
+    767,
+    815,
+    816
+  ],
+  "musicSources": [
+    "nce01.mid"
+  ],
+  "sourceRosterMissing": true,
+  "unityPlay": false
+}

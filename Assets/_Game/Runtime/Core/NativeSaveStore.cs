@@ -28,6 +28,7 @@ namespace DarkSaver.Core
         // v2 only; null is retained for v1, never synthesized from a catalog.
         public NativeOwnedRoster ownedRoster;
         public bool hasOwnedRoster;
+        public int[] scenarioGeneralReceipts;
         public bool hasInventory;
         public NativeInventory inventory;
         public bool hasScenario01;
@@ -66,6 +67,10 @@ namespace DarkSaver.Core
                 float.IsNaN(data.worldX) || float.IsInfinity(data.worldX) ||
                 float.IsNaN(data.worldY) || float.IsInfinity(data.worldY) ||
                 data.clearedScenarios == null || data.clearedScenarios.Length > 10000) return false;
+            if(data.scenarioGeneralReceipts!=null && (data.scenarioGeneralReceipts.Length>70
+                || Array.Exists(data.scenarioGeneralReceipts,id=>id<100 || id>169)
+                || new System.Collections.Generic.HashSet<int>(data.scenarioGeneralReceipts).Count!=data.scenarioGeneralReceipts.Length
+                || !data.hasCharacter && data.scenarioGeneralReceipts.Length>0))return false;
             // Unity JSON may materialize a null inline class as an empty object.
             if (data.hasOwnedRoster ? data.version == Version || data.ownedRoster == null || !data.ownedRoster.IsValid
                 : data.version == RosterVersion || (data.ownedRoster?.units?.Length ?? 0) != 0) return false;
@@ -80,7 +85,7 @@ namespace DarkSaver.Core
             if (data.hasScenario01 && data.version < ScenarioVersion || data.version == ScenarioVersion && !data.hasScenario01) return false;
             if (data.version == CampaignVersion)
             {
-                if (!data.hasCharacter || !data.hasInventory || data.campaign == null || data.campaign.Length == 0 || data.campaign.Length > 16) return false;
+                if (!data.hasCharacter || !data.hasInventory || data.campaign == null || data.campaign.Length == 0 || data.campaign.Length > ScenarioCatalog.All.Count-1) return false;
                 var scenarioKeys = new HashSet<string>();
                 foreach (var state in data.campaign)
                     if (state == null || state.version != 2 || !state.IsValid || !ScenarioCatalog.TryGet(state.scenarioKey, out var definition) || definition.Key == "01"

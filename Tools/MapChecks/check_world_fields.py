@@ -4,11 +4,11 @@ from collections import defaultdict,deque
 from pathlib import Path
 from PIL import Image
 import UnityPy,yaml
-from world_asset_baker import ROOT,NATIVE,load_map,walkable,covered,frame,resource
+from world_asset_baker import ROOT,NATIVE,native_map_path,load_map,walkable,covered,frame,resource
 from check_four_towns import UnityYaml
 
 def main():
-    manifest=json.loads((ROOT/'Tools/MapChecks/world_fields_resources.json').read_text());assert len(manifest)==17
+    manifest=json.loads((ROOT/'Tools/MapChecks/world_fields_resources.json').read_text());assert len(manifest)==18
     route_data=json.loads((ROOT/'Assets/_Game/Resources/World/Routes.json').read_text());routes=route_data['routes'];assert len(routes)==42
     regions={}
     for id,title,w,h in re.findall(r'Field\("(\d+)","([^"]+)",(\d+),(\d+)\)',(ROOT/'Assets/_Game/Runtime/Core/FieldCatalog.cs').read_text()):regions['WorldField'+id]=(id,int(w),int(h),{3,6,9})
@@ -37,9 +37,9 @@ def main():
     cells=objects=enemies=0
     for row in manifest:
         key=row['key'];id=row['nativeMap'];original=load_map(id);folder=ROOT/'Assets/_Game/Resources/Fields'/key
-        assert hashlib.sha256((NATIVE/(id+'.mrc')).read_bytes()).hexdigest()==row['sourceSha256']
+        assert hashlib.sha256(native_map_path(id).read_bytes()).hexdigest()==row['sourceSha256']
         data=json.loads((folder/'Map.json').read_text());w,h=data['width'],data['height'];floor=Image.open(folder/'Ground.png').convert('RGBA')
-        assert floor.size==(w*32,h*32) and max(floor.size)<=4096
+        assert floor.size==(w*32,h*32) and max(floor.size)<=8192
         assert data['attributes']==[t[3]&127 for t in original['tiles']]
         assert len(data['floorKeys'])==w*h and len(set(data['floorKeys']))==row['uniqueFloorTiles']
         patterns={};shared={}
@@ -70,7 +70,7 @@ def main():
                     ex,ey=enemy['x']+.5,h-1-enemy['y']+.5
                     assert (ex-route['portalX'])**2+(ey-route['portalY'])**2>=16
         for runtime in [False,True]:
-            name='Field'+id+'_Runtime' if runtime else 'World'+id+'_Map';path='Assets/_Game/Scenes/'+('Runtime' if runtime else 'Maps')+'/'+name+'.unity';file=ROOT/path
+            name=('Field_Runtime' if id=='1010' else 'Field'+id+'_Runtime') if runtime else 'World'+id+'_Map';path='Assets/_Game/Scenes/'+('Runtime' if runtime else 'Maps')+'/'+name+'.unity';file=ROOT/path
             text=file.read_text().replace('%TAG !u! tag:unity3d.com,2011:\n','').replace('!u!','!<tag:unity3d.com,2011:');text=re.sub(r'!<tag:unity3d.com,2011:(\d+)',r'!<tag:unity3d.com,2011:\1>',text)
             docs=list(yaml.load_all(text,Loader=UnityYaml));component=next(d['MonoBehaviour'] for d in docs if 'MonoBehaviour' in d)
             assert component['townKey']==key and bool(component['runtimeOnly'])==runtime
@@ -79,7 +79,7 @@ def main():
         cells+=w*h;objects+=len(data['objects']);enemies+=len(data['encounters'])
     ui=(ROOT/'Assets/_Game/Runtime/UI/TownServicesPanel.cs').read_text();assert 'TownService.Travel' not in ui and '마을 이동' not in ui
     assert not (ROOT/'Assets/_Game/Runtime/UI/TownServicesPanel.Travel.cs').exists()
-    report=dict(ordinary_fields=18,towns=4,new_field_maps=17,new_scenes=34,directed_routes=len(routes),fully_reachable_regions=len(visited),native_ground_cells=cells,native_decorations=objects,authored_encounters=enemies,
+    report=dict(ordinary_fields=18,towns=4,new_field_maps=18,new_scenes=36,directed_routes=len(routes),fully_reachable_regions=len(visited),native_ground_cells=cells,native_decorations=objects,authored_encounters=enemies,
         source_scope='Exact native geometry/base-stat/artwork resources; first frame ground rendering. Field aliases, topology and encounter placements are authored.',
         verification='Offline source pixels, collision components, reciprocal spawns, graph coverage, scene/build references, base-stat matches and menu removal. Not Unity import or Play.',
         excluded='Scenario and dungeon-interior maps; original server spawn/route tables unavailable')

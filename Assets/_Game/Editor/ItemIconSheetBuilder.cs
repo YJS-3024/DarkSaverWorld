@@ -8,23 +8,26 @@ namespace DarkSaver.Editor
 {
     public static class ItemIconSheetBuilder
     {
-        public const string Source = "분석/Saver_1.2/decoded/all_arc/gameres/item/Item.bmp";
+        public const string Source = "분석/Saver_Late/decoded_art/gameres/item.arc/item.bmp";
         public const string Output = "Assets/_Game/Resources/UI/ItemIcons.png";
         public const int Width = ItemIcons.Columns * ItemIcons.CellSize;
         public const int Height = ItemIcons.Rows * ItemIcons.CellSize;
 
         public static Color32[] Decode(byte[] bytes)
         {
-            if (bytes == null || bytes.Length < 1078 || bytes[0] != 'B' || bytes[1] != 'M'
+            if (bytes == null || bytes.Length < 58 || bytes[0] != 'B' || bytes[1] != 'M'
                 || BitConverter.ToInt32(bytes, 14) != 40 || BitConverter.ToInt32(bytes, 18) != Width
                 || BitConverter.ToInt32(bytes, 22) != Height || BitConverter.ToInt16(bytes, 28) != 8
                 || BitConverter.ToInt32(bytes, 30) != 0)
                 throw new InvalidDataException("Expected original 3200x320 uncompressed 8-bit item sheet.");
             int offset = BitConverter.ToInt32(bytes, 10);
-            if (offset < 1078 || offset > bytes.Length - Width * Height) throw new InvalidDataException("Truncated item pixels.");
+            if (offset < 58 || offset > 1078 || (offset-54)%4!=0 || offset > bytes.Length - Width * Height)
+                throw new InvalidDataException("Truncated item pixels.");
+            int paletteCount=(offset-54)/4; // Later source has 255 palette entries, not 256.
             var pixels = new Color32[Width * Height];
             // Original is bottom-up. Unity pixel rows are also bottom-up; do not flip twice.
             for (int i = 0; i < pixels.Length; i++) {
+                if(bytes[offset+i]>=paletteCount)throw new InvalidDataException("Item color index exceeds native palette.");
                 int palette = 54 + bytes[offset + i] * 4;
                 byte b = bytes[palette], g = bytes[palette + 1], r = bytes[palette + 2];
                 pixels[i] = new Color32(r, g, b, (byte)((r | g | b) == 0 ? 0 : 255));

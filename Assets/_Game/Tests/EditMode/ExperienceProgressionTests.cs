@@ -51,11 +51,11 @@ namespace DarkSaver.Tests
         public void ConvertedSourceMatchesAndAllSeventyClassEntryListsAreReadable()
         {
             var source = Path.Combine(Directory.GetParent(Application.dataPath).FullName,
-                "분석/Saver_1.2/catalogs/experience_progression.csv");
+                "분석/Saver_Late/unity_catalogs/experience_progression.csv");
             var rows = ExperienceProgressionConverter.Parse(File.ReadAllText(source));
             var table = UnityEditor.AssetDatabase.LoadAssetAtPath<ExperienceProgressionTable>(ExperienceProgressionConverter.Output);
             ExperienceProgressionConverter.Verify(table, rows);
-            for (int id = 100; id <= 169; id++)
+            for (int id = 100; id <= 172; id++)
                 Assert.That(table.TryGetClassEntryAbilities(id, out _, out _), Is.True, "job=" + id);
             Assert.That(table.TryGetClassEntryAbilities(166, out _, out var skills), Is.True);
             Assert.That(skills, Does.Contain(21705));

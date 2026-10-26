@@ -16,7 +16,7 @@ namespace DarkSaver.UI
             var copy=new Entry[source.Length];
             for(int i=0;i<source.Length;i++) {
                 var entry=source[i];
-                if(entry==null || entry.jobId<100 || entry.jobId>169 || entry.image==null || entry.image.width!=64 || entry.image.height!=64)
+                if(entry==null || !DarkSaver.Jobs.NativePlayerJobs.Contains(entry.jobId) || entry.image==null || entry.image.width!=64 || entry.image.height!=64)
                     throw new ArgumentException("Invalid portrait entry");
                 copy[i]=new Entry {jobId=entry.jobId,image=entry.image};
             }
@@ -26,7 +26,7 @@ namespace DarkSaver.UI
         }
         public bool TryGet(int jobId, out Texture2D image)
         {
-            image=null; if(jobId<100 || jobId>169) return false;
+            image=null; if(!DarkSaver.Jobs.NativePlayerJobs.Contains(jobId)) return false;
             foreach(var entry in entries) if(entry.jobId==jobId) { image=entry.image; return image!=null; }
             image=noFace; return image!=null;
         }

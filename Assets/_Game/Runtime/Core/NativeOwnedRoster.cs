@@ -16,6 +16,7 @@ namespace DarkSaver.Core
         public int teamId;
         public bool recordEligible, finalStateConfirmed;
         public short[] learnedMagicIds;
+        public short[] usableSkillIds; // Optional in legacy saves; source skills are distinct from learned spells.
         // Local ownership metadata; null/0 in older saves means unclassified.
         public string hireType;
         public int hireOwnerId;
@@ -23,7 +24,8 @@ namespace DarkSaver.Core
         public NativeOwnedUnitData Clone()
         {
             var copy = (NativeOwnedUnitData)MemberwiseClone();
-            copy.learnedMagicIds = learnedMagicIds == null ? null : (short[])learnedMagicIds.Clone(); return copy;
+            copy.learnedMagicIds = learnedMagicIds == null ? null : (short[])learnedMagicIds.Clone();
+            copy.usableSkillIds = usableSkillIds == null ? null : (short[])usableSkillIds.Clone(); return copy;
         }
     }
 
@@ -51,6 +53,8 @@ namespace DarkSaver.Core
                     if (string.IsNullOrEmpty(unit.hireType) ? unit.hireOwnerId != 0 : unit.hireOwnerId != 100) return false;
                     var spells = new HashSet<short>();
                     foreach (var spell in unit.learnedMagicIds) if (spell <= 0 || !spells.Add(spell)) return false;
+                    var skills = new HashSet<short>();
+                    if(unit.usableSkillIds!=null)foreach(var skill in unit.usableSkillIds)if(skill<=0 || !skills.Add(skill))return false;
                 }
                 return true;
             }
@@ -75,10 +79,18 @@ namespace DarkSaver.Core
                     Attack = unit.attack, Defense = unit.defense,HasMagicAttack=unit.hasMagicAttack,HasMagicDefense=unit.hasMagicDefense,MagicAttack=unit.magicAttack,MagicDefense=unit.magicDefense, Experience = unit.experience,
                     LifeState = (UnitLifeState)unit.lifeState },
                 TeamId = unit.teamId, RecordEligible = unit.recordEligible,
-                LearnedMagicIds = (short[])unit.learnedMagicIds.Clone()
+                LearnedMagicIds = CombatAbilities(unit)
                 // No assigned commander or position: these are per-deployment inputs.
             });
             return members.AsReadOnly();
+        }
+
+        private static short[] CombatAbilities(NativeOwnedUnitData unit)
+        {
+            var seen=new HashSet<short>();var ids=new List<short>();
+            foreach(short id in unit.learnedMagicIds)if(seen.Add(id))ids.Add(id);
+            foreach(short id in unit.usableSkillIds ?? Array.Empty<short>())if(id<20000 && seen.Add(id))ids.Add(id);
+            return ids.ToArray();
         }
 
         // Explicit observed-value application, not an automatic return policy.

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DarkSaver.Jobs;
 using UnityEngine;
 
 namespace DarkSaver.Combat
@@ -24,7 +25,7 @@ namespace DarkSaver.Combat
     {
         [SerializeField] private ExperienceLevelEntry[] entries = Array.Empty<ExperienceLevelEntry>();
         public int Count => entries.Length;
-        public ExperienceLevelEntry[] GetClassChangeRows(int jobId) => jobId < 100 || jobId > 169
+        public ExperienceLevelEntry[] GetClassChangeRows(int jobId) => !NativePlayerJobs.Contains(jobId)
             ? Array.Empty<ExperienceLevelEntry>()
             : entries.Where(row => row.jobId == jobId && row.nextJobId != jobId).Distinct().ToArray();
 
@@ -33,12 +34,12 @@ namespace DarkSaver.Combat
         public bool TryGetEligibleClassChange(int jobId, int confirmedLevel, out ExperienceLevelEntry change)
         {
             change = default;
-            if (jobId < 100 || jobId > 169 || confirmedLevel < 1 || confirmedLevel > 100) return false;
+            if (!NativePlayerJobs.Contains(jobId) || confirmedLevel < 1 || confirmedLevel > NativePlayerJobs.MaximumLevel(jobId)) return false;
             bool found = false;
             foreach (var row in entries)
             {
                 if (row.jobId != jobId || row.level > confirmedLevel || row.nextJobId == jobId) continue;
-                if (row.nextJobId < 100 || row.nextJobId > 169 || !TryGet(row.nextJobId, 1, out _))
+                if (!NativePlayerJobs.Contains(row.nextJobId) || !TryGet(row.nextJobId, 1, out _))
                 { change = default; return false; }
                 if (found && row.nextJobId != change.nextJobId) { change = default; return false; }
                 if (!found || row.level < change.level) change = row;
@@ -52,7 +53,7 @@ namespace DarkSaver.Combat
         public bool TryGetClassEntryAbilities(int jobId, out int[] magicIds, out int[] skillIds)
         {
             magicIds = skillIds = Array.Empty<int>();
-            if (jobId < 100 || jobId > 169 || !TryGet(jobId, 1, out var row)
+            if (!NativePlayerJobs.Contains(jobId) || !TryGet(jobId, 1, out var row)
                 || !TryReadAbilityIds(row.learnedMagic, out var magic)
                 || !TryReadAbilityIds(row.usableSkills, out var skills)) return false;
             magicIds = magic; skillIds = skills; return true;
@@ -64,7 +65,7 @@ namespace DarkSaver.Combat
             out int nextJobId, out int[] magicIds, out int[] skillIds)
         {
             nextJobId = 0; magicIds = skillIds = Array.Empty<int>();
-            if (currentJobId < 100 || currentJobId > 169
+            if (!NativePlayerJobs.Contains(currentJobId)
                 || !TryGet(currentJobId, currentLevel, out var row)
                 || row.nextJobId == currentJobId
                 || !TryGetClassEntryAbilities(row.nextJobId, out var magic, out var skills)) return false;
@@ -102,7 +103,7 @@ namespace DarkSaver.Combat
             for (var i = 0; i < ordered.Length; i++)
             {
                 var row = ordered[i];
-                if (row.jobId < 0 || row.level < 1 || row.level > 100 || row.nextJobId < 0 ||
+                if (row.jobId < 0 || row.level < 1 || row.level > NativePlayerJobs.MaximumLevel(row.jobId) || row.nextJobId < 0 ||
                     row.requiredXp < 0 || row.rewardGold < 0 || row.rewardXp < 0)
                     throw new ArgumentException("Invalid experience record.");
                 if (i > 0 && ordered[i - 1].jobId == row.jobId &&

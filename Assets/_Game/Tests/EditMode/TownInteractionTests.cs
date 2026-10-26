@@ -38,17 +38,17 @@ namespace DarkSaver.Tests
         {
             var icons=Resources.Load<ClassMenuIconCatalog>("UI/ClassMenuIcons/ClassMenuIcons");
             var source=UnityEditor.AssetDatabase.LoadAssetAtPath<DarkSaver.Jobs.ClassArtworkCatalog>("Assets/_Game/Runtime/Jobs/ClassArtworkCatalog.asset");
-            Assert.That(icons,Is.Not.Null); Assert.That(icons.Count,Is.EqualTo(70));
-            for(int id=100;id<=169;id++) {
+            Assert.That(icons,Is.Not.Null); Assert.That(icons.Count,Is.EqualTo(73));
+            for(int id=100;id<=172;id++) {
                 Assert.That(source.TryGet(id,out var row),Is.True);
                 Assert.That(icons.TryGet(id,out var icon),Is.True);
                 Assert.That(icon.texture,Is.SameAs(row.GetFrame(0).texture));
                 Assert.That(icon.rect,Is.EqualTo(new Rect(32,icon.texture.height-64,32,32)));
             }
-            Assert.That(icons.TryGet(-1,out _),Is.False); Assert.That(icons.TryGet(170,out _),Is.False);
+            Assert.That(icons.TryGet(-1,out _),Is.False); Assert.That(icons.TryGet(173,out _),Is.False);
             var invalid=ScriptableObject.CreateInstance<ClassMenuIconCatalog>();
             try {
-                Assert.Throws<System.ArgumentException>(()=>invalid.Initialize(new[]{new ClassMenuIconCatalog.Entry {jobId=100,icon=source.TryGet(100,out var e)?e.GetFrame(4):null}}));
+                Assert.Throws<System.ArgumentException>(()=>invalid.Initialize(new[]{new ClassMenuIconCatalog.Entry {jobId=100,icon=source.TryGet(100,out var e)?e.GetFrame(3):null}}));
                 icons.TryGet(100,out var icon);
                 Assert.Throws<System.ArgumentException>(()=>invalid.Initialize(new[]{new ClassMenuIconCatalog.Entry {jobId=100,icon=icon},new ClassMenuIconCatalog.Entry {jobId=100,icon=icon}}));
             } finally { Object.DestroyImmediate(invalid); }

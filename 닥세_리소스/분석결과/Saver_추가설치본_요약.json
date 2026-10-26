@@ -1,0 +1,103 @@
+{
+  "commit": "23162f7f",
+  "installer": "saver/data1.cab",
+  "installerSha256": "a6f518676a5530987c2f20309982d3df5f2bcafb10d0a5273c4ee4da258a21ea",
+  "extractedFiles": 1258,
+  "gameFileCounts": {
+    "same": 1119,
+    "added": 87,
+    "changed": 48
+  },
+  "baseline": "닥세_리소스/설치본_추출/Saver_Files/Saver",
+  "changedOrAddedArchives": 22,
+  "scenario01to17ArchivesIdentical": true,
+  "tutorialTextIdenticalAfterSplitLines": true,
+  "tables": [
+    {
+      "table": "ability.atr",
+      "newRows": 542,
+      "oldRows": 521,
+      "added": 21,
+      "changed": 2,
+      "removed": 0
+    },
+    {
+      "table": "ability1.atr",
+      "newRows": 542,
+      "oldRows": 521,
+      "added": 21,
+      "changed": 145,
+      "removed": 0
+    },
+    {
+      "table": "itemtbl.atr",
+      "newRows": 1212,
+      "oldRows": 1180,
+      "added": 32,
+      "changed": 280,
+      "removed": 0
+    },
+    {
+      "table": "itemtbl1.atr",
+      "newRows": 1212,
+      "oldRows": 1180,
+      "added": 32,
+      "changed": 286,
+      "removed": 0
+    },
+    {
+      "table": "levelptl.atr",
+      "newRows": 73,
+      "oldRows": 70,
+      "added": 3,
+      "changed": 0,
+      "removed": 0
+    },
+    {
+      "table": "magicptn.atr",
+      "newRows": 78,
+      "oldRows": 80,
+      "added": 0,
+      "changed": 0,
+      "removed": 2
+    },
+    {
+      "table": "magictbl.atr",
+      "newRows": 440,
+      "oldRows": 439,
+      "added": 1,
+      "changed": 4,
+      "removed": 0
+    },
+    {
+      "table": "levelabl.atr",
+      "newRows": 3177,
+      "oldRows": 2271,
+      "added": 906,
+      "changed": 3,
+      "removed": 0,
+      "key": "job:level",
+      "duplicatesPreserved": true
+    }
+  ],
+  "decodeErrors": [
+    [
+      "gameres/set.arc",
+      "ability_bak.at"
+    ],
+    [
+      "gameres/set.arc",
+      "levelabl_bak.a"
+    ],
+    [
+      "bgm/set.arc",
+      "ability_bak.at"
+    ],
+    [
+      "bgm/set.arc",
+      "levelabl_bak.a"
+    ]
+  ],
+  "note": "Archive bitmap entries compared by packed payload only; changed payload is not proof of changed rendered pixels. Original executable PE timestamps are metadata, not release-date proof. No extracted Windows executables executed.",
+  "currentAnalysis": "분석/Saver_Late/summary.json"
+}

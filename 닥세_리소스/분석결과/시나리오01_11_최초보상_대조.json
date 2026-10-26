@@ -1,0 +1,344 @@
+{
+  "date": "2026-10-25",
+  "scope": "Installed original scripts and job/item tables; comparison requested by user",
+  "scenarios": [
+    {
+      "scenario": "01",
+      "generalIds": [],
+      "generals": [],
+      "itemIds": [
+        398
+      ],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEE",
+          "line": 39,
+          "command": "GETITEM 398",
+          "sourceSha256": "37c450d901b7d37c723443e65a1ecb369f480a354e1b2fd62373257cd49cd1be",
+          "fileHasFirstClear": false
+        }
+      ]
+    },
+    {
+      "scenario": "02",
+      "generalIds": [
+        102
+      ],
+      "generals": [
+        {
+          "id": 102,
+          "name": "클레릭",
+          "description": "승려타입의_제1단계"
+        }
+      ],
+      "itemIds": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/02set/02.evt",
+          "line": 338,
+          "command": "GETGENERAL 102",
+          "sourceSha256": "805449bffea8d04b796ba4e702bf02ff1f5c2c8ab0fb4df1a77a27923ced86f2",
+          "fileHasFirstClear": false
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/02set/02A.DEE",
+          "line": 43,
+          "command": "GETGENERAL 102",
+          "sourceSha256": "ba556fde75aa51102bd9e33a7c07a18d4b42b25702f6ba8be6f80d6a95a521bc",
+          "fileHasFirstClear": true
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/02set/02B.DEE",
+          "line": 44,
+          "command": "GETGENERAL 102",
+          "sourceSha256": "286c1dba495ee36e905ed208b775181c611fa64103105630024c0e537f93c067",
+          "fileHasFirstClear": true
+        }
+      ]
+    },
+    {
+      "scenario": "03",
+      "generalIds": [
+        100
+      ],
+      "generals": [
+        {
+          "id": 100,
+          "name": "파이터",
+          "description": "보병타입의_제1단계"
+        }
+      ],
+      "itemIds": [
+        98
+      ],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.DEE",
+          "line": 42,
+          "command": "GETGENERAL 100",
+          "sourceSha256": "bd9db59710314e70912257a81fc0c4db538df82ccaf6639f9ee88622ccc8ca73",
+          "fileHasFirstClear": true
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.evt",
+          "line": 359,
+          "command": "GETITEM 098",
+          "sourceSha256": "c4bef45fc37c18bc084a4074ab73446500e2f5beeb9b0aac52c5d2c528cf3e97",
+          "fileHasFirstClear": false
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.evt",
+          "line": 363,
+          "command": "GETGENERAL 100",
+          "sourceSha256": "c4bef45fc37c18bc084a4074ab73446500e2f5beeb9b0aac52c5d2c528cf3e97",
+          "fileHasFirstClear": false
+        }
+      ]
+    },
+    {
+      "scenario": "04",
+      "generalIds": [
+        101
+      ],
+      "generals": [
+        {
+          "id": 101,
+          "name": "나이트",
+          "description": "기병타입의_제1단계"
+        }
+      ],
+      "itemIds": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/04set/04.DEE",
+          "line": 19,
+          "command": "GETGENERAL 101",
+          "sourceSha256": "b971ff845ee4333f201d809a428021a3051b7b6a9a58839fdffe2581d90df789",
+          "fileHasFirstClear": true
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/04set/04.evt",
+          "line": 239,
+          "command": "GETGENERAL 101",
+          "sourceSha256": "cf30e1a1a8d3deaadc5ba12a3b33a7f2e09e73260113bb37f68f4755fd4186b2",
+          "fileHasFirstClear": false
+        }
+      ]
+    },
+    {
+      "scenario": "05",
+      "generalIds": [
+        103
+      ],
+      "generals": [
+        {
+          "id": 103,
+          "name": "매지션",
+          "description": "마법사타입의_제1단계"
+        }
+      ],
+      "itemIds": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/05set/05.DEE",
+          "line": 42,
+          "command": "GETGENERAL 103",
+          "sourceSha256": "e86b0299a4e3da69831c6f12c88acb9900b34428bfd0d326ea4ddd16a12f92ce",
+          "fileHasFirstClear": true
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/05set/05.evt",
+          "line": 238,
+          "command": "GETGENERAL 103",
+          "sourceSha256": "547e7611dac044f93c08253767075a5d1478a93d730c6f8523d31199bd1bd4f1",
+          "fileHasFirstClear": false
+        }
+      ]
+    },
+    {
+      "scenario": "06",
+      "generalIds": [
+        106
+      ],
+      "generals": [
+        {
+          "id": 106,
+          "name": "로드",
+          "description": "창병타입의_제2단계"
+        }
+      ],
+      "itemIds": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/06set/06.dee",
+          "line": 29,
+          "command": "GETGENERAL 106",
+          "sourceSha256": "c5fe5cfdd769051d7bcbb0cf264adfb2d810eca503b94ba865868d809f266e06",
+          "fileHasFirstClear": true
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/06set/06.evt",
+          "line": 102,
+          "command": "GETGENERAL 106",
+          "sourceSha256": "049f97a6f1aa82b6225ea509f2859a93cbd865dee8beef723d715db6df76171a",
+          "fileHasFirstClear": false
+        }
+      ]
+    },
+    {
+      "scenario": "07",
+      "generalIds": [
+        111
+      ],
+      "generals": [
+        {
+          "id": 111,
+          "name": "몽크",
+          "description": "신관타입의_제2단계"
+        }
+      ],
+      "itemIds": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/07set/07.dee",
+          "line": 21,
+          "command": "GETGENERAL 111",
+          "sourceSha256": "a181095c60ed1f3621e50879e9aeef4fd977afe8808bdd5ecb290986e20c9807",
+          "fileHasFirstClear": true
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/07set/07.evt",
+          "line": 7,
+          "command": "GETGENERAL 111",
+          "sourceSha256": "bd4f9ed414c3be5933ed62d486233711d891f2395099dfe90d29f43b0638cf6b",
+          "fileHasFirstClear": false
+        }
+      ]
+    },
+    {
+      "scenario": "08",
+      "generalIds": [
+        104
+      ],
+      "generals": [
+        {
+          "id": 104,
+          "name": "캡틴",
+          "description": "수병타입의_제2단계"
+        }
+      ],
+      "itemIds": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/08set/08.evt",
+          "line": 195,
+          "command": "GETGENERAL 104",
+          "sourceSha256": "2bf8afd84d40d0569601f1a4e26d9f72f47f92d57773b876e0f55c5e5caf7cf4",
+          "fileHasFirstClear": false
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/08set/08A.dee",
+          "line": 24,
+          "command": "GETGENERAL 104",
+          "sourceSha256": "d6c1a19dc17874aa3e69e6f1768637de5b0ea1596acf2ebbdc3912a9e7d1b892",
+          "fileHasFirstClear": true
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/08set/08B.dee",
+          "line": 27,
+          "command": "GETGENERAL 104",
+          "sourceSha256": "daff69f138a502da083a19d81c94af0e80cc9305d1cfa5e9018a10556666fa57",
+          "fileHasFirstClear": true
+        }
+      ]
+    },
+    {
+      "scenario": "09",
+      "generalIds": [
+        107
+      ],
+      "generals": [
+        {
+          "id": 107,
+          "name": "스나이퍼",
+          "description": "궁병타입의_제2단계"
+        }
+      ],
+      "itemIds": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/09set/09.EVT",
+          "line": 7,
+          "command": "GETGENERAL 107",
+          "sourceSha256": "0657d3ae5a3a28125f26ed3f6782bb8b13cbbddbb4c9a1b1b6f77bf2a477500e",
+          "fileHasFirstClear": false
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/09set/09.dee",
+          "line": 24,
+          "command": "GETGENERAL 107",
+          "sourceSha256": "ee65028174abc539a717c2c752585a24593daed8f4e64bdc4c3e6aebfdb03290",
+          "fileHasFirstClear": true
+        }
+      ]
+    },
+    {
+      "scenario": "10",
+      "generalIds": [
+        109
+      ],
+      "generals": [
+        {
+          "id": 109,
+          "name": "호크나이트",
+          "description": "비병타입의_제2단계"
+        }
+      ],
+      "itemIds": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/10set/10.EVT",
+          "line": 30,
+          "command": "GET_GENERAL 109",
+          "sourceSha256": "11189e6fb0d3e912b108651b4659784b79ffea438b6fb783f926b51cd4079e9b",
+          "fileHasFirstClear": false
+        }
+      ],
+      "clientDispatcherRecognizesCommand": false,
+      "rewardAssessment": "No confirmed clear reward; GET_GENERAL109 is not dispatched by original GameCtl. Historical server-only reward unknown."
+    },
+    {
+      "scenario": "11",
+      "generalIds": [
+        109
+      ],
+      "generals": [
+        {
+          "id": 109,
+          "name": "호크나이트",
+          "description": "비병타입의_제2단계"
+        }
+      ],
+      "itemIds": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/11set/11.DEE",
+          "line": 22,
+          "command": "GETGENERAL 109",
+          "sourceSha256": "01f7fe522b709b8ed55bd536096aea11279c123eb0469f22c75547b370e32c2c",
+          "fileHasFirstClear": true
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Source script evidence, not a replay of the original server or guarantee that every command was executed.",
+    "Scenario11 contains GETGENERAL109 again. Do not substitute Sherman113 without additional evidence.",
+    "Scenario07 grants111(Monk,tier2); Bishop121 is tier3 in this installed job table.",
+    "Sherman113 (user remembers Shaman) appears in scenario14 EVT and DEE.",
+    "FIRSTCLEAR/TEST/SAVECLEAR guard many ending grants, but starting-job exclusion is not explicit in these scripts.",
+    "Scenario03 item98 is granted in EVT54 on CHARDEAD700, separately from the ending first-clear branch. Item99 has a similar name but is not this command.",
+    "Scenario10 reassessed: six original x86 spelling/context probes show no client grant request for GET_GENERAL109. See 시나리오10_보상명령_원본실행대조.json.",
+    "Current project stages actual owned generals and source entry magic/skills with saved receipts; original10 underscore command is inert. Unity Play verification of this change remains pending."
+  ]
+}

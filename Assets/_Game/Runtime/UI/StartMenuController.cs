@@ -5,7 +5,7 @@ using DarkSaver.Core;
 
 namespace DarkSaver.UI
 {
-    public sealed class StartMenuController : MonoBehaviour
+    public sealed partial class StartMenuController : MonoBehaviour
     {
         private ServerManager protocol;
         private string localHistoryPath;
@@ -84,23 +84,17 @@ namespace DarkSaver.UI
             var height = creating || selecting || loggingIn || registering ? 440f : 350f;
             var panel = new Rect((Rendering.GameScreen.Width - width) * 0.5f, (Rendering.GameScreen.Height - height) * 0.5f, width, height);
 
-            ui.Panel("menu", panel);
-            ui.Label("title", new Rect(panel.x + 30, panel.y + 35, panel.width - 60, 60), "DARK SAVER", 34);
-            if(registering){DrawRegistration(panel);ui.End();return;}
+            LoadEntryArtwork();
+            ui.EntryArtwork("entry-background",new Rect(0,0,Rendering.GameScreen.Width,Rendering.GameScreen.Height),entryBackground,true);
             if(loggingIn){DrawLogin(panel);ui.End();return;}
-            if (creating) { DrawCharacterCreation(panel); ui.End(); return; }
-            if (selecting) { DrawCharacterSelection(panel); ui.End(); return; }
-            ui.Button("new", new Rect(panel.x + 60, panel.y + 125, panel.width - 120, 50),
-                loading ? "불러오는 중…" : "시작", StartGame, !loading);
-            ui.Button("quit", new Rect(panel.x + 60, panel.y + 235, panel.width - 120, 40), "종료", () => {
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-#else
-                Application.Quit();
-#endif
-            }, !loading);
-            if (!string.IsNullOrEmpty(loadMessage))
-                ui.Label("message", new Rect(panel.x + 20, panel.y + 285, panel.width - 40, 50), loadMessage);
+            if(registering || creating || selecting)
+            {
+                ui.Panel("menu",panel);
+                if(registering)DrawRegistration(panel);
+                else if(creating)DrawCharacterCreation(panel);
+                else DrawCharacterSelection(panel);
+            }
+            else DrawNativeStart();
             ui.End();
         }
 
@@ -164,22 +158,6 @@ namespace DarkSaver.UI
             ui.Button("register-cancel",new Rect(panel.x+60,panel.y+352,panel.width-120,28),"로그인으로 돌아가기",CancelRegistration,!loading);
             if(!string.IsNullOrEmpty(loadMessage))ui.Label("register-message",new Rect(panel.x+20,panel.y+390,panel.width-40,38),loadMessage,12);
         }
-        private void DrawLogin(Rect panel)
-        {
-            ui.Label("login-title",new Rect(panel.x+30,panel.y+108,panel.width-60,30),firstLogin?"최초 로그인":"로그인",22);
-            ui.Label("login-id-label",new Rect(panel.x+30,panel.y+154,90,26),"아이디",14);
-            ui.TextInput("login-id",new Rect(panel.x+130,panel.y+150,panel.width-160,30),loginUserId,20,v=>loginUserId=v);
-            ui.Label("login-pw-label",new Rect(panel.x+30,panel.y+197,90,26),"비밀번호",14);
-            ui.TextInput("login-password",new Rect(panel.x+130,panel.y+193,panel.width-160,30),loginPassword,64,v=>loginPassword=v,password:true);
-            ui.Button("login",new Rect(panel.x+60,panel.y+240,panel.width-120,35),hasAccount?"로그인":"계정 없이 로그인",()=>Login(),!loading);
-            if(loginFailed && loginCanRecover)
-                ui.Button("login-recovery",new Rect(panel.x+60,panel.y+284,panel.width-120,28),"캐릭터 선택으로 복구",()=>
-                {authenticated=true;RefreshContinue();loggingIn=false;selecting=true;},!loading);
-            else ui.Button("open-register",new Rect(panel.x+60,panel.y+284,panel.width-120,28),"회원가입",()=>OpenRegistration(),!loading && !hasAccount);
-            ui.Button("login-back",new Rect(panel.x+60,panel.y+325,panel.width-120,28),"시작 화면",()=>{loggingIn=false;loginPassword="";},!loading);
-            if(!string.IsNullOrEmpty(loadMessage))ui.Label("login-message",new Rect(panel.x+20,panel.y+370,panel.width-40,50),loadMessage,12);
-        }
-
         public bool SelectSlot(int index)
         {
             if (loading || !selecting || index < 0 || index >= slots.Length) return false;

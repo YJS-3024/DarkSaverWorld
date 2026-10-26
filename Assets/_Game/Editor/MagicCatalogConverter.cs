@@ -18,7 +18,7 @@ namespace DarkSaver.Editor
         public static void Convert()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Convert in edit mode only.");
-            var path = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "분석/Saver_1.2/converted/Magictbl.csv");
+            var path = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "분석/Saver_Late/unity_catalogs/Magictbl.csv");
             var rows = Parse(File.ReadAllText(path, Encoding.UTF8));
             var catalog = AssetDatabase.LoadAssetAtPath<MagicCatalog>(Output);
             if (catalog == null)

@@ -1,0 +1,123 @@
+{
+  "executable": "Saver.exe",
+  "sha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "version": "Saver_Late",
+  "logicalSize": [
+    640,
+    480
+  ],
+  "loginAtlas": "login.bmp",
+  "atlasLoad": {
+    "instruction": "0x406fd0",
+    "stringVA": "0x48eaa8",
+    "surfaceMember": "0x2138"
+  },
+  "panel": {
+    "sourceRectLTRB": [
+      9,
+      9,
+      206,
+      96
+    ],
+    "destinationOrigin": [
+      226,
+      279
+    ],
+    "drawSites": [
+      "0x40a517",
+      "0x40a51c",
+      "0x40b6ee",
+      "0x40b701"
+    ],
+    "fastPathSize": [
+      197,
+      87
+    ],
+    "directDrawDestinationRectLTRB": [
+      226,
+      279,
+      432,
+      375
+    ],
+    "note": "BltFast keeps native crop size; Blt branch supplies a206x96 destination rect. Common origin is confirmed."
+  },
+  "inputHitTests": {
+    "boundsAreExclusive": true,
+    "idLTRB": [
+      298,
+      296,
+      408,
+      316
+    ],
+    "passwordLTRB": [
+      298,
+      320,
+      408,
+      338
+    ],
+    "function": "0x40c9b0"
+  },
+  "scope": "Static x86 instruction and import-signature analysis. Not an executed original screen or proof that every rendering branch has identical scaling.",
+  "verifiedInstructions": [
+    {
+      "address": "0x406fd0",
+      "bytes": "68a8ea4800",
+      "meaning": "login.bmp load"
+    },
+    {
+      "address": "0x40a517",
+      "bytes": "bfe2000000",
+      "meaning": "panel destination left226"
+    },
+    {
+      "address": "0x40a51c",
+      "bytes": "bd17010000",
+      "meaning": "panel destination top279"
+    },
+    {
+      "address": "0x40a538",
+      "bytes": "c744244c60000000",
+      "meaning": "source bottom96"
+    },
+    {
+      "address": "0x40b6ee",
+      "bytes": "b8e2000000",
+      "meaning": "second panel draw left226"
+    },
+    {
+      "address": "0x40b701",
+      "bytes": "b917010000",
+      "meaning": "second panel draw top279"
+    },
+    {
+      "address": "0x40c9c7",
+      "bytes": "81fa2a010000",
+      "meaning": "ID/password left test298"
+    },
+    {
+      "address": "0x40c9cf",
+      "bytes": "81fa98010000",
+      "meaning": "ID/password right test408"
+    },
+    {
+      "address": "0x40c9dd",
+      "bytes": "81fe28010000",
+      "meaning": "ID top test296"
+    },
+    {
+      "address": "0x40c9e5",
+      "bytes": "81fe3c010000",
+      "meaning": "ID bottom test316"
+    },
+    {
+      "address": "0x40ca14",
+      "bytes": "81fa40010000",
+      "meaning": "password top test320"
+    },
+    {
+      "address": "0x40ca1c",
+      "bytes": "81fa52010000",
+      "meaning": "password bottom test338"
+    }
+  ]
+}

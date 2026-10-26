@@ -1,0 +1,54 @@
+{
+  "cases": [
+    {
+      "command": "GETGENERAL 109",
+      "nativeEventActivation": false,
+      "contextMode": 2,
+      "cursorAfterStep": 2,
+      "getGeneralCalls": [
+        109
+      ]
+    },
+    {
+      "command": "GETGENERAL 109",
+      "nativeEventActivation": true,
+      "contextMode": 1,
+      "cursorAfterStep": 2,
+      "getGeneralCalls": []
+    },
+    {
+      "command": "GET_GENERAL 109",
+      "nativeEventActivation": false,
+      "contextMode": 2,
+      "cursorAfterStep": 2,
+      "getGeneralCalls": []
+    },
+    {
+      "command": "GET_GENERAL 109",
+      "nativeEventActivation": true,
+      "contextMode": 1,
+      "cursorAfterStep": 2,
+      "getGeneralCalls": []
+    },
+    {
+      "command": "GETGENERAL 102",
+      "nativeEventActivation": false,
+      "contextMode": 2,
+      "cursorAfterStep": 2,
+      "getGeneralCalls": [
+        102
+      ]
+    },
+    {
+      "command": "GETGENERAL 102",
+      "nativeEventActivation": true,
+      "contextMode": 1,
+      "cursorAfterStep": 2,
+      "getGeneralCalls": []
+    }
+  ],
+  "passed": 6,
+  "binarySha256": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+  "scope": "Original GameCtl x86 step/tokenization and native event activation; CString/time/unit APIs modeled, GetGeneral sender0x1000e940 intercepted. No original server or full game replay.",
+  "conclusion": "GET_GENERAL109 is not dispatched as GETGENERAL109. Scenario10 DEE has no independent grant. A historical server-only award cannot be established."
+}

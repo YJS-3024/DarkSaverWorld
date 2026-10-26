@@ -101,11 +101,11 @@ namespace DarkSaver.Tests
         [Test]
         public void NativeAssetMatchesAllSourceFieldsWithoutRawAssetDependencies()
         {
-            var path = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "분석/Saver_1.2/converted/Magictbl.csv");
+            var path = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "분석/Saver_Late/unity_catalogs/Magictbl.csv");
             var rows = MagicCatalogConverter.Parse(File.ReadAllText(path));
             var catalog = AssetDatabase.LoadAssetAtPath<MagicCatalog>(MagicCatalogConverter.Output);
             Assert.That(catalog, Is.Not.Null);
-            Assert.That(catalog.Count, Is.EqualTo(439));
+            Assert.That(catalog.Count, Is.EqualTo(440));
             MagicCatalogConverter.Verify(catalog, rows);
             Assert.That(catalog.TryGet(101, out var fireball), Is.True);
             Assert.That(fireball.RawTick, Is.EqualTo(10));

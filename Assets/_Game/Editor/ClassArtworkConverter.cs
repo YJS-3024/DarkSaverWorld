@@ -34,7 +34,7 @@ namespace DarkSaver.Editor
                     var job = jobs.GetAt(index); int sheet = checked((int)job.SpriteId);
                     string source = null;
                     for (int archive = 0; archive <= 6; archive++) {
-                        var candidate = "분석/Saver_1.2/decoded/all_arc/gameres/char" + archive + "/" + sheet + "r.bmp";
+                        var candidate = "분석/Saver_Late/decoded_art/gameres/char" + archive + ".arc/" + sheet + "r.bmp";
                         if (File.Exists(candidate)) { if (source != null) throw new InvalidDataException("Ambiguous class sheet " + sheet); source = candidate; }
                     }
                     if (source == null) { Debug.Log("Class artwork unavailable; no fallback for job " + job.Id); continue; }
@@ -50,6 +50,8 @@ namespace DarkSaver.Editor
                         if (offset < 58 || offset > 1078 || (offset - 54) % 4 != 0 || offset > bytes.Length - 96 * height)
                             throw new InvalidDataException("Invalid class pixels: " + source);
                         int paletteCount = (offset - 54) / 4;
+                        if(sheet==170 && colorMode==3 && paletteCount<224)
+                        { Debug.LogWarning("Native class170 allied-color palette is incomplete; no guessed colors generated."); continue; }
                         var pixels = new Color32[96 * height];
                         for (int y = 0; y < height; y++) for (int x = 0; x < 96; x++) {
                             int colorIndex = bytes[offset + y * 96 + x];
@@ -81,8 +83,7 @@ namespace DarkSaver.Editor
                     }
                     var frames = new Sprite[12];
                     for (int row = 0; row < 4; row++) for (int frame = 0; frame < 3; frame++) {
-                        int frameHeight = texture.height / 4;
-                        var sprite = Sprite.Create(texture, new Rect(frame * 32, (3 - row) * frameHeight, 32, frameHeight), new Vector2(.5f, .1f), 32, 0, SpriteMeshType.FullRect);
+                        var sprite = Sprite.Create(texture, new Rect(frame * 32, texture.height - (row + 1) * 32, 32, 32), new Vector2(.5f, .1f), 32, 0, SpriteMeshType.FullRect);
                         sprite.name = "Class" + job.Id + "_" + new[] {"Up", "Down", "Left", "Right"}[row] + "_" + frame;
                         frames[row * 3 + frame] = sprite; pending.Add(sprite);
                     }

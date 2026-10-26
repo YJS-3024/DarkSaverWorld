@@ -11,17 +11,17 @@ namespace DarkSaver.Tests
         public void CharacterPortraitsUseRecoveredJobImagesAndOriginalNoFaceFallback()
         {
             var catalog=Resources.Load<CharacterPortraitCatalog>("UI/CharacterPortraits/CharacterPortraits");
-            Assert.That(catalog, Is.Not.Null); Assert.That(catalog.Count, Is.EqualTo(54));
+            Assert.That(catalog, Is.Not.Null); Assert.That(catalog.Count, Is.EqualTo(70));
             var unique=new System.Collections.Generic.HashSet<Texture2D>();
-            for(int job=100;job<=169;job++) {
+            for(int job=100;job<=172;job++) {
                 Assert.That(catalog.TryGet(job,out var image), Is.True);
                 Assert.That(image.width, Is.EqualTo(64)); Assert.That(image.height, Is.EqualTo(64));
                 Assert.That(image.filterMode, Is.EqualTo(FilterMode.Point)); Assert.That(image.mipmapCount, Is.EqualTo(1));
-                if(job<=153) Assert.That(image, Is.Not.SameAs(catalog.NoFace)); else Assert.That(image, Is.SameAs(catalog.NoFace));
+                if(job<=169) Assert.That(image, Is.Not.SameAs(catalog.NoFace)); else Assert.That(image, Is.SameAs(catalog.NoFace));
                 unique.Add(image);
             }
-            Assert.That(unique.Count, Is.EqualTo(55));
-            Assert.That(catalog.TryGet(99,out _), Is.False); Assert.That(catalog.TryGet(170,out _), Is.False);
+            Assert.That(unique.Count, Is.EqualTo(71));
+            Assert.That(catalog.TryGet(99,out _), Is.False); Assert.That(catalog.TryGet(173,out _), Is.False);
             foreach(var dependency in UnityEditor.AssetDatabase.GetDependencies(UnityEditor.AssetDatabase.GetAssetPath(catalog)))
                 Assert.That(dependency.StartsWith("Assets/"), Is.True, dependency);
         }

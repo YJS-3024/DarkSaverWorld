@@ -14,7 +14,7 @@ namespace DarkSaver.UI
             var copy=new Entry[source.Length];
             for(int i=0;i<source.Length;i++) {
                 var e=source[i];
-                if(e==null || e.jobId<100 || e.jobId>169 || e.icon==null || e.icon.texture==null
+                if(e==null || !DarkSaver.Jobs.NativePlayerJobs.Contains(e.jobId) || e.icon==null || e.icon.texture==null
                     || e.icon.rect!=new Rect(32,e.icon.texture.height-64,32,32))
                     throw new ArgumentException("Invalid original class menu crop");
                 copy[i]=new Entry {jobId=e.jobId,icon=e.icon};

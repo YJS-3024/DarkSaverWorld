@@ -9,8 +9,8 @@ namespace DarkSaver.Tests
 {
     public sealed class NonPlayerJobCatalogTests
     {
-        [TestCase(JobCatalogConverter.MonsterOutput, 324, 301, 799, "monster")]
-        [TestCase(JobCatalogConverter.NpcOutput, 35, 800, 981, "npc_or_special")]
+        [TestCase(JobCatalogConverter.MonsterOutput, 337, 301, 799, "monster")]
+        [TestCase(JobCatalogConverter.NpcOutput, 37, 800, 989, "npc_or_special")]
         public void CatalogPreservesCountsBoundsCategoryAndHasNoCsvDependency(string path, int count, int first, int last, string category)
         {
             var catalog = AssetDatabase.LoadAssetAtPath<JobCatalog>(path);
@@ -32,7 +32,7 @@ namespace DarkSaver.Tests
         {
             var catalog = AssetDatabase.LoadAssetAtPath<JobCatalog>(JobCatalogConverter.MonsterOutput);
             var rows = Enumerable.Range(0, catalog.Count).Select(catalog.GetAt).ToArray();
-            Assert.That(rows.Count(row => row.Id != row.SpriteId), Is.EqualTo(123));
+            Assert.That(rows.Count(row => row.Id != row.SpriteId), Is.EqualTo(130));
             Assert.That(rows.Any(row => Enumerable.Range(0, JobCatalogEntry.NumericColumnCount).Any(column => row.GetNumericValue(column) == -1)), Is.True);
             Assert.That(catalog.TryGet(701, out var kisra), Is.True);
             Assert.That(kisra.Name, Is.EqualTo("키스라"));
@@ -74,9 +74,9 @@ namespace DarkSaver.Tests
                 var catalog = AssetDatabase.LoadAssetAtPath<JobCatalog>(path);
                 for (var i = 0; i < catalog.Count; i++) Assert.That(ids.Add(catalog.GetAt(i).Id), Is.True);
             }
-            Assert.That(ids.Count, Is.EqualTo(429));
+            Assert.That(ids.Count, Is.EqualTo(447));
             var players = AssetDatabase.LoadAssetAtPath<JobCatalog>(JobCatalogConverter.Output);
-            Assert.That(players.Count, Is.EqualTo(70));
+            Assert.That(players.Count, Is.EqualTo(73));
             Assert.That(players.TryGet(100, out var fighter), Is.True);
             Assert.That(fighter.Name, Is.EqualTo("파이터"));
             Assert.That(fighter.GetNumericValue(2), Is.EqualTo(200));

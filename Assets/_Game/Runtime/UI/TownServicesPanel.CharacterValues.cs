@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Collections.Generic;
 using DarkSaver.Combat;
@@ -36,9 +36,9 @@ namespace DarkSaver.UI
             string xp=session.PlayerExperience.ToString(CultureInfo.InvariantCulture),state="목표 미확인";
             string target="?";
             if(profile.hasLevels) {
-                if(profile.jobLevel==100) {target="-";state="최고 직업 레벨";}
-                else if(progression!=null && progression.TryGet(profile.jobId,profile.jobLevel,out var row)) {
+                if(progression!=null && progression.TryGet(profile.jobId,profile.jobLevel,out var row)) {
                     if(row.nextJobId!=profile.jobId) {target="-";state="전직 대기";}
+                    else if(profile.jobLevel>=DarkSaver.Jobs.NativePlayerJobs.MaximumLevel(profile.jobId)) {target="-";state="최고 직업 레벨";}
                     else if(row.requiredXp>0) {target=row.requiredXp.ToString(CultureInfo.InvariantCulture);state="다음 직업 레벨";}
                 }
             }

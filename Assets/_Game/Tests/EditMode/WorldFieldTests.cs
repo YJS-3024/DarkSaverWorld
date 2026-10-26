@@ -13,7 +13,7 @@ namespace DarkSaver.Tests
         [Test]
         public void GeneratedOutdoorRuntimeDoesNotInventIndoorNpcsFromMissingJsonFields()
         {
-            foreach (var region in TownCatalog.All.Concat(FieldCatalog.All).Where(r=>r.Key!="Kaosia" && r.Key!="WorldField1010"))
+            foreach (var region in TownCatalog.All.Concat(FieldCatalog.All))
             {
                 var scene = UnityEditor.SceneManagement.EditorSceneManager.NewPreviewScene();
                 try

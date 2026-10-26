@@ -96,8 +96,8 @@ namespace DarkSaver.Tests
         {
             var catalog = AssetDatabase.LoadAssetAtPath<JobCatalog>(JobCatalogConverter.Output);
             Assert.That(catalog, Is.Not.Null);
-            Assert.That(catalog.Count, Is.EqualTo(70));
-            for (var id = 100; id <= 169; id++)
+            Assert.That(catalog.Count, Is.EqualTo(73));
+            for (var id = 100; id <= 172; id++)
             {
                 Assert.That(catalog.TryGet(id, out var row), Is.True);
                 Assert.That(row.CategoryLabel, Is.EqualTo("player_job"));
@@ -113,7 +113,7 @@ namespace DarkSaver.Tests
             Assert.That(last.Name, Is.EqualTo("그랑메이지"));
             Assert.That(last.HorizontalTransitionText, Is.EqualTo("-1"));
             Assert.That(catalog.TryGet(99, out _), Is.False);
-            Assert.That(catalog.TryGet(170, out _), Is.False);
+            Assert.That(catalog.TryGet(173, out _), Is.False);
             Assert.That(catalog.TryGet(701, out _), Is.False);
             foreach (var dependency in AssetDatabase.GetDependencies(JobCatalogConverter.Output))
                 Assert.That(dependency.EndsWith(".csv", StringComparison.OrdinalIgnoreCase), Is.False);
@@ -133,7 +133,7 @@ namespace DarkSaver.Tests
             source[0] = original; source[1] = original;
             Assert.Throws<InvalidDataException>(() => JobCatalogConverter.Verify(catalog, source));
             Assert.That(catalog.GetAt(0).GetNumericValue(2), Is.EqualTo(200));
-            Assert.That(catalog.Count, Is.EqualTo(70));
+            Assert.That(catalog.Count, Is.EqualTo(73));
         }
 
         private static string[] Fields()

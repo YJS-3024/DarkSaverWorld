@@ -8,6 +8,7 @@ import UnityPy,yaml
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'닥세_리소스/분석도구'))
 from decode_visuals import read_mrc,read_grs,grs_image
+from world_asset_baker import native_map_path,load_map,resource
 class UnityYaml(yaml.SafeLoader):pass
 UnityYaml.add_multi_constructor('tag:unity3d.com,2011:',lambda loader,suffix,node:loader.construct_mapping(node,deep=True))
 
@@ -18,13 +19,12 @@ def main():
     build=next(o.read_typetree()['m_Scenes'] for o in env.objects if o.type.name=='EditorBuildSettings')
     resources={};results=[]
     def grs(id):
-        if id not in resources:resources[id]=read_grs(native/('mdsr'+str(id)+'.grs'))
-        return resources[id]
+        return resource(id)
     script=(ROOT/'Assets/_Game/Runtime/World/NativeTownScene.cs.meta').read_text();script_guid=re.search(r'guid: (\w+)',script)[1]
     for row in manifest:
-        key=row['key'];folder=ROOT/'Assets/_Game/Resources/Towns'/key;source=native/(row['nativeMap']+'.mrc')
+        key=row['key'];folder=ROOT/'Assets/_Game/Resources/Towns'/key;source=native_map_path(row['nativeMap'])
         assert hashlib.sha256(source.read_bytes()).hexdigest()==row['sourceSha256']
-        original=read_mrc(source);data=json.loads((folder/'Map.json').read_text());w,h=data['width'],data['height']
+        original=load_map(row['nativeMap']);data=json.loads((folder/'Map.json').read_text());w,h=data['width'],data['height']
         assert (w,h)==(original['width'],original['height'])
         assert data['attributes']==[t[3]&127 for t in original['tiles']]
         assert len(data['objects'])==len(original['sprites'])
@@ -65,5 +65,5 @@ def main():
         scope='Offline native pixels/geometry, walkable spawns, Unity YAML references and build GUIDs. Not Unity import/Play.',
         remaining=['Original map/name identities for three towns','Original field routes and NPC locations','Original non-Kaosia stock','Ground native animation: first-frame presentation only'])
     (ROOT/'Tools/MapChecks/four_towns_check.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-    print('PASS three native map layouts, 626 decoration records, 6100 ground cells, six scenes/build GUIDs and walkable spawns.')
+    print(f"PASS {len(results)} native town layouts, {sum(r['objects'] for r in results)} decoration records, {sum(r['cells'] for r in results)} ground cells, six scenes/build GUIDs and walkable spawns.")
 if __name__=='__main__':main()

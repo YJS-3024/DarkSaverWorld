@@ -275,9 +275,9 @@ namespace DarkSaver.Tests
             try {
                 var root = new GameObject("Class animation check"); SceneManager.MoveGameObjectToScene(root, scene);
                 var animator = root.AddComponent<DirectionalSpriteAnimator>();
-                foreach (int id in new[] {100, 105, 115, 155, 164, 165, 168, 169}) {
+                foreach (int id in new[] {100, 105, 115, 155, 164, 165, 168, 169, 170, 171, 172}) {
                     Assert.That(Artwork.TryGet(id, out var entry), Is.True);
-                    Assert.That(entry.GetFrame(0).rect.height, Is.EqualTo(id < 164 ? 48 : 32));
+                    Assert.That(entry.GetFrame(0).rect.height, Is.EqualTo(32));
                     Assert.That(entry.GetFrame(0).pixelsPerUnit, Is.EqualTo(32));
                     Assert.That(Artwork.TryApply(id, animator), Is.True);
                     animator.TrySetFacing(Vector2.left); animator.PresentFrame(0);
@@ -291,9 +291,9 @@ namespace DarkSaver.Tests
         public void ShortNativePalettesPreserveEveryVisiblePixel()
         {
             foreach (int id in new[] {164, 168}) {
-                string source = "분석/Saver_1.2/decoded/all_arc/gameres/" + (id == 164 ? "char5/" : "char6/") + id + "r.bmp";
+                string source = "분석/Saver_Late/decoded_art/gameres/" + (id == 164 ? "char5.arc/" : "char6.arc/") + id + "r.bmp";
                 var bytes = System.IO.File.ReadAllBytes(source); int offset = BitConverter.ToInt32(bytes, 10);
-                Assert.That(offset, Is.LessThan(1078));
+                Assert.That(offset, Is.LessThanOrEqualTo(1078));
                 var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(ClassArtworkConverter.SheetPath(id));
                 var pixels = texture.GetPixels32();
                 for (int i = 0; i < pixels.Length; i++) {

@@ -1,0 +1,38 @@
+LOADSCENE 32
+SETPOSITION 19 7 
+CHARPOS 752 700 19 7
+CHARDIR 700 UP
+MESSAGE 1 752 0 0 에르기온, 마르타니...벌써 두 명인가?
+CHARPOS 750 701 19 13
+MAGIC 1201 701 -1 -1 701
+DO 200
+MESSAGE 2 750 0 0 제이드님, 마르타니도 당했습니다.
+CHARDIR 700 DOWN
+MESSAGE 1 752 0 0 결국, 택자의 힘은 ...
+MESSAGE 2 750 0 0 하지만 걱정 마십시오. 이번에는 제가 직접 나서 보겠습니다.
+MESSAGE 1 752 0 0 괜찮겠느냐? 너마저 당한다면...
+MESSAGE 2 750 0 0 염려 놓으십시오. 제 실력을 모르십니까?
+MESSAGE 1 752 0 0 좋다. 하지만 방심은 절대 하지 마라.
+MESSAGE 2 750 0 0 예. 알겠습니다. 그를 물리치고 돌아오겠습니다.
+MAGIC 1201 701 -1 -1 701
+DO 300
+KILLCHAR1 701
+DO 50
+CHARDIR 700 UP
+MESSAGE 1 752 0 0 블린의 힘으로도 어쩔 수 없다면.. | 역시 그를 써야 하는 것인가?
+DO 300
+LOADSCENE 30
+SETPOSITION 19 7 
+CHARPOS 750 700 19 7
+MESSAGE 1 750 0 0 왔는가.. 택자여.. 기다리고 있었다.
+CHARPOS COM0 301 14 32
+SETPOSITION 14 32 
+DO 500
+MESSAGE 1 ME 0 0 너는 누구인가?
+SETPOSITION 19 7
+MESSAGE 1 750 0 0 나는 제이드님의 충성스런 종인 블린 테리반이다. |제이드님의 명과 동료들에 대한 복수다. 덤벼라!
+SETPOSITION 14 32 
+MESSAGE 1 ME 0 0 너 역시 인간인 것 같은데. 어째서 인간을 적대하는 것이냐?
+SETPOSITION 19 7
+MESSAGE 1 750 0 0 네놈들이 알 수 있겠는가? 인간에게서 버림받은 인간의 마음을! 자! 어서 덤벼라!
+END

@@ -13,7 +13,7 @@ namespace DarkSaver.Core
             progressed = null; remainingExperience = availableExperience;
             if (!IsValid || !hasLevels || table == null || !table.TryGet(jobId, jobLevel, out _)) return false;
             var candidate = Clone(); uint remaining = availableExperience;
-            while (candidate.jobLevel < 100)
+            while (candidate.jobLevel < DarkSaver.Jobs.NativePlayerJobs.MaximumLevel(candidate.jobId))
             {
                 if (!table.TryGet(candidate.jobId, candidate.jobLevel, out var row)) return false;
                 if (row.nextJobId != candidate.jobId) break; // Explicit class-change boundary, not auto promotion.

@@ -18,12 +18,12 @@ namespace DarkSaver.Editor
                 throw new InvalidOperationException("Editor must be idle");
             if(AssetDatabase.LoadAssetAtPath<ClassMenuIconCatalog>(Output)!=null) return;
             var source=AssetDatabase.LoadAssetAtPath<ClassArtworkCatalog>(ClassArtworkConverter.Output);
-            if(source==null || source.Count!=70) throw new InvalidOperationException("Complete converted class artwork required");
+            if(source==null || source.Count!=73) throw new InvalidOperationException("Complete converted class artwork required");
             var icons=new List<ClassMenuIconCatalog.Entry>();
             var pending=new List<Sprite>();
             var catalog=ScriptableObject.CreateInstance<ClassMenuIconCatalog>();
             try {
-                for(int id=100;id<=169;id++) {
+                for(int id=100;id<=172;id++) {
                     if(!source.TryGet(id,out var row)) throw new InvalidOperationException("Missing class "+id);
                     var texture=row.GetFrame(0).texture;
                     if(texture.width!=96 || (texture.height!=128 && texture.height!=192)) throw new InvalidOperationException("Unexpected class sheet dimensions");

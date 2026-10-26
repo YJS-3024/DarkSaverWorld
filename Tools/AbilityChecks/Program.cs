@@ -5,6 +5,8 @@ using System.Text.Json;
 using System.Collections.Generic;
 using DarkSaver.Combat;
 using DarkSaver.Magic;
+using DarkSaver.Core;
+using DarkSaver.Jobs;
 
 internal static class Program
 {
@@ -23,13 +25,14 @@ internal static class Program
     public static void Main(string[] args)
     {
         Console.WriteLine("Beginning actual production CombatFlow/LocalCombatAuthority checks (no Unity scene execution).");
-        var coverage=new List<object>();var rules=new Dictionary<int,SinglePlayerAbilityRule>();int combat=0,hiring=0,emotes=0;
+        var coverage=new List<object>();var rules=new Dictionary<int,SinglePlayerAbilityRule>();int combat=0,hiring=0,emotes=0;var unconfirmed=new List<int>();
         using var fixture=JsonDocument.Parse(File.ReadAllText(args[0]));
         foreach(var item in fixture.RootElement.EnumerateArray())
         {
             var values=item.GetProperty("values").EnumerateArray().Select(v=>v.GetInt64()).ToArray();
             var entry=new MagicCatalogEntry(values,item.GetProperty("name").GetString());
-            Check(SinglePlayerAbilityRules.TryCreate(entry,out var rule),"unclassified original catalog ID "+entry.Id+" "+entry.Name);
+            if(!SinglePlayerAbilityRules.TryCreate(entry,out var rule))
+            {Check(entry.Id==30901 && entry.Name=="큐리즘","unclassified late catalog ID "+entry.Id);unconfirmed.Add(entry.Id);continue;}
             Check(rule.Mp==entry.Mp && rule.Ap>0 && rule.Ap<=10,"native MP / bounded authored AP");rules.Add(entry.Id,rule);
             coverage.Add(new {id=entry.Id,name=entry.Name,effect=rule.Effect.ToString(),route=rule.Combat?"Combat":rule.Effect.ToString(),nativeRange=entry.Range,nativeArea=entry.Area,nativeTick=entry.RawTick,physical=rule.Physical,mp=rule.Mp,ap=rule.Ap,range=rule.Range,power=rule.Power,seconds=rule.Seconds});
             if(!rule.Combat){if(rule.Effect==AbilityEffect.Hiring)hiring++;else emotes++;continue;}combat++;
@@ -86,7 +89,7 @@ internal static class Program
                 Check(denied.Item1.Get(100).Mp==0 && denied.Item1.Get(100).ActionPoints.Current==ap,"failed cast costs unchanged");
             }
         }
-        Check(combat==374 && hiring==50 && emotes==15,"complete 439-entry route census");
+        Check(combat==374 && hiring==50 && emotes==15,"439 supported routes retained");
         // Multi-target cost atomicity, duplicated targets and caster drains.
         foreach(int id in new[]{1201,1301})
         {
@@ -122,8 +125,20 @@ internal static class Program
         Check(poison.Item2.TryGetTemporaryStatus(poison.Item1.Get(800),TemporaryStatusEffect.Poison,out _,out _),"poison weapon applies poison");
         var expired=Setup(rules[1501]);expired.Item3.TryExecute(new CombatRequest(100,800,CombatActionType.Magic,1501),out _,out _);expired.Item3.AdvanceActionPoints(rules[1501].Seconds+1);
         Check(expired.Item2.EffectiveAttack(expired.Item1.Get(800))==20,"debuff expires");
-        File.WriteAllText(args[1],JsonSerializer.Serialize(new {total=439,combat,hiring,emotes,checks=count,unityPlay=false,scope="Actual production pure combat classes; no Unity scenes, imports or visual playback",entries=coverage},new JsonSerializerOptions {WriteIndented=true}));
-        if(args.Length>3)BalanceChecks.Run(rules,args[2],args[3]);
+        File.WriteAllText(args[1],JsonSerializer.Serialize(new {total=fixture.RootElement.GetArrayLength(),combat,hiring,emotes,unconfirmed,checks=count,unityPlay=false,scope="Actual production pure combat classes; no Unity scenes, imports or visual playback",entries=coverage},new JsonSerializerOptions {WriteIndented=true}));
+        if(args.Length>3)
+        {
+            Check(unconfirmed.SequenceEqual(new[] {30901}),"unconfirmed later skill stays blocked");
+        foreach(int job in new[] {170,171,172}) {
+            var profile=new NativeCharacterProfile {name="후기검증",jobId=job,hasLevels=true,baseLevel=500,jobLevel=300,
+                hasClassAbilities=true,learnedMagicIds=Array.Empty<int>(),usableSkillIds=Array.Empty<int>()};
+            Check(profile.IsValid,"late profile level300 "+job);profile.jobLevel=301;
+            Check(!profile.IsValid,"late profile rejects301 "+job);
+            profile.jobId=169;profile.jobLevel=101;Check(!profile.IsValid,"legacy class cap remains100");
+        }
+        BalanceChecks.Run(rules,args[2],args[3]);
+            ScenarioRewardChecks.Run(rules,args[2],args[4],Path.Combine(Path.GetDirectoryName(args[1]),"scenario_rewards_check.json"));
+        }
         Console.WriteLine($"PASS {count} actual combat checks; {combat} combat abilities, {hiring} hiring, {emotes} emote entries classified.");
     }
 }

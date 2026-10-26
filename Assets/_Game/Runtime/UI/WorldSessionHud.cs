@@ -14,7 +14,6 @@ namespace DarkSaver.UI
         [SerializeField] private string trackedScenarioKey = "01";
         private BattleTransitionController session;
         private InGameUi ui;
-        private CharacterPortraitCatalog portraits;
         private Rect pointerBounds;
         private string trainingEntryMessage;
         private bool emotesOpen;private Rect emoteBounds;private string emoteMessage;
@@ -84,10 +83,9 @@ namespace DarkSaver.UI
             ui.NativeStatusPanel("world", panel);
             ui.NativeStatusName("world-name", new Rect(panel.x + 9, panel.y + 7, 68, 14),
                 session.HasCreatedCharacter ? session.PlayerName : "용병대장");
-            var profile = session.CaptureCharacterProfile();
-            if (portraits == null) portraits = Resources.Load<CharacterPortraitCatalog>("UI/CharacterPortraits/CharacterPortraits");
-            if (profile != null && portraits != null && portraits.TryGet(profile.jobId, out var portrait))
-                ui.PortraitTexture("world-portrait", new Rect(panel.x + 44, panel.y + 79, 32, 32), portrait);
+            var playerBody = FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>()?.GetComponent<SpriteRenderer>();
+            ui.Portrait("world-portrait", new Rect(panel.x + 44, panel.y + 79, 32, 32),
+                NativeBattleStatus.UnitPicture(playerBody, session.PlayerJobId));
             // Original layout includes AP; it has no meaning outside combat, so do not fabricate a value.
             ui.NativeStatusGauge("world-hp", new Vector2(panel.x + 30, panel.y + 156), session.PlayerHp, session.PlayerMaxHp, 1);
             ui.NativeStatusGauge("world-mp", new Vector2(panel.x + 30, panel.y + 169), session.PlayerMp, session.PlayerMaxMp, 2);

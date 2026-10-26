@@ -1,0 +1,1651 @@
+{
+  "date": "2026-10-25",
+  "sourceScenarioArchives": 104,
+  "rewardBearingScenarioIds": 40,
+  "scope": "Explicit original ending/clear-linked commands; excludes ordinary chests and quests. No original server replay or blanket first-clear guarantee.",
+  "scenarios": [
+    {
+      "scenario": "01",
+      "title": "브르고스궁",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 398,
+          "name": "폭탄"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/01set/01.DEE",
+          "line": 39,
+          "command": "GETITEM 398",
+          "event": null,
+          "sha256": "37c450d901b7d37c723443e65a1ecb369f480a354e1b2fd62373257cd49cd1be"
+        }
+      ]
+    },
+    {
+      "scenario": "02",
+      "title": "자모라 요새",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 102,
+          "name": "클레릭"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/02set/02.evt",
+          "line": 338,
+          "command": "GETGENERAL 102",
+          "event": 55,
+          "sha256": "805449bffea8d04b796ba4e702bf02ff1f5c2c8ab0fb4df1a77a27923ced86f2"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/02set/02A.DEE",
+          "line": 43,
+          "command": "GETGENERAL 102",
+          "event": null,
+          "sha256": "ba556fde75aa51102bd9e33a7c07a18d4b42b25702f6ba8be6f80d6a95a521bc"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/02set/02B.DEE",
+          "line": 44,
+          "command": "GETGENERAL 102",
+          "event": null,
+          "sha256": "286c1dba495ee36e905ed208b775181c611fa64103105630024c0e537f93c067"
+        }
+      ]
+    },
+    {
+      "scenario": "03",
+      "title": "에트나 화산동굴",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 100,
+          "name": "파이터"
+        },
+        {
+          "kind": "item",
+          "id": 98,
+          "name": "전설의 보검'"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.DEE",
+          "line": 42,
+          "command": "GETGENERAL 100",
+          "event": null,
+          "sha256": "bd9db59710314e70912257a81fc0c4db538df82ccaf6639f9ee88622ccc8ca73"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.evt",
+          "line": 359,
+          "command": "GETITEM 098",
+          "event": 54,
+          "sha256": "c4bef45fc37c18bc084a4074ab73446500e2f5beeb9b0aac52c5d2c528cf3e97"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/03set/03.evt",
+          "line": 363,
+          "command": "GETGENERAL 100",
+          "event": 54,
+          "sha256": "c4bef45fc37c18bc084a4074ab73446500e2f5beeb9b0aac52c5d2c528cf3e97"
+        }
+      ]
+    },
+    {
+      "scenario": "04",
+      "title": "알카디아",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 101,
+          "name": "나이트"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/04set/04.DEE",
+          "line": 19,
+          "command": "GETGENERAL 101",
+          "event": null,
+          "sha256": "b971ff845ee4333f201d809a428021a3051b7b6a9a58839fdffe2581d90df789"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/04set/04.evt",
+          "line": 239,
+          "command": "GETGENERAL 101",
+          "event": 24,
+          "sha256": "cf30e1a1a8d3deaadc5ba12a3b33a7f2e09e73260113bb37f68f4755fd4186b2"
+        }
+      ]
+    },
+    {
+      "scenario": "05",
+      "title": "브린힐트 국경",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 103,
+          "name": "매지션"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/05set/05.DEE",
+          "line": 42,
+          "command": "GETGENERAL 103",
+          "event": null,
+          "sha256": "e86b0299a4e3da69831c6f12c88acb9900b34428bfd0d326ea4ddd16a12f92ce"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/05set/05.evt",
+          "line": 238,
+          "command": "GETGENERAL 103",
+          "event": 99,
+          "sha256": "547e7611dac044f93c08253767075a5d1478a93d730c6f8523d31199bd1bd4f1"
+        }
+      ]
+    },
+    {
+      "scenario": "06",
+      "title": "이름없는 마을",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 106,
+          "name": "로드"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/06set/06.dee",
+          "line": 29,
+          "command": "GETGENERAL 106",
+          "event": null,
+          "sha256": "c5fe5cfdd769051d7bcbb0cf264adfb2d810eca503b94ba865868d809f266e06"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/06set/06.evt",
+          "line": 102,
+          "command": "GETGENERAL 106",
+          "event": 6,
+          "sha256": "049f97a6f1aa82b6225ea509f2859a93cbd865dee8beef723d715db6df76171a"
+        }
+      ]
+    },
+    {
+      "scenario": "07",
+      "title": "사그라하스 신전",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 111,
+          "name": "몽크"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/07set/07.dee",
+          "line": 21,
+          "command": "GETGENERAL 111",
+          "event": null,
+          "sha256": "a181095c60ed1f3621e50879e9aeef4fd977afe8808bdd5ecb290986e20c9807"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/07set/07.evt",
+          "line": 7,
+          "command": "GETGENERAL 111",
+          "event": 1,
+          "sha256": "bd4f9ed414c3be5933ed62d486233711d891f2395099dfe90d29f43b0638cf6b"
+        }
+      ]
+    },
+    {
+      "scenario": "08",
+      "title": "사군토 항구",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 104,
+          "name": "캡틴"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/08set/08.evt",
+          "line": 195,
+          "command": "GETGENERAL 104",
+          "event": 54,
+          "sha256": "2bf8afd84d40d0569601f1a4e26d9f72f47f92d57773b876e0f55c5e5caf7cf4"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/08set/08A.dee",
+          "line": 24,
+          "command": "GETGENERAL 104",
+          "event": null,
+          "sha256": "d6c1a19dc17874aa3e69e6f1768637de5b0ea1596acf2ebbdc3912a9e7d1b892"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/08set/08B.dee",
+          "line": 27,
+          "command": "GETGENERAL 104",
+          "event": null,
+          "sha256": "daff69f138a502da083a19d81c94af0e80cc9305d1cfa5e9018a10556666fa57"
+        }
+      ]
+    },
+    {
+      "scenario": "09",
+      "title": "시시리오섬 해안",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 107,
+          "name": "스나이퍼"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/09set/09.EVT",
+          "line": 7,
+          "command": "GETGENERAL 107",
+          "event": 50,
+          "sha256": "0657d3ae5a3a28125f26ed3f6782bb8b13cbbddbb4c9a1b1b6f77bf2a477500e"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/09set/09.dee",
+          "line": 24,
+          "command": "GETGENERAL 107",
+          "event": null,
+          "sha256": "ee65028174abc539a717c2c752585a24593daed8f4e64bdc4c3e6aebfdb03290"
+        }
+      ]
+    },
+    {
+      "scenario": "10",
+      "title": "달라이 호수",
+      "status": "grant_text_present_but_not_dispatched_by_original_client",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 109,
+          "name": "호크나이트"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [
+        "Original EVT99 contains GET_GENERAL109, but six original x86 probes show this spelling invokes no client GetGeneral sender.",
+        "DEE has no separate grant; classify as no confirmed clear reward, not HawkKnight reward. Historical server-only behavior unknown."
+      ],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/10set/10.EVT",
+          "line": 30,
+          "command": "GET_GENERAL 109",
+          "event": 99,
+          "sha256": "11189e6fb0d3e912b108651b4659784b79ffea438b6fb783f926b51cd4079e9b"
+        }
+      ],
+      "confirmedRewards": []
+    },
+    {
+      "scenario": "11",
+      "title": "아케론 오아시스",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 109,
+          "name": "호크나이트"
+        }
+      ],
+      "endingHasFirstClearBranch": true,
+      "notes": [
+        "Same109 as10; do not replace with Sherman113 without evidence"
+      ],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/11set/11.DEE",
+          "line": 22,
+          "command": "GETGENERAL 109",
+          "event": null,
+          "sha256": "01f7fe522b709b8ed55bd536096aea11279c123eb0469f22c75547b370e32c2c"
+        }
+      ]
+    },
+    {
+      "scenario": "12",
+      "title": "아멘호텝 왕릉",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "13",
+      "title": "아멘호텝 왕릉 안",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "14",
+      "title": "스케리아 마을",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "character",
+          "id": 113,
+          "name": "셔먼"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/14set/14.dee",
+          "line": 23,
+          "command": "GETGENERAL 113",
+          "event": null,
+          "sha256": "8f150d266c68317ad77f15641d79473e74865a9acb5a895d6022129f922a1174"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/14set/14.evt",
+          "line": 220,
+          "command": "GETGENERAL 113",
+          "event": 70,
+          "sha256": "cd111c8fdbcee1280e00314b26e3c1f97e8745c798bc6216d99337496b1f75e3"
+        }
+      ]
+    },
+    {
+      "scenario": "15",
+      "title": "이름없는 마을",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "16",
+      "title": "발할라 평원",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "17",
+      "title": "비공정 앞",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "18",
+      "title": "아멘트 입구",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "19",
+      "title": "아멘트 1층",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 386,
+          "name": "신비의 조각A"
+        },
+        {
+          "kind": "item",
+          "id": 387,
+          "name": "신비의 조각B"
+        },
+        {
+          "kind": "item",
+          "id": 388,
+          "name": "신비의 조각C"
+        },
+        {
+          "kind": "item",
+          "id": 389,
+          "name": "신비의 조각D"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [
+        "Four separate exit-position clear events; not four simultaneous grants"
+      ],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/19set/19.evt",
+          "line": 337,
+          "command": "GETITEM 386",
+          "event": 99,
+          "sha256": "21680fd0ad6f9ca866f07156fa0f50cb7add89747da417e7e32d5b8fd08b337c"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/19set/19.evt",
+          "line": 352,
+          "command": "GETITEM 387",
+          "event": 95,
+          "sha256": "21680fd0ad6f9ca866f07156fa0f50cb7add89747da417e7e32d5b8fd08b337c"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/19set/19.evt",
+          "line": 367,
+          "command": "GETITEM 388",
+          "event": 97,
+          "sha256": "21680fd0ad6f9ca866f07156fa0f50cb7add89747da417e7e32d5b8fd08b337c"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/19set/19.evt",
+          "line": 382,
+          "command": "GETITEM 389",
+          "event": 96,
+          "sha256": "21680fd0ad6f9ca866f07156fa0f50cb7add89747da417e7e32d5b8fd08b337c"
+        }
+      ]
+    },
+    {
+      "scenario": "20",
+      "title": "아멘트 2충",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "21",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 970,
+          "name": "이니그마 블레이드"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/21set/21.evt",
+          "line": 36,
+          "command": "GETITEM 970",
+          "event": 99,
+          "sha256": "af6a82224ffaafa74aceeea2146af27d0d5d83808d0ceb58094b80452391b491"
+        }
+      ]
+    },
+    {
+      "scenario": "22",
+      "title": "커디스 공화국의 플래임 캐슬",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 975,
+          "name": "카오스링거"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/22set/22.evt",
+          "line": 36,
+          "command": "GETITEM 975",
+          "event": 99,
+          "sha256": "8f98a8054325aab9281e22a53ec1d660e1203945c9bbaeec4b57f2a4c76f9a69"
+        }
+      ]
+    },
+    {
+      "scenario": "23",
+      "title": "아스타니아 평원의 부서진성",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 984,
+          "name": "실버애로우"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/23set/23.evt",
+          "line": 36,
+          "command": "GETITEM 984",
+          "event": 99,
+          "sha256": "e7b416a16df0ad0349f333a28383acf987496bc1ed7a779f2a70df191207c789"
+        }
+      ]
+    },
+    {
+      "scenario": "24",
+      "title": "게이시르 계곡의 절벽위의 성",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 976,
+          "name": "문라이트"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/24set/24.evt",
+          "line": 36,
+          "command": "GETITEM 976",
+          "event": 99,
+          "sha256": "fe33bb79587e3de217105764688aeb18deb53fc0b841a5453ffeacf64502d71e"
+        }
+      ]
+    },
+    {
+      "scenario": "25",
+      "title": "캘리퍼제국의 저주받은 암흑성",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "26",
+      "title": "카타리나 행성의  달표면",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "27",
+      "title": "페르미안의 황량한 페허지역",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "28",
+      "title": "불타는 엔젤라의 십자가",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "29",
+      "title": "파멸의 아빌로니아탑",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "30",
+      "title": "저주받은 핼리온의 얼음성",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "31",
+      "title": "디스트로어 카이거",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "32",
+      "title": "제이드",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "51",
+      "title": "벨퓌어스지방의 절벽 위 마을",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "52",
+      "title": "비프로스트 궁전",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "53",
+      "title": "다갈 마을의 지하동굴",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "54",
+      "title": "카이사르 숲속의 로스웰 지대",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "55",
+      "title": "아르니아의 평화스러운 스노우 월드",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "56",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "57",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "58",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "59",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "60",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "61",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "71",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1164,
+          "name": "신비의 지도조각1"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/71set/71.evt",
+          "line": 8,
+          "command": "GETITEM 1164",
+          "event": 1,
+          "sha256": "2ab93645e225dbcdf7f522de455be2d98b0a947a9f9ee5a88820872acbd0b46e"
+        }
+      ]
+    },
+    {
+      "scenario": "72",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1165,
+          "name": "신비의 지도조각2"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/72set/72.evt",
+          "line": 8,
+          "command": "GETITEM 1165",
+          "event": 1,
+          "sha256": "6005f919e657c07f23636d118659028ad2458702e5bf2943f8f9cea84033646f"
+        }
+      ]
+    },
+    {
+      "scenario": "73",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1165,
+          "name": "신비의 지도조각2"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [
+        "GETITEM1165 gives map fragment2; displayed message says fragment3"
+      ],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/73set/73.evt",
+          "line": 8,
+          "command": "GETITEM 1165",
+          "event": 1,
+          "sha256": "1f24bfa7592d4239b9b3a82467a03b7f7bab5d22b1d1a1124ea25752fe73e37b"
+        }
+      ]
+    },
+    {
+      "scenario": "81",
+      "title": "던전시나리오1",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 932,
+          "name": "황동열쇠"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/81set/81.evt",
+          "line": 6,
+          "command": "GETITEM 932",
+          "event": 99,
+          "sha256": "6f81345fe5cd5b54f7abcb5fcd44a8722fed90a10853a3ed6938cbbbb3fa4ee0"
+        }
+      ]
+    },
+    {
+      "scenario": "82",
+      "title": "던전시나리오2",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 933,
+          "name": "구리열쇠"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/82set/82.evt",
+          "line": 6,
+          "command": "GETITEM 933",
+          "event": 99,
+          "sha256": "50e2bfadc6b83a7802a8d595c083e240b5925b54308b6c1293daa465c0009afa"
+        }
+      ]
+    },
+    {
+      "scenario": "83",
+      "title": "던전시나리오3",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "84",
+      "title": "던전시나리오4",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "85",
+      "title": "던전시나리오5",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 965,
+          "name": "5층열쇠"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/85set/85.evt",
+          "line": 6,
+          "command": "GETITEM 965",
+          "event": 99,
+          "sha256": "1832ec8a80bdc79f74dbab34840fa75bdeed095e8b277e239924e7071f264657"
+        }
+      ]
+    },
+    {
+      "scenario": "86",
+      "title": "던전시나리오6",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 954,
+          "name": "수정 조각"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/86set/86.evt",
+          "line": 5,
+          "command": "GETITEM 954",
+          "event": 99,
+          "sha256": "ed25346c62cd69811301d555dc74c394c99340c41cfef042ec6bd186a4260de2"
+        }
+      ]
+    },
+    {
+      "scenario": "91",
+      "title": "카오스닉던전1층",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1530,
+          "name": "텔레포션3"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/91set/91.evt",
+          "line": 6,
+          "command": "GETITEM 1530",
+          "event": 99,
+          "sha256": "50a2a32681c64d0b88e275403278f1b70aedd048b0f95546631330676000a66a"
+        }
+      ]
+    },
+    {
+      "scenario": "92",
+      "title": "카오스닉던전2층",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1533,
+          "name": "텔레포션6"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/92set/92.evt",
+          "line": 6,
+          "command": "GETITEM 1533",
+          "event": 99,
+          "sha256": "00fd18b3f38b96d72ff9ff639ef11d5050dc9bd42c403e4a9b2947a0c53ed6da"
+        }
+      ]
+    },
+    {
+      "scenario": "93",
+      "title": "카오스닉던전3층",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1535,
+          "name": "텔레포션8"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/93set/93.evt",
+          "line": 6,
+          "command": "GETITEM 1535",
+          "event": 99,
+          "sha256": "ec3679e99a03fb83d1f7c6eb313929dae1c413f0f1c872316fba76ba7b897c73"
+        }
+      ]
+    },
+    {
+      "scenario": "94",
+      "title": "카오스닉던전4층",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1536,
+          "name": "텔레포션9"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/94set/94.evt",
+          "line": 6,
+          "command": "GETITEM 1536",
+          "event": 99,
+          "sha256": "b1c358d859ea1af881c5cd4778ba46d28bded985abc2535fdfc1d17e3c8dd37b"
+        }
+      ]
+    },
+    {
+      "scenario": "95",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "96",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1515,
+          "name": "빛의검"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/96set/96.evt",
+          "line": 8,
+          "command": "GETITEM 1515",
+          "event": 1,
+          "sha256": "e2b6a2e9246eaba12ad070e25779bb3ac50db081f9adc793404ab65844f8e58a"
+        }
+      ]
+    },
+    {
+      "scenario": "97",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "101",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "102",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "103",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "104",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "105",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "106",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "107",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "201",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "202",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "203",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "204",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "205",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "206",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "207",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "301",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "302",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "303",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "304",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "305",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "306",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "307",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "309",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "310",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "311",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "312",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "313",
+      "title": "던전시나리오7",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 943,
+          "name": "광선검 조각4"
+        },
+        {
+          "kind": "item",
+          "id": 959,
+          "name": "천공 실드조각5"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/313set/313.evt",
+          "line": 7,
+          "command": "GETITEM 943",
+          "event": 99,
+          "sha256": "726d4e3a61b799c9e421a04d1a113bc91372f2e250c598a9a477bfa7f2e3c728"
+        },
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/313set/313.evt",
+          "line": 8,
+          "command": "GETITEM 959",
+          "event": 99,
+          "sha256": "726d4e3a61b799c9e421a04d1a113bc91372f2e250c598a9a477bfa7f2e3c728"
+        }
+      ]
+    },
+    {
+      "scenario": "314",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1038,
+          "name": "보병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/314set/314.evt",
+          "line": 8,
+          "command": "GETITEM 1038",
+          "event": 1,
+          "sha256": "b523aff71bc1e1d1124b12f9418fc2fa80fb426c1f96175a581c6acf733a6b1f"
+        }
+      ]
+    },
+    {
+      "scenario": "315",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1039,
+          "name": "비병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/315set/315.evt",
+          "line": 8,
+          "command": "GETITEM 1039",
+          "event": 1,
+          "sha256": "673b8e370ce3c5300f57d1e7d972ec08390bce8471a11c1751e9a235c7d03a55"
+        }
+      ]
+    },
+    {
+      "scenario": "316",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1040,
+          "name": "기병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/316set/316.evt",
+          "line": 8,
+          "command": "GETITEM 1040",
+          "event": 1,
+          "sha256": "0df359c1287089d72d9e3e6b52a406469a6707f145b438d4e51b5355284bacc6"
+        }
+      ]
+    },
+    {
+      "scenario": "317",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1041,
+          "name": "수병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/317set/317.evt",
+          "line": 8,
+          "command": "GETITEM 1041",
+          "event": 1,
+          "sha256": "d0d3212755161ca05ed31e4cebf058c235cd44eb058675d090cd511ce97067e7"
+        }
+      ]
+    },
+    {
+      "scenario": "318",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1042,
+          "name": "창병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/318set/318.evt",
+          "line": 8,
+          "command": "GETITEM 1042",
+          "event": 1,
+          "sha256": "28e0c978fced55d76589918f7c303f5dd21274d8cf2d66ae0c885f2571e238af"
+        }
+      ]
+    },
+    {
+      "scenario": "319",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1043,
+          "name": "궁병의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/319set/319.evt",
+          "line": 8,
+          "command": "GETITEM 1043",
+          "event": 1,
+          "sha256": "e9cfa1728d2784315a86119f9d7f610f7bed378f82a9dd1b2484c8503db79c57"
+        }
+      ]
+    },
+    {
+      "scenario": "320",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1044,
+          "name": "승려의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/320set/320.evt",
+          "line": 8,
+          "command": "GETITEM 1044",
+          "event": 1,
+          "sha256": "55d3659cb3250c3cf9ce7f49981df0583900d6818b12a1b26840eec295b38d8a"
+        }
+      ]
+    },
+    {
+      "scenario": "321",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1045,
+          "name": "신관의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/321set/321.evt",
+          "line": 8,
+          "command": "GETITEM 1045",
+          "event": 1,
+          "sha256": "74144a037b441d3f2e7034dead1b8ec92b5b2c0a8266deb44405c678ff960038"
+        }
+      ]
+    },
+    {
+      "scenario": "322",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1046,
+          "name": "마법사의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/322set/322.evt",
+          "line": 8,
+          "command": "GETITEM 1046",
+          "event": 1,
+          "sha256": "536210317d966824cfcac5817d1ee263464944b7ec719fa4a7e752091273b663"
+        }
+      ]
+    },
+    {
+      "scenario": "323",
+      "title": "",
+      "status": "explicit_clear_linked_grant",
+      "rewards": [
+        {
+          "kind": "item",
+          "id": 1047,
+          "name": "사교의문장"
+        }
+      ],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": [
+        {
+          "file": "분석/Saver_1.2/decoded/all_arc/MAP/323set/323.evt",
+          "line": 8,
+          "command": "GETITEM 1047",
+          "event": 1,
+          "sha256": "66fbedf4f6fd9465755bb0f0f9792054dc10523937d8fc6b707544477c83992f"
+        }
+      ]
+    },
+    {
+      "scenario": "324",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "325",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "326",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "327",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "328",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "329",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "401",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "402",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    },
+    {
+      "scenario": "403",
+      "title": "",
+      "status": "no_explicit_clear_linked_grant_found",
+      "rewards": [],
+      "endingHasFirstClearBranch": false,
+      "notes": [],
+      "evidence": []
+    }
+  ]
+}

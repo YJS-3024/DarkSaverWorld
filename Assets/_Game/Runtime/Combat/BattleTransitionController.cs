@@ -22,6 +22,7 @@ namespace DarkSaver.Combat
         private string lastSaveMessage;
         private NativeCharacterProfile character;
         private NativeOwnedRoster ownedRoster;
+        private int[] scenarioGeneralReceipts = System.Array.Empty<int>();
         [SerializeField] private DarkSaver.Jobs.JobCatalog[] formationCatalogs = System.Array.Empty<DarkSaver.Jobs.JobCatalog>();
         private readonly Dictionary<int, DirectionalSpriteAnimator> formationArtwork = new();
         [System.Serializable] private struct FormationArtworkReference
@@ -219,6 +220,7 @@ namespace DarkSaver.Combat
                 lifeState = (int)playerLifeState, clearedScenarios = keys.ToArray(), character = character?.Clone(), hasCharacter = character != null,
                 tutorialPresenceVersion = 1, hasTutorial = character?.tutorial != null,
                 ownedRoster = ownedRoster?.Clone(), hasOwnedRoster = ownedRoster != null,
+                scenarioGeneralReceipts = (int[])scenarioGeneralReceipts.Clone(),
                 inventory = inventory?.Clone(), hasInventory = inventory != null,
                 hasScenario01 = scenario01 != null, scenario01 = scenario01?.Clone(),
                 campaign = CaptureCampaignStates()
@@ -235,6 +237,7 @@ namespace DarkSaver.Combat
             playerLifeState = (UnitLifeState)data.lifeState;
             character = data.hasCharacter ? data.character.Clone() : null;
             if (character != null && data.tutorialPresenceVersion == 1 && !data.hasTutorial) character.tutorial = null;
+            scenarioGeneralReceipts = data.scenarioGeneralReceipts==null ? System.Array.Empty<int>() : (int[])data.scenarioGeneralReceipts.Clone();
             ownedRoster = restoredRoster; OwnedRosterRevision++;
             inventory = data.hasInventory ? data.inventory.Clone() : null;
             scenario01 = data.hasScenario01 ? data.scenario01.Clone() : null; Scenario01Revision++;
@@ -265,8 +268,10 @@ namespace DarkSaver.Combat
             if ((town ? 1 : 0) + (field ? 1 : 0) + (scenario ? 1 : 0) + trainingCount != 1)
             { lastSaveMessage = "현재 맵의 저장 준비가 되지 않았습니다."; return false; }
             if (saveStore == null) saveStore = new NativeSaveStore(NativeSaveStore.DefaultPath);
-            return saveStore.TrySave(CaptureSaveState(town ? townDefinition.MapScene : field ? fieldDefinition.MapScene : scenario ? scenarioDefinition.MapScene : trainingMap,
-                town ? townDefinition.RuntimeScene : field ? fieldDefinition.RuntimeScene : scenario ? scenarioDefinition.RuntimeScene : trainingRuntime, player.transform.position), out lastSaveMessage);
+            var snapshot=CaptureSaveState(town ? townDefinition.MapScene : field ? fieldDefinition.MapScene : scenario ? scenarioDefinition.MapScene : trainingMap,
+                town ? townDefinition.RuntimeScene : field ? fieldDefinition.RuntimeScene : scenario ? scenarioDefinition.RuntimeScene : trainingRuntime, player.transform.position);
+            if(!StageScenarioGeneralRewards(snapshot,out lastSaveMessage) || !saveStore.TrySave(snapshot,out lastSaveMessage))return false;
+            PublishScenarioGeneralRewards(snapshot);return true;
         }
 
         public bool IsScenarioCleared(string mapKey) =>
@@ -347,6 +352,8 @@ namespace DarkSaver.Combat
                     && !art.ContainsKey(character.jobId) && animator != null && animator.HasCompleteDirections
                     && renderer != null && renderer.sprite != null && renderer.sprite.name.StartsWith("Class" + character.jobId + "_"))
                     art.Add(character.jobId, animator);
+                if(!AddScenarioGeneralArtwork(formation,art))
+                {LastTransitionMessage="영입 캐릭터의 원본 외형을 확인할 수 없습니다.";return false;}
                 foreach (var member in formation.Members)
                     if (!art.TryGetValue(member.Unit.JobId, out var template) || template == null || !template.HasCompleteDirections
                         || !BattleMapPresentation.TryGetPlacementMovement(ground, terrain, ground.cellBounds, formationCatalogs,

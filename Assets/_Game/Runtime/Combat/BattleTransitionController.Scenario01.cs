@@ -36,8 +36,10 @@ namespace DarkSaver.Combat
                 var keys = new SortedSet<string>(snapshot.clearedScenarios, StringComparer.Ordinal) { "01" };
                 snapshot.clearedScenarios = new List<string>(keys).ToArray();
             }
+            if (!StageScenarioGeneralRewards(snapshot, out reason)) return false;
             if (saveStore == null) saveStore = new NativeSaveStore(NativeSaveStore.DefaultPath);
             if (!saveStore.TrySave(snapshot, out reason)) { lastSaveMessage = reason; return false; }
+            PublishScenarioGeneralRewards(snapshot);
             scenario01 = snapshot.scenario01; inventory = snapshot.inventory;
             if (progress.phase == Scenario01Progress.Complete) clearedScenarioKeys.Add("01");
             Scenario01Revision++; lastSaveMessage = "시나리오 진행을 저장했습니다."; return true;
