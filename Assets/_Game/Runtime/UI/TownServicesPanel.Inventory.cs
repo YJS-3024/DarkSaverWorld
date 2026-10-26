@@ -2,7 +2,7 @@
 using DarkSaver.Core;
 using DarkSaver.Items;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 namespace DarkSaver.UI
 {
@@ -104,17 +104,13 @@ namespace DarkSaver.UI
             var parent = ui.Scroll(key + "-scroll", area, height, changed);
             ui.Label(key, new Rect(0, 0, area.width - 24, height), detailText, 12, parent,
                 TextAnchor.UpperLeft, nativePaper ? new Color(.17f, .09f, .035f) : (Color?)null);
-            var label = parent.Q<Label>(key);
-            // Measure the actual resolved font/wrapping, including after the first layout pass.
-            // The cached text and fixed visual keys are reused; no split/string rebuild per frame.
-            float measured = label.MeasureTextSize(detailText, area.width - 24, VisualElement.MeasureMode.Exactly,
-                0, VisualElement.MeasureMode.Undefined).y;
-            if (!float.IsNaN(measured) && !float.IsInfinity(measured) && measured > 0) {
-                detailHeight = Mathf.Max(area.height, Mathf.Ceil(measured) + 4);
-                if (Mathf.Abs(detailHeight - height) > .1f) {
-                    parent.style.height = detailHeight;
-                    label.style.height = detailHeight;
-                }
+            var label=ui.Find<Text>(key);
+            float measured=label.preferredHeight;
+            if(!float.IsNaN(measured) && !float.IsInfinity(measured) && measured>0)
+            {
+                detailHeight=Mathf.Max(area.height,Mathf.Ceil(measured)+4);
+                parent.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,detailHeight);
+                label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,detailHeight);
             }
         }
         public int InventoryPageIndex => inventoryPage;

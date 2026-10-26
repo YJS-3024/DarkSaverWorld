@@ -1,3 +1,4 @@
+using System.Linq;
 using System.IO;
 using DarkSaver.Combat;
 using DarkSaver.Core;
@@ -6,7 +7,7 @@ using DarkSaver.Player;
 using DarkSaver.UI;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.EditorTools
 {
@@ -156,7 +157,7 @@ namespace DarkSaver.EditorTools
                 InGameUi ui = null;
                 var shopSource = TownItemElement<Button>(panel,"shop-item-0");
                 foreach (var candidate in panel.GetComponentsInChildren<InGameUi>())
-                    if (candidate.GetComponent<UIDocument>().rootVisualElement.Contains(shopSource)) ui = candidate;
+                    if (CanvasProbe.For(candidate).Contains(shopSource)) ui = candidate;
                 RequireMercenary(ui != null, "Shop UI missing for input cancellation");
                 BeginTownDrag(panel,"shop-item-0","shop-owned-0");
                 townDragSource.SetEnabled(false); EndTownDrag();

@@ -1,7 +1,7 @@
 using DarkSaver.UI;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.Tests
 {
@@ -59,7 +59,7 @@ namespace DarkSaver.Tests
             {
                 var owner = go.AddComponent<StartMenuController>(); InGameUi ui = null;
                 InGameUi.Ensure(ref ui, owner);
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 var rect = new Rect(10, 10, 48, 48);
                 ui.Begin(); ui.ActionButton("move", rect, "이동", () => {}, true, "이동", first); ui.End();
                 var button = root.Q<Button>("move");
@@ -85,7 +85,7 @@ namespace DarkSaver.Tests
                 ui.Begin(); ui.Button("roster-row", rect, "긴 이름 AP 10", () => {}, singleLine: true, fontSize: 12); ui.End();
                 var row = root.Q<Button>("roster-row");
                 Assert.That(row.style.whiteSpace.value, Is.EqualTo(WhiteSpace.NoWrap));
-                Assert.That(row.style.textOverflow.value, Is.EqualTo(TextOverflow.Ellipsis));
+                Assert.That(row.style.textOverflow.value, Is.EqualTo(TextOverflow.Clip));
                 Assert.That(row.style.fontSize.value.value, Is.EqualTo(12));
                 ui.Begin(); ui.Button("roster-row", rect, "일반 버튼", () => {}); ui.End();
                 Assert.That(row.style.whiteSpace.value, Is.EqualTo(WhiteSpace.Normal));

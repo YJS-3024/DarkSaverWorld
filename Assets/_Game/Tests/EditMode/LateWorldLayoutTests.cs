@@ -28,6 +28,21 @@ namespace DarkSaver.Tests
             Assert.AreEqual(x,x2);Assert.AreEqual(y,y2);
             Assert.IsFalse(WorldLayoutMigration.TryResolve(saved.mapScene,float.NaN,0,out _,out _));
         }
+        [Test]
+        public void RestoredKaosiaRecoversLateMapCoordinatesWithoutChangingSave()
+        {
+            Assert.IsTrue(TownCatalog.TryGet("Kaosia",out var town));
+            Assert.AreEqual(43,town.Width);Assert.AreEqual(43,town.Height);
+            var saved=new NativeSaveData {mapScene="Kaosia_Map",worldX=55.5f,worldY=54.5f};
+            string before=JsonUtility.ToJson(saved);
+            Assert.IsTrue(WorldLayoutMigration.TryResolve(saved.mapScene,saved.worldX,saved.worldY,out var x,out var y));
+            Assert.That(x,Is.InRange(0f,42.999f));Assert.That(y,Is.InRange(0f,42.999f));
+            Assert.AreEqual(before,JsonUtility.ToJson(saved));
+            Assert.IsTrue(WorldLayoutMigration.TryResolve(saved.mapScene,x,y,out var x2,out var y2));
+            Assert.AreEqual(x,x2);Assert.AreEqual(y,y2);
+            Assert.IsFalse(WorldLayoutMigration.TryResolve(saved.mapScene,float.PositiveInfinity,54,out _,out _));
+            Assert.IsFalse(WorldLayoutMigration.TryResolve(saved.mapScene,-1,54,out _,out _));
+        }
         [TestCase("33")][TestCase("330")][TestCase("331")][TestCase("332")]
         [TestCase("333")][TestCase("404")][TestCase("405")][TestCase("406")]
         public void NewScenarioMapBuildsNativeGroundTerrainAndDimensions(string key)

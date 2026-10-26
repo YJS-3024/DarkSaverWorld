@@ -29,6 +29,8 @@ namespace DarkSaver.Core
             resumePath=null;requiresSelection=true;
             if(TryRead(historyPath,out var last,out reason,accountId))
             {
+                if(slots==null || !Array.Exists(slots,slot=>NativeAccountDirectory.SamePath(slot,last)))
+                {reason="이 계정의 캐릭터 슬롯에 속하지 않는 로그인 기록입니다.";requiresSelection=false;return false;}
                 if(!NativeCharacterSlots.IsOccupied(last))return true;
                 resumePath=last;requiresSelection=false;
                 if(!new NativeSaveStore(last).TryLoad(out var saved,out reason))return false;

@@ -1,7 +1,7 @@
 using DarkSaver.UI;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.Tests
 {
@@ -54,7 +54,7 @@ namespace DarkSaver.Tests
             try
             {
                 var owner=go.AddComponent<StartMenuController>();InGameUi ui=null;InGameUi.Ensure(ref ui,owner);
-                var root=ui.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("LogicalScreen");
+                var root=CanvasProbe.For(ui).Q<VisualElement>("LogicalScreen");
                 ui.Begin();ui.NativeStatusGauge("hp",new Vector2(30,156),0,200,1);ui.End();
                 ui.Begin();ui.NativeStatusGauge("hp",new Vector2(30,156),200,200,1);ui.End();
                 var fill=root.Q<VisualElement>("hp-clip");Assert.IsNotNull(fill);
@@ -70,7 +70,7 @@ namespace DarkSaver.Tests
             try
             {
                 var owner=go.AddComponent<StartMenuController>();InGameUi ui=null;InGameUi.Ensure(ref ui,owner);
-                var root=ui.GetComponent<UIDocument>().rootVisualElement;
+                var root=CanvasProbe.For(ui);
                 var artwork=Resources.Load<Texture2D>("UI/NativeResultConfirm0");Assert.IsNotNull(artwork);
                 Button original=null;
                 for(int pass=0;pass<2;pass++)
@@ -142,7 +142,7 @@ namespace DarkSaver.Tests
                 ui.NativeRosterSelection("select", new Rect(17,46,110,38), () => {}, true, "unit");
                 ui.NativeStatusGauge("hp", new Vector2(77,60), 1, 3, 1, true, 48);
                 ui.End();
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 Assert.That(root.Q<VisualElement>("roster").style.backgroundImage.value.texture,
                     Is.SameAs(Resources.Load<Texture2D>("UI/NativeRoster1")));
                 Assert.That(root.Q<Button>("select").style.backgroundColor.value.a, Is.Zero);
@@ -164,7 +164,7 @@ namespace DarkSaver.Tests
             try
             {
                 var owner = go.AddComponent<StartMenuController>(); InGameUi ui = null; InGameUi.Ensure(ref ui, owner);
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 var rect = new Rect(108,253,15,15);
                 ui.Begin(); ui.NativeStatusCloseButton("close", rect, () => {}); ui.End();
                 var button = root.Q<Button>("close");
@@ -196,7 +196,7 @@ namespace DarkSaver.Tests
                 ui.Begin(); ui.NativeStatusPanel("inspect", new Rect(12,247,120,213));
                 ui.Button("close", new Rect(108,253,18,18), "×", () => {}, fontSize: 10);
                 ui.NativeStatusNumber("attack", new Vector2(44,444), "65", "공격 기본55 / 임시+10"); ui.End();
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 var panel = root.Q<VisualElement>("inspect");
                 Assert.That(panel.style.backgroundImage.value.texture, Is.SameAs(texture));
                 Assert.That(panel.style.borderTopWidth.value, Is.Zero);
@@ -241,7 +241,7 @@ namespace DarkSaver.Tests
             try
             {
                 var owner = go.AddComponent<StartMenuController>(); InGameUi ui = null; InGameUi.Ensure(ref ui, owner);
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 ui.Begin(); ui.NativeStatusGauge("hp", new Vector2(30,156), 50, 100, 1); ui.End();
                 var clip = root.Q<VisualElement>("hp-clip"); var fill = root.Q<VisualElement>("hp-fill");
                 Assert.That(clip.style.width.value.value, Is.EqualTo(40));

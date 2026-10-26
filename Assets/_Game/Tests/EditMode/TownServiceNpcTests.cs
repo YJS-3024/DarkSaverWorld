@@ -7,7 +7,7 @@ using DarkSaver.World;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 using UnityEditor.SceneManagement;
 
 namespace DarkSaver.Tests
@@ -46,7 +46,7 @@ namespace DarkSaver.Tests
                         player.transform.position=quest.transform.position;
                         Assert.IsTrue(quest.TryInteract(player,panel));Assert.AreEqual(quest.Definition.name,panel.Speaker);
                         typeof(TownServicesPanel).GetMethod("LateUpdate",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(panel,null);
-                        var ui=root.GetComponentsInChildren<UIDocument>().First(d=>d.rootVisualElement.Q("quest-status")!=null).rootVisualElement;
+                        var ui=root.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For).First(d=>d.rootVisualElement.Q("quest-status")!=null).rootVisualElement;
                         Assert.IsNull(ui.Q("quest-1"));Assert.IsNull(ui.Q("quest-2"));Assert.IsNull(ui.Q("town-save"));
                         panel.Close();
                     }

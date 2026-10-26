@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.IO;
 using DarkSaver.Combat;
@@ -7,7 +8,7 @@ using DarkSaver.Player;
 using DarkSaver.UI;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.EditorTools
 {
@@ -47,7 +48,7 @@ namespace DarkSaver.EditorTools
 
         static T TownItemElement<T>(TownServicesPanel panel, string name) where T : VisualElement
         {
-            foreach (var document in panel.GetComponentsInChildren<UIDocument>()) {
+            foreach (var document in panel.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For)) {
                 var element = document.rootVisualElement.Q<T>(name);
                 if (element != null && element.panel != null && element.resolvedStyle.display != DisplayStyle.None
                     && element.worldBound.width > 0) return element;
@@ -152,7 +153,7 @@ namespace DarkSaver.EditorTools
                 RequireMercenary(Scroll("inventory-detail-scroll").scrollOffset.y > 0, "Inventory scroll did not move");
                 var scroll = Scroll("inventory-detail-scroll");
                 var label = scroll.Q<Label>("inventory-detail");
-                float measured = label.MeasureTextSize(label.text, label.layout.width, VisualElement.MeasureMode.Exactly, 0, VisualElement.MeasureMode.Undefined).y;
+                float measured = label.Transform.GetComponent<UnityEngine.UI.Text>().preferredHeight;
                 RequireMercenary(Mathf.Abs(scroll.contentContainer.layout.height - Mathf.Max(scroll.contentViewport.layout.height, Mathf.Ceil(measured) + 4)) < 8,
                     "Inventory detail has excess trailing blank space");
                 Unchanged(970, 1); ScreenCapture.CaptureScreenshot(Path.Combine(output, "town-inventory-detail-bottom.png")); Step(); return;

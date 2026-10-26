@@ -1,7 +1,7 @@
 using DarkSaver.UI;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.Tests
 {
@@ -76,7 +76,7 @@ namespace DarkSaver.Tests
                     ui.Begin(); ui.ItemSlotButton("slot", new Rect(0,0,32,32), () => {}, null, 1, false, "");
                     ui.ItemDragSource("slot", id, null, new Rect(100,0,50,50), value => drops += value); ui.End();
                 }
-                Draw(); var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                Draw(); var root = CanvasProbe.For(ui);
                 var button = root.Q<Button>("slot"); var parent = button.parent;
                 void Down(Vector2 p) { using var e = PointerDownEvent.GetPooled(new Event {type=EventType.MouseDown,button=0,mousePosition=parent.LocalToWorld(p)}); e.target=button; button.SendEvent(e); }
                 void Move(Vector2 p) { using var e = PointerMoveEvent.GetPooled(new Event {type=EventType.MouseDrag,button=0,mousePosition=parent.LocalToWorld(p)}); e.target=button; button.SendEvent(e); }
@@ -109,7 +109,7 @@ namespace DarkSaver.Tests
                     ui.Begin(); ui.NativeBitmapScrollText("detail", rect, value, window.controls[0], window.controls[1], reset); ui.End();
                 }
                 Draw(text);
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 var scroll = root.Q<ScrollView>("detail-scroll");
                 Assert.That(scroll.verticalScrollerVisibility, Is.EqualTo(ScrollerVisibility.Hidden));
                 Assert.That(scroll.contentContainer.style.height.value.value, Is.EqualTo(1600));
@@ -150,7 +150,7 @@ namespace DarkSaver.Tests
             var go = new GameObject("Native town text fixture");
             try {
                 var owner = go.AddComponent<StartMenuController>(); InGameUi ui = null; InGameUi.Ensure(ref ui, owner);
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 ui.Begin(); ui.NativeBitmapText("paper", new Rect(0,0,28,32), "가나A", Color.black, 2); ui.End();
                 var clip = root.Q<VisualElement>("paper");
                 Assert.That(clip.pickingMode, Is.EqualTo(PickingMode.Ignore));
@@ -224,7 +224,7 @@ namespace DarkSaver.Tests
                 var close = catalog.Find(0).controls[1]; Assert.That(close.nativeId, Is.EqualTo(38));
                 int calls = 0;
                 ui.Begin(); ui.NativeLibraryButton("close", Vector2.one, 38, () => calls++, true, "닫기"); ui.End();
-                var button = ui.GetComponent<UIDocument>().rootVisualElement.Q<Button>("close");
+                var button = CanvasProbe.For(ui).Q<Button>("close");
                 Assert.That(button.style.width.value.value, Is.EqualTo(close.rect.width));
                 Assert.That(button.style.height.value.value, Is.EqualTo(close.rect.height));
                 Assert.That(button.style.backgroundImage.value.texture, Is.SameAs(close.frames[0]));
@@ -257,7 +257,7 @@ namespace DarkSaver.Tests
                 var owner = go.AddComponent<StartMenuController>(); InGameUi ui = null;
                 InGameUi.Ensure(ref ui,owner);
                 ui.Begin(); ui.NativeWorldName("name",new Vector2(100,100),"가나"); ui.End();
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 var name = root.Q<VisualElement>("name");
                 Assert.AreEqual(28,name.style.width.value.value);
                 Assert.AreEqual(86,name.style.left.value.value);
@@ -279,7 +279,7 @@ namespace DarkSaver.Tests
             {
                 var owner = go.AddComponent<StartMenuController>(); InGameUi ui = null;
                 InGameUi.Ensure(ref ui, owner);
-                var document = ui.GetComponent<UIDocument>();
+                var document = CanvasProbe.For(ui);
                 var calls = 0;
                 ui.Begin(); ui.Button("attack", new Rect(0,0,32,32), "공격", () => calls++); ui.End();
                 var button = document.rootVisualElement.Q<Button>("attack");
@@ -312,7 +312,7 @@ namespace DarkSaver.Tests
             {
                 var owner = go.AddComponent<StartMenuController>(); InGameUi ui = null;
                 InGameUi.Ensure(ref ui, owner);
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 ui.Begin();
                 ui.BattlePanel("battle-test", new Rect(0, 0, 220, 260), "전투");
                 ui.BattlePortrait("portrait-test", new Rect(20, 40, 64, 64), null);
@@ -336,8 +336,9 @@ namespace DarkSaver.Tests
                 var owner = go.AddComponent<StartMenuController>();
                 InGameUi ui = null;
                 InGameUi.Ensure(ref ui, owner);
-                var document = ui.GetComponent<UIDocument>();
-                Assert.NotNull(document.panelSettings.themeStyleSheet);
+                var document = CanvasProbe.For(ui);
+                Assert.NotNull(ui.GetComponent<UnityEngine.UI.GraphicRaycaster>());
+                Assert.AreEqual(RenderMode.ScreenSpaceOverlay,ui.Canvas.renderMode);
                 Assert.AreEqual(PickingMode.Ignore, document.rootVisualElement.pickingMode);
                 ui.Begin();
                 ui.Panel("panel", new Rect(12, 12, 200, 100), "전투");
@@ -368,7 +369,7 @@ namespace DarkSaver.Tests
                 var owner = go.AddComponent<StartMenuController>();
                 InGameUi ui = null;
                 InGameUi.Ensure(ref ui, owner);
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 var rect = new Rect(40, 80, 560, 112);
                 ui.Begin();
                 ui.DungeonResult("outcome", rect, "던전을 완료했습니다.\n획득 경험치 123", () => { });
@@ -383,16 +384,16 @@ namespace DarkSaver.Tests
                 Assert.AreEqual("확인", root.Q<Button>("outcome-confirm").tooltip);
                 Assert.AreEqual(46f, root.Q<Button>("outcome-confirm").style.width.value.value);
                 Assert.AreEqual(DisplayStyle.Flex, root.Q<VisualElement>("outcome-blocker").style.display.value);
-                Assert.GreaterOrEqual(ui.GetComponent<UIDocument>().sortingOrder, 100);
-                Assert.GreaterOrEqual(ui.GetComponent<UIDocument>().panelSettings.sortingOrder, 100);
+                Assert.GreaterOrEqual(CanvasProbe.For(ui).sortingOrder, 100);
+                Assert.GreaterOrEqual(CanvasProbe.For(ui).panelSettings.sortingOrder, 100);
                 ui.Begin();
                 ui.DungeonResult("outcome", rect, "전투에서 패배했습니다.", () => { });
                 ui.End();
                 Assert.AreSame(panel, root.Q<VisualElement>("outcome"));
                 ui.Begin(); ui.End();
                 Assert.AreEqual(DisplayStyle.None, panel.style.display.value);
-                Assert.AreEqual(20, ui.GetComponent<UIDocument>().sortingOrder);
-                Assert.AreEqual(20, ui.GetComponent<UIDocument>().panelSettings.sortingOrder);
+                Assert.AreEqual(20, CanvasProbe.For(ui).sortingOrder);
+                Assert.AreEqual(20, CanvasProbe.For(ui).panelSettings.sortingOrder);
                 Assert.AreEqual(DisplayStyle.None, root.Q<Button>("outcome-confirm").style.display.value);
                 Assert.AreEqual(DisplayStyle.None, root.Q<VisualElement>("outcome-blocker").style.display.value);
             }
@@ -406,14 +407,14 @@ namespace DarkSaver.Tests
             try {
                 var owner = go.AddComponent<StartMenuController>();
                 InGameUi ui = null; InGameUi.Ensure(ref ui, owner);
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 string names = string.Join("\n", new string[20]);
                 void Draw(string text) { ui.Begin(); ui.DungeonResult("result", default, text, () => { }, names); ui.End(); }
                 Draw(names);
                 var allies = root.Q<ScrollView>("result-allies-scroll");
                 var enemies = root.Q<ScrollView>("result-enemies-scroll");
                 void ScrollDown() {
-                    allies.verticalScroller.highValue = enemies.verticalScroller.highValue = 400;
+                    // ScrollRect derives its range from viewport/content geometry.
                     allies.scrollOffset = enemies.scrollOffset = new Vector2(0, 80);
                     Assert.That(allies.scrollOffset.y, Is.EqualTo(80));
                     Assert.That(enemies.scrollOffset.y, Is.EqualTo(80));
@@ -441,7 +442,7 @@ namespace DarkSaver.Tests
             {
                 var owner = go.AddComponent<StartMenuController>();
                 InGameUi ui = null; InGameUi.Ensure(ref ui, owner);
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 ui.Begin();
                 ui.DungeonResult("result", default, "아군1\n아군2\n아군3\n아군4\n아군5", () => { },
                     "적1\n적2\n적3\n적4", "123", "승리");
@@ -471,7 +472,7 @@ namespace DarkSaver.Tests
             {
                 var owner = go.AddComponent<StartMenuController>();
                 InGameUi ui = null; InGameUi.Ensure(ref ui, owner);
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 var rect = new Rect(100, 120, 164, 37);
                 const string description = "설정된 목표 설명입니다.\n긴 목표 설명도 창 밖으로 넘치지 않고 스크롤합니다.";
                 ui.Begin(); ui.NativeBattleWindowText("goal", rect, description); ui.End();
@@ -479,7 +480,7 @@ namespace DarkSaver.Tests
                 Assert.AreEqual(description, label.text);
                 Assert.AreEqual(description, label.tooltip);
                 Assert.AreEqual(PickingMode.Ignore, label.pickingMode);
-                Assert.AreEqual(StyleKeyword.Auto, label.style.height.keyword);
+                Assert.GreaterOrEqual(ui.Find<UnityEngine.UI.Text>("goal").rectTransform.sizeDelta.y,ui.Find<UnityEngine.UI.Text>("goal").preferredHeight);
                 Assert.AreEqual(WhiteSpace.Normal, label.style.whiteSpace.value);
                 Assert.AreEqual(37f, root.Q<ScrollView>("goal-scroll").style.height.value.value);
                 Assert.AreEqual(ScrollerVisibility.Hidden, root.Q<ScrollView>("goal-scroll").verticalScrollerVisibility);
@@ -502,11 +503,11 @@ namespace DarkSaver.Tests
                 InGameUi ui = null; InGameUi.Ensure(ref ui, owner);
                 var name = "";
                 ui.Begin(); ui.TextInput("name", new Rect(0, 0, 200, 32), name, 12, value => name = value); ui.End();
-                var field = ui.GetComponent<UIDocument>().rootVisualElement.Q<TextField>("name");
+                var field = CanvasProbe.For(ui).Q<TextField>("name");
                 field.value = "용병";
                 Assert.AreEqual("용병", name);
                 ui.Begin(); ui.TextInput("name", new Rect(0, 0, 200, 32), name, 12, value => name = value); ui.End();
-                Assert.AreSame(field, ui.GetComponent<UIDocument>().rootVisualElement.Q<TextField>("name"));
+                Assert.AreSame(field, CanvasProbe.For(ui).Q<TextField>("name"));
                 Assert.AreEqual("용병", field.value);
                 var replacement = "";
                 ui.Begin(); ui.TextInput("name", new Rect(0, 0, 200, 32), name, 12, value => replacement = value); ui.End();

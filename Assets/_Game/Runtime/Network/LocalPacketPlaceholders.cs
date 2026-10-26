@@ -8,12 +8,15 @@ namespace DarkSaver.Network
         public LoginRequest(string userId=null,string password=null){UserId=userId;Password=password;}
     }
     public sealed class LoginStatusRequest : ClientPacket { }
+    public sealed class LogoutRequest : ClientPacket { }
     public sealed class LoginResponse : LocalCommandResponse
     {
+        private readonly string[] slotPaths;
+        public string[] CaptureSlotPaths()=>slotPaths==null?null:(string[])slotPaths.Clone();
         public bool RequiresCharacterSelection {get;} public string ResumePath {get;}
         public bool HasAccount {get;} public string AccountId {get;} public bool Authenticated {get;}
-        public LoginResponse(bool ready=false,string reason=null,bool requiresCharacterSelection=true,string resumePath=null,bool hasAccount=false,string accountId=null,bool authenticated=false):base(ready,reason)
-        {RequiresCharacterSelection=requiresCharacterSelection;ResumePath=resumePath;HasAccount=hasAccount;AccountId=accountId;Authenticated=authenticated;}
+        public LoginResponse(bool ready=false,string reason=null,bool requiresCharacterSelection=true,string resumePath=null,bool hasAccount=false,string accountId=null,bool authenticated=false,string[] slotPaths=null):base(ready,reason)
+        {RequiresCharacterSelection=requiresCharacterSelection;ResumePath=resumePath;HasAccount=hasAccount;AccountId=accountId;Authenticated=authenticated;this.slotPaths=slotPaths==null?null:(string[])slotPaths.Clone();}
     }
     public sealed class CharacterListRequest : ClientPacket { }
     public sealed class CharacterListResponse : LocalCommandResponse

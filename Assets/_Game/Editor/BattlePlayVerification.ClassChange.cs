@@ -9,7 +9,7 @@ using DarkSaver.World;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.EditorTools
 {
@@ -109,7 +109,7 @@ namespace DarkSaver.EditorTools
             if (stage == 40)
             {
                 Button button = null;
-                foreach (var document in panel.GetComponentsInChildren<UIDocument>())
+                foreach (var document in panel.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For))
                     if (document.rootVisualElement.Q<Button>("class-change") is Button found) button = found;
                 if (button == null || button.panel == null || button.worldBound.width <= 0) return;
                 ScreenCapture.CaptureScreenshot(Path.Combine(output, "class-confirmation.png"));

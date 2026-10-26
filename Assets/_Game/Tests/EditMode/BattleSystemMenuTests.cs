@@ -1,3 +1,4 @@
+using DarkSaver.UI;
 ﻿using System;
 using System.Linq;
 using DarkSaver.Combat;
@@ -8,7 +9,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.Tests
 {
@@ -28,7 +29,7 @@ namespace DarkSaver.Tests
                 Assert.IsTrue(view.TryPageToolDisplay(true));Assert.AreEqual(7,view.ToolDisplayOffset);Assert.IsFalse(view.TryPageToolDisplay(true));
                 Assert.IsTrue(view.TryPageToolDisplay(false));Assert.AreEqual(1,view.ToolDisplayOffset);
                 var draw=typeof(BattleMapPresentation).GetMethod("LateUpdate",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);draw.Invoke(view,null);
-                var root=view.GetComponentsInChildren<UIDocument>().Single(d=>d.rootVisualElement.Q("system-modal-input")!=null).rootVisualElement;
+                var root=view.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For).Single(d=>d.rootVisualElement.Q("system-modal-input")!=null).rootVisualElement;
                 for(int i=0;i<6;i++){Assert.IsFalse(root.Q("tool-row-"+i).enabledSelf);Assert.IsNotNull(root.Q("tool-row-"+i+"-icon"));Assert.AreEqual(1,root.Q("tool-row-"+i+"-icon").style.opacity.value);}
                 Assert.AreEqual(new Vector2(96,96),view.SystemMenuRect.size);Assert.AreEqual(0,packets);
                 Assert.IsTrue(view.TryCloseBattleWindowShell());Assert.IsFalse(view.TryPageToolDisplay(true));
@@ -44,7 +45,7 @@ namespace DarkSaver.Tests
                 Assert.IsTrue(view.TryOpenActionMenu());Assert.IsTrue(view.TryChooseCommand(BattleMapCommand.Troop));
                 var draw=typeof(BattleMapPresentation).GetMethod("LateUpdate",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
                 draw.Invoke(view,null);
-                var root=view.GetComponentsInChildren<UIDocument>().Single(d=>d.rootVisualElement.Q("system-modal-input")!=null).rootVisualElement;
+                var root=view.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For).Single(d=>d.rootVisualElement.Q("system-modal-input")!=null).rootVisualElement;
                 foreach(int id in new[]{1,2,8})Assert.IsTrue(root.Q("troop-order-"+id).enabledInHierarchy);
                 Assert.AreEqual(new Vector2(80,96),view.SystemMenuRect.size);
                 for(int i=0;i<3;i++)Assert.IsNotNull(DarkSaver.UI.BattleIconFrames.Magic(1,i,0));
@@ -68,7 +69,7 @@ namespace DarkSaver.Tests
                 Assert.IsFalse(view.TryChooseTroopOrder(BattleSceneRoot.TroopOrder.AutomaticAttack));
                 var draw=typeof(BattleMapPresentation).GetMethod("LateUpdate",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
                 draw.Invoke(view,null);
-                var root=view.GetComponentsInChildren<UIDocument>().Single(d=>d.rootVisualElement.Q("system-modal-input")!=null).rootVisualElement;
+                var root=view.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For).Single(d=>d.rootVisualElement.Q("system-modal-input")!=null).rootVisualElement;
                 foreach(int id in new[]{1,2,8})Assert.IsFalse(root.Q("troop-order-"+id).enabledInHierarchy);
                 Assert.IsTrue(view.TryCloseBattleWindowShell());
                 Assert.IsTrue(battle.TryGetTroopOrder(100,out var order));Assert.AreEqual(BattleSceneRoot.TroopOrder.Direct,order);
@@ -111,7 +112,7 @@ namespace DarkSaver.Tests
                 int packets=0;view.GetComponent<ServerManager>().RequestReceived += _=>packets++;
                 var draw=typeof(BattleMapPresentation).GetMethod("LateUpdate",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
                 Assert.IsTrue(view.TryOpenBattleWindowShell(3));draw.Invoke(view,null);
-                var root=view.GetComponentsInChildren<UIDocument>().Single(d=>d.rootVisualElement.Q("system-modal-input")!=null).rootVisualElement;
+                var root=view.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For).Single(d=>d.rootVisualElement.Q("system-modal-input")!=null).rootVisualElement;
                 Assert.AreEqual(battle.GetAlliedRosterCommanders()[0].Name,root.Q("alliance-name-0").tooltip);
                 Assert.IsTrue(view.TryOpenBattleWindowShell(7));draw.Invoke(view,null);
                 var text=Resources.Load<TextAsset>("UI/BattleWindows/NativeBattleHelp");Assert.IsNotNull(text);Assert.Greater(text.text.Length,100);
@@ -155,7 +156,7 @@ namespace DarkSaver.Tests
                 var hp=battle.PlayerHp; var ap=battle.PlayerAp;
                 Assert.IsTrue(view.TryOpenSystemMenu());
                 typeof(BattleMapPresentation).GetMethod("LateUpdate",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(view,null);
-                var root=view.GetComponentsInChildren<UIDocument>().Single(d=>d.rootVisualElement.Q("system-modal-input")!=null).rootVisualElement;
+                var root=view.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For).Single(d=>d.rootVisualElement.Q("system-modal-input")!=null).rootVisualElement;
                 foreach(var pair in new[]{("system-roster","정보창 보기"),("system-alliance","동맹"),("system-victory","승리조건"),("system-controls","도움말"),("system-minimap","맵정보"),("system-retreat","도망")})
                     Assert.AreEqual(pair.Item2,root.Q<Button>(pair.Item1).text);
                 Assert.IsNull(root.Q<Button>("system-windows"));
@@ -182,13 +183,13 @@ namespace DarkSaver.Tests
                 for(int frame=0;frame<2;frame++)
                 {
                     typeof(BattleMapPresentation).GetMethod("LateUpdate", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).Invoke(view, null);
-                    var document=view.GetComponentsInChildren<UIDocument>().Single(d=>d.rootVisualElement.Q("system-modal-input")!=null);
+                    var document=view.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For).Single(d=>d.rootVisualElement.Q("system-modal-input")!=null);
                     var blocker=document.rootVisualElement.Q("system-modal-input");
                     var button=document.rootVisualElement.Q<Button>("system-retreat");
                     Assert.AreSame(blocker.parent,button.parent);
                     Assert.Greater(button.parent.IndexOf(button),blocker.parent.IndexOf(blocker));
                 }
-                var target=view.GetComponentsInChildren<UIDocument>().Select(d=>d.rootVisualElement.Q<Button>("system-retreat")).First(b=>b!=null);
+                var target=view.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For).Select(d=>d.rootVisualElement.Q<Button>("system-retreat")).First(b=>b!=null);
                 using var submit=NavigationSubmitEvent.GetPooled();submit.target=target;target.SendEvent(submit);
                 Assert.IsFalse(view.TryRetreatImmediately()); // No owning live Battle transition.
                 Assert.IsTrue(view.IsSystemMenuOpen);
@@ -262,7 +263,7 @@ namespace DarkSaver.Tests
                     Assert.IsFalse(view.TryChooseBasicCommand(BattleMapCommand.Attack));
                     var draw = typeof(BattleMapPresentation).GetMethod("LateUpdate", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
                     draw.Invoke(view, null); draw.Invoke(view, null);
-                    var documents = view.GetComponentsInChildren<UIDocument>();
+                    var documents = view.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For);
                     var blocker = documents.Select(d => d.rootVisualElement.Q<VisualElement>("system-modal-input")).First(e => e != null);
                     string key = id < 1000 ? "native-window-" + id : id == BattleMapPresentation.TroopShell ? "troop-order-1" : id == BattleMapPresentation.ToolsShell ? "tool-status" : "shell-panel";
                     var panel = documents.Select(d => d.rootVisualElement.Q<VisualElement>(key)).First(e => e != null);

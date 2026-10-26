@@ -126,6 +126,7 @@ ScreenshotConfirmedChecks.Run(Check);
 LocalServerChecks.Run(Check);
 LoginFlowChecks.Run(Check);
 AccountChecks.Run(Check);
+DarkSaver.Tests.NativeMultiAccountChecks.Run(Check);
 ShopInteriorChecks.Run(Check);
 WorldAudioChecks.Run(Check);
 Console.WriteLine($"PASS {checks} checks: linked production C# with offline host/JSON adapters; NOT Unity PlayMode or JsonUtility verification.");

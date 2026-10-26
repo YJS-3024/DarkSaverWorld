@@ -337,7 +337,7 @@ namespace DarkSaver.UI
                     }
                 y += 12;
             }
-            parent.style.height = y;
+            parent.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,y);
             float footerWidth = (width - 40) / 3;
             ui.Button("confirm", new Rect(area.x + 12, area.yMax - 48, footerWidth, 36), "편성 확인", () => Confirm(), draft.Count > 0);
             ui.Button("town-return", new Rect(area.x + 20 + footerWidth, area.yMax - 48, footerWidth, 36), "대화 종료", () => ReturnToTown(), CanReturnToTown);

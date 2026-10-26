@@ -16,7 +16,12 @@ namespace DarkSaver.UI
             foreach(string path in paths)if(string.IsNullOrWhiteSpace(path))return false;
             localHistoryPath=historyPath;localSlotPaths=(string[])paths.Clone();return true;
         }
-        private string SlotPath(int index)=>localSlotPaths==null?NativeCharacterSlots.PathFor(index):localSlotPaths[index];
+        private string[] activeSlotPaths;
+        private string authenticatedAccountId;
+        public string CurrentAccountId=>authenticated?authenticatedAccountId:null;
+        private string SlotPath(int index)=>activeSlotPaths!=null?activeSlotPaths[index]:localSlotPaths==null?NativeCharacterSlots.PathFor(index):localSlotPaths[index];
+        private void ClearAccountSelection()
+        {activeSlotPaths=null;authenticatedAccountId=null;selectedSlot=0;System.Array.Clear(slots,0,slots.Length);System.Array.Clear(occupied,0,occupied.Length);}
         private readonly System.Collections.Generic.List<System.IDisposable> bindings=new();
         private void BindLocalServer()
         {
@@ -24,6 +29,7 @@ namespace DarkSaver.UI
             protocol=GetComponent<ServerManager>();if(protocol==null)protocol=gameObject.AddComponent<ServerManager>();
             var server=new LocalCharacterServer(localHistoryPath,localSlotPaths);
             bindings.Add(protocol.RegisterRequestHandler<LoginRequest>(server.Login));
+            bindings.Add(protocol.RegisterRequestHandler<LogoutRequest>(server.Logout));
             bindings.Add(protocol.RegisterRequestHandler<AccountRegisterRequest>(server.Register));
             bindings.Add(protocol.RegisterRequestHandler<LoginStatusRequest>(server.Status));
             bindings.Add(protocol.RegisterRequestHandler<CharacterListRequest>(server.List));
@@ -60,7 +66,11 @@ namespace DarkSaver.UI
         private string characterName = string.Empty;
         public bool IsCreatingCharacter => creating;
 
-        private void Start() => RefreshContinue();
+        private void Start()
+        {
+            EnsureEntryCamera();
+            RefreshContinue();
+        }
         public void RefreshContinue()
         {
             BindLocalServer();
@@ -103,6 +113,8 @@ namespace DarkSaver.UI
             if (loading) return;
             NativeSaveStore.ClearResume();
             NativeCharacterProfile.ClearPending();
+            authenticated=false;ClearAccountSelection();
+            BindLocalServer();protocol.TryRequest(new LogoutRequest(),out _);
             RefreshContinue();selecting=false;creating=false;registering=false;loggingIn=true;loginFailed=false;loginCanRecover=false;loginPassword="";
             loadMessage=string.Empty;
         }
@@ -111,13 +123,16 @@ namespace DarkSaver.UI
         {
             if(loading || !loggingIn)return false;
             if(userId!=null)loginUserId=userId;if(password!=null)loginPassword=password;
-            BindLocalServer();
+            BindLocalServer();authenticated=false;ClearAccountSelection();
             bool accepted=protocol.TryRequest(new LoginRequest(loginUserId,loginPassword),out var raw);
             loginPassword="";
+            var accountPaths=(raw as LoginResponse)?.CaptureSlotPaths();
+            if((raw as LoginResponse)?.Authenticated==true && accountPaths?.Length==NativeCharacterSlots.Count)
+            {activeSlotPaths=accountPaths;authenticatedAccountId=((LoginResponse)raw).AccountId;}
             if(!accepted)
             {loadMessage=raw?.Reason;loginFailed=true;loginCanRecover=(raw as LoginResponse)?.Authenticated==true;return false;}
             var response=raw as LoginResponse;
-            if(response==null){loadMessage="로그인 응답을 확인할 수 없습니다.";return false;}
+            if(response==null || activeSlotPaths==null){loadMessage="계정의 로그인 응답과 캐릭터 슬롯을 확인할 수 없습니다.";return false;}
             authenticated=true;loginCanRecover=true;loginFailed=false;loadMessage=string.Empty;
             if(!response.RequiresCharacterSelection)
             {
@@ -128,8 +143,11 @@ namespace DarkSaver.UI
         }
         public bool OpenRegistration()
         {
-            if(loading || !loggingIn || hasAccount)return false;
-            registering=true;loggingIn=false;registrationPassword=registrationConfirmation="";loadMessage="";return true;
+            if(loading || !loggingIn)return false;
+            RefreshContinue();
+            registering=true;loggingIn=false;registrationPassword=registrationConfirmation="";
+            loadMessage="새 아이디로 가입할 수 있습니다. 계정마다 캐릭터 10슬롯이 분리됩니다.";
+            return true;
         }
         public void CancelRegistration()
         {registering=false;loggingIn=true;registrationPassword=registrationConfirmation="";loadMessage="";}
@@ -140,7 +158,7 @@ namespace DarkSaver.UI
             if(!protocol.TryRequest(new AccountRegisterRequest(userId,password,confirmation),out var raw))
             {loadMessage=raw?.Reason;return false;}
             var response=raw as AccountRegisterResponse;
-            hasAccount=true;authenticated=false;loginUserId=response?.UserId ?? userId;loginPassword="";
+            hasAccount=true;authenticated=false;ClearAccountSelection();loginUserId=response?.UserId ?? userId;loginPassword="";
             registrationPassword=registrationConfirmation="";registering=false;loggingIn=true;
             loadMessage=response?.Reason ?? "회원가입이 완료되었습니다. 로그인해 주세요.";return true;
         }
@@ -153,7 +171,7 @@ namespace DarkSaver.UI
             ui.TextInput("register-password",new Rect(panel.x+135,panel.y+188,panel.width-159,30),registrationPassword,64,v=>registrationPassword=v,password:true);
             ui.Label("register-confirm-label",new Rect(panel.x+24,panel.y+234,104,28),"비밀번호 확인",14);
             ui.TextInput("register-confirm",new Rect(panel.x+135,panel.y+231,panel.width-159,30),registrationConfirmation,64,v=>registrationConfirmation=v,password:true);
-            ui.Label("register-guide",new Rect(panel.x+24,panel.y+269,panel.width-48,36),"아이디: 영문·숫자·_ 3~20자 / 비밀번호: 8~64자\n이 기기의 계정 하나로 캐릭터 10슬롯을 사용합니다.",12);
+            ui.Label("register-guide",new Rect(panel.x+24,panel.y+269,panel.width-48,36),"아이디: 영문·숫자·_ 3~20자 / 비밀번호: 8~64자\n계정마다 캐릭터 10슬롯과 진행 상태를 따로 저장합니다.",12);
             ui.Button("register-submit",new Rect(panel.x+60,panel.y+311,panel.width-120,35),"가입하기",()=>RegisterAccount(registrationId,registrationPassword,registrationConfirmation),!loading);
             ui.Button("register-cancel",new Rect(panel.x+60,panel.y+352,panel.width-120,28),"로그인으로 돌아가기",CancelRegistration,!loading);
             if(!string.IsNullOrEmpty(loadMessage))ui.Label("register-message",new Rect(panel.x+20,panel.y+390,panel.width-40,38),loadMessage,12);
@@ -172,7 +190,7 @@ namespace DarkSaver.UI
 
         private void DrawCharacterSelection(Rect panel)
         {
-            ui.Label("select-title", new Rect(panel.x + 24, panel.y + 92, panel.width - 48, 28), "모험할 캐릭터를 선택하세요", 18);
+            ui.Label("select-title", new Rect(panel.x + 24, panel.y + 92, panel.width - 48, 28), string.IsNullOrEmpty(CurrentAccountId)?"모험할 캐릭터를 선택하세요":"캐릭터 선택 · "+CurrentAccountId, 18);
             for (int i = 0; i < slots.Length; i++)
             {
                 int index = i;
@@ -196,7 +214,7 @@ namespace DarkSaver.UI
             }
             else ui.Button("new-character", new Rect(panel.x + 24, panel.y + 306, panel.width - 48, 36), "캐릭터 생성",
                 () => BeginSelectedCharacterCreation(), !loading && !occupied[selectedSlot]);
-            ui.Button("select-back", new Rect(panel.x + 104, panel.y + 348, panel.width - 128, 28), "시작 화면", () => selecting = false, !loading);
+            ui.Button("select-back", new Rect(panel.x + 104, panel.y + 348, panel.width - 128, 28), "다른 계정으로 로그인", StartGame, !loading);
             if (!string.IsNullOrEmpty(loadMessage)) ui.Label("select-message", new Rect(panel.x + 24, panel.y + 382, panel.width - 48, 50), loadMessage, 12);
         }
 

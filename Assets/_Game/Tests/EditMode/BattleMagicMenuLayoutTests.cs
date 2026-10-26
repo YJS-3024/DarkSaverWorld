@@ -2,7 +2,7 @@ using DarkSaver.Combat;
 using DarkSaver.UI;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 namespace DarkSaver.Tests
 {
     public sealed class BattleMagicMenuLayoutTests
@@ -38,7 +38,7 @@ namespace DarkSaver.Tests
             try
             {
                 var owner = go.AddComponent<StartMenuController>(); InGameUi ui = null; InGameUi.Ensure(ref ui, owner);
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 ui.Begin(); ui.ModalBlocker("modal-input");
                 ui.ActionButton("spell", BattleMapPresentation.GetMagicChoiceIconRect(7), "?", () => {}, true, "파이어볼 / MP 10",
                     BattleIconFrames.Magic(0, 0, 0)); ui.End();

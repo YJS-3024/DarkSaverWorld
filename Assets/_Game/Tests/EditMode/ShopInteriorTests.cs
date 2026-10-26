@@ -77,6 +77,29 @@ namespace DarkSaver.Tests
             finally{UnityEngine.Object.DestroyImmediate(go);EditorSceneManager.ClosePreviewScene(scene);}
         }
         [Test]
+        public void EnteringInteriorImmediatelyRepositionsCameraAndKeepsDepth()
+        {
+            var go=new GameObject("transition camera",typeof(Camera));
+            var target=new GameObject("arriving player");
+            try
+            {
+                go.transform.position=new Vector3(40,35,-10);
+                target.transform.position=new Vector3(10.5f,3.5f,0);
+                var follow=go.AddComponent<DarkSaver.CameraSystem.CameraFollow2D>();
+                follow.Configure(target.transform,new Vector2(20,15));
+                var view=go.GetComponent<Camera>();float size=view.orthographicSize;
+                Assert.That(go.transform.position.x,Is.EqualTo(Mathf.Clamp(10.5f,size*view.aspect,20-size*view.aspect)).Within(.001f));
+                Assert.That(go.transform.position.y,Is.EqualTo(Mathf.Clamp(3.5f,size,15-size)).Within(.001f));
+                Assert.AreEqual(-10,go.transform.position.z);
+                // Returning outside must also snap before any LateUpdate frame.
+                target.transform.position=new Vector3(34.5f,10.5f,0);
+                follow.Configure(target.transform,new Vector2(43,43));
+                Assert.That(go.transform.position.x,Is.GreaterThan(20));
+                Assert.AreEqual(-10,go.transform.position.z);
+            }
+            finally{UnityEngine.Object.DestroyImmediate(go);UnityEngine.Object.DestroyImmediate(target);}
+        }
+        [Test]
         public void CameraFitsSmallIndoorMap()
         {
             var go=new GameObject("interior camera",typeof(Camera));var target=new GameObject("indoor player");

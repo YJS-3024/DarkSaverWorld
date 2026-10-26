@@ -5,6 +5,28 @@ namespace DarkSaver.UI
     public sealed partial class StartMenuController
     {
         private Texture2D entryBackground,entryPanel,entryConnect,entryJoin,entryExit;
+        private Camera entryCamera;
+        private void EnsureEntryCamera()
+        {
+            if(entryCamera!=null)return;
+            // Screen-space overlay canvases do not require a camera, but Game View reports
+            // "No cameras rendering" without an active display camera underneath them.
+            foreach(var camera in Camera.allCameras)
+                if(camera.isActiveAndEnabled && camera.targetTexture==null && camera.targetDisplay==0)return;
+            var background=new GameObject("Entry Background Camera",typeof(Camera));
+            background.transform.SetParent(transform,false);
+            background.transform.localPosition=new Vector3(0,0,-10);
+            entryCamera=background.GetComponent<Camera>();
+            entryCamera.clearFlags=CameraClearFlags.SolidColor;
+            entryCamera.backgroundColor=Color.black;
+            entryCamera.cullingMask=0;
+            entryCamera.orthographic=true;
+            entryCamera.depth=-100;
+            entryCamera.allowHDR=false;
+            entryCamera.allowMSAA=false;
+            // Owned by Start Menu: Single-mode world entry unloads it with the menu.
+            // It is deliberately untagged so it cannot replace the world's MainCamera.
+        }
         private void LoadEntryArtwork()
         {
             if(entryBackground!=null)return;
@@ -31,7 +53,7 @@ namespace DarkSaver.UI
             ui.EntryInput("login-id",new Rect(x+74,y+13,108,14),loginUserId,20,v=>loginUserId=v,submit:()=>Login());
             ui.EntryInput("login-password",new Rect(x+74,y+36,108,14),loginPassword,64,v=>loginPassword=v,password:true,submit:()=>Login());
             ui.EntryButton("login",new Rect(x+13,y+60,51,17),entryConnect,"로그인",()=>Login(),!loading);
-            ui.EntryButton("open-register",new Rect(x+68,y+60,36,17),entryJoin,"회원가입",()=>OpenRegistration(),!loading && !hasAccount);
+            ui.EntryButton("open-register",new Rect(x+68,y+60,36,17),entryJoin,"회원가입",()=>OpenRegistration(),!loading);
             ui.EntryButton("login-back",new Rect(x+148,y+60,37,17),entryExit,"시작 화면으로 돌아가기",()=>{loggingIn=false;loginPassword="";},!loading);
             if(loginFailed && loginCanRecover)
                 ui.Button("login-recovery",new Rect(226,373,197,26),"캐릭터 선택으로 복구",()=>

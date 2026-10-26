@@ -9,7 +9,7 @@ using DarkSaver.World;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.EditorTools
 {
@@ -74,8 +74,8 @@ namespace DarkSaver.EditorTools
                 CheckSave(101); ScreenCapture.CaptureScreenshot(Path.Combine(output, "training101-world.png"));
                 if (SessionState.GetBool(Key + "mercenaryDeployment", false))
                 { PrepareMercenaryDeployment(session, player); return; }
-                foreach (var doc in hud.GetComponentsInChildren<UnityEngine.UIElements.UIDocument>())
-                    if (doc.rootVisualElement.Q<UnityEngine.UIElements.VisualElement>("training-panel") != null)
+                foreach (var doc in hud.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For))
+                    if (doc.rootVisualElement.Q<DarkSaver.EditorTools.CanvasTesting.VisualElement>("training-panel") != null)
                         throw new InvalidOperationException("Obsolete training selection menu exists.");
                 var portal = SceneManager.GetSceneByName("Training101_Runtime").GetRootGameObjects().Single(go => go.name == "To Kaosia From Training");
                 if (!player.TryMoveToWorld(portal.transform.position)) throw new InvalidOperationException("Cannot walk to training return portal.");

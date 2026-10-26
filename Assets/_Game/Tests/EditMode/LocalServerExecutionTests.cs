@@ -72,10 +72,10 @@ namespace DarkSaver.Tests
                 var server=new LocalCharacterServer(System.IO.Path.Combine(directory,"login.json"),new[]{System.IO.Path.Combine(directory,"a.json"),System.IO.Path.Combine(directory,"b.json"),System.IO.Path.Combine(directory,"c.json")});
                 Assert.That(server.List(new CharacterListRequest()).Accepted,Is.False);
                 Assert.That(server.Login(new LoginRequest()).Accepted,Is.True);
-                string occupied=System.IO.Path.Combine(directory,"occupied.json");System.IO.File.WriteAllText(occupied,"invalid retained save");
+                string occupied=System.IO.Path.Combine(directory,"a.json");System.IO.File.WriteAllText(occupied,"invalid retained save");
                 Assert.That(server.Create(new CharacterCreateRequest("통신검증",100,occupied)).Accepted,Is.False);
                 Assert.That(System.IO.File.ReadAllText(occupied),Is.EqualTo("invalid retained save"));
-                string path=System.IO.Path.Combine(directory,"new.json");
+                string path=System.IO.Path.Combine(directory,"b.json");
                 Assert.That(server.Create(new CharacterCreateRequest("통신검증",100,path)).Accepted,Is.True);
                 Assert.That(server.Create(new CharacterCreateRequest("다른이름",100,path)).Accepted,Is.False);
                 Assert.That(DarkSaver.Core.NativeCharacterProfile.TakePending(out var profile,out var selectedPath),Is.True);

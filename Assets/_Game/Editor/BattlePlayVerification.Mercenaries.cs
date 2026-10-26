@@ -1,3 +1,4 @@
+using System.Linq;
 ﻿using System;
 using System.IO;
 using DarkSaver.Combat;
@@ -172,7 +173,7 @@ namespace DarkSaver.EditorTools
                     RequireMercenary(presentation.BattleWindowShellId==BattleMapPresentation.TroopShell, "Troop submenu missing");
                     foreach(int id in new[]{1,2,8})
                     {
-                        var button=BattleMenuElement<UnityEngine.UIElements.Button>("troop-order-"+id);
+                        var button=BattleMenuElement<DarkSaver.EditorTools.CanvasTesting.Button>("troop-order-"+id);
                         RequireMercenary(button!=null && button.enabledInHierarchy && Math.Abs(button.style.width.value.value-32)<.1f,
                             "Native troop icon unavailable: "+id+" width="+(button==null ? -1 : button.style.width.value.value));
                     }

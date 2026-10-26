@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DarkSaver.Core
 {
-    // One local account owns the installation's character slots.
+    // One password-hashed account record. NativeAccountDirectory manages multiple records.
     // This is a native single-player contract, not an original online account database.
     public sealed class NativeAccountStore
     {
@@ -29,7 +29,7 @@ namespace DarkSaver.Core
         public bool TryRegister(string id,string password,string confirmation,out string reason)
         {
             reason=null;string temporary=null;
-            if(HasAccount){reason="이 기기에 이미 계정이 등록되어 있습니다. 로그인해 주세요.";return false;}
+            if(HasAccount){reason="이미 등록된 아이디입니다. 로그인해 주세요.";return false;}
             if(!IsValidId(id)){reason="아이디는 영문·숫자·밑줄 3~20자로 입력하세요.";return false;}
             if(string.IsNullOrWhiteSpace(password) || password.Length<8 || password.Length>64)
             {reason="비밀번호는 8~64자로 입력하세요.";return false;}

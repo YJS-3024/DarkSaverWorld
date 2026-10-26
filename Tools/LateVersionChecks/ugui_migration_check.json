@@ -1,0 +1,67 @@
+{
+  "baseCommit": "1c5f2ae8",
+  "requestedScope": "all game UI; explicitly confirmed by user",
+  "backend": "Unity uGUI / ScreenSpaceOverlay Canvas",
+  "components": [
+    "Canvas",
+    "CanvasScaler",
+    "GraphicRaycaster",
+    "RectTransform",
+    "RawImage",
+    "Text",
+    "Button",
+    "InputField",
+    "ScrollRect",
+    "RectMask2D",
+    "EventSystem",
+    "StandaloneInputModule"
+  ],
+  "screens": [
+    "start/login/registration",
+    "character slots and creation",
+    "tutorial/dialogue/scenario errors and save retry",
+    "town shops/inventory/equipment/class change/hiring/formation",
+    "world and battle HUD/status/commands",
+    "battle results and scrolling descriptions",
+    "item drag/drop",
+    "letterbox",
+    "legacy demonstration screen"
+  ],
+  "coordinateSystem": "640x480 logical top-left; GameScreen viewport and original artwork/crop dimensions retained",
+  "runtimeToolkitReferences": 0,
+  "runtimeOnGuiMethods": 0,
+  "authoring": "Canvas controls created at runtime, not baked scene/prefab layouts",
+  "entryCamera": "fallback display camera only when none active; owned by start menu and unloaded on world entry",
+  "verification": {
+    "runtimeSources": 213,
+    "editorSources": 74,
+    "editModeSources": 121,
+    "apiCompilationErrors": 0,
+    "productionCombatChecks": 4829,
+    "classSkillCombinations": 393,
+    "scenarioRewardChecks": 214,
+    "actualUnityEditModeExecuted": false,
+    "actualUnityPlayExecuted": false,
+    "physicalInputExecuted": false
+  },
+  "runtimeAssemblySha256": "0a2319060bd1966b4755a12277ced7c8c3dbd54564f69fd135788882d4ff9f55",
+  "preserved": [
+    "original textures/fonts/scenario content/map assets",
+    "account/save files and local packet logic",
+    "existing verification evidence"
+  ],
+  "validationTools": "Editor CanvasProbe reads actual uGUI objects and routes synthetic events through ExecuteEvents; it is not a game UI backend or OS-input verification",
+  "needsActualChecks": [
+    "full EditMode suite on licensed Unity",
+    "start -> login -> character creation/selection -> world and resume",
+    "single EventSystem and camera/Canvas cleanup after scene changes",
+    "password masking/Enter/focus/edit cursor",
+    "native hover/press/disabled frames",
+    "modal raycasts and world input separation",
+    "inventory/shop item drag/drop and cancellation",
+    "mouse-wheel/native-arrow scrolling",
+    "bitmap text crop/color and native atlas UVs",
+    "resize and letterbox",
+    "full combat/menu/result gameplay"
+  ]
+}

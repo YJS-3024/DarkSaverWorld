@@ -9,6 +9,9 @@ import UnityPy
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'Tools/MapChecks'))
 import world_asset_baker as b
 from build_campaign_entrances import choose
+# Historical whole-world migration must not overwrite the confirmed early Kaosia.
+if (ROOT/'Tools/LateVersionChecks/kaosia_restore_check.json').exists():
+ raise SystemExit('Kaosia is pinned to the user-confirmed early layout; do not rerun the historical three-map migration.')
 source=Path(sys.argv[1])/'Saver_Files/saver/MAP';oldroot=b.NATIVE;overrides=b.LATE_MAPS
 b.NATIVE=b.LATE_MAPS=source
 report={'sourceVersion':'Saver_Late','routeProvenance':'Retained single-player identities and topology; native geometry, reviewed building silhouettes, authored thresholds','areas':{},'facilities':{}}

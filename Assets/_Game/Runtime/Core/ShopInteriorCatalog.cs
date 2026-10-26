@@ -24,11 +24,11 @@ namespace DarkSaver.Core
     public static class ShopInteriorCatalog
     {
         public static readonly IReadOnlyList<ShopInteriorDefinition> All=Array.AsReadOnly(new[]{
-            new ShopInteriorDefinition("KaosiaWeaponShop","카오시아 무기점",true,108,48.5f,47.5f,44.5f,47.5f,"FromWeaponShop"),
-            new ShopInteriorDefinition("KaosiaArmorShop","카오시아 방어구점",false,191,48.5f,20.5f,48.5f,17.5f,"FromArmorShop")
+            new ShopInteriorDefinition("KaosiaWeaponShop","카오시아 무기점",true,163,40.5f,7.5f,40.5f,4.5f,"FromWeaponShop"),
+            new ShopInteriorDefinition("KaosiaArmorShop","카오시아 방어구점",false,141,34.5f,13.5f,34.5f,10.5f,"FromArmorShop")
         });
-        private static readonly ShopInteriorDefinition Accessory=new ShopInteriorDefinition("KaosiaAccessoryShop","카오시아 장신구점",false,247,48.5f,10.5f,48.5f,2.5f,"FromKaosiaAccessoryShop",6,"2200");
-        private static readonly ShopInteriorDefinition MagicTools=new ShopInteriorDefinition("KaosiaMagicTools","카오시아 마법도구·소모품점",false,224,28.5f,14.5f,28.5f,9.5f,"FromKaosiaMagicTools",7,"2300");
+        private static readonly ShopInteriorDefinition Accessory=new ShopInteriorDefinition("KaosiaAccessoryShop","카오시아 장신구점",false,166,28.5f,6.5f,28.5f,3.5f,"FromKaosiaAccessoryShop",6,"2200");
+        private static readonly ShopInteriorDefinition MagicTools=new ShopInteriorDefinition("KaosiaMagicTools","카오시아 마법도구·소모품점",false,75,28.5f,33.5f,28.5f,30.5f,"FromKaosiaMagicTools",7,"2300");
         public static IEnumerable<ShopInteriorDefinition> ShopsWithFacilities
         {get{foreach(var row in All)yield return row;yield return Accessory;yield return MagicTools;}}
         public const float EntryX=10.5f,EntryY=3.5f,ExitX=10.5f,ExitY=.5f;

@@ -1,3 +1,5 @@
+using DarkSaver.UI;
+using System.Linq;
 using System;
 using System.IO;
 using DarkSaver.Combat;
@@ -8,7 +10,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.EditorTools
 {
@@ -390,7 +392,7 @@ namespace DarkSaver.EditorTools
                     if (menuCaptures == 1)
                     {
                         Button moveButton = null;
-                        foreach (var document in presentation.GetComponentsInChildren<UIDocument>())
+                        foreach (var document in presentation.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For))
                             if (document.rootVisualElement.Q<Button>("radial-0") is Button candidate) moveButton = candidate;
                         if (moveButton == null || moveButton.panel == null
                             || moveButton.resolvedStyle.display == DisplayStyle.None || moveButton.worldBound.width <= 0)

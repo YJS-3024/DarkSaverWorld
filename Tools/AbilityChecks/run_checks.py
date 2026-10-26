@@ -53,6 +53,13 @@ with tempfile.TemporaryDirectory(prefix='ds-abilities-') as directory:
     if compiled.returncode:raise SystemExit(compiled.returncode)
     shutil.copy(runtime,work/runtime.name)
     for assembly in unity.glob('*.dll'):shutil.copy(assembly,work/assembly.name)
+    # The game UI now references uGUI. Keep the production assembly's dependency
+    # available even though these managed combat checks do not instantiate a Canvas.
+    ui_candidates=[ROOT/'Library/ScriptAssemblies/UnityEngine.UI.dll',
+        unity.parents[1]/'Resources/PackageManager/ProjectTemplates/libcache/com.unity.template.2d-cross-platform-2d-6.1.5/ScriptAssemblies/UnityEngine.UI.dll']
+    ui_assembly=next((p for p in ui_candidates if p.exists()),None)
+    if ui_assembly is None:raise SystemExit('UnityEngine.UI.dll is required for the uGUI runtime assembly.')
+    shutil.copy(ui_assembly,work/ui_assembly.name)
     (work/'AbilityChecks.runtimeconfig.json').write_text(json.dumps(dict(runtimeOptions=dict(tfm=tfm,framework=dict(name='Microsoft.NETCore.App',version=major+'.0.0')))),encoding='utf-8')
     env=dict(os.environ,DOTNET_CLI_HOME=str(Path(tempfile.gettempdir())/'ds-dotnet-cli'))
     tested=subprocess.run([str(dotnet),str(target),str(fixture),str(ROOT/'Tools/MapChecks/all_abilities_check.json'),str(work/'classes.json'),str(ROOT/'Tools/MapChecks/ability_balance_check.json'),str(work/'scenario_grants.json')],cwd=ROOT,env=env)

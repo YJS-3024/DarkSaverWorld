@@ -50,6 +50,8 @@ namespace DarkSaver.Core
         public bool IsValid => !string.IsNullOrWhiteSpace(name) && jobId > 0 && (tutorial == null || tutorial.IsValid);
         public bool IsEquipmentOwned(NativeInventory inventory) => true;
         public static void ClearPending() { }
+        public NativeCharacterProfile Clone()=>new NativeCharacterProfile {name=name,jobId=jobId,tutorial=tutorial?.Clone()};
+        public static bool TryQueue(string name,int jobId,string path,out string reason){throw new NotSupportedException("Offline host does not implement character creation; use Unity tests.");}
     }
     [Serializable] public class NativeOwnedRoster
     { public int[] units; public bool IsValid => false; }

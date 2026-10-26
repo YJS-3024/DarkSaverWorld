@@ -8,6 +8,8 @@ from decode_visuals import read_mrc,read_grs,grs_image
 NATIVE=ROOT/'닥세_리소스/설치본_추출/Saver_Files/Saver/MAP'
 LATE_MAPS=ROOT/'분석/Saver_Late/native_overrides/MAP'
 def native_map_path(id):
+    # User-confirmed Kaosia layout is the early 43x43 map, even with late overrides.
+    if str(id)=='1000':return NATIVE/(str(id)+'.mrc')
     late=LATE_MAPS/(id+'.mrc')
     return late if late.exists() else NATIVE/(id+'.mrc')
 GRS={};FRAMES={}

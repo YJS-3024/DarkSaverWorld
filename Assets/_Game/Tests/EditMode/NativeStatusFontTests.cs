@@ -1,7 +1,7 @@
 using DarkSaver.UI;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.Tests
 {
@@ -24,7 +24,7 @@ namespace DarkSaver.Tests
             {
                 var owner = go.AddComponent<StartMenuController>(); InGameUi ui = null; InGameUi.Ensure(ref ui, owner);
                 ui.Begin(); ui.NativeStatusName("name", new Rect(9,7,68,14), "전투A B"); ui.End();
-                var root = ui.GetComponent<UIDocument>().rootVisualElement;
+                var root = CanvasProbe.For(ui);
                 var clip = root.Q<VisualElement>("name");
                 Assert.That(clip.style.overflow.value, Is.EqualTo(Overflow.Hidden));
                 Assert.That(clip.pickingMode, Is.EqualTo(PickingMode.Ignore));

@@ -1,0 +1,41 @@
+{
+  "scope": "multiple local accounts on one installation; user explicitly replaces one-account-per-device rule",
+  "storage": {
+    "firstOrLegacyAccount": "existing root native-account.json, character paths and login history retained",
+    "additionalAccounts": "accounts/<normalized-id>/native-account.json, native-login.json, native-save-v1.json, native-character-2.json through native-character-10.json",
+    "passwords": "existing PBKDF2-SHA256 / per-record salt; no plaintext password storage"
+  },
+  "rules": [
+    "case-normalized unique account IDs",
+    "ten character slots per account in normal menu flow",
+    "legacy root saves stay with first/original account; no relocation or overwrite",
+    "server validates selection/creation against authenticated slot paths",
+    "history cannot resume a foreign-account path",
+    "failed login and explicit logout revoke previous account access and clear pending/resume state",
+    "registration remains accessible when other accounts exist",
+    "existing corrupt credential records are preserved and not overwritten"
+  ],
+  "verification": {
+    "apiCompilationErrors": 0,
+    "runtimeSources": 214,
+    "editorSources": 74,
+    "editModeSources": 123,
+    "offlineIntegrationChecks": 35871,
+    "multiAccountChecks": 42,
+    "productionCombatChecks": 4829,
+    "classSkillCombinations": 393,
+    "scenarioRewardChecks": 214,
+    "actualUnityEditModeExecuted": false,
+    "actualUnityPlayExecuted": false
+  },
+  "hostLimitations": "linked production account/authentication/path/history/save/server rules with managed JsonUtility/profile adapters; valid character creation staging is covered by compiled Unity tests, not implemented in host stub",
+  "runtimeAssemblySha256": "0caaca5a08633ba6fffc29e1aa07e41736743631e7c61b759d0429d5204bae4b",
+  "needsActualChecks": [
+    "register/login two accounts on same device",
+    "create different characters in each account including slot10",
+    "switch account from character selection",
+    "save/stop/reconnect and restore each account location/tutorial/economy/roster separately",
+    "legacy account compatibility",
+    "full Unity EditMode and uGUI click/input verification"
+  ]
+}

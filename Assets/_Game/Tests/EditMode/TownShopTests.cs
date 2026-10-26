@@ -1,3 +1,4 @@
+using DarkSaver.EditorTools.CanvasTesting;
 using System;
 using System.IO;
 using DarkSaver.Combat;
@@ -31,13 +32,13 @@ namespace DarkSaver.Tests
                 Assert.IsNotNull(window);Assert.AreEqual(3,window.controls.Length);
                 trade.SetValue(panel,"Trade failed");
                 ui.Begin();draw.Invoke(panel,new object[]{new Rect(110,64,419,303),window});ui.End();
-                var root=ui.GetComponent<UnityEngine.UIElements.UIDocument>().rootVisualElement;
-                var status=UnityEngine.UIElements.UQueryExtensions.Q<UnityEngine.UIElements.Label>(root,"shop-message");
+                var root=CanvasProbe.For(ui);
+                var status=DarkSaver.EditorTools.CanvasTesting.UQueryExtensions.Q<DarkSaver.EditorTools.CanvasTesting.Label>(root,"shop-message");
                 Assert.That(status.text,Is.EqualTo("Trade failed"));
                 Assert.That(status.style.top.value.value,Is.GreaterThanOrEqualTo(64));
                 Assert.That(status.style.top.value.value+status.style.height.value.value,Is.LessThanOrEqualTo(367));
-                Assert.That(UnityEngine.UIElements.UQueryExtensions.Q(root,"town-save-message"),Is.Null);
-                Assert.That(UnityEngine.UIElements.UQueryExtensions.Q(root,"shop-trade-status"),Is.Null);
+                Assert.That(DarkSaver.EditorTools.CanvasTesting.UQueryExtensions.Q(root,"town-save-message"),Is.Null);
+                Assert.That(DarkSaver.EditorTools.CanvasTesting.UQueryExtensions.Q(root,"shop-trade-status"),Is.Null);
                 trade.SetValue(panel,null);
                 ui.Begin();draw.Invoke(panel,new object[]{new Rect(110,64,419,303),window});ui.End();
                 Assert.That(status.text,Does.Not.Contain("Trade failed"));

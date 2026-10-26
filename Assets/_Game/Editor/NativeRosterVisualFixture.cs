@@ -1,3 +1,5 @@
+using DarkSaver.UI;
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +10,7 @@ using DarkSaver.Network;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.EditorTools
 {
@@ -373,7 +375,7 @@ namespace DarkSaver.EditorTools
 
         static void CheckToolDisplay(string status, bool hasRows)
         {
-            foreach (var document in preview.GetComponentsInChildren<UIDocument>())
+            foreach (var document in preview.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For))
             {
                 var use = document.rootVisualElement.Q<Button>("tool-use");
                 if (use == null) continue;
@@ -401,7 +403,7 @@ namespace DarkSaver.EditorTools
         static void Click(string key, string output)
         {
             Button button = null;
-            foreach (var document in root.GetComponentsInChildren<UIDocument>())
+            foreach (var document in root.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For))
             {
                 button = document.rootVisualElement.Q<Button>(key);
                 if (button != null) break;
@@ -486,7 +488,7 @@ namespace DarkSaver.EditorTools
 
         static VisualElement StatElement(string key)
         {
-            foreach (var document in preview.GetComponentsInChildren<UIDocument>())
+            foreach (var document in preview.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For))
             {
                 var element = document.rootVisualElement.Q<VisualElement>(key);
                 if (element != null) return element;

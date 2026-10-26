@@ -1,8 +1,10 @@
+using DarkSaver.UI;
+using System.Linq;
 using System;
 using System.IO;
 using DarkSaver.Combat;
 using UnityEngine;
-using UnityEngine.UIElements;
+using DarkSaver.EditorTools.CanvasTesting;
 
 namespace DarkSaver.EditorTools
 {
@@ -13,7 +15,7 @@ namespace DarkSaver.EditorTools
         static int nativeInspectionStep;
         static T BattleMenuElement<T>(string key) where T : VisualElement
         {
-            foreach(var doc in presentation.GetComponentsInChildren<UIDocument>())
+            foreach(var doc in presentation.GetComponentsInChildren<InGameUi>().Select(CanvasProbe.For))
             { var element=doc.rootVisualElement.Q<T>(key); if(element!=null) return element; }
             return null;
         }
