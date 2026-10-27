@@ -102,19 +102,20 @@ namespace DarkSaver.Tests
         {
             WithSender((sender, server, receiver, battle) =>
             {
+                NativeCombatStateFixture.Initialize(battle);
                 var requests = 0; server.RequestReceived += _ => requests++;
                 var valid = new AttackRequest(800, 100, 0, 0);
                 Assert.That(sender.TrySendAttack(valid, out _), Is.False); // Costs unknown.
-                battle.ConfigureActionPointCosts(2, 6);
-                Assert.That(sender.TrySendAttack(valid, out _), Is.False); // AP6.
-                battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp);
+                Assert.IsTrue(battle.ConfigureActionPointCosts(2, 6));
+                Assert.That(sender.TrySendAttack(valid, out _), Is.False); // Received AP0.
+                NativeCombatStateFixture.SetAp(battle,100,20,20);
                 foreach (var packet in new[] { null, new AttackRequest(999, 100, 0, 0),
                     new AttackRequest(800, 701, 0, 0), new AttackRequest(100, 100, 0, 0) })
                     Assert.That(sender.TrySendAttack(packet, out _), Is.False);
                 sender.enabled = false; Assert.That(sender.TrySendAttack(valid, out _), Is.False);
                 sender.enabled = true;
                 battle.ApplyDeath(800, true); Assert.That(sender.TrySendAttack(valid, out _), Is.False);
-                Assert.That(requests, Is.Zero); Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp));
+                Assert.That(requests, Is.Zero); Assert.That(battle.PlayerAp, Is.EqualTo(20));
                 Assert.That(battle.LastAttackPresentation, Is.Null);
             });
         }

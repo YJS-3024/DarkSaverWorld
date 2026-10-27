@@ -6,6 +6,10 @@ namespace DarkSaver.Tests
     // Replacement for archived starts-at-six/faction-cap/local-regeneration expectations.
     public sealed class CombatActionPointsTests
     {
+        [TestCase(0,0,false)] [TestCase(23,0,false)] [TestCase(0,20,false)]
+        [TestCase(19,20,false)] [TestCase(20,20,true)] [TestCase(21,20,false)]
+        public void ReadinessRequiresAConfirmedPositiveMaximum(int current,int maximum,bool ready)
+            =>Assert.AreEqual(ready,CombatActionPoints.IsReady(current,maximum));
         [Test]
         public void InitialTicksAndMaximumRemainUnknownForBothFactions()
         {

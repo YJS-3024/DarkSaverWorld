@@ -675,15 +675,15 @@ namespace DarkSaver.Tests
         public void MissingHandlerUnconfiguredCostOrInvalidTerrainNeverSpendsAp()
         {
             WithMap(f => {
-                f.Bind(); Assert.That(f.View.TryHandleWorldClick(f.Enemy.transform.position), Is.False);
-                f.View.TryHandleWorldClick(f.Ally.transform.position); f.Battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp);
+                NativeCombatStateFixture.Initialize(f.Battle);Assert.IsTrue(f.Bind()); Assert.That(f.View.TryHandleWorldClick(f.Enemy.transform.position), Is.False);
+                f.View.TryHandleWorldClick(f.Ally.transform.position); NativeCombatStateFixture.SetAp(f.Battle,100,20,20);
                 Assert.That(f.View.TryHandleWorldClick(f.Enemy.transform.position), Is.False); // Unknown cost.
-                f.Battle.ConfigureActionPointCosts(2, 6);
+                Assert.IsTrue(f.Battle.ConfigureActionPointCosts(2, 6));
                 Assert.That(f.View.TryHandleWorldClick(f.Enemy.transform.position), Is.False); // No handler.
-                Assert.That(f.Battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp)); Assert.That(f.Battle.LastAttackPresentation, Is.Null);
+                Assert.That(f.Battle.PlayerAp, Is.EqualTo(20)); Assert.That(f.Battle.LastAttackPresentation, Is.Null);
                 f.ActorTerrain.name = "unknown"; var calls = 0; f.Server.RequestReceived += _ => calls++;
                 Assert.That(f.View.TryHandleWorldClick(f.Enemy.transform.position), Is.False);
-                Assert.That(calls, Is.EqualTo(0)); Assert.That(f.Battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp));
+                Assert.That(calls, Is.EqualTo(0)); Assert.That(f.Battle.PlayerAp, Is.EqualTo(20));
             });
         }
 

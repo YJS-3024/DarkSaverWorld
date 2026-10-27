@@ -78,7 +78,7 @@ namespace DarkSaver.Combat
             if (battle == null || !battle.isActiveAndEnabled) { reason = "전투가 비활성 상태입니다."; return false; }
             if (!queue.TryNext(out unitId)) { reason = "AI 큐가 비어 있습니다."; return false; }
             if (!battle.TryGetUnit(unitId, out var unit) || !unit.Alive
-                || unit.Ap != unit.MaxAp || battle.IsMovementInProgress(unitId))
+                || !CombatActionPoints.IsReady(unit.Ap,unit.MaxAp) || battle.IsMovementInProgress(unitId))
             { reason = "해당 유닛은 행동 준비 상태가 아닙니다."; return false; }
             if (!catalog.TryGetUniqueActiveRule(mapKey, unitId, out rule))
             { reason = "활성 AI 규칙이 없거나 중복되어 있습니다."; return false; }

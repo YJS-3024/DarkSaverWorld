@@ -105,6 +105,24 @@ namespace DarkSaver.Tests
         }
 
         [Test]
+        public void UnknownMaximumCannotBecomeReadyFromZeroTicksOrReceivedTicks()
+        {
+            WithBattle(battle=>{
+                var scheduler=new BattleAiDecisionScheduler(battle,Native(),"01");
+                Assert.IsTrue(scheduler.TrySetUnits(new short[]{400}));
+                Assert.IsFalse(scheduler.TryStep(50,out _,out _,out _,out _),"unknown0/0 is not full");
+                Assert.IsTrue(battle.ApplyTickMenu(400,23,0));
+                Assert.IsFalse(scheduler.TryStep(50,out _,out _,out _,out _),"ticks alone do not establish a maximum");
+                NativeCombatStateFixture.SetAp(battle,400,30,29);
+                Assert.IsFalse(scheduler.TryStep(50,out _,out _,out _,out _),"partial received AP");
+                NativeCombatStateFixture.SetAp(battle,400,30,30);
+                Assert.IsTrue(scheduler.TryStep(50,out _,out _,out _,out _),"explicit full received AP");
+                Assert.IsTrue(battle.TryGetUnit(400,out var state));Assert.AreEqual(30,state.Ap);Assert.AreEqual(100,state.Hp);
+                Assert.IsNull(battle.LastAttackPresentation,"selecting a candidate never executes an attack");
+            });
+        }
+
+        [Test]
         public void SchedulerChecksOneUnitPerCallWithoutSpendingApOrApplyingCombat()
         {
             WithBattle(battle => {
@@ -112,7 +130,7 @@ namespace DarkSaver.Tests
                 Assert.That(scheduler.TrySetUnits(new short[] { 999, 400, 401 }), Is.True);
                 Assert.That(scheduler.TryStep(50, out var missing, out _, out _, out _), Is.False); Assert.That(missing, Is.EqualTo(999));
                 Assert.That(scheduler.TryStep(50, out var notReady, out _, out _, out _), Is.False); Assert.That(notReady, Is.EqualTo(400));
-                battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp);
+                NativeCombatStateFixture.SetAp(battle,400,20,20);NativeCombatStateFixture.SetAp(battle,401,20,20);
                 Assert.That(scheduler.TryStep(50, out var noRule, out _, out _, out _), Is.False); Assert.That(noRule, Is.EqualTo(401));
                 Assert.That(scheduler.TryStep(50, out _, out _, out _, out _), Is.False); // 999 only; no recursive skip.
                 Assert.That(scheduler.TryStep(50, out var id, out var rule, out var action, out _), Is.True);
@@ -127,7 +145,7 @@ namespace DarkSaver.Tests
         public void SchedulerDeadUnitAndInvalidRollNeverInventActionsOrAdvanceTwice()
         {
             WithBattle(battle => {
-                battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp);
+                NativeCombatStateFixture.SetAp(battle,400,20,20);NativeCombatStateFixture.SetAp(battle,401,20,20);
                 var scheduler = new BattleAiDecisionScheduler(battle, Native(), "01");
                 scheduler.TrySetUnits(new short[] { 400, 401 });
                 Assert.That(scheduler.TryStep(100, out _, out _, out _, out _), Is.False);
@@ -147,6 +165,7 @@ namespace DarkSaver.Tests
             {
                 var go = new GameObject("Native AI decision test"); SceneManager.MoveGameObjectToScene(go, scene);
                 var battle = go.AddComponent<BattleSceneRoot>();
+                NativeCombatStateFixture.Initialize(battle);
                 Assert.That(battle.TryRegisterGroup(new[] {
                     new CombatUnit { Id = 400, JobId = 701, Enemy = true, Name = "AI commander", Hp = 100, MaxHp = 100 },
                     new CombatUnit { Id = 401, JobId = 701, Enemy = true, Name = "AI soldier", Hp = 100, MaxHp = 100 } }), Is.True);
@@ -210,6 +229,7 @@ namespace DarkSaver.Tests
             {
                 var go = new GameObject("Native AI decision test"); SceneManager.MoveGameObjectToScene(go, scene);
                 var battle = go.AddComponent<BattleSceneRoot>();
+                NativeCombatStateFixture.Initialize(battle);
                 Assert.That(battle.TryRegisterGroup(new[] {
                     new CombatUnit { Id = 400, JobId = 701, Enemy = true, Name = "AI commander", Hp = 100, MaxHp = 100 },
                     new CombatUnit { Id = 401, JobId = 701, Enemy = true, Name = "AI soldier", Hp = 100, MaxHp = 100 } }), Is.True);

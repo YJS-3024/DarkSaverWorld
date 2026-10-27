@@ -22,6 +22,27 @@ namespace DarkSaver.Tests
             Assert.Greater(a.GetSiblingIndex(),b.GetSiblingIndex(),foreground+" must be painted after "+background);
             Assert.IsTrue(a.gameObject.activeInHierarchy);
         }
+        [Test]
+        public void TutorialActionLayerCreatesAndRestoresRealCanvasBeforeSorting()
+        {
+            var go=new GameObject("tutorial action layer regression");
+            try
+            {
+                var tutorial=go.AddComponent<FirstPlayTutorial>();InGameUi ui=null;InGameUi.Ensure(ref ui,tutorial,140);
+                for(int frame=0;frame<3;frame++)
+                {
+                    ui.Begin();var layer=ui.OverlayLayer("tutorial-actions-layer",1);ui.End();
+                    var canvas=layer.GetComponent<Canvas>();Assert.IsTrue(canvas!=null);
+                    Assert.IsTrue(canvas.overrideSorting);Assert.AreEqual(141,canvas.sortingOrder);
+                    Assert.IsTrue(layer.GetComponent<GraphicRaycaster>()!=null);
+                    Assert.IsTrue(layer.gameObject.activeInHierarchy);
+                    Object.DestroyImmediate(layer.GetComponent<GraphicRaycaster>());
+                    Object.DestroyImmediate(canvas);
+                    ui.Hide();
+                }
+            }
+            finally{Object.DestroyImmediate(go);}
+        }
         [TestCase(true)] [TestCase(false)]
         public void TutorialPortraitAndGlyphsRemainAboveNativeBackgroundOnRepeatedFrames(bool waitingForClick)
         {

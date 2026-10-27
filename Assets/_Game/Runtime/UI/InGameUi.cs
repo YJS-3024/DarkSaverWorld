@@ -60,7 +60,13 @@ namespace DarkSaver.UI
             node.SetAsLastSibling();
             used.Add(key);node.gameObject.SetActive(true);return node;
         }
-        private static T Component<T>(RectTransform node) where T:UnityEngine.Component=>node.GetComponent<T>()??node.gameObject.AddComponent<T>();
+        private static T Component<T>(RectTransform node) where T:UnityEngine.Component
+        {
+            // Unity can return an Editor missing-component wrapper. CLR ?? does not
+            // recognize Unity's null semantics and would return that invalid wrapper.
+            var component=node.GetComponent<T>();
+            return component!=null?component:node.gameObject.AddComponent<T>();
+        }
         private RawImage Graphic(RectTransform node,Texture texture,Color color,bool raycast=false)
         {var image=Component<RawImage>(node);image.texture=texture;image.color=color;image.uvRect=new Rect(0,0,1,1);image.raycastTarget=raycast;return image;}
         private static void Clip(RectTransform node)=>Component<RectMask2D>(node);

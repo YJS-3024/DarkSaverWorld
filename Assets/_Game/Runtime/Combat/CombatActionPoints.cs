@@ -19,7 +19,8 @@ namespace DarkSaver.Combat
         }
         public bool ApplyAbsolute(int value)
         {Current=Math.Max(0,HasConfirmedMaximum?Math.Min(Maximum,value):value);return true;}
-        public bool CanStart(int cost)=>HasConfirmedMaximum && cost>0 && cost<=Maximum && Current==Maximum;
+        public static bool IsReady(int current,int confirmedMaximum)=>confirmedMaximum>0 && current==confirmedMaximum;
+        public bool CanStart(int cost)=>HasConfirmedMaximum && cost>0 && cost<=Maximum && IsReady(Current,Maximum);
         public bool TrySpend(int cost)
         {if(!CanStart(cost))return false;Current-=cost;return true;}
         public bool Advance(float seconds)=>false;

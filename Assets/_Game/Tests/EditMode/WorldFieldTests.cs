@@ -23,7 +23,7 @@ namespace DarkSaver.Tests
                     var loader = root.AddComponent<NativeTownScene>();
                     Assert.IsTrue(loader.Configure(region.Key,true),region.Key);
                     Assert.IsEmpty(root.GetComponentsInChildren<IndoorNpcLabel>(true),region.Key);
-                    Assert.IsNotEmpty(root.GetComponentsInChildren<SceneSpawnPoint>(true),region.Key);
+                    Assert.IsEmpty(root.GetComponentsInChildren<SceneSpawnPoint>(true),region.Key+": no authored entry coordinates without native initialization");
                 }
                 finally { UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(scene); }
             }

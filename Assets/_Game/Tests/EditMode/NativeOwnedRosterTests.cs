@@ -167,8 +167,8 @@ namespace DarkSaver.Tests
             Assert.That(updated.units[1].lifeState, Is.EqualTo(2)); Assert.That(updated.units[1].mp, Is.Zero);
             Assert.That(updated.units[2].hp, Is.EqualTo(40)); Assert.That(roster.units[0].hp, Is.EqualTo(40));
             Assert.That(roster.TryApplyBattleReturn(returned, out var recovered, out _), Is.True);
-            Assert.That(recovered.units[0].mp, Is.EqualTo(recovered.units[0].maxMp));
-            Assert.That(recovered.units[1].mp, Is.EqualTo(recovered.units[1].maxMp));
+            Assert.That(recovered.units[0].mp, Is.EqualTo(2),"return does not invent MP recovery");
+            Assert.That(recovered.units[1].mp, Is.Zero,"removed member is not healed");
             Assert.That(recovered.units[1].hp, Is.Zero); Assert.That(recovered.units[1].lifeState, Is.EqualTo(2));
             Assert.That(recovered.units[2].mp, Is.EqualTo(roster.units[2].mp)); // Non-deployed unit unchanged.
             Assert.That(returned.Members[0].Unit.Mp, Is.EqualTo(2)); Assert.That(returned.Members[1].Unit.Mp, Is.Zero);

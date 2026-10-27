@@ -1305,7 +1305,7 @@ namespace DarkSaver.Combat
                 StatusBar(84, "MP", selected.Mp, selected.MaxMp, new Color(.18f, .35f, .55f));
                 StatusBar(102, "AP", selected.Ap, selected.MaxAp, new Color(.5f, .42f, .15f));
                 ui.BattleLabel("ready", new Rect(panel.x + 16, panel.y + 122, panel.width - 32, 22),
-                    IsMovementInProgress(selected.Id) ? "이동 중" : selected.Ap == selected.MaxAp ? "행동 준비 완료" : "AP 회복 중");
+                    IsMovementInProgress(selected.Id) ? "이동 중" : selected.MaxAp<=0 ? "AP 최대치 미확인" : CombatActionPoints.IsReady(selected.Ap,selected.MaxAp) ? "행동 준비 완료" : "AP 회복 중");
             }
             else ui.BattleLabel("summary", new Rect(panel.x + 24, panel.y + 40, panel.width - 48, 105), MapPresentationActive ? "아군을 선택하세요." : GetBattleHudText());
             if (!MapPresentationActive)
@@ -1377,7 +1377,7 @@ namespace DarkSaver.Combat
                     ui.NativeRosterSelection(key, new Rect(area.x + 5, rowY, 110, 38),
                         () => TrySelectRosterUnit(id), CanSelectRosterUnit(id), unit.Name);
                     ui.Portrait(key + "-portrait", new Rect(area.x + 8, rowY + 2, 32, 32), view?.GetUnitPortrait(id));
-                    bool full = unit.Ap >= unit.MaxAp;
+                    bool full = CombatActionPoints.IsReady(unit.Ap,unit.MaxAp);
                     ui.NativeStatusGauge(key + "-ap", new Vector2(area.x + 65, rowY + (full ? 1 : 0)),
                         unit.Ap, unit.MaxAp, full ? Time.frameCount % 3 : 0, false, 48);
                     ui.NativeStatusGauge(key + "-hp", new Vector2(area.x + 65, rowY + 14), unit.Hp, unit.MaxHp, 1, true, 48);
@@ -1420,7 +1420,7 @@ namespace DarkSaver.Combat
                 ui.NativeRosterSelection("inspect-expand",new Rect(panel.x+5,panel.y+30,110,48),
                     () => TrySetUnitInformationCompact(false),true,"크게 보기");
                 ui.Portrait("inspect-compact-portrait",new Rect(panel.x+8,panel.y+36,32,32),GetComponent<BattleMapPresentation>()?.GetUnitPortrait(unit.Id));
-                ui.NativeStatusGauge("inspect-compact-ap",new Vector2(panel.x+65,panel.y+34),unit.Ap,unit.MaxAp,unit.Ap>=unit.MaxAp ? Time.frameCount%3 : 0,false,48);
+                ui.NativeStatusGauge("inspect-compact-ap",new Vector2(panel.x+65,panel.y+34),unit.Ap,unit.MaxAp,CombatActionPoints.IsReady(unit.Ap,unit.MaxAp) ? Time.frameCount%3 : 0,false,48);
                 ui.NativeStatusGauge("inspect-compact-hp",new Vector2(panel.x+65,panel.y+48),unit.Hp,unit.MaxHp,1,true,48);
                 ui.NativeStatusGauge("inspect-compact-mp",new Vector2(panel.x+65,panel.y+61),unit.Mp,unit.MaxMp,2,true,48);
                 ui.NativeStatusCloseButton("inspect-expand-button",new Rect(panel.x+77,panel.y+9,15,15),()=>TrySetUnitInformationCompact(false),true);
@@ -1435,7 +1435,7 @@ namespace DarkSaver.Combat
             // GameCtl.dll 0x10005410 and Glib/gscene1.lsc: 120x213, portrait (44,79), gauges x30.
             ui.Portrait("portrait", new Rect(panel.x + 44, panel.y + 79, 32, 32), portrait);
             ui.NativeStatusGauge("inspect-ap", new Vector2(panel.x + 30, panel.y + 143), unit.Ap, unit.MaxAp,
-                unit.Ap >= unit.MaxAp ? Time.frameCount % 3 : 0, false);
+                CombatActionPoints.IsReady(unit.Ap,unit.MaxAp) ? Time.frameCount % 3 : 0, false);
             ui.NativeStatusGauge("inspect-hp", new Vector2(panel.x + 30, panel.y + 156), unit.Hp, unit.MaxHp, 1);
             ui.NativeStatusGauge("inspect-mp", new Vector2(panel.x + 30, panel.y + 169), unit.Mp, unit.MaxMp, 2);
             // Native static labels are baked from gscene1. Do not duplicate them with modern text.

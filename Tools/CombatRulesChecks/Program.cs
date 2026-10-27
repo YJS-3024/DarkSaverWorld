@@ -1,6 +1,13 @@
 using DarkSaver.Combat;
 var checks=0;
 void Check(bool condition,string name){if(!condition)throw new Exception(name);checks++;}
+foreach(var sample in new[]{(0,0,false),(23,0,false),(0,20,false),(19,20,false),(20,20,true),(21,20,false)})
+    Check(CombatActionPoints.IsReady(sample.Item1,sample.Item2)==sample.Item3,"native readiness requires a known positive maximum "+sample);
+foreach(var sample in new[]{(65,55,false),(65,55,true),(0,999,false),(10,-20,false),(int.MaxValue,0,true)})
+{
+    bool rejected=false;try{UnresolvedCombatDamage.Calculate(sample.Item1,sample.Item2,sample.Item3);}catch(NotSupportedException){rejected=true;}
+    Check(rejected,"missing server verdict never invents damage "+sample);
+}
 // Explicit supplied AP state must not depend on removed single-player faction caps.
 var costWorld=new CombatWorld();var costActor=new CombatUnit {Id=100,Hp=20,MaxHp=20};var costEnemy=new CombatUnit {Id=800,Hp=30,MaxHp=30,Enemy=true};
 costWorld.Add(costActor);costWorld.Add(costEnemy);var costFlow=new CombatFlow(costWorld,new CombatServerBoundary(),true);

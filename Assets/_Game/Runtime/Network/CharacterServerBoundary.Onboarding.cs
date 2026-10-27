@@ -27,6 +27,14 @@ namespace DarkSaver.Network
                 return new CharacterEntryResponse(false,reason:"로그인과 서버·캐릭터 선택을 확인해 주세요.");
             if(!new NativeSaveStore(request.LocalSavePath).TryLoad(out var data,out var reason) || !data.hasCharacter)
                 return new CharacterEntryResponse(false,reason:reason ?? "캐릭터 정보가 없습니다.");
+            // A new authenticated entry restarts an unfinished lesson. Checkpoints
+            // remain usable within this session, but never resume a partial lesson.
+            if(data.character.tutorial!=null && !data.character.tutorial.IsComplete)
+            {
+                data.character.tutorial=new NativeTutorialProgress();
+                if(!new NativeSaveStore(request.LocalSavePath).TrySave(data,out reason))
+                    return new CharacterEntryResponse(false,reason:reason);
+            }
             var result=new CharacterEntryResponse(true,accountId,selectedServerId,request.LocalSavePath,data);
             if(result.CaptureState()==null)return new CharacterEntryResponse(false,reason:"캐릭터 진입 정보를 확인할 수 없습니다.");
             entryPrepared=true;return result;

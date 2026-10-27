@@ -1,0 +1,2366 @@
+{
+  "reviewDateKST": "2026-10-27",
+  "validatedCommit": "1b00355f",
+  "reviewedHead": "5546f6e3",
+  "method": "Static comparison of all261 recorded failures and test assertion locations; focused runtime boundary review. No new Unity execution. Existing local Canvas and tutorial restart changes preserved.",
+  "counts": {
+    "fixture-or-boundary-review": 214,
+    "new-ap-fixture": 2,
+    "ai-review": 3,
+    "removed-local-authority": 38,
+    "removed-authored-stock": 2,
+    "removed-auto-mp-refill": 1,
+    "removed-authored-spawn": 1
+  },
+  "failures": [
+    {
+      "test": "DarkSaver.Tests.BattleAlliedRosterTests.AllCommanderDefeatStopsNewActionsButStillAcceptsAbsoluteResults",
+      "fixture": "BattleAlliedRosterTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleAlliedRosterTests.cs:79",
+      "sourceLine": "Assert.That(battle.IsBattleFinished, Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAlliedRosterTests.CommanderRemovalKeepsOtherGroupSoldierAndApRecovery",
+      "fixture": "BattleAlliedRosterTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleAlliedRosterTests.cs:142",
+      "sourceLine": "Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAlliedRosterTests.PrimaryDeathDoesNotFinishBattleWhileAnotherCommanderLives",
+      "fixture": "BattleAlliedRosterTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleAlliedRosterTests.cs:56",
+      "sourceLine": "Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits",
+      "fixture": "BattleAlliedRosterTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleAlliedRosterTests.cs:185",
+      "sourceLine": "Assert.That(view.TryBind(ground, terrain, camera, new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAttackPresentationTests.AcceptedLocalAttackPublishesAnticipationBeforeApplyingDamage",
+      "fixture": "BattleAttackPresentationTests",
+      "observed": "  Expected: 1\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleAttackPresentationTests.cs:59",
+      "sourceLine": "Assert.That(calls, Is.EqualTo(1)); Assert.That(hpAtStart, Is.EqualTo(1));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAttackPresentationTests.InvalidOrRemovedReferencesDoNotReplacePresentationOrResurrect",
+      "fixture": "BattleAttackPresentationTests",
+      "observed": "  Expected: 0\n  But was:  450\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleAttackPresentationTests.cs:97",
+      "sourceLine": "Assert.That(battle.EnemyHp, Is.Zero);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAttackPresentationTests.ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats",
+      "fixture": "BattleAttackPresentationTests",
+      "observed": "  Expected: (120, 30, 450, 0)\n  But was:  (0, 0, 450, 0)\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleAttackPresentationTests.cs:33",
+      "sourceLine": "Assert.That((battle.PlayerHp, battle.PlayerMp, battle.EnemyHp, battle.PlayerAp), Is.EqualTo((120, 30, 450, ap)));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleEffectPacketTests.EffectCallbackFailureIsNotAcknowledgedOrRetried",
+      "fixture": "BattleEffectPacketTests",
+      "observed": "  Expected: 75\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleEffectPacketTests.cs:144",
+      "sourceLine": "Assert.That(battle.EnemyHp, Is.EqualTo(75));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleEffectPacketTests.MagicPreservesUninterpretedFieldsAndOwnedTargetOrderIncludingDuplicates",
+      "fixture": "BattleEffectPacketTests",
+      "observed": "  Expected: (120, 30, 75)\n  But was:  (0, 0, 0)\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleEffectPacketTests.cs:61",
+      "sourceLine": "Assert.That((battle.PlayerHp, battle.PlayerMp, battle.EnemyHp), Is.EqualTo((120, 30, 75)));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(uint.MinValue)",
+      "fixture": "BattleExperienceSessionTests",
+      "observed": "  Expected: 120\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleExperienceSessionTests.cs:40",
+      "sourceLine": "Assert.That(second.PlayerHp, Is.EqualTo(120));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(3477000000)",
+      "fixture": "BattleExperienceSessionTests",
+      "observed": "  Expected: 120\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleExperienceSessionTests.cs:40",
+      "sourceLine": "Assert.That(second.PlayerHp, Is.EqualTo(120));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(uint.MaxValue)",
+      "fixture": "BattleExperienceSessionTests",
+      "observed": "  Expected: 120\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleExperienceSessionTests.cs:40",
+      "sourceLine": "Assert.That(second.PlayerHp, Is.EqualTo(120));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationDeploymentTests.AllGroupsRegisterTogetherAndInputsCannotRewriteRegisteredUnits",
+      "fixture": "BattleFormationDeploymentTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleFormationDeploymentTests.cs:33",
+      "sourceLine": "Assert.That(world.Get(200).ActionPoints.Current, Is.EqualTo(6)); Assert.That(world.Get(100).ActionPoints.Current, Is.EqualTo(6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationDeploymentTests.BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource",
+      "fixture": "BattleFormationDeploymentTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleFormationDeploymentTests.cs:67",
+      "sourceLine": "Assert.That(battle.TryCaptureFormationReturn(formation, out var returned, out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationPanelTests.DraftAssignmentCancelAndCommanderRemovalNeverMutateOwnership",
+      "fixture": "BattleFormationPanelTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleFormationPanelTests.cs:64",
+      "sourceLine": "Assert.That(soldier.Unit.ActionPoints.Current, Is.EqualTo(6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationPlacementTests.ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen",
+      "fixture": "BattleFormationPlacementTests",
+      "observed": "  Expected: 10\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleFormationPlacementTests.cs:31",
+      "sourceLine": "Assert.That(leader.Position, Is.Null); Assert.That(leader.Unit.ActionPoints.Current, Is.EqualTo(10));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationReturnTests.MissingDuplicateForeignAndEnemyResultsNeverProducePartialReturn",
+      "fixture": "BattleFormationReturnTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleFormationReturnTests.cs:64",
+      "sourceLine": "Assert.That(leader.Unit.Hp, Is.EqualTo(40)); Assert.That(leader.Unit.ActionPoints.Current, Is.EqualTo(6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationReturnTests.ReorderedResultsMapByDeploymentIdentityAndRetainRawValues",
+      "fixture": "BattleFormationReturnTests",
+      "observed": "  Expected: 16\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleFormationReturnTests.cs:43",
+      "sourceLine": "Assert.That(unit.Hp, Is.EqualTo(17)); Assert.That(unit.Mp, Is.EqualTo(2)); Assert.That(unit.Ap, Is.EqualTo(GameConstants.BattleMaximumAp - 4));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationSnapshotTests.MissingOwnershipFinalStateOrNativeContextNeverProducesPartialSnapshot",
+      "fixture": "BattleFormationSnapshotTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleFormationSnapshotTests.cs:50",
+      "sourceLine": "Assert.That(leader.Unit.Hp, Is.EqualTo(40)); Assert.That(leader.Unit.ActionPoints.Current, Is.EqualTo(6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationTests.FormationCannotDesynchronizeAnAlreadyConfiguredGrid",
+      "fixture": "BattleFormationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleFormationTests.cs:71",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(3, 3, new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationTests.FourSoldierLimitCountsExistingMembersWithoutForcingConsecutiveIds",
+      "fixture": "BattleFormationTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleFormationTests.cs:33",
+      "sourceLine": "Assert.That(battle.PlayerAp, Is.EqualTo(6)); Assert.That(battle.PlayerHp, Is.EqualTo(120));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.HandlerFailureDoesNotRetryOrRefundAndDisabledSenderDoesNotStart",
+      "fixture": "BattleMagicRequestTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs:248",
+      "sourceLine": "Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost",
+      "fixture": "BattleMagicRequestTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs:248",
+      "sourceLine": "Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.MissingHandlerAndInvalidMagicDoNotSpendOrPublish",
+      "fixture": "BattleMagicRequestTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs:248",
+      "sourceLine": "Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.MpIsOnlyChangedBySeparateAbsoluteResponse",
+      "fixture": "BattleMagicRequestTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs:248",
+      "sourceLine": "Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.MultiTargetMagicRetainsRawPacketAndChargesConfiguredApOnly",
+      "fixture": "BattleMagicRequestTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs:248",
+      "sourceLine": "Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.NativeReferenceSentinelsChargeActualCasterAndRetainOriginalReference",
+      "fixture": "BattleMagicRequestTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs:248",
+      "sourceLine": "Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.PositionRequestsAllowEmptyTargetsAndBlockReentryWithoutInventingResponse",
+      "fixture": "BattleMagicRequestTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs:248",
+      "sourceLine": "Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacks",
+      "fixture": "BattleMagicRequestTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs:42",
+      "sourceLine": "Assert.That(battle.ConfigureTemporaryDamageMagic(201, 7, 4, 10, 2), Is.True); Ready(battle);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCost",
+      "fixture": "BattleMagicRequestTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs:19",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryPartyHealingAndBuffsShareOneCastCost",
+      "fixture": "BattleMagicRequestTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs:73",
+      "sourceLine": "Assert.That(battle.ConfigureTemporaryHealingMagic(2501, 5, 4, 12), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuBlocksMapPointerAndSuspensionResetsCommands",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1220",
+      "sourceLine": "Assert.That(f.View.TryOpenActionMenu(), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuRestRecoversHpAndClosesWithoutStartingMovement",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1204",
+      "sourceLine": "Assert.That(f.View.IsActionMenuOpen, Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuSeparatesMoveAttackAndUnresolvedBuffsWithoutSpending",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1171",
+      "sourceLine": "Assert.That(f.View.TryOpenActionMenu(), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.AdditionalSoldierClickSendsItsInstanceInsteadOfAlwaysUsingPlayer100",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:763",
+      "sourceLine": "Assert.That(f.View.TryBind(f.Ground, f.Terrain, f.Camera, new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.AttackFacingUsesBoundInstancesWithoutChangingVitalsAndSuspensionUnsubscribes",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:781",
+      "sourceLine": "Assert.That(f.Bind(), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.BasicCommandPanelConnectsMoveAttackRestAndBlocksInvalidStates",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:129",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); f.Battle.SetTemporaryLocalRules(true);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.BattleMagicMenuUsesConfirmedSubsetIncludingEmptySelection",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:58",
+      "sourceLine": "Assert.IsTrue(f.Battle.ConfigurePlayerJob(100));Assert.IsTrue(f.Bind());Assert.IsTrue(f.Battle.TrySelectUnit(100));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.BindingAlignsFreeWalkingBodiesBeforeTheirFirstGridStep",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:23",
+      "sourceLine": "Assert.IsTrue(f.Bind());",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.BindingStopsOnlyVisualWalkingAndRestoresBorrowedMotionOnSuspend",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:835",
+      "sourceLine": "Assert.That(f.Bind(), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.BindingUsesNativeBodiesAndWorldCellsWithoutEnablingUnresolvedMovement",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:635",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); Assert.That(f.View.IsBound, Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.CasterDeathAndPresentationSuspensionCancelPendingMagic",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:623",
+      "sourceLine": "Assert.That(f.View.TryBeginMagicTargeting(catalog, command, false), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.CatalogRegistersOriginalCostsWithoutGrantingSkillsAndRepeatedConfigurationIsStable",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: greater than 4\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:532",
+      "sourceLine": "Assert.Greater(UnresolvedMagicExecution.Configure(f.Battle, catalog), 4);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ConfirmedLearnedMagicDisplaysWithoutInventingRequestsAndRejectsUnlearnedCommands",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:172",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); Assert.That(f.Battle.ConfigurePlayerJob(100), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ConfirmedNativeStepSynchronizesBoundBodyButNeverTreatsClickAsMovement",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1063",
+      "sourceLine": "Assert.That(f.View.TryBind(f.Ground, f.Terrain, f.Camera, new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend(901)",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: 1\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1626",
+      "sourceLine": "Assert.That(f.View.RetainedCoordinateAreaCount, Is.EqualTo(1));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend(1001)",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: 1\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1626",
+      "sourceLine": "Assert.That(f.View.RetainedCoordinateAreaCount, Is.EqualTo(1));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateMagicMenuKeepsPacketAnchorAndCleansEffectsOnSuspend",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1572",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); f.Battle.TrySelectUnit(100);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBody",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:939",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); f.View.TryHandleWorldClick(f.Ally.transform.position);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.EnemyClickDispatchesSelectedActorWithNativeAttributesAndOnlyIndependentVitals",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:667",
+      "sourceLine": "Assert.That(f.View.TryHandleWorldClick(f.Enemy.transform.position), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ExistingHudAndTerrainZeroAreExplicitNativeInputs",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:746",
+      "sourceLine": "Assert.That(f.View.TryHandleWorldClick(f.Enemy.transform.position), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ExplicitMagicChoiceMenuPreservesNativeMetadataAndWaitsForTargetClick",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1263",
+      "sourceLine": "Assert.That(f.View.ConfigureMagicChoices(catalog, 100, input, id => id == 800, null, null, null), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ExplicitTemporarySpellExecutesFromTargetClickAndRejectsOutOfRangeWithoutCost",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:448",
+      "sourceLine": "Assert.IsTrue(f.Battle.ConfigureTemporaryDamageMagic(201, 7, 0, 10, 3));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommit",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1038",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); f.Battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTick",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1009",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); f.Battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.InformationSizeChangesKeepLiveTargetAndGameplayState",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1096",
+      "sourceLine": "Assert.IsTrue(f.Bind()); Assert.IsTrue(f.Battle.TrySelectUnit(100)); f.Battle.ClearUnitInspection();",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedGroupKeepsSingleTargetFallbackUnlessOriginalRecordsAreSupplied",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1512",
+      "sourceLine": "Assert.That(f.View.ConfigureFormationLearnedMagic(catalog, formation), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryAreaUsesGeometryAndFiltersTargetsWithoutNativeTeamGuesses",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1422",
+      "sourceLine": "Assert.That(f.View.TryBind(f.Ground, f.Terrain, f.Camera, new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryDirectionCastsAndEmptyDirectionOrCancelNeverSpends",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1448",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); f.Battle.TrySelectUnit(100); f.Battle.SetTemporaryLocalRules(true);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicChoicesRejectInvalidReplacementAndCancelWithoutInventingAvailability",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1291",
+      "sourceLine": "Assert.That(f.View.ConfigureMagicChoices(catalog, 100, new[] { command }, _ => true, null, null, null), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection(False)",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1352",
+      "sourceLine": "Assert.That(f.View.TryPreviewMagicDirectionAt(f.Enemy.transform.position), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection(True)",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1352",
+      "sourceLine": "Assert.That(f.View.TryPreviewMagicDirectionAt(f.Enemy.transform.position), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1316",
+      "sourceLine": "Assert.That(f.View.TryBeginNativeMagicTargeting(catalog, new MagicRequest(701, 100, 0, 0, 0, Array.Empty<short>()),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewClearsOnInvalidGroupDeathAndSuspend",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:271",
+      "sourceLine": "void Begin() { Assert.That(f.View.TryBeginMagicTargeting(catalog, new MagicRequest(101, 100, 0, 0, 0, Array.Empty<short>()), true), Is.True); }",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewRendersNativeGeometryWithoutPacketsOrCost",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:234",
+      "sourceLine": "Assert.That(f.View.TryBeginMagicTargeting(catalog, new MagicRequest(101, 100, 0, 0, 0, Array.Empty<short>()), true), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewUsesTransformedGroundAndReleasesOwnedResources",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:302",
+      "sourceLine": "Assert.That(f.View.TryBeginMagicTargeting(catalog, new MagicRequest(101, 100, 0, 0, 0, Array.Empty<short>()), true), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicTargetingFailureAndCancellationNeverSpendOrInventCosts",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:598",
+      "sourceLine": "Assert.That(f.View.TryBeginMagicTargeting(catalog, command, false), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MissingHandlerUnconfiguredCostOrInvalidTerrainNeverSpendsAp",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: 20\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:683",
+      "sourceLine": "Assert.That(f.Battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp)); Assert.That(f.Battle.LastAttackPresentation, Is.Null);",
+      "category": "new-ap-fixture",
+      "review": "AdvanceActionPoints no longer recovers general battle AP; starting0 is compared to tutorial maximum20. Assert preservation against explicit received AP, not an assumed clock."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.NativeAreaMenuExecutesConfiguredTemporaryDamageOnBothTargets",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1528",
+      "sourceLine": "Assert.That(f.View.TryBind(f.Ground, f.Terrain, f.Camera, new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.NativeGroupMagicClickBuildsOriginalListAndKeepsIndependentVitals",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:327",
+      "sourceLine": "Assert.That(f.View.TryBeginNativeMagicTargeting(catalog,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.NativeJobCatalogBindsTerrainAndApprovedDiagonalsWithoutExecutingClicks",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:868",
+      "sourceLine": "Assert.That(f.Battle.ConfigurePlayerJob(100), Is.True); Assert.That(f.Bind(), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.NativeMagicUnknownTeamNeverDispatchesOrFallsThroughToMovement",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:352",
+      "sourceLine": "Assert.That(f.View.TryBeginNativeMagicTargeting(catalog,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.NativeMapClickUsesExplicitBudgetAndClassTerrainCostsWithoutFallback",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:961",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); f.View.TryHandleWorldClick(f.Ally.transform.position);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresIt",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:982",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); f.Battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.OriginallyHiddenBodiesStayHiddenAndCorpseNeverUsesInventedFrames",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: False\n  But was:  True\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:730",
+      "sourceLine": "f.View.RefreshVisualState(); Assert.That(f.Enemy.enabled, Is.False);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.OutcomeWaitsForConfirmedDeathAndAcknowledgementNeverGrantsRewards",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1240",
+      "sourceLine": "Assert.That(f.Battle.IsBattleFinished, Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PlasmaMenuRequestWaitsForIndependentEffectWithoutDoubleSpending",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1680",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); f.Battle.TrySelectUnit(100);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PositionMagicClickNeverFallsThroughToMovementOrAttack",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:581",
+      "sourceLine": "Assert.That(f.View.TryBeginMagicTargeting(catalog,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1719",
+      "sourceLine": "Assert.That(f.View.TryBindPreparedFormation(formation, f.Ground, f.Terrain, f.Camera,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodyBindingFailureRemovesOnlyNewBodiesAndCanRetry",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1750",
+      "sourceLine": "Assert.That(f.View.TryBindPreparedFormation(formation, f.Ground, f.Terrain, f.Camera,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PrimarySoldierAliasCreatesSelectableNativeBodyAndReturnsItsSourceIdentity",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1778",
+      "sourceLine": "Assert.That(f.View.TryBindPreparedFormation(formation, f.Ground, f.Terrain, f.Camera,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:100",
+      "sourceLine": "Assert.That(f.Bind(), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.RejectedBindingDoesNotChangeMotionAndStationaryBindingsStayStationary",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:857",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); f.View.SuspendPresentation();",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.RemovedVisualsStayHiddenWhenDisablingAndResumingPresentation",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: False\n  But was:  True\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:711",
+      "sourceLine": "Assert.That(f.Enemy.enabled, Is.False); Assert.That(f.Ally.enabled, Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish(2)",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1384",
+      "sourceLine": "Assert.That(f.View.TryBeginNativeMagicTargeting(catalog, command, _ => true, _ => 1, null, null), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish(-1)",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1384",
+      "sourceLine": "Assert.That(f.View.TryBeginNativeMagicTargeting(catalog, command, _ => true, _ => 1, null, null), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ScenarioEncounterSuppressesResultButTrainingAndFailedReturnCanShowIt",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:33",
+      "sourceLine": "Assert.IsTrue(f.Bind());f.Battle.SetScenarioOutcomeDeferred(true);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.SpecialMagicAreaAcceptsNativeDirectionSentinelsWithoutDispatching",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:369",
+      "sourceLine": "Assert.That(f.Battle.TryGetSelectedUnit(out var caster), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.StandardMagicAreaQueryUsesNativeCellOrderWithoutCastingOrMoving",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:401",
+      "sourceLine": "Assert.That(f.View.TryGetStandardMagicArea(catalog, 101, f.Enemy.transform.position, out var cells), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryBuffSelfClickConsumesCostsAndChangesOnlyEffectiveAttack",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:502",
+      "sourceLine": "Assert.IsTrue(f.View.TryBeginMagicTargeting(catalog,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryCatalogNeverClassifiesUnknownStatusOrNonCombatEntriesAsDamage",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:566",
+      "sourceLine": "Assert.IsTrue(UnresolvedMagicExecution.TryClassify(status,out var effect,out _));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryHealSelfClickRestoresHpAndShowsPositiveFeedbackWithoutDamage",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:479",
+      "sourceLine": "Assert.IsTrue(f.View.ConfigureFormationLearnedMagic(catalog, formation));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-1)",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1656",
+      "sourceLine": "Assert.That(sender.TrySendMagic(new MagicRequest(10505, 100, (short)direction, 0, 2,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-2)",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1656",
+      "sourceLine": "Assert.That(sender.TrySendMagic(new MagicRequest(10505, 100, (short)direction, 0, 2,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-3)",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1656",
+      "sourceLine": "Assert.That(sender.TrySendMagic(new MagicRequest(10505, 100, (short)direction, 0, 2,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-4)",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1656",
+      "sourceLine": "Assert.That(sender.TrySendMagic(new MagicRequest(10505, 100, (short)direction, 0, 2,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionShowsIndependentStatsWithoutSelectingOrSending",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1124",
+      "sourceLine": "Assert.That(f.Bind(), Is.True); Assert.That(f.Battle.TrySelectUnit(100), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:1148",
+      "sourceLine": "Assert.That(f.Bind(), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.UnitMagicClickPreservesCommandMetadataAndWaitsForIndependentMp",
+      "fixture": "BattleMapPresentationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs:432",
+      "sourceLine": "Assert.That(f.View.TryBeginMagicTargeting(catalog,",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.DeathBeforeHpPreservesReceivedHpUntilSeparateUpdate",
+      "fixture": "BattlePacketReceiverTests",
+      "observed": "  Expected: 120\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs:228",
+      "sourceLine": "Assert.That(battle.PlayerHp, Is.EqualTo(120));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.DeathDoesNotPublishCombatResultOrExperienceAndStopsApRecovery",
+      "fixture": "BattlePacketReceiverTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs:256",
+      "sourceLine": "Assert.That(flow.AdvanceActionPoints(10f), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.InvalidVitalsReportFailureWithoutClampingOrChangingState",
+      "fixture": "BattlePacketReceiverTests",
+      "observed": "  Expected: 120\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs:167",
+      "sourceLine": "Assert.That(battle.PlayerHp, Is.EqualTo(120));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.PlayerDeathSnapshotRetainsLifeStateAndBlocksBattleReentry",
+      "fixture": "BattlePacketReceiverTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs:276",
+      "sourceLine": "Assert.That(session.CapturePlayerVitals(battle), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.TickMenuPacketsClampAbsoluteApAndReplaceNativeBitsWithoutInferringActions",
+      "fixture": "BattlePacketReceiverTests",
+      "observed": "  Expected: 20\n  But was:  32767\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs:33",
+      "sourceLine": "Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.VitalsAreAbsoluteAndDoNotInferDeathOrChangeExperienceOrAp",
+      "fixture": "BattlePacketReceiverTests",
+      "observed": "  Expected: 37\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs:134",
+      "sourceLine": "Assert.That(battle.PlayerHp, Is.EqualTo(hp));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.DispatchStartsAnticipationBeforeImmediateResponseWithoutLocalDamage",
+      "fixture": "BattleRequestSenderTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs:161",
+      "sourceLine": "Assert.That(battle.ConfigureActionPointCosts(2, 6), Is.True); // Fixture only.",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.HandlerFailurePropagatesWithoutRetryRefundOrLocalDamage",
+      "fixture": "BattleRequestSenderTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs:161",
+      "sourceLine": "Assert.That(battle.ConfigureActionPointCosts(2, 6), Is.True); // Fixture only.",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.InvalidOrUnreadyRequestsNeverReachServer",
+      "fixture": "BattleRequestSenderTests",
+      "observed": "  Expected: 20\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs:117",
+      "sourceLine": "Assert.That(requests, Is.Zero); Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp));",
+      "category": "new-ap-fixture",
+      "review": "AdvanceActionPoints no longer recovers general battle AP; starting0 is compared to tutorial maximum20. Assert preservation against explicit received AP, not an assumed clock."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.MissingOrDisabledHandlerDoesNotSpendApOrStartPresentation",
+      "fixture": "BattleRequestSenderTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs:161",
+      "sourceLine": "Assert.That(battle.ConfigureActionPointCosts(2, 6), Is.True); // Fixture only.",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.ReentrantRequestIsRejectedAndNoResponseLeavesOnlyAnticipation",
+      "fixture": "BattleRequestSenderTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs:161",
+      "sourceLine": "Assert.That(battle.ConfigureActionPointCosts(2, 6), Is.True); // Fixture only.",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.TemporaryLoopbackResolvesOnceWithoutHandlerAndCanBeDisabled",
+      "fixture": "BattleRequestSenderTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs:23",
+      "sourceLine": "Assert.That(sender.TrySendAttack(packet, out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.TemporaryMagicLoopbackSpendsApMpOnceAndRemovesDeadUnitImmediately",
+      "fixture": "BattleRequestSenderTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs:44",
+      "sourceLine": "Assert.That(sender.TrySendMagic(packet, out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleSpecialMenuTests.SpecialMenuStaysSeparateAndUsesExistingNativeRequestPath",
+      "fixture": "BattleSpecialMenuTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleSpecialMenuTests.cs:42",
+      "sourceLine": "Assert.That(view.TryBind(ground,terrain,camera,new[]{new BattleMapVisual(100,ally),new BattleMapVisual(800,enemy)}),Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.DefeatBlocksEntryAndDoesNotReviveNextBattle",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:105",
+      "sourceLine": "Assert.That(session.CapturePlayerVitals(first), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.FreshSessionLeavesInitialBattleStatsUntouched",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:22",
+      "sourceLine": "Assert.That(first.TryRestorePlayerVitals(45, 7), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(37)",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: String containing \"HP 37/120  MP 5/30\"\n  But was:  \"경험치 0\n완료 시나리오 0개\n시나리오 01: 미완료\"\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:125",
+      "sourceLine": "Assert.That(hud.SummaryText, Does.Contain($\"HP {hp}/120  MP 5/30\"));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(0)",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: String containing \"HP 0/120  MP 5/30\"\n  But was:  \"경험치 0\n완료 시나리오 0개\n시나리오 01: 미완료\"\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:125",
+      "sourceLine": "Assert.That(hud.SummaryText, Does.Contain($\"HP {hp}/120  MP 5/30\"));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(-1,0)",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:94",
+      "sourceLine": "Assert.That((first.PlayerHp, first.PlayerMp), Is.EqualTo((120, 30)));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(121,0)",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:94",
+      "sourceLine": "Assert.That((first.PlayerHp, first.PlayerMp), Is.EqualTo((120, 30)));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(50,-1)",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:94",
+      "sourceLine": "Assert.That((first.PlayerHp, first.PlayerMp), Is.EqualTo((120, 30)));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(50,31)",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:94",
+      "sourceLine": "Assert.That((first.PlayerHp, first.PlayerMp), Is.EqualTo((120, 30)));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.MissingOrDestroyedBattleDoesNotReplaceStoredVitals",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: (45, 7)\n  But was:  (0, 0)\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:60",
+      "sourceLine": "Assert.That((session.PlayerHp, session.PlayerMp), Is.EqualTo((45, 7)));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(1)",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:36",
+      "sourceLine": "Assert.That(first.TryRestorePlayerVitals(hp, 0), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(87)",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:36",
+      "sourceLine": "Assert.That(first.TryRestorePlayerVitals(hp, 0), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(120)",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:36",
+      "sourceLine": "Assert.That(first.TryRestorePlayerVitals(hp, 0), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.VitalsDoNotModifyExperienceCompletionOrEnemy",
+      "fixture": "BattleVitalsSessionTests",
+      "observed": "  Expected: 75\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs:79",
+      "sourceLine": "Assert.That(second.EnemyHp, Is.EqualTo(75));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionStatusTests.ActualDamageWakesAndDeathOrDisableClearsSleepAndSilence",
+      "fixture": "CombatActionStatusTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatActionStatusTests.cs:107",
+      "sourceLine": "Assert.IsTrue(flow.TryExecute(new CombatRequest(800,100,CombatActionType.Attack),out var hit,out _));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionStatusTests.SilenceRejectsLocalAndPacketMagicWithoutSpendingButAllowsAttackAndItems",
+      "fixture": "CombatActionStatusTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatActionStatusTests.cs:51",
+      "sourceLine": "Assert.IsTrue(flow.TryExecute(new CombatRequest(800,100,CombatActionType.Magic,1801),out _,out _));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionStatusTests.SleepCancelsReservedMovementAndHidesPathsUntilWakeOrExpiry",
+      "fixture": "CombatActionStatusTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatActionStatusTests.cs:32",
+      "sourceLine": "Assert.IsTrue(b.TryConfigureGrid(4,4,new[]{new CombatGridPlacement(100,new CombatGridCell(0,0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionStatusTests.SleepStopsAttackMagicRestAndItemsWhileApRecoversNormally",
+      "fixture": "CombatActionStatusTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatActionStatusTests.cs:68",
+      "sourceLine": "Assert.IsTrue(flow.TryExecute(new CombatRequest(800,100,CombatActionType.Magic,6901),out _,out _));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionStatusTests.WakeRequiresSleepingAllyAndOnlyRemovesSleep",
+      "fixture": "CombatActionStatusTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatActionStatusTests.cs:93",
+      "sourceLine": "Assert.IsTrue(flow.TryApplyItemRecovery(101,100,15,0,6,6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatAiCatalogTests.MonsterTargetPriorityRetargetsOutsideRangeOrBlockedAttackerWithoutSpending",
+      "fixture": "CombatAiCatalogTests",
+      "observed": "  Expected: 100\n  But was:  200\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatAiCatalogTests.cs:181",
+      "sourceLine": "Assert.That(recordedTarget, Is.EqualTo(100));",
+      "category": "ai-review",
+      "review": "Review default HP/maximum AP setup. TryStep also lacks a positive/confirmed maximum check; candidate-only function, not proof of dispatch."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatAiCatalogTests.MonsterTargetQueryRejectsMissingMetadataDuplicatesAndUnconfirmedTies",
+      "fixture": "CombatAiCatalogTests",
+      "observed": "  Expected: False\n  But was:  True\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatAiCatalogTests.cs:227",
+      "sourceLine": "Assert.That(scheduler.TrySelectMonsterTarget(400, ids, null, _ => true, _ => true, _ => 1, out target, out var reason), Is.False);",
+      "category": "ai-review",
+      "review": "Review default HP/maximum AP setup. TryStep also lacks a positive/confirmed maximum check; candidate-only function, not proof of dispatch."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatAiCatalogTests.SchedulerChecksOneUnitPerCallWithoutSpendingApOrApplyingCombat",
+      "fixture": "CombatAiCatalogTests",
+      "observed": "  Expected: False\n  But was:  True\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatAiCatalogTests.cs:114",
+      "sourceLine": "Assert.That(scheduler.TryStep(50, out var notReady, out _, out _, out _), Is.False); Assert.That(notReady, Is.EqualTo(400));",
+      "category": "ai-review",
+      "review": "Review default HP/maximum AP setup. TryStep also lacks a positive/confirmed maximum check; candidate-only function, not proof of dispatch."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.Execute_AppliesAbsoluteResultAndLeavesCorpse",
+      "fixture": "CombatFlowTests",
+      "observed": "System.InvalidOperationException : 원작 서버 판정이 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs:279",
+      "sourceLine": "var result = flow.Execute(new CombatRequest(1, 2, CombatActionType.Magic, 101));",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.ExplicitTemporaryMagicHasIndependentCostAndFormulaWithoutChangingEvidenceMode",
+      "fixture": "CombatFlowTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs:94",
+      "sourceLine": "Assert.IsTrue(flow.ConfigureTemporaryDamageMagic(201, 7, 3, 10, 3));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.TemporaryBuffsAffectDamageRefreshAndExpireWithoutChangingBaseStats",
+      "fixture": "CombatFlowTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs:26",
+      "sourceLine": "Assert.IsTrue(flow.TryExecute(buff, out var result, out _));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.TemporaryHealingCapsHpAndRejectsEnemyDeadFullAndInsufficientMpWithoutCost",
+      "fixture": "CombatFlowTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs:61",
+      "sourceLine": "Assert.IsTrue(flow.ConfigureTemporaryHealingMagic(2401, 7, 3, int.MaxValue));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.TemporaryMissConsumesActionApButDoesNotDamageAndRuleCanBeReplaced",
+      "fixture": "CombatFlowTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs:165",
+      "sourceLine": "Assert.That(flow.ConfigureAttackApCost(100, 2), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.TemporaryPhysicalHitFormulaMatchesPercentagesAndRejectsInvalidValues",
+      "fixture": "CombatFlowTests",
+      "observed": "System.NotSupportedException : 원작 서버 명중 판정이 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs:148",
+      "sourceLine": "Assert.That(UnresolvedCombatAccuracy.PhysicalHitProbability(80, 15), Is.EqualTo(.68).Within(1e-12));",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.TemporaryProfileCostsDamageRestAndEvidenceModeRemainSeparate",
+      "fixture": "CombatFlowTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs:134",
+      "sourceLine": "Assert.That(flow.TryExecute(new CombatRequest(100, 800, CombatActionType.Attack), out var result, out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.DeathNotificationsReleaseOnlyThatInstanceWithoutWaitingForRemoval",
+      "fixture": "CombatGridBindingTests",
+      "observed": "  Expected: 101\n  But was:  null\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs:106",
+      "sourceLine": "Assert.That(battle.SelectedUnitId, Is.EqualTo(101));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.ExplicitLayoutAndCellSelectionDoNotStartActionsOrFreezeAp",
+      "fixture": "CombatGridBindingTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs:42",
+      "sourceLine": "Assert.That(Configure(battle, layout), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.GridSetupPreventsLegacyRegistrationOrEnemyReplacementDesynchronizingOccupancy",
+      "fixture": "CombatGridBindingTests",
+      "observed": "  Expected: False\n  But was:  True\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs:125",
+      "sourceLine": "Assert.That(battle.TryRegisterGroup(new[] { Soldier() }), Is.False);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.HpZeroDeselectsButKeepsOccupancyUntilIndependentRemoval",
+      "fixture": "CombatGridBindingTests",
+      "observed": "  Expected: 1\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs:88",
+      "sourceLine": "Assert.That(battle.SelectedUnitId, Is.Null); Assert.That(count, Is.EqualTo(1));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.InvalidLayoutRejectsEntireInitialSetupWithoutGuessingCoordinates",
+      "fixture": "CombatGridBindingTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs:31",
+      "sourceLine": "Assert.That(Configure(battle, Layout()), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.InvalidSelectionPreservesPreviousAndRejectsEnemyEmptyOrDisabledInput",
+      "fixture": "CombatGridBindingTests",
+      "observed": "  Expected: 100\n  But was:  null\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs:73",
+      "sourceLine": "Assert.That(battle.SelectedUnitId, Is.EqualTo(100));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGroupTests.CommanderDeathDoesNotKillSoldiersOrMutatePreviousSnapshot",
+      "fixture": "CombatGroupTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatGroupTests.cs:67",
+      "sourceLine": "Assert.That(flow.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGroupTests.LivingAdditionalUnitsRecoverApAfterPrimaryUnitsDieAndCostsStayUnknown",
+      "fixture": "CombatGroupTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatGroupTests.cs:131",
+      "sourceLine": "Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementActionTests.ApprovedActionSpendsOnceButCoordinatesWaitForIndependentConfirmation",
+      "fixture": "CombatMovementActionTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementActionTests.cs:118",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(1, 1)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementActionTests.InvalidCostReadinessDestinationOrTerrainNeverSpendsAp",
+      "fixture": "CombatMovementActionTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementActionTests.cs:118",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(1, 1)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementActionTests.PendingMovementBlocksOtherStartsEvenAfterApRecoveryAndCancelDoesNotInventRefund",
+      "fixture": "CombatMovementActionTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementActionTests.cs:118",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(1, 1)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementPathTests.BudgetedDiagonalCanSkipSameGroupIntermediateWithoutOverwritingItsOccupant",
+      "fixture": "CombatMovementPathTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementPathTests.cs:309",
+      "sourceLine": "Assert.That(world.Get(100).ActionPoints.Current, Is.EqualTo(6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementPathTests.BudgetedGridUsesCardinalRangeBeforeDiagonalCompressionWithoutMutation",
+      "fixture": "CombatMovementPathTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementPathTests.cs:26",
+      "sourceLine": "Assert.That(world.Get(100).X, Is.Zero); Assert.That(world.Get(100).ActionPoints.Current, Is.EqualTo(6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementPathTests.SelectedPathRequiresActiveSelectionAndDoesNotPublishMovement",
+      "fixture": "CombatMovementPathTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementPathTests.cs:277",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.AllyLongRouteSpendsFourOnceAndConfirmsEveryCell",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.AutomaticDefenseAttacksAdjacentEnemyWithoutMovingOrSpendingCommanderAp",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:204",
+      "sourceLine": "Assert.IsTrue(b.TryConfigureGrid(6,6,new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.CancelDisableDeathAndReentrantCancelNeverContinueOldRoute",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.ChangedTerrainStopsAtLastConfirmedCellWithoutFurtherCharge",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.CommanderDeathCancelsOnlyItsAutomaticSoldierMovement",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:223",
+      "sourceLine": "Assert.IsTrue(b.TryConfigureGrid(8,8,new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.EnemyRouteSpendsSixIndependentlyOfAlly",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.EscapingTargetIsReplacedByAnApproachableEnemyInsideSpawnRange",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:301",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(22, 22, new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetStartsOnlyApprovedPathAndQueryOrFailedApNeverChangesTieOrder",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:16",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetWithoutTerrainCostsFailsWithoutSpendingOrBfsFallback",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.FailedPlacementOrBlockedReturnCannotCommitOriginOrSpendAp",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.InvalidOrUnreadyDestinationsNeverSpendAndRecoveryDoesNotUnlockActiveRoute",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.LagExactlyFiveHundredMillisecondsKeepsDebtButLongerStallDropsIt",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.MonsterReturnKeepsInitialPlacementAndSpendsOneMovementAction",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.MonsterWithoutAttackHistoryDoesNotTreatUnitZeroAsItsAttacker",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:268",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(8, 8, new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.OriginalCardinalTicksShowHalfCellBeforeConfirmation",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.PursuitStopsWhenTargetLeavesSpawnRangeAndReturnWaitsForFullAp",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:335",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(22, 22, new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.SharedClockKeepsIdlePhaseAndAdvancesBothActorsOncePerCall",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiActuallyApproachesAndAttacksOnRecoveredAp",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:447",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiReturnsThenRestsWithoutHealingDuringMovement",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:370",
+      "sourceLine": "Assert.That(b.TryConfigureGrid(20, 20, new[] {new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.TroopOrdersKeepCommanderManualAndDefenseStationaryThenAttackApproaches",
+      "fixture": "CombatMovementRouteTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs:178",
+      "sourceLine": "Assert.IsTrue(b.TryConfigureGrid(8,8,new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.CommitRechecksChangedTerrainAndNeverMovesAnUnconfiguredGrid",
+      "fixture": "CombatMovementStepTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs:133",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(1, 1)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.ConfirmationCommitsOnlyReservedCoordinatesBeforePublishingWithoutSpendingAp",
+      "fixture": "CombatMovementStepTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs:133",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(1, 1)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.DeathCancellationAndDisabledInputRejectLateConfirmations",
+      "fixture": "CombatMovementStepTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs:133",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(1, 1)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.DeathImmediatelyFreesPendingDestinationAndOriginWithoutApRefund",
+      "fixture": "CombatMovementStepTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs:115",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] {",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.HpZeroImmediatelyCancelsTicketAndRecoveryCannotReplayIt",
+      "fixture": "CombatMovementStepTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs:133",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(1, 1)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.ReturningToSameOriginNeverMakesAnOldConfirmationCurrentAgain",
+      "fixture": "CombatMovementStepTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs:133",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(1, 1)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.WrongOriginDestinationOrActorPreservesThePendingReservation",
+      "fixture": "CombatMovementStepTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs:133",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(1, 1)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatOccupancyGridTests.CommitRechecksTerrainAndChangesOnlyOccupancyAndCoordinates",
+      "fixture": "CombatOccupancyGridTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatOccupancyGridTests.cs:70",
+      "sourceLine": "Assert.That(world.Get(100).ActionPoints.Current, Is.EqualTo(6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatOccupancyGridTests.PlacementValidatesBoundsLifeAndOccupancyWithoutChangingVitals",
+      "fixture": "CombatOccupancyGridTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatOccupancyGridTests.cs:20",
+      "sourceLine": "Assert.That(world.Get(100).ActionPoints.Current, Is.EqualTo(6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatReachableDestinationsTests.CornerTerrainAndDirectionPoliciesDefineConnectivityNotAp",
+      "fixture": "CombatReachableDestinationsTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatReachableDestinationsTests.cs:62",
+      "sourceLine": "Assert.That(world.Get(100).ActionPoints.Current, Is.EqualTo(6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatReachableDestinationsTests.DestinationsAreOwnedSortedAndMatchIndividualPathsWithoutMutation",
+      "fixture": "CombatReachableDestinationsTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatReachableDestinationsTests.cs:30",
+      "sourceLine": "Assert.That(world.Get(100).X, Is.EqualTo(0)); Assert.That(world.Get(100).ActionPoints.Current, Is.EqualTo(6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatReachableDestinationsTests.SelectionQueryRequiresActiveLivingSelectionAndKeepsPendingTicket",
+      "fixture": "CombatReachableDestinationsTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatReachableDestinationsTests.cs:88",
+      "sourceLine": "Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatStatusTests.CureRequiresPoisonAndLeavesHealthAndOtherStatusUntouched",
+      "fixture": "CombatStatusTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatStatusTests.cs:15",
+      "sourceLine": "Assert.IsTrue(flow.ConfigureTemporaryStatusMagic(1601, 3, 5, TemporaryStatusEffect.Poison, 8, 20));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatStatusTests.MovementReductionChangesBudgetWithoutChangingApOrRecovery",
+      "fixture": "CombatStatusTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatStatusTests.cs:15",
+      "sourceLine": "Assert.IsTrue(flow.ConfigureTemporaryStatusMagic(1601, 3, 5, TemporaryStatusEffect.Poison, 8, 20));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatStatusTests.MovementStatusCancelsReservationAndLimitsActualReachablePathUntilExpiry",
+      "fixture": "CombatStatusTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatStatusTests.cs:29",
+      "sourceLine": "Assert.IsTrue(b.TryConfigureGrid(5,5,new[]{new CombatGridPlacement(100,new CombatGridCell(0,0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatStatusTests.PoisonDeathClearsStatusesAndDisablingNeverResurrectsThem",
+      "fixture": "CombatStatusTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatStatusTests.cs:15",
+      "sourceLine": "Assert.IsTrue(flow.ConfigureTemporaryStatusMagic(1601, 3, 5, TemporaryStatusEffect.Poison, 8, 20));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatStatusTests.PoisonTicksRefreshesExpiresAndPublishesDamageWithOriginalSource",
+      "fixture": "CombatStatusTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatStatusTests.cs:15",
+      "sourceLine": "Assert.IsTrue(flow.ConfigureTemporaryStatusMagic(1601, 3, 5, TemporaryStatusEffect.Poison, 8, 20));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatTerrainTraversalTests.ExplicitTerrainPolicyCombinesWithGridOccupancyWithoutChangingStats",
+      "fixture": "CombatTerrainTraversalTests",
+      "observed": "  Expected: 6\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatTerrainTraversalTests.cs:138",
+      "sourceLine": "Assert.That(unit.Mp, Is.EqualTo(10)); Assert.That(unit.ActionPoints.Current, Is.EqualTo(6));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.CombatVitalsDisplayTests.UpdatesRestAndOverkillPublishActualDeltasWithoutDuplicates",
+      "fixture": "CombatVitalsDisplayTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/CombatVitalsDisplayTests.cs:27",
+      "sourceLine": "Assert.That(flow.TryTemporaryRest(1), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobActionCostTests.JobBindingIsPerInstanceAndUnknownJobClearsPreviousCost",
+      "fixture": "JobActionCostTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobActionCostTests.cs:32",
+      "sourceLine": "Assert.That(flow.ConfigureActionPointCosts(2, 6), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.AllSeventyJobsPreserveNativeBaseStatsAndSeparateTemporaryCost",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:103",
+      "sourceLine": "Assert.That(UnresolvedJobActionCosts.TryGetAttackApCost(job, out var cost), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.ConfirmedPhysicalAllocationIsAppliedOnceAndPreservedWithSoldiers",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:40",
+      "sourceLine": "Assert.That(profile.TryBuildStatAllocation(3,4,2,6,out var allocated),Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.ExplicitResolvedCostsOverrideTemporaryJobCostInBothModes",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:139",
+      "sourceLine": "Assert.That(battle.ConfigureActionPointCosts(2, 6), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TemporaryMagicUsesKnownMagicStatsSeparatelyFromPhysicalStats",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:23",
+      "sourceLine": "Assert.IsTrue(authority.ConfigureTemporaryDamageMagic(201,2,4,10,2));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(100)",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:126",
+      "sourceLine": "Assert.That(sender.TrySendAttack(new AttackRequest(800, 100, 0, 0), out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(105)",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:126",
+      "sourceLine": "Assert.That(sender.TrySendAttack(new AttackRequest(800, 100, 0, 0), out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(115)",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:126",
+      "sourceLine": "Assert.That(sender.TrySendAttack(new AttackRequest(800, 100, 0, 0), out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(125)",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:126",
+      "sourceLine": "Assert.That(sender.TrySendAttack(new AttackRequest(800, 100, 0, 0), out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(135)",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:126",
+      "sourceLine": "Assert.That(sender.TrySendAttack(new AttackRequest(800, 100, 0, 0), out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(145)",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:126",
+      "sourceLine": "Assert.That(sender.TrySendAttack(new AttackRequest(800, 100, 0, 0), out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(155)",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:126",
+      "sourceLine": "Assert.That(sender.TrySendAttack(new AttackRequest(800, 100, 0, 0), out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(165)",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:126",
+      "sourceLine": "Assert.That(sender.TrySendAttack(new AttackRequest(800, 100, 0, 0), out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(169)",
+      "fixture": "JobCombatConfigurationTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs:126",
+      "sourceLine": "Assert.That(sender.TrySendAttack(new AttackRequest(800, 100, 0, 0), out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.KaosiaShopTests.NativeCatalogProducesTierScopeWithConfirmedHalfPriceBuyback",
+      "fixture": "KaosiaShopTests",
+      "observed": "  Expected: 202\n  But was:  0\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/KaosiaShopTests.cs:23",
+      "sourceLine": "Assert.AreEqual(202,count);",
+      "category": "removed-authored-stock",
+      "review": "TryCreateOffer currently returns false; old inferred stock tests cannot prove receipt-driven shop correctness."
+    },
+    {
+      "test": "DarkSaver.Tests.KaosiaShopTests.TierBoundaryAndPermissionsAreCheckedWithoutIdOrNameGuessing",
+      "fixture": "KaosiaShopTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/KaosiaShopTests.cs:33",
+      "sourceLine": "Assert.IsTrue(KaosiaShopRules.TryCreateOffer(Item(30),out _));",
+      "category": "removed-authored-stock",
+      "review": "TryCreateOffer currently returns false; old inferred stock tests cannot prove receipt-driven shop correctness."
+    },
+    {
+      "test": "DarkSaver.Tests.LateVersionDataTests.LateAbilitiesPreserveKnownCoefficientsAndBlockUnknownCurism",
+      "fixture": "LateVersionDataTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/LateVersionDataTests.cs:47",
+      "sourceLine": "Assert.That(UnresolvedAbilityRules.TryCreate(entry,out var rule),Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(167,170)",
+      "fixture": "LateVersionDataTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/LateVersionDataTests.cs:30",
+      "sourceLine": "Assert.That(changed.TryAdvanceLevels(table,uint.MaxValue,out var advanced,out _),Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(168,171)",
+      "fixture": "LateVersionDataTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/LateVersionDataTests.cs:30",
+      "sourceLine": "Assert.That(changed.TryAdvanceLevels(table,uint.MaxValue,out var advanced,out _),Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(169,172)",
+      "fixture": "LateVersionDataTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/LateVersionDataTests.cs:30",
+      "sourceLine": "Assert.That(changed.TryAdvanceLevels(table,uint.MaxValue,out var advanced,out _),Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.NativeOwnedRosterTests.InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster",
+      "fixture": "NativeOwnedRosterTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/NativeOwnedRosterTests.cs:222",
+      "sourceLine": "Assert.That(battle.ApplyMp(100,1),Is.True);Assert.That(battle.ApplyMp(200,2),Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.NativeOwnedRosterTests.ObservedReturnUpdatesOnlyKnownVitalsAndExperienceAtomically",
+      "fixture": "NativeOwnedRosterTests",
+      "observed": "  Expected: 10\n  But was:  2\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/NativeOwnedRosterTests.cs:170",
+      "sourceLine": "Assert.That(recovered.units[0].mp, Is.EqualTo(recovered.units[0].maxMp));",
+      "category": "removed-auto-mp-refill",
+      "review": "Received MP2 is preserved; legacy assertion requires automatic full MP10. Do not reintroduce unconfirmed healing."
+    },
+    {
+      "test": "DarkSaver.Tests.NativeOwnedRosterTests.PanelReceivesSessionOwnershipWithoutCreatingCoordinatesOrDeploying",
+      "fixture": "NativeOwnedRosterTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/NativeOwnedRosterTests.cs:134",
+      "sourceLine": "var roster = Roster(); Assert.That(session.TrySetOwnedRoster(roster, out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip",
+      "fixture": "NativeOwnedRosterTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/NativeOwnedRosterTests.cs:251",
+      "sourceLine": "Assert.That(battle.ApplyHp(100, 19), Is.True); Assert.That(battle.ApplyMp(100, 1), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnMismatchDoesNotPublishPartialPrimaryOrOwnedState",
+      "fixture": "NativeOwnedRosterTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/NativeOwnedRosterTests.cs:275",
+      "sourceLine": "roster.units[1].maxHp = 60; Assert.That(session.TrySetOwnedRoster(roster, out _), Is.True);",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.QuickMagicTests.InvalidRulesTargetsAndDisabledCostsNeverSpendOrBecomeEnabled",
+      "fixture": "QuickMagicTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/QuickMagicTests.cs:16",
+      "sourceLine": "Assert.IsTrue(flow.ConfigureTemporaryQuickMagic(2201, 7, 5, 25, 20));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.QuickMagicTests.MovementSpendsDiscountOnceAndKeepsSameDestination",
+      "fixture": "QuickMagicTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/QuickMagicTests.cs:37",
+      "sourceLine": "Assert.IsTrue(b.TryConfigureGrid(4,4,new[]{new CombatGridPlacement(100,new CombatGridCell(0,0)),",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.QuickMagicTests.QuickChangesExpenditureNotRecoveryAndDoesNotDiscountItsFirstCast",
+      "fixture": "QuickMagicTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/QuickMagicTests.cs:16",
+      "sourceLine": "Assert.IsTrue(flow.ConfigureTemporaryQuickMagic(2201, 7, 5, 25, 20));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.QuickMagicTests.RefreshExpiryDeathAndDisableClearStateWithoutStacking",
+      "fixture": "QuickMagicTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/QuickMagicTests.cs:16",
+      "sourceLine": "Assert.IsTrue(flow.ConfigureTemporaryQuickMagic(2201, 7, 5, 25, 20));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.QuickMagicTests.RestAndRecoveryUseSameDiscountWithoutChangingEffects",
+      "fixture": "QuickMagicTests",
+      "observed": "  Expected: True\n  But was:  False\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/QuickMagicTests.cs:16",
+      "sourceLine": "Assert.IsTrue(flow.ConfigureTemporaryQuickMagic(2201, 7, 5, 25, 20));",
+      "category": "fixture-or-boundary-review",
+      "review": "Observed first failure only. Review absent native initial HP/MP/AP maxima, removed provisional rules, and receipt setup before judging downstream functionality."
+    },
+    {
+      "test": "DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp(False)",
+      "fixture": "Scenario01FlowTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/Scenario01FlowTests.cs:18",
+      "sourceLine": "var state = Scenario01Progress.Create(definition);",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp(True)",
+      "fixture": "Scenario01FlowTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/Scenario01FlowTests.cs:18",
+      "sourceLine": "var state = Scenario01Progress.Create(definition);",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.Scenario01FlowTests.OriginalIntroAndEndingResumeAtEveryCommandWithNativeJsonAndDiskSave",
+      "fixture": "Scenario01FlowTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/Scenario01FlowTests.cs:41",
+      "sourceLine": "var definition = Content(); var state = Scenario01Progress.Create(definition); var inventory = new NativeInventory();",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.Scenario01FlowTests.SourceGold399DoesNotBecomeAKeyAndFailedConsumptionIsAtomic",
+      "fixture": "Scenario01FlowTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/Scenario01FlowTests.cs:90",
+      "sourceLine": "var definition = Content(); var state = Scenario01Progress.Create(definition); state.phase = Scenario01Progress.Playing;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(2)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(3)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(4)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(5)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(6)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(7)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(8)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(9)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(10)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(11)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(12)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(13)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(14)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(15)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(16)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(17)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(33)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(330)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(331)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(332)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(333)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(404)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(405)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(406)",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:19",
+      "sourceLine": "Assert.IsTrue(definition.IsValid);var state=Scenario01Progress.Create(definition);var inventory=new NativeInventory();state.rng=73;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.OlderScenarioCheckpointMayOmitNewOptionalLists",
+      "fixture": "ScenarioCampaignTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs:64",
+      "sourceLine": "var original=Scenario01Progress.Create(definition);",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioPresentationFeedbackTests.ResultAggregateIsDetachedSavedAndNotAnAdditionalExperienceGrant",
+      "fixture": "ScenarioPresentationFeedbackTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/ScenarioPresentationFeedbackTests.cs:95",
+      "sourceLine": "var progress=Scenario01Progress.Create(content);progress.battleExperienceEarned=1234;",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.TownQuestTests.SourceQuestRewardsUsePersistentReceiptsAndDoNotMutateCandidates",
+      "fixture": "TownQuestTests",
+      "observed": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/TownQuestTests.cs:18",
+      "sourceLine": "var state = Scenario01Progress.Create(definition); var items = new NativeInventory();",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(65,55,False,10)",
+      "fixture": "UnresolvedCombatDamageTests",
+      "observed": "System.NotSupportedException : 원작 서버 피해 판정이 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/TemporaryCombatDamageRulesTests.cs:13",
+      "sourceLine": "=> Assert.That(UnresolvedCombatDamage.Calculate(attack, defense, magic), Is.EqualTo(expected));",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(65,55,True,58)",
+      "fixture": "UnresolvedCombatDamageTests",
+      "observed": "System.NotSupportedException : 원작 서버 피해 판정이 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/TemporaryCombatDamageRulesTests.cs:13",
+      "sourceLine": "=> Assert.That(UnresolvedCombatDamage.Calculate(attack, defense, magic), Is.EqualTo(expected));",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(0,999,False,1)",
+      "fixture": "UnresolvedCombatDamageTests",
+      "observed": "System.NotSupportedException : 원작 서버 피해 판정이 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/TemporaryCombatDamageRulesTests.cs:13",
+      "sourceLine": "=> Assert.That(UnresolvedCombatDamage.Calculate(attack, defense, magic), Is.EqualTo(expected));",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(10,-20,False,10)",
+      "fixture": "UnresolvedCombatDamageTests",
+      "observed": "System.NotSupportedException : 원작 서버 피해 판정이 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/TemporaryCombatDamageRulesTests.cs:13",
+      "sourceLine": "=> Assert.That(UnresolvedCombatDamage.Calculate(attack, defense, magic), Is.EqualTo(expected));",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(int.MaxValue,0,True,int.MaxValue)",
+      "fixture": "UnresolvedCombatDamageTests",
+      "observed": "System.NotSupportedException : 원작 서버 피해 판정이 필요합니다.",
+      "testLocation": "Assets/_Game/Tests/EditMode/TemporaryCombatDamageRulesTests.cs:13",
+      "sourceLine": "=> Assert.That(UnresolvedCombatDamage.Calculate(attack, defense, magic), Is.EqualTo(expected));",
+      "category": "removed-local-authority",
+      "review": "Explicit server-required exception; do not restore provisional formula/initialization merely to pass this test."
+    },
+    {
+      "test": "DarkSaver.Tests.WorldFieldTests.GeneratedOutdoorRuntimeDoesNotInventIndoorNpcsFromMissingJsonFields",
+      "fixture": "WorldFieldTests",
+      "observed": "  Kaosia\n  Expected: not <empty>\n  But was:  <empty>\n",
+      "testLocation": "Assets/_Game/Tests/EditMode/WorldFieldTests.cs:26",
+      "sourceLine": "Assert.IsNotEmpty(root.GetComponentsInChildren<SceneSpawnPoint>(true),region.Key);",
+      "category": "removed-authored-spawn",
+      "review": "BuildRuntime now only builds evidence-backed original staff; generic SceneSpawnPoint is not created. Verify real native map entry separately."
+    }
+  ]
+}

@@ -9,7 +9,7 @@ namespace DarkSaver.Tests
         [TestCase(0, 999, false, 1)]
         [TestCase(10, -20, false, 10)]
         [TestCase(int.MaxValue, 0, true, int.MaxValue)]
-        public void ExtractionPreservesExistingProvisionalDamage(int attack, int defense, bool magic, int expected)
-            => Assert.That(UnresolvedCombatDamage.Calculate(attack, defense, magic), Is.EqualTo(expected));
+        public void MissingServerVerdictNeverManufacturesProvisionalDamage(int attack, int defense, bool magic, int expected)
+            => Assert.Throws<System.NotSupportedException>(()=>UnresolvedCombatDamage.Calculate(attack, defense, magic));
     }
 }

@@ -118,6 +118,20 @@ namespace DarkSaver.Tests
                 var mutated=checkResponse.CaptureState();mutated.character.tutorial.actors[0].hp=9999;
                 check(checkResponse.CaptureState().character.tutorial.actors[0].hp==180,"response actor snapshots are defensive");
                 check(!File.Exists(Path.Combine(directory,"history.json")),"no automatic login history");
+                var interruptedStore=new NativeSaveStore(paths[2]);interruptedStore.TryLoad(out var interrupted,out _);
+                check(interrupted.character.tutorial.step>0,"interrupted tutorial fixture has progress");
+                var permanent=interrupted.character.name;var inventory=interrupted.inventory?.gold;
+                var reconnect=new CharacterServerBoundary(Path.Combine(directory,"history.json"),paths);
+                check(reconnect.Login(new LoginRequest("alpha_01","onboarding-password")).Accepted && reconnect.SelectServer(new ServerSelectRequest(1)).Accepted,"reconnect authenticates before restart");
+                var restarted=(CharacterEntryResponse)reconnect.Select(new CharacterSelectRequest(paths[2]));
+                var reset=restarted.CaptureState();
+                check(restarted.Accepted && restarted.RequiresTutorial && reset.character.tutorial.step==0 && reset.character.tutorial.actors.Length==0 && reset.character.tutorial.dialogs.Length==0,"interrupted lesson restarts cleanly");
+                check(reset.character.name==permanent && reset.inventory?.gold==inventory,"restart preserves permanent character and inventory");
+                check(interruptedStore.TryLoad(out var persisted,out _) && persisted.character.tutorial.step==0,"restart persisted before tutorial requests");
+                check(!reconnect.Select(new CharacterSelectRequest(paths[2])).Accepted,"duplicate entry does not restart active lesson");
+                check(reconnect.Login(new LoginRequest("alpha_01","onboarding-password")).Accepted && reconnect.SelectServer(new ServerSelectRequest(1)).Accepted,"completed character reconnect authenticates");
+                var completed=(CharacterEntryResponse)reconnect.Select(new CharacterSelectRequest(paths[0]));
+                check(completed.Accepted && !completed.RequiresTutorial && completed.CaptureState().character.tutorial.IsComplete,"completed tutorial is never reset");
             }
             finally{NativeSaveStore.ClearResume();Directory.Delete(directory,true);}
         }
