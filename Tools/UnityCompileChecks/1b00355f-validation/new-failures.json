@@ -1,0 +1,12 @@
+[
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MissingHandlerUnconfiguredCostOrInvalidTerrainNeverSpendsAp",
+    "Message": "  Expected: 20\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<MissingHandlerUnconfiguredCostOrInvalidTerrainNeverSpendsAp>b__27_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x000b8] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:683\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.MissingHandlerUnconfiguredCostOrInvalidTerrainNeverSpendsAp () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:677\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.InvalidOrUnreadyRequestsNeverReachServer",
+    "Message": "  Expected: 20\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleRequestSenderTests+<>c.<InvalidOrUnreadyRequestsNeverReachServer>b__4_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x00124] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:117\nat DarkSaver.Tests.BattleRequestSenderTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:173\nat DarkSaver.Tests.BattleRequestSenderTests.InvalidOrUnreadyRequestsNeverReachServer () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:103\n"
+  }
+]
