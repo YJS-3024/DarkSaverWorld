@@ -1,0 +1,284 @@
+[
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MissingHandlerUnconfiguredCostOrInvalidTerrainNeverSpendsAp",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.InvalidOrUnreadyRequestsNeverReachServer",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.ExplicitCostsUseConfirmedUnitMaximaInsteadOfRemovedFactionDefaults",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.ExplicitMaximumAndCostAuthorizeOneRequestOnlyAtFullTicks",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.FullReceivedTicksPermitRequestStartWithoutResolvingDamageOrReward",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.InitialTicksAndMaximumRemainUnknownForBothFactions",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.InvalidCostPreservesConfirmedTicks(-1)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.InvalidCostPreservesConfirmedTicks(0)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.InvalidCostPreservesConfirmedTicks(11)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.InvalidMaximumDoesNotReplaceReceivedState(-1)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.InvalidMaximumDoesNotReplaceReceivedState(0)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.InvalidMaximumDoesNotReplaceReceivedState(32768)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.MissingAndInsufficientCostsCannotNotifyOrChangeReceivedVitals",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.ReadinessRequiresAConfirmedPositiveMaximum(0,0,False)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.ReadinessRequiresAConfirmedPositiveMaximum(23,0,False)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.ReadinessRequiresAConfirmedPositiveMaximum(0,20,False)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.ReadinessRequiresAConfirmedPositiveMaximum(19,20,False)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.ReadinessRequiresAConfirmedPositiveMaximum(20,20,True)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.ReadinessRequiresAConfirmedPositiveMaximum(21,20,False)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.ReceivedTicksAreNotClampedToAnInventedFactionMaximum(23)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.ReceivedTicksAreNotClampedToAnInventedFactionMaximum(int.MaxValue)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.TimeNeverManufacturesReceivedAp(0.0f)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.TimeNeverManufacturesReceivedAp(0.25f)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.TimeNeverManufacturesReceivedAp(1000.0f)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.TimeNeverManufacturesReceivedAp(float.MaxValue)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.TimeNeverManufacturesReceivedAp(-1.0f)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.TimeNeverManufacturesReceivedAp(float.NaN)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.TimeNeverManufacturesReceivedAp(float.PositiveInfinity)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.AmbiguousActiveRulesBackupsAndUnresolvedModesAreNotSilentlyReplaced",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.ConverterRejectsBrokenJoinsWeightsHeadersAndOrphans",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.EveryNativeRuleAndOrderedActionMatchesAnalyzedData",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.ModeMatchesOriginalUserunitParser(\"ODNORMAL\",2)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.ModeMatchesOriginalUserunitParser(\"ODATTACK\",4)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.ModeMatchesOriginalUserunitParser(\"ODDEFENCE\",8)",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.MonsterTargetPriorityRetargetsOutsideRangeOrBlockedAttackerWithoutSpending",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.MonsterTargetQueryRejectsMissingMetadataDuplicatesAndUnconfirmedTies",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.NativeScenarioOneSelectsOriginalTokensWithoutNormalizing",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.RuleOwnsActionsAndRejectedInitializationPreservesCatalog",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.SchedulerChecksOneUnitPerCallWithoutSpendingApOrApplyingCombat",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.SchedulerDeadUnitAndInvalidRollNeverInventActionsOrAdvanceTwice",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.UnknownMaximumCannotBecomeReadyFromZeroTicksOrReceivedTicks",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.InvalidOrUnreadyDestinationsNeverSpendAndRecoveryDoesNotUnlockActiveRoute",
+    "Result": "Failed",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<InvalidOrUnreadyDestinationsNeverSpendAndRecoveryDoesNotUnlockActiveRoute>b__4_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:80\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.InvalidOrUnreadyDestinationsNeverSpendAndRecoveryDoesNotUnlockActiveRoute () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:79\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalOnboardingPacketTests.NewAccountSelectionTransfersToTutorialSessionAndSavesEachStep",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalOnboardingPacketTests.SharedOnboardingServiceChecks",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalOnboardingPacketTests.TutorialManagerOwnsScopedHandlerAndRejectsStaleOrDisabledRequests",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOwnedRosterTests.ObservedReturnUpdatesOnlyKnownVitalsAndExperienceAtomically",
+    "Result": "Failed",
+    "Message": "  Expected: 10\n  But was:  2\n",
+    "Stack": "at DarkSaver.Tests.NativeOwnedRosterTests.ObservedReturnUpdatesOnlyKnownVitalsAndExperienceAtomically () [0x0039b] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:178\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeUiPaintOrderTests.TutorialActionLayerCreatesAndRestoresRealCanvasBeforeSorting",
+    "Result": "Passed",
+    "Message": null,
+    "Stack": null
+  }
+]

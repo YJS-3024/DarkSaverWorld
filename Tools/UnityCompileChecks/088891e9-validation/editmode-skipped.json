@@ -1,0 +1,1110 @@
+[
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.AwardedTotalSurvivesNativeSaveAndSessionRestore",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(False,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(False,True)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(True,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketActionsApplyOnlyEnabledBaseRewardOnce(True,True)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketRewardOverflowNeverWraps(False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.CurrentPacketRewardOverflowNeverWraps(True)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.DefeatAwardsNativeBaseOnceAndSessionRetainsTotal",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.DisabledRewardAndRejectedActionDoNotGrantExperience",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.ExactUint32LimitIsAllowed",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.HpZeroAloneDoesNotPermitRewardAndDeathDoesNotAutomaticallyAwardIt",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.MissingNegativeOversizedAndZeroRewardsAreDistinguished",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleDefeatExperienceTests.Uint32OverflowDoesNotWrapOrGrantTwice",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ConsumptionCopiesWithoutGoldChangesAndRejectsInvalidRequests",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(300,15,0,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(301,15,0,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(302,20,0,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(303,300,0,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(304,999,0,True)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(305,0,40,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(316,15,0,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(317,15,0,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(318,20,0,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(319,300,0,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(320,999,0,True)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(321,0,40,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(963,999,0,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.ExplicitRecoveryPolicyKeepsNativeLinkRangeAndConfirmedAmountSeparate(1163,1500,0,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.FullApStaleInventoryForeignBattleAndInvalidTargetsCannotPartiallyConsume",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(307,30801)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(308,30802)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(309,30803)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(310,2203)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(311,101)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(312,301)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(313,1601)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(314,701)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(315,3601)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(322,3501)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(323,2203)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.NonRecoveryConsumablesKeepExactNativeMagicLinks(398,201)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.OtherConsumablesDoNotBecomeRecoveryByNameOrCategory(307)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.OtherConsumablesDoNotBecomeRecoveryByNameOrCategory(311)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.OtherConsumablesDoNotBecomeRecoveryByNameOrCategory(313)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.OtherConsumablesDoNotBecomeRecoveryByNameOrCategory(315)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.PoisonCureAndMovementItemsCommitOnlyForAnEligibleTarget",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.QuickAndAttackItemsConsumeOneStackWithoutMpOrLearnedSpellRequirement",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.RecoveryClampsAtIntegerLimitAndCannotReviveOrIgnoreRange",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleItemUseTests.VitalsCallbackCannotReenterTheSameInventoryTransaction",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.AlliedNamesAndConvertedOriginalHelpHaveRealContentWithoutRequests",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.BattleOutcomeClosesSystemMenuWithoutAcknowledgingOrRetreating",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.CancelAndSystemMenuDoNotRetreatSpendApOrLeakMapInput",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.EmptyMagicAndSpecialWindowsCannotGrantOrCastSkills",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.EmptyWindowShellsAreModalAndDoNotSendGameplayRequests",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.NativeMenuEntriesOpenOverviewAndReturnWithoutGameplayRequests",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.NativeToolMenuPagesSixItemsWithoutConsumingInventoryOrSendingRequests",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.NativeTroopTriangleUsesRealIconsAndSelectingOrderClosesMenu",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.NativeWindowSizeChangesPreserveIdentityAndBlockMapCommands",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.OutcomeListsReadBattleUnitsWithoutAwardingExperience",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.SelectedTerrainUsesConfirmedCellAndNeverGuessesUnknownMovement",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.SessionInventoryToolRowsPreserveRealQuantitiesWithoutGrantingAlliesItems",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.SystemControlsStayAboveTheRetainedBlockerAndRequestImmediateRetreat",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.ToolAndTroopCommandsOpenOnlyTheirEmptyWindows",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.ToolDisplaySeparatesUnknownEmptyAndExplicitRowsWithoutInventoryMutations",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.TroopMenuChangesOnlySelectedGroupAndCancelLeavesModeUnchanged",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSystemMenuTests.VictoryConditionTextFollowsConfiguredGoalWithoutChangingBattleState",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.BattleReturnPublishesLevelsAndRemainingXpTogetherOrLeavesSessionUntouched",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.ChangedProfileSurvivesSaveSerializationSessionRestoreAndRecapture",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.ClassChangeAddsTwentyPointsWithoutMutatingPreviewSourceOrRetroactiveLegacyGrant",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.ClassChangeRowsReturnCopiesAndDoNotTreatNpcAsPlayer",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.InvalidOrOverflowingStatAllocationLeavesSourceUntouched",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.InvalidOrUnconfirmedAdvancedProfileIsRejected",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.LegacyUnknownLevelsAndInvalidStatesAreNotGuessedOrPartiallyAdvanced",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.MagicMergeRejectsUnknownIdsAtomicallyAndDoesNotMutateInputOrAliasResult",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.MergeRetainsAllKnownIdsIncludingEveryExplicitLevel",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.MultipleLevelUpsStopAtClassChangeAndKeepUnspentExperience",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.NamesAndIdMagnitudeNeverAuthorizeDeletingLearnedSpells",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.NativeClassChangePreservesMagicAndUsesExactNewSkillList",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.SeparateBaseAndJobLevelsConsumeExperienceWithoutGrantingAbilities",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.SeparateLevelsSurviveJsonAndNativeSessionRestore",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.StatAllocationCandidatesAreAtomicIrreversibleAndSerializable",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassAbilityProgressionTests.TownPreviewShowsNativeEdgeWithoutApplyingClassOrGrantingSpells",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.BattleMagicEditCommitsOrCancelsWithoutUnlearningOrSpendingStats",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.ClassChangeRetainsEquipmentAndRecoversToItsNewCombinedMaximum",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.ConfirmedTownChangePreservesBaseXpAndMoneyAndFullyRecoversNewVitals",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.MissingArtworkRejectsWithoutPartialClassStatsOrMoneyChanges",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.MissingCatalogAndOverflowRejectNativeInfoWithoutReplacingExistingSnapshot",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.MixedLegacyHireTypesDoNotChooseOneMercenaryPictureEvenWhenJobMatches",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.NativeClassSheetsKeepBothFrameSizesAndScreenFacing",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.OriginalSelectedRecordAndWeaponTextDoNotInheritLocalOwnershipOrUnknownLabel",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.PromotionPreservesKnownLevelsInPreviewConfirmationAndDiskSave",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.SessionHireInfoGroupsActualJobsAndKeepsDeadAndLegacyOwnershipSeparate",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.SessionPhysicalInfoMatchesConfirmedAllocationAndClearsBetweenServices",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.SessionProgressAndVitalsUseSavedStateAndRefreshAfterClassChange",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.ShortNativePalettesPreserveEveryVisiblePixel",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.StaleConfirmationAndUnknownLegacyLevelsCannotPromote",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.StaleOrDisabledTownAllocationCannotChangeSession",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.TownStatAllocationCancelsConfirmsAndRoundTripsThroughSaveFile",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.UnknownRosterAndConfirmedEmptyRosterHaveDifferentHireDisplays",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ClassChangeExecutionTests.UnknownVitalsLevelsAndXpTargetsAreNotSynthesized",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.AcceptedActionStartsBeforeAbsoluteResultNotification(Attack)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.AcceptedActionStartsBeforeAbsoluteResultNotification(Magic)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.BattleRejectsFourthMagicWithoutCounterattack",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.InactiveUnitsDoNotStartActions(True,Active)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.InactiveUnitsDoNotStartActions(False,Active)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.InactiveUnitsDoNotStartActions(True,Corpse)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.InactiveUnitsDoNotStartActions(False,Removed)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.InsufficientMpDoesNotNotifyOrSpend(0)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.InsufficientMpDoesNotNotifyOrSpend(9)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.LargeNativeAttackDoesNotOverflow(Attack)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.LargeNativeAttackDoesNotOverflow(Magic)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.MissingOrSelfTargetsAreRejected(99,2)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.MissingOrSelfTargetsAreRejected(1,99)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.MissingOrSelfTargetsAreRejected(1,1)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.MissingWorldIsRejected",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.UnsupportedRequestsNeverBecomeOrdinaryAttacks(Skill,0)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.UnsupportedRequestsNeverBecomeOrdinaryAttacks(99,0)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.UnsupportedRequestsNeverBecomeOrdinaryAttacks(Magic,0)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.UnsupportedRequestsNeverBecomeOrdinaryAttacks(Magic,102)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatRequestValidationTests.UnsupportedRequestsNeverBecomeOrdinaryAttacks(Attack,101)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.EquipmentExecutionTests.ActualEquipConfirmKeepsOwnedQuantitiesLocksSalesAndRejectsStaleWindows",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.EquipmentExecutionTests.AllSixLocalBonusesClampNegativeTotalsAndRejectOverflow",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.EquipmentExecutionTests.EquipmentBattleStatsDoNotAccumulateAndMissingCatalogCannotPartiallyApply",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.EquipmentExecutionTests.EquipmentDoesNotHealAndMaxMpReductionClampsOnlyCurrentMp",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.EquipmentExecutionTests.EquipmentRoundTripsDiskAndCannotClaimMoreCopiesThanOwned",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.EquipmentExecutionTests.InventorySelectionDoesNotCommitAndUnequipAllMakesUnknownSlotsExplicitlyEmpty",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.EquipmentExecutionTests.NativeOppositeSlotAndTroopRestrictionsAreSeparateFromLocalBaseLevelPolicy",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.EquipmentExecutionTests.UnknownSlotsStayUnknownAndCopiesCannotShareEquipmentArrays",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.MinimizedInventoryAssetIsIndependentAndHasOriginalSize",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.NativeEquipmentInventoryPreservesOriginalWindowAndControls",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.OriginalSevenByFourGeometryIsPreserved(0,20,40)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.OriginalSevenByFourGeometryIsPreserved(6,230,40)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.OriginalSevenByFourGeometryIsPreserved(7,20,75)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.OriginalSevenByFourGeometryIsPreserved(27,230,145)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.PageCountNeverImposesANewOwnershipLimit(0,1)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.PageCountNeverImposesANewOwnershipLimit(1,1)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.PageCountNeverImposesANewOwnershipLimit(28,1)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.PageCountNeverImposesANewOwnershipLimit(29,2)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.PageCountNeverImposesANewOwnershipLimit(56,2)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.PageCountNeverImposesANewOwnershipLimit(57,3)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.PageCountNeverImposesANewOwnershipLimit(10000,358)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.InventoryGridTests.PagesAndEmptyCellsAreReadOnlyAndRejectOutOfRangeAccess",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalServerExecutionTests.AttackExecutesOnceInLocalServerAndPublishesDetachedResults",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalServerExecutionTests.CharacterHandshakeAndCreateDoNotOverwriteExistingSaveOrPrepareTwice",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalServerExecutionTests.LocalSessionRequestsOwnTheirEconomicAndCharacterSnapshots",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalServerExecutionTests.RegisteredAuthorityRejectsUnsupportedRequestAndDisposedBindingStopsExecution",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalServerExecutionTests.RegistrationPageReturnsToLoginAndRejectsWrongPasswordBeforeCharacterSelection",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalServerExecutionTests.RegistrationPreservesExistingSaveAndRequiresAuthenticationBeforeResume",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryHiringTests.DeadOrUnclassifiedOwnedMercenaryDoesNotUnlockAnotherHireType",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryHiringTests.DisplayQueriesAvoidAllocationsAndObserveHireAndRestoreImmediately",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryHiringTests.FirstHireTypeLocksUntilEmptyAndInsufficientFundsDoNotPartiallyHire",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryHiringTests.HireAvailabilityIsReadOnlyAndMatchesExecutionLimitsAndFunds",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryHiringTests.HiredSoldiersDeployUnderPrimaryAndReturnWithoutChangingPermanentIds",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryHiringTests.NativeHireAndMercenaryTablesMatchAndPreserveMinusOneMp",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryHiringTests.OneHireAtATimeCapsAtTwoAndPersistsGoldRosterAndType",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryHiringTests.PrimarySlotsCapAtFourAndForgedOwnershipCannotReturn",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryHiringTests.SameNamedHigherStageHireSkillKeepsTheExistingType",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.BattleMagicSelectionIsOwnedBoundedAndIndependent",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.BattleNameChangeDoesNotResetVitalsExperienceOrAp",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.LegacyJsonAndProfileSaveBothRemainReadable",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.LevelUpGrantsExplicitSourceAbilitiesWithoutMutatingSavedSelection",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.NameAndJobValidationRejectsUnimplementedProfiles",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.NewCharacterInitializesConfirmedJobVitalsBeforeFirstBattleAndFailsAtomicallyWithoutCatalog(100)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.NewCharacterInitializesConfirmedJobVitalsBeforeFirstBattleAndFailsAtomicallyWithoutCatalog(101)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.NewCharacterInitializesConfirmedJobVitalsBeforeFirstBattleAndFailsAtomicallyWithoutCatalog(103)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.PendingCreationIsConsumedOnceAndExclusiveWithResume",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.ProfileSessionCopiesAndRestoresWithoutChangingLegacyState",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.StartButtonOpensLoginThenFirstLoginOpensCharacterSelection",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeCharacterTests.TempleRecoveryRequiresNpcAndSavesBeforePublishingWithoutGrantingGold",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeEntryUiTests.ExistingAccountDoesNotDisableRegistrationNavigationOrAllowOverwrite",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeEntryUiTests.NativeEntryArtworkKeepsPasswordMaskingAndRegistrationNavigation",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeEntryUiTests.RegistrationAndAccountSwitchReturnToIndependentCharacterSelection",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeMultiAccountTests.CharacterCreationQueuesOnlyTheAuthenticatedAccountSlot",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeMultiAccountTests.MultipleAccountsKeepCredentialsSlotsHistoriesAndLegacyFilesIsolated",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOnboardingTests.NewProfileQueuesTutorialButLegacyProfileDoesNot",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOnboardingTests.RealJsonAndDiskPreserveTutorialAndRejectInvalidCheckpoint",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOnboardingTests.SlotsHaveDistinctPathsAndKeepLegacySlot",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOnboardingTests.TutorialRequiresMovementAndRejectsStaleOrInvalidTransitions",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.ClearSurvivesBattleRemovalAndDoesNotRepeatOrReward",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(False,\"01\",False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(True,\"\",False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(True,\" \",False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.CompletionRequiresConfirmedFlagAndNonEmptyKey(True,\"01\",True)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCompletionTests.OrdinaryVictoryDoesNotClearScenario",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioGeneralRewardTests.LegacyUnlocksBecomeOwnedOnlyAfterSuccessfulSaveAndNeverDuplicateOnReload",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioGeneralRewardTests.RecruitClassArtworkUsesNative32PixelRowsIncludingSixRowSheets",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioGeneralRewardTests.UnderscoredScenario10GrantIsInertAndReceiptValidationRejectsDuplicates",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.BattleCheckpointPersistsDetachedCurrentVitalsAndRetainsLiveEncounter(400)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.BattleCheckpointPersistsDetachedCurrentVitalsAndRetainsLiveEncounter(50)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.BattleCheckpointPersistsDetachedCurrentVitalsAndRetainsLiveEncounter(0)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.KisraUses450AndResumedHpIsNeverRefilled",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave(\"World1010_Map\",\"Field_Runtime\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave(\"Brugos01_Map\",\"Brugos01_Runtime\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScreenshotUpdatesTests.PersonalEquipmentOpensOutsideTownAndPreservesWoundedVitalsItemsGoldAndSave(\"Map_101_;\",\"Training101_Runtime\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.BothShopStaffOpenSameNativeWindowAndStockWithoutDuplicateRequests(\"KaosiaWeaponShop\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.BothShopStaffOpenSameNativeWindowAndStockWithoutDuplicateRequests(\"KaosiaArmorShop\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.BothShopStaffOpenSameNativeWindowAndStockWithoutDuplicateRequests(\"KaosiaAccessoryShop\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.BothShopStaffOpenSameNativeWindowAndStockWithoutDuplicateRequests(\"KaosiaMagicTools\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.BothShopStaffOpenSameNativeWindowAndStockWithoutDuplicateRequests(\"Interior2800\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.CameraFitsSmallIndoorMap",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.ConnectedInteriorUsesConfirmedStaffWithoutAuthoredFallback(\"KaosiaWeaponShop\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.ConnectedInteriorUsesConfirmedStaffWithoutAuthoredFallback(\"KaosiaArmorShop\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.ConnectedInteriorUsesConfirmedStaffWithoutAuthoredFallback(\"KaosiaAccessoryShop\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.ConnectedInteriorUsesConfirmedStaffWithoutAuthoredFallback(\"KaosiaBank\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.ConnectedInteriorUsesConfirmedStaffWithoutAuthoredFallback(\"KaosiaWarehouse\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.ConnectedInteriorUsesConfirmedStaffWithoutAuthoredFallback(\"KaosiaTemple\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.ConnectedInteriorUsesConfirmedStaffWithoutAuthoredFallback(\"KaosiaMagicTools\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.ConnectedInteriorUsesConfirmedStaffWithoutAuthoredFallback(\"Interior2800\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EnteringInteriorImmediatelyRepositionsCameraAndKeepsDepth",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior1500\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2000\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2010\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2100\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2110\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2120\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2130\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2140\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2150\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2160\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2170\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2180\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2190\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2200\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2300\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2400\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2510\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2600\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2700\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2800\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2900\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior3000\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"KaosiaAccessoryShop\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"KaosiaBank\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"KaosiaWarehouse\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"KaosiaTemple\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"KaosiaMagicTools\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.LoadedRoomBuildsGroundAndRealCollisionForWallsCounterAndExit(\"KaosiaWeaponShop\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.LoadedRoomBuildsGroundAndRealCollisionForWallsCounterAndExit(\"KaosiaArmorShop\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.ShopDestinationUsesIndependentPersistableScenePair(\"KaosiaWeaponShop\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.ShopInteriorTests.ShopDestinationUsesIndependentPersistableScenePair(\"KaosiaArmorShop\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownInteractionTests.CharacterAdjustmentMagicDetailPreservesOriginalRawFieldRules",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownInteractionTests.CharacterInfoLifecyclePreservesExistingServiceIdsAndReleasesModalInput",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownInteractionTests.CharacterInfoReadsSessionWithoutInferringUnknownValuesOrMutatingSave",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownInteractionTests.ClassMenuIconsReuseConvertedTexturesAndOriginalFixedCrop",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownInteractionTests.DisabledFacilitiesRejectWithoutAcquiringInputLock",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownInteractionTests.OriginalInfoHeaderUsesTwoSignedLevelsAndTwoUnsignedExperienceValues",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownInteractionTests.TownFacilitiesDialogueDistanceAndModalLifecycleWorkTogether",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.OriginalKaosiaGatesKeepTravelTriggersWithoutAuthoredMarkersOrLabels",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Kaosia\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Belpueus\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Sisirio\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownServiceNpcTests.ServiceActorsMatchManifestAndInventoryOpensOnlyFromNearbyLoadedTown(\"Castlelim\")",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.InventoryTradeIsAtomicAndChecksOverflowFundsAndOwnedQuantity",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.OriginalShopGridGeometry(0,278,40)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.OriginalShopGridGeometry(2,348,40)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.OriginalShopGridGeometry(3,278,75)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.OriginalShopGridGeometry(11,348,145)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(0,1)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(3,1)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(4,1)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(7,1)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(12,1)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(13,2)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(15,2)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopPagesRejectBoundsResetSelectionAndNeverTrade(16,3)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.ShopUiSessionTradeAndDiskRestorePreserveInventoryAndUnknownLegacyState",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.TradeAvailabilityMatchesExecutionAndDoesNotMutateSource(100L,0,2,30L,True,True)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.TradeAvailabilityMatchesExecutionAndDoesNotMutateSource(100L,0,4,30L,True,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.TradeAvailabilityMatchesExecutionAndDoesNotMutateSource(0L,2,3,10L,False,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.TradeAvailabilityMatchesExecutionAndDoesNotMutateSource(0L,2,2,10L,False,True)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.TradeAvailabilityMatchesExecutionAndDoesNotMutateSource(0L,0,1,0L,True,True)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.TradeAvailabilityMatchesExecutionAndDoesNotMutateSource(100L,1,0,1L,True,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.TradeAvailabilityMatchesExecutionAndDoesNotMutateSource(100L,1,1,-1L,True,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.TradeAvailabilityMatchesExecutionAndDoesNotMutateSource(long.MaxValue,1,2,long.MaxValue,True,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.TradeAvailabilityMatchesExecutionAndDoesNotMutateSource(long.MaxValue,1,1,1L,False,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.TradeAvailabilityMatchesExecutionAndDoesNotMutateSource(100L,int.MaxValue,1,0L,True,False)",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownShopTests.TradeFeedbackUsesNativeShopBodyWithoutRemovedSaveStrip",
+    "Reason": "싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요"
+  }
+]
