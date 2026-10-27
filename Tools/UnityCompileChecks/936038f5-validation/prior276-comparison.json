@@ -1,0 +1,1106 @@
+[
+  {
+    "Test": "DarkSaver.Tests.BattleAlliedRosterTests.AllCommanderDefeatStopsNewActionsButStillAcceptsAbsoluteResults",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAlliedRosterTests.CommanderRemovalKeepsOtherGroupSoldierAndApRecovery",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAlliedRosterTests.PrimaryDeathDoesNotFinishBattleWhileAnotherCommanderLives",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAttackPresentationTests.AcceptedLocalAttackPublishesAnticipationBeforeApplyingDamage",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAttackPresentationTests.InvalidOrRemovedReferencesDoNotReplacePresentationOrResurrect",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAttackPresentationTests.ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleEffectPacketTests.EffectCallbackFailureIsNotAcknowledgedOrRetried",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleEffectPacketTests.MagicPreservesUninterpretedFieldsAndOwnedTargetOrderIncludingDuplicates",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(uint.MinValue)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(3477000000)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(uint.MaxValue)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFeedbackTests.ActualAttackShowsDamageAndMissWithoutTreatingHpSyncAsAnAttack",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationDeploymentTests.AllGroupsRegisterTogetherAndInputsCannotRewriteRegisteredUnits",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationDeploymentTests.BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationPanelTests.DraftAssignmentCancelAndCommanderRemovalNeverMutateOwnership",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationPlacementTests.ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationReturnTests.MissingDuplicateForeignAndEnemyResultsNeverProducePartialReturn",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationReturnTests.ReorderedResultsMapByDeploymentIdentityAndRetainRawValues",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationSnapshotTests.MissingOwnershipFinalStateOrNativeContextNeverProducesPartialSnapshot",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationTests.FormationCannotDesynchronizeAnAlreadyConfiguredGrid",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationTests.FourSoldierLimitCountsExistingMembersWithoutForcingConsecutiveIds",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.HandlerFailureDoesNotRetryOrRefundAndDisabledSenderDoesNotStart",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.MissingHandlerAndInvalidMagicDoNotSpendOrPublish",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.MpIsOnlyChangedBySeparateAbsoluteResponse",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.MultiTargetMagicRetainsRawPacketAndChargesConfiguredApOnly",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.NativeReferenceSentinelsChargeActualCasterAndRetainOriginalReference",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.PositionRequestsAllowEmptyTargetsAndBlockReentryWithoutInventingResponse",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacks",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCost",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryPartyHealingAndBuffsShareOneCastCost",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuBlocksMapPointerAndSuspensionResetsCommands",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuRestRecoversHpAndClosesWithoutStartingMovement",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuSeparatesMoveAttackAndUnresolvedBuffsWithoutSpending",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.AdditionalSoldierClickSendsItsInstanceInsteadOfAlwaysUsingPlayer100",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.AttackFacingUsesBoundInstancesWithoutChangingVitalsAndSuspensionUnsubscribes",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.BasicCommandPanelConnectsMoveAttackRestAndBlocksInvalidStates",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.BattleMagicMenuUsesConfirmedSubsetIncludingEmptySelection",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.BindingAlignsFreeWalkingBodiesBeforeTheirFirstGridStep",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.BindingStopsOnlyVisualWalkingAndRestoresBorrowedMotionOnSuspend",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.BindingUsesNativeBodiesAndWorldCellsWithoutEnablingUnresolvedMovement",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.CasterDeathAndPresentationSuspensionCancelPendingMagic",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.CatalogRegistersOriginalCostsWithoutGrantingSkillsAndRepeatedConfigurationIsStable",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ConfirmedLearnedMagicDisplaysWithoutInventingRequestsAndRejectsUnlearnedCommands",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ConfirmedNativeStepSynchronizesBoundBodyButNeverTreatsClickAsMovement",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend(901)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend(1001)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateMagicMenuKeepsPacketAnchorAndCleansEffectsOnSuspend",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBody",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.EnemyClickDispatchesSelectedActorWithNativeAttributesAndOnlyIndependentVitals",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ExistingHudAndTerrainZeroAreExplicitNativeInputs",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ExplicitMagicChoiceMenuPreservesNativeMetadataAndWaitsForTargetClick",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ExplicitTemporarySpellExecutesFromTargetClickAndRejectsOutOfRangeWithoutCost",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommit",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTick",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.InformationSizeChangesKeepLiveTargetAndGameplayState",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedGroupKeepsSingleTargetFallbackUnlessOriginalRecordsAreSupplied",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryAreaUsesGeometryAndFiltersTargetsWithoutNativeTeamGuesses",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryDirectionCastsAndEmptyDirectionOrCancelNeverSpends",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicChoicesRejectInvalidReplacementAndCancelWithoutInventingAvailability",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection(False)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection(True)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewClearsOnInvalidGroupDeathAndSuspend",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewRendersNativeGeometryWithoutPacketsOrCost",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewUsesTransformedGroundAndReleasesOwnedResources",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicTargetingFailureAndCancellationNeverSpendOrInventCosts",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.NativeAreaMenuExecutesConfiguredTemporaryDamageOnBothTargets",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.NativeGroupMagicClickBuildsOriginalListAndKeepsIndependentVitals",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.NativeJobCatalogBindsTerrainAndApprovedDiagonalsWithoutExecutingClicks",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.NativeMagicUnknownTeamNeverDispatchesOrFallsThroughToMovement",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.NativeMapClickUsesExplicitBudgetAndClassTerrainCostsWithoutFallback",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresIt",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.OriginallyHiddenBodiesStayHiddenAndCorpseNeverUsesInventedFrames",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.OutcomeWaitsForConfirmedDeathAndAcknowledgementNeverGrantsRewards",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PlasmaMenuRequestWaitsForIndependentEffectWithoutDoubleSpending",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PositionMagicClickNeverFallsThroughToMovementOrAttack",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodyBindingFailureRemovesOnlyNewBodiesAndCanRetry",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PrimarySoldierAliasCreatesSelectableNativeBodyAndReturnsItsSourceIdentity",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.RejectedBindingDoesNotChangeMotionAndStationaryBindingsStayStationary",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.RemovedVisualsStayHiddenWhenDisablingAndResumingPresentation",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish(2)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish(-1)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ScenarioEncounterSuppressesResultButTrainingAndFailedReturnCanShowIt",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.SpecialMagicAreaAcceptsNativeDirectionSentinelsWithoutDispatching",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.StandardMagicAreaQueryUsesNativeCellOrderWithoutCastingOrMoving",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryBuffSelfClickConsumesCostsAndChangesOnlyEffectiveAttack",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryCatalogNeverClassifiesUnknownStatusOrNonCombatEntriesAsDamage",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryHealSelfClickRestoresHpAndShowsPositiveFeedbackWithoutDamage",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-1)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-2)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-3)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-4)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionShowsIndependentStatsWithoutSelectingOrSending",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.UnitMagicClickPreservesCommandMetadataAndWaitsForIndependentMp",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.DeathBeforeHpPreservesReceivedHpUntilSeparateUpdate",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.DeathDoesNotPublishCombatResultOrExperienceAndStopsApRecovery",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.InvalidVitalsReportFailureWithoutClampingOrChangingState",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.PlayerDeathSnapshotRetainsLifeStateAndBlocksBattleReentry",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.TickMenuPacketsClampAbsoluteApAndReplaceNativeBitsWithoutInferringActions",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.VitalsAreAbsoluteAndDoNotInferDeathOrChangeExperienceOrAp",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.DispatchStartsAnticipationBeforeImmediateResponseWithoutLocalDamage",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.HandlerFailurePropagatesWithoutRetryRefundOrLocalDamage",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.MissingOrDisabledHandlerDoesNotSpendApOrStartPresentation",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.ReentrantRequestIsRejectedAndNoResponseLeavesOnlyAnticipation",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.TemporaryLoopbackResolvesOnceWithoutHandlerAndCanBeDisabled",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.TemporaryMagicLoopbackSpendsApMpOnceAndRemovesDeadUnitImmediately",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSpecialMenuTests.SpecialMenuStaysSeparateAndUsesExistingNativeRequestPath",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.DefeatBlocksEntryAndDoesNotReviveNextBattle",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.FreshSessionLeavesInitialBattleStatsUntouched",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(37)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(0)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(-1,0)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(121,0)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(50,-1)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(50,31)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.MissingOrDestroyedBattleDoesNotReplaceStoredVitals",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(1)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(87)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(120)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.VitalsDoNotModifyExperienceCompletionOrEnemy",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.AttackCostsAreActorSpecificAndMagicCostsAreIdSpecific",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.FactionMaximumsRecoverIndependentlyAndValidateActorSpecificCosts",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.FractionalFramesAndLargeTimeStepsRecoverWithoutOverflow",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.InsufficientApDoesNotNotifyOrChangeHpMpAndCosts",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.InvalidTimeDoesNotMutateRecovery(-1.0f)",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.InvalidTimeDoesNotMutateRecovery(float.NaN)",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.InvalidTimeDoesNotMutateRecovery(float.PositiveInfinity)",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.RecoveryIsSameForBothSidesButDoesNotRecoverDeadUnitsOrMp",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.StartsAtSixAndRequiresMaximumEvenWhenCostIsAffordable",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.TimeAtMaximumCannotBeBankedForNextAction",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.TwentyIsSpendableButRawMagicTickAboveMaximumIsNotClamped",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionPointsTests.UnconfiguredCostsFailClosedWithoutUsingDemonstrationValues",
+    "Result": "Not in synchronous result"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionStatusTests.ActualDamageWakesAndDeathOrDisableClearsSleepAndSilence",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionStatusTests.SilenceRejectsLocalAndPacketMagicWithoutSpendingButAllowsAttackAndItems",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionStatusTests.SleepCancelsReservedMovementAndHidesPathsUntilWakeOrExpiry",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionStatusTests.SleepStopsAttackMagicRestAndItemsWhileApRecoversNormally",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionStatusTests.WakeRequiresSleepingAllyAndOnlyRemovesSleep",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.MonsterTargetPriorityRetargetsOutsideRangeOrBlockedAttackerWithoutSpending",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.MonsterTargetQueryRejectsMissingMetadataDuplicatesAndUnconfirmedTies",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatAiCatalogTests.SchedulerChecksOneUnitPerCallWithoutSpendingApOrApplyingCombat",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.Execute_AppliesAbsoluteResultAndLeavesCorpse",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.ExplicitTemporaryMagicHasIndependentCostAndFormulaWithoutChangingEvidenceMode",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.TemporaryBuffsAffectDamageRefreshAndExpireWithoutChangingBaseStats",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.TemporaryHealingCapsHpAndRejectsEnemyDeadFullAndInsufficientMpWithoutCost",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.TemporaryMissConsumesActionApButDoesNotDamageAndRuleCanBeReplaced",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.TemporaryPhysicalHitFormulaMatchesPercentagesAndRejectsInvalidValues",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.TemporaryProfileCostsDamageRestAndEvidenceModeRemainSeparate",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.DeathNotificationsReleaseOnlyThatInstanceWithoutWaitingForRemoval",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.ExplicitLayoutAndCellSelectionDoNotStartActionsOrFreezeAp",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.GridSetupPreventsLegacyRegistrationOrEnemyReplacementDesynchronizingOccupancy",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.HpZeroDeselectsButKeepsOccupancyUntilIndependentRemoval",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.InvalidLayoutRejectsEntireInitialSetupWithoutGuessingCoordinates",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.InvalidSelectionPreservesPreviousAndRejectsEnemyEmptyOrDisabledInput",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGroupTests.CommanderDeathDoesNotKillSoldiersOrMutatePreviousSnapshot",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGroupTests.LivingAdditionalUnitsRecoverApAfterPrimaryUnitsDieAndCostsStayUnknown",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementActionTests.ApprovedActionSpendsOnceButCoordinatesWaitForIndependentConfirmation",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementActionTests.InvalidCostReadinessDestinationOrTerrainNeverSpendsAp",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementActionTests.PendingMovementBlocksOtherStartsEvenAfterApRecoveryAndCancelDoesNotInventRefund",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementPathTests.BudgetedDiagonalCanSkipSameGroupIntermediateWithoutOverwritingItsOccupant",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementPathTests.BudgetedGridUsesCardinalRangeBeforeDiagonalCompressionWithoutMutation",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementPathTests.SelectedPathRequiresActiveSelectionAndDoesNotPublishMovement",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.AllyLongRouteSpendsFourOnceAndConfirmsEveryCell",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.AutomaticDefenseAttacksAdjacentEnemyWithoutMovingOrSpendingCommanderAp",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.CancelDisableDeathAndReentrantCancelNeverContinueOldRoute",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.ChangedTerrainStopsAtLastConfirmedCellWithoutFurtherCharge",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.CommanderDeathCancelsOnlyItsAutomaticSoldierMovement",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.EnemyRouteSpendsSixIndependentlyOfAlly",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.EscapingTargetIsReplacedByAnApproachableEnemyInsideSpawnRange",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetStartsOnlyApprovedPathAndQueryOrFailedApNeverChangesTieOrder",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetWithoutTerrainCostsFailsWithoutSpendingOrBfsFallback",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.FailedPlacementOrBlockedReturnCannotCommitOriginOrSpendAp",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.InvalidOrUnreadyDestinationsNeverSpendAndRecoveryDoesNotUnlockActiveRoute",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.LagExactlyFiveHundredMillisecondsKeepsDebtButLongerStallDropsIt",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.MonsterReturnKeepsInitialPlacementAndSpendsOneMovementAction",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.MonsterWithoutAttackHistoryDoesNotTreatUnitZeroAsItsAttacker",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.OriginalCardinalTicksShowHalfCellBeforeConfirmation",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.PursuitStopsWhenTargetLeavesSpawnRangeAndReturnWaitsForFullAp",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.SharedClockKeepsIdlePhaseAndAdvancesBothActorsOncePerCall",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiActuallyApproachesAndAttacksOnRecoveredAp",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiReturnsThenRestsWithoutHealingDuringMovement",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.TroopOrdersKeepCommanderManualAndDefenseStationaryThenAttackApproaches",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.CommitRechecksChangedTerrainAndNeverMovesAnUnconfiguredGrid",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.ConfirmationCommitsOnlyReservedCoordinatesBeforePublishingWithoutSpendingAp",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.DeathCancellationAndDisabledInputRejectLateConfirmations",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.DeathImmediatelyFreesPendingDestinationAndOriginWithoutApRefund",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.HpZeroImmediatelyCancelsTicketAndRecoveryCannotReplayIt",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.ReturningToSameOriginNeverMakesAnOldConfirmationCurrentAgain",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.WrongOriginDestinationOrActorPreservesThePendingReservation",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatOccupancyGridTests.CommitRechecksTerrainAndChangesOnlyOccupancyAndCoordinates",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatOccupancyGridTests.PlacementValidatesBoundsLifeAndOccupancyWithoutChangingVitals",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatReachableDestinationsTests.CornerTerrainAndDirectionPoliciesDefineConnectivityNotAp",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatReachableDestinationsTests.DestinationsAreOwnedSortedAndMatchIndividualPathsWithoutMutation",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatReachableDestinationsTests.SelectionQueryRequiresActiveLivingSelectionAndKeepsPendingTicket",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatStatusTests.CureRequiresPoisonAndLeavesHealthAndOtherStatusUntouched",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatStatusTests.MovementReductionChangesBudgetWithoutChangingApOrRecovery",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatStatusTests.MovementStatusCancelsReservationAndLimitsActualReachablePathUntilExpiry",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatStatusTests.PoisonDeathClearsStatusesAndDisablingNeverResurrectsThem",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatStatusTests.PoisonTicksRefreshesExpiresAndPublishesDamageWithOriginalSource",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatTerrainTraversalTests.ExplicitTerrainPolicyCombinesWithGridOccupancyWithoutChangingStats",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatVitalsDisplayTests.UpdatesRestAndOverkillPublishActualDeltasWithoutDuplicates",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobActionCostTests.JobBindingIsPerInstanceAndUnknownJobClearsPreviousCost",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.AllSeventyJobsPreserveNativeBaseStatsAndSeparateTemporaryCost",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.ConfirmedPhysicalAllocationIsAppliedOnceAndPreservedWithSoldiers",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.ExplicitResolvedCostsOverrideTemporaryJobCostInBothModes",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TemporaryMagicUsesKnownMagicStatsSeparatelyFromPhysicalStats",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(100)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(105)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(115)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(125)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(135)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(145)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(155)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(165)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(169)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.KaosiaShopTests.NativeCatalogProducesTierScopeWithConfirmedHalfPriceBuyback",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.KaosiaShopTests.TierBoundaryAndPermissionsAreCheckedWithoutIdOrNameGuessing",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.LateVersionDataTests.LateAbilitiesPreserveKnownCoefficientsAndBlockUnknownCurism",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(167,170)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(168,171)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(169,172)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOwnedRosterTests.InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOwnedRosterTests.ObservedReturnUpdatesOnlyKnownVitalsAndExperienceAtomically",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOwnedRosterTests.PanelReceivesSessionOwnershipWithoutCreatingCoordinatesOrDeploying",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnMismatchDoesNotPublishPartialPrimaryOrOwnedState",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalCombatBoundaryTests.DefaultHasNoSimulatorAndCannotManufactureCombatOrRewards",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalCombatBoundaryTests.NativeReturnKeepsReceivedMpAndRejectsLegacySimulationPackets",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalCombatBoundaryTests.OriginalRequestCrossesServerManagerAndOnlyResponseChangesVitals",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalCombatBoundaryTests.RemovalDoesNotInventHpExperienceVictoryOrScenarioCompletion",
+    "Result": "Passed"
+  },
+  {
+    "Test": "DarkSaver.Tests.QuickMagicTests.InvalidRulesTargetsAndDisabledCostsNeverSpendOrBecomeEnabled",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.QuickMagicTests.MovementSpendsDiscountOnceAndKeepsSameDestination",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.QuickMagicTests.QuickChangesExpenditureNotRecoveryAndDoesNotDiscountItsFirstCast",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.QuickMagicTests.RefreshExpiryDeathAndDisableClearStateWithoutStacking",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.QuickMagicTests.RestAndRecoveryUseSameDiscountWithoutChangingEffects",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp(False)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp(True)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.Scenario01FlowTests.OriginalIntroAndEndingResumeAtEveryCommandWithNativeJsonAndDiskSave",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.Scenario01FlowTests.SourceGold399DoesNotBecomeAKeyAndFailedConsumptionIsAtomic",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(2)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(3)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(4)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(5)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(6)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(7)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(8)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(9)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(10)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(11)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(12)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(13)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(14)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(15)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(16)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(17)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(33)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(330)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(331)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(332)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(333)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(404)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(405)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(406)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.OlderScenarioCheckpointMayOmitNewOptionalLists",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioPresentationFeedbackTests.ResultAggregateIsDetachedSavedAndNotAnAdditionalExperienceGrant",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.TownQuestTests.SourceQuestRewardsUsePersistentReceiptsAndDoNotMutateCandidates",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(65,55,False,10)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(65,55,True,58)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(0,999,False,1)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(10,-20,False,10)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(int.MaxValue,0,True,int.MaxValue)",
+    "Result": "Failed"
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFieldTests.GeneratedOutdoorRuntimeDoesNotInventIndoorNpcsFromMissingJsonFields",
+    "Result": "Failed"
+  }
+]
