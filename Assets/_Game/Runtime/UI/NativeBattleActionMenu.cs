@@ -12,7 +12,10 @@ namespace DarkSaver.UI
             new Vector2Int(0, 0), new Vector2Int(2, 0), new Vector2Int(2, 2), new Vector2Int(0, 2),
             new Vector2Int(0, 1), new Vector2Int(2, 1), new Vector2Int(1, 2), new Vector2Int(1, 0)
         };
-        private static readonly int[] Columns = { 0, 1, 5, 8, 2, 12, 4, 3 };
+        private static readonly int[] Columns = { 0, 1, 12, 8, 2, 5, 4, 3 };
+        // Original soldier menu exposes move/attack/rest only; commander instances end in0.
+        public static bool AllowsIndex(int unitId,int index)=>unitId>=0 && index>=0 && index<Count
+            && (unitId%10==0 || index==0 || index==1 || index==3);
         public static Rect ButtonRect(Rect bounds, int index)
         {
             if (index < 0 || index >= Count) return default;

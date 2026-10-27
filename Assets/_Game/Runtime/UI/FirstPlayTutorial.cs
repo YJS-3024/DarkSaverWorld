@@ -101,6 +101,11 @@ namespace DarkSaver.UI
                 movementArmed=progress.activeCommand=="Move";attackArmed=progress.activeCommand=="Attack";magicArmed=progress.activeCommand=="MagicTarget";
             }
             if(progress.step!=displayedStep){displayedStep=progress.step;delayStarted=Time.unscaledTime;}
+            if(kind=="WindowButton")
+            {
+                string window=OriginalTutorialScript.WindowKeyForControl(actor);
+                if(window!=null)minimizedWindows.Remove(window);
+            }
             if(kind=="Attack")StartPracticeEffect(actor,target,false);
             if(kind=="Magic" && stage==2)StartPracticeEffect(actor,target,true);
             error=null;
@@ -116,14 +121,17 @@ namespace DarkSaver.UI
             movementDebt+=Time.unscaledDeltaTime;
             movementPulse=movementDebt+1e-8>=GameConstants.BattleMoveTickSeconds;
             if(movementPulse)movementDebt=movementDebt>GameConstants.BattleMoveLagResetSeconds?0:Math.Max(0,movementDebt-GameConstants.BattleMoveTickSeconds);
-            AnimateActors();TickPracticeEffects();
+            AnimateActors();TickPracticeEffects();AdvancePracticeTicks(Time.unscaledDeltaTime);
             var command=script.Current(progress);
             if(command.Name=="DO" && Time.unscaledTime-delayStarted>=int.Parse(command.Arguments[0])/1000f)
             {Send("Delay");return;}
-            if(command.Name=="WAITKEYBOARD" && Enum.TryParse(command.Arguments[0],out KeyCode key) && Input.GetKeyDown(key))
-            {Send("Key",key:command.Arguments[0]);return;}
+            if(progress.keyboard && command.Name=="WAITKEYBOARD"
+                && Enum.TryParse(command.Arguments[0],out KeyCode key) && Input.GetKeyDown(key))
+            {Send("WindowKey",key:command.Arguments[0]);return;}
             if(view==null || !GameScreen.TryScreenToGui(Input.mousePosition,out var pointer))return;
+            terrainPointer=NativeCell(view.ScreenToWorldPoint(Input.mousePosition));
             hovered=-1;foreach(var a in progress.actors)if(!a.removed && !a.dead && ActorRect(a.id).Contains(pointer)){hovered=a.id;break;}
+            if(hovered>=0)inspectedActor=hovered;
             if(command.Name=="WAITMOUSEMOVE" && hovered>=0){Send("Hover",actor:hovered);return;}
             if(Input.GetMouseButtonDown(1)){openMenu=-1;subMenu="";movementArmed=attackArmed=magicArmed=false;return;}
             if(!Input.GetMouseButtonDown(0) || UnityEngine.EventSystems.EventSystem.current?.IsPointerOverGameObject()==true)return;
@@ -156,7 +164,9 @@ namespace DarkSaver.UI
         private void BeginPlayerMovement(int id,int x,int y)
         {
             if(playerMoving>=0 || !actors.ContainsKey(id))return;
-            playerMoving=id;moveX=x;moveY=y;moveDestination=World(x,y);
+            var destination=World(x,y);
+            if(!TryPlanPracticeMotion(actors[id],destination,out var motion)){error="원본 이동 영역에서 목적지까지의 경로를 찾을 수 없습니다.";return;}
+            motions[actors[id]]=motion;playerMoving=id;moveX=x;moveY=y;moveDestination=destination;
         }
         private void AnimateActors()
         {
@@ -165,24 +175,28 @@ namespace DarkSaver.UI
             {
                 if(!actors.TryGetValue(a.id,out var actor))continue;
                 var end=World(a.targetX,a.targetY);MoveView(actor,end);
-                if((actor.transform.position-end).sqrMagnitude<.0001f)Send("MovementCompleted",actor:a.id,x:a.targetX,y:a.targetY);
+                if((actor.transform.position-end).sqrMagnitude<.0001f)Send("MovementCompleted",actor:a.id,x:a.targetX,y:a.targetY,key:PracticeFacing(actor));
             }
             if(playerMoving>=0 && actors.TryGetValue(playerMoving,out var playerView))
             {
                 MoveView(playerView,moveDestination);
                 if((playerView.transform.position-moveDestination).sqrMagnitude<.0001f)
-                {int id=playerMoving;playerMoving=-1;if(Send("MovePosition",actor:id,x:moveX,y:moveY))movementArmed=false;openMenu=-1;}
+                {int id=playerMoving;playerMoving=-1;if(Send("MovePosition",actor:id,x:moveX,y:moveY,key:PracticeFacing(playerView)))movementArmed=false;openMenu=-1;}
             }
         }
         private sealed class PracticeMotion
-        {public Vector3 from,next,end;public int phase;}
+        {public Vector3 from,next,end;public int phase,index;public IReadOnlyList<CombatGridCell> path;}
         private readonly Dictionary<GameObject,PracticeMotion> motions=new();
         private double movementDebt;
         private bool movementPulse;
         private void MoveView(GameObject actor,Vector3 end)
         {
             if(!motions.TryGetValue(actor,out var motion) || motion.end!=end)
-            {motion=new PracticeMotion {from=actor.transform.position,end=end};motion.next=NextPracticeCell(motion.from,end);motions[actor]=motion;}
+            {
+                if((actor.transform.position-end).sqrMagnitude<.0001f)return;
+                if(!TryPlanPracticeMotion(actor,end,out motion)){error="원본 이동 영역에서 대본 목적지까지의 경로를 찾을 수 없습니다.";return;}
+                motions[actor]=motion;
+            }
             var delta=motion.next-motion.from;bool diagonal=Math.Abs(delta.x)>.001f && Math.Abs(delta.y)>.001f;
             var animator=actor.GetComponent<DirectionalSpriteAnimator>();animator.TrySetFacing(new Vector2(delta.x,delta.y));animator.SetMovingPresentation(true);
             if(movementPulse)
@@ -193,7 +207,11 @@ namespace DarkSaver.UI
                 {
                     actor.transform.position=motion.next;motion.from=motion.next;motion.phase=0;
                     if((motion.from-end).sqrMagnitude<.0001f){motions.Remove(actor);animator.SetMovingPresentation(false);}
-                    else motion.next=NextPracticeCell(motion.from,end);
+                    else
+                    {
+                        motion.index++;if(motion.index>=motion.path.Count){motions.Remove(actor);animator.SetMovingPresentation(false);return;}
+                        var cell=motion.path[motion.index];motion.next=World(cell.X,cell.Y);
+                    }
                 }
                 else
                 {
@@ -203,8 +221,6 @@ namespace DarkSaver.UI
             }
             actor.GetComponent<SpriteRenderer>().sortingOrder=20000-Mathf.RoundToInt(actor.transform.position.y*10);
         }
-        // Tutorial destinations are source-scripted. General native terrain path selection remains separate.
-        private static Vector3 NextPracticeCell(Vector3 from,Vector3 end)=>from+new Vector3(Mathf.Clamp(end.x-from.x,-1,1),Mathf.Clamp(end.y-from.y,-1,1),0);
         private void Reconcile()
         {
             if(progress==null)return;
@@ -228,7 +244,7 @@ namespace DarkSaver.UI
                 if(!a.moving && playerMoving!=a.id)
                 {
                     actor.transform.position=World(a.x,a.y);var anim=actor.GetComponent<DirectionalSpriteAnimator>();anim.SetMovingPresentation(false);
-                    anim.TrySetFacing(a.facing=="UP"?Vector2.up:a.facing=="LEFT"?Vector2.left:a.facing=="RIGHT"?Vector2.right:Vector2.down);anim.PresentFrame(0);
+                    anim.TrySetFacing(a.facing=="UP"?Vector2.up:a.facing=="LEFT"?Vector2.left:a.facing=="RIGHT"?Vector2.right:Vector2.down);anim.PresentFrame((long)(Time.realtimeSinceStartupAsDouble*1000d));
                 }
                 actor.GetComponent<SpriteRenderer>().sortingOrder=20000-Mathf.RoundToInt(actor.transform.position.y*10);
             }
@@ -241,7 +257,7 @@ namespace DarkSaver.UI
         }
         private void RestoreWorld()
         {
-            ReleaseRanges();ClearPracticeEffects();motions.Clear();
+            ReleaseRanges();ReleasePracticeTerrainPreview();ClearPracticeEffects();motions.Clear();practiceTicks.Clear();minimizedWindows.Clear();
             if(minimapCamera!=null){Destroy(minimapCamera.gameObject);minimapCamera=null;}
             if(minimap!=null){minimap.Release();Destroy(minimap);minimap=null;}
             if(music!=null){music.Stop();Destroy(music);music=null;}

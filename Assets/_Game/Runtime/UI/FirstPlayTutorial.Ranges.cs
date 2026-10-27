@@ -20,14 +20,7 @@ namespace DarkSaver.UI
             var mode=playerMoving>=0 || openMenu>=0 || progress.topMenu>=0 || !string.IsNullOrEmpty(subMenu)?TutorialRangeMode.None:
                 movementArmed?TutorialRangeMode.Move:attackArmed?TutorialRangeMode.Attack:magicArmed?TutorialRangeMode.Magic:TutorialRangeMode.None;
             if(mode==TutorialRangeMode.None){HideRanges();return;}
-            if(rangeGround==null || rangeTerrain==null)
-            {
-                var scene=SceneManager.GetSceneByName(TutorialMap);
-                if(!scene.isLoaded){HideRanges();return;}
-                var maps=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<Tilemap>(true)).ToArray();
-                rangeGround=maps.FirstOrDefault(t=>t.name=="Ground");rangeTerrain=maps.FirstOrDefault(t=>t.name=="TerrainAttributes");
-                if(rangeGround==null || rangeTerrain==null){HideRanges();return;}
-            }
+            if(!EnsurePracticeTerrain()){HideRanges();return;}
             var catalog=session.GetComponent<MagicCatalogPanel>()?.Catalog;
             DarkSaver.Magic.MagicCatalogEntry magic=null;
             if(mode==TutorialRangeMode.Magic && (catalog==null || !catalog.TryGet(101,out magic) || magic.Range<0 || magic.Range>short.MaxValue))
@@ -75,6 +68,14 @@ namespace DarkSaver.UI
                 body.sortingLayerID=floor==null?0:floor.sortingLayerID;body.sortingOrder=floor==null?-99:floor.sortingOrder+1;body.enabled=true;
             }
             RangeCellCount=cells.Length;rangeSignature=signature;
+        }
+        private bool EnsurePracticeTerrain()
+        {
+            if(rangeGround!=null && rangeTerrain!=null)return true;
+            var scene=SceneManager.GetSceneByName(TutorialMap);if(!scene.isLoaded)return false;
+            var maps=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<Tilemap>(true)).ToArray();
+            rangeGround=maps.FirstOrDefault(t=>t.name=="Ground");rangeTerrain=maps.FirstOrDefault(t=>t.name=="TerrainAttributes");
+            return rangeGround!=null && rangeTerrain!=null;
         }
         private void HideRanges(){foreach(var body in rangeBodies)if(body!=null)body.enabled=false;RangeCellCount=0;rangeSignature=null;}
         private void ReleaseRanges()

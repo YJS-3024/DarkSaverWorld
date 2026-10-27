@@ -116,6 +116,13 @@ namespace DarkSaver.UI
             foreach(var pair in elements)pair.Value.gameObject.SetActive(used.Contains(pair.Key));
             ReleaseHiddenSelection();
         }
+        // Nested canvas keeps transient action icons above retained information windows.
+        public RectTransform OverlayLayer(string key,int orderOffset)
+        {
+            var layer=Node(key,new Rect(0,0,Rendering.GameScreen.Width,Rendering.GameScreen.Height));
+            var overlay=Component<Canvas>(layer);overlay.overrideSorting=true;overlay.sortingOrder=normalSortingOrder+orderOffset;
+            Component<GraphicRaycaster>(layer);return layer;
+        }
         public void Raise(string key){if(elements.TryGetValue(key,out var node))node.SetAsLastSibling();}
         public void SolidRect(string key,Rect rect,Color color){Graphic(Node(key,rect),null,color);}
         public void Panel(string key,Rect rect,string title="")
@@ -189,6 +196,22 @@ namespace DarkSaver.UI
         {
             var image=Graphic(Node(key,rect,parent),sprite==null?null:sprite.texture,sprite==null?Color.clear:Color.white);
             if(sprite!=null){var r=sprite.textureRect;image.uvRect=new Rect(r.x/sprite.texture.width,r.y/sprite.texture.height,r.width/sprite.texture.width,r.height/sprite.texture.height);}else image.uvRect=new Rect(0,0,1,1);
+        }
+        // Unit cells retain their transparent padding and aspect; tight sprite bounds must not stretch a body.
+        public void NativeUnitPicture(string key,Rect rect,Sprite sprite)
+        {
+            if(sprite==null){Portrait(key,rect,null);return;}
+            var source=sprite.rect;float scale=Mathf.Min(rect.width/source.width,rect.height/source.height);
+            var logical=new Rect(rect.center.x-source.width*scale*.5f,rect.center.y-source.height*scale*.5f,source.width*scale,source.height*scale);
+            if(!sprite.packed)
+            {
+                PortraitTexture(key,logical,sprite.texture);Find<RawImage>(key).uvRect=new Rect(source.x/sprite.texture.width,source.y/sprite.texture.height,source.width/sprite.texture.width,source.height/sprite.texture.height);
+            }
+            else
+            {
+                var trimmed=sprite.textureRect;var offset=sprite.textureRectOffset;
+                Portrait(key,new Rect(logical.x+offset.x*scale,logical.y+(source.height-offset.y-trimmed.height)*scale,trimmed.width*scale,trimmed.height*scale),sprite);
+            }
         }
         public void RenderTexture(string key,Rect rect,RenderTexture texture){Graphic(Node(key,rect),texture,Color.white);}
         public void PortraitTexture(string key,Rect rect,Texture2D texture){var image=Graphic(Node(key,rect),texture,texture==null?Color.clear:Color.white);image.uvRect=new Rect(0,0,1,1);}

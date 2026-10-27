@@ -28,7 +28,15 @@ namespace DarkSaver.Tests
                 void Set(object owner,string field,object value)=>owner.GetType().GetField(field,BindingFlags.Instance|BindingFlags.NonPublic).SetValue(owner,value);
                 var go=Create("range rendering fixture");var tutor=go.AddComponent<FirstPlayTutorial>();owned=tutor;
                 var session=go.AddComponent<DarkSaver.Combat.BattleTransitionController>();
-                var magic=go.AddComponent<MagicCatalogPanel>();magic.Configure(UnityEditor.AssetDatabase.LoadAssetAtPath<DarkSaver.Magic.MagicCatalog>("Assets/_Game/Runtime/Magic/MagicCatalog.asset"),null);
+                // Configure has the same required player contract as the real tutorial scene.
+                // Preview-scene fixtures own this player; no live account/save state is used.
+                var player=Create("range player fixture").AddComponent<DarkSaver.Player.TopDownPlayerController>();
+                var catalog=UnityEditor.AssetDatabase.LoadAssetAtPath<DarkSaver.Magic.MagicCatalog>("Assets/_Game/Runtime/Magic/MagicCatalog.asset");
+                Assert.IsNotNull(catalog,"Original magic catalog must be present before renderer assertions.");
+                Assert.IsTrue(catalog.TryGet(101,out var fireball),"Tutorial fireball101 must exist.");
+                Assert.AreEqual(3,fireball.Range,"Expected native fireball range; not a fixture fallback.");
+                var magic=go.AddComponent<MagicCatalogPanel>();magic.Configure(catalog,player);
+                Assert.AreSame(catalog,magic.Catalog);
                 var grid=Create("range grid").AddComponent<Grid>();
                 var ground=Create("Ground").AddComponent<UnityEngine.Tilemaps.Tilemap>();ground.transform.SetParent(grid.transform,false);
                 var floor=ground.gameObject.AddComponent<UnityEngine.Tilemaps.TilemapRenderer>();floor.sortingOrder=-100;

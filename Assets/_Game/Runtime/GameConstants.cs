@@ -25,16 +25,19 @@ namespace DarkSaver
         public const int ReferenceScreenWidth = 640;
         public const int ReferenceScreenHeight = 480;
         public const float CameraFollowSmoothing = 10f;
-        // User-defined single-player AP rules, not recovered server formulas.
-        public const int BattleStartingAp = 0; // Uninitialized; wait for native tick state.
-        public const int BattleAllyMaximumAp = 0; // Unknown; not an original faction cap.
-        public const int BattleEnemyMaximumAp = 0; // Unknown; not an original faction cap.
-        // Compatibility for standalone allied AP; runtime units use their faction.
-        public const int BattleMaximumAp = BattleAllyMaximumAp;
+        // User-selected AP tuning (2026-10-27), not recovered original-server values.
+        // Edit these two values when the original maximum/cadence is established.
+        public const float BattleApRecoveryPerSecond = 2f;
+        public const int BattleMaximumAp = 20;
+        public const int BattleStartingAp = 0; // Initial ticks still come from native state.
+        public const int BattleAllyMaximumAp = BattleMaximumAp;
+        public const int BattleEnemyMaximumAp = BattleMaximumAp;
         public static int GetBattleMaximumAp(bool enemy) => enemy ? BattleEnemyMaximumAp : BattleAllyMaximumAp;
         public static int BattleHighestMaximumAp => System.Math.Max(BattleAllyMaximumAp, BattleEnemyMaximumAp);
-        public const float BattleApRecoverySeconds = 0; // No local recovery timer.
-        public const int BattleApRecoveryAmount = 0; // Wait for original tick notifications.
+        // One point per interval: rate2 means +1 every0.5 seconds, not +2 each0.5 seconds.
+        // Configuration only; CombatActionPoints/CombatFlow do not yet run a recovery timer.
+        public const int BattleApRecoveryAmount = 1;
+        public const float BattleApRecoverySeconds = BattleApRecoveryAmount / BattleApRecoveryPerSecond;
         // User-approved combat rule; checked for query, reservation and confirmation.
         public const bool BattlePreventDiagonalCornerCutting = true;
         public const int BattleAllyMoveApCost = 0;

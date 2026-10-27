@@ -13,8 +13,10 @@ void Check(bool condition, string name)
     checks++;
 }
 OriginalRestorationChecks.Run(Check);
+DarkSaver.Tests.NativeEntryRouteChecks.Run(Check);
 DarkSaver.Tests.LocalAuthenticationChecks.Run(Check);
 DarkSaver.Tests.LocalServerSelectionChecks.Run(Check);
+DarkSaver.Tests.OriginalTutorialWindowChecks.Run(Check,File.ReadAllText("Assets/_Game/Resources/Tutorial/TUTORIAL.txt"));
 var onboardingStart=checks;
 DarkSaver.Tests.LocalOnboardingChecks.Run(Check);
 Console.WriteLine("Original tutorial/onboarding checks: "+(checks-onboardingStart)+" (offline, not Unity Play).");

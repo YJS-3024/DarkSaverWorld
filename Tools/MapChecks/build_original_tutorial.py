@@ -14,6 +14,18 @@ def meta(p,template=None):
         text=re.sub(r'spriteID: [a-f0-9]{32}','spriteID: '+guid(p),text)
     else:text='fileFormatVersion: 2\nguid: '+guid(p)+'\nTextScriptImporter:\n  externalObjects: {}\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n'
     m.write_text(text)
+def normalize_frame_importer(p):
+    # Old scenario templates retained Kisra64px multi-sprite entries in32px tutorial imports.
+    # Keep GUIDs; import every native frame as its full32px cell, not tight/trimmed bounds.
+    import yaml
+    m=Path(str(p)+'.meta');fields=yaml.safe_load(m.read_text());imp=fields['TextureImporter']
+    imp['spriteMode']=1;imp['spriteMeshType']=0;imp['spriteAlignment']=0
+    imp['spritePivot']={'x':.5,'y':.5};imp['spritePixelsToUnits']=32
+    imp['internalIDToNameTable']=[];imp['mipmaps']['enableMipMap']=0;imp['textureSettings']['filterMode']=0
+    sheet=imp['spriteSheet'];sheet['sprites']=[];sheet['spriteID']=guid(p);sheet['nameFileIdTable']={}
+    for key in ['outline','physicsShape','bones','vertices','edges','weights']:sheet[key]=[]
+    for platform in imp.get('platformSettings',[]):platform['textureCompression']=0
+    m.write_text(yaml.safe_dump(fields,sort_keys=False))
 def main():
     OUT.mkdir(parents=True,exist_ok=True);(OUT/'Characters').mkdir(exist_ok=True)
     raw=(SOURCE/'tutorial/TUTORIAL.DEO').read_bytes();text=raw.decode('cp949')
@@ -34,7 +46,7 @@ def main():
                 for frame in range(3):
                     crop=image.crop((frame*size,row*size,(frame+1)*size,(row+1)*size))
                     crop.putdata([(r,g,b,0 if r==g==b==0 else 255) for r,g,b,a in crop.getdata()])
-                    p=OUT/'Characters'/f'{job}_{mode}_{direction}_{frame}.png';crop.save(p);meta(p,template);count+=1
+                    p=OUT/'Characters'/f'{job}_{mode}_{direction}_{frame}.png';crop.save(p);meta(p,template);normalize_frame_importer(p);count+=1
     # GameCtl 0x10008d50 uses the ToneSurface = etc2/board.bmp, with 20px frame tiles.
     atlas=Image.open(SOURCE/'etc2/board.bmp').convert('RGBA')
     atlas.putdata([(r,g,b,0 if r==g==b==0 else a) for r,g,b,a in atlas.getdata()])
@@ -54,6 +66,43 @@ def main():
         x,y=(0,0) if kind==3 else (200+(kind-4)%3*100,(kind-4)//3*100)
         patch=Image.new('RGBA',(32,32));patch.alpha_composite(atlas.crop((x,y,x+31,y+31)),(0,0))
         p=ranges/(name+'.png');patch.save(p);meta(p,(ROOT/'Assets/_Game/Resources/UI/Entry/LoginPanel.png.meta').read_text())
+    # GetAttrTable2 returns the original attack/defense/movement triple, not an AP cost.
+    raw_rows=[line.split() for line in (SOURCE/'set/TileAttr.atr').read_text('cp949').splitlines()
+              if line.strip() and not line.lstrip().startswith(';')]
+    assert len(raw_rows)==27 and all(len(row)==31 for row in raw_rows)
+    terrain_rows=[]
+    for index,row in enumerate(raw_rows):
+        assert int(row[0],36)==index
+        terrain_rows.append('            {'+','.join(str(int(v)) for v in row[1:])+'},')
+    terrain_code="""// Generated from original TileAttr.atr by build_original_tutorial.py; identical early/late numeric rows.
+namespace DarkSaver.Events
+{
+    public static class OriginalTutorialTerrain
+    {
+        private static readonly int[,] values={
+"""+'\n'.join(terrain_rows)+"""
+        };
+        public static bool TryGet(int attribute,int troop,out int attack,out int defense,out int movement)
+        {
+            attack=defense=movement=0;
+            if(attribute<0 || attribute>=27 || troop<0 || troop>=10)return false;
+            attack=values[attribute,troop*3];defense=values[attribute,troop*3+1];movement=values[attribute,troop*3+2];return true;
+        }
+        public static string Display(int value)=>System.Math.Abs((long)value)==99?"**":value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+    }
+}
+"""
+    (ROOT/'Assets/_Game/Runtime/Events/OriginalTutorialTerrain.cs').write_text(terrain_code)
+    # Editor-only normalized map fixture; tests do not depend on an untracked installation directory.
+    import struct
+    map_path=ROOT/'분석/Saver_1.2/extracted/Saver_Files/Saver/MAP/301.mrc'
+    map_bytes=map_path.read_bytes();resource_count=struct.unpack_from('<i',map_bytes)[0]
+    width,height,_=struct.unpack_from('<iii',map_bytes,4+resource_count*4)
+    start=16+resource_count*4+2*width*height
+    attrs=[map_bytes[start+i*5+3]&0x7f for i in range(width*height)]
+    attrs=[a if a<=0x1b else 0 for a in attrs]
+    fixture=ROOT/'Assets/_Game/Tests/EditMode/OriginalTutorial301Terrain.json'
+    fixture.write_text(json.dumps(dict(width=width,height=height,attributes=attrs,sourceSha256=hashlib.sha256(map_bytes).hexdigest()),indent=2)+'\n');meta(fixture)
     # Raw abilityrecord fields copied by UserUnit::dmSetAbility; no stat roll/formula.
     import csv
     rows={int(r['직업']):r for r in csv.DictReader((ROOT/'분석/Saver_Late/unity_catalogs/units_all.csv').open(encoding='utf-8-sig'))}

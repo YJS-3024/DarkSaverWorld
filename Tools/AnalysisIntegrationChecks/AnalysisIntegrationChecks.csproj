@@ -6,6 +6,8 @@
     <DefineConstants>$(DefineConstants);DARKSAVER_LEGACY_CHECKS</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialTickCounter.cs" Link="OriginalTutorialTickCounter.cs" />
+    <Compile Include="../../Assets/_Game/Tests/EditMode/OriginalTutorialWindowChecks.cs" Link="OriginalTutorialWindowChecks.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialAbilities.cs" Link="OriginalTutorialAbilities.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialScript.cs" Link="OriginalTutorialScript.cs" />
     <Compile Include="../../Assets/_Game/Tests/EditMode/LocalOnboardingChecks.cs" Link="LocalOnboardingChecks.cs" />
@@ -55,5 +57,7 @@
     <Compile Include="../../Assets/_Game/Runtime/Core/NativeInteriorCatalog.cs" Link="NativeInteriorCatalog.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Core/KaosiaFacilityCatalog.cs" Link="KaosiaFacilityCatalog.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Core/WorldAudioData.cs" Link="WorldAudioData.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/NativeEntryCharacterRoute.cs" Link="NativeEntryCharacterRoute.cs" />
+    <Compile Include="../../Assets/_Game/Tests/EditMode/NativeEntryRouteChecks.cs" Link="NativeEntryRouteChecks.cs" />
 </ItemGroup>
 </Project>

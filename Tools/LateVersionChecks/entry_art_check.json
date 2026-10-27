@@ -12,6 +12,17 @@
       "pixelSha256": "0e0814595c3cfbcabd3d099956dde61605561fa3044758359817aa5fff0096fb"
     },
     {
+      "asset": "Assets/_Game/Resources/UI/Entry/LoginAtlas.png",
+      "source": "login.bmp",
+      "sourceRect": null,
+      "size": [
+        640,
+        480
+      ],
+      "sourceSha256": "d8a49250bc822c851324f0431e6dadbb3b879b6965d24cafe390aa9c1f71bb29",
+      "pixelSha256": "218ebf04d9ef078c0c6fa3b3c4196aa01e82a32abd4814913ac2db4dc9f821f2"
+    },
+    {
       "asset": "Assets/_Game/Resources/UI/Entry/LoginPanel.png",
       "source": "login.bmp",
       "sourceRect": [
@@ -87,15 +98,78 @@
       "pixelSha256": "9ce4d05645a66f171b60675b540894845cfa3163b88e580f93d453abfcacf1f4"
     },
     {
-      "asset": "Assets/_Game/Resources/UI/Entry/LoginAtlas.png",
-      "source": "login.bmp",
-      "sourceRect": null,
+      "asset": "Assets/_Game/Resources/UI/Entry/RegistrationPanel.png",
+      "source": "Wlib/scene24.lsc background decor158..164 only",
       "size": [
-        640,
-        480
+        397,
+        300
       ],
-      "sourceSha256": "d8a49250bc822c851324f0431e6dadbb3b879b6965d24cafe390aa9c1f71bb29",
-      "pixelSha256": "218ebf04d9ef078c0c6fa3b3c4196aa01e82a32abd4814913ac2db4dc9f821f2"
+      "adaptation": true,
+      "pixelSha256": "9b430d53403ae5cac5d791ee70dd211c8b6d38c8d7f5e1f328e3c8880152b6f6"
+    },
+    {
+      "asset": "Assets/_Game/Resources/UI/Entry/RegistrationField.png",
+      "source": "Wlib lce185 border-preserving210x22 adaptation",
+      "size": [
+        210,
+        22
+      ],
+      "adaptation": true,
+      "pixelSha256": "c6849de558928b9da9a56b3541ff409fb3497c0bc05debb4a90817bfb487f1e1"
+    },
+    {
+      "asset": "Assets/_Game/Resources/UI/Entry/RegistrationConfirm_0.png",
+      "source": "Wlib ltn75 state0",
+      "size": [
+        46,
+        19
+      ],
+      "pixelSha256": "fd100e1d14c1cedb0fe46f4467a091aea371dd905959124f28a43898e01b5947"
+    },
+    {
+      "asset": "Assets/_Game/Resources/UI/Entry/RegistrationConfirm_1.png",
+      "source": "Wlib ltn75 state1",
+      "size": [
+        46,
+        19
+      ],
+      "pixelSha256": "2b61c3ba866fc019fd46474c1a30855c901448509a0904c6ee90eba02dc6791e"
+    },
+    {
+      "asset": "Assets/_Game/Resources/UI/Entry/RegistrationConfirm_2.png",
+      "source": "Wlib ltn75 state2",
+      "size": [
+        46,
+        19
+      ],
+      "pixelSha256": "d45eded5682114120423727850d24002b8b5797fed9ce5f504ee445558734556"
+    },
+    {
+      "asset": "Assets/_Game/Resources/UI/Entry/RegistrationCancel_0.png",
+      "source": "Wlib ltn53 state0",
+      "size": [
+        46,
+        19
+      ],
+      "pixelSha256": "dbef36ed3b30afe69e6726d578f85ff5fead6ae77ca62e7910bfed67919f89bb"
+    },
+    {
+      "asset": "Assets/_Game/Resources/UI/Entry/RegistrationCancel_1.png",
+      "source": "Wlib ltn53 state1",
+      "size": [
+        46,
+        19
+      ],
+      "pixelSha256": "04c35393524d11f5927ba7df1da48297ff5742e870ab0d60159b28aa33df9473"
+    },
+    {
+      "asset": "Assets/_Game/Resources/UI/Entry/RegistrationCancel_2.png",
+      "source": "Wlib ltn53 state2",
+      "size": [
+        46,
+        19
+      ],
+      "pixelSha256": "92f20326fb1595aff19021e57b4ed2464c015b894463224d2aba150b8a4a5ab9"
     }
   ],
   "panelFillRGB": [
@@ -103,70 +177,7 @@
     247,
     255
   ],
-  "placement": "Native stage-zero login directly on Logo6; login226,279 at197x87; connect239,339; join294,339; options334,339; exit374,339. Native BltFast branch.",
-  "removed": "Extra local start buttons and action-strip fill removed; server selection remains omitted by user request.",
-  "unityPlay": false,
-  "apiCompilation": {
-    "runtimeSources": 211,
-    "editorSources": 73,
-    "editModeSources": 119,
-    "errors": 0,
-    "editModeExecuted": false
-  },
-  "characterCreation": {
-    "nativeScene": "Wlib/scene24.lsc",
-    "size": [
-      397,
-      300
-    ],
-    "choices": [
-      100,
-      101,
-      103
-    ],
-    "placement": "local origin, original frame and card labels",
-    "blackColorKey": true
-  },
-  "nativeLayoutRestoration": {
-    "verifiedInstructionFixtures": 28,
-    "sourceLayout": "분석/Saver_Late/entry/layout.json",
-    "atlasPixelsMatch": true,
-    "buttonStatePatches": "Native-size child RawImages; idle panel retained, hover and pressed frames do not stretch",
-    "inputHitAreasLTRB": [
-      [
-        298,
-        296,
-        408,
-        316
-      ],
-      [
-        298,
-        320,
-        408,
-        338
-      ]
-    ],
-    "inputBackground": "transparent over original pixels",
-    "textColor": "white from GDI color instruction0x40c36e",
-    "optionsDrawer": [
-      226,
-      360,
-      197,
-      45
-    ],
-    "actualUnityPlay": false,
-    "actualEditModeExecuted": false,
-    "apiCompilationErrors": 0,
-    "intentionalOrUnresolvedDifferences": [
-      "existing local signup form replaces retired registration website",
-      "server selection omitted by prior user instruction",
-      "retired billing and unconfirmed mode selection backend are inactive",
-      "native DirectDraw stretch branch, original OS font rasterization and pointer-hotspot equivalence require original runtime comparison"
-    ],
-    "font": {
-      "native": "굴림 height12 width5 weight600",
-      "unity": "Gulim OS font preferred;12px Bold;fallback if unavailable",
-      "exactGdiRasterizationVerified": false
-    }
-  }
+  "placement": "Native stage-zero login, origin226,279, four original button positions and native-size hover/press atlas patches; no extra title buttons or panel fill. See entry/layout.json.",
+  "removed": "Original web signup adapted to the local account form; local server selection retained. Retired billing and unconfirmed original mode backend are inactive.",
+  "unityPlay": false
 }

@@ -5,6 +5,7 @@ namespace DarkSaver.Core
     {
         public int id, job, x, y, targetX, targetY, hp = -1, mp = -1, tick, mask, magic, skill;
         public int maxHp=-1,maxMp=-1;
+        public int tickEpoch; // Distinguishes repeated CHARMENU assignments of the same literal.
         public bool moving, dead, removed;
         public string facing = "DOWN";
         public TutorialActor Clone() => (TutorialActor)MemberwiseClone();

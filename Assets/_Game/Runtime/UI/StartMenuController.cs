@@ -21,7 +21,7 @@ namespace DarkSaver.UI
         public string CurrentAccountId=>authenticated?authenticatedAccountId:null;
         private string SlotPath(int index)=>activeSlotPaths!=null?activeSlotPaths[index]:localSlotPaths==null?NativeCharacterSlots.PathFor(index):localSlotPaths[index];
         private void ClearAccountSelection()
-        {activeSlotPaths=null;authenticatedAccountId=null;selectedSlot=0;ResetServerSelection();System.Array.Clear(slots,0,slots.Length);System.Array.Clear(occupied,0,occupied.Length);}
+        {automaticEntryPending=false;activeSlotPaths=null;authenticatedAccountId=null;selectedSlot=0;ResetServerSelection();System.Array.Clear(slots,0,slots.Length);System.Array.Clear(occupied,0,occupied.Length);}
         private readonly System.Collections.Generic.List<System.IDisposable> bindings=new();
         private void BindLocalServer()
         {
@@ -52,12 +52,14 @@ namespace DarkSaver.UI
         public bool IsLoggingIn=>loggingIn;
         private string loadMessage;
         private bool creating;
-        private bool selecting;
+        private bool selecting; // Server-approved entry readiness, not a rendered slot picker.
+        private bool automaticEntryPending;
+        public bool IsAutomaticCharacterEntryPending=>automaticEntryPending;
         private int selectedSlot;
         private readonly NativeSaveData[] slots = new NativeSaveData[NativeCharacterSlots.Count];
         private readonly bool[] occupied = new bool[NativeCharacterSlots.Count];
         private CharacterPortraitCatalog portraits;
-        public bool IsSelectingCharacter => selecting;
+        public bool IsSelectingCharacter => selecting && !creating && !automaticEntryPending;
         private string characterName = string.Empty;
         public bool IsCreatingCharacter => creating;
 
@@ -96,9 +98,8 @@ namespace DarkSaver.UI
             if(creating){DrawCharacterCreation(panel);ui.End();return;}
             if(registering || selecting)
             {
-                ui.Panel("menu",panel);
                 if(registering)DrawRegistration(panel);
-                else DrawCharacterSelection(panel);
+                else DrawCharacterEntryStatus(panel);
             }
             else DrawLogin(panel);
             ui.End();
@@ -111,7 +112,7 @@ namespace DarkSaver.UI
             NativeCharacterProfile.ClearPending();
             authenticated=false;IsAwaitingOriginalServerSelection=false;ClearAccountSelection();
             BindLocalServer();protocol.TryRequest(new LogoutRequest(),out _);
-            RefreshContinue();selecting=false;creating=false;registering=false;loggingIn=true;loginFailed=false;loginCanRecover=false;loginPassword="";
+            RefreshContinue();automaticEntryPending=false;selecting=false;creating=false;registering=false;loggingIn=true;loginFailed=false;loginCanRecover=false;loginPassword="";
             entryOptions=false;loadMessage=string.Empty;
             if(!hasAccount)OpenRegistration();
         }
@@ -161,20 +162,6 @@ namespace DarkSaver.UI
             registrationPassword=registrationConfirmation="";registering=false;loggingIn=true;
             loadMessage=response?.Reason ?? "회원가입이 완료되었습니다. 로그인해 주세요.";return true;
         }
-        private void DrawRegistration(Rect panel)
-        {
-            // Local account input form; original web signup layout is not claimed.
-            ui.Label("register-title",new Rect(panel.x+24,panel.y+24,panel.width-48,30),"회원가입",20);
-            ui.Label("register-id-label",new Rect(panel.x+24,panel.y+76,110,22),"아이디",14);
-            ui.TextInput("register-id",new Rect(panel.x+140,panel.y+76,panel.width-164,26),registrationId,20,v=>registrationId=v);
-            ui.Label("register-password-label",new Rect(panel.x+24,panel.y+120,110,22),"비밀번호",14);
-            ui.TextInput("register-password",new Rect(panel.x+140,panel.y+120,panel.width-164,26),registrationPassword,64,v=>registrationPassword=v,password:true);
-            ui.Label("register-confirm-label",new Rect(panel.x+24,panel.y+164,110,22),"비밀번호 확인",14);
-            ui.TextInput("register-confirm",new Rect(panel.x+140,panel.y+164,panel.width-164,26),registrationConfirmation,64,v=>registrationConfirmation=v,password:true);
-            ui.Button("register-submit",new Rect(panel.x+24,panel.y+222,170,32),"가입",()=>RegisterAccount(registrationId,registrationPassword,registrationConfirmation),!loading);
-            ui.Button("register-cancel",new Rect(panel.x+panel.width-194,panel.y+222,170,32),"취소",CancelRegistration,!loading);
-            if(!string.IsNullOrEmpty(loadMessage))ui.Label("register-message",new Rect(panel.x+24,panel.y+278,panel.width-48,90),loadMessage,12);
-        }
         public bool SelectSlot(int index)
         {
             if (loading || !selecting || index < 0 || index >= slots.Length) return false;
@@ -187,21 +174,19 @@ namespace DarkSaver.UI
             creating = true; selectedStartingJob=NativeCharacterProfile.SupportedStartingJob; characterName = string.Empty; loadMessage = string.Empty; return true;
         }
 
-        private void DrawCharacterSelection(Rect panel)
+        private void Update()
         {
-            ui.Label("characters-title",new Rect(panel.x+24,panel.y+18,panel.width-48,26),"캐릭터 선택",20);
-            for(int i=0;i<slots.Length;i++)
+            if(!Application.isPlaying || !automaticEntryPending || loading || !authenticated)return;
+            automaticEntryPending=false;ContinueGame(SlotPath(selectedSlot));
+        }
+        private void DrawCharacterEntryStatus(Rect unused)
+        {
+            DrawEntryMessage(new Rect(150,190,340,80));
+            if(!automaticEntryPending)
             {
-                int slot=i;var profile=slots[i]?.character;
-                string title=(i+1)+". "+(profile?.name ?? (occupied[i]?"저장 정보 확인 필요":"빈 슬롯"));
-                float x=panel.x+24+(i%2)*188,y=panel.y+64+(i/2)*48;
-                ui.Button("character-slot-"+i,new Rect(x,y,180,38),title,()=>SelectSlot(slot),!loading,selected:selectedSlot==i);
+                registrationCancel??=RegistrationButton("Cancel",53);
+                ui.NativeImageButton("entry-return-login",new Vector2(297,290),registrationCancel,StartGame,!loading,"로그인 화면으로");
             }
-            bool occupiedSlot=occupied[selectedSlot];
-            ui.Button("characters-enter",new Rect(panel.x+24,panel.y+318,panel.width-48,32),occupiedSlot?"선택한 캐릭터로 시작":"캐릭터 생성",
-                ()=>{if(occupiedSlot)ContinueGame();else BeginSelectedCharacterCreation();},!loading && (!occupiedSlot || slots[selectedSlot]?.character!=null));
-            if(!string.IsNullOrEmpty(loadMessage))ui.Label("characters-message",new Rect(panel.x+24,panel.y+352,panel.width-48,24),loadMessage,12);
-            ui.Button("characters-logout",new Rect(panel.x+24,panel.y+376,panel.width-48,32),"로그인 화면으로",StartGame,!loading);
         }
 
         public void CancelCharacterCreation(){if(loading)return;creating=false;RefreshContinue();}

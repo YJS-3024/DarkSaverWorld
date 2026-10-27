@@ -8,13 +8,25 @@ namespace DarkSaver.Tests
     public sealed class BattleIconFramesTests
     {
         [Test]
+        public void MercenariesExposeOnlyMovementAttackAndRest()
+        {
+            for(int i=0;i<8;i++)
+            {
+                Assert.That(NativeBattleActionMenu.AllowsIndex(0,i),Is.True);
+                Assert.That(NativeBattleActionMenu.AllowsIndex(1,i),Is.EqualTo(i==0 || i==1 || i==3));
+                Assert.That(NativeBattleActionMenu.AllowsIndex(2,i),Is.EqualTo(i==0 || i==1 || i==3));
+            }
+            Assert.That(NativeBattleActionMenu.AllowsIndex(-1,0),Is.False);
+        }
+
+        [Test]
         public void NativeCommanderMenuUsesEightAdjacentCellsAndLeavesCharacterCellEmpty()
         {
             var bounds = new Rect(100, 200, NativeBattleActionMenu.Size, NativeBattleActionMenu.Size);
             var expected = new[] { new Vector2(100, 200), new Vector2(164, 200), new Vector2(164, 264),
                 new Vector2(100, 264), new Vector2(100, 232), new Vector2(164, 232),
                 new Vector2(132, 264), new Vector2(132, 200) };
-            var columns = new[] { 0, 1, 5, 8, 2, 12, 4, 3 };
+            var columns = new[] { 0, 1, 12, 8, 2, 5, 4, 3 };
             var character = new Rect(132, 232, 32, 32);
             for (int i = 0; i < NativeBattleActionMenu.Count; i++)
             {

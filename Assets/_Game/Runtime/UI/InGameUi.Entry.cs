@@ -49,14 +49,23 @@ namespace DarkSaver.UI
         {EntryButton(key,rect,null,"",action);Graphic(elements[key],null,Color.clear,true);}
         public void EntryButton(string key,Rect rect,Texture2D texture,string tooltip,Action action,bool enabled=true)
         {Button(key,rect,"",action,enabled,tooltip:tooltip);Graphic(elements[key],texture,Color.white,true);Find<UnityEngine.UI.Button>(key).transition=Selectable.Transition.None;Find<Outline>(key).enabled=false;Raise(key);}
-        public void EntryInput(string key,Rect rect,string value,int maximum,Action<string> changed,bool password=false,Action submit=null)
+        public void EntryInput(string key,Rect rect,string value,int maximum,Action<string> changed,bool password=false,Action submit=null,Vector2? nativeTextOrigin=null,Color? textColor=null)
         {
             bool fresh=!elements.ContainsKey(key);TextInput(key,rect,value,maximum,changed,password:password);
             Graphic(elements[key],null,Color.clear,true);
             if(entryFont==null)entryFont=Font.CreateDynamicFontFromOSFont(new[]{"굴림","Gulim","Malgun Gothic","Arial"},12);
             var field=Find<InputField>(key);field.textComponent.font=entryFont;
-            field.textComponent.fontSize=12;field.textComponent.fontStyle=FontStyle.Bold;field.textComponent.color=Color.white;
-            field.customCaretColor=true;field.caretColor=Color.white;
+            field.textComponent.fontSize=12;field.textComponent.fontStyle=FontStyle.Bold;field.textComponent.color=textColor??Color.white;
+            field.textComponent.alignment=TextAnchor.MiddleLeft;
+            if(nativeTextOrigin.HasValue)
+            {
+                var origin=nativeTextOrigin.Value;
+                Place(field.textComponent.rectTransform,new Rect(origin.x-rect.x-rect.width*.5f,origin.y-rect.y,rect.width,20));
+                field.textComponent.alignment=TextAnchor.UpperCenter;
+                // Native hit bounds and glyph origin are independent; include the two-pixel text overhang.
+                var mask=field.GetComponent<RectMask2D>();if(mask!=null)mask.padding=new Vector4(0,0,0,-2);
+            }
+            field.customCaretColor=true;field.caretColor=textColor??Color.white;
             actions[key+"-submit"]=submit;
             Events(key).Submit=()=>{if(Active(key) && actions.TryGetValue(key+"-submit",out var callback))callback?.Invoke();};
             if(fresh)field.onEndEdit.AddListener(_=>{if(Input.GetKeyDown(KeyCode.Return)||Input.GetKeyDown(KeyCode.KeypadEnter))Events(key).Submit?.Invoke();});

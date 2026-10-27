@@ -41,7 +41,14 @@ namespace DarkSaver.UI
                 || list.AccountId!=authenticatedAccountId || list.ServerId!=id)
             {connectedServerId=0;loadMessage=characters?.Reason ?? "캐릭터 목록을 가져올 수 없습니다.";return false;}
             IsAwaitingOriginalServerSelection=false;loggingIn=false;selecting=true;creating=registering=false;
-            selectedSlot=0;loadMessage=string.Empty;return true;
+            automaticEntryPending=false;selectedSlot=0;loadMessage=string.Empty;
+            if(!string.IsNullOrEmpty(list.EntryReason)){loadMessage=list.EntryReason;return true;}
+            var readable=new bool[slots.Length];for(int i=0;i<slots.Length;i++)readable[i]=slots[i]?.character!=null;
+            if(!NativeEntryCharacterRoute.TryResolve(occupied,readable,list.PreferredSlot,out int slot,out bool create,out var reason))
+            {loadMessage=reason;return true;}
+            selectedSlot=slot;
+            if(create)BeginSelectedCharacterCreation();else automaticEntryPending=true;
+            return true;
         }
         private void DrawServerSelection()
         {

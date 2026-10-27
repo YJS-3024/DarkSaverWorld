@@ -72,8 +72,8 @@ namespace DarkSaver.Tests
                 Assert.IsFalse(menu.SelectServer(1));Assert.IsTrue(menu.IsAwaitingOriginalServerSelection);Assert.AreEqual(0,menu.ConnectedServerId);
                 server.enabled=true;Assert.IsTrue(menu.ChooseServer(1));Assert.IsTrue(menu.IsAwaitingOriginalServerSelection);
                 Assert.IsTrue(menu.SelectServer(1));Assert.AreEqual(1,menu.ConnectedServerId);
-                Assert.IsFalse(menu.IsAwaitingOriginalServerSelection);Assert.IsTrue(menu.IsSelectingCharacter);
-                Assert.IsFalse(menu.IsCreatingCharacter);Assert.IsFalse(menu.SelectServer(1));
+                Assert.IsFalse(menu.IsAwaitingOriginalServerSelection);Assert.IsFalse(menu.IsSelectingCharacter);
+                Assert.IsTrue(menu.IsCreatingCharacter);Assert.IsFalse(menu.SelectServer(1));
                 Assert.IsTrue(menu.SelectSlot(9));Assert.IsFalse(File.Exists(slots[0]));Assert.IsFalse(File.Exists(history));
                 Assert.IsTrue(menu.BeginSelectedCharacterCreation());menu.CancelCharacterCreation();
                 Assert.IsFalse(menu.ContinueGame());Assert.IsFalse(menu.CreateCharacter("test"));

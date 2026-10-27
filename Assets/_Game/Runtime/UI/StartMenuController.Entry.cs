@@ -41,8 +41,8 @@ namespace DarkSaver.UI
             // Use the BltFast-size native crop; DirectDraw has a slightly larger destination.
             const float x=226,y=279;
             ui.EntryArtwork("entry-login-panel",new Rect(x,y,197,87),entryPanel);
-            ui.EntryInput("login-id",new Rect(298,296,110,20),loginUserId,20,v=>loginUserId=v,submit:()=>Login());
-            ui.EntryInput("login-password",new Rect(298,320,110,18),loginPassword,64,v=>loginPassword=v,password:true,submit:()=>Login());
+            ui.EntryInput("login-id",NativeEntryLayout.LoginIdHit,loginUserId,20,v=>loginUserId=v,submit:()=>Login(),nativeTextOrigin:NativeEntryLayout.LoginIdText);
+            ui.EntryInput("login-password",NativeEntryLayout.LoginPasswordHit,loginPassword,64,v=>loginPassword=v,password:true,submit:()=>Login(),nativeTextOrigin:NativeEntryLayout.LoginPasswordText);
             // BltFast destinations and native atlas patches from 0x40b630.
             ui.EntryAtlasButton("login",new Rect(239,339,55,19),entryAtlas,new Rect(10,379,55,19),new Rect(77,379,50,16),"접속",()=>Login(),!loading);
             ui.EntryAtlasButton("open-register",new Rect(294,339,38,19),entryAtlas,new Rect(209,55,38,19),new Rect(209,79,38,16),"가입",()=>OpenRegistration(),!loading);

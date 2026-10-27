@@ -6,6 +6,19 @@
     <DefineConstants>$(DefineConstants);DARKSAVER_LEGACY_CHECKS</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../Assets/_Game/Editor/MrcMapReader.cs" Link="MrcMapReader.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialScript.cs" Link="OriginalTutorialScript.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialAbilities.cs" Link="OriginalTutorialAbilities.cs" />
+    <Compile Include="../../Assets/_Game/Tests/EditMode/OriginalTutorialMapRouteChecks.cs" Link="OriginalTutorialMapRouteChecks.cs" />
+
+    <Compile Include="../../Assets/_Game/Runtime/Combat/CombatOccupancyGrid.cs" Link="CombatOccupancyGrid.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/CombatMovementPath.cs" Link="CombatMovementPath.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/CombatTerrainTraversal.cs" Link="CombatTerrainTraversal.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Jobs/JobCatalog.cs" Link="JobCatalog.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialMovement.cs" Link="OriginalTutorialMovement.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialTerrain.cs" Link="OriginalTutorialTerrain.cs" />
+    <Compile Include="../../Assets/_Game/Tests/EditMode/OriginalTutorialMovementChecks.cs" Link="OriginalTutorialMovementChecks.cs" />
+
     <Compile Include="../../Assets/_Game/Runtime/Core/NativeTutorialProgress.cs" Link="NativeTutorialProgress.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialRanges.cs" Link="OriginalTutorialRanges.cs" />
     <Compile Include="../../Assets/_Game/Tests/EditMode/OriginalTutorialRangeChecks.cs" Link="OriginalTutorialRangeChecks.cs" />

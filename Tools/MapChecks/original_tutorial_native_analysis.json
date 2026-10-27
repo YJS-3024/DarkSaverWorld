@@ -197,5 +197,103 @@
     "timing": "Attack/death .02s and magic .04s remain provisional seconds conversion; native counters/order confirmed, full playback not verified",
     "reconnect": "Transient FX are not saved; existing dead records remain hidden on reconnect, never replay or resurrect. Permanent HP/MP and script cursor untouched.",
     "deferredByUser": "Alliance window contents and multi-user character verification deferred; tutorial script waits remain in place."
+  },
+  "remainingFeatureImplementation": {
+    "scope": "Static original binary/script/layout comparison plus linked offline checks; no Unity Play, mouse/keyboard, listening or complete native timing verification",
+    "tickMenu": {
+      "native": "UserUnit 0x1000C8A9..C8BD clamps negative tick to0 and above record+0x5C to maximum",
+      "rawCommand": "tick literal and per-assignment epoch retained; a separate client view counter clamps/advances",
+      "clock": "IncTick 0x1000C6C8..C6E9 increments1 and caps at maximum; user settings2/s and20 are provisional user choices",
+      "scriptedDemo": "explicit CHARMENU followed by DO uses the source2/3/4/5/99 values directly as requested; display clock advances outside those holds; no fabricated action cost",
+      "storage": "Live display counter is transient; reconnect rebuilds from the saved raw CHARMENU literal/epoch, not from an invented offline-recovery calculation."
+    },
+    "f5": {
+      "source": "GameCtl0x100063CD commander slots team*50+slot*10, not mercenary IDs1/2",
+      "binding": "original one-to-four-row panel, commander name/portrait,48px AP/HP/MP, close/minimize",
+      "tutorialInput": "GameCtl DlgLButtonDown0x100047B6..47EE gates row selection while tutorial flag active; no new commander-selection shortcut",
+      "collapsedSize": "33x22 native gscene24m"
+    },
+    "f8": {
+      "draw": "GameCtl0x10007D0E ->0x10006AF0",
+      "pointer": "GameCtl0x10002CFF..2D2C calculates mouse tile + camera offset; F8 queries cursor tile, not actor position",
+      "stats": "GetUnitInfoP troop +0x1C; userunit::GetAttrTable3; setunit::GetAttrTable2 0x10002B50; attack/defense/move triple",
+      "table": "gameres/set/TileAttr.atr early/late numeric rows identical,27x10x3",
+      "sentinel": "GameCtl string0x1001A298 is ** for absolute value99; source0x1001A284 is %d",
+      "geometry": "preview(10,36); numeric values(81,33),(81,50),(81,67)",
+      "preview": "GameCtl0x100085DA..85FA copies the rendered32px cursor tile into scratch surface(138,105);0x10006B26..6B79 blits sourceRect(138,105)-(170,137) to window(10,36). Unity uses a separate32px camera with the same map/unit layers, never ground-only substitution."
+    },
+    "f12": {
+      "source": "GameCtl DlgButtonAction scene4 0x10004B05 jump table0x10004FA0; gscene4 controls index0..8",
+      "controls": {
+        "52": "F2 show full status",
+        "53": "F3 show alliance",
+        "54": "F4 show victory",
+        "55": "F6 show map",
+        "56": "F5 toggle commander panel",
+        "57": "F8 show terrain",
+        "58": "F1 show help",
+        "59": "F9 show retreat confirmation",
+        "38": "close F12"
+      },
+      "noF7Button": true,
+      "lessonInput": "window button/close actions save dialog state without advancing a wait; GameCtl0x10002ED7..2F1F allows only the active matching tutorial WAITKEYBOARD input; another key is ignored"
+    },
+    "movement": {
+      "source": "MoveChar 0x1000D930;0x1000DAEA..DAFA adds7 to movement field then builds area;0x1000DB40 backtracks;0x1000DB5D compresses",
+      "binding": "19-budget original terrain costs and group occupancy ->score backtracking with native tie alternation->cardinal-pair compression; no added diagonal-corner prohibition;80ms movement phases retained",
+      "verification": "14 literal source301 destinations checked against original301.mrc and typed script inputs through END; editor tests use a generated300-cell fixture audited against the original map hash, no untracked installation needed.",
+      "facing": "Last renderer route direction is sent via the existing local request Key field, validated UP/DOWN/LEFT/RIGHT and saved before continuing the script; explicit CHARDIR still wins. Adjacent AttackChar keeps both actor/target directions in practice state."
+    },
+    "f7": {
+      "originalDescription": "source line372 describes all users, like waiting room",
+      "observedRoute": "Saver.exe0x42A2F0..42A323 forwards non-Enter keys directly to GameCtl::OnKeyPress; GameCtl key switch F7 still default; no invented all-user window",
+      "unresolved": "full original upper-level/shared-window dispatch remains unconfirmed"
+    },
+    "earlierLesson": {
+      "filesScanned": 180,
+      "candidates": [
+        {
+          "path": "분석/Saver_1.2/decoded/all_arc/gameres/tutorial/TUTORIAL.DEO",
+          "lines": [
+            {
+              "line": 4,
+              "text": "TUTORIAL"
+            },
+            {
+              "line": 335,
+              "text": "MESSAGE 1 125 0 0 기본적인 조작은 대기실과 같으니 생략하고|설명만 해주도록 하지.."
+            },
+            {
+              "line": 372,
+              "text": "MESSAGE 1 125 0 0 F7은 대기실과 같이 전체 사용자를 보여 주며"
+            }
+          ]
+        }
+      ]
+    },
+    "unresolvedOriginalBehavior": [
+      "Earlier waiting-room movement lesson content/entry triggers not recovered; no replacement lesson invented",
+      "F7 online user list upper dispatch/content",
+      "F12 original first placement (the recovered handler sets no coordinates)",
+      "exact original wall-clock animation/sound timing and body poses",
+      "original server-determined AP costs; no locally invented deductions"
+    ],
+    "alliance": "Other-user alliance content/multi-user verification deferred by user; source WAITALLYBUTTON retained",
+    "sourceHashes": {
+      "GameCtl.dll": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+      "userunit.dll": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711",
+      "setunit.dll": "cd100adb77d8fe3e5e1b1a206e3c1900bd3bffae0de88fd09cddd525454a8c43",
+      "Saver.exe": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0"
+    },
+    "earlyLateIdenticalLayouts": {
+      "1": true,
+      "4": true,
+      "6": true,
+      "24": true,
+      "25": true,
+      "26": true,
+      "27": true
+    },
+    "dialogCommands": "SHOWDIALOG string0x1001A780 and HIDEDIALOG0x1001A774 both jump to0x10011FDC; F1/F2/... dispatch calls the same0x10002F20 toggle handler. Source F7 reaches the native default branch."
   }
 }

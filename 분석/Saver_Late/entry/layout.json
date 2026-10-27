@@ -198,8 +198,44 @@
       "address": "0x40637a",
       "bytes": "6a0c",
       "meaning": "entry GDI font height12"
+    },
+    {
+      "address": "0x40c3b1",
+      "bytes": "6826010000",
+      "meaning": "ID text top294"
+    },
+    {
+      "address": "0x40c3b6",
+      "bytes": "6860010000",
+      "meaning": "ID text center352"
+    },
+    {
+      "address": "0x40c3c7",
+      "bytes": "683e010000",
+      "meaning": "password text top318"
+    },
+    {
+      "address": "0x40c3cc",
+      "bytes": "6860010000",
+      "meaning": "password text center352"
     }
   ],
+  "inputText": {
+    "idCenterTop": [
+      352,
+      294
+    ],
+    "passwordCenterTop": [
+      352,
+      318
+    ],
+    "alignment": "horizontal center; independent of exclusive hitboxes",
+    "draw": "0x40C3B1..0x40C3D8",
+    "centeringHelpers": [
+      "0x41A89D..0x41A8AC",
+      "0x41A61A..0x41A62C"
+    ]
+  },
   "startup": {
     "initialStage": 0,
     "renderer": "0x407c93 -> 0x40b630",

@@ -115,7 +115,7 @@ namespace DarkSaver.UI
                     if(actors.TryGetValue(e.other,out var other))
                     {
                         var anim=owner.GetComponent<DirectionalSpriteAnimator>();
-                        anim.TrySetFacing(other.transform.position-owner.transform.position);anim.PresentFrame(0);
+                        anim.TrySetFacing(other.transform.position-owner.transform.position);anim.PresentFrame((long)(Time.realtimeSinceStartupAsDouble*1000d));
                     }
                     int frame=BattleAttackEffectFrames.FrameAt(e.age);if(frame<0){e.body.enabled=false;continue;}
                     e.body.sprite=attackFrames[frame];

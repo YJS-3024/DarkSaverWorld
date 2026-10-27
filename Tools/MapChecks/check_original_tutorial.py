@@ -52,6 +52,35 @@ for col in range(7):
     expected.putdata([(r,g,b,0 if r==g==b==0 else 255) for r,g,b,a in expected.getdata()])
     actual=Image.open(ROOT/f'Assets/_Game/Art/Converted/Effects/Death/DeathEffect_{col}.png').convert('RGBA')
     check(actual.size==(31,31) and actual.tobytes()==expected.tobytes(),'native corpse pixels '+str(col))
+terrain_source=ROOT/'분석/Saver_1.2/decoded/all_arc/gameres/set/TileAttr.atr'
+def terrain_rows(text):return [line.split() for line in text.splitlines() if line.strip() and not line.lstrip().startswith(';')]
+original=terrain_rows(terrain_source.read_text('cp949'))
+late=terrain_rows((ROOT/'분석/Saver_Late/decoded/gameres/set.arc/tileattr.atr').read_text('utf-8-sig'))
+check(original==late,'early/late original terrain triples agree')
+code=(ROOT/'Assets/_Game/Runtime/Events/OriginalTutorialTerrain.cs').read_text().split('values={',1)[1].split('};',1)[0]
+generated=[[int(value) for value in row.split(',')] for row in re.findall(r'\{([^{}]+)\}',code)]
+check(len(generated)==27 and all(len(row)==30 for row in generated),'generated original terrain table shape27x10x3')
+for attr,row in enumerate(original):
+    for troop in range(10):
+        check(generated[attr][troop*3:troop*3+3]==list(map(int,row[1+troop*3:4+troop*3])),f'original attack/defense/movement triple {attr}/{troop}')
+fixture=json.loads((ROOT/'Assets/_Game/Tests/EditMode/OriginalTutorial301Terrain.json').read_text())
+import struct
+mrc_bytes=(ROOT/'분석/Saver_1.2/extracted/Saver_Files/Saver/MAP/301.mrc').read_bytes()
+resource_count=struct.unpack_from('<i',mrc_bytes)[0];w,h,_=struct.unpack_from('<iii',mrc_bytes,4+resource_count*4)
+check(fixture['width']==w and fixture['height']==h and len(fixture['attributes'])==w*h,'editor fixture dimensions match original301')
+start=16+resource_count*4+2*w*h
+attrs=[mrc_bytes[start+i*5+3]&0x7f for i in range(w*h)];attrs=[a if a<=0x1b else 0 for a in attrs]
+check(fixture['attributes']==attrs,'editor fixture300 normalized terrain cells match original301')
+check(fixture['sourceSha256']==hashlib.sha256(mrc_bytes).hexdigest(),'editor fixture original301 source hash')
 report=dict(checks=checks,commands=Counter(commands),sourceSha256=hashlib.sha256(source.read_bytes()).hexdigest(),nativeMap=301,scope='Static source/resources/build settings only; not Unity Play, input, audio or timing verification')
 (ROOT/'Tools/MapChecks/original_tutorial_check.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+import yaml
+frame_ids=set()
+for meta in sorted((OUT/'Characters').glob('*.png.meta')):
+ importer=yaml.safe_load(meta.read_text())['TextureImporter']
+ sheet=importer['spriteSheet']
+ check(importer['spriteMode']==1 and importer['spriteMeshType']==0,'full native single sprite '+meta.stem)
+ check(not sheet.get('sprites') and not sheet.get('nameFileIdTable'),'no stale Kisra sub-sprites '+meta.stem)
+ check(sheet['spriteID'] not in frame_ids,'unique native frame importer '+meta.stem)
+ frame_ids.add(sheet['spriteID'])
 print('PASS',checks,'original tutorial source/resource checks; NOT Unity Play')

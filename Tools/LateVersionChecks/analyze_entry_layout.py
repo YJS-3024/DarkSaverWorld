@@ -30,8 +30,10 @@ fixtures += [
  (0x406371,'6858020000','entry GDI font weight600'),
  (0x406378,'6a05','entry GDI average font width5'),
  (0x40637a,'6a0c','entry GDI font height12')]
+fixtures += [(0x40c3b1,'6826010000','ID text top294'),(0x40c3b6,'6860010000','ID text center352'),(0x40c3c7,'683e010000','password text top318'),(0x40c3cc,'6860010000','password text center352')]
 for va,code,meaning in fixtures:assert at(va,len(bytes.fromhex(code)))==bytes.fromhex(code),(hex(va),meaning)
 report=dict(executable='Saver.exe',sha256=hashlib.sha256(p.read_bytes()).hexdigest(),version='Saver_Late',logicalSize=[640,480],loginAtlas='login.bmp',atlasLoad={'instruction':'0x406fd0','stringVA':'0x48eaa8','surfaceMember':'0x2138'},panel={'sourceRectLTRB':[9,9,206,96],'destinationOrigin':[226,279],'drawSites':['0x40a517','0x40a51c','0x40b6ee','0x40b701'],'fastPathSize':[197,87],'directDrawDestinationRectLTRB':[226,279,432,375],'note':'BltFast keeps native crop size; Blt branch supplies a206x96 destination rect. Common origin is confirmed.'},inputHitTests={'boundsAreExclusive':True,'idLTRB':[298,296,408,316],'passwordLTRB':[298,320,408,338],'function':'0x40c9b0'},scope='Static x86 instruction and import-signature analysis. Not an executed original screen or proof that every rendering branch has identical scaling.',verifiedInstructions=[dict(address=hex(va),bytes=code,meaning=meaning) for va,code,meaning in fixtures])
+report['inputText']={'idCenterTop':[352,294],'passwordCenterTop':[352,318],'alignment':'horizontal center; independent of exclusive hitboxes','draw':'0x40C3B1..0x40C3D8','centeringHelpers':['0x41A89D..0x41A8AC','0x41A61A..0x41A62C']}
 report['startup']={'initialStage':0,'renderer':'0x407c93 -> 0x40b630','extraStartButtons':False,'background':'Logo6.bmp'}
 report['buttons']=[
  dict(key='login',destination=[239,339],hoverSource=[10,379,65,398],pressedSource=[77,379,127,395],action='connect'),

@@ -52,6 +52,45 @@ namespace DarkSaver.Tests
             finally{Object.DestroyImmediate(go);}
         }
         [Test]
+        public void TutorialF2DrawsLiteralTickSequenceWithoutMutatingPracticeOrAddingNumberLabels()
+        {
+            var go=new GameObject("tutorial literal AP gauge regression");
+            try
+            {
+                var tutorial=go.AddComponent<FirstPlayTutorial>();
+                var session=go.AddComponent<DarkSaver.Combat.BattleTransitionController>();
+                InGameUi ui=null;InGameUi.Ensure(ref ui,tutorial);Set(tutorial,"ui",ui);Set(tutorial,"session",session);
+                var actor=new GameObject("practice actor",typeof(SpriteRenderer));actor.transform.SetParent(go.transform,false);
+                var actors=(System.Collections.Generic.Dictionary<int,GameObject>)typeof(FirstPlayTutorial).GetField("actors",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(tutorial);
+                actors.Add(0,actor);
+                var data=new TutorialActor{id=0,job=100,hp=95,maxHp=200,mp=45,maxMp=45};
+                var state=new NativeTutorialProgress{step=142,actors=new[]{data},dialogs=new[]{"F2"}};Set(tutorial,"progress",state);
+                int[] ticks={2,3,4,5,20,99,999,0};int[] widths={8,12,16,20,80,80,80,0};
+                for(int i=0;i<ticks.Length;i++)
+                {
+                    data.tick=ticks[i];string before=JsonUtility.ToJson(state);
+                    ui.Begin();Call(tutorial,"DrawDialogs");ui.End();
+                    var clip=ui.Root.Find("practice-ap-clip") as RectTransform;Assert.IsNotNull(clip);
+                    Assert.AreEqual(widths[i]>0,clip.gameObject.activeSelf);
+                    if(widths[i]>0)
+                    {
+                        Assert.AreEqual((float)widths[i],clip.sizeDelta.x);Assert.AreEqual(9f,clip.sizeDelta.y);
+                        Assert.AreEqual(new Vector2(80,9),ui.Find<RawImage>("practice-ap-fill").rectTransform.sizeDelta);
+                        Above(ui,"practice-ap-clip","status");
+                    }
+                    Assert.IsNull(ui.Find<RawImage>("practice-ap-digit-0"));
+                    Assert.AreEqual(before,JsonUtility.ToJson(state),"Display must not clamp99/999 in the script state.");
+                }
+                // A closed F2 window leaves no retained gauge; reopening redraws its current literal.
+                state.dialogs=Array.Empty<string>();ui.Begin();Call(tutorial,"DrawDialogs");ui.End();
+                Assert.IsFalse(ui.Root.Find("practice-ap-clip").gameObject.activeSelf);
+                data.tick=99;state.dialogs=new[]{"F2"};ui.Begin();Call(tutorial,"DrawDialogs");ui.End();
+                Assert.IsTrue(ui.Root.Find("practice-ap-clip").gameObject.activeSelf);
+                Assert.AreEqual(80f,((RectTransform)ui.Root.Find("practice-ap-clip")).sizeDelta.x);Assert.AreEqual(99,data.tick);
+            }
+            finally{Object.DestroyImmediate(go);}
+        }
+        [Test]
         public void ActualServerRendererKeepsLocalNameAndCoverAboveBakedOnlineName()
         {
             var go=new GameObject("native server paint regression");

@@ -39,4 +39,6 @@ Check(!boundary.TemporaryRulesEnabled,"removed simulator cannot be re-enabled");
 try {boundary.Resolve(nativeWorld,new CombatRequest(100,800,CombatActionType.Attack));throw new Exception("invented combat result");}
 catch(NotSupportedException){checks++;}
 DarkSaver.Tests.OriginalTutorialRangeChecks.Run(Check);
+DarkSaver.Tests.OriginalTutorialMovementChecks.Run(Check);
+DarkSaver.Tests.OriginalTutorialMapRouteChecks.Run(Check,File.ReadAllText("Assets/_Game/Resources/Tutorial/TUTORIAL.txt"),File.ReadAllBytes("분석/Saver_1.2/extracted/Saver_Files/Saver/MAP/301.mrc"));
 Console.WriteLine($"PASS {checks} original client state checks; no Unity execution.");

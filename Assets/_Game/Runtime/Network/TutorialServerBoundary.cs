@@ -34,7 +34,7 @@ namespace DarkSaver.Network
                     var actor=OriginalTutorialScript.Actor(progress,request.Actor);
                     if(!actor.moving || actor.targetX!=request.X || actor.targetY!=request.Y)
                         return new TutorialProgressResponse(false,reason:"현재 이동 목표와 다릅니다.");
-                    OriginalTutorialScript.CompleteMovement(progress,actor.id);script.Prepare(progress);
+                    OriginalTutorialScript.CompleteMovement(progress,actor.id,request.Key);script.Prepare(progress);
                 }
                 else if(!script.Input(progress,request.Kind,request.Actor,request.Target,request.X,request.Y,request.Key,request.Stage))
                     return new TutorialProgressResponse(false,reason:"대본에서 기다리는 동작을 수행해 주세요.");

@@ -87,7 +87,14 @@ namespace DarkSaver.Network
                 if(new NativeSaveStore(paths[i]).TryLoad(out var data,out _) && data.hasCharacter)
                     profiles[i]=data.character.Clone();
             }
-            return new CharacterListResponse(occupied,profiles,accountId,selectedServerId);
+            int preferred=-1;string entryReason=null;
+            if(NativeLoginHistory.TryRead(accounts.HistoryPath(accountId,configuredHistory),out var last,out var historyReason,accountId))
+            {
+                preferred=Array.FindIndex(paths,p=>NativeAccountDirectory.SamePath(p,last));
+                if(preferred<0 || profiles[preferred]==null)entryReason="마지막 캐릭터 저장을 확인해 주세요.";
+            }
+            else if(historyReason!=null)entryReason=historyReason;
+            return new CharacterListResponse(occupied,profiles,accountId,selectedServerId,preferred,entryReason);
         }
     }
 }
