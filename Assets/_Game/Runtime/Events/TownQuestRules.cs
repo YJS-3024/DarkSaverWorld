@@ -34,30 +34,5 @@ namespace DarkSaver.Events
         // its narrative-only necklace/orb is never fabricated as an inventory item.
         public static bool TryApply(Scenario01Definition scenario, Scenario01Progress state, NativeInventory items,
             TownQuestDefinition quest, bool claim, out Scenario01Progress next, out NativeInventory inventory)
-        {
-            next = null; inventory = null;
-            if (scenario == null || state == null || !state.Matches(scenario) || items == null || !items.IsValid
-                || quest == null || !quest.IsValid || state.activeEvent != 0 || state.pendingBattle != -1) return false;
-            int stage = Stage(state, quest.id);
-            if (!claim && state.phase >= Scenario01Progress.Outro) return false;
-            if (claim ? stage != 2 || !state.dutySteps.Contains(quest.id + ":1") : stage != 0) return false;
-            var candidate = state.Clone(); var funds = items.Clone();
-            if (claim)
-            {
-                if (quest.gold > long.MaxValue - funds.gold) return false;
-                funds.gold += quest.gold;
-                if (quest.itemId > 0)
-                {
-                    int count = funds.Count(quest.itemId); if (count == int.MaxValue) return false;
-                    var stacks = funds.items.ToList(); var stack = stacks.Find(i => i.itemId == quest.itemId);
-                    if (stack == null) stacks.Add(new NativeItemStack { itemId = quest.itemId, quantity = 1 });
-                    else stack.quantity++;
-                    funds.items = stacks.ToArray();
-                }
-            }
-            candidate.dutySteps.Add(quest.id + (claim ? ":3" : ":1"));
-            if (!candidate.Matches(scenario) || !funds.IsValid) return false;
-            next = candidate; inventory = funds; return true;
-        }
-    }
+{next=default;inventory=default;return false;}    }
 }

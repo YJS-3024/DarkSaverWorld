@@ -35,9 +35,11 @@ namespace DarkSaver.Combat
         {
             if(sessionProtocol!=null)return sessionProtocol;
             sessionProtocol=GetComponent<ServerManager>();if(sessionProtocol==null)sessionProtocol=gameObject.AddComponent<ServerManager>();
-            LocalCommandResponse Handle(Func<LocalCommandResponse> execute)
+            LocalCommandResponse Handle(Func<LocalCommandResponse> execute,bool storageOnly=false)
             {
                 if(!isActiveAndEnabled)return new LocalCommandResponse(false,"로컬 세션 서버가 비활성 상태입니다.");
+                if(!storageOnly && !OriginalRestorationPolicy.AllowSinglePlayerRules)
+                    return new LocalCommandResponse(false,OriginalRestorationPolicy.PendingServerRule);
                 processingSessionRequest=true;
                 try
                 {
@@ -53,10 +55,9 @@ namespace DarkSaver.Combat
                 if(transitioning || !UnityEngine.SceneManagement.SceneManager.GetSceneByName(BattleSceneName).isLoaded)return new LocalCommandResponse(false,"복귀할 전투가 없습니다.");
                 ExitBattle();return new LocalCommandResponse(true);
             })));
-            sessionBindings.Add(sessionProtocol.RegisterRequestHandler<LocalBattleCheckpointRequest>(p=>Handle(()=>new LocalCommandResponse(SaveBattleCheckpoint(out var reason),reason))));
-            sessionBindings.Add(sessionProtocol.RegisterRequestHandler<SaveWorldRequest>(p=>Handle(()=>new LocalCommandResponse(SaveWorld(),lastSaveMessage))));
+            sessionBindings.Add(sessionProtocol.RegisterRequestHandler<LocalBattleCheckpointRequest>(p=>Handle(()=>new LocalCommandResponse(SaveBattleCheckpoint(out var reason),reason),storageOnly:true)));
+            sessionBindings.Add(sessionProtocol.RegisterRequestHandler<SaveWorldRequest>(p=>Handle(()=>new LocalCommandResponse(SaveWorld(),lastSaveMessage),storageOnly:true)));
             sessionBindings.Add(sessionProtocol.RegisterRequestHandler<TownQuestRequest>(p=>Handle(()=>new LocalCommandResponse(TryCommitTownQuest(p.QuestId,p.Claim,out var reason),reason))));
-            sessionBindings.Add(sessionProtocol.RegisterRequestHandler<TutorialProgressRequest>(p=>Handle(()=>new LocalCommandResponse(TrySaveTutorial(p.Step,p.Moved,p.Skip,p.Checkpoint,out var reason),reason))));
             sessionBindings.Add(sessionProtocol.RegisterRequestHandler<LocalEquipmentChangeRequest>(p=>Handle(()=>new LocalCommandResponse(TryChangeEquipment(p.Slot,p.Item,p.CaptureBaseline(),out var reason),reason))));
             sessionBindings.Add(sessionProtocol.RegisterRequestHandler<LocalBattleItemUseRequest>(p=>Handle(()=>new LocalCommandResponse(TryUseBattleRecoveryItem(activeBattle,p.Item,p.Target,p.CaptureBaseline(),out var reason),reason))));
             sessionBindings.Add(sessionProtocol.RegisterRequestHandler<LocalHireRequest>(p=>Handle(()=>new LocalCommandResponse(TryHireMercenary(p.Skill,p.Job,serverProgression,serverHireSkills,serverHireJobs,out var reason),reason))));

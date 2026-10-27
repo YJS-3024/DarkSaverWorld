@@ -23,7 +23,7 @@ namespace DarkSaver.Core
             new KaosiaFacilityDefinition("KaosiaBank","카오시아 은행","2400",15,68,3,37.5f,33.5f,37.5f,31.5f),
             new KaosiaFacilityDefinition("KaosiaWarehouse","카오시아 창고","2510",15,99,3,29.5f,24.5f,29.5f,21.5f),
             new KaosiaFacilityDefinition("KaosiaTemple","카오시아 신전","2600",20,67,1,10.5f,34.5f,10.5f,31.5f),
-            new KaosiaFacilityDefinition("KaosiaMagicTools","카오시아 마법도구·소모품점","2300",15,75,10,28.5f,33.5f,28.5f,30.5f)
+            new KaosiaFacilityDefinition("KaosiaMagicTools","카오시아 소모품점","2300",15,75,10,28.5f,33.5f,28.5f,30.5f)
         });
         public static bool TryGet(string key,out KaosiaFacilityDefinition facility)
         {foreach(var row in All)if(row.Region.Key==key){facility=row;return true;}facility=null;return false;}

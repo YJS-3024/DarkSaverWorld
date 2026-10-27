@@ -9,7 +9,7 @@ using DarkSaver.Combat;
 
 internal static class ScenarioRewardChecks
 {
-    public static void Run(Dictionary<int,SinglePlayerAbilityRule> rules,string fixture,string sourceFixture,string output)
+    public static void Run(Dictionary<int,UnresolvedAbilityRule> rules,string fixture,string sourceFixture,string output)
     {
         int checks=0;
         void Check(bool ok,string name){if(!ok)throw new Exception("Scenario reward: "+name);checks++;}

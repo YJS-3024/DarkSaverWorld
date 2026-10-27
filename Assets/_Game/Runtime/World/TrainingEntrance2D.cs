@@ -1,4 +1,5 @@
 using DarkSaver.Combat;
+using DarkSaver.Core;
 using DarkSaver.Jobs;
 using DarkSaver.Player;
 using DarkSaver.UI;
@@ -25,6 +26,7 @@ namespace DarkSaver.World
 
         public bool TryEnter(TopDownPlayerController player)
         {
+            if(!OriginalRestorationPolicy.AllowSinglePlayerRules)return false;
             if (!isActiveAndEnabled || gameObject.scene.name != "Town_Runtime" || player == null
                 || !player.isActiveAndEnabled || player.UiInputBlocked) return false;
             var session = FindAnyObjectByType<BattleTransitionController>();

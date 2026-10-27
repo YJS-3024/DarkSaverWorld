@@ -16,7 +16,7 @@ namespace DarkSaver.Combat
         private Scenario01Progress[] CaptureCampaignStates()=>campaign.OrderBy(r=>r.Key,StringComparer.Ordinal).Select(r=>r.Value.Clone()).ToArray();
         private void RestoreCampaignStates(Scenario01Progress[] values)
         {campaign.Clear();if(values!=null)foreach(var row in values)campaign.Add(row.scenarioKey,row.Clone());CampaignRevision++;}
-        public bool CanEnterScenario(string key) => HasCreatedCharacter && !HasPendingTutorial && ScenarioCatalog.CanEnter(key,IsScenarioCleared);
+        public bool CanEnterScenario(string key) => OriginalRestorationPolicy.AllowSinglePlayerRules && HasCreatedCharacter && !HasPendingTutorial && ScenarioCatalog.CanEnter(key,IsScenarioCleared);
         public int[] CaptureUnlockedGenerals()=>campaign.Values
             .Where(s=>ScenarioGeneralRewards.JobForScenario(s.scenarioKey)>0
                 && s.unlockedGenerals?.Contains(ScenarioGeneralRewards.JobForScenario(s.scenarioKey))==true)
@@ -46,6 +46,7 @@ namespace DarkSaver.Combat
 
         private bool StageScenarioGeneralRewards(NativeSaveData snapshot,out string reason)
         {
+            if(!OriginalRestorationPolicy.AllowSinglePlayerRules){reason=string.Empty;return true;}
             var grants=new List<int>();
             foreach(var state in snapshot.campaign ?? Array.Empty<Scenario01Progress>())
             {
@@ -71,28 +72,5 @@ namespace DarkSaver.Combat
         }
 
         public bool TryCommitCampaign(string key,int revision,Scenario01Progress state,NativeInventory items,out string reason)
-        {
-            CanRetryScenarioSave=false; ScenarioSaveDiagnostic=string.Empty;
-            reason="시나리오 진행을 저장할 수 없습니다.";
-            if(!ScenarioCatalog.TryGet(key,out var metadata) || metadata.Key=="01" || revision!=CampaignRevision || !HasCreatedCharacter || transitioning
-                || items==null || !items.IsValid || state==null || !state.Matches(Scenario01Controller.LoadDefinition(key))
-                || !SceneManager.GetSceneByName(metadata.MapScene).isLoaded || !SceneManager.GetSceneByName(metadata.RuntimeScene).isLoaded
-                || SceneManager.GetSceneByName(BattleSceneName).isLoaded)return false;
-            var player=FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>();if(player==null || !player.isActiveAndEnabled)return false;
-            var snapshot=CaptureSaveState(metadata.MapScene,metadata.RuntimeScene,player.transform.position);
-            snapshot.version=NativeSaveStore.CampaignVersion;
-            var candidates=campaign.ToDictionary(r=>r.Key,r=>r.Value.Clone());candidates[key]=state.Clone();
-            snapshot.campaign=candidates.OrderBy(r=>r.Key,StringComparer.Ordinal).Select(r=>r.Value).ToArray();
-            snapshot.inventory=items.Clone();snapshot.hasInventory=true;
-            if(state.phase==Scenario01Progress.Complete)snapshot.clearedScenarios=snapshot.clearedScenarios.Concat(new[]{key}).Distinct().OrderBy(k=>k,StringComparer.Ordinal).ToArray();
-            if(!StageScenarioGeneralRewards(snapshot,out reason))return false;
-            if(saveStore==null)saveStore=new NativeSaveStore(NativeSaveStore.DefaultPath);
-            if(!saveStore.TrySave(snapshot,out reason))
-            {CanRetryScenarioSave=saveStore.CanRetryLastWrite;ScenarioSaveDiagnostic=saveStore.LastWriteDiagnostic;return false;}
-            PublishScenarioGeneralRewards(snapshot);
-            campaign[key]=state.Clone();inventory=items.Clone();CampaignRevision++;
-            if(state.phase==Scenario01Progress.Complete)clearedScenarioKeys.Add(key);
-            lastSaveMessage="시나리오 "+key+" 진행을 저장했습니다.";return true;
-        }
-    }
+{reason=DarkSaver.Core.OriginalRestorationPolicy.PendingServerRule;return false;}    }
 }

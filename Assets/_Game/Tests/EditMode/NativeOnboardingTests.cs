@@ -6,8 +6,12 @@ using UnityEngine;
 
 namespace DarkSaver.Tests
 {
+    [NUnit.Framework.Category("LegacySinglePlayer")]
+    [NUnit.Framework.Ignore("싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요")]
     public sealed class NativeOnboardingTests
     {
+        // Archived single-player behavior is tested only inside an explicit fixture.
+
         [Test]
         public void NewProfileQueuesTutorialButLegacyProfileDoesNot()
         {

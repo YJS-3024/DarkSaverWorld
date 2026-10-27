@@ -175,7 +175,7 @@ namespace DarkSaver.Combat
         private void RegisterTemporaryCatalog(MagicCatalog catalog)
         {
             if (catalog == null || !battle.TemporaryLocalRulesEnabled || registeredTemporaryCatalogs.Contains(catalog)) return;
-            TemporaryMagicCatalogRules.Configure(battle, catalog); registeredTemporaryCatalogs.Add(catalog);
+            UnresolvedMagicExecution.Configure(battle, catalog); registeredTemporaryCatalogs.Add(catalog);
         }
         public int DisplayedMagicCount => specialMenuActive ? SpecialChoiceCount : NormalMagicCount;
         private int NormalMagicCount => battle != null && battle.TryGetSelectedUnit(out var unit)

@@ -150,7 +150,7 @@ internal static class CampaignChecks
         }
         var live=Scenario01Progress.Create(definition);live.phase=Scenario01Progress.Playing;live.activatedEvents.Add(50);
         var stock=new NativeInventory {gold=899,items=new[]{new NativeItemStack {itemId=398,quantity=1}}};int revision=0;bool canSave=false;
-        var server=new DarkSaver.Network.LocalScenarioServer(definition,()=>live,()=>stock,()=>revision,()=>100,()=>false,
+        var server=new DarkSaver.Network.ScenarioServerBoundary(definition,()=>live,()=>stock,()=>revision,()=>100,()=>false,
             (Scenario01Progress candidate,NativeInventory inventory,out string reason)=>{
                 reason=canSave?"":"write rejected";if(!canSave)return false;live=candidate.Clone();stock=inventory.Clone();revision++;return true;},()=>!canSave);
         var failed=server.Handle(new DarkSaver.Network.ScenarioCommandRequest("02",0,DarkSaver.Network.ScenarioOperation.Probe,33,20));

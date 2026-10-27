@@ -17,6 +17,8 @@ namespace DarkSaver.Combat
 
         private void Awake()
         {
+            if(Application.isPlaying && !DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules)
+            {gameObject.SetActive(false);return;}
             GetComponent<BoxCollider2D>().isTrigger = true;
             GetComponent<SpriteRenderer>().sortingOrder = 20000 - Mathf.RoundToInt(transform.position.y * 10f);
         }
@@ -28,7 +30,7 @@ namespace DarkSaver.Combat
 
         public bool TryEncounter(TopDownPlayerController player)
         {
-            if (TryRetireDefeatedFieldEncounter() || !isActiveAndEnabled || !armed || player == null || !player.isActiveAndEnabled || player.UiInputBlocked) return false;
+            if (!DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules || TryRetireDefeatedFieldEncounter() || !isActiveAndEnabled || !armed || player == null || !player.isActiveAndEnabled || player.UiInputBlocked) return false;
             var transition = FindFirstObjectByType<BattleTransitionController>();
             if (transition == null || !transition.TryEnterBattle(victoryObjective, enemyDefinition, GetComponent<SpriteRenderer>())) return false;
             armed = false;

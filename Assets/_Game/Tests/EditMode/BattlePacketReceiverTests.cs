@@ -176,7 +176,7 @@ namespace DarkSaver.Tests
             var world = new CombatWorld();
             var unit = new CombatUnit { Id = 100, MaxHp = 120, MaxMp = 30, Hp = 0, LifeState = UnitLifeState.Corpse };
             world.Add(unit);
-            var flow = new CombatFlow(world, new LocalCombatAuthority());
+            var flow = new CombatFlow(world, new CombatServerBoundary());
             foreach (var state in new[] { UnitLifeState.Corpse, UnitLifeState.Removed })
             {
                 unit.LifeState = state;
@@ -189,7 +189,7 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void CorpseThenRemovalConfirmsVictoryWithoutAutomaticRewards()
+        public void CorpseThenRemovalDoesNotInferWholeBattleVictoryOrRewards()
         {
             WithReceiver((receiver, server, battle) =>
             {
@@ -207,7 +207,7 @@ namespace DarkSaver.Tests
                     receiver.PacketHandled -= Handled;
                     Assert.That(applied, Is.True);
                     Assert.That(battle.EnemyLifeState, Is.EqualTo(packet is UnitCorpseNotification ? UnitLifeState.Corpse : UnitLifeState.Removed));
-                    Assert.That(battle.VictoryAchieved, Is.True);
+                    Assert.That(battle.VictoryAchieved, Is.False);
                 }
                 Assert.That(receiver.TryApplyPacket(new UnitCorpseNotification(800)), Is.False);
                 Assert.That(battle.EnemyLifeState, Is.EqualTo(UnitLifeState.Removed));
@@ -220,12 +220,12 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void DeathBeforeHpCreatesConsistentStateWithoutRestoringRemovedUnits()
+        public void DeathBeforeHpPreservesReceivedHpUntilSeparateUpdate()
         {
             WithReceiver((receiver, server, battle) =>
             {
                 Assert.That(receiver.TryApplyPacket(new UnitRemoveNotification(100)), Is.True);
-                Assert.That(battle.PlayerHp, Is.Zero);
+                Assert.That(battle.PlayerHp, Is.EqualTo(120));
                 Assert.That(battle.PlayerLifeState, Is.EqualTo(UnitLifeState.Removed));
                 Assert.That(receiver.TryApplyPacket(new HpSetNotification(100, 0)), Is.True);
                 Assert.That(receiver.TryApplyPacket(new HpSetNotification(100, 120)), Is.False);
@@ -245,7 +245,7 @@ namespace DarkSaver.Tests
             var unit = new CombatUnit { Id = 100, Hp = 120, MaxHp = 120, Mp = 7, MaxMp = 30,
                 Attack = 26, Defense = 7, Experience = 123 };
             world.Add(unit);
-            var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             var events = 0;
             flow.ActionStarted += _ => events++; flow.ResultApplied += _ => events++;
             flow.ExperienceApplied += _ => events++;
@@ -269,6 +269,7 @@ namespace DarkSaver.Tests
                 var root = new GameObject("Death session");
                 SceneManager.MoveGameObjectToScene(root, battle.gameObject.scene);
                 var session = root.AddComponent<BattleTransitionController>();
+                Assert.That(receiver.TryApplyPacket(new HpSetNotification(100,0)), Is.True);
                 foreach (var packet in new ServerPacket[] { new UnitCorpseNotification(100), new UnitRemoveNotification(100) })
                 {
                     Assert.That(receiver.TryApplyPacket(packet), Is.True);

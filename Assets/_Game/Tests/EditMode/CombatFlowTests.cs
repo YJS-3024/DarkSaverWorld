@@ -15,7 +15,7 @@ namespace DarkSaver.Tests
             var actor = new CombatUnit { Id = 100, Hp = 100, MaxHp = 100, Mp = 100, MaxMp = 100, Attack = 20, Defense = 5 };
             var enemy = new CombatUnit { Id = 800, Enemy = true, Hp = 100, MaxHp = 100, Attack = 30, Defense = 10 };
             world.Add(actor); world.Add(enemy);
-            var authority = new LocalCombatAuthority(sample: () => 0);
+            var authority = new CombatServerBoundary(sample: () => 0);
             var flow = new CombatFlow(world, authority);
             var buff = new CombatRequest(100, 100, CombatActionType.Magic, 2101);
             Assert.IsFalse(flow.TryExecute(buff, out _, out _));
@@ -57,7 +57,7 @@ namespace DarkSaver.Tests
             var ally = new CombatUnit { Id = 101, Hp = 90, MaxHp = 100 };
             var enemy = new CombatUnit { Id = 800, Enemy = true, Hp = 10, MaxHp = 100 };
             world.Add(actor); world.Add(ally); world.Add(enemy);
-            var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             Assert.IsTrue(flow.ConfigureTemporaryHealingMagic(2401, 7, 3, int.MaxValue));
             Assert.IsFalse(flow.ConfigureTemporaryHealingMagic(2401, 7, 3, 0));
             flow.ConfigureMagicApCost(2401, 4); flow.AdvanceActionPoints(20);
@@ -90,7 +90,7 @@ namespace DarkSaver.Tests
             var actor = new CombatUnit { Id = 100, Hp = 100, MaxHp = 100, Mp = 30, MaxMp = 30, Attack = 20 };
             var target = new CombatUnit { Id = 800, Enemy = true, Hp = 100, MaxHp = 100, Defense = 12 };
             world.Add(actor); world.Add(target);
-            var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             Assert.IsTrue(flow.ConfigureTemporaryDamageMagic(201, 7, 3, 10, 3));
             Assert.IsTrue(flow.ConfigureMagicApCost(201, 4));
             Assert.IsFalse(flow.TryGetTemporaryMagicRange(201, out _));
@@ -123,7 +123,7 @@ namespace DarkSaver.Tests
             var actor = new CombatUnit { Id = 100, JobId = 100, Hp = 50, MaxHp = 50, Attack = 20 };
             var target = new CombatUnit { Id = 800, Enemy = true, Hp = 50, MaxHp = 100, Defense = 5 };
             world.Add(actor); world.Add(target);
-            var flow = new CombatFlow(world, new LocalCombatAuthority(sample: () => 0), true);
+            var flow = new CombatFlow(world, new CombatServerBoundary(sample: () => 0), true);
             Assert.That(flow.GetAttackApCost(100), Is.Zero);
             Assert.That(flow.TryTemporaryRest(800), Is.False);
             flow.TemporaryRulesEnabled = true;
@@ -145,12 +145,12 @@ namespace DarkSaver.Tests
         [Test]
         public void TemporaryPhysicalHitFormulaMatchesPercentagesAndRejectsInvalidValues()
         {
-            Assert.That(TemporaryCombatHitRules.PhysicalHitProbability(80, 15), Is.EqualTo(.68).Within(1e-12));
-            Assert.That(TemporaryCombatHitRules.PhysicalHitProbability(100, 0), Is.EqualTo(1));
-            Assert.That(TemporaryCombatHitRules.PhysicalHitProbability(0, 0), Is.Zero);
-            Assert.That(TemporaryCombatHitRules.PhysicalHitProbability(100, 100), Is.Zero);
+            Assert.That(UnresolvedCombatAccuracy.PhysicalHitProbability(80, 15), Is.EqualTo(.68).Within(1e-12));
+            Assert.That(UnresolvedCombatAccuracy.PhysicalHitProbability(100, 0), Is.EqualTo(1));
+            Assert.That(UnresolvedCombatAccuracy.PhysicalHitProbability(0, 0), Is.Zero);
+            Assert.That(UnresolvedCombatAccuracy.PhysicalHitProbability(100, 100), Is.Zero);
             foreach (var invalid in new[] { -1d, 101d, double.NaN, double.PositiveInfinity })
-                Assert.Throws<System.ArgumentOutOfRangeException>(() => TemporaryCombatHitRules.PhysicalHitProbability(invalid, 15));
+                Assert.Throws<System.ArgumentOutOfRangeException>(() => UnresolvedCombatAccuracy.PhysicalHitProbability(invalid, 15));
         }
 
         [Test]
@@ -160,7 +160,7 @@ namespace DarkSaver.Tests
             var actor = new CombatUnit { Id = 100, Hp = 50, MaxHp = 50, Attack = 20 };
             var target = new CombatUnit { Id = 800, Hp = 50, MaxHp = 50, Defense = 5 };
             world.Add(actor); world.Add(target);
-            var authority = new LocalCombatAuthority(sample: () => .68);
+            var authority = new CombatServerBoundary(sample: () => .68);
             var flow = new CombatFlow(world, authority, true);
             Assert.That(flow.ConfigureAttackApCost(100, 2), Is.True);
             Assert.That(flow.ConfigurePhysicalAccuracy(100, 80, 0), Is.True);
@@ -171,7 +171,7 @@ namespace DarkSaver.Tests
             Assert.That(result.Hit, Is.False); Assert.That(result.Damage, Is.Zero);
             Assert.That(target.Hp, Is.EqualTo(50)); Assert.That(actor.ActionPoints.Current, Is.EqualTo(GameConstants.BattleMaximumAp - 2));
             Assert.That(target.Alive, Is.True);
-            var replacement = new LocalCombatAuthority((accuracy, evasion) => 1);
+            var replacement = new CombatServerBoundary((accuracy, evasion) => 1);
             replacement.ConfigurePhysicalAccuracy(100, 80, 0); replacement.ConfigurePhysicalAccuracy(800, 100, 15);
             var changed = replacement.Resolve(world, new CombatRequest(100, 800, CombatActionType.Attack));
             Assert.That(changed.Hit, Is.True); Assert.That(changed.Damage, Is.EqualTo(15));
@@ -211,7 +211,7 @@ namespace DarkSaver.Tests
             var world = new CombatWorld();
             var unit = new CombatUnit { Id = 700, Experience = 100 };
             world.Add(unit);
-            var flow = new CombatFlow(world, new LocalCombatAuthority());
+            var flow = new CombatFlow(world, new CombatServerBoundary());
             var notifications = 0;
             flow.ExperienceApplied += result =>
             {
@@ -230,7 +230,7 @@ namespace DarkSaver.Tests
             var world = new CombatWorld();
             var unit = new CombatUnit { Id = 700, Experience = 100 };
             world.Add(unit);
-            var flow = new CombatFlow(world, new LocalCombatAuthority());
+            var flow = new CombatFlow(world, new CombatServerBoundary());
             flow.TryApplyExperience(new CombatExperienceResult(700, 500));
             flow.TryApplyExperience(new CombatExperienceResult(700, 500));
             Assert.That(unit.Experience, Is.EqualTo(500));
@@ -244,7 +244,7 @@ namespace DarkSaver.Tests
             var world = new CombatWorld();
             var unit = new CombatUnit { Id = 700, Experience = 100 };
             world.Add(unit);
-            var flow = new CombatFlow(world, new LocalCombatAuthority());
+            var flow = new CombatFlow(world, new CombatServerBoundary());
             var notified = false;
             flow.ExperienceApplied += _ => notified = true;
             Assert.That(flow.TryApplyExperience(new CombatExperienceResult(701, 500)), Is.False);
@@ -259,7 +259,7 @@ namespace DarkSaver.Tests
             var unit = new CombatUnit { Id = 700, Hp = 0, Mp = 12, Attack = 26, Defense = 7,
                 LifeState = UnitLifeState.Corpse };
             world.Add(unit);
-            var flow = new CombatFlow(world, new LocalCombatAuthority());
+            var flow = new CombatFlow(world, new CombatServerBoundary());
             Assert.That(flow.TryApplyExperience(new CombatExperienceResult(700, 500)), Is.True);
             Assert.That(unit.Hp, Is.Zero);
             Assert.That(unit.Mp, Is.EqualTo(12));
@@ -274,7 +274,7 @@ namespace DarkSaver.Tests
             var world = new CombatWorld();
             world.Add(new CombatUnit { Id = 1, Hp = 50, MaxHp = 50, Mp = 10, Attack = 100, Defense = 0 });
             world.Add(new CombatUnit { Id = 2, Enemy = true, Hp = 20, MaxHp = 20, Attack = 1, Defense = 0 });
-            var flow = new CombatFlow(world, new LocalCombatAuthority());
+            var flow = new CombatFlow(world, new CombatServerBoundary());
 
             var result = flow.Execute(new CombatRequest(1, 2, CombatActionType.Magic, 101));
 

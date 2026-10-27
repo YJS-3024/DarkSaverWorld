@@ -10,6 +10,8 @@ using Object = UnityEngine.Object;
 
 namespace DarkSaver.Tests
 {
+    [NUnit.Framework.Category("LegacySinglePlayer")]
+    [NUnit.Framework.Ignore("싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요")]
     public sealed class CombatRequestValidationTests
     {
         [TestCase(CombatActionType.Skill, 0)]
@@ -47,13 +49,13 @@ namespace DarkSaver.Tests
         public void InsufficientMpDoesNotNotifyOrSpend(int mp)
         {
             var world = World(); world.Get(1).Mp = mp;
-            CheckRejected(world, new CombatRequest(1, 2, CombatActionType.Magic, LocalCombatAuthority.PrototypeMagicId));
+            CheckRejected(world, new CombatRequest(1, 2, CombatActionType.Magic, CombatServerBoundary.PrototypeMagicId));
         }
 
         [Test]
         public void MissingWorldIsRejected()
         {
-            var authority = new LocalCombatAuthority();
+            var authority = new CombatServerBoundary();
             var request = new CombatRequest(1, 2, CombatActionType.Attack);
             Assert.That(authority.TryValidateRequest(null, request, out var reason), Is.False);
             Assert.That(reason, Is.Not.Empty);
@@ -65,7 +67,7 @@ namespace DarkSaver.Tests
         public void AcceptedActionStartsBeforeAbsoluteResultNotification(CombatActionType action)
         {
             var world = World(); var actor = world.Get(1); var target = world.Get(2);
-            var flow = new CombatFlow(world, new LocalCombatAuthority());
+            var flow = new CombatFlow(world, new CombatServerBoundary());
             var order = new List<string>();
             flow.ActionStarted += _ =>
             {
@@ -78,7 +80,7 @@ namespace DarkSaver.Tests
                 Assert.That(target.Hp, Is.EqualTo(result.AbsoluteHp));
                 order.Add("result");
             };
-            var request = new CombatRequest(1, 2, action, action == CombatActionType.Magic ? LocalCombatAuthority.PrototypeMagicId : 0);
+            var request = new CombatRequest(1, 2, action, action == CombatActionType.Magic ? CombatServerBoundary.PrototypeMagicId : 0);
             Assert.That(flow.TryExecute(request, out var applied, out var reason), Is.True);
             Assert.That(reason, Is.Empty);
             Assert.That(order, Is.EqualTo(new[] { "start", "result" }));
@@ -91,9 +93,9 @@ namespace DarkSaver.Tests
         public void LargeNativeAttackDoesNotOverflow(CombatActionType action)
         {
             var world = World(); world.Get(1).Attack = int.MaxValue; world.Get(2).Defense = 0;
-            var flow = new CombatFlow(world, new LocalCombatAuthority());
+            var flow = new CombatFlow(world, new CombatServerBoundary());
             var result = flow.Execute(new CombatRequest(1, 2, action,
-                action == CombatActionType.Magic ? LocalCombatAuthority.PrototypeMagicId : 0));
+                action == CombatActionType.Magic ? CombatServerBoundary.PrototypeMagicId : 0));
             Assert.That(result.Damage, Is.EqualTo(int.MaxValue));
             Assert.That(world.Get(2).Hp, Is.Zero);
             Assert.That(world.Get(2).LifeState, Is.EqualTo(UnitLifeState.Corpse));
@@ -113,7 +115,7 @@ namespace DarkSaver.Tests
                 so.FindProperty("baseAttack").intValue = 0;
                 so.ApplyModifiedPropertiesWithoutUndo();
                 var go = new GameObject("Rejected magic test"); SceneManager.MoveGameObjectToScene(go, preview);
-                var battle = go.AddComponent<BattleSceneRoot>();
+                var battle = go.AddComponent<BattleSceneRoot>();battle.SetTemporaryLocalRules(true);
                 Assert.That(battle.ConfigureEnemy(enemy), Is.True);
                 battle.ConfigureActionPointCosts(2, 6); // Fixture policy only.
                 battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp); battle.PlayerMagic();
@@ -146,14 +148,14 @@ namespace DarkSaver.Tests
         {
             var actor = world.Get(1); var target = world.Get(2);
             var before = (actor.Hp, actor.Mp, actor.LifeState, target.Hp, target.Mp, target.LifeState);
-            var flow = new CombatFlow(world, new LocalCombatAuthority()); var notifications = 0;
+            var flow = new CombatFlow(world, new CombatServerBoundary()); var notifications = 0;
             flow.ActionStarted += _ => notifications++;
             flow.ResultApplied += _ => notifications++;
             Assert.That(flow.TryExecute(request, out var result, out var reason), Is.False);
             Assert.That(result, Is.EqualTo(default(CombatResult)));
             Assert.That(reason, Is.Not.Empty);
             Assert.Throws<InvalidOperationException>(() => flow.Execute(request));
-            Assert.Throws<InvalidOperationException>(() => new LocalCombatAuthority().Resolve(world, request));
+            Assert.Throws<InvalidOperationException>(() => new CombatServerBoundary().Resolve(world, request));
             Assert.That(notifications, Is.Zero);
             Assert.That((actor.Hp, actor.Mp, actor.LifeState, target.Hp, target.Mp, target.LifeState), Is.EqualTo(before));
         }

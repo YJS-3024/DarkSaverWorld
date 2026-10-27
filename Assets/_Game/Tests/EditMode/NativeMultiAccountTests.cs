@@ -6,8 +6,12 @@ using DarkSaver.Network;
 using NUnit.Framework;
 namespace DarkSaver.Tests
 {
+    [NUnit.Framework.Category("LegacySinglePlayer")]
+    [NUnit.Framework.Ignore("싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요")]
     public sealed class NativeMultiAccountTests
     {
+        // Archived single-player behavior is tested only inside an explicit fixture.
+
         [Test]public void MultipleAccountsKeepCredentialsSlotsHistoriesAndLegacyFilesIsolated()
             =>NativeMultiAccountChecks.Run((ok,message)=>Assert.That(ok,Is.True,message));
         [Test]public void CharacterCreationQueuesOnlyTheAuthenticatedAccountSlot()
@@ -16,7 +20,7 @@ namespace DarkSaver.Tests
             try
             {
                 var slots=Enumerable.Range(0,10).Select(i=>Path.Combine(directory,"legacy"+i+".json")).ToArray();
-                var server=new LocalCharacterServer(Path.Combine(directory,"login.json"),slots);
+                var server=new CharacterServerBoundary(Path.Combine(directory,"login.json"),slots);
                 Assert.IsTrue(server.Register(new AccountRegisterRequest("first_user","fixture-pass-1","fixture-pass-1")).Accepted);
                 Assert.IsTrue(server.Register(new AccountRegisterRequest("second_user","fixture-pass-2","fixture-pass-2")).Accepted);
                 var second=(LoginResponse)server.Login(new LoginRequest("second_user","fixture-pass-2"));var path=second.CaptureSlotPaths()[9];

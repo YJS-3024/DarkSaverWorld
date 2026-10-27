@@ -6,7 +6,7 @@ namespace DarkSaver.Combat
     public sealed class CombatFlow
     {
         private readonly CombatWorld world;
-        private readonly LocalCombatAuthority authority;
+        private readonly CombatServerBoundary authority;
         private readonly bool useActionPoints;
         private readonly Dictionary<short, int> attackApCosts = new();
         private readonly Dictionary<int, int> magicApCosts = new();
@@ -25,7 +25,7 @@ namespace DarkSaver.Combat
         public bool ConfigurePhysicalAccuracy(short unitId, double accuracyPercent, double evasionPercent) =>
             world.TryGet(unitId, out _) && authority.ConfigurePhysicalAccuracy(unitId, accuracyPercent, evasionPercent);
 
-        public bool ConfigureAbility(SinglePlayerAbilityRule rule)=>authority.ConfigureAbility(rule);
+        public bool ConfigureAbility(UnresolvedAbilityRule rule)=>authority.ConfigureAbility(rule);
         public bool IsRevivalMagic(int id)=>authority.IsRevivalMagic(id);
         public bool ConfigureTemporaryDamageMagic(int id, int mpCost, int range, int powerBonus, int defenseDivisor) =>
             authority.ConfigureTemporaryDamageMagic(id, mpCost, range, powerBonus, defenseDivisor);
@@ -89,24 +89,12 @@ namespace DarkSaver.Combat
                 return GameConstants.BattleTemporaryBuffApCost;
             if (cost == 0 && TemporaryRulesEnabled && magicId == 2401)
                 return GameConstants.BattleTemporaryHeal2401ApCost;
-            return cost == 0 && TemporaryRulesEnabled && magicId == LocalCombatAuthority.PrototypeMagicId
+            return cost == 0 && TemporaryRulesEnabled && magicId == CombatServerBoundary.PrototypeMagicId
                 ? GameConstants.BattleTemporaryMagic101ApCost : cost;
         }
 
         public bool TryTemporaryRest(short unitId)
-        {
-            if (!TemporaryRulesEnabled || !world.TryGet(unitId, out var unit) || !unit.Alive
-                || !authority.CanAct(unit) || unit.Hp >= unit.MaxHp || !unit.ActionPoints.CanStart(GetEffectiveActionCost(unitId, GameConstants.BattleTemporaryRestApCost))
-                || double.IsNaN(GameConstants.BattleTemporaryRestHpFraction)
-                || GameConstants.BattleTemporaryRestHpFraction <= 0 || GameConstants.BattleTemporaryRestHpFraction > 1) return false;
-            var amount = (int)Math.Ceiling(unit.MaxHp * GameConstants.BattleTemporaryRestHpFraction);
-            if (!unit.ActionPoints.TrySpend(GetEffectiveActionCost(unitId, GameConstants.BattleTemporaryRestApCost))) return false;
-            var previousHp = unit.Hp;
-            unit.Hp = (int)Math.Min(unit.MaxHp, (long)unit.Hp + amount);
-            NotifyVitals(unit.Id, previousHp, unit.Hp, false);
-            return true;
-        }
-
+{return false;}
         public bool CanApplyItemRecovery(short actorId, short targetId, int hp, int mp, int range, int apCost)
         {
             if(!TemporaryRulesEnabled || hp<0 || mp<0 || (hp==0 && mp==0) || range<0 || range>255
@@ -117,17 +105,7 @@ namespace DarkSaver.Combat
             return distance<=range && ((hp>0 && target.Hp<target.MaxHp) || (mp>0 && target.Mp<target.MaxMp));
         }
         public bool TryApplyItemRecovery(short actorId, short targetId, int hp, int mp, int range, int apCost)
-        {
-            if(!CanApplyItemRecovery(actorId,targetId,hp,mp,range,apCost))return false;
-            var actor=world.Get(actorId);var target=world.Get(targetId);
-            if(!actor.ActionPoints.TrySpend(GetEffectiveActionCost(actorId, apCost)))return false;
-            int previousHp=target.Hp,previousMp=target.Mp;
-            target.Hp=(int)Math.Min(target.MaxHp,(long)target.Hp+hp);
-            target.Mp=(int)Math.Min(target.MaxMp,(long)target.Mp+mp);
-            NotifyVitals(targetId,previousHp,target.Hp,false);NotifyVitals(targetId,previousMp,target.Mp,true);
-            return true;
-        }
-
+{return false;}
         public bool CanApplyItemMagic(short actorId, short targetId, int magicId, int range, int apCost)
         {
             if (!TemporaryRulesEnabled || range < 0 || range > 255 || !world.TryGet(actorId, out var actor)
@@ -138,14 +116,7 @@ namespace DarkSaver.Combat
             return Math.Max(Math.Abs((long)actor.X-target.X), Math.Abs((long)actor.Y-target.Y)) <= range;
         }
         public bool TryApplyItemMagic(short actorId, short targetId, int magicId, int range, int apCost)
-        {
-            if (!CanApplyItemMagic(actorId, targetId, magicId, range, apCost)) return false;
-            var request = new CombatRequest(actorId, targetId, CombatActionType.Magic, magicId);
-            var result = authority.ResolveItem(world, request);
-            if (!world.Get(actorId).ActionPoints.TrySpend(GetEffectiveActionCost(actorId, apCost))) return false;
-            Apply(result); return true;
-        }
-
+{return false;}
         public bool ConfigureAttackApCostForJob(short unitId, int jobId)
         {
             var cost = GameConstants.GetBattleAttackApCost(jobId);
@@ -175,10 +146,10 @@ namespace DarkSaver.Combat
             foreach (var unit in world.Units) if (attack > unit.ActionPoints.Maximum) return false;
             // Compatibility for explicit encounter/fixture setup; class-specific setup uses ConfigureAttackApCost.
             foreach (var unit in world.Units) attackApCosts[unit.Id] = attack;
-            magicApCosts[LocalCombatAuthority.PrototypeMagicId] = magic; return true;
+            magicApCosts[CombatServerBoundary.PrototypeMagicId] = magic; return true;
         }
 
-        public CombatFlow(CombatWorld world, LocalCombatAuthority authority, bool useActionPoints = false)
+        public CombatFlow(CombatWorld world, CombatServerBoundary authority, bool useActionPoints = false)
         {
             this.world = world;
             this.authority = authority;
@@ -186,23 +157,7 @@ namespace DarkSaver.Combat
         }
 
         public bool AdvanceActionPoints(float seconds)
-        {
-            if (float.IsNaN(seconds) || float.IsInfinity(seconds) || seconds < 0) return false;
-            authority.AdvanceTemporaryBuffs(world, seconds);
-            foreach (var tick in authority.AdvanceStatuses(world, seconds))
-            {
-                if (!world.TryGet(tick.Target, out var target) || !target.Alive) continue;
-                var source = world.TryGet(tick.Source, out var origin) ? origin : target;
-                if(tick.Damage<0)
-                {int hp=(int)Math.Min(target.MaxHp,(long)target.Hp-(long)tick.Damage);Apply(new CombatResult(source.Id,target.Id,hp,source.Mp,0,false,healing:hp-target.Hp));}
-                else {int damage = Math.Min(target.Hp, tick.Damage);Apply(new CombatResult(source.Id, target.Id, target.Hp-damage, source.Mp, damage, false));}
-            }
-            if (!useActionPoints) return true;
-            foreach (var unit in world.Units)
-                if (unit.Alive) unit.ActionPoints.Advance(seconds);
-            return true;
-        }
-
+{return false;}
         public event Action<CombatRequest> ActionStarted;
         // Presentation only: additional targets are not additional AP/MP-spending actions.
         public event Action<CombatRequest> AdditionalMagicTargetStarted;
@@ -247,14 +202,14 @@ namespace DarkSaver.Combat
         // Explicit death notification, not inferred damage/reward. Keep the record so
         // objective instance IDs remain verifiable after removal. Removed is terminal
         // until a separate spawn operation exists (native ordering policy).
-        public bool TryApplyDeath(short unitId, bool leaveCorpse)
+        public bool TryApplyDeath(short unitId, bool leaveCorpse, bool preserveReceivedHp = false)
         {
             if (!world.TryGet(unitId, out var unit)) return false;
             if (leaveCorpse && unit.LifeState == UnitLifeState.Removed) return false;
             unit.LifeState = leaveCorpse ? UnitLifeState.Corpse : UnitLifeState.Removed;
-            // Native save consistency even when death arrives before HP0.
-            // This is not a reconstructed original SetHp value or damage formula.
-            unit.Hp = 0;
+            // The original removal/corpse handlers do not supply HP. Native clients
+            // preserve SetHp ordering; only legacy fixtures normalize death to HP0.
+            if (!preserveReceivedHp) unit.Hp = 0;
             authority.RemoveTemporaryBuffs(unitId);
             return true;
         }
@@ -324,52 +279,11 @@ namespace DarkSaver.Combat
         }
 
         public bool TryExecute(CombatRequest request, out CombatResult result, out string reason)
-        {
-            result = default;
-            if (!TryStartAction(request, out reason)) return false;
-            result = authority.Resolve(world, request);
-            Apply(result);
-            return true;
-        }
-
+{result=default;reason="원작 서버 판정이 필요합니다.";return false;}
         // Reuse only explicitly configured temporary effects. Validate the whole list before
         // spending, resolve from one snapshot, and charge the caster once (duplicates are not hits).
         public bool TryExecuteMagicTargets(int magicId, short casterId, IReadOnlyList<short> targets, out string reason)
-        {
-            reason = string.Empty;
-            if (!TemporaryRulesEnabled || targets == null || targets.Count == 0)
-            { reason = "적용할 임시 마법 대상이 없습니다."; return false; }
-            var requests = new List<CombatRequest>(); var seen = new HashSet<short>();
-            foreach (short id in targets)
-            {
-                if (!seen.Add(id)) continue;
-                var request = new CombatRequest(casterId, id, CombatActionType.Magic, magicId);
-                if (!CanStartAction(request, out reason)) return false;
-                requests.Add(request);
-            }
-            if (!TryStartAction(requests[0], out reason)) return false;
-            for (int i = 1; i < requests.Count; i++) AdditionalMagicTargetStarted?.Invoke(requests[i]);
-            var results = new CombatResult[requests.Count];
-            for (int i = 0; i < requests.Count; i++) results[i] = authority.Resolve(world, requests[i]);
-            var caster=world.Get(casterId);authority.TryGetTemporaryMagicMpCost(magicId,out var mpCost);
-            int baselineMp=caster.Mp-mpCost;long gains=0,hpGains=0;bool hasHp=false;
-            foreach(var r in results)
-            {
-                long mpGain=Math.Max(0,r.AbsoluteMp-baselineMp);
-                if(r.TargetId==casterId && r.TargetMp>=0)mpGain=Math.Max(mpGain,r.TargetMp-baselineMp);
-                gains+=mpGain;
-                if(r.ActorHp>=0){hasHp=true;hpGains+=Math.Max(0,r.ActorHp-caster.Hp);}
-            }
-            int finalMp=(int)Math.Min(caster.MaxMp,(long)baselineMp+gains);
-            int finalHp=hasHp?(int)Math.Min(caster.MaxHp,(long)caster.Hp+hpGains):-1;
-            for(int i=0;i<results.Length;i++)results[i]=results[i].WithCasterTotals(finalHp,finalMp);
-            var previous = new (int Hp, int Mp,int ActorHp,int TargetMp)[results.Length];
-            for (int i = 0; i < results.Length; i++) previous[i] = ApplyState(results[i]);
-            // All target state is committed before listeners can inspect a partially applied area.
-            for (int i = 0; i < results.Length; i++) PublishResult(results[i], previous[i]);
-            return true;
-        }
-
+{reason="원작 서버 판정이 필요합니다.";return false;}
         private void Apply(CombatResult result)
         {
             var previous = ApplyState(result);

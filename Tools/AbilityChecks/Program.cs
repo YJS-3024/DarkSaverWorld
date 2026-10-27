@@ -13,18 +13,18 @@ internal static class Program
     private static int count;
     private static void Check(bool ok,string name){if(!ok)throw new Exception(name);count++;}
     private static CombatUnit Unit(short id,bool enemy)=>new CombatUnit {Id=id,JobId=100,Name=enemy?"스켈톤":"아군",Enemy=enemy,Hp=enemy?5000:50,MaxHp=enemy?5000:100,Mp=enemy?500:10000,MaxMp=enemy?500:10000,Attack=20,Defense=10,HasMagicStats=true,MagicAttack=20,MagicDefense=10};
-    private static (CombatWorld,LocalCombatAuthority,CombatFlow) Setup(SinglePlayerAbilityRule rule)
+    private static (CombatWorld,CombatServerBoundary,CombatFlow) Setup(UnresolvedAbilityRule rule)
     {
         var world=new CombatWorld();world.Add(Unit(100,false));world.Add(Unit(101,false));world.Add(Unit(800,true));world.Add(Unit(801,true));
         world.Get(101).Mp=50;world.Get(101).MaxMp=500;
-        var authority=new LocalCombatAuthority(sample:()=>0);authority.TemporaryRulesEnabled=true;
+        var authority=new CombatServerBoundary(sample:()=>0);authority.TemporaryRulesEnabled=true;
         Check(authority.ConfigureAbility(rule),"ability registration "+rule.Id);
         var flow=new CombatFlow(world,authority,true);Check(flow.ConfigureMagicApCost(rule.Id,rule.Ap),"AP registration");world.Get(100).ActionPoints.ApplyAbsolute(world.Get(100).ActionPoints.Maximum);
         return(world,authority,flow);
     }
     public static void Main(string[] args)
     {
-        Console.WriteLine("Beginning actual production CombatFlow/LocalCombatAuthority checks (no Unity scene execution).");
+        Console.WriteLine("Beginning actual production CombatFlow/CombatServerBoundary checks (no Unity scene execution).");
         // Exercise the actual enemy factory while bypassing Unity object construction/lifecycle.
         var kisra=new DarkSaver.Events.Scenario01Unit {id=700,job=701,name="키스라",hp=300,mp=150,attack=126,defense=55,x=19,y=10};
         var enemy=(BattleEnemyDefinition)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(BattleEnemyDefinition));
@@ -35,13 +35,13 @@ internal static class Program
             Check(enemy.TryCreateUnit(out var resumedKisra) && resumedKisra.Hp==hp && resumedKisra.MaxHp==450,"production factory preserves saved remaining HP");
         }
         Check(kisra.hp==300,"production factory does not mutate baked source");
-        var coverage=new List<object>();var rules=new Dictionary<int,SinglePlayerAbilityRule>();int combat=0,hiring=0,emotes=0;var unconfirmed=new List<int>();
+        var coverage=new List<object>();var rules=new Dictionary<int,UnresolvedAbilityRule>();int combat=0,hiring=0,emotes=0;var unconfirmed=new List<int>();
         using var fixture=JsonDocument.Parse(File.ReadAllText(args[0]));
         foreach(var item in fixture.RootElement.EnumerateArray())
         {
             var values=item.GetProperty("values").EnumerateArray().Select(v=>v.GetInt64()).ToArray();
             var entry=new MagicCatalogEntry(values,item.GetProperty("name").GetString());
-            if(!SinglePlayerAbilityRules.TryCreate(entry,out var rule))
+            if(!UnresolvedAbilityRules.TryCreate(entry,out var rule))
             {Check(entry.Id==30901 && entry.Name=="큐리즘","unclassified late catalog ID "+entry.Id);unconfirmed.Add(entry.Id);continue;}
             Check(rule.Mp==entry.Mp && rule.Ap>0 && rule.Ap<=10,"native MP / bounded authored AP");rules.Add(entry.Id,rule);
             coverage.Add(new {id=entry.Id,name=entry.Name,effect=rule.Effect.ToString(),route=rule.Combat?"Combat":rule.Effect.ToString(),nativeRange=entry.Range,nativeArea=entry.Area,nativeTick=entry.RawTick,physical=rule.Physical,mp=rule.Mp,ap=rule.Ap,range=rule.Range,power=rule.Power,seconds=rule.Seconds});

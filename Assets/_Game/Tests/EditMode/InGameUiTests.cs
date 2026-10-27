@@ -381,6 +381,16 @@ namespace DarkSaver.Tests
                 Assert.AreEqual(0f, panel.style.borderTopLeftRadius.value.value);
                 Assert.IsNotNull(panel.style.backgroundImage.value.texture);
                 Assert.AreEqual(TextAnchor.UpperLeft, root.Q<Label>("outcome-text").style.unityTextAlign.value);
+                // A second retained-mode draw must keep every dynamic value above the raised background.
+                for(int frame=0;frame<3;frame++)
+                {
+                    ui.Begin();ui.DungeonResult("outcome",rect,"아군",()=>{},"처치32","1151","승리");ui.End();
+                    var background=ui.Find<UnityEngine.UI.RawImage>("outcome").transform;
+                    foreach(var field in new[]{"outcome-allies-scroll","outcome-enemies-scroll","outcome-experience","outcome-status"})
+                        Assert.Greater(ui.Find<UnityEngine.Component>(field).transform.GetSiblingIndex(),background.GetSiblingIndex(),field);
+                    Assert.AreEqual("1151",ui.Find<UnityEngine.UI.Text>("outcome-experience").text);
+                    Assert.AreEqual("승리",ui.Find<UnityEngine.UI.Text>("outcome-status").text);
+                }
                 Assert.AreEqual("확인", root.Q<Button>("outcome-confirm").tooltip);
                 Assert.AreEqual(46f, root.Q<Button>("outcome-confirm").style.width.value.value);
                 Assert.AreEqual(DisplayStyle.Flex, root.Q<VisualElement>("outcome-blocker").style.display.value);

@@ -28,11 +28,11 @@ namespace DarkSaver.UI
             if (shopItems == null || townKey == null || shopConfiguredExplicitly || automaticStockTown == stockKey) return;
             if (automaticStockTown == null && shopOffers.Length != 0) { shopConfiguredExplicitly = true; return; }
             var stock = new System.Collections.Generic.List<NativeShopOffer>();
-            if (townKey == "Kaosia")
+            if (DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules && townKey == "Kaosia")
                 for (int i = 0; i < shopItems.Count; i++)
-                    if ((KaosiaShopRules.TryCreateOffer(shopItems.GetAt(i), out var offer)
-                        || interior!=null && interior.AdditionalPosition!=0 && KaosiaShopRules.TryCreateAdditionalOffer(shopItems.GetAt(i),interior.AdditionalPosition,out offer))
-                        && (interior==null || interior.OffersPosition(shopItems.GetAt(i).GetNumericValue(3)))) stock.Add(offer);
+                    if (interior!=null
+                        ? interior.TryCreateOffer(shopItems.GetAt(i),out var offer)
+                        : KaosiaShopRules.TryCreateOffer(shopItems.GetAt(i),out offer)) stock.Add(offer);
             settingAutomaticStock = true;
             try { if (ConfigureShop(shopItems, stock.ToArray())) automaticStockTown = stockKey; }
             finally { settingAutomaticStock = false; }

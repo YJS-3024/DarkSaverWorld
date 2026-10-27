@@ -25,7 +25,7 @@ namespace DarkSaver.Core
                 Id = 800, Name = "감옥 수비병", Enemy = true, X = 6, Y = 3,
                 Hp = 75, MaxHp = 75, Mp = 20, MaxMp = 20, Attack = 18, Defense = 5
             });
-            combat = new CombatFlow(world, new LocalCombatAuthority());
+            combat = new CombatFlow(world, new CombatServerBoundary());
             combat.ActionStarted += request => status = $"행동 시작: {request.Action}";
             combat.ResultApplied += result =>
                 status = $"결과 적용: 피해 {result.Damage}, 대상 HP {result.AbsoluteHp}";

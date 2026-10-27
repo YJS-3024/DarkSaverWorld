@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using DarkSaver.Items;
 using UnityEngine;
@@ -78,8 +78,8 @@ namespace DarkSaver.Combat
             return toolSession!=null && toolSession.OwnsActiveBattle(battle)
                 && battle.TemporaryLocalRulesEnabled && battle.TryGetSelectedUnit(out var actor) && actor.Id==100 && actor.Alive
                 && actor.Ap==actor.MaxAp && !battle.IsMovementInProgress(100)
-                && (SinglePlayerItemRecoveryRules.TryGet(item,magic,out _,out _,out _,out _)
-                    || SinglePlayerItemMagicRules.TryGet(item,magic,out _));
+                && (UnresolvedItemRecoveryServerRules.TryGet(item,magic,out _,out _,out _,out _)
+                    || OriginalItemMagicLink.TryGet(item,magic,out _));
         }
         public bool TrySelectRecoveryTool(int rowIndex,int expectedItemId)
         {

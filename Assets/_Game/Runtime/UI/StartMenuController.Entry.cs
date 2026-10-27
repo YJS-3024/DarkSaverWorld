@@ -57,7 +57,7 @@ namespace DarkSaver.UI
                 ui.EntryAtlasButton("entry-billing-info",new Rect(284,378,57,20),entryAtlas,new Rect(53,149,57,20),new Rect(53,173,57,18),"과금 서비스는 사용하지 않습니다.",null,false);
                 ui.EntryAtlasButton("entry-mode",new Rect(350,378,57,20),entryAtlas,new Rect(119,149,57,20),new Rect(119,173,57,18),"원작 모드 전환 동작은 확인되지 않았습니다.",null,false);
             }
-            if(loginFailed && loginCanRecover)
+            if(DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules && loginFailed && loginCanRecover)
                 ui.Button("login-recovery",new Rect(226,373,197,26),"캐릭터 선택으로 복구",()=>
                 {authenticated=true;RefreshContinue();loggingIn=false;selecting=true;},!loading,fontSize:12);
             DrawEntryMessage(new Rect(160,218,320,52));

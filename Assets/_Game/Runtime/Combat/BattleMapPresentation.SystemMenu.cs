@@ -71,7 +71,7 @@ namespace DarkSaver.Combat
         public bool IsMinimapOpen => IsSystemMenuOpen && systemPage == SystemPage.Minimap;
         public bool TryShowMinimap()
         {
-            if (!IsSystemMenuOpen || systemPage != SystemPage.Menu) return false;
+            if (!IsSystemMenuOpen || systemPage != SystemPage.Menu || !battle.TemporaryLocalRulesEnabled) return false;
             systemPage = SystemPage.Minimap; return true;
         }
         private void DrawMinimap(Rect r)
@@ -117,7 +117,8 @@ namespace DarkSaver.Combat
                 ui.Button("system-alliance",new Rect(r.x+16,r.y+106,r.width-32,32),"동맹",()=>TryOpenBattleWindowShell(3));
                 ui.Button("system-victory",new Rect(r.x+16,r.y+144,r.width-32,32),"승리조건",()=>TryOpenBattleWindowShell(5));
                 ui.Button("system-controls",new Rect(r.x+16,r.y+182,r.width-32,32),"도움말",()=>TryOpenBattleWindowShell(7));
-                ui.Button("system-minimap",new Rect(r.x+16,r.y+220,r.width-32,32),"맵정보",()=>TryShowMinimap());
+                if (battle.TemporaryLocalRulesEnabled)
+                    ui.Button("system-minimap",new Rect(r.x+16,r.y+220,r.width-32,32),"맵정보",()=>TryShowMinimap());
                 ui.Button("system-retreat",new Rect(r.x+16,r.y+258,r.width-32,32),"도망",()=>TryRetreatImmediately());
             }
             else if (systemPage == SystemPage.Windows) { }

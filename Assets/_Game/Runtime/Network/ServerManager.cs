@@ -8,7 +8,7 @@ namespace DarkSaver.Network
     // Registered local handlers own rule execution; client handlers use ResponseReceived.
     // RequestReceived remains the compatibility route for external/unregistered handlers.
     [DisallowMultipleComponent]
-    public sealed class ServerManager : MonoBehaviour
+    public sealed partial class ServerManager : MonoBehaviour
     {
         private ServerManager_Receiver receiver;
         public int OriginalFrameCount { get; private set; }
@@ -59,6 +59,6 @@ namespace DarkSaver.Network
             => Sender.Send(packet);
 
         private void OnDestroy()
-        { receiver?.ClearSubscribers(); sender?.ClearSubscribers(); LocalServer.Clear(); }
+        { ClearTutorialBinding();ClearAccountBindings();receiver?.ClearSubscribers(); sender?.ClearSubscribers(); LocalServer.Clear(); }
     }
 }

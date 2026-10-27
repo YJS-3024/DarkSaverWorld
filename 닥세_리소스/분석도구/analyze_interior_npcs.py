@@ -8,7 +8,7 @@ from decode_visuals import read_mrc
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'닥세_리소스/분석결과'
 sys.path.insert(0,str(ROOT/'Tools/MapChecks'))
 from world_asset_baker import frame
-MAPS={'2000':'무기점','2100':'방어구점','2200':'장신구점','2300':'소모품/마법도구점','2400':'은행','2510':'창고','2600':'신전형'}
+MAPS={'2000':'무기점','2100':'방어구점','2200':'장신구점','2300':'소모품점','2400':'은행','2510':'창고','2600':'신전형'}
 DECODED=ROOT/'분석/Saver_1.2/decoded/all_arc'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():

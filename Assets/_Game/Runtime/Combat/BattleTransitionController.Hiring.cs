@@ -28,36 +28,10 @@ namespace DarkSaver.Combat
 
         public bool TryHireMercenary(int skillId, int jobId, ExperienceProgressionTable progression,
             MercenaryHireCatalog skills, JobCatalog jobs, out string message)
-        {
-            if(!processingSessionRequest)
-            {serverProgression=progression;serverHireSkills=skills;serverHireJobs=jobs;return SubmitSession(new DarkSaver.Network.LocalHireRequest(skillId,jobId),out message);}
-
-            if (!PrepareMercenaryHire(skillId, jobId, progression, skills, jobs, out var job, out int instance, out message)) return false;
-            var roster = ownedRoster?.Clone() ?? new NativeOwnedRoster {units = Array.Empty<NativeOwnedUnitData>()};
-            skills.TryGet(skillId, out var skill);
-            var unit = new NativeOwnedUnitData { persistentId = Guid.NewGuid().ToString("N"), instanceId = instance,
-                jobId = jobId, name = job.Name, hp = (int)job.GetNumericValue(2), maxHp = (int)job.GetNumericValue(2), mp = 0, maxMp = 0,
-                attack = (int)job.GetNumericValue(6), defense = (int)job.GetNumericValue(8),
-                hasMagicAttack=job.GetNumericValue(10)>=0 && job.GetNumericValue(10)<=int.MaxValue,
-                hasMagicDefense=job.GetNumericValue(12)>=0 && job.GetNumericValue(12)<=int.MaxValue,
-                magicAttack=job.GetNumericValue(10)>=0 && job.GetNumericValue(10)<=int.MaxValue ? (int)job.GetNumericValue(10) : 0,
-                magicDefense=job.GetNumericValue(12)>=0 && job.GetNumericValue(12)<=int.MaxValue ? (int)job.GetNumericValue(12) : 0, lifeState = (int)UnitLifeState.Active,
-                teamId = 1, recordEligible = false, finalStateConfirmed = true, learnedMagicIds = Array.Empty<short>(),
-                hireType = skill.Name, hireOwnerId = 100 };
-            var members = new List<NativeOwnedUnitData>(roster.units) {unit}; roster.units = members.ToArray();
-            var funds = inventory.Clone(); funds.gold -= job.GetNumericValue(33);
-            if (!roster.IsValid || !funds.IsValid) return false;
-            // One click creates exactly one unit. Publish money and ownership together.
-            ownedRoster = roster; inventory = funds; OwnedRosterRevision++;
-            preparedGround = null; preparedRosterRevision = -1;
-            GetComponent<DarkSaver.UI.BattleFormationPanel>()?.UseSessionRoster();
-            message = job.Name + " 1명을 고용했습니다. 저장 버튼으로 보관하세요."; return true;
-        }
-
+{message=DarkSaver.Core.OriginalRestorationPolicy.PendingServerRule;return false;}
         public bool CanHireMercenary(int skillId, int jobId, ExperienceProgressionTable progression,
             MercenaryHireCatalog skills, JobCatalog jobs, out string message)
-            => PrepareMercenaryHire(skillId, jobId, progression, skills, jobs, out _, out _, out message);
-
+{message=DarkSaver.Core.OriginalRestorationPolicy.PendingServerRule;return false;}
         private bool PrepareMercenaryHire(int skillId, int jobId, ExperienceProgressionTable progression,
             MercenaryHireCatalog skills, JobCatalog jobs, out JobCatalogEntry job, out int instance, out string message)
         {

@@ -56,7 +56,7 @@ namespace DarkSaver.Tests
         public void CommanderDeathDoesNotKillSoldiersOrMutatePreviousSnapshot()
         {
             var world = new CombatWorld(); world.TryRegisterGroup(new[] { Unit(700), Unit(701) });
-            var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             world.TryGetGroup(701, out var before);
             Assert.That(flow.TryApplyDeath(700, true), Is.True);
             world.TryGetGroup(701, out var after);

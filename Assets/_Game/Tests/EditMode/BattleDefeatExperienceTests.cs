@@ -12,6 +12,8 @@ using UnityEngine.SceneManagement;
 
 namespace DarkSaver.Tests
 {
+    [NUnit.Framework.Category("LegacySinglePlayer")]
+    [NUnit.Framework.Ignore("싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요")]
     public sealed class BattleDefeatExperienceTests
     {
         [TestCase(false, false)]
@@ -215,7 +217,7 @@ namespace DarkSaver.Tests
                 serialized.FindProperty("useNativeBaseDefeatExperience").boolValue = rewardEnabled;
                 serialized.ApplyModifiedPropertiesWithoutUndo();
                 var go = new GameObject("Reward battle"); SceneManager.MoveGameObjectToScene(go, preview);
-                var battle = go.AddComponent<BattleSceneRoot>();
+                var battle = go.AddComponent<BattleSceneRoot>();battle.SetTemporaryLocalRules(true);
                 Assert.That(battle.ConfigureEnemy(definition), Is.True);
                 check(battle, definition, preview);
                 Assert.That(source.CreateUnit().Hp, Is.EqualTo(450));

@@ -9,11 +9,11 @@ foreach (bool magic in new[] { false, true })
     long power = (long)attack + (magic ? GameConstants.BattleTemporaryMagicPowerBonus : 0);
     int mitigation = magic ? defense / Math.Max(1, GameConstants.BattleTemporaryMagicDefenseDivisor) : defense;
     int before = (int)Math.Min(int.MaxValue, Math.Max((long)Math.Max(1, GameConstants.BattleTemporaryMinimumDamage), power - Math.Max(0, mitigation)));
-    if (TemporaryCombatDamageRules.Calculate(attack, defense, magic) != before)
+    if (UnresolvedCombatDamage.Calculate(attack, defense, magic) != before)
         throw new Exception($"Damage extraction changed {attack}/{defense}/{magic}");
     checks++;
 }
-if (Math.Abs(TemporaryCombatHitRules.PhysicalHitProbability(80, 15) - .68) > 1e-12)
+if (Math.Abs(UnresolvedCombatAccuracy.PhysicalHitProbability(80, 15) - .68) > 1e-12)
     throw new Exception("User-approved hit probability changed.");
 checks++;
 if (GameConstants.GetTemporaryAttackApCost(100, false) != 7

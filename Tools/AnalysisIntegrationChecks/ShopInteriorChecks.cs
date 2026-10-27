@@ -72,10 +72,10 @@ internal static class ShopInteriorChecks
                     worldX=10.5f,worldY=3.5f,hasCharacter=true,character=new NativeCharacterProfile {name="시설검증",jobId=100},clearedScenarios=Array.Empty<string>()};
                 check(store.TrySave(save,out _) && store.TryLoad(out var loaded,out _) && loaded.mapScene==region.MapScene && loaded.worldX==10.5f && loaded.worldY==3.5f,"facility position survives disk save and reload");
             }
-            check(ShopInteriorCatalog.ShopsWithFacilities.Count()==4,"four interactive interior shops");
+            check(ShopInteriorCatalog.ShopsWithFacilities.Count()==5,"five interactive interior shops");
             foreach(var shop in ShopInteriorCatalog.ShopsWithFacilities)
-                for(int position=0;position<=9;position++)
-                    check(shop.OffersPosition(position)==(shop.AdditionalPosition!=0?position==shop.AdditionalPosition:shop.Weapons?(position==1 || position==2):(position==3 || position==4 || position==5 || position==8)),"four shops reject unrelated positions");
+                for(int position=0;position<=10;position++)
+                    check(shop.OffersPosition(position)==(shop.AdditionalPosition!=0?position==shop.AdditionalPosition:shop.Weapons?(position==1 || position==2):(position==3 || position==4 || position==5 || position==8)),"five shops reject unrelated positions");
             foreach(var position in new[]{6,7})
             {
                 var values=new long[DarkSaver.Items.ItemCatalogEntry.NumericColumnCount];values[0]=2000+position;values[3]=position;values[4]=0;values[16]=500;
@@ -84,6 +84,17 @@ internal static class ShopInteriorChecks
                 check(!DarkSaver.Items.KaosiaShopRules.TryCreateAdditionalOffer(item,position==6?7:6,out _),"additional shop rejects wrong category");
                 values[16]=0;item=new DarkSaver.Items.ItemCatalogEntry(values,"0","","검증품","","검증");
                 check(!DarkSaver.Items.KaosiaShopRules.TryCreateAdditionalOffer(item,position,out _),"additional shop excludes zero price rewards");
+            }
+            check(ShopInteriorCatalog.TryGet(ShopInteriorCatalog.MageHouseKey,out var mage) && mage.Region.Height==20 && mage.Region.NativeMap=="2800","mage shop keeps native20x20 dimensions");
+            foreach(int id in new[]{361,362,363,324,325,326,300,999})
+            {
+                var values=new long[DarkSaver.Items.ItemCatalogEntry.NumericColumnCount];values[0]=id;values[3]=10;values[16]=101;
+                var item=new DarkSaver.Items.ItemCatalogEntry(values,"101","","fixture","","fixture");
+                bool expected=id!=300 && id!=999;
+                check(mage.TryCreateOffer(item,out var quote)==expected,"mage guide whitelist "+id);
+                if(expected)check(quote.buyPrice==101 && quote.sellPrice==50,"mage quote retains positive table price and half buyback");
+                values[16]=0;item=new DarkSaver.Items.ItemCatalogEntry(values,"0","","fixture","","fixture");
+                check(!mage.TryCreateOffer(item,out _),"mage shop rejects unpriced items");
             }
             check(!ShopInteriorCatalog.TryGet("KaosiaUnknownShop",out _),"unknown interior cannot be entered");
         }

@@ -50,7 +50,8 @@ namespace DarkSaver.Network
             if (!isActiveAndEnabled || packet == null) return false;
             if (battle == null) battle = GetComponent<BattleSceneRoot>();
             if (battle == null) return false;
-            if (packet is BattleStateNotification snapshot) { LastServerState=snapshot;return true; }
+            if (packet is BattleStateNotification snapshot)
+            { if(!battle.TemporaryLocalRulesEnabled)return false;LastServerState=snapshot;return true; }
             if (packet is LocalCombatResolvedNotification resolved) return battle.ReceiveLocalCombatResult(resolved.Result);
             if (packet is LocalVitalsDisplayNotification display) return battle.ReceiveLocalVitals(display.UnitId,display.Delta,display.Mp);
             if (packet is LocalMagicPresentationNotification cast) return battle.ReceiveLocalMagic(cast.Action,cast.Cast);

@@ -44,6 +44,8 @@ namespace DarkSaver.UI
 
         public bool Open(TownService service, TopDownPlayerController controller)
         {
+            if(!DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules
+                && service!=TownService.Shop && service!=TownService.Inventory && service!=TownService.CharacterInfo)return false;
             if(service==TownService.Overview)return false;
             if(DarkSaver.World.ShopInteriorContext.Current!=null)
             {

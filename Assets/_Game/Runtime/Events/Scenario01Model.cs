@@ -146,14 +146,7 @@ namespace DarkSaver.Events
                 && page % 3 == 0 && page < ScenarioDialogueLayout.SplitLines(commands[cursor].text).Length);
         }
         public static Scenario01Progress Create(Scenario01Definition definition, bool legacyClear = false)
-        {
-            if (!definition.IsValid) throw new ArgumentException("Invalid scenario 01 definition.");
-            var guid = Guid.NewGuid();
-            return new Scenario01Progress { version = definition.version == 1 ? 1 : 2, scenarioKey = definition.Key, endingVariant = definition.defaultEnding, sourceHash = definition.sourceHash, profileHash = definition.profileHash,
-                actorGuid = guid.ToString("N"), rng = BitConverter.ToUInt32(guid.ToByteArray(), 0),
-                phase = legacyClear ? Complete : Intro,hasBattleExperienceLedger=!legacyClear };
-        }
-    }
+{throw new System.NotSupportedException("원작 서버 초기 상태가 필요합니다.");}    }
 
     public static class Scenario01Rules
     {
@@ -175,107 +168,13 @@ namespace DarkSaver.Events
         public enum StepResult { Advanced, Waiting, Finished }
 
         public static void AdvanceTime(Scenario01Progress state, double seconds, float movementSpeed)
-        {
-            if (double.IsNaN(seconds) || double.IsInfinity(seconds) || seconds < 0 || movementSpeed <= 0)
-                throw new ArgumentOutOfRangeException(nameof(seconds));
-            state.wait = Math.Max(0, state.wait - seconds);
-            state.noticeSeconds = Math.Max(0, state.noticeSeconds - seconds);
-            if (state.noticeSeconds == 0) state.noticeText = null;
-            foreach (var actor in state.actors)
-            {
-                if (!actor.moving) continue;
-                double dx = actor.targetX - actor.x, dy = actor.targetY - actor.y, distance = Math.Sqrt(dx * dx + dy * dy);
-                if (distance > .000001) actor.facing = Math.Abs(dx) > .0001 ? dx < 0 ? 2 : 3 : dy < 0 ? 0 : 1;
-                var step = movementSpeed * seconds;
-                if (distance <= step) { actor.x = actor.targetX; actor.y = actor.targetY; actor.moving = false; }
-                else { actor.x += (float)(dx / distance * step); actor.y += (float)(dy / distance * step); }
-            }
-        }
-
+{}
         public static StepResult Step(Scenario01Definition definition, Scenario01Progress state, NativeInventory inventory,
             int playerJob, out Scenario01Progress next, out NativeInventory items)
-        {
-            if (!state.Matches(definition) || inventory == null || !inventory.IsValid) throw new ArgumentException("Invalid scenario checkpoint.");
-            next = state.Clone(); items = inventory.Clone();
-            if (state.wait > 0) return StepResult.Waiting;
-            var commands = CurrentCommands(definition, state);
-            if (state.cursor == commands.Length) { FinishScript(next); return StepResult.Finished; }
-            var command = commands[state.cursor];
-            if (command.name == "MESSAGE" && command.args[0] != "0") return StepResult.Waiting;
-            switch (command.name)
-            {
-                case "LOADSCENE": if (command.args.Length != 1 || definition.version == 1 && command.args[0] != "01" || !DarkSaver.Core.ScenarioCatalog.TryGet(command.args[0], out _)) throw new InvalidOperationException("Unknown scene."); next.presentationMap = command.args[0]; break;
-                case "SETPOSITION": case "MOVEPOSITION": next.cameraX = command.Int(0); next.cameraY = command.Int(1); break;
-                case "CHARPOS":
-                    var job = command.args[0].StartsWith("COM", StringComparison.OrdinalIgnoreCase) ? playerJob : command.Int(0);
-                    next.actors.RemoveAll(a => a.id == command.Int(1));
-                    next.actors.Add(new Scenario01Actor { id = command.Int(1), job = job, partyProxy = command.args[0].StartsWith("COM", StringComparison.OrdinalIgnoreCase), x = command.Int(2), y = command.Int(3),
-                        targetX = command.Int(2), targetY = command.Int(3), facing = 1 }); break;
-                case "CHARMOVE":
-                    var actor = next.actors.Find(a => a.id == command.Int(0));
-                    if (actor == null) { if (definition.version == 1) throw new InvalidOperationException("Missing movement actor."); break; }
-                    actor.targetX = command.Int(1); actor.targetY = command.Int(2); actor.moving = true; break;
-                case "CHARDIR":
-                    var facing = next.actors.Find(a => a.id == command.Int(0));
-                    if (facing == null) { if (definition.version == 1) throw new InvalidOperationException("Missing direction actor."); break; }
-                    facing.facing = command.args[1] switch { "UP" => 0, "DOWN" => 1, "LEFT" => 2, "RIGHT" => 3, _ => throw new InvalidOperationException("Unknown direction.") }; break;
-                case "DO2":
-                    var waiting = next.actors.Find(a => a.id == command.Int(0));
-                    if (waiting == null) { if (definition.version == 1) throw new InvalidOperationException("Missing wait actor."); break; }
-                    if (waiting.moving) return StepResult.Waiting;
-                    break;
-                case "KILLCHAR1": case "KILLCHAR2":
-                    int killed = command.Int(0); next.actors.RemoveAll(a => a.id == killed);
-                    if (next.phase == Scenario01Progress.Playing && !next.removedActors.Contains(killed)) next.removedActors.Add(killed); break;
-                case "MESSAGE": next.noticeText = command.text; next.noticeSeconds = 10.001; break;
-                case "GETITEM": if (next.activeEvent == 0) Grant(items, command.Int(0)); break;
-                case "GOLD": case "USEITEM": case "SET_DUTY_STEP":
-                    if (next.activeEvent == 0) throw new InvalidOperationException("Unbound economy command."); break;
-                case "SCENECLEAR": next.clearRequested = true; break;
-                case "FIRSTCLEAR": next.branchTest = !next.firstClearSaved; break;
-                case "TEST": case "TESTNOT":
-                    bool include = command.name == "TEST" ? next.branchTest : !next.branchTest;
-                    if (!include)
-                    {
-                        int depth = 0, index = next.cursor + 1;
-                        for (; index < commands.Length; index++)
-                        { if (commands[index].name == "(") depth++; else if (commands[index].name == ")" && --depth == 0) break; }
-                        if (index >= commands.Length) throw new InvalidOperationException("Unclosed scene branch.");
-                        next.cursor = index;
-                    }
-                    break;
-                case "SAVECLEAR": next.firstClearSaved = true; break;
-                case "GETGENERAL":
-                    if (!next.unlockedGenerals.Contains(command.Int(0))) next.unlockedGenerals.Add(command.Int(0)); break;
-                // Original GameCtl does not dispatch the underscored spelling in scenario10.
-                case "GET_GENERAL": break;
-                case "NEXTSCENE": next.nextScenario = command.args[0]; break;
-                case "SAVE": case "ENDING_DEMO": case "FX1": case "NATIVE_INERT": case "(": case ")": break;
-                case "PLAYMIDI": next.musicSource = command.args[0]; next.musicMode = command.args.Length > 1 ? command.Int(1) : 1; break;
-                case "DO": case "ATTACK": case "MAGIC":
-                case "CHANGESPRITE": case "CHANGETILE": case "CHANGETILE2": case "END": break;
-                default: throw new InvalidOperationException("Unsupported command: " + command.name);
-            }
-            Advance(next);
-            if (command.name == "DO") next.wait = Math.Max(0, command.Int(0)) / 1000d;
-            if (!next.Matches(definition) || !items.IsValid) throw new InvalidOperationException("Invalid resulting checkpoint.");
-            return StepResult.Advanced;
-        }
-
-        public static bool AdvanceDialogue(Scenario01Definition definition, Scenario01Progress state, out Scenario01Progress next)
-        {
-            next = state.Clone(); var commands = CurrentCommands(definition, state);
-            if (state.wait > 0 || state.cursor >= commands.Length || commands[state.cursor].name != "MESSAGE") return false;
-            var command = commands[state.cursor]; int.TryParse(command.args[0], out int mode);
-            if (!ScenarioDialogueLayout.IsPortrait(mode)) return false;
-            if (next.page + 3 < ScenarioDialogueLayout.SplitLines(command.text).Length) next.page += 3;
-            else Advance(next);
-            return true;
-        }
-
+{next=null;items=null;return StepResult.Waiting;}        public static bool AdvanceDialogue(Scenario01Definition definition, Scenario01Progress state, out Scenario01Progress next)
+{next=default;return false;}
         public static int Roll(Scenario01Progress state)
-        { state.rng = unchecked(1664525u * state.rng + 1013904223u); return (int)(state.rng % 101u); }
-
+{throw new System.NotSupportedException("원작 서버 난수 결과가 필요합니다.");}
         private static bool Predicate(Scenario01Command c, Scenario01Progress state, NativeInventory inventory, int x, int y)
         {
             switch (c.name)
@@ -296,66 +195,9 @@ namespace DarkSaver.Events
 
         public static bool TryActivate(Scenario01Definition definition, Scenario01Progress state, NativeInventory inventory,
             int x, int y, out Scenario01Progress changed, out NativeInventory changedInventory)
-        {
-            changed = state.Clone(); changedInventory = inventory.Clone();
-            var candidate = changed;
-            if (!state.Matches(definition) || !inventory.IsValid || state.phase != Scenario01Progress.Playing || state.activeEvent != 0) return false;
-            var inside = new List<int>();
-            foreach (var e in definition.events.OrderBy(e => e.id))
-            {
-                if (changed.activatedEvents.Contains(e.id)) continue;
-                // Local progression repair: the source's east-side trigger is behind the
-                // attribute-24 bridge. After bridge 50, allow its equally adjacent west bank.
-                // Keep original commands/content hashes and all item/event predicates intact.
-                int probeX = definition.Key == "02" && e.id == 51 && x == 33 && y >= 19 && y <= 21
-                    && state.activatedEvents.Contains(50) ? 35 : x;
-                var groups = e.conditions.GroupBy(c => c.group).Where(g => g.All(c => Predicate(c, candidate, inventory, probeX, y))).ToArray();
-                if (groups.Length == 0) continue;
-                inside.Add(e.id);
-                if (state.insideEvents.Contains(e.id)) continue;
-                bool passes = groups.Any(g => g.Where(c => c.name == "RANDOM").All(c => Roll(candidate) < Math.Max(0, Math.Min(101, c.Int(0)))));
-                if (!passes) continue;
-                changed.branchRoll = e.actions.Any(c => c.name == "RANDOM") ? Roll(changed) : -1;
-                var actions = ResolveActions(e, changed.branchRoll, definition.version == 2);
-                // Prepare the complete economic candidate before publishing any presentation.
-                foreach (var action in actions)
-                {
-                    switch (action.name)
-                    {
-                        case "GOLD":
-                            if (action.Int(0) < 0) throw new InvalidOperationException("Negative GOLD.");
-                            changedInventory.gold = checked(changedInventory.gold + action.Int(0)); break;
-                        case "GETITEM": Grant(changedInventory, action.Int(0)); break;
-                        case "USEITEM":
-                            if (!changedInventory.TryConsume(action.Int(0), 1, out var consumed)) return false;
-                            changedInventory = consumed; break;
-                        case "SET_DUTY_STEP":
-                            var step = action.args[0] + ":" + action.args[1];
-                            if (!changed.dutySteps.Contains(step)) changed.dutySteps.Add(step); break;
-                    }
-                }
-                foreach (var action in actions.Where(a => a.name == "CHANGESPRITE" || a.name == "CHANGETILE2"))
-                { changed.mapChanges.Remove(action.line); changed.mapChanges.Add(action.line); }
-                changed.activatedEvents.Add(e.id);
-                if (actions.Any(c => c.name == "CHANGESPRITE")) changed.changedEvents.Add(e.id);
-                changed.repeatEvent = definition.version == 2 && e.mode == "INF";
-                changed.activeEvent = e.id; changed.cursor = 0; changed.page = 0;
-                changed.cameraX = x; changed.cameraY = y;
-                changed.insideEvents = inside;
-                return changedInventory.IsValid && changed.IsValid;
-            }
-            changed.insideEvents = inside;
-            return !inside.SequenceEqual(state.insideEvents) || changed.rng != state.rng;
-        }
-
+{changed=default;changedInventory=default;return false;}
         public static void Grant(NativeInventory inventory, int id)
-        {
-            if (id <= 0) throw new InvalidOperationException("Invalid reward item.");
-            var item = Array.Find(inventory.items, s => s.itemId == id);
-            if (item != null) item.quantity = checked(item.quantity + 1);
-            else inventory.items = inventory.items.Concat(new[] { new NativeItemStack { itemId = id, quantity = 1 } }).ToArray();
-        }
-
+{throw new System.NotSupportedException("원작 서버 보상 응답이 필요합니다.");}
         public static Scenario01Command[] ResolveActions(Scenario01Event e, int roll, bool directRandomGate = false)
         {
             var result = new List<Scenario01Command>(); bool test = false, include = true, inBlock = false;
@@ -385,34 +227,7 @@ namespace DarkSaver.Events
 
         public static bool RecordBattleReturn(Scenario01Definition definition, Scenario01Progress state, int id, bool defeated,
             Scenario01EnemyState snapshot = null)
-        {
-            if (!state.Matches(definition) || state.phase != Scenario01Progress.Playing || state.pendingBattle != id
-                || !definition.units.Any(u => u.id == id && u.wave == state.wave) || state.defeated.Contains(id)) return false;
-            if (snapshot != null && (snapshot.id != id || snapshot.hp < 0 || snapshot.mp < 0 || snapshot.x < 0 || snapshot.x >= definition.width
-                || snapshot.y < 0 || snapshot.y >= definition.height || !definition.units.Any(u => u.id == id && snapshot.hp <= u.CombatHp && snapshot.mp <= u.CombatMp))) return false;
-            state.pendingBattle = -1;
-            if (snapshot != null)
-            { state.enemies.RemoveAll(e => e.id == id); state.enemies.Add(snapshot.Clone()); }
-            if (!defeated) return true;
-            if (!state.defeated.Contains(id)) state.defeated.Add(id);
-            state.deathSides ??= new List<string>();
-            if (!state.deathSides.Contains(id + ":party")) state.deathSides.Add(id + ":party");
-            // Clear wins before a pending wave. The boss's death runs EVENT99/DEE.
-            if ((definition.version != 1 || id != 700) && definition.units.Where(u => u.wave == state.wave).All(u => state.defeated.Contains(u.id)))
-                state.wave = Math.Min(definition.version == 1 ? 2 : definition.units.Max(u => u.wave), state.wave + 1);
-            return true;
-        }
-
-        public static void Advance(Scenario01Progress state) { state.cursor++; state.page = 0; state.wait = 0; }
-        public static void FinishScript(Scenario01Progress state)
-        {
-            state.cursor = 0; state.page = 0; state.wait = 0;
-            if (state.phase == Scenario01Progress.Outro && state.activeEvent == 0) state.actors.RemoveAll(a => a.id == 301 || state.version == 2 && a.partyProxy);
-            else state.actors.Clear();
-            if (state.activeEvent != 0)
-            { if (state.repeatEvent) state.activatedEvents.Remove(state.activeEvent); state.repeatEvent = false; state.activeEvent = 0; if (state.clearRequested) state.phase = Scenario01Progress.Outro; }
-            else if (state.phase == Scenario01Progress.Intro) state.phase = Scenario01Progress.Playing;
-            else if (state.phase == Scenario01Progress.Outro) state.phase = Scenario01Progress.Complete;
-        }
-    }
+{return false;}
+        public static void Advance(Scenario01Progress state) {}        public static void FinishScript(Scenario01Progress state)
+{}    }
 }

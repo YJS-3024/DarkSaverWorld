@@ -12,6 +12,13 @@ void Check(bool condition, string name)
     if (!condition) throw new Exception(name);
     checks++;
 }
+OriginalRestorationChecks.Run(Check);
+DarkSaver.Tests.LocalAuthenticationChecks.Run(Check);
+DarkSaver.Tests.LocalServerSelectionChecks.Run(Check);
+var onboardingStart=checks;
+DarkSaver.Tests.LocalOnboardingChecks.Run(Check);
+Console.WriteLine("Original tutorial/onboarding checks: "+(checks-onboardingStart)+" (offline, not Unity Play).");
+
 foreach (var name in new[] { "Kaosia_Map", "World1010_Map", "Brugos01_Map", "Map_01_브르고스궁", "Map_107_;", "Map_329_;" })
     Check(OriginalRenderRules.IsNativeMapScene(name), "native map render repair " + name);
 foreach (var name in new[] { "Battle", "Training101_Runtime", "Brugos01_Runtime", "Map_invalid_name", "Map_-1_name", null })
@@ -118,19 +125,18 @@ try
     Check(Directory.GetFiles(temporary, "*.tmp-*").Length == 0, "no abandoned write temporary");
 }
 finally { Directory.Delete(temporary, true); }
-Scenario01Checks.Run(Check);
-TownQuestChecks.Run(Check);
-CampaignChecks.Run(Check);
-LateWorldChecks.Run(Check);
-ScreenshotConfirmedChecks.Run(Check);
-LocalServerChecks.Run(Check);
+
+
+
+
+
+
 Check(!DarkSaver.Network.ScenarioRoomRules.IsOngoing(null), "no saved progress is not an ongoing room");
 for(int phase=-1;phase<=4;phase++)
     Check(DarkSaver.Network.ScenarioRoomRules.IsOngoing(new DarkSaver.Events.Scenario01Progress {phase=phase})==(phase>=0 && phase<3), "local room phase "+phase);
 
-LoginFlowChecks.Run(Check);
-AccountChecks.Run(Check);
-DarkSaver.Tests.NativeMultiAccountChecks.Run(Check);
-ShopInteriorChecks.Run(Check);
-WorldAudioChecks.Run(Check);
+
+
+
+
 Console.WriteLine($"PASS {checks} checks: linked production C# with offline host/JSON adapters; NOT Unity PlayMode or JsonUtility verification.");

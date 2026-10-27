@@ -11,7 +11,7 @@ namespace DarkSaver.Tests
             player=new CombatUnit {Id=100,Hp=80,MaxHp=100,Mp=100,MaxMp=100,Attack=20};
             enemy=new CombatUnit {Id=800,Enemy=true,Hp=100,MaxHp=100,Mp=100,MaxMp=100,Attack=20};
             world.Add(player);world.Add(enemy);
-            var flow=new CombatFlow(world,new LocalCombatAuthority(sample:()=>0),true);flow.TemporaryRulesEnabled=true;
+            var flow=new CombatFlow(world,new CombatServerBoundary(sample:()=>0),true);flow.TemporaryRulesEnabled=true;
             flow.ConfigureTemporaryStatusMagic(1801,0,7,TemporaryStatusEffect.Silence,1,20);
             flow.ConfigureTemporaryStatusMagic(6901,0,7,TemporaryStatusEffect.Sleep,1,20);
             flow.ConfigureTemporaryStatusMagic(3401,0,7,TemporaryStatusEffect.Wake,1,20);

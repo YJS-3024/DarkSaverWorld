@@ -27,7 +27,7 @@ namespace DarkSaver.Tests
         {
             var world = new CombatWorld();
             world.Add(new CombatUnit { Id = 100 }); world.Add(new CombatUnit { Id = 700 });
-            var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             // Fixture values only; no constants or native assets are modified.
             Assert.That(flow.ConfigureActionPointCosts(2, 6), Is.True);
             Assert.That(flow.ConfigureAttackApCostForJob(100, 100), Is.True);

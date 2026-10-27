@@ -10,8 +10,12 @@ using UnityEngine.Tilemaps;
 
 namespace DarkSaver.Tests
 {
+    [NUnit.Framework.Category("LegacySinglePlayer")]
+    [NUnit.Framework.Ignore("싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요")]
     public sealed class ShopInteriorTests
     {
+        // Archived single-player behavior is tested only inside an explicit fixture.
+
         [TestCase("KaosiaWeaponShop")][TestCase("KaosiaArmorShop")]
         public void ShopDestinationUsesIndependentPersistableScenePair(string key)
         {
@@ -61,20 +65,71 @@ namespace DarkSaver.Tests
             finally{UnityEngine.Object.DestroyImmediate(go);EditorSceneManager.ClosePreviewScene(scene);}
         }
         [TestCase("KaosiaWeaponShop")][TestCase("KaosiaArmorShop")][TestCase("KaosiaAccessoryShop")]
-        [TestCase("KaosiaBank")][TestCase("KaosiaWarehouse")][TestCase("KaosiaTemple")][TestCase("KaosiaMagicTools")]
-        public void ConnectedInteriorCreatesExactlyOneVisibleStaffMember(string key)
+        [TestCase("KaosiaBank")][TestCase("KaosiaWarehouse")][TestCase("KaosiaTemple")][TestCase("KaosiaMagicTools")][TestCase("Interior2800")]
+        public void ConnectedInteriorUsesConfirmedStaffWithoutAuthoredFallback(string key)
         {
             var scene=EditorSceneManager.NewPreviewScene();var go=new GameObject(key);SceneManager.MoveGameObjectToScene(go,scene);
             try
             {
                 var loader=go.AddComponent<NativeTownScene>();Assert.That(loader.Configure(key,true),Is.True);
                 Assert.That(loader.Build(),Is.True);
-                var staff=go.GetComponentsInChildren<IndoorNpcLabel>();Assert.That(staff.Length,Is.EqualTo(1));
-                var renderer=staff[0].GetComponent<SpriteRenderer>();Assert.That(renderer.sprite,Is.Not.Null);
-                Assert.That(renderer.sortingOrder,Is.LessThan(30000));
-                Assert.That(staff[0].GetComponent<ShopCounter2D>()!=null,Is.EqualTo(key=="KaosiaTemple" || ShopInteriorCatalog.TryGet(key,out _)));
+                var staff=go.GetComponentsInChildren<OriginalTownStaff>();
+                int expected=(key=="KaosiaArmorShop" || key=="KaosiaWeaponShop" || key=="KaosiaAccessoryShop" || key=="KaosiaMagicTools" || key=="Interior2800")?2:key=="KaosiaBank" || key=="KaosiaWarehouse" || key=="KaosiaTemple"?1:0;
+                Assert.That(staff.Length,Is.EqualTo(expected));
+                Assert.IsEmpty(go.GetComponentsInChildren<IndoorNpcLabel>(),"No invented staff name labels");
+                foreach(var actor in staff)
+                {
+                    var source=actor.Source;var renderer=actor.GetComponent<SpriteRenderer>();
+                    Assert.IsNotNull(renderer.sprite);
+                    Assert.That(renderer.bounds.min.x*32,Is.EqualTo(source.pixelX).Within(.001));
+                    var height=(key=="KaosiaTemple" || key=="Interior2800")?20:15;
+                    Assert.That((height-renderer.bounds.max.y)*32,Is.EqualTo(source.pixelY).Within(.001));
+                    Assert.That(actor.GetComponent<ShopCounter2D>()!=null,Is.EqualTo(key=="KaosiaTemple" || ShopInteriorCatalog.TryGet(key,out _)));
+                    Assert.IsNotEmpty(source.reference);
+                    Assert.AreEqual(key=="Interior2800"?"user-authored":(key=="KaosiaWeaponShop" || key=="KaosiaAccessoryShop" || key=="KaosiaMagicTools")?"user-confirmed":"screenshot",source.evidence);
+                }
             }
             finally{UnityEngine.Object.DestroyImmediate(go);EditorSceneManager.ClosePreviewScene(scene);}
+        }
+        [TestCase("KaosiaWeaponShop")][TestCase("KaosiaArmorShop")][TestCase("KaosiaAccessoryShop")]
+        [TestCase("KaosiaMagicTools")][TestCase("Interior2800")]
+        public void BothShopStaffOpenSameNativeWindowAndStockWithoutDuplicateRequests(string key)
+        {
+            Assert.IsTrue(ShopInteriorCatalog.TryGet(key,out var shop));
+            var map=EditModeSceneFixture.Create(shop.Region.MapScene);var runtime=EditModeSceneFixture.Create(shop.Region.RuntimeScene);
+            try
+            {
+                var root=new GameObject("paired counter fixture");SceneManager.MoveGameObjectToScene(root,runtime);
+                Assert.IsTrue(root.AddComponent<NativeTownScene>().Configure(key,true));
+                var session=root.AddComponent<DarkSaver.Combat.BattleTransitionController>();
+                var playerObject=new GameObject("shop visitor");playerObject.transform.SetParent(root.transform);
+                var player=playerObject.AddComponent<DarkSaver.Player.TopDownPlayerController>();
+                var catalog=UnityEditor.AssetDatabase.LoadAssetAtPath<DarkSaver.Items.ItemCatalog>("Assets/_Game/Runtime/Items/ItemCatalog.asset");
+                Assert.IsNotNull(catalog);root.AddComponent<DarkSaver.UI.ItemCatalogPanel>().Configure(catalog,player);
+                var panel=root.AddComponent<DarkSaver.UI.TownServicesPanel>();
+                var counters=root.GetComponentsInChildren<ShopCounter2D>();Assert.AreEqual(2,counters.Length);
+                Assert.IsTrue(PersonalEquipmentContext.IsReady,"shop is counted as one loaded region");
+                var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+                Texture firstTexture=null;int[] firstStock=null;DarkSaver.UI.InGameUi firstUi=null;
+                foreach(var counter in counters)
+                {
+                    player.transform.position=counter.transform.position+Vector3.down*counter.InteractionDistance;
+                    Assert.IsTrue(counter.TryOpen(player));Assert.AreEqual(DarkSaver.UI.TownService.Shop,panel.Service);
+                    Assert.IsFalse(counter.TryOpen(player),"open window locks repeated NPC requests");
+                    typeof(DarkSaver.UI.TownServicesPanel).GetMethod("LateUpdate",flags).Invoke(panel,null);
+                    var ui=root.GetComponentsInChildren<DarkSaver.UI.InGameUi>().Single(u=>u.Find<UnityEngine.UI.RawImage>("town-service-native")!=null);
+                    var texture=ui.Find<UnityEngine.UI.RawImage>("town-service-native").texture;
+                    var offers=(DarkSaver.Items.NativeShopOffer[])typeof(DarkSaver.UI.TownServicesPanel).GetField("shopOffers",flags).GetValue(panel);
+                    var ids=offers.Select(o=>o.itemId).ToArray();Assert.Greater(ids.Length,0);
+                    if(firstStock==null){firstStock=ids;firstTexture=texture;firstUi=ui;}
+                    else {CollectionAssert.AreEqual(firstStock,ids);Assert.AreSame(firstTexture,texture);Assert.AreSame(firstUi,ui);}
+                    if(key==ShopInteriorCatalog.MageHouseKey)CollectionAssert.AreEquivalent(new[]{361,362,363,324,325,326},ids);
+                    panel.Close();Assert.IsFalse(player.UiInputBlocked);
+                    player.transform.position=counter.transform.position+Vector3.down*(counter.InteractionDistance+1);
+                    Assert.IsFalse(counter.TryOpen(player),"distance restriction remains active");
+                }
+            }
+            finally{EditModeSceneFixture.Close(runtime);EditModeSceneFixture.Close(map);}
         }
         [Test]
         public void EnteringInteriorImmediatelyRepositionsCameraAndKeepsDepth()

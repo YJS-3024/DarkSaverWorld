@@ -11,6 +11,7 @@ namespace DarkSaver.World
         public void Configure(string value)=>title=value;
         private void LateUpdate()
         {
+            if(!DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules){ui?.Hide();return;}
             var player=FindAnyObjectByType<TopDownPlayerController>();
             if(player==null || player.UiInputBlocked || Camera.main==null || Vector2.Distance(player.transform.position,transform.position)>6)
             {ui?.Hide();return;}

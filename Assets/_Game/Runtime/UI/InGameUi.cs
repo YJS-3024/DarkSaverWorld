@@ -187,6 +187,7 @@ namespace DarkSaver.UI
             var image=Graphic(Node(key,rect,parent),sprite==null?null:sprite.texture,sprite==null?Color.clear:Color.white);
             if(sprite!=null){var r=sprite.textureRect;image.uvRect=new Rect(r.x/sprite.texture.width,r.y/sprite.texture.height,r.width/sprite.texture.width,r.height/sprite.texture.height);}else image.uvRect=new Rect(0,0,1,1);
         }
+        public void RenderTexture(string key,Rect rect,RenderTexture texture){Graphic(Node(key,rect),texture,Color.white);}
         public void PortraitTexture(string key,Rect rect,Texture2D texture){var image=Graphic(Node(key,rect),texture,texture==null?Color.clear:Color.white);image.uvRect=new Rect(0,0,1,1);}
         public void ModalBlocker(string key){Graphic(Node(key,new Rect(0,0,Rendering.GameScreen.Width,Rendering.GameScreen.Height)),null,Color.clear,true);Raise(key);}
         public void BattlePortrait(string key,Rect rect,Sprite portrait){Portrait(key+"-frame",rect,Resources.Load<Sprite>("UI/BattlePortraitFrame"));Portrait(key,new Rect(rect.x+3,rect.y+3,rect.width-6,rect.height-6),portrait);}
@@ -196,7 +197,7 @@ namespace DarkSaver.UI
             var r=new Rect(103,68,434,344);canvas.sortingOrder=Mathf.Max(normalSortingOrder,100);ModalBlocker(key+"-blocker");NativeTexturePanel(key,r,Resources.Load<Texture2D>("UI/NativeBattleResult"));
             ResultNames(key+"-text",key+"-allies-scroll",new Rect(r.x+20,r.y+90,394,70),text);
             ResultNames(key+"-enemies",key+"-enemies-scroll",new Rect(r.x+20,r.y+202,394,60),enemies);
-            BattleLabel(key+"-experience",new Rect(r.x+238,r.y+62,52,20),experience,singleLine:true);BattleLabel(key+"-status",new Rect(r.x+85,r.y+271,40,22),outcome,singleLine:true);
+            BattleLabel(key+"-experience",new Rect(r.x+238,r.y+62,52,20),experience,singleLine:true);Raise(key+"-experience");BattleLabel(key+"-status",new Rect(r.x+85,r.y+271,40,22),outcome,singleLine:true);Raise(key+"-status");
             resultConfirm??=new NativeBattleWindows.Control {rect=new Rect(0,0,46,19),frames=new[]{Resources.Load<Texture2D>("UI/NativeResultConfirm0"),Resources.Load<Texture2D>("UI/NativeResultConfirm1"),Resources.Load<Texture2D>("UI/NativeResultConfirm2")}};
             NativeImageButton(key+"-confirm",new Vector2(r.x+372,r.y+311),resultConfirm,acknowledge,true,"확인");
         }
@@ -205,7 +206,14 @@ namespace DarkSaver.UI
             text??="";bool changed=!resultRows.TryGetValue(scrollKey,out var cached)||cached.Text!=text||!elements.TryGetValue(scrollKey,out var node)||!node.gameObject.activeSelf;
             if(changed){cached=(text,text.Split('\n'));resultRows[scrollKey]=cached;}
             var parent=Scroll(scrollKey,rect,Mathf.Max(rect.height,cached.Rows.Length*20),changed);
-            for(int i=0;i<cached.Rows.Length;i++)BattleLabel(i==0?key:key+"-"+i,new Rect(0,i*20,rect.width-20,20),cached.Rows[i],14,parent,true);
+            // The native background is raised every frame; reused rows must follow it.
+            Raise(scrollKey);
+            for(int i=0;i<cached.Rows.Length;i++)
+            {
+                var rowKey=i==0?key:key+"-"+i;
+                BattleLabel(rowKey,new Rect(0,i*20,rect.width-20,20),cached.Rows[i],14,parent,true);
+                Find<Text>(rowKey).alignment=TextAnchor.UpperLeft;
+            }
         }
         private void OnDestroy()
         {

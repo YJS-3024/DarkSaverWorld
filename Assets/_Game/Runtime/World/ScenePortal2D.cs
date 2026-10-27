@@ -25,13 +25,15 @@ namespace DarkSaver.World
             trigger.isTrigger = true;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnEnable()
         {
-            var player = other.GetComponent<TopDownPlayerController>();
-            if (player == null || !player.isActiveAndEnabled) return;
-            var coordinator = FindFirstObjectByType<WorldSceneCoordinator>();
-            if (coordinator != null) coordinator.TravelTo(targetScene, targetSpawnId);
-            else { RequestedSpawnId = targetSpawnId; SceneManager.LoadScene(targetScene); }
+            if(Application.isPlaying && !DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules)
+            {
+                GetComponent<BoxCollider2D>().enabled=false;
+                var marker=GetComponent<SpriteRenderer>();if(marker!=null)marker.enabled=false;
+            }
         }
-    }
+
+        private void OnTriggerEnter2D(Collider2D other)
+{}    }
 }

@@ -43,7 +43,7 @@ internal static class LateWorldChecks
             var items=new NativeInventory();int revision=0;bool fail=false;
             bool Save(Scenario01Progress next,NativeInventory nextItems,out string reason)
             {reason=fail?"injected isolated failure":null;if(fail)return false;state=next.Clone();items=nextItems.Clone();revision++;return true;}
-            var server=new LocalScenarioServer(definition,()=>state,()=>items,()=>revision,()=>100,()=>false,Save);
+            var server=new ScenarioServerBoundary(definition,()=>state,()=>items,()=>revision,()=>100,()=>false,Save);
             ScenarioStateNotification Send(ScenarioOperation op,int x=0,int y=0)=>
                 (ScenarioStateNotification)server.Handle(new ScenarioCommandRequest(key,revision,op,x,y));
             check(!Send(ScenarioOperation.BeginEncounter,9999).Accepted && state.pendingBattle==-1,"unknown unit request rejected "+key);

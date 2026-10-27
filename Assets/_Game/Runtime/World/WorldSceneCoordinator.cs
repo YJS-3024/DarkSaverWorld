@@ -22,6 +22,8 @@ namespace DarkSaver.World
         }
         private LocalCommandResponse HandleMapEnter(MapEnterRequest request)
         {
+            if(!DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules)
+                return new MapEnterNotification(reason:DarkSaver.Core.OriginalRestorationPolicy.PendingServerRule);
             if(!CanBeginTravel(request.Target,request.SpawnId,out var map,out var runtime,out var size))
                 return new MapEnterNotification(reason:"현재 목적지로 이동할 수 없습니다.");
             travelling=true;

@@ -526,21 +526,21 @@ namespace DarkSaver.Tests
             WithMap(f => {
                 f.Bind(); f.Battle.TrySelectUnit(100);
                 var catalog = AssetDatabase.LoadAssetAtPath<MagicCatalog>("Assets/_Game/Runtime/Magic/MagicCatalog.asset");
-                Assert.AreEqual(0, TemporaryMagicCatalogRules.Configure(f.Battle, catalog));
+                Assert.AreEqual(0, UnresolvedMagicExecution.Configure(f.Battle, catalog));
                 f.Battle.SetTemporaryLocalRules(true);
                 f.Battle.ConfigureTemporaryDamageMagic(201, 1, 6, 99, 2);
-                Assert.Greater(TemporaryMagicCatalogRules.Configure(f.Battle, catalog), 4);
+                Assert.Greater(UnresolvedMagicExecution.Configure(f.Battle, catalog), 4);
                 int supported = 0;
                 for (int i = 0; i < catalog.Count; i++)
                 {
                     var entry = catalog.GetAt(i);
-                    if (!TemporaryMagicCatalogRules.TryClassify(entry, out _, out _)) continue;
+                    if (!UnresolvedMagicExecution.TryClassify(entry, out _, out _)) continue;
                     supported++; Assert.IsTrue(f.Battle.TryGetTemporaryMagicMpCost(entry.Id, out _), entry.Name);
                 }
                 Debug.Log($"Temporary catalog recognized {supported}/{catalog.Count}; no skill grants, single-target effects only.");
                 Assert.IsTrue(f.Battle.TryGetTemporaryMagicMpCost(201, out var cost)); Assert.AreEqual(10, cost);
                 Assert.IsTrue(f.Battle.TryGetTemporaryMagicMpCost(2402, out cost)); Assert.AreEqual(6, cost);
-                Assert.Greater(TemporaryMagicCatalogRules.Configure(f.Battle, catalog), 4);
+                Assert.Greater(UnresolvedMagicExecution.Configure(f.Battle, catalog), 4);
                 Assert.AreEqual(0, f.View.DisplayedMagicCount);
                 f.Battle.ApplyHp(100, 90); f.Battle.AdvanceActionPoints(20);
                 Assert.IsTrue(f.Battle.TryStartMagicRequest(2402, 100, new short[] { 100 }, out _));
@@ -558,16 +558,16 @@ namespace DarkSaver.Tests
             foreach (int id in new[] { 13101, 20101, 29001 })
             {
                 Assert.IsTrue(catalog.TryGet(id, out var entry));
-                Assert.IsFalse(TemporaryMagicCatalogRules.TryClassify(entry, out _, out _), entry.Name);
+                Assert.IsFalse(UnresolvedMagicExecution.TryClassify(entry, out _, out _), entry.Name);
             }
             foreach(int id in new[]{1601,1801,3401,3601,6901,30801})
             {
                 Assert.IsTrue(catalog.TryGet(id,out var status));
-                Assert.IsTrue(TemporaryMagicCatalogRules.TryClassify(status,out var effect,out _));
+                Assert.IsTrue(UnresolvedMagicExecution.TryClassify(status,out var effect,out _));
                 Assert.AreNotEqual(TemporaryMagicEffect.Damage,effect);
             }
             var values = new long[MagicCatalogEntry.NumericColumnCount]; values[0] = 9999;
-            Assert.IsFalse(TemporaryMagicCatalogRules.TryClassify(new MagicCatalogEntry(values, "힐(Lv0)"), out _, out _));
+            Assert.IsFalse(UnresolvedMagicExecution.TryClassify(new MagicCatalogEntry(values, "힐(Lv0)"), out _, out _));
         }
 
         [Test]

@@ -95,35 +95,30 @@ namespace DarkSaver.World
             }
         }
         private void BuildRuntime(TownDefinition town,MapData data)
+{if(KaosiaOriginalPresentation.IsInterior(townKey,out var nativeMap))BuildOriginalStaff(nativeMap,data);}        private void BuildOriginalStaff(string nativeMap,MapData data)
         {
-            var spawn=Child("Spawn TownEntry");spawn.transform.position=new Vector3(data.spawnX+.5f,data.height-1-data.spawnY+.5f,0);
-            spawn.AddComponent<SceneSpawnPoint>().Configure("TownEntry");
-            if(data.npc!=null)
+            foreach(var entry in KaosiaOriginalPresentation.LoadStaff().entries)
             {
-                var npc=data.npc;
-                if(npc.x<0 || npc.y<0 || npc.x>=data.width || npc.y>=data.height || data.attributes[npc.y*data.width+npc.x]==9)
-                    throw new InvalidOperationException("Indoor NPC is outside walkable terrain.");
-                var actor=Child(npc.name+" [single-player placement]");actor.transform.position=new Vector3(npc.x+.5f,data.height-npc.y-.5f,0);
-                var renderer=actor.AddComponent<SpriteRenderer>();
-                renderer.sprite=FullSprite(Resources.Load<Texture2D>("Interiors/Npcs/"+npc.texture),new Vector2(.5f,.1f));
+                if(entry.nativeMap!=nativeMap || !OriginalRestorationPolicy.AllowsStaffEvidence(entry.evidence))continue;
+                var texture=Resources.Load<Texture2D>(entry.texture);
+                if(texture==null || entry.pixelX<0 || entry.pixelY<0
+                    || entry.pixelX+texture.width>data.width*32 || entry.pixelY+texture.height>data.height*32)
+                    throw new InvalidOperationException("Invalid original counter staff frame.");
+                var actor=Child("Original counter staff "+entry.appearanceId+" "+entry.pixelX);
+                // Match the photographed sprite rectangle directly. This does not assert a native feet coordinate.
+                actor.transform.position=new Vector3((entry.pixelX+texture.width*.5f)/32f,
+                    data.height-(entry.pixelY+texture.height*.5f)/32f,0);
+                var renderer=actor.AddComponent<SpriteRenderer>();renderer.sprite=FullSprite(texture,new Vector2(.5f,.5f));
                 renderer.sortingOrder=20000-Mathf.RoundToInt(actor.transform.position.y*10);
-                actor.AddComponent<IndoorNpcLabel>().Configure(npc.name);
+                actor.AddComponent<OriginalTownStaff>().Configure(entry);
+                // Counters retain original terrain. Staff need not stand on player-walkable tiles.
                 if(ShopInteriorCatalog.TryGet(townKey,out _) || townKey=="KaosiaTemple")
                 {
-                    var trigger=actor.AddComponent<BoxCollider2D>();trigger.isTrigger=true;trigger.offset=new Vector2(0,.45f);trigger.size=new Vector2(1,1.4f);
-                    actor.AddComponent<ShopCounter2D>();
+                    var hit=actor.AddComponent<BoxCollider2D>();hit.isTrigger=true;hit.size=Vector2.one;
+                    var counter=actor.AddComponent<ShopCounter2D>();
+                    if(nativeMap=="2800")counter.ConfigureWideCounter();
                 }
             }
-            if(data.encounters!=null)
-                foreach(var unit in data.encounters)
-                {
-                    var enemy=Own(ScriptableObject.CreateInstance<DarkSaver.Combat.BattleEnemyDefinition>());enemy.InitializeScenarioUnit(unit);
-                    var view=Child("Field encounter "+unit.id);view.transform.position=new Vector3(unit.x+.5f,data.height-1-unit.y+.5f,0);
-                    var renderer=view.AddComponent<SpriteRenderer>();
-                    renderer.sprite=FullSprite(Resources.Load<Texture2D>("World/Monsters/"+unit.job),new Vector2(.5f,.1f));
-                    var encounter=view.AddComponent<DarkSaver.Combat.BattleEncounter2D>();encounter.ConfigureEnemy(enemy);
-                    view.GetComponent<BoxCollider2D>().size=new Vector2(.8f,.8f);
-                }
         }
         private void OnDestroy(){foreach(var item in owned)if(item!=null){if(Application.isPlaying)Destroy(item);else DestroyImmediate(item);}owned.Clear();}
     }

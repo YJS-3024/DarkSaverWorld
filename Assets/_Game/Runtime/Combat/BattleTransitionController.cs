@@ -93,21 +93,22 @@ namespace DarkSaver.Combat
         {
             reason = "전투 결과를 확인할 수 없습니다.";
             if (battle == null || !battle.TryGetUnit(100, out var primary) || primary.MaxHp <= 0
-                || primary.Hp < 0 || primary.Hp > primary.MaxHp || primary.MaxMp < 0 || primary.Mp < 0 || primary.Mp > primary.MaxMp) return false;
+                || primary.Hp < 0 || primary.Hp > primary.MaxHp || primary.MaxMp < 0 || primary.Mp < 0 || primary.Mp > primary.MaxMp
+                || primary.LifeState != UnitLifeState.Active && primary.Hp != 0) return false;
             NativeOwnedRoster updated = null;
             if (formation != null)
             {
                 if(ownedRoster==null || !battle.TryCaptureFormationReturn(formation,out var returned,out reason))return false;
-                bool accepted=checkpoint==null ? ownedRoster.TryApplyBattleReturn(returned,out updated,out reason)
+                bool accepted=checkpoint==null && battle.TemporaryLocalRulesEnabled ? ownedRoster.TryApplyBattleReturn(returned,out updated,out reason)
                     : ownedRoster.TryApplyObservedReturn(returned,out updated,out reason);
                 if(!accepted)return false;
             }
             var progressed = character; uint remainingExperience = primary.Experience;
-            if (character != null && character.hasLevels && !character.TryAdvanceLevels(
+            if (battle.TemporaryLocalRulesEnabled && character != null && character.hasLevels && !character.TryAdvanceLevels(
                 GetComponent<DarkSaver.UI.TownServicesPanel>()?.Progression, primary.Experience, out progressed, out remainingExperience))
             { reason = "확인된 레벨의 원본 성장 행을 검증할 수 없습니다. 복귀 상태를 보존합니다."; return false; }
             var scenarioReturn = scenario01?.Clone();
-            if ((DarkSaver.Events.Scenario01Controller.ActiveKey == "01" || string.IsNullOrEmpty(DarkSaver.Events.Scenario01Controller.ActiveKey)) && scenarioReturn != null && scenarioReturn.pendingBattle != -1)
+            if (OriginalRestorationPolicy.AllowSinglePlayerRules && (DarkSaver.Events.Scenario01Controller.ActiveKey == "01" || string.IsNullOrEmpty(DarkSaver.Events.Scenario01Controller.ActiveKey)) && scenarioReturn != null && scenarioReturn.pendingBattle != -1)
             {
                 var content = DarkSaver.Events.Scenario01Controller.Definition;
                 if (content == null || !battle.TryGetUnit((short)scenarioReturn.pendingBattle, out var opponent)
@@ -120,7 +121,7 @@ namespace DarkSaver.Combat
             var campaignKey = DarkSaver.Events.Scenario01Controller.ActiveKey;
             var campaignReturn = CaptureCampaign(campaignKey);
             bool hadCampaignEncounter=campaignReturn!=null && campaignReturn.pendingBattle!=-1;
-            if (campaignReturn != null && campaignReturn.pendingBattle != -1)
+            if (OriginalRestorationPolicy.AllowSinglePlayerRules && campaignReturn != null && campaignReturn.pendingBattle != -1)
             {
                 var definition = DarkSaver.Events.Scenario01Controller.LoadDefinition(campaignKey);
                 if (!battle.TryGetUnit((short)campaignReturn.pendingBattle,out var target)
@@ -153,7 +154,7 @@ namespace DarkSaver.Combat
                 reason = string.Empty; return true;
             }
             // Publish only after both primary and additional results validate.
-            playerHp = primary.Hp; playerMaxHp = primary.MaxHp; playerMp = primary.MaxMp; playerMaxMp = primary.MaxMp;
+            playerHp = primary.Hp; playerMaxHp = primary.MaxHp; playerMp = battle.TemporaryLocalRulesEnabled ? primary.MaxMp : primary.Mp; playerMaxMp = primary.MaxMp;
             playerExperience = remainingExperience; character = progressed;
             playerLifeState = primary.LifeState; hasPlayerVitals = true;
             if (scenarioReturn != null) { scenario01 = scenarioReturn; Scenario01Revision++; }
@@ -201,38 +202,7 @@ namespace DarkSaver.Combat
         }
         public NativeCharacterProfile CaptureCharacterProfile() => character?.Clone();
         public bool InitializeCharacter(NativeCharacterProfile profile)
-        {
-            if (profile == null || !profile.IsValid || character != null || transitioning ||
-                playerExperience != 0 || hasPlayerVitals || ownedRoster != null || inventory != null || clearedScenarioKeys.Count != 0 ||
-                SceneManager.GetSceneByName(BattleSceneName).isLoaded) return false;
-            // Only newly authored profiles have confirmed starting levels and onboarding.
-            // Legacy unknown vitals remain unknown until restored through their existing path.
-            if (profile.hasLevels && profile.tutorial != null)
-            {
-                // New characters start with their class's first-row abilities. RestoreSaveState
-                // deliberately leaves older saves with unknown ownership unchanged.
-                var progression = GetComponent<DarkSaver.UI.TownServicesPanel>()?.Progression;
-                var magic = GetComponent<DarkSaver.UI.MagicCatalogPanel>()?.Catalog;
-                if (progression == null || magic == null
-                    || !progression.TryGetClassEntryAbilities(profile.jobId, out var startingMagic, out var startingSkills)
-                    || !magic.TryMergeLearnedMagic(System.Array.Empty<int>(), startingMagic, out var learned)) return false;
-                profile = profile.Clone();
-                profile.hasClassAbilities = true;
-                profile.learnedMagicIds = learned;
-                profile.usableSkillIds = startingSkills;
-                if (!profile.IsValid) return false;
-                if (!DarkSaver.Items.SinglePlayerEquipmentRules.TryResolve(profile, FindEquipmentJob(profile.jobId),
-                    GetComponent<DarkSaver.UI.ItemCatalogPanel>()?.Catalog, out var stats)) return false;
-                playerHp = playerMaxHp = stats.Hp; playerMp = playerMaxMp = stats.Mp;
-                playerLifeState = UnitLifeState.Active; hasPlayerVitals = true;
-            }
-            character = profile.Clone();
-            inventory = new NativeInventory { gold = profile.hasLevels && profile.baseLevel == 1 && profile.jobLevel == 1
-                && NativeCharacterProfile.IsStartingJob(profile.jobId) && profile.tutorial?.step == 0
-                ? GameConstants.NewCharacterStartingGold : 0 };
-            return true;
-        }
-        public int ClearedScenarioCount => clearedScenarioKeys.Count;
+{return false;}        public int ClearedScenarioCount => clearedScenarioKeys.Count;
         public bool HasPlayerVitals => hasPlayerVitals;
         public int PlayerHp => playerHp;
         public int PlayerMaxHp => playerMaxHp;
@@ -285,6 +255,7 @@ namespace DarkSaver.Combat
 
         public bool SaveWorld()
         {
+            if(HasPendingTutorial){lastSaveMessage="튜토리얼은 안내 단계마다 자동 저장됩니다.";return false;}
             if(!processingSessionRequest)return SubmitSession(new DarkSaver.Network.SaveWorldRequest(),out lastSaveMessage);
             var player = FindAnyObjectByType<TopDownPlayerController>();
             var coordinator = FindAnyObjectByType<WorldSceneCoordinator>();
@@ -336,10 +307,11 @@ namespace DarkSaver.Combat
             if (battle == null) return false;
             var hp = battle.PlayerHp; var maxHp = battle.PlayerMaxHp;
             var mp = battle.PlayerMp; var maxMp = battle.PlayerMaxMp;
-            if (maxHp <= 0 || hp < 0 || hp > maxHp || maxMp < 0 || mp < 0 || mp > maxMp) return false;
+            if (maxHp <= 0 || hp < 0 || hp > maxHp || maxMp < 0 || mp < 0 || mp > maxMp
+                || battle.PlayerLifeState != UnitLifeState.Active && hp != 0) return false;
             playerHp = hp; playerMaxHp = maxHp;
-            // Confirmed user rule: retain remaining HP, recover MP to maximum on return.
-            playerMp = maxMp; playerMaxMp = maxMp;
+            // Original mode preserves the received MP; a return does not invent recovery.
+            playerMp = battle.TemporaryLocalRulesEnabled ? maxMp : mp; playerMaxMp = maxMp;
             playerLifeState = battle.PlayerLifeState;
             hasPlayerVitals = true;
             return true;
@@ -494,6 +466,24 @@ namespace DarkSaver.Combat
                     SetPlayerEnabled(true);
                 }
             }
+            if(activeBattle!=null)
+            {
+                for(int id=101;id<=107;id++)
+                    if(SceneManager.GetSceneByName("Map_"+id+"_;").isLoaded && SceneManager.GetSceneByName("Training"+id+"_Runtime").isLoaded)
+                    {
+                        var rules=Resources.Load<TextAsset>("World/TrainingRules");
+                        var settings=rules==null?null:JsonUtility.FromJson<TrainingRuntimeSettings>(rules.text);
+                        var seconds=settings!=null && settings.version==1?settings.respawnSeconds:0;
+                        if(!activeBattle.ConfigurePersistentTraining(enemy,seconds))
+                        {
+                            LastTransitionMessage="훈련장 전투 설정을 확인할 수 없습니다.";
+                            activeBattle=null;activeFormation=null;
+                            if(scene.IsValid() && scene.isLoaded)yield return SceneManager.UnloadSceneAsync(scene);
+                            SetPlayerEnabled(true);
+                        }
+                        break;
+                    }
+            }
             if(activeBattle!=null) activeBattle.GetComponent<BattleMapPresentation>()?.TryBindSessionToolDisplay(this);
             transitioning = false;
             if (activeBattle != null)
@@ -505,8 +495,10 @@ namespace DarkSaver.Combat
             }
         }
 
+        [System.Serializable] private sealed class TrainingRuntimeSettings { public int version;public float respawnSeconds; }
         private IEnumerator ExitRoutine()
         {
+            bool leavingTraining=activeBattle!=null && activeBattle.IsPersistentTraining;
             transitioning = true;
             if (!TryCaptureBattleReturn(activeBattle, activeFormation, out var reason))
             {
@@ -521,6 +513,12 @@ namespace DarkSaver.Combat
             activeFormation = null;
             SetPlayerEnabled(true);
             transitioning = false;
+            if(leavingTraining)
+            {
+                var coordinator=FindAnyObjectByType<WorldSceneCoordinator>();
+                if(coordinator!=null && coordinator.TryTravelTo("Kaosia","FromTraining"))yield break;
+                LastTransitionMessage="마을 복귀를 시작하지 못했습니다. 훈련장 출구를 이용하세요.";
+            }
             SaveWorld();
         }
 

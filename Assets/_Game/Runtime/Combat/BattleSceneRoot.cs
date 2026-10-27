@@ -51,7 +51,7 @@ namespace DarkSaver.Combat
             EnsureInitialized(); return flow.ConfigurePhysicalAccuracy(unitId, accuracyPercent, evasionPercent);
         }
         public int EnemyAttackApCost { get { EnsureInitialized(); return flow.GetAttackApCost(EnemyId); } }
-        public int SelectedMagicApCost { get { EnsureInitialized(); return flow.GetMagicApCost(LocalCombatAuthority.PrototypeMagicId); } }
+        public int SelectedMagicApCost { get { EnsureInitialized(); return flow.GetMagicApCost(CombatServerBoundary.PrototypeMagicId); } }
         public bool ConfigurePlayerJob(int jobId)
         {
             EnsureInitialized();
@@ -84,15 +84,15 @@ namespace DarkSaver.Combat
             attack+=profile?.allocatedAttack ?? 0; defense+=profile?.allocatedDefense ?? 0;
             magicAttack+=profile?.allocatedMagicAttack ?? 0;magicDefense+=profile?.allocatedMagicDefense ?? 0;
             if(attack>int.MaxValue || defense>int.MaxValue || magicAttack<0 || magicDefense<0 || magicAttack>int.MaxValue || magicDefense>int.MaxValue) return false;
-            if(profile!=null && profile.HasEquippedItems)
+            if(TemporaryLocalRulesEnabled && profile!=null && profile.HasEquippedItems)
             {
-                if(!DarkSaver.Items.SinglePlayerEquipmentRules.TryResolve(profile,entry,equipmentCatalog,out var equipped))return false;
+                if(!DarkSaver.Items.UnresolvedEquipmentServerRules.TryResolve(profile,entry,equipmentCatalog,out var equipped))return false;
                 hp=equipped.Hp;mp=equipped.Mp;attack=equipped.Attack;defense=equipped.Defense;
                 magicAttack=equipped.MagicAttack;magicDefense=equipped.MagicDefense;
             }
             // An unavailable provisional conversion must not block native base stats.
-            if (entry.CategoryLabel == "player_job"
-                && TemporaryJobCombatRules.TryGetAttackApCost(entry, out var temporaryCost))
+            if (TemporaryLocalRulesEnabled && entry.CategoryLabel == "player_job"
+                && UnresolvedJobActionCosts.TryGetAttackApCost(entry, out var temporaryCost))
                 flow.ConfigureTemporaryJobAttackCost(PlayerJobId, temporaryCost);
             var player = world.Get(PlayerId);
             player.Hp = player.MaxHp = (int)hp; player.Mp = player.MaxMp = (int)mp;
@@ -172,7 +172,7 @@ namespace DarkSaver.Combat
         public bool MapPresentationActive { get; private set; }
         public void SetMapPresentationActive(bool value) => MapPresentationActive = value && occupancy != null;
         private bool prototypeHudVisible = GameConstants.BattlePrototypeHudDefaultVisible;
-        public bool IsPrototypeHudVisible => !MapPresentationActive || prototypeHudVisible;
+        public bool IsPrototypeHudVisible => TemporaryLocalRulesEnabled && (!MapPresentationActive || prototypeHudVisible);
         public void SetPrototypeHudVisible(bool visible) => prototypeHudVisible = visible;
         public Rect BattleHudRect => IsPrototypeHudVisible ? PrototypeBattleHudRect : default;
         private Rect PrototypeBattleHudRect => MapPresentationActive
@@ -218,7 +218,8 @@ namespace DarkSaver.Combat
                 return hasCommander;
             }
         }
-        public bool IsBattleFinished => VictoryAchieved || DefeatAchieved;
+        // A removed monster or HP0 is not a native battle-end notification.
+        public bool IsBattleFinished => TemporaryLocalRulesEnabled && !IsPersistentTraining && (VictoryAchieved || DefeatAchieved);
         public Rect OutcomeRect
         {
             get
@@ -331,6 +332,8 @@ namespace DarkSaver.Combat
 
         public bool TryMoveTo(short unitId, CombatGridCell destination, out string reason)
         {
+            if(!TemporaryLocalRulesEnabled)
+            {reason=DarkSaver.Core.OriginalRestorationPolicy.PendingServerRule;return false;}
             if (TemporaryLocalRulesEnabled && !processingServerRequest) return TrySubmitLocalRequest(new BattleMoveRequest(unitId,destination.X,destination.Y),out reason);
             EnsureInitialized();
             if (!isActiveAndEnabled || occupancy == null || !world.TryGet(unitId, out var actor) || !actor.Alive)
@@ -571,35 +574,7 @@ namespace DarkSaver.Combat
         public event System.Action<CombatResult> CombatResultApplied;
         public event System.Action<short, int, bool> VitalsDisplayChanged;
         private void OnCombatResultApplied(CombatResult result)
-        {
-            if(!TemporaryLocalRulesEnabled){PresentCombatResult(result);return;}
-            if(result.Revive && occupancy!=null)
-            {
-                var placements=new System.Collections.Generic.List<CombatGridPlacement>();
-                var restoredIds=new System.Collections.Generic.HashSet<short>();
-                var requested=localMagicPresentation?.TargetUnitIds ?? (System.Collections.Generic.IReadOnlyList<short>)new[]{result.TargetId};
-                foreach(short id in requested)
-                    if(restoredIds.Add(id) && world.TryGet(id,out var restored) && restored.Alive && !occupancy.TryGetPosition(id,out _))
-                        placements.Add(new CombatGridPlacement(id,new CombatGridCell(restored.X,restored.Y)));
-                if(placements.Count>0)
-                {
-                    if(!occupancy.TryPlaceUnits(placements))Debug.LogError("Revived units could not reclaim validated grid cells.");
-                    else foreach(var placement in placements)
-                        if(fallenMovementBudgets.TryGetValue(placement.UnitId,out var restoredBudget))
-                        {movementBudgets[placement.UnitId]=restoredBudget;fallenMovementBudgets.Remove(placement.UnitId);}
-                }
-            }
-            SynchronizeGridState(result.ActorId); SynchronizeGridState(result.TargetId);
-            if (TemporaryLocalRulesEnabled) TryAwardDefeatExperience();
-            if(result.AbsoluteHp>=0 && result.AbsoluteHp<=short.MaxValue)SendLocalNotification(new HpSetNotification(result.TargetId,(short)result.AbsoluteHp));
-            if(result.AbsoluteMp>=0 && result.AbsoluteMp<=short.MaxValue)SendLocalNotification(new MpSetNotification(result.ActorId,(short)result.AbsoluteMp));
-            if(world.TryGet(result.TargetId,out var resolved) && resolved.LifeState!=UnitLifeState.Active)
-                SendLocalNotification(resolved.LifeState==UnitLifeState.Corpse ? new UnitCorpseNotification(result.TargetId) : new UnitRemoveNotification(result.TargetId));
-            if(result.ActorHp>=0 && result.ActorHp<=short.MaxValue)SendLocalNotification(new HpSetNotification(result.ActorId,(short)result.ActorHp));
-            if(result.TargetMp>=0 && result.TargetMp<=short.MaxValue)SendLocalNotification(new MpSetNotification(result.TargetId,(short)result.TargetMp));
-            SendLocalNotification(new LocalCombatResolvedNotification(result));
-        }
-        private void PresentCombatResult(CombatResult result)
+{}        private void PresentCombatResult(CombatResult result)
         {
             if (result.StatusEffect == TemporaryStatusEffect.MovementReduction || result.StatusEffect == TemporaryStatusEffect.Sleep) CancelMovementStep(result.TargetId);
             if (result.BuffSeconds > 0 && world.TryGet(result.TargetId, out var buffTarget))
@@ -629,14 +604,15 @@ namespace DarkSaver.Combat
         }
         [SerializeField] private short[] victoryTargetInstanceIds;
         [SerializeField] private BattleObjectiveDefinition victoryObjective;
-        public bool VictoryAchieved => victoryObjective != null
+        public bool VictoryAchieved => TemporaryLocalRulesEnabled && !IsPersistentTraining && (victoryObjective != null
             ? victoryObjective.IsSatisfied(world)
-            : BattleVictoryRules.IsSatisfied(world, victoryTargetInstanceIds);
+            : BattleVictoryRules.IsSatisfied(world, victoryTargetInstanceIds));
         public string VictoryConditionDescription
         {
             get
             {
                 EnsureInitialized();
+                if (!TemporaryLocalRulesEnabled) return string.Empty;
                 if (victoryObjective != null) return victoryObjective.Description ?? string.Empty;
                 if (victoryTargetInstanceIds == null || victoryTargetInstanceIds.Length == 0)
                     return "적 전원 처치 (로컬 규칙)";
@@ -650,7 +626,7 @@ namespace DarkSaver.Combat
             }
         }
         private CombatFlow flow;
-        private string status = "야생 몬스터가 나타났다.";
+        private string status = string.Empty;
         private bool useDefeatExperience;
         private uint defeatExperience;
         private bool defeatExperienceGranted;
@@ -816,7 +792,7 @@ namespace DarkSaver.Combat
             get
             {
                 EnsureInitialized();
-                return victoryObjective != null ? victoryObjective.GetClearedScenarioKey(world) : string.Empty;
+                return TemporaryLocalRulesEnabled && !IsPersistentTraining && victoryObjective != null ? victoryObjective.GetClearedScenarioKey(world) : string.Empty;
             }
         }
 
@@ -979,8 +955,9 @@ namespace DarkSaver.Combat
         public bool ConfigureSinglePlayerAbility(DarkSaver.Magic.MagicCatalogEntry entry)
         {
             EnsureInitialized();
+            if(!TemporaryLocalRulesEnabled)return false;
             if(entry!=null && completeAbilitiesConfigured.Contains(entry.Id))return true;
-            if(!SinglePlayerAbilityRules.TryCreate(entry,out var rule) || !rule.Combat || !flow.ConfigureAbility(rule) || !flow.ConfigureMagicApCost(entry.Id,rule.Ap))return false;
+            if(!UnresolvedAbilityRules.TryCreate(entry,out var rule) || !rule.Combat || !flow.ConfigureAbility(rule) || !flow.ConfigureMagicApCost(entry.Id,rule.Ap))return false;
             completeAbilitiesConfigured.Add(entry.Id);return true;
         }
         public bool IsRevivalMagic(int id){EnsureInitialized();return flow.IsRevivalMagic(id);}
@@ -1112,7 +1089,7 @@ namespace DarkSaver.Combat
         public bool ApplyDeath(short unitId, bool leaveCorpse)
         {
             EnsureInitialized();
-            if (!flow.TryApplyDeath(unitId, leaveCorpse)) return false;
+            if (!flow.TryApplyDeath(unitId, leaveCorpse, preserveReceivedHp: !TemporaryLocalRulesEnabled)) return false;
             SynchronizeGridState(unitId); return true;
         }
 
@@ -1127,7 +1104,9 @@ namespace DarkSaver.Combat
             if (definition == null) return true;
             EnsureInitialized();
             if (occupancy != null) return false;
-            if (!definition.TryCreateUnit(out var enemy) || enemy.Id == PlayerId || !definition.TryGetDefeatExperience(out var reward))
+            uint reward = 0;
+            if (!definition.TryCreateUnit(out var enemy) || enemy.Id == PlayerId
+                || (TemporaryLocalRulesEnabled && !definition.TryGetDefeatExperience(out reward)))
             {
                 Debug.LogError("Invalid battle enemy definition.");
                 return false;
@@ -1148,7 +1127,7 @@ namespace DarkSaver.Combat
             world.Add(enemy);
             flow.ConfigureAttackApCostForJob(EnemyId, definition.JobId);
             EnemyJobId = definition.JobId;
-            useDefeatExperience = definition.UsesNativeBaseDefeatExperience;
+            useDefeatExperience = TemporaryLocalRulesEnabled && definition.UsesNativeBaseDefeatExperience;
             defeatExperience = reward;
             defeatExperienceGranted = false;
             OutcomeAcknowledged = false;
@@ -1170,30 +1149,20 @@ namespace DarkSaver.Combat
 
         // Scene-load continuations bind learned abilities before Start. Enable their
         // execution rules in Awake so catalog registration cannot silently be skipped.
-        private void Awake() => SetTemporaryLocalRules(GameConstants.BattleUseTemporaryLocalRules);
+        private void Awake()
+        {
+            SetTemporaryLocalRules(GameConstants.BattleUseTemporaryLocalRules);
+            BindOriginalProtocol();
+        }
 
         private float temporaryAiDebt;
         private readonly System.Collections.Generic.HashSet<short> returningMonsters = new();
         private readonly System.Collections.Generic.Dictionary<short, short> chasingMonsterTargets = new();
         public bool TemporaryLocalRulesEnabled { get { EnsureInitialized(); return flow.TemporaryRulesEnabled; } }
         public void SetTemporaryLocalRules(bool enabled)
-        {
-            EnsureInitialized(); flow.TemporaryRulesEnabled = enabled; temporaryAiDebt = 0;
-            foreach (var id in automaticTroopMovements) CancelMovementStep(id);
-            automaticTroopMovements.Clear();
-            foreach (var id in returningMonsters) CancelMovementStep(id);
-            foreach (var id in chasingMonsterTargets.Keys) CancelMovementStep(id);
-            returningMonsters.Clear();
-            chasingMonsterTargets.Clear();
-        }
-
+{EnsureInitialized();flow.TemporaryRulesEnabled=false;}
         public bool TryTemporaryRestUnit(short unitId)
-        {
-            if (TemporaryLocalRulesEnabled && !processingServerRequest) return TrySubmitLocalRequest(new BattleRestRequest(unitId),out _);
-            EnsureInitialized();
-            return CanTemporaryRestUnit(unitId, out _) && flow.TryTemporaryRest(unitId);
-        }
-
+{return false;}
         public bool CanTemporaryRestUnit(short unitId, out string reason)
         {
             reason = string.Empty;
@@ -1215,31 +1184,8 @@ namespace DarkSaver.Combat
 
         private bool TryTemporaryApproach(short unitId, CombatUnit target,
             out System.Collections.Generic.IReadOnlyList<CombatGridCell> best)
-        {
-            best = null;
-            var range = GameConstants.BattleTemporaryAttackRange;
-            if (range < 1 || range > 16 || occupancy == null) return false;
-            for (var y = -range; y <= range; y++)
-                for (var x = -range; x <= range; x++)
-                {
-                    if (x == 0 && y == 0) continue;
-                    var dx = (long)target.X + x; var dy = (long)target.Y + y;
-                    if (dx < int.MinValue || dx > int.MaxValue || dy < int.MinValue || dy > int.MaxValue) continue;
-                    if (!occupancy.TryFindPath(unitId, new CombatGridCell((int)dx, (int)dy), out var path,
-                        allowAlliedTransit: false) || path.Count == 0) continue;
-                    if (best == null || path.Count < best.Count) best = path;
-                }
-            return best != null;
-        }
-
-        private bool TryTemporaryMovePath(short unitId, System.Collections.Generic.IReadOnlyList<CombatGridCell> path)
-        {
-            var count = System.Math.Min(path.Count, GameConstants.BattleTemporaryAiMoveCells);
-            for (var i = count - 1; i >= 0; i--)
-                if (TryMoveTo(unitId, path[i], out _)) return true;
-            return false;
-        }
-
+{best=null;return false;}        private bool TryTemporaryMovePath(short unitId, System.Collections.Generic.IReadOnlyList<CombatGridCell> path)
+{return false;}
         // Menu choices recovered from GameCtl::setsolai. Target/movement policy below is local.
         public enum TroopOrder { Direct = 1, AutomaticAttack = 2, AutomaticDefense = 8 }
         private readonly System.Collections.Generic.Dictionary<short, TroopOrder> troopOrders = new();
@@ -1265,107 +1211,21 @@ namespace DarkSaver.Combat
             return true;
         }
         private void AdvanceTemporaryTroopOrders(System.Collections.Generic.List<CombatUnit> units)
-        {
-            foreach (var soldier in units)
-            {
-                if (IsBattleFinished) break;
-                if (soldier.Enemy || !soldier.Alive || !TryGetGroup(soldier.Id, out var group)
-                    || soldier.Id == group.CommanderId) continue;
-                if (!TryGetTroopOrder(soldier.Id, out var order) || order == TroopOrder.Direct)
-                {
-                    if (automaticTroopMovements.Remove(soldier.Id)) CancelMovementStep(soldier.Id);
-                    continue;
-                }
-                if (!IsMovementInProgress(soldier.Id)) automaticTroopMovements.Remove(soldier.Id);
-                if (IsMovementInProgress(soldier.Id) || soldier.ActionPoints.Current != soldier.ActionPoints.Maximum) continue;
-                CombatUnit chosen = null;
-                System.Collections.Generic.IReadOnlyList<CombatGridCell> chosenPath = null;
-                long best = long.MaxValue;
-                foreach (var enemy in units)
-                {
-                    if (!enemy.Enemy || !enemy.Alive) continue;
-                    long distance = GridDistance(new CombatGridCell(soldier.X, soldier.Y), new CombatGridCell(enemy.X, enemy.Y));
-                    if (distance > GameConstants.BattleTemporarySearchRange) continue;
-                    System.Collections.Generic.IReadOnlyList<CombatGridCell> path = null;
-                    if (distance > GameConstants.BattleTemporaryAttackRange
-                        && (order == TroopOrder.AutomaticDefense || !TryTemporaryApproach(soldier.Id, enemy, out path))) continue;
-                    if (chosen == null || distance < best || (distance == best && enemy.Id < chosen.Id))
-                    { chosen = enemy; chosenPath = path; best = distance; }
-                }
-                if (chosen == null) continue;
-                if (chosenPath != null)
-                { if (TryTemporaryMovePath(soldier.Id, chosenPath)) automaticTroopMovements.Add(soldier.Id); }
-                else TryStartAttackRequest(chosen.Id, soldier.Id, out _);
-            }
-        }
-
+{}
         public bool AdvanceTemporaryMonsterAi(float seconds)
-        {
-            if (float.IsNaN(seconds) || float.IsInfinity(seconds) || seconds < 0) return false;
-            if (!isActiveAndEnabled || !TemporaryLocalRulesEnabled || occupancy == null || IsBattleFinished) return false;
-            var interval = GameConstants.BattleTemporaryAiDecisionSeconds;
-            if (float.IsNaN(interval) || float.IsInfinity(interval) || interval <= 0
-                || GameConstants.BattleTemporarySearchRange < 0 || GameConstants.BattleTemporaryAiMoveCells < 1) return false;
-            temporaryAiDebt += seconds;
-            if (temporaryAiDebt < interval) return true;
-            temporaryAiDebt = 0; // At most one decision pass per frame, never burst after a stall.
-            var units = new System.Collections.Generic.List<CombatUnit>(world.Units);
-            AdvanceTemporaryTroopOrders(units);
-            foreach (var monster in units)
-            {
-                if (IsBattleFinished) break;
-                if (!monster.Enemy || !monster.Alive || !TryGetInitialGridPosition(monster.Id, out var origin)) continue;
-                CombatUnit chosen = null; System.Collections.Generic.IReadOnlyList<CombatGridCell> chosenPath = null;
-                var bestDistance = long.MaxValue;
-                bool hasAttacker = latestAttackers.TryGetValue(monster.Id, out var attackerId);
-                foreach (var candidate in units)
-                {
-                    if (!candidate.Alive || candidate.Enemy == monster.Enemy
-                        || GridDistance(origin, new CombatGridCell(candidate.X, candidate.Y)) > GameConstants.BattleTemporarySearchRange) continue;
-                    var distance = GridDistance(new CombatGridCell(monster.X, monster.Y), new CombatGridCell(candidate.X, candidate.Y));
-                    System.Collections.Generic.IReadOnlyList<CombatGridCell> path = null;
-                    if (distance > GameConstants.BattleTemporaryAttackRange && !TryTemporaryApproach(monster.Id, candidate, out path)) continue;
-                    if (hasAttacker && candidate.Id == attackerId) { chosen = candidate; chosenPath = path; break; }
-                    if (chosen == null || distance < bestDistance || (distance == bestDistance && candidate.Id < chosen.Id))
-                    { chosen = candidate; chosenPath = path; bestDistance = distance; }
-                }
-                if (chosen != null && returningMonsters.Remove(monster.Id)) CancelMovementStep(monster.Id);
-                if (chasingMonsterTargets.TryGetValue(monster.Id, out var priorTarget)
-                    && (chosen == null || chosen.Id != priorTarget))
-                { CancelMovementStep(monster.Id); chasingMonsterTargets.Remove(monster.Id); }
-                if (IsMovementInProgress(monster.Id) || monster.ActionPoints.Current != monster.ActionPoints.Maximum) continue;
-                if (chosen != null)
-                {
-                    if (chosenPath != null)
-                    {
-                        if (TryTemporaryMovePath(monster.Id, chosenPath)) chasingMonsterTargets[monster.Id] = chosen.Id;
-                    }
-                    else TryStartAttackRequest(chosen.Id, monster.Id, out _);
-                }
-                else if (monster.X != origin.X || monster.Y != origin.Y)
-                {
-                    if (occupancy.TryFindPath(monster.Id, origin, out var path, allowAlliedTransit: false)
-                        && TryTemporaryMovePath(monster.Id, path)) returningMonsters.Add(monster.Id);
-                }
-                else { returningMonsters.Remove(monster.Id); flow.TryTemporaryRest(monster.Id); }
-            }
-            return true;
-        }
-
+{return false;}
         private void EnsureInitialized()
         {
             if (flow != null) return;
             world.Add(new CombatUnit
             {
-                Id = PlayerId, Name = "전사", Hp = 120, MaxHp = 120, Mp = 30, MaxMp = 30,
-                Attack = 26, Defense = 7
+                Id = PlayerId, Name = string.Empty // Reserved client record; await native initialization.
             });
             world.Add(new CombatUnit
             {
-                Id = EnemyId, Name = "필드 몬스터", Enemy = true, Hp = 75, MaxHp = 75,
-                Mp = 0, MaxMp = 0, Attack = 18, Defense = 5
+                Id = EnemyId, Name = string.Empty, Enemy = true // No demonstration enemy stats.
             });
-            flow = new CombatFlow(world, new LocalCombatAuthority(), useActionPoints: true);
+            flow = new CombatFlow(world, new CombatServerBoundary(), useActionPoints: true);
             flow.ActionStarted += OnActionStarted;
             flow.AdditionalMagicTargetStarted += request => {
                 if (localMagicPresentation == null) SendLocalNotification(new LocalMagicPresentationNotification(request));
@@ -1382,7 +1242,7 @@ namespace DarkSaver.Combat
             if (MapPresentationActive && Input.GetKeyDown(GameConstants.BattlePrototypeHudKey))
                 SetPrototypeHudVisible(!prototypeHudVisible);
             if(TemporaryLocalRulesEnabled)TrySubmitLocalRequest(new BattleSimulationTickRequest(Time.deltaTime,Time.unscaledDeltaTime),out _);
-            else { AdvanceActionPoints(Time.deltaTime);AdvanceMovement(Time.unscaledDeltaTime); }
+            else { AdvanceMovement(Time.unscaledDeltaTime); } // Native AP comes from SetTickMenu, not the old 1 AP/s tuning.
             if(MapPresentationActive && DefersOutcomeToScenario && IsBattleFinished && !OutcomeAcknowledged)
             {
                 if(!VictoryAchieved)SetScenarioOutcomeDeferred(false); // A party defeat still ends this attempt explicitly.
@@ -1416,11 +1276,12 @@ namespace DarkSaver.Combat
             return $"{actor.Name}  HP {actor.Hp}/{actor.MaxHp}  MP {actor.Mp}/{actor.MaxMp}\n" +
                 $"{enemy.Name}  HP {enemy.Hp}/{enemy.MaxHp}\n" +
                 $"AP {actor.Ap}/{actor.MaxAp}  적 AP {EnemyAp}/{GameConstants.GetBattleMaximumAp(enemy.Enemy)}\n" +
-                $"경험치 {actor.Experience}\n{(flow.GetAttackApCost(PlayerId) > 0 && flow.GetMagicApCost(LocalCombatAuthority.PrototypeMagicId) > 0 ? status : "공격·마법 AP 비용 미설정")}";
+                $"경험치 {actor.Experience}\n{(flow.GetAttackApCost(PlayerId) > 0 && flow.GetMagicApCost(CombatServerBoundary.PrototypeMagicId) > 0 ? status : "공격·마법 AP 비용 미설정")}";
         }
 
         private void LateUpdate()
         {
+            if(!TemporaryLocalRulesEnabled && (PlayerJobId<=0 || EnemyJobId<=0)){ui?.Hide();return;}
             InGameUi.Ensure(ref ui, this, 30);
             ui.Begin();
             if (MapPresentationActive && !IsBattleFinished) DrawAlliedRoster();
@@ -1452,8 +1313,8 @@ namespace DarkSaver.Combat
                 ui.Button("attack", new Rect(panel.x + 24, panel.y + 160, 145, 38), "공격", PlayerAttack,
                     actor.Alive && enemy.Alive && !VictoryAchieved && actor.ActionPoints.CanStart(flow.GetAttackApCost(PlayerId)));
                 ui.Button("magic", new Rect(panel.x + 191, panel.y + 160, 145, 38), "마법", PlayerMagic,
-                    actor.Alive && enemy.Alive && !VictoryAchieved && actor.Mp >= LocalCombatAuthority.PrototypeMagicMpCost &&
-                    actor.ActionPoints.CanStart(flow.GetMagicApCost(LocalCombatAuthority.PrototypeMagicId)));
+                    actor.Alive && enemy.Alive && !VictoryAchieved && actor.Mp >= CombatServerBoundary.PrototypeMagicMpCost &&
+                    actor.ActionPoints.CanStart(flow.GetMagicApCost(CombatServerBoundary.PrototypeMagicId)));
             }
             if (MapPresentationActive && !IsAlliedRosterVisible)
                 ui.Button("restore-roster", new Rect(panel.x + 24, panel.y + 190, panel.width - 48, 24),
@@ -1463,7 +1324,7 @@ namespace DarkSaver.Combat
             ui.Button("return", new Rect(panel.x + 24, panel.y + 220, panel.width - 48, MapPresentationActive ? 28 : 38), returnLabel, ReturnToWorld,
                 !MapPresentationActive || !IsBattleFinished || OutcomeAcknowledged);
             }
-            var dialogue = victoryObjective != null ? victoryObjective.GetCompletionDialogue(world) : string.Empty;
+            var dialogue = TemporaryLocalRulesEnabled && victoryObjective != null ? victoryObjective.GetCompletionDialogue(world) : string.Empty;
             if (!string.IsNullOrWhiteSpace(dialogue))
             {
                 var dialogueRect = new Rect(panel.x, MapPresentationActive ? Mathf.Max(0, panel.y - 96) : panel.y + 300, panel.width, 90);
@@ -1588,52 +1449,9 @@ namespace DarkSaver.Combat
 
         // Explicit single-player base reward, not the original server's distribution formula.
         public bool TryAwardDefeatExperience()
-        {
-            EnsureInitialized();
-            var actor = world.Get(PlayerId);
-            if (!useDefeatExperience || defeatExperienceGranted || !actor.Alive ||
-                world.Get(EnemyId).LifeState == UnitLifeState.Active) return false;
-            var total = (ulong)actor.Experience + defeatExperience;
-            if (total > uint.MaxValue) return false; // Never wrap or silently discard overflow.
-            // Reserve the receipt before publishing: response listeners must not regrant XP.
-            defeatExperienceGranted = true;
-            if (!flow.TryApplyExperience(new CombatExperienceResult(PlayerId,(uint)total)))
-            {defeatExperienceGranted=false;return false;}
-            SendLocalNotification(new ExperienceSetNotification(PlayerId,(uint)total));
-            return true;
-        }
-
+{return false;}
         private void ResolveRound(CombatActionType action)
-        {
-            EnsureInitialized();
-            var actor = world.Get(PlayerId);
-            var enemy = world.Get(EnemyId);
-            if (!actor.Alive || !enemy.Alive || VictoryAchieved) return;
-
-            if (!flow.TryExecute(new CombatRequest(actor.Id, enemy.Id, action,
-                action == CombatActionType.Magic ? LocalCombatAuthority.PrototypeMagicId : 0),
-                out var playerResult, out var reason))
-            {
-                status = $"행동 불가: {reason}";
-                return; // Rejected input consumes no round and triggers no counterattack.
-            }
-            if (!enemy.Alive)
-            {
-                status = $"피해 {playerResult.Damage}. 몬스터를 쓰러뜨렸다.";
-                if (useDefeatExperience)
-                    status += (defeatExperienceGranted || TryAwardDefeatExperience()) ? $" 경험치 +{defeatExperience}" : " 경험치 미지급: 상한 초과 또는 지급 불가";
-                return;
-            }
-
-            var playerOutcome = playerResult.Hit ? $"{playerResult.Damage} 피해" : "MISS";
-            if (!flow.TryExecute(new CombatRequest(enemy.Id, actor.Id, CombatActionType.Attack), out var enemyResult, out _))
-            { status = $"적에게 {playerOutcome} / 적 행동 대기"; return; }
-            var enemyOutcome = enemyResult.Hit ? $"{enemyResult.Damage} 피해" : "MISS";
-            status = actor.Alive
-                ? $"적에게 {playerOutcome} / 반격 {enemyOutcome}"
-                : $"적에게 {playerOutcome} / 전투에서 패배했다.";
-        }
-
+{}
         private void ReturnToWorld()
         {
             if (MapPresentationActive && !IsBattleFinished)

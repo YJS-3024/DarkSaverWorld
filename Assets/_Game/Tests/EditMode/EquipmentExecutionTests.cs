@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using DarkSaver.Combat;
@@ -14,8 +14,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace DarkSaver.Tests
 {
+    [NUnit.Framework.Category("LegacySinglePlayer")]
+    [NUnit.Framework.Ignore("싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요")]
     public sealed class EquipmentExecutionTests
     {
+        // Archived single-player behavior is tested only inside an explicit fixture.
+
         private static JobCatalog Jobs=>AssetDatabase.LoadAssetAtPath<JobCatalog>("Assets/_Game/Runtime/Jobs/JobCatalog.asset");
         private static ItemCatalog Items=>AssetDatabase.LoadAssetAtPath<ItemCatalog>("Assets/_Game/Runtime/Items/ItemCatalog.asset");
         private static NativeCharacterProfile Profile()=>new NativeCharacterProfile {name="Gear",jobId=100,hasLevels=true,baseLevel=12,jobLevel=5};
@@ -34,14 +38,14 @@ namespace DarkSaver.Tests
         public void NativeOppositeSlotAndTroopRestrictionsAreSeparateFromLocalBaseLevelPolicy()
         {
             var profile=Profile();Jobs.TryGet(100,out var job);Items.TryGet(1,out var dagger);Items.TryGet(10,out var requiredSix);
-            Assert.IsFalse(SinglePlayerEquipmentRules.IsEligible(profile,job,Items,2,dagger)); // Opposite slot is unknown.
+            Assert.IsFalse(UnresolvedEquipmentServerRules.IsEligible(profile,job,Items,2,dagger)); // Opposite slot is unknown.
             profile.equipmentItemIds=new[]{-1,-1,-1,0,-1,-1,-1};
-            Assert.IsTrue(SinglePlayerEquipmentRules.IsEligible(profile,job,Items,2,dagger));
-            Assert.IsTrue(SinglePlayerEquipmentRules.IsEligible(profile,job,Items,2,requiredSix)); // base12/job5: local base-level policy.
-            profile.baseLevel=5;Assert.IsFalse(SinglePlayerEquipmentRules.IsEligible(profile,job,Items,2,requiredSix));
-            Assert.IsFalse(SinglePlayerEquipmentRules.IsEligible(profile,job,Items,1,dagger));
+            Assert.IsTrue(UnresolvedEquipmentServerRules.IsEligible(profile,job,Items,2,dagger));
+            Assert.IsTrue(UnresolvedEquipmentServerRules.IsEligible(profile,job,Items,2,requiredSix)); // base12/job5: local base-level policy.
+            profile.baseLevel=5;Assert.IsFalse(UnresolvedEquipmentServerRules.IsEligible(profile,job,Items,2,requiredSix));
+            Assert.IsFalse(UnresolvedEquipmentServerRules.IsEligible(profile,job,Items,1,dagger));
             profile.baseLevel=12;profile.equipmentItemIds[3]=1;
-            Assert.IsFalse(SinglePlayerEquipmentRules.IsEligible(profile,job,Items,2,dagger));
+            Assert.IsFalse(UnresolvedEquipmentServerRules.IsEligible(profile,job,Items,2,dagger));
         }
         [Test]
         public void ActualEquipConfirmKeepsOwnedQuantitiesLocksSalesAndRejectsStaleWindows()
@@ -119,11 +123,11 @@ namespace DarkSaver.Tests
                 values[19]=25;values[23]=-100;values[20]=7;values[21]=-100;values[24]=9;values[25]=-100;
                 catalog.Initialize(new[]{new ItemCatalogEntry(values,"0","","Fixture","","weapon")});
                 var profile=Profile();profile.equipmentItemIds=new[]{0,0,500,0,0,0,0};Jobs.TryGet(100,out var job);
-                Assert.IsTrue(SinglePlayerEquipmentRules.TryResolve(profile,job,catalog,out var stats));
+                Assert.IsTrue(UnresolvedEquipmentServerRules.TryResolve(profile,job,catalog,out var stats));
                 Assert.AreEqual(job.GetNumericValue(2)+25,stats.Hp);Assert.AreEqual(0,stats.Mp);Assert.AreEqual(job.GetNumericValue(6)+7,stats.Attack);
                 Assert.AreEqual(0,stats.Defense);Assert.AreEqual(job.GetNumericValue(10)+9,stats.MagicAttack);Assert.AreEqual(0,stats.MagicDefense);
                 values[20]=long.MaxValue;catalog.Initialize(new[]{new ItemCatalogEntry(values,"0","","Overflow","","weapon")});
-                Assert.IsFalse(SinglePlayerEquipmentRules.TryResolve(profile,job,catalog,out _));Assert.AreEqual(500,profile.EquipmentItemAt(2));
+                Assert.IsFalse(UnresolvedEquipmentServerRules.TryResolve(profile,job,catalog,out _));Assert.AreEqual(500,profile.EquipmentItemAt(2));
             }
             finally {UnityEngine.Object.DestroyImmediate(catalog);}
         }

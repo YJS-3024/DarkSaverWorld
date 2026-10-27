@@ -1,0 +1,201 @@
+{
+  "scope": "Original-file and reference review only; no game, NPC, routing, save or reward changes",
+  "npcCount": null,
+  "npcAppearanceId": null,
+  "npcCoordinates": null,
+  "roleOf2800Confirmed": false,
+  "sourceMap": {
+    "width": 20,
+    "height": 20,
+    "decorations": 113,
+    "resourceIds": [
+      5
+    ],
+    "parsedBytes": 4628,
+    "exactEOF": true,
+    "copies": [
+      {
+        "file": "닥세_리소스/설치본_추출/Saver_Files/Saver/MAP/2800.mrc",
+        "bytes": 4628,
+        "sha256": "919632f122b00905e6f9d0e4b4d41460da1d81d4daf113462e22ea2c5d3c898b"
+      },
+      {
+        "file": "닥세_리소스/설치본_추출/Saver_Files/Saver/MAP/2800t.mrc",
+        "bytes": 4628,
+        "sha256": "919632f122b00905e6f9d0e4b4d41460da1d81d4daf113462e22ea2c5d3c898b"
+      },
+      {
+        "file": "late extracted/2800.mrc",
+        "bytes": 4628,
+        "sha256": "919632f122b00905e6f9d0e4b4d41460da1d81d4daf113462e22ea2c5d3c898b"
+      },
+      {
+        "file": "late extracted/2800t.mrc",
+        "bytes": 4628,
+        "sha256": "919632f122b00905e6f9d0e4b4d41460da1d81d4daf113462e22ea2c5d3c898b"
+      }
+    ],
+    "allCopiesIdentical": true,
+    "limitation": "MRC contains floor and decoration data; independent live NPC roster is not encoded here. No NPC roster does not imply zero NPCs."
+  },
+  "textScan": {
+    "files": 418,
+    "encoding": "cp949",
+    "keywords": [
+      "마법사의 집",
+      "마법사의집",
+      "마법 도구점",
+      "마법도구점",
+      "마법도구",
+      "마법상점",
+      "마법 상점"
+    ],
+    "hits": [],
+    "limitation": "Only decoded early text resources of these extensions; not an exhaustive proof about server data or all binaries"
+  },
+  "music": [
+    {
+      "file": "분석/Saver_1.2/decoded/all_arc/gameres/set/midiset.txt",
+      "line": 138,
+      "text": "2800 nce02.mid"
+    }
+  ],
+  "guide": {
+    "file": "닥세_리소스/카오시아마법사의집.png",
+    "sha256": "79cdae8d06d6213d90872bfc28ec7a14382ff67a993374c8de7ce11b5653c0f2",
+    "manualItemRows": [
+      {
+        "reference": "닥세_리소스/카오시아마법사의집.png",
+        "guideName": "귀환의돌",
+        "guidePrice": "100",
+        "normalizedNativeName": "귀환의돌",
+        "nativeIds": "361",
+        "nativeNames": "귀환의_돌",
+        "nativePrices": "100",
+        "comparison": "match",
+        "note": "manual visual transcription; guide version unknown"
+      },
+      {
+        "reference": "닥세_리소스/카오시아마법사의집.png",
+        "guideName": "공간이동의마석",
+        "guidePrice": "20000",
+        "normalizedNativeName": "공간이동의마석",
+        "nativeIds": "362",
+        "nativeNames": "공간이동의_마석",
+        "nativePrices": "20000",
+        "comparison": "match",
+        "note": "manual visual transcription; guide version unknown"
+      },
+      {
+        "reference": "닥세_리소스/카오시아마법사의집.png",
+        "guideName": "자물쇠",
+        "guidePrice": "30000",
+        "normalizedNativeName": "자물쇠한박스",
+        "nativeIds": "363",
+        "nativeNames": "자물쇠_한박스",
+        "nativePrices": "30000",
+        "comparison": "match",
+        "note": "manual visual transcription; guide version unknown; name alias only, not a recovered shop binding"
+      },
+      {
+        "reference": "닥세_리소스/카오시아마법사의집.png",
+        "guideName": "귀환의돌2",
+        "guidePrice": "1000",
+        "normalizedNativeName": "귀환의돌2",
+        "nativeIds": "324",
+        "nativeNames": "귀환의_돌2",
+        "nativePrices": "1000",
+        "comparison": "match",
+        "note": "manual visual transcription; guide version unknown"
+      },
+      {
+        "reference": "닥세_리소스/카오시아마법사의집.png",
+        "guideName": "공간이동의마석2",
+        "guidePrice": "240000",
+        "normalizedNativeName": "공간이동의마석2",
+        "nativeIds": "325",
+        "nativeNames": "공간이동의_마석2",
+        "nativePrices": "240000",
+        "comparison": "match",
+        "note": "manual visual transcription; guide version unknown"
+      },
+      {
+        "reference": "닥세_리소스/카오시아마법사의집.png",
+        "guideName": "암네시안워터",
+        "guidePrice": "50000000",
+        "normalizedNativeName": "암네시안워터",
+        "nativeIds": "326",
+        "nativeNames": "암네시안_워터",
+        "nativePrices": "50000000",
+        "comparison": "match",
+        "note": "manual visual transcription; guide version unknown"
+      }
+    ],
+    "limitation": "Edited item guide, version unknown; not an image of NPC population/interior"
+  },
+  "exteriorCandidate": {
+    "index": 156,
+    "x": 5,
+    "y": 28,
+    "texture": "Sprites/20_0_0",
+    "visual": "brown tower",
+    "associationConfirmed": false,
+    "limitation": "Decoration top-left coordinates only; not a doorway, warp target or confirmed mage-house placement"
+  },
+  "webSources": [
+    {
+      "url": "https://www.ilbe.com/view/2272304332",
+      "published": "2013-10-30",
+      "kind": "player recollection",
+      "finding": "Mentions a witch in the mage house and obtaining a magician",
+      "limitation": "Not an original spawn record; does not enumerate all NPCs. Character recruitment claim not applied."
+    },
+    {
+      "url": "https://lastlangrisser.tistory.com/255",
+      "kind": "archived town reference collection",
+      "textAccessed": true,
+      "imagesVisuallyInspected": false,
+      "limitation": "Image references found; not used as NPC/coordinate evidence"
+    },
+    {
+      "url": "https://lastlangrisser.tistory.com/431",
+      "kind": "restored homepage announcement",
+      "limitation": "Restored destination inaccessible; no new original roster obtained"
+    }
+  ],
+  "excludedOtherGameEvidence": "Lapis/Neo DarkSaver Henry and87,105 are not evidence for original DarkSaver",
+  "userRecollection": "Previously mentioned one NPC; explicitly requested original verification instead of treating it as confirmed",
+  "conclusion": "Separate mage-house item reference is available; exact original NPC count, appearance, feet coordinate and association to2800 remain unconfirmed. No NPC placement authorized by this review.",
+  "implementationFollowup": {
+    "evidence": "user-authored",
+    "staffCount": 2,
+    "nativeMap": "2800",
+    "appearances": [
+      807,
+      810
+    ],
+    "pixelFrameOrigins": [
+      [
+        112,
+        120
+      ],
+      [
+        496,
+        120
+      ]
+    ],
+    "originalNpcCountStillUnknown": true,
+    "note": "User requested both staff open the same native shop UI. Six guide items use native table prices and existing half-price buyback. Exterior entrance remains unconnected; original NPC count/role not established.",
+    "shopUiConnected": true,
+    "shopItemIds": [
+      361,
+      362,
+      363,
+      324,
+      325,
+      326
+    ],
+    "interactionDistance": 3,
+    "exteriorRouteConnected": false
+  }
+}

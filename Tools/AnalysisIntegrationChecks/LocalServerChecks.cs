@@ -61,7 +61,7 @@ internal static class LocalServerChecks
     {
         string key=number.ToString("00");var definition=UnityEngine.JsonUtility.FromJson<Scenario01Definition>(File.ReadAllText("Assets/_Game/Resources/Scenarios/"+key+"/Content.json"));
         Scenario01Progress saved=null;var items=new NativeInventory();int revision=0,saves=0;bool fail=false,throwSave=false;
-        var server=new LocalScenarioServer(definition,()=>saved?.Clone(),()=>items.Clone(),()=>revision,()=>100,()=>false,
+        var server=new ScenarioServerBoundary(definition,()=>saved?.Clone(),()=>items.Clone(),()=>revision,()=>100,()=>false,
             (Scenario01Progress state,NativeInventory inventory,out string reason)=>
             {
                 if(throwSave)throw new IOException("private fixture /accounts/secret/native-save.json");

@@ -53,6 +53,42 @@ namespace DarkSaver.Tests
             finally{EditorSceneManager.ClosePreviewScene(scene);}
         }
         [Test]
+        public void CompletionModalKeepsMovementLockedWithoutAProgressRevisionChange()
+        {
+            var scene=EditorSceneManager.NewPreviewScene();float previousScale=Time.timeScale;
+            try
+            {
+                Time.timeScale=1;
+                var go=new GameObject("completion lock fixture");SceneManager.MoveGameObjectToScene(go,scene);
+                var session=go.AddComponent<DarkSaver.Combat.BattleTransitionController>();
+                var player=go.AddComponent<TopDownPlayerController>();
+                var director=go.AddComponent<Scenario01Controller>();var protocol=go.AddComponent<ServerManager>();
+                var flags=BindingFlags.Instance|BindingFlags.NonPublic;
+                void Set(string name,object value)=>typeof(Scenario01Controller).GetField(name,flags).SetValue(director,value);
+                var state=new Scenario01Progress{phase=Scenario01Progress.Complete};
+                Set("session",session);Set("player",player);Set("protocol",protocol);Set("progress",state);
+                Set("revision",session.Scenario01Revision);Set("initialized",true);Set("completionResultPending",true);
+                var receive=typeof(Scenario01Controller).GetMethod("ReceiveScenarioPacket",flags);
+                using(var binding=protocol.RegisterRequestHandler<ScenarioCommandRequest>(request=>
+                {
+                    var response=new ScenarioStateNotification("01",session.Scenario01Revision,true,null,state);
+                    receive.Invoke(director,new object[]{response});return response;
+                }))
+                {
+                    var update=typeof(Scenario01Controller).GetMethod("Update",flags);
+                    for(int frame=0;frame<3;frame++)
+                    {
+                        player.SetScenarioInputBlocked(false);update.Invoke(director,null);
+                        Assert.IsTrue(player.UiInputBlocked,"completion modal frame "+frame);
+                        Assert.IsTrue(director.CompletionResultPending);
+                    }
+                    Assert.IsTrue(director.AcknowledgeCompletionResult());
+                    Assert.IsFalse(player.UiInputBlocked);Assert.IsFalse(director.AcknowledgeCompletionResult());
+                }
+            }
+            finally{EditorSceneManager.ClosePreviewScene(scene);Time.timeScale=previousScale;}
+        }
+        [Test]
         public void ResultAggregateIsDetachedSavedAndNotAnAdditionalExperienceGrant()
         {
             var content=JsonUtility.FromJson<Scenario01Definition>(Resources.Load<TextAsset>("Scenarios/01/Content").text);

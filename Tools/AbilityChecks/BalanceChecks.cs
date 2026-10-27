@@ -8,7 +8,7 @@ using DarkSaver.Combat;
 
 internal static class BalanceChecks
 {
-    public static void Run(Dictionary<int,SinglePlayerAbilityRule> rules,string fixture,string output)
+    public static void Run(Dictionary<int,UnresolvedAbilityRule> rules,string fixture,string output)
     {
         using var document=JsonDocument.Parse(File.ReadAllText(fixture));var rows=new List<object>();var issues=new List<object>();int cases=0,executed=0,blocked=0,quickNoGain=0;
         foreach(var job in document.RootElement.EnumerateArray())
@@ -22,7 +22,7 @@ internal static class BalanceChecks
                     Attack=job.GetProperty("attack").GetInt32(),Defense=job.GetProperty("defense").GetInt32(),HasMagicStats=true,MagicAttack=job.GetProperty("magicAttack").GetInt32(),MagicDefense=job.GetProperty("magicDefense").GetInt32()};
                 var target=new CombatUnit {Id=rule.Support?(short)101:(short)800,Name="스켈톤",Enemy=!rule.Support,Hp=500,MaxHp=1000,Mp=50,MaxMp=100,Attack=60,Defense=50,HasMagicStats=true,MagicAttack=60,MagicDefense=40};
                 if(rule.Effect==AbilityEffect.Revive){target.Hp=0;target.LifeState=UnitLifeState.Removed;}
-                var world=new CombatWorld();world.Add(actor);world.Add(target);var authority=new LocalCombatAuthority(sample:()=>0);authority.TemporaryRulesEnabled=true;authority.ConfigureAbility(rule);
+                var world=new CombatWorld();world.Add(actor);world.Add(target);var authority=new CombatServerBoundary(sample:()=>0);authority.TemporaryRulesEnabled=true;authority.ConfigureAbility(rule);
                 if(rule.Effect==AbilityEffect.CurePoison)authority.ApplyTemporaryBuff(new CombatResult(100,target.Id,target.Hp,actor.Mp,0,false,statusEffect:TemporaryStatusEffect.Poison,statusPower:1,statusSeconds:20));
                 if(rule.Effect==AbilityEffect.Wake)authority.ApplyTemporaryBuff(new CombatResult(100,target.Id,target.Hp,actor.Mp,0,false,statusEffect:TemporaryStatusEffect.Sleep,statusPower:1,statusSeconds:20));
                 var flow=new CombatFlow(world,authority,true);flow.ConfigureMagicApCost(ability,rule.Ap);actor.ActionPoints.ApplyAbsolute(10);
@@ -36,7 +36,7 @@ internal static class BalanceChecks
                     afterQuick=authority.EffectiveActionCost(target,baseAttackAp);
                     if(afterQuick>=baseAttackAp && baseAttackAp>1){quickNoGain++;issues.Add(new {kind="QuickHasNoAttackApBenefit",job=id,ability,baseAttackAp,afterQuick,percent=rule.Power});}
                 }
-                int attackDamage=TemporaryCombatDamageRules.Calculate(actor.Attack,target.Defense,false);
+                int attackDamage=UnresolvedCombatDamage.Calculate(actor.Attack,target.Defense,false);
                 double baseline=baseAttackAp>0?(double)attackDamage/baseAttackAp:0;
                 double efficiency=result.Damage>0 && ok?((double)result.Damage/rule.Ap)/(baseline>0?baseline:1):0;
                 if(efficiency>=5)issues.Add(new {kind="HighDamagePerAp",job=id,ability,ratio=Math.Round(efficiency,2),nativeMp=rule.Mp});

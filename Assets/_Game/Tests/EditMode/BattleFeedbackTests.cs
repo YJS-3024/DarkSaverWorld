@@ -733,7 +733,16 @@ namespace DarkSaver.Tests
                     Assert.IsFalse(battle.TryGetTemporaryMagicMpCost(crossTrust, out _));
                 }
                 Assert.IsTrue(view.TryGetSpecialVisualMapping(magicCatalog, 13101, out _, out var recovered)); Assert.IsTrue(recovered);
-                var metadata=Resources.Load<NativeMagicPresentationCatalog>("Effects/NativeMagicPresentationCatalog");Assert.IsNotNull(metadata);Assert.AreEqual(magicCatalog.Count,metadata.Count);
+                var metadata=Resources.Load<NativeMagicPresentationCatalog>("Effects/NativeMagicPresentationCatalog");Assert.IsNotNull(metadata);
+                // 30901 is a menu/rule record with no recovered native visual metadata.
+                Assert.IsTrue(magicCatalog.TryGet(30901,out _));
+                Assert.IsFalse(metadata.TryGet(30901,out _));
+                Assert.AreEqual(magicCatalog.Count-1,metadata.Count);
+                for(int catalogIndex=0;catalogIndex<magicCatalog.Count;catalogIndex++)
+                {
+                    var rule=magicCatalog.GetAt(catalogIndex);
+                    if(rule.Id!=30901)Assert.IsTrue(metadata.TryGet(rule.Id,out _),rule.Id.ToString());
+                }
                 int visualRecords=0,noVisualRecords=0;
                 for(int i=0;i<metadata.Count;i++)
                 {

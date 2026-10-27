@@ -7,7 +7,7 @@ using UnityEngine;
 namespace DarkSaver.Core
 {
     // One password-hashed account record. NativeAccountDirectory manages multiple records.
-    // This is a native single-player contract, not an original online account database.
+    // Local account persistence for ServerManager; original online database schema is unconfirmed.
     public sealed class NativeAccountStore
     {
         private const int Iterations=100000;

@@ -29,7 +29,7 @@ namespace DarkSaver.Tests
         [TestCase(1)]
         [TestCase(87)]
         [TestCase(120)]
-        public void RemainingHpSurvivesReplacementAndMpRecoversOnlyInSession(int hp)
+        public void RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(int hp)
         {
             Check((session, first, second, hud) =>
             {
@@ -38,11 +38,11 @@ namespace DarkSaver.Tests
                 Assert.That(first.PlayerMp, Is.Zero);
                 Assert.That(session.CanEnterBattle, Is.True);
                 Assert.That((session.PlayerHp, session.PlayerMaxHp, session.PlayerMp, session.PlayerMaxMp),
-                    Is.EqualTo((hp, 120, 30, 30)));
+                    Is.EqualTo((hp, 120, 0, 30)));
                 Object.DestroyImmediate(first.gameObject);
                 Assert.That(session.RestorePlayerVitals(second), Is.True);
                 Assert.That(session.RestorePlayerVitals(second), Is.True);
-                Assert.That((second.PlayerHp, second.PlayerMp), Is.EqualTo((hp, 30)));
+                Assert.That((second.PlayerHp, second.PlayerMp), Is.EqualTo((hp, 0)));
             });
         }
 
@@ -57,7 +57,7 @@ namespace DarkSaver.Tests
                 Assert.That(session.CapturePlayerVitals(null), Is.False);
                 Assert.That(session.RestorePlayerVitals(first), Is.False);
                 Assert.That(session.RestorePlayerVitals(null), Is.False);
-                Assert.That((session.PlayerHp, session.PlayerMp), Is.EqualTo((45, 30)));
+                Assert.That((session.PlayerHp, session.PlayerMp), Is.EqualTo((45, 7)));
                 var fresh = second.gameObject.AddComponent<BattleTransitionController>();
                 Assert.That(fresh.HasPlayerVitals, Is.False);
                 Assert.That(fresh.CanEnterBattle, Is.True);
@@ -122,10 +122,10 @@ namespace DarkSaver.Tests
             Check((session, first, second, hud) =>
             {
                 first.TryRestorePlayerVitals(hp, 5); session.CapturePlayerVitals(first);
-                Assert.That(hud.SummaryText, Does.Contain($"HP {hp}/120  MP 30/30"));
+                Assert.That(hud.SummaryText, Does.Contain($"HP {hp}/120  MP 5/30"));
                 if (hp == 0) Assert.That(hud.SummaryText, Does.Contain("전투 불능: 신전 관리인에게 부활을 요청하세요."));
                 else Assert.That(hud.SummaryText, Does.Not.Contain("전투 불능"));
-                Assert.That((session.PlayerHp, session.PlayerMp, session.CanEnterBattle), Is.EqualTo((hp, 30, hp > 0)));
+                Assert.That((session.PlayerHp, session.PlayerMp, session.CanEnterBattle), Is.EqualTo((hp, 5, hp > 0)));
             });
         }
 
@@ -143,13 +143,8 @@ namespace DarkSaver.Tests
 
         private static void Defeat(BattleSceneRoot battle)
         {
-            var enemy = AssetDatabase.LoadAssetAtPath<BattleEnemyDefinition>("Assets/_Game/Runtime/Combat/Brugos01Kisra.asset");
-            Assert.That(battle.ConfigureEnemy(enemy), Is.True);
-            battle.ConfigureActionPointCosts(2, 6); // Fixture policy only, not original costs.
-            battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp); battle.PlayerAttack();
-            battle.AdvanceActionPoints(2f); battle.PlayerAttack();
-            Assert.That(battle.PlayerHp, Is.Zero);
-            Assert.That(battle.PlayerLifeState, Is.EqualTo(UnitLifeState.Corpse));
+            Assert.That(battle.ApplyHp(100,0), Is.True);
+            Assert.That(battle.ApplyDeath(100,true), Is.True);
         }
 
         private static void Check(Action<BattleTransitionController, BattleSceneRoot, BattleSceneRoot, WorldSessionHud> check)

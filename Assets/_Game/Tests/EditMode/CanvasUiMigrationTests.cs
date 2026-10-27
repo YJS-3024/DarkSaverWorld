@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using UnityEngine.TestTools;
 using System.Linq;
 using DarkSaver.UI;
 using NUnit.Framework;
@@ -37,21 +39,29 @@ namespace DarkSaver.Tests
             }
             finally{UnityEngine.Object.DestroyImmediate(root);}
         }
-        [Test]
-        public void InputFocusCyclesInFormOrderAndSkipsHiddenOrDisabledFields()
+        [UnityTearDown]
+        public IEnumerator LeaveRenderedFixture()
         {
+            if(Application.isPlaying)yield return new ExitPlayMode();
+        }
+        [UnityTest]
+        public IEnumerator InputFocusCyclesInFormOrderAndSkipsHiddenOrDisabledFields()
+        {
+            yield return new EnterPlayMode();
             var previous=EventSystem.current;
             var events=new GameObject("Input navigation EventSystem",typeof(EventSystem));
             var root=new GameObject("Input navigation fixture");
             try
             {
                 EventSystem.current=events.GetComponent<EventSystem>();
-                var owner=root.AddComponent<StartMenuController>();InGameUi ui=null;InGameUi.Ensure(ref ui,owner);
+                var owner=root.AddComponent<CanvasUiEvents>();InGameUi ui=null;InGameUi.Ensure(ref ui,owner);
                 ui.Begin();
                 ui.EntryInput("id",new Rect(0,0,100,20),"account",20,_=>{});
                 ui.EntryInput("password",new Rect(0,30,100,20),"secret",64,_=>{},password:true);
                 ui.TextInput("confirmation",new Rect(0,60,100,20),"secret",64,_=>{},password:true);
                 ui.End();
+                yield return null;
+                EventSystem.current=events.GetComponent<EventSystem>();
                 var id=ui.Find<InputField>("id");var password=ui.Find<InputField>("password");
                 var confirmation=ui.Find<InputField>("confirmation");
                 id.Select();Assert.IsTrue(ui.MoveInputFocus());
@@ -94,14 +104,16 @@ namespace DarkSaver.Tests
             }
             finally{UnityEngine.Object.DestroyImmediate(root);}
         }
-        [Test]
-        public void NativeButtonsAndModalBlockerUseActualGraphicRaycastOrder()
+        [UnityTest]
+        public IEnumerator NativeButtonsAndModalBlockerUseActualGraphicRaycastOrder()
         {
+            yield return new EnterPlayMode();
             var root=new GameObject("Canvas raycast fixture");var eventRoot=new GameObject("Fixture EventSystem",typeof(EventSystem));
             try
             {
-                var owner=root.AddComponent<StartMenuController>();InGameUi ui=null;InGameUi.Ensure(ref ui,owner);
+                var owner=root.AddComponent<CanvasUiEvents>();InGameUi ui=null;InGameUi.Ensure(ref ui,owner);
                 ui.Begin();ui.Button("behind",new Rect(10,10,80,30),"뒤",()=>{});ui.ModalBlocker("block");ui.Button("front",new Rect(10,10,80,30),"앞",()=>{});ui.End();
+                yield return null;
                 Canvas.ForceUpdateCanvases();
                 var target=ui.Find<Button>("front");var point=RectTransformUtility.WorldToScreenPoint(null,target.transform.TransformPoint(new Vector3(20,-10)));
                 var hits=new System.Collections.Generic.List<RaycastResult>();
@@ -109,6 +121,20 @@ namespace DarkSaver.Tests
                 Assert.That(hits.Count,Is.GreaterThan(0));Assert.That(hits[0].gameObject,Is.SameAs(target.gameObject));
                 Assert.That(ui.Find<RawImage>("block").raycastTarget,Is.True);
                 Assert.That(ui.Find<Text>("front-caption").raycastTarget,Is.False);
+                // Exercise retained redraws after a real Canvas render, not just Text.text.
+                for(int frame=0;frame<3;frame++)
+                {
+                    ui.Begin();ui.DungeonResult("result",default,"용병대장",()=>{},"처치32","1151","승리");ui.End();
+                    yield return null;Canvas.ForceUpdateCanvases();
+                    var background=ui.Find<RawImage>("result");
+                    foreach(var key in new[]{"result-text","result-enemies","result-experience","result-status"})
+                    {
+                        var text=ui.Find<Text>(key);
+                        Assert.Greater(text.canvasRenderer.absoluteDepth,background.canvasRenderer.absoluteDepth,key);
+                        Assert.IsFalse(text.canvasRenderer.cull,key);
+                        Assert.Greater(text.cachedTextGenerator.vertexCount,0,key);
+                    }
+                }
             }
             finally{UnityEngine.Object.DestroyImmediate(root);UnityEngine.Object.DestroyImmediate(eventRoot);}
         }

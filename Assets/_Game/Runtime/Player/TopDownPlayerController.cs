@@ -22,17 +22,7 @@ namespace DarkSaver.Player
             return protocol.TryRequest(new WorldMoveRequest(position.x,position.y),out _);
         }
         private LocalCommandResponse HandleMove(WorldMoveRequest request)
-        {
-            var target=new Vector2(request.X,request.Y);
-            if(!isActiveAndEnabled || UiInputBlocked || !body.simulated || float.IsNaN(request.X) || float.IsNaN(request.Y)
-                || float.IsInfinity(request.X) || float.IsInfinity(request.Y)
-                || Vector2.Distance(body.position,target)>GameConstants.PlayerMoveSpeed*Time.fixedDeltaTime+.001f)
-                return new WorldMoveNotification(reason:"이동할 수 없는 상태 또는 거리입니다.");
-            // Collision resolution remains the native Unity Rigidbody2D solver after approval.
-            // The packet does not bypass walls by assigning the Transform.
-            return new WorldMoveNotification(true,request.X,request.Y);
-        }
-        private void ReceiveMove(ServerPacket packet)
+{return new WorldMoveNotification(reason:DarkSaver.Core.OriginalRestorationPolicy.PendingServerRule);}        private void ReceiveMove(ServerPacket packet)
         {if(packet is WorldMoveNotification result && result.Accepted)body.MovePosition(new Vector2(result.X,result.Y));}
         private void OnDestroy()
         {movementBinding?.Dispose();if(protocol!=null)protocol.ResponseReceived-=ReceiveMove;}

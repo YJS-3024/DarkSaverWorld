@@ -51,39 +51,9 @@ namespace DarkSaver.Core
         // Deltas cannot refund allocations confirmed in an earlier transaction. HP/MP have no inputs.
         public bool TryBuildStatAllocation(int attack,int defense,int magicAttack,int magicDefense,
             out NativeCharacterProfile changed)
-        {
-            changed=null;
-            if(!IsValid || attack<0 || defense<0 || magicAttack<0 || magicDefense<0
-                || GameConstants.ClassStatAttackPointCost<=0 || GameConstants.ClassStatDefensePointCost<=0
-                || GameConstants.ClassStatMagicAttackPointCost<=0 || GameConstants.ClassStatMagicDefensePointCost<=0) return false;
-            decimal cost=(decimal)attack*GameConstants.ClassStatAttackPointCost+(decimal)defense*GameConstants.ClassStatDefensePointCost
-                +(decimal)magicAttack*GameConstants.ClassStatMagicAttackPointCost+(decimal)magicDefense*GameConstants.ClassStatMagicDefensePointCost;
-            if(cost==0 || cost>unspentClassChangeStatPoints
-                || (long)allocatedAttack+attack>int.MaxValue || (long)allocatedDefense+defense>int.MaxValue
-                || (long)allocatedMagicAttack+magicAttack>int.MaxValue || (long)allocatedMagicDefense+magicDefense>int.MaxValue) return false;
-            var candidate=Clone();
-            candidate.unspentClassChangeStatPoints-=(int)cost;
-            candidate.allocatedAttack+=attack; candidate.allocatedDefense+=defense;
-            candidate.allocatedMagicAttack+=magicAttack; candidate.allocatedMagicDefense+=magicDefense;
-            changed=candidate; return true;
-        }
-
+{changed=default;return false;}
         public static bool TryQueue(string name, int jobId, string path, out string message)
-        {
-            ClearPending();
-            var profile = new NativeCharacterProfile { name = name?.Trim(), jobId = jobId,
-                hasLevels = true, baseLevel = 1, jobLevel = 1, tutorial = new NativeTutorialProgress() };
-            message = $"이름은 1~{GameConstants.CharacterNameMaxLength}자여야 하며 파이터·나이트·매지션을 선택하세요.";
-            if (!IsStartingJob(jobId) || !profile.IsValid) return false;
-            string fullPath;
-            try { fullPath = Path.GetFullPath(path ?? NativeSaveStore.DefaultPath); }
-            catch (Exception) { message = "저장 경로가 올바르지 않습니다."; return false; }
-            NativeSaveStore.ClearResume();
-            pending = profile; pendingPath = fullPath;
-            message = string.Empty;
-            return true;
-        }
-
+{message=DarkSaver.Core.OriginalRestorationPolicy.PendingServerRule;return false;}
         public static bool TakePending(out NativeCharacterProfile profile, out string path)
         {
             profile = pending?.Clone(); path = pendingPath;

@@ -34,6 +34,7 @@ namespace DarkSaver.World
         private void LateUpdate()
         {
             if(FindAnyObjectByType<AudioListener>()==null)ownedListener=gameObject.AddComponent<AudioListener>();
+            if(DarkSaver.UI.FirstPlayTutorial.BlocksWorldActions){StopMusic();dirty=true;return;}
             if(!dirty)return;dirty=false;
             if(ownedListener!=null)
                 foreach(var listener in FindObjectsByType<AudioListener>(FindObjectsSortMode.None))
@@ -44,7 +45,7 @@ namespace DarkSaver.World
             var region=TownSceneContext.Current ?? FieldSceneContext.Current;
             if(region==null || !SceneManager.GetSceneByName(region.MapScene).isLoaded){StopMusic();return;}
             var binding=data?.FindRegion(region.NativeMap);
-            if(binding==null){StopMusic();return;}
+            if(binding==null || binding.authored && !OriginalRestorationPolicy.AllowSinglePlayerRules){StopMusic();return;}
             if(playing==binding.clip && music.isPlaying)return;
             var clip=Resources.Load<AudioClip>(binding.clip);
             if(clip==null){StopMusic();if(missing.Add(binding.clip))Debug.LogWarning("Missing world BGM: "+binding.clip);return;}

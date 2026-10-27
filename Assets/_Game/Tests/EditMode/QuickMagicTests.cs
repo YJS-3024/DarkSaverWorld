@@ -11,7 +11,7 @@ namespace DarkSaver.Tests
             actor = new CombatUnit { Id = 100, Hp = 80, MaxHp = 100, Mp = 100, MaxMp = 100, Attack = 20 };
             enemy = new CombatUnit { Id = 800, Enemy = true, Hp = 100, MaxHp = 100 };
             world.Add(actor); world.Add(enemy);
-            var flow = new CombatFlow(world, new LocalCombatAuthority(sample: () => 0), true);
+            var flow = new CombatFlow(world, new CombatServerBoundary(sample: () => 0), true);
             flow.TemporaryRulesEnabled = true;
             Assert.IsTrue(flow.ConfigureTemporaryQuickMagic(2201, 7, 5, 25, 20));
             Assert.IsTrue(flow.ConfigureMagicApCost(2201, 8));

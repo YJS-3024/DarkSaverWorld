@@ -19,7 +19,7 @@ namespace DarkSaver.Tests
             var world=new CombatWorld();
             var actor=new CombatUnit {Id=100,Hp=100,MaxHp=100,Mp=10,MaxMp=10,Attack=999,Defense=999,HasMagicStats=true,MagicAttack=20,MagicDefense=1};
             var target=new CombatUnit {Id=800,Enemy=true,Hp=100,MaxHp=100,Attack=999,Defense=999,HasMagicStats=true,MagicAttack=1,MagicDefense=8};
-            world.Add(actor);world.Add(target);var authority=new LocalCombatAuthority {TemporaryRulesEnabled=true};
+            world.Add(actor);world.Add(target);var authority=new CombatServerBoundary {TemporaryRulesEnabled=true};
             Assert.IsTrue(authority.ConfigureTemporaryDamageMagic(201,2,4,10,2));
             var request=new CombatRequest(100,800,CombatActionType.Magic,201);
             int first=authority.Resolve(world,request).Damage;
@@ -57,7 +57,7 @@ namespace DarkSaver.Tests
                 battle.ConfigurePhysicalAccuracy(100,100,0); battle.ConfigurePhysicalAccuracy(800,100,0);
                 battle.AdvanceActionPoints(14);
                 Assert.That(battle.TryGetUnit(800,out var enemyBefore),Is.True);
-                int expected=TemporaryCombatDamageRules.Calculate(commander.Attack,enemyBefore.Defense,false);
+                int expected=UnresolvedCombatDamage.Calculate(commander.Attack,enemyBefore.Defense,false);
                 Assert.That(battle.GetComponent<BattleRequestSender>().TrySendAttack(new AttackRequest(800,100,0,0),out _),Is.True);
                 Assert.That(battle.TryGetUnit(800,out var enemyAfter),Is.True);
                 Assert.That(enemyAfter.Hp,Is.EqualTo(System.Math.Max(0,enemyBefore.Hp-expected)));
@@ -100,7 +100,7 @@ namespace DarkSaver.Tests
                     Assert.That((unit.MaxHp, unit.MaxMp, unit.Attack, unit.Defense),
                         Is.EqualTo(((int)job.GetNumericValue(2), (int)job.GetNumericValue(4),
                             (int)job.GetNumericValue(6), (int)job.GetNumericValue(8))));
-                    Assert.That(TemporaryJobCombatRules.TryGetAttackApCost(job, out var cost), Is.True);
+                    Assert.That(UnresolvedJobActionCosts.TryGetAttackApCost(job, out var cost), Is.True);
                     battle.SetTemporaryLocalRules(true);
                     Assert.That(battle.PlayerAttackApCost, Is.EqualTo(cost));
                     battle.SetTemporaryLocalRules(false);
@@ -148,7 +148,7 @@ namespace DarkSaver.Tests
         {
             var values = new long[JobCatalogEntry.NumericColumnCount]; values[0] = 107; values[25] = tick;
             var job = new JobCatalogEntry(values, "", "fixture", "", "player_job");
-            Assert.That(TemporaryJobCombatRules.TryGetAttackApCost(job, out _), Is.False);
+            Assert.That(UnresolvedJobActionCosts.TryGetAttackApCost(job, out _), Is.False);
         }
 
         [Test]

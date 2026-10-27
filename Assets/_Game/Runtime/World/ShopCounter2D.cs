@@ -6,9 +6,17 @@ namespace DarkSaver.World
     // Existing shop UI entry, attached to authored indoor staff.
     public sealed class ShopCounter2D : MonoBehaviour
     {
+        private void OnEnable()
+        {
+            if(Application.isPlaying && !DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules
+                && !DarkSaver.Core.OriginalRestorationPolicy.AllowsStaffEvidence(GetComponent<OriginalTownStaff>()?.Source?.evidence))
+                gameObject.SetActive(false);
+        }
+        public float InteractionDistance { get; private set; }=GameConstants.TownNpcInteractionDistance;
+        internal void ConfigureWideCounter()=>InteractionDistance=3f;
         public bool TryOpen(TopDownPlayerController player)
         {
-            if(!isActiveAndEnabled || (ShopInteriorContext.Current==null && !DarkSaver.Combat.BattleTransitionController.IsTempleReady) || player==null || !player.isActiveAndEnabled || player.UiInputBlocked || Vector2.Distance(player.transform.position,transform.position)>GameConstants.TownNpcInteractionDistance
+            if(!isActiveAndEnabled || (ShopInteriorContext.Current==null && !DarkSaver.Combat.BattleTransitionController.IsTempleReady) || player==null || !player.isActiveAndEnabled || player.UiInputBlocked || Vector2.Distance(player.transform.position,transform.position)>InteractionDistance
                 || FindAnyObjectByType<WorldSceneCoordinator>()?.IsTravelling==true)return false;
             return FindAnyObjectByType<TownServicesPanel>()?.Open(DarkSaver.Combat.BattleTransitionController.IsTempleReady ? TownService.Temple : TownService.Shop,player) ?? false;
         }

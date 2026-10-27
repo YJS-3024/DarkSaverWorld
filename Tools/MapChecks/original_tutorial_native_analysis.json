@@ -1,0 +1,132 @@
+{
+  "scope": "Static DLL comparison; not original executable playback",
+  "earlyGameCtlSha256": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+  "lateGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "fKeyDispatcher": {
+    "early": "0x10002F20",
+    "late": "0x10002FB0"
+  },
+  "windowBindings": {
+    "F1": {
+      "scene": 7,
+      "position": [
+        10,
+        10
+      ]
+    },
+    "F2": {
+      "scene": 1,
+      "position": [
+        5,
+        180
+      ]
+    },
+    "F3": {
+      "scene": 3,
+      "position": [
+        450,
+        302
+      ]
+    },
+    "F4": {
+      "scene": 5,
+      "position": [
+        228,
+        186
+      ]
+    },
+    "F5": {
+      "scenes": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "position": [
+        5,
+        231
+      ]
+    },
+    "F6": {
+      "scene": 0,
+      "position": [
+        515,
+        5
+      ]
+    },
+    "F7": {
+      "handler": "default branch in GameCtl; upper Saver handling unresolved"
+    },
+    "F8": {
+      "scene": 6,
+      "position": [
+        512,
+        136
+      ]
+    },
+    "F9": {
+      "scene": 28,
+      "position": [
+        228,
+        186
+      ]
+    },
+    "F12": {
+      "scene": 4,
+      "position": "not set by this handler"
+    }
+  },
+  "charAbility": {
+    "lateGameCtl": "0x10013389",
+    "lateUserUnit": "0x1000E9D0",
+    "copies": {
+      "hp": "abilityrecord+8",
+      "maxHp": "abilityrecord+12",
+      "mp": "abilityrecord+16",
+      "maxMp": "abilityrecord+20"
+    },
+    "practiceMagic": 101,
+    "practiceSkill": 10101
+  },
+  "hpSet": {
+    "lateGameCtl": "0x10013568",
+    "dispatch": "userunit::SetHpDisplay, PGSHPSET signed short actor/value, absolute HP"
+  },
+  "unregisteredLiteralCommands": [
+    "SETHP",
+    "SETMP"
+  ],
+  "do2": {
+    "earlyGameCtl": "0x10013ADA / 0x10011002",
+    "waits": "actor +0x100 bit 0 until clear"
+  },
+  "dialogueFrame": {
+    "earlyGameCtl": "0x10008D50",
+    "atlas": "gameres/etc2/board.bmp",
+    "tileSize": 20,
+    "sourceTopLeft": [
+      0,
+      300
+    ],
+    "sourceCenter": [
+      20,
+      320
+    ],
+    "outputSize": [
+      562,
+      104
+    ],
+    "portraitBackdrop": [
+      90,
+      300,
+      158,
+      368
+    ]
+  },
+  "remaining": "Exact movement/AP pacing, full native window contents, death and cast animation sequencing and preceding waiting-room lesson require further comparison.",
+  "fKeyComparison": "Addresses and relative call operands differ; F-key window IDs and explicit positions match.",
+  "killCommands": {
+    "KILLCHAR1": "immediate removal",
+    "KILLCHAR2": "0x80 corpse state, not immediate removal"
+  }
+}

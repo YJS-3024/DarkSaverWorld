@@ -7,12 +7,14 @@ namespace DarkSaver.World
 {
     public sealed class ScenarioGuideNpc:MonoBehaviour
     {
+        private void OnEnable()
+        {if(Application.isPlaying && !OriginalRestorationPolicy.AllowSinglePlayerRules)gameObject.SetActive(false);}
         public string Key { get; private set; }
         public string FieldKey { get; private set; }
         public string TargetSpawn { get; private set; }
         public void Configure(WorldRoute route)
         {Key=ScenarioCatalog.TryGet(route.toKey,out var scenario)?scenario.Key:null;FieldKey=route.fromKey;TargetSpawn=route.targetSpawnId;}
-        public bool CanInteract(TopDownPlayerController player)=>isActiveAndEnabled && player!=null && player.isActiveAndEnabled
+        public bool CanInteract(TopDownPlayerController player)=>OriginalRestorationPolicy.AllowSinglePlayerRules && isActiveAndEnabled && player!=null && player.isActiveAndEnabled
             && Key!=null && FieldCatalog.TryGet(FieldKey,out var field) && gameObject.scene.name==field.RuntimeScene
             && SceneManager.GetSceneByName(field.MapScene).isLoaded
             && Vector2.Distance(player.transform.position,transform.position)<=GameConstants.TownNpcInteractionDistance;

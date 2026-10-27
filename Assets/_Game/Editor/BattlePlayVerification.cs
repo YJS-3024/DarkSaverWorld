@@ -314,7 +314,7 @@ namespace DarkSaver.EditorTools
                 }
                 if (stage == 4)
                 {
-                    if (SceneManager.GetSceneByName("Battle").isLoaded) return;
+                    if (SceneManager.GetSceneByName("Battle").isLoaded || UnityEngine.Object.FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling==true) return;
                     var player = UnityEngine.Object.FindAnyObjectByType<TopDownPlayerController>();
                     if (player == null || !player.isActiveAndEnabled) return;
                     if (SessionState.GetInt(Key + "trainingMap",101) != 0)
@@ -359,6 +359,17 @@ namespace DarkSaver.EditorTools
                     SessionState.SetInt(Key + "stage", 6); return;
                 }
                 if (presentation == null || !presentation.IsBound) { Finish("FAIL: scene entered but map combat is unbound"); return; }
+                if(battle.IsPersistentTraining && (battle.DefeatAchieved || battle.EnemyLifeState!=UnitLifeState.Active))
+                {
+                    if(battle.IsBattleFinished || battle.ShowsEncounterOutcome)
+                    {Finish("FAIL: continuous training incorrectly displayed an encounter outcome");return;}
+                    if(SessionState.GetBool(Key+"combatMagic",false))
+                    {Finish("FAIL: training actor fell before the learned spell check completed");return;}
+                    Note("PASS: training remains open after a death/kill; now explicitly request menu retreat (API fixture, not physical click)");
+                    if(!presentation.TryOpenSystemMenu() || !presentation.TryRetreatImmediately())
+                    {Finish("FAIL: training menu retreat rejected");return;}
+                    SessionState.SetBool(Key+"verifyRetreat",true);SessionState.SetInt(Key+"stage",4);return;
+                }
                 if (SessionState.GetBool(Key + "previewRoster", false))
                 {
                     NativeRosterVisualFixture.Tick(battle, presentation, output); return;
@@ -473,7 +484,7 @@ namespace DarkSaver.EditorTools
                 combatMagicId = 0;
                 for (int i = 0; i < uiMagicCatalog.Count; i++) {
                     var spell = uiMagicCatalog.GetAt(i);
-                    if (spell.Range > 0 && spell.Unit != 8 && TemporaryMagicCatalogRules.TryClassify(spell, out var effect, out _)
+                    if (spell.Range > 0 && spell.Unit != 8 && UnresolvedMagicExecution.TryClassify(spell, out var effect, out _)
                         && effect == TemporaryMagicEffect.Damage) { combatMagicId = (short)spell.Id; break; }
                 }
                 if (combatMagicId == 0) throw new InvalidOperationException("No supported point spell in converted catalog.");

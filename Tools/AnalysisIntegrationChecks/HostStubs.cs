@@ -46,9 +46,11 @@ namespace DarkSaver.Core
     // profile/roster validation is covered by Unity tests with the real classes.
     [Serializable] public class NativeCharacterProfile
     {
-        public string name; public int jobId; public NativeTutorialProgress tutorial;
+        public string name; public int jobId; public NativeTutorialProgress tutorial; public bool hasClassAbilities;
         public bool IsValid => !string.IsNullOrWhiteSpace(name) && jobId > 0 && (tutorial == null || tutorial.IsValid);
         public bool IsEquipmentOwned(NativeInventory inventory) => true;
+        public static bool IsStartingJob(int id)=>id==100 || id==101 || id==103;
+        public static bool IsValidName(string name)=>!string.IsNullOrWhiteSpace(name) && name==name.Trim() && name.Length<=20 && !name.Any(c=>char.IsControl(c)||char.IsSurrogate(c));
         public static void ClearPending() { }
         public NativeCharacterProfile Clone()=>new NativeCharacterProfile {name=name,jobId=jobId,tutorial=tutorial?.Clone()};
         public static bool TryQueue(string name,int jobId,string path,out string reason){throw new NotSupportedException("Offline host does not implement character creation; use Unity tests.");}

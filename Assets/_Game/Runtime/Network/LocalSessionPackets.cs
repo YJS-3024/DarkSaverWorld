@@ -15,11 +15,6 @@ namespace DarkSaver.Network
     public sealed class LocalBattleCheckpointRequest : ClientPacket { }
     public sealed class TownQuestRequest : ClientPacket
     {public int QuestId {get;} public bool Claim {get;} public TownQuestRequest(int id,bool claim){QuestId=id;Claim=claim;}}
-    public sealed class TutorialProgressRequest : ClientPacket
-    {
-        public int Step {get;} public bool Moved {get;} public bool Skip {get;} public bool Checkpoint {get;}
-        public TutorialProgressRequest(int step,bool moved,bool skip,bool checkpoint){Step=step;Moved=moved;Skip=skip;Checkpoint=checkpoint;}
-    }
     public sealed class LocalEquipmentChangeRequest : ClientPacket
     {
         public int Slot {get;} public int Item {get;} private readonly NativeCharacterProfile baseline;

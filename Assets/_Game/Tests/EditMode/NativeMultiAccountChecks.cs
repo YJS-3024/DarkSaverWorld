@@ -17,7 +17,7 @@ namespace DarkSaver.Tests
                 var slots=Enumerable.Range(0,10).Select(i=>Path.Combine(directory,"slot-"+i+".json")).ToArray();
                 var oldSave=Save("Alpha",11,101);var store=new NativeSaveStore(slots[0]);
                 check(store.TrySave(oldSave,out _),"legacy character fixture saved");var oldBytes=File.ReadAllBytes(slots[0]);
-                var server=new LocalCharacterServer(history,slots);
+                var server=new CharacterServerBoundary(history,slots);
                 check(!server.List(new CharacterListRequest()).Accepted,"character listing requires authentication");
                 check(server.Register(new AccountRegisterRequest("alpha_01","alpha-password","alpha-password")).Accepted,"first account registers");
                 var oldAccountBytes=File.ReadAllBytes(legacyAccount);
@@ -47,15 +47,15 @@ namespace DarkSaver.Tests
                 check(!server.Login(new LoginRequest("alpha_01","beta-password")).Accepted,"another account password cannot authenticate original account");
                 check(!server.List(new CharacterListRequest()).Accepted && !server.Select(new CharacterSelectRequest(betaSlots[0])).Accepted,"failed login revokes prior account access");
                 check(!server.Login(new LoginRequest()).Accepted,"registered accounts cannot fall back to anonymous access");
-                beta=(LoginResponse)new LocalCharacterServer(history,slots).Login(new LoginRequest("beta_02","beta-password"));
+                beta=(LoginResponse)new CharacterServerBoundary(history,slots).Login(new LoginRequest("beta_02","beta-password"));
                 check(beta.Accepted && !beta.RequiresCharacterSelection && beta.ResumePath==betaSlots[0],"second account history survives restart");
                 alpha=(LoginResponse)server.Login(new LoginRequest("alpha_01","alpha-password"));
                 check(alpha.Accepted && alpha.RequiresCharacterSelection && alpha.ResumePath==null,"second account selection cannot become original account history");
                 check(server.Select(new CharacterSelectRequest(slots[0])).Accepted,"original account retains selection");NativeSaveStore.ClearResume();
-                var alphaAgain=(LoginResponse)new LocalCharacterServer(history,slots).Login(new LoginRequest("alpha_01","alpha-password"));
+                var alphaAgain=(LoginResponse)new CharacterServerBoundary(history,slots).Login(new LoginRequest("alpha_01","alpha-password"));
                 check(alphaAgain.Accepted && alphaAgain.ResumePath==slots[0],"original account history survives restart");
                 var registry=new NativeAccountDirectory(legacyAccount);
-                var gamma=(LoginResponse)new LocalCharacterServer(history,slots).Login(new LoginRequest("gamma_03","gamma-password"));
+                var gamma=(LoginResponse)new CharacterServerBoundary(history,slots).Login(new LoginRequest("gamma_03","gamma-password"));
                 check(gamma.Accepted && gamma.RequiresCharacterSelection && gamma.CaptureSlotPaths().Length==10 && !gamma.CaptureSlotPaths().Intersect(betaSlots).Any(),"third account has independent history and slots");
                 var betaAccount=Path.Combine(registry.AccountFolder("beta_02"),"native-account.json");string credential=File.ReadAllText(betaAccount);
                 check(!credential.Contains("beta-password"),"new account stores no plaintext password");
@@ -80,6 +80,6 @@ namespace DarkSaver.Tests
         }
         private static NativeSaveData Save(string name,float x,long gold)=>new NativeSaveData
         {format=NativeSaveStore.Format,version=NativeSaveStore.Version,mapScene="Kaosia_Map",runtimeScene="Town_Runtime",worldX=x,worldY=21,clearedScenarios=Array.Empty<string>(),hasCharacter=true,
-            character=new NativeCharacterProfile {name=name,jobId=100,tutorial=new NativeTutorialProgress {step=NativeTutorialProgress.Complete}},hasInventory=true,inventory=new NativeInventory {gold=gold}};
+            character=new NativeCharacterProfile {name=name,jobId=100,tutorial=new NativeTutorialProgress {step=NativeTutorialProgress.Complete,finished=true}},hasInventory=true,inventory=new NativeInventory {gold=gold}};
     }
 }

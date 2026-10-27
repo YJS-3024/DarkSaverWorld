@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 namespace DarkSaver.Tests
 {
+    [NUnit.Framework.Category("LegacySinglePlayer")]
+    [NUnit.Framework.Ignore("싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요")]
     public sealed class ScenarioCompletionTests
     {
         [TestCase(false, "01", false)]
@@ -89,7 +91,7 @@ namespace DarkSaver.Tests
                 serialized.FindProperty("baseHp").intValue = 1;
                 serialized.ApplyModifiedPropertiesWithoutUndo();
                 var session = CreateInScene("Completion session", preview).AddComponent<BattleTransitionController>();
-                var battle = CreateInScene("Completion battle", preview).AddComponent<BattleSceneRoot>();
+                var battle = CreateInScene("Completion battle", preview).AddComponent<BattleSceneRoot>();battle.SetTemporaryLocalRules(true);
                 Assert.That(battle.ConfigureEnemy(enemy), Is.True);
                 check(session, battle, objective);
                 Assert.That(source.CreateUnit().Hp, Is.EqualTo(450));

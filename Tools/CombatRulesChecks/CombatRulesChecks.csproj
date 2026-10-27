@@ -3,24 +3,24 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DefineConstants>$(DefineConstants);DARKSAVER_LEGACY_CHECKS</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../Assets/_Game/Runtime/Core/OriginalRestorationPolicy.cs" Link="OriginalRestorationPolicy.cs" />
+
     <Compile Include="../../Assets/_Game/Runtime/Events/EventScriptParser.cs" Link="EventScriptParser.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Events/ScenarioDialogueLayout.cs" Link="ScenarioDialogueLayout.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Combat/CombatModel.cs" Link="CombatModel.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Combat/CombatGroupSnapshot.cs" Link="CombatGroupSnapshot.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Combat/CombatActionPoints.cs" Link="CombatActionPoints.cs" />
     <Compile Include="../../Assets/_Game/Runtime/GameConstants.cs" Link="GameConstants.cs" />
-    <Compile Include="../../Assets/_Game/Runtime/GameConstants.TemporaryCombat.cs" Link="GameConstants.TemporaryCombat.cs" />
-    <Compile Include="../../Assets/_Game/Runtime/Combat/TemporaryCombatDamageRules.cs" Link="TemporaryCombatDamageRules.cs" />
-    <Compile Include="../../Assets/_Game/Runtime/Combat/TemporaryCombatHitRules.cs" Link="TemporaryCombatHitRules.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/UnresolvedServerConstants.cs" Link="UnresolvedServerConstants.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/UnresolvedCombatDamage.cs" Link="UnresolvedCombatDamage.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/UnresolvedCombatAccuracy.cs" Link="UnresolvedCombatAccuracy.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Combat/BattleVictoryRules.cs" Link="BattleVictoryRules.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Combat/CombatFlow.cs" Link="CombatFlow.cs" />
-    <Compile Include="../../Assets/_Game/Runtime/Combat/LocalCombatAuthority.cs" Link="LocalCombatAuthority.cs" />
-    <Compile Include="../../Assets/_Game/Runtime/Combat/LocalCombatAuthority.Status.cs" Link="LocalCombatAuthority.Status.cs" />
-    <Compile Include="../../Assets/_Game/Runtime/Combat/LocalCombatAuthority.ActionCosts.cs" Link="LocalCombatAuthority.ActionCosts.cs" />
-    <Compile Include="../../Assets/_Game/Runtime/Combat/LocalCombatAuthority.Abilities.cs" Link="LocalCombatAuthority.Abilities.cs" />
-    <Compile Include="../../Assets/_Game/Runtime/Combat/SinglePlayerAbilityRules.cs" Link="SinglePlayerAbilityRules.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/CombatServerBoundary.cs" Link="CombatServerBoundary.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Combat/UnresolvedAbilityRules.cs" Link="UnresolvedAbilityRules.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Magic/MagicCatalog.cs" Link="MagicCatalog.cs" />
   </ItemGroup>
 </Project>

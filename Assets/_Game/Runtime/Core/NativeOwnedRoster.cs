@@ -98,10 +98,10 @@ namespace DarkSaver.Core
         public bool TryApplyObservedReturn(BattleFormationReturnSnapshot returned, out NativeOwnedRoster updated, out string reason)
             => TryApplyReturn(returned, false, out updated, out reason);
 
-        // User-confirmed battle-end policy: all deployed allies recover maximum MP.
+        // Compatibility entry: retain observed MP; no local battle-end recovery.
         // HP/life state remain observed; recovering MP never revives a dead unit.
         public bool TryApplyBattleReturn(BattleFormationReturnSnapshot returned, out NativeOwnedRoster updated, out string reason)
-            => TryApplyReturn(returned, true, out updated, out reason);
+            => TryApplyReturn(returned, false, out updated, out reason);
 
         private bool TryApplyReturn(BattleFormationReturnSnapshot returned, bool recoverMp,
             out NativeOwnedRoster updated, out string reason)
@@ -117,7 +117,7 @@ namespace DarkSaver.Core
                     unit.instanceId, unit.hireOwnerId, observed.Id, result.OwnedInstanceId, result.CommanderId, result.CommanderPersistentId) ||
                     unit.jobId != observed.JobId || unit.maxHp != observed.MaxHp || unit.maxMp != observed.MaxMp)
                 { reason = "복귀 식별자·직업·최대 능력치가 보유 상태와 다릅니다."; return false; }
-                unit.hp = observed.Hp; unit.mp = recoverMp ? unit.maxMp : observed.Mp; unit.experience = observed.Experience;
+                unit.hp = observed.Hp; unit.mp = observed.Mp; unit.experience = observed.Experience;
                 unit.lifeState = (int)observed.LifeState;
             }
             if (!copy.IsValid) { reason = "복귀 상태를 보유 목록에 반영할 수 없습니다."; return false; }

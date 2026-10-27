@@ -44,11 +44,11 @@ namespace DarkSaver.Tests
             for(int i=0;i<4;i++) {
                 Assert.That(catalog.TryGet(11201+i,out var entry),Is.True);
                 Assert.That(entry.GetNumericValue(9),Is.EqualTo(ea[i]));
-                Assert.That(SinglePlayerAbilityRules.TryCreate(entry,out var rule),Is.True);
+                Assert.That(UnresolvedAbilityRules.TryCreate(entry,out var rule),Is.True);
                 Assert.That(rule.Effect,Is.EqualTo(AbilityEffect.Regeneration));
             }
             Assert.That(catalog.TryGet(30901,out var unknown),Is.True);
-            Assert.That(SinglePlayerAbilityRules.TryCreate(unknown,out _),Is.False);
+            Assert.That(UnresolvedAbilityRules.TryCreate(unknown,out _),Is.False);
         }
 
         [Test]

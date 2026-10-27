@@ -3,8 +3,20 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DefineConstants>$(DefineConstants);DARKSAVER_LEGACY_CHECKS</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialAbilities.cs" Link="OriginalTutorialAbilities.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialScript.cs" Link="OriginalTutorialScript.cs" />
+    <Compile Include="../../Assets/_Game/Tests/EditMode/LocalOnboardingChecks.cs" Link="LocalOnboardingChecks.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/CharacterServerBoundary.Onboarding.cs" Link="CharacterServerBoundary.Onboarding.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/TutorialServerBoundary.cs" Link="TutorialServerBoundary.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/LocalTutorialPackets.cs" Link="LocalTutorialPackets.cs" />
+    <Compile Include="../../Assets/_Game/Tests/EditMode/LocalServerSelectionChecks.cs" Link="LocalServerSelectionChecks.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/LocalServerSelectionPackets.cs" Link="LocalServerSelectionPackets.cs" />
+    <Compile Include="../../Assets/_Game/Tests/EditMode/LocalAuthenticationChecks.cs" Link="LocalAuthenticationChecks.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Core/OriginalRestorationPolicy.cs" Link="OriginalRestorationPolicy.cs" />
+
     <Compile Include="../../Assets/_Game/Runtime/Events/EventScriptParser.cs" Link="EventScriptParser.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Events/ScenarioDialogueLayout.cs" Link="ScenarioDialogueLayout.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Events/Scenario01Model.cs" Link="Scenario01Model.cs" />
@@ -29,19 +41,19 @@
     <Compile Include="../../Assets/_Game/Runtime/Core/CampaignEntranceData.cs" Link="CampaignEntranceData.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Network/LocalPackets.cs" Link="LocalPackets.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Network/LocalServerDispatcher.cs" Link="LocalServerDispatcher.cs" />
-    <Compile Include="../../Assets/_Game/Runtime/Network/LocalScenarioServer.cs" Link="LocalScenarioServer.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/ScenarioServerBoundary.cs" Link="ScenarioServerBoundary.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Network/ScenarioRoomPackets.cs" Link="ScenarioRoomPackets.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Network/OriginalLocalPacketCodec.cs" Link="OriginalLocalPacketCodec.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Core/NativeLoginHistory.cs" Link="NativeLoginHistory.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Core/NativeAccountStore.cs" Link="NativeAccountStore.cs" />
     <Compile Include="../../Assets/_Game/Tests/EditMode/NativeMultiAccountChecks.cs" Link="NativeMultiAccountChecks.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Core/NativeAccountDirectory.cs" Link="NativeAccountDirectory.cs" />
-    <Compile Include="../../Assets/_Game/Runtime/Network/LocalCharacterServer.cs" Link="LocalCharacterServer.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/CharacterServerBoundary.cs" Link="CharacterServerBoundary.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Network/LocalAccountPackets.cs" Link="LocalAccountPackets.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Network/LocalPacketPlaceholders.cs" Link="LocalPacketPlaceholders.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Core/ShopInteriorCatalog.cs" Link="ShopInteriorCatalog.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Core/NativeInteriorCatalog.cs" Link="NativeInteriorCatalog.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Core/KaosiaFacilityCatalog.cs" Link="KaosiaFacilityCatalog.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Core/WorldAudioData.cs" Link="WorldAudioData.cs" />
-  </ItemGroup>
+</ItemGroup>
 </Project>

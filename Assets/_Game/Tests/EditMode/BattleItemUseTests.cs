@@ -14,8 +14,12 @@ using UnityEngine.SceneManagement;
 
 namespace DarkSaver.Tests
 {
+    [NUnit.Framework.Category("LegacySinglePlayer")]
+    [NUnit.Framework.Ignore("싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요")]
     public sealed class BattleItemUseTests
     {
+        // Archived single-player behavior is tested only inside an explicit fixture.
+
         [TestCase(300,15,0,false)] [TestCase(301,15,0,false)] [TestCase(302,20,0,false)]
         [TestCase(303,300,0,false)] [TestCase(304,999,0,true)] [TestCase(305,0,40,false)]
         [TestCase(316,15,0,false)] [TestCase(317,15,0,false)] [TestCase(318,20,0,false)]
@@ -26,7 +30,7 @@ namespace DarkSaver.Tests
             var items=AssetDatabase.LoadAssetAtPath<ItemCatalog>("Assets/_Game/Runtime/Items/ItemCatalog.asset");
             var magic=AssetDatabase.LoadAssetAtPath<MagicCatalog>("Assets/_Game/Runtime/Magic/MagicCatalog.asset");
             Assert.IsTrue(items.TryGet(id,out var item));
-            Assert.IsTrue(SinglePlayerItemRecoveryRules.TryGet(item,magic,out int actualHp,out int actualMp,out int range,out bool actualConfirmed));
+            Assert.IsTrue(UnresolvedItemRecoveryServerRules.TryGet(item,magic,out int actualHp,out int actualMp,out int range,out bool actualConfirmed));
             Assert.AreEqual(hp,actualHp);Assert.AreEqual(mp,actualMp);Assert.AreEqual(6,range);Assert.AreEqual(confirmed,actualConfirmed);
         }
         [TestCase(307)] [TestCase(311)] [TestCase(313)] [TestCase(315)]
@@ -34,7 +38,7 @@ namespace DarkSaver.Tests
         {
             var items=AssetDatabase.LoadAssetAtPath<ItemCatalog>("Assets/_Game/Runtime/Items/ItemCatalog.asset");
             var magic=AssetDatabase.LoadAssetAtPath<MagicCatalog>("Assets/_Game/Runtime/Magic/MagicCatalog.asset");
-            Assert.IsTrue(items.TryGet(id,out var item));Assert.IsFalse(SinglePlayerItemRecoveryRules.TryGet(item,magic,out _,out _,out _,out _));
+            Assert.IsTrue(items.TryGet(id,out var item));Assert.IsFalse(UnresolvedItemRecoveryServerRules.TryGet(item,magic,out _,out _,out _,out _));
         }
         [Test]
         public void ConsumptionCopiesWithoutGoldChangesAndRejectsInvalidRequests()
@@ -79,7 +83,7 @@ namespace DarkSaver.Tests
         {
             var world=new CombatWorld();var unit=new CombatUnit {Id=100,Hp=1,MaxHp=int.MaxValue,Mp=0,MaxMp=int.MaxValue};
             var ally=new CombatUnit {Id=200,Hp=1,MaxHp=100,Mp=0,MaxMp=0,X=8};world.Add(unit);world.Add(ally);
-            var flow=new CombatFlow(world,new LocalCombatAuthority(),true);flow.TemporaryRulesEnabled=true;flow.AdvanceActionPoints(20);
+            var flow=new CombatFlow(world,new CombatServerBoundary(),true);flow.TemporaryRulesEnabled=true;flow.AdvanceActionPoints(20);
             Assert.IsFalse(flow.TryApplyItemRecovery(100,200,50,0,6,6));Assert.AreEqual(1,ally.Hp);
             Assert.IsFalse(flow.TryApplyItemRecovery(100,100,-1,0,6,6));
             Assert.IsTrue(flow.TryApplyItemRecovery(100,100,int.MaxValue,int.MaxValue,6,6));
@@ -126,7 +130,7 @@ namespace DarkSaver.Tests
             var items=AssetDatabase.LoadAssetAtPath<ItemCatalog>("Assets/_Game/Runtime/Items/ItemCatalog.asset");
             var magic=AssetDatabase.LoadAssetAtPath<MagicCatalog>("Assets/_Game/Runtime/Magic/MagicCatalog.asset");
             Assert.IsTrue(items.TryGet(id,out var item));
-            Assert.IsTrue(SinglePlayerItemMagicRules.TryGet(item,magic,out var entry));Assert.AreEqual(linked,entry.Id);
+            Assert.IsTrue(OriginalItemMagicLink.TryGet(item,magic,out var entry));Assert.AreEqual(linked,entry.Id);
         }
 
         [Test]

@@ -71,6 +71,7 @@ namespace DarkSaver.Events
         public string Error => error;
         public static void EnsureForLoadedScene()
         {
+            if(!OriginalRestorationPolicy.AllowSinglePlayerRules)return;
             foreach (var scenario in ScenarioCatalog.All)
             {
                 var scene = SceneManager.GetSceneByName(scenario.RuntimeScene);
@@ -182,6 +183,7 @@ namespace DarkSaver.Events
 
         private void Start()
         {
+            if(!OriginalRestorationPolicy.AllowSinglePlayerRules){enabled=false;return;}
             current = this;
             foreach (var metadata in ScenarioCatalog.All) if (metadata.RuntimeScene == gameObject.scene.name) scenarioKey = metadata.Key;
             session = FindFirstObjectByType<BattleTransitionController>();
@@ -207,7 +209,7 @@ namespace DarkSaver.Events
             revision=ProgressRevision;
             protocol=session.GetComponent<ServerManager>();
             if(protocol==null)protocol=session.gameObject.AddComponent<ServerManager>();
-            var local=new LocalScenarioServer(Content,CaptureProgress,session.CaptureInventory,()=>ProgressRevision,
+            var local=new ScenarioServerBoundary(Content,CaptureProgress,session.CaptureInventory,()=>ProgressRevision,
                 ()=>session.PlayerJobId,()=>session.IsScenarioCleared(scenarioKey),
                 (Scenario01Progress candidate,NativeInventory items,out string reason)=>scenarioKey=="01"
                     ? session.TryCommitScenario01(ProgressRevision,candidate,items,out reason)
@@ -247,10 +249,11 @@ namespace DarkSaver.Events
             {
                 progress = CaptureProgress(); revision = ProgressRevision;
                 if (progress == null || !progress.Matches(Content)) { Fail("시나리오 복원 상태를 확인할 수 없습니다."); return; }
-            if(completionResultPending)
-            {player.SetScenarioInputBlocked(true);TickActors(Time.unscaledDeltaTime);return;}
                 Reconcile();
             }
+            // Keep the completion modal locked on every frame, including unchanged revisions.
+            if(completionResultPending)
+            {player.SetScenarioInputBlocked(true);TickActors(Time.unscaledDeltaTime);return;}
             // A rejected asynchronous battle load must not leave this encounter locked.
             if (progress.pendingBattle != -1)
             {

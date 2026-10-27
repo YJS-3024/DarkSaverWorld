@@ -96,7 +96,7 @@ namespace DarkSaver.UI
             {
                 if(Input.GetKeyDown(KeyCode.I))OpenPersonalWindow(TownService.Inventory);
                 else if(Input.GetKeyDown(KeyCode.C))OpenPersonalWindow(TownService.CharacterInfo);
-                if(Input.GetKeyDown(KeyCode.F5) && FindAnyObjectByType<WorldSceneCoordinator>()?.IsTravelling!=true)session.SaveWorld();
+                if(DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules && Input.GetKeyDown(KeyCode.F5) && FindAnyObjectByType<WorldSceneCoordinator>()?.IsTravelling!=true)session.SaveWorld();
             }
             // Character combat status belongs to BattleSceneRoot only. World scenes keep
             // personal-window shortcuts and notices without drawing a combat panel.

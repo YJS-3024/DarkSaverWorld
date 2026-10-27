@@ -45,6 +45,8 @@ namespace DarkSaver.UI
         }
         public void EntryArtwork(string key,Rect rect,Texture2D texture,bool background=false)
         {PortraitTexture(key,rect,texture);if(background)elements[key].SetAsFirstSibling();else Raise(key);}
+        public void TransparentButton(string key,Rect rect,Action action)
+        {EntryButton(key,rect,null,"",action);Graphic(elements[key],null,Color.clear,true);}
         public void EntryButton(string key,Rect rect,Texture2D texture,string tooltip,Action action,bool enabled=true)
         {Button(key,rect,"",action,enabled,tooltip:tooltip);Graphic(elements[key],texture,Color.white,true);Find<UnityEngine.UI.Button>(key).transition=Selectable.Transition.None;Find<Outline>(key).enabled=false;Raise(key);}
         public void EntryInput(string key,Rect rect,string value,int maximum,Action<string> changed,bool password=false,Action submit=null)

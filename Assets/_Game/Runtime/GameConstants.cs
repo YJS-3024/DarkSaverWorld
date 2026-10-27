@@ -8,9 +8,9 @@ namespace DarkSaver
         public const float PlayerMoveSpeed = 6f;
         public const int CharacterNameMaxLength = 20;
         // User-confirmed single-player starting funds; never applied during save restoration.
-        public const long NewCharacterStartingGold = 30000;
+        public const long NewCharacterStartingGold = 0; // Unused compatibility constant; original initial funds are unknown.
         // User-confirmed reward per completed class change; not an inferred original server constant.
-        public const int ClassChangeAdditionalStatPoints = 20;
+        public const int ClassChangeAdditionalStatPoints = 0; // No local point grant.
         public const int ClassStatAttackPointCost = 2;
         public const int ClassStatDefensePointCost = 1;
         public const int ClassStatMagicAttackPointCost = 2;
@@ -26,19 +26,19 @@ namespace DarkSaver
         public const int ReferenceScreenHeight = 480;
         public const float CameraFollowSmoothing = 10f;
         // User-defined single-player AP rules, not recovered server formulas.
-        public const int BattleStartingAp = 6;
-        public const int BattleAllyMaximumAp = 10;
-        public const int BattleEnemyMaximumAp = 20;
+        public const int BattleStartingAp = 0; // Uninitialized; wait for native tick state.
+        public const int BattleAllyMaximumAp = 0; // Unknown; not an original faction cap.
+        public const int BattleEnemyMaximumAp = 0; // Unknown; not an original faction cap.
         // Compatibility for standalone allied AP; runtime units use their faction.
         public const int BattleMaximumAp = BattleAllyMaximumAp;
         public static int GetBattleMaximumAp(bool enemy) => enemy ? BattleEnemyMaximumAp : BattleAllyMaximumAp;
         public static int BattleHighestMaximumAp => System.Math.Max(BattleAllyMaximumAp, BattleEnemyMaximumAp);
-        public const float BattleApRecoverySeconds = 1f;
-        public const int BattleApRecoveryAmount = 1;
+        public const float BattleApRecoverySeconds = 0; // No local recovery timer.
+        public const int BattleApRecoveryAmount = 0; // Wait for original tick notifications.
         // User-approved combat rule; checked for query, reservation and confirmation.
         public const bool BattlePreventDiagonalCornerCutting = true;
-        public const int BattleAllyMoveApCost = 4;
-        public const int BattleEnemyMoveApCost = 6;
+        public const int BattleAllyMoveApCost = 0;
+        public const int BattleEnemyMoveApCost = 0;
         // Provisional combat tuning lives in GameConstants.TemporaryCombat.cs.
         // Native presentation tuning, not recovered original color/sorting values.
         public static readonly UnityEngine.Color BattleMagicPreviewColor = new(.15f, .5f, 1f, .28f);

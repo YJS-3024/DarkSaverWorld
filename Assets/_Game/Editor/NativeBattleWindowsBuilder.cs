@@ -21,7 +21,7 @@ namespace DarkSaver.Editor
             var buttons = File.ReadAllBytes(Source + "unpacked/legacy_libraries/Glib_GameLib_ltn.bmp");
             var list = new List<NativeBattleWindows.Window>();
             int[] ids = { 0, 3, 4, 5, 6, 7, 8, 17, 28 };
-            string[] titles = { "마법 빈 창", "동맹", "미식별 목록창", "승리 조건", "지형 정보", "도움말", "결과 보고", "경험치 결과 보고", "패배 확인" };
+            string[] titles = { "맵 정보", "동맹", "정보창 보기", "승리 조건", "지형 정보", "도움말", "결과 보고", "경험치 결과 보고", "도망 확인" };
             var convertedButtons = new Dictionary<int, Texture2D[]>();
             for (int i = 0; i < ids.Length; i++)
             {

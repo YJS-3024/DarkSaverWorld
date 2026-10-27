@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DarkSaver.Items;
 
 namespace DarkSaver.Core
 {
@@ -13,13 +14,14 @@ namespace DarkSaver.Core
         public readonly float DoorX,DoorY,ReturnX,ReturnY;
         public readonly TownDefinition Region,TownContext;
         public const int Width=20,Height=15;
-        public ShopInteriorDefinition(string key,string title,bool weapons,int sourceIndex,float doorX,float doorY,float returnX,float returnY,string spawn,int additionalPosition=0,string native=null)
+        public ShopInteriorDefinition(string key,string title,bool weapons,int sourceIndex,float doorX,float doorY,float returnX,float returnY,string spawn,int additionalPosition=0,string native=null,int height=Height)
         {
             Key=key;Title=title;Weapons=weapons;AdditionalPosition=additionalPosition;SourceBuildingIndex=sourceIndex;DoorX=doorX;DoorY=doorY;ReturnX=returnX;ReturnY=returnY;ReturnSpawn=spawn;
-            Region=new TownDefinition(key,title,key+"_Map",key+"_Runtime",native ?? (weapons?"2000":"2100"),Width,Height,false);
-            TownContext=new TownDefinition("Kaosia",title,Region.MapScene,Region.RuntimeScene,Region.NativeMap,Width,Height,false);
+            Region=new TownDefinition(key,title,key+"_Map",key+"_Runtime",native ?? (weapons?"2000":"2100"),Width,height,false);
+            TownContext=new TownDefinition("Kaosia",title,Region.MapScene,Region.RuntimeScene,Region.NativeMap,Width,height,false);
         }
-        public bool OffersPosition(long position)=>AdditionalPosition!=0 ? position==AdditionalPosition : Weapons ? position==1 || position==2 : position==3 || position==4 || position==5 || position==8;
+        public bool TryCreateOffer(ItemCatalogEntry item,out NativeShopOffer offer)
+{offer=default;return false;}        public bool OffersPosition(long position)=>AdditionalPosition!=0 ? position==AdditionalPosition : Weapons ? position==1 || position==2 : position==3 || position==4 || position==5 || position==8;
     }
     public static class ShopInteriorCatalog
     {
@@ -28,9 +30,13 @@ namespace DarkSaver.Core
             new ShopInteriorDefinition("KaosiaArmorShop","카오시아 방어구점",false,141,34.5f,13.5f,34.5f,10.5f,"FromArmorShop")
         });
         private static readonly ShopInteriorDefinition Accessory=new ShopInteriorDefinition("KaosiaAccessoryShop","카오시아 장신구점",false,166,28.5f,6.5f,28.5f,3.5f,"FromKaosiaAccessoryShop",6,"2200");
-        private static readonly ShopInteriorDefinition MagicTools=new ShopInteriorDefinition("KaosiaMagicTools","카오시아 마법도구·소모품점",false,75,28.5f,33.5f,28.5f,30.5f,"FromKaosiaMagicTools",7,"2300");
+        // Keep the historical key for existing scenes/saves;2300 is the consumables shop.
+        private static readonly ShopInteriorDefinition Consumables=new ShopInteriorDefinition("KaosiaMagicTools","카오시아 소모품점",false,75,28.5f,33.5f,28.5f,30.5f,"FromKaosiaMagicTools",7,"2300");
+        public const string MageHouseKey="Interior2800";
+        // Candidate interior explicitly used by request; no fabricated exterior doorway.
+        private static readonly ShopInteriorDefinition MageHouse=new ShopInteriorDefinition(MageHouseKey,"마법사의 집",false,-1,0,0,0,0,null,10,"2800",20);
         public static IEnumerable<ShopInteriorDefinition> ShopsWithFacilities
-        {get{foreach(var row in All)yield return row;yield return Accessory;yield return MagicTools;}}
+        {get{foreach(var row in All)yield return row;yield return Accessory;yield return Consumables;yield return MageHouse;}}
         public const float EntryX=10.5f,EntryY=3.5f,ExitX=10.5f,ExitY=.5f;
         public static IEnumerable<WorldRoute> RoutesFrom(string key)
         {

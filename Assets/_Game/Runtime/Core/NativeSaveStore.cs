@@ -159,7 +159,9 @@ namespace DarkSaver.Core
             catch (Exception) { return false; }
         }
 
-        public bool TrySave(NativeSaveData data, out string message)
+        public bool TrySave(NativeSaveData data, out string message)=>TryWrite(data,false,out message);
+        public bool TryCreateNew(NativeSaveData data,out string message)=>TryWrite(data,true,out message);
+        private bool TryWrite(NativeSaveData data,bool createOnly,out string message)
         {
             CanRetryLastWrite=false; LastWriteDiagnostic=string.Empty;
             message = "저장할 상태가 올바르지 않습니다.";
@@ -167,6 +169,8 @@ namespace DarkSaver.Core
             string temporary = null, operation="기존 저장 확인";
             try
             {
+                if(createOnly && NativeCharacterSlots.IsOccupied(FilePath))
+                {message="이미 사용 중인 캐릭터 슬롯입니다.";return false;}
                 // Preserve an unreadable/unknown-version slot rather than overwriting it.
                 var primaryValid = TryRead(FilePath, out var previous, out var future);
                 var recovered = false;
@@ -204,7 +208,12 @@ namespace DarkSaver.Core
                 }
                 // Never replace a good backup with the corrupt primary during recovery.
                 operation="원자 교체";
-                if (File.Exists(FilePath)) File.Replace(temporary, FilePath, recovered ? null : FilePath + ".bak");
+                if(createOnly)
+                {
+                    if(File.Exists(FilePath+".bak")){message="기존 백업이 있는 캐릭터 슬롯입니다.";return false;}
+                    File.Move(temporary,FilePath); // Atomic create; never replace a racing character.
+                }
+                else if (File.Exists(FilePath)) File.Replace(temporary, FilePath, recovered ? null : FilePath + ".bak");
                 else File.Move(temporary, FilePath);
                 message = "저장했습니다."; return true;
             }
@@ -220,6 +229,14 @@ namespace DarkSaver.Core
                 if (temporary != null && File.Exists(temporary))
                     try { File.Delete(temporary); } catch (Exception) { }
             }
+        }
+
+        public static NativeSaveData CopyForTransfer(NativeSaveData source)
+        {
+            if(!IsValid(source))return null;
+            string payload=SerializePayload(source);
+            var copy=JsonUtility.FromJson<NativeSaveData>(payload);
+            RestoreTutorialPresence(copy,payload);return copy;
         }
 
         public static bool QueueResume(NativeSaveData data, string filePath)

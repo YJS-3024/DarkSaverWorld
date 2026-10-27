@@ -12,7 +12,7 @@ namespace DarkSaver.Tests
             var ally = new CombatUnit { Id = 1, Hp = 90, MaxHp = 120, Mp = 30, MaxMp = 30, Attack = 100 };
             world.Add(ally);
             world.Add(new CombatUnit { Id = 2, Enemy = true, Hp = 7, MaxHp = 75 });
-            var flow = new CombatFlow(world, new LocalCombatAuthority(), useActionPoints: false);
+            var flow = new CombatFlow(world, new CombatServerBoundary(), useActionPoints: false);
             flow.TemporaryRulesEnabled = true;
             var changes = new List<(short Id, int Delta, bool Mp)>();
             flow.VitalsDisplayChanged += (id, delta, mp) => changes.Add((id, delta, mp));
@@ -34,7 +34,7 @@ namespace DarkSaver.Tests
                 ((short)1, 24, false), ((short)2, -7, false) }));
             world.Add(new CombatUnit { Id = 3, Enemy = true, Hp = 100, MaxHp = 100 });
             Assert.That(flow.TryExecute(new CombatRequest(1, 3, CombatActionType.Magic,
-                LocalCombatAuthority.PrototypeMagicId), out _, out _), Is.True);
+                CombatServerBoundary.PrototypeMagicId), out _, out _), Is.True);
             Assert.That(changes[5], Is.EqualTo(((short)3, -100, false)));
             Assert.That(changes[6], Is.EqualTo(((short)1, -10, true)));
             Assert.That(ally.Mp, Is.EqualTo(10));

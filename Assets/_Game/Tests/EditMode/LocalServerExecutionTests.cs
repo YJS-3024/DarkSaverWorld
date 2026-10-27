@@ -11,8 +11,12 @@ using UnityEngine.SceneManagement;
 
 namespace DarkSaver.Tests
 {
+    [NUnit.Framework.Category("LegacySinglePlayer")]
+    [NUnit.Framework.Ignore("싱글판 구현 삭제: 원작 서버 기반 검사로 교체 필요")]
     public sealed class LocalServerExecutionTests
     {
+        // Archived single-player behavior is tested only inside an explicit fixture.
+
         [Test]
         public void RegistrationPreservesExistingSaveAndRequiresAuthenticationBeforeResume()
         {
@@ -23,7 +27,7 @@ namespace DarkSaver.Tests
                 var store=new NativeSaveStore(paths[0]);
                 Assert.That(store.TrySave(new NativeSaveData {format=NativeSaveStore.Format,version=NativeSaveStore.Version,mapScene="Kaosia_Map",runtimeScene="Town_Runtime",
                     worldX=21,worldY=21,hasCharacter=true,character=new NativeCharacterProfile {name="기존인물",jobId=100},clearedScenarios=Array.Empty<string>()},out _),Is.True);
-                string before=File.ReadAllText(paths[0]);var server=new LocalCharacterServer(Path.Combine(directory,"login.json"),paths);
+                string before=File.ReadAllText(paths[0]);var server=new CharacterServerBoundary(Path.Combine(directory,"login.json"),paths);
                 Assert.That(server.Register(new AccountRegisterRequest("hero_01","sample-password!","sample-password!")).Accepted,Is.True);
                 Assert.That(File.ReadAllText(paths[0]),Is.EqualTo(before));
                 Assert.That(server.Login(new LoginRequest()).Accepted,Is.False);
@@ -69,7 +73,7 @@ namespace DarkSaver.Tests
             System.IO.Directory.CreateDirectory(directory);
             try
             {
-                var server=new LocalCharacterServer(System.IO.Path.Combine(directory,"login.json"),new[]{System.IO.Path.Combine(directory,"a.json"),System.IO.Path.Combine(directory,"b.json"),System.IO.Path.Combine(directory,"c.json")});
+                var server=new CharacterServerBoundary(System.IO.Path.Combine(directory,"login.json"),new[]{System.IO.Path.Combine(directory,"a.json"),System.IO.Path.Combine(directory,"b.json"),System.IO.Path.Combine(directory,"c.json")});
                 Assert.That(server.List(new CharacterListRequest()).Accepted,Is.False);
                 Assert.That(server.Login(new LoginRequest()).Accepted,Is.True);
                 string occupied=System.IO.Path.Combine(directory,"a.json");System.IO.File.WriteAllText(occupied,"invalid retained save");

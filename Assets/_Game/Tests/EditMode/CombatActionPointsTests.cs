@@ -55,7 +55,7 @@ namespace DarkSaver.Tests
         [Test]
         public void InsufficientApDoesNotNotifyOrChangeHpMpAndCosts()
         {
-            var world = World(); var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var world = World(); var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             flow.ConfigureActionPointCosts(2, 6); var events = 0;
             flow.ActionStarted += _ => events++; flow.ResultApplied += _ => events++;
             var request = new CombatRequest(1, 2, CombatActionType.Magic, 101);
@@ -72,7 +72,7 @@ namespace DarkSaver.Tests
         [Test]
         public void InvalidRequestsDoNotSpendFullAp()
         {
-            var world = World(); var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var world = World(); var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             flow.ConfigureActionPointCosts(2, 6); flow.AdvanceActionPoints(14f); world.Get(1).Mp = 0;
             var events = 0; flow.ActionStarted += _ => events++;
             Assert.That(flow.TryExecute(new CombatRequest(1, 2, CombatActionType.Magic, 101), out _, out _), Is.False);
@@ -84,7 +84,7 @@ namespace DarkSaver.Tests
         [Test]
         public void RecoveryIsSameForBothSidesButDoesNotRecoverDeadUnitsOrMp()
         {
-            var world = World(); var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var world = World(); var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             flow.AdvanceActionPoints(1.5f);
             Assert.That(world.Get(1).ActionPoints.Current, Is.EqualTo(7));
             Assert.That(world.Get(2).ActionPoints.Current, Is.EqualTo(7));
@@ -98,7 +98,7 @@ namespace DarkSaver.Tests
         [Test]
         public void UnconfiguredCostsFailClosedWithoutUsingDemonstrationValues()
         {
-            var world = World(); var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var world = World(); var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             flow.AdvanceActionPoints(14f);
             Assert.That(flow.TryExecute(new CombatRequest(1, 2, CombatActionType.Attack), out _, out var reason), Is.False);
             Assert.That(reason, Does.Contain("설정"));
@@ -108,7 +108,7 @@ namespace DarkSaver.Tests
         [Test]
         public void AttackCostsAreActorSpecificAndMagicCostsAreIdSpecific()
         {
-            var world = World(); var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var world = World(); var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             Assert.That(flow.ConfigureAttackApCost(1, 3), Is.True); Assert.That(flow.ConfigureAttackApCost(2, 7), Is.True);
             Assert.That(flow.ConfigureMagicApCost(101, 5), Is.True); Assert.That(flow.ConfigureMagicApCost(102, 8), Is.True);
             Assert.That(flow.GetAttackApCost(1), Is.EqualTo(3)); Assert.That(flow.GetAttackApCost(2), Is.EqualTo(7));
@@ -144,7 +144,7 @@ namespace DarkSaver.Tests
             Assert.That(ally.CanStart(4), Is.True); Assert.That(enemy.CanStart(6), Is.False);
             enemy.Advance(10); Assert.That(enemy.Current, Is.EqualTo(20));
             Assert.That(enemy.CanStart(6), Is.True);
-            var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             Assert.That(flow.ConfigureAttackApCost(1, 11), Is.False);
             Assert.That(flow.ConfigureAttackApCost(1, 2), Is.True);
             Assert.That(flow.ConfigureAttackApCost(2, 11), Is.True);
@@ -172,7 +172,7 @@ namespace DarkSaver.Tests
             Assert.That(ap.TrySpend(20), Is.True);
             Assert.That(ap.Current, Is.Zero);
             world.Add(new CombatUnit { Id = 1, Hp = 100, MaxHp = 100 });
-            var flow = new CombatFlow(world, new LocalCombatAuthority(), true);
+            var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             Assert.That(flow.ConfigureMagicApCost(201, 25), Is.False);
             Assert.That(flow.GetMagicApCost(201), Is.Zero);
         }

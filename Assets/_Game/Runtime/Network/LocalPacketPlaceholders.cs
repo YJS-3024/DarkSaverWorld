@@ -23,11 +23,13 @@ namespace DarkSaver.Network
     {
         private readonly bool[] occupied;private readonly DarkSaver.Core.NativeCharacterProfile[] profiles;
         public int SlotCount=>profiles?.Length ?? 0;
+        public string AccountId {get;}
+        public int ServerId {get;}
         public bool IsOccupied(int slot)=>occupied!=null && slot>=0 && slot<occupied.Length && occupied[slot];
         public DarkSaver.Core.NativeCharacterProfile CaptureProfile(int slot)=>profiles!=null && slot>=0 && slot<profiles.Length?profiles[slot]?.Clone():null;
         public CharacterListResponse():base(false){}
-        public CharacterListResponse(bool[] occupied,DarkSaver.Core.NativeCharacterProfile[] profiles):base(true)
-        {this.occupied=(bool[])occupied.Clone();this.profiles=System.Array.ConvertAll(profiles,p=>p?.Clone());}
+        public CharacterListResponse(bool[] occupied,DarkSaver.Core.NativeCharacterProfile[] profiles,string accountId=null,int serverId=0):base(true)
+        {AccountId=accountId;ServerId=serverId;this.occupied=(bool[])occupied.Clone();this.profiles=System.Array.ConvertAll(profiles,p=>p?.Clone());}
     }
     public sealed class CharacterCreateRequest : ClientPacket
     {

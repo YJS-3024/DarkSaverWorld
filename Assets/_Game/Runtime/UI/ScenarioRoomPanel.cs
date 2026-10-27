@@ -30,6 +30,7 @@ namespace DarkSaver.UI
             if(server!=null)return;
             session=GetComponent<BattleTransitionController>();
             server=GetComponent<ServerManager>() ?? gameObject.AddComponent<ServerManager>();
+            if(!OriginalRestorationPolicy.AllowSinglePlayerRules)return;
             listBinding=server.RegisterRequestHandler<ScenarioRoomListRequest>(r=>State(r.Key,r.Generation));
             enterBinding=server.RegisterRequestHandler<ScenarioRoomEnterRequest>(r=>
             {
@@ -98,7 +99,7 @@ namespace DarkSaver.UI
                 listing.HasOngoingRoom?"저장된 진행 중인 방이 있습니다.":listing.HasCompletedRecord?"완료된 기록입니다.":"진행 중인 방이 없습니다.",Color.white,2);
             ui.PortraitTexture("room-guide",new Rect(origin.x+28,origin.y+48,48,48),Resources.Load<Texture2D>("UI/ScenarioRooms/Guide"));
             ui.NativeBitmapText("room-entry",new Rect(origin.x+24,origin.y+147,98,94),
-                (!listing.CanEnter?"입장 불가\n":listing.HasOngoingRoom?"진행 중\n":listing.HasCompletedRecord?"완료 기록\n":"새 방\n")+(session.PlayerName ?? "")+"\n1/1",Color.white,5);
+                (!listing.CanEnter?"입장 불가\n":listing.HasOngoingRoom?"진행 중\n":listing.HasCompletedRecord?"완료 기록\n":"새 방\n")+(session.PlayerName ?? ""),Color.white,5);
             if(!string.IsNullOrEmpty(message))ui.NativeBitmapText("room-message",new Rect(origin.x+28,origin.y+245,425,22),message,Color.white,2);
             foreach(var c in layout.controls)
                 ui.NativeImageButton("room-control-"+c.id,origin+new Vector2(c.x,c.y),Button(c),
