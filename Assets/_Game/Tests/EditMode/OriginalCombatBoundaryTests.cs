@@ -20,6 +20,10 @@ namespace DarkSaver.Tests
                 SceneManager.MoveGameObjectToScene(go,scene);
                 var battle=go.AddComponent<BattleSceneRoot>();
                 battle.BindOriginalProtocol();
+                // Preview scenes do not run Awake. Initialize reserved records through
+                // the public read API before supplying the explicit server-state fixture.
+                Assert.IsTrue(battle.TryGetUnit(100,out var reserved));
+                Assert.AreEqual(0,reserved.MaxHp);
                 // Explicit server-state fixture, never production initial stats.
                 var state=(CombatWorld)typeof(BattleSceneRoot).GetField("world",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(battle);
                 var actor=state.Get(100);actor.Hp=actor.MaxHp=120;actor.Mp=actor.MaxMp=30;

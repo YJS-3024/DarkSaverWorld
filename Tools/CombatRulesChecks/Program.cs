@@ -1,6 +1,17 @@
 using DarkSaver.Combat;
 var checks=0;
 void Check(bool condition,string name){if(!condition)throw new Exception(name);checks++;}
+// Explicit supplied AP state must not depend on removed single-player faction caps.
+var costWorld=new CombatWorld();var costActor=new CombatUnit {Id=100,Hp=20,MaxHp=20};var costEnemy=new CombatUnit {Id=800,Hp=30,MaxHp=30,Enemy=true};
+costWorld.Add(costActor);costWorld.Add(costEnemy);var costFlow=new CombatFlow(costWorld,new CombatServerBoundary(),true);
+Check(!costFlow.ConfigureAttackApCost(100,2),"unknown maximum does not permit an explicit cost");
+costActor.ActionPoints.ConfigureMaximum(10);costEnemy.ActionPoints.ConfigureMaximum(20);
+Check(costFlow.ConfigureActionPointCosts(2,6) && costFlow.GetAttackApCost(100)==2,"explicit native costs accepted without invented faction cap");
+Check(!costFlow.ConfigureAttackApCost(100,11) && costFlow.GetAttackApCost(100)==2,"cost above received unit maximum preserves previous cost");
+Check(!costFlow.ConfigureActionPointCosts(0,6) && !costFlow.ConfigureActionPointCosts(2,short.MaxValue+1) && costFlow.GetAttackApCost(100)==2,"invalid cost payload rejected atomically");
+Check(!costFlow.CanStartAction(new CombatRequest(100,800,CombatActionType.Attack),out _),"explicit costs do not grant starting AP");
+costActor.ActionPoints.ApplyAbsolute(10);
+Check(costFlow.CanStartAction(new CombatRequest(100,800,CombatActionType.Attack),out _) && costActor.Hp==20 && costEnemy.Hp==30,"received AP allows request validation without local damage");
 // Native removal/experience updates are independent authoritative observations.
 var nativeWorld=new CombatWorld();
 var nativeActor=new CombatUnit {Id=100,Hp=17,MaxHp=120,Mp=3,MaxMp=30,Experience=11};
@@ -27,4 +38,5 @@ var boundary=new CombatServerBoundary();boundary.TemporaryRulesEnabled=true;
 Check(!boundary.TemporaryRulesEnabled,"removed simulator cannot be re-enabled");
 try {boundary.Resolve(nativeWorld,new CombatRequest(100,800,CombatActionType.Attack));throw new Exception("invented combat result");}
 catch(NotSupportedException){checks++;}
+DarkSaver.Tests.OriginalTutorialRangeChecks.Run(Check);
 Console.WriteLine($"PASS {checks} original client state checks; no Unity execution.");

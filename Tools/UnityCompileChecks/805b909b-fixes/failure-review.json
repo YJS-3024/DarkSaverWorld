@@ -1,0 +1,1945 @@
+{
+  "baseline": "805b909b",
+  "scope": "기존 276실패의 수정 대응/명확한 예외 분류. 미분류 항목을 통과/레거시로 단정하지 않음.",
+  "counts": {
+    "미분류·개별 확인 필요": 223,
+    "현행 계약 검사로 교체·Unity 재검증 대기": 13,
+    "수정·Unity 재검증 대기": 4,
+    "미수정·서버 초기 상태 fixture 필요": 31,
+    "미수정·삭제한 로컬 판정 의존": 5
+  },
+  "cases": [
+    {
+      "test": "DarkSaver.Tests.BattleAlliedRosterTests.AllCommanderDefeatStopsNewActionsButStillAcceptsAbsoluteResults",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAlliedRosterTests.CommanderRemovalKeepsOtherGroupSoldierAndApRecovery",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAlliedRosterTests.PrimaryDeathDoesNotFinishBattleWhileAnotherCommanderLives",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAttackPresentationTests.AcceptedLocalAttackPublishesAnticipationBeforeApplyingDamage",
+      "baselineMessage": "  Expected: 1\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAttackPresentationTests.InvalidOrRemovedReferencesDoNotReplacePresentationOrResurrect",
+      "baselineMessage": "  Expected: 0\n  But was:  450\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleAttackPresentationTests.ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats",
+      "baselineMessage": "  Expected: (120, 30, 450, 0)\n  But was:  (0, 0, 450, 0)\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleEffectPacketTests.EffectCallbackFailureIsNotAcknowledgedOrRetried",
+      "baselineMessage": "  Expected: 75\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleEffectPacketTests.MagicPreservesUninterpretedFieldsAndOwnedTargetOrderIncludingDuplicates",
+      "baselineMessage": "  Expected: (120, 30, 75)\n  But was:  (0, 0, 0)\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(uint.MinValue)",
+      "baselineMessage": "  Expected: 120\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(3477000000)",
+      "baselineMessage": "  Expected: 120\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(uint.MaxValue)",
+      "baselineMessage": "  Expected: 120\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFeedbackTests.ActualAttackShowsDamageAndMissWithoutTreatingHpSyncAsAnAttack",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "제거된 임시 시뮬레이터와 로컬 MISS/피해 계산에 의존.",
+      "action": "명시적 서버 초기 상태와 공격 효과/절대 HP·MP·마법 효과 수신으로 교체. 기존 마법 연출 리소스 검사 유지"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationDeploymentTests.AllGroupsRegisterTogetherAndInputsCannotRewriteRegisteredUnits",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationDeploymentTests.BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationPanelTests.DraftAssignmentCancelAndCommanderRemovalNeverMutateOwnership",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationPlacementTests.ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen",
+      "baselineMessage": "  Expected: 10\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationReturnTests.MissingDuplicateForeignAndEnemyResultsNeverProducePartialReturn",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationReturnTests.ReorderedResultsMapByDeploymentIdentityAndRetainRawValues",
+      "baselineMessage": "  Expected: -4\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationSnapshotTests.MissingOwnershipFinalStateOrNativeContextNeverProducesPartialSnapshot",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationTests.FormationCannotDesynchronizeAnAlreadyConfiguredGrid",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleFormationTests.FourSoldierLimitCountsExistingMembersWithoutForcingConsecutiveIds",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.HandlerFailureDoesNotRetryOrRefundAndDisabledSenderDoesNotStart",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.MissingHandlerAndInvalidMagicDoNotSpendOrPublish",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.MpIsOnlyChangedBySeparateAbsoluteResponse",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.MultiTargetMagicRetainsRawPacketAndChargesConfiguredApOnly",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.NativeReferenceSentinelsChargeActualCasterAndRetainOriginalReference",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.PositionRequestsAllowEmptyTargetsAndBlockReentryWithoutInventingResponse",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacks",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCost",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryPartyHealingAndBuffsShareOneCastCost",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuBlocksMapPointerAndSuspensionResetsCommands",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuRestRecoversHpAndClosesWithoutStartingMovement",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuSeparatesMoveAttackAndUnresolvedBuffsWithoutSpending",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.AdditionalSoldierClickSendsItsInstanceInsteadOfAlwaysUsingPlayer100",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.AttackFacingUsesBoundInstancesWithoutChangingVitalsAndSuspensionUnsubscribes",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.BasicCommandPanelConnectsMoveAttackRestAndBlocksInvalidStates",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.BattleMagicMenuUsesConfirmedSubsetIncludingEmptySelection",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.BindingAlignsFreeWalkingBodiesBeforeTheirFirstGridStep",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.BindingStopsOnlyVisualWalkingAndRestoresBorrowedMotionOnSuspend",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.BindingUsesNativeBodiesAndWorldCellsWithoutEnablingUnresolvedMovement",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.CasterDeathAndPresentationSuspensionCancelPendingMagic",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.CatalogRegistersOriginalCostsWithoutGrantingSkillsAndRepeatedConfigurationIsStable",
+      "baselineMessage": "  Expected: greater than 4\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ConfirmedLearnedMagicDisplaysWithoutInventingRequestsAndRejectsUnlearnedCommands",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ConfirmedNativeStepSynchronizesBoundBodyButNeverTreatsClickAsMovement",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend(901)",
+      "baselineMessage": "  Expected: 1\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend(1001)",
+      "baselineMessage": "  Expected: 1\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateMagicMenuKeepsPacketAnchorAndCleansEffectsOnSuspend",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBody",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.EnemyClickDispatchesSelectedActorWithNativeAttributesAndOnlyIndependentVitals",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ExistingHudAndTerrainZeroAreExplicitNativeInputs",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ExplicitMagicChoiceMenuPreservesNativeMetadataAndWaitsForTargetClick",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ExplicitTemporarySpellExecutesFromTargetClickAndRejectsOutOfRangeWithoutCost",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommit",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTick",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.InformationSizeChangesKeepLiveTargetAndGameplayState",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedGroupKeepsSingleTargetFallbackUnlessOriginalRecordsAreSupplied",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryAreaUsesGeometryAndFiltersTargetsWithoutNativeTeamGuesses",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryDirectionCastsAndEmptyDirectionOrCancelNeverSpends",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicChoicesRejectInvalidReplacementAndCancelWithoutInventingAvailability",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection(False)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection(True)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewClearsOnInvalidGroupDeathAndSuspend",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewRendersNativeGeometryWithoutPacketsOrCost",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewUsesTransformedGroundAndReleasesOwnedResources",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.MagicTargetingFailureAndCancellationNeverSpendOrInventCosts",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.NativeAreaMenuExecutesConfiguredTemporaryDamageOnBothTargets",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.NativeGroupMagicClickBuildsOriginalListAndKeepsIndependentVitals",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.NativeJobCatalogBindsTerrainAndApprovedDiagonalsWithoutExecutingClicks",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.NativeMagicUnknownTeamNeverDispatchesOrFallsThroughToMovement",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.NativeMapClickUsesExplicitBudgetAndClassTerrainCostsWithoutFallback",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresIt",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.OriginallyHiddenBodiesStayHiddenAndCorpseNeverUsesInventedFrames",
+      "baselineMessage": "  Expected: False\n  But was:  True\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.OutcomeWaitsForConfirmedDeathAndAcknowledgementNeverGrantsRewards",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PlasmaMenuRequestWaitsForIndependentEffectWithoutDoubleSpending",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PositionMagicClickNeverFallsThroughToMovementOrAttack",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodyBindingFailureRemovesOnlyNewBodiesAndCanRetry",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PrimarySoldierAliasCreatesSelectableNativeBodyAndReturnsItsSourceIdentity",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.RejectedBindingDoesNotChangeMotionAndStationaryBindingsStayStationary",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.RemovedVisualsStayHiddenWhenDisablingAndResumingPresentation",
+      "baselineMessage": "  Expected: False\n  But was:  True\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish(2)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish(-1)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.ScenarioEncounterSuppressesResultButTrainingAndFailedReturnCanShowIt",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.SpecialMagicAreaAcceptsNativeDirectionSentinelsWithoutDispatching",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.StandardMagicAreaQueryUsesNativeCellOrderWithoutCastingOrMoving",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryBuffSelfClickConsumesCostsAndChangesOnlyEffectiveAttack",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryCatalogNeverClassifiesUnknownStatusOrNonCombatEntriesAsDamage",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryHealSelfClickRestoresHpAndShowsPositiveFeedbackWithoutDamage",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-1)",
+      "baselineMessage": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-2)",
+      "baselineMessage": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-3)",
+      "baselineMessage": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-4)",
+      "baselineMessage": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionShowsIndependentStatsWithoutSelectingOrSending",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleMapPresentationTests.UnitMagicClickPreservesCommandMetadataAndWaitsForIndependentMp",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.DeathBeforeHpPreservesReceivedHpUntilSeparateUpdate",
+      "baselineMessage": "  Expected: 120\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.DeathDoesNotPublishCombatResultOrExperienceAndStopsApRecovery",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.InvalidVitalsReportFailureWithoutClampingOrChangingState",
+      "baselineMessage": "  Expected: 120\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.PlayerDeathSnapshotRetainsLifeStateAndBlocksBattleReentry",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.TickMenuPacketsClampAbsoluteApAndReplaceNativeBitsWithoutInferringActions",
+      "baselineMessage": "  Expected: 0\n  But was:  32767\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattlePacketReceiverTests.VitalsAreAbsoluteAndDoNotInferDeathOrChangeExperienceOrAp",
+      "baselineMessage": "  Expected: 37\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.DispatchStartsAnticipationBeforeImmediateResponseWithoutLocalDamage",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.HandlerFailurePropagatesWithoutRetryRefundOrLocalDamage",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.MissingOrDisabledHandlerDoesNotSpendApOrStartPresentation",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.ReentrantRequestIsRejectedAndNoResponseLeavesOnlyAnticipation",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.TemporaryLoopbackResolvesOnceWithoutHandlerAndCanBeDisabled",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleRequestSenderTests.TemporaryMagicLoopbackSpendsApMpOnceAndRemovesDeadUnitImmediately",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleSpecialMenuTests.SpecialMenuStaysSeparateAndUsesExistingNativeRequestPath",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.DefeatBlocksEntryAndDoesNotReviveNextBattle",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.FreshSessionLeavesInitialBattleStatsUntouched",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(37)",
+      "baselineMessage": "  Expected: String containing \"HP 37/120  MP 5/30\"\n  But was:  \"경험치 0\n완료 시나리오 0개\n시나리오 01: 미완료\"\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(0)",
+      "baselineMessage": "  Expected: String containing \"HP 0/120  MP 5/30\"\n  But was:  \"경험치 0\n완료 시나리오 0개\n시나리오 01: 미완료\"\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(-1,0)",
+      "baselineMessage": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(121,0)",
+      "baselineMessage": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(50,-1)",
+      "baselineMessage": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(50,31)",
+      "baselineMessage": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.MissingOrDestroyedBattleDoesNotReplaceStoredVitals",
+      "baselineMessage": "  Expected: (45, 7)\n  But was:  (0, 0)\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(1)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(87)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(120)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.BattleVitalsSessionTests.VitalsDoNotModifyExperienceCompletionOrEnemy",
+      "baselineMessage": "  Expected: 75\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.AttackCostsAreActorSpecificAndMagicCostsAreIdSpecific",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.FactionMaximumsRecoverIndependentlyAndValidateActorSpecificCosts",
+      "baselineMessage": "  Expected: (10, 20)\n  But was:  (0, 0)\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.FractionalFramesAndLargeTimeStepsRecoverWithoutOverflow",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.InsufficientApDoesNotNotifyOrChangeHpMpAndCosts",
+      "baselineMessage": "  Expected: String containing \"AP\"\n  But was:  \"원작 서버 판정이 필요합니다.\"\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.InvalidTimeDoesNotMutateRecovery(-1.0f)",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.InvalidTimeDoesNotMutateRecovery(float.NaN)",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.InvalidTimeDoesNotMutateRecovery(float.PositiveInfinity)",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.RecoveryIsSameForBothSidesButDoesNotRecoverDeadUnitsOrMp",
+      "baselineMessage": "  Expected: 7\n  But was:  0\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.StartsAtSixAndRequiresMaximumEvenWhenCostIsAffordable",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.TimeAtMaximumCannotBeBankedForNextAction",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.TwentyIsSpendableButRawMagicTickAboveMaximumIsNotClamped",
+      "baselineMessage": "  Expected: 20\n  But was:  2147483647\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionPointsTests.UnconfiguredCostsFailClosedWithoutUsingDemonstrationValues",
+      "baselineMessage": "  Expected: String containing \"설정\"\n  But was:  \"원작 서버 판정이 필요합니다.\"\n",
+      "status": "현행 계약 검사로 교체·Unity 재검증 대기",
+      "reason": "초기 AP6·진영 고정 상한·자연 회복 전제를 수신 AP/명시 상한과 비용 검증으로 이행.",
+      "action": "새 AP 검사20건은 오프라인 실행 통과. 기존 실패를 Unity 통과로 재집계하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionStatusTests.ActualDamageWakesAndDeathOrDisableClearsSleepAndSilence",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionStatusTests.SilenceRejectsLocalAndPacketMagicWithoutSpendingButAllowsAttackAndItems",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionStatusTests.SleepCancelsReservedMovementAndHidesPathsUntilWakeOrExpiry",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionStatusTests.SleepStopsAttackMagicRestAndItemsWhileApRecoversNormally",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatActionStatusTests.WakeRequiresSleepingAllyAndOnlyRemovesSleep",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatAiCatalogTests.MonsterTargetPriorityRetargetsOutsideRangeOrBlockedAttackerWithoutSpending",
+      "baselineMessage": "  Expected: 100\n  But was:  200\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatAiCatalogTests.MonsterTargetQueryRejectsMissingMetadataDuplicatesAndUnconfirmedTies",
+      "baselineMessage": "  Expected: False\n  But was:  True\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatAiCatalogTests.SchedulerChecksOneUnitPerCallWithoutSpendingApOrApplyingCombat",
+      "baselineMessage": "  Expected: False\n  But was:  True\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.Execute_AppliesAbsoluteResultAndLeavesCorpse",
+      "baselineMessage": "System.InvalidOperationException : 원작 서버 판정이 필요합니다.",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.ExplicitTemporaryMagicHasIndependentCostAndFormulaWithoutChangingEvidenceMode",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.TemporaryBuffsAffectDamageRefreshAndExpireWithoutChangingBaseStats",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.TemporaryHealingCapsHpAndRejectsEnemyDeadFullAndInsufficientMpWithoutCost",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.TemporaryMissConsumesActionApButDoesNotDamageAndRuleCanBeReplaced",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.TemporaryPhysicalHitFormulaMatchesPercentagesAndRejectsInvalidValues",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 명중 판정이 필요합니다.",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatFlowTests.TemporaryProfileCostsDamageRestAndEvidenceModeRemainSeparate",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.DeathNotificationsReleaseOnlyThatInstanceWithoutWaitingForRemoval",
+      "baselineMessage": "  Expected: 101\n  But was:  null\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.ExplicitLayoutAndCellSelectionDoNotStartActionsOrFreezeAp",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.GridSetupPreventsLegacyRegistrationOrEnemyReplacementDesynchronizingOccupancy",
+      "baselineMessage": "  Expected: False\n  But was:  True\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.HpZeroDeselectsButKeepsOccupancyUntilIndependentRemoval",
+      "baselineMessage": "  Expected: 1\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.InvalidLayoutRejectsEntireInitialSetupWithoutGuessingCoordinates",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGridBindingTests.InvalidSelectionPreservesPreviousAndRejectsEnemyEmptyOrDisabledInput",
+      "baselineMessage": "  Expected: 100\n  But was:  null\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGroupTests.CommanderDeathDoesNotKillSoldiersOrMutatePreviousSnapshot",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatGroupTests.LivingAdditionalUnitsRecoverApAfterPrimaryUnitsDieAndCostsStayUnknown",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementActionTests.ApprovedActionSpendsOnceButCoordinatesWaitForIndependentConfirmation",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementActionTests.InvalidCostReadinessDestinationOrTerrainNeverSpendsAp",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementActionTests.PendingMovementBlocksOtherStartsEvenAfterApRecoveryAndCancelDoesNotInventRefund",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementPathTests.BudgetedDiagonalCanSkipSameGroupIntermediateWithoutOverwritingItsOccupant",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementPathTests.BudgetedGridUsesCardinalRangeBeforeDiagonalCompressionWithoutMutation",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementPathTests.SelectedPathRequiresActiveSelectionAndDoesNotPublishMovement",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.AllyLongRouteSpendsFourOnceAndConfirmsEveryCell",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.AutomaticDefenseAttacksAdjacentEnemyWithoutMovingOrSpendingCommanderAp",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.CancelDisableDeathAndReentrantCancelNeverContinueOldRoute",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.ChangedTerrainStopsAtLastConfirmedCellWithoutFurtherCharge",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.CommanderDeathCancelsOnlyItsAutomaticSoldierMovement",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.EnemyRouteSpendsSixIndependentlyOfAlly",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.EscapingTargetIsReplacedByAnApproachableEnemyInsideSpawnRange",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetStartsOnlyApprovedPathAndQueryOrFailedApNeverChangesTieOrder",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetWithoutTerrainCostsFailsWithoutSpendingOrBfsFallback",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.FailedPlacementOrBlockedReturnCannotCommitOriginOrSpendAp",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.InvalidOrUnreadyDestinationsNeverSpendAndRecoveryDoesNotUnlockActiveRoute",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.LagExactlyFiveHundredMillisecondsKeepsDebtButLongerStallDropsIt",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.MonsterReturnKeepsInitialPlacementAndSpendsOneMovementAction",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.MonsterWithoutAttackHistoryDoesNotTreatUnitZeroAsItsAttacker",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.OriginalCardinalTicksShowHalfCellBeforeConfirmation",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.PursuitStopsWhenTargetLeavesSpawnRangeAndReturnWaitsForFullAp",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.SharedClockKeepsIdlePhaseAndAdvancesBothActorsOncePerCall",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiActuallyApproachesAndAttacksOnRecoveredAp",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiReturnsThenRestsWithoutHealingDuringMovement",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementRouteTests.TroopOrdersKeepCommanderManualAndDefenseStationaryThenAttackApproaches",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.CommitRechecksChangedTerrainAndNeverMovesAnUnconfiguredGrid",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.ConfirmationCommitsOnlyReservedCoordinatesBeforePublishingWithoutSpendingAp",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.DeathCancellationAndDisabledInputRejectLateConfirmations",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.DeathImmediatelyFreesPendingDestinationAndOriginWithoutApRefund",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.HpZeroImmediatelyCancelsTicketAndRecoveryCannotReplayIt",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.ReturningToSameOriginNeverMakesAnOldConfirmationCurrentAgain",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatMovementStepTests.WrongOriginDestinationOrActorPreservesThePendingReservation",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatOccupancyGridTests.CommitRechecksTerrainAndChangesOnlyOccupancyAndCoordinates",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatOccupancyGridTests.PlacementValidatesBoundsLifeAndOccupancyWithoutChangingVitals",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatReachableDestinationsTests.CornerTerrainAndDirectionPoliciesDefineConnectivityNotAp",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatReachableDestinationsTests.DestinationsAreOwnedSortedAndMatchIndividualPathsWithoutMutation",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatReachableDestinationsTests.SelectionQueryRequiresActiveLivingSelectionAndKeepsPendingTicket",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatStatusTests.CureRequiresPoisonAndLeavesHealthAndOtherStatusUntouched",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatStatusTests.MovementReductionChangesBudgetWithoutChangingApOrRecovery",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatStatusTests.MovementStatusCancelsReservationAndLimitsActualReachablePathUntilExpiry",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatStatusTests.PoisonDeathClearsStatusesAndDisablingNeverResurrectsThem",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatStatusTests.PoisonTicksRefreshesExpiresAndPublishesDamageWithOriginalSource",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatTerrainTraversalTests.ExplicitTerrainPolicyCombinesWithGridOccupancyWithoutChangingStats",
+      "baselineMessage": "  Expected: 6\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.CombatVitalsDisplayTests.UpdatesRestAndOverkillPublishActualDeltasWithoutDuplicates",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobActionCostTests.JobBindingIsPerInstanceAndUnknownJobClearsPreviousCost",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.AllSeventyJobsPreserveNativeBaseStatsAndSeparateTemporaryCost",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.ConfirmedPhysicalAllocationIsAppliedOnceAndPreservedWithSoldiers",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.ExplicitResolvedCostsOverrideTemporaryJobCostInBothModes",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TemporaryMagicUsesKnownMagicStatsSeparatelyFromPhysicalStats",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(100)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(105)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(115)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(125)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(135)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(145)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(155)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(165)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(169)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.KaosiaShopTests.NativeCatalogProducesTierScopeWithConfirmedHalfPriceBuyback",
+      "baselineMessage": "  Expected: 202\n  But was:  0\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.KaosiaShopTests.TierBoundaryAndPermissionsAreCheckedWithoutIdOrNameGuessing",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.LateVersionDataTests.LateAbilitiesPreserveKnownCoefficientsAndBlockUnknownCurism",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(167,170)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(168,171)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(169,172)",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.NativeOwnedRosterTests.InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.NativeOwnedRosterTests.ObservedReturnUpdatesOnlyKnownVitalsAndExperienceAtomically",
+      "baselineMessage": "  Expected: 10\n  But was:  2\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.NativeOwnedRosterTests.PanelReceivesSessionOwnershipWithoutCreatingCoordinatesOrDeploying",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnMismatchDoesNotPublishPartialPrimaryOrOwnedState",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.OriginalCombatBoundaryTests.DefaultHasNoSimulatorAndCannotManufactureCombatOrRewards",
+      "baselineMessage": "System.Collections.Generic.KeyNotFoundException : The given key '100' was not present in the dictionary.",
+      "status": "수정·Unity 재검증 대기",
+      "reason": "Preview Scene에서 Awake 미실행. 예약 유닛 초기화 전에 world.Get(100) 조회.",
+      "action": "공개 조회로 예약 레코드 초기화 후 명시적 서버 상태 fixture 공급. AP 비용의 제거된 공통 상한 의존도 수정"
+    },
+    {
+      "test": "DarkSaver.Tests.OriginalCombatBoundaryTests.NativeReturnKeepsReceivedMpAndRejectsLegacySimulationPackets",
+      "baselineMessage": "System.Collections.Generic.KeyNotFoundException : The given key '100' was not present in the dictionary.",
+      "status": "수정·Unity 재검증 대기",
+      "reason": "Preview Scene에서 Awake 미실행. 예약 유닛 초기화 전에 world.Get(100) 조회.",
+      "action": "공개 조회로 예약 레코드 초기화 후 명시적 서버 상태 fixture 공급. AP 비용의 제거된 공통 상한 의존도 수정"
+    },
+    {
+      "test": "DarkSaver.Tests.OriginalCombatBoundaryTests.OriginalRequestCrossesServerManagerAndOnlyResponseChangesVitals",
+      "baselineMessage": "System.Collections.Generic.KeyNotFoundException : The given key '100' was not present in the dictionary.",
+      "status": "수정·Unity 재검증 대기",
+      "reason": "Preview Scene에서 Awake 미실행. 예약 유닛 초기화 전에 world.Get(100) 조회.",
+      "action": "공개 조회로 예약 레코드 초기화 후 명시적 서버 상태 fixture 공급. AP 비용의 제거된 공통 상한 의존도 수정"
+    },
+    {
+      "test": "DarkSaver.Tests.OriginalCombatBoundaryTests.RemovalDoesNotInventHpExperienceVictoryOrScenarioCompletion",
+      "baselineMessage": "System.Collections.Generic.KeyNotFoundException : The given key '100' was not present in the dictionary.",
+      "status": "수정·Unity 재검증 대기",
+      "reason": "Preview Scene에서 Awake 미실행. 예약 유닛 초기화 전에 world.Get(100) 조회.",
+      "action": "공개 조회로 예약 레코드 초기화 후 명시적 서버 상태 fixture 공급. AP 비용의 제거된 공통 상한 의존도 수정"
+    },
+    {
+      "test": "DarkSaver.Tests.QuickMagicTests.InvalidRulesTargetsAndDisabledCostsNeverSpendOrBecomeEnabled",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.QuickMagicTests.MovementSpendsDiscountOnceAndKeepsSameDestination",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.QuickMagicTests.QuickChangesExpenditureNotRecoveryAndDoesNotDiscountItsFirstCast",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.QuickMagicTests.RefreshExpiryDeathAndDisableClearStateWithoutStacking",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.QuickMagicTests.RestAndRecoveryUseSameDiscountWithoutChangingEffects",
+      "baselineMessage": "  Expected: True\n  But was:  False\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp(False)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp(True)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.Scenario01FlowTests.OriginalIntroAndEndingResumeAtEveryCommandWithNativeJsonAndDiskSave",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.Scenario01FlowTests.SourceGold399DoesNotBecomeAKeyAndFailedConsumptionIsAtomic",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(2)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(3)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(4)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(5)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(6)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(7)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(8)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(9)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(10)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(11)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(12)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(13)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(14)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(15)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(16)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(17)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(33)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(330)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(331)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(332)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(333)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(404)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(405)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(406)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioCampaignTests.OlderScenarioCheckpointMayOmitNewOptionalLists",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.ScenarioPresentationFeedbackTests.ResultAggregateIsDetachedSavedAndNotAnAdditionalExperienceGrant",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.TownQuestTests.SourceQuestRewardsUsePersistentReceiptsAndDoNotMutateCandidates",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+      "status": "미수정·서버 초기 상태 fixture 필요",
+      "reason": "삭제한 데모 초기 상태를 생성하는 이전 경로에서 예외.",
+      "action": "각 테스트에 필요한 수신 상태를 명시적으로 공급하도록 개별 이행 필요. 제품 기본값을 복원하지 않음"
+    },
+    {
+      "test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(65,55,False,10)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 피해 판정이 필요합니다.",
+      "status": "미수정·삭제한 로컬 판정 의존",
+      "reason": "로컬 Resolve에서 원작 서버 판정 미구현 예외.",
+      "action": "로컬 피해 공식을 복원하지 말고 기록된 결과 수신/요청 거부 검사로 이행 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(65,55,True,58)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 피해 판정이 필요합니다.",
+      "status": "미수정·삭제한 로컬 판정 의존",
+      "reason": "로컬 Resolve에서 원작 서버 판정 미구현 예외.",
+      "action": "로컬 피해 공식을 복원하지 말고 기록된 결과 수신/요청 거부 검사로 이행 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(0,999,False,1)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 피해 판정이 필요합니다.",
+      "status": "미수정·삭제한 로컬 판정 의존",
+      "reason": "로컬 Resolve에서 원작 서버 판정 미구현 예외.",
+      "action": "로컬 피해 공식을 복원하지 말고 기록된 결과 수신/요청 거부 검사로 이행 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(10,-20,False,10)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 피해 판정이 필요합니다.",
+      "status": "미수정·삭제한 로컬 판정 의존",
+      "reason": "로컬 Resolve에서 원작 서버 판정 미구현 예외.",
+      "action": "로컬 피해 공식을 복원하지 말고 기록된 결과 수신/요청 거부 검사로 이행 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.UnresolvedCombatDamageTests.ExtractionPreservesExistingProvisionalDamage(int.MaxValue,0,True,int.MaxValue)",
+      "baselineMessage": "System.NotSupportedException : 원작 서버 피해 판정이 필요합니다.",
+      "status": "미수정·삭제한 로컬 판정 의존",
+      "reason": "로컬 Resolve에서 원작 서버 판정 미구현 예외.",
+      "action": "로컬 피해 공식을 복원하지 말고 기록된 결과 수신/요청 거부 검사로 이행 필요"
+    },
+    {
+      "test": "DarkSaver.Tests.WorldFieldTests.GeneratedOutdoorRuntimeDoesNotInventIndoorNpcsFromMissingJsonFields",
+      "baselineMessage": "  Kaosia\n  Expected: not <empty>\n  But was:  <empty>\n",
+      "status": "미분류·개별 확인 필요",
+      "reason": "Expected True 등 값만으로 오래된 기대와 제품 결함을 구분하지 않음.",
+      "action": "개별 원작 클라이언트 계약·수신 초기 상태와 대조 필요"
+    }
+  ]
+}

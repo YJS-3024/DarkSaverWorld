@@ -138,7 +138,9 @@ namespace DarkSaver.Combat
             magicApCosts[magicId] = cost; return true;
         }
 
-        private static bool IsValidCost(int cost) => cost > 0 && cost <= GameConstants.BattleHighestMaximumAp;
+        // The removed faction defaults are unknown, not a maximum of zero.
+        // Unit-specific confirmed maxima are checked separately by the caller.
+        private static bool IsValidCost(int cost) => cost > 0 && cost <= short.MaxValue;
 
         public bool ConfigureActionPointCosts(int attack, int magic)
         {

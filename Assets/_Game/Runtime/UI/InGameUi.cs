@@ -55,6 +55,9 @@ namespace DarkSaver.UI
         {
             if(!elements.TryGetValue(key,out var node)){node=NewRect(key,parent!=null?parent:root,rect);elements.Add(key,node);}
             else {var wanted=parent!=null?parent:root;if(node.parent!=wanted)node.SetParent(wanted,false);Place(node,rect);}
+            // Reused graphics must follow this frame's draw order too. Otherwise a
+            // raised background covers portraits/text created in an earlier frame.
+            node.SetAsLastSibling();
             used.Add(key);node.gameObject.SetActive(true);return node;
         }
         private static T Component<T>(RectTransform node) where T:UnityEngine.Component=>node.GetComponent<T>()??node.gameObject.AddComponent<T>();

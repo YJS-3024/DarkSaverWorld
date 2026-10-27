@@ -54,6 +54,8 @@ namespace DarkSaver
         public const float BattleFeedbackPixelScale = 1f; // Native glyph pixels in the 640x480 logical screen.
         // Original counter order/48 limit recovered; wall-clock tick remains adjustable.
         public const float BattleAttackCounterSeconds = .02f;
+        // Corpse counter 0..18 is native; wall-clock conversion remains provisional.
+        public const float BattleDeathCounterSeconds = .02f;
         // Native counter phases recovered; seconds conversion is provisional.
         public const float BattleMagicEffectCounterSeconds = .04f;
         // GameCtl.dll 0x1000A87D: signed GetTickCount / 300, even phases use Y + 160.

@@ -18,13 +18,20 @@ namespace DarkSaver.UI
                 if(!string.IsNullOrEmpty(error))ui.Label("load-error",new Rect(40,200,560,80),error,color:Color.white);
                 ui.End();return;
             }
-            Reconcile();var command=script.Current(progress);int cursor=progress.step;
+            Reconcile();PresentPracticeEffects();var command=script.Current(progress);
             if(progress.highlightX>=0)
             {
                 var screen=DarkSaver.Rendering.GameScreen.ScreenToGui(view.WorldToScreenPoint(World(progress.highlightX,progress.highlightY)));
                 ui.SolidRect("destination",new Rect(screen.x-16,screen.y-16,32,32),new Color(1,1,1,.35f));
             }
-            DrawDialogs();DrawActions();
+            DrawRanges();DrawDialogs();DrawActions();
+            DrawDialogue(command);
+            if(!string.IsNullOrEmpty(error))ui.Label("request-error",new Rect(40,450,560,28),error,12,color:Color.white);
+            ui.End();
+        }
+        private void DrawDialogue(EventCommand command)
+        {
+            int cursor=progress.step;
             if(!string.IsNullOrEmpty(progress.message))
             {
                 int mode=progress.messageMode;var rect=new Rect(40,ScenarioDialogueLayout.Top(mode),562,ScenarioDialogueLayout.Height(mode));
@@ -36,8 +43,6 @@ namespace DarkSaver.UI
                 for(int i=0;i<lines.Length && i<3;i++)ui.NativeBitmapText("dialogue-line-"+i,new Rect(150,rect.y+23+i*20,439,14),lines[i],Color.white);
                 if(command.Name=="WAITMOUSEBUTTON")ui.TransparentButton("dialogue-ack",rect,()=>Advance(cursor));
             }
-            if(!string.IsNullOrEmpty(error))ui.Label("request-error",new Rect(40,450,560,28),error,12,color:Color.white);
-            ui.End();
         }
         private void DrawActions()
         {
@@ -48,8 +53,13 @@ namespace DarkSaver.UI
             if(subMenu=="Magic")
             {
                 ui.ActionButton("fireball",new Rect(r.x+32,r.y,32,32),"",()=>
-                {if(Send("Magic",actor:actor.id,stage:1,expected:cursor)){subMenu="";magicArmed=true;openMenu=-1;}},
-                    progress.mouseMenu && command.Name=="WAITMAGICMENU" && command.Arguments[0]=="1","파이어볼",FireballIcon(),dimDisabledIcon:false);return;
+                {
+                    if(cursor!=progress.step)return;
+                    // Reopening a selected spell changes presentation only; do not advance stage1 twice.
+                    if(command.Arguments[0]=="2" || Send("Magic",actor:actor.id,stage:1,expected:cursor))
+                    {subMenu="";magicArmed=true;openMenu=-1;}
+                },
+                    progress.mouseMenu && command.Name=="WAITMAGICMENU" && (command.Arguments[0]=="1" || command.Arguments[0]=="2"),"파이어볼",FireballIcon(),dimDisabledIcon:false);return;
             }
             if(subMenu=="Order")
             {
@@ -81,7 +91,11 @@ namespace DarkSaver.UI
                 case 1:if(script.Current(progress).Name=="WAITATTACKCHAR" || Send("AttackMenu",actor:actor,expected:cursor))
                     {attackArmed=true;openMenu=-1;}break;
                 case 3:if(Send("Rest",actor:actor,expected:cursor))openMenu=-1;break;
-                case 4:if(Send("Magic",actor:actor,stage:0,expected:cursor))subMenu="Magic";break;
+                case 4:
+                    var current=script.Current(progress);
+                    if(current.Name=="WAITMAGICMENU" && (current.Arguments[0]=="1" || current.Arguments[0]=="2")
+                        || Send("Magic",actor:actor,stage:0,expected:cursor))subMenu="Magic";
+                    break;
                 case 6:if(Send("Order",actor:actor,stage:0,expected:cursor))subMenu="Order";break;
             }
         }

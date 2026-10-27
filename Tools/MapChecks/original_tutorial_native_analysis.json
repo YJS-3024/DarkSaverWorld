@@ -128,5 +128,74 @@
   "killCommands": {
     "KILLCHAR1": "immediate removal",
     "KILLCHAR2": "0x80 corpse state, not immediate removal"
+  },
+  "rangeDisplay": {
+    "scope": "Tutorial temporary records only; not original server movement/damage rules",
+    "movementBudget": 12,
+    "attackRadius": 1,
+    "troopColumn": 0,
+    "evidence": [
+      "UserUnit early0x1000EE40 temporary record: +0x34=12, +0xAC=1",
+      "UserUnit early0x1000B0A0 copies record+0x34 to character+0x3C and record+0xAC to character+0x30",
+      "UserUnit early0x1000EC86..1000EC95 forces troop0 for definition IDs100..299",
+      "GameCtl early0x1000B1DF..1000B226 passes these values to SetArea2/SetAreaB",
+      "Late UserUnit0x1000EE60 constructor also assigns record+0x34=12 at0x1000EEBA and record+0xAC=1 at0x1000EEF8"
+    ],
+    "positiveMagicRange": "GameCtl 0x1000B244..1000B253: magicrecord+8 -> SetArea; fireball101 native distance3",
+    "checkerBlit": "GameCtl early0x10008FF0: 31x31 on 32px cells, black color key",
+    "checkerTypes": {
+      "Move": {
+        "type": 4,
+        "source": [
+          200,
+          0
+        ]
+      },
+      "Attack": {
+        "type": 12,
+        "source": [
+          400,
+          200
+        ]
+      },
+      "Magic": {
+        "type": 8,
+        "source": [
+          300,
+          100
+        ]
+      },
+      "Target": {
+        "type": 3,
+        "source": [
+          0,
+          0
+        ]
+      }
+    },
+    "validation": "Static DLL/source/image comparison; not original playback or Unity Play."
+  },
+  "combatPresentationOrder": {
+    "scope": "Early UserUnit static branches and existing native presentation catalogs; not executable playback or wall-clock validation",
+    "attack": {
+      "address": "UserUnit 0x1000CEE0 AttackChar",
+      "flags": "attacker and target 0x04, each record+0x158 reset to 0",
+      "order": "simultaneous attacker half-cell swing and target impact; do not simulate a second counterattack",
+      "limit": "counter >48 expires; (counter/2)%4 FX frame"
+    },
+    "magic101": {
+      "order": "Sound2 at travel start; counters 0..9 travel; stop Sound2 and play Sound1 on impact >=10; native fireball impact frames then clear 0x40 equivalent view state",
+      "source": "existing NativeFireballEffects and BattleMapPresentation.MagicAudio native-family1 implementation"
+    },
+    "death": {
+      "kill2": "0x1000F030 ORs 0x80; no immediate removal",
+      "priority": "0x10010210/0x10010215 and 0x1000FCE5/0x1000FCEE: corpse only when 0x80 && !0x40; physical 0x04 does not hold corpse",
+      "update": "0x10010100, record+0x164 increments; >18 removes",
+      "body": "0x1000FD7F..FD89: source row32 for counter<8, otherwise counter%4; tutorial301 sheet only four rows, no invented fallen body for row32",
+      "effect": "etc/Fx.bmp, column counter/3, top row31x31; existing catalog moved to Resources with identical binary/meta GUID"
+    },
+    "timing": "Attack/death .02s and magic .04s remain provisional seconds conversion; native counters/order confirmed, full playback not verified",
+    "reconnect": "Transient FX are not saved; existing dead records remain hidden on reconnect, never replay or resurrect. Permanent HP/MP and script cursor untouched.",
+    "deferredByUser": "Alliance window contents and multi-user character verification deferred; tutorial script waits remain in place."
   }
 }

@@ -10,7 +10,7 @@ namespace DarkSaver.Tests
         [Test]
         public void NativeCatalogMapsEveryCounterAndNeverReadsOriginalResources()
         {
-            var catalog = AssetDatabase.LoadAssetAtPath<CombatDeathEffectCatalog>("Assets/_Game/Runtime/Combat/CombatDeathEffectCatalog.asset");
+            var catalog = AssetDatabase.LoadAssetAtPath<CombatDeathEffectCatalog>("Assets/_Game/Resources/Effects/CombatDeathEffectCatalog.asset");
             Assert.That(catalog, Is.Not.Null);
             for (var counter = 0; counter <= 18; counter++)
             {

@@ -391,7 +391,7 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void ActualAttackShowsDamageAndMissWithoutTreatingHpSyncAsAnAttack()
+        public void NativeAttackAndAbsoluteVitalsDriveSeparateFeedbackWithoutLocalSimulation()
         {
             var scene = EditorSceneManager.NewPreviewScene();
             var floor = ScriptableObject.CreateInstance<Tile>();
@@ -414,13 +414,17 @@ namespace DarkSaver.Tests
                 var battle = root.GetComponent<BattleSceneRoot>();
                 var jobs = AssetDatabase.LoadAssetAtPath<JobCatalog>("Assets/_Game/Runtime/Jobs/JobCatalog.asset");
                 Assert.That(battle.ConfigureTraversalCatalogs(new[] { jobs }), Is.True);
-                Assert.That(battle.ConfigurePlayerJob(100), Is.True);
+                Assert.IsTrue(battle.TryGetUnit(100,out _)); // Preview scenes do not run Awake.
+                var world=(CombatWorld)typeof(BattleSceneRoot).GetField("world",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).GetValue(battle);
+                // Explicit received-state fixture, not production defaults or a damage formula.
+                var commander=world.Get(100);commander.JobId=100;commander.Hp=commander.MaxHp=120;commander.Mp=commander.MaxMp=30;
+                var target=world.Get(800);target.JobId=301;target.Hp=target.MaxHp=75;
+                var receiver=root.GetComponent<BattlePacketReceiver>();
                 Assert.That(view.TryBind(ground, terrain, camera, new[] { new BattleMapVisual(100, ally), new BattleMapVisual(800, enemy) }), Is.True);
-                battle.SetTemporaryLocalRules(true);
-                Assert.That(battle.TrySelectUnit(100), Is.True); battle.AdvanceActionPoints(4);
-                battle.ConfigurePhysicalAccuracy(100, 100, 0); battle.ConfigurePhysicalAccuracy(800, 100, 0);
-                Assert.That(view.TryChooseBasicCommand(BattleMapCommand.Attack), Is.True);
-                Assert.That(view.TryHandleWorldClick(enemy.transform.position), Is.True);
+                Assert.IsFalse(battle.TemporaryLocalRulesEnabled);
+                Assert.IsTrue(receiver.TryApplyPacket(new AttackEffectNotification(800,100,0)));
+                Assert.AreEqual(75,battle.EnemyHp);Assert.AreEqual(0,view.CombatFeedbackCount);
+                Assert.IsTrue(receiver.TryApplyPacket(new HpSetNotification(800,54)));
                 Assert.That(view.CombatFeedbackCount, Is.EqualTo(1));
                 Assert.That(view.ActiveAttackEffectCount, Is.EqualTo(2));
                 var physicalHit = root.transform.Find("Native Attack Fx2 800");
@@ -428,27 +432,23 @@ namespace DarkSaver.Tests
                 view.AdvanceAttackEffects(0);
                 Assert.That(Vector3.Distance(BattleMapPresentation.GetUnitMenuAnchor(enemy), physicalHit.position), Is.LessThan(.0001f));
                 Assert.That(view.GetCombatFeedbackText(0), Is.EqualTo("-21"));
-                battle.AdvanceActionPoints(7); battle.ConfigurePhysicalAccuracy(100, 0, 0);
-                Assert.That(view.TryChooseBasicCommand(BattleMapCommand.Attack), Is.True);
-                Assert.That(view.TryHandleWorldClick(enemy.transform.position), Is.True);
-                Assert.That(view.GetCombatFeedbackText(1), Is.EqualTo("MISS"));
+                Assert.IsTrue(receiver.TryApplyPacket(new AttackEffectNotification(800,100,0)));
+                Assert.AreEqual(54,battle.EnemyHp);
+                // No hit/miss result is inferred from an effect-only notification.
+                Assert.AreEqual(1,view.CombatFeedbackCount);
                 view.AdvanceAttackEffects(GameConstants.BattleAttackCounterSeconds * 50);
                 Assert.That(view.ActiveAttackEffectCount, Is.Zero);
-                battle.ApplyHp(800, 54); Assert.That(view.CombatFeedbackCount, Is.EqualTo(2));
+                battle.ApplyHp(800, 54); Assert.That(view.CombatFeedbackCount, Is.EqualTo(1));
                 Assert.That(battle.TryRestorePlayerVitals(60, 20), Is.True);
-                Assert.That(view.CombatFeedbackCount, Is.EqualTo(2));
+                Assert.That(view.CombatFeedbackCount, Is.EqualTo(1));
                 Assert.That(battle.ApplyMp(100, 15), Is.True);
-                Assert.That(view.GetCombatFeedbackText(2), Is.EqualTo("-5"));
-                Assert.That(view.GetCombatFeedbackColorRow(2), Is.EqualTo(3));
+                Assert.That(view.GetCombatFeedbackText(1), Is.EqualTo("-5"));
+                Assert.That(view.GetCombatFeedbackColorRow(1), Is.EqualTo(3));
                 Assert.That(battle.ApplyHp(100, 84), Is.True);
-                Assert.That(view.GetCombatFeedbackText(3), Is.EqualTo("+24"));
-                Assert.That(view.GetCombatFeedbackColorRow(3), Is.EqualTo(1));
+                Assert.That(view.GetCombatFeedbackText(2), Is.EqualTo("+24"));
+                Assert.That(view.GetCombatFeedbackColorRow(2), Is.EqualTo(1));
                 Assert.That(view.GetCombatFeedbackColorRow(0), Is.Zero);
-                battle.AdvanceActionPoints(7);
-                Assert.That(battle.TryStartMagicRequest(101, 100, new short[] { 800 }, out _), Is.True);
-                Assert.That(view.ActiveMagicEffectCount, Is.EqualTo(1));
                 var afterMagic = (battle.PlayerHp, battle.EnemyHp, battle.PlayerMp, battle.PlayerAp);
-                var receiver = root.GetComponent<BattlePacketReceiver>();
                 Assert.That(receiver.TryApplyPacket(new MagicEffectNotification(101, 100, 0, 0, 999, new short[] { 800 })), Is.True);
                 Assert.That((battle.PlayerHp, battle.EnemyHp, battle.PlayerMp, battle.PlayerAp), Is.EqualTo(afterMagic));
                 view.AdvanceMagicEffects(GameConstants.BattleMagicEffectCounterSeconds * 5);

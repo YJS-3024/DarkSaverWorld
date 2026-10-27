@@ -77,7 +77,7 @@ namespace DarkSaver.UI
             var clip=Resources.Load<AudioClip>("Scenarios/Shared/Music/nco01");
             if(clip==null){error="원본 튜토리얼 음악 바인딩이 없습니다.";yield break;}
             music=gameObject.AddComponent<AudioSource>();music.playOnAwake=false;music.loop=true;music.spatialBlend=0;music.clip=clip;music.Play();
-            ready=true;Reconcile();
+            SeedPracticeDeaths();ready=true;Reconcile();
         }
         private static Vector3 World(int x,int y)=>new Vector3(x+.5f,15-y-.5f,0);
         private Rect ActorRect(int id)
@@ -125,7 +125,7 @@ namespace DarkSaver.UI
             if(view==null || !GameScreen.TryScreenToGui(Input.mousePosition,out var pointer))return;
             hovered=-1;foreach(var a in progress.actors)if(!a.removed && !a.dead && ActorRect(a.id).Contains(pointer)){hovered=a.id;break;}
             if(command.Name=="WAITMOUSEMOVE" && hovered>=0){Send("Hover",actor:hovered);return;}
-            if(Input.GetMouseButtonDown(1)){openMenu=-1;subMenu="";return;}
+            if(Input.GetMouseButtonDown(1)){openMenu=-1;subMenu="";movementArmed=attackArmed=magicArmed=false;return;}
             if(!Input.GetMouseButtonDown(0) || UnityEngine.EventSystems.EventSystem.current?.IsPointerOverGameObject()==true)return;
             if(command.Name=="WAITMOUSEBUTTON"){Send("Click");return;}
             if(!progress.mouseMenu)return;
@@ -215,7 +215,8 @@ namespace DarkSaver.UI
                     actor=new GameObject("Tutorial actor "+a.id,typeof(SpriteRenderer),typeof(DirectionalSpriteAnimator));
                     actor.transform.SetParent(transform,false);actor.transform.position=World(a.x,a.y);actors.Add(a.id,actor);
                 }
-                actor.SetActive(!a.removed && !a.dead); // Corpse state is retained; the ordinary death animation is not yet bound.
+                actor.SetActive(!a.removed && (!a.dead || IsPracticeCorpseVisible(a.id)));
+                actor.GetComponent<SpriteRenderer>().enabled=true;
                 int color=a.id==100?(progress.ally==0?3:2):0;
                 if(!destinations.ContainsKey(a.id) || destinations[a.id].z!=color)
                 {
@@ -240,7 +241,7 @@ namespace DarkSaver.UI
         }
         private void RestoreWorld()
         {
-            ClearPracticeEffects();motions.Clear();
+            ReleaseRanges();ClearPracticeEffects();motions.Clear();
             if(minimapCamera!=null){Destroy(minimapCamera.gameObject);minimapCamera=null;}
             if(minimap!=null){minimap.Release();Destroy(minimap);minimap=null;}
             if(music!=null){music.Stop();Destroy(music);music=null;}

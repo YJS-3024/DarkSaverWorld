@@ -1019,7 +1019,7 @@ namespace DarkSaver.Combat
                 && CombatTerrainTraversal.TryGetMovementValue(attribute, column, out value);
         }
 
-        private static bool TryGetAttribute(Tilemap attributes, BoundsInt area, CombatGridCell cell, out short attribute)
+        internal static bool TryGetAttribute(Tilemap attributes, BoundsInt area, CombatGridCell cell, out short attribute)
         {
             attribute = 0;
             if (attributes == null) return false;

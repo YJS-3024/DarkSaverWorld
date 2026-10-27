@@ -9,7 +9,7 @@ namespace DarkSaver.Editor
     public static class CombatDeathEffectConverter
     {
         public const string Folder = "Assets/_Game/Art/Converted/Effects/Death";
-        public const string CatalogPath = "Assets/_Game/Runtime/Combat/CombatDeathEffectCatalog.asset";
+        public const string CatalogPath = "Assets/_Game/Resources/Effects/CombatDeathEffectCatalog.asset";
         public static string FramePath(int column) => $"{Folder}/DeathEffect_{column}.png";
 
         [MenuItem("DarkSaver/Convert/Death Effect Frames")]

@@ -6,6 +6,9 @@
     <DefineConstants>$(DefineConstants);DARKSAVER_LEGACY_CHECKS</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../Assets/_Game/Runtime/Core/NativeTutorialProgress.cs" Link="NativeTutorialProgress.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialRanges.cs" Link="OriginalTutorialRanges.cs" />
+    <Compile Include="../../Assets/_Game/Tests/EditMode/OriginalTutorialRangeChecks.cs" Link="OriginalTutorialRangeChecks.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Core/OriginalRestorationPolicy.cs" Link="OriginalRestorationPolicy.cs" />
 
     <Compile Include="../../Assets/_Game/Runtime/Events/EventScriptParser.cs" Link="EventScriptParser.cs" />

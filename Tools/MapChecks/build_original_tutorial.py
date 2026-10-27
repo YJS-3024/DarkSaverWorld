@@ -48,6 +48,12 @@ def main():
     for sx,sy,x,y in [(0,300,0,0),(0,340,0,84),(40,300,542,0),(40,340,542,84)]:tile(sx,sy,x,y)
     panel.alpha_composite(atlas.crop((90,300,158,368)),(18,18))
     p=OUT/'Dialogue.png';panel.save(p);meta(p,(ROOT/'Assets/_Game/Resources/UI/Entry/LoginPanel.png.meta').read_text())
+    # GameCtl 0x10008ff0: native checker tiles, colorkey black; 31x31 per 32px cell.
+    ranges=OUT/'Ranges';ranges.mkdir(exist_ok=True)
+    for name,kind in [('Move',4),('Attack',12),('Magic',8),('Target',3)]:
+        x,y=(0,0) if kind==3 else (200+(kind-4)%3*100,(kind-4)//3*100)
+        patch=Image.new('RGBA',(32,32));patch.alpha_composite(atlas.crop((x,y,x+31,y+31)),(0,0))
+        p=ranges/(name+'.png');patch.save(p);meta(p,(ROOT/'Assets/_Game/Resources/UI/Entry/LoginPanel.png.meta').read_text())
     # Raw abilityrecord fields copied by UserUnit::dmSetAbility; no stat roll/formula.
     import csv
     rows={int(r['직업']):r for r in csv.DictReader((ROOT/'분석/Saver_Late/unity_catalogs/units_all.csv').open(encoding='utf-8-sig'))}
