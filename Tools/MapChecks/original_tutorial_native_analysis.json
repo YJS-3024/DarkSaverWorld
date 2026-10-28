@@ -295,5 +295,93 @@
       "27": true
     },
     "dialogCommands": "SHOWDIALOG string0x1001A780 and HIDEDIALOG0x1001A774 both jump to0x10011FDC; F1/F2/... dispatch calls the same0x10002F20 toggle handler. Source F7 reaches the native default branch."
+  },
+  "inactiveActionIcons": {
+    "correction": "CHARMENU zero mask selects fixed grey artwork, not hidden icons. Previous hide interpretation was incorrect.",
+    "earlyPaint": "0x1000A8DD..0x1000AA8F",
+    "latePaint": "0x1000A99D..0x1000AB4F",
+    "sourceTop": 128,
+    "sourceBottom": 160,
+    "columnsByCommand": {
+      "move": 4,
+      "attack": 5,
+      "special": 9,
+      "rest": 8,
+      "magic": 6,
+      "options": 11,
+      "order": 10,
+      "item": 7
+    },
+    "display": "Native fixed grey cells rendered with the same menu blit; no arbitrary alpha coefficient inferred. Mask still gates hit tests separately.",
+    "proof": [
+      {
+        "version": "early",
+        "sha256": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+        "fixtures": [
+          {
+            "address": "0x1000a8e1",
+            "bytes": "f6810c01000001"
+          },
+          {
+            "address": "0x1000a8ee",
+            "bytes": "68a0000000"
+          },
+          {
+            "address": "0x1000a8f8",
+            "bytes": "6880000000"
+          },
+          {
+            "address": "0x1000a910",
+            "bytes": "f6800c01000002"
+          },
+          {
+            "address": "0x1000aa47",
+            "bytes": "ffd5"
+          },
+          {
+            "address": "0x1000aa49",
+            "bytes": "be01000000"
+          },
+          {
+            "address": "0x1000aa8d",
+            "bytes": "85f6"
+          }
+        ]
+      },
+      {
+        "version": "late",
+        "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+        "fixtures": [
+          {
+            "address": "0x1000a9a1",
+            "bytes": "f6810c01000001"
+          },
+          {
+            "address": "0x1000a9ae",
+            "bytes": "68a0000000"
+          },
+          {
+            "address": "0x1000a9b8",
+            "bytes": "6880000000"
+          },
+          {
+            "address": "0x1000a9d0",
+            "bytes": "f6800c01000002"
+          },
+          {
+            "address": "0x1000ab07",
+            "bytes": "ffd5"
+          },
+          {
+            "address": "0x1000ab09",
+            "bytes": "be01000000"
+          },
+          {
+            "address": "0x1000ab4d",
+            "bytes": "85f6"
+          }
+        ]
+      }
+    ]
   }
 }

@@ -12,6 +12,8 @@ void Check(bool condition, string name)
     if (!condition) throw new Exception(name);
     checks++;
 }
+var buildings=System.Text.Json.JsonSerializer.Deserialize<DarkSaver.Network.BuildingTravelRoutes>(File.ReadAllText("Assets/_Game/Resources/World/BuildingRoutes.json"),new System.Text.Json.JsonSerializerOptions{IncludeFields=true});
+DarkSaver.Tests.BuildingTravelChecks.Run(Check,buildings);
 OriginalRestorationChecks.Run(Check);
 DarkSaver.Tests.NativeEntryRouteChecks.Run(Check);
 DarkSaver.Tests.LocalAuthenticationChecks.Run(Check);

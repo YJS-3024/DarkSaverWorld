@@ -59,6 +59,6 @@ namespace DarkSaver.Network
             => Sender.Send(packet);
 
         private void OnDestroy()
-        { ClearTutorialBinding();ClearAccountBindings();receiver?.ClearSubscribers(); sender?.ClearSubscribers(); LocalServer.Clear(); }
+        { ClearBuildingBindings();ClearTutorialBinding();ClearAccountBindings();receiver?.ClearSubscribers(); sender?.ClearSubscribers(); LocalServer.Clear(); }
     }
 }

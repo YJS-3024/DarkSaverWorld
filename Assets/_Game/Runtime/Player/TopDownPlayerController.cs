@@ -9,23 +9,11 @@ namespace DarkSaver.Player
     [RequireComponent(typeof(Rigidbody2D), typeof(CapsuleCollider2D), typeof(SpriteRenderer))]
     public sealed class TopDownPlayerController : MonoBehaviour
     {
-        private ServerManager protocol;
-        private System.IDisposable movementBinding;
         private bool RequestMove(Vector2 position)
         {
-            if(protocol==null)
-            {
-                protocol=GetComponent<ServerManager>();if(protocol==null)protocol=gameObject.AddComponent<ServerManager>();
-                movementBinding=protocol.RegisterRequestHandler<WorldMoveRequest>(HandleMove);
-                protocol.ResponseReceived+=ReceiveMove;
-            }
-            return protocol.TryRequest(new WorldMoveRequest(position.x,position.y),out _);
+            var coordinator=FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>();
+            return coordinator!=null && coordinator.TryMoveWorld(position);
         }
-        private LocalCommandResponse HandleMove(WorldMoveRequest request)
-{return new WorldMoveNotification(reason:DarkSaver.Core.OriginalRestorationPolicy.PendingServerRule);}        private void ReceiveMove(ServerPacket packet)
-        {if(packet is WorldMoveNotification result && result.Accepted)body.MovePosition(new Vector2(result.X,result.Y));}
-        private void OnDestroy()
-        {movementBinding?.Dispose();if(protocol!=null)protocol.ResponseReceived-=ReceiveMove;}
         private Rigidbody2D body;
         private SpriteRenderer spriteRenderer;
         private DirectionalSpriteAnimator directionalAnimator;

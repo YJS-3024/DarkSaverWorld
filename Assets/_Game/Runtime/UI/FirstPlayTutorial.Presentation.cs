@@ -77,10 +77,11 @@ namespace DarkSaver.UI
             int[] bits={16,1,2,8,4,128,64,32};string[] names={"이동","공격","특수기","휴식","마법","설정","용병에게 명령","도구"};
             for(int i=0;i<8;i++)
             {
-                if((actor.mask & bits[i])==0 || !NativeBattleActionMenu.AllowsIndex(actor.id,i))continue;
-                int index=i;bool enabled=progress.mouseMenu && (actor.mask & bits[i])!=0;
+                int index=i;bool available=NativeBattleActionMenu.AllowsIndex(actor.id,i) && (actor.mask & bits[i])!=0;
+                bool enabled=progress.mouseMenu && available;
                 ui.ActionButton("action-"+i,NativeBattleActionMenu.ButtonRect(r,i),"",()=>ChooseAction(index,actor.id,cursor),enabled,names[i],
-                    (actor.mask & bits[i])!=0?BattleIconFrames.Action(NativeBattleActionMenu.IconColumn(i),Time.unscaledTimeAsDouble):null,parent:layer,dimDisabledIcon:false);
+                    available?BattleIconFrames.Action(NativeBattleActionMenu.IconColumn(i),Time.unscaledTimeAsDouble)
+                        :BattleIconFrames.InactiveAction(NativeBattleActionMenu.InactiveIconColumn(i)),parent:layer,dimDisabledIcon:false);
             }
         }
         private void ChooseAction(int index,int actor,int cursor)

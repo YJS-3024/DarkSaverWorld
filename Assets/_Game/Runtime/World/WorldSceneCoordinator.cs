@@ -11,45 +11,82 @@ namespace DarkSaver.World
     public sealed class WorldSceneCoordinator : MonoBehaviour
     {
         private ServerManager protocol;
-        private System.IDisposable mapBinding;
+        private int activeTransfer;
+        private BuildingTravelRoutes buildingRoutes;
         private bool travelling;
         private void BindServer()
         {
             if(protocol!=null)return;
             protocol=GetComponent<ServerManager>();if(protocol==null)protocol=gameObject.AddComponent<ServerManager>();
-            mapBinding=protocol.RegisterRequestHandler<MapEnterRequest>(HandleMapEnter);
+            protocol.BindLocalBuildingTravelService(CaptureBuildingContext,IsBuildingPositionWalkable);
             protocol.ResponseReceived+=ReceiveMapPacket;
         }
-        private LocalCommandResponse HandleMapEnter(MapEnterRequest request)
+        private BuildingTravelContext CaptureBuildingContext()
         {
-            if(!DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules)
-                return new MapEnterNotification(reason:DarkSaver.Core.OriginalRestorationPolicy.PendingServerRule);
-            if(!CanBeginTravel(request.Target,request.SpawnId,out var map,out var runtime,out var size))
-                return new MapEnterNotification(reason:"현재 목적지로 이동할 수 없습니다.");
-            travelling=true;
-            return new MapEnterNotification(true,MapEnterStage.Started,map,runtime,request.SpawnId,size.x,size.y);
+            if(buildingRoutes==null)
+            {
+                var asset=Resources.Load<TextAsset>("World/BuildingRoutes");
+                buildingRoutes=asset==null?null:JsonUtility.FromJson<BuildingTravelRoutes>(asset.text);
+            }
+            string region=null;var found=new System.Collections.Generic.HashSet<string>();
+            if(buildingRoutes?.routes!=null)foreach(var route in buildingRoutes.routes)
+                if(SceneManager.GetSceneByName(route.sourceMap).isLoaded && SceneManager.GetSceneByName(route.sourceRuntime).isLoaded)found.Add(route.fromKey);
+            if(found.Count==1)foreach(var key in found)region=key;
+            var session=FindAnyObjectByType<BattleTransitionController>();var player=FindFirstObjectByType<TopDownPlayerController>();
+            bool authenticated=session!=null && session.HasCreatedCharacter;
+            bool blocked=travelling || region==null || session==null || session.IsTransitioning || session.HasPendingTutorial
+                || player==null || !player.isActiveAndEnabled || player.UiInputBlocked
+                || DarkSaver.UI.FirstPlayTutorial.BlocksWorldActions || DarkSaver.Events.Scenario01Controller.BlocksWorldActions
+                || SceneManager.GetSceneByName("Battle").isLoaded;
+            return new BuildingTravelContext(region,player==null?0:player.transform.position.x,player==null?0:player.transform.position.y,authenticated,blocked);
+        }
+        private bool IsBuildingPositionWalkable(float x,float y)
+        {
+            var context=CaptureBuildingContext();
+            var route=buildingRoutes?.routes==null?null:System.Array.Find(buildingRoutes.routes,r=>r.fromKey==context.Region);
+            return route!=null && HasWalkableDestination(SceneManager.GetSceneByName(route.sourceMap),new Vector3(x,y,0));
+        }
+        public bool TryMoveWorld(Vector2 position)
+        {BindServer();return protocol.TryRequest(new WorldMoveRequest(position.x,position.y),out _);}
+        private DarkSaver.UI.InGameUi travelCover;
+        private void LateUpdate()
+        {
+            if(!travelling){travelCover?.Hide();return;}
+            DarkSaver.UI.InGameUi.Ensure(ref travelCover,this,1000);travelCover.Begin();
+            travelCover.SolidRect("building-transition",new Rect(0,0,640,480),Color.black);travelCover.End();
         }
         private void ReceiveMapPacket(ServerPacket packet)
         {
-            if(packet is not MapEnterNotification response || !response.Accepted)return;
+            if(packet is WorldMoveNotification movement && movement.Accepted)
+            {
+                var actor=FindFirstObjectByType<TopDownPlayerController>();
+                if(actor!=null && actor.isActiveAndEnabled && !travelling)
+                    actor.GetComponent<Rigidbody2D>().MovePosition(new Vector2(movement.X,movement.Y));
+                return;
+            }
+            if(packet is not MapEnterNotification response)return;
+            if(!response.Accepted){LastTravelMessage=response.Reason;return;}
             var player=FindFirstObjectByType<TopDownPlayerController>();
             if(response.Stage==MapEnterStage.Started)
             {
-                if(player==null){travelling=false;return;}
-                StartCoroutine(TravelRoutine(player,response.Map,response.Runtime,new Vector2(response.Width,response.Height),response.SpawnId));
+                if(response.TransferId<=0 || travelling)return;
+                if(player==null){protocol.TryRequest(new MapEnterCompleteRequest(response.TransferId,false),out _);return;}
+                activeTransfer=response.TransferId;travelling=true;
+                StartCoroutine(TravelRoutine(player,response));
             }
-            else if(response.Stage==MapEnterStage.Ready && player!=null)
+            else if(response.Stage==MapEnterStage.Ready && player!=null && travelling && response.TransferId==activeTransfer)
             {
                 var position=new Vector3(response.X,response.Y,0);player.transform.position=position;
                 var body=player.GetComponent<Rigidbody2D>();if(body!=null){body.position=position;body.linearVelocity=Vector2.zero;}
                 var camera=FindFirstObjectByType<CameraFollow2D>();if(camera!=null)camera.Configure(player.transform,new Vector2(response.Width,response.Height));
-                ScenePortal2D.SetRequestedSpawn(response.SpawnId);
+                ScenePortal2D.SetRequestedSpawn(response.SpawnId);LastTravelMessage="건물 이동이 완료되었습니다.";
             }
         }
         private void OnDestroy()
-        {mapBinding?.Dispose();if(protocol!=null)protocol.ResponseReceived-=ReceiveMapPacket;}
+        {travelCover?.Hide();if(protocol!=null){protocol.ResponseReceived-=ReceiveMapPacket;if(activeTransfer>0)protocol.TryRequest(new MapEnterCompleteRequest(activeTransfer,false),out _);protocol.UnbindLocalBuildingTravelService(CaptureBuildingContext);}}
 
         public bool IsTravelling => travelling;
+        public string LastTravelMessage {get;private set;}
 
         public void TravelTo(string legacyTarget, string spawnId)
         {
@@ -82,6 +119,7 @@ namespace DarkSaver.World
 
         public bool TryTravelTo(string target,string spawnId)
         {
+            if(!CanBeginTravel(target,spawnId,out _,out _,out _)){LastTravelMessage="현재 건물로 이동할 수 없습니다.";return false;}
             BindServer();return protocol.TryRequest(new MapEnterRequest(target,spawnId),out _);
         }
         private bool CanBeginTravel(string target,string spawnId,out string map,out string runtime,out Vector2 size)
@@ -98,8 +136,11 @@ namespace DarkSaver.World
             return true;
         }
 
-        private IEnumerator TravelRoutine(TopDownPlayerController player, string map, string runtime, Vector2 size, string spawnId)
+        private IEnumerator TravelRoutine(TopDownPlayerController player, MapEnterNotification approval)
         {
+            string map=approval.Map,runtime=approval.Runtime,spawnId=approval.SpawnId;
+            var size=new Vector2(approval.Width,approval.Height);
+            var position=new Vector3(approval.X,approval.Y,0);
             travelling = true;
             player.StopForSceneTravel();
             player.enabled = false;
@@ -115,15 +156,18 @@ namespace DarkSaver.World
                 yield return LoadIfNeeded(map);
                 yield return LoadIfNeeded(runtime);
                 WorldRouteInstaller.EnsureForLoadedScenes();
-                var destination = SceneManager.GetSceneByName(runtime);
-                if (!TryFindSpawn(destination, spawnId, out var position)
-                    || !HasWalkableDestination(SceneManager.GetSceneByName(map), position))
+                if (!HasWalkableDestination(SceneManager.GetSceneByName(map), position))
                 {
                     Debug.LogWarning($"Spawn '{spawnId}' or walkable map data was not found in {runtime}; current world retained.");
                     if (!runtimeWasLoaded) yield return UnloadIfLoaded(runtime);
                     if (!mapWasLoaded) yield return UnloadIfLoaded(map);
                     yield break;
                 }
+                // Client readiness contains only the transfer token. The server retains
+                // destination coordinates; callers cannot rewrite the arrival position.
+                if(!protocol.TryRequest(new MapEnterCompleteRequest(approval.TransferId,true),out var completed)
+                    || completed is not MapEnterNotification ready || ready.Stage!=MapEnterStage.Ready)yield break;
+                committed=true;
                 foreach (var town in DarkSaver.Core.TownCatalog.All)
                 {
                     if (town.MapScene != map) yield return UnloadIfLoaded(town.MapScene);
@@ -162,22 +206,24 @@ namespace DarkSaver.World
                     if (trainingRuntime != runtime) yield return UnloadIfLoaded(trainingRuntime);
                     if (trainingMap != map) yield return UnloadIfLoaded(trainingMap);
                 }
-                protocol.SendToClient(new MapEnterNotification(true,MapEnterStage.Ready,map,runtime,spawnId,size.x,size.y,position.x,position.y));
-                committed = true;
+
             }
             finally
             {
                 if (!committed)
                 {
                     ScenePortal2D.SetRequestedSpawn(oldSpawn);
-                    protocol.SendToClient(new MapEnterNotification(reason:"맵/출현 좌표 확인에 실패해 기존 지역을 유지했습니다."));
+                    protocol.TryRequest(new MapEnterCompleteRequest(approval.TransferId,false),out _);
+                    if(!runtimeWasLoaded && SceneManager.GetSceneByName(runtime).isLoaded)SceneManager.UnloadSceneAsync(runtime);
+                    if(!mapWasLoaded && SceneManager.GetSceneByName(map).isLoaded)SceneManager.UnloadSceneAsync(map);
                 }
                 if (player != null) player.enabled = true;
-                travelling = false;
+                travelling = false;activeTransfer=0;
                 if (committed)
                 {
                     DarkSaver.Events.Scenario01Controller.EnsureForLoadedScene();
-                    if (sessionForSave != null && sessionForSave.HasCreatedCharacter) sessionForSave.SaveWorld();
+                    if (sessionForSave != null && sessionForSave.HasCreatedCharacter && !sessionForSave.SaveWorld())
+                        LastTravelMessage="건물 이동은 완료됐으나 저장하지 못했습니다. "+sessionForSave.LastSaveMessage;
                 }
             }
         }
@@ -200,22 +246,6 @@ namespace DarkSaver.World
                 }
             return ground != null && terrain != null && ground.HasTile(ground.WorldToCell(position))
                 && terrain.GetColliderType(terrain.WorldToCell(position)) == UnityEngine.Tilemaps.Tile.ColliderType.None;
-        }
-
-        private static bool TryFindSpawn(Scene scene, string spawnId, out Vector3 position)
-        {
-            position = default;
-            if (!scene.IsValid() || !scene.isLoaded) return false;
-            foreach (var root in scene.GetRootGameObjects())
-            {
-                foreach (var spawn in root.GetComponentsInChildren<SceneSpawnPoint>(true))
-                {
-                    if (!spawn.Matches(spawnId)) continue;
-                    position = spawn.transform.position;
-                    return true;
-                }
-            }
-            return false;
         }
 
         private static IEnumerator UnloadIfLoaded(string sceneName)

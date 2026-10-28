@@ -1217,22 +1217,25 @@ namespace DarkSaver.Combat
             }
             if (TryGetActionMenuRect(out var menu))
             {
-                var commands = new BattleMapCommand?[] { BattleMapCommand.Move, BattleMapCommand.Attack, BattleMapCommand.System,
-                    BattleMapCommand.Rest, BattleMapCommand.Magic, BattleMapCommand.Special, BattleMapCommand.Troop, BattleMapCommand.Tools };
-                var labels = new[] { "이동", "공격", "게임설정", "휴식(HP/MP 회복)", "마법", "특수기", "용병들에게 명령", "도구" };
+                var commands = new BattleMapCommand?[] { BattleMapCommand.Move, BattleMapCommand.Attack, BattleMapCommand.Special,
+                    BattleMapCommand.Rest, BattleMapCommand.Magic, BattleMapCommand.System, BattleMapCommand.Troop, BattleMapCommand.Tools };
+                var labels = new[] { "이동", "공격", "특수기", "휴식(HP/MP 회복)", "마법", "게임설정", "용병들에게 명령", "도구" };
                 for (var i = 0; i < commands.Length; i++)
                 {
                     var command = commands[i]; var reason = "기능 미연결";
                     var allowed = command.HasValue && (command.Value == BattleMapCommand.Magic
                         || command.Value == BattleMapCommand.Special || command.Value == BattleMapCommand.System || command.Value == BattleMapCommand.Tools
                             || command.Value == BattleMapCommand.Troop || CanChooseBasicCommand(command.Value, out reason));
+                    var roleAllowed=battle.TryGetSelectedUnit(out var menuActor) && NativeBattleActionMenu.AllowsIndex(menuActor.Id,i);
+                    if(!roleAllowed){allowed=false;reason="용병은 이동·공격·휴식만 선택할 수 있습니다.";}
                     var emptySkill = command == BattleMapCommand.Magic && NormalMagicCount == 0
                         || command == BattleMapCommand.Special && SpecialChoiceCount == 0;
                     ui.ActionButton("radial-" + i, NativeBattleActionMenu.ButtonRect(menu, i), labels[i],
-                        () => { if (command.HasValue) TryChooseCommand(command.Value); }, allowed,
+                        () => { if (allowed && command.HasValue) TryChooseCommand(command.Value); }, allowed,
                         allowed ? labels[i] + (emptySkill ? " / 빈 습득 목록·UI 틀" : command == BattleMapCommand.Tools ? " / 소지품 조회" : "")
                             : labels[i] + " / " + reason,
-                        BattleIconFrames.Action(NativeBattleActionMenu.IconColumn(i), Time.unscaledTimeAsDouble));
+                        allowed?BattleIconFrames.Action(NativeBattleActionMenu.IconColumn(i), Time.unscaledTimeAsDouble)
+                            :BattleIconFrames.InactiveAction(NativeBattleActionMenu.InactiveIconColumn(i)),dimDisabledIcon:false);
                 }
                 // Native center is the character cell, not an invented cancel button. Esc/right click remain available.
             }

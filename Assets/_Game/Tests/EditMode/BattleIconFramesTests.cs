@@ -23,8 +23,8 @@ namespace DarkSaver.Tests
         public void NativeCommanderMenuUsesEightAdjacentCellsAndLeavesCharacterCellEmpty()
         {
             var bounds = new Rect(100, 200, NativeBattleActionMenu.Size, NativeBattleActionMenu.Size);
-            var expected = new[] { new Vector2(100, 200), new Vector2(164, 200), new Vector2(164, 264),
-                new Vector2(100, 264), new Vector2(100, 232), new Vector2(164, 232),
+            var expected = new[] { new Vector2(100, 200), new Vector2(164, 200), new Vector2(164, 232),
+                new Vector2(100, 264), new Vector2(100, 232), new Vector2(164, 264),
                 new Vector2(132, 264), new Vector2(132, 200) };
             var columns = new[] { 0, 1, 12, 8, 2, 5, 4, 3 };
             var character = new Rect(132, 232, 32, 32);

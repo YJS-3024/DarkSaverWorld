@@ -17,6 +17,12 @@ namespace DarkSaver.UI
             if (column < 0 || column >= 20) return null;
             return Find("Action_" + column.ToString("00") + "_Frame_" + FrameAt(seconds));
         }
+        public static Sprite InactiveAction(int column)
+        {
+            if(column<0 || column>=20)return null;
+            // GameCtl1000A8DD..AA47 uses fixed y128..160, without animation or alpha fade.
+            return Find("Magic_3_"+column.ToString("00")+"_Frame_0");
+        }
         public static Sprite Magic(int row, int column, double seconds)
         {
             if (row < 0 || row >= 4 || column < 0 || column >= 20) return null;

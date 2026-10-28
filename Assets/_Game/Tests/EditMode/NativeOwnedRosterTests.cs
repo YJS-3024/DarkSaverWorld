@@ -175,7 +175,20 @@ namespace DarkSaver.Tests
             var save = Save(true); save.ownedRoster = recovered; var json = JsonUtility.ToJson(save);
             var loaded = JsonUtility.FromJson<NativeSaveData>(json);
             Assert.That(NativeSaveStore.IsValid(loaded), Is.True);
-            Assert.That(loaded.ownedRoster.units[0].mp, Is.EqualTo(10));
+            Assert.That(loaded.ownedRoster.units[0].mp, Is.EqualTo(2),"serialization preserves received MP, not maximum MP");
+            Assert.That(loaded.ownedRoster.units[0].maxMp, Is.EqualTo(10),"maximum remains independent");
+            Assert.That(loaded.ownedRoster.units[1].mp, Is.Zero);
+            Assert.That(loaded.ownedRoster.units[1].lifeState, Is.EqualTo(2));
+            Files(store=>{
+                Assert.IsTrue(store.TrySave(loaded,out var reason),reason);
+                Assert.IsTrue(store.TryLoad(out var disk,out reason),reason);
+                Assert.AreEqual(2,disk.ownedRoster.units[0].mp);
+                Assert.AreEqual(17,disk.ownedRoster.units[0].hp);
+                Assert.AreEqual(10,disk.ownedRoster.units[0].maxMp);
+                Assert.AreEqual(0,disk.ownedRoster.units[1].mp);
+                Assert.AreEqual(2,disk.ownedRoster.units[1].lifeState);
+                Assert.AreEqual(roster.units[2].mp,disk.ownedRoster.units[2].mp,"undeployed member is unchanged");
+            });
             var missing = roster.Clone(); missing.units[1].persistentId = "missing";
             Assert.That(missing.TryApplyObservedReturn(returned, out var partial, out _), Is.False); Assert.That(partial, Is.Null);
             Assert.That(missing.units[0].hp, Is.EqualTo(40));

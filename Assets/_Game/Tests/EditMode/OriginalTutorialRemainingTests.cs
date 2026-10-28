@@ -48,6 +48,37 @@ namespace DarkSaver.Tests
             }
             finally{UnityEngine.Object.DestroyImmediate(go);}
         }
+        [TestCase(0,2,false)] [TestCase(1,255,true)] [TestCase(2,255,true)]
+        public void TutorialMaskKeepsInactiveIconsVisibleWithoutDimmingTheHighlightedLesson(int unitId,int maskOn,bool mouseMenu)
+        {
+            var go=new GameObject("tutorial grey menu fixture");
+            try
+            {
+                var tutorial=go.AddComponent<FirstPlayTutorial>();InGameUi ui=null;InGameUi.Ensure(ref ui,tutorial,140);Set(tutorial,"ui",ui);
+                Set(tutorial,"script",new DarkSaver.Events.OriginalTutorialScript(Source,100));
+                var actor=new TutorialActor{id=unitId,mask=maskOn};
+                var state=new NativeTutorialProgress{topMenu=unitId,actors=new[]{actor},mouseMenu=mouseMenu};Set(tutorial,"progress",state);
+                foreach(int mask in new[]{maskOn,0,maskOn})
+                {
+                    actor.mask=mask;ui.Begin();Call(tutorial,"DrawActions");ui.End();
+                    for(int i=0;i<8;i++)
+                    {
+                        var button=ui.Find<Button>("action-"+i);var icon=ui.Find<RawImage>("action-"+i+"-icon");
+                        Assert.IsNotNull(button);Assert.IsNotNull(icon);Assert.IsTrue(icon.gameObject.activeInHierarchy);
+                        int[] bits={16,1,2,8,4,128,64,32};
+                        bool available=NativeBattleActionMenu.AllowsIndex(unitId,i) && (mask & bits[i])!=0;
+                        Assert.AreEqual(mouseMenu && available,button.interactable);
+                        var expected=available?BattleIconFrames.Action(NativeBattleActionMenu.IconColumn(i),Time.unscaledTimeAsDouble)
+                            :BattleIconFrames.InactiveAction(NativeBattleActionMenu.InactiveIconColumn(i));
+                        Assert.IsNotNull(expected);Assert.AreSame(expected.texture,icon.texture);
+                        var pixels=expected.textureRect;
+                        Assert.AreEqual(new Rect(pixels.x/expected.texture.width,pixels.y/expected.texture.height,pixels.width/expected.texture.width,pixels.height/expected.texture.height),icon.uvRect);
+                        Assert.AreEqual(1,icon.color.a,"native grey artwork, not an invented alpha");
+                    }
+                }
+            }
+            finally{UnityEngine.Object.DestroyImmediate(go);}
+        }
         [Serializable] private sealed class TerrainFixture {public int width,height;public int[] attributes;}
         [Test] public void AllLiteralMovesUseConverted301TerrainFixture()
         {

@@ -61,12 +61,13 @@ namespace DarkSaver.Network
     public enum MapEnterStage { Started, Ready, Failed }
     public sealed class MapEnterNotification : LocalCommandResponse
     {
+        public int TransferId { get; }
         public MapEnterStage Stage { get; } public string Map { get; } public string Runtime { get; }
         public string SpawnId { get; } public float Width { get; } public float Height { get; }
         public float X { get; } public float Y { get; }
         public MapEnterNotification(bool accepted=false,MapEnterStage stage=MapEnterStage.Failed,string map=null,string runtime=null,
-            string spawnId=null,float width=0,float height=0,float x=0,float y=0,string reason=null):base(accepted,reason)
-        { Stage=stage;Map=map;Runtime=runtime;SpawnId=spawnId;Width=width;Height=height;X=x;Y=y; }
+            string spawnId=null,float width=0,float height=0,float x=0,float y=0,string reason=null,int transferId=0):base(accepted,reason)
+        { TransferId=transferId;Stage=stage;Map=map;Runtime=runtime;SpawnId=spawnId;Width=width;Height=height;X=x;Y=y; }
     }
     public sealed class ItemUseRequest : ClientPacket { }
     public sealed class ItemUseNotification : ServerPacket { }
