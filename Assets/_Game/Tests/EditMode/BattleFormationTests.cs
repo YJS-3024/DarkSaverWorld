@@ -76,14 +76,14 @@ namespace DarkSaver.Tests
             });
         }
 
-        private static CombatUnit Unit(short id) => new CombatUnit {
-            Id = id, JobId = 100, Name = "Formation member", Hp = 50, MaxHp = 50, Mp = 10, MaxMp = 10 };
+        private static CombatUnit Unit(short id) => NativeCombatStateFixture.Received(new CombatUnit {
+            Id = id, JobId = 100, Name = "Formation member", Hp = 50, MaxHp = 50, Mp = 10, MaxMp = 10 });
         private static void WithBattle(Action<BattleSceneRoot> check)
         {
             var active = SceneManager.GetActiveScene(); var dirty = active.isDirty;
             var scene = EditorSceneManager.NewPreviewScene();
             try { var go = new GameObject("Allied formation test"); SceneManager.MoveGameObjectToScene(go, scene);
-                check(go.AddComponent<BattleSceneRoot>()); }
+                var receivedBattle=go.AddComponent<BattleSceneRoot>();NativeCombatStateFixture.Initialize(receivedBattle,6);check(receivedBattle); }
             finally { EditorSceneManager.ClosePreviewScene(scene); }
             Assert.That(SceneManager.GetActiveScene(), Is.EqualTo(active)); Assert.That(active.isDirty, Is.EqualTo(dirty));
         }

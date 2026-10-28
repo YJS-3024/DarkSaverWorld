@@ -151,7 +151,7 @@ namespace DarkSaver.Tests
             try
             {
                 var root = new GameObject("Battle effect check"); SceneManager.MoveGameObjectToScene(root, scene);
-                var receiver = root.AddComponent<BattlePacketReceiver>();
+                var receiver = root.AddComponent<BattlePacketReceiver>(); NativeCombatStateFixture.Initialize(root.GetComponent<BattleSceneRoot>(),6);
                 Assert.That(receiver.Bind(), Is.True);
                 check(receiver, root.GetComponent<ServerManager>(), root.GetComponent<BattleSceneRoot>());
             }

@@ -61,13 +61,13 @@ namespace DarkSaver.Network
         public bool HasPending=>pending!=null;
         public BuildingTravelService(BuildingTravelRoutes source)
         {if(source==null || !source.IsValid)throw new ArgumentException("Invalid building routes.");routes=Array.ConvertAll(source.routes,r=>r.Clone());}
-        public bool TryFind(BuildingTravelContext state,MapEnterRequest request,out BuildingTravelRoute route)
+        public bool TryFind(BuildingTravelContext state,Request_EnterMap request,out BuildingTravelRoute route)
         {
             route=null;if(request==null)return false;
             var found=Array.Find(routes,r=>r.fromKey==state.Region && r.toKey==request.Target && r.spawnId==request.SpawnId);
             if(found==null)return false;route=found.Clone();return true;
         }
-        public MapEnterNotification Enter(MapEnterRequest request,BuildingTravelContext state)
+        public MapEnterNotification Enter(Request_EnterMap request,BuildingTravelContext state)
         {
             if(pending!=null || !state.Authenticated || state.Blocked || !BuildingTravelRoutes.Finite(state.X) || !BuildingTravelRoutes.Finite(state.Y)
                 || !TryFind(state,request,out var route))return new MapEnterNotification(reason:"현재 건물 출입 요청을 처리할 수 없습니다.");

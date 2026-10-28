@@ -17,8 +17,8 @@ namespace DarkSaver.UI
         public int RangeCellCount {get;private set;}
         private void DrawRanges()
         {
-            var mode=playerMoving>=0 || openMenu>=0 || progress.topMenu>=0 || !string.IsNullOrEmpty(subMenu)?TutorialRangeMode.None:
-                movementArmed?TutorialRangeMode.Move:attackArmed?TutorialRangeMode.Attack:magicArmed?TutorialRangeMode.Magic:TutorialRangeMode.None;
+            var mode=TutorialPresentationRules.RangeMode(progress.activeCommand,movementArmed,attackArmed,magicArmed,
+                playerMoving>=0 || openMenu>=0 || progress.topMenu>=0 || !string.IsNullOrEmpty(subMenu));
             if(mode==TutorialRangeMode.None){HideRanges();return;}
             if(!EnsurePracticeTerrain()){HideRanges();return;}
             var catalog=session.GetComponent<MagicCatalogPanel>()?.Catalog;

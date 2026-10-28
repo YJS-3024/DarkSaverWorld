@@ -121,13 +121,16 @@ namespace DarkSaver.Combat
                     || unit.Hp <= 0 || unit.MaxHp < unit.Hp || unit.Mp < 0 || unit.MaxMp < unit.Mp)
                     return false;
                 // Placement input is copied; callers cannot subsequently rewrite authoritative state.
-                pending.Add(unit.Id, new CombatUnit {
+                var copied = new CombatUnit {
                     Id = unit.Id, JobId = unit.JobId, Name = unit.Name, Enemy = unit.Enemy,
                     X = unit.X, Y = unit.Y, Hp = unit.Hp, MaxHp = unit.MaxHp,
                     Mp = unit.Mp, MaxMp = unit.MaxMp, Attack = unit.Attack, Defense = unit.Defense,
                     HasMagicAttack=unit.HasMagicAttack,HasMagicDefense=unit.HasMagicDefense,MagicAttack=unit.MagicAttack,MagicDefense=unit.MagicDefense,
                     Experience = unit.Experience
-                });
+                };
+                if (unit.ActionPoints.HasConfirmedMaximum) copied.ActionPoints.ConfigureMaximum(unit.ActionPoints.Maximum);
+                copied.ActionPoints.ApplyAbsolute(unit.ActionPoints.Current);
+                pending.Add(unit.Id, copied);
             }
             if (!pending.ContainsKey(commanderId) && !units.ContainsKey(commanderId)) return false;
             foreach (var pair in units)

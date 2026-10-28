@@ -83,7 +83,7 @@ namespace DarkSaver.Tests
             try
             {
                 var go = new GameObject("Reachable destinations check"); SceneManager.MoveGameObjectToScene(go, scene);
-                var battle = go.AddComponent<BattleSceneRoot>();
+                var battle = go.AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(battle,6);
                 Assert.That(battle.TryGetSelectedReachableDestinations(out _), Is.False);
                 Assert.That(battle.TryConfigureGrid(4, 4, new[] { new CombatGridPlacement(100, Cell(0, 0)),
                     new CombatGridPlacement(800, Cell(3, 3)) }, (_, _) => true, (_, _) => true), Is.True);
@@ -108,7 +108,7 @@ namespace DarkSaver.Tests
         {
             var world = new CombatWorld();
             foreach (short id in new short[] { 100, 101, 800 })
-                world.Add(new CombatUnit { Id = id, Enemy = id == 800, Hp = 50, MaxHp = 50 });
+                world.Add(NativeCombatStateFixture.Received(new CombatUnit { Id = id, Enemy = id == 800, Hp = 50, MaxHp = 50 }));
             return world;
         }
     }

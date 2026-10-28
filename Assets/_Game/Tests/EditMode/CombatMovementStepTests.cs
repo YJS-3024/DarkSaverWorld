@@ -115,8 +115,8 @@ namespace DarkSaver.Tests
                     Assert.That(battle.TryConfigureGrid(4, 4, new[] {
                         new CombatGridPlacement(100, Cell(1, 1)), new CombatGridPlacement(800, Cell(3, 1)) },
                         (_, _) => true, (from, to) => Math.Abs((long)to.X - from.X) + Math.Abs((long)to.Y - from.Y) == 1), Is.True);
-                    battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp);
-                    Assert.That(battle.TryMoveTo(100, Cell(2, 1), out _), Is.True);
+                    NativeCombatStateFixture.ReceiveFullTicks(battle);
+                    Assert.That(battle.TryReserveMovementStep(100, Cell(2, 1), out _), Is.True);
                     Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp - GameConstants.BattleAllyMoveApCost));
                     Assert.That(battle.ApplyDeath(100, leaveCorpse), Is.True);
                     Assert.That(battle.IsMovementInProgress(100), Is.False);
@@ -138,7 +138,7 @@ namespace DarkSaver.Tests
         {
             var scene = EditorSceneManager.NewPreviewScene();
             try { var go = new GameObject("Native movement check"); SceneManager.MoveGameObjectToScene(go, scene);
-                var battle = go.AddComponent<BattleSceneRoot>(); check(battle); }
+                var battle = go.AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(battle,6); check(battle); }
             finally { EditorSceneManager.ClosePreviewScene(scene); }
         }
     }

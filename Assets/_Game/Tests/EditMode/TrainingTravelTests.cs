@@ -12,15 +12,14 @@ namespace DarkSaver.Tests
     public sealed class TrainingTravelTests
     {
         [Test]
-        public void AllSixtyFiveNormalJobsRouteByClassTierNotMapChoice()
+        public void ClassTierCannotInventUnreceivedTrainingMapAssignment()
         {
-            var catalog = AssetDatabase.LoadAssetAtPath<JobCatalog>("Assets/_Game/Runtime/Jobs/JobCatalog.asset");
-            foreach (var group in new[] { (100,104,101), (105,114,102), (115,124,103), (125,134,104),
-                (135,144,105), (145,154,106), (155,164,107) })
-                for (int id = group.Item1; id <= group.Item2; id++) {
-                    Assert.That(TrainingEntrance2D.TryResolveTrainingMap(catalog, id, out var map), Is.True, "job=" + id);
-                    Assert.That(map, Is.EqualTo(group.Item3), "job=" + id);
-                }
+            var catalog=AssetDatabase.LoadAssetAtPath<JobCatalog>("Assets/_Game/Runtime/Jobs/JobCatalog.asset");
+            for(int id=100;id<=172;id++)
+            {
+                Assert.IsFalse(TrainingEntrance2D.TryResolveTrainingMap(catalog,id,out var map),"job="+id);
+                Assert.That(map,Is.Zero);
+            }
         }
 
         [TestCase(165)] [TestCase(166)] [TestCase(167)] [TestCase(168)] [TestCase(169)]

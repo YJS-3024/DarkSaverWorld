@@ -50,7 +50,7 @@ namespace DarkSaver.Tests
                 Assert.That(snapshot.Y, Is.EqualTo(1)); Assert.That(snapshot.Ap, Is.EqualTo(6));
                 Assert.That(battle.CanSelectedUnitTraverse(Cell(1, 1)), Is.True);
                 Assert.That(battle.CanSelectedUnitTraverse(Cell(3, 3)), Is.False);
-                Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);
+                Assert.That(NativeCombatStateFixture.ReceiveFullTicks(battle), Is.True);
                 battle.TryGetSelectedUnit(out var after); Assert.That(after.Ap, Is.EqualTo(after.MaxAp));
                 Assert.That(snapshot.Ap, Is.EqualTo(6)); // Retained snapshot is not a mutable view.
                 Assert.That(after.Hp, Is.EqualTo(50)); Assert.That(after.Mp, Is.EqualTo(10));
@@ -135,7 +135,7 @@ namespace DarkSaver.Tests
         [Test]
         public void BatchPlacementStaysAtomicIfLaterPolicyRejectsOrThrows()
         {
-            var world = new CombatWorld(); world.Add(new CombatUnit { Id = 100, Hp = 50 }); world.Add(new CombatUnit { Id = 800, Hp = 50 });
+            var world = new CombatWorld(); world.Add(NativeCombatStateFixture.Received(new CombatUnit { Id = 100, Hp = 50 })); world.Add(NativeCombatStateFixture.Received(new CombatUnit { Id = 800, Hp = 50 }));
             var grid = new CombatOccupancyGrid(world, 4, 4, (unit, _) => unit.Id != 800, Cardinal);
             Assert.That(grid.TryPlaceUnits(Layout()), Is.False);
             Assert.That(grid.TryGetPosition(100, out _), Is.False); Assert.That(world.Get(100).X, Is.EqualTo(0));
@@ -147,7 +147,7 @@ namespace DarkSaver.Tests
             Assert.That(grid.TryPlaceUnits(Array.Empty<CombatGridPlacement>()), Is.False);
         }
 
-        private static CombatUnit Soldier() => new CombatUnit { Id = 101, JobId = 100, Hp = 50, MaxHp = 50, Mp = 10, MaxMp = 10 };
+        private static CombatUnit Soldier() => NativeCombatStateFixture.Received(new CombatUnit { Id = 101, JobId = 100, Hp = 50, MaxHp = 50, Mp = 10, MaxMp = 10 });
         private static CombatGridCell Cell(int x, int y) => new CombatGridCell(x, y);
         private static CombatGridPlacement Place(short id, int x, int y) => new CombatGridPlacement(id, Cell(x, y));
         private static CombatGridPlacement[] Layout() => new[] { Place(100, 1, 1), Place(800, 3, 3) };
@@ -158,7 +158,7 @@ namespace DarkSaver.Tests
             var scene = EditorSceneManager.NewPreviewScene();
             try {
                 var root = new GameObject("Grid binding check"); SceneManager.MoveGameObjectToScene(root, scene);
-                var receiver = root.AddComponent<BattlePacketReceiver>();
+                var receiver = root.AddComponent<BattlePacketReceiver>(); NativeCombatStateFixture.Initialize(root.GetComponent<BattleSceneRoot>(),6);
                 check(root.GetComponent<BattleSceneRoot>(), receiver);
             } finally { EditorSceneManager.ClosePreviewScene(scene); }
         }

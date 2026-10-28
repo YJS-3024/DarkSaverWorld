@@ -64,8 +64,8 @@ namespace DarkSaver.Tests
             Assert.That(after.AliveCount, Is.EqualTo(1)); Assert.That(before.AliveCount, Is.EqualTo(2));
             Assert.That(flow.TryApplyDeath(700, false), Is.True);
             Assert.That(world.Get(701).Alive, Is.True);
-            Assert.That(flow.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);
-            Assert.That(world.Get(701).ActionPoints.Current, Is.EqualTo(GameConstants.BattleMaximumAp));
+            Assert.That(flow.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.False);
+            Assert.That(world.Get(701).ActionPoints.Current, Is.EqualTo(6));
             Assert.That(world.Get(700).ActionPoints.Current, Is.EqualTo(6));
             world.Remove(700); world.TryGetGroup(701, out var orphan);
             Assert.That(orphan.CommanderPresent, Is.False); Assert.That(orphan.AliveCount, Is.EqualTo(1));
@@ -128,7 +128,7 @@ namespace DarkSaver.Tests
                 Assert.That(battle.CanStartAttackRequest(810, 101, out _), Is.False);
                 Assert.That(receiver.TryApplyPacket(new UnitCorpseNotification(100)), Is.True);
                 Assert.That(receiver.TryApplyPacket(new UnitCorpseNotification(800)), Is.True);
-                Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);
+                Assert.That(NativeCombatStateFixture.ReceiveFullTicks(battle), Is.True);
                 battle.TryGetUnit(101, out var ally); battle.TryGetUnit(810, out var foe);
                 Assert.That(ally.Ap, Is.EqualTo(ally.MaxAp)); Assert.That(foe.Ap, Is.EqualTo(foe.MaxAp));
                 Assert.That(battle.PlayerAp, Is.EqualTo(6)); Assert.That(battle.EnemyAp, Is.EqualTo(6));
@@ -139,17 +139,17 @@ namespace DarkSaver.Tests
             });
         }
 
-        private static CombatUnit Unit(short id) => new CombatUnit {
+        private static CombatUnit Unit(short id) => NativeCombatStateFixture.Received(new CombatUnit {
             Id = id, JobId = 100, Name = "fixture", Hp = 50, MaxHp = 50,
             Mp = 10, MaxMp = 10, Attack = 5, Defense = 2
-        };
+        });
 
         private static void WithBattle(Action<BattleSceneRoot, BattlePacketReceiver> check)
         {
             var scene = EditorSceneManager.NewPreviewScene();
             try {
                 var root = new GameObject("Group check"); SceneManager.MoveGameObjectToScene(root, scene);
-                var receiver = root.AddComponent<BattlePacketReceiver>();
+                var receiver = root.AddComponent<BattlePacketReceiver>(); NativeCombatStateFixture.Initialize(root.GetComponent<BattleSceneRoot>(),6);
                 check(root.GetComponent<BattleSceneRoot>(), receiver);
             }
             finally { EditorSceneManager.ClosePreviewScene(scene); }

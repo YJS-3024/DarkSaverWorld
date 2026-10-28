@@ -1,0 +1,211 @@
+{
+  "scope": "Static native-instruction and current repository scene manifest audit. No Unity execution or original server reconstruction.",
+  "nativeInstructionChecks": 10,
+  "proof": [
+    {
+      "file": "분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe",
+      "sha256": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0",
+      "address": "0x43c1a4",
+      "bytes": "668b28",
+      "meaning": "response reads first16-bit field"
+    },
+    {
+      "file": "분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe",
+      "sha256": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0",
+      "address": "0x43c1b2",
+      "bytes": "668b10",
+      "meaning": "response reads next16-bit field"
+    },
+    {
+      "file": "분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe",
+      "sha256": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0",
+      "address": "0x4318b5",
+      "bytes": "66896e0c",
+      "meaning": "stores received X as16-bit"
+    },
+    {
+      "file": "분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe",
+      "sha256": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0",
+      "address": "0x4318c1",
+      "bytes": "66895e0e",
+      "meaning": "stores received Y as16-bit"
+    },
+    {
+      "file": "분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe",
+      "sha256": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0",
+      "address": "0x4318ce",
+      "bytes": "0fbf460c",
+      "meaning": "uses signed16-bit X"
+    },
+    {
+      "file": "분석/Saver_1.2/extracted/Saver_Files/Saver/DManage.dll",
+      "sha256": "b2e1812372991c0984401c700b0800562ac2cc19ae3a937c7a2f36612b0da967",
+      "address": "0x10007cdc",
+      "bytes": "e8d1410000",
+      "meaning": "calls map file open wrapper"
+    },
+    {
+      "file": "분석/Saver_1.2/extracted/Saver_Files/Saver/DManage.dll",
+      "sha256": "b2e1812372991c0984401c700b0800562ac2cc19ae3a937c7a2f36612b0da967",
+      "address": "0x10007ce1",
+      "bytes": "85c0",
+      "meaning": "tests actual file open result"
+    },
+    {
+      "file": "분석/Saver_1.2/extracted/Saver_Files/Saver/DManage.dll",
+      "sha256": "b2e1812372991c0984401c700b0800562ac2cc19ae3a937c7a2f36612b0da967",
+      "address": "0x10007d9a",
+      "bytes": "e801feffff",
+      "meaning": "calls MRC parser"
+    },
+    {
+      "file": "분석/Saver_1.2/extracted/Saver_Files/Saver/DManage.dll",
+      "sha256": "b2e1812372991c0984401c700b0800562ac2cc19ae3a937c7a2f36612b0da967",
+      "address": "0x10007d9f",
+      "bytes": "85c0",
+      "meaning": "tests actual parse result"
+    },
+    {
+      "file": "분석/Saver_1.2/extracted/Saver_Files/Saver/DManage.dll",
+      "sha256": "b2e1812372991c0984401c700b0800562ac2cc19ae3a937c7a2f36612b0da967",
+      "address": "0x10007daf",
+      "bytes": "c7463401000000",
+      "meaning": "sets loaded flag after parse success"
+    }
+  ],
+  "sceneAssetChecks": 16,
+  "assets": [
+    {
+      "scene": "KaosiaAccessoryShop_Map",
+      "path": "Assets/_Game/Scenes/Maps/KaosiaAccessoryShop_Map.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaAccessoryShop_Runtime",
+      "path": "Assets/_Game/Scenes/Runtime/KaosiaAccessoryShop_Runtime.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaArmorShop_Map",
+      "path": "Assets/_Game/Scenes/Maps/KaosiaArmorShop_Map.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaArmorShop_Runtime",
+      "path": "Assets/_Game/Scenes/Runtime/KaosiaArmorShop_Runtime.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaBank_Map",
+      "path": "Assets/_Game/Scenes/Maps/KaosiaBank_Map.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaBank_Runtime",
+      "path": "Assets/_Game/Scenes/Runtime/KaosiaBank_Runtime.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaMagicTools_Map",
+      "path": "Assets/_Game/Scenes/Maps/KaosiaMagicTools_Map.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaMagicTools_Runtime",
+      "path": "Assets/_Game/Scenes/Runtime/KaosiaMagicTools_Runtime.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaTemple_Map",
+      "path": "Assets/_Game/Scenes/Maps/KaosiaTemple_Map.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaTemple_Runtime",
+      "path": "Assets/_Game/Scenes/Runtime/KaosiaTemple_Runtime.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaWarehouse_Map",
+      "path": "Assets/_Game/Scenes/Maps/KaosiaWarehouse_Map.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaWarehouse_Runtime",
+      "path": "Assets/_Game/Scenes/Runtime/KaosiaWarehouse_Runtime.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaWeaponShop_Map",
+      "path": "Assets/_Game/Scenes/Maps/KaosiaWeaponShop_Map.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "KaosiaWeaponShop_Runtime",
+      "path": "Assets/_Game/Scenes/Runtime/KaosiaWeaponShop_Runtime.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "Kaosia_Map",
+      "path": "Assets/_Game/Scenes/Maps/Kaosia_Map.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    },
+    {
+      "scene": "Town_Runtime",
+      "path": "Assets/_Game/Scenes/Runtime/Town_Runtime.unity",
+      "enabled": true,
+      "metaGuidMatches": true,
+      "tracked": true
+    }
+  ],
+  "floatIllustrations": [
+    {
+      "source": 40.5,
+      "offsetFloat32": 0.05000000074505806,
+      "wideAddition": 40.55000000074506,
+      "storedFloat32": 40.54999923706055,
+      "note": "Illustration only; Unity JIT intermediate precision not measured here."
+    },
+    {
+      "source": 9.5,
+      "offsetFloat32": 0.05000000074505806,
+      "wideAddition": 9.550000000745058,
+      "storedFloat32": 9.550000190734863,
+      "note": "Illustration only; Unity JIT intermediate precision not measured here."
+    }
+  ],
+  "findings": {
+    "BUILDING-01": "Accepted movement response copies request.X/Y unchanged; recomputing a floating-point addition in an exact equality assertion is not original-protocol coordinate evidence. Preserve/cross-compare stored request fields in future fix.",
+    "BUILDING-02": "Current repository16 scene assets are enabled and GUID-matched. Validation environment reports CanStreamedLevelBeLoaded false in EditMode for all destinations. Active build profile and actual Play availability remain unverified; do not remove production load validation blindly."
+  }
+}

@@ -122,8 +122,9 @@ namespace DarkSaver.Tests
             Check((session, first, second, hud) =>
             {
                 first.TryRestorePlayerVitals(hp, 5); session.CapturePlayerVitals(first);
-                Assert.That(hud.SummaryText, Does.Contain($"HP {hp}/120  MP 5/30"));
-                if (hp == 0) Assert.That(hud.SummaryText, Does.Contain("전투 불능: 신전 관리인에게 부활을 요청하세요."));
+                Assert.AreEqual(hp,session.PlayerHp);Assert.AreEqual(5,session.PlayerMp);
+                Assert.That(hud.SummaryText, Does.Not.Contain("HP "),"retired temporary HUD is not native status UI");
+                if (hp == 0) Assert.IsFalse(session.CanEnterBattle);
                 else Assert.That(hud.SummaryText, Does.Not.Contain("전투 불능"));
                 Assert.That((session.PlayerHp, session.PlayerMp, session.CanEnterBattle), Is.EqualTo((hp, 5, hp > 0)));
             });
@@ -159,8 +160,8 @@ namespace DarkSaver.Tests
                 }
                 var hud = Create("Vitals HUD test").AddComponent<WorldSessionHud>();
                 var session = hud.GetComponent<BattleTransitionController>();
-                var first = Create("First vitals battle").AddComponent<BattleSceneRoot>();
-                var second = Create("Second vitals battle").AddComponent<BattleSceneRoot>();
+                var first = Create("First vitals battle").AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(first,6);
+                var second = Create("Second vitals battle").AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(second,6);
                 check(session, first, second, hud);
             }
             finally { EditorSceneManager.ClosePreviewScene(preview); }

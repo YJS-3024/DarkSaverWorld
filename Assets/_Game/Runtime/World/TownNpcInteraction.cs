@@ -24,7 +24,7 @@ namespace DarkSaver.World
         public bool TryInteract(TopDownPlayerController player, TownServicesPanel panel)
         {
             if (!isActiveAndEnabled || !DarkSaver.Core.TownCatalog.IsRuntime(gameObject.scene.name) || player == null || panel == null
-                || player.UiInputBlocked || Vector2.Distance(player.transform.position, transform.position) > GameConstants.TownNpcInteractionDistance) return false;
+                || !player.isActiveAndEnabled || player.UiInputBlocked || !NpcInteractionRules.IsAdjacent(player.transform.position, transform.position)) return false;
             return panel.OpenDialogue(speaker, dialogue, player, destination);
         }
 

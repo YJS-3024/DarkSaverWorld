@@ -53,10 +53,10 @@ namespace DarkSaver.Network
         public WorldMoveNotification(bool accepted=false,float x=0,float y=0,string reason=null):base(accepted,reason) { X=x;Y=y; }
     }
     // Native map transition contract: local names, not recovered wire fields/opcodes.
-    public sealed class MapEnterRequest : ClientPacket
+    public sealed class Request_EnterMap : ClientPacket
     {
         public string Target { get; } public string SpawnId { get; }
-        public MapEnterRequest(string target=null,string spawnId=null) { Target=target;SpawnId=spawnId; }
+        public Request_EnterMap(string target=null,string spawnId=null) { Target=target;SpawnId=spawnId; }
     }
     public enum MapEnterStage { Started, Ready, Failed }
     public sealed class MapEnterNotification : LocalCommandResponse

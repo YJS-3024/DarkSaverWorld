@@ -1,0 +1,505 @@
+{
+  "scope": "static ARC directory/checksums, early/late binary comparison and existing decoded text; no decompression rerun, Unity or server execution",
+  "maps": 7,
+  "originalArchiveEntries": 35,
+  "lateArchivesCompared": 7,
+  "assertions": "All checked conditions passed; counts are data coverage, not Unity test counts",
+  "unresolved": [
+    "monster kinds/count/spawn positions",
+    "class-to-training-map assignment",
+    "TICK time unit and REGEN operand meaning",
+    "retreat destination/cost/death policy"
+  ],
+  "rows": [
+    {
+      "map": 101,
+      "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/MAP/101set.arc",
+      "sha256": "e12ae6a4179ab8729bde83bfbaeddd23e71c066c055135900c7a5faaafe88b27",
+      "lateSha256": "e12ae6a4179ab8729bde83bfbaeddd23e71c066c055135900c7a5faaafe88b27",
+      "entries": [
+        {
+          "name": "101.evt",
+          "unpacked": 40,
+          "packed": 42,
+          "checksum": 6375
+        },
+        {
+          "name": "101.SRF",
+          "unpacked": 10,
+          "packed": 12,
+          "checksum": 1784
+        },
+        {
+          "name": "101.ai",
+          "unpacked": 128,
+          "packed": 77,
+          "checksum": 11079
+        },
+        {
+          "name": "101.dee",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "101.deo",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        }
+      ],
+      "ai": [
+        {
+          "instance": 400,
+          "area": [
+            3,
+            11,
+            5
+          ],
+          "magic": 104
+        },
+        {
+          "instance": 410,
+          "area": [
+            16,
+            2,
+            5
+          ],
+          "magic": 104
+        }
+      ],
+      "eventTokens": [
+        "EVENT",
+        "01",
+        "INF",
+        "1",
+        "TICK",
+        "10",
+        "REGEN",
+        "2",
+        "END"
+      ],
+      "placementRecords": 0
+    },
+    {
+      "map": 102,
+      "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/MAP/102set.arc",
+      "sha256": "7e7364d80d2a669282103af62f4ea2ed7e065cdfdc98993ea426bb3e775dd77f",
+      "lateSha256": "7e7364d80d2a669282103af62f4ea2ed7e065cdfdc98993ea426bb3e775dd77f",
+      "entries": [
+        {
+          "name": "102.ai",
+          "unpacked": 128,
+          "packed": 79,
+          "checksum": 11345
+        },
+        {
+          "name": "102.dee",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "102.deo",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "102.evt",
+          "unpacked": 40,
+          "packed": 41,
+          "checksum": 6353
+        },
+        {
+          "name": "102.srf",
+          "unpacked": 10,
+          "packed": 12,
+          "checksum": 1784
+        }
+      ],
+      "ai": [
+        {
+          "instance": 400,
+          "area": [
+            2,
+            11,
+            5
+          ],
+          "magic": 304
+        },
+        {
+          "instance": 410,
+          "area": [
+            16,
+            3,
+            4
+          ],
+          "magic": 304
+        }
+      ],
+      "eventTokens": [
+        "EVENT",
+        "01",
+        "INF",
+        "1",
+        "TICK",
+        "10",
+        "REGEN",
+        "2",
+        "ENDDD"
+      ],
+      "placementRecords": 0
+    },
+    {
+      "map": 103,
+      "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/MAP/103set.arc",
+      "sha256": "631c79d9167126fff85e17c6419101fa65838e6dd80fe30eabcfd10d121f5c68",
+      "lateSha256": "631c79d9167126fff85e17c6419101fa65838e6dd80fe30eabcfd10d121f5c68",
+      "entries": [
+        {
+          "name": "103.ai",
+          "unpacked": 127,
+          "packed": 76,
+          "checksum": 10726
+        },
+        {
+          "name": "103.dee",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "103.deo",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "103.evt",
+          "unpacked": 40,
+          "packed": 41,
+          "checksum": 6363
+        },
+        {
+          "name": "103.srf",
+          "unpacked": 10,
+          "packed": 12,
+          "checksum": 1784
+        }
+      ],
+      "ai": [
+        {
+          "instance": 400,
+          "area": [
+            3,
+            2,
+            5
+          ],
+          "magic": 104
+        },
+        {
+          "instance": 410,
+          "area": [
+            2,
+            10,
+            5
+          ],
+          "magic": 104
+        }
+      ],
+      "eventTokens": [
+        "EVENT",
+        "01",
+        "INF",
+        "1",
+        "TICK",
+        "10",
+        "REGEN",
+        "2",
+        "END"
+      ],
+      "placementRecords": 0
+    },
+    {
+      "map": 104,
+      "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/MAP/104set.arc",
+      "sha256": "5b4370db163b535e646bc289d5dd2b046b1bd946769a41881e1ffb6153bce5f9",
+      "lateSha256": "5b4370db163b535e646bc289d5dd2b046b1bd946769a41881e1ffb6153bce5f9",
+      "entries": [
+        {
+          "name": "104.ai",
+          "unpacked": 128,
+          "packed": 77,
+          "checksum": 11026
+        },
+        {
+          "name": "104.dee",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "104.deo",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "104.evt",
+          "unpacked": 40,
+          "packed": 41,
+          "checksum": 6363
+        },
+        {
+          "name": "104.srf",
+          "unpacked": 10,
+          "packed": 12,
+          "checksum": 1784
+        }
+      ],
+      "ai": [
+        {
+          "instance": 400,
+          "area": [
+            3,
+            3,
+            7
+          ],
+          "magic": 104
+        },
+        {
+          "instance": 410,
+          "area": [
+            16,
+            11,
+            7
+          ],
+          "magic": 104
+        }
+      ],
+      "eventTokens": [
+        "EVENT",
+        "01",
+        "INF",
+        "1",
+        "TICK",
+        "10",
+        "REGEN",
+        "2",
+        "END"
+      ],
+      "placementRecords": 0
+    },
+    {
+      "map": 105,
+      "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/MAP/105set.arc",
+      "sha256": "6133964eeae20200e8a50e5cfc7b54845ef9810b12129d3467ea00e0bd229db1",
+      "lateSha256": "6133964eeae20200e8a50e5cfc7b54845ef9810b12129d3467ea00e0bd229db1",
+      "entries": [
+        {
+          "name": "105.ai",
+          "unpacked": 128,
+          "packed": 76,
+          "checksum": 11781
+        },
+        {
+          "name": "105.dee",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "105.deo",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "105.evt",
+          "unpacked": 40,
+          "packed": 41,
+          "checksum": 6353
+        },
+        {
+          "name": "105.srf",
+          "unpacked": 10,
+          "packed": 12,
+          "checksum": 1784
+        }
+      ],
+      "ai": [
+        {
+          "instance": 400,
+          "area": [
+            16,
+            2,
+            5
+          ],
+          "magic": 504
+        },
+        {
+          "instance": 410,
+          "area": [
+            4,
+            12,
+            5
+          ],
+          "magic": 504
+        }
+      ],
+      "eventTokens": [
+        "EVENT",
+        "01",
+        "INF",
+        "1",
+        "TICK",
+        "10",
+        "REGEN",
+        "2",
+        "ENDDD"
+      ],
+      "placementRecords": 0
+    },
+    {
+      "map": 106,
+      "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/MAP/106set.arc",
+      "sha256": "7f17b6a8aa0f0cd87ad9fee1d28428615fc09db9630f3138bf9c571937f9d661",
+      "lateSha256": "7f17b6a8aa0f0cd87ad9fee1d28428615fc09db9630f3138bf9c571937f9d661",
+      "entries": [
+        {
+          "name": "106.ai",
+          "unpacked": 127,
+          "packed": 75,
+          "checksum": 10752
+        },
+        {
+          "name": "106.dee",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "106.deo",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "106.evt",
+          "unpacked": 40,
+          "packed": 41,
+          "checksum": 6363
+        },
+        {
+          "name": "106.srf",
+          "unpacked": 10,
+          "packed": 12,
+          "checksum": 1784
+        }
+      ],
+      "ai": [
+        {
+          "instance": 400,
+          "area": [
+            2,
+            7,
+            5
+          ],
+          "magic": 704
+        },
+        {
+          "instance": 410,
+          "area": [
+            17,
+            7,
+            5
+          ],
+          "magic": 704
+        }
+      ],
+      "eventTokens": [
+        "EVENT",
+        "01",
+        "INF",
+        "1",
+        "TICK",
+        "10",
+        "REGEN",
+        "2",
+        "END"
+      ],
+      "placementRecords": 0
+    },
+    {
+      "map": 107,
+      "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/MAP/107set.arc",
+      "sha256": "70bd4639a9d675972ab5956e3c52f2828967fa75fdc7e16e7c22bd004292bd3d",
+      "lateSha256": "70bd4639a9d675972ab5956e3c52f2828967fa75fdc7e16e7c22bd004292bd3d",
+      "entries": [
+        {
+          "name": "107.ai",
+          "unpacked": 128,
+          "packed": 76,
+          "checksum": 11484
+        },
+        {
+          "name": "107.dee",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "107.deo",
+          "unpacked": 13,
+          "packed": 15,
+          "checksum": 2012
+        },
+        {
+          "name": "107.evt",
+          "unpacked": 40,
+          "packed": 41,
+          "checksum": 6348
+        },
+        {
+          "name": "107.srf",
+          "unpacked": 10,
+          "packed": 12,
+          "checksum": 1784
+        }
+      ],
+      "ai": [
+        {
+          "instance": 400,
+          "area": [
+            12,
+            12,
+            0
+          ],
+          "magic": 504
+        },
+        {
+          "instance": 410,
+          "area": [
+            4,
+            4,
+            0
+          ],
+          "magic": 504
+        }
+      ],
+      "eventTokens": [
+        "EVENT",
+        "01",
+        "INF",
+        "1",
+        "TICK",
+        "10",
+        "REGEN",
+        "2",
+        "END"
+      ],
+      "placementRecords": 0
+    }
+  ]
+}

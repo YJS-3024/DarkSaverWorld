@@ -9,8 +9,8 @@ namespace DarkSaver.Tests
 {
     public sealed class BattleFormationDeploymentTests
     {
-        private static CombatUnit Unit(short id) => new() { Id = id, JobId = 100, Name = "fixture", X = id % 10,
-            Y = id / 10, Hp = 40, MaxHp = 50, Mp = 2, MaxMp = 10, Attack = 0, Defense = 0 };
+        private static CombatUnit Unit(short id) => NativeCombatStateFixture.Received(new CombatUnit { Id = id, JobId = 100, Name = "fixture", X = id % 10,
+            Y = id / 10, Hp = 40, MaxHp = 50, Mp = 2, MaxMp = 10, Attack = 0, Defense = 0 });
         private static BattleFormationSnapshot Formation(params short[] ids)
         {
             var draft = new BattleFormationMemberDraft[ids.Length];
@@ -89,7 +89,7 @@ namespace DarkSaver.Tests
         {
             var active = SceneManager.GetActiveScene(); var dirty = active.isDirty; var preview = EditorSceneManager.NewPreviewScene();
             try { var go = new GameObject("Atomic formation test"); SceneManager.MoveGameObjectToScene(go, preview);
-                action(go.AddComponent<BattleSceneRoot>()); }
+                var receivedBattle=go.AddComponent<BattleSceneRoot>();NativeCombatStateFixture.Initialize(receivedBattle,6);action(receivedBattle); }
             finally { EditorSceneManager.ClosePreviewScene(preview); }
             Assert.That(SceneManager.GetActiveScene(), Is.EqualTo(active)); Assert.That(active.isDirty, Is.EqualTo(dirty));
         }

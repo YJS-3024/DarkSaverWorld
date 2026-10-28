@@ -35,6 +35,11 @@ namespace DarkSaver.Network
                 if(!new NativeSaveStore(request.LocalSavePath).TrySave(data,out reason))
                     return new CharacterEntryResponse(false,reason:reason);
             }
+            if(prepareEntry!=null)
+            {
+                data=prepareEntry(NativeSaveStore.CopyForTransfer(data));
+                if(!NativeSaveStore.IsValid(data))return new CharacterEntryResponse(false,reason:"재접속 위치를 준비할 수 없습니다.");
+            }
             var result=new CharacterEntryResponse(true,accountId,selectedServerId,request.LocalSavePath,data);
             if(result.CaptureState()==null)return new CharacterEntryResponse(false,reason:"캐릭터 진입 정보를 확인할 수 없습니다.");
             entryPrepared=true;return result;

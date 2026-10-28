@@ -55,10 +55,11 @@ namespace DarkSaver.UI
         public void NativeBattleWindowText(string key,Rect rect,string text)
         {
             var content=Scroll(key+"-scroll",rect,rect.height);
-            Label(key,new Rect(0,0,rect.width,rect.height),text,14,content,TextAnchor.UpperLeft);
-            var label=Find<Text>(key);float height=Mathf.Max(rect.height,label.preferredHeight);
+            const float padding=6;
+            Label(key,new Rect(padding,padding,Mathf.Max(0,rect.width-padding*2),Mathf.Max(0,rect.height-padding*2)),text,14,content,TextAnchor.UpperLeft);
+            var label=Find<Text>(key);float height=Mathf.Max(rect.height,label.preferredHeight+padding*2);
             content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,height);
-            label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,height);
+            label.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,height-padding*2);
             Events(key).Tooltip=text??"";Events(key+"-scroll").Tooltip=text??"";Raise(key+"-scroll");
         }
         public void NativeMinimizedWindow(string key,Rect rect,Texture2D background,Action restore)

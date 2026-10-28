@@ -18,11 +18,11 @@ namespace DarkSaver.Tests
             var go = new GameObject("Native commander roster");
             try
             {
-                var battle = go.AddComponent<BattleSceneRoot>();
-                Assert.That(battle.TryRegisterGroup(new[] { new CombatUnit { Id = 101, Hp = 50, MaxHp = 50 } }), Is.True);
+                var battle = go.AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(battle,6);
+                Assert.That(battle.TryRegisterGroup(new[] { NativeCombatStateFixture.Received(new CombatUnit { Id = 101, Hp = 50, MaxHp = 50 }) }), Is.True);
                 Assert.That(battle.TryRegisterGroup(new[] {
-                    new CombatUnit { Id = 200, Hp = 50, MaxHp = 50 },
-                    new CombatUnit { Id = 201, Hp = 50, MaxHp = 50 } }), Is.True);
+                    NativeCombatStateFixture.Received(new CombatUnit { Id = 200, Hp = 50, MaxHp = 50 }),
+                    NativeCombatStateFixture.Received(new CombatUnit { Id = 201, Hp = 50, MaxHp = 50 }) }), Is.True);
                 var commanders = battle.GetAlliedRosterCommanders();
                 Assert.That(commanders.Count, Is.EqualTo(2));
                 Assert.That(commanders[0].Id, Is.EqualTo(100));
@@ -39,52 +39,52 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void PrimaryDeathDoesNotFinishBattleWhileAnotherCommanderLives()
+        public void CommanderDeathsNeverInferUnreceivedBattleOutcome()
         {
             var scene = EditorSceneManager.NewPreviewScene();
             try
             {
                 var root = new GameObject("Multiple commanders fixture"); SceneManager.MoveGameObjectToScene(root, scene);
-                var battle = root.AddComponent<BattleSceneRoot>();
+                var battle = root.AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(battle,6);
                 Assert.That(battle.TryRegisterGroup(new[] {
-                    new CombatUnit { Id = 200, Hp = 50, MaxHp = 50 },
-                    new CombatUnit { Id = 201, Hp = 50, MaxHp = 50 } }), Is.True);
+                    NativeCombatStateFixture.Received(new CombatUnit { Id = 200, Hp = 50, MaxHp = 50 }),
+                    NativeCombatStateFixture.Received(new CombatUnit { Id = 201, Hp = 50, MaxHp = 50 }) }), Is.True);
                 Assert.That(battle.ApplyDeath(100, false), Is.True);
                 Assert.That(battle.DefeatAchieved, Is.False);
                 Assert.That(battle.IsBattleFinished, Is.False);
                 Assert.That(battle.TryAcknowledgeOutcome(), Is.False);
-                Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);
+                Assert.That(NativeCombatStateFixture.ReceiveFullTicks(battle), Is.True);
                 Assert.That(battle.TryGetUnit(200, out var commander), Is.True);
                 Assert.That(commander.Ap, Is.EqualTo(commander.MaxAp));
                 Assert.That(battle.ApplyHp(200, 0), Is.True);
-                Assert.That(battle.DefeatAchieved, Is.True);
-                Assert.That(battle.IsBattleFinished, Is.True);
+                Assert.That(battle.DefeatAchieved, Is.False);
+                Assert.That(battle.IsBattleFinished, Is.False);
                 Assert.That(battle.TryGetUnit(201, out var soldier), Is.True);
                 Assert.That(soldier.Alive, Is.True); // Do not invent a forced subordinate death.
-                Assert.That(battle.TryAcknowledgeOutcome(), Is.True);
+                Assert.That(battle.TryAcknowledgeOutcome(), Is.False);
             }
             finally { EditorSceneManager.ClosePreviewScene(scene); }
         }
 
         [Test]
-        public void AllCommanderDefeatStopsNewActionsButStillAcceptsAbsoluteResults()
+        public void CommanderDeathKeepsIndependentResourceResponsesAvailable()
         {
             var scene = EditorSceneManager.NewPreviewScene();
             try
             {
                 var root = new GameObject("Commander defeat gate fixture"); SceneManager.MoveGameObjectToScene(root, scene);
-                var battle = root.AddComponent<BattleSceneRoot>();
-                Assert.That(battle.TryRegisterGroup(new[] { new CombatUnit { Id = 101, Hp = 50, MaxHp = 50 } }), Is.True);
+                var battle = root.AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(battle,6);
+                Assert.That(battle.TryRegisterGroup(new[] { NativeCombatStateFixture.Received(new CombatUnit { Id = 101, Hp = 50, MaxHp = 50 }) }), Is.True);
                 Assert.That(battle.ApplyDeath(100, true), Is.True);
-                Assert.That(battle.IsBattleFinished, Is.True);
+                Assert.That(battle.IsBattleFinished, Is.False);
                 Assert.That(battle.CanStartAttackRequest(800, 101, out var reason), Is.False);
-                Assert.That(reason, Does.Contain("종료"));
+                Assert.That(reason, Is.Not.Empty);
                 Assert.That(battle.TryStartAttackRequest(800, 101, out _), Is.False);
                 Assert.That(battle.CanStartMagicRequest(1, 101, new short[] { 800 }, out _), Is.False);
                 Assert.That(battle.TryStartMagicRequest(1, 101, new short[] { 800 }, out _), Is.False);
-                Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);
+                Assert.That(NativeCombatStateFixture.ReceiveFullTicks(battle), Is.True);
                 Assert.That(battle.TryGetUnit(101, out var soldier), Is.True);
-                Assert.That(soldier.Ap, Is.EqualTo(6));
+                Assert.That(soldier.Ap, Is.EqualTo(soldier.MaxAp));
                 Assert.That(battle.ApplyMp(101, 0), Is.True);
                 Assert.That(battle.ApplyExperience(new CombatExperienceResult(101, 42)), Is.True);
                 Assert.That(battle.TryGetUnit(101, out soldier), Is.True);
@@ -126,11 +126,11 @@ namespace DarkSaver.Tests
             {
                 var root = new GameObject("Commander removal fixture"); SceneManager.MoveGameObjectToScene(root, scene);
                 root.AddComponent<BattleRequestSender>();
-                var receiver = root.AddComponent<BattlePacketReceiver>(); Assert.That(receiver.Bind(), Is.True);
+                var receiver = root.AddComponent<BattlePacketReceiver>(); NativeCombatStateFixture.Initialize(root.GetComponent<BattleSceneRoot>(),6); Assert.That(receiver.Bind(), Is.True);
                 var battle = root.GetComponent<BattleSceneRoot>();
                 Assert.That(battle.TryRegisterGroup(new[] {
-                    new CombatUnit { Id = 200, JobId = 100, Hp = 50, MaxHp = 50 },
-                    new CombatUnit { Id = 201, JobId = 100, Hp = 50, MaxHp = 50 } }), Is.True);
+                    NativeCombatStateFixture.Received(new CombatUnit { Id = 200, JobId = 100, Hp = 50, MaxHp = 50 }),
+                    NativeCombatStateFixture.Received(new CombatUnit { Id = 201, JobId = 100, Hp = 50, MaxHp = 50 }) }), Is.True);
                 var before = battle.GetAlliedGroups();
                 Assert.That(before.Count, Is.EqualTo(2)); Assert.That(before[0].CommanderId, Is.EqualTo(100));
                 Assert.That(before[1].CommanderId, Is.EqualTo(200)); Assert.That(before[1].AliveCount, Is.EqualTo(2));
@@ -139,7 +139,7 @@ namespace DarkSaver.Tests
                 Assert.That(after.Count, Is.EqualTo(2)); Assert.That(after[1].CommanderPresent, Is.True);
                 Assert.That(after[1].CommanderAlive, Is.False); Assert.That(after[1].AliveCount, Is.EqualTo(1));
                 Assert.That(before[1].CommanderAlive, Is.True); Assert.That(battle.IsBattleFinished, Is.False);
-                Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);
+                Assert.That(NativeCombatStateFixture.ReceiveFullTicks(battle), Is.True);
                 Assert.That(battle.TryGetUnit(200, out var commander), Is.True);
                 Assert.That(commander.LifeState, Is.EqualTo(UnitLifeState.Removed)); Assert.That(commander.Ap, Is.EqualTo(6));
                 Assert.That(battle.TryGetUnit(201, out var soldier), Is.True);
@@ -172,10 +172,10 @@ namespace DarkSaver.Tests
                 var enemy = Body("Enemy", new Vector3(2.5f, 2.5f));
                 var soldier = Body("Soldier", new Vector3(.5f, 2.5f));
                 var root = Create("Battle"); root.AddComponent<BattleRequestSender>();
-                var receiver = root.AddComponent<BattlePacketReceiver>(); Assert.That(receiver.Bind(), Is.True);
+                var receiver = root.AddComponent<BattlePacketReceiver>(); NativeCombatStateFixture.Initialize(root.GetComponent<BattleSceneRoot>(),6); Assert.That(receiver.Bind(), Is.True);
                 var view = root.AddComponent<BattleMapPresentation>(); var battle = root.GetComponent<BattleSceneRoot>();
-                Assert.That(battle.TryRegisterGroup(new[] { new CombatUnit {
-                    Id = 101, JobId = 100, Name = "soldier", Hp = 50, MaxHp = 50, Mp = 10, MaxMp = 10 } }), Is.True);
+                Assert.That(battle.TryRegisterGroup(new[] { NativeCombatStateFixture.Received(new CombatUnit {
+                    Id = 101, JobId = 100, Name = "soldier", Hp = 50, MaxHp = 50, Mp = 10, MaxMp = 10 }) }), Is.True);
                 var groups = battle.GetAlliedGroups();
                 Assert.That(groups.Count, Is.EqualTo(1)); Assert.That(groups[0].CommanderId, Is.EqualTo(100));
                 Assert.That(groups[0].Members.Count, Is.EqualTo(2));

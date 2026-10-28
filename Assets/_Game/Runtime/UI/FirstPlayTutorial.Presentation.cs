@@ -8,6 +8,7 @@ namespace DarkSaver.UI
     public sealed partial class FirstPlayTutorial
     {
         private NativeBattleWindows windows;
+        private readonly System.Collections.Generic.Dictionary<int,int> lessonMasks=new();
         private void LateUpdate()
         {
             if(session==null || !session.HasPendingTutorial || leaving){ui?.Hide();return;}
@@ -26,6 +27,7 @@ namespace DarkSaver.UI
             }
             DrawRanges();DrawDialogs();DrawActions();
             DrawDialogue(command);
+            ui.Raise("tutorial-actions-layer");
             if(!string.IsNullOrEmpty(error))ui.Label("request-error",new Rect(40,450,560,28),error,12,color:Color.white);
             ui.End();
         }
@@ -40,7 +42,7 @@ namespace DarkSaver.UI
                 var portrait=Resources.Load<Texture2D>("UI/CharacterPortraits/"+progress.portrait);
                 ui.PortraitTexture("portrait",new Rect(rect.x+20,rect.y+20,64,64),portrait);
                 var lines=ScenarioDialogueLayout.Page(mode,progress.message,0).Split('\n');
-                for(int i=0;i<lines.Length && i<3;i++)ui.NativeBitmapText("dialogue-line-"+i,new Rect(150,rect.y+23+i*20,439,14),lines[i],Color.white);
+                for(int i=0;i<lines.Length && i<3;i++)ui.NativeBitmapText("dialogue-line-"+i,new Rect(rect.x+116,rect.y+25+i*20,rect.width-136,14),lines[i],Color.white);
                 if(command.Name=="WAITMOUSEBUTTON")ui.TransparentButton("dialogue-ack",rect,()=>Advance(cursor));
             }
         }
@@ -49,8 +51,17 @@ namespace DarkSaver.UI
             var command=script.Current(progress);int cursor=progress.step;
             var actor=Array.Find(progress.actors,a=>a.id==(openMenu>=0?openMenu:progress.topMenu));if(actor==null)return;
 
-            var layer=ui.OverlayLayer("tutorial-actions-layer",1);
-            var cell=ActorRect(actor.id);var r=new Rect(cell.center.x-48,cell.center.y-48,96,96);
+            var layer=ui.OverlayLayer("tutorial-actions-layer",10);
+            var cell=ActorRect(actor.id);
+            float panelTop=180,panelBottom=0;
+            if(progress.dialogs.Contains("F2"))panelBottom=minimizedWindows.Contains("F2")?265:393;
+            if(progress.dialogs.Contains("F5"))
+            {
+                int count=progress.actors.Count(a=>a.id>=0 && a.id<100 && a.id%10==0 && !a.removed);
+                panelBottom=Math.Max(panelBottom,minimizedWindows.Contains("F5")?253:231+44+41*Math.Min(4,count));
+            }
+            TutorialPresentationRules.PlaceMenu(cell.center.x,cell.center.y,panelTop,panelBottom,out var menuX,out var menuY);
+            var r=new Rect(menuX,menuY,96,96);
             if(subMenu=="Magic")
             {
                 ui.ActionButton("fireball",new Rect(r.x+32,r.y,32,32),"",()=>
@@ -58,7 +69,7 @@ namespace DarkSaver.UI
                     if(cursor!=progress.step)return;
                     // Reopening a selected spell changes presentation only; do not advance stage1 twice.
                     if(command.Arguments[0]=="2" || Send("Magic",actor:actor.id,stage:1,expected:cursor))
-                    {subMenu="";magicArmed=true;openMenu=-1;}
+                    {subMenu="";magicArmed=true;movementArmed=attackArmed=false;openMenu=-1;}
                 },
                     progress.mouseMenu && command.Name=="WAITMAGICMENU" && (command.Arguments[0]=="1" || command.Arguments[0]=="2"),"파이어볼",FireballIcon(),parent:layer,dimDisabledIcon:false);return;
             }
@@ -75,10 +86,14 @@ namespace DarkSaver.UI
                 return;
             }
             int[] bits={16,1,2,8,4,128,64,32};string[] names={"이동","공격","특수기","휴식","마법","설정","용병에게 명령","도구"};
+            lessonMasks.TryGetValue(actor.id,out var previousMask);
+            int displayMask=TutorialPresentationRules.IconMask(actor.mask,previousMask,progress.mouseMenu);
+            if(actor.mask!=0)lessonMasks[actor.id]=actor.mask;
             for(int i=0;i<8;i++)
             {
-                int index=i;bool available=NativeBattleActionMenu.AllowsIndex(actor.id,i) && (actor.mask & bits[i])!=0;
-                bool enabled=progress.mouseMenu && available;
+                int index=i;bool roleAllowed=NativeBattleActionMenu.AllowsIndex(actor.id,i);
+                bool available=roleAllowed && (displayMask & bits[i])!=0;
+                bool enabled=progress.mouseMenu && roleAllowed && (actor.mask & bits[i])!=0;
                 ui.ActionButton("action-"+i,NativeBattleActionMenu.ButtonRect(r,i),"",()=>ChooseAction(index,actor.id,cursor),enabled,names[i],
                     available?BattleIconFrames.Action(NativeBattleActionMenu.IconColumn(i),Time.unscaledTimeAsDouble)
                         :BattleIconFrames.InactiveAction(NativeBattleActionMenu.InactiveIconColumn(i)),parent:layer,dimDisabledIcon:false);
@@ -90,9 +105,9 @@ namespace DarkSaver.UI
             switch(index)
             {
                 case 0:if(script.Current(progress).Name=="WAITMOVEPOS" || Send("MoveMenu",actor:actor,expected:cursor))
-                    {movementArmed=true;openMenu=-1;}break;
+                    {movementArmed=true;attackArmed=magicArmed=false;openMenu=-1;}break;
                 case 1:if(script.Current(progress).Name=="WAITATTACKCHAR" || Send("AttackMenu",actor:actor,expected:cursor))
-                    {attackArmed=true;openMenu=-1;}break;
+                    {attackArmed=true;movementArmed=magicArmed=false;openMenu=-1;}break;
                 case 3:if(Send("Rest",actor:actor,expected:cursor))openMenu=-1;break;
                 case 4:
                     var current=script.Current(progress);
@@ -139,7 +154,7 @@ namespace DarkSaver.UI
                 DrawPracticeWindowButtons(key,rect,window);
                 if(key=="F8")DrawPracticeTerrain(rect);
                 if(key=="F6")DrawMinimap(rect);
-                if(key=="F4")ui.NativeBitmapText("victory",new Rect(rect.x+10,rect.y+28,rect.width-20,40),progress.victory,Color.black,3);
+                if(key=="F4")ui.NativeBitmapText("victory",new Rect(rect.x+14,rect.y+32,rect.width-28,40),progress.victory,Color.black,3);
                 if(key=="F1")ui.NativeBattleWindowText("help",new Rect(rect.x+10,rect.y+28,rect.width-20,rect.height-35),Resources.Load<TextAsset>("UI/BattleWindows/NativeBattleHelp")?.text ?? "");
                 if(key=="F3")
                 {

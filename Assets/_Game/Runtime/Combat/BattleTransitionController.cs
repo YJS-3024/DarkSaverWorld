@@ -466,24 +466,6 @@ namespace DarkSaver.Combat
                     SetPlayerEnabled(true);
                 }
             }
-            if(activeBattle!=null)
-            {
-                for(int id=101;id<=107;id++)
-                    if(SceneManager.GetSceneByName("Map_"+id+"_;").isLoaded && SceneManager.GetSceneByName("Training"+id+"_Runtime").isLoaded)
-                    {
-                        var rules=Resources.Load<TextAsset>("World/TrainingRules");
-                        var settings=rules==null?null:JsonUtility.FromJson<TrainingRuntimeSettings>(rules.text);
-                        var seconds=settings!=null && settings.version==1?settings.respawnSeconds:0;
-                        if(!activeBattle.ConfigurePersistentTraining(enemy,seconds))
-                        {
-                            LastTransitionMessage="훈련장 전투 설정을 확인할 수 없습니다.";
-                            activeBattle=null;activeFormation=null;
-                            if(scene.IsValid() && scene.isLoaded)yield return SceneManager.UnloadSceneAsync(scene);
-                            SetPlayerEnabled(true);
-                        }
-                        break;
-                    }
-            }
             if(activeBattle!=null) activeBattle.GetComponent<BattleMapPresentation>()?.TryBindSessionToolDisplay(this);
             transitioning = false;
             if (activeBattle != null)
@@ -495,7 +477,6 @@ namespace DarkSaver.Combat
             }
         }
 
-        [System.Serializable] private sealed class TrainingRuntimeSettings { public int version;public float respawnSeconds; }
         private IEnumerator ExitRoutine()
         {
             bool leavingTraining=activeBattle!=null && activeBattle.IsPersistentTraining;

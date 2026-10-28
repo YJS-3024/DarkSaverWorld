@@ -16,7 +16,7 @@ namespace DarkSaver.Tests
                 Assert.That(battle.TryStartMovementAction(100, Cell(1, 2), 2, out _, out _), Is.False);
                 var allowed = true; Configure(battle, (_, _) => allowed);
                 Assert.That(battle.TryStartMovementAction(100, Cell(1, 2), 2, out _, out _), Is.False);
-                Assert.That(battle.PlayerAp, Is.EqualTo(6)); battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp);
+                Assert.That(battle.PlayerAp, Is.EqualTo(6)); NativeCombatStateFixture.ReceiveFullTicks(battle);
                 foreach (var cost in new[] { -1, 0, GameConstants.BattleMaximumAp + 1 })
                     Assert.That(battle.TryStartMovementAction(100, Cell(1, 2), cost, out var bad, out _), Is.False);
                 foreach (var cell in new[] { Cell(-1, 0), Cell(1, 1), Cell(3, 3), Cell(1, 3) })
@@ -31,41 +31,31 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void ApprovedActionSpendsOnceButCoordinatesWaitForIndependentConfirmation()
+        public void MovementReceiptDoesNotInventAPaymentBeforeIndependentTickUpdate()
         {
-            WithBattle(battle => {
-                Configure(battle); battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp); var events = 0;
-                battle.MovementStepApplied += _ => { events++; Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp - 2)); };
-                Assert.That(battle.TryStartMovementAction(100, Cell(1, 2), 2, out var ticket, out var reason), Is.True);
-                Assert.That(reason, Is.Empty); Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp - 2));
-                battle.TryGetUnit(100, out var before); Assert.That(before.Y, Is.EqualTo(1)); Assert.That(events, Is.EqualTo(0));
-                Assert.That(battle.TryStartMovementAction(100, Cell(2, 1), 2, out _, out _), Is.False);
-                Assert.That(battle.TryApplyReservedMovementStep(ticket), Is.True);
-                Assert.That(battle.TryApplyReservedMovementStep(ticket), Is.False); Assert.That(events, Is.EqualTo(1));
-                battle.TryGetUnit(100, out var after); Assert.That(after.Y, Is.EqualTo(2));
-                Assert.That(battle.PlayerMp, Is.EqualTo(30)); Assert.That(battle.PlayerExperience, Is.EqualTo(0));
+            WithBattle(battle=>{
+                Configure(battle);NativeCombatStateFixture.ReceiveFullTicks(battle);
+                Assert.IsFalse(battle.TryMoveTo(100,Cell(1,2),out _));Assert.AreEqual(20,battle.PlayerAp);
+                Assert.IsTrue(battle.TryReserveMovementStep(100,Cell(1,2),out var ticket));
+                Assert.AreEqual(20,battle.PlayerAp);Assert.IsTrue(battle.TryApplyReservedMovementStep(ticket));
+                battle.TryGetUnit(100,out var unit);Assert.AreEqual(2,unit.Y);Assert.AreEqual(20,unit.Ap);
             });
         }
 
         [Test]
-        public void PendingMovementBlocksOtherStartsEvenAfterApRecoveryAndCancelDoesNotInventRefund()
+        public void ReservedReceiptBlocksConcurrentRequestsAndCancellationNeverInventsRefund()
         {
-            WithBattle(battle => {
-                Configure(battle); battle.ConfigureActionPointCosts(2, 6); battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp);
-                Assert.That(battle.TryStartMovementAction(100, Cell(1, 2), 3, out var ticket, out _), Is.True);
-                Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp - 3)); battle.AdvanceActionPoints(3);
-                Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp));
-                Assert.That(battle.TryStartMovementAction(100, Cell(2, 1), 3, out _, out _), Is.False);
-                Assert.That(battle.CanStartAttackRequest(800, 100, out _), Is.False);
-                Assert.That(battle.TryStartAttackRequest(800, 100, out _), Is.False);
-                Assert.That(battle.CanStartMagicRequest(101, 100, new short[] { 800 }, out _), Is.False);
-                Assert.That(battle.TryStartMagicRequest(101, 100, new short[] { 800 }, out _), Is.False);
-                Assert.That(battle.TryApplyReservedMovementStep(ticket), Is.True);
-                Assert.That(battle.TryStartMovementAction(100, Cell(2, 2), 3, out ticket, out _), Is.True);
-                Assert.That(battle.CancelMovementStep(100), Is.True); Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp - 3));
-                Assert.That(battle.TryApplyReservedMovementStep(ticket), Is.False);
-                Assert.That(battle.TryStartMovementAction(800, Cell(3, 2), 4, out _, out _), Is.True);
-                Assert.That(battle.EnemyAp, Is.EqualTo(GameConstants.BattleEnemyMaximumAp - 4)); Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp - 3));
+            WithBattle(battle=>{
+                Configure(battle);battle.ConfigureActionPointCosts(2,6);NativeCombatStateFixture.ReceiveFullTicks(battle);
+                Assert.IsTrue(battle.TryReserveMovementStep(100,Cell(1,2),out var ticket));
+                Assert.IsFalse(battle.TryReserveMovementStep(100,Cell(2,1),out _));
+                Assert.IsFalse(battle.CanStartAttackRequest(800,100,out _));
+                Assert.IsFalse(battle.TryStartMagicRequest(101,100,new short[]{800},out _));
+                Assert.IsFalse(battle.AdvanceActionPoints(3));Assert.AreEqual(20,battle.PlayerAp);
+                Assert.IsTrue(battle.TryApplyReservedMovementStep(ticket));
+                Assert.IsTrue(battle.TryReserveMovementStep(100,Cell(2,2),out ticket));
+                Assert.IsTrue(battle.CancelMovementStep(100));Assert.AreEqual(20,battle.PlayerAp);
+                Assert.IsFalse(battle.TryApplyReservedMovementStep(ticket));
             });
         }
 
@@ -111,7 +101,7 @@ namespace DarkSaver.Tests
         {
             var world = new CombatWorld();
             foreach (short id in new short[] { 100, 800 })
-                world.Add(new CombatUnit { Id = id, Enemy = id == 800, Hp = 50, MaxHp = 50 });
+                world.Add(NativeCombatStateFixture.Received(new CombatUnit { Id = id, Enemy = id == 800, Hp = 50, MaxHp = 50 }));
             return world;
         }
         private static void Configure(BattleSceneRoot battle, Func<CombatUnitSnapshot, CombatGridCell, bool> terrain = null) =>
@@ -122,7 +112,7 @@ namespace DarkSaver.Tests
         {
             var scene = EditorSceneManager.NewPreviewScene();
             try { var go = new GameObject("Movement action approval check"); SceneManager.MoveGameObjectToScene(go, scene);
-                check(go.AddComponent<BattleSceneRoot>()); }
+                var receivedBattle=go.AddComponent<BattleSceneRoot>();NativeCombatStateFixture.Initialize(receivedBattle,6);check(receivedBattle); }
             finally { EditorSceneManager.ClosePreviewScene(scene); }
         }
     }

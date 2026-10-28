@@ -47,7 +47,7 @@ namespace DarkSaver.Combat
                 { reason = "결과 ID가 중복되거나 출전한 아군/직업과 일치하지 않습니다."; return false; }
                 if (observed.MaxHp <= 0 || observed.Hp < 0 || observed.Hp > observed.MaxHp ||
                     observed.MaxMp < 0 || observed.Mp < 0 || observed.Mp > observed.MaxMp ||
-                    observed.Attack < 0 || observed.Defense < 0 || observed.Ap < 0 || observed.Ap > GameConstants.GetBattleMaximumAp(observed.Enemy) ||
+                    observed.Attack < 0 || observed.Defense < 0 || observed.Ap < 0 || (observed.MaxAp > 0 && observed.Ap > observed.MaxAp) ||
                     (observed.LifeState != UnitLifeState.Active && observed.LifeState != UnitLifeState.Corpse && observed.LifeState != UnitLifeState.Removed) ||
                     (observed.LifeState != UnitLifeState.Active && observed.Hp > 0))
                 { reason = "결과의 생명 상태 또는 능력치가 유효하지 않습니다."; return false; }

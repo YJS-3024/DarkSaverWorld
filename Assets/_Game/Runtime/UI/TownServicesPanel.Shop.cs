@@ -6,6 +6,21 @@ namespace DarkSaver.UI
 {
     public sealed partial class TownServicesPanel
     {
+        // Display only after the local authority has approved this NPC interaction.
+        public bool RequestOpenShop(DarkSaver.World.ShopCounter2D npc, DarkSaver.Player.TopDownPlayerController controller)
+        {
+            if (npc == null || controller == null || controller != FindFirstObjectByType<DarkSaver.Player.TopDownPlayerController>()) return false;
+            var server = GetComponent<DarkSaver.Network.ServerManager>();
+            if (server == null) server = gameObject.AddComponent<DarkSaver.Network.ServerManager>();
+            server.BindLocalShopService();
+            if (!server.TryRequest(new DarkSaver.Network.Request_OpenShop(npc.GetEntityId().ToString()), out var packet)
+                || packet is not DarkSaver.Network.Response_OpenShop response
+                || response.NpcId != npc.GetEntityId().ToString()
+                || response.ShopKey != DarkSaver.World.ShopInteriorContext.Current?.Key) return false;
+            var catalog = GetComponent<ItemCatalogPanel>()?.Catalog;
+            if (!ConfigureShop(catalog, response.CaptureOffers())) return false;
+            return Open(TownService.Shop, controller);
+        }
         [SerializeField] private ItemCatalog shopItems;
         [SerializeField] private NativeShopOffer[] shopOffers = System.Array.Empty<NativeShopOffer>();
         private int shopPage;

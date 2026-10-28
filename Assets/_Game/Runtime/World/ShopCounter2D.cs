@@ -12,13 +12,26 @@ namespace DarkSaver.World
                 && !DarkSaver.Core.OriginalRestorationPolicy.AllowsStaffEvidence(GetComponent<OriginalTownStaff>()?.Source?.evidence))
                 gameObject.SetActive(false);
         }
+        // Compatibility/display value only; CanInteractFrom owns the cell-based permission.
         public float InteractionDistance { get; private set; }=GameConstants.TownNpcInteractionDistance;
-        internal void ConfigureWideCounter()=>InteractionDistance=3f;
+        private Vector2Int[] counterFront = System.Array.Empty<Vector2Int>();
+        internal void ConfigureCounterFront(Vector2Int[] cells)
+            => counterFront = cells == null ? System.Array.Empty<Vector2Int>() : (Vector2Int[])cells.Clone();
+        public bool CanInteractFrom(Vector2 position)
+        {
+            if (NpcInteractionRules.IsAdjacent(position, transform.position)) return true;
+            foreach (var cell in counterFront)
+                if (NpcInteractionRules.IsCounterFront(position, cell)) return true;
+            return false;
+        }
         public bool TryOpen(TopDownPlayerController player)
         {
-            if(!isActiveAndEnabled || (ShopInteriorContext.Current==null && !DarkSaver.Combat.BattleTransitionController.IsTempleReady) || player==null || !player.isActiveAndEnabled || player.UiInputBlocked || Vector2.Distance(player.transform.position,transform.position)>InteractionDistance
+            if(!isActiveAndEnabled || (ShopInteriorContext.Current==null && !DarkSaver.Combat.BattleTransitionController.IsTempleReady) || player==null || !player.isActiveAndEnabled || player.UiInputBlocked || !CanInteractFrom(player.transform.position)
                 || FindAnyObjectByType<WorldSceneCoordinator>()?.IsTravelling==true)return false;
-            return FindAnyObjectByType<TownServicesPanel>()?.Open(DarkSaver.Combat.BattleTransitionController.IsTempleReady ? TownService.Temple : TownService.Shop,player) ?? false;
+            var panel = FindAnyObjectByType<TownServicesPanel>();
+            if (panel == null) return false;
+            return DarkSaver.Combat.BattleTransitionController.IsTempleReady
+                ? panel.Open(TownService.Temple, player) : panel.RequestOpenShop(this, player);
         }
         public static bool TryInteractAt(Vector2 world,TopDownPlayerController player)
         {
@@ -26,7 +39,7 @@ namespace DarkSaver.World
             foreach(var hit in Physics2D.OverlapPointAll(world))
             {
                 var npc=hit.GetComponentInParent<ShopCounter2D>();
-                if(npc==null || !npc.isActiveAndEnabled || player==null || Vector2.Distance(player.transform.position,npc.transform.position)>4)continue;
+                if(npc==null || !npc.isActiveAndEnabled || player==null || !npc.CanInteractFrom(player.transform.position))continue;
                 int candidate=npc.GetComponent<SpriteRenderer>()?.sortingOrder ?? 0;
                 if(selected==null || candidate>order){selected=npc;order=candidate;}
             }

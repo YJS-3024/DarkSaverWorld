@@ -1,3 +1,4 @@
+using DarkSaver.Core;
 using System;
 using System.Collections.Generic;
 namespace DarkSaver.Network
@@ -9,6 +10,14 @@ namespace DarkSaver.Network
         public bool HasLocalAccountService=>accountService!=null;
         // One service per manager. UI controllers submit packets; they do not
         // authenticate credentials or write account files themselves.
+        private static NativeSaveData PrepareTrainingResumeForLogin(NativeSaveData source)
+        {
+            if(!NativeTrainingResume.IsTraining(source))return source;
+            var asset=UnityEngine.Resources.Load<UnityEngine.TextAsset>("World/TrainingTravel");
+            var settings=asset==null?null:UnityEngine.JsonUtility.FromJson<TrainingTravelSettings>(asset.text);
+            return settings!=null && settings.IsValid && NativeTrainingResume.TryRedirect(source,settings.returnX+.5f,43-1-settings.returnY+.5f,out var redirected)
+                ? redirected:null;
+        }
         public CharacterServerBoundary BindLocalAccountService(string loginHistoryPath=null,string[] slotPaths=null)
         {
             if(accountService!=null)
@@ -24,7 +33,7 @@ namespace DarkSaver.Network
                 || LocalServer.HasHandler(new CharacterListRequest()) || LocalServer.HasHandler(new CharacterCreateRequest())
                 || LocalServer.HasHandler(new CharacterSelectRequest(null)))
                 throw new InvalidOperationException("Account request handlers already have an owner.");
-            var service=new CharacterServerBoundary(loginHistoryPath,slotPaths);
+            var service=new CharacterServerBoundary(loginHistoryPath,slotPaths,PrepareTrainingResumeForLogin);
             try
             {
                 accountBindings.Add(RegisterRequestHandler<LoginRequest>(service.Login));

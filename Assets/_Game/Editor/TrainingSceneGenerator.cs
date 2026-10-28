@@ -27,6 +27,8 @@ namespace DarkSaver.EditorTools
         [MenuItem("DarkSaver/Scenes/Create Themed Training Encounters")]
         public static void Generate()
         {
+            if (!DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules)
+                throw new NotSupportedException("원작 훈련장 생성 정보 없이 테마 몬스터를 자동 배치할 수 없습니다.");
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)
                 throw new InvalidOperationException("Generate training scenes only in idle Edit mode.");
             var previous = EditorSceneManager.GetSceneManagerSetup();

@@ -46,12 +46,14 @@ namespace DarkSaver.Tests
                 Set(tutor,"progress",state);Set(tutor,"session",session);Set(tutor,"rangeGround",ground);Set(tutor,"rangeTerrain",terrain);
                 bodies=(System.Collections.Generic.List<SpriteRenderer>)typeof(FirstPlayTutorial).GetField("rangeBodies",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(tutor);
                 void Draw()=>typeof(FirstPlayTutorial).GetMethod("DrawRanges",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(tutor,null);
+                state.activeCommand="Move";Draw();Assert.AreEqual(0,tutor.RangeCellCount,"no movement preview before explicit selection");
                 Set(tutor,"movementArmed",true);Draw();Assert.Greater(tutor.RangeCellCount,5);
                 Assert.IsTrue(bodies.FindAll(b=>b.enabled).TrueForAll(b=>b.sprite.texture.name=="Move" && b.sortingOrder==-99 && b.GetComponent<Collider2D>()==null));
                 Assert.IsFalse(bodies.Exists(b=>b.enabled && b.transform.position==new Vector3(5.5f,7.5f,0))); // Enemy occupancy blocks movement cell.
-                Set(tutor,"movementArmed",false);Set(tutor,"attackArmed",true);Draw();
+                Set(tutor,"movementArmed",false);state.activeCommand="Attack";Draw();Assert.AreEqual(0,tutor.RangeCellCount,"no attack preview before explicit selection");
+                Set(tutor,"attackArmed",true);Draw();
                 Assert.AreEqual(5,tutor.RangeCellCount);Assert.AreEqual(1,bodies.FindAll(b=>b.enabled && b.sprite.texture.name=="Target").Count);
-                Set(tutor,"attackArmed",false);Set(tutor,"magicArmed",true);Draw();
+                Set(tutor,"attackArmed",false);state.activeCommand="MagicTarget";Set(tutor,"magicArmed",true);Draw();
                 Assert.AreEqual(25,tutor.RangeCellCount);Assert.AreEqual(2,bodies.FindAll(b=>b.enabled && b.sprite.texture.name=="Target").Count);
                 Set(tutor,"magicArmed",false);Draw();Assert.AreEqual(0,tutor.RangeCellCount);Assert.IsTrue(bodies.TrueForAll(b=>!b.enabled));
                 Assert.AreEqual(29,state.step);Assert.AreEqual(95,state.actors[0].hp);Assert.AreEqual(4,state.actors[0].x);

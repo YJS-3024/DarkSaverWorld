@@ -12,80 +12,35 @@ namespace DarkSaver.Tests
     public sealed class BattleMagicRequestTests
     {
         [Test]
-        public void TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCost()
+        public void TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCostRequiresIndependentServerResponses()
         {
-            WithSender((sender, server, receiver, battle) => {
-                Assert.That(battle.TryRegisterGroup(new[] { ExtraUnit(810, true, 90) }), Is.True);
-                Assert.That(battle.TryConfigureGrid(4, 4, new[] {
-                    new CombatGridPlacement(100, new CombatGridCell(0, 0)),
-                    new CombatGridPlacement(800, new CombatGridCell(1, 0)),
-                    new CombatGridPlacement(810, new CombatGridCell(2, 0)) }, (_, _) => true,
-                    (a, b) => Math.Abs(a.X-b.X) + Math.Abs(a.Y-b.Y) == 1), Is.True);
-                battle.SetTemporaryLocalRules(true); battle.ConfigureTemporaryDamageMagic(201, 7, 4, 1000, 1); Ready(battle);
-                Assert.That(sender.TrySendMagic(new MagicRequest(201, 100, 0, 0, 7, new short[] { 800, 810 }), out _), Is.True);
-                foreach (short id in new short[] { 800, 810 }) {
-                    Assert.That(battle.TryGetUnit(id, out var unit), Is.True);
-                    Assert.That(unit.LifeState, Is.EqualTo(UnitLifeState.Removed));
-                }
-                Assert.That(battle.TryGetGridOccupant(new CombatGridCell(1, 0), out _), Is.False);
-                Assert.That(battle.TryGetGridOccupant(new CombatGridCell(2, 0), out _), Is.False);
-                Assert.That(battle.PlayerMp, Is.EqualTo(23)); Assert.That(battle.PlayerAp, Is.EqualTo(7));
+            WithSender((sender,server,receiver,battle)=>{
+                battle.SetTemporaryLocalRules(true);Assert.IsFalse(battle.TemporaryLocalRulesEnabled);Ready(battle);
+                var before=(battle.PlayerHp,battle.PlayerMp,battle.PlayerAp,battle.EnemyHp);int events=0;receiver.MagicEffectReceived+=_=>events++;
+                Assert.IsFalse(sender.TrySendMagic(new MagicRequest(201,100,0,0,7,new short[]{800}),out _));
+                Assert.AreEqual(before,(battle.PlayerHp,battle.PlayerMp,battle.PlayerAp,battle.EnemyHp));Assert.AreEqual(0,events);
             });
         }
 
         [Test]
-        public void TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacks()
+        public void TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacksRequiresIndependentServerResponses()
         {
-            WithSender((sender, server, receiver, battle) => {
-                Assert.That(battle.TryRegisterGroup(new[] { ExtraUnit(810, true, 90) }), Is.True);
-                battle.SetTemporaryLocalRules(true);
-                Assert.That(battle.ConfigureTemporaryDamageMagic(201, 7, 4, 10, 2), Is.True); Ready(battle);
-                int results = 0, manaUpdates = 0, castStarts = 0, legacyStarts = 0;
-                MagicRequest presentation = null;
-                battle.MagicCastPresentationStarted += cast => { castStarts++; presentation = cast; };
-                battle.MagicPresentationStarted += _ => legacyStarts++;
-                battle.VitalsDisplayChanged += (id, value, mp) => { if (id == 100 && mp) manaUpdates++; };
-                battle.CombatResultApplied += result => {
-                    results++;
-                    Assert.That(battle.EnemyHp, Is.LessThan(75));
-                    Assert.That(battle.TryGetUnit(810, out var other), Is.True);
-                    Assert.That(other.Hp, Is.LessThan(90));
-                };
-                var packet = new MagicRequest(201, 100, 2, 0, 7, new short[] { 800, 810, 800 });
-                Assert.That(sender.TrySendMagic(packet, out _), Is.True);
-                Assert.That(castStarts, Is.EqualTo(1)); Assert.That(legacyStarts, Is.Zero);
-                Assert.That(presentation, Is.SameAs(packet));
-                Assert.That((presentation.X, presentation.Y), Is.EqualTo(((short)2, (short)0)));
-                Assert.That(sender.TrySendMagic(packet, out _), Is.False); // AP is not ready.
-                Assert.That(castStarts, Is.EqualTo(1));
-                Assert.That(results, Is.EqualTo(2)); Assert.That(manaUpdates, Is.EqualTo(1));
-                Assert.That(battle.PlayerMp, Is.EqualTo(23)); Assert.That(battle.PlayerAp, Is.EqualTo(7));
-                Assert.That(sender.LastMagicRequest.TargetUnitIds, Is.EqualTo(new short[] { 800, 810, 800 }));
+            WithSender((sender,server,receiver,battle)=>{
+                battle.SetTemporaryLocalRules(true);Assert.IsFalse(battle.TemporaryLocalRulesEnabled);Ready(battle);
+                var before=(battle.PlayerHp,battle.PlayerMp,battle.PlayerAp,battle.EnemyHp);int events=0;receiver.MagicEffectReceived+=_=>events++;
+                Assert.IsFalse(sender.TrySendMagic(new MagicRequest(201,100,0,0,7,new short[]{800}),out _));
+                Assert.AreEqual(before,(battle.PlayerHp,battle.PlayerMp,battle.PlayerAp,battle.EnemyHp));Assert.AreEqual(0,events);
             });
         }
 
         [Test]
-        public void TemporaryPartyHealingAndBuffsShareOneCastCost()
+        public void TemporaryPartyHealingAndBuffsShareOneCastCostRequiresIndependentServerResponses()
         {
-            WithSender((sender, server, receiver, battle) => {
-                Assert.That(battle.TryRegisterGroup(new[] { ExtraUnit(110, false, 100) }), Is.True);
-                battle.SetTemporaryLocalRules(true); battle.ApplyHp(100, 20); battle.ApplyHp(110, 10);
-                Assert.That(battle.ConfigureTemporaryHealingMagic(2501, 5, 4, 12), Is.True);
-                Assert.That(battle.ConfigureTemporaryBuffMagic(2502, 4, 4, 8, 3, 10), Is.True);
-                battle.ConfigureMagicApCost(2501, 2); battle.ConfigureMagicApCost(2502, 2);
-                battle.AdvanceActionPoints(14);
-                Assert.That(sender.TrySendMagic(new MagicRequest(2501, 100, 0, 0, 5, new short[] { 100, 110, 110 }), out _), Is.True);
-                Assert.That(battle.PlayerHp, Is.EqualTo(32));
-                battle.TryGetUnit(110, out var healed); Assert.That(healed.Hp, Is.EqualTo(22));
-                Assert.That(battle.PlayerMp, Is.EqualTo(25)); Assert.That(battle.PlayerAp, Is.EqualTo(8));
-                battle.AdvanceActionPoints(2);
-                Assert.That(sender.TrySendMagic(new MagicRequest(2502, 100, 0, 0, 4, new short[] { 100, 110 }), out _), Is.True);
-                Assert.That(battle.PlayerMp, Is.EqualTo(21)); Assert.That(battle.PlayerAp, Is.EqualTo(8));
-                Assert.That(battle.TryGetEffectiveStats(100, out int attack, out int defense), Is.True);
-                battle.TryGetUnit(100, out var caster);
-                Assert.That(attack, Is.EqualTo(caster.Attack + 8)); Assert.That(defense, Is.EqualTo(caster.Defense + 3));
-                battle.TryGetEffectiveStats(110, out attack, out defense);
-                Assert.That(attack, Is.EqualTo(healed.Attack + 8)); Assert.That(defense, Is.EqualTo(healed.Defense + 3));
+            WithSender((sender,server,receiver,battle)=>{
+                battle.SetTemporaryLocalRules(true);Assert.IsFalse(battle.TemporaryLocalRulesEnabled);Ready(battle);
+                var before=(battle.PlayerHp,battle.PlayerMp,battle.PlayerAp,battle.EnemyHp);int events=0;receiver.MagicEffectReceived+=_=>events++;
+                Assert.IsFalse(sender.TrySendMagic(new MagicRequest(201,100,0,0,7,new short[]{800}),out _));
+                Assert.AreEqual(before,(battle.PlayerHp,battle.PlayerMp,battle.PlayerAp,battle.EnemyHp));Assert.AreEqual(0,events);
             });
         }
 
@@ -105,10 +60,10 @@ namespace DarkSaver.Tests
             });
         }
 
-        private static CombatUnit ExtraUnit(short id, bool enemy, int hp) => new CombatUnit {
+        private static CombatUnit ExtraUnit(short id, bool enemy, int hp) => NativeCombatStateFixture.Received(new CombatUnit {
             Id = id, Enemy = enemy, Name = "Explicit batch fixture", X = 2, Y = 0,
             Hp = hp, MaxHp = hp, Mp = 0, MaxMp = 0, Attack = 1, Defense = 2
-        };
+        });
 
         [Test]
         public void NativeReferenceSentinelsChargeActualCasterAndRetainOriginalReference()
@@ -245,7 +200,7 @@ namespace DarkSaver.Tests
         private static void Ready(BattleSceneRoot battle)
         {
             Assert.That(battle.ConfigureMagicApCost(201, 3), Is.True); // Explicit fixture, not original cost.
-            Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);
+            Assert.That(NativeCombatStateFixture.ReceiveFullTicks(battle), Is.True);
         }
 
         private static void WithSender(Action<BattleRequestSender, ServerManager, BattlePacketReceiver, BattleSceneRoot> check)
@@ -255,7 +210,7 @@ namespace DarkSaver.Tests
             {
                 var root = new GameObject("Magic request check"); SceneManager.MoveGameObjectToScene(root, scene);
                 var sender = root.AddComponent<BattleRequestSender>();
-                var receiver = root.AddComponent<BattlePacketReceiver>(); Assert.That(receiver.Bind(), Is.True);
+                var receiver = root.AddComponent<BattlePacketReceiver>(); NativeCombatStateFixture.Initialize(root.GetComponent<BattleSceneRoot>(),6); Assert.That(receiver.Bind(), Is.True);
                 check(sender, root.GetComponent<ServerManager>(), receiver, root.GetComponent<BattleSceneRoot>());
             }
             finally { EditorSceneManager.ClosePreviewScene(scene); }

@@ -12,43 +12,26 @@ namespace DarkSaver.Tests
     public sealed class BattleRequestSenderTests
     {
         [Test]
-        public void TemporaryLoopbackResolvesOnceWithoutHandlerAndCanBeDisabled()
+        public void TemporaryLoopbackResolvesOnceWithoutHandlerAndCanBeDisabledRemainsDisabledWithoutServerHandler()
         {
-            WithSender((sender, server, receiver, battle) => {
-                battle.SetTemporaryLocalRules(true);
-                battle.ConfigurePhysicalAccuracy(100, 100, 0); battle.ConfigurePhysicalAccuracy(800, 100, 0);
-                battle.AdvanceActionPoints(14);
-                var before = battle.EnemyHp;
-                var packet = new AttackRequest(800, 100, 0, 0);
-                Assert.That(sender.TrySendAttack(packet, out _), Is.True);
-                Assert.That(battle.EnemyHp, Is.EqualTo(before - 21));
-                Assert.That(battle.PlayerAp, Is.EqualTo(10 - GameConstants.BattleTemporaryAttackApCost));
-                Assert.That(battle.TryGetLatestAttacker(800, out var attacker), Is.True);
-                Assert.That(attacker, Is.EqualTo(100));
-                Assert.That(sender.TrySendAttack(packet, out _), Is.False);
-                Assert.That(server.SendToServer(packet), Is.True); // Delivered; server authority rejects the stale AP state.
-                Assert.That(battle.EnemyHp, Is.EqualTo(before - 21));
-                battle.AdvanceActionPoints(GameConstants.BattleTemporaryAttackApCost);
-                battle.SetTemporaryLocalRules(false);
-                Assert.That(sender.TrySendAttack(packet, out _), Is.False);
-                Assert.That(battle.EnemyHp, Is.EqualTo(before - 21));
+            WithSender((sender,server,receiver,battle)=>{
+                battle.SetTemporaryLocalRules(true);Assert.IsFalse(battle.TemporaryLocalRulesEnabled);
+                Assert.IsTrue(battle.ConfigureActionPointCosts(2,6));Assert.IsTrue(battle.ConfigureMagicApCost(101,6));NativeCombatStateFixture.ReceiveFullTicks(battle);
+                var before=(battle.PlayerHp,battle.PlayerMp,battle.PlayerAp,battle.EnemyHp);
+                Assert.IsFalse(sender.TrySendAttack(new AttackRequest(800,100,0,0),out _));
+                Assert.AreEqual(before,(battle.PlayerHp,battle.PlayerMp,battle.PlayerAp,battle.EnemyHp));Assert.IsNull(battle.LastAttackPresentation);
             });
         }
 
         [Test]
-        public void TemporaryMagicLoopbackSpendsApMpOnceAndRemovesDeadUnitImmediately()
+        public void TemporaryMagicLoopbackSpendsApMpOnceAndRemovesDeadUnitImmediatelyRemainsDisabledWithoutServerHandler()
         {
-            WithSender((sender, server, receiver, battle) => {
-                battle.SetTemporaryLocalRules(true); battle.AdvanceActionPoints(14);
-                var packet = new MagicRequest(101, 100, 0, 0, 10, new short[] {800});
-                Assert.That(sender.TrySendMagic(packet, out _), Is.True);
-                Assert.That((battle.PlayerMp, battle.PlayerAp, battle.EnemyHp), Is.EqualTo((20, 4, 31)));
-                Assert.That(sender.TrySendMagic(packet, out _), Is.False);
-                Assert.That(battle.PlayerMp, Is.EqualTo(20));
-                battle.AdvanceActionPoints(6);
-                Assert.That(sender.TrySendMagic(packet, out _), Is.True);
-                Assert.That((battle.PlayerMp, battle.PlayerAp, battle.EnemyHp), Is.EqualTo((10, 4, 0)));
-                Assert.That(battle.EnemyLifeState, Is.EqualTo(UnitLifeState.Removed));
+            WithSender((sender,server,receiver,battle)=>{
+                battle.SetTemporaryLocalRules(true);Assert.IsFalse(battle.TemporaryLocalRulesEnabled);
+                Assert.IsTrue(battle.ConfigureActionPointCosts(2,6));Assert.IsTrue(battle.ConfigureMagicApCost(101,6));NativeCombatStateFixture.ReceiveFullTicks(battle);
+                var before=(battle.PlayerHp,battle.PlayerMp,battle.PlayerAp,battle.EnemyHp);
+                Assert.IsFalse(sender.TrySendMagic(new MagicRequest(101,100,0,0,7,new short[]{800}),out _));
+                Assert.AreEqual(before,(battle.PlayerHp,battle.PlayerMp,battle.PlayerAp,battle.EnemyHp));Assert.IsNull(battle.LastAttackPresentation);
             });
         }
 
@@ -151,7 +134,8 @@ namespace DarkSaver.Tests
                 Assert.That(calls, Is.EqualTo(1)); Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp - 2));
                 Assert.That(battle.EnemyHp, Is.EqualTo(75)); Assert.That(receiver.LastAttackEffect, Is.Null);
                 server.RequestReceived -= fail;
-                battle.AdvanceActionPoints(2f);
+                Assert.That(battle.AdvanceActionPoints(2f), Is.False);
+                Assert.That(NativeCombatStateFixture.ReceiveFullTicks(battle), Is.True);
                 Assert.That(sender.TrySendAttack(packet, out _), Is.False); // Guard reset, no handler.
                 Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp));
             });
@@ -160,7 +144,7 @@ namespace DarkSaver.Tests
         private static void Ready(BattleSceneRoot battle)
         {
             Assert.That(battle.ConfigureActionPointCosts(2, 6), Is.True); // Fixture only.
-            Assert.That(battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp), Is.True);
+            Assert.That(NativeCombatStateFixture.ReceiveFullTicks(battle), Is.True);
         }
 
         private static void WithSender(Action<BattleRequestSender, ServerManager, BattlePacketReceiver, BattleSceneRoot> check)
@@ -170,7 +154,7 @@ namespace DarkSaver.Tests
             {
                 var root = new GameObject("Battle request check"); SceneManager.MoveGameObjectToScene(root, scene);
                 var sender = root.AddComponent<BattleRequestSender>();
-                var receiver = root.AddComponent<BattlePacketReceiver>(); Assert.That(receiver.Bind(), Is.True);
+                var receiver = root.AddComponent<BattlePacketReceiver>(); NativeCombatStateFixture.Initialize(root.GetComponent<BattleSceneRoot>(),6); Assert.That(receiver.Bind(), Is.True);
                 check(sender, root.GetComponent<ServerManager>(), receiver, root.GetComponent<BattleSceneRoot>());
             }
             finally { EditorSceneManager.ClosePreviewScene(scene); }

@@ -124,7 +124,7 @@ namespace DarkSaver.Tests
         {
             var world = new CombatWorld();
             foreach (short id in new short[] { 100, 101, 800 })
-                world.Add(new CombatUnit { Id = id, Enemy = id == 800, Hp = 50, MaxHp = 50, Mp = 10, MaxMp = 10 });
+                world.Add(NativeCombatStateFixture.Received(new CombatUnit { Id = id, Enemy = id == 800, Hp = 50, MaxHp = 50, Mp = 10, MaxMp = 10 }));
             return world;
         }
     }

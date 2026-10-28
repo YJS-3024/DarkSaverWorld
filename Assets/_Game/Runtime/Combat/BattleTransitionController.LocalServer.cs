@@ -56,6 +56,7 @@ namespace DarkSaver.Combat
                 ExitBattle();return new LocalCommandResponse(true);
             })));
             sessionBindings.Add(sessionProtocol.RegisterRequestHandler<LocalBattleCheckpointRequest>(p=>Handle(()=>new LocalCommandResponse(SaveBattleCheckpoint(out var reason),reason),storageOnly:true)));
+            sessionBindings.Add(sessionProtocol.RegisterRequestHandler<Request_SaveTrainingReturn>(p=>Handle(()=>new LocalCommandResponse(SaveTrainingReturnCheckpoint(out var reason),reason),storageOnly:true)));
             sessionBindings.Add(sessionProtocol.RegisterRequestHandler<SaveWorldRequest>(p=>Handle(()=>new LocalCommandResponse(SaveWorld(),lastSaveMessage),storageOnly:true)));
             sessionBindings.Add(sessionProtocol.RegisterRequestHandler<TownQuestRequest>(p=>Handle(()=>new LocalCommandResponse(TryCommitTownQuest(p.QuestId,p.Claim,out var reason),reason))));
             sessionBindings.Add(sessionProtocol.RegisterRequestHandler<LocalEquipmentChangeRequest>(p=>Handle(()=>new LocalCommandResponse(TryChangeEquipment(p.Slot,p.Item,p.CaptureBaseline(),out var reason),reason))));
@@ -83,11 +84,24 @@ namespace DarkSaver.Combat
         private void SaveExitCheckpoint()
         {
             if (!HasCreatedCharacter || transitioning) return;
+            var world=UnityEngine.Object.FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>();
+            if(world!=null && world.IsLocalTraining){SaveTrainingReturnCheckpoint(out _);return;}
             if (UnityEngine.SceneManagement.SceneManager.GetSceneByName(BattleSceneName).isLoaded)
                 SaveBattleCheckpoint(out _);
             else SaveWorld();
         }
         private void SaveCombatResultCheckpoint(CombatResult result) => SaveBattleCheckpoint(out _);
+
+        public bool SaveTrainingReturnCheckpoint(out string reason)
+        {
+            if(!processingSessionRequest)return SubmitSession(new Request_SaveTrainingReturn(),out reason);
+            reason="훈련장 복귀 위치를 저장할 수 없습니다.";
+            var world=UnityEngine.Object.FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>();
+            if(!HasCreatedCharacter || transitioning || world==null || !world.TryCaptureTrainingReturn(this,out var snapshot)){lastSaveMessage=reason;return false;}
+            if(saveStore==null){lastSaveMessage=reason="선택한 캐릭터의 저장 경로가 없습니다.";return false;}
+            if(!saveStore.TrySave(snapshot,out reason)){lastSaveMessage=reason;return false;}
+            lastSaveMessage=reason=string.Empty;return true;
+        }
 
         public bool SaveBattleCheckpoint(out string reason)
         {

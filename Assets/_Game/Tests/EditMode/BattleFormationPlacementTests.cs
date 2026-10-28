@@ -14,8 +14,8 @@ namespace DarkSaver.Tests
         private static BattleFormationMemberDraft Member(short id) => new()
         {
             PersistentId = id.ToString(), IsOwned = true, FinalStateConfirmed = true,
-            Unit = new CombatUnit { Id = id, JobId = 100, Name = "fixture", X = 7, Y = 7,
-                Hp = 40, MaxHp = 50, Mp = 2, MaxMp = 10, Attack = 0, Defense = 0 },
+            Unit = NativeCombatStateFixture.Received(new CombatUnit { Id = id, JobId = 100, Name = "fixture", X = 7, Y = 7,
+                Hp = 40, MaxHp = 50, Mp = 2, MaxMp = 10, Attack = 0, Defense = 0 }),
             TeamId = 1, RecordEligible = true, LearnedMagicIds = Array.Empty<short>()
         };
 
@@ -23,7 +23,7 @@ namespace DarkSaver.Tests
         public void ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen()
         {
             WithPanel((panel, player) => {
-                var leader = Member(200); leader.Unit.ActionPoints.Advance(4);
+                var leader = Member(200); leader.Unit.ActionPoints.ApplyAbsolute(10);
                 panel.Configure(new[] { leader }, 0, 0, null, player); panel.Open(); panel.Assign("200", "200");
                 Assert.That(panel.ConfigurePlacementContext(10, 10, Array.Empty<short>(), (job, cell) => job == 100), Is.True);
                 Assert.That(panel.TrySetPosition("200", new CombatGridCell(1, 2)), Is.True);
@@ -31,8 +31,9 @@ namespace DarkSaver.Tests
                 Assert.That(leader.Position, Is.Null); Assert.That(leader.Unit.ActionPoints.Current, Is.EqualTo(10));
                 Assert.That(panel.Confirm(), Is.True); var saved = panel.ConfirmedSnapshot;
                 Assert.That(saved.Members[0].Position, Is.EqualTo(new CombatGridCell(1, 2)));
-                Assert.That(saved.Members[0].Unit.Ap, Is.EqualTo(6)); Assert.That(saved.Members[0].Unit.Mp, Is.EqualTo(2));
+                Assert.That(saved.Members[0].Unit.Ap, Is.EqualTo(10)); Assert.That(saved.Members[0].Unit.Mp, Is.EqualTo(2));
                 panel.Open(); Assert.That(panel.Confirm(), Is.True);
+                Assert.That(panel.ConfirmedSnapshot.Members[0].Unit.Ap, Is.EqualTo(10));
                 Assert.That(panel.ConfirmedSnapshot.Members[0].Position, Is.EqualTo(new CombatGridCell(1, 2)));
             });
         }
@@ -72,6 +73,7 @@ namespace DarkSaver.Tests
                 Assert.That(panel.ConfigurePlacementContext(10, 10, Array.Empty<short>(), (_, _) => true), Is.True);
                 Assert.That(panel.ConfirmedSnapshot, Is.Null); Assert.That(panel.Confirm(), Is.False);
                 panel.TrySetPosition("200", new CombatGridCell(3, 1)); Assert.That(panel.Confirm(), Is.True);
+                Assert.That(panel.ConfirmedSnapshot.Members[0].Unit.Ap, Is.EqualTo(10));
                 Assert.That(panel.ConfirmedSnapshot.Members[0].Position, Is.EqualTo(new CombatGridCell(3, 1)));
             });
         }

@@ -2,16 +2,27 @@ namespace DarkSaver.Combat
 {
     public sealed partial class BattleSceneRoot
     {
-        public bool IsPersistentTraining {get;private set;}
-        public bool HasTrainingRespawnInterval=>false;
-        public bool TrainingRespawnPending=>false;
-        public double TrainingRespawnRemaining=>0;
-        public bool ConfigurePersistentTraining(BattleEnemyDefinition source,float intervalSeconds)
+        public int TrainingMapId { get; private set; }
+        public bool IsPersistentTraining => OriginalTrainingMaps.Contains(TrainingMapId);
+
+        // Local visit receives the existing character's vitals; no enemy is invented.
+        public bool InitializeTrainingVisitor(int jobId,string name,int hp,int maxHp,int mp,int maxMp,uint experience)
         {
-            if(source==null || source.JobId!=EnemyJobId)return false;
-            IsPersistentTraining=true;return true;
+            EnsureInitialized();
+            if(!IsPersistentTraining || GridConfigured || jobId<=0 || maxHp<=0 || hp<0 || hp>maxHp || maxMp<0 || mp<0 || mp>maxMp)return false;
+            world.Remove(EnemyId);
+            var actor=world.Get(PlayerId);actor.JobId=jobId;actor.Name=name;actor.Hp=hp;actor.MaxHp=maxHp;
+            actor.Mp=mp;actor.MaxMp=maxMp;actor.Experience=experience;PlayerJobId=jobId;
+            return true;
         }
-        public bool ConfigureTrainingRespawnInterval(float seconds)=>false;
-        public bool AdvanceTrainingRespawns(float seconds)=>false;
+
+        // Identifies a received/bound native map, without choosing a monster or
+        // interpreting EVT TICK/REGEN operands as local seconds/counts.
+        public bool ConfigureTrainingMap(int mapId)
+        {
+            if (!OriginalTrainingMaps.Contains(mapId)) return false;
+            TrainingMapId = mapId;
+            return true;
+        }
     }
 }

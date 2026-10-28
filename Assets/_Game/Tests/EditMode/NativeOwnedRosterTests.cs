@@ -131,7 +131,7 @@ namespace DarkSaver.Tests
         public void PanelReceivesSessionOwnershipWithoutCreatingCoordinatesOrDeploying()
         {
             Session((session, panel, player) => {
-                var roster = Roster(); Assert.That(session.TrySetOwnedRoster(roster, out _), Is.True);
+                var roster = Roster();var receivedSave=Save(true);receivedSave.ownedRoster=roster;Assert.IsTrue(session.RestoreSaveState(receivedSave));
                 roster.units[0].hp = 1;
                 panel.UseSessionRoster(); Assert.That(panel.Open(), Is.True); Assert.That(panel.OwnedCount, Is.EqualTo(3));
                 Assert.That(session.TrySetOwnedRoster(Roster(), out _), Is.False);
@@ -140,7 +140,7 @@ namespace DarkSaver.Tests
                 Assert.That(panel.Confirm(), Is.False); Assert.That(panel.ConfirmedSnapshot, Is.Null);
                 panel.Cancel(); Assert.That(session.CaptureOwnedRoster().units[0].hp, Is.EqualTo(40));
                 var dead = Roster(); dead.units[1].hp = 0; dead.units[1].lifeState = 2;
-                Assert.That(session.TrySetOwnedRoster(dead, out _), Is.True);
+                var deadSave=Save(true);deadSave.ownedRoster=dead;Assert.IsTrue(session.RestoreSaveState(deadSave));
                 panel.Open(); panel.Assign("owned-200", "owned-200");
                 Assert.That(panel.Assign("owned-209", "owned-200"), Is.False); panel.Cancel();
             });
@@ -231,7 +231,7 @@ namespace DarkSaver.Tests
                 var original=session.CaptureOwnedRoster();var formation=DeployTwo(original);
                 int liveMp=session.PlayerMp;
                 var go=new GameObject("Interrupted formation battle");SceneManager.MoveGameObjectToScene(go,session.gameObject.scene);
-                var battle=go.AddComponent<BattleSceneRoot>();Assert.That(battle.TryRegisterAlliedFormation(formation,out _),Is.True);
+                var battle=go.AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(battle,6);Assert.That(battle.TryRegisterAlliedFormation(formation,out _),Is.True);
                 Assert.That(battle.ApplyMp(100,1),Is.True);Assert.That(battle.ApplyMp(200,2),Is.True);
                 Assert.That(battle.ApplyMp(209,0),Is.True);Assert.That(battle.ApplyDeath(209,false),Is.True);
                 var candidate=session.CaptureSaveState("Kaosia_Map","Town_Runtime",Vector2.zero);
@@ -260,21 +260,21 @@ namespace DarkSaver.Tests
                 Assert.That(session.RestoreSaveState(Save(true)), Is.True); var source = session.CaptureOwnedRoster(); var formation = DeployTwo(source);
                 Assert.That(session.MatchesOwnedFormation(formation), Is.True);
                 var go = new GameObject("Session return battle"); SceneManager.MoveGameObjectToScene(go, session.gameObject.scene);
-                var battle = go.AddComponent<BattleSceneRoot>(); Assert.That(battle.TryRegisterAlliedFormation(formation, out _), Is.True);
+                var battle = go.AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(battle,6); Assert.That(battle.TryRegisterAlliedFormation(formation, out _), Is.True);
                 Assert.That(battle.ApplyHp(100, 19), Is.True); Assert.That(battle.ApplyMp(100, 1), Is.True);
                 Assert.That(battle.ApplyHp(200, 17), Is.True); Assert.That(battle.ApplyMp(200, 2), Is.True);
                 Assert.That(battle.ApplyMp(209, 0), Is.True); Assert.That(battle.ApplyDeath(209, false), Is.True);
                 Assert.That(session.TryCaptureBattleReturn(battle, formation, out _), Is.True);
-                Assert.That(session.PlayerHp, Is.EqualTo(19)); Assert.That(session.PlayerMp, Is.EqualTo(battle.PlayerMaxMp));
-                var result = session.CaptureOwnedRoster(); Assert.That(result.units[0].hp, Is.EqualTo(17)); Assert.That(result.units[0].mp, Is.EqualTo(10));
-                Assert.That(result.units[1].lifeState, Is.EqualTo(2)); Assert.That(result.units[1].hp, Is.Zero); Assert.That(result.units[1].mp, Is.EqualTo(10));
+                Assert.That(session.PlayerHp, Is.EqualTo(19)); Assert.That(session.PlayerMp, Is.EqualTo(1));
+                var result = session.CaptureOwnedRoster(); Assert.That(result.units[0].hp, Is.EqualTo(17)); Assert.That(result.units[0].mp, Is.EqualTo(2));
+                Assert.That(result.units[1].lifeState, Is.EqualTo(2)); Assert.That(result.units[1].hp, Is.Zero); Assert.That(result.units[1].mp, Is.Zero);
                 Assert.That(result.units[2].mp, Is.EqualTo(5)); Assert.That(source.units[0].mp, Is.EqualTo(5));
                 Assert.That(session.MatchesOwnedFormation(formation), Is.False); Assert.That(panel.ConfirmedSnapshot, Is.Null);
                 Files(store => {
                     Assert.That(store.TrySave(session.CaptureSaveState("Kaosia_Map", "Town_Runtime", Vector2.zero), out _), Is.True);
                     Assert.That(store.TryLoad(out var saved, out _), Is.True);
                     Session((next, _, _) => { Assert.That(next.RestoreSaveState(saved), Is.True);
-                        Assert.That(next.PlayerHp, Is.EqualTo(19)); Assert.That(next.CaptureOwnedRoster().units[1].mp, Is.EqualTo(10));
+                        Assert.That(next.PlayerHp, Is.EqualTo(19)); Assert.That(next.CaptureOwnedRoster().units[1].mp, Is.Zero);
                         Assert.That(next.CaptureOwnedRoster().units[1].lifeState, Is.EqualTo(2)); });
                 });
             });
@@ -285,10 +285,10 @@ namespace DarkSaver.Tests
         {
             Session((session, panel, player) => {
                 session.RestoreSaveState(Save(true)); var roster = session.CaptureOwnedRoster(); var formation = DeployTwo(roster);
-                roster.units[1].maxHp = 60; Assert.That(session.TrySetOwnedRoster(roster, out _), Is.True);
+                roster.units[1].maxHp = 60;var refreshed=Save(true);refreshed.ownedRoster=roster;Assert.IsTrue(session.RestoreSaveState(refreshed));
                 Assert.That(session.MatchesOwnedFormation(formation), Is.False);
                 var go = new GameObject("Rejected return battle"); SceneManager.MoveGameObjectToScene(go, session.gameObject.scene);
-                var battle = go.AddComponent<BattleSceneRoot>(); battle.TryRegisterAlliedFormation(formation, out _); battle.ApplyHp(100, 19);
+                var battle = go.AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(battle,6); battle.TryRegisterAlliedFormation(formation, out _); battle.ApplyHp(100, 19);
                 var before = JsonUtility.ToJson(session.CaptureSaveState("Kaosia_Map", "Town_Runtime", Vector2.zero));
                 Assert.That(session.TryCaptureBattleReturn(battle, formation, out _), Is.False);
                 Assert.That(JsonUtility.ToJson(session.CaptureSaveState("Kaosia_Map", "Town_Runtime", Vector2.zero)), Is.EqualTo(before));

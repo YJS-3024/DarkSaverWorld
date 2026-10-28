@@ -98,8 +98,11 @@ namespace DarkSaver.UI
             {
                 subMenu=progress.practiceMenu;
                 if(!string.IsNullOrEmpty(subMenu))openMenu=0;
-                movementArmed=progress.activeCommand=="Move";attackArmed=progress.activeCommand=="Attack";magicArmed=progress.activeCommand=="MagicTarget";
+                movementArmed=attackArmed=magicArmed=false; // Ranges require a fresh explicit menu selection.
             }
+            movementArmed &= progress.activeCommand=="Move";
+            attackArmed &= progress.activeCommand=="Attack";
+            magicArmed &= progress.activeCommand=="MagicTarget";
             if(progress.step!=displayedStep){displayedStep=progress.step;delayStarted=Time.unscaledTime;}
             if(kind=="WindowButton")
             {
@@ -257,7 +260,8 @@ namespace DarkSaver.UI
         }
         private void RestoreWorld()
         {
-            ReleaseRanges();ReleasePracticeTerrainPreview();ClearPracticeEffects();motions.Clear();practiceTicks.Clear();minimizedWindows.Clear();
+            ReleaseRanges();ReleasePracticeTerrainPreview();ClearPracticeEffects();motions.Clear();practiceTicks.Clear();minimizedWindows.Clear();lessonMasks.Clear();
+            movementArmed=attackArmed=magicArmed=false;
             if(minimapCamera!=null){Destroy(minimapCamera.gameObject);minimapCamera=null;}
             if(minimap!=null){minimap.Release();Destroy(minimap);minimap=null;}
             if(music!=null){music.Stop();Destroy(music);music=null;}

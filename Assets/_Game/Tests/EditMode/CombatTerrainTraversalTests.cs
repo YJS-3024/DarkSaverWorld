@@ -126,7 +126,7 @@ namespace DarkSaver.Tests
         [Test]
         public void ExplicitTerrainPolicyCombinesWithGridOccupancyWithoutChangingStats()
         {
-            var world = new CombatWorld(); var unit = new CombatUnit { Id = 100, JobId = 100, Hp = 50, MaxHp = 50, Mp = 10, MaxMp = 10 };
+            var world = new CombatWorld(); var unit = NativeCombatStateFixture.Received(new CombatUnit { Id = 100, JobId = 100, Hp = 50, MaxHp = 50, Mp = 10, MaxMp = 10 });
             world.Add(unit);
             var grid = new CombatOccupancyGrid(world, 3, 1,
                 (_, cell) => CombatTerrainTraversal.CanTraverse(cell.X == 1 ? 6 : 0, 0),

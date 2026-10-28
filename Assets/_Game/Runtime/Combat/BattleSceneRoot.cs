@@ -637,11 +637,11 @@ namespace DarkSaver.Combat
         public int PlayerMaxHp { get { EnsureInitialized(); return world.Get(PlayerId).MaxHp; } }
         public int PlayerMaxMp { get { EnsureInitialized(); return world.Get(PlayerId).MaxMp; } }
         public UnitLifeState PlayerLifeState { get { EnsureInitialized(); return world.Get(PlayerId).LifeState; } }
-        public UnitLifeState EnemyLifeState { get { EnsureInitialized(); return world.Get(EnemyId).LifeState; } }
-        public int EnemyHp => world.Get(EnemyId).Hp;
+        public UnitLifeState EnemyLifeState { get { EnsureInitialized(); return world.TryGet(EnemyId,out var enemy)?enemy.LifeState:UnitLifeState.Removed; } }
+        public int EnemyHp { get { EnsureInitialized();return world.TryGet(EnemyId,out var enemy)?enemy.Hp:0; } }
         public int PlayerMp { get { EnsureInitialized(); return world.Get(PlayerId).Mp; } }
         public int PlayerAp { get { EnsureInitialized(); return world.Get(PlayerId).ActionPoints.Current; } }
-        public int EnemyAp { get { EnsureInitialized(); return world.Get(EnemyId).ActionPoints.Current; } }
+        public int EnemyAp { get { EnsureInitialized(); return world.TryGet(EnemyId,out var enemy)?enemy.ActionPoints.Current:0; } }
         public bool ConfigureActionPointCosts(int attack, int magic)
         {
             EnsureInitialized(); return flow.ConfigureActionPointCosts(attack, magic);
@@ -748,9 +748,12 @@ namespace DarkSaver.Combat
             {
                 var unit = member.Unit; var cost = GameConstants.GetBattleAttackApCost(unit.JobId);
                 if (cost < 0 || cost > GameConstants.GetBattleMaximumAp(unit.Enemy)) return false;
-                incoming.Add(new CombatUnit { Id = unit.Id, JobId = unit.JobId, Name = unit.Name, Enemy = unit.Enemy,
+                var copy = new CombatUnit { Id = unit.Id, JobId = unit.JobId, Name = unit.Name, Enemy = unit.Enemy,
                     X = member.Position.X, Y = member.Position.Y, Hp = unit.Hp, MaxHp = unit.MaxHp,
-                    Mp = unit.Mp, MaxMp = unit.MaxMp, Attack = unit.Attack, Defense = unit.Defense, HasMagicAttack=unit.HasMagicAttack,HasMagicDefense=unit.HasMagicDefense,MagicAttack=unit.MagicAttack,MagicDefense=unit.MagicDefense, Experience = unit.Experience });
+                    Mp = unit.Mp, MaxMp = unit.MaxMp, Attack = unit.Attack, Defense = unit.Defense, HasMagicAttack=unit.HasMagicAttack,HasMagicDefense=unit.HasMagicDefense,MagicAttack=unit.MagicAttack,MagicDefense=unit.MagicDefense, Experience = unit.Experience };
+                if (unit.MaxAp > 0) copy.ActionPoints.ConfigureMaximum(unit.MaxAp);
+                copy.ActionPoints.ApplyAbsolute(unit.Ap);
+                incoming.Add(copy);
             }
             if (!world.TryRegisterAlliedFormation(incoming)) return false;
             foreach (var unit in incoming) flow.ConfigureAttackApCostForJob(unit.Id, unit.JobId);
@@ -1261,7 +1264,7 @@ namespace DarkSaver.Combat
         public string GetBattleHudText()
         {
             EnsureInitialized();
-            var enemy = world.Get(EnemyId);
+            if(!world.TryGet(EnemyId,out var enemy))return "훈련장 · 전투 옵션 메뉴에서 도망할 수 있습니다.";
             CombatUnitSnapshot actor;
             if (MapPresentationActive)
             {

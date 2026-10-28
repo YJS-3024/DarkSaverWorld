@@ -66,8 +66,9 @@ namespace DarkSaver.Tests
                         var button=ui.Find<Button>("action-"+i);var icon=ui.Find<RawImage>("action-"+i+"-icon");
                         Assert.IsNotNull(button);Assert.IsNotNull(icon);Assert.IsTrue(icon.gameObject.activeInHierarchy);
                         int[] bits={16,1,2,8,4,128,64,32};
-                        bool available=NativeBattleActionMenu.AllowsIndex(unitId,i) && (mask & bits[i])!=0;
-                        Assert.AreEqual(mouseMenu && available,button.interactable);
+                        bool available=NativeBattleActionMenu.AllowsIndex(unitId,i) && ((mask==0 && !mouseMenu?maskOn:mask) & bits[i])!=0;
+                        Assert.AreEqual(mouseMenu && NativeBattleActionMenu.AllowsIndex(unitId,i) && (mask & bits[i])!=0,button.interactable);
+                        Assert.AreEqual(mask,actor.mask,"presentation smoothing must not rewrite original CHARMENU state");
                         var expected=available?BattleIconFrames.Action(NativeBattleActionMenu.IconColumn(i),Time.unscaledTimeAsDouble)
                             :BattleIconFrames.InactiveAction(NativeBattleActionMenu.InactiveIconColumn(i));
                         Assert.IsNotNull(expected);Assert.AreSame(expected.texture,icon.texture);

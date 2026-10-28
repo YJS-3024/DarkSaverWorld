@@ -38,7 +38,7 @@ namespace DarkSaver.Tests
                 var ally=Body("Ally",1.5f); var enemy=Body("Enemy",2.5f);
                 var root=Create("Battle"); root.AddComponent<BattleRequestSender>();
                 Assert.That(root.AddComponent<BattlePacketReceiver>().Bind(),Is.True);
-                var view=root.AddComponent<BattleMapPresentation>(); var battle=root.GetComponent<BattleSceneRoot>();
+                var view=root.AddComponent<BattleMapPresentation>(); var battle=root.GetComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(battle,6);
                 Assert.That(view.TryBind(ground,terrain,camera,new[]{new BattleMapVisual(100,ally),new BattleMapVisual(800,enemy)}),Is.True);
                 battle.TrySelectUnit(100);
                 MagicCatalogEntry Entry(int id)
@@ -58,12 +58,12 @@ namespace DarkSaver.Tests
                 view.CancelMagicTargeting();view.TryOpenActionMenu();Assert.That(view.TryChooseCommand(BattleMapCommand.Magic),Is.True);
                 Assert.That(view.TryGetDisplayedMagic(0,out shown),Is.True);Assert.That(shown.Id,Is.EqualTo(701));
                 view.CancelMagicTargeting();
-                battle.ConfigureMagicApCost(10001,3);battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp-GameConstants.BattleStartingAp);
+                battle.ConfigureMagicApCost(10001,3);NativeCombatStateFixture.ReceiveFullTicks(battle);
                 MagicRequest received=null;int count=0;
                 root.GetComponent<ServerManager>().RequestReceived += packet=>{if(packet is MagicRequest command){received=command;count++;}};
                 view.TryOpenActionMenu();view.TryChooseCommand(BattleMapCommand.Special);
                 Assert.That(view.TrySelectDisplayedMagic(0),Is.True);
-                Assert.That(received,Is.Null); Assert.That(battle.PlayerAp,Is.EqualTo(10));
+                Assert.That(received,Is.Null); Assert.That(battle.PlayerAp,Is.EqualTo(20));
                 Assert.That(view.ConfigureSpecialChoices(catalog,100,Array.Empty<MagicRequest>(),_=>true,_=>1,null,null),Is.True);
                 Assert.That(view.IsMagicTargeting,Is.False);Assert.That(view.SpecialChoiceCount,Is.Zero);
                 Assert.That(view.ConfigureSpecialChoices(catalog,100,new[]{special},_=>true,_=>1,null,null),Is.True);
@@ -73,12 +73,12 @@ namespace DarkSaver.Tests
                 Assert.That(count,Is.EqualTo(1)); Assert.That(received.MagicId,Is.EqualTo(10001));
                 Assert.That(received.X,Is.EqualTo(-1));Assert.That(received.ComputedCost,Is.EqualTo(-123));
                 Assert.That(received.OriginalOpcode,Is.EqualTo(0x92));Assert.That(received.Mode,Is.EqualTo(7));
-                Assert.That(battle.PlayerAp,Is.EqualTo(7));Assert.That(view.IsMagicChoiceOpen,Is.False);
+                Assert.That(battle.PlayerAp,Is.EqualTo(17));Assert.That(view.IsMagicChoiceOpen,Is.False);
                 // A later confirmed normal-only learned list must also block this special request.
                 Assert.That(battle.ConfigurePlayerJob(100),Is.True);
                 battle.TryGetUnit(100,out var actor);
                 var draft=new BattleFormationMemberDraft {PersistentId="fixture",CommanderPersistentId="fixture",CommanderId=100,
-                    Unit=new CombatUnit {Id=100,JobId=100,Name="fixture",Hp=50,MaxHp=50,X=actor.X,Y=actor.Y},
+                    Unit=NativeCombatStateFixture.Received(new CombatUnit {Id=100,JobId=100,Name="fixture",Hp=50,MaxHp=50,X=actor.X,Y=actor.Y}),
                     Position=new CombatGridCell(actor.X,actor.Y),TeamId=1,RecordEligible=true,IsOwned=true,FinalStateConfirmed=true,
                     LearnedMagicIds=new short[]{701}};
                 Assert.That(BattleFormation.TryCreateSnapshot(new[]{draft},4,4,Array.Empty<short>(),out var formation,out _),Is.True);
@@ -99,7 +99,7 @@ namespace DarkSaver.Tests
                 Assert.That(view.TryGetDisplayedMagic(0,out shown),Is.True);Assert.That(shown.Id,Is.EqualTo(10002));
                 Assert.That(view.TrySelectDisplayedMagic(0),Is.False); // No invented request/cost.
                 Assert.That(view.TryGetDisplayedMagic(1,out shown),Is.True);Assert.That(shown.Id,Is.EqualTo(10001));
-                battle.AdvanceActionPoints(20);
+                NativeCombatStateFixture.ReceiveFullTicks(battle);
                 Assert.That(view.TrySelectDisplayedMagic(1),Is.True); // Display index 1 -> request index 0.
                 view.CancelMagicTargeting();Assert.That(count,Is.EqualTo(1));
                 draft.LearnedMagicIds=new short[]{701};

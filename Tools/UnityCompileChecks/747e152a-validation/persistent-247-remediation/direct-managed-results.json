@@ -1,0 +1,277 @@
+[
+  {
+    "test": "DarkSaver.Tests.BattleFormationDeploymentTests.AllGroupsRegisterTogetherAndInputsCannotRewriteRegisteredUnits",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.BattleFormationDeploymentTests.GlobalEnemyCollisionAndCombinedSoldierLimitAreAtomic",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.BattleFormationDeploymentTests.LaterGroupFailureNeverLeavesEarlierGroupRegistered",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.BattleFormationReturnTests.InvalidVitalsLifeStateAndChangedJobAreRejectedWithoutClamping",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.BattleFormationReturnTests.MissingDuplicateForeignAndEnemyResultsNeverProducePartialReturn",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.BattleFormationReturnTests.ReorderedResultsMapByDeploymentIdentityAndRetainRawValues",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.BattleFormationReturnTests.ReturnOwnsReadOnlyValuesAfterObservationAndSourceMutation",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.BattleFormationReturnTests.ReturnPreservesReceivedPerRecordMaximumWithoutFactionCap",
+    "arguments": [
+      10,
+      9
+    ],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.BattleFormationReturnTests.ReturnPreservesReceivedPerRecordMaximumWithoutFactionCap",
+    "arguments": [
+      30,
+      29
+    ],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.BattleFormationReturnTests.ReturnPreservesReceivedPerRecordMaximumWithoutFactionCap",
+    "arguments": [
+      0,
+      23
+    ],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.BattleFormationReturnTests.ZeroHpActiveCorpseAndRemovedAreRecordedWithoutRevivalOrInference",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.BattleFormationSnapshotTests.MissingOwnershipFinalStateOrNativeContextNeverProducesPartialSnapshot",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatActionStatusTests.ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatActionStatusTests.StatusConfigurationCannotReviveAnObservedCorpse",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatActionStatusTests.UnknownSilenceCannotBeSimulatedLocally",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatActionStatusTests.UnknownSleepCannotRewriteReceivedLifeState",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatActionStatusTests.UnknownWakeCannotManufactureHealing",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.Experience_AppliesFullUnsignedValueBeforeNotification",
+    "arguments": [
+      0
+    ],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.Experience_AppliesFullUnsignedValueBeforeNotification",
+    "arguments": [
+      3477000000
+    ],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.Experience_AppliesFullUnsignedValueBeforeNotification",
+    "arguments": [
+      4294967295
+    ],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.Experience_DoesNotReviveOrAlterCombatStats",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.Experience_RepeatedAndLowerValuesReplaceRatherThanAdd",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.Experience_UnknownInstanceDoesNotNotifyOrChangeExistingUnit",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.ExplicitMagicCostDoesNotSupplyMissingServerDamageFormula",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.ExplicitRequestCostsCannotReenableRemovedRestOrDamageSimulator",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.HealingRequiresSeparateAbsoluteHpResponse",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.MissingBuffResponseCannotAlterBaseStatsOrConsumeResources",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.MissingHitVerdictNeverInventsPhysicalHitProbability",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.MissingVerdictCannotReplaceIndependentHpAndCorpseResponses",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatFlowTests.RequestAnticipationDoesNotTreatMissingVerdictAsMissOrDamage",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatGroupTests.CommanderDeathDoesNotKillSoldiersOrMutatePreviousSnapshot",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatGroupTests.GroupsUseInstanceIdsNotJobsAndReturnOwnedOrderedSnapshots",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatGroupTests.InvalidRegistrationIsAtomicAndCannotOverwriteExistingUnits",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatGroupTests.SourceGroupWidthDoesNotBecomePlayerFormationOrAiQueueLimit",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatMovementPathTests.BudgetedDiagonalCanSkipSameGroupIntermediateWithoutOverwritingItsOccupant",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatMovementPathTests.BudgetedGridUsesCardinalRangeBeforeDiagonalCompressionWithoutMutation",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatOccupancyGridTests.CommitRechecksTerrainAndChangesOnlyOccupancyAndCoordinates",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatOccupancyGridTests.PlacementValidatesBoundsLifeAndOccupancyWithoutChangingVitals",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatReachableDestinationsTests.CornerTerrainAndDirectionPoliciesDefineConnectivityNotAp",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatReachableDestinationsTests.DestinationsAreOwnedSortedAndMatchIndividualPathsWithoutMutation",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatStatusTests.CureCannotConsumeMpOrHealWithoutApproval",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatStatusTests.MovementReductionDoesNotInventBudgetChanges",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatStatusTests.PoisonRequiresReceivedResultsInsteadOfElapsedLocalTime",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatStatusTests.ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatStatusTests.StatusConfigurationCannotReviveAnObservedCorpse",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.CombatTerrainTraversalTests.ExplicitTerrainPolicyCombinesWithGridOccupancyWithoutChangingStats",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.JobActionCostTests.JobBindingIsPerInstanceAndUnknownJobClearsPreviousCost",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.QuickMagicTests.MissingQuickRuleCannotDiscountConfirmedAttackCost",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.QuickMagicTests.QuickCannotCreateMovementBudgetOrNaturalRecovery",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.QuickMagicTests.QuickCannotEnableLocalRestOrItemRecovery",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.QuickMagicTests.RepeatedConfigurationAndModeChangesCannotRestoreRemovedQuickSimulator",
+    "arguments": [],
+    "result": "Passed"
+  },
+  {
+    "test": "DarkSaver.Tests.QuickMagicTests.UnknownQuickCastNeverSpendsOrStartsPresentation",
+    "arguments": [],
+    "result": "Passed"
+  }
+]

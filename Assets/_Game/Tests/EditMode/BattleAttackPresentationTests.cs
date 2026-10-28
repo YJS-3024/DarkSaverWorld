@@ -38,29 +38,18 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void AcceptedLocalAttackPublishesAnticipationBeforeApplyingDamage()
+        public void DispatchedAttackAnticipationPrecedesIndependentHpResponse()
         {
-            WithBattle((receiver, battle, enemy) =>
-            {
-                var calls = 0; var hpAtStart = 0;
-                battle.AttackPresentationStarted += p =>
-                {
-                    calls++; hpAtStart = battle.EnemyHp;
-                    Assert.That(p.IsAnticipation, Is.True); Assert.That(p.Effect, Is.Zero);
-                    Assert.That((p.AttackerId, p.TargetId), Is.EqualTo(((short)100, (short)700)));
-                };
-                battle.PlayerAttack(); // Missing AP costs: no presentation.
-                Assert.That(calls, Is.Zero); Assert.That(battle.LastAttackPresentation, Is.Null);
-                battle.ConfigureActionPointCosts(2, 6); // Test-only opt-in, not production costs.
-                battle.PlayerAttack(); // AP below maximum: still no presentation.
-                Assert.That(calls, Is.Zero);
-                Assert.That(battle.ApplyHp(700, 1), Is.True);
-                battle.AdvanceActionPoints(GameConstants.BattleHighestMaximumAp - GameConstants.BattleStartingAp); battle.PlayerAttack();
-                Assert.That(calls, Is.EqualTo(1)); Assert.That(hpAtStart, Is.EqualTo(1));
-                Assert.That(battle.EnemyHp, Is.Zero);
-                Assert.That(battle.LastAttackPresentation.Value.IsAnticipation, Is.True);
-                Assert.That(receiver.LastAttackEffect, Is.Null); // Not a fabricated server notification.
-                Assert.That(battle.TryGetLatestAttacker(700, out _), Is.False);
+            WithBattle((receiver,battle,enemy)=>{
+                var sender=battle.gameObject.AddComponent<BattleRequestSender>();var server=battle.GetComponent<ServerManager>();
+                int calls=0,hpAtStart=0;battle.AttackPresentationStarted+=p=>{calls++;hpAtStart=battle.EnemyHp;Assert.IsTrue(p.IsAnticipation);};
+                Assert.IsFalse(sender.TrySendAttack(new AttackRequest(700,100,0,0),out _));Assert.IsNull(battle.LastAttackPresentation);
+                Assert.IsTrue(battle.ConfigureActionPointCosts(2,6));NativeCombatStateFixture.ReceiveFullTicks(battle);
+                Assert.IsTrue(battle.ApplyHp(700,1));
+                server.RequestReceived+=packet=>{Assert.IsInstanceOf<AttackRequest>(packet);Assert.AreEqual(1,calls);server.SendToClient(new HpSetNotification(700,0));};
+                Assert.IsTrue(sender.TrySendAttack(new AttackRequest(700,100,0,0),out _));
+                Assert.AreEqual(1,calls);Assert.AreEqual(1,hpAtStart);Assert.AreEqual(0,battle.EnemyHp);
+                Assert.AreEqual(UnitLifeState.Active,battle.EnemyLifeState);Assert.IsNull(receiver.LastAttackEffect);
             });
         }
 
@@ -94,7 +83,7 @@ namespace DarkSaver.Tests
                 Assert.That(battle.ApplyAttackPresentation(700, 100, 1), Is.False);
                 Assert.That(battle.LastAttackPresentation, Is.EqualTo(prior));
                 Assert.That(calls, Is.Zero);
-                Assert.That(battle.EnemyHp, Is.Zero);
+                Assert.That(battle.EnemyHp, Is.EqualTo(450),"removal alone does not contain an HP update");
                 Assert.That(battle.EnemyLifeState, Is.EqualTo(UnitLifeState.Removed));
                 Assert.That(battle.TryGetLatestAttacker(700, out _), Is.False);
             });
@@ -107,7 +96,7 @@ namespace DarkSaver.Tests
             try
             {
                 var root = new GameObject("Attack presentation check"); SceneManager.MoveGameObjectToScene(root, scene);
-                var receiver = root.AddComponent<BattlePacketReceiver>();
+                var receiver = root.AddComponent<BattlePacketReceiver>(); NativeCombatStateFixture.Initialize(root.GetComponent<BattleSceneRoot>(),6);
                 Assert.That(receiver.Bind(), Is.True);
                 var battle = root.GetComponent<BattleSceneRoot>();
                 Assert.That(battle.ConfigureEnemy(enemy), Is.True);

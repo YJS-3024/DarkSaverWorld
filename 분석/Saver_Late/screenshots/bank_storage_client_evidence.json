@@ -1,0 +1,193 @@
+{
+  "source": "Saver_Files/saver/Saver.exe (late installed client)",
+  "sha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "method": "Read-only PE string address lookup, GNU objdump static disassembly, existing LSC parser; no native execution",
+  "sourceUnchanged": true,
+  "strings": [
+    {
+      "text": "당신은 저축할 돈이 없습니다.",
+      "va": "0x490440"
+    },
+    {
+      "text": "당신은 저축한 돈이 없습니다.",
+      "va": "0x490464"
+    },
+    {
+      "text": "보관료 : %lu",
+      "va": "0x490eec"
+    },
+    {
+      "text": "%I64u",
+      "va": "0x490488"
+    }
+  ],
+  "windows": [
+    {
+      "file": "scene18.lsc",
+      "sha256": "4d280ce7cad3d89370cfe9d827b95001aac60e4f763dc4493fd5300e1b93b89a",
+      "width": 329,
+      "height": 83,
+      "buttons": [
+        {
+          "kind": "button",
+          "id": 24,
+          "x": 133,
+          "y": 47
+        },
+        {
+          "kind": "button",
+          "id": 25,
+          "x": 199,
+          "y": 47
+        },
+        {
+          "kind": "button",
+          "id": 6,
+          "x": 265,
+          "y": 47
+        }
+      ]
+    },
+    {
+      "file": "scene20.lsc",
+      "sha256": "376727510699e5564f1837496d3824f40e5da119cfae6871efb9358a63b467e1",
+      "width": 419,
+      "height": 303,
+      "buttons": [
+        {
+          "kind": "button",
+          "id": 40,
+          "x": 384,
+          "y": 35
+        },
+        {
+          "kind": "button",
+          "id": 39,
+          "x": 384,
+          "y": 161
+        },
+        {
+          "kind": "button",
+          "id": 19,
+          "x": 345,
+          "y": 264
+        }
+      ]
+    }
+  ],
+  "regions": [
+    {
+      "label": "bank empty balance checks",
+      "start": "0x445238",
+      "end": "0x445334",
+      "instructions": [
+        "445238:\t8b 86 c0 00 00 00    \tmov    eax,DWORD PTR [esi+0xc0]",
+        "44523e:\t85 c0                \ttest   eax,eax",
+        "445240:\t0f 84 ee 00 00 00    \tje     0x445334",
+        "445246:\t83 ff 01             \tcmp    edi,0x1",
+        "445249:\t75 60                \tjne    0x4452ab",
+        "44524b:\t8b 8e b8 00 00 00    \tmov    ecx,DWORD PTR [esi+0xb8]",
+        "445251:\t8b 86 bc 00 00 00    \tmov    eax,DWORD PTR [esi+0xbc]",
+        "445257:\t0b c8                \tor     ecx,eax",
+        "445259:\t0f 85 a8 00 00 00    \tjne    0x445307",
+        "44525f:\t68 64 04 49 00       \tpush   0x490464",
+        "445264:\t8d 4c 24 20          \tlea    ecx,[esp+0x20]",
+        "445268:\te8 37 43 03 00       \tcall   0x4795a4",
+        "44526d:\t8b 8e a0 00 00 00    \tmov    ecx,DWORD PTR [esi+0xa0]",
+        "445273:\t8d 54 24 1c          \tlea    edx,[esp+0x1c]",
+        "445277:\t6a 00                \tpush   0x0",
+        "445279:\t52                   \tpush   edx",
+        "44527a:\tc7 44 24 1c 00 00 00 \tmov    DWORD PTR [esp+0x1c],0x0",
+        "445281:\t00",
+        "445282:\te8 75 c1 fb ff       \tcall   0x4013fc",
+        "445287:\t8d 4c 24 1c          \tlea    ecx,[esp+0x1c]",
+        "44528b:\tc7 44 24 14 ff ff ff \tmov    DWORD PTR [esp+0x14],0xffffffff",
+        "445292:\tff",
+        "445293:\te8 ee 42 03 00       \tcall   0x479586",
+        "445298:\t5f                   \tpop    edi",
+        "445299:\t5e                   \tpop    esi",
+        "44529a:\t8b 4c 24 04          \tmov    ecx,DWORD PTR [esp+0x4]",
+        "44529e:\t64 89 0d 00 00 00 00 \tmov    DWORD PTR fs:0x0,ecx",
+        "4452a5:\t83 c4 10             \tadd    esp,0x10",
+        "4452a8:\tc2 04 00             \tret    0x4",
+        "4452ab:\t85 ff                \ttest   edi,edi",
+        "4452ad:\t75 58                \tjne    0x445307",
+        "4452af:\t8b 86 b0 00 00 00    \tmov    eax,DWORD PTR [esi+0xb0]",
+        "4452b5:\t8b 48 4c             \tmov    ecx,DWORD PTR [eax+0x4c]",
+        "4452b8:\t85 c9                \ttest   ecx,ecx",
+        "4452ba:\t75 4b                \tjne    0x445307",
+        "4452bc:\t68 40 04 49 00       \tpush   0x490440",
+        "4452c1:\t8d 4c 24 0c          \tlea    ecx,[esp+0xc]",
+        "4452c5:\te8 da 42 03 00       \tcall   0x4795a4",
+        "4452ca:\t8d 4c 24 08          \tlea    ecx,[esp+0x8]",
+        "4452ce:\t57                   \tpush   edi",
+        "4452cf:\t51                   \tpush   ecx",
+        "4452d0:\t8b 8e a0 00 00 00    \tmov    ecx,DWORD PTR [esi+0xa0]",
+        "4452d6:\tc7 44 24 1c 01 00 00 \tmov    DWORD PTR [esp+0x1c],0x1",
+        "4452dd:\t00",
+        "4452de:\te8 19 c1 fb ff       \tcall   0x4013fc",
+        "4452e3:\t8d 4c 24 08          \tlea    ecx,[esp+0x8]",
+        "4452e7:\tc7 44 24 14 ff ff ff \tmov    DWORD PTR [esp+0x14],0xffffffff",
+        "4452ee:\tff",
+        "4452ef:\te8 92 42 03 00       \tcall   0x479586",
+        "4452f4:\t5f                   \tpop    edi",
+        "4452f5:\t5e                   \tpop    esi",
+        "4452f6:\t8b 4c 24 04          \tmov    ecx,DWORD PTR [esp+0x4]",
+        "4452fa:\t64 89 0d 00 00 00 00 \tmov    DWORD PTR fs:0x0,ecx",
+        "445301:\t83 c4 10             \tadd    esp,0x10",
+        "445304:\tc2 04 00             \tret    0x4",
+        "445307:\t8b 8e a0 00 00 00    \tmov    ecx,DWORD PTR [esi+0xa0]",
+        "44530d:\t6a 01                \tpush   0x1",
+        "44530f:\t6a 23                \tpush   0x23",
+        "445311:\t8b 11                \tmov    edx,DWORD PTR [ecx]",
+        "445313:\tff 52 04             \tcall   DWORD PTR [edx+0x4]",
+        "445316:\t8b 8e a0 00 00 00    \tmov    ecx,DWORD PTR [esi+0xa0]",
+        "44531c:\t6a 23                \tpush   0x23",
+        "44531e:\te8 75 e3 fb ff       \tcall   0x403698",
+        "445323:\t85 c0                \ttest   eax,eax",
+        "445325:\t74 0d                \tje     0x445334",
+        "445327:\t33 c9                \txor    ecx,ecx",
+        "445329:\t85 ff                \ttest   edi,edi",
+        "44532b:\t0f 94 c1             \tsete   cl",
+        "44532e:\t89 88 cc 00 00 00    \tmov    DWORD PTR [eax+0xcc],ecx",
+        "445334:\t8b 4c 24 0c          \tmov    ecx,DWORD PTR [esp+0xc]"
+      ]
+    },
+    {
+      "label": "bank two-word balance formatting",
+      "start": "0x4454c9",
+      "end": "0x4454e5",
+      "instructions": [
+        "4454c9:\t8b 8b b8 00 00 00    \tmov    ecx,DWORD PTR [ebx+0xb8]",
+        "4454cf:\t89 44 24 18          \tmov    DWORD PTR [esp+0x18],eax",
+        "4454d3:\t8b 83 bc 00 00 00    \tmov    eax,DWORD PTR [ebx+0xbc]",
+        "4454d9:\t8d 54 24 10          \tlea    edx,[esp+0x10]",
+        "4454dd:\t50                   \tpush   eax",
+        "4454de:\t51                   \tpush   ecx",
+        "4454df:\t68 88 04 49 00       \tpush   0x490488",
+        "4454e4:\t52                   \tpush   edx",
+        "4454e5:\te8 e4 40 03 00       \tcall   0x4795ce"
+      ]
+    },
+    {
+      "label": "storage fee formatting",
+      "start": "0x470e3d",
+      "end": "0x470e59",
+      "instructions": [
+        "470e3d:\t8b 8e 70 03 00 00    \tmov    ecx,DWORD PTR [esi+0x370]",
+        "470e43:\t8d 54 24 10          \tlea    edx,[esp+0x10]",
+        "470e47:\t51                   \tpush   ecx",
+        "470e48:\t68 ec 0e 49 00       \tpush   0x490eec",
+        "470e4d:\t52                   \tpush   edx",
+        "470e4e:\tc7 84 24 ac 00 00 00 \tmov    DWORD PTR [esp+0xac],0x0",
+        "470e55:\t00 00 00 00",
+        "470e59:\te8 70 87 00 00       \tcall   0x4795ce"
+      ]
+    }
+  ],
+  "limits": [
+    "No live server or packet capture",
+    "No original account-sharing, fees formula or capacity established",
+    "No request/response opcode semantic assignment established by this check"
+  ]
+}

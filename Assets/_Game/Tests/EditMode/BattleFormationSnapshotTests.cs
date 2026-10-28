@@ -12,8 +12,8 @@ namespace DarkSaver.Tests
             var commander = (short)(id / 10 * 10);
             return new BattleFormationMemberDraft {
                 PersistentId = "owned-" + id, CommanderPersistentId = "owned-" + commander, CommanderId = commander,
-                Unit = new CombatUnit { Id = id, JobId = 100, Name = "Explicit fixture", X = x, Y = 0,
-                    Hp = 40, MaxHp = 50, Mp = 0, MaxMp = 10, Attack = 0, Defense = 0, Experience = uint.MaxValue },
+                Unit = NativeCombatStateFixture.Received(new CombatUnit { Id = id, JobId = 100, Name = "Explicit fixture", X = x, Y = 0,
+                    Hp = 40, MaxHp = 50, Mp = 0, MaxMp = 10, Attack = 0, Defense = 0, Experience = uint.MaxValue }),
                 IsOwned = true, FinalStateConfirmed = true, Position = new CombatGridCell(x, 0), TeamId = 1,
                 RecordEligible = true, LearnedMagicIds = Array.Empty<short>()
             };

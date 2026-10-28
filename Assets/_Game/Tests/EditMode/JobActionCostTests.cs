@@ -26,10 +26,11 @@ namespace DarkSaver.Tests
         public void JobBindingIsPerInstanceAndUnknownJobClearsPreviousCost()
         {
             var world = new CombatWorld();
-            world.Add(new CombatUnit { Id = 100 }); world.Add(new CombatUnit { Id = 700 });
+            world.Add(NativeCombatStateFixture.Received(new CombatUnit { Id = 100 })); world.Add(NativeCombatStateFixture.Received(new CombatUnit { Id = 700 }));
             var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             // Fixture values only; no constants or native assets are modified.
             Assert.That(flow.ConfigureActionPointCosts(2, 6), Is.True);
+            Assert.IsTrue(flow.ConfigureMagicApCost(101,6)); // Explicit received fixture cost; no prototype-ID inference.
             Assert.That(flow.ConfigureAttackApCostForJob(100, 100), Is.True);
             Assert.That(flow.GetAttackApCost(100), Is.EqualTo(GameConstants.BattleJob100AttackApCost));
             Assert.That(flow.GetAttackApCost(700), Is.EqualTo(2));
@@ -50,7 +51,7 @@ namespace DarkSaver.Tests
             try
             {
                 var root = new GameObject("Job binding check"); SceneManager.MoveGameObjectToScene(root, scene);
-                var battle = root.AddComponent<BattleSceneRoot>();
+                var battle = root.AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(battle,6);
                 var hp = battle.PlayerHp; var mp = battle.PlayerMp; var ap = battle.PlayerAp;
                 Assert.That(battle.ConfigurePlayerJob(100), Is.True);
                 Assert.That(battle.ConfigurePlayerJob(0), Is.False);

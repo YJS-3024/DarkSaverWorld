@@ -92,7 +92,7 @@ namespace DarkSaver.Tests
         public void ResultAggregateIsDetachedSavedAndNotAnAdditionalExperienceGrant()
         {
             var content=JsonUtility.FromJson<Scenario01Definition>(Resources.Load<TextAsset>("Scenarios/01/Content").text);
-            var progress=Scenario01Progress.Create(content);progress.battleExperienceEarned=1234;
+            var progress=ReceivedScenarioFixture.Empty(content);progress.battleExperienceEarned=1234;
             Assert.IsTrue(progress.hasBattleExperienceLedger);
             Assert.IsFalse(new Scenario01Progress().hasBattleExperienceLedger);
             var copy=progress.Clone();copy.battleExperienceEarned=777;

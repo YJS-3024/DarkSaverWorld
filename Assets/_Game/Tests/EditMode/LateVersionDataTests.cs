@@ -27,9 +27,11 @@ namespace DarkSaver.Tests
             Assert.That(changed.learnedMagicIds,Does.Contain(101));
             Assert.That(profile.jobId,Is.EqualTo(previous)); // Candidate creation is not an in-place mutation.
             changed.jobLevel=299;changed.baseLevel=600;
-            Assert.That(changed.TryAdvanceLevels(table,uint.MaxValue,out var advanced,out _),Is.True);
-            Assert.That(advanced.jobLevel,Is.EqualTo(300));
-            var restored=JsonUtility.FromJson<NativeCharacterProfile>(JsonUtility.ToJson(advanced));
+            var before=JsonUtility.ToJson(changed);
+            Assert.IsFalse(changed.TryAdvanceLevels(table,uint.MaxValue,out var advanced,out _));Assert.IsNull(advanced);
+            Assert.AreEqual(before,JsonUtility.ToJson(changed));
+            changed.jobLevel=300; // Explicit received-state fixture, not client-side XP calculation.
+            var restored=JsonUtility.FromJson<NativeCharacterProfile>(JsonUtility.ToJson(changed));
             Assert.That(restored.IsValid,Is.True);Assert.That(restored.jobLevel,Is.EqualTo(300));
             restored.jobLevel=301;Assert.That(restored.IsValid,Is.False);
             profile.jobLevel=101;Assert.That(profile.IsValid,Is.False);
@@ -44,8 +46,7 @@ namespace DarkSaver.Tests
             for(int i=0;i<4;i++) {
                 Assert.That(catalog.TryGet(11201+i,out var entry),Is.True);
                 Assert.That(entry.GetNumericValue(9),Is.EqualTo(ea[i]));
-                Assert.That(UnresolvedAbilityRules.TryCreate(entry,out var rule),Is.True);
-                Assert.That(rule.Effect,Is.EqualTo(AbilityEffect.Regeneration));
+                Assert.IsFalse(UnresolvedAbilityRules.TryCreate(entry,out var rule));Assert.IsNull(rule);
             }
             Assert.That(catalog.TryGet(30901,out var unknown),Is.True);
             Assert.That(UnresolvedAbilityRules.TryCreate(unknown,out _),Is.False);

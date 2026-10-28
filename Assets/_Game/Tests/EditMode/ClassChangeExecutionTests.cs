@@ -325,8 +325,8 @@ namespace DarkSaver.Tests
                 Assert.That((session.PlayerHp, session.PlayerMaxHp, session.PlayerMp, session.PlayerMaxMp), Is.EqualTo((240, 240, 48, 48)));
                 Assert.That(session.PlayerExperience, Is.EqualTo(1234)); Assert.That(session.CaptureInventory().gold, Is.EqualTo(10000));
                 Assert.That(player.GetComponent<SpriteRenderer>().sprite.name, Does.StartWith("Class105_"));
-                Assert.That(DarkSaver.World.TrainingEntrance2D.TryResolveTrainingMap(Jobs, profile.jobId, out var map), Is.True);
-                Assert.That(map, Is.EqualTo(102));
+                Assert.That(DarkSaver.World.TrainingEntrance2D.TryResolveTrainingMap(Jobs, profile.jobId, out var map), Is.False);
+                Assert.That(map, Is.Zero); // Class-change receipt does not assign a training map.
                 Assert.That(panel.ConfirmClassChange(), Is.False);
                 var saved = JsonUtility.FromJson<NativeSaveData>(JsonUtility.ToJson(session.CaptureSaveState("Kaosia_Map", "Town_Runtime", Vector2.one)));
                 Assert.That(session.RestoreSaveState(saved), Is.True);

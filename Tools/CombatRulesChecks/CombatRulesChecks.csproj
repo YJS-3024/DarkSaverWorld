@@ -6,6 +6,17 @@
     <DefineConstants>$(DefineConstants);DARKSAVER_LEGACY_CHECKS</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../Assets/_Game/Runtime/Events/TutorialPresentationRules.cs" Link="TutorialPresentationRules.cs" />
+    <Compile Include="../../Assets/_Game/Tests/EditMode/TutorialPresentationChecks.cs" Link="TutorialPresentationChecks.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/TrainingTravelService.cs" Link="TrainingTravelService.cs" />
+    <Compile Include="../../Assets/_Game/Tests/EditMode/TrainingVisitChecks.cs" Link="TrainingVisitChecks.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/LocalPackets.cs" Link="LocalPackets.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/LocalServerDispatcher.cs" Link="LocalServerDispatcher.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/LocalTrainingPackets.cs" Link="LocalTrainingPackets.cs" />
+    <Compile Include="../../Assets/_Game/Runtime/Network/TrainingProtocolBinding.cs" Link="TrainingProtocolBinding.cs" />
+    <Compile Include="../../Assets/_Game/Tests/EditMode/LocalTrainingProtocolChecks.cs" Link="LocalTrainingProtocolChecks.cs" />
+
+    <Compile Include="../../Assets/_Game/Runtime/Combat/OriginalTrainingMaps.cs" Link="OriginalTrainingMaps.cs" />
     <Compile Include="../../Assets/_Game/Editor/MrcMapReader.cs" Link="MrcMapReader.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialScript.cs" Link="OriginalTutorialScript.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialAbilities.cs" Link="OriginalTutorialAbilities.cs" />

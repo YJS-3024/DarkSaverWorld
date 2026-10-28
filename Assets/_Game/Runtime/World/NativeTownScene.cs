@@ -116,7 +116,16 @@ namespace DarkSaver.World
                 {
                     var hit=actor.AddComponent<BoxCollider2D>();hit.isTrigger=true;hit.size=Vector2.one;
                     var counter=actor.AddComponent<ShopCounter2D>();
-                    if(nativeMap=="2800")counter.ConfigureWideCounter();
+                    // Authored indoor counters face down. Use the walkable row in front
+                    // of the photographed staff, not a circular interaction radius.
+                    var front = new List<Vector2Int>();
+                    int staffX = Mathf.FloorToInt(actor.transform.position.x);
+                    int nativeFrontY = entry.pixelY / 32 + 2;
+                    for (int x = staffX - 1; x <= staffX + 1; x++)
+                        if (x >= 0 && x < data.width && nativeFrontY < data.height
+                            && data.attributes[nativeFrontY * data.width + x] != 9)
+                            front.Add(new Vector2Int(x, data.height - 1 - nativeFrontY));
+                    counter.ConfigureCounterFront(front.ToArray());
                 }
             }
         }

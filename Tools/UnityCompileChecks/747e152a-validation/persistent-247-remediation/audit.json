@@ -1,0 +1,3154 @@
+{
+  "baselineCommit": "f3808c0b",
+  "baselineUnity": "6000.5.7f1",
+  "historicalTotalFailures": 249,
+  "scope": "247 persistent failures only; two newly reported building failures are separate",
+  "originalEvidence": [
+    "분석/Saver_1.2/catalogs/combat_protocol.csv: absolute HP/MP/XP notifications, independent corpse/removal",
+    "UserUnit SetTick 0x1000C8A9..0x1000C8BD: per-record maximum +0x5C",
+    "late UserUnit 0x1000E9D0: explicit HP/maxHP/MP/maxMP record fields"
+  ],
+  "classificationCounts": {
+    "removed-local-authority-expectation-replaced": 116,
+    "retained-native-test-with-explicit-received-fixture": 131
+  },
+  "note": "Source remediation inventory, not a claim that 247 Unity tests passed. Renamed/replaced cases list all replacement methods in their fixture; not asserted one-to-one. No Ignore/Explicit added. Unknown server rules remain unavailable.",
+  "cases": [
+    {
+      "originalTest": "DarkSaver.Tests.BattleAlliedRosterTests.AllCommanderDefeatStopsNewActionsButStillAcceptsAbsoluteResults",
+      "source": "Assets/_Game/Tests/EditMode/BattleAlliedRosterTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "CommanderDeathsNeverInferUnreceivedBattleOutcome",
+        "CommanderDeathKeepsIndependentResourceResponsesAvailable"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleAlliedRosterTests.CommanderRemovalKeepsOtherGroupSoldierAndApRecovery",
+      "source": "Assets/_Game/Tests/EditMode/BattleAlliedRosterTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "CommanderRemovalKeepsOtherGroupSoldierAndApRecovery",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleAlliedRosterTests.PrimaryDeathDoesNotFinishBattleWhileAnotherCommanderLives",
+      "source": "Assets/_Game/Tests/EditMode/BattleAlliedRosterTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "CommanderDeathsNeverInferUnreceivedBattleOutcome",
+        "CommanderDeathKeepsIndependentResourceResponsesAvailable"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits",
+      "source": "Assets/_Game/Tests/EditMode/BattleAlliedRosterTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "RosterSelectionIsFreeAndRejectsUnavailableUnits",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleAttackPresentationTests.AcceptedLocalAttackPublishesAnticipationBeforeApplyingDamage",
+      "source": "Assets/_Game/Tests/EditMode/BattleAttackPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "DispatchedAttackAnticipationPrecedesIndependentHpResponse"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleAttackPresentationTests.InvalidOrRemovedReferencesDoNotReplacePresentationOrResurrect",
+      "source": "Assets/_Game/Tests/EditMode/BattleAttackPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InvalidOrRemovedReferencesDoNotReplacePresentationOrResurrect",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleAttackPresentationTests.ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats",
+      "source": "Assets/_Game/Tests/EditMode/BattleAttackPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleEffectPacketTests.EffectCallbackFailureIsNotAcknowledgedOrRetried",
+      "source": "Assets/_Game/Tests/EditMode/BattleEffectPacketTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "EffectCallbackFailureIsNotAcknowledgedOrRetried",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleEffectPacketTests.MagicPreservesUninterpretedFieldsAndOwnedTargetOrderIncludingDuplicates",
+      "source": "Assets/_Game/Tests/EditMode/BattleEffectPacketTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MagicPreservesUninterpretedFieldsAndOwnedTargetOrderIncludingDuplicates",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(3477000000)",
+      "source": "Assets/_Game/Tests/EditMode/BattleExperienceSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ExperienceSurvivesBattleRootReplacement",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(uint.MaxValue)",
+      "source": "Assets/_Game/Tests/EditMode/BattleExperienceSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ExperienceSurvivesBattleRootReplacement",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(uint.MinValue)",
+      "source": "Assets/_Game/Tests/EditMode/BattleExperienceSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ExperienceSurvivesBattleRootReplacement",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleFormationDeploymentTests.AllGroupsRegisterTogetherAndInputsCannotRewriteRegisteredUnits",
+      "source": "Assets/_Game/Tests/EditMode/BattleFormationDeploymentTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "AllGroupsRegisterTogetherAndInputsCannotRewriteRegisteredUnits",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleFormationDeploymentTests.BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource",
+      "source": "Assets/_Game/Tests/EditMode/BattleFormationDeploymentTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleFormationPanelTests.DraftAssignmentCancelAndCommanderRemovalNeverMutateOwnership",
+      "source": "Assets/_Game/Tests/EditMode/BattleFormationPanelTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "DraftAssignmentCancelAndCommanderRemovalNeverMutateOwnership",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleFormationPlacementTests.ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen",
+      "source": "Assets/_Game/Tests/EditMode/BattleFormationPlacementTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleFormationReturnTests.MissingDuplicateForeignAndEnemyResultsNeverProducePartialReturn",
+      "source": "Assets/_Game/Tests/EditMode/BattleFormationReturnTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MissingDuplicateForeignAndEnemyResultsNeverProducePartialReturn",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleFormationReturnTests.ReorderedResultsMapByDeploymentIdentityAndRetainRawValues",
+      "source": "Assets/_Game/Tests/EditMode/BattleFormationReturnTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ReorderedResultsMapByDeploymentIdentityAndRetainRawValues",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleFormationSnapshotTests.MissingOwnershipFinalStateOrNativeContextNeverProducesPartialSnapshot",
+      "source": "Assets/_Game/Tests/EditMode/BattleFormationSnapshotTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MissingOwnershipFinalStateOrNativeContextNeverProducesPartialSnapshot",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleFormationTests.FormationCannotDesynchronizeAnAlreadyConfiguredGrid",
+      "source": "Assets/_Game/Tests/EditMode/BattleFormationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "FormationCannotDesynchronizeAnAlreadyConfiguredGrid",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleFormationTests.FourSoldierLimitCountsExistingMembersWithoutForcingConsecutiveIds",
+      "source": "Assets/_Game/Tests/EditMode/BattleFormationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "FourSoldierLimitCountsExistingMembersWithoutForcingConsecutiveIds",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMagicRequestTests.HandlerFailureDoesNotRetryOrRefundAndDisabledSenderDoesNotStart",
+      "source": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "HandlerFailureDoesNotRetryOrRefundAndDisabledSenderDoesNotStart",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMagicRequestTests.InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost",
+      "source": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMagicRequestTests.MissingHandlerAndInvalidMagicDoNotSpendOrPublish",
+      "source": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MissingHandlerAndInvalidMagicDoNotSpendOrPublish",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMagicRequestTests.MpIsOnlyChangedBySeparateAbsoluteResponse",
+      "source": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MpIsOnlyChangedBySeparateAbsoluteResponse",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMagicRequestTests.MultiTargetMagicRetainsRawPacketAndChargesConfiguredApOnly",
+      "source": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MultiTargetMagicRetainsRawPacketAndChargesConfiguredApOnly",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMagicRequestTests.NativeReferenceSentinelsChargeActualCasterAndRetainOriginalReference",
+      "source": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "NativeReferenceSentinelsChargeActualCasterAndRetainOriginalReference",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMagicRequestTests.PositionRequestsAllowEmptyTargetsAndBlockReentryWithoutInventingResponse",
+      "source": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "PositionRequestsAllowEmptyTargetsAndBlockReentryWithoutInventingResponse",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacks",
+      "source": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCostRequiresIndependentServerResponses",
+        "TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacksRequiresIndependentServerResponses",
+        "TemporaryPartyHealingAndBuffsShareOneCastCostRequiresIndependentServerResponses"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCost",
+      "source": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCostRequiresIndependentServerResponses",
+        "TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacksRequiresIndependentServerResponses",
+        "TemporaryPartyHealingAndBuffsShareOneCastCostRequiresIndependentServerResponses"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryPartyHealingAndBuffsShareOneCastCost",
+      "source": "Assets/_Game/Tests/EditMode/BattleMagicRequestTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCostRequiresIndependentServerResponses",
+        "TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacksRequiresIndependentServerResponses",
+        "TemporaryPartyHealingAndBuffsShareOneCastCostRequiresIndependentServerResponses"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuBlocksMapPointerAndSuspensionResetsCommands",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ActionMenuBlocksMapPointerAndSuspensionResetsCommands",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuRestRecoversHpAndClosesWithoutStartingMovement",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuSeparatesMoveAttackAndUnresolvedBuffsWithoutSpending",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.AdditionalSoldierClickSendsItsInstanceInsteadOfAlwaysUsingPlayer100",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "AdditionalSoldierClickSendsItsInstanceInsteadOfAlwaysUsingPlayer100",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.AttackFacingUsesBoundInstancesWithoutChangingVitalsAndSuspensionUnsubscribes",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "AttackFacingUsesBoundInstancesWithoutChangingVitalsAndSuspensionUnsubscribes",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.BasicCommandPanelConnectsMoveAttackRestAndBlocksInvalidStates",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.BattleMagicMenuUsesConfirmedSubsetIncludingEmptySelection",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "BattleMagicMenuUsesConfirmedSubsetIncludingEmptySelection",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.BindingAlignsFreeWalkingBodiesBeforeTheirFirstGridStep",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "BindingAlignsFreeWalkingBodiesBeforeTheirFirstGridStep",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.BindingStopsOnlyVisualWalkingAndRestoresBorrowedMotionOnSuspend",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "BindingStopsOnlyVisualWalkingAndRestoresBorrowedMotionOnSuspend",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.BindingUsesNativeBodiesAndWorldCellsWithoutEnablingUnresolvedMovement",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "BindingUsesNativeBodiesAndWorldCellsWithoutEnablingUnresolvedMovement",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.CasterDeathAndPresentationSuspensionCancelPendingMagic",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "CasterDeathAndPresentationSuspensionCancelPendingMagic",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.CatalogRegistersOriginalCostsWithoutGrantingSkillsAndRepeatedConfigurationIsStable",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.ConfirmedLearnedMagicDisplaysWithoutInventingRequestsAndRejectsUnlearnedCommands",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ConfirmedLearnedMagicDisplaysWithoutInventingRequestsAndRejectsUnlearnedCommands",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.ConfirmedNativeStepSynchronizesBoundBodyButNeverTreatsClickAsMovement",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ConfirmedNativeStepSynchronizesBoundBodyButNeverTreatsClickAsMovement",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend(1001)",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend(901)",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateMagicMenuKeepsPacketAnchorAndCleansEffectsOnSuspend",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "CoordinateMagicMenuKeepsPacketAnchorAndCleansEffectsOnSuspend",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBody",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.EnemyClickDispatchesSelectedActorWithNativeAttributesAndOnlyIndependentVitals",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "EnemyClickDispatchesSelectedActorWithNativeAttributesAndOnlyIndependentVitals",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.ExistingHudAndTerrainZeroAreExplicitNativeInputs",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ExistingHudAndTerrainZeroAreExplicitNativeInputs",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.ExplicitMagicChoiceMenuPreservesNativeMetadataAndWaitsForTargetClick",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ExplicitMagicChoiceMenuPreservesNativeMetadataAndWaitsForTargetClick",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.ExplicitTemporarySpellExecutesFromTargetClickAndRejectsOutOfRangeWithoutCost",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommit",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTick",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.InformationSizeChangesKeepLiveTargetAndGameplayState",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InformationSizeChangesKeepLiveTargetAndGameplayState",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.LearnedGroupKeepsSingleTargetFallbackUnlessOriginalRecordsAreSupplied",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryAreaUsesGeometryAndFiltersTargetsWithoutNativeTeamGuesses",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryDirectionCastsAndEmptyDirectionOrCancelNeverSpends",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.MagicChoicesRejectInvalidReplacementAndCancelWithoutInventingAvailability",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MagicChoicesRejectInvalidReplacementAndCancelWithoutInventingAvailability",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection(False)",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection(True)",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewClearsOnInvalidGroupDeathAndSuspend",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MagicPreviewClearsOnInvalidGroupDeathAndSuspend",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewRendersNativeGeometryWithoutPacketsOrCost",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MagicPreviewRendersNativeGeometryWithoutPacketsOrCost",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewUsesTransformedGroundAndReleasesOwnedResources",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MagicPreviewUsesTransformedGroundAndReleasesOwnedResources",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.MagicTargetingFailureAndCancellationNeverSpendOrInventCosts",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MagicTargetingFailureAndCancellationNeverSpendOrInventCosts",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.NativeAreaMenuExecutesConfiguredTemporaryDamageOnBothTargets",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.NativeGroupMagicClickBuildsOriginalListAndKeepsIndependentVitals",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "NativeGroupMagicClickBuildsOriginalListAndKeepsIndependentVitals",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.NativeJobCatalogBindsTerrainAndApprovedDiagonalsWithoutExecutingClicks",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "NativeJobCatalogBindsTerrainAndApprovedDiagonalsWithoutExecutingClicks",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.NativeMagicUnknownTeamNeverDispatchesOrFallsThroughToMovement",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "NativeMagicUnknownTeamNeverDispatchesOrFallsThroughToMovement",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.NativeMapClickUsesExplicitBudgetAndClassTerrainCostsWithoutFallback",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresIt",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.OriginallyHiddenBodiesStayHiddenAndCorpseNeverUsesInventedFrames",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "OriginallyHiddenBodiesStayHiddenAndCorpseNeverUsesInventedFrames",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.OutcomeWaitsForConfirmedDeathAndAcknowledgementNeverGrantsRewards",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.PlasmaMenuRequestWaitsForIndependentEffectWithoutDoubleSpending",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "PlasmaMenuRequestWaitsForIndependentEffectWithoutDoubleSpending",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.PositionMagicClickNeverFallsThroughToMovementOrAttack",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "PositionMagicClickNeverFallsThroughToMovementOrAttack",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodyBindingFailureRemovesOnlyNewBodiesAndCanRetry",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "PreparedBodyBindingFailureRemovesOnlyNewBodiesAndCanRetry",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.PrimarySoldierAliasCreatesSelectableNativeBodyAndReturnsItsSourceIdentity",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "PrimarySoldierAliasCreatesSelectableNativeBodyAndReturnsItsSourceIdentity",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.RejectedBindingDoesNotChangeMotionAndStationaryBindingsStayStationary",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "RejectedBindingDoesNotChangeMotionAndStationaryBindingsStayStationary",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.RemovedVisualsStayHiddenWhenDisablingAndResumingPresentation",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "RemovedVisualsStayHiddenWhenDisablingAndResumingPresentation",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish(-1)",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish(2)",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.ScenarioEncounterSuppressesResultButTrainingAndFailedReturnCanShowIt",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.SpecialMagicAreaAcceptsNativeDirectionSentinelsWithoutDispatching",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "SpecialMagicAreaAcceptsNativeDirectionSentinelsWithoutDispatching",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.StandardMagicAreaQueryUsesNativeCellOrderWithoutCastingOrMoving",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "StandardMagicAreaQueryUsesNativeCellOrderWithoutCastingOrMoving",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryBuffSelfClickConsumesCostsAndChangesOnlyEffectiveAttack",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryCatalogNeverClassifiesUnknownStatusOrNonCombatEntriesAsDamage",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryHealSelfClickRestoresHpAndShowsPositiveFeedbackWithoutDamage",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-1)",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-2)",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-3)",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-4)",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "EncounterDeathDoesNotInventScenarioOrTrainingCompletion",
+        "BasicCommandsRequireReceivedCostsAndNeverManufactureRestRecovery",
+        "MissingDamageRuleCannotBeEnabledByExplicitSpellUi",
+        "MissingHealResponseCannotBeProducedBySelfClick",
+        "MissingBuffResponseCannotAlterAttackThroughUi",
+        "CatalogMetadataCannotReenableUnreceivedMagicResolution",
+        "UnknownCatalogEntryCannotBeClassifiedAsLocalDamage",
+        "EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+        "KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+        "OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+        "HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+        "HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+        "ActionMenuSeparatesConfirmedAttackSelectionFromUnresolvedMovement",
+        "ActionMenuCannotManufactureAnUnreceivedRestResult",
+        "CorpseAndHpPacketsRemainSeparateFromOutcomeAndRewardAuthority",
+        "LearnedAreaDoesNotEnableRemovedDamageSimulator",
+        "DirectionSelectionDoesNotEnableUnresolvedLocalCast",
+        "MissingGroupMetadataNeverInventsLocalEffect",
+        "NativeAreaGeometryDoesNotAuthorizeLocalDamage",
+        "PlasmaDirectionAloneCannotCreateAnUnreceivedEffect"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionShowsIndependentStatsWithoutSelectingOrSending",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "UnitInspectionShowsIndependentStatsWithoutSelectingOrSending",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleMapPresentationTests.UnitMagicClickPreservesCommandMetadataAndWaitsForIndependentMp",
+      "source": "Assets/_Game/Tests/EditMode/BattleMapPresentationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "UnitMagicClickPreservesCommandMetadataAndWaitsForIndependentMp",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattlePacketReceiverTests.DeathBeforeHpPreservesReceivedHpUntilSeparateUpdate",
+      "source": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "DeathBeforeHpPreservesReceivedHpUntilSeparateUpdate",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattlePacketReceiverTests.DeathDoesNotPublishCombatResultOrExperienceAndStopsApRecovery",
+      "source": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "DeathDoesNotPublishCombatResultOrExperienceAndStopsApRecovery",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattlePacketReceiverTests.InvalidVitalsReportFailureWithoutClampingOrChangingState",
+      "source": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InvalidVitalsReportFailureWithoutClampingOrChangingState",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattlePacketReceiverTests.PlayerDeathSnapshotRetainsLifeStateAndBlocksBattleReentry",
+      "source": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "PlayerDeathSnapshotRetainsLifeStateAndBlocksBattleReentry",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattlePacketReceiverTests.TickMenuPacketsClampAbsoluteApAndReplaceNativeBitsWithoutInferringActions",
+      "source": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "TickMenuPacketsClampAbsoluteApAndReplaceNativeBitsWithoutInferringActions",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattlePacketReceiverTests.VitalsAreAbsoluteAndDoNotInferDeathOrChangeExperienceOrAp",
+      "source": "Assets/_Game/Tests/EditMode/BattlePacketReceiverTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "VitalsAreAbsoluteAndDoNotInferDeathOrChangeExperienceOrAp",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleRequestSenderTests.DispatchStartsAnticipationBeforeImmediateResponseWithoutLocalDamage",
+      "source": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "DispatchStartsAnticipationBeforeImmediateResponseWithoutLocalDamage",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleRequestSenderTests.HandlerFailurePropagatesWithoutRetryRefundOrLocalDamage",
+      "source": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "HandlerFailurePropagatesWithoutRetryRefundOrLocalDamage",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleRequestSenderTests.MissingOrDisabledHandlerDoesNotSpendApOrStartPresentation",
+      "source": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MissingOrDisabledHandlerDoesNotSpendApOrStartPresentation",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleRequestSenderTests.ReentrantRequestIsRejectedAndNoResponseLeavesOnlyAnticipation",
+      "source": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ReentrantRequestIsRejectedAndNoResponseLeavesOnlyAnticipation",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleRequestSenderTests.TemporaryLoopbackResolvesOnceWithoutHandlerAndCanBeDisabled",
+      "source": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "TemporaryLoopbackResolvesOnceWithoutHandlerAndCanBeDisabledRemainsDisabledWithoutServerHandler",
+        "TemporaryMagicLoopbackSpendsApMpOnceAndRemovesDeadUnitImmediatelyRemainsDisabledWithoutServerHandler"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleRequestSenderTests.TemporaryMagicLoopbackSpendsApMpOnceAndRemovesDeadUnitImmediately",
+      "source": "Assets/_Game/Tests/EditMode/BattleRequestSenderTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "TemporaryLoopbackResolvesOnceWithoutHandlerAndCanBeDisabledRemainsDisabledWithoutServerHandler",
+        "TemporaryMagicLoopbackSpendsApMpOnceAndRemovesDeadUnitImmediatelyRemainsDisabledWithoutServerHandler"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleSpecialMenuTests.SpecialMenuStaysSeparateAndUsesExistingNativeRequestPath",
+      "source": "Assets/_Game/Tests/EditMode/BattleSpecialMenuTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "SpecialMenuStaysSeparateAndUsesExistingNativeRequestPath",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.DefeatBlocksEntryAndDoesNotReviveNextBattle",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "DefeatBlocksEntryAndDoesNotReviveNextBattle",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.FreshSessionLeavesInitialBattleStatsUntouched",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "FreshSessionLeavesInitialBattleStatsUntouched",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(0)",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "HudReadsVitalsAndEntryRestrictionWithoutChangingThem",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(37)",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "HudReadsVitalsAndEntryRestrictionWithoutChangingThem",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(-1,0)",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InvalidRestoreDoesNotPartiallyApply",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(121,0)",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InvalidRestoreDoesNotPartiallyApply",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(50,-1)",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InvalidRestoreDoesNotPartiallyApply",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(50,31)",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InvalidRestoreDoesNotPartiallyApply",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.MissingOrDestroyedBattleDoesNotReplaceStoredVitals",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "MissingOrDestroyedBattleDoesNotReplaceStoredVitals",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(1)",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(120)",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(87)",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.BattleVitalsSessionTests.VitalsDoNotModifyExperienceCompletionOrEnemy",
+      "source": "Assets/_Game/Tests/EditMode/BattleVitalsSessionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "VitalsDoNotModifyExperienceCompletionOrEnemy",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatActionStatusTests.ActualDamageWakesAndDeathOrDisableClearsSleepAndSilence",
+      "source": "Assets/_Game/Tests/EditMode/CombatActionStatusTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "UnknownSilenceCannotBeSimulatedLocally",
+        "UnknownSleepCannotRewriteReceivedLifeState",
+        "UnknownWakeCannotManufactureHealing",
+        "ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+        "StatusConfigurationCannotReviveAnObservedCorpse"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatActionStatusTests.SilenceRejectsLocalAndPacketMagicWithoutSpendingButAllowsAttackAndItems",
+      "source": "Assets/_Game/Tests/EditMode/CombatActionStatusTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "UnknownSilenceCannotBeSimulatedLocally",
+        "UnknownSleepCannotRewriteReceivedLifeState",
+        "UnknownWakeCannotManufactureHealing",
+        "ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+        "StatusConfigurationCannotReviveAnObservedCorpse"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatActionStatusTests.SleepCancelsReservedMovementAndHidesPathsUntilWakeOrExpiry",
+      "source": "Assets/_Game/Tests/EditMode/CombatActionStatusTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "UnknownSilenceCannotBeSimulatedLocally",
+        "UnknownSleepCannotRewriteReceivedLifeState",
+        "UnknownWakeCannotManufactureHealing",
+        "ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+        "StatusConfigurationCannotReviveAnObservedCorpse"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatActionStatusTests.SleepStopsAttackMagicRestAndItemsWhileApRecoversNormally",
+      "source": "Assets/_Game/Tests/EditMode/CombatActionStatusTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "UnknownSilenceCannotBeSimulatedLocally",
+        "UnknownSleepCannotRewriteReceivedLifeState",
+        "UnknownWakeCannotManufactureHealing",
+        "ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+        "StatusConfigurationCannotReviveAnObservedCorpse"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatActionStatusTests.WakeRequiresSleepingAllyAndOnlyRemovesSleep",
+      "source": "Assets/_Game/Tests/EditMode/CombatActionStatusTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "UnknownSilenceCannotBeSimulatedLocally",
+        "UnknownSleepCannotRewriteReceivedLifeState",
+        "UnknownWakeCannotManufactureHealing",
+        "ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+        "StatusConfigurationCannotReviveAnObservedCorpse"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatFlowTests.Execute_AppliesAbsoluteResultAndLeavesCorpse",
+      "source": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingBuffResponseCannotAlterBaseStatsOrConsumeResources",
+        "HealingRequiresSeparateAbsoluteHpResponse",
+        "ExplicitMagicCostDoesNotSupplyMissingServerDamageFormula",
+        "ExplicitRequestCostsCannotReenableRemovedRestOrDamageSimulator",
+        "MissingHitVerdictNeverInventsPhysicalHitProbability",
+        "RequestAnticipationDoesNotTreatMissingVerdictAsMissOrDamage",
+        "MissingVerdictCannotReplaceIndependentHpAndCorpseResponses"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatFlowTests.ExplicitTemporaryMagicHasIndependentCostAndFormulaWithoutChangingEvidenceMode",
+      "source": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingBuffResponseCannotAlterBaseStatsOrConsumeResources",
+        "HealingRequiresSeparateAbsoluteHpResponse",
+        "ExplicitMagicCostDoesNotSupplyMissingServerDamageFormula",
+        "ExplicitRequestCostsCannotReenableRemovedRestOrDamageSimulator",
+        "MissingHitVerdictNeverInventsPhysicalHitProbability",
+        "RequestAnticipationDoesNotTreatMissingVerdictAsMissOrDamage",
+        "MissingVerdictCannotReplaceIndependentHpAndCorpseResponses"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatFlowTests.TemporaryBuffsAffectDamageRefreshAndExpireWithoutChangingBaseStats",
+      "source": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingBuffResponseCannotAlterBaseStatsOrConsumeResources",
+        "HealingRequiresSeparateAbsoluteHpResponse",
+        "ExplicitMagicCostDoesNotSupplyMissingServerDamageFormula",
+        "ExplicitRequestCostsCannotReenableRemovedRestOrDamageSimulator",
+        "MissingHitVerdictNeverInventsPhysicalHitProbability",
+        "RequestAnticipationDoesNotTreatMissingVerdictAsMissOrDamage",
+        "MissingVerdictCannotReplaceIndependentHpAndCorpseResponses"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatFlowTests.TemporaryHealingCapsHpAndRejectsEnemyDeadFullAndInsufficientMpWithoutCost",
+      "source": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingBuffResponseCannotAlterBaseStatsOrConsumeResources",
+        "HealingRequiresSeparateAbsoluteHpResponse",
+        "ExplicitMagicCostDoesNotSupplyMissingServerDamageFormula",
+        "ExplicitRequestCostsCannotReenableRemovedRestOrDamageSimulator",
+        "MissingHitVerdictNeverInventsPhysicalHitProbability",
+        "RequestAnticipationDoesNotTreatMissingVerdictAsMissOrDamage",
+        "MissingVerdictCannotReplaceIndependentHpAndCorpseResponses"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatFlowTests.TemporaryMissConsumesActionApButDoesNotDamageAndRuleCanBeReplaced",
+      "source": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingBuffResponseCannotAlterBaseStatsOrConsumeResources",
+        "HealingRequiresSeparateAbsoluteHpResponse",
+        "ExplicitMagicCostDoesNotSupplyMissingServerDamageFormula",
+        "ExplicitRequestCostsCannotReenableRemovedRestOrDamageSimulator",
+        "MissingHitVerdictNeverInventsPhysicalHitProbability",
+        "RequestAnticipationDoesNotTreatMissingVerdictAsMissOrDamage",
+        "MissingVerdictCannotReplaceIndependentHpAndCorpseResponses"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatFlowTests.TemporaryPhysicalHitFormulaMatchesPercentagesAndRejectsInvalidValues",
+      "source": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingBuffResponseCannotAlterBaseStatsOrConsumeResources",
+        "HealingRequiresSeparateAbsoluteHpResponse",
+        "ExplicitMagicCostDoesNotSupplyMissingServerDamageFormula",
+        "ExplicitRequestCostsCannotReenableRemovedRestOrDamageSimulator",
+        "MissingHitVerdictNeverInventsPhysicalHitProbability",
+        "RequestAnticipationDoesNotTreatMissingVerdictAsMissOrDamage",
+        "MissingVerdictCannotReplaceIndependentHpAndCorpseResponses"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatFlowTests.TemporaryProfileCostsDamageRestAndEvidenceModeRemainSeparate",
+      "source": "Assets/_Game/Tests/EditMode/CombatFlowTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingBuffResponseCannotAlterBaseStatsOrConsumeResources",
+        "HealingRequiresSeparateAbsoluteHpResponse",
+        "ExplicitMagicCostDoesNotSupplyMissingServerDamageFormula",
+        "ExplicitRequestCostsCannotReenableRemovedRestOrDamageSimulator",
+        "MissingHitVerdictNeverInventsPhysicalHitProbability",
+        "RequestAnticipationDoesNotTreatMissingVerdictAsMissOrDamage",
+        "MissingVerdictCannotReplaceIndependentHpAndCorpseResponses"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatGridBindingTests.DeathNotificationsReleaseOnlyThatInstanceWithoutWaitingForRemoval",
+      "source": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "DeathNotificationsReleaseOnlyThatInstanceWithoutWaitingForRemoval",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatGridBindingTests.ExplicitLayoutAndCellSelectionDoNotStartActionsOrFreezeAp",
+      "source": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ExplicitLayoutAndCellSelectionDoNotStartActionsOrFreezeAp",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatGridBindingTests.GridSetupPreventsLegacyRegistrationOrEnemyReplacementDesynchronizingOccupancy",
+      "source": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "GridSetupPreventsLegacyRegistrationOrEnemyReplacementDesynchronizingOccupancy",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatGridBindingTests.HpZeroDeselectsButKeepsOccupancyUntilIndependentRemoval",
+      "source": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "HpZeroDeselectsButKeepsOccupancyUntilIndependentRemoval",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatGridBindingTests.InvalidLayoutRejectsEntireInitialSetupWithoutGuessingCoordinates",
+      "source": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InvalidLayoutRejectsEntireInitialSetupWithoutGuessingCoordinates",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatGridBindingTests.InvalidSelectionPreservesPreviousAndRejectsEnemyEmptyOrDisabledInput",
+      "source": "Assets/_Game/Tests/EditMode/CombatGridBindingTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InvalidSelectionPreservesPreviousAndRejectsEnemyEmptyOrDisabledInput",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatGroupTests.CommanderDeathDoesNotKillSoldiersOrMutatePreviousSnapshot",
+      "source": "Assets/_Game/Tests/EditMode/CombatGroupTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "CommanderDeathDoesNotKillSoldiersOrMutatePreviousSnapshot",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatGroupTests.LivingAdditionalUnitsRecoverApAfterPrimaryUnitsDieAndCostsStayUnknown",
+      "source": "Assets/_Game/Tests/EditMode/CombatGroupTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "LivingAdditionalUnitsRecoverApAfterPrimaryUnitsDieAndCostsStayUnknown",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementActionTests.ApprovedActionSpendsOnceButCoordinatesWaitForIndependentConfirmation",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementActionTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MovementReceiptDoesNotInventAPaymentBeforeIndependentTickUpdate",
+        "ReservedReceiptBlocksConcurrentRequestsAndCancellationNeverInventsRefund"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementActionTests.InvalidCostReadinessDestinationOrTerrainNeverSpendsAp",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementActionTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InvalidCostReadinessDestinationOrTerrainNeverSpendsAp",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementActionTests.PendingMovementBlocksOtherStartsEvenAfterApRecoveryAndCancelDoesNotInventRefund",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementActionTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MovementReceiptDoesNotInventAPaymentBeforeIndependentTickUpdate",
+        "ReservedReceiptBlocksConcurrentRequestsAndCancellationNeverInventsRefund"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementPathTests.BudgetedDiagonalCanSkipSameGroupIntermediateWithoutOverwritingItsOccupant",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementPathTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "BudgetedDiagonalCanSkipSameGroupIntermediateWithoutOverwritingItsOccupant",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementPathTests.BudgetedGridUsesCardinalRangeBeforeDiagonalCompressionWithoutMutation",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementPathTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "BudgetedGridUsesCardinalRangeBeforeDiagonalCompressionWithoutMutation",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementPathTests.SelectedPathRequiresActiveSelectionAndDoesNotPublishMovement",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementPathTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "SelectedPathRequiresActiveSelectionAndDoesNotPublishMovement",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.AllyLongRouteSpendsFourOnceAndConfirmsEveryCell",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.AutomaticDefenseAttacksAdjacentEnemyWithoutMovingOrSpendingCommanderAp",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.CancelDisableDeathAndReentrantCancelNeverContinueOldRoute",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.ChangedTerrainStopsAtLastConfirmedCellWithoutFurtherCharge",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.CommanderDeathCancelsOnlyItsAutomaticSoldierMovement",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.EnemyRouteSpendsSixIndependentlyOfAlly",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.EscapingTargetIsReplacedByAnApproachableEnemyInsideSpawnRange",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetStartsOnlyApprovedPathAndQueryOrFailedApNeverChangesTieOrder",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetWithoutTerrainCostsFailsWithoutSpendingOrBfsFallback",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.FailedPlacementOrBlockedReturnCannotCommitOriginOrSpendAp",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.InvalidOrUnreadyDestinationsNeverSpendAndRecoveryDoesNotUnlockActiveRoute",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.LagExactlyFiveHundredMillisecondsKeepsDebtButLongerStallDropsIt",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.MonsterReturnKeepsInitialPlacementAndSpendsOneMovementAction",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.MonsterWithoutAttackHistoryDoesNotTreatUnitZeroAsItsAttacker",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.OriginalCardinalTicksShowHalfCellBeforeConfirmation",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.PursuitStopsWhenTargetLeavesSpawnRangeAndReturnWaitsForFullAp",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.SharedClockKeepsIdlePhaseAndAdvancesBothActorsOncePerCall",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiActuallyApproachesAndAttacksOnRecoveredAp",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiReturnsThenRestsWithoutHealingDuringMovement",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementRouteTests.TroopOrdersKeepCommanderManualAndDefenseStationaryThenAttackApproaches",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementRouteTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "ReceivedAlliedStepChangesOnlyPositionWithoutInferringActionCost",
+        "ReceivedEnemyStepDoesNotUseAnInventedFactionCharge",
+        "QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+        "TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement",
+        "CancellationRejectsLateConfirmationWithoutRefundOrRecovery",
+        "SeparateHpZeroResponsePreventsOldReceiptFromRevivingOrMovingUnit"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementStepTests.CommitRechecksChangedTerrainAndNeverMovesAnUnconfiguredGrid",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "CommitRechecksChangedTerrainAndNeverMovesAnUnconfiguredGrid",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementStepTests.ConfirmationCommitsOnlyReservedCoordinatesBeforePublishingWithoutSpendingAp",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ConfirmationCommitsOnlyReservedCoordinatesBeforePublishingWithoutSpendingAp",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementStepTests.DeathCancellationAndDisabledInputRejectLateConfirmations",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "DeathCancellationAndDisabledInputRejectLateConfirmations",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementStepTests.DeathImmediatelyFreesPendingDestinationAndOriginWithoutApRefund",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "DeathImmediatelyFreesPendingDestinationAndOriginWithoutApRefund",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementStepTests.HpZeroImmediatelyCancelsTicketAndRecoveryCannotReplayIt",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "HpZeroImmediatelyCancelsTicketAndRecoveryCannotReplayIt",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementStepTests.ReturningToSameOriginNeverMakesAnOldConfirmationCurrentAgain",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ReturningToSameOriginNeverMakesAnOldConfirmationCurrentAgain",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatMovementStepTests.WrongOriginDestinationOrActorPreservesThePendingReservation",
+      "source": "Assets/_Game/Tests/EditMode/CombatMovementStepTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "WrongOriginDestinationOrActorPreservesThePendingReservation",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatOccupancyGridTests.CommitRechecksTerrainAndChangesOnlyOccupancyAndCoordinates",
+      "source": "Assets/_Game/Tests/EditMode/CombatOccupancyGridTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "CommitRechecksTerrainAndChangesOnlyOccupancyAndCoordinates",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatOccupancyGridTests.PlacementValidatesBoundsLifeAndOccupancyWithoutChangingVitals",
+      "source": "Assets/_Game/Tests/EditMode/CombatOccupancyGridTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "PlacementValidatesBoundsLifeAndOccupancyWithoutChangingVitals",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatReachableDestinationsTests.CornerTerrainAndDirectionPoliciesDefineConnectivityNotAp",
+      "source": "Assets/_Game/Tests/EditMode/CombatReachableDestinationsTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "CornerTerrainAndDirectionPoliciesDefineConnectivityNotAp",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatReachableDestinationsTests.DestinationsAreOwnedSortedAndMatchIndividualPathsWithoutMutation",
+      "source": "Assets/_Game/Tests/EditMode/CombatReachableDestinationsTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "DestinationsAreOwnedSortedAndMatchIndividualPathsWithoutMutation",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatReachableDestinationsTests.SelectionQueryRequiresActiveLivingSelectionAndKeepsPendingTicket",
+      "source": "Assets/_Game/Tests/EditMode/CombatReachableDestinationsTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "SelectionQueryRequiresActiveLivingSelectionAndKeepsPendingTicket",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatStatusTests.CureRequiresPoisonAndLeavesHealthAndOtherStatusUntouched",
+      "source": "Assets/_Game/Tests/EditMode/CombatStatusTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "PoisonRequiresReceivedResultsInsteadOfElapsedLocalTime",
+        "MovementReductionDoesNotInventBudgetChanges",
+        "CureCannotConsumeMpOrHealWithoutApproval",
+        "ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+        "StatusConfigurationCannotReviveAnObservedCorpse"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatStatusTests.MovementReductionChangesBudgetWithoutChangingApOrRecovery",
+      "source": "Assets/_Game/Tests/EditMode/CombatStatusTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "PoisonRequiresReceivedResultsInsteadOfElapsedLocalTime",
+        "MovementReductionDoesNotInventBudgetChanges",
+        "CureCannotConsumeMpOrHealWithoutApproval",
+        "ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+        "StatusConfigurationCannotReviveAnObservedCorpse"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatStatusTests.MovementStatusCancelsReservationAndLimitsActualReachablePathUntilExpiry",
+      "source": "Assets/_Game/Tests/EditMode/CombatStatusTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "PoisonRequiresReceivedResultsInsteadOfElapsedLocalTime",
+        "MovementReductionDoesNotInventBudgetChanges",
+        "CureCannotConsumeMpOrHealWithoutApproval",
+        "ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+        "StatusConfigurationCannotReviveAnObservedCorpse"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatStatusTests.PoisonDeathClearsStatusesAndDisablingNeverResurrectsThem",
+      "source": "Assets/_Game/Tests/EditMode/CombatStatusTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "PoisonRequiresReceivedResultsInsteadOfElapsedLocalTime",
+        "MovementReductionDoesNotInventBudgetChanges",
+        "CureCannotConsumeMpOrHealWithoutApproval",
+        "ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+        "StatusConfigurationCannotReviveAnObservedCorpse"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatStatusTests.PoisonTicksRefreshesExpiresAndPublishesDamageWithOriginalSource",
+      "source": "Assets/_Game/Tests/EditMode/CombatStatusTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "PoisonRequiresReceivedResultsInsteadOfElapsedLocalTime",
+        "MovementReductionDoesNotInventBudgetChanges",
+        "CureCannotConsumeMpOrHealWithoutApproval",
+        "ReceivedHpAndMpRemainIndependentOfUnresolvedStatus",
+        "StatusConfigurationCannotReviveAnObservedCorpse"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatTerrainTraversalTests.ExplicitTerrainPolicyCombinesWithGridOccupancyWithoutChangingStats",
+      "source": "Assets/_Game/Tests/EditMode/CombatTerrainTraversalTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ExplicitTerrainPolicyCombinesWithGridOccupancyWithoutChangingStats",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.CombatVitalsDisplayTests.UpdatesRestAndOverkillPublishActualDeltasWithoutDuplicates",
+      "source": "Assets/_Game/Tests/EditMode/CombatVitalsDisplayTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "IndependentAbsoluteResponsesPublishActualDeltasWithoutLocalRestOrDamage"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobActionCostTests.JobBindingIsPerInstanceAndUnknownJobClearsPreviousCost",
+      "source": "Assets/_Game/Tests/EditMode/JobActionCostTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "JobBindingIsPerInstanceAndUnknownJobClearsPreviousCost",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.AllSeventyJobsPreserveNativeBaseStatsAndSeparateTemporaryCost",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "AllSeventyJobsPreserveNativeBaseStatsAndSeparateTemporaryCost",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.ConfirmedPhysicalAllocationIsAppliedOnceAndPreservedWithSoldiers",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula",
+        "StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent",
+        "TierDataAloneCannotInventAttackCostOrServerVerdict"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.ExplicitResolvedCostsOverrideTemporaryJobCostInBothModes",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ExplicitResolvedCostsOverrideTemporaryJobCostInBothModes",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.TemporaryMagicUsesKnownMagicStatsSeparatelyFromPhysicalStats",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula",
+        "StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent",
+        "TierDataAloneCannotInventAttackCostOrServerVerdict"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(100)",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula",
+        "StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent",
+        "TierDataAloneCannotInventAttackCostOrServerVerdict"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(105)",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula",
+        "StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent",
+        "TierDataAloneCannotInventAttackCostOrServerVerdict"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(115)",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula",
+        "StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent",
+        "TierDataAloneCannotInventAttackCostOrServerVerdict"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(125)",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula",
+        "StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent",
+        "TierDataAloneCannotInventAttackCostOrServerVerdict"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(135)",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula",
+        "StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent",
+        "TierDataAloneCannotInventAttackCostOrServerVerdict"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(145)",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula",
+        "StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent",
+        "TierDataAloneCannotInventAttackCostOrServerVerdict"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(155)",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula",
+        "StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent",
+        "TierDataAloneCannotInventAttackCostOrServerVerdict"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(165)",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula",
+        "StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent",
+        "TierDataAloneCannotInventAttackCostOrServerVerdict"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(169)",
+      "source": "Assets/_Game/Tests/EditMode/JobCombatConfigurationTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula",
+        "StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent",
+        "TierDataAloneCannotInventAttackCostOrServerVerdict"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.LateVersionDataTests.LateAbilitiesPreserveKnownCoefficientsAndBlockUnknownCurism",
+      "source": "Assets/_Game/Tests/EditMode/LateVersionDataTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "LateAbilitiesPreserveKnownCoefficientsAndBlockUnknownCurism",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(167,170)",
+      "source": "Assets/_Game/Tests/EditMode/LateVersionDataTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "LateClassChangeAndLevel300SurviveProfileRoundtrip",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(168,171)",
+      "source": "Assets/_Game/Tests/EditMode/LateVersionDataTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "LateClassChangeAndLevel300SurviveProfileRoundtrip",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(169,172)",
+      "source": "Assets/_Game/Tests/EditMode/LateVersionDataTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "LateClassChangeAndLevel300SurviveProfileRoundtrip",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.NativeOwnedRosterTests.InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster",
+      "source": "Assets/_Game/Tests/EditMode/NativeOwnedRosterTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.NativeOwnedRosterTests.PanelReceivesSessionOwnershipWithoutCreatingCoordinatesOrDeploying",
+      "source": "Assets/_Game/Tests/EditMode/NativeOwnedRosterTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "PanelReceivesSessionOwnershipWithoutCreatingCoordinatesOrDeploying",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip",
+      "source": "Assets/_Game/Tests/EditMode/NativeOwnedRosterTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnMismatchDoesNotPublishPartialPrimaryOrOwnedState",
+      "source": "Assets/_Game/Tests/EditMode/NativeOwnedRosterTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "SessionReturnMismatchDoesNotPublishPartialPrimaryOrOwnedState",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.QuickMagicTests.InvalidRulesTargetsAndDisabledCostsNeverSpendOrBecomeEnabled",
+      "source": "Assets/_Game/Tests/EditMode/QuickMagicTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingQuickRuleCannotDiscountConfirmedAttackCost",
+        "QuickCannotCreateMovementBudgetOrNaturalRecovery",
+        "QuickCannotEnableLocalRestOrItemRecovery",
+        "RepeatedConfigurationAndModeChangesCannotRestoreRemovedQuickSimulator",
+        "UnknownQuickCastNeverSpendsOrStartsPresentation"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.QuickMagicTests.MovementSpendsDiscountOnceAndKeepsSameDestination",
+      "source": "Assets/_Game/Tests/EditMode/QuickMagicTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingQuickRuleCannotDiscountConfirmedAttackCost",
+        "QuickCannotCreateMovementBudgetOrNaturalRecovery",
+        "QuickCannotEnableLocalRestOrItemRecovery",
+        "RepeatedConfigurationAndModeChangesCannotRestoreRemovedQuickSimulator",
+        "UnknownQuickCastNeverSpendsOrStartsPresentation"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.QuickMagicTests.QuickChangesExpenditureNotRecoveryAndDoesNotDiscountItsFirstCast",
+      "source": "Assets/_Game/Tests/EditMode/QuickMagicTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingQuickRuleCannotDiscountConfirmedAttackCost",
+        "QuickCannotCreateMovementBudgetOrNaturalRecovery",
+        "QuickCannotEnableLocalRestOrItemRecovery",
+        "RepeatedConfigurationAndModeChangesCannotRestoreRemovedQuickSimulator",
+        "UnknownQuickCastNeverSpendsOrStartsPresentation"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.QuickMagicTests.RefreshExpiryDeathAndDisableClearStateWithoutStacking",
+      "source": "Assets/_Game/Tests/EditMode/QuickMagicTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingQuickRuleCannotDiscountConfirmedAttackCost",
+        "QuickCannotCreateMovementBudgetOrNaturalRecovery",
+        "QuickCannotEnableLocalRestOrItemRecovery",
+        "RepeatedConfigurationAndModeChangesCannotRestoreRemovedQuickSimulator",
+        "UnknownQuickCastNeverSpendsOrStartsPresentation"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.QuickMagicTests.RestAndRecoveryUseSameDiscountWithoutChangingEffects",
+      "source": "Assets/_Game/Tests/EditMode/QuickMagicTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "MissingQuickRuleCannotDiscountConfirmedAttackCost",
+        "QuickCannotCreateMovementBudgetOrNaturalRecovery",
+        "QuickCannotEnableLocalRestOrItemRecovery",
+        "RepeatedConfigurationAndModeChangesCannotRestoreRemovedQuickSimulator",
+        "UnknownQuickCastNeverSpendsOrStartsPresentation"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp(False)",
+      "source": "Assets/_Game/Tests/EditMode/Scenario01FlowTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "LocalBattleReturnNeverInfersScenarioClearOrRewards",
+        "MissingScenarioAuthorityCannotAdvanceOrMutateReceivedCheckpoint",
+        "LocalEventActivationNeverInventsGoldOrConsumesItems"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp(True)",
+      "source": "Assets/_Game/Tests/EditMode/Scenario01FlowTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "LocalBattleReturnNeverInfersScenarioClearOrRewards",
+        "MissingScenarioAuthorityCannotAdvanceOrMutateReceivedCheckpoint",
+        "LocalEventActivationNeverInventsGoldOrConsumesItems"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.Scenario01FlowTests.OriginalIntroAndEndingResumeAtEveryCommandWithNativeJsonAndDiskSave",
+      "source": "Assets/_Game/Tests/EditMode/Scenario01FlowTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "LocalBattleReturnNeverInfersScenarioClearOrRewards",
+        "MissingScenarioAuthorityCannotAdvanceOrMutateReceivedCheckpoint",
+        "LocalEventActivationNeverInventsGoldOrConsumesItems"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.Scenario01FlowTests.SourceGold399DoesNotBecomeAKeyAndFailedConsumptionIsAtomic",
+      "source": "Assets/_Game/Tests/EditMode/Scenario01FlowTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "LocalBattleReturnNeverInfersScenarioClearOrRewards",
+        "MissingScenarioAuthorityCannotAdvanceOrMutateReceivedCheckpoint",
+        "LocalEventActivationNeverInventsGoldOrConsumesItems"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(10)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(11)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(12)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(13)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(14)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(15)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(16)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(17)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(2)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(3)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(33)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(330)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(331)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(332)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(333)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(4)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(404)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(405)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(406)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(5)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(6)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(7)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(8)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(9)",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "NativeScenarioDataRoundTripsWithoutInventingServerInitialization"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioCampaignTests.OlderScenarioCheckpointMayOmitNewOptionalLists",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioCampaignTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "OlderScenarioCheckpointMayOmitNewOptionalLists",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.ScenarioPresentationFeedbackTests.ResultAggregateIsDetachedSavedAndNotAnAdditionalExperienceGrant",
+      "source": "Assets/_Game/Tests/EditMode/ScenarioPresentationFeedbackTests.cs",
+      "sourceModified": true,
+      "classification": "retained-native-test-with-explicit-received-fixture",
+      "currentMethod": "ResultAggregateIsDetachedSavedAndNotAnAdditionalExperienceGrant",
+      "replacementMethodsInSameFixture": [],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    },
+    {
+      "originalTest": "DarkSaver.Tests.TownQuestTests.SourceQuestRewardsUsePersistentReceiptsAndDoNotMutateCandidates",
+      "source": "Assets/_Game/Tests/EditMode/TownQuestTests.cs",
+      "sourceModified": true,
+      "classification": "removed-local-authority-expectation-replaced",
+      "currentMethod": null,
+      "replacementMethodsInSameFixture": [
+        "UnreceivedQuestResponsesCannotMutateProgressOrGrantRewards"
+      ],
+      "unityTestRunnerResult": "NOT_RUN_AFTER_CHANGE"
+    }
+  ]
+}

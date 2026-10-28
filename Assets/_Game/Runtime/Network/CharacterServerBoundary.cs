@@ -10,15 +10,16 @@ namespace DarkSaver.Network
         private readonly NativeAccountDirectory accounts;
         private readonly string[] legacySlots;
         private readonly string configuredHistory;
+        private readonly Func<NativeSaveData,NativeSaveData> prepareEntry;
         private bool authenticated;
         private string accountId;
         public const int LocalServerId=1;
         private int selectedServerId;
         public int SelectedServerId=>authenticated?selectedServerId:0;
-        public CharacterServerBoundary(string loginHistoryPath=null,string[] paths=null)
+        public CharacterServerBoundary(string loginHistoryPath=null,string[] paths=null,Func<NativeSaveData,NativeSaveData> prepareEntry=null)
         {
             string history=Path.GetFullPath(loginHistoryPath ?? NativeLoginHistory.DefaultPath);
-            configuredHistory=history;
+            configuredHistory=history;this.prepareEntry=prepareEntry;
             legacySlots=paths==null?NativeCharacterSlots.AllPaths():(string[])paths.Clone();
             if(legacySlots.Length!=NativeCharacterSlots.Count || Array.Exists(legacySlots,string.IsNullOrWhiteSpace))
                 throw new ArgumentException("Exactly ten valid local slot paths are required.",nameof(paths));

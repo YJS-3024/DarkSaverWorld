@@ -824,6 +824,8 @@ namespace DarkSaver.Combat
                 var cell = groundMap.WorldToCell(visual.Body.transform.position);
                 visibleCells.Add(new CombatGridCell(cell.x, area.yMax - 1 - cell.y));
             }
+            if (OriginalTrainingMaps.TryGetMapId(groundMap.gameObject.scene.name, out var trainingMapId))
+                battle.ConfigureTrainingMap(trainingMapId);
             configured = true; IsBound = true; battle.SetMapPresentationActive(true);
             // A free-walking player can enter combat between cell centres. Snap on bind,
             // rather than waiting for the first grid step to align the visual and body.

@@ -137,8 +137,8 @@ namespace DarkSaver.Tests
         private static BattleFormationMemberDraft Member(short id) => new()
         {
             PersistentId = id.ToString(), IsOwned = true, FinalStateConfirmed = true,
-            Unit = new CombatUnit { Id = id, JobId = 100, Name = "fixture", X = id % 20, Y = id / 20,
-                Hp = 40, MaxHp = 50, Mp = 0, MaxMp = 10, Attack = 0, Defense = 0 },
+            Unit = NativeCombatStateFixture.Received(new CombatUnit { Id = id, JobId = 100, Name = "fixture", X = id % 20, Y = id / 20,
+                Hp = 40, MaxHp = 50, Mp = 0, MaxMp = 10, Attack = 0, Defense = 0 }),
             Position = new CombatGridCell(id % 20, id / 20), TeamId = 1, RecordEligible = true,
             LearnedMagicIds = Array.Empty<short>()
         };

@@ -25,14 +25,14 @@ namespace DarkSaver.Tests
                     return go;
                 }
                 var session = Create("XP session").AddComponent<BattleTransitionController>();
-                var first = Create("First battle").AddComponent<BattleSceneRoot>();
+                var first = Create("First battle").AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(first,6);
                 Assert.That(first.RestorePlayerExperience(experience), Is.True);
                 Assert.That(session.CapturePlayerExperience(first), Is.True);
                 Object.DestroyImmediate(first.gameObject);
                 Assert.That(session.PlayerExperience, Is.EqualTo(experience));
                 Assert.That(session.CapturePlayerExperience(first), Is.False);
                 Assert.That(session.PlayerExperience, Is.EqualTo(experience));
-                var second = Create("Second battle").AddComponent<BattleSceneRoot>();
+                var second = Create("Second battle").AddComponent<BattleSceneRoot>(); NativeCombatStateFixture.Initialize(second,6);
                 Assert.That(session.RestorePlayerExperience(second), Is.True);
                 Assert.That(second.PlayerExperience, Is.EqualTo(experience));
                 Assert.That(session.RestorePlayerExperience(second), Is.True);

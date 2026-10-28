@@ -167,12 +167,20 @@ namespace DarkSaver.UI
             catch (System.Exception) { return false; }
         }
 
-        private static CombatUnit CopyUnitAt(CombatUnit unit, CombatGridCell position) => new()
+        private static CombatUnit CopyUnitAt(CombatUnit unit, CombatGridCell position)
         {
-            Id = unit.Id, JobId = unit.JobId, Name = unit.Name, Enemy = unit.Enemy,
-            X = position.X, Y = position.Y, Hp = unit.Hp, MaxHp = unit.MaxHp, Mp = unit.Mp, MaxMp = unit.MaxMp,
-            Attack = unit.Attack, Defense = unit.Defense, HasMagicAttack=unit.HasMagicAttack,HasMagicDefense=unit.HasMagicDefense,MagicAttack=unit.MagicAttack,MagicDefense=unit.MagicDefense, Experience = unit.Experience, LifeState = unit.LifeState
-        };
+            var copied = new CombatUnit
+            {
+                Id = unit.Id, JobId = unit.JobId, Name = unit.Name, Enemy = unit.Enemy,
+                X = position.X, Y = position.Y, Hp = unit.Hp, MaxHp = unit.MaxHp, Mp = unit.Mp, MaxMp = unit.MaxMp,
+                Attack = unit.Attack, Defense = unit.Defense, HasMagicAttack = unit.HasMagicAttack,
+                HasMagicDefense = unit.HasMagicDefense, MagicAttack = unit.MagicAttack, MagicDefense = unit.MagicDefense,
+                Experience = unit.Experience, LifeState = unit.LifeState
+            };
+            if (unit.ActionPoints.HasConfirmedMaximum) copied.ActionPoints.ConfigureMaximum(unit.ActionPoints.Maximum);
+            copied.ActionPoints.ApplyAbsolute(unit.ActionPoints.Current);
+            return copied;
+        }
 
         public bool TrySetPosition(string id, CombatGridCell position)
         {

@@ -19,7 +19,7 @@ namespace DarkSaver.Combat
             if (!isActiveAndEnabled || !IsBound || battle == null || battle.IsBattleFinished) return false;
             CancelMagicTargeting(); menuUnitId = null; ActiveCommand = BattleMapCommand.Automatic;
             systemPage = SystemPage.Menu;
-            LastInputMessage = "전투 메뉴: 전투 시간과 AP 회복은 계속 진행됩니다.";
+            LastInputMessage = "전투 메뉴: 수신한 전투 상태는 계속 반영됩니다.";
             return true;
         }
         public void CloseSystemMenu()
@@ -44,6 +44,12 @@ namespace DarkSaver.Combat
         }
         private bool TryExitCurrentBattle()
         {
+            if(battle.IsPersistentTraining)
+            {
+                var world=FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>();
+                if(world!=null && world.OwnsTrainingView(this) && world.TryRetreatTraining()){CloseSystemMenu();return true;}
+                LastInputMessage=world?.LastTravelMessage ?? "훈련장 복귀 연결을 사용할 수 없습니다.";return false;
+            }
             var transition = FindAnyObjectByType<BattleTransitionController>();
             var battleScene = UnityEngine.SceneManagement.SceneManager.GetSceneByName("Battle");
             if (transition == null || transition.IsTransitioning

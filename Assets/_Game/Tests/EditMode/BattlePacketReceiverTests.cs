@@ -174,7 +174,7 @@ namespace DarkSaver.Tests
         public void HpAssignmentsCannotResurrectConfirmedDeadUnits()
         {
             var world = new CombatWorld();
-            var unit = new CombatUnit { Id = 100, MaxHp = 120, MaxMp = 30, Hp = 0, LifeState = UnitLifeState.Corpse };
+            var unit = NativeCombatStateFixture.Received(new CombatUnit { Id = 100, MaxHp = 120, MaxMp = 30, Hp = 0, LifeState = UnitLifeState.Corpse });
             world.Add(unit);
             var flow = new CombatFlow(world, new CombatServerBoundary());
             foreach (var state in new[] { UnitLifeState.Corpse, UnitLifeState.Removed })
@@ -242,8 +242,8 @@ namespace DarkSaver.Tests
         public void DeathDoesNotPublishCombatResultOrExperienceAndStopsApRecovery()
         {
             var world = new CombatWorld();
-            var unit = new CombatUnit { Id = 100, Hp = 120, MaxHp = 120, Mp = 7, MaxMp = 30,
-                Attack = 26, Defense = 7, Experience = 123 };
+            var unit = NativeCombatStateFixture.Received(new CombatUnit { Id = 100, Hp = 120, MaxHp = 120, Mp = 7, MaxMp = 30,
+                Attack = 26, Defense = 7, Experience = 123 });
             world.Add(unit);
             var flow = new CombatFlow(world, new CombatServerBoundary(), true);
             var events = 0;
@@ -253,7 +253,7 @@ namespace DarkSaver.Tests
             Assert.That(flow.TryApplyDeath(100, true), Is.True);
             Assert.That(unit.LifeState, Is.EqualTo(UnitLifeState.Corpse));
             Assert.That(unit.Hp, Is.Zero);
-            Assert.That(flow.AdvanceActionPoints(10f), Is.True);
+            Assert.That(flow.AdvanceActionPoints(10f), Is.False);
             Assert.That(unit.ActionPoints.Current, Is.EqualTo(ap));
             Assert.That((unit.Mp, unit.Attack, unit.Defense, unit.Experience), Is.EqualTo((7, 26, 7, 123u)));
             Assert.That(events, Is.Zero);
@@ -297,7 +297,7 @@ namespace DarkSaver.Tests
             try
             {
                 var root = new GameObject("Battle packet check"); SceneManager.MoveGameObjectToScene(root, scene);
-                var receiver = root.AddComponent<BattlePacketReceiver>();
+                var receiver = root.AddComponent<BattlePacketReceiver>(); NativeCombatStateFixture.Initialize(root.GetComponent<BattleSceneRoot>(),6);
                 Assert.That(receiver.Bind(), Is.True);
                 check(receiver, root.GetComponent<ServerManager>(), root.GetComponent<BattleSceneRoot>());
             }

@@ -14,55 +14,32 @@ namespace DarkSaver.Tests
         private static JobCatalog Catalog => AssetDatabase.LoadAssetAtPath<JobCatalog>("Assets/_Game/Runtime/Jobs/JobCatalog.asset");
 
         [Test]
-        public void TemporaryMagicUsesKnownMagicStatsSeparatelyFromPhysicalStats()
+        public void KnownMagicStatsDoNotAuthorizeAnUnresolvedDamageFormula()
         {
             var world=new CombatWorld();
-            var actor=new CombatUnit {Id=100,Hp=100,MaxHp=100,Mp=10,MaxMp=10,Attack=999,Defense=999,HasMagicStats=true,MagicAttack=20,MagicDefense=1};
-            var target=new CombatUnit {Id=800,Enemy=true,Hp=100,MaxHp=100,Attack=999,Defense=999,HasMagicStats=true,MagicAttack=1,MagicDefense=8};
-            world.Add(actor);world.Add(target);var authority=new CombatServerBoundary {TemporaryRulesEnabled=true};
-            Assert.IsTrue(authority.ConfigureTemporaryDamageMagic(201,2,4,10,2));
-            var request=new CombatRequest(100,800,CombatActionType.Magic,201);
-            int first=authority.Resolve(world,request).Damage;
-            actor.Attack=1;target.Defense=1;Assert.AreEqual(first,authority.Resolve(world,request).Damage);
-            actor.MagicAttack+=3;Assert.AreEqual(first+3,authority.Resolve(world,request).Damage);
-            target.MagicDefense+=4;Assert.AreEqual(first+1,authority.Resolve(world,request).Damage);
-            target.HasMagicAttack=false;Assert.IsFalse(target.HasMagicStats);Assert.IsTrue(target.HasMagicDefense);
-            Assert.AreEqual(first+1,authority.Resolve(world,request).Damage);
-            Assert.IsTrue(world.TryRegisterGroup(new[]{new CombatUnit {Id=810,Enemy=true,Hp=10,MaxHp=10,HasMagicStats=true,MagicAttack=7,MagicDefense=9}}));
-            Assert.IsTrue(world.TryGetSnapshot(810,out var copy));Assert.IsTrue(copy.HasMagicStats);Assert.AreEqual(9,copy.MagicDefense);
-            Assert.IsFalse(world.TryRegisterGroup(new[]{new CombatUnit {Id=820,Enemy=true,Hp=10,MaxHp=10,HasMagicStats=true,MagicAttack=-1}}));
+            var actor=NativeCombatStateFixture.Received(new CombatUnit{Id=100,Hp=50,MaxHp=100,Mp=17,MaxMp=30,Attack=20,Defense=4},20);
+            var target=NativeCombatStateFixture.Received(new CombatUnit{Id=800,Enemy=true,Hp=75,MaxHp=100,Mp=11,MaxMp=30,Attack=12,Defense=7},20);
+            world.Add(actor);world.Add(target);var authority=new CombatServerBoundary();var flow=new CombatFlow(world,authority,true);
+            actor.HasMagicStats=true;actor.MagicAttack=20;target.HasMagicStats=true;target.MagicDefense=8;
+            Assert.IsFalse(authority.ConfigureTemporaryDamageMagic(201,2,4,10,2));
+            Assert.Throws<System.NotSupportedException>(()=>authority.Resolve(world,new CombatRequest(100,800,CombatActionType.Magic,201)));
+            Assert.AreEqual(20,actor.MagicAttack);Assert.AreEqual(8,target.MagicDefense);Assert.AreEqual(75,target.Hp);
         }
 
         [Test]
-        public void ConfirmedPhysicalAllocationIsAppliedOnceAndPreservedWithSoldiers()
+        public void StatAllocationRequiresAuthorityWhileReceivedAllocationsRemainIdempotent()
         {
-            var profile=new DarkSaver.Core.NativeCharacterProfile {name="검증",jobId=100,unspentClassChangeStatPoints=20};
-            Assert.That(profile.TryBuildStatAllocation(3,4,2,6,out var allocated),Is.True);
-            Assert.That(Catalog.TryGet(100,out var job),Is.True);
-            WithBattle(battle=> {
-                Assert.That(battle.ConfigureTraversalCatalogs(new[]{Catalog}),Is.True);
-                Assert.That(battle.ConfigurePlayerJob(100),Is.True);
-                for(int i=0;i<2;i++) {
-                    Assert.That(battle.ConfigurePlayerJobBaseStats(allocated),Is.True);
-                    Assert.That(battle.TryGetUnit(100,out var unit),Is.True);
-                    Assert.That((unit.Attack,unit.Defense),Is.EqualTo(((int)job.GetNumericValue(6)+3,(int)job.GetNumericValue(8)+4)));
-                    Assert.IsTrue(unit.HasMagicStats);Assert.AreEqual((int)job.GetNumericValue(10)+2,unit.MagicAttack);Assert.AreEqual((int)job.GetNumericValue(12)+6,unit.MagicDefense);
-                    Assert.That((unit.MaxHp,unit.MaxMp),Is.EqualTo(((int)job.GetNumericValue(2),(int)job.GetNumericValue(4))));
-                }
-                var soldier=new CombatUnit {Id=101,JobId=100,Name="검증 용병",Hp=10,MaxHp=10,Attack=1,Defense=1};
-                Assert.That(battle.TryRegisterAlliedFormationGroup(new[]{soldier},out _),Is.True);
-                Assert.That(battle.TryGetUnit(100,out var commander),Is.True);
-                Assert.That((commander.Attack,commander.Defense),Is.EqualTo(((int)job.GetNumericValue(6)+3,(int)job.GetNumericValue(8)+4)));
-                battle.SetTemporaryLocalRules(true);
-                battle.ConfigurePhysicalAccuracy(100,100,0); battle.ConfigurePhysicalAccuracy(800,100,0);
-                battle.AdvanceActionPoints(14);
-                Assert.That(battle.TryGetUnit(800,out var enemyBefore),Is.True);
-                int expected=UnresolvedCombatDamage.Calculate(commander.Attack,enemyBefore.Defense,false);
-                Assert.That(battle.GetComponent<BattleRequestSender>().TrySendAttack(new AttackRequest(800,100,0,0),out _),Is.True);
-                Assert.That(battle.TryGetUnit(800,out var enemyAfter),Is.True);
-                Assert.That(enemyAfter.Hp,Is.EqualTo(System.Math.Max(0,enemyBefore.Hp-expected)));
+            var profile=new DarkSaver.Core.NativeCharacterProfile{name="검증",jobId=100,unspentClassChangeStatPoints=20};
+            string before=JsonUtility.ToJson(profile);
+            Assert.IsFalse(profile.TryBuildStatAllocation(3,4,2,6,out var candidate));Assert.IsNull(candidate);
+            Assert.AreEqual(before,JsonUtility.ToJson(profile));
+            // A separately received profile may carry allocations; client copies them without allocating more points.
+            var received=profile.Clone();received.allocatedAttack=3;received.allocatedDefense=4;received.allocatedMagicAttack=2;received.allocatedMagicDefense=6;
+            Assert.IsTrue(received.IsValid);Assert.IsTrue(Catalog.TryGet(100,out var job));
+            WithBattle(battle=>{Assert.IsTrue(battle.ConfigureTraversalCatalogs(new[]{Catalog}));Assert.IsTrue(battle.ConfigurePlayerJob(100));
+                for(int i=0;i<2;i++){Assert.IsTrue(battle.ConfigurePlayerJobBaseStats(received));battle.TryGetUnit(100,out var unit);
+                    Assert.AreEqual((int)job.GetNumericValue(6)+3,unit.Attack);Assert.AreEqual((int)job.GetNumericValue(8)+4,unit.Defense);}
             });
-            Assert.That((allocated.allocatedAttack,allocated.allocatedDefense,allocated.allocatedMagicAttack,allocated.allocatedMagicDefense),Is.EqualTo((3,4,2,6)));
         }
 
         [Test]
@@ -100,7 +77,7 @@ namespace DarkSaver.Tests
                     Assert.That((unit.MaxHp, unit.MaxMp, unit.Attack, unit.Defense),
                         Is.EqualTo(((int)job.GetNumericValue(2), (int)job.GetNumericValue(4),
                             (int)job.GetNumericValue(6), (int)job.GetNumericValue(8))));
-                    Assert.That(UnresolvedJobActionCosts.TryGetAttackApCost(job, out var cost), Is.True);
+                    Assert.That(UnresolvedJobActionCosts.TryGetAttackApCost(job, out var cost), Is.False);Assert.AreEqual(0,cost);
                     battle.SetTemporaryLocalRules(true);
                     Assert.That(battle.PlayerAttackApCost, Is.EqualTo(cost));
                     battle.SetTemporaryLocalRules(false);
@@ -111,21 +88,14 @@ namespace DarkSaver.Tests
 
         [TestCase(100)] [TestCase(105)] [TestCase(115)] [TestCase(125)] [TestCase(135)]
         [TestCase(145)] [TestCase(155)] [TestCase(165)] [TestCase(169)]
-        public void TierRepresentativeAttackSpendsItsTemporaryCostOnce(int jobId)
+        public void TierDataAloneCannotInventAttackCostOrServerVerdict(int jobId)
         {
-            WithBattle(battle => {
-                Assert.That(battle.ConfigureTraversalCatalogs(new[] { Catalog }), Is.True);
-                Assert.That(battle.ConfigurePlayerJob(jobId), Is.True);
-                Assert.That(battle.ConfigurePlayerJobBaseStats(), Is.True);
-                battle.SetTemporaryLocalRules(true);
-                battle.ConfigurePhysicalAccuracy(100, 100, 0);
-                battle.ConfigurePhysicalAccuracy(800, 100, 0);
-                battle.AdvanceActionPoints(14);
-                var cost = battle.PlayerAttackApCost;
-                var sender = battle.GetComponent<BattleRequestSender>();
-                Assert.That(sender.TrySendAttack(new AttackRequest(800, 100, 0, 0), out _), Is.True);
-                Assert.That(battle.PlayerAp, Is.EqualTo(GameConstants.BattleMaximumAp - cost));
-                Assert.That(sender.TrySendAttack(new AttackRequest(800, 100, 0, 0), out _), Is.False);
+            WithBattle(battle=>{
+                Assert.IsTrue(battle.ConfigureTraversalCatalogs(new[]{Catalog}));Assert.IsTrue(battle.ConfigurePlayerJob(jobId));Assert.IsTrue(battle.ConfigurePlayerJobBaseStats());
+                battle.SetTemporaryLocalRules(true);Assert.IsFalse(battle.TemporaryLocalRulesEnabled);Assert.AreEqual(0,battle.PlayerAttackApCost);
+                NativeCombatStateFixture.ReceiveFullTicks(battle);int beforeHp=battle.EnemyHp,ap=battle.PlayerAp;
+                Assert.IsFalse(battle.GetComponent<BattleRequestSender>().TrySendAttack(new AttackRequest(800,100,0,0),out _));
+                Assert.AreEqual(beforeHp,battle.EnemyHp);Assert.AreEqual(ap,battle.PlayerAp);Assert.IsNull(battle.LastAttackPresentation);
             });
         }
 
@@ -181,7 +151,7 @@ namespace DarkSaver.Tests
                 var root = new GameObject("Job combat check"); SceneManager.MoveGameObjectToScene(root, scene);
                 root.AddComponent<BattleRequestSender>();
                 Assert.That(root.AddComponent<BattlePacketReceiver>().Bind(), Is.True);
-                check(root.GetComponent<BattleSceneRoot>());
+                NativeCombatStateFixture.Initialize(root.GetComponent<BattleSceneRoot>(),6);check(root.GetComponent<BattleSceneRoot>());
             }
             finally { EditorSceneManager.ClosePreviewScene(scene); }
         }

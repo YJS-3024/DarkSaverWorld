@@ -12,6 +12,9 @@ void Check(bool condition, string name)
     if (!condition) throw new Exception(name);
     checks++;
 }
+var trainingResumeStart=checks;
+DarkSaver.Tests.TrainingResumeChecks.Run(Check);
+Console.WriteLine("Training resume checks: "+(checks-trainingResumeStart)+" (offline, not Unity).");
 var buildings=System.Text.Json.JsonSerializer.Deserialize<DarkSaver.Network.BuildingTravelRoutes>(File.ReadAllText("Assets/_Game/Resources/World/BuildingRoutes.json"),new System.Text.Json.JsonSerializerOptions{IncludeFields=true});
 DarkSaver.Tests.BuildingTravelChecks.Run(Check,buildings);
 OriginalRestorationChecks.Run(Check);
@@ -22,6 +25,21 @@ DarkSaver.Tests.OriginalTutorialWindowChecks.Run(Check,File.ReadAllText("Assets/
 var onboardingStart=checks;
 DarkSaver.Tests.LocalOnboardingChecks.Run(Check);
 Console.WriteLine("Original tutorial/onboarding checks: "+(checks-onboardingStart)+" (offline, not Unity Play).");
+
+// Explicit received checkpoint roundtrip; never execute removed local scenario authority.
+foreach(var row in ScenarioCatalog.All)
+{
+    var file="Assets/_Game/Resources/Scenarios/"+row.Key+"/Content.json";
+    if(!File.Exists(file))continue;
+    var definition=UnityEngine.JsonUtility.FromJson<Scenario01Definition>(File.ReadAllText(file));
+    Check(definition.IsValid,"scenario definition "+row.Key);
+    var received=new Scenario01Progress {version=definition.version,scenarioKey=definition.Key,
+        sourceHash=definition.sourceHash,profileHash=definition.profileHash,actorGuid=Guid.NewGuid().ToString(),hasBattleExperienceLedger=true};
+    Check(received.Matches(definition),"explicit empty checkpoint matches "+row.Key);
+    var restored=UnityEngine.JsonUtility.FromJson<Scenario01Progress>(UnityEngine.JsonUtility.ToJson(received));
+    Check(restored.Matches(definition) && restored.enemies.Count==0 && !restored.clearRequested,
+        "checkpoint roundtrip does not invent deployment or clear "+row.Key);
+}
 
 foreach (var name in new[] { "Kaosia_Map", "World1010_Map", "Brugos01_Map", "Map_01_브르고스궁", "Map_107_;", "Map_329_;" })
     Check(OriginalRenderRules.IsNativeMapScene(name), "native map render repair " + name);
