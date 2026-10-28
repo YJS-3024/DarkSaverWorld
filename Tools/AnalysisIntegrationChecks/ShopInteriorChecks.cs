@@ -53,9 +53,9 @@ internal static class ShopInteriorChecks
                 var other=NativeInteriorCatalog.All.First(r=>r.Key!=region.Key);
                 check(!NativeSaveStore.IsSupportedMap(region.MapScene,other.RuntimeScene),"mixed native interior pair rejected");
             }
-            check(KaosiaFacilityCatalog.All.Count==5,"five additional Kaosia indoor facilities");
+            check(KaosiaFacilityCatalog.All.Count==6,"six additional Kaosia indoor facilities");
             var facilityRoutes=KaosiaFacilityCatalog.RoutesFrom("Kaosia").Concat(KaosiaFacilityCatalog.All.SelectMany(r=>KaosiaFacilityCatalog.RoutesFrom(r.Region.Key))).ToArray();
-            check(facilityRoutes.Length==10,"five reciprocal facility routes");
+            check(facilityRoutes.Length==12,"six reciprocal facility routes");
             foreach(var row in KaosiaFacilityCatalog.All)
             {
                 var region=row.Region;

@@ -262,8 +262,7 @@ namespace DarkSaver.UI
         {
             ReleaseRanges();ReleasePracticeTerrainPreview();ClearPracticeEffects();motions.Clear();practiceTicks.Clear();minimizedWindows.Clear();lessonMasks.Clear();
             movementArmed=attackArmed=magicArmed=false;
-            if(minimapCamera!=null){Destroy(minimapCamera.gameObject);minimapCamera=null;}
-            if(minimap!=null){minimap.Release();Destroy(minimap);minimap=null;}
+            minimap=null;System.Array.Clear(minimapMarkers,0,minimapMarkers.Length);
             if(music!=null){music.Stop();Destroy(music);music=null;}
             foreach(var actor in actors.Values)if(actor!=null)Destroy(actor);actors.Clear();destinations.Clear();
             foreach(var root in hiddenRoots)if(root!=null)root.SetActive(true);hiddenRoots.Clear();

@@ -32,7 +32,7 @@ namespace DarkSaver.Network
                 });
                 buildingCompleteBinding=RegisterRequestHandler<MapEnterCompleteRequest>(service.Complete);
                 buildingMoveBinding=RegisterRequestHandler<WorldMoveRequest>(request=>service.Move(request,buildingContext(),
-                    GameConstants.PlayerMoveSpeed*Time.fixedDeltaTime+.001f,buildingWalkable));
+                    GameConstants.PlayerMoveSpeed*GameConstants.WorldMoveTickSeconds+.001f,buildingWalkable));
             }
             catch{ClearBuildingBindings();throw;}
         }

@@ -25,7 +25,18 @@ namespace DarkSaver.UI
             DarkSaver.Magic.MagicCatalogEntry magic=null;
             if(mode==TutorialRangeMode.Magic && (catalog==null || !catalog.TryGet(101,out magic) || magic.Range<0 || magic.Range>short.MaxValue))
             {HideRanges();return;}
-            string signature=mode+":"+progress.ally+":"+(magic?.Range ?? -1)+":"+string.Join(";",progress.actors.Select(a=>$"{a.id},{a.x},{a.y},{a.dead},{a.removed}"));
+            var floor=rangeGround.GetComponent<TilemapRenderer>();
+            int rangeOrder=(floor==null?-100:floor.sortingOrder);
+            // Range masks must cover the flat Detail tiles as well as Ground.
+            // Keep the native map/actor positions and foreground objects unchanged.
+            var parent=rangeGround.transform.parent;
+            if(parent!=null)
+                foreach(var mapRenderer in parent.GetComponentsInChildren<TilemapRenderer>(true))
+                    if(mapRenderer.enabled && mapRenderer.name=="Detail"
+                        && mapRenderer.sortingLayerID==(floor==null?0:floor.sortingLayerID))
+                        rangeOrder=Math.Max(rangeOrder,mapRenderer.sortingOrder);
+            rangeOrder++;
+            string signature=mode+":"+rangeOrder+":"+progress.ally+":"+(magic?.Range ?? -1)+":"+string.Join(";",progress.actors.Select(a=>$"{a.id},{a.x},{a.y},{a.dead},{a.removed}"));
             if(signature==rangeSignature)return;
             rangeSignature=null;HideRanges();
             var actor=Array.Find(progress.actors,a=>a.id==0);if(actor==null)return;
@@ -52,7 +63,6 @@ namespace DarkSaver.UI
             bool Eligible(DarkSaver.Core.TutorialActor unit)=>CombatMagicTargets.TryAllowsTeam(mode==TutorialRangeMode.Magic?magic.Team:2,
                 actor.id/100,unit.id/100,actor.id/100,relations,out bool allowed) && allowed;
             if(!OriginalTutorialRanges.TryBuild(progress,actor.id,mode,width,height,area,(int)(magic?.Range ?? 0),Eligible,out var cells))return;
-            var floor=rangeGround.GetComponent<TilemapRenderer>();
             for(int i=0;i<cells.Length;i++)
             {
                 var cell=cells[i];string kind=cell.Target?"Target":mode.ToString();
@@ -65,7 +75,7 @@ namespace DarkSaver.UI
                 if(i==rangeBodies.Count)
                 {var go=new GameObject("Tutorial range cell",typeof(SpriteRenderer));go.transform.SetParent(transform,false);rangeBodies.Add(go.GetComponent<SpriteRenderer>());}
                 var body=rangeBodies[i];body.sprite=sprite;body.transform.position=World(cell.X,cell.Y);
-                body.sortingLayerID=floor==null?0:floor.sortingLayerID;body.sortingOrder=floor==null?-99:floor.sortingOrder+1;body.enabled=true;
+                body.sortingLayerID=floor==null?0:floor.sortingLayerID;body.sortingOrder=rangeOrder;body.enabled=true;
             }
             RangeCellCount=cells.Length;rangeSignature=signature;
         }

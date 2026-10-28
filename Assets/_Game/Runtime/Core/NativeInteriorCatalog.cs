@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 namespace DarkSaver.Core
 {
-    // Native indoor geometry/visual identification; town associations are not recovered.
+    // Native indoor geometry/visual identification; associations need separate evidence or user configuration.
     public static class NativeInteriorCatalog
     {
         public static readonly IReadOnlyList<TownDefinition> All=Array.AsReadOnly(new[]{
@@ -25,8 +25,8 @@ namespace DarkSaver.Core
             new TownDefinition("Interior2510","창고 (2510)","Interior2510_Map","Interior2510_Runtime","2510",20,15,false),
             new TownDefinition("Interior2600","교회형 실내 (2600)","Interior2600_Map","Interior2600_Runtime","2600",20,20,false),
             new TownDefinition("Interior2700","주점형 실내 (2700)","Interior2700_Map","Interior2700_Runtime","2700",20,20,false),
-            new TownDefinition("Interior2800","서가·마법 문양 실내; 역할 미확정 (2800)","Interior2800_Map","Interior2800_Runtime","2800",20,20,false),
-            new TownDefinition("Interior2900","용병상점 (2900)","Interior2900_Map","Interior2900_Runtime","2900",20,15,false),
+            new TownDefinition("Interior2800","마법사의 집 (2800)","Interior2800_Map","Interior2800_Runtime","2800",20,20,false),
+            new TownDefinition("Interior2900","용병의 집 (2900)","Interior2900_Map","Interior2900_Runtime","2900",20,15,false),
             new TownDefinition("Interior3000","복합 사무/주거형 실내; 역할 미확정 (3000)","Interior3000_Map","Interior3000_Runtime","3000",30,30,false)
         });
         public static bool TryGet(string key,out TownDefinition region)

@@ -110,9 +110,16 @@ namespace DarkSaver.World
                     data.height-(entry.pixelY+texture.height*.5f)/32f,0);
                 var renderer=actor.AddComponent<SpriteRenderer>();renderer.sprite=FullSprite(texture,new Vector2(.5f,.5f));
                 renderer.sortingOrder=20000-Mathf.RoundToInt(actor.transform.position.y*10);
+                var idle=new Sprite[3];bool complete=true;
+                for(int i=0;i<3;i++)
+                {
+                    var frame=Resources.Load<Texture2D>("Interiors/Npcs/Original/"+entry.appearanceId+"_Down"+i);
+                    if(frame==null){complete=false;break;}idle[i]=FullSprite(frame,new Vector2(.5f,.5f));
+                }
+                if(complete)actor.AddComponent<DarkSaver.Player.DirectionalSpriteAnimator>().Configure(idle,idle,idle,idle);
                 actor.AddComponent<OriginalTownStaff>().Configure(entry);
                 // Counters retain original terrain. Staff need not stand on player-walkable tiles.
-                if(ShopInteriorCatalog.TryGet(townKey,out _) || townKey=="KaosiaTemple")
+                if(ShopInteriorCatalog.TryGet(townKey,out _) || townKey=="KaosiaTemple" || townKey=="KaosiaWarehouse")
                 {
                     var hit=actor.AddComponent<BoxCollider2D>();hit.isTrigger=true;hit.size=Vector2.one;
                     var counter=actor.AddComponent<ShopCounter2D>();

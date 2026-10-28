@@ -7,7 +7,7 @@ namespace DarkSaver.World
     {
         private string target,spawn;private float retryAfter;
         public void Configure(string destination,string spawnId)
-        {target=destination;spawn=spawnId;var box=GetComponent<BoxCollider2D>();box.isTrigger=true;box.size=new Vector2(.9f,.9f);}
+        {target=destination;spawn=spawnId;var box=GetComponent<BoxCollider2D>();box.isTrigger=true;box.size=new Vector2(DarkSaver.Network.LocalDoorGeometry.Width,DarkSaver.Network.LocalDoorGeometry.Height);box.offset=new Vector2(DarkSaver.Network.LocalDoorGeometry.OffsetX,0);}
         private void OnTriggerEnter2D(Collider2D other)=>TryEnter(other);
         private void OnTriggerStay2D(Collider2D other)=>TryEnter(other);
         private void TryEnter(Collider2D other)

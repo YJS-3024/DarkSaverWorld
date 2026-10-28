@@ -9,6 +9,7 @@ namespace DarkSaver.World
     public sealed class TrainingEntrance2D : MonoBehaviour
     {
         [SerializeField] private JobCatalog playerJobs;
+        private void Awake(){var box=GetComponent<BoxCollider2D>();box.isTrigger=true;box.size=new Vector2(DarkSaver.Network.LocalDoorGeometry.Width,DarkSaver.Network.LocalDoorGeometry.Height);box.offset=new Vector2(DarkSaver.Network.LocalDoorGeometry.OffsetX,0);}
         public void Configure(JobCatalog catalog) => playerJobs = catalog;
 
         public static bool TryResolveTrainingMap(JobCatalog catalog, int jobId, out int mapId)
@@ -27,10 +28,15 @@ namespace DarkSaver.World
             return coordinator!=null && coordinator.TryEnterTraining();
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private float retryAfter;
+        private void OnTriggerEnter2D(Collider2D other)=>TryTrigger(other);
+        private void OnTriggerStay2D(Collider2D other)=>TryTrigger(other);
+        private void TryTrigger(Collider2D other)
         {
-            var player = other.GetComponent<TopDownPlayerController>();
-            if (player != null) TryEnter(player);
+            if(Time.unscaledTime<retryAfter)return;
+            var player=other.GetComponentInParent<TopDownPlayerController>();
+            if(player==null || player.UiInputBlocked || FindAnyObjectByType<WorldSceneCoordinator>()?.IsTravelling==true)return;
+            retryAfter=Time.unscaledTime+1;TryEnter(player);
         }
     }
 }

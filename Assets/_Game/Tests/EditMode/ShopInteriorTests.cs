@@ -84,7 +84,7 @@ namespace DarkSaver.Tests
                     Assert.That(renderer.bounds.min.x*32,Is.EqualTo(source.pixelX).Within(.001));
                     var height=(key=="KaosiaTemple" || key=="Interior2800")?20:15;
                     Assert.That((height-renderer.bounds.max.y)*32,Is.EqualTo(source.pixelY).Within(.001));
-                    Assert.That(actor.GetComponent<ShopCounter2D>()!=null,Is.EqualTo(key=="KaosiaTemple" || ShopInteriorCatalog.TryGet(key,out _)));
+                    Assert.That(actor.GetComponent<ShopCounter2D>()!=null,Is.EqualTo(key=="KaosiaTemple" || key=="KaosiaWarehouse" || ShopInteriorCatalog.TryGet(key,out _)));
                     Assert.IsNotEmpty(source.reference);
                     Assert.AreEqual(key=="Interior2800"?"user-authored":(key=="KaosiaWeaponShop" || key=="KaosiaAccessoryShop" || key=="KaosiaMagicTools")?"user-confirmed":"screenshot",source.evidence);
                 }

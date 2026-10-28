@@ -53,14 +53,7 @@ namespace DarkSaver.UI
 
             var layer=ui.OverlayLayer("tutorial-actions-layer",10);
             var cell=ActorRect(actor.id);
-            float panelTop=180,panelBottom=0;
-            if(progress.dialogs.Contains("F2"))panelBottom=minimizedWindows.Contains("F2")?265:393;
-            if(progress.dialogs.Contains("F5"))
-            {
-                int count=progress.actors.Count(a=>a.id>=0 && a.id<100 && a.id%10==0 && !a.removed);
-                panelBottom=Math.Max(panelBottom,minimizedWindows.Contains("F5")?253:231+44+41*Math.Min(4,count));
-            }
-            TutorialPresentationRules.PlaceMenu(cell.center.x,cell.center.y,panelTop,panelBottom,out var menuX,out var menuY);
+            TutorialPresentationRules.PlaceMenu(cell.center.x,cell.center.y,out var menuX,out var menuY);
             var r=new Rect(menuX,menuY,96,96);
             if(subMenu=="Magic")
             {
@@ -154,15 +147,18 @@ namespace DarkSaver.UI
                 DrawPracticeWindowButtons(key,rect,window);
                 if(key=="F8")DrawPracticeTerrain(rect);
                 if(key=="F6")DrawMinimap(rect);
-                if(key=="F4")ui.NativeBitmapText("victory",new Rect(rect.x+14,rect.y+32,rect.width-28,40),progress.victory,Color.black,3);
+                if(key=="F4")ui.NativeBitmapText("victory",new Rect(rect.x+10,rect.y+31,
+                    DarkSaver.Rendering.GameScreen.Width-rect.x-10,14),progress.victory,new Color32(8,8,8,255));
                 if(key=="F1")ui.NativeBattleWindowText("help",new Rect(rect.x+10,rect.y+28,rect.width-20,rect.height-35),Resources.Load<TextAsset>("UI/BattleWindows/NativeBattleHelp")?.text ?? "");
                 if(key=="F3")
                 {
-                    ui.NativeBitmapText("alliance-self",new Rect(rect.x+12,rect.y+51,105,17),session.PlayerName,Color.black);
-                    ui.NativeBitmapText("alliance-teacher",new Rect(rect.x+12,rect.y+70,105,17),"교관",Color.black);
+                    var checks=window.controls.Where(c=>c.nativeId==47).Take(2).ToArray();
+                    for(int row=0;row<checks.Length;row++)
+                        ui.NativeBitmapText("alliance-name-"+row,new Rect(rect.x+12,rect.y+checks[row].rect.center.y-7,105,14),
+                            row==0?session.PlayerName:"교관",Color.black);
                     // The second row is the teacher; only this explicit wait accepts toggling it.
                     var control=window.controls.Where(c=>c.nativeId==47).Skip(1).FirstOrDefault();
-                    if(control!=null)ui.NativeImageButton("alliance-teacher-toggle",rect.position+control.rect.position,control,
+                    if(control!=null)ui.NativeCheckbox("alliance-teacher-toggle",rect.position+control.rect.position,control,progress.ally==0,
                         ()=>Send("Ally",expected:progress.step),script.Current(progress).Name=="WAITALLYBUTTON","동맹");
                 }
             }
@@ -193,18 +189,37 @@ namespace DarkSaver.UI
                 if(data.mp>=0)ui.NativeStatusGauge(key+"-mp",new Vector2(rect.x+65,y+27),data.mp,data.maxMp,2,true,48);
             }
         }
-        private RenderTexture minimap;
-        private Camera minimapCamera;
+        private Texture2D minimap;
+        private readonly Texture2D[] minimapMarkers=new Texture2D[10];
         private void DrawMinimap(Rect r)
         {
-            if(minimap==null)
+            minimap??=Resources.Load<Texture2D>("Tutorial/NativeMinimap");if(minimap==null)return;
+            var area=new Rect(r.x+11,r.y+25,100,100);
+            ui.NativeTexturePanel("minimap",area,minimap);
+            foreach(var data in progress.actors)
             {
-                minimap=new RenderTexture(110,83,16);minimap.filterMode=FilterMode.Point;
-                var go=new GameObject("Tutorial minimap camera",typeof(Camera));go.transform.SetParent(transform,false);
-                minimapCamera=go.GetComponent<Camera>();minimapCamera.enabled=false;minimapCamera.orthographic=true;minimapCamera.orthographicSize=7.5f;
-                minimapCamera.aspect=20f/15;minimapCamera.transform.position=new Vector3(10,7.5f,view.transform.position.z);minimapCamera.targetTexture=minimap;
+                if(data.removed || data.job<=0)continue;
+                int x=data.x,y=data.y;
+                if(actors.TryGetValue(data.id,out var body))
+                {x=Mathf.FloorToInt(body.transform.position.x);y=14-Mathf.FloorToInt(body.transform.position.y);}
+                if(!OriginalTutorialMinimap.TryPoint(x,y,20,15,out int px,out int py))continue;
+                int marker=OriginalTutorialMinimap.Marker(data.id,progress.ally==0);if(marker<0)continue;
+                minimapMarkers[marker]??=Resources.Load<Texture2D>("Tutorial/MinimapMarker"+marker);
+                if(minimapMarkers[marker]!=null)ui.NativeTexturePanel("minimap-unit-"+data.id,
+                    new Rect(area.x+px,area.y+py,3,3),minimapMarkers[marker]);
             }
-            minimapCamera.Render();ui.RenderTexture("minimap",new Rect(r.x+6,r.y+28,110,83),minimap);
+            if(view==null)return;
+            // Native viewport outline uses the red pixel from etc2/board.bmp(100,400).
+            float halfY=view.orthographicSize,halfX=halfY*view.aspect;
+            float left=Mathf.Clamp(Mathf.Floor(view.transform.position.x-halfX)*100/20,0,100);
+            float right=Mathf.Clamp(Mathf.Floor(view.transform.position.x+halfX)*100/20,0,100);
+            float top=Mathf.Clamp(Mathf.Floor(15-view.transform.position.y-halfY)*100/15,0,100);
+            float bottom=Mathf.Clamp(Mathf.Floor(15-view.transform.position.y+halfY)*100/15,0,100);
+            var ink=new Color32(222,0,16,255);
+            ui.SolidRect("minimap-view-top",new Rect(area.x+left,area.y+top,right-left,1),ink);
+            ui.SolidRect("minimap-view-bottom",new Rect(area.x+left,area.y+bottom,right-left,1),ink);
+            ui.SolidRect("minimap-view-left",new Rect(area.x+left,area.y+top,1,bottom-top),ink);
+            ui.SolidRect("minimap-view-right",new Rect(area.x+right,area.y+top,1,bottom-top),ink);
         }
         private void DrawStatus()
         {

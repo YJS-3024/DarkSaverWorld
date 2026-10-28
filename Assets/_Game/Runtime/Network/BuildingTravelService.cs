@@ -14,7 +14,7 @@ namespace DarkSaver.Network
         {
             get
             {
-                if(version!=1 || routes==null || routes.Length!=14)return false;
+                if(version!=1 || routes==null || routes.Length<2 || routes.Length%2!=0)return false;
                 var seen=new System.Collections.Generic.HashSet<string>();
                 foreach(var r in routes)
                 {
@@ -71,8 +71,7 @@ namespace DarkSaver.Network
         {
             if(pending!=null || !state.Authenticated || state.Blocked || !BuildingTravelRoutes.Finite(state.X) || !BuildingTravelRoutes.Finite(state.Y)
                 || !TryFind(state,request,out var route))return new MapEnterNotification(reason:"현재 건물 출입 요청을 처리할 수 없습니다.");
-            float dx=state.X-route.doorX,dy=state.Y-route.doorY;
-            if(dx*dx+dy*dy>1.5f*1.5f || sequence==int.MaxValue)return new MapEnterNotification(reason:"건물 출입구에 접근해 주세요.");
+            if(!LocalDoorGeometry.Contains(state.X,state.Y,route.doorX,route.doorY) || sequence==int.MaxValue)return new MapEnterNotification(reason:"건물 출입구에 접근해 주세요.");
             pending=new MapEnterNotification(true,MapEnterStage.Started,route.map,route.runtime,route.spawnId,route.width,route.height,route.x,route.y,transferId:++sequence);
             return pending;
         }

@@ -21,15 +21,15 @@ namespace DarkSaver.Tests
             check(TutorialPresentationRules.RangeMode("Attack",true,false,false,false)==TutorialRangeMode.None,"stale movement selection cannot expose attack range");
             check(TutorialPresentationRules.RangeMode("Move",true,false,false,true)==TutorialRangeMode.None,"open menu or movement hides ranges");
             check(TutorialPresentationRules.RangeMode("MagicTarget",false,false,true,false)==TutorialRangeMode.Magic,"explicit spell selection still displays range");
-            TutorialPresentationRules.PlaceMenu(60,250,180,393,out float x,out float y);
-            check(x>=133 && y==202,"menu leaves gutter beside expanded battle status");
-            TutorialPresentationRules.PlaceMenu(60,250,180,265,out x,out y);
-            check(x>=133,"menu also clears compact status window");
-            TutorialPresentationRules.PlaceMenu(60,250,180,0,out x,out y);
-            check(x==12 && y==202,"without status window keep menu near actor");
+            TutorialPresentationRules.PlaceMenu(60,250,out float x,out float y);
+            check(x==12 && y==202,"menu remains centered on actor even inside status window area");
+            TutorialPresentationRules.PlaceMenu(60,250,out x,out y);
+            check(x+48==60 && y+48==250,"status overlap cannot displace actor anchor");
+            TutorialPresentationRules.PlaceMenu(60,250,out x,out y);
+            check(x==12 && y==202,"repeated placement preserves actor anchor");
             foreach(var pos in new[]{(-50f,-50f),(0f,0f),(640f,480f),(700f,550f)})
             {
-                TutorialPresentationRules.PlaceMenu(pos.Item1,pos.Item2,180,439,out x,out y);
+                TutorialPresentationRules.PlaceMenu(pos.Item1,pos.Item2,out x,out y);
                 check(x>=8 && x+96<=632 && y>=8 && y+96<=472,"menu remains inside logical screen "+pos);
             }
         }

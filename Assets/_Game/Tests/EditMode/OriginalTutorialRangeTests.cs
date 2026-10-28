@@ -40,6 +40,10 @@ namespace DarkSaver.Tests
                 var grid=Create("range grid").AddComponent<Grid>();
                 var ground=Create("Ground").AddComponent<UnityEngine.Tilemaps.Tilemap>();ground.transform.SetParent(grid.transform,false);
                 var floor=ground.gameObject.AddComponent<UnityEngine.Tilemaps.TilemapRenderer>();floor.sortingOrder=-100;
+                var detail=Create("Detail").AddComponent<UnityEngine.Tilemaps.Tilemap>();detail.transform.SetParent(grid.transform,false);
+                var detailRenderer=detail.gameObject.AddComponent<UnityEngine.Tilemaps.TilemapRenderer>();detailRenderer.sortingOrder=10;
+                // Reproduce the real Map_301_; layer ordering that hid masks beneath Detail.
+                detail.SetTile(new Vector3Int(4,7,0),tile);
                 var terrain=Create("TerrainAttributes").AddComponent<UnityEngine.Tilemaps.Tilemap>();terrain.transform.SetParent(grid.transform,false);
                 for(int x=0;x<20;x++)for(int y=0;y<15;y++)ground.SetTile(new Vector3Int(x,y),tile);
                 var state=new NativeTutorialProgress {step=29,actors=new[]{new TutorialActor{id=0,job=100,x=4,y=7,hp=95},new TutorialActor{id=400,job=301,x=5,y=7},new TutorialActor{id=410,job=301,x=6,y=7}}};
@@ -48,12 +52,14 @@ namespace DarkSaver.Tests
                 void Draw()=>typeof(FirstPlayTutorial).GetMethod("DrawRanges",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(tutor,null);
                 state.activeCommand="Move";Draw();Assert.AreEqual(0,tutor.RangeCellCount,"no movement preview before explicit selection");
                 Set(tutor,"movementArmed",true);Draw();Assert.Greater(tutor.RangeCellCount,5);
-                Assert.IsTrue(bodies.FindAll(b=>b.enabled).TrueForAll(b=>b.sprite.texture.name=="Move" && b.sortingOrder==-99 && b.GetComponent<Collider2D>()==null));
+                Assert.IsTrue(bodies.FindAll(b=>b.enabled).TrueForAll(b=>b.sprite.texture.name=="Move" && b.sortingOrder==11 && b.GetComponent<Collider2D>()==null));
                 Assert.IsFalse(bodies.Exists(b=>b.enabled && b.transform.position==new Vector3(5.5f,7.5f,0))); // Enemy occupancy blocks movement cell.
                 Set(tutor,"movementArmed",false);state.activeCommand="Attack";Draw();Assert.AreEqual(0,tutor.RangeCellCount,"no attack preview before explicit selection");
                 Set(tutor,"attackArmed",true);Draw();
+                Assert.IsTrue(bodies.FindAll(b=>b.enabled).TrueForAll(b=>b.sortingOrder>detailRenderer.sortingOrder));
                 Assert.AreEqual(5,tutor.RangeCellCount);Assert.AreEqual(1,bodies.FindAll(b=>b.enabled && b.sprite.texture.name=="Target").Count);
                 Set(tutor,"attackArmed",false);state.activeCommand="MagicTarget";Set(tutor,"magicArmed",true);Draw();
+                Assert.IsTrue(bodies.FindAll(b=>b.enabled).TrueForAll(b=>b.sortingOrder>detailRenderer.sortingOrder));
                 Assert.AreEqual(25,tutor.RangeCellCount);Assert.AreEqual(2,bodies.FindAll(b=>b.enabled && b.sprite.texture.name=="Target").Count);
                 Set(tutor,"magicArmed",false);Draw();Assert.AreEqual(0,tutor.RangeCellCount);Assert.IsTrue(bodies.TrueForAll(b=>!b.enabled));
                 Assert.AreEqual(29,state.step);Assert.AreEqual(95,state.actors[0].hp);Assert.AreEqual(4,state.actors[0].x);

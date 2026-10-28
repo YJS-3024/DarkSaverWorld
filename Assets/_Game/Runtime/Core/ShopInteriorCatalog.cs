@@ -33,8 +33,8 @@ namespace DarkSaver.Core
         // Keep the historical key for existing scenes/saves;2300 is the consumables shop.
         private static readonly ShopInteriorDefinition Consumables=new ShopInteriorDefinition("KaosiaMagicTools","카오시아 소모품점",false,75,28.5f,33.5f,28.5f,30.5f,"FromKaosiaMagicTools",7,"2300");
         public const string MageHouseKey="Interior2800";
-        // Candidate interior explicitly used by request; no fabricated exterior doorway.
-        private static readonly ShopInteriorDefinition MageHouse=new ShopInteriorDefinition(MageHouseKey,"마법사의 집",false,-1,0,0,0,0,null,10,"2800",20);
+        // Exterior tower/sign identified in native Kaosia object156; user selected interior2800 artwork (2026-10-29).
+        private static readonly ShopInteriorDefinition MageHouse=new ShopInteriorDefinition(MageHouseKey,"마법사의 집",false,156,8.5f,8.5f,8.5f,6.5f,"FromMageHouse",10,"2800",20);
         public static IEnumerable<ShopInteriorDefinition> ShopsWithFacilities
         {get{foreach(var row in All)yield return row;yield return Accessory;yield return Consumables;yield return MageHouse;}}
         public const float EntryX=10.5f,EntryY=3.5f,ExitX=10.5f,ExitY=.5f;

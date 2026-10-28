@@ -163,6 +163,9 @@ namespace DarkSaver.UI
         public void ItemSlotButton(string key,Rect rect,Action action,Sprite icon,int quantity,bool selected,string tooltip)
         {
             Button(key,rect,"",action,selected:selected,tooltip:tooltip);
+            Graphic(elements[key],null,Color.black,true);
+            Find<UnityEngine.UI.Button>(key).transition=UnityEngine.UI.Selectable.Transition.None;
+            Find<Outline>(key).enabled=selected;
             if(icon!=null)Portrait(key+"-icon",new Rect(rect.x,rect.y,32,32),icon);
             if(quantity>1)Label(key+"-count",rect,quantity.ToString(),10,alignment:TextAnchor.LowerRight,color:Color.white);
         }

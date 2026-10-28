@@ -1,0 +1,80 @@
+{
+  "sourceHashes": {
+    "GameCtl.dll": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+    "UserUnit.dll": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b"
+  },
+  "mapBitmap": "MAP/301hmap.bmp",
+  "mapBitmapSize": [
+    138,
+    138
+  ],
+  "displayRect": [
+    11,
+    25,
+    100,
+    100
+  ],
+  "markerSheet": "GameRes/etc.arc/MCURSOR.BMP",
+  "markerRect": "[192+3*index,0,3,3]",
+  "markerPoint": "integer(x*100/mapWidth), integer(y*100/mapHeight)",
+  "getsnumDefaultIndices": [
+    0,
+    3,
+    2
+  ],
+  "viewportColor": [
+    222,
+    0,
+    16
+  ],
+  "victoryTextPositions": [
+    [
+      10,
+      31
+    ],
+    [
+      10,
+      51
+    ]
+  ],
+  "victoryTextColor": [
+    8,
+    8,
+    8
+  ],
+  "regions": [
+    {
+      "label": "Map\\<map>hmap.bmp load and stretch",
+      "start": "0x10004150",
+      "end": "0x10004305",
+      "assembly": "\n/tmp/ds-saver-new/Saver_Files/saver/GameCtl.dll:     file format pei-i386\n\n\nDisassembly of section .text:\n\n10004150 <.text+0x3150>:\n10004150:\t6a ff                \tpush   0xffffffff\n10004152:\t68 ed 4e 01 10       \tpush   0x10014eed\n10004157:\t64 a1 00 00 00 00    \tmov    eax,fs:0x0\n1000415d:\t50                   \tpush   eax\n1000415e:\t64 89 25 00 00 00 00 \tmov    DWORD PTR fs:0x0,esp\n10004165:\t81 ec 84 01 00 00    \tsub    esp,0x184\n1000416b:\t53                   \tpush   ebx\n1000416c:\t56                   \tpush   esi\n1000416d:\t57                   \tpush   edi\n1000416e:\t8d 4c 24 0c          \tlea    ecx,[esp+0xc]\n10004172:\te8 1b 06 01 00       \tcall   0x10014792\n10004177:\t33 db                \txor    ebx,ebx\n10004179:\tb9 19 00 00 00       \tmov    ecx,0x19\n1000417e:\t33 c0                \txor    eax,eax\n10004180:\t8d bc 24 c8 00 00 00 \tlea    edi,[esp+0xc8]\n10004187:\tf3 ab                \trep stos DWORD PTR es:[edi],eax\n10004189:\tbf 64 00 00 00       \tmov    edi,0x64\n1000418e:\t89 9c 24 98 01 00 00 \tmov    DWORD PTR [esp+0x198],ebx\n10004195:\t89 bc 24 c8 00 00 00 \tmov    DWORD PTR [esp+0xc8],edi\n1000419c:\tbe e4 bd 01 10       \tmov    esi,0x1001bde4\n100041a1:\t8b ce                \tmov    ecx,esi\n100041a3:\te8 56 06 01 00       \tcall   0x100147fe\n100041a8:\t83 c6 08             \tadd    esi,0x8\n100041ab:\t81 fe 0c c1 01 10    \tcmp    esi,0x1001c10c\n100041b1:\t7c ee                \tjl     0x100041a1\n100041b3:\ta1 9c c4 01 10       \tmov    eax,ds:0x1001c49c\n100041b8:\t3b c3                \tcmp    eax,ebx\n100041ba:\t0f 84 94 01 00 00    \tje     0x10004354\n100041c0:\t8b 0d e8 c0 06 10    \tmov    ecx,DWORD PTR ds:0x1006c0e8\n100041c6:\t51                   \tpush   ecx\n100041c7:\tff d0                \tcall   eax\n100041c9:\t83 c4 04             \tadd    esp,0x4\n100041cc:\t85 c0                \ttest   eax,eax\n100041ce:\t0f 84 80 01 00 00    \tje     0x10004354\n100041d4:\t8d 4c 24 3c          \tlea    ecx,[esp+0x3c]\n100041d8:\te8 19 05 01 00       \tcall   0x100146f6\n100041dd:\t8d 4c 24 14          \tlea    ecx,[esp+0x14]\n100041e1:\tc6 84 24 98 01 00 00 \tmov    BYTE PTR [esp+0x198],0x1\n100041e8:\t01 \n100041e9:\te8 a4 05 01 00       \tcall   0x10014792\n100041ee:\t68 e8 c0 06 10       \tpush   0x1006c0e8\n100041f3:\t8d 54 24 1c          \tlea    edx,[esp+0x1c]\n100041f7:\t68 f8 a1 01 10       \tpush   0x1001a1f8\n100041fc:\t52                   \tpush   edx\n100041fd:\tc6 84 24 a4 01 00 00 \tmov    BYTE PTR [esp+0x1a4],0x2\n10004204:\t02 \n10004205:\tc7 05 6c c4 01 10 01 \tmov    DWORD PTR ds:0x1001c46c,0x1\n1000420c:\t00 00 00 \n1000420f:\te8 08 06 01 00       \tcall   0x1001481c\n10004214:\t68 4c a2 01 10       \tpush   0x1001a24c\n10004219:\t50                   \tpush   eax\n1000421a:\t8d 44 24 18          \tlea    eax,[esp+0x18]\n1000421e:\tc6 84 24 a0 01 00 00 \tmov    BYTE PTR [esp+0x1a0],0x3\n10004225:\t03 \n10004226:\t50                   \tpush   eax\n10004227:\te8 ae 05 01 00       \tcall   0x100147da\n1000422c:\t50                   \tpush   eax\n1000422d:\t8d 4c 24 18          \tlea    ecx,[esp+0x18]\n10004231:\tc6 84 24 9c 01 00 00 \tmov    BYTE PTR [esp+0x19c],0x4\n10004238:\t04 \n10004239:\te8 2a 05 01 00       \tcall   0x10014768\n1000423e:\t8d 4c 24 10          \tlea    ecx,[esp+0x10]\n10004242:\tc6 84 24 98 01 00 00 \tmov    BYTE PTR [esp+0x198],0x3\n10004249:\t03 \n1000424a:\te8 1f 05 01 00       \tcall   0x1001476e\n1000424f:\t8d 4c 24 18          \tlea    ecx,[esp+0x18]\n10004253:\tc6 84 24 98 01 00 00 \tmov    BYTE PTR [esp+0x198],0x2\n1000425a:\t02 \n1000425b:\te8 0e 05 01 00       \tcall   0x1001476e\n10004260:\t8b 4c 24 14          \tmov    ecx,DWORD PTR [esp+0x14]\n10004264:\t8b 15 8c c4 01 10    \tmov    edx,DWORD PTR ds:0x1001c48c\n1000426a:\t53                   \tpush   ebx\n1000426b:\t51                   \tpush   ecx\n1000426c:\t52                   \tpush   edx\n1000426d:\t8d 4c 24 48          \tlea    ecx,[esp+0x48]\n10004271:\te8 7a 04 01 00       \tcall   0x100146f0\n10004276:\t85 c0                \ttest   eax,eax\n10004278:\t74 58                \tje     0x100042d2\n1000427a:\t53                   \tpush   ebx\n1000427b:\t8d 4c 24 40          \tlea    ecx,[esp+0x40]\n1000427f:\te8 ae 04 01 00       \tcall   0x10014732\n10004284:\t8d 44 24 2c          \tlea    eax,[esp+0x2c]\n10004288:\t8d 4c 24 3c          \tlea    ecx,[esp+0x3c]\n1000428c:\t50                   \tpush   eax\n1000428d:\te8 9a 04 01 00       \tcall   0x1001472c\n10004292:\t57                   \tpush   edi\n10004293:\t68 ee 00 00 00       \tpush   0xee\n10004298:\t53                   \tpush   ebx\n10004299:\t8d 4c 24 28          \tlea    ecx,[esp+0x28]\n1000429d:\t68 8a 00 00 00       \tpush   0x8a\n100042a2:\t51                   \tpush   ecx\n100042a3:\tff 15 d4 61 01 10    \tcall   DWORD PTR ds:0x100161d4\n100042a9:\t8d 94 24 c8 00 00 00 \tlea    edx,[esp+0xc8]\n100042b0:\t8d 44 24 2c          \tlea    eax,[esp+0x2c]\n100042b4:\t52                   \tpush   edx\n100042b5:\t68 00 80 00 00       \tpush   0x8000\n100042ba:\t8d 4c 24 44          \tlea    ecx,[esp+0x44]\n100042be:\t50                   \tpush   eax\n100042bf:\t8d 54 24 28          \tlea    edx,[esp+0x28]\n100042c3:\t51                   \tpush   ecx\n100042c4:\t8b 0d 84 c4 01 10    \tmov    ecx,DWORD PTR ds:0x1001c484\n100042ca:\t52                   \tpush   edx\n100042cb:\te8 56 04 01 00       \tcall   0x10014726\n100042d0:\teb 33                \tjmp    0x10004305\n100042d2:\ta1 84 c4 01 10       \tmov    eax,ds:0x1001c484\n100042d7:\t8d 94 24 2c 01 00 00 \tlea    edx,[esp+0x12c]\n100042de:\t89 bc 24 2c 01 00 00 \tmov    DWORD PTR [esp+0x12c],edi\n100042e5:\t89 9c 24 7c 01 00 00 \tmov    DWORD PTR [esp+0x17c],ebx\n100042ec:\t8b 80 84 00 00 00    \tmov    eax,DWORD PTR [eax+0x84]\n100042f2:\t52                   \tpush   edx\n100042f3:\t68 00 04 00 00       \tpush   0x400\n100042f8:\t53                   \tpush   ebx\n100042f9:\t8b 08                \tmov    ecx,DWORD PTR [eax]\n100042fb:\t8d 54 24 28          \tlea    edx,[esp+0x28]\n100042ff:\t53                   \tpush   ebx\n10004300:\t52                   \tpush   edx\n10004301:\t50                   \tpush   eax\n10004302:\tff 51 14             \tcall   DWORD PTR [ecx+0x14]\n"
+    },
+    {
+      "label": "unit marker coordinates and atlas rect",
+      "start": "0x10006150",
+      "end": "0x1000627e",
+      "assembly": "\n/tmp/ds-saver-new/Saver_Files/saver/GameCtl.dll:     file format pei-i386\n\n\nDisassembly of section .text:\n\n10006150 <.text+0x5150>:\n10006150:\t83 ec 1c             \tsub    esp,0x1c\n10006153:\ta1 90 c4 01 10       \tmov    eax,ds:0x1001c490\n10006158:\t53                   \tpush   ebx\n10006159:\t8b 5c 24 24          \tmov    ebx,DWORD PTR [esp+0x24]\n1000615d:\t55                   \tpush   ebp\n1000615e:\t8b 88 88 00 00 00    \tmov    ecx,DWORD PTR [eax+0x88]\n10006164:\t8b 80 8c 00 00 00    \tmov    eax,DWORD PTR [eax+0x8c]\n1000616a:\t33 ed                \txor    ebp,ebp\n1000616c:\t56                   \tpush   esi\n1000616d:\t57                   \tpush   edi\n1000616e:\t89 0d 5c c4 01 10    \tmov    DWORD PTR ds:0x1001c45c,ecx\n10006174:\ta3 58 c4 01 10       \tmov    ds:0x1001c458,eax\n10006179:\t89 6c 24 10          \tmov    DWORD PTR [esp+0x10],ebp\n1000617d:\t8b c5                \tmov    eax,ebp\n1000617f:\tc7 44 24 18 0a 00 00 \tmov    DWORD PTR [esp+0x18],0xa\n10006186:\t00 \n10006187:\t8b f0                \tmov    esi,eax\n10006189:\tc7 44 24 14 0a 00 00 \tmov    DWORD PTR [esp+0x14],0xa\n10006190:\t00 \n10006191:\t89 74 24 30          \tmov    DWORD PTR [esp+0x30],esi\n10006195:\t56                   \tpush   esi\n10006196:\tff 15 ac 62 01 10    \tcall   DWORD PTR ds:0x100162ac\n1000619c:\t8b c8                \tmov    ecx,eax\n1000619e:\t83 c4 04             \tadd    esp,0x4\n100061a1:\t83 39 00             \tcmp    DWORD PTR [ecx],0x0\n100061a4:\t0f 84 97 00 00 00    \tje     0x10006241\n100061aa:\t8b 41 04             \tmov    eax,DWORD PTR [ecx+0x4]\n100061ad:\t85 c0                \ttest   eax,eax\n100061af:\t0f 84 8c 00 00 00    \tje     0x10006241\n100061b5:\t8b 41 70             \tmov    eax,DWORD PTR [ecx+0x70]\n100061b8:\t8d 04 80             \tlea    eax,[eax+eax*4]\n100061bb:\t8d 04 80             \tlea    eax,[eax+eax*4]\n100061be:\tc1 e0 02             \tshl    eax,0x2\n100061c1:\t99                   \tcdq\n100061c2:\tf7 3d 5c c4 01 10    \tidiv   DWORD PTR ds:0x1001c45c\n100061c8:\t8d 74 18 0b          \tlea    esi,[eax+ebx*1+0xb]\n100061cc:\t8b 41 74             \tmov    eax,DWORD PTR [ecx+0x74]\n100061cf:\t8b 4c 24 34          \tmov    ecx,DWORD PTR [esp+0x34]\n100061d3:\t8d 04 80             \tlea    eax,[eax+eax*4]\n100061d6:\t8d 04 80             \tlea    eax,[eax+eax*4]\n100061d9:\tc1 e0 02             \tshl    eax,0x2\n100061dc:\t99                   \tcdq\n100061dd:\tf7 3d 58 c4 01 10    \tidiv   DWORD PTR ds:0x1001c458\n100061e3:\t81 fd 90 01 00 00    \tcmp    ebp,0x190\n100061e9:\t8d 7c 08 19          \tlea    edi,[eax+ecx*1+0x19]\n100061ed:\t7d 10                \tjge    0x100061ff\n100061ef:\t8b 54 24 30          \tmov    edx,DWORD PTR [esp+0x30]\n100061f3:\t52                   \tpush   edx\n100061f4:\tff 15 7c 62 01 10    \tcall   DWORD PTR ds:0x1001627c\n100061fa:\t83 c4 04             \tadd    esp,0x4\n100061fd:\teb 04                \tjmp    0x10006203\n100061ff:\t8b 44 24 10          \tmov    eax,DWORD PTR [esp+0x10]\n10006203:\t8d 8c 40 c3 00 00 00 \tlea    ecx,[eax+eax*2+0xc3]\n1000620a:\t6a 03                \tpush   0x3\n1000620c:\t51                   \tpush   ecx\n1000620d:\t8d 94 40 c0 00 00 00 \tlea    edx,[eax+eax*2+0xc0]\n10006214:\t6a 00                \tpush   0x0\n10006216:\t8d 44 24 28          \tlea    eax,[esp+0x28]\n1000621a:\t52                   \tpush   edx\n1000621b:\t50                   \tpush   eax\n1000621c:\tff 15 d4 61 01 10    \tcall   DWORD PTR ds:0x100161d4\n10006222:\t8b 15 80 c4 01 10    \tmov    edx,DWORD PTR ds:0x1001c480\n10006228:\t8d 4c 24 1c          \tlea    ecx,[esp+0x1c]\n1000622c:\t6a 01                \tpush   0x1\n1000622e:\t51                   \tpush   ecx\n1000622f:\t8b 0d 70 c4 01 10    \tmov    ecx,DWORD PTR ds:0x1001c470\n10006235:\t52                   \tpush   edx\n10006236:\t57                   \tpush   edi\n10006237:\t56                   \tpush   esi\n10006238:\te8 d7 e4 00 00       \tcall   0x10014714\n1000623d:\t8b 74 24 30          \tmov    esi,DWORD PTR [esp+0x30]\n10006241:\t8b 44 24 14          \tmov    eax,DWORD PTR [esp+0x14]\n10006245:\t46                   \tinc    esi\n10006246:\t48                   \tdec    eax\n10006247:\t89 74 24 30          \tmov    DWORD PTR [esp+0x30],esi\n1000624b:\t89 44 24 14          \tmov    DWORD PTR [esp+0x14],eax\n1000624f:\t0f 85 40 ff ff ff    \tjne    0x10006195\n10006255:\t8b 4c 24 18          \tmov    ecx,DWORD PTR [esp+0x18]\n10006259:\t8b c6                \tmov    eax,esi\n1000625b:\t49                   \tdec    ecx\n1000625c:\t89 4c 24 18          \tmov    DWORD PTR [esp+0x18],ecx\n10006260:\t0f 85 21 ff ff ff    \tjne    0x10006187\n10006266:\t8b 54 24 10          \tmov    edx,DWORD PTR [esp+0x10]\n1000626a:\t83 c5 64             \tadd    ebp,0x64\n1000626d:\t42                   \tinc    edx\n1000626e:\t81 fd 84 03 00 00    \tcmp    ebp,0x384\n10006274:\t89 54 24 10          \tmov    DWORD PTR [esp+0x10],edx\n10006278:\t0f 8e ff fe ff ff    \tjle    0x1000617d\n"
+    },
+    {
+      "label": "window0 background and marker dispatch",
+      "start": "0x10007c61",
+      "end": "0x10007cae",
+      "assembly": "\n/tmp/ds-saver-new/Saver_Files/saver/GameCtl.dll:     file format pei-i386\n\n\nDisassembly of section .text:\n\n10007c61 <.text+0x6c61>:\n10007c61:\t6a 64                \tpush   0x64\n10007c63:\t68 ee 00 00 00       \tpush   0xee\n10007c68:\t6a 00                \tpush   0x0\n10007c6a:\t8d 54 24 14          \tlea    edx,[esp+0x14]\n10007c6e:\t68 8a 00 00 00       \tpush   0x8a\n10007c73:\t52                   \tpush   edx\n10007c74:\tff 15 d4 61 01 10    \tcall   DWORD PTR ds:0x100161d4\n10007c7a:\t6a 00                \tpush   0x0\n10007c7c:\t8d 44 24 0c          \tlea    eax,[esp+0xc]\n10007c80:\t83 ec 10             \tsub    esp,0x10\n10007c83:\t8b cc                \tmov    ecx,esp\n10007c85:\t50                   \tpush   eax\n10007c86:\te8 65 02 00 00       \tcall   0x10007ef0\n10007c8b:\t8b 74 24 3c          \tmov    esi,DWORD PTR [esp+0x3c]\n10007c8f:\t8b 7c 24 38          \tmov    edi,DWORD PTR [esp+0x38]\n10007c93:\t8b 0d 84 c4 01 10    \tmov    ecx,DWORD PTR ds:0x1001c484\n10007c99:\t8d 56 19             \tlea    edx,[esi+0x19]\n10007c9c:\t51                   \tpush   ecx\n10007c9d:\t8b 4c 24 38          \tmov    ecx,DWORD PTR [esp+0x38]\n10007ca1:\t8d 47 0b             \tlea    eax,[edi+0xb]\n10007ca4:\t52                   \tpush   edx\n10007ca5:\t50                   \tpush   eax\n10007ca6:\t51                   \tpush   ecx\n10007ca7:\te8 54 d6 ff ff       \tcall   0x10005300\n10007cac:\t56                   \tpush   esi\n10007cad:\t57                   \tpush   edi\n"
+    },
+    {
+      "label": "window5 text positions and color",
+      "start": "0x10007d67",
+      "end": "0x10007daa",
+      "assembly": "\n/tmp/ds-saver-new/Saver_Files/saver/GameCtl.dll:     file format pei-i386\n\n\nDisassembly of section .text:\n\n10007d67 <.text+0x6d67>:\n10007d67:\t8b 7c 24 28          \tmov    edi,DWORD PTR [esp+0x28]\n10007d6b:\t8b 54 24 24          \tmov    edx,DWORD PTR [esp+0x24]\n10007d6f:\ta1 d8 bd 01 10       \tmov    eax,ds:0x1001bdd8\n10007d74:\t6a 01                \tpush   0x1\n10007d76:\t68 08 08 08 00       \tpush   0x80808\n10007d7b:\t8d 4f 1f             \tlea    ecx,[edi+0x1f]\n10007d7e:\t8d 72 0a             \tlea    esi,[edx+0xa]\n10007d81:\t8b 15 70 c4 01 10    \tmov    edx,DWORD PTR ds:0x1001c470\n10007d87:\t50                   \tpush   eax\n10007d88:\t51                   \tpush   ecx\n10007d89:\t56                   \tpush   esi\n10007d8a:\t52                   \tpush   edx\n10007d8b:\tff 15 50 c4 01 10    \tcall   DWORD PTR ds:0x1001c450\n10007d91:\ta1 dc bd 01 10       \tmov    eax,ds:0x1001bddc\n10007d96:\t8b 0d 70 c4 01 10    \tmov    ecx,DWORD PTR ds:0x1001c470\n10007d9c:\t6a 01                \tpush   0x1\n10007d9e:\t68 08 08 08 00       \tpush   0x80808\n10007da3:\t83 c7 33             \tadd    edi,0x33\n10007da6:\t50                   \tpush   eax\n10007da7:\t57                   \tpush   edi\n10007da8:\t56                   \tpush   esi\n10007da9:\t51                   \tpush   ecx\n"
+    }
+  ],
+  "unityPlay": false,
+  "limits": [
+    "Tutorial groups0/1/4/8 only in current presenter",
+    "Native record first two nonzero fields gate marker rendering; tutorial presence model used",
+    "Second native victory text context default not fabricated",
+    "No original or Unity runtime capture performed"
+  ],
+  "markerPackedPayloadSha256": "da9cf58d0642ee6c6fcc3b5d7e46d84f537c0312daa3b57324849aa23e7d7364",
+  "markerPackedPayloadEarlyLateIdentical": true
+}

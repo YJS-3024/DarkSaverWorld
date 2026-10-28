@@ -26,10 +26,14 @@ namespace DarkSaver.World
         }
         public bool TryOpen(TopDownPlayerController player)
         {
-            if(!isActiveAndEnabled || (ShopInteriorContext.Current==null && !DarkSaver.Combat.BattleTransitionController.IsTempleReady) || player==null || !player.isActiveAndEnabled || player.UiInputBlocked || !CanInteractFrom(player.transform.position)
+            bool warehouse=gameObject.scene.name=="KaosiaWarehouse_Runtime";
+            if(!isActiveAndEnabled || (ShopInteriorContext.Current==null && !DarkSaver.Combat.BattleTransitionController.IsTempleReady && !warehouse) || player==null || !player.isActiveAndEnabled || player.UiInputBlocked || !CanInteractFrom(player.transform.position)
                 || FindAnyObjectByType<WorldSceneCoordinator>()?.IsTravelling==true)return false;
-            var panel = FindAnyObjectByType<TownServicesPanel>();
-            if (panel == null) return false;
+            var point=new Vector2(Mathf.Floor(player.transform.position.x)+.5f,Mathf.Floor(player.transform.position.y)+.5f);
+            if(((Vector2)player.transform.position-point).sqrMagnitude>.0001f)
+                return player.QueueNpcInteraction(()=>{if(this!=null)TryOpen(player);});
+            if(warehouse)return NativeWarehousePanel.RequestOpen(this,player);
+            var panel = FindAnyObjectByType<TownServicesPanel>();if(panel==null)return false;
             return DarkSaver.Combat.BattleTransitionController.IsTempleReady
                 ? panel.Open(TownService.Temple, player) : panel.RequestOpenShop(this, player);
         }
@@ -44,7 +48,7 @@ namespace DarkSaver.World
                 if(selected==null || candidate>order){selected=npc;order=candidate;}
             }
             if(selected==null || !selected.TryOpen(player))return false;
-            player.StopForSceneTravel();return true;
+            return true;
         }
     }
 }

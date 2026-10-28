@@ -6,6 +6,7 @@
     <DefineConstants>$(DefineConstants);DARKSAVER_LEGACY_CHECKS</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../Assets/_Game/Runtime/Network/LocalDoorGeometry.cs" Link="LocalDoorGeometry.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Core/NativeTrainingResume.cs" Link="NativeTrainingResume.cs" />
     <Compile Include="../../Assets/_Game/Tests/EditMode/TrainingResumeChecks.cs" Link="TrainingResumeChecks.cs" />
     <Compile Include="../../Assets/_Game/Runtime/Events/OriginalTutorialTickCounter.cs" Link="OriginalTutorialTickCounter.cs" />

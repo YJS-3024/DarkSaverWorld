@@ -58,10 +58,24 @@ namespace DarkSaver.Player
             StopWorldMotion();
         }
 
+        private float worldMoveDebt;
+        private System.Action pendingNpcInteraction;
+        public bool QueueNpcInteraction(System.Action action)
+        {
+            if(action==null || UiInputBlocked || pendingNpcInteraction!=null)return false;
+            if(body==null)body=GetComponent<Rigidbody2D>();
+            var destination=followingClickPath && waypointIndex<waypoints.Count
+                ? waypoints[waypointIndex] : new Vector3(Mathf.Floor(body.position.x)+.5f,Mathf.Floor(body.position.y)+.5f,0);
+            if(((Vector2)destination-body.position).sqrMagnitude<.0001f){action();return true;}
+            waypoints.Clear();waypoints.Add(destination);waypointIndex=0;followingClickPath=true;
+            pendingNpcInteraction=action;movement=Vector2.zero;suppressMouseUntilRelease=true;
+            if(directionalAnimator!=null)directionalAnimator.SetMotion((Vector2)destination-body.position);return true;
+        }
         public void StopForSceneTravel() { StopWorldMotion(); suppressMouseUntilRelease = true; }
 
         private void StopWorldMotion()
         {
+            pendingNpcInteraction=null;worldMoveDebt=0;
             movement = Vector2.zero;
             followingClickPath = false;
             waypoints.Clear();
@@ -79,12 +93,13 @@ namespace DarkSaver.Player
             directionalAnimator = GetComponent<DirectionalSpriteAnimator>();
             body.gravityScale = 0f;
             body.freezeRotation = true;
+            body.interpolation=RigidbodyInterpolation2D.None;
             if (spriteRenderer.sprite == null) spriteRenderer.sprite = CreateMarkerSprite();
         }
 
         private void Update()
         {
-            if (UiInputBlocked) return;
+            if (UiInputBlocked || pendingNpcInteraction!=null) return;
             if (worldHud == null) worldHud = FindAnyObjectByType<WorldSessionHud>();
             if (Input.GetMouseButton(0) && FirstPlayTutorial.BlocksPointer(Input.mousePosition)) suppressMouseUntilRelease = true;
             if (Input.GetMouseButton(0) && worldHud != null && worldHud.BlocksWorldPointer(Input.mousePosition))
@@ -159,29 +174,28 @@ namespace DarkSaver.Player
         private void FixedUpdate()
         {
             if (UiInputBlocked) return;
+            if(pendingNpcInteraction!=null && !followingClickPath)
+            {
+                var action=pendingNpcInteraction;StopWorldMotion();action();return;
+            }
+            worldMoveDebt+=Time.fixedDeltaTime;
+            if(worldMoveDebt+.00001f<GameConstants.WorldMoveTickSeconds)return;
+            worldMoveDebt=Mathf.Max(0,worldMoveDebt-GameConstants.WorldMoveTickSeconds);
             if (followingClickPath && waypointIndex < waypoints.Count)
             {
-                var target = (Vector2)waypoints[waypointIndex];
-                var delta = target - body.position;
-                var step = GameConstants.PlayerMoveSpeed * Time.fixedDeltaTime;
-                if (delta.magnitude <= step)
-                {
-                    if(!RequestMove(target)){StopWorldMotion();return;}
-                    waypointIndex++;
-                    if (waypointIndex == waypoints.Count)
-                    {
-                        followingClickPath = false;
-                        movement = Vector2.zero;
-                    }
-                }
-                else if(!RequestMove(body.position+delta.normalized*step))StopWorldMotion();
+                if(!WorldMovementStep.TryAdvance(waypoints,waypointIndex,body.position,
+                    GameConstants.PlayerMoveSpeed*GameConstants.WorldMoveTickSeconds,out var target,out int next)
+                    || !RequestMove(target)){StopWorldMotion();return;}
+                waypointIndex=next;
+                if(waypointIndex==waypoints.Count){followingClickPath=false;movement=Vector2.zero;}
                 return;
             }
-            if(movement.sqrMagnitude>0 && !RequestMove(body.position+movement*(GameConstants.PlayerMoveSpeed*Time.fixedDeltaTime)))StopWorldMotion();
+            if(movement.sqrMagnitude>0 && !RequestMove(body.position+movement*(GameConstants.PlayerMoveSpeed*GameConstants.WorldMoveTickSeconds)))StopWorldMotion();
         }
 
         private void OnDisable()
         {
+            pendingNpcInteraction=null;worldMoveDebt=0;
             movement = Vector2.zero;
             followingClickPath = false;
             waypoints.Clear();

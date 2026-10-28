@@ -50,7 +50,7 @@ namespace DarkSaver.Network
             var state=context();float dx=state.X-settings.doorX,dy=state.Y-settings.doorY;
             if(request==null || phase!=Phase.None || !state.Authenticated || state.Blocked || state.Region!="Kaosia"
                 || float.IsNaN(dx) || float.IsInfinity(dx) || float.IsNaN(dy) || float.IsInfinity(dy)
-                || dx*dx+dy*dy>1.5f*1.5f || sequence==int.MaxValue)
+                || !LocalDoorGeometry.Contains(state.X,state.Y,settings.doorX,settings.doorY) || sequence==int.MaxValue)
                 return new Response_EnterTraining("카오시아 훈련장 입구에서 요청해 주세요.");
             sessionId=++sequence;phase=Phase.Entering;
             // Central grid cell, not an inferred original server spawn.

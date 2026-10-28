@@ -37,6 +37,12 @@ namespace DarkSaver.UI
             Find<UnityEngine.UI.Button>(key).transition=Selectable.Transition.None;Find<Outline>(key).enabled=false;
             state.frames=control.frames;Graphic(elements[key],state.frames[state.pressed?2:state.hover?1:0],Color.white,true);Raise(key);
         }
+        public void NativeCheckbox(string key,Vector2 position,NativeBattleWindows.Control control,bool value,Action action,bool enabled,string tooltip)
+        {
+            Button(key,new Rect(position,control.rect.size),"",action,enabled,tooltip:tooltip);
+            Find<UnityEngine.UI.Button>(key).transition=Selectable.Transition.None;Find<Outline>(key).enabled=false;
+            Graphic(elements[key],control.frames[value?1:0],Color.white,true);Raise(key);
+        }
         public void NativeStatusCloseButton(string key,Rect rect,Action close,bool minimize=false)
         {
             Button(key,rect,"",close,tooltip:minimize?"최소화":"닫기");

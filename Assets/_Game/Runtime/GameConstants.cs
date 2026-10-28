@@ -6,6 +6,8 @@ namespace DarkSaver
         // Tiles/second. Approximate video match: Naver cafe 4603, town 19-20s / field 108-110s.
         // Visual estimate, not an original executable/server constant.
         public const float PlayerMoveSpeed = 6f;
+        // World movement cadence requested for the legacy feel; local presentation setting.
+        public const float WorldMoveTickSeconds = .08f;
         public const int CharacterNameMaxLength = 20;
         // User-confirmed single-player starting funds; never applied during save restoration.
         public const long NewCharacterStartingGold = 0; // Unused compatibility constant; original initial funds are unknown.

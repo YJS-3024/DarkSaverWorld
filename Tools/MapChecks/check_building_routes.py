@@ -10,14 +10,14 @@ def check(ok,name):
  global checks
  if not ok:raise AssertionError(name)
  checks+=1
-native={'KaosiaWeaponShop':'2000','KaosiaArmorShop':'2100','KaosiaAccessoryShop':'2200','KaosiaMagicTools':'2300','KaosiaBank':'2400','KaosiaWarehouse':'2510','KaosiaTemple':'2600'}
+native={'KaosiaWeaponShop':'2000','KaosiaArmorShop':'2100','KaosiaAccessoryShop':'2200','KaosiaMagicTools':'2300','KaosiaBank':'2400','KaosiaWarehouse':'2510','KaosiaTemple':'2600','Interior2800':'2800','Interior2900':'2900'}
 def load(key):
  rel='Towns/Kaosia' if key=='Kaosia' else 'Interiors/'+native[key]
  return json.loads((ROOT/'Assets/_Game/Resources'/rel/'Map.json').read_text())
 def cell(d,x,y):return int(x),d['height']-1-int(y)
 def walkable(d,p):
  x,y=p;return 0<=x<d['width'] and 0<=y<d['height'] and d['attributes'][y*d['width']+x]!=9
-check(table['version']==1 and len(table['routes'])==14,'14 authorized building directions')
+check(table['version']==1 and len(table['routes'])==18,'18 authorized building directions')
 rows=table['routes'];build=UnityPy.load(str(ROOT/'ProjectSettings/EditorBuildSettings.asset'))
 paths=set()
 for o in build.objects:
@@ -36,7 +36,7 @@ for r in rows:
  check(target in seen,'door reachable from region spawn '+r['fromKey'])
  back=[b for b in rows if b['fromKey']==r['toKey'] and b['toKey']==r['fromKey']]
  check(len(back)==1,'exact return route '+r['toKey'])
- check((r['x']-back[0]['doorX'])**2+(r['y']-back[0]['doorY'])**2>1.5**2,'arrival avoids immediate bounce '+r['toKey'])
+ check(abs(r['x']-(back[0]['doorX']+.5))>1.35 or abs(r['y']-back[0]['doorY'])>.85,'arrival outside two-unit door trigger plus visitor margin '+r['toKey'])
 report=dict(checks=checks,directions=len(rows),buildings=len(native),sceneTargets=len({r[k] for r in rows for k in ['map','runtime']}),unityPlay=False,scope='Current converted geometry and enabled build scenes; local authored routes, not recovered original server door coordinates.')
 (ROOT/'Tools/MapChecks/building_routes_check.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print('PASS',checks,'local building resource checks; NOT Unity Play')
