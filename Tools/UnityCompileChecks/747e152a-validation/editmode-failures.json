@@ -1,0 +1,1247 @@
+[
+  {
+    "Test": "DarkSaver.Tests.BattleAlliedRosterTests.AllCommanderDefeatStopsNewActionsButStillAcceptsAbsoluteResults",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleAlliedRosterTests.AllCommanderDefeatStopsNewActionsButStillAcceptsAbsoluteResults () [0x00066] in Assets\\_Game\\Tests\\EditMode\\BattleAlliedRosterTests.cs:79\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAlliedRosterTests.CommanderRemovalKeepsOtherGroupSoldierAndApRecovery",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleAlliedRosterTests.CommanderRemovalKeepsOtherGroupSoldierAndApRecovery () [0x001be] in Assets\\_Game\\Tests\\EditMode\\BattleAlliedRosterTests.cs:142\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAlliedRosterTests.PrimaryDeathDoesNotFinishBattleWhileAnotherCommanderLives",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleAlliedRosterTests.PrimaryDeathDoesNotFinishBattleWhileAnotherCommanderLives () [0x000bc] in Assets\\_Game\\Tests\\EditMode\\BattleAlliedRosterTests.cs:56\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits () [0x00291] in Assets\\_Game\\Tests\\EditMode\\BattleAlliedRosterTests.cs:185\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAttackPresentationTests.AcceptedLocalAttackPublishesAnticipationBeforeApplyingDamage",
+    "Message": "  Expected: 1\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleAttackPresentationTests+<>c.<AcceptedLocalAttackPublishesAnticipationBeforeApplyingDamage>b__1_0 (DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle, DarkSaver.Combat.BattleEnemyDefinition enemy) [0x000c3] in Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:59\nat DarkSaver.Tests.BattleAttackPresentationTests.WithBattle (System.Action`3[T1,T2,T3] check) [0x00050] in Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:114\nat DarkSaver.Tests.BattleAttackPresentationTests.AcceptedLocalAttackPublishesAnticipationBeforeApplyingDamage () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:43\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAttackPresentationTests.InvalidOrRemovedReferencesDoNotReplacePresentationOrResurrect",
+    "Message": "  Expected: 0\n  But was:  450\n",
+    "Stack": "at DarkSaver.Tests.BattleAttackPresentationTests+<>c.<InvalidOrRemovedReferencesDoNotReplacePresentationOrResurrect>b__3_0 (DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle, DarkSaver.Combat.BattleEnemyDefinition enemy) [0x000aa] in Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:97\nat DarkSaver.Tests.BattleAttackPresentationTests.WithBattle (System.Action`3[T1,T2,T3] check) [0x00050] in Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:114\nat DarkSaver.Tests.BattleAttackPresentationTests.InvalidOrRemovedReferencesDoNotReplacePresentationOrResurrect () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:87\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleAttackPresentationTests.ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats",
+    "Message": "  Expected: (120, 30, 450, 0)\n  But was:  (0, 0, 450, 0)\n",
+    "Stack": "at DarkSaver.Tests.BattleAttackPresentationTests+<>c.<ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats>b__0_0 (DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle, DarkSaver.Combat.BattleEnemyDefinition enemy) [0x000da] in Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:33\nat DarkSaver.Tests.BattleAttackPresentationTests.WithBattle (System.Action`3[T1,T2,T3] check) [0x00050] in Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:114\nat DarkSaver.Tests.BattleAttackPresentationTests.ReceivedAttackRecordsBothDirectionsBeforeReceiverEventWithoutChangingStats () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleAttackPresentationTests.cs:17\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleEffectPacketTests.EffectCallbackFailureIsNotAcknowledgedOrRetried",
+    "Message": "  Expected: 75\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleEffectPacketTests+<>c.<EffectCallbackFailureIsNotAcknowledgedOrRetried>b__5_0 (DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Network.ServerManager server, DarkSaver.Combat.BattleSceneRoot battle) [0x000af] in Assets\\_Game\\Tests\\EditMode\\BattleEffectPacketTests.cs:144\nat DarkSaver.Tests.BattleEffectPacketTests.WithReceiver (System.Action`3[T1,T2,T3] check) [0x0002f] in Assets\\_Game\\Tests\\EditMode\\BattleEffectPacketTests.cs:156\nat DarkSaver.Tests.BattleEffectPacketTests.EffectCallbackFailureIsNotAcknowledgedOrRetried () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleEffectPacketTests.cs:135\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleEffectPacketTests.MagicPreservesUninterpretedFieldsAndOwnedTargetOrderIncludingDuplicates",
+    "Message": "  Expected: (120, 30, 75)\n  But was:  (0, 0, 0)\n",
+    "Stack": "at DarkSaver.Tests.BattleEffectPacketTests+<>c.<MagicPreservesUninterpretedFieldsAndOwnedTargetOrderIncludingDuplicates>b__1_0 (DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Network.ServerManager server, DarkSaver.Combat.BattleSceneRoot battle) [0x000e6] in Assets\\_Game\\Tests\\EditMode\\BattleEffectPacketTests.cs:61\nat DarkSaver.Tests.BattleEffectPacketTests.WithReceiver (System.Action`3[T1,T2,T3] check) [0x0002f] in Assets\\_Game\\Tests\\EditMode\\BattleEffectPacketTests.cs:156\nat DarkSaver.Tests.BattleEffectPacketTests.MagicPreservesUninterpretedFieldsAndOwnedTargetOrderIncludingDuplicates () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleEffectPacketTests.cs:45\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(uint.MinValue)",
+    "Message": "  Expected: 120\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement (System.UInt32 experience) [0x0010c] in Assets\\_Game\\Tests\\EditMode\\BattleExperienceSessionTests.cs:40\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(3477000000)",
+    "Message": "  Expected: 120\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement (System.UInt32 experience) [0x0010c] in Assets\\_Game\\Tests\\EditMode\\BattleExperienceSessionTests.cs:40\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement(uint.MaxValue)",
+    "Message": "  Expected: 120\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleExperienceSessionTests.ExperienceSurvivesBattleRootReplacement (System.UInt32 experience) [0x0010c] in Assets\\_Game\\Tests\\EditMode\\BattleExperienceSessionTests.cs:40\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationDeploymentTests.AllGroupsRegisterTogetherAndInputsCannotRewriteRegisteredUnits",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleFormationDeploymentTests.AllGroupsRegisterTogetherAndInputsCannotRewriteRegisteredUnits () [0x000a6] in Assets\\_Game\\Tests\\EditMode\\BattleFormationDeploymentTests.cs:33\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationDeploymentTests.BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleFormationDeploymentTests+<>c.<BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource>b__5_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0005b] in Assets\\_Game\\Tests\\EditMode\\BattleFormationDeploymentTests.cs:67\nat DarkSaver.Tests.BattleFormationDeploymentTests.WithBattle (System.Action`1[T] action) [0x00026] in Assets\\_Game\\Tests\\EditMode\\BattleFormationDeploymentTests.cs:92\nat DarkSaver.Tests.BattleFormationDeploymentTests.BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleFormationDeploymentTests.cs:62\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationPanelTests.DraftAssignmentCancelAndCommanderRemovalNeverMutateOwnership",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleFormationPanelTests+<>c.<DraftAssignmentCancelAndCommanderRemovalNeverMutateOwnership>b__2_0 (DarkSaver.UI.BattleFormationPanel panel, DarkSaver.Player.TopDownPlayerController player, DarkSaver.UI.WorldSessionHud hud) [0x0013c] in Assets\\_Game\\Tests\\EditMode\\BattleFormationPanelTests.cs:64\nat DarkSaver.Tests.BattleFormationPanelTests.WithPanel (System.Action`3[T1,T2,T3] action) [0x00058] in Assets\\_Game\\Tests\\EditMode\\BattleFormationPanelTests.cs:157\nat DarkSaver.Tests.BattleFormationPanelTests.DraftAssignmentCancelAndCommanderRemovalNeverMutateOwnership () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleFormationPanelTests.cs:52\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationPlacementTests.ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen",
+    "Message": "  Expected: 10\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleFormationPlacementTests+<>c.<ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen>b__1_0 (DarkSaver.UI.BattleFormationPanel panel, DarkSaver.Player.TopDownPlayerController player) [0x000e7] in Assets\\_Game\\Tests\\EditMode\\BattleFormationPlacementTests.cs:31\nat DarkSaver.Tests.BattleFormationPlacementTests.WithPanel (System.Action`2[T1,T2] action) [0x00043] in Assets\\_Game\\Tests\\EditMode\\BattleFormationPlacementTests.cs:166\nat DarkSaver.Tests.BattleFormationPlacementTests.ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleFormationPlacementTests.cs:25\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationReturnTests.MissingDuplicateForeignAndEnemyResultsNeverProducePartialReturn",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleFormationReturnTests.MissingDuplicateForeignAndEnemyResultsNeverProducePartialReturn () [0x001c0] in Assets\\_Game\\Tests\\EditMode\\BattleFormationReturnTests.cs:64\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationReturnTests.ReorderedResultsMapByDeploymentIdentityAndRetainRawValues",
+    "Message": "  Expected: 16\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleFormationReturnTests.ReorderedResultsMapByDeploymentIdentityAndRetainRawValues () [0x001ab] in Assets\\_Game\\Tests\\EditMode\\BattleFormationReturnTests.cs:43\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationSnapshotTests.MissingOwnershipFinalStateOrNativeContextNeverProducesPartialSnapshot",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleFormationSnapshotTests.MissingOwnershipFinalStateOrNativeContextNeverProducesPartialSnapshot () [0x001a3] in Assets\\_Game\\Tests\\EditMode\\BattleFormationSnapshotTests.cs:50\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationTests.FormationCannotDesynchronizeAnAlreadyConfiguredGrid",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleFormationTests+<>c.<FormationCannotDesynchronizeAnAlreadyConfiguredGrid>b__4_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleFormationTests.cs:71\nat DarkSaver.Tests.BattleFormationTests.WithBattle (System.Action`1[T] check) [0x00026] in Assets\\_Game\\Tests\\EditMode\\BattleFormationTests.cs:86\nat DarkSaver.Tests.BattleFormationTests.FormationCannotDesynchronizeAnAlreadyConfiguredGrid () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleFormationTests.cs:70\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationTests.FourSoldierLimitCountsExistingMembersWithoutForcingConsecutiveIds",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleFormationTests+<>c.<FourSoldierLimitCountsExistingMembersWithoutForcingConsecutiveIds>b__1_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x00097] in Assets\\_Game\\Tests\\EditMode\\BattleFormationTests.cs:33\nat DarkSaver.Tests.BattleFormationTests.WithBattle (System.Action`1[T] check) [0x00026] in Assets\\_Game\\Tests\\EditMode\\BattleFormationTests.cs:86\nat DarkSaver.Tests.BattleFormationTests.FourSoldierLimitCountsExistingMembersWithoutForcingConsecutiveIds () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleFormationTests.cs:28\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.HandlerFailureDoesNotRetryOrRefundAndDisabledSenderDoesNotStart",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMagicRequestTests.Ready (DarkSaver.Combat.BattleSceneRoot battle) [0x00016] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:248\nat DarkSaver.Tests.BattleMagicRequestTests+<>c.<HandlerFailureDoesNotRetryOrRefundAndDisabledSenderDoesNotStart>b__10_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x0000d] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:233\nat DarkSaver.Tests.BattleMagicRequestTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:259\nat DarkSaver.Tests.BattleMagicRequestTests.HandlerFailureDoesNotRetryOrRefundAndDisabledSenderDoesNotStart () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:231\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMagicRequestTests.Ready (DarkSaver.Combat.BattleSceneRoot battle) [0x00016] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:248\nat DarkSaver.Tests.BattleMagicRequestTests+<>c.<InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost>b__3_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x0005a] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:98\nat DarkSaver.Tests.BattleMagicRequestTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:259\nat DarkSaver.Tests.BattleMagicRequestTests.InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:95\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.MissingHandlerAndInvalidMagicDoNotSpendOrPublish",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMagicRequestTests.Ready (DarkSaver.Combat.BattleSceneRoot battle) [0x00016] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:248\nat DarkSaver.Tests.BattleMagicRequestTests+<>c.<MissingHandlerAndInvalidMagicDoNotSpendOrPublish>b__7_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x00006] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:173\nat DarkSaver.Tests.BattleMagicRequestTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:259\nat DarkSaver.Tests.BattleMagicRequestTests.MissingHandlerAndInvalidMagicDoNotSpendOrPublish () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:171\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.MpIsOnlyChangedBySeparateAbsoluteResponse",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMagicRequestTests.Ready (DarkSaver.Combat.BattleSceneRoot battle) [0x00016] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:248\nat DarkSaver.Tests.BattleMagicRequestTests+<>c.<MpIsOnlyChangedBySeparateAbsoluteResponse>b__9_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x00015] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:216\nat DarkSaver.Tests.BattleMagicRequestTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:259\nat DarkSaver.Tests.BattleMagicRequestTests.MpIsOnlyChangedBySeparateAbsoluteResponse () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:214\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.MultiTargetMagicRetainsRawPacketAndChargesConfiguredApOnly",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMagicRequestTests.Ready (DarkSaver.Combat.BattleSceneRoot battle) [0x00016] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:248\nat DarkSaver.Tests.BattleMagicRequestTests+<>c.<MultiTargetMagicRetainsRawPacketAndChargesConfiguredApOnly>b__6_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x0001c] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:138\nat DarkSaver.Tests.BattleMagicRequestTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:259\nat DarkSaver.Tests.BattleMagicRequestTests.MultiTargetMagicRetainsRawPacketAndChargesConfiguredApOnly () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:136\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.NativeReferenceSentinelsChargeActualCasterAndRetainOriginalReference",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMagicRequestTests.Ready (DarkSaver.Combat.BattleSceneRoot battle) [0x00016] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:248\nat DarkSaver.Tests.BattleMagicRequestTests+<>c.<NativeReferenceSentinelsChargeActualCasterAndRetainOriginalReference>b__5_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x00006] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:118\nat DarkSaver.Tests.BattleMagicRequestTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:259\nat DarkSaver.Tests.BattleMagicRequestTests.NativeReferenceSentinelsChargeActualCasterAndRetainOriginalReference () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:116\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.PositionRequestsAllowEmptyTargetsAndBlockReentryWithoutInventingResponse",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMagicRequestTests.Ready (DarkSaver.Combat.BattleSceneRoot battle) [0x00016] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:248\nat DarkSaver.Tests.BattleMagicRequestTests+<>c.<PositionRequestsAllowEmptyTargetsAndBlockReentryWithoutInventingResponse>b__8_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x0000d] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:196\nat DarkSaver.Tests.BattleMagicRequestTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:259\nat DarkSaver.Tests.BattleMagicRequestTests.PositionRequestsAllowEmptyTargetsAndBlockReentryWithoutInventingResponse () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:194\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacks",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMagicRequestTests+<>c.<TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacks>b__1_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x00045] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:42\nat DarkSaver.Tests.BattleMagicRequestTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:259\nat DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDamageChargesOnceAndCommitsBeforeCallbacks () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:39\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCost",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMagicRequestTests+<>c.<TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCost>b__0_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x00027] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:19\nat DarkSaver.Tests.BattleMagicRequestTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:259\nat DarkSaver.Tests.BattleMagicRequestTests.TemporaryMultiTargetDeathsReleaseAllCellsWithOneCastCost () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:17\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMagicRequestTests.TemporaryPartyHealingAndBuffsShareOneCastCost",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMagicRequestTests+<>c.<TemporaryPartyHealingAndBuffsShareOneCastCost>b__2_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x00044] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:73\nat DarkSaver.Tests.BattleMagicRequestTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:259\nat DarkSaver.Tests.BattleMagicRequestTests.TemporaryPartyHealingAndBuffsShareOneCastCost () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMagicRequestTests.cs:70\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuBlocksMapPointerAndSuspensionResetsCommands",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<ActionMenuBlocksMapPointerAndSuspensionResetsCommands>b__50_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00049] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1220\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.ActionMenuBlocksMapPointerAndSuspensionResetsCommands () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1217\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuRestRecoversHpAndClosesWithoutStartingMovement",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<ActionMenuRestRecoversHpAndClosesWithoutStartingMovement>b__49_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00053] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1204\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.ActionMenuRestRecoversHpAndClosesWithoutStartingMovement () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1200\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ActionMenuSeparatesMoveAttackAndUnresolvedBuffsWithoutSpending",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<ActionMenuSeparatesMoveAttackAndUnresolvedBuffsWithoutSpending>b__48_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00086] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1171\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.ActionMenuSeparatesMoveAttackAndUnresolvedBuffsWithoutSpending () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1165\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.AdditionalSoldierClickSendsItsInstanceInsteadOfAlwaysUsingPlayer100",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<AdditionalSoldierClickSendsItsInstanceInsteadOfAlwaysUsingPlayer100>b__32_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x000a4] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:763\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.AdditionalSoldierClickSendsItsInstanceInsteadOfAlwaysUsingPlayer100 () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:757\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.AttackFacingUsesBoundInstancesWithoutChangingVitalsAndSuspensionUnsubscribes",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<AttackFacingUsesBoundInstancesWithoutChangingVitalsAndSuspensionUnsubscribes>b__33_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00021] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:781\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.AttackFacingUsesBoundInstancesWithoutChangingVitalsAndSuspensionUnsubscribes () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:778\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.BasicCommandPanelConnectsMoveAttackRestAndBlocksInvalidStates",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<BasicCommandPanelConnectsMoveAttackRestAndBlocksInvalidStates>b__6_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00041] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:129\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.BasicCommandPanelConnectsMoveAttackRestAndBlocksInvalidStates () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:125\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.BattleMagicMenuUsesConfirmedSubsetIncludingEmptySelection",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<BattleMagicMenuUsesConfirmedSubsetIncludingEmptySelection>b__3_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00012] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:58\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.BattleMagicMenuUsesConfirmedSubsetIncludingEmptySelection () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:57\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.BindingAlignsFreeWalkingBodiesBeforeTheirFirstGridStep",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<BindingAlignsFreeWalkingBodiesBeforeTheirFirstGridStep>b__0_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00024] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:23\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.BindingAlignsFreeWalkingBodiesBeforeTheirFirstGridStep () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:21\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.BindingStopsOnlyVisualWalkingAndRestoresBorrowedMotionOnSuspend",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<BindingStopsOnlyVisualWalkingAndRestoresBorrowedMotionOnSuspend>b__35_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0009c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:835\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.BindingStopsOnlyVisualWalkingAndRestoresBorrowedMotionOnSuspend () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:826\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.BindingUsesNativeBodiesAndWorldCellsWithoutEnablingUnresolvedMovement",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<BindingUsesNativeBodiesAndWorldCellsWithoutEnablingUnresolvedMovement>b__25_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:635\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.BindingUsesNativeBodiesAndWorldCellsWithoutEnablingUnresolvedMovement () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:634\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.CasterDeathAndPresentationSuspensionCancelPendingMagic",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<CasterDeathAndPresentationSuspensionCancelPendingMagic>b__24_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00050] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:623\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.CasterDeathAndPresentationSuspensionCancelPendingMagic () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:619\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.CatalogRegistersOriginalCostsWithoutGrantingSkillsAndRepeatedConfigurationIsStable",
+    "Message": "  Expected: greater than 4\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<CatalogRegistersOriginalCostsWithoutGrantingSkillsAndRepeatedConfigurationIsStable>b__20_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0005e] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:532\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.CatalogRegistersOriginalCostsWithoutGrantingSkillsAndRepeatedConfigurationIsStable () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:526\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ConfirmedLearnedMagicDisplaysWithoutInventingRequestsAndRejectsUnlearnedCommands",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<ConfirmedLearnedMagicDisplaysWithoutInventingRequestsAndRejectsUnlearnedCommands>b__7_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:172\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.ConfirmedLearnedMagicDisplaysWithoutInventingRequestsAndRejectsUnlearnedCommands () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:171\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ConfirmedNativeStepSynchronizesBoundBodyButNeverTreatsClickAsMovement",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<ConfirmedNativeStepSynchronizesBoundBodyButNeverTreatsClickAsMovement>b__44_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00068] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1063\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.ConfirmedNativeStepSynchronizesBoundBodyButNeverTreatsClickAsMovement () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1057\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend(901)",
+    "Message": "  Expected: 1\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass64_0.<CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00064] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1626\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend (System.Int32 magicId) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1615\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend(1001)",
+    "Message": "  Expected: 1\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass64_0.<CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00064] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1626\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.CoordinateEffectsReleaseExpiredCellsAndRecreateAfterSuspend (System.Int32 magicId) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1615\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.CoordinateMagicMenuKeepsPacketAnchorAndCleansEffectsOnSuspend",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass63_0.<CoordinateMagicMenuKeepsPacketAnchorAndCleansEffectsOnSuspend>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1572\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.CoordinateMagicMenuKeepsPacketAnchorAndCleansEffectsOnSuspend () [0x00029] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1571\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBody",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBody>b__39_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00040] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:939\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBody () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:935\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.EnemyClickDispatchesSelectedActorWithNativeAttributesAndOnlyIndependentVitals",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<EnemyClickDispatchesSelectedActorWithNativeAttributesAndOnlyIndependentVitals>b__26_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0008c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:667\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.EnemyClickDispatchesSelectedActorWithNativeAttributesAndOnlyIndependentVitals () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:654\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ExistingHudAndTerrainZeroAreExplicitNativeInputs",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<ExistingHudAndTerrainZeroAreExplicitNativeInputs>b__31_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00095] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:746\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.ExistingHudAndTerrainZeroAreExplicitNativeInputs () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:739\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ExplicitMagicChoiceMenuPreservesNativeMetadataAndWaitsForTargetClick",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<ExplicitMagicChoiceMenuPreservesNativeMetadataAndWaitsForTargetClick>b__52_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x000d1] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1263\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.ExplicitMagicChoiceMenuPreservesNativeMetadataAndWaitsForTargetClick () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1254\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ExplicitTemporarySpellExecutesFromTargetClickAndRejectsOutOfRangeWithoutCost",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<ExplicitTemporarySpellExecutesFromTargetClickAndRejectsOutOfRangeWithoutCost>b__17_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0004f] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:448\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.ExplicitTemporarySpellExecutesFromTargetClickAndRejectsOutOfRangeWithoutCost () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:444\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommit",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommit>b__43_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0002f] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1038\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommit () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1035\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTick",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass42_1.<HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTick>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00040] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1009\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTick () [0x0004c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1005\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.InformationSizeChangesKeepLiveTargetAndGameplayState",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<InformationSizeChangesKeepLiveTargetAndGameplayState>b__45_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00024] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1096\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.InformationSizeChangesKeepLiveTargetAndGameplayState () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1094\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedGroupKeepsSingleTargetFallbackUnlessOriginalRecordsAreSupplied",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests.ConfigureLearnedFixture (DarkSaver.Tests.BattleMapPresentationTests+Fixture f, DarkSaver.Magic.MagicCatalog catalog, System.Int16 id) [0x0010a] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1512\nat DarkSaver.Tests.BattleMapPresentationTests+<>c.<LearnedGroupKeepsSingleTargetFallbackUnlessOriginalRecordsAreSupplied>b__59_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0009c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1482\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.LearnedGroupKeepsSingleTargetFallbackUnlessOriginalRecordsAreSupplied () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1476\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryAreaUsesGeometryAndFiltersTargetsWithoutNativeTeamGuesses",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<LearnedTemporaryAreaUsesGeometryAndFiltersTargetsWithoutNativeTeamGuesses>b__57_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x000a4] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1422\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryAreaUsesGeometryAndFiltersTargetsWithoutNativeTeamGuesses () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1417\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryDirectionCastsAndEmptyDirectionOrCancelNeverSpends",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<LearnedTemporaryDirectionCastsAndEmptyDirectionOrCancelNeverSpends>b__58_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1448\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.LearnedTemporaryDirectionCastsAndEmptyDirectionOrCancelNeverSpends () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1447\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicChoicesRejectInvalidReplacementAndCancelWithoutInventingAvailability",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<MagicChoicesRejectInvalidReplacementAndCancelWithoutInventingAvailability>b__53_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0007c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1291\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.MagicChoicesRejectInvalidReplacementAndCancelWithoutInventingAvailability () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1284\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection(False)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass55_0.<MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00132] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1352\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection (System.Boolean clickFloorHole) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1343\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection(True)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass55_0.<MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00132] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1352\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionConfirmsNativePacketOnceAndSuspendDropsSelection (System.Boolean clickFloorHole) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1343\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady>b__54_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0007e] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1316\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1310\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewClearsOnInvalidGroupDeathAndSuspend",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests.<MagicPreviewClearsOnInvalidGroupDeathAndSuspend>g__Begin|10_1 (DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass10_0& ) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:271\nat DarkSaver.Tests.BattleMapPresentationTests+<>c.<MagicPreviewClearsOnInvalidGroupDeathAndSuspend>b__10_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0006f] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:272\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewClearsOnInvalidGroupDeathAndSuspend () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:265\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewRendersNativeGeometryWithoutPacketsOrCost",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass9_0.<RenderMagicPreviewCheck>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x000a4] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:234\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.RenderMagicPreviewCheck (System.String outputPath) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:224\nat DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewRendersNativeGeometryWithoutPacketsOrCost () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:220\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewUsesTransformedGroundAndReleasesOwnedResources",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<MagicPreviewUsesTransformedGroundAndReleasesOwnedResources>b__11_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:302\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.MagicPreviewUsesTransformedGroundAndReleasesOwnedResources () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:292\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.MagicTargetingFailureAndCancellationNeverSpendOrInventCosts",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<MagicTargetingFailureAndCancellationNeverSpendOrInventCosts>b__23_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:598\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.MagicTargetingFailureAndCancellationNeverSpendOrInventCosts () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:594\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.NativeAreaMenuExecutesConfiguredTemporaryDamageOnBothTargets",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass62_0.<RenderTemporaryMultiTargetAreaCheck>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x000af] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1528\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.RenderTemporaryMultiTargetAreaCheck (System.String outputPath) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1521\nat DarkSaver.Tests.BattleMapPresentationTests.NativeAreaMenuExecutesConfiguredTemporaryDamageOnBothTargets () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1517\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.NativeGroupMagicClickBuildsOriginalListAndKeepsIndependentVitals",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<NativeGroupMagicClickBuildsOriginalListAndKeepsIndependentVitals>b__12_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00093] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:327\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.NativeGroupMagicClickBuildsOriginalListAndKeepsIndependentVitals () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:319\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.NativeJobCatalogBindsTerrainAndApprovedDiagonalsWithoutExecutingClicks",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<NativeJobCatalogBindsTerrainAndApprovedDiagonalsWithoutExecutingClicks>b__37_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00041] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:868\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.NativeJobCatalogBindsTerrainAndApprovedDiagonalsWithoutExecutingClicks () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:865\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.NativeMagicUnknownTeamNeverDispatchesOrFallsThroughToMovement",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<NativeMagicUnknownTeamNeverDispatchesOrFallsThroughToMovement>b__13_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00097] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:352\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.NativeMagicUnknownTeamNeverDispatchesOrFallsThroughToMovement () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:344\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.NativeMapClickUsesExplicitBudgetAndClassTerrainCostsWithoutFallback",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<NativeMapClickUsesExplicitBudgetAndClassTerrainCostsWithoutFallback>b__40_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0002f] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:961\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.NativeMapClickUsesExplicitBudgetAndClassTerrainCostsWithoutFallback () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:958\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresIt",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresIt>b__41_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0003f] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:982\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresIt () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:978\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.OriginallyHiddenBodiesStayHiddenAndCorpseNeverUsesInventedFrames",
+    "Message": "  Expected: False\n  But was:  True\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<OriginallyHiddenBodiesStayHiddenAndCorpseNeverUsesInventedFrames>b__30_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00069] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:730\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.OriginallyHiddenBodiesStayHiddenAndCorpseNeverUsesInventedFrames () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:725\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.OutcomeWaitsForConfirmedDeathAndAcknowledgementNeverGrantsRewards",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<OutcomeWaitsForConfirmedDeathAndAcknowledgementNeverGrantsRewards>b__51_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00096] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1240\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.OutcomeWaitsForConfirmedDeathAndAcknowledgementNeverGrantsRewards () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1233\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PlasmaMenuRequestWaitsForIndependentEffectWithoutDoubleSpending",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<PlasmaMenuRequestWaitsForIndependentEffectWithoutDoubleSpending>b__66_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1680\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.PlasmaMenuRequestWaitsForIndependentEffectWithoutDoubleSpending () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1679\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PositionMagicClickNeverFallsThroughToMovementOrAttack",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<PositionMagicClickNeverFallsThroughToMovementOrAttack>b__22_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00068] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:581\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.PositionMagicClickNeverFallsThroughToMovementOrAttack () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:576\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval>b__67_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f, DarkSaver.Combat.BattleFormationSnapshot formation, System.Collections.Generic.IReadOnlyDictionary`2[TKey,TValue] art) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1719\nat DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass70_0.<WithPreparedFormation>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00205] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1811\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.WithPreparedFormation (System.Action`3[T1,T2,T3] check) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1795\nat DarkSaver.Tests.BattleMapPresentationTests.PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1718\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodyBindingFailureRemovesOnlyNewBodiesAndCanRetry",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<PreparedBodyBindingFailureRemovesOnlyNewBodiesAndCanRetry>b__68_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f, DarkSaver.Combat.BattleFormationSnapshot formation, System.Collections.Generic.IReadOnlyDictionary`2[TKey,TValue] art) [0x0010c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1750\nat DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass70_0.<WithPreparedFormation>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00205] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1811\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.WithPreparedFormation (System.Action`3[T1,T2,T3] check) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1795\nat DarkSaver.Tests.BattleMapPresentationTests.PreparedBodyBindingFailureRemovesOnlyNewBodiesAndCanRetry () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1742\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PrimarySoldierAliasCreatesSelectableNativeBodyAndReturnsItsSourceIdentity",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<PrimarySoldierAliasCreatesSelectableNativeBodyAndReturnsItsSourceIdentity>b__69_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0018b] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1778\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.PrimarySoldierAliasCreatesSelectableNativeBodyAndReturnsItsSourceIdentity () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1764\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible>b__5_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:100\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:99\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.RejectedBindingDoesNotChangeMotionAndStationaryBindingsStayStationary",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<RejectedBindingDoesNotChangeMotionAndStationaryBindingsStayStationary>b__36_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0009f] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:857\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.RejectedBindingDoesNotChangeMotionAndStationaryBindingsStayStationary () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:851\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.RemovedVisualsStayHiddenWhenDisablingAndResumingPresentation",
+    "Message": "  Expected: False\n  But was:  True\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<RemovedVisualsStayHiddenWhenDisablingAndResumingPresentation>b__29_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00028] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:711\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.RemovedVisualsStayHiddenWhenDisablingAndResumingPresentation () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:709\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish(2)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass56_0.<RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00092] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1384\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish (System.Int32 area) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1376\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish(-1)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass56_0.<RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00092] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1384\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.RepeatedDirectionPreviewReusesGeometryAndClearsOnCancelOrFinish (System.Int32 area) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1376\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.ScenarioEncounterSuppressesResultButTrainingAndFailedReturnCanShowIt",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<ScenarioEncounterSuppressesResultButTrainingAndFailedReturnCanShowIt>b__1_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:33\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.ScenarioEncounterSuppressesResultButTrainingAndFailedReturnCanShowIt () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:32\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.SpecialMagicAreaAcceptsNativeDirectionSentinelsWithoutDispatching",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<SpecialMagicAreaAcceptsNativeDirectionSentinelsWithoutDispatching>b__14_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00015] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:369\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.SpecialMagicAreaAcceptsNativeDirectionSentinelsWithoutDispatching () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:367\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.StandardMagicAreaQueryUsesNativeCellOrderWithoutCastingOrMoving",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<StandardMagicAreaQueryUsesNativeCellOrderWithoutCastingOrMoving>b__15_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00052] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:401\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.StandardMagicAreaQueryUsesNativeCellOrderWithoutCastingOrMoving () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:393\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryBuffSelfClickConsumesCostsAndChangesOnlyEffectiveAttack",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<TemporaryBuffSelfClickConsumesCostsAndChangesOnlyEffectiveAttack>b__19_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0004d] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:502\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.TemporaryBuffSelfClickConsumesCostsAndChangesOnlyEffectiveAttack () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:498\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryCatalogNeverClassifiesUnknownStatusOrNonCombatEntriesAsDamage",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests.TemporaryCatalogNeverClassifiesUnknownStatusOrNonCombatEntriesAsDamage () [0x00083] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:566\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryHealSelfClickRestoresHpAndShowsPositiveFeedbackWithoutDamage",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<TemporaryHealSelfClickRestoresHpAndShowsPositiveFeedbackWithoutDamage>b__18_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0016c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:479\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.TemporaryHealSelfClickRestoresHpAndShowsPositiveFeedbackWithoutDamage () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:466\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-1)",
+    "Message": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass65_0.<TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0008a] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1656\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam (System.Int32 direction) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1650\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-2)",
+    "Message": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass65_0.<TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0008a] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1656\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam (System.Int32 direction) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1650\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-3)",
+    "Message": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass65_0.<TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0008a] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1656\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam (System.Int32 direction) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1650\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam(-4)",
+    "Message": "  시전자가 없거나 전투 불능 상태입니다.\n  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c__DisplayClass65_0.<TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam>b__0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x0008a] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1656\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.TemporaryPlasmaCastPreservesDirectionAndStartsOneBeam (System.Int32 direction) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1650\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionShowsIndependentStatsWithoutSelectingOrSending",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<UnitInspectionShowsIndependentStatsWithoutSelectingOrSending>b__46_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00024] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1124\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionShowsIndependentStatsWithoutSelectingOrSending () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1122\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend>b__47_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00024] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1148\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1146\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleMapPresentationTests.UnitMagicClickPreservesCommandMetadataAndWaitsForIndependentMp",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleMapPresentationTests+<>c.<UnitMagicClickPreservesCommandMetadataAndWaitsForIndependentMp>b__16_0 (DarkSaver.Tests.BattleMapPresentationTests+Fixture f) [0x00068] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:432\nat DarkSaver.Tests.BattleMapPresentationTests.WithMap (System.Action`1[T] check) [0x001e6] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:1852\nat DarkSaver.Tests.BattleMapPresentationTests.UnitMagicClickPreservesCommandMetadataAndWaitsForIndependentMp () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleMapPresentationTests.cs:420\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.DeathBeforeHpPreservesReceivedHpUntilSeparateUpdate",
+    "Message": "  Expected: 120\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattlePacketReceiverTests+<>c.<DeathBeforeHpPreservesReceivedHpUntilSeparateUpdate>b__9_0 (DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Network.ServerManager server, DarkSaver.Combat.BattleSceneRoot battle) [0x00017] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:228\nat DarkSaver.Tests.BattlePacketReceiverTests.WithReceiver (System.Action`3[T1,T2,T3] check) [0x0002f] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:302\nat DarkSaver.Tests.BattlePacketReceiverTests.DeathBeforeHpPreservesReceivedHpUntilSeparateUpdate () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:225\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.DeathDoesNotPublishCombatResultOrExperienceAndStopsApRecovery",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattlePacketReceiverTests.DeathDoesNotPublishCombatResultOrExperienceAndStopsApRecovery () [0x000e7] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:256\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.InvalidVitalsReportFailureWithoutClampingOrChangingState",
+    "Message": "  Expected: 120\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattlePacketReceiverTests+<>c.<InvalidVitalsReportFailureWithoutClampingOrChangingState>b__6_0 (DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Network.ServerManager server, DarkSaver.Combat.BattleSceneRoot battle) [0x000d5] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:167\nat DarkSaver.Tests.BattlePacketReceiverTests.WithReceiver (System.Action`3[T1,T2,T3] check) [0x0002f] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:302\nat DarkSaver.Tests.BattlePacketReceiverTests.InvalidVitalsReportFailureWithoutClampingOrChangingState () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:153\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.PlayerDeathSnapshotRetainsLifeStateAndBlocksBattleReentry",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattlePacketReceiverTests+<>c.<PlayerDeathSnapshotRetainsLifeStateAndBlocksBattleReentry>b__11_0 (DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Network.ServerManager server, DarkSaver.Combat.BattleSceneRoot battle) [0x00070] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:276\nat DarkSaver.Tests.BattlePacketReceiverTests.WithReceiver (System.Action`3[T1,T2,T3] check) [0x0002f] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:302\nat DarkSaver.Tests.BattlePacketReceiverTests.PlayerDeathSnapshotRetainsLifeStateAndBlocksBattleReentry () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:267\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.TickMenuPacketsClampAbsoluteApAndReplaceNativeBitsWithoutInferringActions",
+    "Message": "  Expected: 20\n  But was:  32767\n",
+    "Stack": "at DarkSaver.Tests.BattlePacketReceiverTests+<>c.<TickMenuPacketsClampAbsoluteApAndReplaceNativeBitsWithoutInferringActions>b__0_0 (DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Network.ServerManager server, DarkSaver.Combat.BattleSceneRoot battle) [0x00132] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:33\nat DarkSaver.Tests.BattlePacketReceiverTests.WithReceiver (System.Action`3[T1,T2,T3] check) [0x0002f] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:302\nat DarkSaver.Tests.BattlePacketReceiverTests.TickMenuPacketsClampAbsoluteApAndReplaceNativeBitsWithoutInferringActions () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:16\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattlePacketReceiverTests.VitalsAreAbsoluteAndDoNotInferDeathOrChangeExperienceOrAp",
+    "Message": "  Expected: 37\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattlePacketReceiverTests+<>c.<VitalsAreAbsoluteAndDoNotInferDeathOrChangeExperienceOrAp>b__5_0 (DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Network.ServerManager server, DarkSaver.Combat.BattleSceneRoot battle) [0x00052] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:134\nat DarkSaver.Tests.BattlePacketReceiverTests.WithReceiver (System.Action`3[T1,T2,T3] check) [0x0002f] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:302\nat DarkSaver.Tests.BattlePacketReceiverTests.VitalsAreAbsoluteAndDoNotInferDeathOrChangeExperienceOrAp () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattlePacketReceiverTests.cs:127\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.DispatchStartsAnticipationBeforeImmediateResponseWithoutLocalDamage",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleRequestSenderTests.Ready (DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:162\nat DarkSaver.Tests.BattleRequestSenderTests+<>c.<DispatchStartsAnticipationBeforeImmediateResponseWithoutLocalDamage>b__2_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x00015] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:60\nat DarkSaver.Tests.BattleRequestSenderTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:174\nat DarkSaver.Tests.BattleRequestSenderTests.DispatchStartsAnticipationBeforeImmediateResponseWithoutLocalDamage () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:58\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.HandlerFailurePropagatesWithoutRetryRefundOrLocalDamage",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleRequestSenderTests.Ready (DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:162\nat DarkSaver.Tests.BattleRequestSenderTests+<>c.<HandlerFailurePropagatesWithoutRetryRefundOrLocalDamage>b__6_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x0000d] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:146\nat DarkSaver.Tests.BattleRequestSenderTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:174\nat DarkSaver.Tests.BattleRequestSenderTests.HandlerFailurePropagatesWithoutRetryRefundOrLocalDamage () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:144\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.MissingOrDisabledHandlerDoesNotSpendApOrStartPresentation",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleRequestSenderTests.Ready (DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:162\nat DarkSaver.Tests.BattleRequestSenderTests+<>c.<MissingOrDisabledHandlerDoesNotSpendApOrStartPresentation>b__3_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:89\nat DarkSaver.Tests.BattleRequestSenderTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:174\nat DarkSaver.Tests.BattleRequestSenderTests.MissingOrDisabledHandlerDoesNotSpendApOrStartPresentation () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:87\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.ReentrantRequestIsRejectedAndNoResponseLeavesOnlyAnticipation",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleRequestSenderTests.Ready (DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:162\nat DarkSaver.Tests.BattleRequestSenderTests+<>c.<ReentrantRequestIsRejectedAndNoResponseLeavesOnlyAnticipation>b__5_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x0000d] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:128\nat DarkSaver.Tests.BattleRequestSenderTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:174\nat DarkSaver.Tests.BattleRequestSenderTests.ReentrantRequestIsRejectedAndNoResponseLeavesOnlyAnticipation () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:126\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.TemporaryLoopbackResolvesOnceWithoutHandlerAndCanBeDisabled",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleRequestSenderTests+<>c.<TemporaryLoopbackResolvesOnceWithoutHandlerAndCanBeDisabled>b__0_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x00067] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:23\nat DarkSaver.Tests.BattleRequestSenderTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:174\nat DarkSaver.Tests.BattleRequestSenderTests.TemporaryLoopbackResolvesOnceWithoutHandlerAndCanBeDisabled () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:17\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleRequestSenderTests.TemporaryMagicLoopbackSpendsApMpOnceAndRemovesDeadUnitImmediately",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleRequestSenderTests+<>c.<TemporaryMagicLoopbackSpendsApMpOnceAndRemovesDeadUnitImmediately>b__1_0 (DarkSaver.Network.BattleRequestSender sender, DarkSaver.Network.ServerManager server, DarkSaver.Network.BattlePacketReceiver receiver, DarkSaver.Combat.BattleSceneRoot battle) [0x0004c] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:44\nat DarkSaver.Tests.BattleRequestSenderTests.WithSender (System.Action`4[T1,T2,T3,T4] check) [0x00036] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:174\nat DarkSaver.Tests.BattleRequestSenderTests.TemporaryMagicLoopbackSpendsApMpOnceAndRemovesDeadUnitImmediately () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleRequestSenderTests.cs:41\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleSpecialMenuTests.SpecialMenuStaysSeparateAndUsesExistingNativeRequestPath",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleSpecialMenuTests.SpecialMenuStaysSeparateAndUsesExistingNativeRequestPath () [0x00140] in Assets\\_Game\\Tests\\EditMode\\BattleSpecialMenuTests.cs:42\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.DefeatBlocksEntryAndDoesNotReviveNextBattle",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c.<DefeatBlocksEntryAndDoesNotReviveNextBattle>b__5_0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x00012] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:105\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.DefeatBlocksEntryAndDoesNotReviveNextBattle () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:102\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.FreshSessionLeavesInitialBattleStatsUntouched",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c.<FreshSessionLeavesInitialBattleStatsUntouched>b__0_0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x00020] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:22\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.FreshSessionLeavesInitialBattleStatsUntouched () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:18\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(37)",
+    "Message": "  Expected: String containing \"HP 37/120  MP 5/30\"\n  But was:  \"경험치 0\n완료 시나리오 0개\n시나리오 01: 미완료\"\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c__DisplayClass6_0.<HudReadsVitalsAndEntryRestrictionWithoutChangingThem>b__0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x00016] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:125\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem (System.Int32 hp) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:122\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(0)",
+    "Message": "  Expected: String containing \"HP 0/120  MP 5/30\"\n  But was:  \"경험치 0\n완료 시나리오 0개\n시나리오 01: 미완료\"\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c__DisplayClass6_0.<HudReadsVitalsAndEntryRestrictionWithoutChangingThem>b__0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x00016] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:125\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem (System.Int32 hp) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:122\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(-1,0)",
+    "Message": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c__DisplayClass4_0.<InvalidRestoreDoesNotPartiallyApply>b__0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x0001c] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:94\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply (System.Int32 hp, System.Int32 mp) [0x00013] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:91\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(121,0)",
+    "Message": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c__DisplayClass4_0.<InvalidRestoreDoesNotPartiallyApply>b__0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x0001c] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:94\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply (System.Int32 hp, System.Int32 mp) [0x00013] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:91\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(50,-1)",
+    "Message": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c__DisplayClass4_0.<InvalidRestoreDoesNotPartiallyApply>b__0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x0001c] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:94\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply (System.Int32 hp, System.Int32 mp) [0x00013] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:91\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply(50,31)",
+    "Message": "  Expected: (120, 30)\n  But was:  (0, 0)\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c__DisplayClass4_0.<InvalidRestoreDoesNotPartiallyApply>b__0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x0001c] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:94\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.InvalidRestoreDoesNotPartiallyApply (System.Int32 hp, System.Int32 mp) [0x00013] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:91\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.MissingOrDestroyedBattleDoesNotReplaceStoredVitals",
+    "Message": "  Expected: (45, 7)\n  But was:  (0, 0)\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c.<MissingOrDestroyedBattleDoesNotReplaceStoredVitals>b__2_0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x00061] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:60\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.MissingOrDestroyedBattleDoesNotReplaceStoredVitals () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:52\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(1)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c__DisplayClass1_0.<RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery>b__0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:36\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery (System.Int32 hp) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:34\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(87)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c__DisplayClass1_0.<RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery>b__0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:36\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery (System.Int32 hp) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:34\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery(120)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c__DisplayClass1_0.<RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery>b__0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:36\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.RemainingHpAndMpSurviveReplacementWithoutAutomaticRecovery (System.Int32 hp) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:34\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleVitalsSessionTests.VitalsDoNotModifyExperienceCompletionOrEnemy",
+    "Message": "  Expected: 75\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.BattleVitalsSessionTests+<>c.<VitalsDoNotModifyExperienceCompletionOrEnemy>b__3_0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.Combat.BattleSceneRoot first, DarkSaver.Combat.BattleSceneRoot second, DarkSaver.UI.WorldSessionHud hud) [0x00067] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:79\nat DarkSaver.Tests.BattleVitalsSessionTests.Check (System.Action`4[T1,T2,T3,T4] check) [0x00062] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:164\nat DarkSaver.Tests.BattleVitalsSessionTests.VitalsDoNotModifyExperienceCompletionOrEnemy () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleVitalsSessionTests.cs:70\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BuildingTravelTests.AllBuildingRequestsValidateSourcesAndRetainCanonicalResponses",
+    "Message": "  scoped walking response\n  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BuildingTravelTests+<>c.<AllBuildingRequestsValidateSourcesAndRetainCanonicalResponses>b__1_0 (System.Boolean ok, System.String name) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BuildingTravelTests.cs:11\nat DarkSaver.Tests.BuildingTravelChecks.Run (System.Action`2[T1,T2] check, DarkSaver.Network.BuildingTravelRoutes table) [0x004ef] in Assets\\_Game\\Tests\\EditMode\\BuildingTravelChecks.cs:38\nat DarkSaver.Tests.BuildingTravelTests.AllBuildingRequestsValidateSourcesAndRetainCanonicalResponses () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BuildingTravelTests.cs:11\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers",
+    "Message": "  연결된 건물 맵을 불러올 수 없습니다.\n  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers () [0x000da] in Assets\\_Game\\Tests\\EditMode\\BuildingTravelTests.cs:24\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionStatusTests.ActualDamageWakesAndDeathOrDisableClearsSleepAndSilence",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatActionStatusTests.ActualDamageWakesAndDeathOrDisableClearsSleepAndSilence () [0x0003d] in Assets\\_Game\\Tests\\EditMode\\CombatActionStatusTests.cs:107\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionStatusTests.SilenceRejectsLocalAndPacketMagicWithoutSpendingButAllowsAttackAndItems",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatActionStatusTests.SilenceRejectsLocalAndPacketMagicWithoutSpendingButAllowsAttackAndItems () [0x0000a] in Assets\\_Game\\Tests\\EditMode\\CombatActionStatusTests.cs:51\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionStatusTests.SleepCancelsReservedMovementAndHidesPathsUntilWakeOrExpiry",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatActionStatusTests.SleepCancelsReservedMovementAndHidesPathsUntilWakeOrExpiry () [0x00024] in Assets\\_Game\\Tests\\EditMode\\CombatActionStatusTests.cs:32\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionStatusTests.SleepStopsAttackMagicRestAndItemsWhileApRecoversNormally",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatActionStatusTests.SleepStopsAttackMagicRestAndItemsWhileApRecoversNormally () [0x0000a] in Assets\\_Game\\Tests\\EditMode\\CombatActionStatusTests.cs:68\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatActionStatusTests.WakeRequiresSleepingAllyAndOnlyRemovesSleep",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatActionStatusTests.WakeRequiresSleepingAllyAndOnlyRemovesSleep () [0x000f6] in Assets\\_Game\\Tests\\EditMode\\CombatActionStatusTests.cs:93\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.Execute_AppliesAbsoluteResultAndLeavesCorpse",
+    "Message": "System.InvalidOperationException : 원작 서버 판정이 필요합니다.",
+    "Stack": "  at DarkSaver.Combat.CombatFlow.Execute (DarkSaver.Combat.CombatRequest request) [0x0000f] in Assets\\_Game\\Runtime\\Combat\\CombatFlow.cs:222 \n  at DarkSaver.Tests.CombatFlowTests.Execute_AppliesAbsoluteResultAndLeavesCorpse () [0x00083] in Assets\\_Game\\Tests\\EditMode\\CombatFlowTests.cs:279 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.ExplicitTemporaryMagicHasIndependentCostAndFormulaWithoutChangingEvidenceMode",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatFlowTests.ExplicitTemporaryMagicHasIndependentCostAndFormulaWithoutChangingEvidenceMode () [0x00086] in Assets\\_Game\\Tests\\EditMode\\CombatFlowTests.cs:94\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.TemporaryBuffsAffectDamageRefreshAndExpireWithoutChangingBaseStats",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatFlowTests.TemporaryBuffsAffectDamageRefreshAndExpireWithoutChangingBaseStats () [0x0012f] in Assets\\_Game\\Tests\\EditMode\\CombatFlowTests.cs:26\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.TemporaryHealingCapsHpAndRejectsEnemyDeadFullAndInsufficientMpWithoutCost",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatFlowTests.TemporaryHealingCapsHpAndRejectsEnemyDeadFullAndInsufficientMpWithoutCost () [0x0009b] in Assets\\_Game\\Tests\\EditMode\\CombatFlowTests.cs:61\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.TemporaryMissConsumesActionApButDoesNotDamageAndRuleCanBeReplaced",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatFlowTests.TemporaryMissConsumesActionApButDoesNotDamageAndRuleCanBeReplaced () [0x00090] in Assets\\_Game\\Tests\\EditMode\\CombatFlowTests.cs:165\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.TemporaryPhysicalHitFormulaMatchesPercentagesAndRejectsInvalidValues",
+    "Message": "System.NotSupportedException : 원작 서버 명중 판정이 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.CombatFlowTests.TemporaryPhysicalHitFormulaMatchesPercentagesAndRejectsInvalidValues () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatFlowTests.cs:148 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatFlowTests.TemporaryProfileCostsDamageRestAndEvidenceModeRemainSeparate",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatFlowTests.TemporaryProfileCostsDamageRestAndEvidenceModeRemainSeparate () [0x00120] in Assets\\_Game\\Tests\\EditMode\\CombatFlowTests.cs:134\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.DeathNotificationsReleaseOnlyThatInstanceWithoutWaitingForRemoval",
+    "Message": "  Expected: 101\n  But was:  null\n",
+    "Stack": "at DarkSaver.Tests.CombatGridBindingTests+<>c.<DeathNotificationsReleaseOnlyThatInstanceWithoutWaitingForRemoval>b__4_0 (DarkSaver.Combat.BattleSceneRoot battle, DarkSaver.Network.BattlePacketReceiver receiver) [0x00075] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:106\nat DarkSaver.Tests.CombatGridBindingTests.WithBattle (System.Action`2[T1,T2] check) [0x0001f] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:162\nat DarkSaver.Tests.CombatGridBindingTests.DeathNotificationsReleaseOnlyThatInstanceWithoutWaitingForRemoval () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:101\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.ExplicitLayoutAndCellSelectionDoNotStartActionsOrFreezeAp",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatGridBindingTests+<>c.<ExplicitLayoutAndCellSelectionDoNotStartActionsOrFreezeAp>b__1_0 (DarkSaver.Combat.BattleSceneRoot battle, DarkSaver.Network.BattlePacketReceiver unusedReceiver) [0x00058] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:42\nat DarkSaver.Tests.CombatGridBindingTests.WithBattle (System.Action`2[T1,T2] check) [0x0001f] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:162\nat DarkSaver.Tests.CombatGridBindingTests.ExplicitLayoutAndCellSelectionDoNotStartActionsOrFreezeAp () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:39\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.GridSetupPreventsLegacyRegistrationOrEnemyReplacementDesynchronizingOccupancy",
+    "Message": "  Expected: False\n  But was:  True\n",
+    "Stack": "at DarkSaver.Tests.CombatGridBindingTests+<>c.<GridSetupPreventsLegacyRegistrationOrEnemyReplacementDesynchronizingOccupancy>b__5_0 (DarkSaver.Combat.BattleSceneRoot battle, DarkSaver.Network.BattlePacketReceiver unusedReceiver) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:125\nat DarkSaver.Tests.CombatGridBindingTests.WithBattle (System.Action`2[T1,T2] check) [0x0001f] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:162\nat DarkSaver.Tests.CombatGridBindingTests.GridSetupPreventsLegacyRegistrationOrEnemyReplacementDesynchronizingOccupancy () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:123\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.HpZeroDeselectsButKeepsOccupancyUntilIndependentRemoval",
+    "Message": "  Expected: 1\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.CombatGridBindingTests+<>c.<HpZeroDeselectsButKeepsOccupancyUntilIndependentRemoval>b__3_0 (DarkSaver.Combat.BattleSceneRoot battle, DarkSaver.Network.BattlePacketReceiver receiver) [0x0005c] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:88\nat DarkSaver.Tests.CombatGridBindingTests.WithBattle (System.Action`2[T1,T2] check) [0x0001f] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:162\nat DarkSaver.Tests.CombatGridBindingTests.HpZeroDeselectsButKeepsOccupancyUntilIndependentRemoval () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:84\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.InvalidLayoutRejectsEntireInitialSetupWithoutGuessingCoordinates",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatGridBindingTests+<>c.<InvalidLayoutRejectsEntireInitialSetupWithoutGuessingCoordinates>b__0_0 (DarkSaver.Combat.BattleSceneRoot battle, DarkSaver.Network.BattlePacketReceiver unusedReceiver) [0x001bf] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:31\nat DarkSaver.Tests.CombatGridBindingTests.WithBattle (System.Action`2[T1,T2] check) [0x0001f] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:162\nat DarkSaver.Tests.CombatGridBindingTests.InvalidLayoutRejectsEntireInitialSetupWithoutGuessingCoordinates () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:18\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGridBindingTests.InvalidSelectionPreservesPreviousAndRejectsEnemyEmptyOrDisabledInput",
+    "Message": "  Expected: 100\n  But was:  null\n",
+    "Stack": "at DarkSaver.Tests.CombatGridBindingTests+<>c.<InvalidSelectionPreservesPreviousAndRejectsEnemyEmptyOrDisabledInput>b__2_0 (DarkSaver.Combat.BattleSceneRoot battle, DarkSaver.Network.BattlePacketReceiver unusedReceiver) [0x0006d] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:73\nat DarkSaver.Tests.CombatGridBindingTests.WithBattle (System.Action`2[T1,T2] check) [0x0001f] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:162\nat DarkSaver.Tests.CombatGridBindingTests.InvalidSelectionPreservesPreviousAndRejectsEnemyEmptyOrDisabledInput () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatGridBindingTests.cs:67\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGroupTests.CommanderDeathDoesNotKillSoldiersOrMutatePreviousSnapshot",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatGroupTests.CommanderDeathDoesNotKillSoldiersOrMutatePreviousSnapshot () [0x000ec] in Assets\\_Game\\Tests\\EditMode\\CombatGroupTests.cs:67\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatGroupTests.LivingAdditionalUnitsRecoverApAfterPrimaryUnitsDieAndCostsStayUnknown",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatGroupTests+<>c.<LivingAdditionalUnitsRecoverApAfterPrimaryUnitsDieAndCostsStayUnknown>b__5_0 (DarkSaver.Combat.BattleSceneRoot battle, DarkSaver.Network.BattlePacketReceiver receiver) [0x000c3] in Assets\\_Game\\Tests\\EditMode\\CombatGroupTests.cs:131\nat DarkSaver.Tests.CombatGroupTests.WithBattle (System.Action`2[T1,T2] check) [0x0001f] in Assets\\_Game\\Tests\\EditMode\\CombatGroupTests.cs:153\nat DarkSaver.Tests.CombatGroupTests.LivingAdditionalUnitsRecoverApAfterPrimaryUnitsDieAndCostsStayUnknown () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatGroupTests.cs:123\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementActionTests.ApprovedActionSpendsOnceButCoordinatesWaitForIndependentConfirmation",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementActionTests.Configure (DarkSaver.Combat.BattleSceneRoot battle, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:118\nat DarkSaver.Tests.CombatMovementActionTests+<>c.<ApprovedActionSpendsOnceButCoordinatesWaitForIndependentConfirmation>b__1_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0000d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:37\nat DarkSaver.Tests.CombatMovementActionTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:125\nat DarkSaver.Tests.CombatMovementActionTests.ApprovedActionSpendsOnceButCoordinatesWaitForIndependentConfirmation () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:36\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementActionTests.InvalidCostReadinessDestinationOrTerrainNeverSpendsAp",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementActionTests.Configure (DarkSaver.Combat.BattleSceneRoot battle, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:118\nat DarkSaver.Tests.CombatMovementActionTests+<>c.<InvalidCostReadinessDestinationOrTerrainNeverSpendsAp>b__0_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0002b] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:17\nat DarkSaver.Tests.CombatMovementActionTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:125\nat DarkSaver.Tests.CombatMovementActionTests.InvalidCostReadinessDestinationOrTerrainNeverSpendsAp () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:15\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementActionTests.PendingMovementBlocksOtherStartsEvenAfterApRecoveryAndCancelDoesNotInventRefund",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementActionTests.Configure (DarkSaver.Combat.BattleSceneRoot battle, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:118\nat DarkSaver.Tests.CombatMovementActionTests+<>c.<PendingMovementBlocksOtherStartsEvenAfterApRecoveryAndCancelDoesNotInventRefund>b__2_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:54\nat DarkSaver.Tests.CombatMovementActionTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:125\nat DarkSaver.Tests.CombatMovementActionTests.PendingMovementBlocksOtherStartsEvenAfterApRecoveryAndCancelDoesNotInventRefund () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementActionTests.cs:53\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementPathTests.BudgetedDiagonalCanSkipSameGroupIntermediateWithoutOverwritingItsOccupant",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementPathTests.BudgetedDiagonalCanSkipSameGroupIntermediateWithoutOverwritingItsOccupant () [0x001cc] in Assets\\_Game\\Tests\\EditMode\\CombatMovementPathTests.cs:309\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementPathTests.BudgetedGridUsesCardinalRangeBeforeDiagonalCompressionWithoutMutation",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementPathTests.BudgetedGridUsesCardinalRangeBeforeDiagonalCompressionWithoutMutation () [0x00179] in Assets\\_Game\\Tests\\EditMode\\CombatMovementPathTests.cs:26\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementPathTests.SelectedPathRequiresActiveSelectionAndDoesNotPublishMovement",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementPathTests.SelectedPathRequiresActiveSelectionAndDoesNotPublishMovement () [0x0003c] in Assets\\_Game\\Tests\\EditMode\\CombatMovementPathTests.cs:277\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.AllyLongRouteSpendsFourOnceAndConfirmsEveryCell",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<AllyLongRouteSpendsFourOnceAndConfirmsEveryCell>b__2_0 (DarkSaver.Combat.BattleSceneRoot b) [0x0000d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:52\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.AllyLongRouteSpendsFourOnceAndConfirmsEveryCell () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:51\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.AutomaticDefenseAttacksAdjacentEnemyWithoutMovingOrSpendingCommanderAp",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests+<>c.<AutomaticDefenseAttacksAdjacentEnemyWithoutMovingOrSpendingCommanderAp>b__10_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00059] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:204\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.AutomaticDefenseAttacksAdjacentEnemyWithoutMovingOrSpendingCommanderAp () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:202\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.CancelDisableDeathAndReentrantCancelNeverContinueOldRoute",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<CancelDisableDeathAndReentrantCancelNeverContinueOldRoute>b__6_0 (DarkSaver.Combat.BattleSceneRoot b) [0x0000d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:110\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.CancelDisableDeathAndReentrantCancelNeverContinueOldRoute () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:109\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.ChangedTerrainStopsAtLastConfirmedCellWithoutFurtherCharge",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<ChangedTerrainStopsAtLastConfirmedCellWithoutFurtherCharge>b__5_0 (DarkSaver.Combat.BattleSceneRoot b) [0x0000d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:97\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.ChangedTerrainStopsAtLastConfirmedCellWithoutFurtherCharge () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:96\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.CommanderDeathCancelsOnlyItsAutomaticSoldierMovement",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests+<>c.<CommanderDeathCancelsOnlyItsAutomaticSoldierMovement>b__11_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00089] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:223\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.CommanderDeathCancelsOnlyItsAutomaticSoldierMovement () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:219\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.EnemyRouteSpendsSixIndependentlyOfAlly",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<EnemyRouteSpendsSixIndependentlyOfAlly>b__3_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:69\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.EnemyRouteSpendsSixIndependentlyOfAlly () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:68\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.EscapingTargetIsReplacedByAnApproachableEnemyInsideSpawnRange",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests+<>c.<EscapingTargetIsReplacedByAnApproachableEnemyInsideSpawnRange>b__15_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00063] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:301\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.EscapingTargetIsReplacedByAnApproachableEnemyInsideSpawnRange () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:298\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetStartsOnlyApprovedPathAndQueryOrFailedApNeverChangesTieOrder",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests+<>c.<ExplicitBudgetStartsOnlyApprovedPathAndQueryOrFailedApNeverChangesTieOrder>b__0_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:16\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetStartsOnlyApprovedPathAndQueryOrFailedApNeverChangesTieOrder () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:15\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetWithoutTerrainCostsFailsWithoutSpendingOrBfsFallback",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<ExplicitBudgetWithoutTerrainCostsFailsWithoutSpendingOrBfsFallback>b__1_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:40\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.ExplicitBudgetWithoutTerrainCostsFailsWithoutSpendingOrBfsFallback () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:39\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.FailedPlacementOrBlockedReturnCannotCommitOriginOrSpendAp",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<FailedPlacementOrBlockedReturnCannotCommitOriginOrSpendAp>b__8_0 (DarkSaver.Combat.BattleSceneRoot b) [0x000aa] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:161\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.FailedPlacementOrBlockedReturnCannotCommitOriginOrSpendAp () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:155\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.InvalidOrUnreadyDestinationsNeverSpendAndRecoveryDoesNotUnlockActiveRoute",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<InvalidOrUnreadyDestinationsNeverSpendAndRecoveryDoesNotUnlockActiveRoute>b__4_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:80\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.InvalidOrUnreadyDestinationsNeverSpendAndRecoveryDoesNotUnlockActiveRoute () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:79\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.LagExactlyFiveHundredMillisecondsKeepsDebtButLongerStallDropsIt",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<LagExactlyFiveHundredMillisecondsKeepsDebtButLongerStallDropsIt>b__20_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:413\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.LagExactlyFiveHundredMillisecondsKeepsDebtButLongerStallDropsIt () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:412\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.MonsterReturnKeepsInitialPlacementAndSpendsOneMovementAction",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<MonsterReturnKeepsInitialPlacementAndSpendsOneMovementAction>b__7_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00017] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:128\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.MonsterReturnKeepsInitialPlacementAndSpendsOneMovementAction () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:126\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.MonsterWithoutAttackHistoryDoesNotTreatUnitZeroAsItsAttacker",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests+<>c.<MonsterWithoutAttackHistoryDoesNotTreatUnitZeroAsItsAttacker>b__14_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00063] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:268\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.MonsterWithoutAttackHistoryDoesNotTreatUnitZeroAsItsAttacker () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:265\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.OriginalCardinalTicksShowHalfCellBeforeConfirmation",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<OriginalCardinalTicksShowHalfCellBeforeConfirmation>b__21_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:433\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.OriginalCardinalTicksShowHalfCellBeforeConfirmation () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:432\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.PursuitStopsWhenTargetLeavesSpawnRangeAndReturnWaitsForFullAp",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests+<>c.<PursuitStopsWhenTargetLeavesSpawnRangeAndReturnWaitsForFullAp>b__16_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:335\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.PursuitStopsWhenTargetLeavesSpawnRangeAndReturnWaitsForFullAp () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:334\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.SharedClockKeepsIdlePhaseAndAdvancesBothActorsOncePerCall",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<SharedClockKeepsIdlePhaseAndAdvancesBothActorsOncePerCall>b__19_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:393\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.SharedClockKeepsIdlePhaseAndAdvancesBothActorsOncePerCall () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:392\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiActuallyApproachesAndAttacksOnRecoveredAp",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests.Configure (DarkSaver.Combat.BattleSceneRoot b, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:447\nat DarkSaver.Tests.CombatMovementRouteTests+<>c.<TemporaryMonsterAiActuallyApproachesAndAttacksOnRecoveredAp>b__13_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:242\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiActuallyApproachesAndAttacksOnRecoveredAp () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:241\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiReturnsThenRestsWithoutHealingDuringMovement",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests+<>c.<TemporaryMonsterAiReturnsThenRestsWithoutHealingDuringMovement>b__17_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:370\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.TemporaryMonsterAiReturnsThenRestsWithoutHealingDuringMovement () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:369\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementRouteTests.TroopOrdersKeepCommanderManualAndDefenseStationaryThenAttackApproaches",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementRouteTests+<>c.<TroopOrdersKeepCommanderManualAndDefenseStationaryThenAttackApproaches>b__9_0 (DarkSaver.Combat.BattleSceneRoot b) [0x00059] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:178\nat DarkSaver.Tests.CombatMovementRouteTests.WithBattle (System.Action`1[T] check) [0x00018] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:455\nat DarkSaver.Tests.CombatMovementRouteTests.TroopOrdersKeepCommanderManualAndDefenseStationaryThenAttackApproaches () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementRouteTests.cs:176\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.CommitRechecksChangedTerrainAndNeverMovesAnUnconfiguredGrid",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementStepTests.Configure (DarkSaver.Combat.BattleSceneRoot battle, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:133\nat DarkSaver.Tests.CombatMovementStepTests+<>c.<CommitRechecksChangedTerrainAndNeverMovesAnUnconfiguredGrid>b__3_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x00039] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:67\nat DarkSaver.Tests.CombatMovementStepTests.WithBattle (System.Action`1[T] check) [0x0001d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:141\nat DarkSaver.Tests.CombatMovementStepTests.CommitRechecksChangedTerrainAndNeverMovesAnUnconfiguredGrid () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:64\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.ConfirmationCommitsOnlyReservedCoordinatesBeforePublishingWithoutSpendingAp",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementStepTests.Configure (DarkSaver.Combat.BattleSceneRoot battle, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:133\nat DarkSaver.Tests.CombatMovementStepTests+<>c.<ConfirmationCommitsOnlyReservedCoordinatesBeforePublishingWithoutSpendingAp>b__0_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0000d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:16\nat DarkSaver.Tests.CombatMovementStepTests.WithBattle (System.Action`1[T] check) [0x0001d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:141\nat DarkSaver.Tests.CombatMovementStepTests.ConfirmationCommitsOnlyReservedCoordinatesBeforePublishingWithoutSpendingAp () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:15\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.DeathCancellationAndDisabledInputRejectLateConfirmations",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementStepTests.Configure (DarkSaver.Combat.BattleSceneRoot battle, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:133\nat DarkSaver.Tests.CombatMovementStepTests+<>c.<DeathCancellationAndDisabledInputRejectLateConfirmations>b__2_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:48\nat DarkSaver.Tests.CombatMovementStepTests.WithBattle (System.Action`1[T] check) [0x0001d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:141\nat DarkSaver.Tests.CombatMovementStepTests.DeathCancellationAndDisabledInputRejectLateConfirmations () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:47\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.DeathImmediatelyFreesPendingDestinationAndOriginWithoutApRefund",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementStepTests+<>c__DisplayClass6_0.<DeathImmediatelyFreesPendingDestinationAndOriginWithoutApRefund>b__0 (DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:115\nat DarkSaver.Tests.CombatMovementStepTests.WithBattle (System.Action`1[T] check) [0x0001d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:141\nat DarkSaver.Tests.CombatMovementStepTests.DeathImmediatelyFreesPendingDestinationAndOriginWithoutApRefund () [0x0001d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:114\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.HpZeroImmediatelyCancelsTicketAndRecoveryCannotReplayIt",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementStepTests.Configure (DarkSaver.Combat.BattleSceneRoot battle, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:133\nat DarkSaver.Tests.CombatMovementStepTests+<>c.<HpZeroImmediatelyCancelsTicketAndRecoveryCannotReplayIt>b__5_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:92\nat DarkSaver.Tests.CombatMovementStepTests.WithBattle (System.Action`1[T] check) [0x0001d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:141\nat DarkSaver.Tests.CombatMovementStepTests.HpZeroImmediatelyCancelsTicketAndRecoveryCannotReplayIt () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:91\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.ReturningToSameOriginNeverMakesAnOldConfirmationCurrentAgain",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementStepTests.Configure (DarkSaver.Combat.BattleSceneRoot battle, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:133\nat DarkSaver.Tests.CombatMovementStepTests+<>c.<ReturningToSameOriginNeverMakesAnOldConfirmationCurrentAgain>b__4_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:78\nat DarkSaver.Tests.CombatMovementStepTests.WithBattle (System.Action`1[T] check) [0x0001d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:141\nat DarkSaver.Tests.CombatMovementStepTests.ReturningToSameOriginNeverMakesAnOldConfirmationCurrentAgain () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:77\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatMovementStepTests.WrongOriginDestinationOrActorPreservesThePendingReservation",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatMovementStepTests.Configure (DarkSaver.Combat.BattleSceneRoot battle, System.Func`3[T1,T2,TResult] terrain) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:133\nat DarkSaver.Tests.CombatMovementStepTests+<>c.<WrongOriginDestinationOrActorPreservesThePendingReservation>b__1_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:36\nat DarkSaver.Tests.CombatMovementStepTests.WithBattle (System.Action`1[T] check) [0x0001d] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:141\nat DarkSaver.Tests.CombatMovementStepTests.WrongOriginDestinationOrActorPreservesThePendingReservation () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatMovementStepTests.cs:35\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatOccupancyGridTests.CommitRechecksTerrainAndChangesOnlyOccupancyAndCoordinates",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.CombatOccupancyGridTests.CommitRechecksTerrainAndChangesOnlyOccupancyAndCoordinates () [0x0019f] in Assets\\_Game\\Tests\\EditMode\\CombatOccupancyGridTests.cs:70\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatOccupancyGridTests.PlacementValidatesBoundsLifeAndOccupancyWithoutChangingVitals",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.CombatOccupancyGridTests.PlacementValidatesBoundsLifeAndOccupancyWithoutChangingVitals () [0x000ef] in Assets\\_Game\\Tests\\EditMode\\CombatOccupancyGridTests.cs:20\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatReachableDestinationsTests.CornerTerrainAndDirectionPoliciesDefineConnectivityNotAp",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.CombatReachableDestinationsTests.CornerTerrainAndDirectionPoliciesDefineConnectivityNotAp () [0x00115] in Assets\\_Game\\Tests\\EditMode\\CombatReachableDestinationsTests.cs:62\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatReachableDestinationsTests.DestinationsAreOwnedSortedAndMatchIndividualPathsWithoutMutation",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.CombatReachableDestinationsTests.DestinationsAreOwnedSortedAndMatchIndividualPathsWithoutMutation () [0x0023e] in Assets\\_Game\\Tests\\EditMode\\CombatReachableDestinationsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatReachableDestinationsTests.SelectionQueryRequiresActiveLivingSelectionAndKeepsPendingTicket",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatReachableDestinationsTests.SelectionQueryRequiresActiveLivingSelectionAndKeepsPendingTicket () [0x00035] in Assets\\_Game\\Tests\\EditMode\\CombatReachableDestinationsTests.cs:88\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatStatusTests.CureRequiresPoisonAndLeavesHealthAndOtherStatusUntouched",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatStatusTests.Create (DarkSaver.Combat.CombatUnit& actor, DarkSaver.Combat.CombatUnit& enemy) [0x00091] in Assets\\_Game\\Tests\\EditMode\\CombatStatusTests.cs:15\nat DarkSaver.Tests.CombatStatusTests.CureRequiresPoisonAndLeavesHealthAndOtherStatusUntouched () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatStatusTests.cs:66\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatStatusTests.MovementReductionChangesBudgetWithoutChangingApOrRecovery",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatStatusTests.Create (DarkSaver.Combat.CombatUnit& actor, DarkSaver.Combat.CombatUnit& enemy) [0x00091] in Assets\\_Game\\Tests\\EditMode\\CombatStatusTests.cs:15\nat DarkSaver.Tests.CombatStatusTests.MovementReductionChangesBudgetWithoutChangingApOrRecovery () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatStatusTests.cs:96\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatStatusTests.MovementStatusCancelsReservationAndLimitsActualReachablePathUntilExpiry",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatStatusTests.MovementStatusCancelsReservationAndLimitsActualReachablePathUntilExpiry () [0x00024] in Assets\\_Game\\Tests\\EditMode\\CombatStatusTests.cs:29\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatStatusTests.PoisonDeathClearsStatusesAndDisablingNeverResurrectsThem",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatStatusTests.Create (DarkSaver.Combat.CombatUnit& actor, DarkSaver.Combat.CombatUnit& enemy) [0x00091] in Assets\\_Game\\Tests\\EditMode\\CombatStatusTests.cs:15\nat DarkSaver.Tests.CombatStatusTests.PoisonDeathClearsStatusesAndDisablingNeverResurrectsThem () [0x00000] in Assets\\_Game\\Tests\\EditMode\\CombatStatusTests.cs:83\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatStatusTests.PoisonTicksRefreshesExpiresAndPublishesDamageWithOriginalSource",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatStatusTests.Create (DarkSaver.Combat.CombatUnit& actor, DarkSaver.Combat.CombatUnit& enemy) [0x00091] in Assets\\_Game\\Tests\\EditMode\\CombatStatusTests.cs:15\nat DarkSaver.Tests.CombatStatusTests.PoisonTicksRefreshesExpiresAndPublishesDamageWithOriginalSource () [0x00006] in Assets\\_Game\\Tests\\EditMode\\CombatStatusTests.cs:49\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatTerrainTraversalTests.ExplicitTerrainPolicyCombinesWithGridOccupancyWithoutChangingStats",
+    "Message": "  Expected: 6\n  But was:  0\n",
+    "Stack": "at DarkSaver.Tests.CombatTerrainTraversalTests.ExplicitTerrainPolicyCombinesWithGridOccupancyWithoutChangingStats () [0x00118] in Assets\\_Game\\Tests\\EditMode\\CombatTerrainTraversalTests.cs:138\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CombatVitalsDisplayTests.UpdatesRestAndOverkillPublishActualDeltasWithoutDuplicates",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.CombatVitalsDisplayTests.UpdatesRestAndOverkillPublishActualDeltasWithoutDuplicates () [0x00141] in Assets\\_Game\\Tests\\EditMode\\CombatVitalsDisplayTests.cs:27\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobActionCostTests.JobBindingIsPerInstanceAndUnknownJobClearsPreviousCost",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobActionCostTests.JobBindingIsPerInstanceAndUnknownJobClearsPreviousCost () [0x0003b] in Assets\\_Game\\Tests\\EditMode\\JobActionCostTests.cs:32\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.AllSeventyJobsPreserveNativeBaseStatsAndSeparateTemporaryCost",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests+<>c.<AllSeventyJobsPreserveNativeBaseStatsAndSeparateTemporaryCost>b__5_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x00133] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:103\nat DarkSaver.Tests.JobCombatConfigurationTests.WithBattle (System.Action`1[T] check) [0x00034] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:184\nat DarkSaver.Tests.JobCombatConfigurationTests.AllSeventyJobsPreserveNativeBaseStatsAndSeparateTemporaryCost () [0x00000] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:90\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.ConfirmedPhysicalAllocationIsAppliedOnceAndPreservedWithSoldiers",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests.ConfirmedPhysicalAllocationIsAppliedOnceAndPreservedWithSoldiers () [0x00026] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:40\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.ExplicitResolvedCostsOverrideTemporaryJobCostInBothModes",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests+<>c.<ExplicitResolvedCostsOverrideTemporaryJobCostInBothModes>b__7_0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0002c] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:139\nat DarkSaver.Tests.JobCombatConfigurationTests.WithBattle (System.Action`1[T] check) [0x00034] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:184\nat DarkSaver.Tests.JobCombatConfigurationTests.ExplicitResolvedCostsOverrideTemporaryJobCostInBothModes () [0x00000] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:135\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TemporaryMagicUsesKnownMagicStatsSeparatelyFromPhysicalStats",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests.TemporaryMagicUsesKnownMagicStatsSeparatelyFromPhysicalStats () [0x000d0] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:23\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(100)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests+<>c__DisplayClass6_0.<TierRepresentativeAttackSpendsItsTemporaryCostOnce>b__0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0009d] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:126\nat DarkSaver.Tests.JobCombatConfigurationTests.WithBattle (System.Action`1[T] check) [0x00034] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:184\nat DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce (System.Int32 jobId) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:116\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(105)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests+<>c__DisplayClass6_0.<TierRepresentativeAttackSpendsItsTemporaryCostOnce>b__0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0009d] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:126\nat DarkSaver.Tests.JobCombatConfigurationTests.WithBattle (System.Action`1[T] check) [0x00034] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:184\nat DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce (System.Int32 jobId) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:116\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(115)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests+<>c__DisplayClass6_0.<TierRepresentativeAttackSpendsItsTemporaryCostOnce>b__0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0009d] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:126\nat DarkSaver.Tests.JobCombatConfigurationTests.WithBattle (System.Action`1[T] check) [0x00034] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:184\nat DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce (System.Int32 jobId) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:116\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(125)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests+<>c__DisplayClass6_0.<TierRepresentativeAttackSpendsItsTemporaryCostOnce>b__0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0009d] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:126\nat DarkSaver.Tests.JobCombatConfigurationTests.WithBattle (System.Action`1[T] check) [0x00034] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:184\nat DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce (System.Int32 jobId) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:116\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(135)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests+<>c__DisplayClass6_0.<TierRepresentativeAttackSpendsItsTemporaryCostOnce>b__0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0009d] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:126\nat DarkSaver.Tests.JobCombatConfigurationTests.WithBattle (System.Action`1[T] check) [0x00034] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:184\nat DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce (System.Int32 jobId) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:116\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(145)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests+<>c__DisplayClass6_0.<TierRepresentativeAttackSpendsItsTemporaryCostOnce>b__0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0009d] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:126\nat DarkSaver.Tests.JobCombatConfigurationTests.WithBattle (System.Action`1[T] check) [0x00034] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:184\nat DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce (System.Int32 jobId) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:116\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(155)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests+<>c__DisplayClass6_0.<TierRepresentativeAttackSpendsItsTemporaryCostOnce>b__0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0009d] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:126\nat DarkSaver.Tests.JobCombatConfigurationTests.WithBattle (System.Action`1[T] check) [0x00034] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:184\nat DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce (System.Int32 jobId) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:116\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(165)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests+<>c__DisplayClass6_0.<TierRepresentativeAttackSpendsItsTemporaryCostOnce>b__0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0009d] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:126\nat DarkSaver.Tests.JobCombatConfigurationTests.WithBattle (System.Action`1[T] check) [0x00034] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:184\nat DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce (System.Int32 jobId) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:116\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce(169)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.JobCombatConfigurationTests+<>c__DisplayClass6_0.<TierRepresentativeAttackSpendsItsTemporaryCostOnce>b__0 (DarkSaver.Combat.BattleSceneRoot battle) [0x0009d] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:126\nat DarkSaver.Tests.JobCombatConfigurationTests.WithBattle (System.Action`1[T] check) [0x00034] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:184\nat DarkSaver.Tests.JobCombatConfigurationTests.TierRepresentativeAttackSpendsItsTemporaryCostOnce (System.Int32 jobId) [0x0000c] in Assets\\_Game\\Tests\\EditMode\\JobCombatConfigurationTests.cs:116\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.LateVersionDataTests.LateAbilitiesPreserveKnownCoefficientsAndBlockUnknownCurism",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.LateVersionDataTests.LateAbilitiesPreserveKnownCoefficientsAndBlockUnknownCurism () [0x0006f] in Assets\\_Game\\Tests\\EditMode\\LateVersionDataTests.cs:47\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(167,170)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip (System.Int32 previous, System.Int32 next) [0x000fd] in Assets\\_Game\\Tests\\EditMode\\LateVersionDataTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(168,171)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip (System.Int32 previous, System.Int32 next) [0x000fd] in Assets\\_Game\\Tests\\EditMode\\LateVersionDataTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip(169,172)",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.LateVersionDataTests.LateClassChangeAndLevel300SurviveProfileRoundtrip (System.Int32 previous, System.Int32 next) [0x000fd] in Assets\\_Game\\Tests\\EditMode\\LateVersionDataTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOwnedRosterTests.InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.NativeOwnedRosterTests+<>c.<InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster>b__12_0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.UI.BattleFormationPanel panel, DarkSaver.Player.TopDownPlayerController player) [0x00067] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:235\nat DarkSaver.Tests.NativeOwnedRosterTests.Session (System.Action`3[T1,T2,T3] action) [0x0005f] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:308\nat DarkSaver.Tests.NativeOwnedRosterTests.InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster () [0x00000] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:229\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOwnedRosterTests.PanelReceivesSessionOwnershipWithoutCreatingCoordinatesOrDeploying",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.NativeOwnedRosterTests+<>c.<PanelReceivesSessionOwnershipWithoutCreatingCoordinatesOrDeploying>b__8_0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.UI.BattleFormationPanel panel, DarkSaver.Player.TopDownPlayerController player) [0x00006] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:134\nat DarkSaver.Tests.NativeOwnedRosterTests.Session (System.Action`3[T1,T2,T3] action) [0x0005f] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:308\nat DarkSaver.Tests.NativeOwnedRosterTests.PanelReceivesSessionOwnershipWithoutCreatingCoordinatesOrDeploying () [0x00000] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:133\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.NativeOwnedRosterTests+<>c.<SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip>b__13_0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.UI.BattleFormationPanel panel, DarkSaver.Player.TopDownPlayerController player) [0x00089] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:264\nat DarkSaver.Tests.NativeOwnedRosterTests.Session (System.Action`3[T1,T2,T3] action) [0x0005f] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:308\nat DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip () [0x00000] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:259\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnMismatchDoesNotPublishPartialPrimaryOrOwnedState",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.NativeOwnedRosterTests+<>c.<SessionReturnMismatchDoesNotPublishPartialPrimaryOrOwnedState>b__14_0 (DarkSaver.Combat.BattleTransitionController session, DarkSaver.UI.BattleFormationPanel panel, DarkSaver.Player.TopDownPlayerController player) [0x0002a] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:288\nat DarkSaver.Tests.NativeOwnedRosterTests.Session (System.Action`3[T1,T2,T3] action) [0x0005f] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:308\nat DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnMismatchDoesNotPublishPartialPrimaryOrOwnedState () [0x00000] in Assets\\_Game\\Tests\\EditMode\\NativeOwnedRosterTests.cs:286\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.QuickMagicTests.InvalidRulesTargetsAndDisabledCostsNeverSpendOrBecomeEnabled",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.QuickMagicTests.Create (DarkSaver.Combat.CombatUnit& actor, DarkSaver.Combat.CombatUnit& enemy) [0x000a7] in Assets\\_Game\\Tests\\EditMode\\QuickMagicTests.cs:16\nat DarkSaver.Tests.QuickMagicTests.InvalidRulesTargetsAndDisabledCostsNeverSpendOrBecomeEnabled () [0x00000] in Assets\\_Game\\Tests\\EditMode\\QuickMagicTests.cs:103\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.QuickMagicTests.MovementSpendsDiscountOnceAndKeepsSameDestination",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.QuickMagicTests.MovementSpendsDiscountOnceAndKeepsSameDestination () [0x00024] in Assets\\_Game\\Tests\\EditMode\\QuickMagicTests.cs:37\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.QuickMagicTests.QuickChangesExpenditureNotRecoveryAndDoesNotDiscountItsFirstCast",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.QuickMagicTests.Create (DarkSaver.Combat.CombatUnit& actor, DarkSaver.Combat.CombatUnit& enemy) [0x000a7] in Assets\\_Game\\Tests\\EditMode\\QuickMagicTests.cs:16\nat DarkSaver.Tests.QuickMagicTests.QuickChangesExpenditureNotRecoveryAndDoesNotDiscountItsFirstCast () [0x00000] in Assets\\_Game\\Tests\\EditMode\\QuickMagicTests.cs:53\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.QuickMagicTests.RefreshExpiryDeathAndDisableClearStateWithoutStacking",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.QuickMagicTests.Create (DarkSaver.Combat.CombatUnit& actor, DarkSaver.Combat.CombatUnit& enemy) [0x000a7] in Assets\\_Game\\Tests\\EditMode\\QuickMagicTests.cs:16\nat DarkSaver.Tests.QuickMagicTests.RefreshExpiryDeathAndDisableClearStateWithoutStacking () [0x00000] in Assets\\_Game\\Tests\\EditMode\\QuickMagicTests.cs:88\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.QuickMagicTests.RestAndRecoveryUseSameDiscountWithoutChangingEffects",
+    "Message": "  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.QuickMagicTests.Create (DarkSaver.Combat.CombatUnit& actor, DarkSaver.Combat.CombatUnit& enemy) [0x000a7] in Assets\\_Game\\Tests\\EditMode\\QuickMagicTests.cs:16\nat DarkSaver.Tests.QuickMagicTests.RestAndRecoveryUseSameDiscountWithoutChangingEffects () [0x00000] in Assets\\_Game\\Tests\\EditMode\\QuickMagicTests.cs:76\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp(False)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp (System.Boolean defeated) [0x00047] in Assets\\_Game\\Tests\\EditMode\\Scenario01FlowTests.cs:18 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp(True)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.Scenario01FlowTests.NonCasterRetreatAndVictorySnapshotsRoundTripWithoutGrantingMp (System.Boolean defeated) [0x00047] in Assets\\_Game\\Tests\\EditMode\\Scenario01FlowTests.cs:18 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.Scenario01FlowTests.OriginalIntroAndEndingResumeAtEveryCommandWithNativeJsonAndDiskSave",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.Scenario01FlowTests.OriginalIntroAndEndingResumeAtEveryCommandWithNativeJsonAndDiskSave () [0x0000c] in Assets\\_Game\\Tests\\EditMode\\Scenario01FlowTests.cs:41 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.Scenario01FlowTests.SourceGold399DoesNotBecomeAKeyAndFailedConsumptionIsAtomic",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.Scenario01FlowTests.SourceGold399DoesNotBecomeAKeyAndFailedConsumptionIsAtomic () [0x00000] in Assets\\_Game\\Tests\\EditMode\\Scenario01FlowTests.cs:90 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(2)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(3)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(4)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(5)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(6)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(7)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(8)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(9)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(10)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(11)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(12)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(13)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(14)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(15)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(16)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(17)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(33)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(330)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(331)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(332)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(333)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(404)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(405)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson(406)",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.NativeScriptsReachClearWithConfirmedDeathFixturesAndActualJson (System.Int32 number) [0x00048] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:19 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioCampaignTests.OlderScenarioCheckpointMayOmitNewOptionalLists",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioCampaignTests.OlderScenarioCheckpointMayOmitNewOptionalLists () [0x00015] in Assets\\_Game\\Tests\\EditMode\\ScenarioCampaignTests.cs:64 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.ScenarioPresentationFeedbackTests.ResultAggregateIsDetachedSavedAndNotAnAdditionalExperienceGrant",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.ScenarioPresentationFeedbackTests.ResultAggregateIsDetachedSavedAndNotAnAdditionalExperienceGrant () [0x00015] in Assets\\_Game\\Tests\\EditMode\\ScenarioPresentationFeedbackTests.cs:95 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.TownQuestTests.SourceQuestRewardsUsePersistentReceiptsAndDoNotMutateCandidates",
+    "Message": "System.NotSupportedException : 원작 서버 초기 상태가 필요합니다.",
+    "Stack": "  at DarkSaver.Tests.TownQuestTests.SourceQuestRewardsUsePersistentReceiptsAndDoNotMutateCandidates () [0x00035] in Assets\\_Game\\Tests\\EditMode\\TownQuestTests.cs:18 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  }
+]
