@@ -1,0 +1,296 @@
+[
+  {
+    "Test": "DarkSaver.Tests.BuildingTravelTests.AllBuildingRequestsValidateSourcesAndRetainCanonicalResponses",
+    "Result": "Failed",
+    "Message": "  scoped walking response\n  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BuildingTravelTests+<>c.<AllBuildingRequestsValidateSourcesAndRetainCanonicalResponses>b__1_0 (System.Boolean ok, System.String name) [0x00000] in Assets\\_Game\\Tests\\EditMode\\BuildingTravelTests.cs:11\nat DarkSaver.Tests.BuildingTravelChecks.Run (System.Action`2[T1,T2] check, DarkSaver.Network.BuildingTravelRoutes table) [0x004ef] in Assets\\_Game\\Tests\\EditMode\\BuildingTravelChecks.cs:38\nat DarkSaver.Tests.BuildingTravelTests.AllBuildingRequestsValidateSourcesAndRetainCanonicalResponses () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BuildingTravelTests.cs:11\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers",
+    "Result": "Failed",
+    "Message": "  연결된 건물 맵을 불러올 수 없습니다.\n  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers () [0x000da] in Assets\\_Game\\Tests\\EditMode\\BuildingTravelTests.cs:24\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalShopOpenTests.AuthoredStockReferencesCatalogAndNeverLeaksBetweenShops",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalShopOpenTests.MissingSessionOrNpcCannotOpenShopAndBindingIsIdempotent",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalShopOpenTests.OpenResponsePreservesNpcAndShopAcrossDispatch",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalShopOpenTests.StockResponseIsIndependentOfServerAndClientMutations",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalTrainingProtocolTests.ContractsAndHandlerOwnership",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LocalTrainingProtocolTests.ManagerDispatchesTypedRejectionsAndUnbindsOnlyTrainingHandlers",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeOwnedRosterTests.ObservedReturnUpdatesOnlyKnownVitalsAndExperienceAtomically",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.NpcInteractionRulesTests.CounterFrontUsesAuthoredCellRatherThanCircularDistance",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.NpcInteractionRulesTests.InvalidPositionsCannotInteract",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.NpcInteractionRulesTests.OnlyFourAdjacentCellsAllowUnobstructedNpcInteraction",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Map_101_;\",101)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Map_102_;\",102)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Map_103_;\",103)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Map_104_;\",104)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Map_105_;\",105)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Map_106_;\",106)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Map_107_;\",107)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Map_100_;\",0)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Map_108_;\",0)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Map_0101_;\",0)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"map_101_;\",0)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Training101_Runtime\",0)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(\"Kaosia_Map\",0)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.NativeMapIdentityDoesNotInferClassOrRuntimeScene(null,0)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.TrainingMapNeedsNoThemedEnemyOrLocalRespawnClock(101)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.TrainingMapNeedsNoThemedEnemyOrLocalRespawnClock(102)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.TrainingMapNeedsNoThemedEnemyOrLocalRespawnClock(103)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.TrainingMapNeedsNoThemedEnemyOrLocalRespawnClock(104)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.TrainingMapNeedsNoThemedEnemyOrLocalRespawnClock(105)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.TrainingMapNeedsNoThemedEnemyOrLocalRespawnClock(106)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTrainingTests.TrainingMapNeedsNoThemedEnemyOrLocalRespawnClock(107)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTutorialRemainingTests.AccountEntryPreservesExistingAndDamagedSaves",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTutorialRemainingTests.AllLiteralMovesUseConverted301TerrainFixture",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTutorialRemainingTests.AutomaticDefenseWaitReopensCommanderMenuWithoutResendingStageZero",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTutorialRemainingTests.ClockAndNativeWindowActionsPreserveAllOriginalWaits",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTutorialRemainingTests.F5UsesCommanderOnlyAndLiveApHpMpWhileF12HasNativeEnabledButtons",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTutorialRemainingTests.F8ReadsPointerTerrainInsteadOfActorPositionAndLeavesStateUnchanged",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTutorialRemainingTests.NativePathAndTerrainChecks",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTutorialRemainingTests.NativeStatusBodyKeepsCellAspectAndPadding",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTutorialRemainingTests.TutorialMaskKeepsInactiveIconsVisibleWithoutDimmingTheHighlightedLesson(0,2,False)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTutorialRemainingTests.TutorialMaskKeepsInactiveIconsVisibleWithoutDimmingTheHighlightedLesson(1,255,True)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalTutorialRemainingTests.TutorialMaskKeepsInactiveIconsVisibleWithoutDimmingTheHighlightedLesson(2,255,True)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.TrainingResumeTests.TrainingResumeLocationAndStorageContracts",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.TrainingVisitTests.SingleVisitorGridOffersSystemMenuWithoutInventedEnemy",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.TrainingVisitTests.VisitAuthorityContracts",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.TutorialPresentationTests.HelpTextHasInsetAndKeepsBottomPaddingAfterWrapping",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.TutorialPresentationTests.TutorialPresentationContracts",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  }
+]
