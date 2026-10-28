@@ -1,0 +1,53 @@
+{
+  "totals": {
+    "id": "2",
+    "testcasecount": "1354",
+    "result": "Failed(Child)",
+    "total": "1354",
+    "passed": "1050",
+    "failed": "26",
+    "inconclusive": "0",
+    "skipped": "278",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-10-28 21:07:49Z",
+    "end-time": "2026-10-28 21:09:02Z",
+    "duration": "72.5938703"
+  },
+  "persistent": [
+    "DarkSaver.Tests.BattleAlliedRosterTests.CommanderDeathsNeverInferUnreceivedBattleOutcome",
+    "DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits",
+    "DarkSaver.Tests.BattleAttackPresentationTests.DispatchedAttackAnticipationPrecedesIndependentHpResponse",
+    "DarkSaver.Tests.BattleFormationDeploymentTests.BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource",
+    "DarkSaver.Tests.BattleFormationPlacementTests.ConfirmationRechecksTraversalAndMapChangeInvalidatesOldCoordinates",
+    "DarkSaver.Tests.BattleMagicRequestTests.InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost",
+    "DarkSaver.Tests.BattleMapPresentationTests.EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+    "DarkSaver.Tests.BattleMapPresentationTests.ExistingHudAndTerrainZeroAreExplicitNativeInputs",
+    "DarkSaver.Tests.BattleMapPresentationTests.HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+    "DarkSaver.Tests.BattleMapPresentationTests.HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+    "DarkSaver.Tests.BattleMapPresentationTests.InformationSizeChangesKeepLiveTargetAndGameplayState",
+    "DarkSaver.Tests.BattleMapPresentationTests.KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+    "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady",
+    "DarkSaver.Tests.BattleMapPresentationTests.OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+    "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval",
+    "DarkSaver.Tests.BattleMapPresentationTests.PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible",
+    "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionShowsIndependentStatsWithoutSelectingOrSending",
+    "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend",
+    "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(0)",
+    "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(37)",
+    "DarkSaver.Tests.BuildingTravelTests.AllBuildingRequestsValidateSourcesAndRetainCanonicalResponses",
+    "DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers",
+    "DarkSaver.Tests.CombatMovementActionTests.ReservedReceiptBlocksConcurrentRequestsAndCancellationNeverInventsRefund",
+    "DarkSaver.Tests.CombatMovementRouteTests.QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+    "DarkSaver.Tests.NativeOwnedRosterTests.InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster",
+    "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip"
+  ],
+  "resolved": [],
+  "newFailures": [],
+  "newSkipped": [],
+  "addedSkippedOccurrences": {
+    "DarkSaver.Tests.ShopInteriorTests.EveryNativeInteriorBuildsItsOriginalSizeAndCollision(\"Interior2900\")": 1
+  },
+  "removedSkippedOccurrences": {}
+}
