@@ -1,0 +1,47 @@
+{
+  "scope": "Direct managed reflection on compiled production/test assemblies; NOT Unity TestRunner",
+  "total": 10,
+  "failed": 0,
+  "results": [
+    {
+      "test": "NativeLifecycleStateTests.DeathBeforeHpResponseSurvivesReturnAndSaveValidationWithoutRevival(Corpse)",
+      "result": "Passed"
+    },
+    {
+      "test": "NativeLifecycleStateTests.DeathBeforeHpResponseSurvivesReturnAndSaveValidationWithoutRevival(Removed)",
+      "result": "Passed"
+    },
+    {
+      "test": "BattleFormationReturnTests.ReorderedResultsMapByDeploymentIdentityAndRetainRawValues()",
+      "result": "Passed"
+    },
+    {
+      "test": "BattleFormationReturnTests.ReturnPreservesReceivedPerRecordMaximumWithoutFactionCap(10,9)",
+      "result": "Passed"
+    },
+    {
+      "test": "BattleFormationReturnTests.ReturnPreservesReceivedPerRecordMaximumWithoutFactionCap(30,29)",
+      "result": "Passed"
+    },
+    {
+      "test": "BattleFormationReturnTests.ReturnPreservesReceivedPerRecordMaximumWithoutFactionCap(0,23)",
+      "result": "Passed"
+    },
+    {
+      "test": "BattleFormationReturnTests.MissingDuplicateForeignAndEnemyResultsNeverProducePartialReturn()",
+      "result": "Passed"
+    },
+    {
+      "test": "BattleFormationReturnTests.ZeroHpActiveCorpseAndRemovedAreRecordedWithoutRevivalOrInference()",
+      "result": "Passed"
+    },
+    {
+      "test": "BattleFormationReturnTests.InvalidVitalsLifeStateAndChangedJobAreRejectedWithoutClamping()",
+      "result": "Passed"
+    },
+    {
+      "test": "BattleFormationReturnTests.ReturnOwnsReadOnlyValuesAfterObservationAndSourceMutation()",
+      "result": "Passed"
+    }
+  ]
+}

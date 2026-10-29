@@ -544,6 +544,7 @@ namespace DarkSaver.Events
             }
             music.loop=mode==1;
             if (playingMusic == key) return;
+            music.mute=!DarkSaver.UI.NativeWorldPreferences.MusicEnabled;
             music.Stop(); music.clip = clip; music.loop = mode == 1; music.Play(); playingMusic = key;
         }
         private void PresentAction(Scenario01Command command)

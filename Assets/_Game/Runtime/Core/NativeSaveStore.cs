@@ -22,6 +22,7 @@ namespace DarkSaver.Core
         // Optional additive v1 field. Legacy snapshots have no created character.
         public NativeCharacterProfile character;
         public bool hasCharacter;
+        public DarkSaver.Network.WorldCharacterData[] worldCharacters; // Optional server-owned F2/F3 state; no legacy grants.
         // JsonUtility materializes null inline classes. Preserve optional tutorial presence explicitly.
         public int tutorialPresenceVersion;
         public bool hasTutorial;
@@ -69,6 +70,7 @@ namespace DarkSaver.Core
                 float.IsNaN(data.worldX) || float.IsInfinity(data.worldX) ||
                 float.IsNaN(data.worldY) || float.IsInfinity(data.worldY) ||
                 data.clearedScenarios == null || data.clearedScenarios.Length > 10000) return false;
+            if(!DarkSaver.Network.WorldCharacterData.Validate(data.worldCharacters) || !data.hasCharacter && (data.worldCharacters?.Length??0)>0)return false;
             if(data.scenarioGeneralReceipts!=null && (data.scenarioGeneralReceipts.Length>70
                 || Array.Exists(data.scenarioGeneralReceipts,id=>id<100 || id>169)
                 || new System.Collections.Generic.HashSet<int>(data.scenarioGeneralReceipts).Count!=data.scenarioGeneralReceipts.Length
@@ -76,9 +78,9 @@ namespace DarkSaver.Core
             // Unity JSON may materialize a null inline class as an empty object.
             if (data.hasOwnedRoster ? data.version == Version || data.ownedRoster == null || !data.ownedRoster.IsValid
                 : data.version == RosterVersion || (data.ownedRoster?.units?.Length ?? 0) != 0) return false;
+            // Native death/removal may precede a separate HP update; preserve both fields.
             if (data.hasVitals && (data.maxHp <= 0 || data.hp < 0 || data.hp > data.maxHp ||
-                data.maxMp < 0 || data.mp < 0 || data.mp > data.maxMp || data.lifeState < 0 || data.lifeState > 2 ||
-                (data.lifeState != 0 && data.hp > 0))) return false;
+                data.maxMp < 0 || data.mp < 0 || data.mp > data.maxMp || data.lifeState < 0 || data.lifeState > 2)) return false;
             if (data.hasCharacter && (data.character == null || !data.character.IsValid)) return false;
             if (data.hasInventory ? !data.hasCharacter || data.inventory == null || !data.inventory.IsValid
                 : data.inventory != null && (data.inventory.gold != 0 || (data.inventory.items?.Length ?? 0) != 0)) return false;

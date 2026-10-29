@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using DarkSaver.Network;
 using NUnit.Framework;
 using UnityEngine;
@@ -12,9 +14,15 @@ namespace DarkSaver.Tests
         [Test]public void ServerManagerOwnsEntryCompletionAndScopedMovementHandlers()
         {
             var go=new GameObject("local building server fixture");
+            var originalScenes=EditorBuildSettings.scenes;
             try
             {
                 var manager=go.AddComponent<ServerManager>();var route=Routes().routes[0];
+                string[] required={"Assets/_Game/Scenes/Maps/"+route.map+".unity",
+                    "Assets/_Game/Scenes/Runtime/"+route.runtime+".unity"};
+                foreach(var path in required)Assert.IsNotNull(AssetDatabase.LoadAssetAtPath<SceneAsset>(path),path);
+                EditorBuildSettings.scenes=originalScenes.Where(s=>!required.Contains(s.path))
+                    .Concat(required.Select(path=>new EditorBuildSettingsScene(path,true))).ToArray();
                 var context=new BuildingTravelContext(route.fromKey,route.doorX,route.doorY,true,false);
                 var responses=new List<ServerPacket>();manager.ResponseReceived+=responses.Add;
                 manager.BindLocalBuildingTravelService(()=>context,(x,y)=>true);
@@ -31,7 +39,7 @@ namespace DarkSaver.Tests
                 Assert.IsFalse(manager.TryRequest(new MapEnterCompleteRequest(transfer.TransferId,true),out _));
                 Assert.GreaterOrEqual(responses.Count,4);
             }
-            finally{Object.DestroyImmediate(go);}
+            finally{EditorBuildSettings.scenes=originalScenes;Object.DestroyImmediate(go);}
         }
     }
 }

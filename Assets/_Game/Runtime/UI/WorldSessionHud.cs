@@ -35,13 +35,14 @@ namespace DarkSaver.UI
 
         public bool BlocksWorldPointer(Vector2 screenPoint) => isActiveAndEnabled && IsVisible &&
             ((GetComponent<TownServicesPanel>()?.IsOpen ?? false) || (GetComponent<BattleFormationPanel>()?.IsOpen ?? false) ||
-             !Rendering.GameScreen.TryScreenToGui(screenPoint, out var point) || pointerBounds.Contains(point));
+             (GetComponent<NativeWorldWindows>()?.BlocksPointer(screenPoint) ?? false) || !Rendering.GameScreen.TryScreenToGui(screenPoint, out var point) || pointerBounds.Contains(point));
 
         private void Awake()
         {
             // Existing scenes gain the preparation panel without rewriting scene YAML.
             if (GetComponent<BattleFormationPanel>() == null) gameObject.AddComponent<BattleFormationPanel>();
             if (GetComponent<TownServicesPanel>() == null) gameObject.AddComponent<TownServicesPanel>();
+            if (GetComponent<NativeWorldWindows>() == null) gameObject.AddComponent<NativeWorldWindows>();
             if (GetComponent<ScenarioRoomPanel>() == null) gameObject.AddComponent<ScenarioRoomPanel>();
         }
 
@@ -64,7 +65,7 @@ namespace DarkSaver.UI
                 if (session.HasCreatedCharacter) text = $"{session.PlayerName} / 직업 {session.PlayerJobId}\n" + text;
                 if (session.OwnedUnitCount > 0) text += $"\n추가 보유 유닛 {session.OwnedUnitCount}명";
                 if (!string.IsNullOrEmpty(session.LastTransitionMessage)) text += "\n" + session.LastTransitionMessage;
-                if (session.HasPlayerVitals)
+                if (DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules && session.HasPlayerVitals)
                 {
                     text += $"\nHP {session.PlayerHp}/{session.PlayerMaxHp}  MP {session.PlayerMp}/{session.PlayerMaxMp}";
                     if (!session.CanEnterBattle) text += "\n전투 불능: 신전 관리인에게 부활을 요청하세요.";
@@ -83,6 +84,15 @@ namespace DarkSaver.UI
             return controller!=null && !controller.UiInputBlocked && (GetComponent<TownServicesPanel>()?.Open(service,controller) ?? false);
         }
 
+        internal bool OpenPersonalWindowFromShortcut(TownService service)
+        {
+            if(!IsVisible)return false;
+            var controller=FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>();
+            var panel=GetComponent<TownServicesPanel>();
+            return controller!=null && panel!=null && (!controller.UiInputBlocked || panel.IsOpen)
+                && panel.Open(service,controller);
+        }
+
         private void LateUpdate()
         {
             if (!IsVisible) { ui?.Hide(); return; }
@@ -91,13 +101,6 @@ namespace DarkSaver.UI
             if (!TownSceneContext.IsReady) trainingEntryMessage = null;
             if (session == null) session = GetComponent<BattleTransitionController>();
             pointerBounds=default;
-            var controller=FindAnyObjectByType<DarkSaver.Player.TopDownPlayerController>();
-            if(controller!=null && !controller.UiInputBlocked)
-            {
-                if(Input.GetKeyDown(KeyCode.I))OpenPersonalWindow(TownService.Inventory);
-                else if(Input.GetKeyDown(KeyCode.C))OpenPersonalWindow(TownService.CharacterInfo);
-                if(DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules && Input.GetKeyDown(KeyCode.F5) && FindAnyObjectByType<WorldSceneCoordinator>()?.IsTravelling!=true)session.SaveWorld();
-            }
             // Character combat status belongs to BattleSceneRoot only. World scenes keep
             // personal-window shortcuts and notices without drawing a combat panel.
             var message=!string.IsNullOrEmpty(trainingEntryMessage)?trainingEntryMessage

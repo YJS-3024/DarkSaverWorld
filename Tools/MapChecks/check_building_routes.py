@@ -1,3 +1,4 @@
+from saved_scene_geometry import read_scene_map
 """Read-only local building route/scene/terrain audit, not original routing proof or Unity Play."""
 from pathlib import Path
 import json
@@ -13,7 +14,7 @@ def check(ok,name):
 native={'KaosiaWeaponShop':'2000','KaosiaArmorShop':'2100','KaosiaAccessoryShop':'2200','KaosiaMagicTools':'2300','KaosiaBank':'2400','KaosiaWarehouse':'2510','KaosiaTemple':'2600','Interior2800':'2800','Interior2900':'2900'}
 def load(key):
  rel='Towns/Kaosia' if key=='Kaosia' else 'Interiors/'+native[key]
- return json.loads((ROOT/'Assets/_Game/Resources'/rel/'Map.json').read_text())
+ return read_scene_map(ROOT/'Assets/_Game/Resources'/rel)
 def cell(d,x,y):return int(x),d['height']-1-int(y)
 def walkable(d,p):
  x,y=p;return 0<=x<d['width'] and 0<=y<d['height'] and d['attributes'][y*d['width']+x]!=9

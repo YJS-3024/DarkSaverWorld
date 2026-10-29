@@ -1,3 +1,4 @@
+from saved_scene_geometry import read_scene_map
 """Audit generated service NPC placements and removal of shortcut menus, without Unity."""
 import json,math
 from pathlib import Path
@@ -12,7 +13,7 @@ def check(ok,name):
 content=json.loads((ROOT/'Assets/_Game/Resources/Town/ServiceNpcs.json').read_text());entries=content['entries'];check(content['version']==1 and len(entries)==26,'26 service actors')
 world=json.loads((ROOT/'Assets/_Game/Resources/World/Routes.json').read_text())['routes'];facilities=json.loads((ROOT/'Tools/LateVersionChecks/world_migration_check.json').read_text())['facilities'];quests=json.loads((ROOT/'Assets/_Game/Resources/Town/Quests.json').read_text())['rows']
 for key in ['Kaosia','Belpueus','Sisirio','Castlelim']:
- data=json.loads((ROOT/f'Assets/_Game/Resources/Towns/{key}/Map.json').read_text());w,h=data['width'],data['height'];staff=[n for n in entries if n['townKey']==key]
+ data=read_scene_map(ROOT/f'Assets/_Game/Resources/Towns/{key}');w,h=data['width'],data['height'];staff=[n for n in entries if n['townKey']==key]
  check(len(staff)==(8 if key=='Kaosia' else 6),('staff count',key));check(len({r['action'] for r in staff})==(7 if key=='Kaosia' else 6),('roles',key))
  source=(int(staff[0]['x']),h-1-int(staff[0]['y']));seen={source};queue=deque([source])
  while queue:

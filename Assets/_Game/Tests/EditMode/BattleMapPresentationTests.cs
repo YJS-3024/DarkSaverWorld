@@ -89,7 +89,7 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible()
+        public void PrototypeHudCannotBeReenabledOrBlockNativeMapInput()
         {
             WithMap(f => {
                 Assert.That(f.Bind(), Is.True);
@@ -101,9 +101,9 @@ namespace DarkSaver.Tests
                 Assert.That(f.View.TryBlockMapPointer(point), Is.False);
                 int ap = f.Battle.PlayerAp;
                 f.Battle.SetPrototypeHudVisible(true);
-                Assert.That(f.Battle.IsPrototypeHudVisible, Is.True);
-                Assert.That(f.View.TryBlockMapPointer(point), Is.True);
-                Assert.That(f.View.InputPanelRect.width, Is.GreaterThan(0));
+                Assert.That(f.Battle.IsPrototypeHudVisible, Is.False);
+                Assert.That(f.View.TryBlockMapPointer(point), Is.False);
+                Assert.That(f.View.InputPanelRect, Is.EqualTo(default(Rect)));
                 f.Battle.SetPrototypeHudVisible(false);
                 Assert.That(f.View.TryBlockMapPointer(point), Is.False);
                 Assert.That(f.Battle.PlayerAp, Is.EqualTo(ap));
@@ -663,7 +663,8 @@ namespace DarkSaver.Tests
                 Assert.That(f.View.TryHandleWorldClick(f.Enemy.transform.position), Is.True);
                 f.Battle.SetPrototypeHudVisible(true);
                 var panel = f.Battle.BattleHudRect;
-                Assert.That(f.Battle.IsPointerOverBattleHud(Rendering.GameScreen.GuiToScreen(panel.center)), Is.True);
+                Assert.That(panel,Is.EqualTo(default(Rect)));
+                Assert.That(f.Battle.IsPrototypeHudVisible,Is.False);
                 Assert.That(f.View.TryWorldToCell(new Vector3(-1, -1), out _), Is.False);
             });
         }
@@ -851,7 +852,7 @@ namespace DarkSaver.Tests
         {
             WithMap(f=>{Assert.IsTrue(f.Bind());Assert.IsTrue(f.Battle.TrySelectUnit(100));NativeCombatStateFixture.ReceiveFullTicks(f.Battle);
                 var position=f.Ally.transform.position;int ap=f.Battle.PlayerAp;
-                Assert.IsFalse(f.Battle.TryMoveTo(100,new CombatGridCell(0,0),out _));Assert.IsFalse(f.Battle.AdvanceMovement(1));
+                Assert.IsFalse(f.Battle.TryMoveTo(100,new CombatGridCell(0,0),out _));Assert.IsTrue(f.Battle.AdvanceMovement(1));
                 Assert.AreEqual(position,f.Ally.transform.position);Assert.AreEqual(ap,f.Battle.PlayerAp);
                 f.View.SuspendPresentation();Assert.AreEqual(position,f.Ally.transform.position);Assert.IsFalse(f.Battle.IsMovementInProgress(100));});
         }
@@ -868,7 +869,7 @@ namespace DarkSaver.Tests
                 CollectionAssert.AreEqual(new[]{new CombatGridCell(0,2)},path);
                 var before=f.Ally.transform.position;
                 Assert.IsFalse(f.View.TryHandleWorldClick(new Vector3(.5f,1.5f)));
-                Assert.IsFalse(f.Battle.AdvanceMovement(10));f.View.RefreshVisualState();
+                Assert.IsTrue(f.Battle.AdvanceMovement(10));f.View.RefreshVisualState();
                 Assert.AreEqual(before,f.Ally.transform.position);Assert.AreEqual(20,f.Battle.PlayerAp);
             });
         }
@@ -878,7 +879,7 @@ namespace DarkSaver.Tests
         {
             WithMap(f=>{Assert.IsTrue(f.Bind());Assert.IsTrue(f.Battle.TrySelectUnit(100));NativeCombatStateFixture.ReceiveFullTicks(f.Battle);
                 var position=f.Ally.transform.position;int ap=f.Battle.PlayerAp;
-                Assert.IsFalse(f.Battle.TryMoveTo(100,new CombatGridCell(0,0),out _));Assert.IsFalse(f.Battle.AdvanceMovement(1));
+                Assert.IsFalse(f.Battle.TryMoveTo(100,new CombatGridCell(0,0),out _));Assert.IsTrue(f.Battle.AdvanceMovement(1));
                 Assert.AreEqual(position,f.Ally.transform.position);Assert.AreEqual(ap,f.Battle.PlayerAp);
                 f.View.SuspendPresentation();Assert.AreEqual(position,f.Ally.transform.position);Assert.IsFalse(f.Battle.IsMovementInProgress(100));});
         }
@@ -888,7 +889,7 @@ namespace DarkSaver.Tests
         {
             WithMap(f=>{Assert.IsTrue(f.Bind());Assert.IsTrue(f.Battle.TrySelectUnit(100));NativeCombatStateFixture.ReceiveFullTicks(f.Battle);
                 var position=f.Ally.transform.position;int ap=f.Battle.PlayerAp;
-                Assert.IsFalse(f.Battle.TryMoveTo(100,new CombatGridCell(0,0),out _));Assert.IsFalse(f.Battle.AdvanceMovement(1));
+                Assert.IsFalse(f.Battle.TryMoveTo(100,new CombatGridCell(0,0),out _));Assert.IsTrue(f.Battle.AdvanceMovement(1));
                 Assert.AreEqual(position,f.Ally.transform.position);Assert.AreEqual(ap,f.Battle.PlayerAp);
                 f.View.SuspendPresentation();Assert.AreEqual(position,f.Ally.transform.position);Assert.IsFalse(f.Battle.IsMovementInProgress(100));});
         }
@@ -898,7 +899,7 @@ namespace DarkSaver.Tests
         {
             WithMap(f=>{Assert.IsTrue(f.Bind());Assert.IsTrue(f.Battle.TrySelectUnit(100));NativeCombatStateFixture.ReceiveFullTicks(f.Battle);
                 var position=f.Ally.transform.position;int ap=f.Battle.PlayerAp;
-                Assert.IsFalse(f.Battle.TryMoveTo(100,new CombatGridCell(0,0),out _));Assert.IsFalse(f.Battle.AdvanceMovement(1));
+                Assert.IsFalse(f.Battle.TryMoveTo(100,new CombatGridCell(0,0),out _));Assert.IsTrue(f.Battle.AdvanceMovement(1));
                 Assert.AreEqual(position,f.Ally.transform.position);Assert.AreEqual(ap,f.Battle.PlayerAp);
                 f.View.SuspendPresentation();Assert.AreEqual(position,f.Ally.transform.position);Assert.IsFalse(f.Battle.IsMovementInProgress(100));});
         }
@@ -957,7 +958,9 @@ namespace DarkSaver.Tests
                 Assert.IsFalse(f.Battle.TrySetUnitInformationCompact(true));
                 Assert.IsTrue(f.Battle.TryGetInspectedUnit(out var before));Assert.AreEqual(800,before.Id);
                 Assert.IsTrue(f.Battle.IsPointerOverBattleHud(Rendering.GameScreen.GuiToScreen(f.Battle.UnitInfoRect.center)));
-                Assert.IsTrue(NativeCombatStateFixture.ReceiveFullTicks(f.Battle));Assert.IsTrue(f.Battle.TryGetInspectedUnit(out var after));
+                Assert.IsTrue(f.Battle.ApplyTickMenu(800,(short)(before.Ap+1),0));
+                Assert.IsTrue(f.Battle.ApplyTickMenu(100,(short)(ap+1),0));
+                Assert.IsTrue(f.Battle.TryGetInspectedUnit(out var after));
                 Assert.AreEqual(before.Ap+1,after.Ap);Assert.AreEqual(100,f.Battle.SelectedUnitId);
                 Assert.IsTrue(f.Battle.TrySetUnitInformationCompact(false));Assert.AreEqual(original,f.Battle.UnitInfoRect);
                 Assert.AreEqual(hp,f.Battle.PlayerHp);Assert.AreEqual(ap+1,f.Battle.PlayerAp);Assert.AreEqual(0,calls);
@@ -983,7 +986,7 @@ namespace DarkSaver.Tests
                 Assert.That(f.Battle.TryInspectUnit(999), Is.False);
                 Assert.That(f.Battle.TryGetInspectedUnit(out var unchanged), Is.True); Assert.That(unchanged.Id, Is.EqualTo(800));
                 Assert.That(calls, Is.Zero); Assert.That(f.Battle.PlayerAp, Is.EqualTo(6));
-                Assert.That(NativeCombatStateFixture.ReceiveFullTicks(f.Battle), Is.True);
+                Assert.That(f.Battle.ApplyTickMenu(800,7,0), Is.True);
                 Assert.That(f.Battle.TryGetInspectedUnit(out var after), Is.True);
                 Assert.That(after.Ap, Is.EqualTo(7)); Assert.That(before.Ap, Is.EqualTo(6));
                 var point = f.Battle.UnitInfoRect.center;
@@ -1005,7 +1008,8 @@ namespace DarkSaver.Tests
                 Assert.That(calls, Is.Zero); Assert.That(f.Battle.SelectedUnitId, Is.EqualTo(100));
                 Assert.That(f.Battle.ApplyDeath(800, false), Is.True);
                 Assert.That(f.Battle.TryGetInspectedUnit(out _), Is.False); Assert.That(f.Battle.TryInspectUnit(800), Is.False);
-                Assert.That(f.Battle.TrySelectUnit(100), Is.False); // Victory blocks new selection/actions.
+                Assert.That(f.Battle.IsBattleFinished, Is.False); // Removal is not a received battle-end notification.
+                Assert.That(f.Battle.TrySelectUnit(100), Is.True);
                 f.View.SuspendPresentation(); Assert.That(f.Battle.TryGetInspectedUnit(out _), Is.False);
                 Assert.That(f.View.ResumePresentation(), Is.True); Assert.That(f.Battle.TryGetInspectedUnit(out _), Is.False);
             });
@@ -1134,8 +1138,8 @@ namespace DarkSaver.Tests
                     Assert.That(calls, Is.Zero); Assert.That(f.Battle.PlayerAp, Is.EqualTo(6)); Assert.That(f.Battle.PlayerMp, Is.EqualTo(30));
                     Assert.That(f.View.MagicDirectionRect, Is.EqualTo(default(Rect)));
                     f.Battle.SetPrototypeHudVisible(true);
-                    var center = f.View.MagicDirectionRect.center;
-                    Assert.That(f.Battle.IsPointerOverBattleHud(Rendering.GameScreen.GuiToScreen(center)), Is.True);
+                    Assert.That(f.Battle.IsPrototypeHudVisible,Is.False);
+                    Assert.That(f.View.MagicDirectionRect,Is.EqualTo(default(Rect)));
                     f.View.CancelMagicTargeting(); Assert.That(f.View.SelectedMagicDirectionCommand, Is.Null);
                     Assert.That(f.View.RequiresMagicDirection, Is.False); Assert.That(f.View.TryConfirmMagicDirection(), Is.False);
                 } finally { UnityEngine.Object.DestroyImmediate(catalog); }
@@ -1563,6 +1567,8 @@ namespace DarkSaver.Tests
                 var enemy = Create("Enemy").AddComponent<SpriteRenderer>(); enemy.sprite = sprite; enemy.transform.position = new Vector3(2.5f, 2.5f);
                 var root = Create("Battle"); root.AddComponent<BattleRequestSender>();
                 var receiver = root.AddComponent<BattlePacketReceiver>(); NativeCombatStateFixture.Initialize(root.GetComponent<BattleSceneRoot>(),6); Assert.That(receiver.Bind(), Is.True);
+                var receivedEnemy=NativeCombatStateFixture.Unit(root.GetComponent<BattleSceneRoot>(),800);
+                receivedEnemy.Attack=18;receivedEnemy.Defense=5;
                 var view = root.AddComponent<BattleMapPresentation>();
                 check(new Fixture { View = view, Battle = root.GetComponent<BattleSceneRoot>(), Server = root.GetComponent<ServerManager>(),
                     Receiver = receiver, Ground = ground, Terrain = terrain, Camera = camera, Ally = ally, Enemy = enemy, ActorTerrain = actorTerrain });

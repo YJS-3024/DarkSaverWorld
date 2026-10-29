@@ -35,7 +35,7 @@ namespace DarkSaver.World
                     if(!ShopInteriorCatalog.TryGet(facility.Region.Key,out _) && SceneManager.GetSceneByName(facility.Region.RuntimeScene).isLoaded)
                     {if(result!=null)return null;result=facility.Region;}
                 foreach(var row in NativeInteriorCatalog.All)
-                    if(!ShopInteriorCatalog.TryGet(row.Key,out _) && SceneManager.GetSceneByName(row.RuntimeScene).isLoaded)
+                    if(!ShopInteriorCatalog.TryGet(row.Key,out _) && !KaosiaFacilityCatalog.TryGet(row.Key,out _) && SceneManager.GetSceneByName(row.RuntimeScene).isLoaded)
                     {if(result!=null)return null;result=row;}
                 return result;
             }

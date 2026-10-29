@@ -35,7 +35,7 @@ namespace DarkSaver.Tests
                 check(ready.Accepted && ready.Stage==MapEnterStage.Ready && ready.TransferId==retry.TransferId && ready.Map==r.map && ready.X==r.x && ready.Y==r.y,"ready preserves server map and coordinates");
                 check(!service.Complete(new MapEnterCompleteRequest(retry.TransferId,true)).Accepted && !service.HasPending,"completion replay rejected");
                 var moved=service.Move(new WorldMoveRequest(context.X+.05f,context.Y),context,.2f,(x,y)=>true);
-                check(moved.Accepted && moved.X==context.X+.05f,"scoped walking response");
+                check(moved.Accepted && Math.Abs(moved.X-(context.X+.05f))<.00001f && moved.Y==context.Y,"scoped walking response");
                 check(!service.Move(new WorldMoveRequest(context.X+2,context.Y),context,.2f,(x,y)=>true).Accepted,"walking cannot teleport");
                 check(!service.Move(new WorldMoveRequest(context.X+.05f,context.Y),context,.2f,(x,y)=>false).Accepted,"blocked terrain rejects walking");
                 check(!service.Move(new WorldMoveRequest(float.PositiveInfinity,context.Y),context,.2f,(x,y)=>true).Accepted,"nonfinite move rejected");

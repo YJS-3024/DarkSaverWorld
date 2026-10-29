@@ -208,6 +208,8 @@ namespace DarkSaver.Combat
             get
             {
                 EnsureInitialized();
+                // Native death/removal notifications do not carry a battle outcome.
+                if (!TemporaryLocalRulesEnabled) return false;
                 var hasCommander = false;
                 foreach (var unit in world.Units)
                 {
@@ -447,7 +449,8 @@ namespace DarkSaver.Combat
         public bool TryReserveMovementStep(short unitId, CombatGridCell destination, out CombatMovementStep ticket)
         {
             ticket = default;
-            if (!isActiveAndEnabled || occupancy == null || !occupancy.TryGetPosition(unitId, out var origin)
+            if (!isActiveAndEnabled || occupancy == null || movementTickets.ContainsKey(unitId)
+                || !occupancy.TryGetPosition(unitId, out var origin)
                 || !occupancy.TryReserveStep(unitId, destination)) return false;
             ticket = new CombatMovementStep(unitId, origin, destination, System.Guid.NewGuid());
             movementTickets[unitId] = ticket; return true;

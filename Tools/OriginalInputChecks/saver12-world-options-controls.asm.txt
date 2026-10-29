@@ -1,0 +1,66 @@
+
+분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00414720 <.text+0x13720>:
+  414720:	8b 44 24 04          	mov    eax,DWORD PTR [esp+0x4]
+  414724:	56                   	push   esi
+  414725:	85 c0                	test   eax,eax
+  414727:	8b f1                	mov    esi,ecx
+  414729:	74 0e                	je     0x414739
+  41472b:	83 f8 07             	cmp    eax,0x7
+  41472e:	75 1c                	jne    0x41474c
+  414730:	e8 9b 02 00 00       	call   0x4149d0
+  414735:	5e                   	pop    esi
+  414736:	c2 04 00             	ret    0x4
+  414739:	8b 06                	mov    eax,DWORD PTR [esi]
+  41473b:	8b ce                	mov    ecx,esi
+  41473d:	ff 50 04             	call   DWORD PTR [eax+0x4]
+  414740:	8b 8e a0 00 00 00    	mov    ecx,DWORD PTR [esi+0xa0]
+  414746:	50                   	push   eax
+  414747:	e8 f4 27 01 00       	call   0x426f40
+  41474c:	5e                   	pop    esi
+  41474d:	c2 04 00             	ret    0x4
+  414750:	8b 41 54             	mov    eax,DWORD PTR [ecx+0x54]
+  414753:	8b 54 24 04          	mov    edx,DWORD PTR [esp+0x4]
+  414757:	8b 04 90             	mov    eax,DWORD PTR [eax+edx*4]
+  41475a:	8b 40 0c             	mov    eax,DWORD PTR [eax+0xc]
+  41475d:	48                   	dec    eax
+  41475e:	4a                   	dec    edx
+  41475f:	83 fa 05             	cmp    edx,0x5
+  414762:	77 4f                	ja     0x4147b3
+  414764:	ff 24 95 b8 47 41 00 	jmp    DWORD PTR [edx*4+0x4147b8]
+  41476b:	8b 0d 8c 12 45 00    	mov    ecx,DWORD PTR ds:0x45128c
+  414771:	85 c9                	test   ecx,ecx
+  414773:	74 3e                	je     0x4147b3
+  414775:	50                   	push   eax
+  414776:	e8 35 dc fe ff       	call   0x4023b0
+  41477b:	c2 04 00             	ret    0x4
+  41477e:	8b 0d 8c 12 45 00    	mov    ecx,DWORD PTR ds:0x45128c
+  414784:	85 c9                	test   ecx,ecx
+  414786:	74 2b                	je     0x4147b3
+  414788:	50                   	push   eax
+  414789:	e8 72 dc fe ff       	call   0x402400
+  41478e:	c2 04 00             	ret    0x4
+  414791:	a3 70 06 45 00       	mov    ds:0x450670,eax
+  414796:	c2 04 00             	ret    0x4
+  414799:	a3 74 06 45 00       	mov    ds:0x450674,eax
+  41479e:	e8 cd 01 00 00       	call   0x414970
+  4147a3:	c2 04 00             	ret    0x4
+  4147a6:	a3 78 06 45 00       	mov    ds:0x450678,eax
+  4147ab:	c2 04 00             	ret    0x4
+  4147ae:	a3 7c 06 45 00       	mov    ds:0x45067c,eax
+  4147b3:	c2 04 00             	ret    0x4
+  4147b6:	8b ff                	mov    edi,edi
+  4147b8:	6b 47 41 00          	imul   eax,DWORD PTR [edi+0x41],0x0
+  4147bc:	7e 47                	jle    0x414805
+  4147be:	41                   	inc    ecx
+  4147bf:	00 91 47 41 00 99    	add    BYTE PTR [ecx-0x66ffbeb9],dl
+  4147c5:	47                   	inc    edi
+  4147c6:	41                   	inc    ecx
+  4147c7:	00 a6 47 41 00 ae    	add    BYTE PTR [esi-0x51ffbeb9],ah
+  4147cd:	47                   	inc    edi
+  4147ce:	41                   	inc    ecx
+	...

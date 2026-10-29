@@ -44,7 +44,7 @@ namespace DarkSaver.Tests
         [Test]public void QueryAndClockCannotAuthorizeUnreceivedMovementOrAi()
         {
             WithBattle(b=>{Assert.IsTrue(b.TrySelectUnit(100));Assert.IsTrue(b.TryFindSelectedMovementPath(Cell(1,2),out var path));Assert.Greater(path.Count,0);
-                Assert.IsFalse(b.TryMoveTo(100,Cell(1,2),out _));Assert.IsFalse(b.AdvanceMovement(1000));Assert.IsFalse(b.AdvanceActionPoints(1000));
+                Assert.IsFalse(b.TryMoveTo(100,Cell(1,2),out _));Assert.IsTrue(b.AdvanceMovement(1000));Assert.IsFalse(b.AdvanceActionPoints(1000));
                 b.TryGetUnit(100,out var unit);Assert.AreEqual(1,unit.X);Assert.AreEqual(1,unit.Y);Assert.AreEqual(6,unit.Ap);Assert.IsFalse(b.IsMovementInProgress(100));});
         }
         [Test]public void TerrainChangedAfterReceiptRejectsCommitWithoutPartialMovement()

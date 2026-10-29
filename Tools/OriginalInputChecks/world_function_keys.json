@@ -1,0 +1,110 @@
+{
+  "scope": "Original Saver1.2 world/shared-screen handler; static binary and Wlib artwork analysis, no original executable playback",
+  "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe",
+  "sha256": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0",
+  "handler": "0x42EEB0",
+  "sharedVtables": [
+    "0x448534",
+    "0x44878C"
+  ],
+  "keys": [
+    {
+      "key": "F1",
+      "target": "0x42efbc",
+      "windowId": 33,
+      "wlibScene": 19,
+      "meaning": "도움말"
+    },
+    {
+      "key": "F2",
+      "target": "0x42f048",
+      "windowId": [
+        18,
+        67
+      ],
+      "wlibScene": [
+        2,
+        42
+      ],
+      "meaning": "보유 캐릭터·장비·금액 요약창"
+    },
+    {
+      "key": "F3",
+      "target": "0x42f0f5",
+      "windowId": 21,
+      "wlibScene": 6,
+      "meaning": "자기 정보"
+    },
+    {
+      "key": "F4",
+      "target": "0x42f1ef",
+      "windowId": 20,
+      "wlibScene": 4,
+      "meaning": "장비 장착·소지품"
+    },
+    {
+      "key": "F5",
+      "target": "0x42f2e9",
+      "windowId": 19,
+      "wlibScene": 3,
+      "meaning": "대화창"
+    },
+    {
+      "key": "F6",
+      "target": "0x42f47c",
+      "windowId": null,
+      "wlibScene": null,
+      "meaning": "이 처리기의 기본 분기"
+    },
+    {
+      "key": "F7",
+      "target": "0x42f47c",
+      "windowId": null,
+      "wlibScene": null,
+      "meaning": "이 처리기의 기본 분기"
+    },
+    {
+      "key": "F8",
+      "target": "0x42f392",
+      "windowId": 27,
+      "wlibScene": 15,
+      "meaning": "환경설정"
+    },
+    {
+      "key": "F9",
+      "target": "0x42f41e",
+      "windowId": 43,
+      "wlibScene": 27,
+      "meaning": "게임 종료 확인"
+    },
+    {
+      "key": "F10",
+      "target": "0x42f47c",
+      "windowId": null,
+      "wlibScene": null,
+      "meaning": "이 처리기의 기본 분기"
+    },
+    {
+      "key": "F11",
+      "target": "0x42f47c",
+      "windowId": null,
+      "wlibScene": null,
+      "meaning": "이 처리기의 기본 분기"
+    },
+    {
+      "key": "F12",
+      "target": "0x42f444",
+      "windowId": null,
+      "wlibScene": null,
+      "meaning": "/공간이동 명령 전달"
+    }
+  ],
+  "notes": [
+    "Window identifiers are not Wlib scene numbers. Factory and virtual GetId were traced separately.",
+    "F2 chooses ID67 only when session+4 !=0 and session+0x24 ==3; otherwise ID18. Semantic meaning of that session condition is not assigned.",
+    "F6/F7/F10/F11 go to default in this handler; this does not prove absence of every global or focused-control shortcut.",
+    "F12 invokes virtual +0xA0 with /공간이동 and flag1; destination/server permission and success not established.",
+    "Modal/focused controls may consume keys before this shared world handler.",
+    "Late Saver executable hash dd512172... is cataloged but its extracted binary is not present here; these fixed addresses must not be reused for it."
+  ]
+}

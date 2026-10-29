@@ -164,7 +164,7 @@ namespace DarkSaver.Tests
                     case 2: bad.worldX = float.NaN; break;
                     case 3: bad.worldY = float.PositiveInfinity; break;
                     case 4: bad.hp = 121; break;
-                    case 5: bad.lifeState = (int)UnitLifeState.Corpse; break;
+                    case 5: bad.lifeState = -1; break;
                     case 6: bad.clearedScenarios = new[] { "01", "01" }; break;
                     case 7: bad.clearedScenarios = new[] { " " }; break;
                 }

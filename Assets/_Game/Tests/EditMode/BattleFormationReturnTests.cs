@@ -107,7 +107,7 @@ namespace DarkSaver.Tests
                     case 5: leader.Unit.Attack = -1; break;
                     case 6: leader.Unit.Defense = -1; break;
                     case 7: leader.Unit.LifeState = (UnitLifeState)99; break;
-                    case 8: leader.Unit.LifeState = UnitLifeState.Corpse; break;
+                    case 8: leader.Unit.LifeState = (UnitLifeState)(-1); break;
                     case 9: leader.Unit.JobId = 200; break;
                 }
                 Assert.That(BattleFormationReturn.TryCapture(deployment, new[] { Observe(leader.Unit) }, out var returned, out _), Is.False);

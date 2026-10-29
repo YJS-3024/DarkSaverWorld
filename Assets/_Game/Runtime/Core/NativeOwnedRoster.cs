@@ -48,7 +48,7 @@ namespace DarkSaver.Core
                         unit.instanceId == 100 || !instances.Add(unit.instanceId) || unit.jobId <= 0 ||
                         string.IsNullOrWhiteSpace(unit.name) || unit.maxHp <= 0 || unit.hp < 0 || unit.hp > unit.maxHp ||
                         unit.maxMp < 0 || unit.mp < 0 || unit.mp > unit.maxMp || unit.attack < 0 || unit.defense < 0 ||
-                        ((unit.hasMagicAttack && unit.magicAttack<0) || (unit.hasMagicDefense && unit.magicDefense<0)) || unit.lifeState < 0 || unit.lifeState > 2 || (unit.lifeState != 0 && unit.hp > 0) ||
+                        ((unit.hasMagicAttack && unit.magicAttack<0) || (unit.hasMagicDefense && unit.magicDefense<0)) || unit.lifeState < 0 || unit.lifeState > 2 ||
                         unit.teamId < 0 || unit.learnedMagicIds == null) return false;
                     if (string.IsNullOrEmpty(unit.hireType) ? unit.hireOwnerId != 0 : unit.hireOwnerId != 100) return false;
                     var spells = new HashSet<short>();

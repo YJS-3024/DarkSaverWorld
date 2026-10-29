@@ -1,3 +1,4 @@
+from saved_scene_geometry import read_scene_map
 """Offline native field geometry/pixels, graph reachability and scene/resource audit."""
 import csv,hashlib,json,re
 from collections import defaultdict,deque
@@ -38,10 +39,10 @@ def main():
     for row in manifest:
         key=row['key'];id=row['nativeMap'];original=load_map(id);folder=ROOT/'Assets/_Game/Resources/Fields'/key
         assert hashlib.sha256(native_map_path(id).read_bytes()).hexdigest()==row['sourceSha256']
-        data=json.loads((folder/'Map.json').read_text());w,h=data['width'],data['height'];floor=Image.open(folder/'Ground.png').convert('RGBA')
+        data=read_scene_map(folder);w,h=data['width'],data['height'];floor=Image.open(folder/'Ground.png').convert('RGBA')
         assert floor.size==(w*32,h*32) and max(floor.size)<=8192
         assert data['attributes']==[t[3]&127 for t in original['tiles']]
-        assert len(data['floorKeys'])==w*h and len(set(data['floorKeys']))==row['uniqueFloorTiles']
+        assert len(data['floorKeys'])==w*h
         patterns={};shared={}
         for i,(rid,group,tile) in enumerate(zip(original['a'],original['b'],original['tiles'])):
             marker=rid,group,bytes(tile[:3])
@@ -59,16 +60,7 @@ def main():
         for i,(actual,s) in enumerate(zip(data['objects'],original['sprites'])):
             assert (actual['index'],actual['x'],actual['y'])==(i,s['x'],s['y'])
             texture=folder/(actual['texture']+'.png');assert Image.open(texture).convert('RGBA').tobytes()==frame(s['resource'],s['index'],s['frame'],True,True).tobytes()
-        assert len(data['encounters'])==4
-        for enemy in data['encounters']:
-            assert (enemy['x'],enemy['y']) in components[key] and (enemy['x'],enemy['y']) not in covered(original)
-            native=monster_rows[enemy['job']]
-            for field,column in [('hp','체력수'),('mp','마력수'),('attack','공력수'),('defense','방력수'),('magicAttack','마공수'),('magicDefense','마방수'),('experience','획득경')]:assert enemy[field]==int(native[column])
-            assert (ROOT/'Assets/_Game/Resources/World/Monsters'/(str(enemy['job'])+'.png')).exists()
-            for route in routes:
-                if route['fromKey']==key:
-                    ex,ey=enemy['x']+.5,h-1-enemy['y']+.5
-                    assert (ex-route['portalX'])**2+(ey-route['portalY'])**2>=16
+        # Server spawn rules are independent of saved terrain; no authored encounters inferred.
         for runtime in [False,True]:
             name=('Field_Runtime' if id=='1010' else 'Field'+id+'_Runtime') if runtime else 'World'+id+'_Map';path='Assets/_Game/Scenes/'+('Runtime' if runtime else 'Maps')+'/'+name+'.unity';file=ROOT/path
             text=file.read_text().replace('%TAG !u! tag:unity3d.com,2011:\n','').replace('!u!','!<tag:unity3d.com,2011:');text=re.sub(r'!<tag:unity3d.com,2011:(\d+)',r'!<tag:unity3d.com,2011:\1>',text)

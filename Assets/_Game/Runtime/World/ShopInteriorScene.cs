@@ -27,6 +27,7 @@ namespace DarkSaver.World
     {
         [SerializeField] private string shopKey;
         [SerializeField] private bool runtimeOnly;
+        [SerializeField] private bool mapTilesBaked;
         private bool built;
         private void Awake()=>Build();
         public bool Build()
@@ -34,7 +35,7 @@ namespace DarkSaver.World
             if(built)return true;
             if(!ShopInteriorCatalog.TryGet(shopKey,out _))return false;
             var native=gameObject.GetComponent<NativeTownScene>() ?? gameObject.AddComponent<NativeTownScene>();
-            if(!native.Configure(shopKey,runtimeOnly))return false;
+            if(!native.Configure(shopKey,runtimeOnly,mapTilesBaked))return false;
             built=true;return true;
         }
     }

@@ -1,0 +1,39 @@
+{
+  "scope": "Direct managed reflection on compiled production/test assemblies; NOT Unity TestRunner",
+  "total": 8,
+  "failed": 0,
+  "results": [
+    {
+      "test": "WorldFunctionProtocolTests.ChatAndF12UseOriginalCp949CountAndModeWithoutNullTerminator()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.OriginalByteBoundariesRejectTruncationUnsupportedCharactersAndTrailingPayload()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.LocalChatEchoesOnlyConnectedCharacterAndWhispersNeverFabricateARecipient()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.TeleportIsServerCommandAndUnknownCommandsNeverFallThroughToGeneralChat()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.OriginalRoleFlagsReorderAndEquipmentRoundTripTheirOwnWordFields()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.AbilityRequestsKeepSelectedRoleAndMagicArrowLiteralOneOrTwo()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.WhisperPreferenceUsesOriginal7dWordAndServerHonorsIt()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.RoleNotificationsCopyProfilesAndPayloadsAndRejectDuplicateSlots()",
+      "result": "Passed"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+
+분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00422c50 <.text+0x21c50>:
+  422c50:	6a ff                	push   0xffffffff
+  422c52:	68 c6 36 44 00       	push   0x4436c6
+  422c57:	64 a1 00 00 00 00    	mov    eax,fs:0x0
+  422c5d:	50                   	push   eax
+  422c5e:	64 89 25 00 00 00 00 	mov    DWORD PTR fs:0x0,esp
+  422c65:	51                   	push   ecx
+  422c66:	8b 44 24 24          	mov    eax,DWORD PTR [esp+0x24]
+  422c6a:	8b 54 24 1c          	mov    edx,DWORD PTR [esp+0x1c]
+  422c6e:	53                   	push   ebx
+  422c6f:	55                   	push   ebp
+  422c70:	56                   	push   esi
+  422c71:	8b f1                	mov    esi,ecx
+  422c73:	8b 4c 24 2c          	mov    ecx,DWORD PTR [esp+0x2c]
+  422c77:	57                   	push   edi
+  422c78:	50                   	push   eax
+  422c79:	8b 44 24 2c          	mov    eax,DWORD PTR [esp+0x2c]
+  422c7d:	51                   	push   ecx
+  422c7e:	8b 4c 24 2c          	mov    ecx,DWORD PTR [esp+0x2c]
+  422c82:	52                   	push   edx
+  422c83:	50                   	push   eax
+  422c84:	51                   	push   ecx
+  422c85:	8b ce                	mov    ecx,esi
+  422c87:	89 74 24 24          	mov    DWORD PTR [esp+0x24],esi
+  422c8b:	e8 e0 52 00 00       	call   0x427f70
+  422c90:	bb 01 00 00 00       	mov    ebx,0x1
+  422c95:	68 ff ff 40 00       	push   0x40ffff
+  422c9a:	53                   	push   ebx
+  422c9b:	6a 00                	push   0x0
+  422c9d:	8d 8e 8c 01 00 00    	lea    ecx,[esi+0x18c]
+  422ca3:	c7 44 24 28 00 00 00 	mov    DWORD PTR [esp+0x28],0x0
+  422caa:	00 
+  422cab:	8d ae e4 00 00 00    	lea    ebp,[esi+0xe4]
+  422cb1:	e8 ee dc 01 00       	call   0x4409a4
+  422cb6:	88 5c 24 1c          	mov    BYTE PTR [esp+0x1c],bl
+  422cba:	89 9e 90 00 00 00    	mov    DWORD PTR [esi+0x90],ebx
+  422cc0:	8b dd                	mov    ebx,ebp
+  422cc2:	b8 16 00 00 00       	mov    eax,0x16
+  422cc7:	ba 2a 00 00 00       	mov    edx,0x2a
+  422ccc:	b9 36 00 00 00       	mov    ecx,0x36
+  422cd1:	89 03                	mov    DWORD PTR [ebx],eax
+  422cd3:	bf 4a 00 00 00       	mov    edi,0x4a
+  422cd8:	c7 06 4c 7e 44 00    	mov    DWORD PTR [esi],0x447e4c
+  422cde:	89 53 04             	mov    DWORD PTR [ebx+0x4],edx
+  422ce1:	89 4b 08             	mov    DWORD PTR [ebx+0x8],ecx
+  422ce4:	89 7b 0c             	mov    DWORD PTR [ebx+0xc],edi
+  422ce7:	bf 01 00 00 00       	mov    edi,0x1
+  422cec:	8d 9e f4 00 00 00    	lea    ebx,[esi+0xf4]
+  422cf2:	8b d5                	mov    edx,ebp
+  422cf4:	8b c3                	mov    eax,ebx
+  422cf6:	8b 0a                	mov    ecx,DWORD PTR [edx]
+  422cf8:	89 08                	mov    DWORD PTR [eax],ecx
+  422cfa:	8b 4a 04             	mov    ecx,DWORD PTR [edx+0x4]
+  422cfd:	89 48 04             	mov    DWORD PTR [eax+0x4],ecx
+  422d00:	8b 4a 08             	mov    ecx,DWORD PTR [edx+0x8]
+  422d03:	89 48 08             	mov    DWORD PTR [eax+0x8],ecx
+  422d06:	8b 52 0c             	mov    edx,DWORD PTR [edx+0xc]
+  422d09:	89 50 0c             	mov    DWORD PTR [eax+0xc],edx
+  422d0c:	b8 56 55 55 55       	mov    eax,0x55555556
+  422d11:	f7 ef                	imul   edi
+  422d13:	8b c2                	mov    eax,edx
+  422d15:	c1 e8 1f             	shr    eax,0x1f
+  422d18:	03 d0                	add    edx,eax
+  422d1a:	8d 04 d5 00 00 00 00 	lea    eax,[edx*8+0x0]
+  422d21:	2b c2                	sub    eax,edx
+  422d23:	8d 0c 80             	lea    ecx,[eax+eax*4]
+  422d26:	8b c7                	mov    eax,edi
+  422d28:	51                   	push   ecx
+  422d29:	b9 03 00 00 00       	mov    ecx,0x3
+  422d2e:	99                   	cdq
+  422d2f:	f7 f9                	idiv   ecx
+  422d31:	8d 04 d5 00 00 00 00 	lea    eax,[edx*8+0x0]
+  422d38:	2b c2                	sub    eax,edx
+  422d3a:	8d 14 80             	lea    edx,[eax+eax*4]
+  422d3d:	52                   	push   edx
+  422d3e:	53                   	push   ebx
+  422d3f:	ff 15 4c 66 44 00    	call   DWORD PTR ds:0x44664c
+  422d45:	47                   	inc    edi
+  422d46:	83 c3 10             	add    ebx,0x10
+  422d49:	83 ff 09             	cmp    edi,0x9
+  422d4c:	7c a4                	jl     0x422cf2
+  422d4e:	8d 9e b4 00 00 00    	lea    ebx,[esi+0xb4]
+  422d54:	b8 9b 00 00 00       	mov    eax,0x9b
+  422d59:	ba 27 00 00 00       	mov    edx,0x27
+  422d5e:	b9 bb 00 00 00       	mov    ecx,0xbb
+  422d63:	89 03                	mov    DWORD PTR [ebx],eax
+  422d65:	bf 47 00 00 00       	mov    edi,0x47
+  422d6a:	b8 bd 00 00 00       	mov    eax,0xbd
+  422d6f:	89 53 04             	mov    DWORD PTR [ebx+0x4],edx
+  422d72:	ba 30 00 00 00       	mov    edx,0x30
+  422d77:	89 4b 08             	mov    DWORD PTR [ebx+0x8],ecx
+  422d7a:	b9 d3 00 00 00       	mov    ecx,0xd3
+  422d7f:	89 7b 0c             	mov    DWORD PTR [ebx+0xc],edi
+  422d82:	8d 9e c4 00 00 00    	lea    ebx,[esi+0xc4]
+  422d88:	bf 40 00 00 00       	mov    edi,0x40
+  422d8d:	89 03                	mov    DWORD PTR [ebx],eax
+  422d8f:	b8 13 00 00 00       	mov    eax,0x13
+  422d94:	89 53 04             	mov    DWORD PTR [ebx+0x4],edx
+  422d97:	89 4b 08             	mov    DWORD PTR [ebx+0x8],ecx
+  422d9a:	b9 94 00 00 00       	mov    ecx,0x94
+  422d9f:	8b d1                	mov    edx,ecx
+  422da1:	89 7b 0c             	mov    DWORD PTR [ebx+0xc],edi
+  422da4:	8d 9e d4 00 00 00    	lea    ebx,[esi+0xd4]
+  422daa:	bf ea 00 00 00       	mov    edi,0xea
+  422daf:	89 03                	mov    DWORD PTR [ebx],eax
+  422db1:	33 c0                	xor    eax,eax
+  422db3:	50                   	push   eax
+  422db4:	89 86 78 01 00 00    	mov    DWORD PTR [esi+0x178],eax
+  422dba:	89 53 04             	mov    DWORD PTR [ebx+0x4],edx
+  422dbd:	89 86 7c 01 00 00    	mov    DWORD PTR [esi+0x17c],eax
+  422dc3:	89 86 80 01 00 00    	mov    DWORD PTR [esi+0x180],eax
+  422dc9:	89 4b 08             	mov    DWORD PTR [ebx+0x8],ecx
+  422dcc:	8b 8e b0 00 00 00    	mov    ecx,DWORD PTR [esi+0xb0]
+  422dd2:	89 7b 0c             	mov    DWORD PTR [ebx+0xc],edi
+  422dd5:	e8 66 99 00 00       	call   0x42c740
+  422dda:	8b ce                	mov    ecx,esi
+  422ddc:	89 86 84 01 00 00    	mov    DWORD PTR [esi+0x184],eax
+  422de2:	e8 59 08 00 00       	call   0x423640
+  422de7:	8b 86 84 01 00 00    	mov    eax,DWORD PTR [esi+0x184]
+  422ded:	83 c0 04             	add    eax,0x4
+  422df0:	66 8b 80 96 00 00 00 	mov    ax,WORD PTR [eax+0x96]
+  422df7:	66 3d ff ff          	cmp    ax,0xffff
+  422dfb:	74 13                	je     0x422e10
+  422dfd:	0f bf c0             	movsx  eax,ax
+  422e00:	50                   	push   eax
+  422e01:	8b ce                	mov    ecx,esi
+  422e03:	e8 d8 0b 00 00       	call   0x4239e0
+  422e08:	89 86 88 01 00 00    	mov    DWORD PTR [esi+0x188],eax
+  422e0e:	eb 0a                	jmp    0x422e1a
+  422e10:	c7 86 88 01 00 00 ff 	mov    DWORD PTR [esi+0x188],0xffffffff
+  422e17:	ff ff ff 
+  422e1a:	8b 4c 24 14          	mov    ecx,DWORD PTR [esp+0x14]
+  422e1e:	8b c6                	mov    eax,esi
+  422e20:	5f                   	pop    edi
+  422e21:	5e                   	pop    esi
+  422e22:	5d                   	pop    ebp
+  422e23:	5b                   	pop    ebx
+  422e24:	64 89 0d 00 00 00 00 	mov    DWORD PTR fs:0x0,ecx
+  422e2b:	83 c4 10             	add    esp,0x10
+  422e2e:	c2 14 00             	ret    0x14
+  422e31:	90                   	nop
+  422e32:	90                   	nop
+  422e33:	90                   	nop
+  422e34:	90                   	nop
+  422e35:	90                   	nop
+  422e36:	90                   	nop
+  422e37:	90                   	nop
+  422e38:	90                   	nop
+  422e39:	90                   	nop
+  422e3a:	90                   	nop
+  422e3b:	90                   	nop
+  422e3c:	90                   	nop
+  422e3d:	90                   	nop
+  422e3e:	90                   	nop
+  422e3f:	90                   	nop
+  422e40:	b8 18 00 00 00       	mov    eax,0x18
+  422e45:	c3                   	ret
+  422e46:	90                   	nop
+  422e47:	90                   	nop
+  422e48:	90                   	nop
+  422e49:	90                   	nop
+  422e4a:	90                   	nop
+  422e4b:	90                   	nop
+  422e4c:	90                   	nop
+  422e4d:	90                   	nop
+  422e4e:	90                   	nop
+  422e4f:	90                   	nop

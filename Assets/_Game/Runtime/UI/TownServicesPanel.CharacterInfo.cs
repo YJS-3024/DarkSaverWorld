@@ -26,7 +26,16 @@ namespace DarkSaver.UI
         {
             if(!IsOpen || !CanOpen || Service!=TownService.CharacterInfo || IsCharacterInfoMinimized
                 || IsCharacterAdjustmentOpen || CharacterAdjustmentWindow()==null) return false;
-            ui?.CancelItemDrags(); IsCharacterAdjustmentOpen=true; BeginSessionStatAllocation(); BeginSessionBattleMagic(); return true;
+            ui?.CancelItemDrags(); IsCharacterAdjustmentOpen=true;
+            if(inspectedWorldUnit!=null)
+            {
+                ClearCharacterAdjustmentStats();ClearCharacterAdjustmentMagic();
+                if(inspectedWorldUnit.CharacterInfoPayload!=null)
+                {worldAdjustmentBaseline=(byte[])inspectedWorldUnit.CharacterInfoPayload.Clone();BindCharacterAdjustmentMagicSnapshot(inspectedWorldUnit.CharacterInfoPayload);BindCharacterAdjustmentStatBars(inspectedWorldUnit.CharacterInfoPayload,worldAdjustmentBaseline);}
+                var payload=inspectedWorldUnit.CharacterInfoPayload;
+                if(payload==null || payload[0x3a]!=0 || payload[0x3b]!=0)SendWorldUnitRequest(new DarkSaver.Network.CharacterAdjustmentQueryRequest(inspectedWorldUnit.RecordId));
+            }
+            else{BeginSessionStatAllocation();BeginSessionBattleMagic();}return true;
         }
         public void CloseCharacterAdjustment() { IsCharacterAdjustmentOpen=false; ClearCharacterAdjustmentMagic(); ClearCharacterAdjustmentStats(); ClearCharacterAdjustmentOptions(); }
         private void DrawCharacterAdjustment()
@@ -46,6 +55,19 @@ namespace DarkSaver.UI
             DrawCharacterAdjustmentStatControls(origin,window);
             for(int i=0;i<window.controls.Length;i++) {
                 if(i==1 || i==20) continue;
+                if(inspectedWorldUnit!=null && (i==2 || i==3))
+                {
+                    ushort action=(ushort)(i==2?1:2);
+                    ui.NativeImageButton(CharacterAdjustmentControlKeys[i],origin+window.controls[i].rect.position,window.controls[i],()=>RequestWorldMagicArrow(action),CharacterAdjustmentSelectedMagicIndex>=0,"선택 마법 변경 요청");continue;
+                }
+                if(inspectedWorldUnit!=null && i==19)
+                {
+                    ui.NativeImageButton(CharacterAdjustmentControlKeys[i],origin+window.controls[i].rect.position,window.controls[i],()=>{RequestWorldAdjustmentCommand(DarkSaver.Network.CharacterAdjustmentCommand.Confirm);CloseCharacterAdjustment();},true,"확인");continue;
+                }
+                if(inspectedWorldUnit!=null && i==18)
+                {
+                    ui.NativeImageButton(CharacterAdjustmentControlKeys[i],origin+window.controls[i].rect.position,window.controls[i],()=>{if(TryGetCharacterAdjustmentClass(CharacterAdjustmentClassSlot,out short id))SendWorldUnitRequest(new DarkSaver.Network.CharacterAdjustmentClassRequest(inspectedWorldUnit.RecordId,unchecked((ushort)id)));},HasCharacterAdjustmentOptions && CharacterAdjustmentClassSlot>=0,"선택 클래스 요청");continue;
+                }
                 if(HasSessionBattleMagic && (i==2 || i==3)) {
                     bool add=i==3;
                     ui.NativeImageButton(CharacterAdjustmentControlKeys[i],origin+window.controls[i].rect.position,window.controls[i],
@@ -62,8 +84,9 @@ namespace DarkSaver.UI
                 ui.NativeImageButton(CharacterAdjustmentControlKeys[i],
                     origin+window.controls[i].rect.position,window.controls[i],()=>{},false,"원본 기능 미연결");
             }
-            ui.NativeImageButton("character-adjustment-close",origin+window.controls[1].rect.position,window.controls[1],CloseCharacterAdjustment,true,"닫기");
-            ui.NativeImageButton("character-adjustment-cancel",origin+window.controls[20].rect.position,window.controls[20],CloseCharacterAdjustment,true,"취소 (변경 없이 닫기)");
+            ui.NativeImageButton("character-adjustment-close",origin+window.controls[1].rect.position,window.controls[1],()=>{if(inspectedWorldUnit!=null)RequestWorldAdjustmentCommand(DarkSaver.Network.CharacterAdjustmentCommand.Confirm);CloseCharacterAdjustment();},true,"닫기");
+            ui.NativeImageButton("character-adjustment-cancel",origin+window.controls[20].rect.position,window.controls[20],()=>{if(inspectedWorldUnit!=null)SendWorldUnitRequest(new DarkSaver.Network.CharacterAdjustmentCommandRequest(DarkSaver.Network.CharacterAdjustmentCommand.Cancel,inspectedWorldUnit.RecordId));CloseCharacterAdjustment();},true,"취소");
+            if(inspectedWorldUnit!=null)return;
             ui.Panel("character-adjustment-note-panel",new Rect(origin.x,457,540,22));
             ui.Label("character-adjustment-note",new Rect(origin.x+5,459,530,18),sessionStatBaseline!=null?"능력치·전투 마법 편집 · 확인 전 취소 · 저장 필요 · 위: 습득 / 아래: 전투 사용":HasCharacterAdjustmentStatPreview?"능력치 증감은 창 내부 미리보기입니다. 확인/저장/서버 승인은 미연결입니다.":"원본 능력조정 창 · 장비/능력 배분은 미연결이며 실제 데이터는 변경하지 않습니다.",10);
         }
@@ -75,15 +98,16 @@ namespace DarkSaver.UI
                 var session=GetComponent<BattleTransitionController>();
                 if(session==null || !session.HasCreatedCharacter) return null;
                 if(characterPortraits==null) characterPortraits=Resources.Load<CharacterPortraitCatalog>("UI/CharacterPortraits/CharacterPortraits");
-                return characterPortraits!=null && characterPortraits.TryGet(session.PlayerJobId,out var image)?image:null;
+                return characterPortraits!=null && characterPortraits.TryGet(inspectedWorldUnit?.JobId ?? session.PlayerJobId,out var image)?image:null;
             }
         }
-        public string CharacterInfoPlayerName => GetComponent<BattleTransitionController>()?.PlayerName ?? "미확인";
+        public string CharacterInfoPlayerName => inspectedWorldUnit?.Name ?? GetComponent<BattleTransitionController>()?.PlayerName ?? "미확인";
         public string CharacterInfoJobName {
             get {
                 var session = GetComponent<BattleTransitionController>();
+                if(!string.IsNullOrWhiteSpace(inspectedWorldUnit?.JobName))return inspectedWorldUnit.JobName;
                 return session != null && session.HasCreatedCharacter && progression != null
-                    && progression.TryGet(session.PlayerJobId,1,out var row) && !string.IsNullOrWhiteSpace(row.jobName) ? row.jobName : "미확인";
+                    && progression.TryGet(inspectedWorldUnit?.JobId ?? session.PlayerJobId,1,out var row) && !string.IsNullOrWhiteSpace(row.jobName) ? row.jobName : "미확인";
             }
         }
         public string CharacterInfoGoldText {

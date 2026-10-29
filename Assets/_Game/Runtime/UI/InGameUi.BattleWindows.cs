@@ -19,6 +19,11 @@ namespace DarkSaver.UI
             if(control==null)throw new InvalidOperationException("Missing native control "+nativeId);NativeImageButton(key,position,control,action,enabled,tooltip);
         }
         public void NativeTexturePanel(string key,Rect rect,Texture2D texture){PortraitTexture(key,rect,texture);Raise(key);}
+        public void NativeTexturePatch(string key,Rect destination,Texture2D texture,Rect sourceTopLeft)
+        {
+            PortraitTexture(key,destination,texture);
+            Find<RawImage>(key).uvRect=new Rect(sourceTopLeft.x/texture.width,1-(sourceTopLeft.y+sourceTopLeft.height)/texture.height,sourceTopLeft.width/texture.width,sourceTopLeft.height/texture.height);
+        }
         public void NativeImageButton(string key,Vector2 position,NativeBattleWindows.Control control,Action action,bool enabled,string tooltip)
         {
             if(control?.frames==null || control.frames.Length!=3)throw new ArgumentException("Native button needs three frames.");

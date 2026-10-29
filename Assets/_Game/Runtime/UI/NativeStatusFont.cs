@@ -6,7 +6,7 @@ namespace DarkSaver.UI
     public static class NativeStatusFont
     {
         private static Dictionary<string, Sprite> sprites;
-        private static Dictionary<string, Sprite> worldSprites;
+        private static Dictionary<string, Sprite> worldSprites,alternateWorldSprites;
         public static int Advance(char value) => value == ' ' ? 5 : value < 128 ? 7 : 14;
         public static int Measure(string text)
         {
@@ -36,6 +36,12 @@ namespace DarkSaver.UI
             }
             return worldSprites.TryGetValue("U_" + ((int)value).ToString("X4"), out var sprite) ? sprite
                 : worldSprites.TryGetValue("U_003F", out var fallback) ? fallback : null;
+        }
+        public static Sprite WorldGlyph(char value,int mode)
+        {
+            if(mode!=1)return WorldGlyph(value);
+            if(alternateWorldSprites==null){alternateWorldSprites=new Dictionary<string,Sprite>();foreach(var frame in Resources.LoadAll<Sprite>("UI/NativeWorldAlternateFont"))alternateWorldSprites[frame.name]=frame;}
+            return alternateWorldSprites.TryGetValue("U_"+((int)value).ToString("X4"),out var sprite)?sprite:alternateWorldSprites.TryGetValue("U_003F",out var fallback)?fallback:null;
         }
         public static Sprite Glyph(char value)
         {

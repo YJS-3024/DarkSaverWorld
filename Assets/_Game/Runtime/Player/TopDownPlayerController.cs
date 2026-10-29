@@ -99,6 +99,7 @@ namespace DarkSaver.Player
 
         private void Update()
         {
+            if(NativeWorldWindows.IsTyping){StopWorldMotion();return;}
             if (UiInputBlocked || pendingNpcInteraction!=null) return;
             if (worldHud == null) worldHud = FindAnyObjectByType<WorldSessionHud>();
             if (Input.GetMouseButton(0) && FirstPlayTutorial.BlocksPointer(Input.mousePosition)) suppressMouseUntilRelease = true;

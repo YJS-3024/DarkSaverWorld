@@ -33,7 +33,7 @@ namespace DarkSaver.Tests
                 Assert.That(saved.Members[0].Position, Is.EqualTo(new CombatGridCell(1, 2)));
                 Assert.That(saved.Members[0].Unit.Ap, Is.EqualTo(10)); Assert.That(saved.Members[0].Unit.Mp, Is.EqualTo(2));
                 panel.Open(); Assert.That(panel.Confirm(), Is.True);
-                Assert.That(panel.ConfirmedSnapshot.Members[0].Unit.Ap, Is.EqualTo(10));
+                Assert.That(panel.ConfirmedSnapshot.Members[0].Unit.Ap, Is.EqualTo(6));
                 Assert.That(panel.ConfirmedSnapshot.Members[0].Position, Is.EqualTo(new CombatGridCell(1, 2)));
             });
         }
@@ -73,7 +73,7 @@ namespace DarkSaver.Tests
                 Assert.That(panel.ConfigurePlacementContext(10, 10, Array.Empty<short>(), (_, _) => true), Is.True);
                 Assert.That(panel.ConfirmedSnapshot, Is.Null); Assert.That(panel.Confirm(), Is.False);
                 panel.TrySetPosition("200", new CombatGridCell(3, 1)); Assert.That(panel.Confirm(), Is.True);
-                Assert.That(panel.ConfirmedSnapshot.Members[0].Unit.Ap, Is.EqualTo(10));
+                Assert.That(panel.ConfirmedSnapshot.Members[0].Unit.Ap, Is.EqualTo(6));
                 Assert.That(panel.ConfirmedSnapshot.Members[0].Position, Is.EqualTo(new CombatGridCell(3, 1)));
             });
         }

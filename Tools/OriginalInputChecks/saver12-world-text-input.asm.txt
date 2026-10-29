@@ -1,0 +1,44 @@
+
+분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+0043a886 <.text+0x39886>:
+  43a886:	6a 78                	push   0x78
+  43a888:	bb 0a 00 00 00       	mov    ebx,0xa
+  43a88d:	bd f3 01 00 00       	mov    ebp,0x1f3
+  43a892:	e8 91 5e 00 00       	call   0x440728
+  43a897:	8b f8                	mov    edi,eax
+  43a899:	83 c4 04             	add    esp,0x4
+  43a89c:	89 7c 24 10          	mov    DWORD PTR [esp+0x10],edi
+  43a8a0:	85 ff                	test   edi,edi
+  43a8a2:	c7 44 24 20 04 00 00 	mov    DWORD PTR [esp+0x20],0x4
+  43a8a9:	00 
+  43a8aa:	74 3d                	je     0x43a8e9
+  43a8ac:	6a 00                	push   0x0
+  43a8ae:	6a 0e                	push   0xe
+  43a8b0:	6a 0e                	push   0xe
+  43a8b2:	51                   	push   ecx
+  43a8b3:	8b cc                	mov    ecx,esp
+  43a8b5:	89 64 24 24          	mov    DWORD PTR [esp+0x24],esp
+  43a8b9:	68 90 00 45 00       	push   0x450090
+  43a8be:	e8 0f 60 00 00       	call   0x4408d2
+  43a8c3:	83 ec 10             	sub    esp,0x10
+  43a8c6:	b8 ca 01 00 00       	mov    eax,0x1ca
+  43a8cb:	8b cc                	mov    ecx,esp
+  43a8cd:	6a 00                	push   0x0
+  43a8cf:	56                   	push   esi
+  43a8d0:	89 19                	mov    DWORD PTR [ecx],ebx
+  43a8d2:	89 41 04             	mov    DWORD PTR [ecx+0x4],eax
+  43a8d5:	b8 da 01 00 00       	mov    eax,0x1da
+  43a8da:	89 69 08             	mov    DWORD PTR [ecx+0x8],ebp
+  43a8dd:	89 41 0c             	mov    DWORD PTR [ecx+0xc],eax
+  43a8e0:	8b cf                	mov    ecx,edi
+  43a8e2:	e8 e9 e0 fe ff       	call   0x4289d0
+  43a8e7:	eb 02                	jmp    0x43a8eb
+  43a8e9:	33 c0                	xor    eax,eax
+  43a8eb:	8b ce                	mov    ecx,esi
+  43a8ed:	c7 44 24 20 ff ff ff 	mov    DWORD PTR [esp+0x20],0xffffffff
+  43a8f4:	ff 
+  43a8f5:	89 86 54 01 00 00    	mov    DWORD PTR [esi+0x154],eax

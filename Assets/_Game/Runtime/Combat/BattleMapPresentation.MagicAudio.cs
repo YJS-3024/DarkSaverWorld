@@ -21,6 +21,7 @@ namespace DarkSaver.Combat
                 var go=new GameObject("Native Magic Sound "+id);go.transform.SetParent(transform,false);source=go.AddComponent<AudioSource>();
                 source.playOnAwake=false;source.spatialBlend=0;source.loop=false;source.clip=clip;magicSoundSources.Add(id,source);
             }
+            source.mute=!DarkSaver.UI.NativeWorldPreferences.EffectsEnabled;
             source.volume=Mathf.Clamp01(GameConstants.NativeMagicSoundVolume);
             source.Stop();source.time=0;if(Application.isPlaying)source.Play();NativeMagicSoundStartCount++;LastNativeMagicSoundId=id;
         }

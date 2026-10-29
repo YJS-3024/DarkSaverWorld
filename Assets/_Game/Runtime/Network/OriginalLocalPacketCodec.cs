@@ -37,6 +37,19 @@ namespace DarkSaver.Network
         public static bool TryEncodePayload(LocalPacket packet,out byte[] payload)
         {
             payload=null;
+            if(packet is Request_WorldWhisperSetting whisper){payload=new byte[]{0x7d,(byte)whisper.OriginalValue,0};return true;}
+            if(packet is Request_HireMercenary hire){payload=new byte[7];payload[0]=0x4d;Word(payload,1,(short)hire.OwnerId);Word(payload,3,(short)hire.JobId);Word(payload,5,(short)hire.Maximum);return true;}
+            if(packet is Request_DismissMercenary dismiss){payload=new byte[5];payload[0]=0x4e;Word(payload,1,(short)dismiss.OwnerId);Word(payload,3,(short)dismiss.JobId);return true;}
+            if(packet is Request_WorldRosterFlag flag){payload=new byte[5];payload[0]=0x42;Word(payload,1,unchecked((short)flag.RecordId));Word(payload,3,(short)flag.Flag);return true;}
+            if(packet is Request_WorldRosterOrder order){payload=new byte[5];payload[0]=0x3b;Word(payload,1,(short)order.Destination);Word(payload,3,(short)order.Source);return true;}
+            if(packet is CharacterMagicListRequest list){payload=new byte[5];return list.TryWriteOriginalPayload(payload,out _);}
+            if(packet is CharacterAdjustmentQueryRequest query){payload=new byte[3];return query.TryWriteOriginalPayload(payload,out _);}
+            if(packet is CharacterAdjustmentCommandRequest command){payload=new byte[3];return command.TryWriteOriginalPayload(payload,out _);}
+            if(packet is CharacterStatAdjustmentRequest stat){payload=new byte[7];return stat.TryWriteOriginalPayload(payload,out _);}
+            if(packet is CharacterMagicSelectionRequest selection){payload=new byte[7];return selection.TryWriteOriginalPayload(payload,out _);}
+            if(packet is CharacterAdjustmentClassRequest cls){payload=new byte[5];return cls.TryWriteOriginalPayload(payload,out _);}
+            if(packet is Request_WorldText text)return OriginalWorldTextCodec.TryEncode(text,out payload);
+            if(packet is EquipmentRequest equipment){payload=new byte[EquipmentRequest.OriginalPayloadSize];if(equipment.TryWriteOriginalPayload(payload,out _))return true;payload=null;return false;}
             if(packet is AttackRequest attack)
             {payload=new byte[10];payload[0]=0x5c;payload[1]=0x82;Word(payload,2,attack.TargetUnitId);Word(payload,4,attack.AttackerUnitId);Word(payload,6,attack.TargetTileAttribute);Word(payload,8,attack.AttackerTileAttribute);return true;}
             if(packet is MagicRequest magic && magic.OriginalOpcode.HasValue && magic.Mode.HasValue)
@@ -56,7 +69,25 @@ namespace DarkSaver.Network
         }
         public static bool TryDecodePayload(LocalPacketDirection direction,ReadOnlySpan<byte> payload,out LocalPacket packet,short? localActingUnitId=null)
         {
-            packet=null;if(payload.Length<2 || payload[0]!=0x5c)return false;
+            packet=null;
+            if(direction==LocalPacketDirection.ClientToServer)
+            {
+                if(payload.Length==3 && payload[0]==0x7d && (ReadWord(payload,1)==1 || ReadWord(payload,1)==2)){packet=new Request_WorldWhisperSetting(ReadWord(payload,1)==1);return true;}
+                if(payload.Length==7 && payload[0]==0x4d){packet=new Request_HireMercenary((ushort)ReadWord(payload,1),(ushort)ReadWord(payload,3),(ushort)ReadWord(payload,5));return true;}
+                if(payload.Length==5 && payload[0]==0x4e){packet=new Request_DismissMercenary((ushort)ReadWord(payload,1),(ushort)ReadWord(payload,3));return true;}
+                if(payload.Length==5 && payload[0]==0x42 && (ReadWord(payload,3)==1 || ReadWord(payload,3)==2)){packet=new Request_WorldRosterFlag(unchecked((ushort)ReadWord(payload,1)),(ushort)ReadWord(payload,3));return true;}
+                if(payload.Length==5 && payload[0]==0x3b && unchecked((ushort)ReadWord(payload,1))<10 && unchecked((ushort)ReadWord(payload,3))<10){packet=new Request_WorldRosterOrder((ushort)ReadWord(payload,1),(ushort)ReadWord(payload,3));return true;}
+                if(payload.Length==5 && (payload[0]==0x83 || payload[0]==0x85)){packet=new CharacterMagicListRequest((CharacterMagicListCommand)payload[0],unchecked((ushort)ReadWord(payload,1)),unchecked((ushort)ReadWord(payload,3)));return true;}
+                if(payload.Length==3 && payload[0]==0x86){packet=new CharacterAdjustmentQueryRequest(unchecked((ushort)ReadWord(payload,1)));return true;}
+                if(payload.Length==3 && (payload[0]==0x88 || payload[0]==0x89 || payload[0]==0x8a)){packet=new CharacterAdjustmentCommandRequest((CharacterAdjustmentCommand)payload[0],unchecked((ushort)ReadWord(payload,1)));return true;}
+                if(payload.Length==7 && payload[0]==0x82 && unchecked((ushort)ReadWord(payload,3))<6 && (ReadWord(payload,5)==1 || ReadWord(payload,5)==2)){packet=new CharacterStatAdjustmentRequest(unchecked((ushort)ReadWord(payload,1)),ReadWord(payload,3),(CharacterStatAdjustmentDirection)ReadWord(payload,5));return true;}
+                if(payload.Length==7 && payload[0]==0x84){packet=new CharacterMagicSelectionRequest(unchecked((ushort)ReadWord(payload,1)),unchecked((ushort)ReadWord(payload,3)),unchecked((ushort)ReadWord(payload,5)));return true;}
+                if(payload.Length==5 && payload[0]==0x81){packet=new CharacterAdjustmentClassRequest(unchecked((ushort)ReadWord(payload,1)),unchecked((ushort)ReadWord(payload,3)));return true;}
+                if(OriginalWorldTextCodec.TryDecode(payload,out var text)){packet=text;return true;}
+                if(payload.Length==11 && payload[0]==0x40 && unchecked((ushort)ReadWord(payload,3))<=6)
+                {packet=new EquipmentRequest(unchecked((ushort)ReadWord(payload,1)),unchecked((ushort)ReadWord(payload,3)),unchecked((ushort)ReadWord(payload,5)),unchecked((ushort)ReadWord(payload,7)),unchecked((ushort)ReadWord(payload,9)));return true;}
+            }
+            if(payload.Length<2 || payload[0]!=0x5c)return false;
             byte op=payload[1];
             if(direction==LocalPacketDirection.ClientToServer)
             {

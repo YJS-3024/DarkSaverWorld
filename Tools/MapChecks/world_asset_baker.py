@@ -31,6 +31,7 @@ def png(path,image):
     if max(image.size)>4096:template=template.replace('maxTextureSize: 4096','maxTextureSize: 8192')
     image.save(path);path.with_name(path.name+'.meta').write_text(re.sub(r'guid: [0-9a-f]{32}','guid: '+guid(path),template,count=1))
 def text_asset(path,data):
+    if path.name.lower()=="map.json":raise RuntimeError("Runtime geometry JSON is retired; save the map scene instead.")
     path.write_text(json.dumps(data,ensure_ascii=False,separators=(',',':'))+'\n')
     path.with_name(path.name+'.meta').write_text('fileFormatVersion: 2\nguid: '+guid(path)+'\nTextScriptImporter:\n  externalObjects: {}\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n')
 def load_map(id):
@@ -54,31 +55,11 @@ def covered(data):
         g=resource(s['resource'])['sprites'][s['index']]
         cells.update((s['x']+dx,s['y']+dy) for dx in range((g['width']+31)//32) for dy in range((g['height']+31)//32))
     return cells
-def bake(id,folder,blocked):
-    directory(folder);directory(folder/'Sprites');data=load_map(id);w,h=data['width'],data['height'];canvas=Image.new('RGBA',(w*32,h*32),(0,0,0,255));tile_ids={};keys=[]
-    for i,(rid,group,tile) in enumerate(zip(data['a'],data['b'],data['tiles'])):
-        canvas.alpha_composite(frame(rid,group,0),(i%w*32,i//w*32))
-        if tile[1]!=255:
-            g=resource(tile[0])['groups'][tile[1]];canvas.alpha_composite(frame(tile[0],tile[1],g['tiles'][tile[2]]['frames'][0],transparent=True),(i%w*32,i//w*32))
-        key=rid,group,bytes(tile[:3]);keys.append(tile_ids.setdefault(key,len(tile_ids)))
-    png(folder/'Ground.png',canvas);objects=[];written=set()
-    for i,s in enumerate(data['sprites']):
-        name=f"Sprites/{s['resource']}_{s['index']}_{s['frame']}";path=folder/(name+'.png')
-        if name not in written:png(path,frame(s['resource'],s['index'],s['frame'],True,True));written.add(name)
-        objects.append(dict(index=i,x=s['x'],y=s['y'],texture=name))
-    component=walkable(data,blocked);clear=component-covered(data)
-    candidates=[p for p in clear if all((p[0]+dx,p[1]+dy) in component for dx,dy in [(-1,0),(1,0),(0,-1),(0,1)])] or list(component)
-    x,y=min(candidates,key=lambda p:((p[0]+.5-w/2)**2+(p[1]+.5-h/2)**2,p))
-    result=dict(width=w,height=h,spawnX=x,spawnY=y,attributes=[t[3]&127 for t in data['tiles']],floorKeys=keys,objects=objects)
-    text_asset(folder/'Map.json',result)
-    return result,dict(sourceSha256=hashlib.sha256(native_map_path(id).read_bytes()).hexdigest(),cells=w*h,objects=len(objects),uniqueFloorTiles=len(tile_ids),reachableCells=len(component))
+def bake(*args,**kwargs):
+    raise RuntimeError("Runtime geometry generation is retired. Author saved scene tiles; validate with check_scene_tiles.py.")
 def scene(path,key,runtime):
-    script=ROOT/'Assets/_Game/Runtime/World/NativeTownScene.cs.meta';script_guid=re.search(r'guid: (\w+)',script.read_text())[1]
-    # Same small loader scene schema as existing additional town scenes.
-    template=(ROOT/'Assets/_Game/Scenes/Maps/Belpueus_Map.unity').read_text()
-    template=re.sub(r'm_Name: Belpueus native (?:town|region) loader','m_Name: '+key+' native region loader',template).replace('townKey: Belpueus','townKey: '+key).replace('runtimeOnly: 0','runtimeOnly: '+str(int(runtime)))
-    assert 'guid: '+script_guid in template
-    path.write_text(template);path.with_name(path.name+'.meta').write_text('fileFormatVersion: 2\nguid: '+guid(path)+'\nDefaultImporter:\n  externalObjects: {}\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n')
+    if path.exists():return  # Never replace authored maps or NPC/runtime scene edits.
+    raise RuntimeError("Create a saved Unity map/runtime scene in the editor; loader-only scene generation is retired.")
 def register(scenes):
     import UnityPy
     path=ROOT/'ProjectSettings/EditorBuildSettings.asset';env=UnityPy.load(str(path));obj=next(o for o in env.objects if o.type.name=='EditorBuildSettings');data=obj.read_typetree()

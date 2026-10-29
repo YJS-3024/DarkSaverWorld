@@ -12,6 +12,7 @@ void Check(bool condition, string name)
     if (!condition) throw new Exception(name);
     checks++;
 }
+WorldCharacterChecks.Run(Check);
 var trainingResumeStart=checks;
 DarkSaver.Tests.TrainingResumeChecks.Run(Check);
 Console.WriteLine("Training resume checks: "+(checks-trainingResumeStart)+" (offline, not Unity).");

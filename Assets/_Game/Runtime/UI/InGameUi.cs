@@ -19,6 +19,10 @@ namespace DarkSaver.UI
         private Canvas canvas;
         private RectTransform root;
         private Font font;
+        private readonly Dictionary<int,Font> worldFonts=new();
+        private int WorldFontMode=>owner is NativeWorldWindows || owner is TownServicesPanel?NativeWorldPreferences.FontMode:0;
+        private Font CurrentFont
+        {get{int mode=WorldFontMode;if(mode<2)return font;if(!worldFonts.TryGetValue(mode,out var selected)){selected=Font.CreateDynamicFontFromOSFont(new[]{mode==2?"굴림":"솔체",mode==2?"Gulim":"Solche","Malgun Gothic","Arial"},14);worldFonts[mode]=selected;}return selected;}}
         private int normalSortingOrder;
         private string hoveredStatKey;
         private static readonly Color PaperInk=new(.17f,.09f,.035f),Ink=new(.91f,.88f,.77f);
@@ -113,7 +117,7 @@ namespace DarkSaver.UI
         }
         public void End()
         {
-            DrawItemDrag();
+            DrawItemDrag();DrawNativeMenuDescription();
             if(hoveredStatKey!=null && used.Contains(hoveredStatKey))
             {
                 var r=GetRect(hoveredStatKey);Panel("native-stat-detail",new Rect(Mathf.Clamp(r.x+8,0,380),Mathf.Clamp(r.y-60,0,424),260,56));
@@ -121,6 +125,21 @@ namespace DarkSaver.UI
             }
             foreach(var pair in elements)pair.Value.gameObject.SetActive(used.Contains(pair.Key));
             ReleaseHiddenSelection();
+        }
+        private void DrawNativeMenuDescription()
+        {
+            if(!(owner is NativeWorldWindows || owner is TownServicesPanel || owner is DarkSaver.Combat.BattleSceneRoot) || !NativeWorldPreferences.MenuDescriptionsEnabled)return;
+            string description=null;int order=-1;
+            foreach(var pair in elements)
+            {
+                if(!used.Contains(pair.Key) || pair.Value.GetComponent<Button>()==null)continue;
+                var events=pair.Value.GetComponent<CanvasUiEvents>();
+                if(events==null || !events.IsHovered || string.IsNullOrWhiteSpace(events.Tooltip))continue;
+                if(pair.Value.GetSiblingIndex()>order){description=events.Tooltip;order=pair.Value.GetSiblingIndex();}
+            }
+            if(description==null)return;
+            NativeTexturePanel("native-menu-description",new Rect(42,288,562,65),Resources.Load<Texture2D>("UI/WorldWindows/MenuDescription"));
+            NativeBitmapText("native-menu-description-text",new Rect(62,303,522,35),description,Color.white,2,TextAnchor.MiddleCenter);
         }
         // Nested canvas keeps transient action icons above retained information windows.
         public RectTransform OverlayLayer(string key,int orderOffset)
@@ -138,7 +157,7 @@ namespace DarkSaver.UI
         {PortraitTexture(key,rect,Resources.Load<Texture2D>(rosterRows==-1?"UI/NativeRosterCollapsed":rosterRows==0?"UI/NativeStatusPanel":"UI/NativeRoster"+rosterRows));}
         public void Label(string key,Rect rect,string text,int size=14,RectTransform parent=null,TextAnchor alignment=TextAnchor.MiddleLeft,Color? color=null)
         {
-            var node=Node(key,rect,parent);var label=Component<Text>(node);label.font=font;label.text=text??"";label.fontSize=size;
+            var node=Node(key,rect,parent);var label=Component<Text>(node);label.font=CurrentFont;label.text=text??"";label.fontSize=size;
             label.alignment=alignment;label.color=color??PaperInk;label.raycastTarget=false;
             label.horizontalOverflow=HorizontalWrapMode.Wrap;label.verticalOverflow=VerticalWrapMode.Truncate;label.supportRichText=false;
         }
@@ -174,6 +193,13 @@ namespace DarkSaver.UI
             Button(key,rect,icon==null?text:"",action,enabled,tooltip:tooltip,parent:parent);
             if(icon!=null){Graphic(elements[key],null,Color.clear,true);Find<Outline>(key).enabled=false;float size=Mathf.Min(32,Mathf.Min(rect.width,rect.height));Portrait(key+"-icon",new Rect(rect.center.x-size/2,rect.center.y-size/2,size,size),icon,parent);Find<RawImage>(key+"-icon").color=new Color(1,1,1,enabled||!dimDisabledIcon?1:.4f);}
         }
+        public void WindowDragHandle(string key,Rect rect,Action<Vector2> moved)
+        {
+            Graphic(Node(key,rect),null,Color.clear,true);
+            Events(key).Move=e=>{if(e.button==UnityEngine.EventSystems.PointerEventData.InputButton.Left)
+                moved?.Invoke(new Vector2(e.delta.x,-e.delta.y)/Mathf.Max(.001f,root.lossyScale.x));};
+        }
+
         public void TextInput(string key,Rect rect,string value,int maximum,Action<string> changed,RectTransform parent=null,bool password=false)
         {
             bool fresh=!elements.ContainsKey(key);var node=Node(key,rect,parent);var image=Graphic(node,null,new Color(.86f,.71f,.48f),true);
@@ -181,7 +207,7 @@ namespace DarkSaver.UI
             var field=Component<InputField>(node);field.targetGraphic=image;field.characterLimit=maximum;field.contentType=password?InputField.ContentType.Password:InputField.ContentType.Standard;field.asteriskChar='*';
             if(fresh)Label(key+"-text",new Rect(2,0,Mathf.Max(0,rect.width-4),rect.height),"",14,node);
             else Node(key+"-text",new Rect(2,0,Mathf.Max(0,rect.width-4),rect.height),node);
-            field.textComponent=Find<Text>(key+"-text");field.textComponent.horizontalOverflow=HorizontalWrapMode.Overflow;Clip(node);
+            field.textComponent=Find<Text>(key+"-text");field.textComponent.font=CurrentFont;field.textComponent.horizontalOverflow=HorizontalWrapMode.Overflow;Clip(node);
             textChanges[key]=changed;
             if(fresh)field.onValueChanged.AddListener(v=>{if(Active(key) && textChanges.TryGetValue(key,out var callback))callback?.Invoke(v);});
             if(field.text!=(value??""))field.SetTextWithoutNotify(value??"");

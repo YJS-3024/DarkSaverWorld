@@ -100,6 +100,7 @@ namespace DarkSaver.Tests
                 Assert.That(receiver.Bind(), Is.True);
                 var battle = root.GetComponent<BattleSceneRoot>();
                 Assert.That(battle.ConfigureEnemy(enemy), Is.True);
+                NativeCombatStateFixture.SetAp(battle,700,20,6);
                 check(receiver, battle, enemy);
             }
             finally { EditorSceneManager.ClosePreviewScene(scene); }

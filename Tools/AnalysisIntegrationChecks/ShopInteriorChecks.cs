@@ -20,8 +20,7 @@ internal static class ShopInteriorChecks
                 check(outward.targetSpawnId==inward.spawnId && inward.targetSpawnId==outward.spawnId,"shop exit returns to its own door");
                 check((outward.portalX-outward.spawnX)*(outward.portalX-outward.spawnX)+(outward.portalY-outward.spawnY)*(outward.portalY-outward.spawnY)>=9,"exterior return cannot immediately retrigger entry");
                 check((inward.portalX-inward.spawnX)*(inward.portalX-inward.spawnX)+(inward.portalY-inward.spawnY)*(inward.portalY-inward.spawnY)>=9,"interior entry cannot immediately trigger exit");
-                using var mapJson=System.Text.Json.JsonDocument.Parse(File.ReadAllText(Path.Combine("Assets/_Game/Resources/Interiors",region.NativeMap,"Map.json")));
-                var attributes=mapJson.RootElement.GetProperty("attributes").EnumerateArray().Select(a=>a.GetInt32()).ToArray();
+                var attributes=SavedSceneTerrainReader.Read(Path.Combine("Assets/_Game/Scenes/Maps",region.MapScene+".unity"),region.Width,region.Height);
                 bool Blocked(int x,int y)=>x<0 || y<0 || x>=region.Width || y>=region.Height || attributes[(region.Height-1-y)*region.Width+x]==9;
                 var start=((int)inward.spawnX,(int)inward.spawnY);var target=((int)inward.portalX,(int)inward.portalY);
                 var visited=new HashSet<(int,int)>{start};var queue=new Queue<(int,int)>();queue.Enqueue(start);

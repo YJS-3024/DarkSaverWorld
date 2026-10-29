@@ -8,6 +8,8 @@ namespace DarkSaver.World
     {
         public string nativeMap,texture,reference,evidence;
         public int appearanceId,frame,pixelX,pixelY;
+        // Explicit Unity grid cells in front of this counter; independent of map geometry files.
+        public int[] counterFrontCells;
     }
     [Serializable] public sealed class OriginalInteriorStaffData
     {
@@ -26,7 +28,7 @@ namespace DarkSaver.World
             else if(KaosiaFacilityCatalog.TryGet(key,out var facility))nativeMap=facility.Region.NativeMap;
             else if(NativeInteriorCatalog.TryGet(key,out var interior))nativeMap=interior.NativeMap;
             return nativeMap=="2000" || nativeMap=="2100" || nativeMap=="2200" || nativeMap=="2300"
-                || nativeMap=="2400" || nativeMap=="2510" || nativeMap=="2600" || nativeMap=="2800";
+                || nativeMap=="2400" || nativeMap=="2510" || nativeMap=="2600" || nativeMap=="2800" || nativeMap=="2900";
         }
         public static bool IsRegion(string key)=>IsTown(key) || IsInterior(key,out _);
         public static OriginalInteriorStaffData LoadStaff()

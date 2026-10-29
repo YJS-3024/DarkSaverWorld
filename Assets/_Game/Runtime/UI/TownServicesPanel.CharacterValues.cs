@@ -100,7 +100,7 @@ namespace DarkSaver.UI
         public string CharacterInfoGenderText { get; private set; }
         public bool HasCharacterInfoDemographics=>CharacterInfoAgeText!=null;
         public string CharacterInfoWeaponName { get; private set; }
-        public string CharacterInfoWeaponDisplayText => CharacterInfoWeaponName ?? (CharacterInfoValuesAreLocal?(localEquipmentWeaponName??"미확인"):null);
+        public string CharacterInfoWeaponDisplayText => inspectedWorldUnit!=null ? WorldWeaponName : CharacterInfoWeaponName ?? (CharacterInfoValuesAreLocal?(localEquipmentWeaponName??"미확인"):null);
         public short CharacterInfoAuxiliaryClassId { get; private set; }=-1;
         public string CharacterInfoAuxiliaryCountText { get; private set; }
         public bool BindCharacterInfoWeaponName(string originalName)
@@ -147,7 +147,9 @@ namespace DarkSaver.UI
         {
             string weaponText=CharacterInfoWeaponDisplayText;
             if(weaponText!=null) {
-                bool unknown=CharacterInfoValuesAreLocal && CharacterInfoWeaponName==null;
+                if(inspectedWorldUnit!=null && CharacterInfoWindow(false)?.background!=null)
+                    ui.NativeTexturePatch("character-info-weapon-clear",new Rect(origin+new Vector2(14,145),new Vector2(80,16)),CharacterInfoWindow(false).background,new Rect(14,111,80,16));
+                bool unknown=inspectedWorldUnit==null && CharacterInfoValuesAreLocal && CharacterInfoWeaponName==null;
                 // Cover the static "unarmed" background when no equipment state is available.
                 if(unknown) {
                     ui.Panel("character-info-weapon-unknown",new Rect(origin+new Vector2(14,127),new Vector2(80,36)));ui.Raise("character-info-weapon-unknown");

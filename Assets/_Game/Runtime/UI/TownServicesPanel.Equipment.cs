@@ -34,14 +34,17 @@ namespace DarkSaver.UI
             var session=GetComponent<BattleTransitionController>();
             for(int slot=0;slot<7;slot++)
             {
-                int index=slot,id=session?.EquipmentItemAt(slot)??-1;string key="equipment-slot-"+slot;
+                int index=slot,id=WorldEquipmentItemAt(slot);string key="equipment-slot-"+slot;
                 var rect=new Rect(panel.position+EquipmentCells[slot],new Vector2(32,32));
                 var item=id>0 && InventoryCatalog!=null && InventoryCatalog.TryGet(id,out var found)?found:null;
                 string name=id<0?"미확인":id==0?"비어 있음":item?.Name?.Replace('_',' ')??"미확인 아이템";
                 if(item!=null)ui.ItemSlotButton(key,rect,()=>SelectEquipmentSlot(index),ItemIcons.Get(item),1,selectedEquipmentSlot==slot,EquipmentNames[slot]+" / "+name);
                 else ui.Button(key,rect,id<0?"?":"",()=>SelectEquipmentSlot(index),session!=null,selectedEquipmentSlot==slot,EquipmentNames[slot]+" / "+name);
+                if(inspectedWorldUnit!=null && id>0)
+                    ui.ItemDragSourceAt(key,id,item!=null?ItemIcons.Get(item):null,new Rect(panel.x+145,panel.y+41,242,137),(_,point)=>RequestOriginalEquipment(index,-1,0));
                 ui.Raise(key);ui.Raise(key+"-icon");
             }
+            if(inspectedWorldUnit!=null)return;
             ui.Panel("equipment-actions",new Rect(panel.x,426,panel.width,30));
             ui.Button("equipment-confirm",new Rect(panel.x+8,427,84,28),"장착 확인",()=>ConfirmSelectedEquipment(),selectedEquipmentSlot>=0 && SelectedInventoryItem!=null);
             ui.Button("equipment-remove",new Rect(panel.x+98,427,84,28),"선택 해제",()=>ConfirmSelectedEquipment(true),selectedEquipmentSlot>=0 && session!=null && session.EquipmentItemAt(selectedEquipmentSlot)!=0);

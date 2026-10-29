@@ -1,3 +1,4 @@
+from saved_scene_geometry import read_scene_map
 """Compare converted indoor maps to native MRC/GRS data; no actors/fees/routes inferred."""
 from pathlib import Path
 import json,hashlib
@@ -11,7 +12,7 @@ def check(ok,description):
  if not ok:failures.append(description)
 for row in manifest['nativeInteriorMaps']:
  key=row['nativeMap'];source=native_map_path(key);native=load_map(key);w,h=native['width'],native['height']
- folder=ROOT/'Assets/_Game/Resources/Interiors'/key;data=json.loads((folder/'Map.json').read_text());before=len(failures)
+ folder=ROOT/'Assets/_Game/Resources/Interiors'/key;data=read_scene_map(folder);before=len(failures)
  expected_bytes=16+4*len(native['ids'])+7*w*h+16*len(native['sprites'])
  check(source.stat().st_size==expected_bytes,key+' native parsed to exact EOF')
  check((data['width'],data['height'])==(w,h),key+' dimensions')
@@ -35,7 +36,7 @@ for row in staff:
  expected.putdata([(r,g,b,0 if (r,g,b)==(0,0,0) else a) for r,g,b,a in expected.getdata()])
  actual=Image.open(ROOT/'Assets/_Game/Resources'/(row['texture']+'.png')).convert('RGBA')
  check(actual.size==expected.size and actual.tobytes()==expected.tobytes(),'staff source frame '+row['nativeMap']+' '+str(row['appearanceId']))
-report=dict(rooms=len(results),checks=checks,failures=failures,results=results,staffFrameChecks=len(staff),scope='Native indoor geometry, first-frame pixels and chosen staff sprite crops only. MRC geometry parsing does not establish server NPC count/identities. Legacy Map.json npc fields are ignored by current NativeTownScene.BuildRuntime.',actualUnityPlay=False)
+report=dict(rooms=len(results),checks=checks,failures=failures,results=results,staffFrameChecks=len(staff),scope='Native indoor geometry, first-frame pixels and chosen staff sprite crops only. MRC geometry parsing does not establish server NPC count/identities. NPC placement comes only from independent confirmed staff data.',actualUnityPlay=False)
 (ROOT/'Tools/MapChecks/original_interiors_check.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print(('PASS' if not failures else 'FAIL'),checks,'native indoor checks; rooms',len(results),'failures',len(failures),'NOT Unity Play')
 for failure in failures[:12]:print(failure)

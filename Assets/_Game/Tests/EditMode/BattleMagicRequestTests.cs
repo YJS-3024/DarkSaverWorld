@@ -45,18 +45,22 @@ namespace DarkSaver.Tests
         }
 
         [Test]
-        public void InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost()
+        public void InvalidMultiTargetReferencesNeverApplyAPartialEffectOrCost()
         {
             WithSender((sender, server, receiver, battle) => {
-                var distant = ExtraUnit(810, true, 90); distant.X = distant.Y = 20;
-                Assert.That(battle.TryRegisterGroup(new[] { distant }), Is.True);
-                battle.SetTemporaryLocalRules(true); battle.ConfigureTemporaryDamageMagic(201, 7, 4, 10, 2); Ready(battle);
+                Assert.That(battle.TryRegisterGroup(new[] { ExtraUnit(810,true,90) }),Is.True);
+                Assert.IsTrue(battle.ConfigureMagicApCost(201,6));Ready(battle);
+                Assert.IsTrue(battle.CanStartMagicRequest(201,100,new short[]{800},out _));
+                Assert.IsTrue(battle.ApplyHp(810,0));
+                int dispatched=0;server.RequestReceived+=_=>dispatched++;
+                int apBefore=battle.PlayerAp;Assert.IsTrue(battle.TryGetUnit(100,out var readyActor));
+                Assert.That(apBefore,Is.EqualTo(readyActor.MaxAp));
                 int results = 0; battle.CombatResultApplied += _ => results++;
-                foreach (var targets in new[] { new short[] { 800, 810 }, new short[] { 800, 999 }, new short[] { 800, 100 } })
+                foreach (var targets in new[] { new short[] { 800, 810 }, new short[] { 800, 999 } })
                     Assert.That(sender.TrySendMagic(new MagicRequest(201, 100, 0, 0, 7, targets), out _), Is.False);
                 Assert.That(battle.EnemyHp, Is.EqualTo(75)); Assert.That(battle.PlayerHp, Is.EqualTo(120));
-                Assert.That(battle.PlayerMp, Is.EqualTo(30)); Assert.That(battle.PlayerAp, Is.EqualTo(10));
-                Assert.That(results, Is.Zero); Assert.That(sender.LastMagicRequest, Is.Null);
+                Assert.That(battle.PlayerMp, Is.EqualTo(30)); Assert.That(battle.PlayerAp, Is.EqualTo(apBefore));
+                Assert.That(results, Is.Zero); Assert.That(sender.LastMagicRequest, Is.Null);Assert.AreEqual(0,dispatched);
             });
         }
 

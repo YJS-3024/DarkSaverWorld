@@ -1,0 +1,190 @@
+{
+  "baseline": "43768445 / tested source42a6cfc7",
+  "cases": [
+    {
+      "previousTest": "DarkSaver.Tests.BattleAlliedRosterTests.CommanderDeathsNeverInferUnreceivedBattleOutcome",
+      "currentTest": "DarkSaver.Tests.BattleAlliedRosterTests.CommanderDeathsNeverInferUnreceivedBattleOutcome",
+      "change": "runtime",
+      "action": "DefeatAchieved는 원작 종료 통지 없이 사망 개수로 판정을 만들지 않도록 차단",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits",
+      "currentTest": "DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits",
+      "change": "test-fixture",
+      "action": "폐기된 임시 HUD 영역 기대 제거, 명시적 수신 AP 비용으로 행동 메뉴 선행 조건 설정",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleAttackPresentationTests.DispatchedAttackAnticipationPrecedesIndependentHpResponse",
+      "currentTest": "DarkSaver.Tests.BattleAttackPresentationTests.DispatchedAttackAnticipationPrecedesIndependentHpResponse",
+      "change": "test-fixture",
+      "action": "교체된700번 적의 AP 최대/현재 수신 상태를 별도 설정해 공격 선행 연출 검사에 도달",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleFormationDeploymentTests.BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource",
+      "currentTest": "DarkSaver.Tests.BattleFormationDeploymentTests.BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource",
+      "change": "runtime",
+      "action": "제거 상태와 양수의 마지막 HP를 독립 보존하도록 복귀 검증 수정",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleFormationPlacementTests.ConfirmationRechecksTraversalAndMapChangeInvalidatesOldCoordinates",
+      "currentTest": "DarkSaver.Tests.BattleFormationPlacementTests.ConfirmationRechecksTraversalAndMapChangeInvalidatesOldCoordinates",
+      "change": "test-fixture",
+      "action": "편성 스냅샷은 받은 AP6 보존, 과거 초기값10을 주입하지 않음",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMagicRequestTests.InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost",
+      "currentTest": "DarkSaver.Tests.BattleMagicRequestTests.InvalidMultiTargetReferencesNeverApplyAPartialEffectOrCost",
+      "change": "test-fixture",
+      "action": "알려진 비용/준비 상태의 유효 요청을 먼저 검증, 없는/HP0 대상의 혼합 요청 거부·무송신·비용 보존 검사. 미확인 사거리/진영 규칙은 추정하지 않음",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+      "change": "test-fixture",
+      "action": "유효한 idle 표시 시계 반환값을 승인으로 오해한 기대 정정. 무수신 이동/위치·AP 변경 금지 검사는 유지",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.ExistingHudAndTerrainZeroAreExplicitNativeInputs",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.ExistingHudAndTerrainZeroAreExplicitNativeInputs",
+      "change": "test-fixture",
+      "action": "삭제된 임시 HUD/방향 진단 영역을 다시 활성화한다는 기대 대신 비활성·입력 비차단 유지 검사",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+      "change": "test-fixture",
+      "action": "유효한 idle 표시 시계 반환값을 승인으로 오해한 기대 정정. 무수신 이동/위치·AP 변경 금지 검사는 유지",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+      "change": "test-fixture",
+      "action": "유효한 idle 표시 시계 반환값을 승인으로 오해한 기대 정정. 무수신 이동/위치·AP 변경 금지 검사는 유지",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.InformationSizeChangesKeepLiveTargetAndGameplayState",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.InformationSizeChangesKeepLiveTargetAndGameplayState",
+      "change": "test-fixture",
+      "action": "전체 AP 채움 도우미 대신1 증가를 명시하는 SetTickMenu 입력으로 표시 갱신 검사",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+      "change": "test-fixture",
+      "action": "유효한 idle 표시 시계 반환값을 승인으로 오해한 기대 정정. 무수신 이동/위치·AP 변경 금지 검사는 유지",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady",
+      "change": "test-fixture",
+      "action": "삭제된 임시 HUD/방향 진단 영역을 다시 활성화한다는 기대 대신 비활성·입력 비차단 유지 검사",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+      "change": "test-fixture",
+      "action": "유효한 idle 표시 시계 반환값을 승인으로 오해한 기대 정정. 무수신 이동/위치·AP 변경 금지 검사는 유지",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval",
+      "change": "test-fixture",
+      "action": "유효한 idle 표시 시계 반환값을 승인으로 오해한 기대 정정. 무수신 이동/위치·AP 변경 금지 검사는 유지",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.PrototypeHudCannotBeReenabledOrBlockNativeMapInput",
+      "change": "test-fixture",
+      "action": "삭제된 임시 HUD/방향 진단 영역을 다시 활성화한다는 기대 대신 비활성·입력 비차단 유지 검사",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionShowsIndependentStatsWithoutSelectingOrSending",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionShowsIndependentStatsWithoutSelectingOrSending",
+      "change": "test-fixture",
+      "action": "공격18/방어5를 테스트 수신 fixture에 명시, AP7도 별도 절대 수신 입력으로 검사",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend",
+      "currentTest": "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend",
+      "change": "test-fixture",
+      "action": "적 제거만으로 승리를 추정하지 않음; 선택과 정보창 정리 구분",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(37)",
+      "currentTest": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(37)",
+      "change": "runtime",
+      "action": "원작 상태창과 무관한 임시 월드 HP/신전 안내 문자열 생성 차단, 보유 수치 보존",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(0)",
+      "currentTest": "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(0)",
+      "change": "runtime",
+      "action": "원작 상태창과 무관한 임시 월드 HP/신전 안내 문자열 생성 차단, 보유 수치 보존",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BuildingTravelTests.AllBuildingRequestsValidateSourcesAndRetainCanonicalResponses",
+      "currentTest": "DarkSaver.Tests.BuildingTravelTests.AllBuildingRequestsValidateSourcesAndRetainCanonicalResponses",
+      "change": "test-fixture",
+      "action": "로컬 float 좌표 비교에 오차 허용, 승인과Y보존 검사 유지",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers",
+      "currentTest": "DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers",
+      "change": "test-fixture",
+      "action": "필수 목적지 씬의 존재·빌드 활성 설정을 fixture에서 준비하고 finally 원복. 제품 CanStreamedLevelBeLoaded 검사는 유지",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.CombatMovementActionTests.ReservedReceiptBlocksConcurrentRequestsAndCancellationNeverInventsRefund",
+      "currentTest": "DarkSaver.Tests.CombatMovementActionTests.ReservedReceiptBlocksConcurrentRequestsAndCancellationNeverInventsRefund",
+      "change": "runtime",
+      "action": "기존 확정 대기 ticket이 있는 동안 중복 예약이 원래 예약을 덮어쓰지 못하도록 차단",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.CombatMovementRouteTests.QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+      "currentTest": "DarkSaver.Tests.CombatMovementRouteTests.QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+      "change": "test-fixture",
+      "action": "idle 시계 정상 반환과 수신되지 않은 이동/AP 변경 금지를 분리",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.NativeOwnedRosterTests.InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster",
+      "currentTest": "DarkSaver.Tests.NativeOwnedRosterTests.InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster",
+      "change": "runtime-and-test",
+      "action": "생명 상태와 마지막 HP를 독립 보존하는 복귀·저장 검증, 제거만으로 HP0을 기대하던 테스트 정정·디스크 재접속 기대 보강",
+      "actualUnityStatus": "not-run-after-change"
+    },
+    {
+      "previousTest": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip",
+      "currentTest": "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip",
+      "change": "runtime-and-test",
+      "action": "생명 상태와 마지막 HP를 독립 보존하는 복귀·저장 검증, 제거만으로 HP0을 기대하던 테스트 정정·디스크 재접속 기대 보강",
+      "actualUnityStatus": "not-run-after-change"
+    }
+  ],
+  "priorFailed": 26,
+  "verifiedResolvedInUnity": 0,
+  "newNamesAreNotProofOfResolution": true
+}

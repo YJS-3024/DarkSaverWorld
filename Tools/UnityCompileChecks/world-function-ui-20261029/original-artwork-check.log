@@ -1,0 +1,3 @@
+/workspace/DarkSaverWorld/Tools/OriginalInputChecks/check_world_ui.py:19: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  im=im.copy();im.putdata([(r,g,b,0 if r==g==b==0 else 255) for r,g,b,a in im.getdata()]);return im
+PASS 975 static assertions: original pixels/control positions, Unity GUID references, import metadata, generated hashes. Not Unity execution.

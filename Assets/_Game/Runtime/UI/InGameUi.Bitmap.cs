@@ -19,6 +19,7 @@ namespace DarkSaver.UI
         public void NativeBitmapText(string key, Rect rect, string text, Color color, int maximumLines = 1,
             TextAnchor alignment = TextAnchor.MiddleLeft, float textScale = 1f)
         {
+            if(WorldFontMode>=2){Label(key,rect,text,Mathf.RoundToInt(14*textScale),alignment:alignment,color:color);Clip(elements[key]);return;}
             textScale=Mathf.Clamp(textScale,.5f,1f);
             int width = Mathf.Max(14, Mathf.FloorToInt(rect.width/textScale));
             if (!bitmapTextLines.TryGetValue(key, out var cached) || cached.Text != text || cached.Width != width || cached.MaximumLines != maximumLines) {
@@ -35,7 +36,7 @@ namespace DarkSaver.UI
                 for (int i = 0; i < line.Length; i++) {
                     if (line[i] != ' ') {
                         string glyphKey = key + "-glyph-" + row + "-" + i;
-                        Portrait(glyphKey, new Rect(pen, top + row * 16*textScale, 14*textScale, 14*textScale), NativeStatusFont.WorldGlyph(line[i]), clip);
+                        Portrait(glyphKey, new Rect(pen, top + row * 16*textScale, 14*textScale, 14*textScale), NativeStatusFont.WorldGlyph(line[i],WorldFontMode), clip);
                         Find<RawImage>(glyphKey).color = color;
                     }
                     pen += NativeStatusFont.Advance(line[i])*textScale;
@@ -75,16 +76,28 @@ namespace DarkSaver.UI
                 + maximum.ToString(System.Globalization.CultureInfo.InvariantCulture);
             NativeStatusNumber(key, new Vector2(position.x + 4, position.y + 1), text);
         }
-        public void NativeBitmapScrollText(string key,Rect rect,string text,NativeBattleWindows.Control up,NativeBattleWindows.Control down,bool resetPosition=false)
+        public void NativeBitmapScrollText(string key,Rect rect,string text,NativeBattleWindows.Control up,NativeBattleWindows.Control down,bool resetPosition=false,Color? textColor=null,bool followTail=false)
         {
+            if(WorldFontMode>=2)
+            {
+                bool changedText=!bitmapTextLines.TryGetValue(key,out var previousText) || previousText.Text!=text || previousText.MaximumLines!=-2;
+                bitmapTextLines[key]=(text,(int)rect.width,-2,Array.Empty<string>());
+                NativeBattleWindowText(key,new Rect(rect.x,rect.y,rect.width-up.rect.width,rect.height),text);
+                if(textColor.HasValue)Find<Text>(key).color=textColor.Value;
+                var scroll=Find<ScrollRect>(key+"-scroll");var nativeContent=scroll.content;
+                float nativeMaximum=Mathf.Max(0,nativeContent.rect.height-rect.height);
+                if(followTail && changedText)nativeContent.anchoredPosition=new Vector2(0,nativeMaximum);
+                NativeImageButton(key+"-up",new Vector2(rect.xMax-up.rect.width,rect.y),up,()=>nativeContent.anchoredPosition=new Vector2(0,Mathf.Max(0,nativeContent.anchoredPosition.y-16)),nativeContent.anchoredPosition.y>0,"위로");
+                NativeImageButton(key+"-down",new Vector2(rect.xMax-down.rect.width,rect.yMax-down.rect.height),down,()=>nativeContent.anchoredPosition=new Vector2(0,Mathf.Min(nativeMaximum,nativeContent.anchoredPosition.y+16)),nativeContent.anchoredPosition.y<nativeMaximum,"아래로");return;
+            }
             const int lineHeight=16;int width=Mathf.Max(14,Mathf.FloorToInt(rect.width-19));
             bool changed=!bitmapTextLines.TryGetValue(key,out var cached)||cached.Text!=text||cached.Width!=width||cached.MaximumLines!=-1;
             if(changed){cached=(text,width,-1,NativeStatusFont.WrapLines(text,width));bitmapTextLines[key]=cached;}
             float height=Mathf.Max(rect.height,cached.Lines.Length*lineHeight);var content=Scroll(key+"-scroll",new Rect(rect.x,rect.y,width,rect.height),height,resetPosition||changed);
-            float maximum=Mathf.Max(0,height-rect.height);float offset=Mathf.Clamp(content.anchoredPosition.y,0,maximum);content.anchoredPosition=new Vector2(0,offset);
+            float maximum=Mathf.Max(0,height-rect.height);if(followTail && changed)content.anchoredPosition=new Vector2(0,maximum);float offset=Mathf.Clamp(content.anchoredPosition.y,0,maximum);content.anchoredPosition=new Vector2(0,offset);
             int first=Mathf.Clamp(Mathf.FloorToInt(offset/lineHeight),0,cached.Lines.Length-1);
             int visible=Mathf.Min(cached.Lines.Length-first,Mathf.CeilToInt(rect.height/lineHeight)+1);
-            for(int row=0;row<visible;row++){string line=cached.Lines[first+row];int pen=0;for(int i=0;i<line.Length;i++){if(line[i]!=' ')Portrait(key+"-row-"+row+"-glyph-"+i,new Rect(pen,(first+row)*lineHeight,14,14),NativeStatusFont.Glyph(line[i]),content);pen+=NativeStatusFont.Advance(line[i]);}}
+            for(int row=0;row<visible;row++){string line=cached.Lines[first+row];int pen=0;for(int i=0;i<line.Length;i++){if(line[i]!=' ')Portrait(key+"-row-"+row+"-glyph-"+i,new Rect(pen,(first+row)*lineHeight,14,14),WorldFontMode==1 || textColor.HasValue?NativeStatusFont.WorldGlyph(line[i],WorldFontMode):NativeStatusFont.Glyph(line[i]),content);if(line[i]!=' '){var glyph=Find<RawImage>(key+"-row-"+row+"-glyph-"+i);glyph.color=textColor ?? (WorldFontMode==1?PaperInk:Color.white);}pen+=NativeStatusFont.Advance(line[i]);}}
             Events(key+"-scroll").Tooltip=text??"";Raise(key+"-scroll");
             NativeImageButton(key+"-up",new Vector2(rect.xMax-up.rect.width,rect.y),up,()=>content.anchoredPosition=new Vector2(0,Mathf.Max(0,content.anchoredPosition.y-lineHeight)),offset>.5f,"설명 위로");
             NativeImageButton(key+"-down",new Vector2(rect.xMax-down.rect.width,rect.yMax-down.rect.height),down,()=>content.anchoredPosition=new Vector2(0,Mathf.Min(maximum,content.anchoredPosition.y+lineHeight)),offset<maximum-.5f,"설명 아래로");

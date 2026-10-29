@@ -94,7 +94,7 @@ namespace DarkSaver.Combat
             reason = "전투 결과를 확인할 수 없습니다.";
             if (battle == null || !battle.TryGetUnit(100, out var primary) || primary.MaxHp <= 0
                 || primary.Hp < 0 || primary.Hp > primary.MaxHp || primary.MaxMp < 0 || primary.Mp < 0 || primary.Mp > primary.MaxMp
-                || primary.LifeState != UnitLifeState.Active && primary.Hp != 0) return false;
+                || primary.LifeState < UnitLifeState.Active || primary.LifeState > UnitLifeState.Removed) return false;
             NativeOwnedRoster updated = null;
             if (formation != null)
             {
@@ -219,15 +219,16 @@ namespace DarkSaver.Combat
             return new NativeSaveData
             {
                 format = NativeSaveStore.Format, version = campaign.Count > 0 ? NativeSaveStore.CampaignVersion : scenario01 != null ? NativeSaveStore.ScenarioVersion
-                    : ownedRoster == null ? NativeSaveStore.Version : NativeSaveStore.RosterVersion,
+                    : (mercenaryRosterCandidate ?? ownedRoster) == null ? NativeSaveStore.Version : NativeSaveStore.RosterVersion,
                 mapScene = map, runtimeScene = runtime, worldX = position.x, worldY = position.y,
                 experience = playerExperience, hasVitals = hasPlayerVitals,
                 hp = playerHp, maxHp = playerMaxHp, mp = playerMp, maxMp = playerMaxMp,
                 lifeState = (int)playerLifeState, clearedScenarios = keys.ToArray(), character = character?.Clone(), hasCharacter = character != null,
+                worldCharacters = DarkSaver.Network.WorldCharacterData.Copy(worldCharacterSaveCandidate ?? worldCharacters),
                 tutorialPresenceVersion = 1, hasTutorial = character?.tutorial != null,
-                ownedRoster = ownedRoster?.Clone(), hasOwnedRoster = ownedRoster != null,
+                ownedRoster = (mercenaryRosterCandidate ?? ownedRoster)?.Clone(), hasOwnedRoster = (mercenaryRosterCandidate ?? ownedRoster) != null,
                 scenarioGeneralReceipts = (int[])scenarioGeneralReceipts.Clone(),
-                inventory = inventory?.Clone(), hasInventory = inventory != null,
+                inventory = (mercenaryInventoryCandidate ?? inventory)?.Clone(), hasInventory = (mercenaryInventoryCandidate ?? inventory) != null,
                 hasScenario01 = scenario01 != null, scenario01 = scenario01?.Clone(),
                 campaign = CaptureCampaignStates()
             };
@@ -242,6 +243,7 @@ namespace DarkSaver.Combat
             playerHp = data.hp; playerMaxHp = data.maxHp; playerMp = data.mp; playerMaxMp = data.maxMp;
             playerLifeState = (UnitLifeState)data.lifeState;
             character = data.hasCharacter ? data.character.Clone() : null;
+            worldCharacters=DarkSaver.Network.WorldCharacterData.Copy(data.worldCharacters);
             if (character != null && data.tutorialPresenceVersion == 1 && !data.hasTutorial) character.tutorial = null;
             scenarioGeneralReceipts = data.scenarioGeneralReceipts==null ? System.Array.Empty<int>() : (int[])data.scenarioGeneralReceipts.Clone();
             ownedRoster = restoredRoster; OwnedRosterRevision++;

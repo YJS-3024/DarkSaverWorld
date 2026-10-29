@@ -189,18 +189,15 @@ namespace DarkSaver.Tests
                 var inputPanel = view.InputPanelRect;
                 Assert.That(inputPanel.Overlaps(battle.AlliedRosterRect), Is.False);
                 Assert.That(inputPanel.Overlaps(view.MagicDirectionRect), Is.False);
-                Assert.That(battle.BattleHudRect.Contains(inputPanel.min), Is.True);
-                Assert.That(battle.BattleHudRect.Contains(inputPanel.max), Is.True);
-                Assert.That(inputPanel.yMin, Is.GreaterThanOrEqualTo(battle.BattleHudRect.y + 145));
-                Assert.That(inputPanel.yMax, Is.LessThan(battle.BattleHudRect.y + 220)); // Return button remains unobstructed.
-                Assert.That(view.TryBlockMapPointer(Rendering.GameScreen.GuiToScreen(inputPanel.center)), Is.True);
+                Assert.That(battle.IsPrototypeHudVisible,Is.False);
+                Assert.That(battle.BattleHudRect,Is.EqualTo(default(Rect)));
+                Assert.That(inputPanel,Is.EqualTo(default(Rect)));
                 Assert.That(battle.TrySelectRosterUnit(100), Is.True);
                 // Selecting the roster is free, but choosing attack requires the confirmed full-AP gate.
                 Assert.That(battle.ApplyTickMenu(100, GameConstants.BattleAllyMaximumAp, 0), Is.True);
-                // Edit-mode fixtures do not run Start(), which enables the approved local cost profile in play.
-                battle.SetTemporaryLocalRules(true);
+                // Explicit confirmed costs, not the removed single-player Start() profile.
+                Assert.That(battle.ConfigureActionPointCosts(2,6),Is.True);
                 Assert.That(view.TryChooseCommand(BattleMapCommand.Attack), Is.True);
-                battle.SetTemporaryLocalRules(false);
                 Assert.That(battle.ApplyTickMenu(100, GameConstants.BattleStartingAp, 0), Is.True);
                 Assert.That(battle.TrySelectRosterUnit(101), Is.True);
                 Assert.That(battle.SelectedUnitId, Is.EqualTo(101));

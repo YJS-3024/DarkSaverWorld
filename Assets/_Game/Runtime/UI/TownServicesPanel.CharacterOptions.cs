@@ -76,7 +76,7 @@ namespace DarkSaver.UI
         private void DrawCharacterAdjustmentOptions(Vector2 origin,NativeBattleWindows.Window window)
         {
             var session=GetComponent<BattleTransitionController>();
-            var current=session!=null && session.HasCreatedCharacter?CharacterAdjustmentClassIcon(session.PlayerJobId):null;
+            var current=session!=null && session.HasCreatedCharacter?CharacterAdjustmentClassIcon(inspectedWorldUnit?.JobId ?? session.PlayerJobId):null;
             if(current!=null) {
                 ui.Portrait("character-adjustment-class-current",new Rect(origin+new Vector2(99,228),new Vector2(32,32)),current);
                 ui.Raise("character-adjustment-class-current");

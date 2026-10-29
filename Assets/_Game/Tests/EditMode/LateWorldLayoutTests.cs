@@ -47,13 +47,14 @@ namespace DarkSaver.Tests
         [TestCase("333")][TestCase("404")][TestCase("405")][TestCase("406")]
         public void NewScenarioMapBuildsNativeGroundTerrainAndDimensions(string key)
         {
-            var scene=EditorSceneManager.NewPreviewScene();
+            Assert.IsTrue(ScenarioCatalog.TryGet(key,out var metadata));
+            var scene=EditorSceneManager.OpenPreviewScene("Assets/_Game/Scenes/Maps/"+metadata.MapScene+".unity");
             try
             {
-                Assert.IsTrue(ScenarioCatalog.TryGet(key,out var metadata));
-                var root=new GameObject("late scenario map "+key);SceneManager.MoveGameObjectToScene(root,scene);
-                Assert.IsTrue(root.AddComponent<NativeTownScene>().Configure("Scenario"+key,false));
-                var layers=root.GetComponentsInChildren<UnityEngine.Tilemaps.Tilemap>(true);
+                var roots=scene.GetRootGameObjects();
+                foreach(var loader in roots.SelectMany(r=>r.GetComponentsInChildren<NativeTownScene>(true)))
+                    Assert.IsTrue(loader.Build());
+                var layers=roots.SelectMany(r=>r.GetComponentsInChildren<UnityEngine.Tilemaps.Tilemap>(true)).ToArray();
                 Assert.IsTrue(layers.Any(t=>t.name=="Ground"));Assert.IsTrue(layers.Any(t=>t.name=="TerrainAttributes"));
                 var definition=JsonUtility.FromJson<Scenario01Definition>(Resources.Load<TextAsset>("Scenarios/"+key+"/Content").text);
                 Assert.IsTrue(definition.IsValid);Assert.AreEqual(metadata.Width,definition.width);Assert.AreEqual(metadata.Height,definition.height);

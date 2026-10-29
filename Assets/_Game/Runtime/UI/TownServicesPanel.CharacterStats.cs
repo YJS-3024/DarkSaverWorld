@@ -75,7 +75,7 @@ namespace DarkSaver.UI
             EnsureAdjustmentStatActions();
             return true;
         }
-        public bool CanPreviewCharacterAdjustmentStat(int stat,CharacterStatAdjustmentDirection direction)=>sessionStatBaseline!=null
+        public bool CanPreviewCharacterAdjustmentStat(int stat,CharacterStatAdjustmentDirection direction)=>inspectedWorldUnit!=null ? CanRequestWorldStat(stat,direction) : sessionStatBaseline!=null
             ? CanInspectAdjustmentMagic && (uint)stat<6 && sessionStatEnabled!=null
                 && (direction==CharacterStatAdjustmentDirection.Increase || direction==CharacterStatAdjustmentDirection.Decrease)
                 && sessionStatEnabled[stat+(direction==CharacterStatAdjustmentDirection.Increase?6:0)]
@@ -83,6 +83,7 @@ namespace DarkSaver.UI
             : CanInspectAdjustmentMagic && OriginalCharacterInfoValues.TryPreviewStatAdjustment(adjustmentPreviewCurrent,adjustmentPreviewBaseline,GameConstants.GetClassStatPointCost(stat),stat,direction,out _,out _);
         public bool PreviewCharacterAdjustmentStat(int stat,CharacterStatAdjustmentDirection direction)
         {
+            if(inspectedWorldUnit!=null)return CanRequestWorldStat(stat,direction) && SendWorldUnitRequest(new CharacterStatAdjustmentRequest(inspectedWorldUnit.RecordId,stat,direction));
             if(sessionStatBaseline!=null) {
                 if(!TryPreviewSessionStat(stat,direction,out var deltas,out var projected))return false;
                 sessionStatDeltas=deltas; RefreshSessionStatAllocation(projected);return true;

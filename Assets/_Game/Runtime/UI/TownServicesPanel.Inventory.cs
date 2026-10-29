@@ -53,7 +53,7 @@ namespace DarkSaver.UI
         public bool SelectOwnedItem(int itemId)
         {
             if (!IsOpen || Service != TownService.Inventory || !CanOpen
-                || (GetComponent<BattleTransitionController>()?.OwnedItemCount(itemId) ?? 0) <= 0) return false;
+                || (originalWorldInventory!=null ? System.Array.Find(originalWorldInventory,i=>i.ItemId==itemId)?.Quantity ?? 0 : GetComponent<BattleTransitionController>()?.OwnedItemCount(itemId) ?? 0) <= 0) return false;
             selectedInventoryId = itemId; equipmentBaseline=GetComponent<BattleTransitionController>()?.CaptureCharacterProfile(); return true;
         }
         public static string ItemDetails(ItemCatalogEntry item)
@@ -125,6 +125,8 @@ namespace DarkSaver.UI
             id = quantity = 0;
             if (!IsOpen || Service != TownService.Inventory || !CanOpen || slot < 0 || slot >= InventoryGridLayout.PageSize) return false;
             var session = GetComponent<BattleTransitionController>();
+            if(inspectedWorldUnit!=null && originalWorldInventory!=null)
+            {if(slot>=originalWorldInventory.Length)return false;id=originalWorldInventory[slot].ItemId;quantity=originalWorldInventory[slot].Quantity;return true;}
             return session != null && session.TryGetOwnedItemAt(inventoryPage * InventoryGridLayout.PageSize + slot, out id, out quantity);
         }
         private void DrawInventory(Rect panel)
@@ -136,7 +138,7 @@ namespace DarkSaver.UI
             }
             var session = GetComponent<BattleTransitionController>();
             int? count = session?.OwnedItemTypeCount;
-            int pages = InventoryGridLayout.PageCount(count ?? 0);
+            int pages = inspectedWorldUnit!=null?1:InventoryGridLayout.PageCount(count ?? 0);
             inventoryPage = Mathf.Clamp(inventoryPage, 0, pages - 1);
             for (int slot = 0; slot < InventoryGridLayout.PageSize; slot++) {
                 bool owned = TryGetInventoryCell(slot, out int id, out int quantity);
@@ -144,10 +146,15 @@ namespace DarkSaver.UI
                 string hint = !owned ? "빈 칸" : (item != null ? ItemCatalogPanel.DisplayName(item) : "미확인 아이템 #" + id) + " ×" + quantity;
                 ui.ItemSlotButton("owned-" + slot, InventoryGridLayout.Cell(slot, panel.position + new Vector2(146, 42)),
                     () => SelectOwnedItem(id), ItemIcons.Get(item), owned ? quantity : 0, owned && selectedInventoryId == id, hint);
+                if(inspectedWorldUnit!=null && owned)
+                    ui.ItemDragSourceAt("owned-"+slot,id,ItemIcons.Get(item),panel,(dragged,point)=>
+                    {for(int target=0;target<7;target++)if(new Rect(panel.position+EquipmentCells[target],new Vector2(32,32)).Contains(point)){EquipDroppedItem(dragged,target);break;}});
             }
             ui.NativeImageButton("inventory-minimize", panel.position + window.controls[0].rect.position, window.controls[0], () => SetInventoryMinimized(true), MinimizedInventoryWindow != null, "최소화");
             ui.NativeImageButton("close", panel.position + window.controls[1].rect.position, window.controls[1], Close, true, "닫기");
             ui.NativeImageButton("inventory-confirm", panel.position + window.controls[2].rect.position, window.controls[2], Close, true, "닫기");
+            if(inspectedWorldUnit==null)
+            {
             // Extra pages/details/save controls are local conveniences, outside the original window.
             ui.Panel("inventory-local-detail", new Rect(panel.x, 300, panel.width, 70)); ui.Raise("inventory-local-detail");
             var area = new Rect(panel.x + 8, 304, panel.width - 16, 62);
@@ -160,6 +167,7 @@ namespace DarkSaver.UI
             ui.NativeLibraryButton("inventory-next", new Vector2(panel.x + 30, 382), 39, () => SetInventoryPage(inventoryPage + 1), inventoryPage + 1 < pages, "다음 페이지 (로컬)");
             ui.Label("inventory-page", new Rect(panel.x + 52, 382, 52, 28), (inventoryPage + 1) + "/" + pages, 12);
             ui.Raise("inventory-prev"); ui.Raise("inventory-next"); ui.Raise("inventory-page");
+            }
             DrawEquipmentSlots(panel);
             // Original renderer uses right anchor (104,193); keep digits in its gold box.
             ui.NativeBitmapText("inventory-gold", new Rect(panel.x + 50, panel.y + 193, 54, 14), session?.CurrentGold?.ToString() ?? "미확인",

@@ -1,3 +1,4 @@
+from saved_scene_geometry import read_scene_map
 """Audit original Kaosia artwork and screenshot staff resources, without modifying scenes or saves."""
 from pathlib import Path
 import json,hashlib,math
@@ -10,7 +11,7 @@ def check(ok,name):
  if not ok:raise AssertionError(name)
  checks+=1
 
-folder=ROOT/'Assets/_Game/Resources/Towns/Kaosia';data=json.loads((folder/'Map.json').read_text());source=load_map('1000')
+folder=ROOT/'Assets/_Game/Resources/Towns/Kaosia';data=read_scene_map(folder);source=load_map('1000')
 check((data['width'],data['height'])==(source['width'],source['height'])==(43,43),'user-confirmed early Kaosia dimensions')
 check(data['attributes']==[t[3]&127 for t in source['tiles']],'original collision attributes')
 check(len(data['objects'])==len(source['sprites'])==225,'original decoration count')
@@ -23,8 +24,8 @@ check(Image.open(folder/'Ground.png').convert('RGBA').tobytes()==canvas.tobytes(
 for actual,original in zip(data['objects'],source['sprites']):
  check((actual['x'],actual['y'])==(original['x'],original['y']),'decoration coordinates')
  check(Image.open(folder/(actual['texture']+'.png')).convert('RGBA').tobytes()==frame(original['resource'],original['index'],original['frame'],True,True).tobytes(),'decoration source pixels')
-staff=json.loads((ROOT/'Assets/_Game/Resources/Town/OriginalInteriorStaff.json').read_text());check(staff['version']==1 and len(staff['entries'])==11,'five photographed and six user-confirmed staff rectangles')
-check([(r['nativeMap'],r['appearanceId'],r['pixelX'],r['pixelY']) for r in staff['entries']]==[('2100',807,128,128),('2100',810,480,128),('2400',810,480,128),('2510',807,128,128),('2600',818,288,160),('2000',807,128,128),('2000',810,480,128),('2200',807,128,128),('2200',810,480,128),('2300',807,128,128),('2300',810,480,128)],'only source-observed and user-confirmed rectangles')
+staff=json.loads((ROOT/'Assets/_Game/Resources/Town/OriginalInteriorStaff.json').read_text());check(staff['version']==1 and len(staff['entries'])==12,'eleven verified rectangles plus one explicitly local mercenary staff')
+check([(r['nativeMap'],r['appearanceId'],r['pixelX'],r['pixelY']) for r in staff['entries'] if r['evidence']!='local-mercenary-counter']==[('2100',807,128,128),('2100',810,480,128),('2400',810,480,128),('2510',807,128,128),('2600',818,288,160),('2000',807,128,128),('2000',810,480,128),('2200',807,128,128),('2200',810,480,128),('2300',807,128,128),('2300',810,480,128)],'only source-observed and user-confirmed rectangles')
 weapon=[(r['appearanceId'],r['frame'],r['pixelX'],r['pixelY'],r['texture']) for r in staff['entries'] if r['nativeMap']=='2000']
 armor=[(r['appearanceId'],r['frame'],r['pixelX'],r['pixelY'],r['texture']) for r in staff['entries'] if r['nativeMap']=='2100']
 check(weapon==armor and all(r['evidence']=='user-confirmed' for r in staff['entries'] if r['nativeMap']=='2000'),'user-confirmed weapon staff match armor exactly')
@@ -32,6 +33,8 @@ accessory=[(r['appearanceId'],r['frame'],r['pixelX'],r['pixelY'],r['texture']) f
 check(accessory==armor and all(r['evidence']=='user-confirmed' for r in staff['entries'] if r['nativeMap']=='2200'),'user-confirmed accessory staff match armor exactly')
 consumables=[(r['appearanceId'],r['frame'],r['pixelX'],r['pixelY'],r['texture']) for r in staff['entries'] if r['nativeMap']=='2300']
 check(consumables==armor and all(r['evidence']=='user-confirmed' for r in staff['entries'] if r['nativeMap']=='2300'),'user-confirmed consumables staff match armor exactly')
+local_mercenary=[r for r in staff['entries'] if r['evidence']=='local-mercenary-counter']
+check(len(local_mercenary)==1 and local_mercenary[0]['nativeMap']=='2900','unverified mercenary placement explicitly classified local')
 mage=[r for r in staff['entries'] if r['nativeMap']=='2800']
 check(not mage,'unverified mage-house placements removed')
 for row in staff['entries']:
@@ -40,7 +43,7 @@ for row in staff['entries']:
  sheet=Image.open(source).convert('RGBA');size=sheet.width//3;index=row['frame'];im=sheet.crop((index*size,size,(index+1)*size,2*size));im.putdata([(r,g,b,0 if (r,g,b)==(0,0,0) else a) for r,g,b,a in im.getdata()])
  p=ROOT/'Assets/_Game/Resources'/(row['texture']+'.png');check(Image.open(p).convert('RGBA').tobytes()==im.tobytes(),'native Down frame pixels')
  check(p.with_name(p.name+'.meta').exists(),'texture importer exists')
- m=json.loads((ROOT/'Assets/_Game/Resources/Interiors'/row['nativeMap']/'Map.json').read_text());x=row['pixelX']/32+.5;y=m['height']-row['pixelY']/32-.5
+ m=read_scene_map(ROOT/'Assets/_Game/Resources/Interiors'/row['nativeMap']);x=row['pixelX']/32+.5;y=m['height']-row['pixelY']/32-.5
  nearest=min(math.hypot(xx+.5-x,m['height']-yy-.5-y) for yy in range(m['height']) for xx in range(m['width']) if m['attributes'][yy*m['width']+xx]!=9)
  if row['nativeMap']=='2800':
   check(nearest<=3 and row['pixelX']+im.width<=m['width']*32 and row['pixelY']+im.height<=m['height']*32,'mage-house staff fit room and wide counter interaction distance')

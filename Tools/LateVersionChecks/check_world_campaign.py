@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 import UnityPy
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'Tools/MapChecks'))
+from saved_scene_geometry import read_scene_map
 import world_asset_baker as b
 checks=0
 
@@ -14,7 +15,7 @@ def check(ok,context):
 
 def read(path):return json.loads(path.read_text())
 def map_check(id,folder,blocked):
- native=b.load_map(id);data=read(folder/'Map.json');w,h=native['width'],native['height']
+ native=b.load_map(id);data=read_scene_map(folder);w,h=native['width'],native['height']
  check((w,h)==(data['width'],data['height']),('dimensions',id))
  check(data['attributes']==[t[3]&127 for t in native['tiles']],('terrain',id))
  floor=Image.open(folder/'Ground.png').convert('RGBA');check(floor.size==(w*32,h*32),('ground size',id));patterns={}

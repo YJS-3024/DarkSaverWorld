@@ -1,0 +1,41 @@
+
+분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe:     file format pei-i386
+
+
+Disassembly of section .text:
+
+004100d0 <.text+0xf0d0>:
+  4100d0:	8b 44 24 04          	mov    eax,DWORD PTR [esp+0x4]
+  4100d4:	83 f8 04             	cmp    eax,0x4
+  4100d7:	77 3a                	ja     0x410113
+  4100d9:	ff 24 85 18 01 41 00 	jmp    DWORD PTR [eax*4+0x410118]
+  4100e0:	8b 89 a4 00 00 00    	mov    ecx,DWORD PTR [ecx+0xa4]
+  4100e6:	e8 05 80 02 00       	call   0x4380f0
+  4100eb:	c2 04 00             	ret    0x4
+  4100ee:	8b 89 a4 00 00 00    	mov    ecx,DWORD PTR [ecx+0xa4]
+  4100f4:	e8 07 80 02 00       	call   0x438100
+  4100f9:	c2 04 00             	ret    0x4
+  4100fc:	8b 01                	mov    eax,DWORD PTR [ecx]
+  4100fe:	ff 50 44             	call   DWORD PTR [eax+0x44]
+  410101:	c2 04 00             	ret    0x4
+  410104:	8b 11                	mov    edx,DWORD PTR [ecx]
+  410106:	6a 00                	push   0x0
+  410108:	ff 52 40             	call   DWORD PTR [edx+0x40]
+  41010b:	c2 04 00             	ret    0x4
+  41010e:	e8 8d 05 00 00       	call   0x4106a0
+  410113:	c2 04 00             	ret    0x4
+  410116:	8b ff                	mov    edi,edi
+  410118:	fc                   	cld
+  410119:	00 41 00             	add    BYTE PTR [ecx+0x0],al
+  41011c:	0e                   	push   cs
+  41011d:	01 41 00             	add    DWORD PTR [ecx+0x0],eax
+  410120:	04 01                	add    al,0x1
+  410122:	41                   	inc    ecx
+  410123:	00 e0                	add    al,ah
+  410125:	00 41 00             	add    BYTE PTR [ecx+0x0],al
+  410128:	ee                   	out    dx,al
+  410129:	00 41 00             	add    BYTE PTR [ecx+0x0],al
+  41012c:	90                   	nop
+  41012d:	90                   	nop
+  41012e:	90                   	nop
+  41012f:	90                   	nop

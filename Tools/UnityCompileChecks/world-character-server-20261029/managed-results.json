@@ -1,0 +1,71 @@
+{
+  "scope": "Direct managed reflection on compiled production/test assemblies; NOT Unity TestRunner",
+  "total": 16,
+  "failed": 0,
+  "results": [
+    {
+      "test": "WorldFunctionProtocolTests.ChatAndF12UseOriginalCp949CountAndModeWithoutNullTerminator()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.OriginalByteBoundariesRejectTruncationUnsupportedCharactersAndTrailingPayload()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.LocalChatEchoesOnlyConnectedCharacterAndWhispersNeverFabricateARecipient()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.TeleportIsServerCommandAndUnknownCommandsNeverFallThroughToGeneralChat()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.OriginalRoleFlagsReorderAndEquipmentRoundTripTheirOwnWordFields()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.AbilityRequestsKeepSelectedRoleAndMagicArrowLiteralOneOrTwo()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.WhisperPreferenceUsesOriginal7dWordAndServerHonorsIt()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldFunctionProtocolTests.RoleNotificationsCopyProfilesAndPayloadsAndRejectDuplicateSlots()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldCharacterServiceTests.FlagAndOrderPersistBeforeReceiptAndReloadFromAuthority()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldCharacterServiceTests.FailedWriteUnknownUnitInvalidSlotAndUnavailableContextNeverPublishOrMutate()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldCharacterServiceTests.VerifiedAbilityQueryPublishesRosterThenOriginalCostsAndCandidates()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldCharacterServiceTests.MissingServerRulesDoNotGrantClassesMagicOrPointsAndCancelIsExplicit()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldCharacterServiceTests.SuppliedMutationPolicyRequiresOwnedIdentityValidResultAndSuccessfulStorage()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldCharacterServiceTests.VerifiedStatCostsStageRefundCancelAndCommitWithoutInventedPointAwards()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldCharacterServiceTests.StatConfirmationPreservesConcurrentDeploymentFlagAndRejectsChangedInfo()",
+      "result": "Passed"
+    },
+    {
+      "test": "WorldCharacterServiceTests.AuthorityDataRejectsMalformedAndDuplicateRecordsAndMagicListsKeepWireShape()",
+      "result": "Passed"
+    }
+  ]
+}

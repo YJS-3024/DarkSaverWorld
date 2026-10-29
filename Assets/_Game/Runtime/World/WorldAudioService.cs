@@ -33,6 +33,8 @@ namespace DarkSaver.World
         private void Unloaded(Scene scene)=>dirty=true;
         private void LateUpdate()
         {
+            music.mute=!DarkSaver.UI.NativeWorldPreferences.MusicEnabled;
+            foreach(var sound in sounds.Values)if(sound!=null)sound.mute=!DarkSaver.UI.NativeWorldPreferences.EffectsEnabled;
             if(FindAnyObjectByType<AudioListener>()==null)ownedListener=gameObject.AddComponent<AudioListener>();
             if(DarkSaver.UI.FirstPlayTutorial.BlocksWorldActions){StopMusic();dirty=true;return;}
             if(!dirty)return;dirty=false;
@@ -67,7 +69,7 @@ namespace DarkSaver.World
                 source=go.AddComponent<AudioSource>();source.playOnAwake=false;source.spatialBlend=0;source.volume=GameConstants.NativeMagicSoundVolume;source.clip=clip;
                 instance.sounds.Add(id,source);
             }
-            source.Stop();source.Play();
+            source.mute=!DarkSaver.UI.NativeWorldPreferences.EffectsEnabled;source.Stop();source.Play();
         }
         private void OnDestroy()
         {SceneManager.sceneLoaded-=Loaded;SceneManager.sceneUnloaded-=Unloaded;if(instance==this)instance=null;}

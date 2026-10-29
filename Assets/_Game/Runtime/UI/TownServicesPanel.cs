@@ -30,7 +30,7 @@ namespace DarkSaver.UI
                 || FindAnyObjectByType<DarkSaver.World.WorldSceneCoordinator>()?.IsTravelling==true)return false;
             return service==TownService.Inventory || service==TownService.CharacterInfo
                 ? DarkSaver.World.PersonalEquipmentContext.IsReady
-                : DarkSaver.World.TownSceneContext.IsReady || service==TownService.Temple && BattleTransitionController.IsTempleReady;
+                : DarkSaver.World.TownSceneContext.IsReady || service==TownService.Mercenary && SceneManager.GetSceneByName("Interior2900_Runtime").isLoaded || service==TownService.Temple && BattleTransitionController.IsTempleReady;
         }
 
         public bool OpenFromNpc(TownService service,TopDownPlayerController controller,string name,int questId=0)
@@ -45,7 +45,7 @@ namespace DarkSaver.UI
         public bool Open(TownService service, TopDownPlayerController controller)
         {
             if(!DarkSaver.Core.OriginalRestorationPolicy.AllowSinglePlayerRules
-                && service!=TownService.Shop && service!=TownService.Inventory && service!=TownService.CharacterInfo)return false;
+                && service!=TownService.Shop && service!=TownService.Inventory && service!=TownService.CharacterInfo && !(service==TownService.Mercenary && SceneManager.GetSceneByName("Interior2900_Runtime").isLoaded))return false;
             if(service==TownService.Overview)return false;
             if(DarkSaver.World.ShopInteriorContext.Current!=null)
             {
@@ -64,11 +64,13 @@ namespace DarkSaver.UI
             }
             else if (player != controller) return false;
             EnsureAnalyzedTownBindings();
-            player = controller; Service = service; IsOpen = true;
+            player = controller; Service = service; IsOpen = true;inspectedWorldUnit=null;originalWorldInventory=null;
             ResetServiceInput();
             if(service==TownService.CharacterInfo) BindSessionCharacterInfoValues();
             speaker = null; lines = System.Array.Empty<string>(); lineIndex = 0; afterDialogue = TownService.Overview;
-            player.SetUiInputBlocked(true); return true;
+            player.SetUiInputBlocked(true);
+            if((service==TownService.CharacterInfo || service==TownService.Inventory) && GetComponent<NativeWorldWindows>()?.IsAvailable==true)GetComponent<NativeWorldWindows>().BindPersonalWindow(this);
+            return true;
         }
 
         public bool OpenDialogue(string name, string[] text, TopDownPlayerController controller, TownService destination = TownService.Overview)
@@ -102,6 +104,7 @@ namespace DarkSaver.UI
         private void ResetServiceInput()
         {
             ui?.CancelItemDrags();
+            nativeMercenaryNpc=null;
             CancelPendingTrade();
             pendingClassId = 0; classChangeMessage = null;
             shopPage = 0; shopQuantity = "1"; shopMessage = null; ClearShopInspection();
@@ -147,6 +150,7 @@ namespace DarkSaver.UI
             if (!CanOpen || player == null || !player.isActiveAndEnabled) { Close(); return; }
             if (Input.GetKeyDown(KeyCode.Escape)) { if (!CancelPendingTrade()) Close(); return; }
             InGameUi.Ensure(ref ui, this, 60); ui.Begin();
+            if(Service==TownService.Mercenary){DrawOriginalMercenaries();ui.End();return;}
             if (Service == TownService.CharacterInfo) { DrawCharacterInfo(); ui.End(); return; }
             if (Service == TownService.Inventory && IsInventoryMinimized) { DrawMinimizedInventory(); ui.End(); return; }
             bool inventoryLayout = Service == TownService.Inventory;

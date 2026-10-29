@@ -1,3 +1,4 @@
+from saved_scene_geometry import read_scene_map
 """Source pixels, authored bindings, spawn reachability, scenes and build GUIDs.
 Does not run the Unity loader or claim original town identity/routing recovery.
 """
@@ -24,7 +25,7 @@ def main():
     for row in manifest:
         key=row['key'];folder=ROOT/'Assets/_Game/Resources/Towns'/key;source=native_map_path(row['nativeMap'])
         assert hashlib.sha256(source.read_bytes()).hexdigest()==row['sourceSha256']
-        original=load_map(row['nativeMap']);data=json.loads((folder/'Map.json').read_text());w,h=data['width'],data['height']
+        original=load_map(row['nativeMap']);data=read_scene_map(folder);w,h=data['width'],data['height']
         assert (w,h)==(original['width'],original['height'])
         assert data['attributes']==[t[3]&127 for t in original['tiles']]
         assert len(data['objects'])==len(original['sprites'])

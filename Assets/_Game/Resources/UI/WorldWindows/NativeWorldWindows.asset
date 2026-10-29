@@ -1,0 +1,376 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bffdb6994f0ba0243bf3476b846a2ca4, type: 3}
+  m_Name: NativeWorldWindows
+  m_EditorClassIdentifier: 
+  windows:
+  - sceneId: 2
+    title: 보유 캐릭터
+    background: {fileID: 2800000, guid: 0749115abce550d6b5d9479c0e7f3347, type: 3}
+    size: {x: 263, y: 363}
+    minimizedBackground: {fileID: 2800000, guid: 7ce4a62ab5f75b41a3e02f016f4ec964, type: 3}
+    minimizedSize: {x: 29, y: 38}
+    controls:
+    - nativeId: 37
+      rect: {x: 115, y: 43, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: 7704183cf9cd5d2dad18406a8489d2aa, type: 3}
+      - {fileID: 2800000, guid: 758ca8f8b13d556b9729860d719f0e84, type: 3}
+      - {fileID: 2800000, guid: 6b99827ef0a1551bb6583878d94cb1f1, type: 3}
+    - nativeId: 38
+      rect: {x: 138, y: 43, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: 954a99244dcf57bfa9e94d5683484ae0, type: 3}
+      - {fileID: 2800000, guid: 52a19374ab4d53259b519bb62a86c9d8, type: 3}
+      - {fileID: 2800000, guid: bb210a13183a5fddb4e1bd85766dec64, type: 3}
+    - nativeId: 31
+      rect: {x: 159, y: 153, width: 66, height: 20}
+      frames:
+      - {fileID: 2800000, guid: e1a7776d9ea45c248c7c2cac2e29c758, type: 3}
+      - {fileID: 2800000, guid: e5d30df8c1a252f3b8e7d995ef7cdfab, type: 3}
+      - {fileID: 2800000, guid: bc85346a5aca551d93598709b10c8b3f, type: 3}
+    - nativeId: 35
+      rect: {x: 159, y: 176, width: 66, height: 20}
+      frames:
+      - {fileID: 2800000, guid: b87373a4f36d583c820f38f636fdd723, type: 3}
+      - {fileID: 2800000, guid: ce11b930ce285123826dba312d1a7f53, type: 3}
+      - {fileID: 2800000, guid: 572ecbc449ec57dd940f5316ed3bf9d4, type: 3}
+    - nativeId: 33
+      rect: {x: 159, y: 199, width: 66, height: 20}
+      frames:
+      - {fileID: 2800000, guid: 39b9c5d669d9590591ce4425f06e87b2, type: 3}
+      - {fileID: 2800000, guid: e022a1d869925063860139eb099241b7, type: 3}
+      - {fileID: 2800000, guid: b2705f650046587d8bc27af361db1001, type: 3}
+    - nativeId: 34
+      rect: {x: 159, y: 223, width: 66, height: 20}
+      frames:
+      - {fileID: 2800000, guid: 072362abc08d50edb941f0dab6891e08, type: 3}
+      - {fileID: 2800000, guid: 3e2bcc293c2a512e9805a7dc6f61bdbe, type: 3}
+      - {fileID: 2800000, guid: 8dc04fbc99735d398cdbd60af18f8285, type: 3}
+    - nativeId: 36
+      rect: {x: 159, y: 247, width: 66, height: 20}
+      frames:
+      - {fileID: 2800000, guid: cba8ce010938554db8f112e662690c93, type: 3}
+      - {fileID: 2800000, guid: 7547d4e0c8d55afdabe5f3e07f6f2e1d, type: 3}
+      - {fileID: 2800000, guid: da5b214e1e5f58e19fdbb1a97f603134, type: 3}
+    - nativeId: 20
+      rect: {x: 189, y: 289, width: 34, height: 34}
+      frames:
+      - {fileID: 2800000, guid: ba5745aa337e5082963d3dbc6d3393e6, type: 3}
+      - {fileID: 2800000, guid: 6c0a911687625a31898b38e727e4565b, type: 3}
+      - {fileID: 2800000, guid: fd43d3fe17855b8b9f3feac84de42db3, type: 3}
+    - nativeId: 21
+      rect: {x: 158, y: 291, width: 32, height: 36}
+      frames:
+      - {fileID: 2800000, guid: fc75ed5651985bf8862bac59c9c8d74f, type: 3}
+      - {fileID: 2800000, guid: 83a8f3812d5d5fd6a907dc5ced2743e4, type: 3}
+      - {fileID: 2800000, guid: 7bb5a34640ec597e954cf77abd21980c, type: 3}
+    - nativeId: 48
+      rect: {x: 42, y: 176, width: 30, height: 5}
+      frames:
+      - {fileID: 2800000, guid: 2abdb3d06edd5b49bb90b72d31ef0a7a, type: 3}
+      - {fileID: 2800000, guid: 33fc70fab6275cab9437059c565b78bb, type: 3}
+      - {fileID: 2800000, guid: 1ae236abec5853299f7d34bb52fc29bc, type: 3}
+    - nativeId: 48
+      rect: {x: 80, y: 176, width: 30, height: 5}
+      frames:
+      - {fileID: 2800000, guid: 2abdb3d06edd5b49bb90b72d31ef0a7a, type: 3}
+      - {fileID: 2800000, guid: 33fc70fab6275cab9437059c565b78bb, type: 3}
+      - {fileID: 2800000, guid: 1ae236abec5853299f7d34bb52fc29bc, type: 3}
+    - nativeId: 48
+      rect: {x: 118, y: 176, width: 30, height: 5}
+      frames:
+      - {fileID: 2800000, guid: 2abdb3d06edd5b49bb90b72d31ef0a7a, type: 3}
+      - {fileID: 2800000, guid: 33fc70fab6275cab9437059c565b78bb, type: 3}
+      - {fileID: 2800000, guid: 1ae236abec5853299f7d34bb52fc29bc, type: 3}
+    - nativeId: 48
+      rect: {x: 42, y: 226, width: 30, height: 5}
+      frames:
+      - {fileID: 2800000, guid: 2abdb3d06edd5b49bb90b72d31ef0a7a, type: 3}
+      - {fileID: 2800000, guid: 33fc70fab6275cab9437059c565b78bb, type: 3}
+      - {fileID: 2800000, guid: 1ae236abec5853299f7d34bb52fc29bc, type: 3}
+    - nativeId: 48
+      rect: {x: 80, y: 226, width: 30, height: 5}
+      frames:
+      - {fileID: 2800000, guid: 2abdb3d06edd5b49bb90b72d31ef0a7a, type: 3}
+      - {fileID: 2800000, guid: 33fc70fab6275cab9437059c565b78bb, type: 3}
+      - {fileID: 2800000, guid: 1ae236abec5853299f7d34bb52fc29bc, type: 3}
+    - nativeId: 48
+      rect: {x: 118, y: 226, width: 30, height: 5}
+      frames:
+      - {fileID: 2800000, guid: 2abdb3d06edd5b49bb90b72d31ef0a7a, type: 3}
+      - {fileID: 2800000, guid: 33fc70fab6275cab9437059c565b78bb, type: 3}
+      - {fileID: 2800000, guid: 1ae236abec5853299f7d34bb52fc29bc, type: 3}
+    - nativeId: 48
+      rect: {x: 42, y: 276, width: 30, height: 5}
+      frames:
+      - {fileID: 2800000, guid: 2abdb3d06edd5b49bb90b72d31ef0a7a, type: 3}
+      - {fileID: 2800000, guid: 33fc70fab6275cab9437059c565b78bb, type: 3}
+      - {fileID: 2800000, guid: 1ae236abec5853299f7d34bb52fc29bc, type: 3}
+    - nativeId: 48
+      rect: {x: 80, y: 276, width: 30, height: 5}
+      frames:
+      - {fileID: 2800000, guid: 2abdb3d06edd5b49bb90b72d31ef0a7a, type: 3}
+      - {fileID: 2800000, guid: 33fc70fab6275cab9437059c565b78bb, type: 3}
+      - {fileID: 2800000, guid: 1ae236abec5853299f7d34bb52fc29bc, type: 3}
+    - nativeId: 48
+      rect: {x: 118, y: 276, width: 30, height: 5}
+      frames:
+      - {fileID: 2800000, guid: 2abdb3d06edd5b49bb90b72d31ef0a7a, type: 3}
+      - {fileID: 2800000, guid: 33fc70fab6275cab9437059c565b78bb, type: 3}
+      - {fileID: 2800000, guid: 1ae236abec5853299f7d34bb52fc29bc, type: 3}
+  - sceneId: 3
+    title: 대화
+    background: {fileID: 2800000, guid: ca6323646d885f3c8c56c04080c4d297, type: 3}
+    size: {x: 594, y: 84}
+    minimizedBackground: {fileID: 2800000, guid: f9fe11a5384c5f55af947f41ef8e4578, type: 3}
+    minimizedSize: {x: 32, y: 22}
+    controls:
+    - nativeId: 61
+      rect: {x: 540, y: 6, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: e53f1f3a4d425a81af14407e31d8ade5, type: 3}
+      - {fileID: 2800000, guid: 60dde3bdb03351f2aa6bc7a3f2e94762, type: 3}
+      - {fileID: 2800000, guid: 2bf1d7e9c7435fcc9be1c0e2e9bd2dc8, type: 3}
+    - nativeId: 83
+      rect: {x: 557, y: 6, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: cbae850a638f54deb4178b52b3faa531, type: 3}
+      - {fileID: 2800000, guid: c7e69da56e4b566a897990a701f2a69c, type: 3}
+      - {fileID: 2800000, guid: 1d3ffe05c1b75885beb4fe45c472e428, type: 3}
+    - nativeId: 62
+      rect: {x: 574, y: 6, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: bf2028d4c2fb552eba58e580f4d14638, type: 3}
+      - {fileID: 2800000, guid: 4e981f7c670254d4a09539262046e8e8, type: 3}
+      - {fileID: 2800000, guid: dc2c25316a975b179254a4c686fed66b, type: 3}
+    - nativeId: 58
+      rect: {x: 574, y: 22, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: 05d423ef91c659b1b9aa9cb266aa7785, type: 3}
+      - {fileID: 2800000, guid: 933920dc906a50528393cf227f68abbd, type: 3}
+      - {fileID: 2800000, guid: 10205204d3aa5d7bb30ec3eaf1a4c524, type: 3}
+    - nativeId: 59
+      rect: {x: 574, y: 62, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: ccca3e9ee50c54bca5b6893f6bde7dff, type: 3}
+      - {fileID: 2800000, guid: 262ccc90bd1c50129745859b346019c8, type: 3}
+      - {fileID: 2800000, guid: 24259ec424da5a498ccfc871f284202d, type: 3}
+  - sceneId: 15
+    title: 환경설정
+    background: {fileID: 2800000, guid: af88f107039d51919bb403ff0e146366, type: 3}
+    size: {x: 146, y: 199}
+    minimizedBackground: {fileID: 0}
+    minimizedSize: {x: 0, y: 0}
+    controls:
+    - nativeId: 38
+      rect: {x: 115, y: 16, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: 954a99244dcf57bfa9e94d5683484ae0, type: 3}
+      - {fileID: 2800000, guid: 52a19374ab4d53259b519bb62a86c9d8, type: 3}
+      - {fileID: 2800000, guid: bb210a13183a5fddb4e1bd85766dec64, type: 3}
+    - nativeId: 47
+      rect: {x: 100, y: 54, width: 31, height: 18}
+      frames:
+      - {fileID: 2800000, guid: 382fc68696a05d38a8ea6f0cfbb90946, type: 3}
+      - {fileID: 2800000, guid: d5894279a14658e89d23eacb79fe79fa, type: 3}
+      - {fileID: 2800000, guid: bd23647c95f85bd48ad8b3539e76d145, type: 3}
+    - nativeId: 47
+      rect: {x: 100, y: 72, width: 31, height: 18}
+      frames:
+      - {fileID: 2800000, guid: 382fc68696a05d38a8ea6f0cfbb90946, type: 3}
+      - {fileID: 2800000, guid: d5894279a14658e89d23eacb79fe79fa, type: 3}
+      - {fileID: 2800000, guid: bd23647c95f85bd48ad8b3539e76d145, type: 3}
+    - nativeId: 47
+      rect: {x: 100, y: 90, width: 31, height: 18}
+      frames:
+      - {fileID: 2800000, guid: 382fc68696a05d38a8ea6f0cfbb90946, type: 3}
+      - {fileID: 2800000, guid: d5894279a14658e89d23eacb79fe79fa, type: 3}
+      - {fileID: 2800000, guid: bd23647c95f85bd48ad8b3539e76d145, type: 3}
+    - nativeId: 47
+      rect: {x: 100, y: 108, width: 31, height: 18}
+      frames:
+      - {fileID: 2800000, guid: 382fc68696a05d38a8ea6f0cfbb90946, type: 3}
+      - {fileID: 2800000, guid: d5894279a14658e89d23eacb79fe79fa, type: 3}
+      - {fileID: 2800000, guid: bd23647c95f85bd48ad8b3539e76d145, type: 3}
+    - nativeId: 47
+      rect: {x: 100, y: 126, width: 31, height: 18}
+      frames:
+      - {fileID: 2800000, guid: 382fc68696a05d38a8ea6f0cfbb90946, type: 3}
+      - {fileID: 2800000, guid: d5894279a14658e89d23eacb79fe79fa, type: 3}
+      - {fileID: 2800000, guid: bd23647c95f85bd48ad8b3539e76d145, type: 3}
+    - nativeId: 47
+      rect: {x: 100, y: 144, width: 31, height: 18}
+      frames:
+      - {fileID: 2800000, guid: 382fc68696a05d38a8ea6f0cfbb90946, type: 3}
+      - {fileID: 2800000, guid: d5894279a14658e89d23eacb79fe79fa, type: 3}
+      - {fileID: 2800000, guid: bd23647c95f85bd48ad8b3539e76d145, type: 3}
+    - nativeId: 76
+      rect: {x: 100, y: 163, width: 31, height: 18}
+      frames:
+      - {fileID: 2800000, guid: f1476afacfd559199143f4984a9dc14f, type: 3}
+      - {fileID: 2800000, guid: c332ad7ff09653628905eb7a188ced69, type: 3}
+      - {fileID: 2800000, guid: 869228a7bbb15d42878fcc2d0db8e41d, type: 3}
+  - sceneId: 19
+    title: 도움말
+    background: {fileID: 2800000, guid: b121215f02875846ac21a764e20cebfc, type: 3}
+    size: {x: 628, y: 466}
+    minimizedBackground: {fileID: 0}
+    minimizedSize: {x: 0, y: 0}
+    controls:
+    - nativeId: 40
+      rect: {x: 590, y: 51, width: 20, height: 21}
+      frames:
+      - {fileID: 2800000, guid: 716743a0e8c350f0a3f7bdaca70efdfe, type: 3}
+      - {fileID: 2800000, guid: b4390ba49038573290c94910130e809f, type: 3}
+      - {fileID: 2800000, guid: 33e94c8ef6bd5967a35e2cfe0e17c91e, type: 3}
+    - nativeId: 39
+      rect: {x: 590, y: 419, width: 20, height: 21}
+      frames:
+      - {fileID: 2800000, guid: 86242b4b32095816b338d902a6b75992, type: 3}
+      - {fileID: 2800000, guid: 841972a133085b7cb48ee9c5688047b3, type: 3}
+      - {fileID: 2800000, guid: 929a5337f7a65cceb0760d07e434c8f6, type: 3}
+    - nativeId: 38
+      rect: {x: 594, y: 17, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: 954a99244dcf57bfa9e94d5683484ae0, type: 3}
+      - {fileID: 2800000, guid: 52a19374ab4d53259b519bb62a86c9d8, type: 3}
+      - {fileID: 2800000, guid: bb210a13183a5fddb4e1bd85766dec64, type: 3}
+  - sceneId: 27
+    title: 게임 종료
+    background: {fileID: 2800000, guid: 0aa120adac8c55cca86a644d894dccd7, type: 3}
+    size: {x: 285, y: 83}
+    minimizedBackground: {fileID: 0}
+    minimizedSize: {x: 0, y: 0}
+    controls:
+    - nativeId: 19
+      rect: {x: 79, y: 45, width: 46, height: 19}
+      frames:
+      - {fileID: 2800000, guid: 6fbee9ccc6d150d7b9d4179ebb813bee, type: 3}
+      - {fileID: 2800000, guid: 895f1872cbed55dd99832ff1619d86f0, type: 3}
+      - {fileID: 2800000, guid: 7bd351bbf4fb53b996f0432382c53061, type: 3}
+    - nativeId: 54
+      rect: {x: 164, y: 45, width: 46, height: 19}
+      frames:
+      - {fileID: 2800000, guid: de9d5a0afc49502fbc9e9d3d3e58ea19, type: 3}
+      - {fileID: 2800000, guid: 6355e341d4ed52799a243f7142415a79, type: 3}
+      - {fileID: 2800000, guid: 6d1466d56bed531abc9c05456bd16c5b, type: 3}
+  - sceneId: 42
+    title: 보유 캐릭터 간소화
+    background: {fileID: 2800000, guid: 5e803a22975b5a558754e689438df79f, type: 3}
+    size: {x: 255, y: 282}
+    minimizedBackground: {fileID: 2800000, guid: c4dce10911225702bc5182997fc6d069, type: 3}
+    minimizedSize: {x: 29, y: 38}
+    controls:
+    - nativeId: 37
+      rect: {x: 107, y: 45, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: 7704183cf9cd5d2dad18406a8489d2aa, type: 3}
+      - {fileID: 2800000, guid: 758ca8f8b13d556b9729860d719f0e84, type: 3}
+      - {fileID: 2800000, guid: 6b99827ef0a1551bb6583878d94cb1f1, type: 3}
+    - nativeId: 38
+      rect: {x: 134, y: 45, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: 954a99244dcf57bfa9e94d5683484ae0, type: 3}
+      - {fileID: 2800000, guid: 52a19374ab4d53259b519bb62a86c9d8, type: 3}
+      - {fileID: 2800000, guid: bb210a13183a5fddb4e1bd85766dec64, type: 3}
+    - nativeId: 48
+      rect: {x: 114, y: 105, width: 30, height: 5}
+      frames:
+      - {fileID: 2800000, guid: 2abdb3d06edd5b49bb90b72d31ef0a7a, type: 3}
+      - {fileID: 2800000, guid: 33fc70fab6275cab9437059c565b78bb, type: 3}
+      - {fileID: 2800000, guid: 1ae236abec5853299f7d34bb52fc29bc, type: 3}
+    - nativeId: 48
+      rect: {x: 152, y: 105, width: 30, height: 5}
+      frames:
+      - {fileID: 2800000, guid: 2abdb3d06edd5b49bb90b72d31ef0a7a, type: 3}
+      - {fileID: 2800000, guid: 33fc70fab6275cab9437059c565b78bb, type: 3}
+      - {fileID: 2800000, guid: 1ae236abec5853299f7d34bb52fc29bc, type: 3}
+    - nativeId: 21
+      rect: {x: 175, y: 133, width: 32, height: 36}
+      frames:
+      - {fileID: 2800000, guid: fc75ed5651985bf8862bac59c9c8d74f, type: 3}
+      - {fileID: 2800000, guid: 83a8f3812d5d5fd6a907dc5ced2743e4, type: 3}
+      - {fileID: 2800000, guid: 7bb5a34640ec597e954cf77abd21980c, type: 3}
+    - nativeId: 20
+      rect: {x: 206, y: 131, width: 34, height: 34}
+      frames:
+      - {fileID: 2800000, guid: ba5745aa337e5082963d3dbc6d3393e6, type: 3}
+      - {fileID: 2800000, guid: 6c0a911687625a31898b38e727e4565b, type: 3}
+      - {fileID: 2800000, guid: fd43d3fe17855b8b9f3feac84de42db3, type: 3}
+    - nativeId: 31
+      rect: {x: 26, y: 183, width: 66, height: 20}
+      frames:
+      - {fileID: 2800000, guid: e1a7776d9ea45c248c7c2cac2e29c758, type: 3}
+      - {fileID: 2800000, guid: e5d30df8c1a252f3b8e7d995ef7cdfab, type: 3}
+      - {fileID: 2800000, guid: bc85346a5aca551d93598709b10c8b3f, type: 3}
+    - nativeId: 35
+      rect: {x: 94, y: 183, width: 66, height: 20}
+      frames:
+      - {fileID: 2800000, guid: b87373a4f36d583c820f38f636fdd723, type: 3}
+      - {fileID: 2800000, guid: ce11b930ce285123826dba312d1a7f53, type: 3}
+      - {fileID: 2800000, guid: 572ecbc449ec57dd940f5316ed3bf9d4, type: 3}
+    - nativeId: 33
+      rect: {x: 162, y: 183, width: 66, height: 20}
+      frames:
+      - {fileID: 2800000, guid: 39b9c5d669d9590591ce4425f06e87b2, type: 3}
+      - {fileID: 2800000, guid: e022a1d869925063860139eb099241b7, type: 3}
+      - {fileID: 2800000, guid: b2705f650046587d8bc27af361db1001, type: 3}
+    - nativeId: 34
+      rect: {x: 61, y: 205, width: 66, height: 20}
+      frames:
+      - {fileID: 2800000, guid: 072362abc08d50edb941f0dab6891e08, type: 3}
+      - {fileID: 2800000, guid: 3e2bcc293c2a512e9805a7dc6f61bdbe, type: 3}
+      - {fileID: 2800000, guid: 8dc04fbc99735d398cdbd60af18f8285, type: 3}
+    - nativeId: 36
+      rect: {x: 129, y: 205, width: 66, height: 20}
+      frames:
+      - {fileID: 2800000, guid: cba8ce010938554db8f112e662690c93, type: 3}
+      - {fileID: 2800000, guid: 7547d4e0c8d55afdabe5f3e07f6f2e1d, type: 3}
+      - {fileID: 2800000, guid: da5b214e1e5f58e19fdbb1a97f603134, type: 3}
+  - sceneId: 303
+    title: 대화 확장
+    background: {fileID: 2800000, guid: 4f972a9a37a5553b8a8e80bfe8dd05be, type: 3}
+    size: {x: 594, y: 377}
+    minimizedBackground: {fileID: 2800000, guid: f9fe11a5384c5f55af947f41ef8e4578, type: 3}
+    minimizedSize: {x: 32, y: 22}
+    controls:
+    - nativeId: 61
+      rect: {x: 540, y: 6, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: e53f1f3a4d425a81af14407e31d8ade5, type: 3}
+      - {fileID: 2800000, guid: 60dde3bdb03351f2aa6bc7a3f2e94762, type: 3}
+      - {fileID: 2800000, guid: 2bf1d7e9c7435fcc9be1c0e2e9bd2dc8, type: 3}
+    - nativeId: 83
+      rect: {x: 557, y: 6, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: cbae850a638f54deb4178b52b3faa531, type: 3}
+      - {fileID: 2800000, guid: c7e69da56e4b566a897990a701f2a69c, type: 3}
+      - {fileID: 2800000, guid: 1d3ffe05c1b75885beb4fe45c472e428, type: 3}
+    - nativeId: 62
+      rect: {x: 574, y: 6, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: bf2028d4c2fb552eba58e580f4d14638, type: 3}
+      - {fileID: 2800000, guid: 4e981f7c670254d4a09539262046e8e8, type: 3}
+      - {fileID: 2800000, guid: dc2c25316a975b179254a4c686fed66b, type: 3}
+    - nativeId: 58
+      rect: {x: 574, y: 32, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: 05d423ef91c659b1b9aa9cb266aa7785, type: 3}
+      - {fileID: 2800000, guid: 933920dc906a50528393cf227f68abbd, type: 3}
+      - {fileID: 2800000, guid: 10205204d3aa5d7bb30ec3eaf1a4c524, type: 3}
+    - nativeId: 59
+      rect: {x: 574, y: 347, width: 15, height: 15}
+      frames:
+      - {fileID: 2800000, guid: ccca3e9ee50c54bca5b6893f6bde7dff, type: 3}
+      - {fileID: 2800000, guid: 262ccc90bd1c50129745859b346019c8, type: 3}
+      - {fileID: 2800000, guid: 24259ec424da5a498ccfc871f284202d, type: 3}

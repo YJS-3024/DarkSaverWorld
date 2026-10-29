@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using DarkSaver.Combat;
 using DarkSaver.Core;
 using DarkSaver.Player;
@@ -68,7 +69,7 @@ namespace DarkSaver.Tests
                         case 7: unit.instanceId = 209; break;
                         case 8: unit.hp = -1; break;
                         case 9: unit.mp = 11; break;
-                        case 10: unit.lifeState = 2; break;
+                        case 10: unit.lifeState = 3; break;
                         case 11: unit.learnedMagicIds = null; break;
                         case 12: unit.learnedMagicIds = new short[] { 701, 701 }; break;
                         case 13: bad.version = 1; bad.hasOwnedRoster = false; break;
@@ -267,7 +268,7 @@ namespace DarkSaver.Tests
                 Assert.That(session.TryCaptureBattleReturn(battle, formation, out _), Is.True);
                 Assert.That(session.PlayerHp, Is.EqualTo(19)); Assert.That(session.PlayerMp, Is.EqualTo(1));
                 var result = session.CaptureOwnedRoster(); Assert.That(result.units[0].hp, Is.EqualTo(17)); Assert.That(result.units[0].mp, Is.EqualTo(2));
-                Assert.That(result.units[1].lifeState, Is.EqualTo(2)); Assert.That(result.units[1].hp, Is.Zero); Assert.That(result.units[1].mp, Is.Zero);
+                Assert.That(result.units[1].lifeState, Is.EqualTo(2)); Assert.That(result.units[1].hp, Is.EqualTo(formation.Members.First(m=>m.Unit.Id==209).Unit.Hp)); Assert.That(result.units[1].mp, Is.Zero);
                 Assert.That(result.units[2].mp, Is.EqualTo(5)); Assert.That(source.units[0].mp, Is.EqualTo(5));
                 Assert.That(session.MatchesOwnedFormation(formation), Is.False); Assert.That(panel.ConfirmedSnapshot, Is.Null);
                 Files(store => {
@@ -275,7 +276,8 @@ namespace DarkSaver.Tests
                     Assert.That(store.TryLoad(out var saved, out _), Is.True);
                     Session((next, _, _) => { Assert.That(next.RestoreSaveState(saved), Is.True);
                         Assert.That(next.PlayerHp, Is.EqualTo(19)); Assert.That(next.CaptureOwnedRoster().units[1].mp, Is.Zero);
-                        Assert.That(next.CaptureOwnedRoster().units[1].lifeState, Is.EqualTo(2)); });
+                        Assert.That(next.CaptureOwnedRoster().units[1].lifeState, Is.EqualTo(2));
+                        Assert.That(next.CaptureOwnedRoster().units[1].hp,Is.EqualTo(formation.Members.First(m=>m.Unit.Id==209).Unit.Hp)); });
                 });
             });
         }
