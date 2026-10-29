@@ -1,0 +1,1256 @@
+[
+  {
+    "Test": "DarkSaver.Tests.BuildingTravelTests.AllBuildingRequestsValidateSourcesAndRetainCanonicalResponses",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers",
+    "Result": "Failed",
+    "Message": "  연결된 건물 맵을 불러올 수 없습니다.\n  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers () [0x001a5] in Assets\\_Game\\Tests\\EditMode\\BuildingTravelTests.cs:32\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.LateWorldLayoutTests.NewScenarioMapBuildsNativeGroundTerrainAndDimensions(\"33\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LateWorldLayoutTests.NewScenarioMapBuildsNativeGroundTerrainAndDimensions(\"330\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LateWorldLayoutTests.NewScenarioMapBuildsNativeGroundTerrainAndDimensions(\"331\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LateWorldLayoutTests.NewScenarioMapBuildsNativeGroundTerrainAndDimensions(\"332\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LateWorldLayoutTests.NewScenarioMapBuildsNativeGroundTerrainAndDimensions(\"333\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LateWorldLayoutTests.NewScenarioMapBuildsNativeGroundTerrainAndDimensions(\"404\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LateWorldLayoutTests.NewScenarioMapBuildsNativeGroundTerrainAndDimensions(\"405\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LateWorldLayoutTests.NewScenarioMapBuildsNativeGroundTerrainAndDimensions(\"406\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LateWorldLayoutTests.RecoveryDataPreservesKaosiaPositionAndDoesNotMutateSnapshot",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.LateWorldLayoutTests.RestoredKaosiaRecoversLateMapCoordinatesWithoutChangingSave",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryPresentationTests.OriginalSceneNineHasHireDismissConfirmAndNineCellGeometry",
+    "Result": "Failed",
+    "Message": "  Expected and actual are both <UnityEngine.Vector2[5]>\n  Values differ at index [0]\n  Expected: (158.00, 156.00)\n  But was:  (0.00, 0.00)\n",
+    "Stack": "at NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual, System.String message, System.Object[] args) [0x00008] in <8b63e8ac0a4746599ed207982825ae6c>:0\nat NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual) [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0\nat DarkSaver.Tests.MercenaryPresentationTests.OriginalSceneNineHasHireDismissConfirmAndNineCellGeometry () [0x0009a] in Assets\\_Game\\Tests\\EditMode\\MercenaryPresentationTests.cs:15\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryTradeTests.DismissalRemovesOneAndAllowsTypeChangeOnlyAfterTheLastUnit",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryTradeTests.HiringUsesExactPriceAndIndependentOwnedUnitWithStableIdentity",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryTradeTests.OriginalHireDismissPayloadsRoundTripWithoutAnInventedQuantity",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryTradeTests.WrongMaximumFundsOwnerMixedJobAndMagicDataAreRejectedWithoutMutation",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeLifecycleStateTests.DeathBeforeHpResponseSurvivesReturnAndSaveValidationWithoutRevival(Corpse)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeLifecycleStateTests.DeathBeforeHpResponseSurvivesReturnAndSaveValidationWithoutRevival(Removed)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.NativeWorldShortcutsToggleMinimizeRestoreAndRejectUnsupportedOrMissingServer",
+    "Result": "Failed",
+    "Message": "System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "Stack": "  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0\n  at DarkSaver.Tests.NativeWorldWindowsTests.NativeWorldShortcutsToggleMinimizeRestoreAndRejectUnsupportedOrMissingServer () [0x0000e] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:38\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.NotificationChannelsRespectWorldPreferencesAndUnsubscribeWhenDisabled",
+    "Result": "Failed",
+    "Message": "  Expected string length 2 but was 4. Strings differ at index 0.\n  Expected: \"대화\"\n  But was:  \"종료 후\"\n  -----------^\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.NotificationChannelsRespectWorldPreferencesAndUnsubscribeWhenDisabled () [0x0011c] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:108\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(2,263,363,18)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  15\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(3,594,84,5)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  15\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(15,146,199,8)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  15\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(19,628,466,3)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  20\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(27,285,83,2)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  46\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(42,255,282,11)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  15\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(303,594,377,5)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  15\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.RepeatedNativePaintingKeepsWindowBackgroundBehindControlsAndChatInputBlack",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EnteringSavedMapKeepsPaintedCellsAndDoesNotGenerateAnotherGrid(False)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EnteringSavedMapKeepsPaintedCellsAndDoesNotGenerateAnotherGrid(True)",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Belpueus_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Brugos01_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Castlelim_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior1500_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2000_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2010_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2100_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2110_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2120_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2130_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2140_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2150_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2160_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2170_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2180_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2190_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2200_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2300_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2400_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2510_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2600_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2700_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2800_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior2900_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Interior3000_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Kaosia_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/KaosiaAccessoryShop_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/KaosiaArmorShop_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/KaosiaBank_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/KaosiaMagicTools_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/KaosiaTemple_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/KaosiaWarehouse_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/KaosiaWeaponShop_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_01_브르고스궁.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_02_자모라 요새.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_03_에트나 화산동굴.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_04_알카디아.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_05_브린힐트 국경.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_06_이름없는 마을.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_07_사그라하스 신전.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_08_사군토 항구.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_09_시시리오섬 해안.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_10_달라이 호수.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_101_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_102_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_103_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_104_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_105_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_106_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_107_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_11_아케론 오아시스.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_12_아멘호텝 왕릉.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_13_아멘호텝 왕릉 안.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_14_스케리아 마을.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_15_이름없는 마을.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_16_발할라 평원.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_17_비공정 앞.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_18_아멘트 입구.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_19_아멘트 1층.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_20_아멘트 2충.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_201_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_202_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_203_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_204_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_205_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_206_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_207_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_21_그라테스 마을의 아이스캐슬.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_22_커디스 공화국의 플래임 캐슬.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_23_아스타니아 평원의 부서진성.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_24_게이시르 계곡의 절벽위의 성.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_25_캘리퍼제국의 저주받은 암흑성.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_26_카타리나 행성의  달표면.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_27_페르미안의 황량한 페허지역.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_28_불타는 엔젤라의 십자가.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_29_파멸의 아빌로니아탑.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_30_저주받은 핼리온의 얼음성.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_301_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_302_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_303_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_304_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_305_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_306_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_307_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_309_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_31_디스트로어 카이거.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_310_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_311_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_312_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_313_던전시나리오7.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_314_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_315_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_316_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_317_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_318_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_319_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_32_제이드.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_320_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_321_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_322_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_323_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_324_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_327_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_328_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_329_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_33_야누스.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_330_추가 전장 330.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_331_추가 전장 331.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_332_추가 전장 332.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_333_추가 전장 333.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_401_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_402_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_403_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_404_추가 전장 404.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_405_추가 전장 405.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_406_추가 전장 406.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_51_벨퓌어스지방의 절벽 위 마을.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_52_비프로스트 궁전.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_53_다갈 마을의 지하동굴.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_54_카이사르 숲속의 로스웰 지대.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_55_아르니아의 평화스러운 스노우 월드.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_71_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_72_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_73_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_81_던전시나리오1.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_82_던전시나리오2.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_83_던전시나리오3.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_84_던전시나리오4.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_85_던전시나리오5.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_86_던전시나리오6.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_91_카오스닉던전1층.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_92_카오스닉던전2층.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_93_카오스닉던전3층.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_94_카오스닉던전4층.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_95_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_96_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Map_97_;.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/Sisirio_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1010_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1011_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1012_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1020_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1030_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1040_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1050_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1060_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1070_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1080_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1090_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1100_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1110_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1111_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1200_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1300_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1400_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.EveryMapSceneContainsSerializedTilesAndResolvableArtwork(\"Assets/_Game/Scenes/Maps/World1410_Map.unity\")",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.SavedNonScenarioMapTests.RuntimeAssetsContainNoRetiredMapGeometryFiles",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldCharacterServiceTests.AuthorityDataRejectsMalformedAndDuplicateRecordsAndMagicListsKeepWireShape",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldCharacterServiceTests.FailedWriteUnknownUnitInvalidSlotAndUnavailableContextNeverPublishOrMutate",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldCharacterServiceTests.FlagAndOrderPersistBeforeReceiptAndReloadFromAuthority",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldCharacterServiceTests.MissingServerRulesDoNotGrantClassesMagicOrPointsAndCancelIsExplicit",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldCharacterServiceTests.StatConfirmationPreservesConcurrentDeploymentFlagAndRejectsChangedInfo",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldCharacterServiceTests.SuppliedMutationPolicyRequiresOwnedIdentityValidResultAndSuccessfulStorage",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldCharacterServiceTests.VerifiedAbilityQueryPublishesRosterThenOriginalCostsAndCandidates",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldCharacterServiceTests.VerifiedStatCostsStageRefundCancelAndCommitWithoutInventedPointAwards",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionIntegrationTests.CharacterManagerFramesRequestsPublishesReceiptsAndRollsBackRegistrationConflicts",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionIntegrationTests.F1ReusesBattleHelpArtworkAndControls",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionIntegrationTests.LocalManagerPublishesOneChatReceiptAndRejectsInactiveContext",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionIntegrationTests.OriginalFontSelectorCyclesFourModesAndAlternateBitmapIsASeparateAtlas",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionIntegrationTests.SelectingRoleChangesBothPersonalWindowsAndOriginalRequestsNeverChangeThePrimarySave",
+    "Result": "Failed",
+    "Message": "System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "Stack": "  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0\n  at DarkSaver.Tests.WorldFunctionIntegrationTests.SelectingRoleChangesBothPersonalWindowsAndOriginalRequestsNeverChangeThePrimarySave () [0x0000e] in Assets\\_Game\\Tests\\EditMode\\WorldFunctionIntegrationTests.cs:49\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionProtocolTests.AbilityRequestsKeepSelectedRoleAndMagicArrowLiteralOneOrTwo",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionProtocolTests.ChatAndF12UseOriginalCp949CountAndModeWithoutNullTerminator",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionProtocolTests.LocalChatEchoesOnlyConnectedCharacterAndWhispersNeverFabricateARecipient",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionProtocolTests.OriginalByteBoundariesRejectTruncationUnsupportedCharactersAndTrailingPayload",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionProtocolTests.OriginalRoleFlagsReorderAndEquipmentRoundTripTheirOwnWordFields",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionProtocolTests.RoleNotificationsCopyProfilesAndPayloadsAndRejectDuplicateSlots",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionProtocolTests.TeleportIsServerCommandAndUnknownCommandsNeverFallThroughToGeneralChat",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionProtocolTests.WhisperPreferenceUsesOriginal7dWordAndServerHonorsIt",
+    "Result": "Passed",
+    "Message": "",
+    "Stack": ""
+  }
+]

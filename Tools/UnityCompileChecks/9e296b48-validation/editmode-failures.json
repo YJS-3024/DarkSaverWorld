@@ -1,0 +1,110 @@
+[
+  {
+    "Test": "DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits",
+    "Result": "Failed",
+    "Message": "  Expected: String containing \"HP 50/50  MP 10/10  AP 6/10\"\n  But was:  \"선택: soldier [101]\nHP 50/50  MP 10/10  AP 6/20\n경험치 0  공격 AP 2\n주적   HP 75/75  AP 6/20\n\"\n",
+    "Stack": "at DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits () [0x004da] in Assets\\_Game\\Tests\\EditMode\\BattleAlliedRosterTests.cs:209\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BattleFormationPlacementTests.ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen",
+    "Result": "Failed",
+    "Message": "  Expected: 6\n  But was:  10\n",
+    "Stack": "at DarkSaver.Tests.BattleFormationPlacementTests+<>c.<ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen>b__1_0 (DarkSaver.UI.BattleFormationPanel panel, DarkSaver.Player.TopDownPlayerController player) [0x001ab] in Assets\\_Game\\Tests\\EditMode\\BattleFormationPlacementTests.cs:36\nat DarkSaver.Tests.BattleFormationPlacementTests.WithPanel (System.Action`2[T1,T2] action) [0x00043] in Assets\\_Game\\Tests\\EditMode\\BattleFormationPlacementTests.cs:168\nat DarkSaver.Tests.BattleFormationPlacementTests.ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen () [0x00000] in Assets\\_Game\\Tests\\EditMode\\BattleFormationPlacementTests.cs:25\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers",
+    "Result": "Failed",
+    "Message": "  연결된 건물 맵을 불러올 수 없습니다.\n  Expected: True\n  But was:  False\n",
+    "Stack": "at DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers () [0x001a5] in Assets\\_Game\\Tests\\EditMode\\BuildingTravelTests.cs:32\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.CanvasUiMigrationTests.InputFocusCyclesInFormOrderAndSkipsHiddenOrDisabledFields",
+    "Result": "Failed",
+    "Message": "Unhandled log message: '[Error] Failed setting EventSystem.current to unknown EventSystem '. Use UnityEngine.TestTools.LogAssert.Expect",
+    "Stack": "UnityEngine.EventSystems.EventSystem:set_current (UnityEngine.EventSystems.EventSystem)\nDarkSaver.Tests.CanvasUiMigrationTests/<InputFocusCyclesInFormOrderAndSkipsHiddenOrDisabledFields>d__2:<>m__Finally1 () (at Assets/_Game/Tests/EditMode/CanvasUiMigrationTests.cs:81)\nDarkSaver.Tests.CanvasUiMigrationTests/<InputFocusCyclesInFormOrderAndSkipsHiddenOrDisabledFields>d__2:MoveNext () (at Assets/_Game/Tests/EditMode/CanvasUiMigrationTests.cs:77)\nUnityEditor.EditorApplication:Internal_CallUpdateFunctions ()\n\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.MercenaryPresentationTests.OriginalSceneNineHasHireDismissConfirmAndNineCellGeometry",
+    "Result": "Failed",
+    "Message": "  Expected and actual are both <UnityEngine.Vector2[5]>\n  Values differ at index [0]\n  Expected: (158.00, 156.00)\n  But was:  (0.00, 0.00)\n",
+    "Stack": "at NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual, System.String message, System.Object[] args) [0x00008] in <8b63e8ac0a4746599ed207982825ae6c>:0\nat NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual) [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0\nat DarkSaver.Tests.MercenaryPresentationTests.OriginalSceneNineHasHireDismissConfirmAndNineCellGeometry () [0x0009a] in Assets\\_Game\\Tests\\EditMode\\MercenaryPresentationTests.cs:15\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.NativeWorldShortcutsToggleMinimizeRestoreAndRejectUnsupportedOrMissingServer",
+    "Result": "Failed",
+    "Message": "System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "Stack": "  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0\n  at DarkSaver.Tests.NativeWorldWindowsTests.NativeWorldShortcutsToggleMinimizeRestoreAndRejectUnsupportedOrMissingServer () [0x0000e] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:38\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.NotificationChannelsRespectWorldPreferencesAndUnsubscribeWhenDisabled",
+    "Result": "Failed",
+    "Message": "  Expected string length 2 but was 4. Strings differ at index 0.\n  Expected: \"대화\"\n  But was:  \"종료 후\"\n  -----------^\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.NotificationChannelsRespectWorldPreferencesAndUnsubscribeWhenDisabled () [0x0011c] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:108\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(2,263,363,18)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  15\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(3,594,84,5)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  15\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(15,146,199,8)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  15\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(19,628,466,3)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  20\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(27,285,83,2)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  46\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(42,255,282,11)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  15\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(303,594,377,5)",
+    "Result": "Failed",
+    "Message": "  Expected: 0.0f\n  But was:  15\n",
+    "Stack": "at DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences (System.Int32 id, System.Int32 width, System.Int32 height, System.Int32 controls) [0x000cd] in Assets\\_Game\\Tests\\EditMode\\NativeWorldWindowsTests.cs:30\n"
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalRenderRulesTests.LoadedSceneRepairPreservesSourceOrderAndLeavesOtherObjectsAlone(\"Map_329_RenderPassTest\",True)",
+    "Result": "Failed",
+    "Message": "System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "Stack": "  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0\n  at DarkSaver.Tests.OriginalRenderRulesTests.LoadedSceneRepairPreservesSourceOrderAndLeavesOtherObjectsAlone (System.String sceneName, System.Boolean repaired) [0x0001a] in Assets\\_Game\\Tests\\EditMode\\OriginalRenderRulesTests.cs:26\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalRenderRulesTests.LoadedSceneRepairPreservesSourceOrderAndLeavesOtherObjectsAlone(\"Brugos01_Map\",True)",
+    "Result": "Failed",
+    "Message": "System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "Stack": "  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0\n  at DarkSaver.Tests.OriginalRenderRulesTests.LoadedSceneRepairPreservesSourceOrderAndLeavesOtherObjectsAlone (System.String sceneName, System.Boolean repaired) [0x0001a] in Assets\\_Game\\Tests\\EditMode\\OriginalRenderRulesTests.cs:26\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.OriginalRenderRulesTests.LoadedSceneRepairPreservesSourceOrderAndLeavesOtherObjectsAlone(\"Brugos01_Runtime\",False)",
+    "Result": "Failed",
+    "Message": "System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "Stack": "  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0\n  at DarkSaver.Tests.OriginalRenderRulesTests.LoadedSceneRepairPreservesSourceOrderAndLeavesOtherObjectsAlone (System.String sceneName, System.Boolean repaired) [0x0001a] in Assets\\_Game\\Tests\\EditMode\\OriginalRenderRulesTests.cs:26\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  },
+  {
+    "Test": "DarkSaver.Tests.WorldFunctionIntegrationTests.SelectingRoleChangesBothPersonalWindowsAndOriginalRequestsNeverChangeThePrimarySave",
+    "Result": "Failed",
+    "Message": "System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "Stack": "  at (wrapper managed-to-native) UnityEditor.SceneManagement.EditorSceneManager.NewScene_Injected(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode,UnityEngine.SceneManagement.Scene&)\n  at UnityEditor.SceneManagement.EditorSceneManager.NewScene (UnityEditor.SceneManagement.NewSceneSetup setup, UnityEditor.SceneManagement.NewSceneMode mode) [0x00000] in <b35a5782b5d34eadbc5d7ed7c774d90f>:0\n  at DarkSaver.Tests.WorldFunctionIntegrationTests.SelectingRoleChangesBothPersonalWindowsAndOriginalRequestsNeverChangeThePrimarySave () [0x0000e] in Assets\\_Game\\Tests\\EditMode\\WorldFunctionIntegrationTests.cs:49\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+  }
+]

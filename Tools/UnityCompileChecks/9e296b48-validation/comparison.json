@@ -1,0 +1,69 @@
+{
+  "totals": {
+    "id": "2",
+    "testcasecount": "1489",
+    "result": "Failed(Child)",
+    "total": "1489",
+    "passed": "1259",
+    "failed": "18",
+    "inconclusive": "0",
+    "skipped": "212",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-10-29 14:08:12Z",
+    "end-time": "2026-10-29 14:09:33Z",
+    "duration": "81.2436856"
+  },
+  "persistent": [
+    "DarkSaver.Tests.BattleAlliedRosterTests.RosterSelectionIsFreeAndRejectsUnavailableUnits",
+    "DarkSaver.Tests.BuildingTravelTests.ServerManagerOwnsEntryCompletionAndScopedMovementHandlers"
+  ],
+  "previousNowPassed": [
+    "DarkSaver.Tests.BattleAlliedRosterTests.CommanderDeathsNeverInferUnreceivedBattleOutcome",
+    "DarkSaver.Tests.BattleAttackPresentationTests.DispatchedAttackAnticipationPrecedesIndependentHpResponse",
+    "DarkSaver.Tests.BattleFormationDeploymentTests.BattleRootRegistersAndCapturesRemovedUnitsWithoutUpdatingSource",
+    "DarkSaver.Tests.BattleFormationPlacementTests.ConfirmationRechecksTraversalAndMapChangeInvalidatesOldCoordinates",
+    "DarkSaver.Tests.BattleMapPresentationTests.EmptyClickStartsOnePaidNativeRouteAndMovesBorrowedBodyRequiresReceivedRoute",
+    "DarkSaver.Tests.BattleMapPresentationTests.ExistingHudAndTerrainZeroAreExplicitNativeInputs",
+    "DarkSaver.Tests.BattleMapPresentationTests.HpRecoveryStartsFreshMovementAfterOffsetRestoreWithoutRefundOrLateCommitRequiresReceivedRoute",
+    "DarkSaver.Tests.BattleMapPresentationTests.HpZeroCorpseAndRemovalRestoreUnconfirmedDiagonalOffsetsWithoutAnotherTickRequiresReceivedRoute",
+    "DarkSaver.Tests.BattleMapPresentationTests.InformationSizeChangesKeepLiveTargetAndGameplayState",
+    "DarkSaver.Tests.BattleMapPresentationTests.KnownTerrainPathCannotAuthorizeUnreceivedMovementOrApCharge",
+    "DarkSaver.Tests.BattleMapPresentationTests.MagicDirectionPreviewAndOptionalDiagnosticsDoNotSpendWhenApIsNotReady",
+    "DarkSaver.Tests.BattleMapPresentationTests.OriginalDiagonalOffsetsKeepModelAtOriginAndSuspendRestoresItRequiresReceivedRoute",
+    "DarkSaver.Tests.BattleMapPresentationTests.PreparedBodiesBindTwoGroupsWithIndependentSelectionAndImmediateRemoval",
+    "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionShowsIndependentStatsWithoutSelectingOrSending",
+    "DarkSaver.Tests.BattleMapPresentationTests.UnitInspectionTracksMapClicksAndClearsOnDeathOrSuspend",
+    "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(0)",
+    "DarkSaver.Tests.BattleVitalsSessionTests.HudReadsVitalsAndEntryRestrictionWithoutChangingThem(37)",
+    "DarkSaver.Tests.BuildingTravelTests.AllBuildingRequestsValidateSourcesAndRetainCanonicalResponses",
+    "DarkSaver.Tests.CombatMovementActionTests.ReservedReceiptBlocksConcurrentRequestsAndCancellationNeverInventsRefund",
+    "DarkSaver.Tests.CombatMovementRouteTests.QueryAndClockCannotAuthorizeUnreceivedMovementOrAi",
+    "DarkSaver.Tests.NativeOwnedRosterTests.InterruptedFormationCheckpointKeepsSpentMpWithoutFinalizingLiveRoster",
+    "DarkSaver.Tests.NativeOwnedRosterTests.SessionReturnCommitsPrimaryAndOwnedMaximumMpAndDiskRoundTrip"
+  ],
+  "previousMissing": [
+    "DarkSaver.Tests.BattleMagicRequestTests.InvalidMultiTargetCastNeverAppliesAPartialEffectOrCost",
+    "DarkSaver.Tests.BattleMapPresentationTests.PrototypeHudIsHiddenByDefaultAndOnlyBlocksTheMapWhenVisible"
+  ],
+  "newFailingNames": [
+    "DarkSaver.Tests.BattleFormationPlacementTests.ExplicitPlacementIsDetachedAndConfirmedPositionSurvivesReopen",
+    "DarkSaver.Tests.CanvasUiMigrationTests.InputFocusCyclesInFormOrderAndSkipsHiddenOrDisabledFields",
+    "DarkSaver.Tests.MercenaryPresentationTests.OriginalSceneNineHasHireDismissConfirmAndNineCellGeometry",
+    "DarkSaver.Tests.NativeWorldWindowsTests.NativeWorldShortcutsToggleMinimizeRestoreAndRejectUnsupportedOrMissingServer",
+    "DarkSaver.Tests.NativeWorldWindowsTests.NotificationChannelsRespectWorldPreferencesAndUnsubscribeWhenDisabled",
+    "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(15,146,199,8)",
+    "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(19,628,466,3)",
+    "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(2,263,363,18)",
+    "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(27,285,83,2)",
+    "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(3,594,84,5)",
+    "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(303,594,377,5)",
+    "DarkSaver.Tests.NativeWorldWindowsTests.OriginalWorldLayoutsHaveArtworkAndThreeDistinctStateReferences(42,255,282,11)",
+    "DarkSaver.Tests.OriginalRenderRulesTests.LoadedSceneRepairPreservesSourceOrderAndLeavesOtherObjectsAlone(\"Brugos01_Map\",True)",
+    "DarkSaver.Tests.OriginalRenderRulesTests.LoadedSceneRepairPreservesSourceOrderAndLeavesOtherObjectsAlone(\"Brugos01_Runtime\",False)",
+    "DarkSaver.Tests.OriginalRenderRulesTests.LoadedSceneRepairPreservesSourceOrderAndLeavesOtherObjectsAlone(\"Map_329_RenderPassTest\",True)",
+    "DarkSaver.Tests.WorldFunctionIntegrationTests.SelectingRoleChangesBothPersonalWindowsAndOriginalRequestsNeverChangeThePrimarySave"
+  ],
+  "runner": "Unity CLI async EditMode batch, graphics enabled; differs from previous synchronous ProjectValidationRunner"
+}
