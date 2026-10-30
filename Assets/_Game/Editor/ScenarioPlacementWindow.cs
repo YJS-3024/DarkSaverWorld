@@ -30,7 +30,8 @@ namespace DarkSaver.Editor
         private Tilemap ground;
         private Vector2 scroll;
         [SerializeField] private bool dirty;
-        private bool dragging,showAll=true,showIntro=true;
+        private bool dragging,showAll,showLocations=true,showLabels;
+        [SerializeField] private int placementMode; // 0: battle, 1: intro (exclusive)
         private float zoom=1;
         private Rect canvas;
         private string[] names;
@@ -39,6 +40,7 @@ namespace DarkSaver.Editor
         public static void Open()=>GetWindow<ScenarioPlacementWindow>("시나리오 편집툴");
         private void OnEnable()
         {
+            minSize=new Vector2(860,560);
             names=ScenarioCatalog.All.Select(s=>s.Key+" · "+s.Title).ToArray();
             if(data!=null)
             {
@@ -103,11 +105,65 @@ namespace DarkSaver.Editor
             string prefix=ScenarioCatalog.All[scenarioIndex].Key=="01"?"Scenarios/01/Characters/":"Scenarios/Shared/Characters/";
             s=Resources.Load<Sprite>(prefix+id+"_Down_0");sprites[id]=s;return s;
         }
+        private float MarkerSize => Mathf.Max(3,Vector2.Distance(Screen(0,0),Screen(1,0)));
         private void Marker(Vector2 pos,Color color,string label,Sprite sprite,bool active)
         {
-            var rect=new Rect(pos.x-12,pos.y-12,24,24);EditorGUI.DrawRect(rect,active?Color.white:color);
-            if(sprite!=null){var r=sprite.textureRect;GUI.DrawTextureWithTexCoords(new Rect(rect.x+1,rect.y+1,22,22),sprite.texture,new Rect(r.x/sprite.texture.width,r.y/sprite.texture.height,r.width/sprite.texture.width,r.height/sprite.texture.height));}
-            GUI.Label(new Rect(pos.x+14,pos.y-10,170,22),label,EditorStyles.whiteMiniLabel);
+            float size=MarkerSize;
+            var rect=new Rect(pos.x-size/2,pos.y-size/2,size,size);
+            if(!rect.Overlaps(canvas))return;
+            EditorGUI.DrawRect(rect,active?Color.white:color);
+            if(sprite!=null)
+            {
+                var r=sprite.textureRect;float inset=Mathf.Min(1,size*.05f);
+                GUI.DrawTextureWithTexCoords(new Rect(rect.x+inset,rect.y+inset,size-inset*2,size-inset*2),sprite.texture,
+                    new Rect(r.x/sprite.texture.width,r.y/sprite.texture.height,r.width/sprite.texture.width,r.height/sprite.texture.height));
+            }
+            GUI.Label(rect,new GUIContent("",label));
+            if(showLabels || active)GUI.Label(new Rect(rect.xMax+2,pos.y-10,200,22),label,EditorStyles.whiteMiniLabel);
+        }
+        private float FitSize => Mathf.Max(data.height*Mathf.Abs(ground.cellSize.y),data.width*Mathf.Abs(ground.cellSize.x)/cameraView.aspect)/2+.6f;
+        private void ResetView()
+        {
+            zoom=1;
+            var a=ground.CellToWorld(Vector3Int.zero);var b=ground.CellToWorld(new Vector3Int(data.width,data.height,0));
+            cameraView.transform.position=new Vector3((a.x+b.x)/2,(a.y+b.y)/2,-100);Repaint();
+        }
+        private void Navigate()
+        {
+            if(!GUI.enabled)return;
+            var e=Event.current;
+            if(!canvas.Contains(e.mousePosition))return;
+            if(e.type==EventType.ScrollWheel)
+            {
+                var pointer=new Vector3((e.mousePosition.x-canvas.x)/canvas.width,1-(e.mousePosition.y-canvas.y)/canvas.height,100);
+                var before=cameraView.ViewportToWorldPoint(pointer);
+                zoom=Mathf.Clamp(zoom*Mathf.Exp(-e.delta.y*.08f),.5f,8);
+                cameraView.orthographicSize=FitSize/zoom;
+                var after=cameraView.ViewportToWorldPoint(pointer);
+                cameraView.transform.position+=before-after;e.Use();Repaint();
+            }
+            else if(e.type==EventType.MouseDrag && e.button==2)
+            {
+                float perPixel=cameraView.orthographicSize*2/canvas.height;
+                cameraView.transform.position+=new Vector3(-e.delta.x*perPixel,e.delta.y*perPixel,0);
+                dragging=false;e.Use();Repaint();
+            }
+        }
+        private IEnumerable<(int x,int y,string label,bool chest)> Locations()
+        {
+            if(data.events==null)yield break;
+            foreach(var item in data.events)
+            {
+                var actions=item.actions ?? Array.Empty<Scenario01Command>();
+                bool chest=actions.Any(a=>a.name=="MESSAGE" && (a.text ?? "").Contains("상자"));
+                var changes=actions.Where(a=>a.name=="CHANGESPRITE" && a.args!=null && a.args.Length>=2).ToArray();
+                var positions=chest && changes.Length>0?changes:(item.conditions ?? Array.Empty<Scenario01Command>()).Where(c=>c.name=="CHARPOS" && c.args!=null && c.args.Length==2).ToArray();
+                var seen=new HashSet<Vector2Int>();
+                foreach(var command in positions)
+                    if(int.TryParse(command.args[0],out int x) && int.TryParse(command.args[1],out int y)
+                        && x>=0 && y>=0 && x<data.width && y<data.height && seen.Add(new Vector2Int(x,y)))
+                        yield return (x,y,(chest?"상자":"퀘스트/이벤트 조건")+" #"+item.id+" ("+x+","+y+") · "+item.scope+" / "+item.mode,chest);
+            }
         }
         private void OnGUI()
         {
@@ -122,13 +178,20 @@ namespace DarkSaver.Editor
                     if(GUILayout.Button("다시 불러오기",EditorStyles.toolbarButton))Load(scenarioIndex);
                     if(GUILayout.Button(dirty?"저장 *":"저장",EditorStyles.toolbarButton))Save();
                     showAll=GUILayout.Toggle(showAll,"모든 웨이브",EditorStyles.toolbarButton);
-                    showIntro=GUILayout.Toggle(showIntro,"연출 배치",EditorStyles.toolbarButton);
+                    showLocations=GUILayout.Toggle(showLocations,"상자/이벤트",EditorStyles.toolbarButton);
+                    showLabels=GUILayout.Toggle(showLabels,"이름",EditorStyles.toolbarButton);
                     wave=EditorGUILayout.IntField(wave,GUILayout.Width(45));
                 }
+                int mode=GUILayout.Toolbar(placementMode,new[]{"전투 배치","연출 배치"});
+                if(mode!=placementMode){placementMode=mode;selected=-1;dragging=false;Repaint();}
                 if(error!=null)EditorGUILayout.HelpBox(error,MessageType.Error);
                 if(data==null || cameraView==null)return;
                 EditorGUILayout.HelpBox("빨강: 몬스터 · 파랑: 플레이어 진입점. 클릭 선택 / 드래그 이동 / Delete 삭제. 좌표는 원본 기준(좌상단 0,0). 저장은 실제 Content.json에 반영됩니다.",MessageType.Info);
-                zoom=EditorGUILayout.Slider("확대 (맵 중앙)",zoom,1,4);
+                using(new EditorGUILayout.HorizontalScope())
+                {
+                    zoom=EditorGUILayout.Slider("확대",zoom,.5f,8);
+                    if(GUILayout.Button("전체 보기",GUILayout.Width(85)))ResetView();
+                }
                 using(new EditorGUILayout.HorizontalScope())
                 {
                     float width=Mathf.Max(160,position.width-295),height=Mathf.Max(140,position.height-130);
@@ -147,38 +210,48 @@ namespace DarkSaver.Editor
                 texture=new RenderTexture(w,h,24){hideFlags=HideFlags.HideAndDontSave};texture.Create();
             }
             cameraView.aspect=(float)w/h;
-            var size=ground.cellSize;cameraView.orthographicSize=Mathf.Max(data.height*Mathf.Abs(size.y),data.width*Mathf.Abs(size.x)/cameraView.aspect)/2/zoom+.6f;
-            if(Event.current.type==EventType.Repaint){cameraView.targetTexture=texture;cameraView.Render();cameraView.targetTexture=null;GUI.DrawTexture(canvas,texture);}
-            Handles.BeginGUI();Handles.color=new Color(1,1,1,.13f);
-            Vector2 dx=Screen(1,0)-Screen(0,0),dy=Screen(0,1)-Screen(0,0);
-            Vector2 corner=Screen(0,0)-(dx+dy)/2;
-            for(int x=0;x<=data.width;x++)Handles.DrawLine(corner+dx*x,corner+dx*x+dy*data.height);
-            for(int y=0;y<=data.height;y++)Handles.DrawLine(corner+dy*y,corner+dy*y+dx*data.width);
-            Handles.EndGUI();
-            for(int i=0;i<data.units.Length;i++)
+            cameraView.orthographicSize=FitSize/zoom;
+            Navigate();
+            Rect viewport=canvas;
+            GUI.BeginGroup(viewport);
+            canvas=new Rect(0,0,viewport.width,viewport.height);
+            try
             {
-                var u=data.units[i];if(!showAll && u.wave!=wave)continue;
-                Marker(Screen(u.x,u.y),new Color(.8f,.18f,.15f),u.id+" · "+u.name+" [W"+u.wave+"]",SpriteFor(u.job),selected==i);
+                if(Event.current.type==EventType.Repaint)
+                {cameraView.targetTexture=texture;try{cameraView.Render();}finally{cameraView.targetTexture=null;}GUI.DrawTexture(canvas,texture);}
+                Color gridColor=new Color(1,1,1,.13f);
+                Vector2 dx=Screen(1,0)-Screen(0,0),dy=Screen(0,1)-Screen(0,0);
+                Vector2 corner=Screen(0,0)-(dx+dy)/2;
+                for(int x=0;x<=data.width;x++)EditorGUI.DrawRect(new Rect(corner.x+dx.x*x,corner.y,1,dy.y*data.height),gridColor);
+                for(int y=0;y<=data.height;y++)EditorGUI.DrawRect(new Rect(corner.x,corner.y+dy.y*y,dx.x*data.width,1),gridColor);
+
+                if(placementMode==0 && showLocations)
+                    foreach(var marker in Locations())Marker(Screen(marker.x,marker.y),marker.chest?new Color(.9f,.65f,.1f):new Color(.7f,.3f,.85f),marker.label,null,false);
+                if(placementMode==0)
+                for(int i=0;i<data.units.Length;i++)
+                {
+                    var u=data.units[i];if(!showAll && u.wave!=wave)continue;
+                    Marker(Screen(u.x,u.y),new Color(.8f,.18f,.15f),u.id+" · "+u.name+" [W"+u.wave+"]",SpriteFor(u.job),selected==i);
+                }
+                if(placementMode==0)Marker(Screen(data.entryX,data.entryY),new Color(.1f,.4f,.95f),"캐릭터 진입",null,selected==-2);
+                else foreach(var command in IntroPlacements())
+                {
+                    int.TryParse(command.args[0],out int introJob);
+                    Marker(Screen(int.Parse(command.args[2]),int.Parse(command.args[3])),new Color(.1f,.65f,.2f),
+                        "연출 "+command.args[0]+" / "+command.args[1],SpriteFor(introJob),false);
+                }
             }
-            if(showIntro && data.intro!=null)
-                foreach(var command in data.intro)
-                    if(command.name=="CHARPOS" && command.args!=null && command.args.Length>=4
-                        && int.TryParse(command.args[2],out int cx) && int.TryParse(command.args[3],out int cy))
-                    {
-                        int.TryParse(command.args[0],out int introJob);
-                        Marker(Screen(cx,cy),new Color(.1f,.65f,.2f),"연출 "+command.args[0]+" / "+command.args[1],SpriteFor(introJob),false);
-                    }
-            Marker(Screen(data.entryX,data.entryY),new Color(.1f,.4f,.95f),"캐릭터 진입",null,selected==-2);
-            if(!GUI.enabled)return;
+            finally{canvas=viewport;GUI.EndGroup();}
+            if(!GUI.enabled || placementMode!=0)return;
             var e=Event.current;
             if(e.type==EventType.MouseDown && e.button==0 && canvas.Contains(e.mousePosition))
             {
-                selected=-1;float best=18;
+                selected=-1;float best=MarkerSize*.7f;
                 for(int i=data.units.Length-1;i>=0;i--){var u=data.units[i];if(!showAll && u.wave!=wave)continue;float d=Vector2.Distance(e.mousePosition,Screen(u.x,u.y));if(d<best){best=d;selected=i;}}
-                if(Vector2.Distance(e.mousePosition,Screen(data.entryX,data.entryY))<12)selected=-2;
+                if(Vector2.Distance(e.mousePosition,Screen(data.entryX,data.entryY))<MarkerSize/2)selected=-2;
                 dragging=selected!=-1;GUI.FocusControl(null);e.Use();Repaint();
             }
-            if(e.type==EventType.MouseDrag && dragging && Cell(e.mousePosition,out var cell))
+            if(e.type==EventType.MouseDrag && e.button==0 && dragging && Cell(e.mousePosition,out var cell))
             {
                 if(selected==-2){data.entryX=cell.x;data.entryY=cell.y;}else{data.units[selected].x=cell.x;data.units[selected].y=cell.y;}
                 dirty=true;e.Use();Repaint();
@@ -187,8 +260,20 @@ namespace DarkSaver.Editor
             if(e.type==EventType.KeyDown && e.keyCode==KeyCode.Delete && selected>=0 && !EditorGUIUtility.editingTextField){Delete();e.Use();}
         }
         private void Delete(){if(selected<0)return;data.units=data.units.Where((u,i)=>i!=selected).ToArray();selected=-1;dirty=true;}
+        private IEnumerable<Scenario01Command> IntroPlacements()
+            => (data.intro ?? Array.Empty<Scenario01Command>()).Where(c=>c.name=="CHARPOS" && c.args!=null && c.args.Length>=4
+                && int.TryParse(c.args[2],out _) && int.TryParse(c.args[3],out _));
         private void DrawInspector()
         {
+            if(placementMode==1)
+            {
+                EditorGUILayout.HelpBox("도입 연출의 CHARPOS 배치입니다 (읽기 전용). 전투 몬스터와 진입점은 표시하지 않습니다.",MessageType.Info);
+                scroll=EditorGUILayout.BeginScrollView(scroll);
+                foreach(var command in IntroPlacements())
+                    if(GUILayout.Button(command.args[0]+" / "+command.args[1]+" ("+command.args[2]+","+command.args[3]+")"))
+                    {var pos=World(int.Parse(command.args[2]),int.Parse(command.args[3]));cameraView.transform.position=new Vector3(pos.x,pos.y,cameraView.transform.position.z);Repaint();}
+                EditorGUILayout.EndScrollView();return;
+            }
             job=EditorGUILayout.IntField("추가할 직업 ID",job);
             if(GUILayout.Button("몬스터 추가"))
             {
@@ -208,9 +293,17 @@ namespace DarkSaver.Editor
             }
             if(EditorGUI.EndChangeCheck())dirty=true;
             EditorGUILayout.HelpBox("저장 시 배치 해시가 변경됩니다. 기존 진행 저장은 콘텐츠 불일치로 거부될 수 있으므로 새 검증 저장을 사용하세요. 삭제한 ID를 참조하는 이벤트/대사는 자동 변경하지 않습니다.",MessageType.Warning);
+            EditorGUILayout.HelpBox("Content.json의 현재 좌표입니다. 01~17에는 이전 보완 배치가 포함되며 원작 확정 좌표로 간주하지 않습니다. 연출 NPC는 연출 배치 모드에서 확인합니다.",MessageType.Info);
             EditorGUILayout.LabelField("몬스터 "+data.units.Length+"개");
             scroll=EditorGUILayout.BeginScrollView(scroll);
-            for(int i=0;i<data.units.Length;i++){var u=data.units[i];if(GUILayout.Button(u.id+" "+u.name+" ("+u.x+","+u.y+") W"+u.wave))selected=i;}
+            for(int i=0;i<data.units.Length;i++){var u=data.units[i];if(!showAll && u.wave!=wave)continue;if(GUILayout.Button(u.id+" "+u.name+" ("+u.x+","+u.y+") W"+u.wave))selected=i;}
+            if(showLocations)
+            {
+                EditorGUILayout.LabelField("상자 / 퀘스트·이벤트 (읽기 전용)");
+                foreach(var marker in Locations())
+                    if(GUILayout.Button(marker.label))
+                    {var world=World(marker.x,marker.y);cameraView.transform.position=new Vector3(world.x,world.y,cameraView.transform.position.z);Repaint();}
+            }
             EditorGUILayout.EndScrollView();
         }
         private static string ReplaceArray(string source,string json)
