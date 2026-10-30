@@ -22,7 +22,7 @@ namespace DarkSaver.Events
         public EventCommand Current(NativeTutorialProgress state)=>state.step<commands.Count?commands[state.step]:default;
         public bool IsTickDemonstration(NativeTutorialProgress state)=>state.step>0 && state.step<commands.Count
             && commands[state.step].Name=="DO" && commands[state.step-1].Name=="CHARMENU";
-        public static bool IsWait(string name)=>name!=null && (name.StartsWith("WAIT",StringComparison.Ordinal) || name=="DO" || name=="DO2");
+        public static bool IsWait(string name)=>name!=null && (name.StartsWith("WAIT",StringComparison.Ordinal) && name!="WAITFORMOVEEND" || name=="DO" || name=="DO2");
         public void Prepare(NativeTutorialProgress state)
         {
             if(state.version!=2)throw new InvalidOperationException("Migrate legacy tutorial state first.");
@@ -31,7 +31,7 @@ namespace DarkSaver.Events
                 var c=commands[state.step];
                 if(IsWait(c.Name))
                 {
-                    if((c.Name=="DO2" || c.Name=="WAITMOVEEND" || c.Name=="WAITFORMOVEEND") && !Actor(state,N(c,0)).moving)
+                    if((c.Name=="DO2" || c.Name=="WAITMOVEEND") && !Actor(state,N(c,0)).moving)
                     {state.step++;continue;}
                     return;
                 }
@@ -73,8 +73,8 @@ namespace DarkSaver.Events
                 case "WAITMOVEMENU":matches=state.mouseMenu && kind=="MoveMenu" && actor==N(c,0);break;
                 case "WAITMOVEPOS":
                     matches=state.mouseMenu && kind=="MovePosition" && actor==N(c,0) && x==N(c,1) && y==N(c,2) && (key==null || IsFacing(key));
-                    if(matches){var a=Actor(state,actor);if(key!=null)a.facing=key;a.x=x;a.y=y;a.targetX=x;a.targetY=y;a.moving=false;}break;
-                case "WAITMOVEEND":case "WAITFORMOVEEND":case "DO2":
+                    if(matches){var a=Actor(state,actor);if(key!=null)a.facing=key;a.targetX=x;a.targetY=y;a.moving=a.x!=x || a.y!=y;}break;
+                case "WAITMOVEEND":case "DO2":
                     matches=kind=="MoveEnd" && actor==N(c,0) && !Actor(state,actor).moving;break;
                 case "WAITATTACKMENU":matches=state.mouseMenu && kind=="AttackMenu" && actor==N(c,0);break;
                 case "WAITATTACKCHAR":matches=state.mouseMenu && kind=="Attack" && actor==N(c,0) && target==N(c,1);break;
@@ -136,7 +136,8 @@ namespace DarkSaver.Events
                     s.actors=s.actors.Where(a=>a.id!=actor.id).Concat(new[]{actor}).ToArray();break;
                 case "CHARABILITY":OriginalTutorialAbilities.Apply(Actor(s,N(c,0)));break;
                 case "CHARSETMAGIC":Actor(s,N(c,0)).magic=N(c,2);break;
-                case "CHARSETSKILL":Actor(s,N(c,0)).skill=N(c,2);break;
+                case "CHARSETSKILL":case "CHARDIR":case "WAITFORMOVEEND":
+                    s.unappliedLiteralCount++;s.lastUnappliedLiteral=c.Name;break;
                 case "CHARMENU":var a=Actor(s,N(c,0));a.tick=N(c,1);a.tickEpoch++;if(c.Arguments.Length>2)a.mask=N(c,2);break;
                 case "MESSAGE":
                     s.messageMode=N(c,0);s.portrait=c.Arguments[1];
@@ -156,7 +157,7 @@ namespace DarkSaver.Events
                 case "CLEARALLDIALOG":s.dialogs=Array.Empty<string>();break;
                 case "SETVICTORY":s.victory=string.Join(" ",c.Arguments);break;
                 case "SETALLYINFO":s.ally=N(c,0);break;
-                case "CHARDIR":Actor(s,N(c,0)).facing=c.Arguments[1];break;
+
                 case "ENDGAME":break; // END commits completion, then the presenter restores the town view.
                 case "END":s.finished=true;break;
                 default:throw new InvalidOperationException("Unimplemented tutorial command "+c.Name+" at "+c.LineNumber);

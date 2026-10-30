@@ -162,14 +162,15 @@ namespace DarkSaver.UI
             }
 
         }
-        private int playerMoving=-1,moveX,moveY;
-        private Vector3 moveDestination;
         private void BeginPlayerMovement(int id,int x,int y)
         {
-            if(playerMoving>=0 || !actors.ContainsKey(id))return;
+            if(!actors.ContainsKey(id) || OriginalTutorialScript.Actor(progress,id).moving)return;
             var destination=World(x,y);
             if(!TryPlanPracticeMotion(actors[id],destination,out var motion)){error="원본 이동 영역에서 목적지까지의 경로를 찾을 수 없습니다.";return;}
-            motions[actors[id]]=motion;playerMoving=id;moveX=x;moveY=y;moveDestination=destination;
+            // Native WAITMOVEPOS releases on the accepted destination click.
+            // Movement itself remains asynchronous and reports MovementCompleted.
+            if(!Send("MovePosition",actor:id,x:x,y:y))return;
+            motions[actors[id]]=motion;movementArmed=false;openMenu=-1;
         }
         private void AnimateActors()
         {
@@ -180,12 +181,7 @@ namespace DarkSaver.UI
                 var end=World(a.targetX,a.targetY);MoveView(actor,end);
                 if((actor.transform.position-end).sqrMagnitude<.0001f)Send("MovementCompleted",actor:a.id,x:a.targetX,y:a.targetY,key:PracticeFacing(actor));
             }
-            if(playerMoving>=0 && actors.TryGetValue(playerMoving,out var playerView))
-            {
-                MoveView(playerView,moveDestination);
-                if((playerView.transform.position-moveDestination).sqrMagnitude<.0001f)
-                {int id=playerMoving;playerMoving=-1;if(Send("MovePosition",actor:id,x:moveX,y:moveY,key:PracticeFacing(playerView)))movementArmed=false;openMenu=-1;}
-            }
+
         }
         private sealed class PracticeMotion
         {public Vector3 from,next,end;public int phase,index;public IReadOnlyList<CombatGridCell> path;}
@@ -244,7 +240,7 @@ namespace DarkSaver.UI
                     if(up.Concat(down).Concat(left).Concat(right).Any(s=>s==null)){error="원본 튜토리얼 캐릭터 그림이 없습니다: "+a.job;return;}
                     actor.GetComponent<DirectionalSpriteAnimator>().Configure(up,down,left,right);destinations[a.id]=new Vector3(0,0,color);
                 }
-                if(!a.moving && playerMoving!=a.id)
+                if(!a.moving)
                 {
                     actor.transform.position=World(a.x,a.y);var anim=actor.GetComponent<DirectionalSpriteAnimator>();anim.SetMovingPresentation(false);
                     anim.TrySetFacing(a.facing=="UP"?Vector2.up:a.facing=="LEFT"?Vector2.left:a.facing=="RIGHT"?Vector2.right:Vector2.down);anim.PresentFrame((long)(Time.realtimeSinceStartupAsDouble*1000d));
