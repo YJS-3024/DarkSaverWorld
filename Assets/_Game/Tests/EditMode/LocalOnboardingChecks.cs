@@ -99,7 +99,7 @@ namespace DarkSaver.Tests
                     check(!service.Handle(request).Accepted && before.SequenceEqual(File.ReadAllBytes(paths[0])),"duplicate input rejected "+p.step);
                     p=next;service=new TutorialServerBoundary(paths[0],saved.character,Source);
                 }
-                check(p.unappliedLiteralCount==2 && p.lastUnappliedLiteral=="SETMP" && p.actors.First(a=>a.id==0).mp==45,"unregistered SETHP/SETMP are not invented aliases");
+                check(p.unappliedLiteralCount==5 && p.lastUnappliedLiteral=="CHARDIR" && p.actors.First(a=>a.id==0).mp==45,"all five unregistered native literals remain unapplied; MP is preserved");
                 check(p.IsComplete && p.step==420 && inputs<400,"all recovered commands reach END");
                 check(p.actors.Any(a=>a.id==800&&a.job==805&&a.x==18&&a.y==7&&a.facing=="UP"),"original messenger ending");
                 check(p.actors.Where(a=>new[]{1,2}.Contains(a.id)).All(a=>a.removed),"KILLCHAR1 removes mercenaries");

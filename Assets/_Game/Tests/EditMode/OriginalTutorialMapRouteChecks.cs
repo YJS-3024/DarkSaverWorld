@@ -40,7 +40,14 @@ namespace DarkSaver.Tests
                     case "WAITMOUSEMOVE":accepted=script.Input(state,"Hover",N(0));break;
                     case "WAITTOPMENU":accepted=script.Input(state,"TopMenu",N(0));break;
                     case "WAITMOVEMENU":accepted=script.Input(state,"MoveMenu",N(0));break;
-                    case "WAITMOVEPOS":Route(N(0),N(1),N(2));accepted=script.Input(state,"MovePosition",N(0),x:N(1),y:N(2));break;
+                    case "WAITMOVEPOS":
+                        var before=OriginalTutorialScript.Actor(state,N(0));int oldX=before.x,oldY=before.y,oldStep=state.step;
+                        accepted=script.Input(state,"MovePosition",N(0),x:N(1),y:N(2));
+                        check(accepted && state.step>oldStep && before.x==oldX && before.y==oldY
+                            && before.targetX==N(1) && before.targetY==N(2)
+                            && before.moving==(oldX!=N(1) || oldY!=N(2)),"destination click advances lesson without teleporting actor");
+                        // The moving-actor branch validates/counts the route once, before completion.
+                        break;
                     case "WAITATTACKMENU":accepted=script.Input(state,"AttackMenu",N(0));break;
                     case "WAITATTACKCHAR":accepted=script.Input(state,"Attack",N(0),N(1));break;
                     case "WAITRESTMENU":accepted=script.Input(state,"Rest",N(0));break;
