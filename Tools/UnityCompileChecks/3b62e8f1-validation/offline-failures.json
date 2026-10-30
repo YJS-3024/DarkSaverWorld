@@ -1,0 +1,21 @@
+[
+  {
+    "Name": "offline-integration",
+    "ExitCode": -532462766,
+    "Failure": [
+      "Unhandled exception. System.Exception: unregistered SETHP/SETMP are not invented aliases",
+      "   at DarkSaver.Tests.LocalOnboardingChecks.Run(Action`2 check) in Assets\\_Game\\Tests\\EditMode\\LocalOnboardingChecks.cs:line 102",
+      "   at Program.<Main>$(String[] args) in Tools\\AnalysisIntegrationChecks\\Program.cs:line 27"
+    ]
+  },
+  {
+    "Name": "offline-combat",
+    "ExitCode": -532462766,
+    "Failure": [
+      "Unhandled exception. System.Exception: all original301 movement destinations lead to END without terrain bypass",
+      "   at DarkSaver.Tests.OriginalTutorialMapRouteChecks.Run(Action`2 check, String source, Int32 width, Int32 height, Func`3 attribute) in Assets\\_Game\\Tests\\EditMode\\OriginalTutorialMapRouteChecks.cs:line 54",
+      "   at DarkSaver.Tests.OriginalTutorialMapRouteChecks.Run(Action`2 check, String source, Byte[] mapBytes) in Assets\\_Game\\Tests\\EditMode\\OriginalTutorialMapRouteChecks.cs:line 14",
+      "   at Program.<Main>$(String[] args) in Tools\\CombatRulesChecks\\Program.cs:line 81"
+    ]
+  }
+]
