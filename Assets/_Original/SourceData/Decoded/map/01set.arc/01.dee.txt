@@ -1,0 +1,41 @@
+LOADSCENE 01
+SETPOSITION 20 8
+CHARPOS 801 801 19 6
+CHARPOS 802 803 22 6
+CHARDIR 803 LEFT
+CHARPOS 805 804 22 7
+CHARDIR 804 LEFT
+CHARPOS 805 805 22 8
+CHARDIR 805 LEFT
+CHARPOS 805 806 17 6
+CHARDIR 806 RIGHT
+CHARPOS 805 807 17 7
+CHARDIR 807 RIGHT
+CHARPOS 805 808 17 8
+CHARDIR 808 RIGHT
+CHARPOS COM0 301 19 12
+CHARMOVE 301 19 10
+CHARDIR 301 UP
+DO 1000
+MESSAGE 1 801 801 ID 용사여..  무어라 감사해야 할 지를 모르겠소.
+MESSAGE 2 COM0 0 COM0 과찬이십니다. 브리힐트국의 백성으로서| 적에게 붙잡힌 국왕을 구하는 것은 당연한| 일입니다.
+MESSAGE 1 801 801 ID 그대들이 이 나라를 지키는 힘이오. 정말| 고맙소. 그런데 용사여. 적들이 공주와 보검을| 가지고 도망을 쳤으니 이를 어쩌면 좋겠소.| 보검은 브리힐트의 상징이오. 만약 보검이| 없다면 동맹은 깨지고 10개국은 사분 오열이| 될 것이오.
+MESSAGE 2 COM0 0 COM0 적들이 노리는 것이 바로 그것인데 어찌| 두고만 보고 있을 수가 있겠습니까.. 소신이| 당장 보검부터 구해오겠습니다.
+MESSAGE 1 802 803 ID 용사여, 그러나 공주님을 구하는 것도 시급한| 일이오.
+MESSAGE 1 801 801 ID 아니오, 먼저 보검을 구하도록하시오. 어찌| 일국의 왕으로써 나라를 안위를 먼저| 생각해야지 하찮은 개인적 일에 신경을 쓸 수| 있겠소. 무엇보다 브리힐트국의 평화가| 먼저요.
+MESSAGE 1 802 803 ID 왕이시여..  어떻게 공주님을 저대로... .
+MESSAGE 2 COM0 0 COM0 왕이시여!!  제가 성심을 다해 공주님과| 보검을 다 구해오겠습니다.
+MESSAGE 1 801 801 ID 용사여. 그대만을 믿겠소.
+CHARMOVE 803 21 6
+DO2 803
+CHARMOVE 803 20 10
+DO2 803
+CHARDIR 301 RIGHT
+CHARDIR 803 LEFT
+MESSAGE 1 802 803 ID 용사여, 이것을 가지고 가시오. 공주님을|구하는데 도움이 될 것이오.
+MESSAGE 2 COM0 0 COM0 이게 무엇입니까?
+MESSAGE 1 802 803 ID 내가 제조한 폭탄이오. 이것을 사용하면 | 적들의 함정을 부술 수 있을 것이요.
+MESSAGE 2 COM0 0 COM0 고맙습니다. | 반드시 공주님을 구해 오겠습니다.
+GETITEM 398
+MESSAGE 0 0 ID 0 %s님이 폭탄을 얻었습니다.
+END

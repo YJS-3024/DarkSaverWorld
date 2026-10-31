@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "sourceVersion": "Saver_Late",
+  "sources": {
+    "logo6.bmp": "bb52d06f605e7db33040a398cff3e768921ed9b4127562312ad6c56cbb19ffd8",
+    "login.bmp": "d8a49250bc822c851324f0431e6dadbb3b879b6965d24cafe390aa9c1f71bb29",
+    "login2.bmp": "a16de5c8143ed3365754e36c7684c218d50458fc101b4e929cd6e68b220dbd1b",
+    "wlib/scene24.lsc": "be189051d4a5b54b14d6ae5ddcbb1872434d67f45a0b4fc0922c3b2a9012e933",
+    "wlib/waitlib.lce": "5b48a1c36570954d113bb8b5c0b7c56c81c7fcb90ccc0e3217ab578ede32f9cb",
+    "wlib/waitlib.ltn": "0e84e47a09f65698bf82382e94d65bbe31a81c9007ed00b9f33a1f99bfb6b988",
+    "wlib/waitlib.lnm": "11c0fbfddf2276b0200aaa2fe315d6991e66923be86d12b496ed3c28747e2ae2"
+  },
+  "outputs": [
+    {
+      "asset": "Assets/_Original/Art/Entry/Login.png",
+      "source": "login.bmp; native black color key",
+      "sha256": "0c15fe139536d7a43538327e692ff851672529fee5d61cfa521e819e6c1717f9",
+      "pixelSha256": "e3e52f67e8103996b03ab589f39fd023f3ac548c0cfe9db2d5cc605c4bcef2db",
+      "width": 640,
+      "height": 480
+    },
+    {
+      "asset": "Assets/_Original/Art/Entry/Secondary.png",
+      "source": "login2.bmp; native black color key",
+      "sha256": "33ab36c8adba7641c16e01eb6c5050a22731c2819b02689c6cb18e4c851fe957",
+      "pixelSha256": "a81df6e7acce62c03f8a9e9c181f6aff95e0770080667a57d2cc9d6987d7a400",
+      "width": 640,
+      "height": 480
+    },
+    {
+      "asset": "Assets/_Original/Art/Entry/ServerPanel.png",
+      "source": "login2.bmp(10,320,110,424), native row interiors blanked for local server response",
+      "sha256": "aa810b28e1ab7382b59cdfeab0369c833a81ac06e67f3cc47384202ed7fd33de",
+      "pixelSha256": "df2e185d8dd3031074892a731fb06a99c8489f18670244d150c62d4d3e719a80",
+      "width": 100,
+      "height": 104
+    },
+    {
+      "asset": "Assets/_Original/Art/Entry/ServerSelected.png",
+      "source": "login2.bmp(118,320,193,339), baked online name blanked; native destination290,307",
+      "sha256": "c72c14ecbc9040d47dfd925856acbb1d09959a34f79e5d0624cc13f6385a2fa8",
+      "pixelSha256": "401f6628b4ec5c60af2b5e25c7c9e8184a2dd5bd5334618cdda4191513f5dd63",
+      "width": 75,
+      "height": 19
+    },
+    {
+      "asset": "Assets/_Original/Art/Entry/Creation.png",
+      "source": "wlib/scene24.lsc + waitlib, literal decor repeats and normal button frames",
+      "sha256": "f2d31f5c8f6c1ceccf8eff75ed5fb3a0adb75a102366fb54040d65fa3938cfbd",
+      "pixelSha256": "9ce4d05645a66f171b60675b540894845cfa3163b88e580f93d453abfcacf1f4",
+      "width": 397,
+      "height": 300
+    },
+    {
+      "asset": "Assets/_Original/Art/Entry/CreationButtons.png",
+      "source": "wlib/waitlib.ltn bitmap, native black color key",
+      "sha256": "edfe5fccdab724a0897189300abe3cb60270f03355df363538e9793c151c609d",
+      "pixelSha256": "3f2c37f96cb0a79a7b93eed669be8902433bd5f2128fec455e95f1a50fcf5911",
+      "width": 450,
+      "height": 600
+    }
+  ],
+  "sourceScope": "Native pixel crops, LSC composition and confirmed RGB black color key; no invented UI theme.",
+  "localAdaptations": [
+    "The original two server-name fields are blanked using native interior pixels; one response-owned local server name is rendered."
+  ],
+  "geometry": {
+    "logicalSize": [
+      640,
+      480
+    ],
+    "loginOrigin": [
+      226,
+      279
+    ],
+    "serverOrigin": [
+      277,
+      276
+    ],
+    "serverSourceRect": [
+      10,
+      320,
+      110,
+      424
+    ],
+    "creationSize": [
+      397,
+      300
+    ],
+    "creationOrigin": [
+      0,
+      0
+    ],
+    "creationOriginEvidence": "Native Dlg45 profile default 0 0 0, no saved Dlg45 in supplied Saver.ini; no migration of old Unity positions.",
+    "creationCards": [
+      [
+        37,
+        54,
+        127,
+        230
+      ],
+      [
+        153,
+        54,
+        243,
+        230
+      ],
+      [
+        268,
+        54,
+        358,
+        230
+      ]
+    ],
+    "nameRect": [
+      254,
+      241,
+      342,
+      256
+    ],
+    "confirmOrigin": [
+      300,
+      265
+    ]
+  },
+  "staticEvidence": {
+    "executableSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+    "serverPanel": "0x40EF53..0x40EFD7",
+    "serverHitTests": "0x40EFDF..0x40F05C",
+    "creationConstructor": "0x45BCD0..0x45C015",
+    "creationPortraitDraw": "0x45C2EB..0x45C343",
+    "creationJobs": "0x45BE54..0x45BF2A",
+    "defaultWindowProfile": "0x4348E3..0x434A26; default string0x4900B4"
+  },
+  "limitations": [
+    "Original GDI font rasterization not reproduced exactly.",
+    "Notification screen origin is a Unity presentation placement, not a recovered original global origin.",
+    "No original server account protocol opcode/packing or server creation stats inferred."
+  ],
+  "serverNameColor": {
+    "rgb": [
+      58,
+      107,
+      206
+    ],
+    "source": "login2.bmp(130,322,188,336), dominant native glyph color"
+  }
+}

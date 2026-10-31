@@ -1,0 +1,350 @@
+{
+  "executable": "Saver.exe",
+  "sha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "version": "Saver_Late",
+  "logicalSize": [
+    640,
+    480
+  ],
+  "loginAtlas": "login.bmp",
+  "atlasLoad": {
+    "instruction": "0x406fd0",
+    "stringVA": "0x48eaa8",
+    "surfaceMember": "0x2138"
+  },
+  "panel": {
+    "sourceRectLTRB": [
+      9,
+      9,
+      206,
+      96
+    ],
+    "destinationOrigin": [
+      226,
+      279
+    ],
+    "drawSites": [
+      "0x40a517",
+      "0x40a51c",
+      "0x40b6ee",
+      "0x40b701"
+    ],
+    "fastPathSize": [
+      197,
+      87
+    ],
+    "directDrawDestinationRectLTRB": [
+      226,
+      279,
+      432,
+      375
+    ],
+    "note": "BltFast keeps native crop size; Blt branch supplies a206x96 destination rect. Common origin is confirmed."
+  },
+  "inputHitTests": {
+    "boundsAreExclusive": true,
+    "idLTRB": [
+      298,
+      296,
+      408,
+      316
+    ],
+    "passwordLTRB": [
+      298,
+      320,
+      408,
+      338
+    ],
+    "function": "0x40c9b0"
+  },
+  "scope": "Static x86 instruction and import-signature analysis. Not an executed original screen or proof that every rendering branch has identical scaling.",
+  "verifiedInstructions": [
+    {
+      "address": "0x406fd0",
+      "bytes": "68a8ea4800",
+      "meaning": "login.bmp load"
+    },
+    {
+      "address": "0x40a517",
+      "bytes": "bfe2000000",
+      "meaning": "panel destination left226"
+    },
+    {
+      "address": "0x40a51c",
+      "bytes": "bd17010000",
+      "meaning": "panel destination top279"
+    },
+    {
+      "address": "0x40a538",
+      "bytes": "c744244c60000000",
+      "meaning": "source bottom96"
+    },
+    {
+      "address": "0x40b6ee",
+      "bytes": "b8e2000000",
+      "meaning": "second panel draw left226"
+    },
+    {
+      "address": "0x40b701",
+      "bytes": "b917010000",
+      "meaning": "second panel draw top279"
+    },
+    {
+      "address": "0x40c9c7",
+      "bytes": "81fa2a010000",
+      "meaning": "ID/password left test298"
+    },
+    {
+      "address": "0x40c9cf",
+      "bytes": "81fa98010000",
+      "meaning": "ID/password right test408"
+    },
+    {
+      "address": "0x40c9dd",
+      "bytes": "81fe28010000",
+      "meaning": "ID top test296"
+    },
+    {
+      "address": "0x40c9e5",
+      "bytes": "81fe3c010000",
+      "meaning": "ID bottom test316"
+    },
+    {
+      "address": "0x40ca14",
+      "bytes": "81fa40010000",
+      "meaning": "password top test320"
+    },
+    {
+      "address": "0x40ca1c",
+      "bytes": "81fa52010000",
+      "meaning": "password bottom test338"
+    },
+    {
+      "address": "0x406f4e",
+      "bytes": "68c4ea4800",
+      "meaning": "Logo6 background load"
+    },
+    {
+      "address": "0x4079e2",
+      "bytes": "899e04010000",
+      "meaning": "initial stage zero"
+    },
+    {
+      "address": "0x407d34",
+      "bytes": "937c4000",
+      "meaning": "stage-zero renderer jump-table target"
+    },
+    {
+      "address": "0x407c9a",
+      "bytes": "e807acffff",
+      "meaning": "stage-zero renders login directly via thunk4028a6"
+    },
+    {
+      "address": "0x40b783",
+      "bytes": "b9ef000000",
+      "meaning": "connect fast destination x239"
+    },
+    {
+      "address": "0x40b788",
+      "bytes": "ba53010000",
+      "meaning": "connect fast destination y339"
+    },
+    {
+      "address": "0x40bad9",
+      "bytes": "b926010000",
+      "meaning": "join fast destination x294"
+    },
+    {
+      "address": "0x40b91a",
+      "bytes": "b94e010000",
+      "meaning": "options fast destination x334"
+    },
+    {
+      "address": "0x40bc55",
+      "bytes": "b976010000",
+      "meaning": "exit fast destination x374"
+    },
+    {
+      "address": "0x40bdee",
+      "bytes": "b8e2000000",
+      "meaning": "options drawer destination x226"
+    },
+    {
+      "address": "0x40bdf3",
+      "bytes": "b968010000",
+      "meaning": "options drawer destination y360"
+    },
+    {
+      "address": "0x40c36e",
+      "bytes": "68ffffff00",
+      "meaning": "entry GDI text color white"
+    },
+    {
+      "address": "0x40635e",
+      "bytes": "6880ea4800",
+      "meaning": "entry GDI Gulim font name"
+    },
+    {
+      "address": "0x406371",
+      "bytes": "6858020000",
+      "meaning": "entry GDI font weight600"
+    },
+    {
+      "address": "0x406378",
+      "bytes": "6a05",
+      "meaning": "entry GDI average font width5"
+    },
+    {
+      "address": "0x40637a",
+      "bytes": "6a0c",
+      "meaning": "entry GDI font height12"
+    },
+    {
+      "address": "0x40c3b1",
+      "bytes": "6826010000",
+      "meaning": "ID text top294"
+    },
+    {
+      "address": "0x40c3b6",
+      "bytes": "6860010000",
+      "meaning": "ID text center352"
+    },
+    {
+      "address": "0x40c3c7",
+      "bytes": "683e010000",
+      "meaning": "password text top318"
+    },
+    {
+      "address": "0x40c3cc",
+      "bytes": "6860010000",
+      "meaning": "password text center352"
+    }
+  ],
+  "inputText": {
+    "idCenterTop": [
+      352,
+      294
+    ],
+    "passwordCenterTop": [
+      352,
+      318
+    ],
+    "alignment": "horizontal center; independent of exclusive hitboxes",
+    "draw": "0x40C3B1..0x40C3D8",
+    "centeringHelpers": [
+      "0x41A89D..0x41A8AC",
+      "0x41A61A..0x41A62C"
+    ]
+  },
+  "startup": {
+    "initialStage": 0,
+    "renderer": "0x407c93 -> 0x40b630",
+    "extraStartButtons": false,
+    "background": "Logo6.bmp"
+  },
+  "buttons": [
+    {
+      "key": "login",
+      "destination": [
+        239,
+        339
+      ],
+      "hoverSource": [
+        10,
+        379,
+        65,
+        398
+      ],
+      "pressedSource": [
+        77,
+        379,
+        127,
+        395
+      ],
+      "action": "connect"
+    },
+    {
+      "key": "open-register",
+      "destination": [
+        294,
+        339
+      ],
+      "hoverSource": [
+        209,
+        55,
+        247,
+        74
+      ],
+      "pressedSource": [
+        209,
+        79,
+        247,
+        95
+      ],
+      "action": "original web registration; adapted to existing local account form"
+    },
+    {
+      "key": "login-options",
+      "destination": [
+        334,
+        339
+      ],
+      "hoverSource": [
+        209,
+        10,
+        247,
+        29
+      ],
+      "pressedSource": [
+        209,
+        34,
+        244,
+        50
+      ],
+      "action": "toggle drawer"
+    },
+    {
+      "key": "quit",
+      "destination": [
+        374,
+        339
+      ],
+      "hoverSource": [
+        252,
+        54,
+        290,
+        73
+      ],
+      "pressedSource": [
+        252,
+        79,
+        287,
+        95
+      ],
+      "action": "exit"
+    }
+  ],
+  "optionsDrawer": {
+    "destination": [
+      226,
+      360
+    ],
+    "sourceRectLTRB": [
+      9,
+      100,
+      206,
+      145
+    ],
+    "note": "Billing is retired; original mode-selection backend is not identified and is not replaced by invented functionality."
+  },
+  "textColor": "white (0x40c36e)",
+  "font": {
+    "face": "굴림",
+    "height": 12,
+    "width": 5,
+    "weight": 600,
+    "charset": 129,
+    "note": "Unity OS-font fallback and Bold approximate native GDI width/weight; pixel equivalence not established."
+  },
+  "geometryPolicy": "BltFast native-size drawing; DirectDraw stretch branch differs. Exact OS font rasterization and pointer hotspots require original execution."
+}

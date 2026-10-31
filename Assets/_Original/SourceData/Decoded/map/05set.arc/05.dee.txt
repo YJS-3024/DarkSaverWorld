@@ -1,0 +1,57 @@
+LOADSCENE 05
+PLAYMIDI bgm\nce01.mid 1
+SETPOSITION 24 10
+CHARPOS 705 700 24 07
+CHARPOS COM0 301 26 07
+CHARPOS COM1 302 22 07
+DO 1500
+FX1 CLEAR
+FX1 24 07
+FX1 START
+DO 1000
+KILLCHAR1 700
+CHARPOS 805 800 24 07
+DO 1500
+CHARDIR 301 LEFT
+CHARDIR 302 RIGHT
+DO 500
+MESSAGE 1 804 800 ID 드디어 마법에서 풀려났군. 고맙소 용사여.
+MESSAGE 2 COM0 0 COM0 아니 당신은 누구요. 미노타우로스는 ?
+MESSAGE 1 804 800 ID 바로 내가 미노타우로스였소. 나는 보름스왕국| 보병대장 아후르로 군터왕의 흉계로| 미노타우로스로 변한거요. 이대로 영원히| 몬스터로 살줄 알았건만 이렇게 돌아올 수| 있을 줄이야...
+MESSAGE 2 COM0 0 COM0 아니 이게 어떻게 된일입니까...
+MESSAGE 1 804 800 ID 자세한 설명을 할 시간이 없소. 당장 하겐을| 구해야 합니다.
+MESSAGE 2 COM0 0 COM0 하겐 주술사를요? 그분은 왕궁에 있는데..
+MESSAGE 1 804 800 ID 아니. 군터왕은 브리힐트를 쳐부술려면 하겐을| 없애야 한다고 마기에게 듣고서 납치를했소.| 하겐은 군터의 이번 계략을 막을 방법을 알고| 있는 유일한 자요. 그가 죽는다면 이 세계는| 어떤 혼란이 올지 모를 것이요.. 으으으.. | 빨.. 빨리 안가면 그마저 군터의 희생물이| 될것이오..
+MESSAGE 2 COM0 0 COM0 그러나 상처입은 아후르장군만을 두고.
+MESSAGE 1 804 800 ID 내 걱정은 하지 말고 빨리 하겐을.....
+MESSAGE 2 COM0 0 COM0 알겠소. 언젠가 다시 만날수 있길 바라겠소.
+MESSAGE 1 804 800 ID 나역시.... 건투를 빌겠소.
+FIRSTCLEAR
+TEST
+(
+CHARPOS 103 304 24 25
+CHARMOVE 304 24 9
+DO2 304
+MESSAGE 1 101 0 0 역시.. 모든 것은 군터의 계략이었나..?
+CHARDIR 301 DOWN
+CHARDIR 302 DOWN
+DO 500
+MESSAGE 2 COM0 0 COM0 당신은...?
+MESSAGE 1 103 0 0 저는 이스란트 왕의 명으로 당신을 돕기 위해 왔습니다.| 보시다시피 약간의 마법을 쓸 줄 압니다.| 이제부터 당신을 따르겠습니다.
+MESSAGE 2 COM0 0 COM0 고맙습니다. 마법에 능한 분이 필요했었소.
+GETGENERAL 103
+SAVECLEAR
+)
+TESTNOT
+(
+MESSAGE 2 COM0 0 COM0 자, 출발합시다.
+)
+DO 100
+
+
+
+
+
+
+
+END

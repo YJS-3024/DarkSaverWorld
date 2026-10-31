@@ -1,0 +1,35 @@
+LOADSCENE 08
+SETPOSITION 20 18
+DO 100
+CHARPOS 708 700 20 18
+CHARPOS COM0 301 18 18
+CHARPOS COM1 302 22 18
+DO 1500
+DO 1000
+KILLCHAR1 700
+CHARPOS 104 303 20 18
+DO 1500
+MESSAGE 1 104 800 ID 내가 태어나 무릎을 꿇다니. | 그래 나를 어떻게 할건가.
+MESSAGE 2 COM0 0 COM0 너희들이 사람들을 납치해서 |일을 시키고 있다는 얘길 들었다. |사그라하스 신전 근처에 사는 |청년을 알고 있나?
+MESSAGE 1 104 800 ID 그 청년이라면 얼마 전 시시리오섬으로| 사냥을 갔을 때 그 해안의 거북이 괴물에게 |잡혀 갔어. 굉장히 강한 놈이었어. |그냥 물러날 수 밖에 없었지.
+MESSAGE 2 COM0 0 COM0 시시리오섬에?
+MESSAGE 2 COM0 0 COM0 잘 됐군, 어차피 나도| 그 곳으로 가야 하는 상황이니..
+MESSAGE 1 104 800 ID 시시리오 섬엘? | 거기를 가는 이유가 뭔가?
+MESSAGE 2 COM0 0 COM0 왕의 명으로 몬스터를 처치하러 가오.
+MESSAGE 1 104 800 ID 그럼 당신이 봉인을 풀 수 있다는 용사인가?
+MESSAGE 2 COM0 0 COM0 당신이 어떻게 그 사실을...
+FIRSTCLEAR
+TEST
+(
+MESSAGE 1 104 800 ID 그럼 나를 데려가주시오.. | 나는 당신을 기다린 사람으로 예전 아르베데스를 | 도운 인간중 한명의 후예요. 
+MESSAGE 2 COM0 0 COM0 음... 좋소. | 한명이라도 나는 도움이 필요한 형편이니. . |하지만 당신의 목숨은 책임지지 못하오.
+MESSAGE 1 104 800 ID 그건 걱정하지 마시오. 내 목숨을 지킬 힘은 충분하니깐..
+GETGENERAL 104
+SAVECLEAR
+)
+TESTNOT
+(
+MESSAGE 1 104 0 ID 몰라봐서 미안하오.| 당신을 시시리오 섬까지 데려다 주겠소.| 그럼 출발합시다.
+)
+DO 100
+END

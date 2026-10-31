@@ -1,0 +1,50 @@
+LOADSCENE 01
+PLAYMIDI bgm\nce01.mid 1
+SETPOSITION 20 8
+CHARPOS 801 801 19 6
+CHARPOS 803 802 20 6
+CHARPOS 802 803 22 6
+CHARDIR 803 LEFT
+CHARPOS 806 804 22 7
+CHARDIR 804 LEFT
+CHARPOS 806 805 22 8
+CHARDIR 805 LEFT
+CHARPOS 806 806 17 6
+CHARDIR 806 RIGHT
+CHARPOS 806 807 17 7
+CHARDIR 807 RIGHT
+CHARPOS 806 808 17 8
+CHARDIR 808 RIGHT
+CHARPOS COM0 301 19 12
+CHARMOVE 301 19 10
+CHARDIR 301 UP
+DO 1000
+MESSAGE 1 801 801 ID 이리도 간단히 적을 물리치고| 보검을 되찾아 오다니.....| 용사여, 정말 더이상 기쁠 수가 없구려.| 그대는 위기에 처한 브리힐트를 구해주었소.| 정말 고맙소. 이 보답을 어찌 해야 할지.. 내| 그대에게 상으로 작위와 영지를 내리겠소.
+MESSAGE 2 COM0 0 COM0 황공하옵니다.| 그런데 전하.. 한가지 여쭙고 싶은게 있는데....
+MESSAGE 1 801 801 ID 응? 무엇인고?| 짐이 대답할 수 있는 것이라면 대답해 주리다. 
+MESSAGE 2 COM0 0 COM0 그 보검에 어떠한 비밀이라도 있는 것입니까?| 적들이 무슨 연고로 이 보검을 노린 것 인지| 그 의도를 알 수가 없어서 말입니다.
+MESSAGE 1 801 801 ID .....음.. 자세히는 나도 잘 모르오...| 다만....
+MESSAGE 2 COM0 0 COM0 다만...?
+MESSAGE 1 801 801 ID 너무나 강력한 힘을 가진 나머지 |옛날 우리 선조에 의해 그 힘이| 봉인되었다는 전설이 있소만....
+MESSAGE 2 COM0 0 COM0 봉인이라니... | 도대체 무엇때문에.... 
+MESSAGE 1 801 801 ID 어쨌든 이렇게 보검을 되 찾은 이상| 두 번 다시 빼앗기는 일은 없도록 해야 할 것이오. 
+MESSAGE 1 803 802 ID 아바마마, 들리는 말에 의하면 국경지대를| 보름스국과 요괴들이 노략질하고 있다고| 하던데 어서 군대를 파병하셔야지요.
+MESSAGE 1 801 801 ID 동맹국의 영주들과 기사들을 보냈는데 좋은| 소식이 없구나.
+MESSAGE 1 803 802 ID 용사님께서 가주시면 안되나요?
+MESSAGE 2 COM0 0 COM0 그럴 수 있다면 저에게는 크나큰 영광입니다.
+MESSAGE 1 801 801 ID 용사여! 진실로 그대가 국경에 가주겠는가?
+MESSAGE 2 COM0 0 COM0 폐하! 저를 믿어주시는 폐하를 실망시키지| 않도록 분골쇄신하여 국경을 사수하겠습니다.
+MESSAGE 1 801 801 ID 하하하 그대가 진정 브리힐트의 영웅이구료.| 이 보검과 브리힐트 접경지대의 지도를 주겠소. | 부디 보름스국의 침공을 물리쳐주시오.
+FIRSTCLEAR
+TEST
+(
+MESSAGE 1 801 801 ID 그리고 그대의 전력에 도움이 되도록|  믿음직한 장수 한명을 주겠소.
+GETGENERAL 100
+SAVECLEAR
+MESSAGE 2 COM0 0 COM0 황공합니다| 그럼.. 다녀오겠습니다.
+)
+TESTNOT
+(
+MESSAGE 2 COM0 0 COM0 옛! 이 목숨을 바쳐서 기대에 보답을 하겠습니다.
+)
+END
