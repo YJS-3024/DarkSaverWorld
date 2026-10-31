@@ -37,3 +37,13 @@ python Tools/ScenarioPlacementChecks/analyze_troop_structure.py
 - `troop-structure-comparison.png`: 원본26번의 근접 묶음 오류와 관측 대형4종 비교 그림.
 
 기존 비교기의 `AREA (` 공백 표기를 누락하던 정규식을 수정했다. 최신 부대 소속 판정은 근접 거리 대신 후기 코드의 `unitId/10*10`을 따른다. AREA와 SOILDER는 이동 기준으로 별도 해석하며, SET/POS의 런타임 자동 로드·미확보01~17 초기 편성을 증명하지 않는다. 이전3마리 정돈 배치를 새 분석으로 자동 덮어쓰지 않는다.
+
+## Unity 편집툴 반영 검증
+
+```bash
+python Tools/ScenarioPlacementChecks/check_editor_troops.py
+```
+
+Unity 설치가 다르면 `--unity-data <Editor/Data>`로 경로를 지정한다. Unity가 제공한 .NET SDK/Roslyn·API DLL을 사용해 전체 Runtime과 변경된 편집툴/부대 해석기를 컴파일한다. `EditorTroopChecks.cs`는 실제 런타임 유닛 타입과 실제 `ScenarioPlacementTroops.cs`를 사용하며, 복제한 부대 구현을 검사하지 않는다. Unity Editor 실행·라이선스는 이 보조 검사에서 사용하지 않는다.
+
+검사 범위는 지휘관/부하·웨이브 분리·지휘관 누락·슬롯 포화와 재사용·원본 대형4종·중복 좌표 거부·AREA 공백/잘못된 인수/SOILDER 파싱, 원본610마리/122부대 및 AI1099+22행이다. `editor-troop-check.json`에 소스 해시·건수·실행 범위를 기록하고 상세 로그는 `--work` 디렉터리에 쓴다. 모든 Content.json의 실행 전후 해시를 대조한다. 실제 GUI의 가독성·휠/클릭·드래그·파일 저장 성공을 통과 처리하지 않는다.
