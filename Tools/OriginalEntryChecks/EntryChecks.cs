@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DarkSaver.Original.Entry;
@@ -11,12 +12,67 @@ internal static class EntryChecks
     {
         public LocalAccountDocument Data = new LocalAccountDocument();
         public bool FailWrite;
+        public int Writes;
         public bool TryRead(out LocalAccountDocument document) { document = Data.Copy(); return true; }
-        public bool TryWrite(LocalAccountDocument document) { if (FailWrite) return false; Data = document.Copy(); return true; }
+        public bool TryWrite(LocalAccountDocument document) { if (FailWrite) return false; Writes++; Data = document.Copy(); return true; }
     }
     private sealed class WrongReply : IEntryTransport
     {
         public EntryReply Request(EntryRequest request) => new EntryReply(EntryOperation.Logout);
+    }
+    private sealed class RecordingTransport : IEntryTransport
+    {
+        private readonly IEntryTransport target;
+        public readonly List<EntryOperation> Operations = new List<EntryOperation>();
+        public RecordingTransport(IEntryTransport target) { this.target = target; }
+        public EntryReply Request(EntryRequest request) { Operations.Add(request.Operation); return target.Request(request); }
+    }
+    private static void LocalProfileContracts()
+    {
+        var memory = new MemoryStore(); var server = new EntryAccountService(memory);
+        var transport = new RecordingTransport(server); var client = new EntryClient(transport);
+        int ready = 0; client.CharacterReady += _ => ready++;
+        Check(client.OpenLocalProfile() && client.Stage == EntryStage.FirstCharacterCreation, "No-account entry opens character creation directly");
+        Check(transport.Operations.SequenceEqual(new[] { EntryOperation.OpenLocalProfile }), "Direct entry sends no login/list/select requests");
+        Check(ready == 0 && client.Servers.Length == 0 && memory.Data.accounts.Length == 1, "Local profile is not a fabricated character/server selection");
+        Check(!server.ProvisionLocalAccount(LocalEntryPolicy.LocalProfileAccountId, "replacement"), "Admin accounts cannot replace reserved local profile");
+        Check(client.Create(103, "로컬지휘관") && ready == 1, "Local manager accepts character creation without login UI");
+        string id = client.Character.id; int writes = memory.Writes;
+        client.Logout();
+        var reconnect = new EntryClient(new EntryAccountService(memory));
+        Check(reconnect.OpenLocalProfile() && reconnect.Stage == EntryStage.CharacterReady && reconnect.Character.id == id, "Direct reconnect restores same character");
+        Check(memory.Writes == writes && reconnect.Character.job == 103 && !reconnect.Character.tutorialCompleted, "Reopen preserves tutorial state without writing");
+        Check(!reconnect.Create(100, "덮어쓰기") && memory.Data.accounts[0].character.id == id, "Direct reentry does not overwrite existing character");
+        var completed = memory.Data.Copy(); completed.accounts[0].character.tutorialCompleted = true; memory.Data = completed;
+        Check(new EntryClient(new EntryAccountService(memory)).OpenLocalProfile() && memory.Data.accounts[0].character.tutorialCompleted, "Completed local profile remains completed");
+        Check(!new EntryClient(new WrongReply()).OpenLocalProfile(), "Malformed direct-entry reply is rejected");
+        var fail = new MemoryStore { FailWrite = true }; var failed = new EntryAccountService(fail);
+        Check(!new EntryClient(failed).OpenLocalProfile() && fail.Data.accounts.Length == 0, "Failed initial profile write leaves empty store intact");
+        RequireRejected(failed, EntryRequest.Create(100, "실패"), EntryFailure.Unauthenticated);
+        var damaged = new MemoryStore { Data = new LocalAccountDocument { version = 99 } };
+        Check(!new EntryClient(new EntryAccountService(damaged)).OpenLocalProfile() && damaged.Data.version == 99 && damaged.Writes == 0, "Damaged direct profile is not replaced");
+        string directory = Path.Combine(Path.GetTempPath(), "ds-direct-profile-" + Guid.NewGuid().ToString("N")); Directory.CreateDirectory(directory);
+        try
+        {
+            string accounts = Path.Combine(directory, "accounts-v1.json"), profile = Path.Combine(directory, "local-profile-v1.json");
+            var normal = new EntryAccountService(new LocalAccountFileStore(accounts));
+            Check(normal.ProvisionLocalAccount("retained-account", "retained-password"), "Prepare normal accounts for isolation check");
+            byte[] original = File.ReadAllBytes(accounts);
+            Check(!new EntryClient(normal).OpenLocalProfile() && File.ReadAllBytes(accounts).SequenceEqual(original), "Direct request cannot select or overwrite a normal account store");
+            var local = new EntryClient(new EntryAccountService(new LocalAccountFileStore(profile)));
+            Check(local.OpenLocalProfile() && local.Create(100, "별도프로필"), "Real dedicated file creates without normal authentication");
+            string savedId = local.Character.id;
+            var again = new EntryClient(new EntryAccountService(new LocalAccountFileStore(profile)));
+            Check(again.OpenLocalProfile() && again.Character.id == savedId, "Dedicated file restores across real store reopen");
+            Check(File.ReadAllBytes(accounts).SequenceEqual(original), "Normal accounts file remains byte-identical");
+            var originalFlow = new EntryClient(new EntryAccountService(new LocalAccountFileStore(accounts)));
+            Check(originalFlow.Login("retained-account", "retained-password") && originalFlow.SelectServer(1)
+                && originalFlow.Stage == EntryStage.FirstCharacterCreation, "Preserved login/server flow still works independently");
+            File.WriteAllText(profile, "broken-local-profile");
+            Check(!new EntryClient(new EntryAccountService(new LocalAccountFileStore(profile))).OpenLocalProfile()
+                && File.ReadAllText(profile) == "broken-local-profile", "Corrupt dedicated file is preserved on failure");
+        }
+        finally { Directory.Delete(directory, true); }
     }
     private static void RequireRejected(EntryAccountService service, EntryRequest request, EntryFailure failure)
     { var reply = service.Request(request); Check(!reply.Accepted && reply.Failure == failure && reply.Operation == request.Operation, "Expected refusal: " + failure); }
@@ -127,6 +183,7 @@ internal static class EntryChecks
             Check(!Directory.EnumerateFiles(temporary, "*.tmp-*").Any(), "No leftover transaction files");
         }
         finally { Directory.Delete(temporary, true); }
+        LocalProfileContracts();
         Console.WriteLine("{\"assertions\":" + count + ",\"jobs\":[100,101,103],\"diskRoundTrips\":3,\"unityPlayExecuted\":false}");
     }
 }

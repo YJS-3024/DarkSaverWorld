@@ -13,8 +13,9 @@ namespace DarkSaver.Original.Tutorial
         {
             public RectTransform Root, Full, CollapsedPanel;
             public RawImage Body, Mini;
-            public Text Title, Values, Details, AllySelf, AllyTeacher;
-            public Image Ap, Hp, Mp;
+            public Text Title, ClassName, Level, Details, AllySelf, AllyTeacher;
+            public RawImage Ap, Hp, Mp, Experience;
+            public NativeDigits HpDigits, MpDigits, ExperienceDigits, AttackDigits, DefenseDigits;
             public Button Ally;
             public RectTransform PreviewContents;
             public readonly List<(RectTransform rect, double bottom)> PreviewDepth = new List<(RectTransform, double)>();
@@ -59,13 +60,20 @@ namespace DarkSaver.Original.Tutorial
                 }
                 if (key == 2)
                 {
-                    window.Title = Label(window.Full, "Unit name", new Rect(8, 6, 68, 16), "", TextAnchor.MiddleCenter);
-                    window.Body = Picture(window.Full, "32x32 live unit", new Rect(44, 79, 32, 32), art.actors[0]);
-                    window.Ap = Gauge(window.Full, "Scripted action state", new Rect(30, 143, 80, 8), new Color(.6f, .7f, .9f));
-                    window.Hp = Gauge(window.Full, "HP", new Rect(30, 156, 80, 8), Color.red);
-                    window.Mp = Gauge(window.Full, "MP", new Rect(30, 169, 80, 8), Color.blue);
-                    window.Values = Label(window.Full, "Raw HP MP", new Rect(30, 139, 80, 42), "", TextAnchor.MiddleCenter, 10);
-                    window.Details = Label(window.Full, "Combat values", new Rect(30, 181, 80, 28), "", TextAnchor.UpperLeft, 10);
+                    window.Title = NativeText(window.Full, "Unit name", new Rect(9, 7, 67, 16));
+                    window.ClassName = NativeText(window.Full, "Native job name", new Rect(12, 26, 96, 16));
+                    window.Level = NativeText(window.Full, "Native level", new Rect(12, 41, 96, 16));
+                    // Both native F2 and F5 use the fixed front cell(32,32)-(64,64), not the map facing.
+                    window.Body = Picture(window.Full, "32x32 front unit", new Rect(44, 79, 32, 32), art.actors[0]);
+                    window.Ap = Gauge(window.Full, "Action", new Rect(30, 143, 80, 9));
+                    window.Hp = Gauge(window.Full, "HP", new Rect(30, 156, 80, 9));
+                    window.Mp = Gauge(window.Full, "MP", new Rect(30, 169, 80, 9));
+                    window.Experience = Gauge(window.Full, "Experience", new Rect(30, 182, 80, 9));
+                    window.HpDigits = new NativeDigits(this, window.Full, "HP digits", 34, 157, 16);
+                    window.MpDigits = new NativeDigits(this, window.Full, "MP digits", 34, 170, 16);
+                    window.ExperienceDigits = new NativeDigits(this, window.Full, "Experience digits", 34, 183, 16);
+                    window.AttackDigits = new NativeDigits(this, window.Full, "Attack digits", 32, 197, 6);
+                    window.DefenseDigits = new NativeDigits(this, window.Full, "Defense digits", 87, 197, 6);
                 }
                 if (key == 3)
                 {
@@ -79,11 +87,13 @@ namespace DarkSaver.Original.Tutorial
                 if (key == 4) window.Details = Label(window.Full, "SETVICTORY", new Rect(14, 31, 152, 28), "", TextAnchor.MiddleCenter);
                 if (key == 5)
                 {
-                    window.Title = Label(window.Full, "Commander", new Rect(8, 6, 66, 16), "", TextAnchor.MiddleLeft);
-                    window.Body = Picture(window.Full, "Commander live sprite", new Rect(8, 30, 32, 32), art.actors[0]);
-                    window.Ap = Gauge(window.Full, "Action", new Rect(58, 34, 48, 8), new Color(.6f, .7f, .9f));
-                    window.Hp = Gauge(window.Full, "HP", new Rect(58, 47, 48, 8), Color.red);
-                    window.Mp = Gauge(window.Full, "MP", new Rect(58, 60, 48, 8), Color.blue);
+                    window.Title = NativeText(window.Full, "Commander", new Rect(9, 9, 66, 16));
+                    window.Body = Picture(window.Full, "Commander front sprite", new Rect(8, 36, 32, 32), art.actors[0]);
+                    window.Ap = Gauge(window.Full, "Action", new Rect(65, 34, 48, 9));
+                    window.Hp = Gauge(window.Full, "HP", new Rect(65, 48, 48, 9));
+                    window.Mp = Gauge(window.Full, "MP", new Rect(65, 61, 48, 9));
+                    window.HpDigits = new NativeDigits(this, window.Full, "HP digits", 69, 49, 9);
+                    window.MpDigits = new NativeDigits(this, window.Full, "MP digits", 69, 62, 9);
                 }
                 if (key == 6)
                 {
@@ -116,12 +126,43 @@ namespace DarkSaver.Original.Tutorial
                 windowViews[key] = window; window.Root.gameObject.SetActive(false);
             }
         }
-        private Image Gauge(RectTransform parent, string name, Rect rect, Color color)
+        private Text NativeText(RectTransform parent, string name, Rect rect)
         {
-            var image = Group(parent, name, rect).gameObject.AddComponent<Image>(); image.color = color; image.raycastTarget = false; return image;
+            var text = Label(parent, name, rect, "", TextAnchor.UpperLeft, 12);
+            text.color = new Color32(8, 8, 8, 255); text.fontStyle = FontStyle.Normal;
+            text.horizontalOverflow = HorizontalWrapMode.Overflow; return text;
         }
-        private static void Fill(Image image, float value, float width)
-        { image.rectTransform.sizeDelta = new Vector2(width * Mathf.Clamp01(value), image.rectTransform.sizeDelta.y); }
+        private RawImage Gauge(RectTransform parent, string name, Rect rect) => Picture(parent, name, rect, art.board);
+        private void Fill(RawImage image, int value, int maximum, int width, int sourceY)
+        {
+            int filled = maximum > 0 ? (int)Math.Min(width, Math.Max(0, (long)value * width / maximum)) : 0;
+            image.gameObject.SetActive(filled > 0); if (filled == 0) return;
+            image.rectTransform.sizeDelta = new Vector2(filled, 9);
+            image.uvRect = NativeEntryLayout.Uv(art.board, new Rect(2, sourceY, filled, 9));
+        }
+        private sealed class NativeDigits
+        {
+            private readonly RawImage[] glyphs;
+            private readonly Texture atlas;
+            public NativeDigits(TutorialSceneRoot root, RectTransform parent, string name, int x, int y, int capacity)
+            {
+                atlas = root.art.board; glyphs = new RawImage[capacity];
+                var group = Group(parent, name, new Rect(x, y, capacity * 5, 7));
+                for (int i = 0; i < capacity; i++) glyphs[i] = Picture(group, "Glyph " + i, new Rect(i * 5, 0, 5, 7), atlas);
+                group.gameObject.AddComponent<RectMask2D>();
+            }
+            public void Set(string value)
+            {
+                value = value ?? "";
+                for (int i = 0; i < glyphs.Length; i++)
+                {
+                    bool show = i < value.Length; glyphs[i].gameObject.SetActive(show); if (!show) continue;
+                    int digit = value[i] >= '0' && value[i] <= '9' ? value[i] - '0' : -1;
+                    // GameCtl100053F0:5x7 glyphs, palette row2, native slash for non-digits.
+                    glyphs[i].uvRect = NativeEntryLayout.Uv(atlas, new Rect(380 + digit * 5, 342, 5, 7));
+                }
+            }
+        }
         private void WindowControl(int key, int control, int y)
         {
             if (consumedPress || view.Completed) return;
@@ -155,17 +196,26 @@ namespace DarkSaver.Original.Tutorial
                 if (key == 2 || key == 5)
                 {
                     if (actor == null) continue;
-                    window.Title.text = actor.Id == 0 ? character.name : actor.Id == 100 ? "사부" : actor.Job.ToString();
+                    window.Title.text = actor.Id == 0 ? character.name : actor.Id == 100 ? "사부" : actor.JobName;
                     window.Body.texture = art.Actor(actor.Job, actor.Id == 100 ? view.AllyMode : -1);
-                    window.Body.uvRect = unitImages[actor.Id].uvRect;
-                    float width = key == 2 ? 80 : 48;
-                    // Normalize only the explicit demonstration literals to the largest literal in the script.
-                    // This display scale is not a general AP maximum/recovery or action-cost rule.
-                    Fill(window.Ap, actor.Tick == 99 ? 1 : actor.Tick <= 0 ? 0 : actor.Tick / (float)scriptedTickScale, width);
-                    Fill(window.Hp, actor.MaxHp > 0 ? actor.Hp / (float)actor.MaxHp : 0, width);
-                    Fill(window.Mp, actor.MaxMp > 0 ? actor.Mp / (float)actor.MaxMp : 0, width);
-                    if (window.Values != null) window.Values.text = "\n" + actor.Hp + "/" + actor.MaxHp + "\n" + actor.Mp + "/" + actor.MaxMp;
-                    if (window.Details != null) window.Details.text = "\n" + actor.Attack + "       " + actor.Defense;
+                    window.Body.uvRect = NativeEntryLayout.Uv(window.Body.texture, new Rect(32, 32, 32, 32));
+                    int width = key == 2 ? 80 : 48;
+                    int readyPhase = actor.Tick >= actor.MaximumTick ? (int)(view.Clock / TutorialPresentationTiming.IdleFrameMs) % 3 * 12 : 0;
+                    Fill(window.Ap, actor.Tick, actor.MaximumTick, width, 370 + readyPhase);
+                    Fill(window.Hp, actor.Hp, actor.MaxHp, width, 382);
+                    Fill(window.Mp, actor.Mp, actor.MaxMp, width, 394);
+                    window.HpDigits.Set(actor.Hp + "/" + actor.MaxHp);
+                    window.MpDigits.Set(actor.Mp + "/" + actor.MaxMp);
+                    if (key == 2)
+                    {
+                        window.ClassName.text = actor.JobName;
+                        // Native temporary records have level0; the original renderer omits the level row then.
+                        window.Level.text = actor.Level != 0 ? "[ Lv. " + actor.Level + " ]" : "";
+                        Fill(window.Experience, actor.Experience, actor.MaximumExperience, width, 406);
+                        window.ExperienceDigits.Set(actor.Experience + "/" + actor.MaximumExperience);
+                        window.AttackDigits.Set(actor.Attack.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                        window.DefenseDigits.Set(actor.Defense.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                    }
                 }
                 else if (key == 3)
                 {

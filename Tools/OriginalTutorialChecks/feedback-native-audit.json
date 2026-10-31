@@ -1,0 +1,228 @@
+{
+  "date": "2026-10-31",
+  "scope": "Direct start/tutorial20-item feedback; original static data/code evidence, requested presentation changes and managed checks kept distinct.",
+  "sources": {
+    "Saver.exe": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+    "GameCtl.dll": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+    "UserUnit.dll": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b"
+  },
+  "nativeFacts": {
+    "serverButtons": "login2 panel already contains both normal button images; login.bmp patches were incorrect. Preserve panel and separate native hit rectangles.",
+    "nameColor": {
+      "address": "Saver45BD49",
+      "colorref": "0x0040FFFF",
+      "rgb": [
+        255,
+        255,
+        64
+      ]
+    },
+    "directionRows": {
+      "sources": [
+        "100r.bmp",
+        "125r.bmp",
+        "301r.bmp"
+      ],
+      "rows": [
+        "Up",
+        "Down",
+        "Right",
+        "Left"
+      ],
+      "method": "Visual original-sheet comparison; current movement and attack direction rules use this mapping."
+    },
+    "areas": {
+      "shape": "Manhattan/cardinal diamond",
+      "native": "UserUnit SetArea10004B80 absolute-offset loop; SetAreaB10001BE0",
+      "attackRadius1Cells": 4,
+      "magicRadius3CellsExcludingOrigin": 24
+    },
+    "f2": {
+      "native": "GameCtl100054C0..1000613F",
+      "frontCell": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "portrait": [
+        44,
+        79,
+        32,
+        32
+      ],
+      "gauges": {
+        "action": [
+          30,
+          143,
+          80,
+          9
+        ],
+        "hp": [
+          30,
+          156,
+          80,
+          9
+        ],
+        "mp": [
+          30,
+          169,
+          80,
+          9
+        ],
+        "experience": [
+          30,
+          182,
+          80,
+          9
+        ]
+      },
+      "textRgb": [
+        8,
+        8,
+        8
+      ],
+      "jobLabel": [
+        12,
+        26
+      ],
+      "levelLabel": [
+        12,
+        41
+      ],
+      "levelFormat": "[ Lv. %d ]",
+      "levelCondition": "record14 !=0; no invented level1 for temporary records"
+    },
+    "f5": {
+      "native": "GameCtl100063E0..10006801",
+      "portrait": [
+        8,
+        36,
+        32,
+        32
+      ],
+      "gauges": {
+        "action": [
+          65,
+          34,
+          48,
+          9
+        ],
+        "hp": [
+          65,
+          48,
+          48,
+          9
+        ],
+        "mp": [
+          65,
+          61,
+          48,
+          9
+        ]
+      },
+      "hpDigits": [
+        69,
+        49
+      ],
+      "mpDigits": [
+        69,
+        62
+      ]
+    },
+    "gauges": {
+      "atlas": "etc2/board.bmp",
+      "sourceX": 2,
+      "sourceY": {
+        "action": 370,
+        "hp": 382,
+        "mp": 394,
+        "experience": 406
+      },
+      "readyAction": "three native strips,12px step; no replacement solid colors"
+    },
+    "digits": {
+      "native": "GameCtl100053F0..100054B3",
+      "atlas": "etc2/board.bmp",
+      "sourceX": "380+digit*5; non-digit slash at375",
+      "sourceY": "328+style*7; style2=342",
+      "cell": [
+        5,
+        7
+      ]
+    },
+    "temporaryRecord": {
+      "native": "UserUnit1000EE60 constructor ->1000B0A0 record copy",
+      "attack": "QUNIT2C=99 -> character34",
+      "defense": "QUNIT30=99 -> character38",
+      "maximumTick": "QUNIT58=10 -> character5C",
+      "level": "QUNIT0C=0 -> character14",
+      "experience": "QUNIT10/14=0 -> character08/0C",
+      "notGeneralServerStats": true
+    },
+    "attackFx": "Retain simultaneous actor state flags. Only one contact burst is drawn, with position captured at attack start; removed targets cannot relocate it.",
+    "icons": "Original CHARMENU zero-mask explanation flashes retained at explicit user request.",
+    "emptyMessage": "Whitespace/empty source MESSAGE hides the whole portrait/frame/text group.",
+    "mercenaryPicture": {
+      "job": 201,
+      "picture": 200,
+      "evidence": "UserUnit1000EC95..ECA6 and units_all.csv picture column. Keep actor job201; draw200r.bmp."
+    }
+  },
+  "requestedPresentation": {
+    "creationOrigin": [
+      121,
+      90
+    ],
+    "creationOriginReason": "Center397x300 in640x480. Dlg45 profile0,0 does not alone prove a global origin.",
+    "selectedCard": "Persistent1px yellow border requested as visible selection feedback; exact original highlight artwork unconfirmed.",
+    "depth": "Status windows above actor-relative action menus, explicitly confirmed by user; menu positions do not change."
+  },
+  "earlierBasicLesson": {
+    "status": "Implemented native waiting1500 before battle301; managed/API checked, actual Unity Play pending.",
+    "evidence": "User screenshot dialogue exactly matches string61230. Native constructor loads61216-61251; leading-bar skip excludes61236-61238. Native initialization requests map1500. CP949-only searches missed UTF-16 resources.",
+    "implemented": true,
+    "reference": {
+      "url": "https://youtu.be/Raoxef51EIw",
+      "title": "다크세이버 튜토리얼~부르고스 성 테스트",
+      "providedBy": "user",
+      "classification": "User-described recreation; not authenticated original gameplay footage",
+      "titleVerified": true,
+      "framesInspected": true,
+      "dialogueTranscribed": true,
+      "sequenceVerified": false,
+      "originalParityVerified": false,
+      "access": "YouTube playback remains unavailable; user supplied one readable screenshot.",
+      "framesInspectedScope": "One user-attached inline screenshot; video13-55s not viewed.",
+      "screenshotOriginalDialogueMatch": 61230
+    },
+    "originalResourceReport": "분석/Saver_Late/waiting_tutorial_resources.json",
+    "implementation": {
+      "runtime": "Assets/_Original/Runtime/Tutorial/WaitingLesson.cs",
+      "presentation": "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.Waiting.cs",
+      "definition": "Assets/_Original/Data/Tutorial/Waiting1500.json",
+      "sourceWaitDispatch": "Saver435750;table435C14",
+      "sourceClickDispatch": "Saver435F10;table435F9C",
+      "temporaryItems": [
+        1,
+        762,
+        777
+      ],
+      "nativeFloorFallback": "UserUnit10004F51:FF ->0",
+      "nativeCursors": [
+        131,
+        162,
+        163,
+        164,
+        165
+      ],
+      "reconnect": "Incomplete waiting or battle restarts at waiting1500; no temporary equipment persisted.",
+      "limits": "Window origins/teacher placement use screenshot reference; general server-owned profile numbers not invented; font/cursor timing not measured; actual Unity Play not run."
+    }
+  },
+  "validation": {
+    "actualUnityPlay": false,
+    "managedTool": "Tools/OriginalTutorialChecks/check_tutorial.py",
+    "physicalInputAndAudio": "Not rerun; manual revalidation required."
+  }
+}

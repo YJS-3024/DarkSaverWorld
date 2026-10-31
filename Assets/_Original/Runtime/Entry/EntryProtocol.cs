@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace DarkSaver.Original.Entry
 {
     // In-process contracts. No original wire opcode or missing server formula is invented.
-    public enum EntryOperation { Login, Servers, SelectServer, CreateFirstCharacter, Logout }
+    public enum EntryOperation { Login, Servers, SelectServer, CreateFirstCharacter, Logout, OpenLocalProfile }
     public enum EntryStage { Login, ServerSelection, FirstCharacterCreation, CharacterReady }
     public enum EntryFailure { None, InvalidCredentials, Unauthenticated, InvalidServer, InvalidCharacter, AlreadyCreated, StorageUnavailable }
 
@@ -23,6 +23,7 @@ namespace DarkSaver.Original.Entry
         public static EntryRequest SelectServer(int id) => new EntryRequest(EntryOperation.SelectServer, server: id);
         public static EntryRequest Create(int job, string name) => new EntryRequest(EntryOperation.CreateFirstCharacter, job: job, name: name);
         public static EntryRequest Logout() => new EntryRequest(EntryOperation.Logout);
+        public static EntryRequest OpenLocalProfile() => new EntryRequest(EntryOperation.OpenLocalProfile);
     }
 
     [Serializable, DataContract] public sealed class EntryCharacter
@@ -31,7 +32,8 @@ namespace DarkSaver.Original.Entry
         [DataMember] public string name;
         [DataMember] public int job;
         [DataMember] public bool tutorialCompleted;
-        public EntryCharacter Copy() => new EntryCharacter { id = id, name = name, job = job, tutorialCompleted = tutorialCompleted };
+        [DataMember(EmitDefaultValue = false)] public DarkSaver.Original.World.WorldRecord world;
+        public EntryCharacter Copy() => new EntryCharacter { id = id, name = name, job = job, tutorialCompleted = tutorialCompleted, world = world?.Copy() };
     }
     public sealed class EntryServer
     {

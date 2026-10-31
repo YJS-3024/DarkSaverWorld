@@ -8,7 +8,23 @@ namespace DarkSaver.Original.Entry
     {
         private NativeTutorialArt tutorialArt;
         public event Action<TutorialReply> Notify_Tutorial;
+        public event Action<WaitingReply> Notify_WaitingLesson;
         public void ConfigureTutorial(NativeTutorialArt art) { tutorialArt = art; }
+        public WaitingReply Request_BeginWaitingLesson()
+        {
+            var failure = !isActiveAndEnabled || service == null ? TutorialFailure.Unauthenticated
+                : tutorialArt == null || !tutorialArt.WaitingConfigured ? TutorialFailure.InvalidStage
+                : service.BeginWaitingLesson(tutorialArt.WaitingDefinition);
+            var reply = new WaitingReply(failure, service?.WaitingLessonSnapshot());
+            Notify_WaitingLesson?.Invoke(reply); return reply;
+        }
+        public WaitingReply Request_WaitingLessonInput(WaitingInput input)
+        {
+            var failure = isActiveAndEnabled && service != null ? service.WaitingLessonInput(input) : TutorialFailure.Unauthenticated;
+            var reply = new WaitingReply(failure, service?.WaitingLessonSnapshot());
+            Notify_WaitingLesson?.Invoke(reply); return reply;
+        }
+        public WaitingView WaitingSnapshot => isActiveAndEnabled ? service?.WaitingLessonSnapshot() : null;
         public TutorialReply Request_BeginTutorial()
         {
             TutorialReply reply;
@@ -34,6 +50,6 @@ namespace DarkSaver.Original.Entry
             Notify_Tutorial?.Invoke(reply); return reply;
         }
         public TutorialView TutorialSnapshot => isActiveAndEnabled ? service?.TutorialSnapshot() : null;
-        private void Update() { service?.AdvanceTutorial(Time.unscaledDeltaTime * 1000.0); }
+        private void Update() { service?.AdvanceTutorial(Time.unscaledDeltaTime * 1000.0); service?.AdvanceWorld(Time.unscaledDeltaTime * 1000.0); FlushCampaignEffects(); }
     }
 }

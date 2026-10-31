@@ -5,6 +5,7 @@ import io
 import json
 import re
 import sys
+import struct
 import tarfile
 from collections import Counter
 from pathlib import Path
@@ -161,8 +162,14 @@ def main():
     assert not any(p.suffix in {'.prefab', '.dll', '.exe', '.shader', '.uxml', '.uss'} for p in paths)
     tutorial_path = ROOT/'Tools/OriginalTutorialChecks/tutorial-check.json'
     tutorial = json.loads(tutorial_path.read_text()) if tutorial_path.exists() else None
+    world_path = ROOT/'Tools/OriginalWorldChecks/world-check.json'
+    world = json.loads(world_path.read_text()) if world_path.exists() else None
+    campaign_path = ROOT/'Tools/OriginalWorldChecks/campaign-check.json'
+    campaign = json.loads(campaign_path.read_text()) if campaign_path.exists() else None
     expected_assets = {base/'Data/Entry/NativeEntryArt.asset'} if entry else set()
     if tutorial: expected_assets.add(base/'Data/Tutorial/NativeTutorialArt.asset')
+    if world: expected_assets.add(base/'Data/World/NativeWorldArt.asset')
+    if campaign: expected_assets.add(base/'Data/Campaign/NativeCampaignArt.asset')
     assert {p for p in paths if p.suffix == '.asset'} == expected_assets
     assert not any('Resources' in p.relative_to(assets).parts for p in paths)
     scripts = [p for p in paths if p.suffix == '.cs']
@@ -179,7 +186,7 @@ def main():
     scenes = [p for p in paths if p.suffix == '.unity']
     assert len(scenes) == 1 and scenes[0] == base / 'Scenes/Start.unity'
     scene = scenes[0].read_text()
-    assert scene.count('MonoBehaviour:') == (3 if tutorial else 2 if entry else 0) and 'Main Camera' in scene
+    assert scene.count('MonoBehaviour:') == (4 if world else 3 if tutorial else 2 if entry else 0) and 'Main Camera' in scene
     assert 'orthographic: 1' in scene
     guids = set()
     for p in assets.rglob('*.meta'):
@@ -232,6 +239,44 @@ def main():
             assert sha((ROOT/row['asset']).read_bytes()) == row['sha256'], row['asset']
         expected_other |= {r['asset'] for r in tutorial_evidence['outputs']} | {
             'Assets/_Original/Data/Tutorial/NativeTutorialArt.asset', 'Assets/_Original/Data/Tutorial/TutorialEvidence.json'}
+    if world:
+        world_evidence = json.loads((ROOT/'Tools/OriginalWorldChecks/world-assets.json').read_text())
+        assert world['runtimeApiErrors'] == world['editorApiErrors'] == world['playerApiErrors'] == 0
+        for row in world_evidence['outputs']:
+            assert sha((ROOT/row['asset']).read_bytes()) == row['sha256'], row['asset']
+        expected_other |= {r['asset'] for r in world_evidence['outputs']} | {'Assets/_Original/Data/World/NativeWorldArt.asset'}
+    if campaign:
+        campaign_evidence = json.loads((ROOT/'Tools/OriginalWorldChecks/campaign-assets.json').read_text())
+        assert campaign['runtimeApiErrors'] == campaign['editorApiErrors'] == campaign['playerApiErrors'] == 0
+        assert campaign['maps'] == 126 and campaign['productionConnections'] == 0 and not campaign_evidence['connections']
+        for row in campaign_evidence['outputs']: assert sha((ROOT/row['asset']).read_bytes()) == row['sha256'], row['asset']
+        expected_other |= {r['asset'] for r in campaign_evidence['outputs']} | {'Assets/_Original/Data/Campaign/NativeCampaignArt.asset'}
+    scenario_path = ROOT/'Tools/OriginalScenarioEditorChecks/editor-check.json'
+    scenario = json.loads(scenario_path.read_text()) if scenario_path.exists() else None
+    if scenario:
+        assert scenario['maps'] == 141 and scenario['originalUnits'] == 610
+        assert scenario['runtimeApiErrors'] == scenario['editorApiErrors'] == scenario['playerApiErrors'] == 0
+        for path, digest in scenario['editorSources'].items(): assert sha((ROOT/path).read_bytes()) == digest, path
+    # Explicit editor authoring is separate from immutable SourceIndex/native data.
+    # It must not reintroduce runtime Resources, old scenes or generated gameplay rules.
+    layouts = list((base/'Editor/ScenarioLayouts').glob('*.json'))
+    job_ids = {int(r['직업']) for r in csv.DictReader((base/'Data/Tables/units_all.csv').open(encoding='utf-8-sig'))}
+    for path in layouts:
+        row = json.loads(path.read_text())
+        assert re.fullmatch(r'\d{2,4}', path.stem) and row['version'] == 1 and row['mapKey'] == path.stem, path
+        native_map = base/'SourceData/Native/map'/f'{path.stem}.mrc.bytes'
+        native_bytes = native_map.read_bytes()
+        assert row['mapHash'] == sha(native_bytes), path
+        count = struct.unpack_from('<I', native_bytes)[0]
+        assert (row['width'], row['height']) == struct.unpack_from('<II', native_bytes, 4 + count * 4), path
+        for ext, field in [('set', 'setHash'), ('pos', 'posHash')]:
+            original = base/'SourceData/Decoded/map'/f'{path.stem}set.arc'/f'{path.stem}.{ext}.txt'
+            expected = sha(original.read_bytes().decode('utf-8-sig').encode('utf-8')) if original.exists() else ''
+            assert row[field] == expected, path
+        assert row['width'] > 0 and row['height'] > 0 and isinstance(row['units'], list), path
+        assert len({u['unit'] for u in row['units']}) == len(row['units']), path
+        assert all(u['unit'] >= 400 and u['job'] in job_ids and 0 <= u['x'] < row['width'] and 0 <= u['y'] < row['height'] for u in row['units']), path
+    expected_other |= {p.relative_to(ROOT).as_posix() for p in layouts}
     assert other_paths == expected_other, other_paths ^ expected_other
     assert native == report['nativeFiles'] and images == report['imageOutputs'] and tables == 8
     # The first reset captured all actual old files, including modified and untracked ones.
@@ -245,9 +290,10 @@ def main():
     source_audit = verify_original_sources(index)
     result = dict(nativeFiles=native, decodedTextFiles=text, pixelVerifiedPng=images, originalTableFiles=tables,
                   sourceOutputs=len(source_paths), metadataGuids=len(guids), remainingOldGameScripts=0,
-                  scenes=1, sceneMonoBehaviours=3 if tutorial else 2 if entry else 0, backupFilesVerified=len(before),
-                  newGameImplemented=False, entryImplemented=bool(entry), tutorialImplemented=bool(tutorial), newGameScope='Entry through native tutorial301' if tutorial else 'Entry through first commander creation' if entry else None,
-                  unityExecuted=False, independentSourceAudit=source_audit)
+                  scenes=1, sceneMonoBehaviours=4 if world else 3 if tutorial else 2 if entry else 0, backupFilesVerified=len(before),
+                  newGameImplemented=False, entryImplemented=bool(entry), tutorialImplemented=bool(tutorial), worldImplemented=bool(world),
+                  newGameScope='Entry/tutorials/Kaosia plus native field/scenario client resources; unproven connections held' if campaign else 'Entry/tutorials through Kaosia and eleven map/facility request boundaries' if world else 'Entry through native tutorial301' if tutorial else 'Entry through first commander creation' if entry else None,
+                  unityExecuted=False, scenarioEditorImplemented=bool(scenario), campaignResourcesImplemented=bool(campaign), editorAuthoredLayouts=len(layouts), independentSourceAudit=source_audit)
     target = ROOT / 'Tools/OriginalRestart/foundation-check.json'
     target.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(result))

@@ -25,13 +25,19 @@ namespace DarkSaver.Original.Tutorial
         public int Id { get; internal set; } public int Job { get; internal set; }
         public int Hp { get; internal set; } = 99; public int MaxHp { get; internal set; } = 99;
         public int Mp { get; internal set; } = 99; public int MaxMp { get; internal set; } = 99;
-        public int Attack { get; internal set; } public int Defense { get; internal set; }
+        // _tagQUNIT constructor2C/30=99 -> character34/38. CHARABILITY does not replace these.
+        public int Attack { get; internal set; } = 99; public int Defense { get; internal set; } = 99;
+        public int Level { get; internal set; }
+        public int Experience { get; internal set; }
+        public int MaximumExperience { get; internal set; }
+        public int MaximumTick { get; internal set; } = 10;
+        public string JobName { get; internal set; }
         public int Mask { get; internal set; } = 255;
         public int Tick { get; internal set; } = 99;
         public int Magic { get; internal set; }
         public int Skill { get; internal set; }
         public TutorialTile Tile { get; internal set; }
-        public int Direction { get; internal set; } = 1; // Up, Down, Left, Right sheet rows.
+        public int Direction { get; internal set; } = 1; // Native rows: Up, Down, Right, Left.
         public double X { get; internal set; } public double Y { get; internal set; }
         public bool Moving => path.Count != 0;
         public bool Dying { get; internal set; }
@@ -39,6 +45,9 @@ namespace DarkSaver.Original.Tutorial
         public int DeathCounter { get; internal set; } = -1;
         public int AttackOther { get; internal set; } = -1;
         public bool AttackImpact { get; internal set; }
+        public bool ShowsAttackEffect => AttackCounter >= 0 && !Dying && !AttackImpact;
+        public double AttackFxX { get; internal set; }
+        public double AttackFxY { get; internal set; }
         internal List<TutorialTile> path = new List<TutorialTile>();
         internal int substep;
         internal double movementClock, attackClock, deathClock;
@@ -103,7 +112,7 @@ namespace DarkSaver.Original.Tutorial
                 {
                     actor.movementClock = clock; var next = actor.path[0];
                     var dx = next.X - actor.Tile.X; var dy = next.Y - actor.Tile.Y;
-                    actor.Direction = dx != 0 ? (dx > 0 ? 3 : 2) : (dy > 0 ? 1 : 0);
+                    actor.Direction = TutorialGeometry.FacingRow(dx, dy);
                     actor.substep++; double amount = actor.substep / (double)TutorialPresentationTiming.MovementSubsteps;
                     actor.X = actor.Tile.X + dx * amount; actor.Y = actor.Tile.Y + dy * amount;
                     if (actor.substep == TutorialPresentationTiming.MovementSubsteps)
@@ -154,7 +163,7 @@ namespace DarkSaver.Original.Tutorial
                 {
                     if ((range == TutorialAction.Attack || range == TutorialAction.Magic) && input.Unit >= 100)
                         return Input(new TutorialInput(TutorialInputKind.Tile, x: selected.Tile.X, y: selected.Tile.Y));
-                    if (input.Unit < 100) { menuUnit = input.Unit; magicVisible = orderVisible = false; accepted = true; matched = pending?.Name == "WAITTOPMENU" && pending.Int(0) == input.Unit; }
+                    if (input.Unit < 100) { range = null; menuUnit = input.Unit; magicVisible = orderVisible = false; accepted = true; matched = pending?.Name == "WAITTOPMENU" && pending.Int(0) == input.Unit; }
                 }
                 else if (input.Kind == TutorialInputKind.Action && menuUnit == input.Unit && actors.TryGetValue(input.Unit, out var owner) && !owner.Moving && !owner.Dying && ActionAllowed(owner, (TutorialAction)input.Value))
                 {
@@ -182,12 +191,12 @@ namespace DarkSaver.Original.Tutorial
                         accepted = matched = Move(pending.Int(0), input.Tile, 12); if (matched) { range = null; menuUnit = -1; }
                     }
                     else if (pending?.Name == "WAITATTACKCHAR" && range == TutorialAction.Attack && rangeUnit == pending.Int(0) && actors.TryGetValue(pending.Int(1), out var target) && target.Tile == input.Tile
-                        && actors.TryGetValue(pending.Int(0), out var attacker) && Distance(attacker.Tile, target.Tile) <= 1)
+                        && actors.TryGetValue(pending.Int(0), out var attacker) && TutorialGeometry.InRange(attacker.Tile, target.Tile, 1))
                     {
                         StartAttack(attacker, target); accepted = matched = true; range = null; menuUnit = -1;
                     }
                     else if (pending?.Name == "WAITMAGICMENU" && pending.Int(0) == 2 && range == TutorialAction.Magic && rangeUnit == pending.Int(1) && actors.TryGetValue(pending.Int(2), out var targetMagic)
-                        && targetMagic.Tile == input.Tile && actors.TryGetValue(pending.Int(1), out var caster) && Distance(caster.Tile, targetMagic.Tile) <= 3)
+                        && targetMagic.Tile == input.Tile && actors.TryGetValue(pending.Int(1), out var caster) && TutorialGeometry.InRange(caster.Tile, targetMagic.Tile, 3))
                     {
                         magicCaster = caster.Id; magicTarget = targetMagic.Id; magicAge = 0;
                         accepted = matched = true; range = null; menuUnit = -1;
@@ -205,21 +214,23 @@ namespace DarkSaver.Original.Tutorial
         public static bool ActionAllowed(TutorialActor actor, TutorialAction action) => (actor.Mask & (int)action) != 0
             && (actor.Id == 0 || action == TutorialAction.Move || action == TutorialAction.Attack || action == TutorialAction.Rest);
         public HashSet<TutorialTile> Occupied(int except) => new HashSet<TutorialTile>(actors.Values.Where(a => a.Id != except && !a.Dying).Select(a => a.Tile));
-        public bool CanMove(int unit, TutorialTile tile) => actors.TryGetValue(unit, out var actor) && !actor.Dying && map.Path(actor.Tile, tile, 12, Occupied(unit)) != null;
+        public bool CanMove(int unit, TutorialTile tile) => actors.TryGetValue(unit, out var actor) && !actor.Dying && tile != actor.Tile && map.Path(actor.Tile, tile, 12, Occupied(unit)) != null;
         private bool Move(int unit, TutorialTile tile, int budget)
         {
             if (!actors.TryGetValue(unit, out var actor) || actor.Dying || actor.Moving) return false;
             var path = map.Path(actor.Tile, tile, budget, Occupied(unit)); if (path == null) return false;
             actor.path = path; actor.substep = 0; actor.movementClock = clock; return true;
         }
-        private static int Distance(TutorialTile a, TutorialTile b) => Math.Max(Math.Abs(a.X - b.X), Math.Abs(a.Y - b.Y));
         private void StartAttack(TutorialActor a, TutorialActor b)
         {
             a.AttackCounter = b.AttackCounter = 0; a.attackClock = b.attackClock = clock;
             a.AttackOther = b.Id; b.AttackOther = a.Id; a.AttackImpact = false; b.AttackImpact = true;
+            // Capture the shared contact position when the native action starts. Target removal must not relocate an in-flight effect.
+            a.AttackFxX = b.AttackFxX = (a.X + b.X) * .5;
+            a.AttackFxY = b.AttackFxY = (a.Y + b.Y) * .5;
             int dx = b.Tile.X - a.Tile.X, dy = b.Tile.Y - a.Tile.Y;
-            a.Direction = dx != 0 ? (dx > 0 ? 3 : 2) : (dy > 0 ? 1 : 0);
-            b.Direction = dx != 0 ? (dx > 0 ? 2 : 3) : (dy > 0 ? 0 : 1);
+            a.Direction = TutorialGeometry.FacingRow(dx, dy);
+            b.Direction = TutorialGeometry.FacingRow(-dx, -dy);
         }
         private static int Key(string value) => int.Parse(value.Substring(1), System.Globalization.CultureInfo.InvariantCulture);
         private bool Toggle(int key)
@@ -242,7 +253,7 @@ namespace DarkSaver.Original.Tutorial
                     case "DISABLE": enabled.Remove(command.Arguments[0]); break;
                     case "CHARPOS":
                         int job = command.Arguments[0] == "COM0" ? startingJob : command.Int(0), id = command.Int(1);
-                        actors[id] = new TutorialActor { Id = id, Job = job, Tile = new TutorialTile(command.Int(2), command.Int(3)), X = command.Int(2), Y = command.Int(3) }; break;
+                        actors[id] = new TutorialActor { Id = id, Job = job, JobName = map.abilities.FirstOrDefault(a => a.job == job)?.name ?? "", Tile = new TutorialTile(command.Int(2), command.Int(3)), X = command.Int(2), Y = command.Int(3) }; break;
                     case "CHARABILITY":
                         var actor = actors[command.Int(0)]; var ability = map.abilities.FirstOrDefault(a => a.job == actor.Job);
                         if (ability == null) { error = "Missing original tutorial ability: " + actor.Job; break; }

@@ -31,7 +31,6 @@ namespace DarkSaver.Original.Tutorial
         private RectTransform actionMenu, magicMenu, orderMenu;
         private RawImage magicFx, displayPosition, spellIcon;
         private readonly List<RawImage> orderIcons = new List<RawImage>();
-        private int scriptedTickScale = 1;
         private AudioSource music;
         private int musicRepeats, rangeKey = int.MinValue;
         private bool active, consumedPress, completionAttempted, delivered;
@@ -40,7 +39,7 @@ namespace DarkSaver.Original.Tutorial
         private TutorialView view;
         public event Action<EntryCharacter> TutorialCompleted;
         public event Action<EntryCharacter> WorldEntryReady;
-        public bool IsRunning => active && view != null && !view.Completed;
+        public bool IsRunning => waitingActive || (active && view != null && !view.Completed);
         private void Awake()
         {
             entry = GetComponent<EntrySceneRoot>(); server = GetComponent<LocalServerManager>();
@@ -51,9 +50,12 @@ namespace DarkSaver.Original.Tutorial
             if (value == null) return;
             character = value.Copy(); completionAttempted = delivered = false;
             if (value.tutorialCompleted) { WorldEntryReady?.Invoke(value.Copy()); Debug.Log("Original client: tutorial already completed; world entry boundary reached.", this); return; }
-            if (art == null || !art.IsConfigured) { Debug.LogError("Original tutorial assets are missing.", this); return; }
+            if (art == null || !art.IsConfigured || !art.WaitingConfigured) { Debug.LogError("Original tutorial assets are missing.", this); return; }
             definition = art.Definition; server.ConfigureTutorial(art);
-            scriptedTickScale = Math.Max(1, new TutorialScript(art.script.text).Commands.Where(c => c.Name == "CHARMENU" && c.Int(1) != 999 && c.Int(1) != 99).Select(c => c.Int(1)).DefaultIfEmpty(1).Max());
+            BeginWaitingLesson();
+        }
+        private void BeginBattleLesson()
+        {
             var reply = server.Request_BeginTutorial();
             if (!reply.Accepted) { Debug.LogError("Original tutorial entry rejected: " + reply.Failure, this); return; }
             if (canvasObject == null) Build();
@@ -72,9 +74,12 @@ namespace DarkSaver.Original.Tutorial
             screen = Group((RectTransform)canvas.transform, "Native 640x480", new Rect(0, 0, 640, 480));
             screen.anchorMin = screen.anchorMax = screen.pivot = new Vector2(.5f, .5f); screen.anchoredPosition = Vector2.zero;
             screen.gameObject.AddComponent<RectMask2D>();
-            font = Font.CreateDynamicFontFromOSFont(new[] { "굴림", "Gulim", "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans CJK KR" }, 12);
-            ownsFont = font != null;
-            if (font == null) font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            if (font == null)
+            {
+                font = Font.CreateDynamicFontFromOSFont(new[] { "굴림", "Gulim", "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans CJK KR" }, 12);
+                ownsFont = font != null;
+                if (font == null) font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            }
             world = Group(screen, "Map301", new Rect(0, 0, 640, 480));
             Picture(world, "Native ground", new Rect(0, 0, 640, 480), art.ground);
             for (int y = 0; y < definition.map.height; y++) for (int x = 0; x < definition.map.width; x++)
@@ -110,9 +115,11 @@ namespace DarkSaver.Original.Tutorial
                 var label = Label(dialogueLayer, "Original line " + line, new Rect(110, 23 + line * 20, 437, 18), "", TextAnchor.UpperLeft, 12);
                 label.horizontalOverflow = HorizontalWrapMode.Overflow; messageLines.Add(label);
             }
-            // Menus keep their actor-relative positions. A higher sibling layer fixes the depth conflict.
-            menuLayer = Group(screen, "Action layer above status windows", new Rect(0, 0, 640, 480));
+            // Menus keep actor-relative positions; status windows take input/draw priority above this layer.
+            menuLayer = Group(screen, "Actor-relative actions below windows", new Rect(0, 0, 640, 480));
             BuildMenus();
+            windowsLayer.SetAsLastSibling();
+            dialogueLayer.SetAsLastSibling(); // Keep the current lesson readable while a large F1 window is demonstrated.
             var fault = Group(screen, "Storage failure", new Rect(80, 180, 480, 96));
             var bg = fault.gameObject.AddComponent<Image>(); bg.color = new Color(0, 0, 0, .95f);
             faultText = Label(fault, "Failure text", new Rect(12, 8, 456, 42), "", TextAnchor.MiddleCenter, 12);
@@ -145,6 +152,7 @@ namespace DarkSaver.Original.Tutorial
         }
         private void Update()
         {
+            if (waitingActive) { UpdateWaitingLesson(); return; }
             if (!active || view == null) return;
             if (Input.GetMouseButtonDown(0))
             {
@@ -168,6 +176,7 @@ namespace DarkSaver.Original.Tutorial
         private TutorialTile pointerTile = new TutorialTile(10, 7);
         private void LateUpdate()
         {
+            if (waitingActive) { LateWaitingLesson(); return; }
             if (!active) return;
             view = server.TutorialSnapshot; if (view == null) { active = false; canvasObject.SetActive(false); music.Stop(); return; }
             Paint();
@@ -195,6 +204,7 @@ namespace DarkSaver.Original.Tutorial
         { faultText.text = text; faultText.transform.parent.gameObject.SetActive(true); retrySave.gameObject.SetActive(canRetry); }
         private void Paint()
         {
+            dialogueLayer.gameObject.SetActive(!string.IsNullOrWhiteSpace(view.Message));
             var lines = view.Message.Split('|');
             for (int i = 0; i < messageLines.Count; i++) messageLines[i].text = i < lines.Length ? lines[i].Trim(' ') : "";
             foreach (var pair in unitImages) pair.Value.transform.parent.gameObject.SetActive(false);
@@ -213,13 +223,12 @@ namespace DarkSaver.Original.Tutorial
                 image.enabled = texture != null && row * 32 < texture.height;
                 image.texture = texture;
                 if (image.enabled) image.uvRect = NativeEntryLayout.Uv(texture, new Rect(frame * 32, row * 32, 32, 32));
-                var fx = unitEffects[actor.Id]; fx.gameObject.SetActive(corpse || actor.AttackCounter >= 0 && !actor.Dying);
+                var fx = unitEffects[actor.Id]; fx.gameObject.SetActive(corpse || actor.ShowsAttackEffect);
                 int fxColumn = corpse ? Math.Min(6, actor.DeathCounter / 3) : actor.AttackCounter / 2 % 4;
                 fx.texture = corpse ? art.effects : art.attackEffects;
                 fx.uvRect = NativeEntryLayout.Uv(fx.texture, new Rect(fxColumn * 32, corpse ? 0 : 32, corpse ? 31 : 32, corpse ? 31 : 32));
-                var other = view.Actors.FirstOrDefault(a => a.Id == actor.AttackOther);
-                float fxX = !corpse && !actor.AttackImpact && other != null ? (float)(other.X - actor.X) * 16 : 0;
-                float fxY = !corpse && !actor.AttackImpact && other != null ? (float)(other.Y - actor.Y) * 16 : 0;
+                float fxX = !corpse ? (float)(actor.AttackFxX - actor.X) * 32 : 0;
+                float fxY = !corpse ? (float)(actor.AttackFxY - actor.Y) * 32 : 0;
                 Place((RectTransform)fx.transform, new Rect(fxX, fxY, corpse ? 31 : 32, corpse ? 31 : 32));
                 ordered.Add((rt, actor.Y * 32 + 32));
             }
@@ -258,10 +267,10 @@ namespace DarkSaver.Original.Tutorial
             var occupied = new HashSet<TutorialTile>(view.Actors.Where(a => a.Id != unit.Id && !a.Dying).Select(a => a.Tile)); int index = 0;
             for (int y = 0; y < definition.map.height; y++) for (int x = 0; x < definition.map.width; x++)
             {
-                var tile = new TutorialTile(x, y); int distance = Math.Max(Math.Abs(x - unit.Tile.X), Math.Abs(y - unit.Tile.Y));
+                var tile = new TutorialTile(x, y); int distance = TutorialGeometry.Distance(unit.Tile, tile);
                 bool move = view.Range == TutorialAction.Move;
                 bool show = move ? definition.map.Path(unit.Tile, tile, 12, occupied) != null : distance <= (view.Range == TutorialAction.Magic ? 3 : 1);
-                if (!show) continue;
+                if (!show || tile == unit.Tile) continue;
                 bool target = !move && view.Actors.Any(a => a.Id >= 100 && (a.Id != 100 || view.AllyMode != 0) && !a.Dying && a.Tile == tile);
                 var image = rangeImages[index++]; image.gameObject.SetActive(true); image.texture = art.ranges[target ? 3 : move ? 0 : view.Range == TutorialAction.Attack ? 1 : 2];
                 Place((RectTransform)image.transform, new Rect(x * 32, y * 32, 31, 31));
@@ -313,12 +322,16 @@ namespace DarkSaver.Original.Tutorial
         }
         private void OnDisable()
         {
+            RestoreWaitingCursor();
+            waitingActive = false; if (waitingCanvas != null) waitingCanvas.SetActive(false);
             active = false; if (canvasObject != null) canvasObject.SetActive(false); if (music != null) music.Stop();
         }
         private void OnDestroy()
         {
+            RestoreWaitingCursor();
             if (entry != null) entry.CharacterReady -= Begin;
             if (canvasObject != null) Destroy(canvasObject);
+            if (waitingCanvas != null) Destroy(waitingCanvas);
             if (ownsFont && font != null) Destroy(font);
         }
     }

@@ -11655,7 +11655,12 @@
     "All menu/keyboard/pointer branch semantics and native child windows",
     "Dynamic COM0 selection and every sprite loader transformation",
     "Special map resource ID zero needs consumer semantics; resource existence alone is not proof of use",
-    "MIDI host notification loop and device playback measurement",
-    "Prior waiting-room guidance source; duplicate tutorial archive supplies no separate course"
-  ]
+    "MIDI host notification loop and device playback measurement"
+  ],
+  "resolvedPriorWaitingLesson": {
+    "source": "Saver.exe RT_STRING61216..61251; separate from tutorial.arc",
+    "report": "waiting_tutorial_resources.json",
+    "versionAudit": "embedded_resource_audit.json; same36 texts across six installed Saver executables",
+    "implementation": "Assets/_Original/Runtime/Tutorial/WaitingLesson.cs; actual Unity Play not verified"
+  }
 }

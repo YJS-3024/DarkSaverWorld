@@ -22,8 +22,8 @@ namespace DarkSaver.Original.Entry
         public static readonly Rect ServerConnectHit = new Rect(286, 355, 35, 16);
         public static readonly Rect ServerExitHit = new Rect(331, 356, 35, 15);
         public static readonly Rect CreationSize = new Rect(0, 0, 397, 300);
-        // Native profile Dlg45 defaults to "0 0 0"; saved draggable positions are not migrated.
-        public static readonly Vector2 CreationOrigin = Vector2.zero;
+        // Dlg45 profile0,0 is not evidence of an absolute screen origin. Center the initial creation window.
+        public static readonly Vector2 CreationOrigin = new Vector2(121, 90);
         public static readonly Rect NameHit = new Rect(254, 241, 88, 15);
         public static readonly int[] Jobs = { 100, 101, 103 };
         public static Rect Card(int index) => new Rect(index == 0 ? 37 : index == 1 ? 153 : 268, 54, 90, 176);

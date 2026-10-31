@@ -1,66 +1,57 @@
-# 시나리오 배치 도구·검증
+# 원본 몬스터 배치 도구
 
-## 원본 SET/POS를 편집툴에 연결
+## 현재 새 프로젝트의 편집툴 (2026-10-31)
+
+Unity 메뉴 **DarkSaver → 원작 도구 → 시나리오 편집툴**을 연다. 코드는 `Assets/_Original/Editor/Scenario`이며 기존 `_Game` 코드/씬/싱글판 배치를 복구하지 않았다. 플레이 모드 없이 사용할 수 있는 Editor 전용 도구다.
+
+필드·시나리오 런타임 추가 후 MRC/GRS 해독기만 `Assets/_Original/Runtime/Maps/NativeMapDecoder.cs`로 공유했다. 편집창/저장 코드는 계속 Editor 전용이다. 편집한 JSON을 게임 스폰으로 자동 적용하지 않는 경계도 유지한다.
+
+후속 추가: 현재 목록은 아래112개에 월드 리소스29개를 더한 **141개**이며 **월드/필드** 필터를 제공한다.1010도 계정/게임 위치 변경 없이 볼 수 있다. 최신 회귀는801개·141지도·독립 원본 픽셀7맵(1010 포함) 대조다. 원본 SET/POS16맵/610개는 그대로며 나머지는 빈 원본3개/미확보122개로 구분한다. 아래112/772/6맵은 최초 편집툴 기록이다.
+
+- 원본 스크립트가 있는112개 맵을 선택한다. 시나리오·수련장101~107·대련장201~207·튜토리얼301로 필터링할 수 있다. MRC/GRS에서 바닥·장식을 직접 해독하며 별도 Map.json/생성 씬을 요구하지 않는다.
+- 원본 SET/POS가 있는16개 맵의610개 전투 개체를 job/원본 좌표 그대로 표시한다. 원본이 빈3개(324~326)와 편성이 미확보인93개를 구분한다. 없는 몬스터·대형·간격을 생성하지 않는다. unit은 개체 슬롯이고 job은 병종 ID다. 10단위 묶음 테두리는 해당 슬롯들을 보는 보조 표시이며 좌표를 정돈하거나 웨이브를 만들지 않는다.
+- **전투 배치 편집 / 연출 배치 보기**는 서로 전환한다. 전투 화면에는 전투 SET/POS만,연출 화면에는 선택한 .deo/.dee 명령행까지의 CHARPOS/CHARMOVE/KILLCHAR 위치 참고를 표시한다. 동일한 unit의 과거 위치를 동시에 중복 배치하지 않는다. 명령행별 정적 참고이며 조건 분기·대기·전투·실제 타이밍을 재생하는 실행기가 아니다. COM0의 실제 직업은 정하지 않고 별칭을 유지한다.
+- 아군 위치는 POS의400미만 슬롯을 읽기 전용으로 표시한다. 324~326의 중복010행도 원문 그대로 남긴다. 101의 현재 로컬 진입점10,7은 KaosiaWorld.json에서 별도 표시하며 원본 POS로 주장하지 않는다. 위치 근거가 없으면 기본 시작 좌표를 만들지 않는다.
+- EVT의 번호 CHARPOS 조건과 상자 메시지/CHANGESPRITE 좌표를 구분해 표시한다. 툴팁에 이벤트·보상 명령·원문 파일/행을 보여 준다. 조건부/랜덤 보상은 항상 지급되거나 동시에 생성되는 아이템으로 해석하지 않는다. 좌표가 없는 보상은 임의 위치에 표시하지 않는다.
+- 휠로 포인터 중심 확대/축소(12.5~400%),가운데 버튼 드래그로 화면 이동,화면 맞춤/100%를 지원한다. 몸체 크기는32px 타일에 맞춰 확대되며 뷰포트 안에서 잘린다.
+- 추가 병종 선택→뷰 중앙에 추가 또는 ‘클릭하여 추가’→지도 클릭. 선택 후 드래그하면 정수 격자에 맞추고 맵 경계를 넘지 않는다. 오른쪽에서 unit/job/X/Y 직접 입력·Delete/삭제 버튼·되돌리기/다시 실행을 지원한다. 원본 좌표 겹침은 경고하며 자동 이동하지 않는다. 원본610개가 쓰는61병종 그림은 확보됐지만 전체 카탈로그 중8병종은 그림 미확보로 ?/ID와 경고를 표시한다.
+- 저장은 **Assets/_Original/Editor/ScenarioLayouts/{맵번호}.json**이다. 원본 SET/POS·SourceIndex·원본 배치 JSON/CSV·씬·게임 저장은 수정하지 않는다. 맵/SET/POS 해시와 편집 여부를 포함하며,중복ID/없는job/범위 밖 좌표·다른 원본 버전·외부에서 바뀐 파일은 저장을 거부한다. 임시 파일을 검증한 뒤 교체하며 저장 전 맵 변경/창 닫기에서는 저장 여부를 확인한다.
+- ‘원본 배치 불러오기’는 작업 사본을 복원한다. 되돌리기가 가능하고 저장해야 기존 사용자 배치 파일이 갱신된다. 편집 파일을 로컬 서버의 등장 목록으로 자동 적용하지 않는다. 특히 수련장에 사용자가 몬스터를 추가해도 원작 편성 복구나 실제 전투 구현이 된 것은 아니다.
+
+개발 검사:
+
+```bash
+python Tools/OriginalScenarioEditorChecks/check_editor.py
+python Tools/OriginalRestart/check_foundation.py
+```
+
+첫 검사는 새 생산 해석기/저장기를 사용한772개 관리형 검사와112맵 렌더링,6맵의 독립 Python 원본 픽셀 대조,원본610개 좌표/병종/행 번호,파일 생성/갱신·개체 삭제 후 재열기·잘못된/낡은 저장 거부·소스2,519파일 보존을 검사한다. Runtime/Editor/Player API 컴파일 오류0·경고0이다. 결과는 `Tools/OriginalScenarioEditorChecks/editor-check.json`. 실제 Unity 창·OS 마우스·드래그·임포트·Play는 미실행이며 `설계/테스트_검증_계획.md` 첫 절의 수동 검증과 구분한다.
+
+## 초기화 전 도구 기록 — 현재 실행 명령 아님
+
+아래 `_Game` 경로의 생성기/검사는 초기화 전 구현 기록이다. 현재 프로젝트에 실행해 이전 코드나 배치를 다시 생성하지 않는다. 새 편집툴의 실행/검사는 위 메뉴와 명령을 따른다.
 
 ```bash
 python Tools/ScenarioPlacementChecks/build_original_editor_layouts.py
+python Tools/ScenarioPlacementChecks/apply_original_deployments.py --apply
 python Tools/ScenarioPlacementChecks/check_editor_troops.py
 ```
 
-첫 명령은 원문 SET/POS16맵(26,51~55,314~323)의610유닛·195아군 슬롯을 `Assets/_Game/Editor/BattleLayouts/Original{key}.json`으로 옮긴다. 원문 직업·수량·정수 좌표를 보존하며 새 대형/인원/출현 순서를 만들지 않는다. 기존 Runtime Content.json 및 씬을 바꾸지 않는다. 설치본 인벤토리의 추출 파일과 기존 ARC/LZH·Pillow·PyYAML을 사용한다.61직업/36직그림의 하향 첫 프레임을 Editor 전용 Art 폴더에 변환하고 단일 Sprite 설정을 기록한다.
+- 첫 명령: 원문 SET/POS16맵/610몬스터·195아군 슬롯을 `Assets/_Game/Resources/Scenarios/Original/{id}/Deployment.json`으로 생성한다.61직업/36직그림의 첫 하향 프레임과 편집툴 색인을 만든다. 편집한 배치는 보호하며 `--reset`은 명시적인 원문 복구다. Pillow/PyYAML 및 설치본 추출 인벤토리가 필요하다.
+- 두 번째 명령: 기존 Content의 보완 편성을 제거하고 원문이 없으면 `original-missing`과 빈 배열을 기록한다. 대본·이벤트·진입/지형은 보존하며 콘텐츠/비주얼 해시와 현용 목록을 동기화한다. --apply가 없으면 변경 미리보기만 한다. 반복 실행해도 새로운 몬스터/보상이 생기지 않는다.
+- 마지막 명령: Unity의 .NET SDK/API로 실제 Runtime+변경 Editor를 컴파일하고 생산 해석기/유닛 타입을 관리형으로 검사한다. 원문 위치, 공용 리소스 검증, 빈 편성 초기화 거부와 미확정 데이터 차단을 확인한다. Unity가 다른 경로에 있으면 `--unity-data <Editor/Data>`를 지정한다.
 
-이미 편집한 배치는 기본 재생성으로 덮어쓰지 않는다. 모든 대상의 편집 표시·유닛 내용을 쓰기 전에 검사하며 `--reset`을 명시해야 원문 배치로 되돌린다. `.meta` GUID는 경로 기준으로 안정적으로 생성한다. 결과 `original-editor-layouts.json`에 그림 원문/출력 해시와 범위를 기록한다.
+편집툴은 웨이브를 사용하지 않는다. 지휘관 ID/부하 슬롯으로 전체 배치를 표시한다. 원문이 없는01~17 등에3인/2칸/기본301·401 편성을 채우지 않는다. Runtime의 과거 저장 호환 필드는 현재 배치 선택에 사용하지 않는다.
 
-Unity 편집툴의 **원본 배치 보기**, **[원본 SET/POS]** 선택 항목으로 연다. **[기존 콘텐츠]**는 원본과 구분해 남겨둔 기존 편성이다. 편집툴은 전체 배치를 표시하고 지휘관 ID로만 묶으며 웨이브 필터·수치 편집·부대 분리를 사용하지 않는다. Runtime 호환 데이터는 임의로 삭제하지 않는다. 원본16개를 원작 전체 시나리오의 초기 편성으로 확대 해석하지 않는다.
+공용 원본 자료는 `OriginalScenarioDeployments`와 `ServerManager.TryGetOriginalScenarioDeployment`로 조회한다. 조회와 실제 서버 입장/등장 통지는 별개다. 원문이 없다고 빈 몬스터 클리어나 보상을 승인하지 않는다.
 
-## 과거 시나리오 01~17 보완 배치 정돈 (현재 원본 배치 생성에 사용하지 않음)
+보고서:
 
-이 자료는 사용자 요청에 따른 편집 배치다. 원작 서버의 확정 배치로 취급하지 않는다. 원본 SET/POS 분석 자료와 33 이후 시나리오는 수정하지 않는다.
+- `original-editor-layouts.json`: 원문 직업/좌표·그림 원문과 출력 해시.
+- `original-deployment-cleanup.json`: 보완1105개 삭제와 원문 미확보25개 맵.
+- `editor-troop-check.json`: 컴파일·관리형 검증·소스 해시·실행 범위.
+- `분석/Saver_Late/troop_structure_review.json`: 지휘관 코드·대형·AI 이동 기준 분석.
 
-적용 규칙:
+3인 대형 정돈기, 검증기, 정돈 보고서와 싱글판 보완 편성 JSON/CSV는 삭제했다. 예전 리소스 생성기·계약 검증기는 보완 데이터를 재생성하지 않도록 사용 중지했다. 삭제한 명령과 과거 검증 결과는 현재 검사로 재사용하지 않는다.
 
-- 기존 웨이브와 ID 십단위로 구성된 3마리 무리를 유지한다.
-- 삼각형 또는 가로/세로 일렬로 정렬하며 구성원 간격은2칸이다. 서로 다른 무리도 같은 웨이브에서 한 칸 이상 떨어뜨린다.
-- 기존 선두 유닛 위치에서 맨해튼8칸 이내의 통행 가능 연결 영역을 사용한다. 이전에 멀리 분산된 동료는 선두 근처로 모은다.
-- traversalCells 밖, 이벤트의 CHARPOS 조건/CHANGESPRITE 대상 칸, 진입점 주변5×5 영역에는 놓지 않는다. 실제 씬의 모든 동적 장애물/출구 콜라이더를 실행 검증한 것은 아니다.
-- 수량·종류·ID·웨이브·전투 수치·대사·연출·이벤트·진입 좌표는 보존한다. 좌표와 콘텐츠/배치 해시, 좌표 변경 이력만 변경한다. 연출 Visuals와 리소스 명세의 콘텐츠 해시는 동기화한다.
-
-결과:17개 시나리오,336무리,1008마리 중870마리의 좌표 변경. 전 무리를2칸 간격 대형으로 배치했다. 변경 전후 좌표는 `regular-formation-report.json`에 기록한다. 같은 입력에 다시 실행하면 이동0개로 유지된다.
-
-검증:
-
-```
-python Tools/ScenarioPlacementChecks/regularize_authored_placements.py
-python Tools/ScenarioPlacementChecks/validate_regular_placements.py --baseline 90f84ce9
-```
-
-첫 명령은 미리보기만 수행한다. `--apply`를 명시해야 실제 콘텐츠를 변경한다. 콘텐츠를 원래 생성기로 재생성하면 이 정돈 배치가 덮어써질 수 있으므로 변경 이력을 확인하고 명시적으로 재적용한다. 기존 세이브는 콘텐츠 해시 불일치로 거부될 수 있으므로 별도 테스트 저장으로 확인한다.
-
-검증 결과:무리 형태·간격·통행 칸·웨이브 내 중복 좌표·원본 편성/전투 수치/이벤트 보존·Content/Visuals 해시 일치·재실행 이동0개 통과. 실제 Unity Play는 미실행이다. 기존 check_scenario01_resources는 초상 픽셀 대조에서, check_campaign_resources는 입구 개수17 기대값에서 중단했다. 두 중단은 이번에 변경하지 않은 자산/입구 검사이며 해당 전체 검사를 통과로 처리하지 않는다.
-
-## 원본 부대 구조 재해석 (2026-10-31)
-
-```bash
-python Tools/ScenarioPlacementChecks/analyze_troop_structure.py
-```
-
-설치본 추출 인벤토리와 추출된 후기 userunit.dll, 원본 SET/POS/AI, 현재01~17 Content.json을 읽는다. Python3·objdump·matplotlib가 필요하다. 게임/편집툴 소스·Content.json·저장본을 쓰지 않는다.
-
-- `분석/Saver_Late/troop_structure_review.json`: 후기 지휘관 ID 계산 코드 근거, 원본16맵/610마리/122부대, 슬롯별 상대 모양, SET 없는 POS205행, AREA 불일치6건·근접 가설 오분류24마리, SOILDER22개 참조, 현재 보완 배치의 별도 대조.
-- `evidence/late-troop-grouping.asm.txt`: 해시를 확인한 후기 코드 발췌. 원본 분기·opcode를 검사하며 실제 게임이나 명령 에뮬레이터를 실행한 결과는 아니다.
-- `troop-structure-view.html`: 로컬 서버 없이 여는 읽기 전용 대조 화면. 원본/현재 보완 배치 선택, ID/근접 묶음 비교, 웨이브 선택, AREA/명시적 SOILDER 참조 표시. 원작 타일 이미지가 아닌 좌표 격자다. 전투/연출을 합친 화면이 아니다.
-- `troop-structure-comparison.png`: 원본26번의 근접 묶음 오류와 관측 대형4종 비교 그림.
-
-기존 비교기의 `AREA (` 공백 표기를 누락하던 정규식을 수정했다. 최신 부대 소속 판정은 근접 거리 대신 후기 코드의 `unitId/10*10`을 따른다. AREA와 SOILDER는 이동 기준으로 별도 해석하며, SET/POS의 런타임 자동 로드·미확보01~17 초기 편성을 증명하지 않는다. 이전3마리 정돈 배치를 새 분석으로 자동 덮어쓰지 않는다.
-
-## Unity 편집툴 반영 검증
-
-```bash
-python Tools/ScenarioPlacementChecks/check_editor_troops.py
-```
-
-Unity 설치가 다르면 `--unity-data <Editor/Data>`로 경로를 지정한다. Unity가 제공한 .NET SDK/Roslyn·API DLL을 사용해 전체 Runtime과 변경된 편집툴/부대 해석기를 컴파일한다. `EditorTroopChecks.cs`는 실제 런타임 유닛 타입과 실제 `ScenarioPlacementTroops.cs`를 사용하며, 복제한 부대 구현을 검사하지 않는다. Unity Editor 실행·라이선스는 이 보조 검사에서 사용하지 않는다.
-
-검사 범위는 지휘관/부하·웨이브 분리·지휘관 누락·슬롯 포화와 재사용·원본 대형4종·중복 좌표 거부·AREA 공백/잘못된 인수/SOILDER 파싱, 원본610마리/122부대 및 AI1099+22행이다. `editor-troop-check.json`에 소스 해시·건수·실행 범위를 기록하고 상세 로그는 `--work` 디렉터리에 쓴다. 모든 Content.json의 실행 전후 해시를 대조한다. 실제 GUI의 가독성·휠/클릭·드래그·파일 저장 성공을 통과 처리하지 않는다.
-
-최신 검사는 기존 등장 단계 값이 달라도 ID 기준 지휘관/부하 관계가 유지되는지 확인한다. 편집툴에는 웨이브 필터 자체가 없다. 원본 편집본16개/610유닛의 직업·좌표·새 출현 단계 필드 부재를 원문과 대조한다. 실제 Unity에서 원본 항목 선택·61그림 임포트·부대/연출 토글·드래그·별도 편집본 저장/재열기를 확인해야 한다.
+실제 Unity GUI/마우스·Deployment 저장/재열기·서버 등장 통지·Play는 이 보조 검사에 포함하지 않는다.

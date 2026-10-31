@@ -65,9 +65,17 @@ namespace DarkSaver.Original.Tutorial
         public static bool operator ==(TutorialTile a, TutorialTile b) => a.Equals(b);
         public static bool operator !=(TutorialTile a, TutorialTile b) => !a.Equals(b);
     }
+    public static class TutorialGeometry
+    {
+        public static int Distance(TutorialTile a, TutorialTile b) => Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
+        public static bool InRange(TutorialTile a, TutorialTile b, int radius) { int d = Distance(a, b); return d > 0 && d <= radius; }
+        // Verified directly against native 100/125/301 sheets. Right is row2, Left row3.
+        public static int FacingRow(int dx, int dy) => dx != 0 ? (dx > 0 ? 2 : 3) : (dy > 0 ? 1 : 0);
+    }
     [Serializable] public sealed class TutorialAbility
     {
         public int job, hp, maxHp, mp, maxMp, attack, defense;
+        public string name;
     }
     [Serializable] public sealed class TutorialMap
     {

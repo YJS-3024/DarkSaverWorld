@@ -9,6 +9,8 @@ namespace DarkSaver.Original.Entry
     public sealed class EntrySceneRoot : MonoBehaviour
     {
         [SerializeField] private NativeEntryArt art = null;
+        [Tooltip("Enable the preserved login and server-selection flow. Disabled uses a separate local profile.")]
+        [SerializeField] private bool useLoginAndServerSelection = false;
         private EntryClient client;
         private GameObject ownedCanvas, ownedEvents;
         private RectTransform screen, login, servers, creation, modal;
@@ -16,6 +18,7 @@ namespace DarkSaver.Original.Entry
         private GameObject drawer, selectedServer;
         private Button confirmCreate;
         private Text serverName;
+        private readonly System.Collections.Generic.List<GameObject> selectionFrames = new System.Collections.Generic.List<GameObject>();
         private Font font;
         private bool ownsFont;
         private EntryCharacter pendingReady;
@@ -26,6 +29,7 @@ namespace DarkSaver.Original.Entry
         private EntryStage renderedStage;
         public EntryStage Stage => client?.Stage ?? EntryStage.Login;
         public EntryCharacter Character => client?.Character;
+        public bool UsesLoginAndServerSelection => useLoginAndServerSelection;
         public event Action<EntryCharacter> CharacterReady;
 
         private void Start()
@@ -34,7 +38,8 @@ namespace DarkSaver.Original.Entry
             { Debug.LogError("Original entry assets are missing.", this); enabled = false; return; }
             client = new EntryClient(GetComponent<LocalServerManager>());
             client.CharacterReady += value => pendingReady = value;
-            BuildUi(); ShowStage();
+            BuildUi();
+            if (useLoginAndServerSelection) ShowStage(); else OpenLocalProfile();
         }
         private void BuildUi()
         {
@@ -119,9 +124,11 @@ namespace DarkSaver.Original.Entry
             Picture(servers, "Native two-row panel", NativeEntryLayout.ServerPanel, art.serverPanel);
             selectedServer = Picture(servers, "Selected row", new Rect(290, 307, 75, 19), art.serverSelected).gameObject;
             Hit(servers, "Local server row", NativeEntryLayout.ServerHit, () => { if (client.Servers.Length > 0) { selectedServerId = client.Servers[0].Id; selectedServer.SetActive(true); } });
-            serverName = Label(servers, "Server name", new Rect(302, 312, 59, 16), "", art.serverNameColor);
-            AtlasButton(servers, "Server connect", new Vector2(285, 355), art.login, new Rect(20, 400, 35, 16), new Rect(252, 10, 38, 19), new Rect(252, 34, 38, 17), SelectServer, NativeEntryLayout.ServerConnectHit);
-            AtlasButton(servers, "Server exit", new Vector2(331, 355), art.login, new Rect(65, 400, 35, 16), new Rect(252, 54, 38, 19), new Rect(252, 79, 35, 16), Logout, NativeEntryLayout.ServerExitHit);
+            serverName = Label(servers, "Server name", new Rect(302, 309, 59, 16), "", art.serverNameColor);
+            serverName.fontStyle = FontStyle.Normal; serverName.alignment = TextAnchor.MiddleLeft;
+            // Both buttons are already painted in the native login2 panel. Do not cover them with login.bmp patches.
+            Hit(servers, "Server connect", NativeEntryLayout.ServerConnectHit, SelectServer);
+            Hit(servers, "Server exit", NativeEntryLayout.ServerExitHit, Logout);
         }
         private void BuildCreation()
         {
@@ -131,39 +138,55 @@ namespace DarkSaver.Original.Entry
             for (int i = 0; i < 3; i++)
             {
                 int index = i; Picture(creation, "Face " + NativeEntryLayout.Jobs[i], NativeEntryLayout.Face(i), art.faces[i], new Rect(0, 0, 62, 62));
-                Hit(creation, "Commander " + NativeEntryLayout.Jobs[i], NativeEntryLayout.Card(i), () => { selectedJob = index; nameInput.ActivateInputField(); });
+                Hit(creation, "Commander " + NativeEntryLayout.Jobs[i], NativeEntryLayout.Card(i), () => { selectedJob = index; RefreshSelection(); nameInput.ActivateInputField(); });
+                var frame = Group(creation, "Selected commander " + NativeEntryLayout.Jobs[i], NativeEntryLayout.Card(i));
+                // Explicit feedback requested in the direct test; exact native selected-card artwork is unconfirmed.
+                var color = new Color32(255, 255, 64, 255);
+                foreach (var edge in new[] { new Rect(0, 0, 90, 1), new Rect(0, 175, 90, 1), new Rect(0, 0, 1, 176), new Rect(89, 0, 1, 176) })
+                { var line = Group(frame, "Selection edge", edge).gameObject.AddComponent<Image>(); line.color = color; line.raycastTarget = false; }
+                selectionFrames.Add(frame.gameObject);
             }
-            nameInput = Input(creation, "Commander name", NativeEntryLayout.NameHit, Vector2.zero); nameInput.textComponent.color = new Color32(255, 255, 64, 255);
+            nameInput = Input(creation, "Commander name", NativeEntryLayout.NameHit, Vector2.zero); nameInput.textComponent.color = new Color32(255, 255, 64, 255); // Native COLORREF0x40FFFF at45BD49.
             nameInput.textComponent.fontSize = 14;
             // Source LTN75: native confirm states; name/selection are submitted only to the server.
             confirmCreate = AtlasButton(creation, "Create commander", new Vector2(300, 265), art.buttons,
                 new Rect(276, 399, 46, 19), new Rect(322, 399, 46, 19), new Rect(368, 399, 46, 19), Create);
         }
+        private void RefreshSelection()
+        { for (int i = 0; i < selectionFrames.Count; i++) selectionFrames[i].SetActive(i == selectedJob); }
         public bool Login()
         {
-            if (busy || client == null || Stage != EntryStage.Login) return false;
+            if (!useLoginAndServerSelection || busy || client == null || Stage != EntryStage.Login) return false;
             busy = true; bool ok;
             try { ok = client.Login(idInput.text, passwordInput.text); if (ok) passwordInput.text = ""; }
             finally { busy = false; }
             ShowStage(); if (!ok) ShowMessage(client.Failure == EntryFailure.InvalidCredentials); return ok;
         }
         private void SelectServer()
-        { if (selectedServerId <= 0 || busy) return; busy = true; bool ok; try { ok = client.SelectServer(selectedServerId); } finally { busy = false; } ShowStage(); if (!ok) ShowMessage(false); }
+        { if (!useLoginAndServerSelection || selectedServerId <= 0 || busy) return; busy = true; bool ok; try { ok = client.SelectServer(selectedServerId); } finally { busy = false; } ShowStage(); if (!ok) ShowMessage(false); }
+        private void OpenLocalProfile()
+        {
+            if (useLoginAndServerSelection || client == null || busy) return;
+            busy = true; bool ok;
+            try { ok = client.OpenLocalProfile(); } finally { busy = false; }
+            ShowStage(); if (!ok) ShowMessage(false);
+        }
         private void Create()
         {
             if (busy || string.IsNullOrWhiteSpace(nameInput.text)) { nameInput.ActivateInputField(); return; }
             busy = true; bool ok; try { ok = client.Create(NativeEntryLayout.Jobs[selectedJob], nameInput.text); } finally { busy = false; }
             ShowStage(); if (!ok) ShowMessage(false);
         }
-        private void Logout() { client.Logout(); selectedServerId = 0; ShowStage(); }
+        private void Logout() { client.Logout(); selectedServerId = 0; if (useLoginAndServerSelection) ShowStage(); else OpenLocalProfile(); }
         private void ShowStage()
         {
             bool entered = !hasRenderedStage || renderedStage != Stage;
             hasRenderedStage = true; renderedStage = Stage;
-            login.gameObject.SetActive(Stage == EntryStage.Login); servers.gameObject.SetActive(Stage == EntryStage.ServerSelection);
+            login.gameObject.SetActive(useLoginAndServerSelection && Stage == EntryStage.Login);
+            servers.gameObject.SetActive(useLoginAndServerSelection && Stage == EntryStage.ServerSelection);
             creation.gameObject.SetActive(Stage == EntryStage.FirstCharacterCreation);
             if (Stage == EntryStage.ServerSelection && entered) { selectedServerId = client.Servers.Length > 0 ? client.Servers[0].Id : 0; selectedServer.SetActive(selectedServerId > 0); serverName.text = client.Servers.Length > 0 ? client.Servers[0].Name : ""; }
-            if (Stage == EntryStage.FirstCharacterCreation && entered) { selectedJob = 0; nameInput.text = ""; nameInput.ActivateInputField(); }
+            if (Stage == EntryStage.FirstCharacterCreation && entered) { selectedJob = 0; RefreshSelection(); nameInput.text = ""; nameInput.ActivateInputField(); }
             // CharacterReady is an integration boundary, not a fake town/tutorial transition.
             if (pendingReady != null)
             { var ready = pendingReady; pendingReady = null; CharacterReady?.Invoke(ready.Copy()); }
@@ -183,15 +206,16 @@ namespace DarkSaver.Original.Entry
                 if (modal == null) return;
                 var closing = modal; modal = null; modalDismissedFrame = Time.frameCount;
                 closing.gameObject.SetActive(false); Destroy(closing.gameObject);
+                if (!useLoginAndServerSelection && Stage == EntryStage.Login) OpenLocalProfile();
             }).Select();
         }
         private void Update()
         {
             if (client == null || modal != null || busy || modalDismissedFrame == Time.frameCount) return;
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Tab) && Stage == EntryStage.Login)
+            if (useLoginAndServerSelection && UnityEngine.Input.GetKeyDown(KeyCode.Tab) && Stage == EntryStage.Login)
             { if (idInput.isFocused) passwordInput.ActivateInputField(); else idInput.ActivateInputField(); }
             if (UnityEngine.Input.GetKeyDown(KeyCode.Return) || UnityEngine.Input.GetKeyDown(KeyCode.KeypadEnter))
-            { if (Stage == EntryStage.Login) Login(); else if (Stage == EntryStage.ServerSelection) SelectServer(); else if (Stage == EntryStage.FirstCharacterCreation) Create(); }
+            { if (Stage == EntryStage.Login) { if (useLoginAndServerSelection) Login(); else OpenLocalProfile(); } else if (Stage == EntryStage.ServerSelection) SelectServer(); else if (Stage == EntryStage.FirstCharacterCreation) Create(); }
         }
         private static void Quit()
         {
@@ -207,7 +231,8 @@ namespace DarkSaver.Original.Entry
         private void OnEnable()
         {
             if (ownedCanvas == null || client == null) return;
-            client.Logout(); ShowStage(); ownedCanvas.SetActive(true);
+            client.Logout(); ownedCanvas.SetActive(true);
+            if (useLoginAndServerSelection) ShowStage(); else OpenLocalProfile();
         }
     }
 }

@@ -5,6 +5,13 @@ using DarkSaver.Original.Tutorial;
 namespace DarkSaver.Original.Entry
 {
     public enum TutorialFailure { None, Unauthenticated, InvalidStage, AlreadyCompleted, InvalidInput, StorageUnavailable }
+    public sealed class WaitingReply
+    {
+        public TutorialFailure Failure { get; }
+        public bool Accepted => Failure == TutorialFailure.None;
+        public WaitingView View { get; }
+        public WaitingReply(TutorialFailure failure, WaitingView view) { Failure = failure; View = view; }
+    }
     public sealed class TutorialReply
     {
         public TutorialFailure Failure { get; }
@@ -17,10 +24,28 @@ namespace DarkSaver.Original.Entry
     }
     public sealed partial class EntryAccountService
     {
+        private WaitingLesson waitingLesson;
         private TutorialSession tutorial;
         private string tutorialCharacterId;
         private bool tutorialCommitted;
-        private void ResetTutorial() { tutorial = null; tutorialCharacterId = null; tutorialCommitted = false; }
+        private void ResetTutorial() { ResetWorld(); waitingLesson = null; tutorial = null; tutorialCharacterId = null; tutorialCommitted = false; }
+        public TutorialFailure BeginWaitingLesson(WaitingDefinition definition)
+        {
+            var failure = TutorialOwner(out var owner); if (failure != TutorialFailure.None) return failure;
+            if (owner.character.tutorialCompleted) return TutorialFailure.AlreadyCompleted;
+            if (waitingLesson != null || tutorial != null) return TutorialFailure.InvalidStage;
+            try { waitingLesson = new WaitingLesson(definition, owner.character.job); }
+            catch (ArgumentException) { return TutorialFailure.InvalidStage; }
+            tutorialCharacterId = owner.character.id;
+            return TutorialFailure.None;
+        }
+        public TutorialFailure WaitingLessonInput(WaitingInput input)
+        {
+            var failure = TutorialOwner(out var owner); if (failure != TutorialFailure.None) return failure;
+            if (waitingLesson == null || tutorial != null || owner.character.id != tutorialCharacterId) return TutorialFailure.InvalidStage;
+            return waitingLesson.Input(input) ? TutorialFailure.None : TutorialFailure.InvalidInput;
+        }
+        public WaitingView WaitingLessonSnapshot() => waitingLesson?.Snapshot();
         private TutorialFailure TutorialOwner(out LocalAccountRecord owner)
         {
             owner = null;
@@ -34,6 +59,8 @@ namespace DarkSaver.Original.Entry
         {
             var failure = TutorialOwner(out var owner); if (failure != TutorialFailure.None) return new TutorialReply(failure);
             if (owner.character.tutorialCompleted) return new TutorialReply(TutorialFailure.AlreadyCompleted, character: owner.character);
+            if (waitingLesson == null || !waitingLesson.Completed || owner.character.id != tutorialCharacterId)
+                return new TutorialReply(TutorialFailure.InvalidStage);
             if (tutorial != null) return new TutorialReply(TutorialFailure.InvalidStage, tutorial.Snapshot());
             if (script == null || map == null || !map.IsValid || magicDurationMs < TutorialSession.MagicImpactMs) return new TutorialReply(TutorialFailure.InvalidStage);
             tutorial = new TutorialSession(script, map, owner.character.job) { MagicDurationMs = magicDurationMs };
@@ -49,7 +76,11 @@ namespace DarkSaver.Original.Entry
         }
         public TutorialView TutorialSnapshot() => tutorial?.Snapshot();
         public void AdvanceTutorial(double milliseconds)
-        { if (tutorial != null && !tutorialCommitted && TutorialOwner(out _) == TutorialFailure.None) tutorial.Advance(milliseconds); }
+        {
+            if (TutorialOwner(out _) != TutorialFailure.None) return;
+            if (tutorial != null && !tutorialCommitted) tutorial.Advance(milliseconds);
+            else waitingLesson?.Advance(milliseconds);
+        }
         public TutorialReply CompleteTutorial()
         {
             var failure = TutorialOwner(out var owner); if (failure != TutorialFailure.None) return new TutorialReply(failure);

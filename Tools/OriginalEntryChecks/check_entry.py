@@ -32,8 +32,9 @@ def main():
     player_warnings = compile('player',common+player_refs+['-out:'+str(WORK/'OriginalPlayer.dll')],runtime)
     netrefs = ['-r:'+str(p) for p in sorted(next(sdk.glob('packs/Microsoft.NETCore.App.Ref/*/ref/net8.0')).glob('*.dll'))]
     core = [BASE/'Runtime/Entry'/n for n in ['EntryProtocol.cs','EntryAccountService.cs','EntryClient.cs','LocalAccountFileStore.cs']]
+    core += [BASE/'Runtime/World'/n for n in ['WorldModel.cs','WorldService.cs']] + [BASE/'Runtime/Campaign'/n for n in ['CampaignModel.cs','CampaignService.cs']]
     exe = WORK/'EntryChecks.dll'
-    compile('contracts',['-nologo','-target:exe','-langversion:latest','-nostdlib+','-out:'+str(exe)]+netrefs,core+sorted((BASE/'Runtime/Tutorial').glob('TutorialScript.cs'))+sorted((BASE/'Runtime/Tutorial').glob('TutorialSession.cs'))+sorted((BASE/'Runtime/Tutorial').glob('TutorialService.cs'))+[Path(__file__).with_name('EntryChecks.cs')])
+    compile('contracts',['-nologo','-target:exe','-langversion:latest','-nostdlib+','-out:'+str(exe)]+netrefs,core+sorted((BASE/'Runtime/Tutorial').glob('WaitingLesson.cs'))+sorted((BASE/'Runtime/Tutorial').glob('TutorialScript.cs'))+sorted((BASE/'Runtime/Tutorial').glob('TutorialSession.cs'))+sorted((BASE/'Runtime/Tutorial').glob('TutorialService.cs'))+[Path(__file__).with_name('EntryChecks.cs')])
     version = next((sdk/'shared/Microsoft.NETCore.App').iterdir()).name
     exe.with_suffix('.runtimeconfig.json').write_text(json.dumps({'runtimeOptions':{'tfm':'net8.0','framework':{'name':'Microsoft.NETCore.App','version':version}}}))
     result = subprocess.run([str(dotnet),str(exe)],cwd=ROOT,text=True,capture_output=True)
@@ -47,7 +48,8 @@ def main():
         guids[guid] = Path(str(p)[:-5])
     for p in [BASE/'Scenes/Start.unity']+list((BASE/'Data').rglob('*.asset')):
         for guid in re.findall(r'guid: ([a-f0-9]{32})',p.read_text()): assert guid in guids,(p,guid)
-    scene = (BASE/'Scenes/Start.unity').read_text(); assert scene.count('MonoBehaviour:') == 3 and 'm_Name: Original Entry\n' in scene
+    scene = (BASE/'Scenes/Start.unity').read_text(); assert scene.count('MonoBehaviour:') == 4 and 'm_Name: Original Entry\n' in scene
+    assert '  useLoginAndServerSelection: 0\n' in scene
     assert not (ROOT/'Assets/_Game').exists()
     art = json.loads((ROOT/'Tools/OriginalEntryChecks/entry-assets.json').read_text())
     for row in art['outputs']: assert hashlib.sha256((ROOT/row['asset']).read_bytes()).hexdigest() == row['sha256']
@@ -62,11 +64,16 @@ def main():
             _,rva,length,offset = struct.unpack_from('<IIII',raw,sections+i*40+8)
             if rva <= va-0x400000 < rva+length:return raw[offset+va-0x400000-rva:][:size]
         raise ValueError(hex(va))
-    fixtures = {0x40ef53:'b815010000',0x40ef58:'ba14010000',0x45be61:'bd64000000',0x45be9f:'bd65000000',0x45bebf:'bd67000000',0x4900b4:'302030203000',0x45bd1c:'c786e0000000fe000000',0x45bd30:'c786e4000000f1000000'}
+    fixtures = {0x40ef53:'b815010000',0x40ef58:'ba14010000',0x45be61:'bd64000000',0x45be9f:'bd65000000',0x45bebf:'bd67000000',0x4900b4:'302030203000',0x45bd1c:'c786e0000000fe000000',0x45bd30:'c786e4000000f1000000',0x45bd49:'68ffff4000'}
     for address,value in fixtures.items(): assert at(address,len(bytes.fromhex(value))) == bytes.fromhex(value),hex(address)
+    root=(BASE/'Runtime/Entry/EntrySceneRoot.cs').read_text()
+    layout=(BASE/'Runtime/Entry/NativeEntryArt.cs').read_text()
+    assert 'AtlasButton(servers' not in root and 'Hit(servers, "Server connect"' in root
+    assert 'new Vector2(121, 90)' in layout and art['geometry']['creationOrigin']==[121,90]
+    assert 'RefreshSelection()' in root and 'selectionFrames[i].SetActive(i == selectedJob)' in root
     checks.update(runtimeSources=len(runtime),editorSources=len(editor),runtimeApiErrors=0,editorApiErrors=0,playerApiErrors=0,
                   warnings={'runtime':runtime_warnings,'editor':editor_warnings,'player':player_warnings},
-                  nativeInstructionFixtures=len(fixtures),sceneScriptsResolved=3,entryArtworkOutputs=len(art['outputs']),
+                  nativeInstructionFixtures=len(fixtures),sceneScriptsResolved=4,entryArtworkOutputs=len(art['outputs']),
                   codeSha256={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in runtime+editor},
                   scope='New runtime/editor/player API compilation, actual account/disk/client managed tests and native instruction/asset-reference audit. Not Unity import, physical input or rendered Play.',logs=str(WORK))
     Path(__file__).with_name('entry-check.json').write_text(json.dumps(checks,ensure_ascii=False,indent=2)+'\n');print(json.dumps(checks,ensure_ascii=False))

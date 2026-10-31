@@ -1,0 +1,762 @@
+{
+  "sourceVersion": "Saver_Late",
+  "executableSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "encoding": "RT_STRING, length-prefixed UTF-16LE",
+  "nativeConstructor": "0x435010",
+  "nativeVtable": "0x484598",
+  "resourceCount": 36,
+  "nonSkippedCount": 33,
+  "screenshotMatchedResourceId": 61230,
+  "nativeInstructionChecks": [
+    {
+      "address": "0x43507a",
+      "bytes": "bf20ef0000",
+      "meaning": "Constructor: first string ID61216"
+    },
+    {
+      "address": "0x435096",
+      "bytes": "81ff43ef000076e1",
+      "meaning": "Constructor: inclusive last ID61251"
+    },
+    {
+      "address": "0x4353fc",
+      "bytes": "68dc050000",
+      "meaning": "Initialization requests map1500"
+    },
+    {
+      "address": "0x435412",
+      "bytes": "66c781d2000000dc05",
+      "meaning": "Initialization writes map1500"
+    },
+    {
+      "address": "0x435663",
+      "bytes": "80387c752d",
+      "meaning": "Leading vertical bar enters skip path"
+    },
+    {
+      "address": "0x435688",
+      "bytes": "8996c401000083f8247cb3",
+      "meaning": "Skip increments index and loops below36"
+    },
+    {
+      "address": "0x4357f3",
+      "bytes": "83bee80100000f",
+      "meaning": "Move lesson target x15"
+    },
+    {
+      "address": "0x435bf9",
+      "bytes": "83beec01000007",
+      "meaning": "Move and exit target y7"
+    },
+    {
+      "address": "0x435805",
+      "bytes": "83e802",
+      "meaning": "Return area is relative to x2"
+    },
+    {
+      "address": "0x43581c",
+      "bytes": "83e807",
+      "meaning": "Return area is relative to y7"
+    },
+    {
+      "address": "0x435a5c",
+      "bytes": "83bee801000010",
+      "meaning": "First pickup x16"
+    },
+    {
+      "address": "0x435a6f",
+      "bytes": "83f808",
+      "meaning": "First pickup y8"
+    },
+    {
+      "address": "0x435a95",
+      "bytes": "83e00f05fa020000",
+      "meaning": "Armor762 plus15 for job103"
+    },
+    {
+      "address": "0x435ac2",
+      "bytes": "83f809",
+      "meaning": "Second pickup y9"
+    },
+    {
+      "address": "0x435bec",
+      "bytes": "83bee801000013",
+      "meaning": "Final door x19"
+    },
+    {
+      "address": "0x41aae3",
+      "bytes": "6883000000",
+      "meaning": "Default cursor bitmap131"
+    },
+    {
+      "address": "0x41ab15",
+      "bytes": "c7442434a2000000",
+      "meaning": "Animated cursor resources begin162"
+    },
+    {
+      "address": "0x41acc3",
+      "bytes": "8bc8894368894b6c",
+      "meaning": "Native cursor hotspot12,12 from eax12"
+    }
+  ],
+  "nativeStepWaitTargets": [
+    {
+      "resourceId": 61216,
+      "address": "0x435b24"
+    },
+    {
+      "resourceId": 61217,
+      "address": "0x435b24"
+    },
+    {
+      "resourceId": 61218,
+      "address": "0x4357f3"
+    },
+    {
+      "resourceId": 61219,
+      "address": "0x4357ff"
+    },
+    {
+      "resourceId": 61220,
+      "address": "0x435839"
+    },
+    {
+      "resourceId": 61221,
+      "address": "0x435881"
+    },
+    {
+      "resourceId": 61222,
+      "address": "0x435839"
+    },
+    {
+      "resourceId": 61223,
+      "address": "0x4358a2"
+    },
+    {
+      "resourceId": 61224,
+      "address": "0x4358c4"
+    },
+    {
+      "resourceId": 61225,
+      "address": "0x435881"
+    },
+    {
+      "resourceId": 61226,
+      "address": "0x435839"
+    },
+    {
+      "resourceId": 61227,
+      "address": "0x435b24"
+    },
+    {
+      "resourceId": 61228,
+      "address": "0x4358f3"
+    },
+    {
+      "resourceId": 61229,
+      "address": "0x435959"
+    },
+    {
+      "resourceId": 61230,
+      "address": "0x435978"
+    },
+    {
+      "resourceId": 61231,
+      "address": "0x4359b1"
+    },
+    {
+      "resourceId": 61232,
+      "address": "0x4359ea"
+    },
+    {
+      "resourceId": 61233,
+      "address": "0x435959"
+    },
+    {
+      "resourceId": 61234,
+      "address": "0x4359ea"
+    },
+    {
+      "resourceId": 61235,
+      "address": "0x435b24"
+    },
+    {
+      "resourceId": 61236,
+      "address": "0x435c06"
+    },
+    {
+      "resourceId": 61237,
+      "address": "0x435c06"
+    },
+    {
+      "resourceId": 61238,
+      "address": "0x435c06"
+    },
+    {
+      "resourceId": 61239,
+      "address": "0x435a16"
+    },
+    {
+      "resourceId": 61240,
+      "address": "0x435a1a"
+    },
+    {
+      "resourceId": 61241,
+      "address": "0x435a3b"
+    },
+    {
+      "resourceId": 61242,
+      "address": "0x435b24"
+    },
+    {
+      "resourceId": 61243,
+      "address": "0x435b24"
+    },
+    {
+      "resourceId": 61244,
+      "address": "0x435a5c"
+    },
+    {
+      "resourceId": 61245,
+      "address": "0x435ab3"
+    },
+    {
+      "resourceId": 61246,
+      "address": "0x435ae4"
+    },
+    {
+      "resourceId": 61247,
+      "address": "0x435b42"
+    },
+    {
+      "resourceId": 61248,
+      "address": "0x435b24"
+    },
+    {
+      "resourceId": 61249,
+      "address": "0x435b24"
+    },
+    {
+      "resourceId": 61250,
+      "address": "0x435b9b"
+    },
+    {
+      "resourceId": 61251,
+      "address": "0x435bec"
+    }
+  ],
+  "clickDispatch": [
+    {
+      "resourceId": 61216,
+      "dispatch": 0
+    },
+    {
+      "resourceId": 61217,
+      "dispatch": 0
+    },
+    {
+      "resourceId": 61218,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61219,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61220,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61221,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61222,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61223,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61224,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61225,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61226,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61227,
+      "dispatch": 0
+    },
+    {
+      "resourceId": 61228,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61229,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61230,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61231,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61232,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61233,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61234,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61235,
+      "dispatch": 0
+    },
+    {
+      "resourceId": 61236,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61237,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61238,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61239,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61240,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61241,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61242,
+      "dispatch": 0
+    },
+    {
+      "resourceId": 61243,
+      "dispatch": 0
+    },
+    {
+      "resourceId": 61244,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61245,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61246,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61247,
+      "dispatch": 2
+    },
+    {
+      "resourceId": 61248,
+      "dispatch": 1
+    },
+    {
+      "resourceId": 61249,
+      "dispatch": 1
+    },
+    {
+      "resourceId": 61250,
+      "dispatch": 1
+    }
+  ],
+  "floorLookup": {
+    "module": "UserUnit.dll",
+    "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+    "address": "0x10004F51",
+    "bytes": "8a40033cff740625ff000000c333c0c3",
+    "rawFFBecomesAttribute": 0
+  },
+  "cursor": {
+    "defaultBitmap": 131,
+    "doorBitmaps": [
+      162,
+      163,
+      164,
+      165
+    ],
+    "hotspot": [
+      12,
+      12
+    ],
+    "constructor": "0x41AA70",
+    "stateSetter": "0x41B170",
+    "doorState": 1
+  },
+  "assets": {
+    "map/1500.mrc": {
+      "path": "Assets/_Original/SourceData/Native/map/1500.mrc.bytes",
+      "sha256": "7a1d715703d1c9298d62579da859aa0d732cd160dbbc237b3fda2ead9881012a"
+    },
+    "wlib/scene2.lsc": {
+      "path": "Assets/_Original/SourceData/Native/wlib/scene2.lsc.bytes",
+      "sha256": "ed206370ee762d93c14aeecdfc60af6ffa201da72a1c8fcec8e0138ae9ea964f"
+    },
+    "wlib/scene3.lsc": {
+      "path": "Assets/_Original/SourceData/Native/wlib/scene3.lsc.bytes",
+      "sha256": "4c2ef009d97e5a2be60ecd79e59ef58db94cb17e0f67440a0dd6d7a433ec4451"
+    },
+    "wlib/scene38.lsc": {
+      "path": "Assets/_Original/SourceData/Native/wlib/scene38.lsc.bytes",
+      "sha256": "956f3e6d3959487b8ee27c8d946ba7d4cb46f9020c9986f003331affd5d8417d"
+    }
+  },
+  "resources": [
+    {
+      "id": 61216,
+      "index": 0,
+      "language": 1042,
+      "rva": "0xa802a",
+      "fileOffset": "0xa302a",
+      "text": "어서오게, 브린힐트에 온 걸 환영하네. 나는 지금은 이곳에서 젊은이들을 가르치는 낙으로 사는 늙은이라네. 한때는 나도 이름을 날리던 용병이었지만 지금은 한낱 늙은이에 불과하지.",
+      "skipped": false
+    },
+    {
+      "id": 61217,
+      "index": 1,
+      "language": 1042,
+      "rva": "0xa80f0",
+      "fileOffset": "0xa30f0",
+      "text": "지금부터 자네에게 어떻게 하면 이 어지러운 세상에서 살아나갈 수 있는가를 가르쳐 주겠네.",
+      "skipped": false
+    },
+    {
+      "id": 61218,
+      "index": 2,
+      "language": 1042,
+      "rva": "0xa8154",
+      "fileOffset": "0xa3154",
+      "text": "우선 자네의 모습을 보게나. 자네는 지금 막 모험의 세계에 뛰어든 풋나기라네. 기본적인 이동은 가고자 하는 곳을 마우스로 클릭하면 된다네. 내 앞으로 걸어와보게.",
+      "skipped": false
+    },
+    {
+      "id": 61219,
+      "index": 3,
+      "language": 1042,
+      "rva": "0xa820a",
+      "fileOffset": "0xa320a",
+      "text": "잘 했네. 자 이제 다시 자네가 있던 자리로 돌아가게.",
+      "skipped": false
+    },
+    {
+      "id": 61220,
+      "index": 4,
+      "language": 1042,
+      "rva": "0xa8248",
+      "fileOffset": "0xa3248",
+      "text": "자 그러면 이제 자기 캐릭터를 마우스로 두 번 눌러보게.",
+      "skipped": false
+    },
+    {
+      "id": 61221,
+      "index": 5,
+      "language": 1042,
+      "rva": "0xa8288",
+      "fileOffset": "0xa3288",
+      "text": "방패모양의 창이 보이나? 이 메뉴가 모든 메뉴의 기본이 되는 창이라네. 이 메뉴로부터 모든 다른 메뉴를 띄울 수 있지. 이 메뉴는 위쪽의 X표를 누르면 없어지고 _표를 누르면 작아지지, 이 조작은 어떤 메뉴라도 동일하니 잘 익혀두게. 한번 해 보겠나? 우선 X를 눌러보게.",
+      "skipped": false
+    },
+    {
+      "id": 61222,
+      "index": 6,
+      "language": 1042,
+      "rva": "0xa83ba",
+      "fileOffset": "0xa33ba",
+      "text": "잘 했네. 그럼 다시 캐릭터를 두 번 클릭해서 메뉴를 띄워보게.",
+      "skipped": false
+    },
+    {
+      "id": 61223,
+      "index": 7,
+      "language": 1042,
+      "rva": "0xa8402",
+      "fileOffset": "0xa3402",
+      "text": "다음은 _표를 눌러보게.",
+      "skipped": false
+    },
+    {
+      "id": 61224,
+      "index": 8,
+      "language": 1042,
+      "rva": "0xa841e",
+      "fileOffset": "0xa341e",
+      "text": "잘 했네. 작은 방패모양이 보이나? 그 방패를 다시 클릭하면 다시 커진다네. 한 번 해 보게.",
+      "skipped": false
+    },
+    {
+      "id": 61225,
+      "index": 9,
+      "language": 1042,
+      "rva": "0xa8488",
+      "fileOffset": "0xa3488",
+      "text": "이 창은 F2를 눌러서도 나오게 할 수 있네. 한번 해 보려나?",
+      "skipped": false
+    },
+    {
+      "id": 61226,
+      "index": 10,
+      "language": 1042,
+      "rva": "0xa84d0",
+      "fileOffset": "0xa34d0",
+      "text": "이런, 실수! 다시한번 F2를 눌러보게.",
+      "skipped": false
+    },
+    {
+      "id": 61227,
+      "index": 11,
+      "language": 1042,
+      "rva": "0xa84fe",
+      "fileOffset": "0xa34fe",
+      "text": "이거.... 늙으면 정신이 없어서 말이지... 이미 본 바와 같이 F2를 누르는 것으로 이 창을 나오게 했다가 없앴다가 할 수 있지. 다른 메뉴창에도 적용되는 기능이니 잘 익혀두도록 하게.",
+      "skipped": false
+    },
+    {
+      "id": 61228,
+      "index": 12,
+      "language": 1042,
+      "rva": "0xa85d2",
+      "fileOffset": "0xa35d2",
+      "text": "그리고.. 메뉴창의 맨 위에 있는 장식에 마우스를 가져간 다음 버튼을 누른채로 마우스를 움직이면 창의 위치를 바꿀 수 있네.",
+      "skipped": false
+    },
+    {
+      "id": 61229,
+      "index": 13,
+      "language": 1042,
+      "rva": "0xa865e",
+      "fileOffset": "0xa365e",
+      "text": "다음은 이 메뉴로부터 시작되는 다른 메뉴들에 대해 설명하겠네.. 우선은 메뉴의 오른쪽에 있는 버튼들부터... '대화창'이라는 버튼을 눌러보게.",
+      "skipped": false
+    },
+    {
+      "id": 61230,
+      "index": 14,
+      "language": 1042,
+      "rva": "0xa86fe",
+      "fileOffset": "0xa36fe",
+      "text": "대화창이 보이나? 이 대화창은 다른 이들과의 대화나 다른 사람들로부터 보내져 오는 귓속말 등을 표시해 주는 창이라네. 구석의 네모 버튼으로 크게 만들 수도 있어. 해보겠나?",
+      "skipped": false
+    },
+    {
+      "id": 61231,
+      "index": 15,
+      "language": 1042,
+      "rva": "0xa87c0",
+      "fileOffset": "0xa37c0",
+      "text": "확대된 창을 다시 줄이려면 네모버튼을 다시 누르면 되지. 자. 해보게.",
+      "skipped": false
+    },
+    {
+      "id": 61232,
+      "index": 16,
+      "language": 1042,
+      "rva": "0xa8812",
+      "fileOffset": "0xa3812",
+      "text": "대화창을 보지 않으려면 X표로된 버튼을 누르면 된다네 눌러보게.",
+      "skipped": false
+    },
+    {
+      "id": 61233,
+      "index": 17,
+      "language": 1042,
+      "rva": "0xa885a",
+      "fileOffset": "0xa385a",
+      "text": "대화창은 F5키로도 나오게 할 수 있다네. 해 보려나?",
+      "skipped": false
+    },
+    {
+      "id": 61234,
+      "index": 18,
+      "language": 1042,
+      "rva": "0xa8898",
+      "fileOffset": "0xa3898",
+      "text": "다시 F5를 누르면 사라지지. 눌러 보게.",
+      "skipped": false
+    },
+    {
+      "id": 61235,
+      "index": 19,
+      "language": 1042,
+      "rva": "0xa88c8",
+      "fileOffset": "0xa38c8",
+      "text": "이제 감이 잡히나? 다음은 '사용자'버튼을 설명할 차례네만 아쉽게도 이 기능은 세월과 함께 조용히 묻혀 버렸다네. 참 안타까운 일이었지...",
+      "skipped": false
+    },
+    {
+      "id": 61236,
+      "index": 20,
+      "language": 1042,
+      "rva": "0xa8966",
+      "fileOffset": "0xa3966",
+      "text": "|이번엔 F6을 한번 눌러보게.",
+      "skipped": true
+    },
+    {
+      "id": 61237,
+      "index": 21,
+      "language": 1042,
+      "rva": "0xa898a",
+      "fileOffset": "0xa398a",
+      "text": "|전체맵에 해당되는 키는 F6일세. 기억하게나. 다음은.. 음... 뭐였지? .. 맞아! '사용자'버튼일세. 이 버튼은 현재 이 세계에 들어와 있는 사람들의 목록을 보여 준다네. 해 보려나?",
+      "skipped": true
+    },
+    {
+      "id": 61238,
+      "index": 22,
+      "language": 1042,
+      "rva": "0xa8a60",
+      "fileOffset": "0xa3a60",
+      "text": "|이것도 단축키가 있네. 목록을 없애려면 F7을 누르면된다네. 한번 눌러보게.",
+      "skipped": true
+    },
+    {
+      "id": 61239,
+      "index": 23,
+      "language": 1042,
+      "rva": "0xa8ab8",
+      "fileOffset": "0xa3ab8",
+      "text": "다음은 자기정보 보기 기능일세. 메뉴의 아래쪽에 빨간색의 책모양 버튼을 눌러 보게.",
+      "skipped": false
+    },
+    {
+      "id": 61240,
+      "index": 24,
+      "language": 1042,
+      "rva": "0xa8b16",
+      "fileOffset": "0xa3b16",
+      "text": "이 창에서는 자신의 능력을 수치로 표현해 준다네. 이 창의 기능에 대응되는 키는 F3일세. 눌러 보려나?",
+      "skipped": false
+    },
+    {
+      "id": 61241,
+      "index": 25,
+      "language": 1042,
+      "rva": "0xa8b8c",
+      "fileOffset": "0xa3b8c",
+      "text": "잘 했네. 다음은 장비/장착 및 아이템 창을 보여 주겠네. 창의 아래쪽에 있는 창과 동그란 방패모양의 버튼을 눌러 보게.",
+      "skipped": false
+    },
+    {
+      "id": 61242,
+      "index": 26,
+      "language": 1042,
+      "rva": "0xa8c14",
+      "fileOffset": "0xa3c14",
+      "text": "여기서는 자네가 가지고 있는 물품들과 자네가 장비하고 있는 물품들을 보여 준다네. 장비는 보다시피 각 부위별로 7가지, 그리고 가지고 다닐 수 있는 물품은 28개 뿐이라네. 잘 기억해 두어야 할꺼야.",
+      "skipped": false
+    },
+    {
+      "id": 61243,
+      "index": 27,
+      "language": 1042,
+      "rva": "0xa8cf4",
+      "fileOffset": "0xa3cf4",
+      "text": "여기서 장비를 하려면... 이런.. 자네는 지금 맨몸이었지... 하는 수 없지. 내가 쓰던 칼과 갑옷를 주겠네.",
+      "skipped": false
+    },
+    {
+      "id": 61244,
+      "index": 28,
+      "language": 1042,
+      "rva": "0xa8d72",
+      "fileOffset": "0xa3d72",
+      "text": "일단 내 앞으로 와서 이 칼을 집어들게. 칼이 있는 위치로 이동하면 칼을 집을 수 있다네.",
+      "skipped": false
+    },
+    {
+      "id": 61245,
+      "index": 29,
+      "language": 1042,
+      "rva": "0xa8dd8",
+      "fileOffset": "0xa3dd8",
+      "text": "그 옆의 갑옷도 집어 들게.",
+      "skipped": false
+    },
+    {
+      "id": 61246,
+      "index": 30,
+      "language": 1042,
+      "rva": "0xa8df8",
+      "fileOffset": "0xa3df8",
+      "text": "가진 물건에 칼과 갑옷이 보이나? 칼은 손 위치로, 갑옷은 몸위치로 가져가면 장비가 된다네. 우선 칼을 장비해 보게나.",
+      "skipped": false
+    },
+    {
+      "id": 61247,
+      "index": 31,
+      "language": 1042,
+      "rva": "0xa8e7e",
+      "fileOffset": "0xa3e7e",
+      "text": "몸에는 갑옷을 장비하게.",
+      "skipped": false
+    },
+    {
+      "id": 61248,
+      "index": 32,
+      "language": 1042,
+      "rva": "0xa8e9a",
+      "fileOffset": "0xa3e9a",
+      "text": "같은 요령으로 칼이나 방패같은 무기, 방어구 종류는 손에 장비하고, 투구나 모자는 머리, 신발은 발에 장비하면 된다네. 이해하겠나?",
+      "skipped": false
+    },
+    {
+      "id": 61249,
+      "index": 33,
+      "language": 1042,
+      "rva": "0xa8f2e",
+      "fileOffset": "0xa3f2e",
+      "text": "아! 그리고 중요한 것 한가지. 사용하고 싶은 물건은 머리쪽으로 가져가면 된다네. 잊지 말게, 중요한 것이니.",
+      "skipped": false
+    },
+    {
+      "id": 61250,
+      "index": 34,
+      "language": 1042,
+      "rva": "0xa8faa",
+      "fileOffset": "0xa3faa",
+      "text": "자.. 다음은... 뭐였더라.... 장비를 했으니 전투를 해 봐야지... 방의 오른쪽에 문이 있는게 보이나? 우선은 마우스 커서를 그쪽으로 가져가보게 마우스 커서의 모양이 바뀌는게 보일게야.",
+      "skipped": false
+    },
+    {
+      "id": 61251,
+      "index": 35,
+      "language": 1042,
+      "rva": "0xa9080",
+      "fileOffset": "0xa4080",
+      "text": "보이나? 이처럼 다른 지역으로 이동하거나 밖으로 나간다든지 하는 곳에 커서를 가져가면 커서의 모양이 바뀐다네. 그럼 문으로 들어가 보게.",
+      "skipped": false
+    }
+  ],
+  "limits": [
+    "Resource ordering, wait jump targets, click dispatch, item positions and floor fallback verified statically; see analysis document for implementation scope.",
+    "One user-supplied recreation screenshot inspected; video13-55s not viewed.",
+    "Native wall-clock playback speed and rendered input are not measured by this extractor."
+  ]
+}

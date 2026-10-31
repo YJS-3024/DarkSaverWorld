@@ -47,7 +47,8 @@ report={'scope':'All 420 tutorial source commands classified by token and direct
  'commandTypes':bytype,'actors':actors,'dialogueSpeakers':speakers,'dialogueCount':sum(c['command']=='MESSAGE' for c in commands),
  'map':next(r for r in json.loads((out/'maps.json').read_text()) if r['path']=='map/301.mrc'),
  'assets':assets,'windowBindingsHistoricalEvidence':windows,'battleLayouts':ui,
- 'unresolved':['All menu/keyboard/pointer branch semantics and native child windows','Dynamic COM0 selection and every sprite loader transformation','Special map resource ID zero needs consumer semantics; resource existence alone is not proof of use','MIDI host notification loop and device playback measurement','Prior waiting-room guidance source; duplicate tutorial archive supplies no separate course']}
+ 'resolvedPriorWaitingLesson':{'source':'Saver.exe RT_STRING61216..61251; separate from tutorial.arc','report':'waiting_tutorial_resources.json','versionAudit':'embedded_resource_audit.json; same36 texts across six installed Saver executables','implementation':'Assets/_Original/Runtime/Tutorial/WaitingLesson.cs; actual Unity Play not verified'},
+ 'unresolved':['All menu/keyboard/pointer branch semantics and native child windows','Dynamic COM0 selection and every sprite loader transformation','Special map resource ID zero needs consumer semantics; resource existence alone is not proof of use','MIDI host notification loop and device playback measurement']}
 (out/'tutorial_dependency_audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 (ROOT/'Tools/OriginalClientChecks/evidence/late-tutorial-entry.asm.txt').write_text(g.disasm(0x1000fab0,0x10010003)+g.disasm(0x100123c2,0x1001241e))
 print(json.dumps({'commands':len(commands),'commandTypes':len(bytype),'actorIntroductions':len(actors),'dialogueSpeakers':speakers,'assetRecords':len(assets),'battleLayouts':len(ui),'completeRuntimeAnalysis':False}))

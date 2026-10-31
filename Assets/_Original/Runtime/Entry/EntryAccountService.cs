@@ -31,6 +31,7 @@ namespace DarkSaver.Original.Entry
     {
         public const int ServerId = 1;
         public const string ServerName = "로컬 서버";
+        public const string LocalProfileAccountId = "__local_profile__";
         public const int PasswordIterations = 100000;
         public static bool IsStartingJob(int job) => job == 100 || job == 101 || job == 103;
         public static bool IsInput(string value)
@@ -54,6 +55,7 @@ namespace DarkSaver.Original.Entry
                 catch (ArgumentException) { return false; }
                 catch (FormatException) { return false; }
                 if (account.character != null && (!IsInput(account.character.name) || !IsStartingJob(account.character.job) || !Guid.TryParseExact(account.character.id, "N", out _))) return false;
+                if (account.character != null && !DarkSaver.Original.World.WorldRecord.Valid(account.character.world)) return false;
             }
             return true;
         }
@@ -91,6 +93,7 @@ namespace DarkSaver.Original.Entry
         // Development/server administration only. The original signup button opened a web page.
         public bool ProvisionLocalAccount(string id, string password)
         {
+            if (id == LocalEntryPolicy.LocalProfileAccountId) return false;
             available = store.TryRead(out document) && LocalEntryPolicy.IsDocument(document);
             if (!available || document.accounts.Any(a => a.id == id)) return false;
             var account = LocalEntryPolicy.NewAccount(id, password); if (account == null) return false;
@@ -102,6 +105,7 @@ namespace DarkSaver.Original.Entry
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
             var operation = request.Operation;
+            if (operation == EntryOperation.OpenLocalProfile) return OpenLocalProfile();
             if (operation == EntryOperation.Logout) { ResetTutorial(); accountId = null; selectedServer = 0; return new EntryReply(operation); }
             if (operation == EntryOperation.Login)
             {
@@ -142,6 +146,28 @@ namespace DarkSaver.Original.Entry
                 document = candidate; return new EntryReply(operation, character: character);
             }
             throw new InvalidOperationException("Unsupported local entry request.");
+        }
+        // User-requested local entry policy. The manager supplies a separate profile
+        // store; this never authenticates or picks an existing login account.
+        private EntryReply OpenLocalProfile()
+        {
+            const EntryOperation operation = EntryOperation.OpenLocalProfile;
+            ResetTutorial(); accountId = null; selectedServer = 0;
+            available = store.TryRead(out document) && LocalEntryPolicy.IsDocument(document);
+            if (!available || document.accounts.Length > 1
+                || (document.accounts.Length == 1 && document.accounts[0].id != LocalEntryPolicy.LocalProfileAccountId))
+                return new EntryReply(operation, EntryFailure.StorageUnavailable);
+            if (document.accounts.Length == 0)
+            {
+                var candidate = document.Copy();
+                // Reuse the validated storage schema without retaining a plaintext
+                // password or enabling password-free access to normal accounts.
+                candidate.accounts = new[] { LocalEntryPolicy.NewAccount(LocalEntryPolicy.LocalProfileAccountId, Guid.NewGuid().ToString("N")) };
+                if (!store.TryWrite(candidate)) return new EntryReply(operation, EntryFailure.StorageUnavailable);
+                document = candidate;
+            }
+            accountId = LocalEntryPolicy.LocalProfileAccountId; selectedServer = LocalEntryPolicy.ServerId;
+            return new EntryReply(operation, character: document.accounts[0].character);
         }
     }
 }

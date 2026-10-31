@@ -40,6 +40,16 @@ namespace DarkSaver.Original.Entry
             if (character != null) CharacterReady?.Invoke(character.Copy());
             return true;
         }
+        public bool OpenLocalProfile()
+        {
+            Stage = EntryStage.Login; character = null; Servers = Array.Empty<EntryServer>();
+            var reply = transport.Request(EntryRequest.OpenLocalProfile());
+            if (!Accepted(reply, EntryOperation.OpenLocalProfile)) return false;
+            character = reply.Character;
+            Stage = character == null ? EntryStage.FirstCharacterCreation : EntryStage.CharacterReady;
+            if (character != null) CharacterReady?.Invoke(character.Copy());
+            return true;
+        }
         public bool Create(int job, string name)
         {
             if (Stage != EntryStage.FirstCharacterCreation) return false;

@@ -69,9 +69,13 @@ def main():
   g=grs[s['resource']]['sprites'][s['index']];im=grs_image(g['palette'],g['images'][s['frame']],True)
   decorpaths.append(save(f'Decor{i:02}',im,'301.mrc literal decoration '+str(i)))
   decorations.append(dict(x=s['x']*32,y=s['y']*32,width=im.width,height=im.height))
+ unit_table=BASE/'Data/Tables/units_all.csv'
+ unit_rows={int(r['직업']):r for r in csv.DictReader(unit_table.open(encoding='utf-8-sig'))}
+ report['sources'][unit_table.relative_to(ROOT).as_posix()]=sha(unit_table.read_bytes())
  actorpaths=[];jobs=[100,101,103,125,201,301,805]
  for job in jobs:
-  candidates=list((BASE/'Art/Archives/gameres').glob(f'char*.arc/{job}r.bmp.png'));assert len(candidates)==1,(job,candidates)
+  picture=int(unit_rows[job]['직그림'])  # dmSetChar1000EC95..ECA6 resolves the original picture,201 ->200.
+  candidates=list((BASE/'Art/Archives/gameres').glob(f'char*.arc/{picture}r.bmp.png'));assert len(candidates)==1,(job,picture,candidates)
   source=candidates[0]; report['sources'][source.relative_to(ROOT).as_posix()]=sha(source.read_bytes())
   actorpaths.append(save(f'Actor{job}',key(Image.open(source)),source.relative_to(ROOT).as_posix()+'; RGB black key'))
  # Recover palette-index recoloring from the raw archive, not RGB color guessing.
@@ -133,7 +137,7 @@ def main():
  abilities=[]
  for job in jobs:
   r=next(r for r in rows if int(r['직업'])==job)
-  abilities.append(dict(job=job,**{k:int(r[v]) for k,v in dict(hp='체력수',maxHp='체력한',mp='마력수',maxMp='마력한',attack='공력수',defense='방력수').items()}))
+  abilities.append(dict(job=job,name=r['이름'],**{k:int(r[v]) for k,v in dict(hp='체력수',maxHp='체력한',mp='마력수',maxMp='마력한',attack='공력수',defense='방력수').items()}))
  terrain=[]
  p=BASE/'SourceData/Decoded/gameres/set.arc/tileattr.atr.txt'
  report['sources'][p.relative_to(ROOT).as_posix()]=sha(p.read_bytes())
@@ -144,7 +148,13 @@ def main():
  attrs=[t[3]&0x7f for t in m['tiles']]
  definition=dict(map=dict(width=m['width'],height=m['height'],attributes=attrs,terrain=terrain,abilities=abilities),windows=windows,decorations=decorations,
   magicTravelX=336,magicTravelY=0,magicTravelFrames=3,magicImpactX=0,magicImpactY=0,magicImpactFrames=5,magicSound1=0,magicSound2=-1)
- fields['definition']=DATA/'Tutorial301.json';fields['definition'].write_text(json.dumps(definition,ensure_ascii=False,indent=2)+'\n');register(fields['definition'],'MRC terrain/TileAttr/abilityrecord + Glib layout + magicptn2')
+ fields['definition']=DATA/'Tutorial301.json';fields['definition'].write_bytes((json.dumps(definition,ensure_ascii=False,indent=2)+'\n').encode('utf-8'));register(fields['definition'],'MRC terrain/TileAttr/abilityrecord + Glib layout + magicptn2')
+ from build_waiting_assets import build as build_waiting
+ waitingfields,waitingpaths,waitingminipaths=build_waiting(ROOT,native,save,register,key,definition['map']);fields.update(waitingfields)
+ for path in [BASE/'Data/Tables/items.csv',BASE/'Art/Archives/gameres/item.arc/item.bmp.png',ROOT/'분석/Saver_Late/waiting_tutorial_resources.json']:
+  report['sources'][path.relative_to(ROOT).as_posix()]=sha(path.read_bytes())
+ for job in [100,101,103]:
+  path=BASE/'Art/Archives/gameres/face.arc'/(str(job)+'.bmp.png');report['sources'][path.relative_to(ROOT).as_posix()]=sha(path.read_bytes())
  fields['help']=BASE/'SourceData/Decoded/gameres/set.arc/help.txt.txt'
  fields['script']=BASE/'SourceData/Decoded/gameres/tutorial.arc/tutorial.deo.txt'
  report['sources'][fields['script'].relative_to(ROOT).as_posix()]=sha(fields['script'].read_bytes())
@@ -161,7 +171,7 @@ def main():
   return '{fileID: '+('4900000' if p.suffix in ['.txt','.json'] else '8300000' if p.suffix=='.ogg' else '2800000')+', guid: '+guid(p)+', type: 3}'
  for k,p in fields.items():text+='  '+k+': '+ref(p)+'\n'
  text+='  actorJobs: '+''.join(int(j).to_bytes(4,'little',signed=True).hex() for j in jobs)+'\n'
- for k,paths in [('minimizedWindows',minimizedpaths),('actors',actorpaths),('windows',windowpaths),('decorations',decorpaths),('ranges',ranges)]:
+ for k,paths in [('waitingWindows',waitingpaths),('waitingMinimizedWindows',waitingminipaths),('minimizedWindows',minimizedpaths),('actors',actorpaths),('windows',windowpaths),('decorations',decorpaths),('ranges',ranges)]:
   text+='  '+k+':\n'+''.join('  - '+ref(p)+'\n' for p in paths)
  asset.write_text(text);meta.meta(asset,ROOT/'Assets');Path(str(asset)+'.meta').write_text('fileFormatVersion: 2\nguid: '+guid(asset)+'\nNativeFormatImporter:\n  externalObjects: {}\n  mainObjectFileID: 11400000\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n')
  # Bind the new lesson without rebuilding or replacing existing scene objects.

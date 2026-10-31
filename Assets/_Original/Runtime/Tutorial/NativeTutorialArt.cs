@@ -19,11 +19,20 @@ namespace DarkSaver.Original.Tutorial
     public sealed class NativeTutorialArt : ScriptableObject
     {
         public TextAsset script, definition, help;
+        public TextAsset waitingDefinition;
+        public Texture2D waitingGround, waitingButtons, waitingDialogue, waitingItems, waitingChatExpanded, waitingCursors;
+        public Texture2D waitingFighterFace, waitingKnightFace, waitingMagicianFace;
+        public Texture2D[] waitingWindows, waitingMinimizedWindows;
         public Texture2D ground, dialogue, face, icons, board, effects, attackEffects, buttons, minimap;
         public Texture2D[] actors, windows, minimizedWindows, decorations, ranges;
         public int[] actorJobs;
         public AudioClip music;
         public TutorialDefinition Definition => definition == null ? null : JsonUtility.FromJson<TutorialDefinition>(definition.text);
+        public WaitingDefinition WaitingDefinition => waitingDefinition == null ? null : JsonUtility.FromJson<WaitingDefinition>(waitingDefinition.text);
+        public bool WaitingConfigured => waitingDefinition != null && waitingGround != null && waitingButtons != null
+            && waitingDialogue != null && waitingItems != null && waitingChatExpanded != null && waitingCursors != null
+            && waitingFighterFace != null && waitingKnightFace != null && waitingMagicianFace != null
+            && waitingWindows?.Length == 4 && waitingMinimizedWindows?.Length == 4;
         public bool IsConfigured => script != null && definition != null && help != null && ground != null && dialogue != null && face != null
             && icons != null && board != null && effects != null && attackEffects != null && buttons != null && minimap != null && actors?.Length == 9
             && actorJobs?.Length == 7 && minimizedWindows?.Length == 9 && windows?.Length == 9 && decorations?.Length == 31 && ranges?.Length == 4 && music != null;

@@ -128,7 +128,7 @@ internal static class TutorialChecks
         movement.Advance(10000); Check(movement.Snapshot().Wait == "DO2", "Lag does not teleport actor across movement phases");
         for (int i = 0; i < 20; i++) movement.Advance(80);
         Check(movement.Snapshot().Wait == "WAITMOUSEBUTTON" && movement.Snapshot().Actors[0].Tile == new TutorialTile(4, 7), "Arrival releases DO2");
-        Check(movement.Snapshot().Actors[0].Direction == 3, "Final move direction right");
+        Check(movement.Snapshot().Actors[0].Direction == 2, "Final move direction right");
         var death = Session(spawn + "HPSET 400 0\nKILLCHAR2 400\nWAITMOUSEBUTTON\nENDGAME\nEND");
         Check(death.Snapshot().Actors.Any(a => a.Id == 400 && a.Dying), "KILLCHAR2 retains corpse initially");
         for (int i = 0; i < 18; i++) death.Advance(20); Check(death.Snapshot().Actors.Any(a => a.Id == 400), "Death counter18 retained");
@@ -150,7 +150,7 @@ internal static class TutorialChecks
         Check(TutorialSession.ActionAllowed(merc, TutorialAction.Move) && TutorialSession.ActionAllowed(merc, TutorialAction.Attack) && TutorialSession.ActionAllowed(merc, TutorialAction.Rest), "Mercenary three allowed actions");
         Check(!TutorialSession.ActionAllowed(merc, TutorialAction.Special) && !TutorialSession.ActionAllowed(merc, TutorialAction.Magic) && !TutorialSession.ActionAllowed(merc, TutorialAction.Order), "Other mercenary actions remain grey");
         Check(merc.Hp == 99 && merc.MaxHp == 99 && merc.Magic == 0 && merc.Skill == 0, "CHARPOS constructor defaults without implicit CHARABILITY");
-        Check(n.Attack == 0 && n.Defense == 0, "CHARABILITY does not copy unassigned combat columns");
+        Check(n.Attack == 99 && n.Defense == 99, "QUNIT defaults copied into character combat fields; CHARABILITY leaves them intact");
         var rawMask = Session(spawn + "CHARMENU 0 999 0\nWAITMOUSEBUTTON\nENDGAME\nEND").Snapshot().Actors[0];
         Check(rawMask.Mask == 0 && !TutorialSession.ActionAllowed(rawMask, TutorialAction.Move), "Zero mask fixed grey and rejects interaction");
         var beforeEnd = Session("ENDGAME\nWAITMOUSEBUTTON\nEND"); Check(beforeEnd.HasEndedGame && !beforeEnd.Completed, "ENDGAME alone not completion");
@@ -163,6 +163,63 @@ internal static class TutorialChecks
             Check(session.Snapshot().Actors.First(a => a.Id == 0).Mp == initialMp, "SETMP no-op does not invent spell cost " + job);
         }
     }
+    private static void DirectFeedbackContracts()
+    {
+        var origin = new TutorialTile(4, 7);
+        int attackCells = 0, magicCells = 0;
+        for (int y = -4; y <= 4; y++) for (int x = -4; x <= 4; x++)
+        {
+            var cell = new TutorialTile(origin.X + x, origin.Y + y);
+            if (TutorialGeometry.InRange(origin, cell, 1)) attackCells++;
+            if (TutorialGeometry.InRange(origin, cell, 3)) magicCells++;
+        }
+        Check(attackCells == 4 && magicCells == 24, "Native cardinal/diamond areas exclude own tile");
+        Check(!TutorialGeometry.InRange(origin, new TutorialTile(5, 8), 1), "Attack1 excludes diagonal neighbor");
+        Check(!TutorialGeometry.InRange(origin, new TutorialTile(6, 9), 3), "Magic3 excludes square corner at Manhattan4");
+        var destinations = new[] { new TutorialTile(4, 6), new TutorialTile(4, 8), new TutorialTile(5, 7), new TutorialTile(3, 7) };
+        for (int row = 0; row < destinations.Length; row++)
+        {
+            var destination = destinations[row];
+            var moving = Session("CHARPOS COM0 0 4 7\nCHARABILITY 0\nCHARMOVE 0 " + destination.X + " " + destination.Y + "\nWAITMOVEEND 0\nWAITMOUSEBUTTON\nENDGAME\nEND");
+            for (int i = 0; i < 4; i++) moving.Advance(80);
+            var actor = moving.Snapshot().Actors[0];
+            Check(actor.Tile == destination && actor.Direction == row, "Original sheet cardinal row " + row);
+        }
+        string setup = "CHARPOS COM0 0 4 7\nCHARABILITY 0\nCHARPOS 301 400 5 8\nCHARABILITY 400\nENABLE MOUSEMENU\nWAITTOPMENU 0\nWAITATTACKMENU 0\nWAITATTACKCHAR 0 400\nWAITMOUSEBUTTON\nENDGAME\nEND";
+        var diagonalAttack = Session(setup);
+        diagonalAttack.Input(new TutorialInput(TutorialInputKind.Unit, 0)); diagonalAttack.Input(new TutorialInput(TutorialInputKind.Action, 0, 1));
+        Check(!diagonalAttack.Input(new TutorialInput(TutorialInputKind.Unit, 400)) && diagonalAttack.Snapshot().Wait == "WAITATTACKCHAR", "Server enforces same diamond as display");
+        var cornerMagic = Session("CHARPOS COM0 0 4 7\nCHARABILITY 0\nCHARPOS 301 410 6 9\nCHARABILITY 410\nENABLE MOUSEMENU\nWAITTOPMENU 0\nWAITMAGICMENU 0 0\nWAITMAGICMENU 1 0\nWAITMAGICMENU 2 0 410\nWAITMOUSEBUTTON\nENDGAME\nEND");
+        cornerMagic.Input(new TutorialInput(TutorialInputKind.Unit, 0)); cornerMagic.Input(new TutorialInput(TutorialInputKind.Action, 0, 4)); cornerMagic.Input(new TutorialInput(TutorialInputKind.Magic, 0, 101));
+        Check(!cornerMagic.Input(new TutorialInput(TutorialInputKind.Unit, 410)), "Server rejects magic square-corner target");
+        var menu = Session("CHARPOS COM0 0 4 7\nCHARABILITY 0\nENABLE MOUSEMENU\nWAITTOPMENU 0\nWAITMOVEMENU 0\nWAITMOVEPOS 0 2 7\nWAITMOUSEBUTTON\nENDGAME\nEND");
+        menu.Input(new TutorialInput(TutorialInputKind.Unit, 0)); menu.Input(new TutorialInput(TutorialInputKind.Action, 0, 16));
+        Check(menu.Snapshot().Range == TutorialAction.Move, "Move action arms native range");
+        Check(menu.Input(new TutorialInput(TutorialInputKind.Unit, 0)) && menu.Snapshot().Range == null && menu.Snapshot().MenuUnit == 0, "Reopening unit menu clears movement range");
+        Check(!menu.CanMove(0, origin), "Own tile is not a movement destination");
+        menu.Input(new TutorialInput(TutorialInputKind.Action, 0, 16));
+        Check(menu.Input(new TutorialInput(TutorialInputKind.Tile, x: 2, y: 7)), "Can continue lesson after reopening menu");
+        var lethal = Session(setup.Replace("400 5 8", "400 5 7").Replace("WAITATTACKCHAR 0 400\nWAITMOUSEBUTTON", "WAITATTACKCHAR 0 400\nHPSET 400 0\nKILLCHAR2 400\nDO 1000\nWAITMOUSEBUTTON"));
+        lethal.Input(new TutorialInput(TutorialInputKind.Unit, 0)); lethal.Input(new TutorialInput(TutorialInputKind.Action, 0, 1)); lethal.Input(new TutorialInput(TutorialInputKind.Unit, 400));
+        Check(lethal.Snapshot().Actors.Count(a => a.ShowsAttackEffect) == 1, "One attack burst, no duplicated target burst");
+        var contact = lethal.Snapshot().Actors.First(a => a.Id == 0);
+        Check(contact.AttackFxX == 4.5 && contact.AttackFxY == 7, "Native half-cell contact captured");
+        for (int i = 0; i < 19; i++) lethal.Advance(20);
+        var after = lethal.Snapshot().Actors.First(a => a.Id == 0);
+        Check(!lethal.Snapshot().Actors.Any(a => a.Id == 400) && after.ShowsAttackEffect, "Target removed while original attack counter remains active");
+        Check(after.AttackFxX == contact.AttackFxX && after.AttackFxY == contact.AttackFxY, "Target removal cannot move remaining burst onto attacker");
+        Check(after.MaximumTick == 10 && after.Attack == 99 && after.Defense == 99 && after.Level == 0, "Copied native temporary record values, no server-stat fiction");
+        Check(after.JobName == "파이터", "F2 job label comes from native catalog");
+        var blank = Session("MESSAGE 1 125 0 0 \nWAITMOUSEBUTTON\nENDGAME\nEND");
+        Check(string.IsNullOrWhiteSpace(blank.Snapshot().Message), "Blank source MESSAGE leaves no visible dialogue text");
+        Check(script.Commands.Count(c => c.Name == "CHARMENU" && c.Int(2) == 0) == 9, "Original grey explanation masks retained as requested");
+    }
+    private static void FinishWaiting(EntryAccountService server)
+    {
+        Require(server.BeginWaitingLesson(WaitingLessonChecks.Definition()) == TutorialFailure.None, "Start mandatory waiting lesson");
+        WaitingLessonChecks.Run(server.WaitingLessonSnapshot,
+            input => server.WaitingLessonInput(input) == TutorialFailure.None, server.AdvanceTutorial);
+    }
     private static void ServerContracts()
     {
         var memory = new Store(); var authority = new EntryAccountService(memory);
@@ -173,13 +230,23 @@ internal static class TutorialChecks
         authority.Request(EntryRequest.SelectServer(1)); Check(authority.BeginTutorial(script, map, 600).Failure == TutorialFailure.InvalidStage, "No character");
         authority.Request(EntryRequest.Create(100, "검사자"));
         Check(authority.CompleteTutorial().Failure == TutorialFailure.InvalidStage, "Cannot complete before starting");
-        Check(authority.BeginTutorial(script, map, 600).Accepted, "Start from server-owned character");
+        Check(authority.BeginTutorial(script, map, 600).Failure == TutorialFailure.InvalidStage, "Cannot bypass earlier lesson");
+        Check(authority.BeginWaitingLesson(WaitingLessonChecks.Definition()) == TutorialFailure.None, "Begin earlier lesson");
+        Check(authority.BeginWaitingLesson(WaitingLessonChecks.Definition()) == TutorialFailure.InvalidStage, "Cannot reset earlier lesson through repeated begin");
+        authority.AdvanceTutorial(1001); authority.WaitingLessonInput(new WaitingInput(WaitingInputKind.Continue));
+        authority.Request(EntryRequest.Logout());
+        Check(authority.WaitingLessonSnapshot() == null, "Logout discards partial earlier lesson");
+        authority.Request(EntryRequest.Login("tutorial-check", "test-password")); authority.Request(EntryRequest.SelectServer(1));
+        Check(authority.BeginTutorial(script, map, 600).Failure == TutorialFailure.InvalidStage, "Interrupted earlier lesson cannot be bypassed after login");
+        FinishWaiting(authority);
+        Check(authority.CompleteTutorial().Failure == TutorialFailure.InvalidStage && !memory.Data.accounts[0].character.tutorialCompleted, "Earlier lesson alone does not persist tutorial completion");
+        Check(authority.BeginTutorial(script, map, 600).Accepted, "Start from server-owned character after earlier lesson");
         Check(authority.BeginTutorial(script, map, 600).Failure == TutorialFailure.InvalidStage, "No duplicate begin reset");
         authority.TutorialInput(Continue);
         Check(authority.CompleteTutorial().Failure == TutorialFailure.InvalidStage, "Cannot skip script by completion request");
         int interruptedCursor = authority.TutorialSnapshot().Cursor;
         authority.Request(EntryRequest.Logout()); Check(authority.TutorialSnapshot() == null, "Logout discards transient tutorial");
-        authority.Request(EntryRequest.Login("tutorial-check", "test-password")); authority.Request(EntryRequest.SelectServer(1)); authority.BeginTutorial(script, map, 600);
+        authority.Request(EntryRequest.Login("tutorial-check", "test-password")); authority.Request(EntryRequest.SelectServer(1)); FinishWaiting(authority); authority.BeginTutorial(script, map, 600);
         Check(authority.TutorialSnapshot().Cursor < interruptedCursor && authority.TutorialSnapshot().MessageCount == 1, "Interrupted reconnect starts at first message");
         Run(authority.TutorialSnapshot, input => authority.TutorialInput(input).Accepted, authority.AdvanceTutorial);
         Check(!memory.Data.accounts[0].character.tutorialCompleted, "END alone does not fake persistence");
@@ -191,6 +258,7 @@ internal static class TutorialChecks
         Check(authority.TutorialInput(Continue).Failure == TutorialFailure.InvalidStage, "Finished session rejects inputs");
         var reconnect = new EntryClient(new EntryAccountService(memory)); Check(reconnect.Login("tutorial-check", "test-password") && reconnect.SelectServer(1) && reconnect.Character.tutorialCompleted, "Completed reconnect boundary");
         var other = new EntryAccountService(memory); other.Request(EntryRequest.Login("parallel-account", "another-password")); other.Request(EntryRequest.SelectServer(1)); other.Request(EntryRequest.Create(103, "다른계정"));
+        FinishWaiting(other);
         Check(other.BeginTutorial(script, map, 600).Accepted && other.TutorialSnapshot().Actors[0].Job == 103, "Other identity gets independent fresh tutorial");
         authority.Request(EntryRequest.Login("tutorial-check", "test-password")); authority.Request(EntryRequest.SelectServer(1));
         Check(authority.BeginTutorial(script, map, 600).Failure == TutorialFailure.AlreadyCompleted, "Completed character not replayed");
@@ -204,7 +272,7 @@ internal static class TutorialChecks
             // A pre-tutorial account file without the new optional field remains readable and incomplete.
             string json = File.ReadAllText(path); File.WriteAllText(path, json.Replace(",\"tutorialCompleted\":false", ""));
             Check(file.TryRead(out var old) && !old.accounts[0].character.tutorialCompleted, "Missing optional completion field compatible");
-            var restart = new EntryAccountService(file); restart.Request(EntryRequest.Login("disk", "disk-password")); restart.Request(EntryRequest.SelectServer(1)); restart.BeginTutorial(script, map, 600);
+            var restart = new EntryAccountService(file); restart.Request(EntryRequest.Login("disk", "disk-password")); restart.Request(EntryRequest.SelectServer(1)); FinishWaiting(restart); restart.BeginTutorial(script, map, 600);
             Run(restart.TutorialSnapshot, input => restart.TutorialInput(input).Accepted, restart.AdvanceTutorial);
             Check(restart.CompleteTutorial().Accepted, "Real disk completion");
             var again = new EntryClient(new EntryAccountService(file)); Check(again.Login("disk", "disk-password") && again.SelectServer(1) && again.Character.tutorialCompleted, "Completion survives actual disk re-open");
@@ -213,12 +281,32 @@ internal static class TutorialChecks
         }
         finally { Directory.Delete(directory, true); }
     }
+    private static void DirectProfileTutorialContracts()
+    {
+        var store = new Store(); var server = new EntryAccountService(store); var client = new EntryClient(server);
+        Check(client.OpenLocalProfile() && client.Create(100, "직접시작"), "Direct profile creates before tutorial without login/server requests");
+        string id = client.Character.id;
+        Check(server.BeginTutorial(script, map, 600).Failure == TutorialFailure.InvalidStage, "Direct entry still requires earlier lesson");
+        Check(server.BeginWaitingLesson(WaitingLessonChecks.Definition()) == TutorialFailure.None, "Direct profile owns earlier lesson");
+        server.AdvanceTutorial(1001); server.WaitingLessonInput(new WaitingInput(WaitingInputKind.Continue));
+        client.Logout();
+        Check(client.OpenLocalProfile() && client.Character.id == id && !client.Character.tutorialCompleted, "Direct interrupted restart preserves identity and incomplete flag");
+        Check(server.BeginWaitingLesson(WaitingLessonChecks.Definition()) == TutorialFailure.None, "Direct restart begins fresh waiting lesson");
+        server.AdvanceTutorial(1001);
+        Check(server.WaitingLessonSnapshot().ResourceId == 61216, "Direct reentry starts from first waiting message");
+        WaitingLessonChecks.Run(server.WaitingLessonSnapshot, input => server.WaitingLessonInput(input) == TutorialFailure.None, server.AdvanceTutorial);
+        Check(server.BeginTutorial(script, map, 600).Accepted, "Direct profile proceeds to battle after actual earlier lesson");
+        Run(server.TutorialSnapshot, input => server.TutorialInput(input).Accepted, server.AdvanceTutorial);
+        Check(server.CompleteTutorial().Accepted && store.Data.accounts[0].character.tutorialCompleted, "Direct profile saves full tutorial completion");
+        var restored = new EntryClient(new EntryAccountService(store));
+        Check(restored.OpenLocalProfile() && restored.Character.id == id && restored.Character.tutorialCompleted, "Direct profile restores completed tutorial without login");
+    }
     private static void Main()
     {
         using (var json = JsonDocument.Parse(File.ReadAllText("Assets/_Original/Data/Tutorial/Tutorial301.json")))
             map = JsonSerializer.Deserialize<TutorialMap>(json.RootElement.GetProperty("map").GetRawText(), new JsonSerializerOptions { IncludeFields = true });
         script = new TutorialScript(File.ReadAllText("Assets/_Original/SourceData/Decoded/gameres/tutorial.arc/tutorial.deo.txt"));
-        NativeContracts(); ServerContracts();
+        NativeContracts(); DirectFeedbackContracts(); count += WaitingLessonChecks.Contracts(); ServerContracts(); DirectProfileTutorialContracts();
         Console.WriteLine(JsonSerializer.Serialize(new { assertions = count, fullTutorialRuns = fullRuns, simulatedFrames, acceptedInputs, sourceCommands = 420, sourceSpellings = 44, sourceMessages = sourceMessageCount, observedWaitLocations = sourceWaitCount, testedJobs = new[] { 100, 101, 103 }, actualUnityPlay = false }));
     }
 }

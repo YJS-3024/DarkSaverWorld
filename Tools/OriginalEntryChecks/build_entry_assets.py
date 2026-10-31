@@ -37,7 +37,7 @@ def main():
                   localAdaptations=['The original two server-name fields are blanked using native interior pixels; one response-owned local server name is rendered.'],
                   geometry={'logicalSize': [640, 480], 'loginOrigin': [226, 279], 'serverOrigin': [277, 276],
                             'serverSourceRect': [10, 320, 110, 424], 'creationSize': [397, 300],
-                            'creationOrigin': [0, 0], 'creationOriginEvidence': 'Native Dlg45 profile default 0 0 0, no saved Dlg45 in supplied Saver.ini; no migration of old Unity positions.',
+                            'creationOrigin': [121, 90], 'creationOriginEvidence': 'Centered initial397x300 window in640x480 per direct test. Dlg45 profile0,0 alone does not establish absolute screen coordinates.',
                             'creationCards': [[37, 54, 127, 230], [153, 54, 243, 230], [268, 54, 358, 230]],
                             'nameRect': [254, 241, 342, 256], 'confirmOrigin': [300, 265]},
                   staticEvidence={'executableSha256': 'dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689',
