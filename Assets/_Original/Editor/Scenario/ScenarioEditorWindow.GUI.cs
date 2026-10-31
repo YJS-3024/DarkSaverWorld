@@ -25,11 +25,11 @@ namespace DarkSaver.Original.Editor.Scenarios
             var inspector = new Rect(position.width-right,36,right,position.height-60);
             canvasArea = new Rect(left+1,36,Mathf.Max(200,position.width-left-right-2),position.height-60);
             DrawMaps(list); DrawInspector(inspector);
-            int nextMode = GUI.Toolbar(new Rect(canvasArea.x+8,canvasArea.y+5,210,24),mode,new[]{"전투 배치 편집","연출 배치 보기"});
-            if (nextMode != mode) { mode = nextMode; selected = -1; adding = false; dragging = false; }
+            int nextMode = GUI.Toolbar(new Rect(canvasArea.x+8,canvasArea.y+5,330,24),mode,new[]{"전투 배치 편집","연출 배치 보기","NPC 입구 연결"});
+            if (nextMode != mode) { mode = nextMode; selected = -1; adding = false; dragging = false;pickNpc=pickSpawn=dragGateway=false; }
             using (new EditorGUI.DisabledScope(mode != 0 || loadError.Length > 0))
             {
-                adding = GUI.Toggle(new Rect(canvasArea.x+230,canvasArea.y+7,100,22),adding,"클릭하여 추가");
+                adding = GUI.Toggle(new Rect(canvasArea.x+350,canvasArea.y+7,100,22),adding,"클릭하여 추가");
             }
             viewport = new Rect(canvasArea.x+8,canvasArea.y+36,canvasArea.width-16,canvasArea.height-44);
             if (mode == 1) { DrawScript(); viewport.y += 58; viewport.height -= 58; }
@@ -42,14 +42,14 @@ namespace DarkSaver.Original.Editor.Scenarios
         private void DrawHeader()
         {
             EditorGUI.DrawRect(new Rect(0,0,position.width,35),new Color(.14f,.17f,.21f));
-            GUI.Label(new Rect(12,7,245,24),"시나리오 편집툴  /  " + Title(mapKey) + (dirty ? " *" : ""), EditorStyles.boldLabel);
+            GUI.Label(new Rect(12,7,245,24),"시나리오 편집툴  /  " + Title(mapKey) + (dirty||dirtyGateways ? " *" : ""), EditorStyles.boldLabel);
             using (new EditorGUI.DisabledScope(document == null))
             {
                 if (GUI.Button(new Rect(position.width-325,5,65,24),"화면 맞춤")) Fit();
                 if (GUI.Button(new Rect(position.width-254,5,65,24),"100%")) { zoom=1; CenterMap(); }
-                if (GUI.Button(new Rect(position.width-183,5,78,24),"다시 열기") && MayLeave()) LoadMap(mapKey);
+                if (GUI.Button(new Rect(position.width-183,5,78,24),"다시 열기")) {if(mode==2)ReloadGateways();else if(MayLeave())LoadMap(mapKey);}
                 using (new EditorGUI.DisabledScope(loadError.Length > 0))
-                    if (GUI.Button(new Rect(position.width-99,5,86,24),"배치 저장")) Save();
+                    if (GUI.Button(new Rect(position.width-99,5,86,24),mode==2?"입구 저장":"배치 저장")) {if(mode==2)SaveGateways();else Save();}
             }
         }
         private void DrawMaps(Rect rect)
@@ -73,6 +73,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         }
         private void DrawInspector(Rect rect)
         {
+            if(mode==2){DrawGatewayInspector(rect);return;}
             GUILayout.BeginArea(rect,EditorStyles.helpBox);
             inspectorScroll=EditorGUILayout.BeginScrollView(inspectorScroll);
             GUILayout.Label(document.width+" × "+document.height+" 타일",EditorStyles.boldLabel);
@@ -162,12 +163,14 @@ namespace DarkSaver.Original.Editor.Scenarios
             if(e.type==EventType.MouseDrag&&e.button==2&&inside){pan+=e.delta;e.Use();Repaint();}
             if(e.type==EventType.KeyDown&&GUIUtility.keyboardControl==0)
             {
-                if((e.control||e.command)&&e.keyCode==KeyCode.S){Save();e.Use();}
+                if((e.control||e.command)&&e.keyCode==KeyCode.S){if(mode==2)SaveGateways();else Save();e.Use();}
                 else if(mode==0&&loadError.Length==0&&(e.control||e.command)&&e.keyCode==KeyCode.Z){History(!e.shift);e.Use();}
                 else if(mode==0&&loadError.Length==0&&(e.control||e.command)&&e.keyCode==KeyCode.Y){History(false);e.Use();}
                 else if(e.keyCode==KeyCode.Delete||e.keyCode==KeyCode.Backspace){DeleteSelected();e.Use();}
             }
-            if(loadError.Length>0||mode!=0){dragging=false;return;}
+            if(loadError.Length>0)return;
+            if(mode==2){ProcessGatewayInput(e,inside,local);return;}
+            if(mode!=0){dragging=false;return;}
             if(e.type==EventType.MouseDown&&e.button==0&&inside&&hoverX>=0)
             {
                 GUI.FocusControl(null);
@@ -210,8 +213,9 @@ namespace DarkSaver.Original.Editor.Scenarios
                 if(entries)
                 {foreach(var entry in source.entries)DrawMarker(entry,new Color(.25f,.8f,1));if(localEntry!=null)DrawMarker(localEntry,new Color(.25f,.8f,1));}
             }
-            else foreach(var actor in actors)DrawActor(actor.unit,actor.job,actor.x,actor.y,new Color(.8f,.6f,1),false);
+            else if(mode==1)foreach(var actor in actors)DrawActor(actor.unit,actor.job,actor.x,actor.y,new Color(.8f,.6f,1),false);
             foreach(var marker in source.events)if(marker.kind=="chest"?chests:quests)DrawMarker(marker,marker.kind=="chest"?new Color(1,.78f,.18f):new Color(.2f,1,.6f));
+            if(mode==2)DrawGateways();
             if(hoverX>=0)Outline(TileRect(hoverX,hoverY),new Color(1,1,1,.5f),1);
             GUI.EndGroup();
         }

@@ -22,6 +22,11 @@ namespace DarkSaver.Original.Entry
         public WorldReply Request_ContinueScenario() => WorldRequest(s => s.ContinueCampaignPresentation());
         public WorldReply Request_ClearScenario() => WorldRequest(s => s.RequestCampaignClear());
         public WorldReply Request_CampaignUnitAction(int unit) => WorldRequest(s => s.CampaignUnitAction(unit));
+        public WorldReply Request_JoinScenarioRoom(string room,string token,string request)
+        {
+            var reply=WorldRequest(s=>s.JoinScenarioRoom(room,token,request),true);
+            if(reply.Accepted)Notify_ScenarioEntered?.Invoke(reply);return reply;
+        }
         // Trusted local-server notification adapter, never called by map clicks.
         public WorldReply Receive_ScenarioClear(CampaignClearNotice notice) => WorldRequest(s => s.ReceiveCampaignClear(notice));
         private void FlushCampaignEffects()

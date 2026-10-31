@@ -32,7 +32,7 @@ def main():
     player_warnings = compile('player',common+player_refs+['-out:'+str(WORK/'OriginalPlayer.dll')],runtime)
     netrefs = ['-r:'+str(p) for p in sorted(next(sdk.glob('packs/Microsoft.NETCore.App.Ref/*/ref/net8.0')).glob('*.dll'))]
     core = [BASE/'Runtime/Entry'/n for n in ['EntryProtocol.cs','EntryAccountService.cs','EntryClient.cs','LocalAccountFileStore.cs']]
-    core += [BASE/'Runtime/World'/n for n in ['WorldModel.cs','WorldService.cs']] + [BASE/'Runtime/Campaign'/n for n in ['CampaignModel.cs','CampaignService.cs']]
+    core += [BASE/'Runtime/World'/n for n in ['WorldModel.cs','WorldService.cs']] + [BASE/'Runtime/Campaign'/n for n in ['CampaignModel.cs','CampaignService.cs','ScenarioGatewaySettings.cs','ScenarioGatewayService.cs']]
     exe = WORK/'EntryChecks.dll'
     compile('contracts',['-nologo','-target:exe','-langversion:latest','-nostdlib+','-out:'+str(exe)]+netrefs,core+sorted((BASE/'Runtime/Tutorial').glob('WaitingLesson.cs'))+sorted((BASE/'Runtime/Tutorial').glob('TutorialScript.cs'))+sorted((BASE/'Runtime/Tutorial').glob('TutorialSession.cs'))+sorted((BASE/'Runtime/Tutorial').glob('TutorialService.cs'))+[Path(__file__).with_name('EntryChecks.cs')])
     version = next((sdk/'shared/Microsoft.NETCore.App').iterdir()).name

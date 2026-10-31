@@ -10,7 +10,7 @@ def main():
  sources=[BASE/'Runtime/Entry'/p for p in ['EntryProtocol.cs','EntryAccountService.cs','EntryClient.cs','LocalAccountFileStore.cs']]
  sources += [BASE/'Runtime/Tutorial'/p for p in ['TutorialScript.cs','TutorialSession.cs','TutorialService.cs','WaitingLesson.cs']]
  sources += [BASE/'Runtime/World'/p for p in ['WorldModel.cs','WorldService.cs']]
- sources += [BASE/'Runtime/Campaign'/p for p in ['CampaignModel.cs','CampaignService.cs']]+[BASE/'Runtime/Maps/NativeMapDecoder.cs',Path(__file__).with_name('CampaignChecks.cs')]
+ sources += [BASE/'Runtime/Campaign'/p for p in ['CampaignModel.cs','CampaignService.cs','ScenarioGatewaySettings.cs','ScenarioGatewayService.cs']]+[BASE/'Runtime/Maps/NativeMapDecoder.cs',Path(__file__).with_name('CampaignChecks.cs')]
  refs=['-r:'+str(p)for p in sorted(next(sdk.glob('packs/Microsoft.NETCore.App.Ref/*/ref/net8.0')).glob('*.dll'))]
  exe=WORK/'CampaignChecks.dll';args=['-nologo','-target:exe','-langversion:latest','-nostdlib+','-out:'+str(exe)]+refs+list(map(str,sources));rsp=WORK/'checks.rsp';rsp.write_text('\n'.join('"'+a+'"'for a in args)+'\n')
  run=subprocess.run([str(dotnet),str(csc),'@'+str(rsp)],cwd=ROOT,capture_output=True,text=True);(WORK/'compile.log').write_text(run.stdout+run.stderr)

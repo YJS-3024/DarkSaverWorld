@@ -29,7 +29,7 @@ namespace DarkSaver.Original.Entry
                 goldKnown = definition.rules.initialGoldKnown, gold = definition.rules.initialGoldKnown ? definition.rules.initialGold : 0,
                 bankKnown = definition.rules.initialBankKnown, bank = definition.rules.initialBankKnown ? definition.rules.initialBank : 0 };
             var map = definition.Map(record.map);
-            if (map == null || !map.map.Contains(new TutorialTile(record.x, record.y))) return WorldResult(WorldFailure.InvalidStage);
+            if (map == null || !map.map.Contains(new TutorialTile(record.x, record.y)) || map.npcs.Any(n=>n.x==record.x&&n.y==record.y)) return WorldResult(WorldFailure.InvalidStage);
             world = new WorldSession(definition, record, owner.character.job); worldCharacter = owner.character.id;
             if (map.training) { var exit = definition.Map(1000).portals.First(g => g.targetMap == map.id); record.map = 1000; record.x = exit.returnX; record.y = exit.returnY; world.Relocate(record); }
             failure = CommitWorld(world.Record);

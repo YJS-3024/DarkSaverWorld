@@ -12,6 +12,7 @@ namespace DarkSaver.Original.World
     {
         private RectTransform panel, notice;
         private string panelToken;
+        private string selectedRoom;
         private int rowOffset, selectedHire = -1;
         private readonly List<RawImage> ownedIcons = new List<RawImage>(), offerIcons = new List<RawImage>();
         private Text balance, details, storageFee, bankBalance, hireCount;
@@ -22,16 +23,16 @@ namespace DarkSaver.Original.World
         private void ClearPanel()
         {
             if(panel!=null){panel.gameObject.SetActive(false);Destroy(panel.gameObject);}
-            panel=null;panelToken=null;ownedIcons.Clear();offerIcons.Clear();rowOffset=0;selectedHire=-1;
+            panel=null;panelToken=null;selectedRoom=null;ownedIcons.Clear();offerIcons.Clear();rowOffset=0;selectedHire=-1;
             balance=details=storageFee=bankBalance=hireCount=null;amount=null;
             if(dragGhost!=null){Destroy(dragGhost.gameObject);dragGhost=null;}
         }
         private RectTransform NativeWindow(int scene,RectTransform parent,Action<int> control)
         {
-            int index=Array.FindIndex(definition.windows,w=>w.scene==scene);var spec=definition.windows[index];
+            int index=Array.FindIndex(definition.windows,w=>w.scene==scene);var spec=scene==11?campaign.GatewayWindow:definition.windows[index];
             var root=Group(parent,"Wlib scene"+scene,new Rect((640-spec.width)/2,(480-spec.height)/2,spec.width,spec.height));
             var blocker=root.gameObject.AddComponent<Image>();blocker.color=Color.clear;
-            Picture(root,"Original artwork",new Rect(0,0,spec.width,spec.height),art.windows[index]);
+            Picture(root,"Original artwork",new Rect(0,0,spec.width,spec.height),scene==11?campaign.gatewayWindow:art.windows[index]);
             foreach(var b in spec.buttons)
             {
                 int id=b.id;var hit=Hit(root,"Native control"+id,new Rect(b.x,b.y,b.width,b.height),()=>control(id));
@@ -46,9 +47,16 @@ namespace DarkSaver.Original.World
             if(panelToken!=view.facility.token)
             {
                 ClearPanel();panelToken=view.facility.token;
-                int scene=view.facility.kind==FacilityKind.Shop?10:view.facility.kind==FacilityKind.Bank?18:view.facility.kind==FacilityKind.Warehouse?20:view.facility.kind==FacilityKind.Mercenary?9:17;
-                panelDefinition=definition.windows.First(w=>w.scene==scene);panel=NativeWindow(scene,worldWindows,FacilityControl);
-                if(view.facility.kind==FacilityKind.Shop||view.facility.kind==FacilityKind.Warehouse)
+                int scene=view.facility.kind==FacilityKind.ScenarioGateway?11:view.facility.kind==FacilityKind.Shop?10:view.facility.kind==FacilityKind.Bank?18:view.facility.kind==FacilityKind.Warehouse?20:view.facility.kind==FacilityKind.Mercenary?9:17;
+                panelDefinition=scene==11?campaign.GatewayWindow:definition.windows.First(w=>w.scene==scene);panel=NativeWindow(scene,worldWindows,FacilityControl);
+                if(view.facility.kind==FacilityKind.ScenarioGateway)
+                {
+                    string room=view.facility.room;string title=definition.Map(view.facility.scenario).title;
+                    Label(panel,"Scenario title",new Rect(105,27,380,26),title);
+                    var row=Hit(panel,"Local scenario room",new Rect(20,135,442,24),()=>{selectedRoom=room;details.color=Color.yellow;});
+                    details=Label((RectTransform)row.transform,"Room title",new Rect(4,3,434,20),title);details.color=Color.black;
+                }
+                else if(view.facility.kind==FacilityKind.Shop||view.facility.kind==FacilityKind.Warehouse)
                 {
                     for(int i=0;i<28;i++)ownedIcons.Add(ItemCell(i,false));
                     for(int i=0;i<12;i++)offerIcons.Add(ItemCell(i,true));
@@ -152,6 +160,8 @@ namespace DarkSaver.Original.World
         private void FacilityControl(int id)
         {
             if(view?.facility==null)return;var f=view.facility;string request=RequestId();
+            if(f.kind==FacilityKind.ScenarioGateway&&id==9)
+            {if(selectedRoom==null){ShowFailure(WorldFailure.InvalidInput);return;}Handle(server.Request_JoinScenarioRoom(selectedRoom,f.token,request));return;}
             if(id==40){rowOffset=Math.Max(0,rowOffset-1);return;}
             if(id==39)
             {

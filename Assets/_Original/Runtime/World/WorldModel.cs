@@ -7,18 +7,19 @@ using DarkSaver.Original.Campaign;
 
 namespace DarkSaver.Original.World
 {
-    public enum FacilityKind { None, Shop, Bank, Warehouse, Mercenary, Temple }
+    public enum FacilityKind { None, Shop, Bank, Warehouse, Mercenary, Temple, ScenarioGateway }
     public enum WorldFailure { None, Unauthenticated, InvalidStage, InvalidInput, Moving, TooFar, Busy, StaleRequest, RulesUnavailable, InsufficientFunds, InventoryFull, NotOwned, StorageUnavailable }
     [Serializable] public sealed class WorldPoint { public int x, y; public TutorialTile Tile => new TutorialTile(x, y); }
     [Serializable] public sealed class WorldPortal
     { public string id; public int targetMap, spawnX, spawnY, returnX, returnY; public WorldPoint[] cells; }
     [Serializable] public sealed class WorldNpc
-    { public string id, name, evidence; public int picture, x, y, kind; public WorldPoint[] counter; }
+    { public string id, name, evidence, gateway; public int picture, x, y, kind; public WorldPoint[] counter; }
     [Serializable] public sealed class WorldDecoration { public int picture, x, y, width, height; }
     [Serializable] public sealed class WorldMapDefinition
     {
         public int id, ground; public string title, sourceVersion, nativeKey; public bool training;
         public TutorialMap map; public WorldPortal[] portals; public WorldNpc[] npcs; public WorldDecoration[] decorations;
+        public WorldMapDefinition CopyForPlacement(){var copy=(WorldMapDefinition)MemberwiseClone();copy.portals=(WorldPortal[])portals.Clone();copy.npcs=(WorldNpc[])npcs.Clone();return copy;}
     }
     [Serializable] public sealed class WorldItemDefinition
     { public int id, picture; public long price, sellPrice; public string name, description; public bool sellKnown; }
@@ -38,6 +39,7 @@ namespace DarkSaver.Original.World
         public WorldMapDefinition[] maps; public WorldShop[] shops; public WorldItemDefinition[] items;
         public WorldHireOffer[] hires; public WorldRules rules; public WorldWindowDefinition[] windows;
         public CampaignDefinition campaign;
+        public ScenarioGatewaySettings gateways;
         public WorldMapDefinition Map(int id) => maps?.FirstOrDefault(m => m.id == id);
         public WorldItemDefinition Item(int id) => items?.FirstOrDefault(i => i.id == id);
         public bool IsValid => rules != null && Map(1000)?.map?.IsValid == true && shops != null && items != null && hires != null
@@ -77,7 +79,7 @@ namespace DarkSaver.Original.World
     }
     public sealed class WorldFacilityView
     {
-        public string token, npc; public FacilityKind kind;
+        public string token, npc, room; public int scenario; public FacilityKind kind;
         public WorldOwnedItem[] inventory, storage; public int[] offers; public ulong storageFee;
     }
     public sealed class WorldView
@@ -188,6 +190,7 @@ namespace DarkSaver.Original.World
                 presentation = Presentation?.Snapshot(),
                 campaignSession = CampaignSession,
                 facility = Kind == FacilityKind.None ? null : new WorldFacilityView { token = Token, npc = Npc, kind = Kind,
+                    room = Kind == FacilityKind.ScenarioGateway ? Token : null, scenario = Kind == FacilityKind.ScenarioGateway ? Definition.gateways.gates.First(g=>g.id==Definition.Map(Record.map).npcs.First(n=>n.id==Npc).gateway).targetMap : 0,
                     inventory = (Draft ?? Record).inventory.Select(i => i.Copy()).ToArray(), storage = (Draft ?? Record).storage.Select(i => i.Copy()).ToArray(),
                     storageFee = PendingStorageFee, offers = (int[])(Definition.shops.FirstOrDefault(s => s.map == Record.map)?.items.Clone() ?? Array.Empty<int>()) } };
         }

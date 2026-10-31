@@ -7,6 +7,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 using DarkSaver.Original.World;
+using DarkSaver.Original.Campaign;
 
 namespace DarkSaver.Original.Editor.Scenarios
 {
@@ -49,10 +50,8 @@ namespace DarkSaver.Original.Editor.Scenarios
             titleContent = new GUIContent("시나리오 편집툴"); minSize = new Vector2(1000,650);
             try
             {
-                keys = Directory.GetDirectories(DecodedFolder, "*set.arc").Select(Path.GetFileName).Select(n => n.Substring(0, n.Length - 7))
-                    .Where(k => ScenarioLayoutData.IsKey(k) && File.Exists(NativeFolder + k + ".mrc.bytes"))
-                    .Concat(Directory.GetFiles(NativeFolder,"*.mrc.bytes").Select(p => Path.GetFileName(p).Replace(".mrc.bytes",""))
-                        .Where(k => int.TryParse(k,out int id) && id > 1000 && id < 1500)).Distinct().OrderBy(int.Parse).ToArray();
+                LoadGateways(dirtyGateways && gatewayDocument != null);
+                keys = gatewayCatalog.maps.Select(m=>m.key).OrderBy(int.Parse).ToArray();
                 jobs.Clear(); var rows = ScenarioLayoutData.Csv(File.ReadAllText(BasePath + "Data/Tables/units_all.csv")).ToArray();
                 int job = Array.IndexOf(rows[0], "직업"), picture = Array.IndexOf(rows[0], "직그림"), name = Array.IndexOf(rows[0], "이름"), kind = Array.IndexOf(rows[0], "category");
                 foreach (var r in rows.Skip(1)) if (r.Length == rows[0].Length)
@@ -71,14 +70,14 @@ namespace DarkSaver.Original.Editor.Scenarios
         {
             try
             {
-                var map = File.ReadAllBytes(NativeFolder + key + ".mrc.bytes"); var size = NativeMapDecoder.Dimensions(map);
+                var map = File.ReadAllBytes(MapInfo(key).nativePath); var size = NativeMapDecoder.Dimensions(map);
                 string folder = DecodedFolder + key + "set.arc/", prefix = folder + key;
                 var nextSource = ScenarioLayoutData.ReadSource(key, size.width, size.height, map, ReadOptional(prefix + ".set.txt"), ReadOptional(prefix + ".pos.txt"), ReadOptional(prefix + ".evt.txt"),
                     (Directory.Exists(folder) ? Directory.GetFiles(folder, "*.de?.txt") : Array.Empty<string>()).Where(p => p.EndsWith(".deo.txt", StringComparison.Ordinal) || p.EndsWith(".dee.txt", StringComparison.Ordinal)).OrderBy(p => p.EndsWith(".deo.txt") ? 0 : 1).ToArray());
                 string path = LayoutFolder + "/" + key + ".json"; var bytes = File.Exists(path) ? File.ReadAllBytes(path) : null;
                 var next = preserve ? document : bytes == null ? nextSource.layout.Copy() : ScenarioLayoutData.Decode(bytes);
                 ScenarioLayoutData.Validate(next, nextSource.layout, new HashSet<int>(jobs.Keys));
-                var pixels = NativeMapDecoder.Render(map, id => File.ReadAllBytes(NativeFolder + "mdsr" + id + ".grs.bytes"));
+                var pixels = NativeMapDecoder.Render(map, id => File.ReadAllBytes((MapInfo(key).legacy ? BasePath+"SourceData/KaosiaLegacy/" : NativeFolder) + "mdsr" + id + ".grs.bytes"));
                 var texture = new Texture2D(pixels.width, pixels.height, TextureFormat.RGBA32, false) { filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp, hideFlags = HideFlags.HideAndDontSave };
                 var flipped = new byte[pixels.rgba.Length]; int stride = pixels.width * 4;
                 for (int y = 0; y < pixels.height; y++) Buffer.BlockCopy(pixels.rgba, y * stride, flipped, (pixels.height - 1 - y) * stride, stride);
@@ -93,7 +92,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                     var gate = world.Map(1000).portals.FirstOrDefault(p => p.targetMap == 101);
                     if (gate != null) localEntry = new ScenarioMarker { x = gate.spawnX, y = gate.spawnY, kind = "local", label = "현재 로컬 수련장 진입점", file = "KaosiaWorld.json" };
                 }
-                scriptIndex = 0; ReadScript(); loadError = ""; message = ""; hasUnsavedChanges = dirty;
+                scriptIndex = 0; ReadScript(); loadError = ""; message = ""; hasUnsavedChanges = dirty || dirtyGateways;
                 saveChangesMessage = "시나리오 " + mapKey + "의 편집 배치를 저장할까요? 원본 SET/POS는 변경하지 않습니다.";
                 Repaint();
             }
@@ -127,19 +126,19 @@ namespace DarkSaver.Original.Editor.Scenarios
             if (source == null || loadError.Length > 0) return false;
             try
             {
-                if (ScenarioLayoutData.Hash(File.ReadAllBytes(NativeFolder + mapKey + ".mrc.bytes")) != source.layout.mapHash)
+                if (ScenarioLayoutData.Hash(File.ReadAllBytes(MapInfo(mapKey).nativePath)) != source.layout.mapHash)
                     throw new IOException("원본 맵이 변경되었습니다. 다시 불러온 뒤 편집하세요.");
                 string prefix = DecodedFolder + mapKey + "set.arc/" + mapKey;
                 foreach (var pair in new[] { (ext: "set", hash: source.layout.setHash), (ext: "pos", hash: source.layout.posHash) })
                 { string text = ReadOptional(prefix + "." + pair.ext + ".txt"); if ((text == null ? "" : ScenarioLayoutData.Hash(Encoding.UTF8.GetBytes(text))) != pair.hash) throw new IOException("원본 SET/POS가 변경되었습니다. 다시 불러온 뒤 편집하세요."); }
                 savedHash = ScenarioLayoutData.Save(LayoutFolder, document, source.layout, new HashSet<int>(jobs.Keys), string.IsNullOrEmpty(savedHash) ? null : savedHash);
-                document.edited = !ScenarioLayoutData.SameUnits(document, source.layout); dirty = hasUnsavedChanges = false;
+                document.edited = !ScenarioLayoutData.SameUnits(document, source.layout); dirty = false; hasUnsavedChanges = dirtyGateways;
                 AssetDatabase.Refresh(); message = "저장: " + LayoutFolder + "/" + mapKey + ".json"; return true;
             }
             catch (Exception e) { message = e.Message; return false; }
         }
-        public override void SaveChanges() { if (Save()) base.SaveChanges(); }
-        public override void DiscardChanges() { dirty = false; base.DiscardChanges(); }
+        public override void SaveChanges() { if(dirty&&!Save())return;if(dirtyGateways&&!SaveGateways())return;base.SaveChanges(); }
+        public override void DiscardChanges() { dirty = dirtyGateways = false; base.DiscardChanges(); }
         private void DeleteSelected()
         {
             if (mode != 0 || document == null || !document.units.Any(u => u.unit == selected)) return;

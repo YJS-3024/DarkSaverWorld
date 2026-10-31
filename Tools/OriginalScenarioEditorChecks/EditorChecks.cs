@@ -15,7 +15,7 @@ internal static class EditorChecks
     private static string Read(string path)=>File.Exists(path)?File.ReadAllText(path):null;
     private static ScenarioSource Source(string root,string key)
     {
-        var map=File.ReadAllBytes(Path.Combine(root,"Assets/_Original/SourceData/Native/map/"+key+".mrc.bytes"));var size=NativeMapDecoder.Dimensions(map);
+        var map=File.ReadAllBytes(Path.Combine(root,"Assets/_Original/SourceData/"+(key=="1000"?"KaosiaLegacy/":"Native/map/")+key+".mrc.bytes"));var size=NativeMapDecoder.Dimensions(map);
         string path=Path.Combine(root,"Assets/_Original/SourceData/Decoded/map/"+key+"set.arc/"+key);
         return ScenarioLayoutData.ReadSource(key,size.width,size.height,map,Read(path+".set.txt"),Read(path+".pos.txt"),Read(path+".evt.txt"),null);
     }
@@ -25,12 +25,11 @@ internal static class EditorChecks
         var rows=ScenarioLayoutData.Csv(File.ReadAllText(Path.Combine(root,"Assets/_Original/Data/Tables/units_all.csv"))).ToArray();
         int jobColumn=Array.IndexOf(rows[0],"직업");var jobs=new HashSet<int>(rows.Skip(1).Select(r=>int.Parse(r[jobColumn])));
         Check(jobs.Count==542,"actual unit catalog parsed including quoted descriptions");
-        var keys=Directory.GetDirectories(Path.Combine(root,"Assets/_Original/SourceData/Decoded/map"),"*set.arc").Select(Path.GetFileName).Select(k=>k.Substring(0,k.Length-7))
-            .Concat(Directory.GetFiles(sourceRoot,"*.mrc.bytes").Select(Path.GetFileName).Select(k=>k.Replace(".mrc.bytes",""))
-                .Where(k=>int.TryParse(k,out int id)&&id>1000&&id<1500)).Distinct().OrderBy(int.Parse).ToArray();
+        using var gatewayMaps=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,"Assets/_Original/Data/Campaign/GatewayMaps.json")));
+        var keys=gatewayMaps.RootElement.GetProperty("maps").EnumerateArray().Select(m=>m.GetProperty("key").GetString()).OrderBy(int.Parse).ToArray();
         var sources=keys.ToDictionary(k=>k,k=>Source(root,k));
         foreach(var source in sources.Values)ScenarioLayoutData.Validate(source.layout,source.layout,jobs);
-        Check(keys.Length==141&&Enumerable.Range(101,7).Concat(Enumerable.Range(201,7)).All(i=>sources.ContainsKey(i.ToString())),"scenario/training/duel source library");
+        Check(keys.Length==151&&Enumerable.Range(101,7).Concat(Enumerable.Range(201,7)).All(i=>sources.ContainsKey(i.ToString())),"scenario/training/duel source library");
         using var literal=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,"Assets/_Original/Data/Placements/scenario_monster_placements.json")));
         int units=0;
         foreach(var map in literal.RootElement.GetProperty("scenarios").EnumerateArray())
@@ -93,7 +92,8 @@ internal static class EditorChecks
         var rendered=new List<object>();var sample=new HashSet<string>(new[]{"01","02","26","101","201","314","1010"});
         foreach(var key in keys)
         {
-            var map=NativeMapDecoder.Render(File.ReadAllBytes(Path.Combine(sourceRoot,key+".mrc.bytes")),id=>File.ReadAllBytes(Path.Combine(sourceRoot,"mdsr"+id+".grs.bytes")));
+            var mapFolder=key=="1000"?Path.Combine(root,"Assets/_Original/SourceData/KaosiaLegacy"):sourceRoot;
+            var map=NativeMapDecoder.Render(File.ReadAllBytes(Path.Combine(mapFolder,key+".mrc.bytes")),id=>File.ReadAllBytes(Path.Combine(mapFolder,"mdsr"+id+".grs.bytes")));
             Check(map.width==sources[key].layout.width*32&&map.height==sources[key].layout.height*32,"full native render "+key);
             rendered.Add(new{key,map.width,map.height,sha256=ScenarioLayoutData.Hash(map.rgba)});
             if(sample.Contains(key))File.WriteAllBytes(Path.Combine(work,key+".rgba"),map.rgba);

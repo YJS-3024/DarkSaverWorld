@@ -1,5 +1,5 @@
 """Native field/scenario resources, with no invented links, rosters or server rules."""
-import csv,hashlib,importlib.util,json,re,sys
+import csv,hashlib,importlib.util,json,re,sys,subprocess
 from pathlib import Path
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[2];BASE=ROOT/'Assets/_Original';DATA=BASE/'Data/Campaign';ART=BASE/'Art/Campaign'
@@ -61,4 +61,5 @@ def main():
  asset.write_text(text);world.metadata.meta(asset,ROOT/'Assets');Path(str(asset)+'.meta').write_text('fileFormatVersion: 2\nguid: '+world.guid(asset)+'\nNativeFormatImporter:\n  mainObjectFileID: 11400000\n')
  report.update(maps=len(maps),worldMaps=sum(m['kind']=='world'for m in maps),scenarios=sum(m['kind']=='scenario'for m in maps),originalUnits=sum(len(m['units'])for m in maps),sourceMissing=sum(m['rosterSource']=='original-missing'for m in maps),scripts=[p.relative_to(ROOT).as_posix()for p in scripts],asset=asset.relative_to(ROOT).as_posix())
  Path(__file__).with_name('campaign-assets.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:report[k]for k in ['maps','worldMaps','scenarios','originalUnits']}))
+ subprocess.run([sys.executable,str(Path(__file__).with_name('build_gateway_assets.py'))],cwd=ROOT,check=True)
 if __name__=='__main__':main()

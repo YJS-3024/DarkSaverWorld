@@ -12,6 +12,8 @@ namespace DarkSaver.Original.Campaign
         public int[] graphicIds, pictureIds;
         public Texture2D[] pictures;
         public Texture2D[] faces; public int[] faceIds;
+        public TextAsset gatewaySettings,gatewayMaps,gatewayWindowDefinition;
+        public Texture2D gatewayWindow;
         private CampaignDefinition cached;
         public CampaignDefinition Definition
         {
@@ -26,7 +28,19 @@ namespace DarkSaver.Original.Campaign
         }
         public bool IsConfigured => Definition?.maps?.Length > 0 && Definition.connections != null && maps != null && graphics?.Length == graphicIds?.Length
             && pictures?.Length == pictureIds?.Length && scripts != null && faces != null && faces.Length == faceIds?.Length;
-        public WorldDefinition Merge(WorldDefinition world) => Definition.Merge(world);
+        public GatewayMapCatalog GatewayMaps => gatewayMaps==null?null:JsonUtility.FromJson<GatewayMapCatalog>(gatewayMaps.text);
+        public WorldWindowDefinition GatewayWindow => gatewayWindowDefinition==null?null:JsonUtility.FromJson<WorldWindowDefinition>(gatewayWindowDefinition.text);
+        public WorldDefinition Merge(WorldDefinition world)
+        {
+            world=Definition.Merge(world);
+            if(gatewaySettings!=null)
+            {
+                var settings=ScenarioGatewayData.Decode(gatewaySettings.bytes);
+                if(settings.applyToGame&&settings.gates.Any(g=>g.enabled)&&(gatewayWindow==null||GatewayWindow==null))throw new System.IO.InvalidDataException("NPC 방 목록 원본 UI 자료가 없습니다.");
+                ScenarioGatewayData.Apply(settings,GatewayMaps,world);
+            }
+            return world;
+        }
         public byte[] MapBytes(int id)
         { var map = Definition.Map(id); return map == null ? null : maps[map.nativeIndex].bytes; }
         public byte[] Graphic(int id)

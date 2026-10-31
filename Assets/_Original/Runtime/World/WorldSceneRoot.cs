@@ -42,9 +42,11 @@ namespace DarkSaver.Original.World
         {
             if (value == null || !value.tutorialCompleted) return;
             if(art?.IsConfigured!=true){Debug.LogError("Original world assets are missing.",this);return;}
-            character = value.Copy(); definition = campaign?.IsConfigured == true ? campaign.Merge(art.Definition) : art.Definition;
-            server.ConfigureCampaign(campaign);
+            character = value.Copy(); definition = art.Definition;
             if (canvasObject == null) Build();
+            try { if(campaign?.IsConfigured==true)definition=campaign.Merge(definition); }
+            catch(System.Exception e){Debug.LogWarning("NPC/map configuration rejected: "+e.Message,this);ShowFailure(WorldFailure.InvalidInput);return;}
+            server.ConfigureCampaign(campaign);
             var reply = server.Request_BeginWorld(art);
             if (!reply.Accepted) { ShowFailure(reply.Failure); return; }
             tutorial.enabled = false; running = true; canvasObject.SetActive(true); view = reply.View; Paint();
@@ -82,7 +84,7 @@ namespace DarkSaver.Original.World
             foreach(var npc in m.npcs)
             {
                 string id=npc.id;var hit=Hit(mapRoot,npc.name,new Rect(npc.x*32,npc.y*32,32,32),()=>Handle(server.Request_InteractNpc(id)));
-                var image=Picture((RectTransform)hit.transform,"Native staff",new Rect(0,0,32,32),art.Picture(npc.picture));npcImages.Add((image,npc.picture));
+                var image=Picture((RectTransform)hit.transform,"Native staff",new Rect(0,0,32,32),art.Picture(npc.picture)??campaign?.Picture(npc.picture));npcImages.Add((image,npc.picture));
             }
             BuildCampaignActors();
             // Native passes: ground/detail -> bodies -> MRC sprites in file order -> labels.

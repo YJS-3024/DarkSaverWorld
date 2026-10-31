@@ -254,7 +254,7 @@ def main():
     scenario_path = ROOT/'Tools/OriginalScenarioEditorChecks/editor-check.json'
     scenario = json.loads(scenario_path.read_text()) if scenario_path.exists() else None
     if scenario:
-        assert scenario['maps'] == 141 and scenario['originalUnits'] == 610
+        assert scenario['maps'] == 151 and scenario['originalUnits'] == 610
         assert scenario['runtimeApiErrors'] == scenario['editorApiErrors'] == scenario['playerApiErrors'] == 0
         for path, digest in scenario['editorSources'].items(): assert sha((ROOT/path).read_bytes()) == digest, path
     # Explicit editor authoring is separate from immutable SourceIndex/native data.
@@ -277,6 +277,22 @@ def main():
         assert len({u['unit'] for u in row['units']}) == len(row['units']), path
         assert all(u['unit'] >= 400 and u['job'] in job_ids and 0 <= u['x'] < row['width'] and 0 <= u['y'] < row['height'] for u in row['units']), path
     expected_other |= {p.relative_to(ROOT).as_posix() for p in layouts}
+    gateway_path = ROOT/'Tools/OriginalWorldChecks/gateway-check.json'
+    gateways = json.loads(gateway_path.read_text()) if gateway_path.exists() else None
+    if gateways:
+        evidence = json.loads((ROOT/'Tools/OriginalWorldChecks/gateway-assets.json').read_text())
+        for row in evidence['outputs']: assert sha((ROOT/row['asset']).read_bytes()) == row['sha256'], row['asset']
+        settings_path = base/'Data/Campaign/UserGateways.json'
+        settings = json.loads(settings_path.read_text())
+        maps = {m['id']: m for m in json.loads((base/'Data/Campaign/GatewayMaps.json').read_text())['maps']}
+        assert settings['version'] == 1 and settings['provenance'].startswith('user-authored;')
+        assert len({g['id'] for g in settings['gates']}) == len(settings['gates'])
+        assert len({g['targetMap'] for g in settings['gates']}) == len(settings['gates'])
+        for g in settings['gates']:
+            f, t = maps[g['fromMap']], maps[g['targetMap']]
+            assert g['fromHash'] == f['hash'] and g['targetHash'] == t['hash'] and t['kind'] == 'scenario'
+            assert 0 <= g['x'] < f['width'] and 0 <= g['y'] < f['height'] and 0 <= g['spawnX'] < t['width'] and 0 <= g['spawnY'] < t['height']
+        expected_other |= {r['asset'] for r in evidence['outputs']} | {settings_path.relative_to(ROOT).as_posix()}
     assert other_paths == expected_other, other_paths ^ expected_other
     assert native == report['nativeFiles'] and images == report['imageOutputs'] and tables == 8
     # The first reset captured all actual old files, including modified and untracked ones.
