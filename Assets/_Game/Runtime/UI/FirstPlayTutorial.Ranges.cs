@@ -18,7 +18,7 @@ namespace DarkSaver.UI
         private void DrawRanges()
         {
             var mode=TutorialPresentationRules.RangeMode(progress.activeCommand,movementArmed,attackArmed,magicArmed,
-                playerMoving>=0 || openMenu>=0 || progress.topMenu>=0 || !string.IsNullOrEmpty(subMenu));
+                progress.actors.Any(a=>a.id==0 && a.moving) || openMenu>=0 || progress.topMenu>=0 || !string.IsNullOrEmpty(subMenu));
             if(mode==TutorialRangeMode.None){HideRanges();return;}
             if(!EnsurePracticeTerrain()){HideRanges();return;}
             var catalog=session.GetComponent<MagicCatalogPanel>()?.Catalog;

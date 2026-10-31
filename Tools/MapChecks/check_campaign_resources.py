@@ -17,7 +17,7 @@ def main():
         key=f'{n:02}';data=read(base/key/'Content.json');canonical=dict(data);canonical.pop('sourceHash')
         assert hashlib.sha256(json.dumps(canonical,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()==data['sourceHash'],key
         if n==1:
-            assert data['sourceHash']=='c29c31e7746b27f39b7c4da3e35039798efff4b9310e4c5063b61dd546a90426'
+            assert read(base/key/'Visuals.json')['contentHash']==data['sourceHash']
         else:
             row=manifest['scenarios'][n-2];assert row['sourceHash']==data['sourceHash']
             native=load_map(key);w,h=data['width'],data['height'];component=walkable(native,{3,6,9})
