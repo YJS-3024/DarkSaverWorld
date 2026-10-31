@@ -1,0 +1,65 @@
+
+GameCtl.dll [SHA256 f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+10002d50 <.text+0x1d50>:
+10002d50:	a1 18 c1 06 10       	mov    eax,ds:0x1006c118
+10002d55:	85 c0                	test   eax,eax
+10002d57:	74 0d                	je     0x10002d66
+10002d59:	a1 10 c1 06 10       	mov    eax,ds:0x1006c110
+10002d5e:	85 c0                	test   eax,eax
+10002d60:	0f 84 a0 00 00 00    	je     0x10002e06
+10002d66:	8b 0d 0c a7 06 10    	mov    ecx,DWORD PTR ds:0x1006a70c
+10002d6c:	56                   	push   esi
+10002d6d:	8b 74 24 08          	mov    esi,DWORD PTR [esp+0x8]
+10002d71:	57                   	push   edi
+10002d72:	8b 7c 24 10          	mov    edi,DWORD PTR [esp+0x10]
+10002d76:	89 35 e4 a0 01 10    	mov    DWORD PTR ds:0x1001a0e4,esi
+10002d7c:	85 c9                	test   ecx,ecx
+10002d7e:	89 3d e8 a0 01 10    	mov    DWORD PTR ds:0x1001a0e8,edi
+10002d84:	74 09                	je     0x10002d8f
+10002d86:	6a 00                	push   0x0
+10002d88:	57                   	push   edi
+10002d89:	56                   	push   esi
+10002d8a:	e8 61 79 00 00       	call   0x1000a6f0
+10002d8f:	8b c6                	mov    eax,esi
+10002d91:	99                   	cdq
+10002d92:	83 e2 1f             	and    edx,0x1f
+10002d95:	03 c2                	add    eax,edx
+10002d97:	8b c8                	mov    ecx,eax
+10002d99:	8b c7                	mov    eax,edi
+10002d9b:	99                   	cdq
+10002d9c:	83 e2 1f             	and    edx,0x1f
+10002d9f:	03 c2                	add    eax,edx
+10002da1:	8b 15 64 c4 01 10    	mov    edx,DWORD PTR ds:0x1001c464
+10002da7:	c1 f8 05             	sar    eax,0x5
+10002daa:	a3 e4 a8 01 10       	mov    ds:0x1001a8e4,eax
+10002daf:	03 d0                	add    edx,eax
+10002db1:	a1 60 c4 01 10       	mov    eax,ds:0x1001c460
+10002db6:	52                   	push   edx
+10002db7:	c1 f9 05             	sar    ecx,0x5
+10002dba:	03 c1                	add    eax,ecx
+10002dbc:	89 0d e8 a8 01 10    	mov    DWORD PTR ds:0x1001a8e8,ecx
+10002dc2:	50                   	push   eax
+10002dc3:	ff 15 b0 62 01 10    	call   DWORD PTR ds:0x100162b0
+10002dc9:	83 c4 08             	add    esp,0x8
+10002dcc:	85 c0                	test   eax,eax
+10002dce:	5f                   	pop    edi
+10002dcf:	5e                   	pop    esi
+10002dd0:	7c 05                	jl     0x10002dd7
+10002dd2:	a3 80 a3 01 10       	mov    ds:0x1001a380,eax
+10002dd7:	8b 0d 18 c1 06 10    	mov    ecx,DWORD PTR ds:0x1006c118
+10002ddd:	85 c9                	test   ecx,ecx
+10002ddf:	74 25                	je     0x10002e06
+10002de1:	8b 0d 04 c1 06 10    	mov    ecx,DWORD PTR ds:0x1006c104
+10002de7:	85 c9                	test   ecx,ecx
+10002de9:	75 1b                	jne    0x10002e06
+10002deb:	83 3d f0 c0 06 10 05 	cmp    DWORD PTR ds:0x1006c0f0,0x5
+10002df2:	75 12                	jne    0x10002e06
+10002df4:	39 05 f4 c0 06 10    	cmp    DWORD PTR ds:0x1006c0f4,eax
+10002dfa:	75 0a                	jne    0x10002e06
+10002dfc:	c7 05 04 c1 06 10 01 	mov    DWORD PTR ds:0x1006c104,0x1
+10002e03:	00 00 00 
+10002e06:	c3                   	ret

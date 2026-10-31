@@ -1,0 +1,1621 @@
+{
+  "scope": "Late original client static analysis; no runtime validation or server decisions",
+  "sources": {
+    "GameCtl.dll": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+    "UserUnit.dll": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+    "setunit.dll": "71b6ca3f0d7fc16405f5ea728fc0522982e2eaac169e3a1a6eb74a36e41bfaca",
+    "Saver.exe": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689"
+  },
+  "worldConstantIdVtables": [
+    {
+      "windowId": 1,
+      "vtable": "0x48438c",
+      "idGetter": "0x42a5b0",
+      "slots": {
+        "0x10": "0x42ae10",
+        "0x24": "0x42f1b0",
+        "0x28": "0x42e870",
+        "0x2c": "0x429070",
+        "0x30": "0x4291a0",
+        "0x34": "0x4292a0",
+        "0x48": "0x42afd0",
+        "0x50": "0x42bcf0"
+      },
+      "constructorWrites": [
+        "0x42a2fe",
+        "0x42a761"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x44",
+      "family": "controller; slot 0x10 is not button handler"
+    },
+    {
+      "windowId": 2,
+      "vtable": "0x484764",
+      "idGetter": "0x440ad0",
+      "slots": {
+        "0x10": "0x441480",
+        "0x24": "0x441530",
+        "0x28": "0x441580",
+        "0x2c": "0x4415d0",
+        "0x30": "0x441610",
+        "0x34": "0x441650",
+        "0x48": "0x4411f0",
+        "0x50": "0x4416d0"
+      },
+      "constructorWrites": [
+        "0x44093f",
+        "0x440b3e"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x44",
+      "family": "controller; slot 0x10 is not button handler"
+    },
+    {
+      "windowId": 3,
+      "vtable": "0x48301c",
+      "idGetter": "0x4068b0",
+      "slots": {
+        "0x10": "0x407b60",
+        "0x24": "0x408270",
+        "0x28": "0x429210",
+        "0x2c": "0x429070",
+        "0x30": "0x4291a0",
+        "0x34": "0x4292a0",
+        "0x48": "0x428510",
+        "0x50": "0x408410"
+      },
+      "constructorWrites": [
+        "0x406195",
+        "0x406a0e"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x44",
+      "family": "controller; slot 0x10 is not button handler"
+    },
+    {
+      "windowId": 3,
+      "vtable": "0x4848e4",
+      "idGetter": "0x443220",
+      "slots": {
+        "0x10": "0x443610",
+        "0x24": "0x4445b0",
+        "0x28": "0x429210",
+        "0x2c": "0x429070",
+        "0x30": "0x4291a0",
+        "0x34": "0x4292a0",
+        "0x48": "0x428510",
+        "0x50": "0x4295f0"
+      },
+      "constructorWrites": [
+        "0x443021",
+        "0x44328d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x44",
+      "family": "controller; slot 0x10 is not button handler"
+    },
+    {
+      "windowId": 4,
+      "vtable": "0x484598",
+      "idGetter": "0x435130",
+      "slots": {
+        "0x10": "0x435530",
+        "0x24": "0x42f1b0",
+        "0x28": "0x42e870",
+        "0x2c": "0x429070",
+        "0x30": "0x4291a0",
+        "0x34": "0x4292a0",
+        "0x48": "0x42afd0",
+        "0x50": "0x42bcf0"
+      },
+      "constructorWrites": [
+        "0x435060",
+        "0x43519e"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x44",
+      "family": "controller; slot 0x10 is not button handler"
+    },
+    {
+      "windowId": 17,
+      "vtable": "0x4863c4",
+      "idGetter": "0x470630",
+      "slots": {
+        "0x10": "0x433ab0",
+        "0x24": "0x470800",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x470a00",
+        "0x34": "0x470970",
+        "0x48": "0x4344b0",
+        "0x50": "0x470a80"
+      },
+      "constructorWrites": [
+        "0x470588",
+        "0x47069d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 18,
+      "vtable": "0x485da8",
+      "idGetter": "0x464d80",
+      "slots": {
+        "0x10": "0x464f10",
+        "0x24": "0x465130",
+        "0x28": "0x433e20",
+        "0x2c": "0x4652a0",
+        "0x30": "0x433ec0",
+        "0x34": "0x4650f0",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x464c48",
+        "0x464df0"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 20,
+      "vtable": "0x486108",
+      "idGetter": "0x46a650",
+      "slots": {
+        "0x10": "0x46a780",
+        "0x24": "0x46a7d0",
+        "0x28": "0x433e20",
+        "0x2c": "0x46aa20",
+        "0x30": "0x433ec0",
+        "0x34": "0x46af70",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x46a353",
+        "0x46a6bd"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 21,
+      "vtable": "0x4855c4",
+      "idGetter": "0x457280",
+      "slots": {
+        "0x10": "0x457420",
+        "0x24": "0x4574b0",
+        "0x28": "0x4588e0",
+        "0x2c": "0x4574e0",
+        "0x30": "0x433ec0",
+        "0x34": "0x457510",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x4570e7",
+        "0x4572f0"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 22,
+      "vtable": "0x484d98",
+      "idGetter": "0x449e70",
+      "slots": {
+        "0x10": "0x44a0d0",
+        "0x24": "0x44a150",
+        "0x28": "0x433e20",
+        "0x2c": "0x44a1e0",
+        "0x30": "0x433ec0",
+        "0x34": "0x44a010",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x449bb4",
+        "0x449f50"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 23,
+      "vtable": "0x485c34",
+      "idGetter": "0x45f0d0",
+      "slots": {
+        "0x10": "0x45f3e0",
+        "0x24": "0x45f5d0",
+        "0x28": "0x433e20",
+        "0x2c": "0x45f6a0",
+        "0x30": "0x433ec0",
+        "0x34": "0x45f340",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x45eee2",
+        "0x45f192"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 24,
+      "vtable": "0x486358",
+      "idGetter": "0x46f390",
+      "slots": {
+        "0x10": "0x46f4b0",
+        "0x24": "0x46ff80",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x46f5a0",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x46f205",
+        "0x46f400"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 25,
+      "vtable": "0x4864a8",
+      "idGetter": "0x4719f0",
+      "slots": {
+        "0x10": "0x471ba0",
+        "0x24": "0x4723c0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x471c40",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x471848",
+        "0x471aae"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 26,
+      "vtable": "0x486030",
+      "idGetter": "0x469a70",
+      "slots": {
+        "0x10": "0x469b80",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x469c70",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x46992f",
+        "0x469add"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 27,
+      "vtable": "0x485774",
+      "idGetter": "0x459dc0",
+      "slots": {
+        "0x10": "0x459eb0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x459fb0",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x459d07",
+        "0x459e2d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 28,
+      "vtable": "0x485ae4",
+      "idGetter": "0x45db70",
+      "slots": {
+        "0x10": "0x45dc40",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x45dc80",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x45daab",
+        "0x45dbdd"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 29,
+      "vtable": "0x484e10",
+      "idGetter": "0x44bac0",
+      "slots": {
+        "0x10": "0x44a0d0",
+        "0x24": "0x44a150",
+        "0x28": "0x433e20",
+        "0x2c": "0x44a1e0",
+        "0x30": "0x433ec0",
+        "0x34": "0x44a010",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44ba75",
+        "0x44bb10"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 30,
+      "vtable": "0x484e88",
+      "idGetter": "0x44bbc0",
+      "slots": {
+        "0x10": "0x44a0d0",
+        "0x24": "0x44a150",
+        "0x28": "0x433e20",
+        "0x2c": "0x44a1e0",
+        "0x30": "0x433ec0",
+        "0x34": "0x44a010",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44bb77",
+        "0x44bc10"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 31,
+      "vtable": "0x484f00",
+      "idGetter": "0x44bcc0",
+      "slots": {
+        "0x10": "0x44a0d0",
+        "0x24": "0x44a150",
+        "0x28": "0x433e20",
+        "0x2c": "0x44a1e0",
+        "0x30": "0x433ec0",
+        "0x34": "0x44a010",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44bc77",
+        "0x44bd10"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 32,
+      "vtable": "0x484f78",
+      "idGetter": "0x44bdc0",
+      "slots": {
+        "0x10": "0x44a0d0",
+        "0x24": "0x44a150",
+        "0x28": "0x433e20",
+        "0x2c": "0x44a1e0",
+        "0x30": "0x433ec0",
+        "0x34": "0x44a010",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44bd77",
+        "0x44be10"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 33,
+      "vtable": "0x485bc8",
+      "idGetter": "0x45ea70",
+      "slots": {
+        "0x10": "0x45eb80",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x45ec40",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x45e76c",
+        "0x45eadd"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 34,
+      "vtable": "0x484a90",
+      "idGetter": "0x445150",
+      "slots": {
+        "0x10": "0x4451e0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x4453b0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x4450e3",
+        "0x4451a0"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 35,
+      "vtable": "0x4862ec",
+      "idGetter": "0x46eb80",
+      "slots": {
+        "0x10": "0x46ec70",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x46ece0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x46ea6e",
+        "0x46ebed"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 36,
+      "vtable": "0x484be8",
+      "idGetter": "0x446aa0",
+      "slots": {
+        "0x10": "0x446ba0",
+        "0x24": "0x447360",
+        "0x28": "0x4473b0",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x446db0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x4468f6",
+        "0x446b0d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 37,
+      "vtable": "0x486430",
+      "idGetter": "0x470d00",
+      "slots": {
+        "0x10": "0x44a0d0",
+        "0x24": "0x44a150",
+        "0x28": "0x433e20",
+        "0x2c": "0x44a1e0",
+        "0x30": "0x433ec0",
+        "0x34": "0x470d90",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x470cb5",
+        "0x470d59"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 38,
+      "vtable": "0x485fc4",
+      "idGetter": "0x468bc0",
+      "slots": {
+        "0x10": "0x4691c0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x468d30",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x4689c1",
+        "0x468c2d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 39,
+      "vtable": "0x486214",
+      "idGetter": "0x46e1e0",
+      "slots": {
+        "0x10": "0x46e2b0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x468d30",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x46e1a4",
+        "0x46e24d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 41,
+      "vtable": "0x484c54",
+      "idGetter": "0x4476f0",
+      "slots": {
+        "0x10": "0x447890",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x447a80",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x4475b0",
+        "0x44775d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 42,
+      "vtable": "0x484cc0",
+      "idGetter": "0x448bc0",
+      "slots": {
+        "0x10": "0x448cd0",
+        "0x24": "0x448e90",
+        "0x28": "0x433e20",
+        "0x2c": "0x449090",
+        "0x30": "0x4491a0",
+        "0x34": "0x448df0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x4489e5",
+        "0x448c2d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 43,
+      "vtable": "0x4849b8",
+      "idGetter": "0x4448c0",
+      "slots": {
+        "0x10": "0x4449d0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x433a10",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x444782",
+        "0x44492d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 44,
+      "vtable": "0x485eec",
+      "idGetter": "0x467c20",
+      "slots": {
+        "0x10": "0x433ab0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x467d10",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x467bb4",
+        "0x467c8d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 45,
+      "vtable": "0x485934",
+      "idGetter": "0x45c100",
+      "slots": {
+        "0x10": "0x45c3c0",
+        "0x24": "0x45c650",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x45c2a0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x45bd66",
+        "0x45c172"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 46,
+      "vtable": "0x486280",
+      "idGetter": "0x46e5a0",
+      "slots": {
+        "0x10": "0x46e680",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x46e6d0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x46e544",
+        "0x46e60d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 47,
+      "vtable": "0x485a78",
+      "idGetter": "0x45d680",
+      "slots": {
+        "0x10": "0x45d6f0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x45d760",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x45d653",
+        "0x45d6d0"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 48,
+      "vtable": "0x4851b0",
+      "idGetter": "0x44cc50",
+      "slots": {
+        "0x10": "0x44a0d0",
+        "0x24": "0x44a150",
+        "0x28": "0x433e20",
+        "0x2c": "0x44a1e0",
+        "0x30": "0x433ec0",
+        "0x34": "0x44a010",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44cc33",
+        "0x44cca0"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 49,
+      "vtable": "0x48584c",
+      "idGetter": "0x45acf0",
+      "slots": {
+        "0x10": "0x45ade0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x45aec0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x45ab7a",
+        "0x45ad5d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 50,
+      "vtable": "0x485a0c",
+      "idGetter": "0x45d1e0",
+      "slots": {
+        "0x10": "0x45d2d0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x45d480",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x45d09f",
+        "0x45d24d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 51,
+      "vtable": "0x484b74",
+      "idGetter": "0x4464b0",
+      "slots": {
+        "0x10": "0x446520",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x45aec0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x446483",
+        "0x446500"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 52,
+      "vtable": "0x4857e0",
+      "idGetter": "0x45a450",
+      "slots": {
+        "0x10": "0x45a520",
+        "0x24": "0x447360",
+        "0x28": "0x4473b0",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x446db0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x45a41a",
+        "0x45a4bd"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 53,
+      "vtable": "0x484afc",
+      "idGetter": "0x445a90",
+      "slots": {
+        "0x10": "0x445b80",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x445c60",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x4458bb",
+        "0x445afd"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 54,
+      "vtable": "0x486598",
+      "idGetter": "0x472ba0",
+      "slots": {
+        "0x10": "0x472d20",
+        "0x24": "0x473170",
+        "0x28": "0x4731c0",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x472eb0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x472a98",
+        "0x472c5f"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 55,
+      "vtable": "0x484a24",
+      "idGetter": "0x444c90",
+      "slots": {
+        "0x10": "0x444d00",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x444df0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x444c63",
+        "0x444ce0"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 57,
+      "vtable": "0x48652c",
+      "idGetter": "0x472560",
+      "slots": {
+        "0x10": "0x433ab0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x472670",
+        "0x48": "0x4344b0",
+        "0x50": "0x472640"
+      },
+      "constructorWrites": [
+        "0x47249c",
+        "0x4725cd"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 58,
+      "vtable": "0x485b5c",
+      "idGetter": "0x45e240",
+      "slots": {
+        "0x10": "0x45e310",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x45e380",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x45e1f4",
+        "0x45e2ad"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 59,
+      "vtable": "0x485528",
+      "idGetter": "0x454bd0",
+      "slots": {
+        "0x10": "0x454df0",
+        "0x24": "0x455020",
+        "0x28": "0x455ef0",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x454ee0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x454a24",
+        "0x454c92"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 60,
+      "vtable": "0x48569c",
+      "idGetter": "0x459180",
+      "slots": {
+        "0x10": "0x433ab0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x459340",
+        "0x48": "0x4344b0",
+        "0x50": "0x459310"
+      },
+      "constructorWrites": [
+        "0x4590ca",
+        "0x4591ed"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 61,
+      "vtable": "0x485708",
+      "idGetter": "0x4598a0",
+      "slots": {
+        "0x10": "0x459970",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x459a00",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x459854",
+        "0x45990d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 62,
+      "vtable": "0x486174",
+      "idGetter": "0x46c600",
+      "slots": {
+        "0x10": "0x46c7d0",
+        "0x24": "0x46c8d0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x46c870",
+        "0x48": "0x4344b0",
+        "0x50": "0x46c8b0"
+      },
+      "constructorWrites": [
+        "0x46c37d",
+        "0x46c670"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 63,
+      "vtable": "0x4853e4",
+      "idGetter": "0x452900",
+      "slots": {
+        "0x10": "0x452970",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x4529e0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x4528d5",
+        "0x452950"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 64,
+      "vtable": "0x48609c",
+      "idGetter": "0x469ee0",
+      "slots": {
+        "0x10": "0x469fc0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x46a030",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x469e84",
+        "0x469f4d"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 65,
+      "vtable": "0x4859a0",
+      "idGetter": "0x45cc80",
+      "slots": {
+        "0x10": "0x45ccf0",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x433a10",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x45cbd5",
+        "0x45ccd0"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 66,
+      "vtable": "0x485630",
+      "idGetter": "0x458b90",
+      "slots": {
+        "0x10": "0x458c60",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x458cd0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x458b44",
+        "0x458bfd"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 67,
+      "vtable": "0x485e14",
+      "idGetter": "0x465f40",
+      "slots": {
+        "0x10": "0x4660d0",
+        "0x24": "0x4662d0",
+        "0x28": "0x433e20",
+        "0x2c": "0x466430",
+        "0x30": "0x433ec0",
+        "0x34": "0x466590",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x465e94",
+        "0x465fb0"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 68,
+      "vtable": "0x485cb8",
+      "idGetter": "0x460850",
+      "slots": {
+        "0x10": "0x460920",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x460990",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x460804",
+        "0x4608bd"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 69,
+      "vtable": "0x4858c0",
+      "idGetter": "0x45b650",
+      "slots": {
+        "0x10": "0x45b6c0",
+        "0x24": "0x45b7d0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x45b820",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x45b623",
+        "0x45b6a0"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 70,
+      "vtable": "0x48530c",
+      "idGetter": "0x44faa0",
+      "slots": {
+        "0x10": "0x44fc50",
+        "0x24": "0x44fe10",
+        "0x28": "0x433e20",
+        "0x2c": "0x450120",
+        "0x30": "0x433ec0",
+        "0x34": "0x4504d0",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44f6fb",
+        "0x44fb10"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 71,
+      "vtable": "0x485378",
+      "idGetter": "0x4525c0",
+      "slots": {
+        "0x10": "0x452630",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x452710",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x452595",
+        "0x452610"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 72,
+      "vtable": "0x48529c",
+      "idGetter": "0x44d5a0",
+      "slots": {
+        "0x10": "0x44d7e0",
+        "0x24": "0x44d9c0",
+        "0x28": "0x433e20",
+        "0x2c": "0x44da50",
+        "0x30": "0x433ec0",
+        "0x34": "0x44d720",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44d249",
+        "0x44d610"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 73,
+      "vtable": "0x484d2c",
+      "idGetter": "0x449690",
+      "slots": {
+        "0x10": "0x449760",
+        "0x24": "0x433be0",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x4497d0",
+        "0x48": "0x4344b0",
+        "0x50": "0x4346d0"
+      },
+      "constructorWrites": [
+        "0x449655",
+        "0x4496fd"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 74,
+      "vtable": "0x484ff0",
+      "idGetter": "0x44bec0",
+      "slots": {
+        "0x10": "0x44d7e0",
+        "0x24": "0x44d9c0",
+        "0x28": "0x433e20",
+        "0x2c": "0x44da50",
+        "0x30": "0x433ec0",
+        "0x34": "0x44d720",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44be77",
+        "0x44bf10"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 75,
+      "vtable": "0x485228",
+      "idGetter": "0x44ce50",
+      "slots": {
+        "0x10": "0x44d7e0",
+        "0x24": "0x44d9c0",
+        "0x28": "0x433e20",
+        "0x2c": "0x44da50",
+        "0x30": "0x433ec0",
+        "0x34": "0x44d720",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44ce33",
+        "0x44cea0"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 76,
+      "vtable": "0x485060",
+      "idGetter": "0x44c230",
+      "slots": {
+        "0x10": "0x44d7e0",
+        "0x24": "0x44d9c0",
+        "0x28": "0x433e20",
+        "0x2c": "0x44da50",
+        "0x30": "0x433ec0",
+        "0x34": "0x44d720",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44c1e7",
+        "0x44c280"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 77,
+      "vtable": "0x4850d0",
+      "idGetter": "0x44c5a0",
+      "slots": {
+        "0x10": "0x44d7e0",
+        "0x24": "0x44d9c0",
+        "0x28": "0x433e20",
+        "0x2c": "0x44da50",
+        "0x30": "0x433ec0",
+        "0x34": "0x44d720",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44c557",
+        "0x44c5f0"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 78,
+      "vtable": "0x485140",
+      "idGetter": "0x44c930",
+      "slots": {
+        "0x10": "0x44d7e0",
+        "0x24": "0x44d9c0",
+        "0x28": "0x433e20",
+        "0x2c": "0x44da50",
+        "0x30": "0x433ec0",
+        "0x34": "0x44d720",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x44c8e7",
+        "0x44c980"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    },
+    {
+      "windowId": 81,
+      "vtable": "0x485e80",
+      "idGetter": "0x4670e0",
+      "slots": {
+        "0x10": "0x467240",
+        "0x24": "0x467150",
+        "0x28": "0x433e20",
+        "0x2c": "0x433d00",
+        "0x30": "0x433ec0",
+        "0x34": "0x467470",
+        "0x48": "0x4344b0",
+        "0x50": "0x434ed0"
+      },
+      "constructorWrites": [
+        "0x4670b3",
+        "0x467130"
+      ],
+      "buttonBranchSemantics": "not exhaustively classified",
+      "buttonSlot": "0x10",
+      "family": "common-window candidate"
+    }
+  ],
+  "worldCoverageLimit": "Constant-return GetID only; not a proof that all UI classes were enumerated. Window IDs are not LSC scene IDs.",
+  "battleSceneDispatch": [
+    {
+      "sceneId": 0,
+      "dispatchIndex": 0,
+      "buttonHandler": "0x10004ab1"
+    },
+    {
+      "sceneId": 1,
+      "dispatchIndex": 1,
+      "buttonHandler": "0x10004aeb"
+    },
+    {
+      "sceneId": 2,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 3,
+      "dispatchIndex": 2,
+      "buttonHandler": "0x10004b6b"
+    },
+    {
+      "sceneId": 4,
+      "dispatchIndex": 3,
+      "buttonHandler": "0x10004ba5"
+    },
+    {
+      "sceneId": 5,
+      "dispatchIndex": 4,
+      "buttonHandler": "0x10004db0"
+    },
+    {
+      "sceneId": 6,
+      "dispatchIndex": 5,
+      "buttonHandler": "0x10004dd1"
+    },
+    {
+      "sceneId": 7,
+      "dispatchIndex": 6,
+      "buttonHandler": "0x10004df2"
+    },
+    {
+      "sceneId": 8,
+      "dispatchIndex": 7,
+      "buttonHandler": "0x10004e53"
+    },
+    {
+      "sceneId": 9,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 10,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 11,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 12,
+      "dispatchIndex": 8,
+      "buttonHandler": "0x10004ef7"
+    },
+    {
+      "sceneId": 13,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 14,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 15,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 16,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 17,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 18,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 19,
+      "dispatchIndex": 9,
+      "buttonHandler": "0x10004f5d"
+    },
+    {
+      "sceneId": 20,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 21,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 22,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 23,
+      "dispatchIndex": 12,
+      "buttonHandler": "0x10004ff5"
+    },
+    {
+      "sceneId": 24,
+      "dispatchIndex": 10,
+      "buttonHandler": "0x10004b33"
+    },
+    {
+      "sceneId": 25,
+      "dispatchIndex": 10,
+      "buttonHandler": "0x10004b33"
+    },
+    {
+      "sceneId": 26,
+      "dispatchIndex": 10,
+      "buttonHandler": "0x10004b33"
+    },
+    {
+      "sceneId": 27,
+      "dispatchIndex": 10,
+      "buttonHandler": "0x10004b33"
+    },
+    {
+      "sceneId": 28,
+      "dispatchIndex": 11,
+      "buttonHandler": "0x10004f7e"
+    }
+  ],
+  "battleCoverageLimit": "Dispatcher targets only; button-level semantics and Continue path remain separate.",
+  "missingPatterns": [
+    {
+      "patternId": 64,
+      "record": "0x10026db0",
+      "initialStorage": "PE zero-filled virtual data",
+      "fxptnOffset": "0x13c"
+    },
+    {
+      "patternId": 65,
+      "record": "0x10026ef8",
+      "initialStorage": "PE zero-filled virtual data",
+      "fxptnOffset": "0x13c"
+    }
+  ],
+  "missingPatternFlow": "GetMagicTbl copies pattern+0x13c into legacy+0x60; zero type defaults to UserUnit 0x10005550 and clears +0x174/+0x1c4. No replacement pattern.",
+  "timing": {
+    "clockImport": "MSVCRT.clock",
+    "unitGateTicks": 80,
+    "discardBacklogAboveTicks": 500,
+    "unitGate": "one increment per call, not a catch-up loop",
+    "wallClockMeasured": false
+  },
+  "input": {
+    "commonButtonDispatch": "Saver 0x433dcd vtable+0x10, ordinal index after release inside original pressed control rectangle",
+    "doubleClickClock": [
+      "MSVCRT.dll",
+      "clock"
+    ],
+    "doubleClickThreshold": 250
+  },
+  "completion": "partial; per-control semantics, complete call-chain timing and original playback remain unverified"
+}

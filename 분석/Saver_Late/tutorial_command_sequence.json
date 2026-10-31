@@ -1,0 +1,3679 @@
+{
+  "scope": "Complete original tutorial text order; no inferred command handler semantics.",
+  "source": "분석/Saver_Late/decoded/map/tutorial.arc/tutorial.deo",
+  "sha256": "123c82baf82ec10d025526e1c8c34c2e1d40db686f1803e55693e2de2f9fc9a7",
+  "earlySha256": "33a771201fdd846f9094a902474eb4b9e81ea5ac31dec678942a4505619b2d4d",
+  "sameLinesAcrossVersions": true,
+  "commands": [
+    {
+      "sequence": 1,
+      "sourceLine": 1,
+      "dialogueIndex": 0,
+      "command": "LOADSCENE",
+      "arguments": "301",
+      "raw": "LOADSCENE 301"
+    },
+    {
+      "sequence": 2,
+      "sourceLine": 2,
+      "dialogueIndex": 0,
+      "command": "PLAYMIDI",
+      "arguments": "bgm\\nco01.mid 1",
+      "raw": "PLAYMIDI bgm\\nco01.mid 1"
+    },
+    {
+      "sequence": 3,
+      "sourceLine": 3,
+      "dialogueIndex": 0,
+      "command": "SETPOSITION",
+      "arguments": "10 7",
+      "raw": "SETPOSITION 10 7"
+    },
+    {
+      "sequence": 4,
+      "sourceLine": 4,
+      "dialogueIndex": 0,
+      "command": "TUTORIAL",
+      "arguments": "",
+      "raw": "TUTORIAL"
+    },
+    {
+      "sequence": 5,
+      "sourceLine": 5,
+      "dialogueIndex": 0,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 6,
+      "sourceLine": 6,
+      "dialogueIndex": 0,
+      "command": "DISABLE",
+      "arguments": "KEYBOARD",
+      "raw": "DISABLE KEYBOARD"
+    },
+    {
+      "sequence": 7,
+      "sourceLine": 7,
+      "dialogueIndex": 0,
+      "command": "ENABLE",
+      "arguments": "MOUSEMOVE",
+      "raw": "ENABLE MOUSEMOVE"
+    },
+    {
+      "sequence": 8,
+      "sourceLine": 9,
+      "dialogueIndex": 0,
+      "command": "CHARPOS",
+      "arguments": "COM0 000 2 6",
+      "raw": "CHARPOS COM0 000 2 6"
+    },
+    {
+      "sequence": 9,
+      "sourceLine": 10,
+      "dialogueIndex": 0,
+      "command": "CHARABILITY",
+      "arguments": "000",
+      "raw": "CHARABILITY 000"
+    },
+    {
+      "sequence": 10,
+      "sourceLine": 11,
+      "dialogueIndex": 0,
+      "command": "CHARSETMAGIC",
+      "arguments": "000 1 101",
+      "raw": "CHARSETMAGIC 000 1 101"
+    },
+    {
+      "sequence": 11,
+      "sourceLine": 12,
+      "dialogueIndex": 0,
+      "command": "CHARSETSKILL",
+      "arguments": "000 1 10101",
+      "raw": "CHARSETSKILL 000 1 10101"
+    },
+    {
+      "sequence": 12,
+      "sourceLine": 13,
+      "dialogueIndex": 0,
+      "command": "CHARPOS",
+      "arguments": "125 100 18 6",
+      "raw": "CHARPOS 125 100 18 6"
+    },
+    {
+      "sequence": 13,
+      "sourceLine": 14,
+      "dialogueIndex": 0,
+      "command": "CHARABILITY",
+      "arguments": "100",
+      "raw": "CHARABILITY 100"
+    },
+    {
+      "sequence": 14,
+      "sourceLine": 15,
+      "dialogueIndex": 0,
+      "command": "CHARPOS",
+      "arguments": "301 400 7 6",
+      "raw": "CHARPOS 301 400 7 6"
+    },
+    {
+      "sequence": 15,
+      "sourceLine": 16,
+      "dialogueIndex": 0,
+      "command": "CHARABILITY",
+      "arguments": "400",
+      "raw": "CHARABILITY 400"
+    },
+    {
+      "sequence": 16,
+      "sourceLine": 17,
+      "dialogueIndex": 0,
+      "command": "CHARPOS",
+      "arguments": "301 410 13 6",
+      "raw": "CHARPOS 301 410 13 6"
+    },
+    {
+      "sequence": 17,
+      "sourceLine": 18,
+      "dialogueIndex": 0,
+      "command": "CHARABILITY",
+      "arguments": "410",
+      "raw": "CHARABILITY 410"
+    },
+    {
+      "sequence": 18,
+      "sourceLine": 19,
+      "dialogueIndex": 1,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 이제부터는 전투에 대해 가르쳐 주겠네.|전투에서의 움직임은 앞에서 가르쳐 준 |것과는 다르게 움직임이 느려진다네.",
+      "raw": "MESSAGE 1 125 0 0 이제부터는 전투에 대해 가르쳐 주겠네.|전투에서의 움직임은 앞에서 가르쳐 준 |것과는 다르게 움직임이 느려진다네."
+    },
+    {
+      "sequence": 19,
+      "sourceLine": 20,
+      "dialogueIndex": 1,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 20,
+      "sourceLine": 21,
+      "dialogueIndex": 2,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 그것은 악신 아흐리만의 사악한 기운을 |받은 몬스터 들과 싸울 때는 우리도",
+      "raw": "MESSAGE 1 125 0 0 그것은 악신 아흐리만의 사악한 기운을 |받은 몬스터 들과 싸울 때는 우리도"
+    },
+    {
+      "sequence": 21,
+      "sourceLine": 22,
+      "dialogueIndex": 2,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 22,
+      "sourceLine": 23,
+      "dialogueIndex": 3,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 그 사악한 기운의 영향으로 움직임이 |느려지기 때문이라네.",
+      "raw": "MESSAGE 1 125 0 0 그 사악한 기운의 영향으로 움직임이 |느려지기 때문이라네."
+    },
+    {
+      "sequence": 23,
+      "sourceLine": 24,
+      "dialogueIndex": 3,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 24,
+      "sourceLine": 25,
+      "dialogueIndex": 4,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자, 전투의 가장 처음일세.| 가장 기본적인 것부터 가르쳐 주겠네.",
+      "raw": "MESSAGE 1 125 0 0 자, 전투의 가장 처음일세.| 가장 기본적인 것부터 가르쳐 주겠네."
+    },
+    {
+      "sequence": 25,
+      "sourceLine": 26,
+      "dialogueIndex": 4,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 26,
+      "sourceLine": 27,
+      "dialogueIndex": 5,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 우선은.. |자기 캐릭터에 마우스를 옮겨놓고|버튼을 클릭해보도록 하게...",
+      "raw": "MESSAGE 1 125 0 0 우선은.. |자기 캐릭터에 마우스를 옮겨놓고|버튼을 클릭해보도록 하게..."
+    },
+    {
+      "sequence": 27,
+      "sourceLine": 28,
+      "dialogueIndex": 5,
+      "command": "SETTOPMENU",
+      "arguments": "",
+      "raw": "SETTOPMENU"
+    },
+    {
+      "sequence": 28,
+      "sourceLine": 29,
+      "dialogueIndex": 5,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 29,
+      "sourceLine": 30,
+      "dialogueIndex": 5,
+      "command": "CHARMENU",
+      "arguments": "000 999 255",
+      "raw": "CHARMENU 000 999 255"
+    },
+    {
+      "sequence": 30,
+      "sourceLine": 31,
+      "dialogueIndex": 5,
+      "command": "WAITTOPMENU",
+      "arguments": "000",
+      "raw": "WAITTOPMENU 000"
+    },
+    {
+      "sequence": 31,
+      "sourceLine": 32,
+      "dialogueIndex": 5,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 32,
+      "sourceLine": 33,
+      "dialogueIndex": 6,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 메뉴가 보이나?|이 메뉴는 전투시의 동작을 총괄하는 메뉴라네.|메뉴를 하나씩 설명해주지.",
+      "raw": "MESSAGE 1 125 0 0 메뉴가 보이나?|이 메뉴는 전투시의 동작을 총괄하는 메뉴라네.|메뉴를 하나씩 설명해주지."
+    },
+    {
+      "sequence": 33,
+      "sourceLine": 34,
+      "dialogueIndex": 6,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 34,
+      "sourceLine": 35,
+      "dialogueIndex": 6,
+      "command": "CHARMENU",
+      "arguments": "000 0",
+      "raw": "CHARMENU 000 0"
+    },
+    {
+      "sequence": 35,
+      "sourceLine": 36,
+      "dialogueIndex": 7,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 우선 왼쪽위의 사람모습의 아이콘은|[이동]이라네.",
+      "raw": "MESSAGE 1 125 0 0 우선 왼쪽위의 사람모습의 아이콘은|[이동]이라네."
+    },
+    {
+      "sequence": 36,
+      "sourceLine": 37,
+      "dialogueIndex": 7,
+      "command": "CHARMENU",
+      "arguments": "000 999 16",
+      "raw": "CHARMENU 000 999 16"
+    },
+    {
+      "sequence": 37,
+      "sourceLine": 38,
+      "dialogueIndex": 7,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 38,
+      "sourceLine": 39,
+      "dialogueIndex": 7,
+      "command": "CHARMENU",
+      "arguments": "000 999 0",
+      "raw": "CHARMENU 000 999 0"
+    },
+    {
+      "sequence": 39,
+      "sourceLine": 40,
+      "dialogueIndex": 7,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 40,
+      "sourceLine": 41,
+      "dialogueIndex": 7,
+      "command": "CHARMENU",
+      "arguments": "000 999 16",
+      "raw": "CHARMENU 000 999 16"
+    },
+    {
+      "sequence": 41,
+      "sourceLine": 42,
+      "dialogueIndex": 7,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 42,
+      "sourceLine": 43,
+      "dialogueIndex": 7,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 43,
+      "sourceLine": 45,
+      "dialogueIndex": 8,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 그 옆의 주머니는 |[도구]의 사용..",
+      "raw": "MESSAGE 1 125 0 0 그 옆의 주머니는 |[도구]의 사용.."
+    },
+    {
+      "sequence": 44,
+      "sourceLine": 46,
+      "dialogueIndex": 8,
+      "command": "CHARMENU",
+      "arguments": "000 999 32",
+      "raw": "CHARMENU 000 999 32"
+    },
+    {
+      "sequence": 45,
+      "sourceLine": 47,
+      "dialogueIndex": 8,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 46,
+      "sourceLine": 48,
+      "dialogueIndex": 8,
+      "command": "CHARMENU",
+      "arguments": "000 999 0",
+      "raw": "CHARMENU 000 999 0"
+    },
+    {
+      "sequence": 47,
+      "sourceLine": 49,
+      "dialogueIndex": 8,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 48,
+      "sourceLine": 50,
+      "dialogueIndex": 8,
+      "command": "CHARMENU",
+      "arguments": "000 999 32",
+      "raw": "CHARMENU 000 999 32"
+    },
+    {
+      "sequence": 49,
+      "sourceLine": 51,
+      "dialogueIndex": 8,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 50,
+      "sourceLine": 52,
+      "dialogueIndex": 8,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 51,
+      "sourceLine": 54,
+      "dialogueIndex": 9,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 그 옆의 칼모양은 |[공격]이라네.",
+      "raw": "MESSAGE 1 125 0 0 그 옆의 칼모양은 |[공격]이라네."
+    },
+    {
+      "sequence": 52,
+      "sourceLine": 55,
+      "dialogueIndex": 9,
+      "command": "CHARMENU",
+      "arguments": "000 999 1",
+      "raw": "CHARMENU 000 999 1"
+    },
+    {
+      "sequence": 53,
+      "sourceLine": 56,
+      "dialogueIndex": 9,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 54,
+      "sourceLine": 57,
+      "dialogueIndex": 9,
+      "command": "CHARMENU",
+      "arguments": "000 999 0",
+      "raw": "CHARMENU 000 999 0"
+    },
+    {
+      "sequence": 55,
+      "sourceLine": 58,
+      "dialogueIndex": 9,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 56,
+      "sourceLine": 59,
+      "dialogueIndex": 9,
+      "command": "CHARMENU",
+      "arguments": "000 999 1",
+      "raw": "CHARMENU 000 999 1"
+    },
+    {
+      "sequence": 57,
+      "sourceLine": 60,
+      "dialogueIndex": 9,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 58,
+      "sourceLine": 61,
+      "dialogueIndex": 9,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 59,
+      "sourceLine": 63,
+      "dialogueIndex": 10,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 이동 밑쪽의 지팡이 모양은 |[마법]이고",
+      "raw": "MESSAGE 1 125 0 0 이동 밑쪽의 지팡이 모양은 |[마법]이고"
+    },
+    {
+      "sequence": 60,
+      "sourceLine": 64,
+      "dialogueIndex": 10,
+      "command": "CHARMENU",
+      "arguments": "000 999 4",
+      "raw": "CHARMENU 000 999 4"
+    },
+    {
+      "sequence": 61,
+      "sourceLine": 65,
+      "dialogueIndex": 10,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 62,
+      "sourceLine": 66,
+      "dialogueIndex": 10,
+      "command": "CHARMENU",
+      "arguments": "000 999 0",
+      "raw": "CHARMENU 000 999 0"
+    },
+    {
+      "sequence": 63,
+      "sourceLine": 67,
+      "dialogueIndex": 10,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 64,
+      "sourceLine": 68,
+      "dialogueIndex": 10,
+      "command": "CHARMENU",
+      "arguments": "000 999 4",
+      "raw": "CHARMENU 000 999 4"
+    },
+    {
+      "sequence": 65,
+      "sourceLine": 69,
+      "dialogueIndex": 10,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 66,
+      "sourceLine": 70,
+      "dialogueIndex": 10,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 67,
+      "sourceLine": 72,
+      "dialogueIndex": 11,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 공격 밑쪽의 손가락(V자)은 |[특수기]이고",
+      "raw": "MESSAGE 1 125 0 0 공격 밑쪽의 손가락(V자)은 |[특수기]이고"
+    },
+    {
+      "sequence": 68,
+      "sourceLine": 73,
+      "dialogueIndex": 11,
+      "command": "CHARMENU",
+      "arguments": "000 999 2",
+      "raw": "CHARMENU 000 999 2"
+    },
+    {
+      "sequence": 69,
+      "sourceLine": 74,
+      "dialogueIndex": 11,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 70,
+      "sourceLine": 75,
+      "dialogueIndex": 11,
+      "command": "CHARMENU",
+      "arguments": "000 999 0",
+      "raw": "CHARMENU 000 999 0"
+    },
+    {
+      "sequence": 71,
+      "sourceLine": 76,
+      "dialogueIndex": 11,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 72,
+      "sourceLine": 77,
+      "dialogueIndex": 11,
+      "command": "CHARMENU",
+      "arguments": "000 999 2",
+      "raw": "CHARMENU 000 999 2"
+    },
+    {
+      "sequence": 73,
+      "sourceLine": 78,
+      "dialogueIndex": 11,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 74,
+      "sourceLine": 79,
+      "dialogueIndex": 11,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 75,
+      "sourceLine": 81,
+      "dialogueIndex": 12,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 마법 밑쪽의 사람모양은 |[휴식]이고",
+      "raw": "MESSAGE 1 125 0 0 마법 밑쪽의 사람모양은 |[휴식]이고"
+    },
+    {
+      "sequence": 76,
+      "sourceLine": 82,
+      "dialogueIndex": 12,
+      "command": "CHARMENU",
+      "arguments": "000 999 8",
+      "raw": "CHARMENU 000 999 8"
+    },
+    {
+      "sequence": 77,
+      "sourceLine": 83,
+      "dialogueIndex": 12,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 78,
+      "sourceLine": 84,
+      "dialogueIndex": 12,
+      "command": "CHARMENU",
+      "arguments": "000 999 0",
+      "raw": "CHARMENU 000 999 0"
+    },
+    {
+      "sequence": 79,
+      "sourceLine": 85,
+      "dialogueIndex": 12,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 80,
+      "sourceLine": 86,
+      "dialogueIndex": 12,
+      "command": "CHARMENU",
+      "arguments": "000 999 8",
+      "raw": "CHARMENU 000 999 8"
+    },
+    {
+      "sequence": 81,
+      "sourceLine": 87,
+      "dialogueIndex": 12,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 82,
+      "sourceLine": 88,
+      "dialogueIndex": 12,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 83,
+      "sourceLine": 90,
+      "dialogueIndex": 13,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 그 옆의 나팔모양은 |[용병들에게 명령]할때 쓰고",
+      "raw": "MESSAGE 1 125 0 0 그 옆의 나팔모양은 |[용병들에게 명령]할때 쓰고"
+    },
+    {
+      "sequence": 84,
+      "sourceLine": 91,
+      "dialogueIndex": 13,
+      "command": "CHARMENU",
+      "arguments": "000 999 64",
+      "raw": "CHARMENU 000 999 64"
+    },
+    {
+      "sequence": 85,
+      "sourceLine": 92,
+      "dialogueIndex": 13,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 86,
+      "sourceLine": 93,
+      "dialogueIndex": 13,
+      "command": "CHARMENU",
+      "arguments": "000 999 0",
+      "raw": "CHARMENU 000 999 0"
+    },
+    {
+      "sequence": 87,
+      "sourceLine": 94,
+      "dialogueIndex": 13,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 88,
+      "sourceLine": 95,
+      "dialogueIndex": 13,
+      "command": "CHARMENU",
+      "arguments": "000 999 64",
+      "raw": "CHARMENU 000 999 64"
+    },
+    {
+      "sequence": 89,
+      "sourceLine": 96,
+      "dialogueIndex": 13,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 90,
+      "sourceLine": 97,
+      "dialogueIndex": 13,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 91,
+      "sourceLine": 99,
+      "dialogueIndex": 14,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 그 옆의 컴퓨터모양은 |여러가지 환경을 [설정]할때 쓴다네.",
+      "raw": "MESSAGE 1 125 0 0 그 옆의 컴퓨터모양은 |여러가지 환경을 [설정]할때 쓴다네."
+    },
+    {
+      "sequence": 92,
+      "sourceLine": 100,
+      "dialogueIndex": 14,
+      "command": "CHARMENU",
+      "arguments": "000 999 128",
+      "raw": "CHARMENU 000 999 128"
+    },
+    {
+      "sequence": 93,
+      "sourceLine": 101,
+      "dialogueIndex": 14,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 94,
+      "sourceLine": 102,
+      "dialogueIndex": 14,
+      "command": "CHARMENU",
+      "arguments": "000 999 0",
+      "raw": "CHARMENU 000 999 0"
+    },
+    {
+      "sequence": 95,
+      "sourceLine": 103,
+      "dialogueIndex": 14,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 96,
+      "sourceLine": 104,
+      "dialogueIndex": 14,
+      "command": "CHARMENU",
+      "arguments": "000 999 128",
+      "raw": "CHARMENU 000 999 128"
+    },
+    {
+      "sequence": 97,
+      "sourceLine": 105,
+      "dialogueIndex": 14,
+      "command": "DO",
+      "arguments": "500",
+      "raw": "DO 500"
+    },
+    {
+      "sequence": 98,
+      "sourceLine": 106,
+      "dialogueIndex": 14,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 99,
+      "sourceLine": 108,
+      "dialogueIndex": 15,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 우선은 이동에 대해 설명하겠네.|[이동]아이콘을 클릭해보게.",
+      "raw": "MESSAGE 1 125 0 0 우선은 이동에 대해 설명하겠네.|[이동]아이콘을 클릭해보게."
+    },
+    {
+      "sequence": 100,
+      "sourceLine": 109,
+      "dialogueIndex": 15,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 101,
+      "sourceLine": 110,
+      "dialogueIndex": 15,
+      "command": "CHARMENU",
+      "arguments": "000 999 255",
+      "raw": "CHARMENU 000 999 255"
+    },
+    {
+      "sequence": 102,
+      "sourceLine": 111,
+      "dialogueIndex": 15,
+      "command": "WAITMOVEMENU",
+      "arguments": "000",
+      "raw": "WAITMOVEMENU 000"
+    },
+    {
+      "sequence": 103,
+      "sourceLine": 112,
+      "dialogueIndex": 15,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 104,
+      "sourceLine": 114,
+      "dialogueIndex": 16,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 흰색으로 표시되는 부분이 자네가|이동할 수 있는 범위라네.",
+      "raw": "MESSAGE 1 125 0 0 흰색으로 표시되는 부분이 자네가|이동할 수 있는 범위라네."
+    },
+    {
+      "sequence": 105,
+      "sourceLine": 115,
+      "dialogueIndex": 16,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 106,
+      "sourceLine": 116,
+      "dialogueIndex": 17,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 여기서 이동하고 싶은 곳을 다시|클릭하면 그리로 이동할 수 있다네.|우선 내가 지시하는 곳으로 이동해보게.",
+      "raw": "MESSAGE 1 125 0 0 여기서 이동하고 싶은 곳을 다시|클릭하면 그리로 이동할 수 있다네.|우선 내가 지시하는 곳으로 이동해보게."
+    },
+    {
+      "sequence": 107,
+      "sourceLine": 117,
+      "dialogueIndex": 17,
+      "command": "DISPLAYPOS",
+      "arguments": "CLEAR",
+      "raw": "DISPLAYPOS CLEAR"
+    },
+    {
+      "sequence": 108,
+      "sourceLine": 118,
+      "dialogueIndex": 17,
+      "command": "DISPLAYPOS",
+      "arguments": "4 7",
+      "raw": "DISPLAYPOS 4 7"
+    },
+    {
+      "sequence": 109,
+      "sourceLine": 119,
+      "dialogueIndex": 17,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 110,
+      "sourceLine": 120,
+      "dialogueIndex": 17,
+      "command": "WAITMOVEPOS",
+      "arguments": "000 4 7",
+      "raw": "WAITMOVEPOS 000 4 7"
+    },
+    {
+      "sequence": 111,
+      "sourceLine": 121,
+      "dialogueIndex": 17,
+      "command": "DISPLAYPOS",
+      "arguments": "CLEAR",
+      "raw": "DISPLAYPOS CLEAR"
+    },
+    {
+      "sequence": 112,
+      "sourceLine": 122,
+      "dialogueIndex": 17,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 113,
+      "sourceLine": 123,
+      "dialogueIndex": 17,
+      "command": "DO2",
+      "arguments": "000",
+      "raw": "DO2 000"
+    },
+    {
+      "sequence": 114,
+      "sourceLine": 124,
+      "dialogueIndex": 17,
+      "command": "DO",
+      "arguments": "300",
+      "raw": "DO 300"
+    },
+    {
+      "sequence": 115,
+      "sourceLine": 125,
+      "dialogueIndex": 18,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 잘했네. 이동이나 공격과 같이|한번의 동작을 취하고나면 한참동안은|동작을 취하지 못하게 된다네.",
+      "raw": "MESSAGE 1 125 0 0 잘했네. 이동이나 공격과 같이|한번의 동작을 취하고나면 한참동안은|동작을 취하지 못하게 된다네."
+    },
+    {
+      "sequence": 116,
+      "sourceLine": 126,
+      "dialogueIndex": 18,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 117,
+      "sourceLine": 127,
+      "dialogueIndex": 19,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 이때는 잠시 기다리는 방법밖에 없지.|여기서 F2를 눌러보게.",
+      "raw": "MESSAGE 1 125 0 0 이때는 잠시 기다리는 방법밖에 없지.|여기서 F2를 눌러보게."
+    },
+    {
+      "sequence": 118,
+      "sourceLine": 128,
+      "dialogueIndex": 19,
+      "command": "ENABLE",
+      "arguments": "KEYBOARD",
+      "raw": "ENABLE KEYBOARD"
+    },
+    {
+      "sequence": 119,
+      "sourceLine": 129,
+      "dialogueIndex": 19,
+      "command": "WAITKEYBOARD",
+      "arguments": "F2",
+      "raw": "WAITKEYBOARD F2"
+    },
+    {
+      "sequence": 120,
+      "sourceLine": 130,
+      "dialogueIndex": 19,
+      "command": "DISABLE",
+      "arguments": "KEYBOARD",
+      "raw": "DISABLE KEYBOARD"
+    },
+    {
+      "sequence": 121,
+      "sourceLine": 132,
+      "dialogueIndex": 20,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 이것이 자네가 마우스로 가리키는 캐릭터의|현재상태를 보여주는 창일세.",
+      "raw": "MESSAGE 1 125 0 0 이것이 자네가 마우스로 가리키는 캐릭터의|현재상태를 보여주는 창일세."
+    },
+    {
+      "sequence": 122,
+      "sourceLine": 133,
+      "dialogueIndex": 20,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 123,
+      "sourceLine": 134,
+      "dialogueIndex": 21,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자네의 캐릭터를 마우스로 가리키면|캐릭터의 상태가 보일 것일세....",
+      "raw": "MESSAGE 1 125 0 0 자네의 캐릭터를 마우스로 가리키면|캐릭터의 상태가 보일 것일세...."
+    },
+    {
+      "sequence": 124,
+      "sourceLine": 135,
+      "dialogueIndex": 21,
+      "command": "WAITMOUSEMOVE",
+      "arguments": "000",
+      "raw": "WAITMOUSEMOVE 000"
+    },
+    {
+      "sequence": 125,
+      "sourceLine": 136,
+      "dialogueIndex": 21,
+      "command": "DISABLE",
+      "arguments": "MOUSEMOVE",
+      "raw": "DISABLE MOUSEMOVE"
+    },
+    {
+      "sequence": 126,
+      "sourceLine": 138,
+      "dialogueIndex": 22,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자네의 상태가 보이지?|캐릭터 그림 바로 밑의 그래프가 바로 캐릭터의|동작상태를 보여주는 그래프라네.",
+      "raw": "MESSAGE 1 125 0 0 자네의 상태가 보이지?|캐릭터 그림 바로 밑의 그래프가 바로 캐릭터의|동작상태를 보여주는 그래프라네."
+    },
+    {
+      "sequence": 127,
+      "sourceLine": 139,
+      "dialogueIndex": 22,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 128,
+      "sourceLine": 140,
+      "dialogueIndex": 23,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 이 그래프는 계속해서 조금씩|늘어나서 꽉 차게되면 행동을 취할 수|있게 되는 것이라네.",
+      "raw": "MESSAGE 1 125 0 0 이 그래프는 계속해서 조금씩|늘어나서 꽉 차게되면 행동을 취할 수|있게 되는 것이라네."
+    },
+    {
+      "sequence": 129,
+      "sourceLine": 141,
+      "dialogueIndex": 23,
+      "command": "CHARMENU",
+      "arguments": "000 999 255",
+      "raw": "CHARMENU 000 999 255"
+    },
+    {
+      "sequence": 130,
+      "sourceLine": 142,
+      "dialogueIndex": 23,
+      "command": "ENABLE",
+      "arguments": "MOUSEMOVE",
+      "raw": "ENABLE MOUSEMOVE"
+    },
+    {
+      "sequence": 131,
+      "sourceLine": 143,
+      "dialogueIndex": 23,
+      "command": "CHARMENU",
+      "arguments": "000 2 255",
+      "raw": "CHARMENU 000 2 255"
+    },
+    {
+      "sequence": 132,
+      "sourceLine": 144,
+      "dialogueIndex": 23,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 133,
+      "sourceLine": 145,
+      "dialogueIndex": 23,
+      "command": "CHARMENU",
+      "arguments": "000 3 255",
+      "raw": "CHARMENU 000 3 255"
+    },
+    {
+      "sequence": 134,
+      "sourceLine": 146,
+      "dialogueIndex": 23,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 135,
+      "sourceLine": 147,
+      "dialogueIndex": 23,
+      "command": "CHARMENU",
+      "arguments": "000 4 255",
+      "raw": "CHARMENU 000 4 255"
+    },
+    {
+      "sequence": 136,
+      "sourceLine": 148,
+      "dialogueIndex": 23,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 137,
+      "sourceLine": 149,
+      "dialogueIndex": 23,
+      "command": "CHARMENU",
+      "arguments": "000 5 255",
+      "raw": "CHARMENU 000 5 255"
+    },
+    {
+      "sequence": 138,
+      "sourceLine": 150,
+      "dialogueIndex": 23,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 139,
+      "sourceLine": 151,
+      "dialogueIndex": 23,
+      "command": "CHARMENU",
+      "arguments": "000 99 255",
+      "raw": "CHARMENU 000 99 255"
+    },
+    {
+      "sequence": 140,
+      "sourceLine": 152,
+      "dialogueIndex": 23,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 141,
+      "sourceLine": 154,
+      "dialogueIndex": 24,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자네의 캐릭터 옆에 신발이 표시되지?|이것은 이동 및 공격이 가능하다는|표시일세.",
+      "raw": "MESSAGE 1 125 0 0 자네의 캐릭터 옆에 신발이 표시되지?|이것은 이동 및 공격이 가능하다는|표시일세."
+    },
+    {
+      "sequence": 142,
+      "sourceLine": 155,
+      "dialogueIndex": 24,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 143,
+      "sourceLine": 156,
+      "dialogueIndex": 25,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 화면이 복잡할 때는 다시 F2를 눌러서|표시창을 숨기면 편하지.|눌러보게...",
+      "raw": "MESSAGE 1 125 0 0 화면이 복잡할 때는 다시 F2를 눌러서|표시창을 숨기면 편하지.|눌러보게..."
+    },
+    {
+      "sequence": 144,
+      "sourceLine": 157,
+      "dialogueIndex": 25,
+      "command": "ENABLE",
+      "arguments": "KEYBOARD",
+      "raw": "ENABLE KEYBOARD"
+    },
+    {
+      "sequence": 145,
+      "sourceLine": 158,
+      "dialogueIndex": 25,
+      "command": "WAITKEYBOARD",
+      "arguments": "F2",
+      "raw": "WAITKEYBOARD F2"
+    },
+    {
+      "sequence": 146,
+      "sourceLine": 159,
+      "dialogueIndex": 25,
+      "command": "DISABLE",
+      "arguments": "KEYBOARD",
+      "raw": "DISABLE KEYBOARD"
+    },
+    {
+      "sequence": 147,
+      "sourceLine": 161,
+      "dialogueIndex": 26,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자..|이제 다시 자네가 있던 자리로 이동해보게나.",
+      "raw": "MESSAGE 1 125 0 0 자..|이제 다시 자네가 있던 자리로 이동해보게나."
+    },
+    {
+      "sequence": 148,
+      "sourceLine": 162,
+      "dialogueIndex": 26,
+      "command": "SETTOPMENU",
+      "arguments": "",
+      "raw": "SETTOPMENU"
+    },
+    {
+      "sequence": 149,
+      "sourceLine": 163,
+      "dialogueIndex": 26,
+      "command": "CHARMENU",
+      "arguments": "000 999 255",
+      "raw": "CHARMENU 000 999 255"
+    },
+    {
+      "sequence": 150,
+      "sourceLine": 165,
+      "dialogueIndex": 26,
+      "command": "DISPLAYPOS",
+      "arguments": "CLEAR",
+      "raw": "DISPLAYPOS CLEAR"
+    },
+    {
+      "sequence": 151,
+      "sourceLine": 166,
+      "dialogueIndex": 26,
+      "command": "DISPLAYPOS",
+      "arguments": "2 7",
+      "raw": "DISPLAYPOS 2 7"
+    },
+    {
+      "sequence": 152,
+      "sourceLine": 167,
+      "dialogueIndex": 26,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 153,
+      "sourceLine": 168,
+      "dialogueIndex": 26,
+      "command": "WAITMOVEPOS",
+      "arguments": "000 2 7",
+      "raw": "WAITMOVEPOS 000 2 7"
+    },
+    {
+      "sequence": 154,
+      "sourceLine": 169,
+      "dialogueIndex": 26,
+      "command": "DISPLAYPOS",
+      "arguments": "CLEAR",
+      "raw": "DISPLAYPOS CLEAR"
+    },
+    {
+      "sequence": 155,
+      "sourceLine": 170,
+      "dialogueIndex": 26,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 156,
+      "sourceLine": 172,
+      "dialogueIndex": 27,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 잘했네..|그럼 다음은 공격일세..",
+      "raw": "MESSAGE 1 125 0 0 잘했네..|그럼 다음은 공격일세.."
+    },
+    {
+      "sequence": 157,
+      "sourceLine": 173,
+      "dialogueIndex": 27,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 158,
+      "sourceLine": 174,
+      "dialogueIndex": 28,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자네앞에 괴물이 서있는게 보이나?|이건 내가 수련생들의 연습상대로 키우고 있는|놈들일세..",
+      "raw": "MESSAGE 1 125 0 0 자네앞에 괴물이 서있는게 보이나?|이건 내가 수련생들의 연습상대로 키우고 있는|놈들일세.."
+    },
+    {
+      "sequence": 159,
+      "sourceLine": 175,
+      "dialogueIndex": 28,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 160,
+      "sourceLine": 176,
+      "dialogueIndex": 29,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 그렇게 힘도 없고해서 연습용으로는 딱 알맞지.",
+      "raw": "MESSAGE 1 125 0 0 그렇게 힘도 없고해서 연습용으로는 딱 알맞지."
+    },
+    {
+      "sequence": 161,
+      "sourceLine": 177,
+      "dialogueIndex": 29,
+      "command": "CHARMOVE",
+      "arguments": "400 5 7",
+      "raw": "CHARMOVE 400 5 7"
+    },
+    {
+      "sequence": 162,
+      "sourceLine": 178,
+      "dialogueIndex": 29,
+      "command": "WAITMOVEEND",
+      "arguments": "400",
+      "raw": "WAITMOVEEND 400"
+    },
+    {
+      "sequence": 163,
+      "sourceLine": 180,
+      "dialogueIndex": 30,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 우선 괴물의 앞으로 이동해보게.",
+      "raw": "MESSAGE 1 125 0 0 우선 괴물의 앞으로 이동해보게."
+    },
+    {
+      "sequence": 164,
+      "sourceLine": 181,
+      "dialogueIndex": 30,
+      "command": "SETTOPMENU",
+      "arguments": "",
+      "raw": "SETTOPMENU"
+    },
+    {
+      "sequence": 165,
+      "sourceLine": 182,
+      "dialogueIndex": 30,
+      "command": "CHARMENU",
+      "arguments": "000 999 255",
+      "raw": "CHARMENU 000 999 255"
+    },
+    {
+      "sequence": 166,
+      "sourceLine": 184,
+      "dialogueIndex": 30,
+      "command": "DISPLAYPOS",
+      "arguments": "CLEAR",
+      "raw": "DISPLAYPOS CLEAR"
+    },
+    {
+      "sequence": 167,
+      "sourceLine": 185,
+      "dialogueIndex": 30,
+      "command": "DISPLAYPOS",
+      "arguments": "4 7",
+      "raw": "DISPLAYPOS 4 7"
+    },
+    {
+      "sequence": 168,
+      "sourceLine": 186,
+      "dialogueIndex": 30,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 169,
+      "sourceLine": 187,
+      "dialogueIndex": 30,
+      "command": "WAITMOVEPOS",
+      "arguments": "000 4 7",
+      "raw": "WAITMOVEPOS 000 4 7"
+    },
+    {
+      "sequence": 170,
+      "sourceLine": 188,
+      "dialogueIndex": 30,
+      "command": "DISPLAYPOS",
+      "arguments": "CLEAR",
+      "raw": "DISPLAYPOS CLEAR"
+    },
+    {
+      "sequence": 171,
+      "sourceLine": 189,
+      "dialogueIndex": 30,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 172,
+      "sourceLine": 191,
+      "dialogueIndex": 31,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 다음은 다시 캐릭터의 메뉴를 띄워서|[공격]이라고 되어 있는 칼모양의|아이콘을 눌러보게.",
+      "raw": "MESSAGE 1 125 0 0 다음은 다시 캐릭터의 메뉴를 띄워서|[공격]이라고 되어 있는 칼모양의|아이콘을 눌러보게."
+    },
+    {
+      "sequence": 173,
+      "sourceLine": 192,
+      "dialogueIndex": 31,
+      "command": "SETTOPMENU",
+      "arguments": "",
+      "raw": "SETTOPMENU"
+    },
+    {
+      "sequence": 174,
+      "sourceLine": 193,
+      "dialogueIndex": 31,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 175,
+      "sourceLine": 194,
+      "dialogueIndex": 31,
+      "command": "WAITATTACKMENU",
+      "arguments": "000",
+      "raw": "WAITATTACKMENU 000"
+    },
+    {
+      "sequence": 176,
+      "sourceLine": 195,
+      "dialogueIndex": 31,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 177,
+      "sourceLine": 197,
+      "dialogueIndex": 32,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 어두운 회색으로 표시되는 부분이|자네가 공격할 수 있는 범위라네.",
+      "raw": "MESSAGE 1 125 0 0 어두운 회색으로 표시되는 부분이|자네가 공격할 수 있는 범위라네."
+    },
+    {
+      "sequence": 178,
+      "sourceLine": 198,
+      "dialogueIndex": 32,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 179,
+      "sourceLine": 199,
+      "dialogueIndex": 33,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자네가 공격할 수 있는범위내에|적이 들어오면 그자리는 빨갛게|표시가 되지.",
+      "raw": "MESSAGE 1 125 0 0 자네가 공격할 수 있는범위내에|적이 들어오면 그자리는 빨갛게|표시가 되지."
+    },
+    {
+      "sequence": 180,
+      "sourceLine": 200,
+      "dialogueIndex": 33,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 181,
+      "sourceLine": 201,
+      "dialogueIndex": 34,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자 이제 빨갛게 표시된 몬스터의 자리를|클릭해보게.",
+      "raw": "MESSAGE 1 125 0 0 자 이제 빨갛게 표시된 몬스터의 자리를|클릭해보게."
+    },
+    {
+      "sequence": 182,
+      "sourceLine": 202,
+      "dialogueIndex": 34,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 183,
+      "sourceLine": 203,
+      "dialogueIndex": 34,
+      "command": "WAITATTACKCHAR",
+      "arguments": "000 400",
+      "raw": "WAITATTACKCHAR 000 400"
+    },
+    {
+      "sequence": 184,
+      "sourceLine": 204,
+      "dialogueIndex": 34,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 185,
+      "sourceLine": 205,
+      "dialogueIndex": 34,
+      "command": "SETTOPMENU",
+      "arguments": "",
+      "raw": "SETTOPMENU"
+    },
+    {
+      "sequence": 186,
+      "sourceLine": 206,
+      "dialogueIndex": 34,
+      "command": "HPSET",
+      "arguments": "400 50",
+      "raw": "HPSET 400 50"
+    },
+    {
+      "sequence": 187,
+      "sourceLine": 207,
+      "dialogueIndex": 34,
+      "command": "HPSET",
+      "arguments": "000 95",
+      "raw": "HPSET 000 95"
+    },
+    {
+      "sequence": 188,
+      "sourceLine": 209,
+      "dialogueIndex": 35,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 잘했네. 몬스터나 적을 공격할 때에는|반격을 받게 되어 자신도 피해를 입는다네.",
+      "raw": "MESSAGE 1 125 0 0 잘했네. 몬스터나 적을 공격할 때에는|반격을 받게 되어 자신도 피해를 입는다네."
+    },
+    {
+      "sequence": 189,
+      "sourceLine": 210,
+      "dialogueIndex": 35,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 190,
+      "sourceLine": 211,
+      "dialogueIndex": 36,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 물론 적의 공격범위 밖에서 공격하거나|공격해서 적을 죽였을 경우는|피해를 입지 않지.",
+      "raw": "MESSAGE 1 125 0 0 물론 적의 공격범위 밖에서 공격하거나|공격해서 적을 죽였을 경우는|피해를 입지 않지."
+    },
+    {
+      "sequence": 191,
+      "sourceLine": 212,
+      "dialogueIndex": 36,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 192,
+      "sourceLine": 213,
+      "dialogueIndex": 37,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 원래는 잠시 있어야 다시 공격할 수|있지만 지금은 바쁘니까|다시 한번 몬스터를 공격해서 없애버리게.",
+      "raw": "MESSAGE 1 125 0 0 원래는 잠시 있어야 다시 공격할 수|있지만 지금은 바쁘니까|다시 한번 몬스터를 공격해서 없애버리게."
+    },
+    {
+      "sequence": 193,
+      "sourceLine": 214,
+      "dialogueIndex": 37,
+      "command": "CHARMENU",
+      "arguments": "000 999 255",
+      "raw": "CHARMENU 000 999 255"
+    },
+    {
+      "sequence": 194,
+      "sourceLine": 215,
+      "dialogueIndex": 37,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 195,
+      "sourceLine": 216,
+      "dialogueIndex": 37,
+      "command": "WAITATTACKCHAR",
+      "arguments": "000 400",
+      "raw": "WAITATTACKCHAR 000 400"
+    },
+    {
+      "sequence": 196,
+      "sourceLine": 217,
+      "dialogueIndex": 37,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 197,
+      "sourceLine": 218,
+      "dialogueIndex": 37,
+      "command": "HPSET",
+      "arguments": "400 0",
+      "raw": "HPSET 400 0"
+    },
+    {
+      "sequence": 198,
+      "sourceLine": 219,
+      "dialogueIndex": 37,
+      "command": "KILLCHAR2",
+      "arguments": "400",
+      "raw": "KILLCHAR2 400"
+    },
+    {
+      "sequence": 199,
+      "sourceLine": 220,
+      "dialogueIndex": 37,
+      "command": "SETTOPMENU",
+      "arguments": "",
+      "raw": "SETTOPMENU"
+    },
+    {
+      "sequence": 200,
+      "sourceLine": 222,
+      "dialogueIndex": 38,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 잘했네.. 이제 F2를 눌러 |자네의 체력을 보게.. 몬스터의 반격으로| 체력이 줄어든게 보이나.?",
+      "raw": "MESSAGE 1 125 0 0 잘했네.. 이제 F2를 눌러 |자네의 체력을 보게.. 몬스터의 반격으로| 체력이 줄어든게 보이나.?"
+    },
+    {
+      "sequence": 201,
+      "sourceLine": 223,
+      "dialogueIndex": 38,
+      "command": "ENABLE",
+      "arguments": "KEYBOARD",
+      "raw": "ENABLE KEYBOARD"
+    },
+    {
+      "sequence": 202,
+      "sourceLine": 224,
+      "dialogueIndex": 38,
+      "command": "WAITKEYBOARD",
+      "arguments": "F2",
+      "raw": "WAITKEYBOARD F2"
+    },
+    {
+      "sequence": 203,
+      "sourceLine": 225,
+      "dialogueIndex": 38,
+      "command": "DISABLE",
+      "arguments": "KEYBOARD",
+      "raw": "DISABLE KEYBOARD"
+    },
+    {
+      "sequence": 204,
+      "sourceLine": 226,
+      "dialogueIndex": 38,
+      "command": "WAITMOUSEMOVE",
+      "arguments": "000",
+      "raw": "WAITMOUSEMOVE 000"
+    },
+    {
+      "sequence": 205,
+      "sourceLine": 227,
+      "dialogueIndex": 39,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 약간정도는 괜찮지만 체력이 많이|줄어든 경우에는 휴식을 취해서 체력을|회복해야하네.",
+      "raw": "MESSAGE 1 125 0 0 약간정도는 괜찮지만 체력이 많이|줄어든 경우에는 휴식을 취해서 체력을|회복해야하네."
+    },
+    {
+      "sequence": 206,
+      "sourceLine": 228,
+      "dialogueIndex": 39,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 207,
+      "sourceLine": 229,
+      "dialogueIndex": 40,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 휴식아이콘을 클릭하면 바로 휴식을|취할 수 있다네. 한번 해보게.",
+      "raw": "MESSAGE 1 125 0 0 휴식아이콘을 클릭하면 바로 휴식을|취할 수 있다네. 한번 해보게."
+    },
+    {
+      "sequence": 208,
+      "sourceLine": 230,
+      "dialogueIndex": 40,
+      "command": "CHARMENU",
+      "arguments": "000 999 255",
+      "raw": "CHARMENU 000 999 255"
+    },
+    {
+      "sequence": 209,
+      "sourceLine": 231,
+      "dialogueIndex": 40,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 210,
+      "sourceLine": 232,
+      "dialogueIndex": 40,
+      "command": "WAITRESTMENU",
+      "arguments": "000",
+      "raw": "WAITRESTMENU 000"
+    },
+    {
+      "sequence": 211,
+      "sourceLine": 233,
+      "dialogueIndex": 40,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 212,
+      "sourceLine": 234,
+      "dialogueIndex": 40,
+      "command": "HPSET",
+      "arguments": "0 99",
+      "raw": "HPSET 0 99"
+    },
+    {
+      "sequence": 213,
+      "sourceLine": 235,
+      "dialogueIndex": 41,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 언제나 자신의 체력에 신경쓰고 있다가|적절한 시기에 휴식을 취해야하네.|그렇지 않으면 순식간에 적에게 죽게되지",
+      "raw": "MESSAGE 1 125 0 0 언제나 자신의 체력에 신경쓰고 있다가|적절한 시기에 휴식을 취해야하네.|그렇지 않으면 순식간에 적에게 죽게되지"
+    },
+    {
+      "sequence": 214,
+      "sourceLine": 236,
+      "dialogueIndex": 41,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 215,
+      "sourceLine": 238,
+      "dialogueIndex": 42,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 다음은 마법의 사용에 대해서 가르쳐 주지.|마법은 매우 중요한 것이니 신중하게 사용해야 하네.",
+      "raw": "MESSAGE 1 125 0 0 다음은 마법의 사용에 대해서 가르쳐 주지.|마법은 매우 중요한 것이니 신중하게 사용해야 하네."
+    },
+    {
+      "sequence": 216,
+      "sourceLine": 239,
+      "dialogueIndex": 42,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 217,
+      "sourceLine": 240,
+      "dialogueIndex": 43,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자네가 지금 사용할 수 있는 마법이......|파이어볼은 어떤가? 매우 쉬운 마법이고 효과적이지.|메뉴에서 마법아이콘을 눌러보게.",
+      "raw": "MESSAGE 1 125 0 0 자네가 지금 사용할 수 있는 마법이......|파이어볼은 어떤가? 매우 쉬운 마법이고 효과적이지.|메뉴에서 마법아이콘을 눌러보게."
+    },
+    {
+      "sequence": 218,
+      "sourceLine": 241,
+      "dialogueIndex": 43,
+      "command": "CHARMENU",
+      "arguments": "000 999 255",
+      "raw": "CHARMENU 000 999 255"
+    },
+    {
+      "sequence": 219,
+      "sourceLine": 242,
+      "dialogueIndex": 43,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 220,
+      "sourceLine": 243,
+      "dialogueIndex": 43,
+      "command": "WAITMAGICMENU",
+      "arguments": "0 000",
+      "raw": "WAITMAGICMENU 0 000"
+    },
+    {
+      "sequence": 221,
+      "sourceLine": 244,
+      "dialogueIndex": 43,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 222,
+      "sourceLine": 245,
+      "dialogueIndex": 44,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자네가 지금 사용할 수 있는 마법들의 |아이콘이 나오지.|자네는 지금 파이어볼 하나만 사용할 수 있는거야.",
+      "raw": "MESSAGE 1 125 0 0 자네가 지금 사용할 수 있는 마법들의 |아이콘이 나오지.|자네는 지금 파이어볼 하나만 사용할 수 있는거야."
+    },
+    {
+      "sequence": 223,
+      "sourceLine": 246,
+      "dialogueIndex": 44,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 224,
+      "sourceLine": 247,
+      "dialogueIndex": 45,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 수련을 거듭하면 새로운 마법을 익힐 수 있지.|파이어볼 아이콘을 클릭해보게.",
+      "raw": "MESSAGE 1 125 0 0 수련을 거듭하면 새로운 마법을 익힐 수 있지.|파이어볼 아이콘을 클릭해보게."
+    },
+    {
+      "sequence": 225,
+      "sourceLine": 248,
+      "dialogueIndex": 45,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 226,
+      "sourceLine": 249,
+      "dialogueIndex": 45,
+      "command": "WAITMAGICMENU",
+      "arguments": "1 000",
+      "raw": "WAITMAGICMENU 1 000"
+    },
+    {
+      "sequence": 227,
+      "sourceLine": 250,
+      "dialogueIndex": 45,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 228,
+      "sourceLine": 251,
+      "dialogueIndex": 46,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 지금 노란색으로 표시되는 부분이 마법을 사용할|수 있는 범위라네. 몬스터가 범위안에 들어오면|공격과 마찬가지로 빨간색으로 표시되지.",
+      "raw": "MESSAGE 1 125 0 0 지금 노란색으로 표시되는 부분이 마법을 사용할|수 있는 범위라네. 몬스터가 범위안에 들어오면|공격과 마찬가지로 빨간색으로 표시되지."
+    },
+    {
+      "sequence": 229,
+      "sourceLine": 252,
+      "dialogueIndex": 46,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 230,
+      "sourceLine": 253,
+      "dialogueIndex": 47,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 잠시 기다려보게...",
+      "raw": "MESSAGE 1 125 0 0 잠시 기다려보게..."
+    },
+    {
+      "sequence": 231,
+      "sourceLine": 254,
+      "dialogueIndex": 47,
+      "command": "CHARMOVE",
+      "arguments": "410 6 7",
+      "raw": "CHARMOVE 410 6 7"
+    },
+    {
+      "sequence": 232,
+      "sourceLine": 255,
+      "dialogueIndex": 47,
+      "command": "WAITMOVEEND",
+      "arguments": "410",
+      "raw": "WAITMOVEEND 410"
+    },
+    {
+      "sequence": 233,
+      "sourceLine": 256,
+      "dialogueIndex": 47,
+      "command": "DO",
+      "arguments": "1800",
+      "raw": "DO 1800"
+    },
+    {
+      "sequence": 234,
+      "sourceLine": 257,
+      "dialogueIndex": 48,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 빨간색으로 표시된 몬스터의 자리를 클릭하면|마법을 발동하게 된다네..|해보게나.",
+      "raw": "MESSAGE 1 125 0 0 빨간색으로 표시된 몬스터의 자리를 클릭하면|마법을 발동하게 된다네..|해보게나."
+    },
+    {
+      "sequence": 235,
+      "sourceLine": 258,
+      "dialogueIndex": 48,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 236,
+      "sourceLine": 259,
+      "dialogueIndex": 48,
+      "command": "WAITMAGICMENU",
+      "arguments": "2 000 410",
+      "raw": "WAITMAGICMENU 2 000 410"
+    },
+    {
+      "sequence": 237,
+      "sourceLine": 260,
+      "dialogueIndex": 48,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 238,
+      "sourceLine": 261,
+      "dialogueIndex": 48,
+      "command": "SETHP",
+      "arguments": "410 0",
+      "raw": "SETHP 410 0"
+    },
+    {
+      "sequence": 239,
+      "sourceLine": 262,
+      "dialogueIndex": 48,
+      "command": "SETMP",
+      "arguments": "000 1",
+      "raw": "SETMP 000 1"
+    },
+    {
+      "sequence": 240,
+      "sourceLine": 263,
+      "dialogueIndex": 48,
+      "command": "KILLCHAR2",
+      "arguments": "410",
+      "raw": "KILLCHAR2 410"
+    },
+    {
+      "sequence": 241,
+      "sourceLine": 264,
+      "dialogueIndex": 48,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 242,
+      "sourceLine": 265,
+      "dialogueIndex": 49,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 잘했네.. 마법은 유용하지만 마법력을 소모하게 되고|마법력이 없으면 사용할 수 없지.|마법력도 휴식을 취하면 조금씩 회복된다네..",
+      "raw": "MESSAGE 1 125 0 0 잘했네.. 마법은 유용하지만 마법력을 소모하게 되고|마법력이 없으면 사용할 수 없지.|마법력도 휴식을 취하면 조금씩 회복된다네.."
+    },
+    {
+      "sequence": 243,
+      "sourceLine": 266,
+      "dialogueIndex": 49,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 244,
+      "sourceLine": 267,
+      "dialogueIndex": 50,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 마법과 비슷한 것으로 [특수기]가 있는데|이것도 마법과 같은 방법으로 사용하면 된다네.|그리고 실제 게임안에서 메뉴를",
+      "raw": "MESSAGE 1 125 0 0 마법과 비슷한 것으로 [특수기]가 있는데|이것도 마법과 같은 방법으로 사용하면 된다네.|그리고 실제 게임안에서 메뉴를"
+    },
+    {
+      "sequence": 245,
+      "sourceLine": 268,
+      "dialogueIndex": 50,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 246,
+      "sourceLine": 269,
+      "dialogueIndex": 51,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 잘못 선택했을 경우는 마우스의 오른쪽 버튼을 |누르면 바로 전 메뉴로 갈 수 있지.|그렇게 어렵지 않으니 나중에 해보도록 하게.",
+      "raw": "MESSAGE 1 125 0 0 잘못 선택했을 경우는 마우스의 오른쪽 버튼을 |누르면 바로 전 메뉴로 갈 수 있지.|그렇게 어렵지 않으니 나중에 해보도록 하게."
+    },
+    {
+      "sequence": 247,
+      "sourceLine": 270,
+      "dialogueIndex": 51,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 248,
+      "sourceLine": 271,
+      "dialogueIndex": 52,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 다음은 용병의 조종에 관해 가르쳐 주겠네.|우선 자네에게 용병을 주지.",
+      "raw": "MESSAGE 1 125 0 0 다음은 용병의 조종에 관해 가르쳐 주겠네.|우선 자네에게 용병을 주지."
+    },
+    {
+      "sequence": 249,
+      "sourceLine": 272,
+      "dialogueIndex": 52,
+      "command": "CHARPOS",
+      "arguments": "201 001 1 5",
+      "raw": "CHARPOS 201 001 1 5"
+    },
+    {
+      "sequence": 250,
+      "sourceLine": 273,
+      "dialogueIndex": 52,
+      "command": "CHARPOS",
+      "arguments": "201 002 1 7",
+      "raw": "CHARPOS 201 002 1 7"
+    },
+    {
+      "sequence": 251,
+      "sourceLine": 274,
+      "dialogueIndex": 52,
+      "command": "CHARMOVE",
+      "arguments": "001 4 6",
+      "raw": "CHARMOVE 001 4 6"
+    },
+    {
+      "sequence": 252,
+      "sourceLine": 275,
+      "dialogueIndex": 52,
+      "command": "CHARMOVE",
+      "arguments": "002 4 8",
+      "raw": "CHARMOVE 002 4 8"
+    },
+    {
+      "sequence": 253,
+      "sourceLine": 276,
+      "dialogueIndex": 52,
+      "command": "DO2",
+      "arguments": "002",
+      "raw": "DO2 002"
+    },
+    {
+      "sequence": 254,
+      "sourceLine": 277,
+      "dialogueIndex": 52,
+      "command": "CHARMENU",
+      "arguments": "000 999 255",
+      "raw": "CHARMENU 000 999 255"
+    },
+    {
+      "sequence": 255,
+      "sourceLine": 278,
+      "dialogueIndex": 53,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 메뉴의 [용병에게 명령]이라는 아이콘을|눌러보게.",
+      "raw": "MESSAGE 1 125 0 0 메뉴의 [용병에게 명령]이라는 아이콘을|눌러보게."
+    },
+    {
+      "sequence": 256,
+      "sourceLine": 279,
+      "dialogueIndex": 53,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 257,
+      "sourceLine": 280,
+      "dialogueIndex": 53,
+      "command": "WAITORDERMENU",
+      "arguments": "0 000",
+      "raw": "WAITORDERMENU 0 000"
+    },
+    {
+      "sequence": 258,
+      "sourceLine": 281,
+      "dialogueIndex": 53,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 259,
+      "sourceLine": 282,
+      "dialogueIndex": 54,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 맨위의 것은 용병을 수동으로 조종하는|명령일세. 용병을 데리고 가서 아무 조작도|하지 않으며 직접 명령을 입력해야 하는 상태이지.",
+      "raw": "MESSAGE 1 125 0 0 맨위의 것은 용병을 수동으로 조종하는|명령일세. 용병을 데리고 가서 아무 조작도|하지 않으며 직접 명령을 입력해야 하는 상태이지."
+    },
+    {
+      "sequence": 260,
+      "sourceLine": 283,
+      "dialogueIndex": 54,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 261,
+      "sourceLine": 284,
+      "dialogueIndex": 55,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 [직접 명령]이란 버튼을 눌러보게.",
+      "raw": "MESSAGE 1 125 0 0 [직접 명령]이란 버튼을 눌러보게."
+    },
+    {
+      "sequence": 262,
+      "sourceLine": 285,
+      "dialogueIndex": 55,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 263,
+      "sourceLine": 286,
+      "dialogueIndex": 55,
+      "command": "WAITORDERMENU",
+      "arguments": "1 000",
+      "raw": "WAITORDERMENU 1 000"
+    },
+    {
+      "sequence": 264,
+      "sourceLine": 287,
+      "dialogueIndex": 55,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 265,
+      "sourceLine": 288,
+      "dialogueIndex": 55,
+      "command": "SETTOPMENU",
+      "arguments": "",
+      "raw": "SETTOPMENU"
+    },
+    {
+      "sequence": 266,
+      "sourceLine": 289,
+      "dialogueIndex": 56,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 위쪽의 용병을 클릭해보게.",
+      "raw": "MESSAGE 1 125 0 0 위쪽의 용병을 클릭해보게."
+    },
+    {
+      "sequence": 267,
+      "sourceLine": 290,
+      "dialogueIndex": 56,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 268,
+      "sourceLine": 291,
+      "dialogueIndex": 56,
+      "command": "CHARMENU",
+      "arguments": "001 999 255",
+      "raw": "CHARMENU 001 999 255"
+    },
+    {
+      "sequence": 269,
+      "sourceLine": 292,
+      "dialogueIndex": 56,
+      "command": "WAITTOPMENU",
+      "arguments": "001",
+      "raw": "WAITTOPMENU 001"
+    },
+    {
+      "sequence": 270,
+      "sourceLine": 293,
+      "dialogueIndex": 56,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 271,
+      "sourceLine": 294,
+      "dialogueIndex": 57,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 이렇게 용병도 지휘관과 같은 방식으로 조종하게|된다네. 단, 용병은 마법이나 특수 기술이 없고|도구도 사용못한다네. 이동과 공격밖에 없지.",
+      "raw": "MESSAGE 1 125 0 0 이렇게 용병도 지휘관과 같은 방식으로 조종하게|된다네. 단, 용병은 마법이나 특수 기술이 없고|도구도 사용못한다네. 이동과 공격밖에 없지."
+    },
+    {
+      "sequence": 272,
+      "sourceLine": 295,
+      "dialogueIndex": 57,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 273,
+      "sourceLine": 296,
+      "dialogueIndex": 58,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자 그럼 다시 지휘관의 용병메뉴를|나타나도록 해보게..",
+      "raw": "MESSAGE 1 125 0 0 자 그럼 다시 지휘관의 용병메뉴를|나타나도록 해보게.."
+    },
+    {
+      "sequence": 274,
+      "sourceLine": 297,
+      "dialogueIndex": 58,
+      "command": "SETTOPMENU",
+      "arguments": "",
+      "raw": "SETTOPMENU"
+    },
+    {
+      "sequence": 275,
+      "sourceLine": 298,
+      "dialogueIndex": 58,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 276,
+      "sourceLine": 299,
+      "dialogueIndex": 58,
+      "command": "WAITORDERMENU",
+      "arguments": "0 000",
+      "raw": "WAITORDERMENU 0 000"
+    },
+    {
+      "sequence": 277,
+      "sourceLine": 300,
+      "dialogueIndex": 58,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 278,
+      "sourceLine": 301,
+      "dialogueIndex": 59,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 다음은 두번째 명령인 자동 공격일세.|이 명령을 선택하면 자네의 용병은 매우 공격적으로|움직이며",
+      "raw": "MESSAGE 1 125 0 0 다음은 두번째 명령인 자동 공격일세.|이 명령을 선택하면 자네의 용병은 매우 공격적으로|움직이며"
+    },
+    {
+      "sequence": 279,
+      "sourceLine": 302,
+      "dialogueIndex": 59,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 280,
+      "sourceLine": 303,
+      "dialogueIndex": 60,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 적을 공격하는 것을 모든 행동의|우선으로 생각한다네.|주로 자기보다 약한 적을 상대할때 사용하지.",
+      "raw": "MESSAGE 1 125 0 0 적을 공격하는 것을 모든 행동의|우선으로 생각한다네.|주로 자기보다 약한 적을 상대할때 사용하지."
+    },
+    {
+      "sequence": 281,
+      "sourceLine": 304,
+      "dialogueIndex": 60,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 282,
+      "sourceLine": 305,
+      "dialogueIndex": 61,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 그리고, 마지막 세번째는 자동 방어인데|이 명령을 선택하면 용병들은 자네의 지휘범위|안에서움직이며",
+      "raw": "MESSAGE 1 125 0 0 그리고, 마지막 세번째는 자동 방어인데|이 명령을 선택하면 용병들은 자네의 지휘범위|안에서움직이며"
+    },
+    {
+      "sequence": 283,
+      "sourceLine": 306,
+      "dialogueIndex": 61,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 284,
+      "sourceLine": 307,
+      "dialogueIndex": 62,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 수시로 휴식을 취해 체력을 회복하게 된다네.|그럼 이번엔 [자동방어]란 버튼을 눌러보게.",
+      "raw": "MESSAGE 1 125 0 0 수시로 휴식을 취해 체력을 회복하게 된다네.|그럼 이번엔 [자동방어]란 버튼을 눌러보게."
+    },
+    {
+      "sequence": 285,
+      "sourceLine": 308,
+      "dialogueIndex": 62,
+      "command": "ENABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "ENABLE MOUSEMENU"
+    },
+    {
+      "sequence": 286,
+      "sourceLine": 309,
+      "dialogueIndex": 62,
+      "command": "WAITORDERMENU",
+      "arguments": "2 000",
+      "raw": "WAITORDERMENU 2 000"
+    },
+    {
+      "sequence": 287,
+      "sourceLine": 310,
+      "dialogueIndex": 62,
+      "command": "DISABLE",
+      "arguments": "MOUSEMENU",
+      "raw": "DISABLE MOUSEMENU"
+    },
+    {
+      "sequence": 288,
+      "sourceLine": 311,
+      "dialogueIndex": 62,
+      "command": "SETTOPMENU",
+      "arguments": "",
+      "raw": "SETTOPMENU"
+    },
+    {
+      "sequence": 289,
+      "sourceLine": 312,
+      "dialogueIndex": 63,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 잠시 보고 있도록 하게..",
+      "raw": "MESSAGE 1 125 0 0 잠시 보고 있도록 하게.."
+    },
+    {
+      "sequence": 290,
+      "sourceLine": 313,
+      "dialogueIndex": 63,
+      "command": "CHARMOVE",
+      "arguments": "001 5 7",
+      "raw": "CHARMOVE 001 5 7"
+    },
+    {
+      "sequence": 291,
+      "sourceLine": 314,
+      "dialogueIndex": 63,
+      "command": "CHARMOVE",
+      "arguments": "002 3 7",
+      "raw": "CHARMOVE 002 3 7"
+    },
+    {
+      "sequence": 292,
+      "sourceLine": 315,
+      "dialogueIndex": 63,
+      "command": "DO",
+      "arguments": "1002",
+      "raw": "DO 1002"
+    },
+    {
+      "sequence": 293,
+      "sourceLine": 316,
+      "dialogueIndex": 63,
+      "command": "CHARMOVE",
+      "arguments": "001 4 8",
+      "raw": "CHARMOVE 001 4 8"
+    },
+    {
+      "sequence": 294,
+      "sourceLine": 317,
+      "dialogueIndex": 63,
+      "command": "CHARMOVE",
+      "arguments": "002 4 6",
+      "raw": "CHARMOVE 002 4 6"
+    },
+    {
+      "sequence": 295,
+      "sourceLine": 318,
+      "dialogueIndex": 63,
+      "command": "DO",
+      "arguments": "1002",
+      "raw": "DO 1002"
+    },
+    {
+      "sequence": 296,
+      "sourceLine": 319,
+      "dialogueIndex": 64,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 용병들이 자네를 중심으로 |일정범위안에서 움직이지?|자네의 이동에 따라 용병들도 따라온다네.",
+      "raw": "MESSAGE 1 125 0 0 용병들이 자네를 중심으로 |일정범위안에서 움직이지?|자네의 이동에 따라 용병들도 따라온다네."
+    },
+    {
+      "sequence": 297,
+      "sourceLine": 320,
+      "dialogueIndex": 64,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 298,
+      "sourceLine": 321,
+      "dialogueIndex": 65,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 지휘관과 용병은 이동할 수 있는 거리가 다르니|잘 맞춰서 이동해야하네.",
+      "raw": "MESSAGE 1 125 0 0 지휘관과 용병은 이동할 수 있는 거리가 다르니|잘 맞춰서 이동해야하네."
+    },
+    {
+      "sequence": 299,
+      "sourceLine": 322,
+      "dialogueIndex": 65,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 300,
+      "sourceLine": 323,
+      "dialogueIndex": 66,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 복잡하니 용병들은 밖에서 기다리게 하지..",
+      "raw": "MESSAGE 1 125 0 0 복잡하니 용병들은 밖에서 기다리게 하지.."
+    },
+    {
+      "sequence": 301,
+      "sourceLine": 324,
+      "dialogueIndex": 66,
+      "command": "CHARMOVE",
+      "arguments": "001 1 7",
+      "raw": "CHARMOVE 001 1 7"
+    },
+    {
+      "sequence": 302,
+      "sourceLine": 325,
+      "dialogueIndex": 66,
+      "command": "CHARMOVE",
+      "arguments": "002 1 5",
+      "raw": "CHARMOVE 002 1 5"
+    },
+    {
+      "sequence": 303,
+      "sourceLine": 326,
+      "dialogueIndex": 66,
+      "command": "DO",
+      "arguments": "1502",
+      "raw": "DO 1502"
+    },
+    {
+      "sequence": 304,
+      "sourceLine": 327,
+      "dialogueIndex": 66,
+      "command": "KILLCHAR1",
+      "arguments": "001",
+      "raw": "KILLCHAR1 001"
+    },
+    {
+      "sequence": 305,
+      "sourceLine": 328,
+      "dialogueIndex": 66,
+      "command": "KILLCHAR1",
+      "arguments": "002",
+      "raw": "KILLCHAR1 002"
+    },
+    {
+      "sequence": 306,
+      "sourceLine": 329,
+      "dialogueIndex": 67,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 마을의 용병고용장소로 가면 돈이 있는 한|언제라도 용병을 고용할 수 있다네.",
+      "raw": "MESSAGE 1 125 0 0 마을의 용병고용장소로 가면 돈이 있는 한|언제라도 용병을 고용할 수 있다네."
+    },
+    {
+      "sequence": 307,
+      "sourceLine": 330,
+      "dialogueIndex": 67,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 308,
+      "sourceLine": 331,
+      "dialogueIndex": 68,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 능력이 올라가면 고용할 수 있는 용병의|종류나 능력도 늘어나게 되지.",
+      "raw": "MESSAGE 1 125 0 0 능력이 올라가면 고용할 수 있는 용병의|종류나 능력도 늘어나게 되지."
+    },
+    {
+      "sequence": 309,
+      "sourceLine": 332,
+      "dialogueIndex": 68,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 310,
+      "sourceLine": 333,
+      "dialogueIndex": 69,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자, 다음은 게임안에서 자신의 상태 및 적의 상태를|볼 수 있도록 하는 상태창의 표시에|대해 가르쳐 주겠네.",
+      "raw": "MESSAGE 1 125 0 0 자, 다음은 게임안에서 자신의 상태 및 적의 상태를|볼 수 있도록 하는 상태창의 표시에|대해 가르쳐 주겠네."
+    },
+    {
+      "sequence": 311,
+      "sourceLine": 334,
+      "dialogueIndex": 69,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 312,
+      "sourceLine": 335,
+      "dialogueIndex": 70,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 기본적인 조작은 대기실과 같으니 생략하고|설명만 해주도록 하지..",
+      "raw": "MESSAGE 1 125 0 0 기본적인 조작은 대기실과 같으니 생략하고|설명만 해주도록 하지.."
+    },
+    {
+      "sequence": 313,
+      "sourceLine": 336,
+      "dialogueIndex": 70,
+      "command": "DISABLE",
+      "arguments": "KEYBOARD",
+      "raw": "DISABLE KEYBOARD"
+    },
+    {
+      "sequence": 314,
+      "sourceLine": 337,
+      "dialogueIndex": 70,
+      "command": "CLEARALLDIALOG",
+      "arguments": "",
+      "raw": "CLEARALLDIALOG"
+    },
+    {
+      "sequence": 315,
+      "sourceLine": 338,
+      "dialogueIndex": 71,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 우선 F1은 도움말이고,",
+      "raw": "MESSAGE 1 125 0 0 우선 F1은 도움말이고,"
+    },
+    {
+      "sequence": 316,
+      "sourceLine": 339,
+      "dialogueIndex": 71,
+      "command": "SHOWDIALOG",
+      "arguments": "F1",
+      "raw": "SHOWDIALOG F1"
+    },
+    {
+      "sequence": 317,
+      "sourceLine": 340,
+      "dialogueIndex": 71,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 318,
+      "sourceLine": 341,
+      "dialogueIndex": 71,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 319,
+      "sourceLine": 342,
+      "dialogueIndex": 71,
+      "command": "HIDEDIALOG",
+      "arguments": "F1",
+      "raw": "HIDEDIALOG F1"
+    },
+    {
+      "sequence": 320,
+      "sourceLine": 343,
+      "dialogueIndex": 72,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 F2는 이미 가르쳐 준대로|캐릭터의 상태를 설명해 주는 창일세.",
+      "raw": "MESSAGE 1 125 0 0 F2는 이미 가르쳐 준대로|캐릭터의 상태를 설명해 주는 창일세."
+    },
+    {
+      "sequence": 321,
+      "sourceLine": 344,
+      "dialogueIndex": 72,
+      "command": "SHOWDIALOG",
+      "arguments": "F2",
+      "raw": "SHOWDIALOG F2"
+    },
+    {
+      "sequence": 322,
+      "sourceLine": 345,
+      "dialogueIndex": 72,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 323,
+      "sourceLine": 346,
+      "dialogueIndex": 72,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 324,
+      "sourceLine": 347,
+      "dialogueIndex": 72,
+      "command": "HIDEDIALOG",
+      "arguments": "F2",
+      "raw": "HIDEDIALOG F2"
+    },
+    {
+      "sequence": 325,
+      "sourceLine": 348,
+      "dialogueIndex": 72,
+      "command": "SETALLYINFO",
+      "arguments": "0",
+      "raw": "SETALLYINFO 0"
+    },
+    {
+      "sequence": 326,
+      "sourceLine": 349,
+      "dialogueIndex": 73,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 F3은 전투중의 다른 사람들과의 동맹을|설정하는 메뉴일세,",
+      "raw": "MESSAGE 1 125 0 0 F3은 전투중의 다른 사람들과의 동맹을|설정하는 메뉴일세,"
+    },
+    {
+      "sequence": 327,
+      "sourceLine": 350,
+      "dialogueIndex": 73,
+      "command": "SHOWDIALOG",
+      "arguments": "F3",
+      "raw": "SHOWDIALOG F3"
+    },
+    {
+      "sequence": 328,
+      "sourceLine": 351,
+      "dialogueIndex": 73,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 329,
+      "sourceLine": 352,
+      "dialogueIndex": 73,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 330,
+      "sourceLine": 353,
+      "dialogueIndex": 73,
+      "command": "HIDEDIALOG",
+      "arguments": "F3",
+      "raw": "HIDEDIALOG F3"
+    },
+    {
+      "sequence": 331,
+      "sourceLine": 354,
+      "dialogueIndex": 74,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 동맹에 대해서는 나중에 자세히 설명해 주겠네.",
+      "raw": "MESSAGE 1 125 0 0 동맹에 대해서는 나중에 자세히 설명해 주겠네."
+    },
+    {
+      "sequence": 332,
+      "sourceLine": 355,
+      "dialogueIndex": 74,
+      "command": "SETVICTORY",
+      "arguments": "모든 설명을 끝까지 듣는다.",
+      "raw": "SETVICTORY 모든 설명을 끝까지 듣는다."
+    },
+    {
+      "sequence": 333,
+      "sourceLine": 356,
+      "dialogueIndex": 74,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 334,
+      "sourceLine": 357,
+      "dialogueIndex": 75,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 F4는 전투의 승리조건을 보여주는 창이고,",
+      "raw": "MESSAGE 1 125 0 0 F4는 전투의 승리조건을 보여주는 창이고,"
+    },
+    {
+      "sequence": 335,
+      "sourceLine": 358,
+      "dialogueIndex": 75,
+      "command": "SHOWDIALOG",
+      "arguments": "F4",
+      "raw": "SHOWDIALOG F4"
+    },
+    {
+      "sequence": 336,
+      "sourceLine": 359,
+      "dialogueIndex": 75,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 337,
+      "sourceLine": 360,
+      "dialogueIndex": 75,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 338,
+      "sourceLine": 361,
+      "dialogueIndex": 75,
+      "command": "HIDEDIALOG",
+      "arguments": "F4",
+      "raw": "HIDEDIALOG F4"
+    },
+    {
+      "sequence": 339,
+      "sourceLine": 362,
+      "dialogueIndex": 76,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 F5는 현재 자네가 데리고 있는 지휘관들의|정보를 보여주는 장이라네.",
+      "raw": "MESSAGE 1 125 0 0 F5는 현재 자네가 데리고 있는 지휘관들의|정보를 보여주는 장이라네."
+    },
+    {
+      "sequence": 340,
+      "sourceLine": 363,
+      "dialogueIndex": 76,
+      "command": "SHOWDIALOG",
+      "arguments": "F5",
+      "raw": "SHOWDIALOG F5"
+    },
+    {
+      "sequence": 341,
+      "sourceLine": 364,
+      "dialogueIndex": 76,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 342,
+      "sourceLine": 365,
+      "dialogueIndex": 76,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 343,
+      "sourceLine": 366,
+      "dialogueIndex": 76,
+      "command": "HIDEDIALOG",
+      "arguments": "F5",
+      "raw": "HIDEDIALOG F5"
+    },
+    {
+      "sequence": 344,
+      "sourceLine": 367,
+      "dialogueIndex": 77,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 F6은 자네가 현재 위치해 있는 곳의|지도를 보여주는 창이고",
+      "raw": "MESSAGE 1 125 0 0 F6은 자네가 현재 위치해 있는 곳의|지도를 보여주는 창이고"
+    },
+    {
+      "sequence": 345,
+      "sourceLine": 368,
+      "dialogueIndex": 77,
+      "command": "SHOWDIALOG",
+      "arguments": "F6",
+      "raw": "SHOWDIALOG F6"
+    },
+    {
+      "sequence": 346,
+      "sourceLine": 369,
+      "dialogueIndex": 77,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 347,
+      "sourceLine": 370,
+      "dialogueIndex": 77,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 348,
+      "sourceLine": 371,
+      "dialogueIndex": 77,
+      "command": "HIDEDIALOG",
+      "arguments": "F6",
+      "raw": "HIDEDIALOG F6"
+    },
+    {
+      "sequence": 349,
+      "sourceLine": 372,
+      "dialogueIndex": 78,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 F7은 대기실과 같이 전체 사용자를 보여 주며",
+      "raw": "MESSAGE 1 125 0 0 F7은 대기실과 같이 전체 사용자를 보여 주며"
+    },
+    {
+      "sequence": 350,
+      "sourceLine": 373,
+      "dialogueIndex": 78,
+      "command": "SHOWDIALOG",
+      "arguments": "F7",
+      "raw": "SHOWDIALOG F7"
+    },
+    {
+      "sequence": 351,
+      "sourceLine": 374,
+      "dialogueIndex": 78,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 352,
+      "sourceLine": 375,
+      "dialogueIndex": 78,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 353,
+      "sourceLine": 376,
+      "dialogueIndex": 78,
+      "command": "HIDEDIALOG",
+      "arguments": "F7",
+      "raw": "HIDEDIALOG F7"
+    },
+    {
+      "sequence": 354,
+      "sourceLine": 377,
+      "dialogueIndex": 79,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 F8은 자네가 위치한 곳의 지형 정보를|보여 주는 창이라네.",
+      "raw": "MESSAGE 1 125 0 0 F8은 자네가 위치한 곳의 지형 정보를|보여 주는 창이라네."
+    },
+    {
+      "sequence": 355,
+      "sourceLine": 378,
+      "dialogueIndex": 79,
+      "command": "SHOWDIALOG",
+      "arguments": "F8",
+      "raw": "SHOWDIALOG F8"
+    },
+    {
+      "sequence": 356,
+      "sourceLine": 379,
+      "dialogueIndex": 79,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 357,
+      "sourceLine": 380,
+      "dialogueIndex": 79,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 358,
+      "sourceLine": 381,
+      "dialogueIndex": 79,
+      "command": "HIDEDIALOG",
+      "arguments": "F8",
+      "raw": "HIDEDIALOG F8"
+    },
+    {
+      "sequence": 359,
+      "sourceLine": 382,
+      "dialogueIndex": 80,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 F9는 전투에서 도망 나갈때 사용한다네..",
+      "raw": "MESSAGE 1 125 0 0 F9는 전투에서 도망 나갈때 사용한다네.."
+    },
+    {
+      "sequence": 360,
+      "sourceLine": 383,
+      "dialogueIndex": 80,
+      "command": "SHOWDIALOG",
+      "arguments": "F9",
+      "raw": "SHOWDIALOG F9"
+    },
+    {
+      "sequence": 361,
+      "sourceLine": 384,
+      "dialogueIndex": 80,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 362,
+      "sourceLine": 385,
+      "dialogueIndex": 80,
+      "command": "HIDEDIALOG",
+      "arguments": "F9",
+      "raw": "HIDEDIALOG F9"
+    },
+    {
+      "sequence": 363,
+      "sourceLine": 386,
+      "dialogueIndex": 81,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 또 이 모든 창은 캐릭터의 시스템 메뉴나|F12를 눌러서 나타나는 창을 이용해서도|표시할 수 있지.",
+      "raw": "MESSAGE 1 125 0 0 또 이 모든 창은 캐릭터의 시스템 메뉴나|F12를 눌러서 나타나는 창을 이용해서도|표시할 수 있지."
+    },
+    {
+      "sequence": 364,
+      "sourceLine": 387,
+      "dialogueIndex": 81,
+      "command": "SHOWDIALOG",
+      "arguments": "F12",
+      "raw": "SHOWDIALOG F12"
+    },
+    {
+      "sequence": 365,
+      "sourceLine": 388,
+      "dialogueIndex": 81,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 366,
+      "sourceLine": 389,
+      "dialogueIndex": 81,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 367,
+      "sourceLine": 390,
+      "dialogueIndex": 81,
+      "command": "CLEARALLDIALOG",
+      "arguments": "",
+      "raw": "CLEARALLDIALOG"
+    },
+    {
+      "sequence": 368,
+      "sourceLine": 391,
+      "dialogueIndex": 82,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 모든 창은 해당하는 키를 눌러서 나타나게 했다가|없앴다가를 반복할 수 있다네.",
+      "raw": "MESSAGE 1 125 0 0 모든 창은 해당하는 키를 눌러서 나타나게 했다가|없앴다가를 반복할 수 있다네."
+    },
+    {
+      "sequence": 369,
+      "sourceLine": 392,
+      "dialogueIndex": 82,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 370,
+      "sourceLine": 393,
+      "dialogueIndex": 83,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 다음은 동맹에 대해 설명해주겠네.|F3을 눌러서 동맹창을 보게",
+      "raw": "MESSAGE 1 125 0 0 다음은 동맹에 대해 설명해주겠네.|F3을 눌러서 동맹창을 보게"
+    },
+    {
+      "sequence": 371,
+      "sourceLine": 394,
+      "dialogueIndex": 83,
+      "command": "ENABLE",
+      "arguments": "KEYBOARD",
+      "raw": "ENABLE KEYBOARD"
+    },
+    {
+      "sequence": 372,
+      "sourceLine": 395,
+      "dialogueIndex": 83,
+      "command": "WAITKEYBOARD",
+      "arguments": "F3",
+      "raw": "WAITKEYBOARD F3"
+    },
+    {
+      "sequence": 373,
+      "sourceLine": 396,
+      "dialogueIndex": 83,
+      "command": "DISABLE",
+      "arguments": "KEYBOARD",
+      "raw": "DISABLE KEYBOARD"
+    },
+    {
+      "sequence": 374,
+      "sourceLine": 397,
+      "dialogueIndex": 83,
+      "command": "SETALLYINFO",
+      "arguments": "0",
+      "raw": "SETALLYINFO 0"
+    },
+    {
+      "sequence": 375,
+      "sourceLine": 398,
+      "dialogueIndex": 84,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 맨 위에 자네의 이름이 보이지?|그게 자네고,그 밑에 내가 있는게 보이나?",
+      "raw": "MESSAGE 1 125 0 0 맨 위에 자네의 이름이 보이지?|그게 자네고,그 밑에 내가 있는게 보이나?"
+    },
+    {
+      "sequence": 376,
+      "sourceLine": 399,
+      "dialogueIndex": 84,
+      "command": "SETALLYINFO",
+      "arguments": "0",
+      "raw": "SETALLYINFO 0"
+    },
+    {
+      "sequence": 377,
+      "sourceLine": 400,
+      "dialogueIndex": 84,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 378,
+      "sourceLine": 401,
+      "dialogueIndex": 85,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 이름 옆에 노란색으로 체크가 되어|있으면 동맹이 되어 있는 상태라네.|이 상태에서는 서로 공격을 할 수 없게 된다네.",
+      "raw": "MESSAGE 1 125 0 0 이름 옆에 노란색으로 체크가 되어|있으면 동맹이 되어 있는 상태라네.|이 상태에서는 서로 공격을 할 수 없게 된다네."
+    },
+    {
+      "sequence": 379,
+      "sourceLine": 402,
+      "dialogueIndex": 85,
+      "command": "SETALLYINFO",
+      "arguments": "0",
+      "raw": "SETALLYINFO 0"
+    },
+    {
+      "sequence": 380,
+      "sourceLine": 403,
+      "dialogueIndex": 85,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 381,
+      "sourceLine": 404,
+      "dialogueIndex": 86,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 그리고 자네의 캐릭터는 붉은 색으로 보이고,|동맹을 한 사람은 보라색으로 보인다네,|내가 보라색옷을 입은 게 보이지?",
+      "raw": "MESSAGE 1 125 0 0 그리고 자네의 캐릭터는 붉은 색으로 보이고,|동맹을 한 사람은 보라색으로 보인다네,|내가 보라색옷을 입은 게 보이지?"
+    },
+    {
+      "sequence": 382,
+      "sourceLine": 405,
+      "dialogueIndex": 86,
+      "command": "SETALLYINFO",
+      "arguments": "0",
+      "raw": "SETALLYINFO 0"
+    },
+    {
+      "sequence": 383,
+      "sourceLine": 406,
+      "dialogueIndex": 86,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 384,
+      "sourceLine": 407,
+      "dialogueIndex": 87,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 그게 동맹이 되어 있다는 표시야.|자. 이제 내 이름 옆의 노란 체크를 눌러서 없애보게.",
+      "raw": "MESSAGE 1 125 0 0 그게 동맹이 되어 있다는 표시야.|자. 이제 내 이름 옆의 노란 체크를 눌러서 없애보게."
+    },
+    {
+      "sequence": 385,
+      "sourceLine": 408,
+      "dialogueIndex": 87,
+      "command": "SETALLYINFO",
+      "arguments": "0",
+      "raw": "SETALLYINFO 0"
+    },
+    {
+      "sequence": 386,
+      "sourceLine": 409,
+      "dialogueIndex": 87,
+      "command": "WAITALLYBUTTON",
+      "arguments": "",
+      "raw": "WAITALLYBUTTON"
+    },
+    {
+      "sequence": 387,
+      "sourceLine": 410,
+      "dialogueIndex": 87,
+      "command": "SETALLYINFO",
+      "arguments": "1",
+      "raw": "SETALLYINFO 1"
+    },
+    {
+      "sequence": 388,
+      "sourceLine": 411,
+      "dialogueIndex": 88,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 내 옷의 색이 파랑색으로 바뀐게 보이나?|이 상태가 동맹을 하지 않은 상태, 다시 말해|적의 상태라네.",
+      "raw": "MESSAGE 1 125 0 0 내 옷의 색이 파랑색으로 바뀐게 보이나?|이 상태가 동맹을 하지 않은 상태, 다시 말해|적의 상태라네."
+    },
+    {
+      "sequence": 389,
+      "sourceLine": 412,
+      "dialogueIndex": 88,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 390,
+      "sourceLine": 413,
+      "dialogueIndex": 89,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 이 상태에서는 서로 공격이 가능하다네.",
+      "raw": "MESSAGE 1 125 0 0 이 상태에서는 서로 공격이 가능하다네."
+    },
+    {
+      "sequence": 391,
+      "sourceLine": 414,
+      "dialogueIndex": 89,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 392,
+      "sourceLine": 415,
+      "dialogueIndex": 90,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 하지만, 동맹은 이쪽에서만 거는 것이므로|우리가 동맹을 걸고 있어도, 그쪽에서 동맹을|하지않으면 일방적으로 공격을 받을 수도 있지.",
+      "raw": "MESSAGE 1 125 0 0 하지만, 동맹은 이쪽에서만 거는 것이므로|우리가 동맹을 걸고 있어도, 그쪽에서 동맹을|하지않으면 일방적으로 공격을 받을 수도 있지."
+    },
+    {
+      "sequence": 393,
+      "sourceLine": 416,
+      "dialogueIndex": 90,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 394,
+      "sourceLine": 417,
+      "dialogueIndex": 91,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 잘 기억해 두게, 전투중에는 동맹이 매우 중요하니|언제나 다른 캐릭터들의 색을 보고 동맹상태를|체크하게.",
+      "raw": "MESSAGE 1 125 0 0 잘 기억해 두게, 전투중에는 동맹이 매우 중요하니|언제나 다른 캐릭터들의 색을 보고 동맹상태를|체크하게."
+    },
+    {
+      "sequence": 395,
+      "sourceLine": 418,
+      "dialogueIndex": 91,
+      "command": "HIDEDIALOG",
+      "arguments": "F3",
+      "raw": "HIDEDIALOG F3"
+    },
+    {
+      "sequence": 396,
+      "sourceLine": 419,
+      "dialogueIndex": 92,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0",
+      "raw": "MESSAGE 1 125 0 0"
+    },
+    {
+      "sequence": 397,
+      "sourceLine": 420,
+      "dialogueIndex": 92,
+      "command": "DO",
+      "arguments": "2000",
+      "raw": "DO 2000"
+    },
+    {
+      "sequence": 398,
+      "sourceLine": 421,
+      "dialogueIndex": 93,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자. 이제 자네에게 중요한 전투기술들은|대부분 가르쳐 준 것 같군.",
+      "raw": "MESSAGE 1 125 0 0 자. 이제 자네에게 중요한 전투기술들은|대부분 가르쳐 준 것 같군."
+    },
+    {
+      "sequence": 399,
+      "sourceLine": 422,
+      "dialogueIndex": 93,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 400,
+      "sourceLine": 423,
+      "dialogueIndex": 94,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자네가 싸우는 데 도움이 되도록| 내가 반지 하나를 주겠네.",
+      "raw": "MESSAGE 1 125 0 0 자네가 싸우는 데 도움이 되도록| 내가 반지 하나를 주겠네."
+    },
+    {
+      "sequence": 401,
+      "sourceLine": 424,
+      "dialogueIndex": 94,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 402,
+      "sourceLine": 425,
+      "dialogueIndex": 95,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 이 반지는 행동을 빠르게 하는 효과가 있어 |싸우는 데 도움이 될 거야.",
+      "raw": "MESSAGE 1 125 0 0 이 반지는 행동을 빠르게 하는 효과가 있어 |싸우는 데 도움이 될 거야."
+    },
+    {
+      "sequence": 403,
+      "sourceLine": 426,
+      "dialogueIndex": 95,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 404,
+      "sourceLine": 427,
+      "dialogueIndex": 95,
+      "command": "CHARPOS",
+      "arguments": "805 800 18 11",
+      "raw": "CHARPOS 805 800 18 11"
+    },
+    {
+      "sequence": 405,
+      "sourceLine": 428,
+      "dialogueIndex": 95,
+      "command": "CHARMOVE",
+      "arguments": "800 18 7",
+      "raw": "CHARMOVE 800 18 7"
+    },
+    {
+      "sequence": 406,
+      "sourceLine": 429,
+      "dialogueIndex": 95,
+      "command": "WAITFORMOVEEND",
+      "arguments": "800",
+      "raw": "WAITFORMOVEEND 800"
+    },
+    {
+      "sequence": 407,
+      "sourceLine": 430,
+      "dialogueIndex": 95,
+      "command": "CHARDIR",
+      "arguments": "800 UP",
+      "raw": "CHARDIR 800 UP"
+    },
+    {
+      "sequence": 408,
+      "sourceLine": 431,
+      "dialogueIndex": 95,
+      "command": "DO",
+      "arguments": "2000",
+      "raw": "DO 2000"
+    },
+    {
+      "sequence": 409,
+      "sourceLine": 432,
+      "dialogueIndex": 96,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 뭐라고...?|음.. 알겠네..",
+      "raw": "MESSAGE 1 125 0 0 뭐라고...?|음.. 알겠네.."
+    },
+    {
+      "sequence": 410,
+      "sourceLine": 433,
+      "dialogueIndex": 96,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 411,
+      "sourceLine": 434,
+      "dialogueIndex": 97,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 .........",
+      "raw": "MESSAGE 1 125 0 0 ........."
+    },
+    {
+      "sequence": 412,
+      "sourceLine": 435,
+      "dialogueIndex": 97,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 413,
+      "sourceLine": 436,
+      "dialogueIndex": 98,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 음...|지금 국왕께서 위험하시다는 소식이 들어왔군.",
+      "raw": "MESSAGE 1 125 0 0 음...|지금 국왕께서 위험하시다는 소식이 들어왔군."
+    },
+    {
+      "sequence": 414,
+      "sourceLine": 437,
+      "dialogueIndex": 98,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 415,
+      "sourceLine": 438,
+      "dialogueIndex": 99,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 자네가 급히 구하러 가줘야겠네..|마을을 나가서 북쪽으로 가면 |왕궁이 보인다네. 서둘러 가보게..",
+      "raw": "MESSAGE 1 125 0 0 자네가 급히 구하러 가줘야겠네..|마을을 나가서 북쪽으로 가면 |왕궁이 보인다네. 서둘러 가보게.."
+    },
+    {
+      "sequence": 416,
+      "sourceLine": 439,
+      "dialogueIndex": 99,
+      "command": "DO",
+      "arguments": "1000",
+      "raw": "DO 1000"
+    },
+    {
+      "sequence": 417,
+      "sourceLine": 440,
+      "dialogueIndex": 100,
+      "command": "MESSAGE",
+      "arguments": "1 125 0 0 여기서 배운 것들을 잘 기억하게 | 행운을 비네.",
+      "raw": "MESSAGE 1 125 0 0 여기서 배운 것들을 잘 기억하게 | 행운을 비네."
+    },
+    {
+      "sequence": 418,
+      "sourceLine": 441,
+      "dialogueIndex": 100,
+      "command": "WAITMOUSEBUTTON",
+      "arguments": "",
+      "raw": "WAITMOUSEBUTTON"
+    },
+    {
+      "sequence": 419,
+      "sourceLine": 442,
+      "dialogueIndex": 100,
+      "command": "ENDGAME",
+      "arguments": "",
+      "raw": "ENDGAME"
+    },
+    {
+      "sequence": 420,
+      "sourceLine": 443,
+      "dialogueIndex": 100,
+      "command": "END",
+      "arguments": "",
+      "raw": "END"
+    }
+  ],
+  "commandTypes": {
+    "CHARABILITY": {
+      "count": 4,
+      "gameCtlFileOffsets": [
+        108024
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "CHARDIR": {
+      "count": 1,
+      "gameCtlFileOffsets": [],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "CHARMENU": {
+      "count": 40,
+      "gameCtlFileOffsets": [
+        108464
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "CHARMOVE": {
+      "count": 11,
+      "gameCtlFileOffsets": [
+        107996
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "CHARPOS": {
+      "count": 7,
+      "gameCtlFileOffsets": [
+        108036
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "CHARSETMAGIC": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108008
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "CHARSETSKILL": {
+      "count": 1,
+      "gameCtlFileOffsets": [],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "CLEARALLDIALOG": {
+      "count": 2,
+      "gameCtlFileOffsets": [
+        108428
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "DISABLE": {
+      "count": 25,
+      "gameCtlFileOffsets": [
+        108316
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "DISPLAYPOS": {
+      "count": 9,
+      "gameCtlFileOffsets": [
+        108452
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "DO": {
+      "count": 53,
+      "gameCtlFileOffsets": [
+        108060
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "DO2": {
+      "count": 2,
+      "gameCtlFileOffsets": [
+        108056
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "ENABLE": {
+      "count": 23,
+      "gameCtlFileOffsets": [
+        108272
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "END": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108052,
+        108688
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "ENDGAME": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108680
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "HIDEDIALOG": {
+      "count": 10,
+      "gameCtlFileOffsets": [
+        108404
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "HPSET": {
+      "count": 4,
+      "gameCtlFileOffsets": [
+        107988
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "KILLCHAR1": {
+      "count": 2,
+      "gameCtlFileOffsets": [
+        107968
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "KILLCHAR2": {
+      "count": 2,
+      "gameCtlFileOffsets": [
+        107956
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "LOADSCENE": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108260
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "MESSAGE": {
+      "count": 100,
+      "gameCtlFileOffsets": [
+        108140
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "PLAYMIDI": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108128
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "SETALLYINFO": {
+      "count": 7,
+      "gameCtlFileOffsets": [
+        108380
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "SETHP": {
+      "count": 1,
+      "gameCtlFileOffsets": [],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "SETMP": {
+      "count": 1,
+      "gameCtlFileOffsets": [],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "SETPOSITION": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108104
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "SETTOPMENU": {
+      "count": 9,
+      "gameCtlFileOffsets": [
+        108476
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "SETVICTORY": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108392
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "SHOWDIALOG": {
+      "count": 10,
+      "gameCtlFileOffsets": [
+        108416
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "TUTORIAL": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108324
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITALLYBUTTON": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108488
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITATTACKCHAR": {
+      "count": 2,
+      "gameCtlFileOffsets": [
+        108576
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITATTACKMENU": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108620
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITFORMOVEEND": {
+      "count": 1,
+      "gameCtlFileOffsets": [],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITKEYBOARD": {
+      "count": 4,
+      "gameCtlFileOffsets": [
+        108560
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITMAGICMENU": {
+      "count": 3,
+      "gameCtlFileOffsets": [
+        108504
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITMOUSEBUTTON": {
+      "count": 61,
+      "gameCtlFileOffsets": [
+        108664
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITMOUSEMOVE": {
+      "count": 2,
+      "gameCtlFileOffsets": [
+        108536
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITMOVEEND": {
+      "count": 2,
+      "gameCtlFileOffsets": [
+        108044
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITMOVEMENU": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108636
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITMOVEPOS": {
+      "count": 3,
+      "gameCtlFileOffsets": [
+        108592
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITORDERMENU": {
+      "count": 4,
+      "gameCtlFileOffsets": [
+        108520
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITRESTMENU": {
+      "count": 1,
+      "gameCtlFileOffsets": [
+        108604
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    },
+    "WAITTOPMENU": {
+      "count": 2,
+      "gameCtlFileOffsets": [
+        108652
+      ],
+      "meaning": "String occurrence only; not proof of registered command dispatch."
+    }
+  },
+  "dllHashes": {
+    "GameCtl.dll": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+    "UserUnit.dll": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+    "setunit.dll": "71b6ca3f0d7fc16405f5ea728fc0522982e2eaac169e3a1a6eb74a36e41bfaca",
+    "DManage.dll": "08e34fe7a497439ba65b33f3d9b661cbd20ddf098cf536c301337870b2f776f3"
+  },
+  "count": 420,
+  "dialogues": 100,
+  "distinctCommands": 44
+}

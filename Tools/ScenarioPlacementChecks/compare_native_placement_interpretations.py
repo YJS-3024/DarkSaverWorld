@@ -9,7 +9,7 @@ def main():
   for u in units:groups[u['unit']//10].append(u)
   aiPath=base/f'decoded/map/{key}set.arc/{key}.ai';areas={}
   if aiPath.exists():
-   for m in re.finditer(r'(?m)^\s*(\d+)\s+\w+\s+AREA\((\d+),(\d+),(\d+)\)',aiPath.read_text()):areas[int(m[1])]=tuple(map(int,m.groups()[1:]))
+   for m in re.finditer(r'(?m)^\s*(\d+)\s+\w+\s+AREA\s*\((\d+),(\d+),(\d+)\)',aiPath.read_text()):areas[int(m[1])]=tuple(map(int,m.groups()[1:]))
   samples=[]
   for group in groups.values():
    group.sort(key=lambda u:u['unit']);sizes[len(group)]+=1;leader=group[0];offsets=sorted((u['x']-leader['x'],u['y']-leader['y']) for u in group);shapes[str(offsets)]+=1

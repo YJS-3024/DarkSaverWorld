@@ -1,0 +1,94 @@
+{
+  "scope": "World/shared-screen handler only; focused controls/global handlers and combat keys are separate. No server packet analysis.",
+  "sha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "handler": "0x42BCF0",
+  "keyIndexTable": "0x42C3B8",
+  "jumpTable": "0x42C388",
+  "keys": [
+    {
+      "key": "F1",
+      "target": "0x42bdf3",
+      "windowId": 33,
+      "meaning": "도움말"
+    },
+    {
+      "key": "F2",
+      "target": "0x42be7f",
+      "windowId": [
+        18,
+        67
+      ],
+      "meaning": "보유 캐릭터"
+    },
+    {
+      "key": "F3",
+      "target": "0x42bf39",
+      "windowId": 21,
+      "meaning": "자기정보"
+    },
+    {
+      "key": "F4",
+      "target": "0x42c040",
+      "windowId": 20,
+      "meaning": "장비·소지품"
+    },
+    {
+      "key": "F5",
+      "target": "0x42c154",
+      "windowId": 19,
+      "meaning": "대화창"
+    },
+    {
+      "key": "F6",
+      "target": "0x42c1fd",
+      "windowId": 81,
+      "meaning": "메모 창 (scene48)"
+    },
+    {
+      "key": "F7",
+      "target": "0x42c373",
+      "windowId": null,
+      "meaning": "기본 분기"
+    },
+    {
+      "key": "F8",
+      "target": "0x42c289",
+      "windowId": 27,
+      "meaning": "환경설정"
+    },
+    {
+      "key": "F9",
+      "target": "0x42c315",
+      "windowId": 43,
+      "meaning": "종료 확인"
+    },
+    {
+      "key": "F10",
+      "target": "0x42c373",
+      "windowId": null,
+      "meaning": "기본 분기"
+    },
+    {
+      "key": "F11",
+      "target": "0x42c373",
+      "windowId": null,
+      "meaning": "기본 분기"
+    },
+    {
+      "key": "F12",
+      "target": "0x42c33b",
+      "windowId": null,
+      "meaning": "/공간이동 전달"
+    }
+  ],
+  "f6": {
+    "windowId": 81,
+    "scene": "scene48.lsc",
+    "getId": "0x4670E0 returns 81",
+    "constructor": "0x467090 sets vtable 0x485E80",
+    "factory": "0x47513B uses scene48.lsc; 0x475177 calls constructor thunk 0x40209F",
+    "memoLiteral": "0x490FB8 /메모보기; factory at 0x47518D",
+    "limit": "Client window and command-string route only. Memo storage, server permissions and incoming contents excluded."
+  },
+  "f12Difference": "Late virtual +0xA4; early +0xA0. Command text and flag1 retained. No destination or success inferred."
+}

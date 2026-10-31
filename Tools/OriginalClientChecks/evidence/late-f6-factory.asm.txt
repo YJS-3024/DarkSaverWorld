@@ -1,0 +1,56 @@
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+0047513b <.text+0x7413b>:
+  47513b:	68 c4 0f 49 00       	push   0x490fc4
+  475140:	8d 4c 24 3c          	lea    ecx,[esp+0x3c]
+  475144:	e8 6d 44 00 00       	call   0x4795b6
+  475149:	68 bc 00 00 00       	push   0xbc
+  47514e:	e8 39 44 00 00       	call   0x47958c
+  475153:	83 c4 04             	add    esp,0x4
+  475156:	89 44 24 10          	mov    DWORD PTR [esp+0x10],eax
+  47515a:	3b c3                	cmp    eax,ebx
+  47515c:	c6 44 24 30 3d       	mov    BYTE PTR [esp+0x30],0x3d
+  475161:	74 1b                	je     0x47517e
+  475163:	8b 56 50             	mov    edx,DWORD PTR [esi+0x50]
+  475166:	8b 4e 4c             	mov    ecx,DWORD PTR [esi+0x4c]
+  475169:	52                   	push   edx
+  47516a:	51                   	push   ecx
+  47516b:	8b 4e 44             	mov    ecx,DWORD PTR [esi+0x44]
+  47516e:	8d 54 24 40          	lea    edx,[esp+0x40]
+  475172:	56                   	push   esi
+  475173:	52                   	push   edx
+  475174:	51                   	push   ecx
+  475175:	8b c8                	mov    ecx,eax
+  475177:	e8 23 cf f8 ff       	call   0x40209f
+  47517c:	eb 02                	jmp    0x475180
+  47517e:	33 c0                	xor    eax,eax
+  475180:	8b e8                	mov    ebp,eax
+  475182:	8b 46 04             	mov    eax,DWORD PTR [esi+0x4]
+  475185:	3b c3                	cmp    eax,ebx
+  475187:	88 5c 24 30          	mov    BYTE PTR [esp+0x30],bl
+  47518b:	74 40                	je     0x4751cd
+  47518d:	68 b8 0f 49 00       	push   0x490fb8
+  475192:	6a 09                	push   0x9
+  475194:	6a 05                	push   0x5
+  475196:	6a 7a                	push   0x7a
+  475198:	8d 54 24 24          	lea    edx,[esp+0x24]
+  47519c:	68 ac 0f 49 00       	push   0x490fac
+  4751a1:	52                   	push   edx
+  4751a2:	89 5e 04             	mov    DWORD PTR [esi+0x4],ebx
+  4751a5:	ff 15 a4 97 49 00    	call   DWORD PTR ds:0x4997a4
+  4751ab:	8d 7c 24 2c          	lea    edi,[esp+0x2c]
+  4751af:	83 c9 ff             	or     ecx,0xffffffff
+  4751b2:	33 c0                	xor    eax,eax
+  4751b4:	83 c4 18             	add    esp,0x18
+  4751b7:	f2 ae                	repnz scas al,BYTE PTR es:[edi]
+  4751b9:	f7 d1                	not    ecx
+  4751bb:	8d 44 24 14          	lea    eax,[esp+0x14]
+  4751bf:	49                   	dec    ecx
+  4751c0:	50                   	push   eax
+  4751c1:	51                   	push   ecx
+  4751c2:	8b 0d a0 52 49 00    	mov    ecx,DWORD PTR ds:0x4952a0
+  4751c8:	e8 bd d9 f8 ff       	call   0x402b8a

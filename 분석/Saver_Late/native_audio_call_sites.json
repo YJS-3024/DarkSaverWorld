@@ -1,0 +1,399 @@
+{
+  "scope": "Static audio call sites and window lookup follow-up; no playback measurement",
+  "modules": {
+    "GameCtl.dll": {
+      "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+      "audioReferences": [
+        {
+          "address": "0x1000e267",
+          "instruction": "call   DWORD PTR ds:0x100162f0",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        }
+      ]
+    },
+    "UserUnit.dll": {
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "audioReferences": [
+        {
+          "address": "0x100056c6",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100056e5",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100056f6",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100059e2",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10005a3d",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10005a4e",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10005e92",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10005ee6",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10005efb",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10006242",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000625a",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000626f",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10006505",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100066ff",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100067ef",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100068b7",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000691b",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000719a",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100071f2",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10007c9a",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10007cf2",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100080c9",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10008121",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10008387",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100083de",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10008a5a",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10008ab2",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10008bc7",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10009050",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100090ad",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100093d4",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10009573",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000971e",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100098ce",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10009a8e",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10009d05",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10009f30",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000a1b5",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000a1e1",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000a3da",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000a655",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000a67b",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000a7e5",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000a80b",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x1000aa1f",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x10010193",
+          "instruction": "call   DWORD PTR ds:0x10013178",
+          "import": [
+            "soundll.dll",
+            "?S_PlaySound@@YAXH@Z"
+          ]
+        },
+        {
+          "address": "0x100101f7",
+          "instruction": "call   DWORD PTR ds:0x1001317c",
+          "import": [
+            "soundll.dll",
+            "?StopSound@@YAXH@Z"
+          ]
+        }
+      ]
+    }
+  }
+}

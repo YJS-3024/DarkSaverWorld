@@ -1,0 +1,54 @@
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00467090 <.text+0x66090>:
+  467090:	8b 44 24 14          	mov    eax,DWORD PTR [esp+0x14]
+  467094:	8b 54 24 0c          	mov    edx,DWORD PTR [esp+0xc]
+  467098:	56                   	push   esi
+  467099:	8b f1                	mov    esi,ecx
+  46709b:	8b 4c 24 14          	mov    ecx,DWORD PTR [esp+0x14]
+  46709f:	50                   	push   eax
+  4670a0:	8b 44 24 10          	mov    eax,DWORD PTR [esp+0x10]
+  4670a4:	51                   	push   ecx
+  4670a5:	8b 4c 24 10          	mov    ecx,DWORD PTR [esp+0x10]
+  4670a9:	52                   	push   edx
+  4670aa:	50                   	push   eax
+  4670ab:	51                   	push   ecx
+  4670ac:	8b ce                	mov    ecx,esi
+  4670ae:	e8 2d bf f9 ff       	call   0x402fe0
+  4670b3:	c7 06 80 5e 48 00    	mov    DWORD PTR [esi],0x485e80
+  4670b9:	c6 86 b5 00 00 00 00 	mov    BYTE PTR [esi+0xb5],0x0
+  4670c0:	8b c6                	mov    eax,esi
+  4670c2:	5e                   	pop    esi
+  4670c3:	c2 14 00             	ret    0x14
+  4670c6:	90                   	nop
+  4670c7:	90                   	nop
+  4670c8:	90                   	nop
+  4670c9:	90                   	nop
+  4670ca:	90                   	nop
+  4670cb:	90                   	nop
+  4670cc:	90                   	nop
+  4670cd:	90                   	nop
+  4670ce:	90                   	nop
+  4670cf:	90                   	nop
+  4670d0:	cc                   	int3
+  4670d1:	cc                   	int3
+  4670d2:	cc                   	int3
+  4670d3:	cc                   	int3
+  4670d4:	cc                   	int3
+  4670d5:	cc                   	int3
+  4670d6:	cc                   	int3
+  4670d7:	cc                   	int3
+  4670d8:	cc                   	int3
+  4670d9:	cc                   	int3
+  4670da:	cc                   	int3
+  4670db:	cc                   	int3
+  4670dc:	cc                   	int3
+  4670dd:	cc                   	int3
+  4670de:	cc                   	int3
+  4670df:	cc                   	int3
+  4670e0:	b8 51 00 00 00       	mov    eax,0x51
+  4670e5:	c3                   	ret

@@ -1,0 +1,53 @@
+{
+  "scope": "Native leader/support hypothesis and original Brugos character artwork review; no invented spawn or roster modification",
+  "nativeGroups": 122,
+  "nativeMembersPerGroup": 5,
+  "firstMemberRawExtraHistogram": {
+    "[1]": 113,
+    "[3]": 8,
+    "[]": 1
+  },
+  "roleMeaning": "First member plus four neighbors is observed. Extra operand meanings are not proven leader flags or follower counts. Supports user recollection of up to four followers, not proof of all 2/3/4 variants.",
+  "brugosMonsters": [
+    {
+      "abilityId": 301,
+      "pictureId": 301,
+      "name": "와일드독",
+      "spriteObservation": "quadruped",
+      "brugosEvidence": "Original 01.deo CHARPOS"
+    },
+    {
+      "abilityId": 401,
+      "pictureId": 401,
+      "name": "들개",
+      "spriteObservation": "quadruped",
+      "brugosEvidence": "Original 01.deo CHARPOS"
+    },
+    {
+      "abilityId": 305,
+      "pictureId": 305,
+      "name": "크레이지독",
+      "spriteObservation": "upright, unarmed",
+      "brugosEvidence": "No 305 spawn found in reviewed 01 DEO/EVT/AI; original initial SET/POS unavailable"
+    },
+    {
+      "abilityId": 701,
+      "pictureId": 701,
+      "name": "키스라",
+      "spriteObservation": "upright, sword",
+      "brugosEvidence": "Original 01.deo CHARPOS"
+    }
+  ],
+  "currentContentJobs": [
+    301,
+    401,
+    701
+  ],
+  "idWarning": "CHARPOS 401 405 means picture/job401 assigned to unit405, not job405.",
+  "sources": [
+    "decoded/gameres/set.arc/ability.atr",
+    "decoded/map/01set.arc/01.deo",
+    "decoded/map/01set.arc/01.evt",
+    "decoded/map/01set.arc/01.ai"
+  ]
+}

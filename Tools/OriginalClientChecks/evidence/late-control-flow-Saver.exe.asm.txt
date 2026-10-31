@@ -1,0 +1,80 @@
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00433d00 <.text+0x32d00>:
+  433d00:	56                   	push   esi
+  433d01:	8b f1                	mov    esi,ecx
+  433d03:	57                   	push   edi
+  433d04:	8b 46 78             	mov    eax,DWORD PTR [esi+0x78]
+  433d07:	85 c0                	test   eax,eax
+  433d09:	0f 84 c1 00 00 00    	je     0x433dd0
+  433d0f:	8b 46 1c             	mov    eax,DWORD PTR [esi+0x1c]
+  433d12:	85 c0                	test   eax,eax
+  433d14:	0f 85 b6 00 00 00    	jne    0x433dd0
+  433d1a:	8b 7c 24 10          	mov    edi,DWORD PTR [esp+0x10]
+  433d1e:	8b 4e 40             	mov    ecx,DWORD PTR [esi+0x40]
+  433d21:	8b 56 44             	mov    edx,DWORD PTR [esi+0x44]
+  433d24:	c7 46 24 00 00 00 00 	mov    DWORD PTR [esi+0x24],0x0
+  433d2b:	8b 07                	mov    eax,DWORD PTR [edi]
+  433d2d:	2b c1                	sub    eax,ecx
+  433d2f:	8b 4f 04             	mov    ecx,DWORD PTR [edi+0x4]
+  433d32:	89 46 10             	mov    DWORD PTR [esi+0x10],eax
+  433d35:	8b 46 18             	mov    eax,DWORD PTR [esi+0x18]
+  433d38:	2b ca                	sub    ecx,edx
+  433d3a:	85 c0                	test   eax,eax
+  433d3c:	89 4e 14             	mov    DWORD PTR [esi+0x14],ecx
+  433d3f:	75 4d                	jne    0x433d8e
+  433d41:	ff 15 f0 97 49 00    	call   DWORD PTR ds:0x4997f0
+  433d47:	8b 96 84 00 00 00    	mov    edx,DWORD PTR [esi+0x84]
+  433d4d:	8b f8                	mov    edi,eax
+  433d4f:	2b c2                	sub    eax,edx
+  433d51:	3d fa 00 00 00       	cmp    eax,0xfa
+  433d56:	7d 11                	jge    0x433d69
+  433d58:	8b 86 80 00 00 00    	mov    eax,DWORD PTR [esi+0x80]
+  433d5e:	85 c0                	test   eax,eax
+  433d60:	74 12                	je     0x433d74
+  433d62:	8b 16                	mov    edx,DWORD PTR [esi]
+  433d64:	8b ce                	mov    ecx,esi
+  433d66:	ff 52 48             	call   DWORD PTR [edx+0x48]
+  433d69:	89 be 84 00 00 00    	mov    DWORD PTR [esi+0x84],edi
+  433d6f:	5f                   	pop    edi
+  433d70:	5e                   	pop    esi
+  433d71:	c2 08 00             	ret    0x8
+  433d74:	8b 4e 14             	mov    ecx,DWORD PTR [esi+0x14]
+  433d77:	8b 56 10             	mov    edx,DWORD PTR [esi+0x10]
+  433d7a:	8b 06                	mov    eax,DWORD PTR [esi]
+  433d7c:	51                   	push   ecx
+  433d7d:	52                   	push   edx
+  433d7e:	8b ce                	mov    ecx,esi
+  433d80:	89 be 84 00 00 00    	mov    DWORD PTR [esi+0x84],edi
+  433d86:	ff 50 28             	call   DWORD PTR [eax+0x28]
+  433d89:	5f                   	pop    edi
+  433d8a:	5e                   	pop    esi
+  433d8b:	c2 08 00             	ret    0x8
+  433d8e:	8b 7e 20             	mov    edi,DWORD PTR [esi+0x20]
+  433d91:	8b 46 54             	mov    eax,DWORD PTR [esi+0x54]
+  433d94:	8b 0c b8             	mov    ecx,DWORD PTR [eax+edi*4]
+  433d97:	c7 41 0c 01 00 00 00 	mov    DWORD PTR [ecx+0xc],0x1
+  433d9e:	8b 4e 14             	mov    ecx,DWORD PTR [esi+0x14]
+  433da1:	c7 46 20 00 00 00 00 	mov    DWORD PTR [esi+0x20],0x0
+  433da8:	c7 46 18 00 00 00 00 	mov    DWORD PTR [esi+0x18],0x0
+  433daf:	8b 56 54             	mov    edx,DWORD PTR [esi+0x54]
+  433db2:	51                   	push   ecx
+  433db3:	8b 04 ba             	mov    eax,DWORD PTR [edx+edi*4]
+  433db6:	8b 56 10             	mov    edx,DWORD PTR [esi+0x10]
+  433db9:	83 c0 20             	add    eax,0x20
+  433dbc:	52                   	push   edx
+  433dbd:	50                   	push   eax
+  433dbe:	ff 15 08 99 49 00    	call   DWORD PTR ds:0x499908
+  433dc4:	85 c0                	test   eax,eax
+  433dc6:	74 08                	je     0x433dd0
+  433dc8:	8b 06                	mov    eax,DWORD PTR [esi]
+  433dca:	57                   	push   edi
+  433dcb:	8b ce                	mov    ecx,esi
+  433dcd:	ff 50 10             	call   DWORD PTR [eax+0x10]
+  433dd0:	5f                   	pop    edi
+  433dd1:	5e                   	pop    esi
+  433dd2:	c2 08 00             	ret    0x8

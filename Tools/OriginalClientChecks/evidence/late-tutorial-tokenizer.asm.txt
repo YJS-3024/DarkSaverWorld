@@ -1,0 +1,80 @@
+
+GameCtl.dll [SHA256 f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+1000f110 <.text+0xe110>:
+1000f110:	6a ff                	push   0xffffffff
+1000f112:	68 5f 55 01 10       	push   0x1001555f
+1000f117:	64 a1 00 00 00 00    	mov    eax,fs:0x0
+1000f11d:	50                   	push   eax
+1000f11e:	64 89 25 00 00 00 00 	mov    DWORD PTR fs:0x0,esp
+1000f125:	83 ec 0c             	sub    esp,0xc
+1000f128:	c7 44 24 08 00 00 00 	mov    DWORD PTR [esp+0x8],0x0
+1000f12f:	00 
+1000f130:	8d 4c 24 00          	lea    ecx,[esp+0x0]
+1000f134:	c7 44 24 14 01 00 00 	mov    DWORD PTR [esp+0x14],0x1
+1000f13b:	00 
+1000f13c:	e8 51 56 00 00       	call   0x10014792
+1000f141:	6a 20                	push   0x20
+1000f143:	8d 4c 24 24          	lea    ecx,[esp+0x24]
+1000f147:	c6 44 24 18 02       	mov    BYTE PTR [esp+0x18],0x2
+1000f14c:	e8 dd 56 00 00       	call   0x1001482e
+1000f151:	83 f8 ff             	cmp    eax,0xffffffff
+1000f154:	74 40                	je     0x1000f196
+1000f156:	50                   	push   eax
+1000f157:	8d 44 24 08          	lea    eax,[esp+0x8]
+1000f15b:	50                   	push   eax
+1000f15c:	8d 4c 24 28          	lea    ecx,[esp+0x28]
+1000f160:	e8 c3 56 00 00       	call   0x10014828
+1000f165:	50                   	push   eax
+1000f166:	8d 4c 24 04          	lea    ecx,[esp+0x4]
+1000f16a:	c6 44 24 18 03       	mov    BYTE PTR [esp+0x18],0x3
+1000f16f:	e8 f4 55 00 00       	call   0x10014768
+1000f174:	8d 4c 24 04          	lea    ecx,[esp+0x4]
+1000f178:	c6 44 24 14 02       	mov    BYTE PTR [esp+0x14],0x2
+1000f17d:	e8 ec 55 00 00       	call   0x1001476e
+1000f182:	8d 4c 24 00          	lea    ecx,[esp+0x0]
+1000f186:	e8 a9 56 00 00       	call   0x10014834
+1000f18b:	8d 4c 24 00          	lea    ecx,[esp+0x0]
+1000f18f:	e8 be 56 00 00       	call   0x10014852
+1000f194:	eb 19                	jmp    0x1000f1af
+1000f196:	8b 4c 24 20          	mov    ecx,DWORD PTR [esp+0x20]
+1000f19a:	8b 41 f8             	mov    eax,DWORD PTR [ecx-0x8]
+1000f19d:	85 c0                	test   eax,eax
+1000f19f:	74 0e                	je     0x1000f1af
+1000f1a1:	8d 54 24 20          	lea    edx,[esp+0x20]
+1000f1a5:	8d 4c 24 00          	lea    ecx,[esp+0x0]
+1000f1a9:	52                   	push   edx
+1000f1aa:	e8 b9 55 00 00       	call   0x10014768
+1000f1af:	56                   	push   esi
+1000f1b0:	8b 74 24 20          	mov    esi,DWORD PTR [esp+0x20]
+1000f1b4:	8d 44 24 04          	lea    eax,[esp+0x4]
+1000f1b8:	8b ce                	mov    ecx,esi
+1000f1ba:	50                   	push   eax
+1000f1bb:	e8 a2 55 00 00       	call   0x10014762
+1000f1c0:	c7 44 24 0c 01 00 00 	mov    DWORD PTR [esp+0xc],0x1
+1000f1c7:	00 
+1000f1c8:	8d 4c 24 04          	lea    ecx,[esp+0x4]
+1000f1cc:	c6 44 24 18 01       	mov    BYTE PTR [esp+0x18],0x1
+1000f1d1:	e8 98 55 00 00       	call   0x1001476e
+1000f1d6:	8d 4c 24 24          	lea    ecx,[esp+0x24]
+1000f1da:	c6 44 24 18 00       	mov    BYTE PTR [esp+0x18],0x0
+1000f1df:	e8 8a 55 00 00       	call   0x1001476e
+1000f1e4:	8b 4c 24 10          	mov    ecx,DWORD PTR [esp+0x10]
+1000f1e8:	8b c6                	mov    eax,esi
+1000f1ea:	5e                   	pop    esi
+1000f1eb:	64 89 0d 00 00 00 00 	mov    DWORD PTR fs:0x0,ecx
+1000f1f2:	83 c4 18             	add    esp,0x18
+1000f1f5:	c3                   	ret
+1000f1f6:	90                   	nop
+1000f1f7:	90                   	nop
+1000f1f8:	90                   	nop
+1000f1f9:	90                   	nop
+1000f1fa:	90                   	nop
+1000f1fb:	90                   	nop
+1000f1fc:	90                   	nop
+1000f1fd:	90                   	nop
+1000f1fe:	90                   	nop
+1000f1ff:	90                   	nop
