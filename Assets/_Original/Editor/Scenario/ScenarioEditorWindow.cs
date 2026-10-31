@@ -17,6 +17,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         internal const string LayoutFolder = BasePath + "Editor/ScenarioLayouts";
         private const string NativeFolder = BasePath + "SourceData/Native/map/";
         private const string DecodedFolder = BasePath + "SourceData/Decoded/map/";
+        private const string OriginalRosterPath=BasePath+"Data/Placements/scenario_monster_placements.json";
         [SerializeField] private string mapKey = "01", savedHash;
         [SerializeField] private ScenarioLayout document;
         [SerializeField] private bool dirty;
@@ -72,8 +73,11 @@ namespace DarkSaver.Original.Editor.Scenarios
         private ScenarioSource ReadMapSource(string key,byte[] map,int width,int height)
         {
             string folder=DecodedFolder+key+"set.arc/",prefix=folder+key;
-            return ScenarioLayoutData.ReadSource(key,width,height,map,ReadOptional(prefix+".set.txt"),ReadOptional(prefix+".pos.txt"),ReadOptional(prefix+".evt.txt"),
-                (Directory.Exists(folder)?Directory.GetFiles(folder,"*.de?.txt"):Array.Empty<string>()).Where(p=>p.EndsWith(".deo.txt",StringComparison.Ordinal)||p.EndsWith(".dee.txt",StringComparison.Ordinal)).OrderBy(p=>p.EndsWith(".deo.txt")?0:1).ToArray());
+            string set=ReadOptional(prefix+".set.txt"),pos=ReadOptional(prefix+".pos.txt");
+            if((set==null||pos==null)&&ScenarioLayoutData.Hash(map)!=MapInfo(key).hash)throw new IOException("원본 배치 목록과 대조할 지도 버전이 다릅니다.");
+            return ScenarioLayoutData.ReadSourceWithCatalog(key,width,height,map,set,pos,ReadOptional(prefix+".evt.txt"),
+                (Directory.Exists(folder)?Directory.GetFiles(folder,"*.de?.txt"):Array.Empty<string>()).Where(p=>p.EndsWith(".deo.txt",StringComparison.Ordinal)||p.EndsWith(".dee.txt",StringComparison.Ordinal)).OrderBy(p=>p.EndsWith(".deo.txt")?0:1).ToArray(),
+                (set==null||pos==null)&&File.Exists(OriginalRosterPath)?File.ReadAllBytes(OriginalRosterPath):null,new HashSet<int>(jobs.Keys));
         }
         private void LoadMap(string key, bool preserve = false)
         {
@@ -141,6 +145,8 @@ namespace DarkSaver.Original.Editor.Scenarios
                 string prefix = DecodedFolder + mapKey + "set.arc/" + mapKey;
                 foreach (var pair in new[] { (ext: "set", hash: source.layout.setHash), (ext: "pos", hash: source.layout.posHash) })
                 { string text = ReadOptional(prefix + "." + pair.ext + ".txt"); if ((text == null ? "" : ScenarioLayoutData.Hash(Encoding.UTF8.GetBytes(text))) != pair.hash) throw new IOException("원본 SET/POS가 변경되었습니다. 다시 불러온 뒤 편집하세요."); }
+                if(source.layout.catalogHash!=null&&(!File.Exists(OriginalRosterPath)||ScenarioLayoutData.Hash(File.ReadAllBytes(OriginalRosterPath))!=source.layout.catalogHash))
+                    throw new IOException("원본 배치 목록이 변경되었습니다. 다시 불러온 뒤 편집하세요.");
                 savedHash = ScenarioLayoutData.Save(LayoutFolder, document, source.layout, new HashSet<int>(jobs.Keys), string.IsNullOrEmpty(savedHash) ? null : savedHash);
                 document.edited = !ScenarioLayoutData.SameUnits(document, source.layout); dirty = false; hasUnsavedChanges = dirtyGateways;
                 AssetDatabase.Refresh(); message = "저장: " + LayoutFolder + "/" + mapKey + ".json"; return true;

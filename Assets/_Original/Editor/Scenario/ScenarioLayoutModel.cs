@@ -20,6 +20,7 @@ namespace DarkSaver.Original.Editor.Scenarios
     {
         [DataMember] public int version = 1, width, height;
         [DataMember] public string mapKey, mapHash, setHash, posHash, source;
+        [DataMember(EmitDefaultValue=false)] public string catalogHash;
         [DataMember] public bool edited;
         [DataMember] public ScenarioPlacement[] units = Array.Empty<ScenarioPlacement>();
         public ScenarioLayout Copy()
@@ -36,6 +37,19 @@ namespace DarkSaver.Original.Editor.Scenarios
         public ScenarioLayout layout;
         public ScenarioMarker[] entries, events;
         public string[] scripts;
+    }
+    [DataContract] public sealed class OriginalRosterReference
+    {
+        [DataMember] public string scenario="";
+        [DataMember] public string setSha256="",posSha256="";
+        [DataMember] public int count=0;
+        [DataMember] public ScenarioPlacement[] units=Array.Empty<ScenarioPlacement>();
+    }
+    [DataContract] public sealed class OriginalRosterIndex
+    {
+        [DataMember] public string scope="";
+        [DataMember] public OriginalRosterReference[] scenarios=Array.Empty<OriginalRosterReference>();
+        [DataMember] public string[] emptyRosters=Array.Empty<string>();
     }
 
     // No Unity dependencies: original source joins and editor-owned file transactions.
@@ -92,6 +106,48 @@ namespace DarkSaver.Original.Editor.Scenarios
                 events = ReadEvents(evt, key + ".evt"), scripts = scripts ?? Array.Empty<string>()
             };
         }
+        public static ScenarioSource ReadSourceWithCatalog(string key,int width,int height,byte[] map,string set,string pos,string evt,string[] scripts,byte[] catalog,ISet<int> knownJobs)
+        {
+            // Raw files remain authoritative and keep existing editor-file hashes compatible.
+            if(set!=null&&pos!=null||catalog==null)return ReadSource(key,width,height,map,set,pos,evt,scripts);
+            OriginalRosterIndex index;
+            using(var stream=new MemoryStream(catalog))index=(OriginalRosterIndex)new DataContractJsonSerializer(typeof(OriginalRosterIndex)).ReadObject(stream);
+            if(index?.scope?.StartsWith("Original SET/POS placement reference only;",StringComparison.Ordinal)!=true
+                ||index.scenarios==null||index.emptyRosters==null||index.scenarios.Any(r=>r==null||!IsKey(r.scenario))
+                ||index.scenarios.Select(r=>r.scenario).Distinct().Count()!=index.scenarios.Length
+                ||index.emptyRosters.Any(k=>!IsKey(k))||index.emptyRosters.Distinct().Count()!=index.emptyRosters.Length)
+                throw new InvalidDataException("원본 배치 목록의 형식/출처를 확인하세요.");
+            var roster=index.scenarios.FirstOrDefault(r=>r.scenario==key);
+            bool empty=index.emptyRosters.Contains(key);
+            if(roster==null&&!empty)return ReadSource(key,width,height,map,set,pos,evt,scripts);
+            if(roster!=null&&(empty||roster.units==null||roster.count!=roster.units.Length||roster.count<=0||roster.units.Any(u=>u==null)
+                ||roster.setSha256==null||roster.posSha256==null||!Regex.IsMatch(roster.setSha256,@"^[0-9a-f]{64}$")||!Regex.IsMatch(roster.posSha256,@"^[0-9a-f]{64}$")))
+                throw new InvalidDataException("원본 배치 목록의 개체 수가 맞지 않습니다.");
+            if(roster!=null&&((set!=null&&!MatchesTextHash(set,roster.setSha256))
+                ||(pos!=null&&!MatchesTextHash(pos,roster.posSha256))))
+                throw new InvalidDataException("남아 있는 SET/POS의 해시가 원본 배치 목록과 다릅니다. 다른 버전을 섞지 않습니다.");
+            var units=roster?.units.Select(u=>u.Copy()).ToArray()??Array.Empty<ScenarioPlacement>();
+            string joinedSet=string.Join("\n",units.Select(u=>u.unit+" "+u.job));
+            string joinedPos=string.Join("\n",units.Select(u=>u.unit+" "+u.x+" "+u.y));
+            var reference=ReadSource(key,width,height,map,joinedSet,joinedPos,evt,scripts);
+            reference.layout.units=units;
+            Validate(reference.layout,reference.layout,knownJobs);
+            // A remaining raw half must agree with the verified reference; do not mix versions.
+            var available=ReadSource(key,width,height,map,set??joinedSet,pos??joinedPos,evt,scripts);
+            if(!SameUnits(available.layout,reference.layout))throw new InvalidDataException("남아 있는 SET/POS와 원본 배치 목록이 다릅니다. 원본 버전을 확인하세요.");
+            reference.entries=available.entries;
+            reference.layout.setHash=set==null?"":Hash(Encoding.UTF8.GetBytes(set));
+            reference.layout.posHash=pos==null?"":Hash(Encoding.UTF8.GetBytes(pos));
+            reference.layout.catalogHash=Hash(catalog);
+            reference.layout.source=empty?"original-catalog-empty":"original-catalog";
+            return reference;
+        }
+        private static bool MatchesTextHash(string text,string expected)
+        {
+            if(Hash(Encoding.UTF8.GetBytes(text))==expected)return true;
+            string lf=text.Replace("\r\n","\n").Replace('\r','\n');
+            return Hash(Encoding.UTF8.GetBytes(lf))==expected||Hash(Encoding.UTF8.GetBytes(lf.Replace("\n","\r\n")))==expected;
+        }
         public static ScenarioMarker[] ReadEvents(string text, string file)
         {
             if (text == null) return Array.Empty<ScenarioMarker>();
@@ -143,7 +199,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         {
             if (value == null || source == null || value.version != 1 || !IsKey(value.mapKey) || value.mapKey != source.mapKey
                 || value.width != source.width || value.height != source.height || value.mapHash != source.mapHash
-                || value.setHash != source.setHash || value.posHash != source.posHash || value.source != source.source || value.units == null)
+                || value.setHash != source.setHash || value.posHash != source.posHash || value.catalogHash!=source.catalogHash || value.source != source.source || value.units == null)
                 throw new InvalidDataException("맵/원본 버전이 다른 편집 파일입니다. 원본을 덮어쓰지 않았습니다.");
             var ids = new HashSet<int>();
             foreach (var u in value.units)

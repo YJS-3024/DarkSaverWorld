@@ -81,7 +81,8 @@ namespace DarkSaver.Original.Editor.Scenarios
             GUILayout.BeginArea(rect,EditorStyles.helpBox);
             inspectorScroll=EditorGUILayout.BeginScrollView(inspectorScroll);
             GUILayout.Label(document.width+" × "+document.height+" 타일",EditorStyles.boldLabel);
-            string evidence=source.layout.source=="original-missing"?"원본 전투 편성 미확보":source.layout.source=="original-empty"?"원본 SET/POS의 빈 전투 편성":"원본 SET/POS "+source.layout.units.Length+"개";
+            string evidence=source.layout.source=="original-missing"?mapKey+"번 원본 전투 편성 미확보 (SET/POS·원본 목록 항목 없음)":source.layout.source=="original-empty"?"원본 SET/POS의 빈 전투 편성"
+                :source.layout.source=="original-catalog-empty"?"검증된 원본 배치 목록의 빈 편성":source.layout.source=="original-catalog"?"검증된 원본 배치 목록 "+source.layout.units.Length+"개 (SET/POS 텍스트 누락)":"원본 SET/POS "+source.layout.units.Length+"개";
             EditorGUILayout.HelpBox(evidence+"\n현재 편집 배치 "+document.units.Length+"개"+(dirty?" · 저장 전":""),source.layout.source=="original-missing"?MessageType.Warning:MessageType.Info);
             if(layoutReadOnly)EditorGUILayout.HelpBox(layoutNotice,MessageType.Warning);
             else if(source.layout.units.Length>0&&document.units.Length==0)EditorGUILayout.HelpBox("원본에는 몬스터가 있으나 현재 사용자 편집 배치가 비어 있습니다. 원본 배치 불러오기로 복원할 수 있습니다.",MessageType.Warning);

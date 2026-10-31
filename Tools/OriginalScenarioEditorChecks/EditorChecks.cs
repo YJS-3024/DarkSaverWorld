@@ -45,6 +45,48 @@ internal static class EditorChecks
             }
         }
         Check(units==610&&sources.Values.Sum(s=>s.layout.units.Length)==610,"no fabricated fallback spawns anywhere");
+        var rosterBytes=File.ReadAllBytes(Path.Combine(root,"Assets/_Original/Data/Placements/scenario_monster_placements.json"));
+        int restoredFromCatalog=0;
+        foreach(var item in literal.RootElement.GetProperty("scenarios").EnumerateArray())
+        {
+            string key=item.GetProperty("scenario").GetString();var original=sources[key].layout;
+            var map=File.ReadAllBytes(Path.Combine(sourceRoot,key+".mrc.bytes"));
+            var restored=ScenarioLayoutData.ReadSourceWithCatalog(key,original.width,original.height,map,null,null,null,null,rosterBytes,jobs);
+            Check(restored.layout.source=="original-catalog"&&restored.layout.catalogHash==ScenarioLayoutData.Hash(rosterBytes)
+                &&ScenarioLayoutData.SameUnits(restored.layout,original),"missing SET/POS restored from verified catalog without invented units "+key);
+            Check(restored.layout.units.Zip(original.units,(a,b)=>a.setLine==b.setLine&&a.posLine==b.posLine).All(v=>v),"catalog preserves original row provenance "+key);
+            restoredFromCatalog+=restored.layout.units.Length;
+        }
+        Check(restoredFromCatalog==610,"all16 catalog rosters restore exactly610 native units");
+        var reference26=sources["26"].layout;var bytes26=File.ReadAllBytes(Path.Combine(sourceRoot,"26.mrc.bytes"));
+        string path26=Path.Combine(root,"Assets/_Original/SourceData/Decoded/map/26set.arc/26");
+        ScenarioSource FromCatalog(string set,string pos,byte[] data)=>ScenarioLayoutData.ReadSourceWithCatalog("26",reference26.width,reference26.height,bytes26,set,pos,null,null,data,jobs);
+        var raw26=FromCatalog(Read(path26+".set.txt"),Read(path26+".pos.txt"),null);
+        Check(raw26.layout.source=="original-set-pos"&&raw26.layout.catalogHash==null,"available text retains existing source identity and hashes");
+        var setOnly=FromCatalog(Read(path26+".set.txt"),null,rosterBytes);
+        Check(setOnly.layout.units.Length==65&&setOnly.layout.posHash==""&&setOnly.layout.setHash==reference26.setHash,"SET-only source recovers positions and retains the actual available hash");
+        var lfOnly=FromCatalog(Read(path26+".set.txt").Replace("\r\n","\n"),null,rosterBytes);
+        Check(lfOnly.layout.units.Length==65&&lfOnly.layout.catalogHash==setOnly.layout.catalogHash,"line-ending conversion does not falsely reject the same source text");
+        var posOnly=FromCatalog(null,Read(path26+".pos.txt"),rosterBytes);
+        Check(posOnly.layout.units.Length==65&&posOnly.layout.setHash==""&&posOnly.entries.Length==sources["26"].entries.Length,"POS-only source recovers jobs and preserves friendly entry markers");
+        string wrongSet=string.Join("\n",reference26.units.Select((u,i)=>u.unit+" "+(i==0?401:u.job)));
+        Reject(()=>FromCatalog(wrongSet,null,rosterBytes),"conflicting remaining SET is not mixed with reference data");
+        string wrongPos=string.Join("\n",reference26.units.Select((u,i)=>u.unit+" "+(u.x+(i==0?1:0))+" "+u.y));
+        Reject(()=>FromCatalog(null,wrongPos,rosterBytes),"conflicting remaining POS is not mixed with reference data");
+        Reject(()=>FromCatalog(null,Read(path26+".pos.txt")+"\n999 1 1",rosterBytes),"extra POS units cannot silently disappear under a reference fallback");
+        var referenceNode=System.Text.Json.Nodes.JsonNode.Parse(rosterBytes);
+        referenceNode["scenarios"][0]["count"]=64;
+        Reject(()=>FromCatalog(null,null,Encoding.UTF8.GetBytes(referenceNode.ToJsonString())),"invalid reference count is rejected");
+        var absent=sources["01"].layout;var missing=ScenarioLayoutData.ReadSourceWithCatalog("01",absent.width,absent.height,File.ReadAllBytes(Path.Combine(sourceRoot,"01.mrc.bytes")),null,null,null,null,rosterBytes,jobs);
+        Check(missing.layout.source=="original-missing"&&missing.layout.units.Length==0,"catalog fallback does not invent the missing01 roster");
+        var emptyLayout=sources["324"].layout;var emptyCatalog=ScenarioLayoutData.ReadSourceWithCatalog("324",emptyLayout.width,emptyLayout.height,File.ReadAllBytes(Path.Combine(sourceRoot,"324.mrc.bytes")),null,null,null,null,rosterBytes,jobs);
+        Check(emptyCatalog.layout.source=="original-catalog-empty"&&emptyCatalog.layout.units.Length==0,"documented empty324 remains distinct from unavailable data");
+        var catalog26=FromCatalog(null,null,rosterBytes).layout;
+        var changedReference=catalog26.Copy();changedReference.catalogHash="changed";
+        Reject(()=>ScenarioLayoutData.Validate(catalog26,changedReference,jobs),"changed reference hash invalidates a saved fallback layout");
+        var formerMissing=ScenarioLayoutData.ReadSource("26",reference26.width,reference26.height,bytes26,null,null,null,null).layout;
+        var preview=ScenarioLayoutData.LoadForPreview(ScenarioLayoutData.Encode(formerMissing),catalog26,jobs,out bool heldReference,out string referenceNotice);
+        Check(heldReference&&preview.units.Length==65,"old empty missing-source layout cannot hide the recovered native roster");
         Check(sources["01"].layout.source=="original-missing"&&sources["101"].layout.units.Length==0,"missing scenario/training roster remains empty");
         Check(new[]{"324","325","326"}.All(k=>sources[k].layout.source=="original-empty"),"literal empty distinguished from missing");
         Check(sources["324"].entries.Length==3&&sources["324"].entries[1].line==2&&sources["324"].entries[2].line==3,"duplicate friendly POS reference lines preserved without inventing a battle unit");
@@ -74,6 +116,11 @@ internal static class EditorChecks
         var folder=Path.Combine(work,"save-"+Guid.NewGuid().ToString("N"));
         try
         {
+            string catalogFolder=Path.Combine(folder,"catalog");var catalogEdit=catalog26.Copy();catalogEdit.units[0].x++;
+            string catalogSavedHash=ScenarioLayoutData.Save(catalogFolder,catalogEdit,catalog26,jobs,null);
+            var catalogRoundtrip=ScenarioLayoutData.Decode(File.ReadAllBytes(Path.Combine(catalogFolder,"26.json")));
+            Check(catalogRoundtrip.catalogHash==catalog26.catalogHash&&catalogRoundtrip.units[0].x==catalogEdit.units[0].x,"catalog-backed edits preserve reference hash through real file save/reopen");
+            Reject(()=>ScenarioLayoutData.Save(catalogFolder,catalogRoundtrip,changedReference,jobs,catalogSavedHash),"changing reference versions cannot overwrite a saved catalog-backed edit");
             var original=sources["26"].layout;var edit=original.Copy();edit.units[0].x++;
             string hash=ScenarioLayoutData.Save(folder,edit,original,jobs,null),file=Path.Combine(folder,"26.json");
             var loaded=ScenarioLayoutData.Decode(File.ReadAllBytes(file));Check(loaded.edited&&loaded.units[0].x==edit.units[0].x&&original.units[0].x!=edit.units[0].x,"save/reload changes override only");
@@ -111,6 +158,6 @@ internal static class EditorChecks
             rendered.Add(new{key,map.width,map.height,sha256=ScenarioLayoutData.Hash(map.rgba)});
             if(sample.Contains(key))File.WriteAllBytes(Path.Combine(work,key+".rgba"),map.rgba);
         }
-        Console.WriteLine(JsonSerializer.Serialize(new{assertions,maps=keys.Length,originalUnits=units,originalRosterMaps=sources.Values.Count(s=>s.layout.source=="original-set-pos"),emptyRosterMaps=sources.Values.Count(s=>s.layout.source=="original-empty"),missingRosterMaps=sources.Values.Count(s=>s.layout.source=="original-missing"),rendered,unityGuiExecuted=false}));
+        Console.WriteLine(JsonSerializer.Serialize(new{assertions,maps=keys.Length,originalUnits=units,catalogFallbackUnits=restoredFromCatalog,catalogFallbackMaps=literal.RootElement.GetProperty("scenarios").GetArrayLength(),originalRosterMaps=sources.Values.Count(s=>s.layout.source=="original-set-pos"),emptyRosterMaps=sources.Values.Count(s=>s.layout.source=="original-empty"),missingRosterMaps=sources.Values.Count(s=>s.layout.source=="original-missing"),rendered,unityGuiExecuted=false}));
     }
 }
