@@ -30,18 +30,39 @@ namespace DarkSaver.Editor
         private Tilemap ground;
         private Vector2 scroll;
         [SerializeField] private bool dirty;
-        private bool dragging,showAll,showLocations=true,showLabels;
+        private bool dragging,showAll,showLocations=true,showLabels,showAi;
+        private readonly List<(int id,int x,int y,int radius)> aiAreas=new List<(int,int,int,int)>();
         [SerializeField] private int placementMode; // 0: battle, 1: intro (exclusive)
         private float zoom=1;
         private Rect canvas;
         private string[] names;
+        private ScenarioDefinition[] maps;
+        private bool IsBattleLayout => maps!=null && scenarioIndex>=ScenarioCatalog.All.Count;
+        private GUIStyle headingStyle,sectionStyle;
+        private void DrawHeading()
+        {
+            var r=GUILayoutUtility.GetRect(1,52,GUILayout.ExpandWidth(true));
+            EditorGUI.DrawRect(r,new Color(.085f,.115f,.16f));
+            EditorGUI.DrawRect(new Rect(r.x,r.y,4,r.height),new Color(.2f,.7f,.8f));
+            headingStyle ??=new GUIStyle(EditorStyles.boldLabel){fontSize=17,normal={textColor=Color.white}};
+            GUI.Label(new Rect(r.x+16,r.y+7,r.width-24,24),"SCENARIO  /  BATTLE EDITOR",headingStyle);
+            GUI.Label(new Rect(r.x+16,r.y+31,r.width-24,18),"시나리오 · 수련장 · 대련장   |   휠 확대 · 가운데 드래그 이동",EditorStyles.whiteMiniLabel);
+        }
+        private void Section(string title)
+        {
+            EditorGUILayout.Space(6);
+            sectionStyle ??=new GUIStyle(EditorStyles.boldLabel){fontSize=12};
+            EditorGUILayout.LabelField(title,sectionStyle);
+        }
         private readonly Dictionary<int,Sprite> sprites=new Dictionary<int,Sprite>();
         [MenuItem("DarkSaver/시나리오 편집툴")]
         public static void Open()=>GetWindow<ScenarioPlacementWindow>("시나리오 편집툴");
         private void OnEnable()
         {
             minSize=new Vector2(860,560);
-            names=ScenarioCatalog.All.Select(s=>s.Key+" · "+s.Title).ToArray();
+            maps=ScenarioCatalog.All.Concat(Enumerable.Range(101,7).Select(id=>new ScenarioDefinition("Training"+id,"수련장 "+id,"Map_"+id+"_;","",20,15,"")))
+                .Concat(Enumerable.Range(201,7).Select(id=>new ScenarioDefinition("Duel"+id,"대련장 "+id,"Map_"+id+"_;","",30,30,""))).ToArray();
+            names=maps.Select((s,i)=>(i<ScenarioCatalog.All.Count?"[시나리오] "+s.Key+" · ":"")+s.Title).ToArray();
             if(data!=null)
             {
                 var edited=data;var baseline=original;bool changed=dirty;dirty=false;
@@ -62,19 +83,34 @@ namespace DarkSaver.Editor
         private void Load(int index)
         {
             if(!Discard())return;
-            Release();data=null;dirty=false;selected=-1;error=null;scenarioIndex=index;
+            Release();data=null;dirty=false;selected=-1;error=null;scenarioIndex=index;aiAreas.Clear();
             try
             {
-                var scenario=ScenarioCatalog.All[index];path="Assets/_Game/Resources/Scenarios/"+scenario.Key+"/Content.json";
-                original=File.ReadAllText(path);data=JsonUtility.FromJson<Scenario01Definition>(original);
+                var scenario=maps[index];
+                path=IsBattleLayout?"Assets/_Game/Editor/BattleLayouts/"+scenario.Key+".json":"Assets/_Game/Resources/Scenarios/"+scenario.Key+"/Content.json";
+                original=File.Exists(path)?File.ReadAllText(path):null;
+                data=original!=null?JsonUtility.FromJson<Scenario01Definition>(original):new Scenario01Definition
+                {
+                    version=2,scenarioKey=scenario.Key,width=scenario.Width,height=scenario.Height,
+                    entryX=scenario.Width/2,entryY=scenario.Height/2,sourceHash=new string('0',64),profileHash=new string('0',64),
+                    intro=Array.Empty<Scenario01Command>(),outro=Array.Empty<Scenario01Command>(),events=Array.Empty<Scenario01Event>(),
+                    units=Array.Empty<Scenario01Unit>(),characters=Array.Empty<Scenario01Unit>(),traversalCells=Array.Empty<int>()
+                };
                 if(data==null || data.width<=0 || data.height<=0)throw new InvalidDataException("잘못된 시나리오 크기");
                 if(data.units==null)data.units=Array.Empty<Scenario01Unit>();
+                if(!IsBattleLayout)
+                {
+                    string aiPath="분석/Saver_Late/decoded/map/"+scenario.Key+"set.arc/"+scenario.Key+".ai";
+                    if(File.Exists(aiPath))
+                        foreach(Match match in Regex.Matches(File.ReadAllText(aiPath),@"(?m)^\s*(\d+)\s+\w+\s+AREA\((\d+),(\d+),(\d+)\)"))
+                            aiAreas.Add((int.Parse(match.Groups[1].Value),int.Parse(match.Groups[2].Value),int.Parse(match.Groups[3].Value),int.Parse(match.Groups[4].Value)));
+                }
                 string scenePath=AssetDatabase.FindAssets("t:Scene").Select(AssetDatabase.GUIDToAssetPath)
                     .FirstOrDefault(p=>Path.GetFileNameWithoutExtension(p)==scenario.MapScene);
                 if(scenePath==null)throw new FileNotFoundException("맵 씬을 찾을 수 없습니다: "+scenario.MapScene);
                 preview=EditorSceneManager.OpenPreviewScene(scenePath);
-                var maps=preview.GetRootGameObjects().SelectMany(r=>r.GetComponentsInChildren<Tilemap>(true)).ToArray();
-                ground=maps.FirstOrDefault(t=>t.name=="Ground") ?? maps.FirstOrDefault();
+                var tilemaps=preview.GetRootGameObjects().SelectMany(r=>r.GetComponentsInChildren<Tilemap>(true)).ToArray();
+                ground=tilemaps.FirstOrDefault(t=>t.name=="Ground") ?? tilemaps.FirstOrDefault();
                 if(ground==null)throw new InvalidDataException("타일맵이 없습니다.");
                 var go=new GameObject("Scenario placement preview camera");SceneManager.MoveGameObjectToScene(go,preview);
                 cameraView=go.AddComponent<Camera>();cameraView.enabled=false;cameraView.orthographic=true;
@@ -102,7 +138,7 @@ namespace DarkSaver.Editor
         private Sprite SpriteFor(int id)
         {
             if(sprites.TryGetValue(id,out var s))return s;
-            string prefix=ScenarioCatalog.All[scenarioIndex].Key=="01"?"Scenarios/01/Characters/":"Scenarios/Shared/Characters/";
+            string prefix=maps[scenarioIndex].Key=="01"?"Scenarios/01/Characters/":"Scenarios/Shared/Characters/";
             s=Resources.Load<Sprite>(prefix+id+"_Down_0");sprites[id]=s;return s;
         }
         private float MarkerSize => Mathf.Max(3,Vector2.Distance(Screen(0,0),Screen(1,0)));
@@ -169,24 +205,27 @@ namespace DarkSaver.Editor
         {
             if(names==null)OnEnable();
             hasUnsavedChanges=dirty;saveChangesMessage="변경한 시나리오 배치를 저장할까요?";
+            DrawHeading();
             using(new EditorGUI.DisabledScope(EditorApplication.isPlayingOrWillChangePlaymode))
             {
                 using(new EditorGUILayout.HorizontalScope(EditorStyles.toolbar))
                 {
-                    int index=EditorGUILayout.Popup(scenarioIndex,names,GUILayout.Width(260));
+                    int index=EditorGUILayout.Popup(scenarioIndex,names,GUILayout.MinWidth(260));
                     if(index!=scenarioIndex || data==null && error==null)Load(index);
                     if(GUILayout.Button("다시 불러오기",EditorStyles.toolbarButton))Load(scenarioIndex);
-                    if(GUILayout.Button(dirty?"저장 *":"저장",EditorStyles.toolbarButton))Save();
+                    if(GUILayout.Button(dirty?"저장 *":original==null?"새 배치 저장":"저장",EditorStyles.toolbarButton,GUILayout.Width(90)))Save();
                     showAll=GUILayout.Toggle(showAll,"모든 웨이브",EditorStyles.toolbarButton);
                     showLocations=GUILayout.Toggle(showLocations,"상자/이벤트",EditorStyles.toolbarButton);
                     showLabels=GUILayout.Toggle(showLabels,"이름",EditorStyles.toolbarButton);
+                    if(!IsBattleLayout)showAi=GUILayout.Toggle(showAi,"AI 영역 비교",EditorStyles.toolbarButton);
                     wave=EditorGUILayout.IntField(wave,GUILayout.Width(45));
                 }
                 int mode=GUILayout.Toolbar(placementMode,new[]{"전투 배치","연출 배치"});
                 if(mode!=placementMode){placementMode=mode;selected=-1;dragging=false;Repaint();}
                 if(error!=null)EditorGUILayout.HelpBox(error,MessageType.Error);
+                if(IsBattleLayout)EditorGUILayout.HelpBox("수련장·대련장은 편집용 배치 데이터입니다. 원작 서버 배치를 추측해서 생성하지 않으며 로컬 서버 통지에는 자동 적용하지 않습니다.",MessageType.Info);
                 if(data==null || cameraView==null)return;
-                EditorGUILayout.HelpBox("빨강: 몬스터 · 파랑: 플레이어 진입점. 클릭 선택 / 드래그 이동 / Delete 삭제. 좌표는 원본 기준(좌상단 0,0). 저장은 실제 Content.json에 반영됩니다.",MessageType.Info);
+                EditorGUILayout.HelpBox("빨강: 전투 몬스터 · 파랑: 진입점 · 노랑: 상자 · 보라: 이벤트 · 청록: AI 영역. 원본 좌표(좌상단 0,0). "+(IsBattleLayout?"저장: 편집 전용 BattleLayouts JSON":"저장: 실제 Content.json"),MessageType.Info);
                 using(new EditorGUILayout.HorizontalScope())
                 {
                     zoom=EditorGUILayout.Slider("확대",zoom,.5f,8);
@@ -194,10 +233,10 @@ namespace DarkSaver.Editor
                 }
                 using(new EditorGUILayout.HorizontalScope())
                 {
-                    float width=Mathf.Max(160,position.width-295),height=Mathf.Max(140,position.height-130);
+                    float width=Mathf.Max(160,position.width-295),height=Mathf.Max(140,position.height-235);
                     canvas=GUILayoutUtility.GetRect(width,height,GUILayout.Width(width),GUILayout.Height(height));
                     DrawMap();
-                    using(new EditorGUILayout.VerticalScope(GUILayout.Width(270)))DrawInspector();
+                    using(new EditorGUILayout.VerticalScope(EditorStyles.helpBox,GUILayout.Width(270)))DrawInspector();
                 }
             }
         }
@@ -225,6 +264,17 @@ namespace DarkSaver.Editor
                 for(int x=0;x<=data.width;x++)EditorGUI.DrawRect(new Rect(corner.x+dx.x*x,corner.y,1,dy.y*data.height),gridColor);
                 for(int y=0;y<=data.height;y++)EditorGUI.DrawRect(new Rect(corner.x,corner.y+dy.y*y,dx.x*data.width,1),gridColor);
 
+                if(placementMode==0 && showAi && !IsBattleLayout)
+                    foreach(var area in aiAreas)
+                    {
+                        var center=Screen(area.x,area.y);float radius=MarkerSize*area.radius;
+                        Color tint=new Color(.2f,.8f,.9f,.65f);
+                        EditorGUI.DrawRect(new Rect(center.x-radius,center.y-radius,radius*2,1),tint);
+                        EditorGUI.DrawRect(new Rect(center.x-radius,center.y+radius,radius*2,1),tint);
+                        EditorGUI.DrawRect(new Rect(center.x-radius,center.y-radius,1,radius*2),tint);
+                        EditorGUI.DrawRect(new Rect(center.x+radius,center.y-radius,1,radius*2),tint);
+                        Marker(center,new Color(.2f,.8f,.9f),"AI AREA "+area.id+" r="+area.radius+" (행동영역 중심, 생성 좌표 아님)",null,false);
+                    }
                 if(placementMode==0 && showLocations)
                     foreach(var marker in Locations())Marker(Screen(marker.x,marker.y),marker.chest?new Color(.9f,.65f,.1f):new Color(.7f,.3f,.85f),marker.label,null,false);
                 if(placementMode==0)
@@ -274,6 +324,7 @@ namespace DarkSaver.Editor
                     {var pos=World(int.Parse(command.args[2]),int.Parse(command.args[3]));cameraView.transform.position=new Vector3(pos.x,pos.y,cameraView.transform.position.z);Repaint();}
                 EditorGUILayout.EndScrollView();return;
             }
+            Section("MONSTERS  /  몬스터");
             job=EditorGUILayout.IntField("추가할 직업 ID",job);
             if(GUILayout.Button("몬스터 추가"))
             {
@@ -281,6 +332,7 @@ namespace DarkSaver.Editor
                 var u=new Scenario01Unit{id=id,job=job,name="새 몬스터",wave=Math.Max(0,wave),x=data.entryX,y=data.entryY,hp=1};
                 data.units=data.units.Concat(new[]{u}).ToArray();selected=data.units.Length-1;dirty=true;
             }
+            Section("DETAILS  /  선택 배치");
             EditorGUI.BeginChangeCheck();
             if(selected==-2){data.entryX=EditorGUILayout.IntField("진입 X",data.entryX);data.entryY=EditorGUILayout.IntField("진입 Y",data.entryY);}
             else if(selected>=0 && selected<data.units.Length)
@@ -292,9 +344,16 @@ namespace DarkSaver.Editor
                 if(GUILayout.Button("선택 몬스터 삭제"))Delete();
             }
             if(EditorGUI.EndChangeCheck())dirty=true;
-            EditorGUILayout.HelpBox("저장 시 배치 해시가 변경됩니다. 기존 진행 저장은 콘텐츠 불일치로 거부될 수 있으므로 새 검증 저장을 사용하세요. 삭제한 ID를 참조하는 이벤트/대사는 자동 변경하지 않습니다.",MessageType.Warning);
-            EditorGUILayout.HelpBox("Content.json의 현재 좌표입니다. 01~17에는 이전 보완 배치가 포함되며 원작 확정 좌표로 간주하지 않습니다. 연출 NPC는 연출 배치 모드에서 확인합니다.",MessageType.Info);
-            EditorGUILayout.LabelField("몬스터 "+data.units.Length+"개");
+            if(!IsBattleLayout)EditorGUILayout.HelpBox("저장 시 배치 해시가 변경됩니다. 기존 진행 저장은 콘텐츠 불일치로 거부될 수 있으므로 새 검증 저장을 사용하세요. 삭제한 ID를 참조하는 이벤트/대사는 자동 변경하지 않습니다.",MessageType.Warning);
+            if(!IsBattleLayout)EditorGUILayout.HelpBox("현재 콘텐츠 좌표입니다. 01~17은 보완 배치이며 원작 확정 좌표가 아닙니다. 연출 NPC는 연출 모드에서 확인합니다.",MessageType.Info);
+            else EditorGUILayout.LabelField("저장 위치: Editor/BattleLayouts",EditorStyles.miniLabel);
+            Section("LAYOUT  /  배치 목록");
+            using(new EditorGUILayout.HorizontalScope(EditorStyles.helpBox))
+            {
+                EditorGUILayout.LabelField(data.width+" × "+data.height,GUILayout.Width(70));
+                EditorGUILayout.LabelField(data.units.Length+" 유닛",GUILayout.Width(70));
+                EditorGUILayout.LabelField(data.units.Select(u=>u.wave).Distinct().Count()+" 웨이브");
+            }
             scroll=EditorGUILayout.BeginScrollView(scroll);
             for(int i=0;i<data.units.Length;i++){var u=data.units[i];if(!showAll && u.wave!=wave)continue;if(GUILayout.Button(u.id+" "+u.name+" ("+u.x+","+u.y+") W"+u.wave))selected=i;}
             if(showLocations)
@@ -319,20 +378,22 @@ namespace DarkSaver.Editor
         }
         private void Save()
         {
-            if(data==null || !dirty)return;
+            if(data==null || !dirty && original!=null)return;
             try
             {
                 bool Inside(int x,int y)=>x>=0 && y>=0 && x<data.width && y<data.height;
                 if(!Inside(data.entryX,data.entryY) || data.units.Any(u=>!Inside(u.x,u.y) || u.id<=0 || u.id>short.MaxValue || u.job<0 || u.wave<0) || data.units.Select(u=>u.id).Distinct().Count()!=data.units.Length)
                     throw new InvalidDataException("좌표 범위·중복/잘못된 ID·직업·웨이브를 확인하세요.");
-                if(File.ReadAllText(path)!=original)throw new IOException("외부에서 파일이 변경되었습니다. 다시 불러온 후 편집하세요.");
+                if((original==null && File.Exists(path)) || (original!=null && (!File.Exists(path) || File.ReadAllText(path)!=original)))throw new IOException("외부에서 파일이 변경되었습니다. 다시 불러온 후 편집하세요.");
                 string wrapper=JsonUtility.ToJson(new UnitList{units=data.units},true);string array=wrapper.Substring(wrapper.IndexOf('['));array=array.Substring(0,array.LastIndexOf(']')+1);
-                string updated=ReplaceArray(original,array);
+                string updated=ReplaceArray(original ?? JsonUtility.ToJson(data,true),array);
                 updated=Regex.Replace(updated,"(\\\"entryX\\\"\\s*:\\s*)-?\\d+",m=>m.Groups[1].Value+data.entryX);
                 updated=Regex.Replace(updated,"(\\\"entryY\\\"\\s*:\\s*)-?\\d+",m=>m.Groups[1].Value+data.entryY);
                 using(var sha=SHA256.Create())
                 {string hash=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(array+"|"+data.entryX+"|"+data.entryY))).Replace("-","").ToLowerInvariant();updated=Regex.Replace(updated,"(\\\"profileHash\\\"\\s*:\\s*\\\")[^\\\"]*(\\\")",m=>m.Groups[1].Value+hash+m.Groups[2].Value);}
-                string temp=path+".placement-tmp";File.WriteAllText(temp,updated,new UTF8Encoding(false));File.Replace(temp,path,null);
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                string temp=path+".placement-tmp";File.WriteAllText(temp,updated,new UTF8Encoding(false));
+                if(File.Exists(path))File.Replace(temp,path,null);else File.Move(temp,path);
                 original=updated;dirty=false;AssetDatabase.ImportAsset(path);error=null;
             }
             catch(Exception e){error=e.Message;}
