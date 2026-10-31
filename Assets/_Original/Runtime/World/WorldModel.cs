@@ -22,7 +22,7 @@ namespace DarkSaver.Original.World
         public WorldMapDefinition CopyForPlacement(){var copy=(WorldMapDefinition)MemberwiseClone();copy.portals=(WorldPortal[])portals.Clone();copy.npcs=(WorldNpc[])npcs.Clone();return copy;}
     }
     [Serializable] public sealed class WorldItemDefinition
-    { public int id, picture; public long price, sellPrice; public string name, description; public bool sellKnown; }
+    { public int id, picture, equipType, requiredLevel; public int[] jobs; public long price, sellPrice; public string name, description; public bool sellKnown; }
     [Serializable] public sealed class WorldShop { public int map; public int[] items; public string evidence; }
     [Serializable] public sealed class WorldHireOffer { public int commander, job, picture, limit; public long price; public string name; }
     [Serializable] public sealed class WorldRules
@@ -58,23 +58,28 @@ namespace DarkSaver.Original.World
         [DataMember] public bool goldKnown, bankKnown, healthKnown, ghost;
         [DataMember] public ulong gold, bank;
         [DataMember] public int hp, maxHp, mp, maxMp, hiredJob = -1, hiredCount;
+        [DataMember(EmitDefaultValue=false)] public int? level;
         [DataMember(EmitDefaultValue=false)] public string campaignPhase;
         [DataMember] public WorldOwnedItem[] inventory = Array.Empty<WorldOwnedItem>(), storage = Array.Empty<WorldOwnedItem>();
+        [DataMember(EmitDefaultValue=false)] public WorldOwnedItem[] equipment;
+        public WorldOwnedItem[] Equipment => equipment ?? Array.Empty<WorldOwnedItem>();
         public WorldRecord Copy()
-        { var r = (WorldRecord)MemberwiseClone(); r.inventory = inventory.Select(i => i.Copy()).ToArray(); r.storage = storage.Select(i => i.Copy()).ToArray(); return r; }
+        { var r = (WorldRecord)MemberwiseClone(); r.inventory = inventory.Select(i => i.Copy()).ToArray(); r.storage = storage.Select(i => i.Copy()).ToArray(); r.equipment = equipment?.Select(i=>i.Copy()).ToArray(); return r; }
         public static bool Valid(WorldRecord r)
         {
             if (r == null) return true; // Compatible with pre-world accounts.
             if(r.campaignPhase!=null&&r.campaignPhase!="intro"&&r.campaignPhase!="explore"&&r.campaignPhase!="outro"&&r.campaignPhase!="complete")return false;
-            if (r.version != 1 || r.map < 0 || r.x < 0 || r.y < 0 || r.direction < 0 || r.direction > 3
+            if (r.version != 1 || r.map < 0 || r.x < 0 || r.y < 0 || r.direction < 0 || r.direction > 3 || r.level<0
                 || r.inventory == null || r.storage == null || r.hiredCount < 0 || (r.hiredCount == 0 && r.hiredJob != -1) || (r.hiredCount > 0 && r.hiredJob < 0)
                 || (!r.goldKnown && r.gold != 0) || (!r.bankKnown && r.bank != 0)
                 || r.hp < 0 || r.mp < 0 || r.maxHp < r.hp || r.maxMp < r.mp) return false;
-            var all = r.inventory.Concat(r.storage).ToArray();
+            var all = r.inventory.Concat(r.storage).Concat(r.Equipment).ToArray();
             return all.All(i => i != null && Guid.TryParseExact(i.id, "N", out _) && i.item >= 0 && i.slot >= 0)
                 && all.Select(i => i.id).Distinct().Count() == all.Length
                 && r.inventory.Select(i => i.slot).Distinct().Count() == r.inventory.Length
-                && r.storage.Select(i => i.slot).Distinct().Count() == r.storage.Length;
+                && r.storage.Select(i => i.slot).Distinct().Count() == r.storage.Length
+                && r.Equipment.All(i=>i.slot<WaitingEquipmentLayout.SlotCount)
+                && r.Equipment.Select(i=>i.slot).Distinct().Count()==r.Equipment.Length;
         }
     }
     public sealed class WorldFacilityView
@@ -141,8 +146,7 @@ namespace DarkSaver.Original.World
         }
         public WorldFailure Move(int x, int y)
         {
-            if (Moving) return WorldFailure.Moving;
-            if (Kind != FacilityKind.None || PresentationLocked) return WorldFailure.Busy;
+            if (Kind != FacilityKind.None || PresentationLocked || PendingPortal!=null) return WorldFailure.Busy;
             var m = Definition.Map(Record.map); var target = new TutorialTile(x, y);
             var occupied = new HashSet<TutorialTile>(m.npcs.Select(n => new TutorialTile(n.x, n.y)));
             foreach(var unit in Definition.campaign?.Map(Record.map)?.units ?? Array.Empty<CampaignUnit>()) occupied.Add(new TutorialTile(unit.x,unit.y));
@@ -150,10 +154,14 @@ namespace DarkSaver.Original.World
             foreach (var portal in m.portals)
                 foreach (var cell in portal.cells)
                     if (cell.Tile != target) occupied.Add(cell.Tile);
-            var route = m.map.Path(new TutorialTile(Record.x, Record.y), target, 100000, occupied);
-            if (route == null || route.Count == 0) return WorldFailure.InvalidInput;
+            bool continuing=Moving;var start=continuing?path.Peek():new TutorialTile(Record.x,Record.y);
+            var route = start==target?new List<TutorialTile>():m.map.Path(start, target, 100000, occupied);
+            if (route == null || (!continuing&&route.Count==0)) return WorldFailure.InvalidInput;
+            // Preserve the in-flight grid step, replacing only its remaining path.
+            path.Clear();if(continuing)path.Enqueue(start);
             foreach (var point in route) path.Enqueue(point);
-            PendingPortal = null; movement = 0; stopping = false; Face(); return WorldFailure.None;
+            PendingPortal = PendingNpc = null; stopping = false;
+            if(!continuing){movement=0;Face();} return WorldFailure.None;
         }
         public void StopAtNextTile() { stopping = true; }
         private double Duration => path.Count > 0 && path.Peek().X != from.X && path.Peek().Y != from.Y ? 240 : 160;

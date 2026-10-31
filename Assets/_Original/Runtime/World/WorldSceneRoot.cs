@@ -68,6 +68,7 @@ namespace DarkSaver.Original.World
             else if(!EventSystem.current.GetComponents<BaseInputModule>().Any(m=>m.isActiveAndEnabled))EventSystem.current.gameObject.AddComponent<StandaloneInputModule>();
             worldWindows=Group(screen,"Facility windows",new Rect(0,0,640,480));
             overlay=Group(screen,"Native notices",new Rect(0,0,640,480));
+            BuildPersonalWindows();
         }
         private void BuildMap(int displayMap)
         {
@@ -78,8 +79,10 @@ namespace DarkSaver.Original.World
             var native = m.ground < 0 ? LoadCampaignMap(m.id) : null;
             Picture(mapRoot,"Ground without atlas seams",new Rect(0,0,m.map.width*32,m.map.height*32),native == null ? art.grounds[m.ground] : CampaignTexture(native.rgba,native.width,native.height));
             var hitPlane=Group(mapRoot,"Native grid input",new Rect(0,0,m.map.width*32,m.map.height*32));hitPlane.gameObject.AddComponent<Image>().color=Color.clear;
-            hitPlane.gameObject.AddComponent<NativeMapPointer>().Configure((x,y)=>{showingActions=false;Handle(server.Request_MoveWorld(x,y));});
+            hitPlane.gameObject.AddComponent<NativeMapPointer>().Configure((x,y)=>{showingActions=false;HandleMove(server.Request_MoveWorld(x,y));});
             playerHit=(RectTransform)Hit(mapRoot,"Commander",new Rect(0,0,32,32),()=>{if(BattleMap()&&view.facility==null&&!view.moving){showingActions=!showingActions;Paint();}}).transform;
+            var clicks=playerHit.gameObject.AddComponent<EventTrigger>();var doubleClick=new EventTrigger.Entry{eventID=EventTriggerType.PointerClick};
+            doubleClick.callback.AddListener(e=>{var p=(PointerEventData)e;if(p.button==PointerEventData.InputButton.Left&&p.clickCount==2&&!BattleMap())TogglePersonal(18);});clicks.triggers.Add(doubleClick);
             player=Picture(playerHit,"Native commander",new Rect(0,0,32,32),art.Picture(character.job));
             foreach(var npc in m.npcs)
             {
@@ -122,6 +125,7 @@ namespace DarkSaver.Original.World
             if(Input.GetKeyDown(KeyCode.F9))
             {if(definition.Map(view.record.map).training)ShowTrainingEscape();else ShowQuit();}
             if(Input.GetKeyDown(KeyCode.F2)&&BattleMap())ToggleTrainingStatus();
+            if(!BattleMap())for(int key=2;key<=5;key++)if(Input.GetKeyDown((KeyCode)((int)KeyCode.F1+key-1)))TogglePersonal(key==2?18:key==3?21:key==4?20:19);
         }
         private void LateUpdate()
         {
@@ -157,9 +161,16 @@ namespace DarkSaver.Original.World
             PaintFacility();
             PaintTrainingStatus();
             PaintCampaignActors(presenting);
+            PaintPersonalWindows();
         }
         private void Handle(WorldReply reply)
-        {if(reply.View!=null)view=reply.View;if(!reply.Accepted)ShowFailure(reply.Failure);else if(view?.failure==WorldFailure.None)previousFailure=WorldFailure.None;}
+        {if(reply.View!=null)view=reply.View;previousFailure=reply.Failure;if(!reply.Accepted)ShowFailure(reply.Failure);}
+        private void HandleMove(WorldReply reply)
+        {
+            if(reply.Failure==WorldFailure.InvalidInput||reply.Failure==WorldFailure.Moving||reply.Failure==WorldFailure.Busy)
+            {if(reply.View!=null)view=reply.View;previousFailure=reply.Failure;return;}
+            Handle(reply);
+        }
         private static RectTransform Group(RectTransform parent,string name,Rect rect)
         {var r=new GameObject(name,typeof(RectTransform)).GetComponent<RectTransform>();r.SetParent(parent,false);r.anchorMin=r.anchorMax=r.pivot=new Vector2(0,1);Place(r,rect);return r;}
         private static void Place(RectTransform r,Rect b){r.anchoredPosition=new Vector2(b.x,-b.y);r.sizeDelta=b.size;}
@@ -170,6 +181,6 @@ namespace DarkSaver.Original.World
         private Button Hit(RectTransform parent,string name,Rect rect,Action action)
         {var i=Group(parent,name,rect).gameObject.AddComponent<Image>();i.color=Color.clear;var b=i.gameObject.AddComponent<Button>();b.targetGraphic=i;b.transition=Selectable.Transition.None;b.onClick.AddListener(()=>action());return b;}
         private void OnDisable(){running=false;if(canvasObject!=null)canvasObject.SetActive(false);}
-        private void OnDestroy(){if(tutorial!=null)tutorial.WorldEntryReady-=Begin;ClearCampaignMap();if(canvasObject!=null)Destroy(canvasObject);if(ownsFont&&font!=null)Destroy(font);}
+        private void OnDestroy(){if(tutorial!=null)tutorial.WorldEntryReady-=Begin;ClearCampaignMap();ClearItemIcons();if(canvasObject!=null)Destroy(canvasObject);if(ownsFont&&font!=null)Destroy(font);}
     }
 }

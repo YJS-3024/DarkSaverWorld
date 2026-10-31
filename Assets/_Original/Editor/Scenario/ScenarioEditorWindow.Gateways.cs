@@ -125,7 +125,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             {
                 if(gate.fromMap==int.Parse(mapKey)&&gate.x>=0&&gate.y>=0)
                 {
-                    var r=TileRect(gate.x,gate.y);var texture=ActorPicture(gate.npcJob.ToString());if(texture!=null)GUI.DrawTexture(r,texture,ScaleMode.ScaleToFit,true);
+                    var r=TileRect(gate.x,gate.y);var texture=ActorPicture(gate.npcJob.ToString());if(texture!=null)DrawActorPicture(r,texture);
                     Outline(r,gate.id==selectedGateway?Color.yellow:Color.cyan,2);GUI.Label(new Rect(r.x,r.y-15,150,15),gate.name+" → "+gate.targetMap,small);
                 }
                 if(gate.targetMap==int.Parse(mapKey)&&gate.spawnX>=0&&gate.spawnY>=0)DrawMarker(new ScenarioMarker{x=gate.spawnX,y=gate.spawnY,kind="local",label="사용자 지정 도착 칸",file=GatewayPath},Color.green);

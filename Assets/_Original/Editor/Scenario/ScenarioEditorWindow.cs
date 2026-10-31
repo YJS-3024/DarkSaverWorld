@@ -37,6 +37,9 @@ namespace DarkSaver.Original.Editor.Scenarios
         private ScenarioActor[] actors = Array.Empty<ScenarioActor>();
         private ScenarioMarker localEntry;
         private Rect viewport;
+        private bool fitRequested;
+        [SerializeField] private bool layoutReadOnly;
+        private string layoutNotice="";
 
         [MenuItem("DarkSaver/원작 도구/시나리오 편집툴")]
         public static void Open()
@@ -65,17 +68,22 @@ namespace DarkSaver.Original.Editor.Scenarios
             catch (Exception e) { loadError = e.Message; }
         }
         private void OnDisable()
-        { if (mapTexture != null) DestroyImmediate(mapTexture); mapTexture = null; foreach (var t in pictures.Values) if (t != null) DestroyImmediate(t); pictures.Clear(); }
+        { if (mapTexture != null) DestroyImmediate(mapTexture); mapTexture = null; pictures.Clear(); }
+        private ScenarioSource ReadMapSource(string key,byte[] map,int width,int height)
+        {
+            string folder=DecodedFolder+key+"set.arc/",prefix=folder+key;
+            return ScenarioLayoutData.ReadSource(key,width,height,map,ReadOptional(prefix+".set.txt"),ReadOptional(prefix+".pos.txt"),ReadOptional(prefix+".evt.txt"),
+                (Directory.Exists(folder)?Directory.GetFiles(folder,"*.de?.txt"):Array.Empty<string>()).Where(p=>p.EndsWith(".deo.txt",StringComparison.Ordinal)||p.EndsWith(".dee.txt",StringComparison.Ordinal)).OrderBy(p=>p.EndsWith(".deo.txt")?0:1).ToArray());
+        }
         private void LoadMap(string key, bool preserve = false)
         {
             try
             {
                 var map = File.ReadAllBytes(MapInfo(key).nativePath); var size = NativeMapDecoder.Dimensions(map);
-                string folder = DecodedFolder + key + "set.arc/", prefix = folder + key;
-                var nextSource = ScenarioLayoutData.ReadSource(key, size.width, size.height, map, ReadOptional(prefix + ".set.txt"), ReadOptional(prefix + ".pos.txt"), ReadOptional(prefix + ".evt.txt"),
-                    (Directory.Exists(folder) ? Directory.GetFiles(folder, "*.de?.txt") : Array.Empty<string>()).Where(p => p.EndsWith(".deo.txt", StringComparison.Ordinal) || p.EndsWith(".dee.txt", StringComparison.Ordinal)).OrderBy(p => p.EndsWith(".deo.txt") ? 0 : 1).ToArray());
+                var nextSource = ReadMapSource(key,map,size.width,size.height);
                 string path = LayoutFolder + "/" + key + ".json"; var bytes = File.Exists(path) ? File.ReadAllBytes(path) : null;
-                var next = preserve ? document : bytes == null ? nextSource.layout.Copy() : ScenarioLayoutData.Decode(bytes);
+                bool readOnly=false;string notice="";
+                var next = preserve ? document : ScenarioLayoutData.LoadForPreview(bytes,nextSource.layout,new HashSet<int>(jobs.Keys),out readOnly,out notice);
                 ScenarioLayoutData.Validate(next, nextSource.layout, new HashSet<int>(jobs.Keys));
                 var pixels = NativeMapDecoder.Render(map, id => File.ReadAllBytes((MapInfo(key).legacy ? BasePath+"SourceData/KaosiaLegacy/" : NativeFolder) + "mdsr" + id + ".grs.bytes"));
                 var texture = new Texture2D(pixels.width, pixels.height, TextureFormat.RGBA32, false) { filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp, hideFlags = HideFlags.HideAndDontSave };
@@ -84,7 +92,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                 texture.LoadRawTextureData(flipped); texture.Apply(false, true);
                 if (mapTexture != null) DestroyImmediate(mapTexture); mapTexture = texture;
                 source = nextSource; document = next; mapKey = key; dragging = false;
-                if (!preserve) { savedHash = bytes == null ? null : ScenarioLayoutData.Hash(bytes); dirty = false; undo.Clear(); redo.Clear(); selected = -1; Fit(); }
+                if (!preserve) { savedHash = bytes == null ? null : ScenarioLayoutData.Hash(bytes); dirty = false; layoutReadOnly=readOnly;layoutNotice=notice;undo.Clear(); redo.Clear(); selected = -1; Fit(); }
                 localEntry = null;
                 if (key == "101")
                 {
@@ -92,7 +100,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                     var gate = world.Map(1000).portals.FirstOrDefault(p => p.targetMap == 101);
                     if (gate != null) localEntry = new ScenarioMarker { x = gate.spawnX, y = gate.spawnY, kind = "local", label = "현재 로컬 수련장 진입점", file = "KaosiaWorld.json" };
                 }
-                scriptIndex = 0; ReadScript(); loadError = ""; message = ""; hasUnsavedChanges = dirty || dirtyGateways;
+                scriptIndex = 0; ReadScript(); loadError = ""; message = layoutNotice; hasUnsavedChanges = dirty || dirtyGateways;
                 saveChangesMessage = "시나리오 " + mapKey + "의 편집 배치를 저장할까요? 원본 SET/POS는 변경하지 않습니다.";
                 Repaint();
             }
@@ -118,12 +126,14 @@ namespace DarkSaver.Original.Editor.Scenarios
         private void MarkDirty() { dirty = hasUnsavedChanges = true; message = "저장하지 않은 변경"; Repaint(); }
         private void History(bool back)
         {
+            if(layoutReadOnly)return;
             var from = back ? undo : redo; var to = back ? redo : undo; if (from.Count == 0) return;
             to.Add(ScenarioLayoutData.Encode(document)); document = ScenarioLayoutData.Decode(from[from.Count - 1]); from.RemoveAt(from.Count - 1); selected = -1; dragging = false; MarkDirty();
         }
         private bool Save()
         {
             if (source == null || loadError.Length > 0) return false;
+            if(layoutReadOnly){message="기존 사용자 배치 파일을 보호하고 있습니다. 원본 배치 불러오기 후 저장하세요.";return false;}
             try
             {
                 if (ScenarioLayoutData.Hash(File.ReadAllBytes(MapInfo(mapKey).nativePath)) != source.layout.mapHash)
@@ -141,31 +151,48 @@ namespace DarkSaver.Original.Editor.Scenarios
         public override void DiscardChanges() { dirty = dirtyGateways = false; base.DiscardChanges(); }
         private void DeleteSelected()
         {
-            if (mode != 0 || document == null || !document.units.Any(u => u.unit == selected)) return;
+            if (mode != 0 || layoutReadOnly || document == null || !document.units.Any(u => u.unit == selected)) return;
             Remember(); document.units = document.units.Where(u => u.unit != selected).ToArray(); selected = -1; dragging = false;
         }
         private void AddAt(int x, int y)
         {
-            if (mode != 0 || !jobs.ContainsKey(addJob)) return;
+            if (mode != 0 || layoutReadOnly || !jobs.ContainsKey(addJob)) return;
             Remember(); var unit = new ScenarioPlacement { unit = ScenarioLayoutData.NextUnit(document), job = addJob, x = x, y = y };
             document.units = document.units.Concat(new[] { unit }).ToArray(); selected = unit.unit;
+        }
+        private void RestoreOriginalLayout()
+        {
+            try
+            {
+                var map=File.ReadAllBytes(MapInfo(mapKey).nativePath);var size=NativeMapDecoder.Dimensions(map);
+                var original=ReadMapSource(mapKey,map,size.width,size.height);
+                ScenarioLayoutData.Validate(original.layout,original.layout,new HashSet<int>(jobs.Keys));
+                if(original.layout.units.Length==0)
+                {
+                    message=original.layout.source=="original-missing"?mapKey+": 원본 SET/POS 미확보 ("+DecodedFolder+mapKey+"set.arc/). 현재 편집 배치는 유지합니다.":mapKey+": 원본 SET/POS의 전투 배치가 비어 있습니다. 현재 편집 배치는 유지합니다.";
+                    Repaint();return;
+                }
+                if(original.layout.mapHash!=source.layout.mapHash)throw new IOException("원본 지도가 변경되었습니다. 다시 열기를 먼저 실행하세요.");
+                Remember();source=original;document=original.layout.Copy();selected=-1;mode=0;adding=dragging=pickNpc=pickSpawn=dragGateway=false;
+                pictures.Clear();scriptIndex=0;ReadScript();loadError="";layoutReadOnly=false;layoutNotice="";Fit();message=mapKey+": 원본 전투 "+document.units.Length+"개 재로딩 · 화면 맞춤 · 저장 전";
+            }
+            catch(Exception e){message="원본 배치 재로딩 실패: "+e.Message;}
         }
         private Texture2D ActorPicture(string job)
         {
             int id; if (!int.TryParse(job, out id)) return null; // COM0 is not an invented class.
-            if (!jobs.TryGetValue(id, out var info) || !picturePaths.TryGetValue(info.picture, out var path)) return null;
+            if (!jobs.TryGetValue(id, out var info) || !picturePaths.ContainsKey(info.picture)) return null;
             if (pictures.TryGetValue(info.picture, out var cached)) return cached;
-            var sheet = new Texture2D(2,2,TextureFormat.RGBA32,false) { hideFlags = HideFlags.HideAndDontSave };
-            try
-            {
-                if (!ImageConversion.LoadImage(sheet, File.ReadAllBytes(path), false)) return null;
-                int w = sheet.width / 3, h = sheet.height / 4; var pixels = sheet.GetPixels32(); var frame = new Color32[w * h];
-                for (int y = 0; y < h; y++) for (int x = 0; x < w; x++)
-                { var c = pixels[(sheet.height - h * 2 + y) * sheet.width + x]; if (c.r == 0 && c.g == 0 && c.b == 0) c.a = 0; frame[y * w + x] = c; }
-                var result = new Texture2D(w,h,TextureFormat.RGBA32,false) { filterMode = FilterMode.Point, hideFlags = HideFlags.HideAndDontSave };
-                result.SetPixels32(frame); result.Apply(false, true); pictures[info.picture] = result; return result;
-            }
-            finally { DestroyImmediate(sheet); }
+            // Reuse the verified black-keyed native sheets; do not decode/read GPU pixels in OnGUI.
+            var prepared=BasePath+"Art/Campaign/Picture"+info.picture+".png";
+            var result=AssetDatabase.LoadAssetAtPath<Texture2D>(prepared);
+            if(result!=null)pictures[info.picture]=result;
+            return result;
+        }
+        private static void DrawActorPicture(Rect rect,Texture2D sheet)
+        {
+            int w=sheet.width/3,h=sheet.height/4;
+            GUI.DrawTextureWithTexCoords(rect,sheet,new Rect(0,1f-(float)(2*h)/sheet.height,(float)w/sheet.width,(float)h/sheet.height),true);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         private Vector2 dragStart;
         private Rect canvasArea;
         private GUIStyle small, centered;
+        private int visibleActors,missingActorPictures;
         private void OnGUI()
         {
             if (small == null) small = new GUIStyle(EditorStyles.miniLabel) { normal = { textColor = Color.white } };
@@ -20,6 +21,8 @@ namespace DarkSaver.Original.Editor.Scenarios
             DrawHeader();
             if (source == null || document == null)
             { EditorGUI.HelpBox(new Rect(12,48,position.width-24,90), "원본 자료를 열지 못했습니다. " + loadError, MessageType.Error); return; }
+            mode=Mathf.Clamp(mode,0,2);
+            if(float.IsNaN(zoom)||float.IsInfinity(zoom)||zoom<.125f||zoom>4||float.IsNaN(pan.x)||float.IsInfinity(pan.x)||float.IsNaN(pan.y)||float.IsInfinity(pan.y))Fit();
             const float left = 220, right = 264;
             var list = new Rect(0,36,left,position.height-60);
             var inspector = new Rect(position.width-right,36,right,position.height-60);
@@ -33,10 +36,11 @@ namespace DarkSaver.Original.Editor.Scenarios
             }
             viewport = new Rect(canvasArea.x+8,canvasArea.y+36,canvasArea.width-16,canvasArea.height-44);
             if (mode == 1) { DrawScript(); viewport.y += 58; viewport.height -= 58; }
+            if(fitRequested)ApplyFit();
             ProcessInput(); DrawMap();
             EditorGUI.DrawRect(new Rect(0,position.height-24,position.width,24),new Color(.12f,.14f,.17f));
             GUI.Label(new Rect(10,position.height-22,position.width-20,20),
-                (hoverX >= 0 ? "타일 " + hoverX + "," + hoverY + "  ·  " : "") + Mathf.RoundToInt(zoom*100) + "%  |  휠: 확대/축소  ·  가운데 버튼 드래그: 이동  ·  좌클릭/드래그: 선택/배치  ·  Delete: 삭제  |  " + message, EditorStyles.miniLabel);
+                new[]{"전투 보기","연출 보기","NPC 입구 보기"}[mode]+" | 전투 "+document.units.Length+" · 화면 범위 "+visibleActors+" · 그림 미확보 "+missingActorPictures+" | "+(hoverX >= 0 ? "타일 " + hoverX + "," + hoverY + "  ·  " : "") + Mathf.RoundToInt(zoom*100) + "% | " + message, EditorStyles.miniLabel);
             if (loadError.Length > 0) EditorGUI.HelpBox(new Rect(canvasArea.x+14,canvasArea.y+100,canvasArea.width-28,90),loadError,MessageType.Error);
         }
         private void DrawHeader()
@@ -48,7 +52,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                 if (GUI.Button(new Rect(position.width-325,5,65,24),"화면 맞춤")) Fit();
                 if (GUI.Button(new Rect(position.width-254,5,65,24),"100%")) { zoom=1; CenterMap(); }
                 if (GUI.Button(new Rect(position.width-183,5,78,24),"다시 열기")) {if(mode==2)ReloadGateways();else if(MayLeave())LoadMap(mapKey);}
-                using (new EditorGUI.DisabledScope(loadError.Length > 0))
+                using (new EditorGUI.DisabledScope(loadError.Length > 0||mode!=2&&layoutReadOnly))
                     if (GUI.Button(new Rect(position.width-99,5,86,24),mode==2?"입구 저장":"배치 저장")) {if(mode==2)SaveGateways();else Save();}
             }
         }
@@ -79,13 +83,15 @@ namespace DarkSaver.Original.Editor.Scenarios
             GUILayout.Label(document.width+" × "+document.height+" 타일",EditorStyles.boldLabel);
             string evidence=source.layout.source=="original-missing"?"원본 전투 편성 미확보":source.layout.source=="original-empty"?"원본 SET/POS의 빈 전투 편성":"원본 SET/POS "+source.layout.units.Length+"개";
             EditorGUILayout.HelpBox(evidence+"\n현재 편집 배치 "+document.units.Length+"개"+(dirty?" · 저장 전":""),source.layout.source=="original-missing"?MessageType.Warning:MessageType.Info);
+            if(layoutReadOnly)EditorGUILayout.HelpBox(layoutNotice,MessageType.Warning);
+            else if(source.layout.units.Length>0&&document.units.Length==0)EditorGUILayout.HelpBox("원본에는 몬스터가 있으나 현재 사용자 편집 배치가 비어 있습니다. 원본 배치 불러오기로 복원할 수 있습니다.",MessageType.Warning);
             GUILayout.Label("아군 POS "+source.entries.Length+" · 상자 "+source.events.Count(m=>m.kind=="chest")+" · 조건 "+source.events.Count(m=>m.kind=="event"),EditorStyles.miniLabel);
             grid=EditorGUILayout.ToggleLeft("격자 표시",grid);labels=EditorGUILayout.ToggleLeft("ID / 이름 표시",labels);
             groups=EditorGUILayout.ToggleLeft("unit 10단위 묶음 테두리",groups);
             entries=EditorGUILayout.ToggleLeft("아군 POS 슬롯 / 로컬 진입점",entries);
             chests=EditorGUILayout.ToggleLeft("상자 위치",chests);quests=EditorGUILayout.ToggleLeft("이벤트 조건 위치",quests);
             GUILayout.Space(6);
-            using(new EditorGUI.DisabledScope(mode!=0||loadError.Length>0))
+            using(new EditorGUI.DisabledScope(mode!=0||loadError.Length>0||layoutReadOnly))
             {
                 GUILayout.Label("몬스터 추가",EditorStyles.boldLabel);
                 jobSearch=EditorGUILayout.TextField("병종 검색",jobSearch);allJobs=EditorGUILayout.ToggleLeft("전체 병종 포함",allJobs);
@@ -118,8 +124,11 @@ namespace DarkSaver.Original.Editor.Scenarios
                 else GUILayout.Label("지도 또는 목록에서 선택",EditorStyles.miniLabel);
                 GUILayout.BeginHorizontal();using(new EditorGUI.DisabledScope(undo.Count==0))if(GUILayout.Button("되돌리기"))History(true);
                 using(new EditorGUI.DisabledScope(redo.Count==0))if(GUILayout.Button("다시 실행"))History(false);GUILayout.EndHorizontal();
-                if(GUILayout.Button("원본 배치 불러오기")){Remember();document=source.layout.Copy();selected=-1;}
             }
+            using(new EditorGUI.DisabledScope(mode!=0))if(GUILayout.Button("원본 배치 불러오기"))RestoreOriginalLayout();
+            using(new EditorGUI.DisabledScope(document.units.Length==0))
+                if(GUILayout.Button("첫 몬스터 위치 보기"))
+                {var first=document.units.OrderBy(u=>u.unit).First();mode=0;selected=first.unit;zoom=Mathf.Max(.5f,zoom);FocusTile(first.x,first.y);}
             int overlaps=document.units.GroupBy(u=>(u.x,u.y)).Count(g=>g.Count()>1);
             if(overlaps>0)EditorGUILayout.HelpBox("같은 타일에 겹친 위치 "+overlaps+"곳. 원본 좌표는 자동 정렬하지 않습니다.",MessageType.Warning);
             GUILayout.Space(6);GUILayout.Label("전투 개체 목록",EditorStyles.boldLabel);
@@ -144,7 +153,11 @@ namespace DarkSaver.Original.Editor.Scenarios
         }
         private void Fit()
         {
-            if(document==null)return;float w=Mathf.Max(200,position.width-502),h=Mathf.Max(200,position.height-104-(mode==1?58:0));
+            fitRequested=true;Repaint();
+        }
+        private void ApplyFit()
+        {
+            fitRequested=false;if(document==null)return;float w=viewport.width,h=viewport.height;
             zoom=Mathf.Clamp(Mathf.Min(w/(document.width*32),h/(document.height*32)),.125f,4);pan=new Vector2((w-document.width*32*zoom)/2,(h-document.height*32*zoom)/2);Repaint();
         }
         private void CenterMap()
@@ -168,7 +181,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                 else if(mode==0&&loadError.Length==0&&(e.control||e.command)&&e.keyCode==KeyCode.Y){History(false);e.Use();}
                 else if(e.keyCode==KeyCode.Delete||e.keyCode==KeyCode.Backspace){DeleteSelected();e.Use();}
             }
-            if(loadError.Length>0)return;
+            if(loadError.Length>0||layoutReadOnly&&mode!=2)return;
             if(mode==2){ProcessGatewayInput(e,inside,local);return;}
             if(mode!=0){dragging=false;return;}
             if(e.type==EventType.MouseDown&&e.button==0&&inside&&hoverX>=0)
@@ -190,6 +203,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         private Rect TileRect(int x,int y) => new Rect(pan.x+x*32*zoom,pan.y+y*32*zoom,32*zoom,32*zoom);
         private void DrawMap()
         {
+            visibleActors=missingActorPictures=0;
             EditorGUI.DrawRect(viewport,new Color(.055f,.065f,.08f));GUI.BeginGroup(viewport);
             if(mapTexture!=null)GUI.DrawTexture(new Rect(pan.x,pan.y,mapTexture.width*zoom,mapTexture.height*zoom),mapTexture,ScaleMode.StretchToFill);
             if(grid&&zoom>=.3f)
@@ -222,10 +236,11 @@ namespace DarkSaver.Original.Editor.Scenarios
         private void DrawActor(int id,string job,int x,int y,Color color,bool isSelected)
         {
             var rect=TileRect(x,y);if(!rect.Overlaps(new Rect(Vector2.zero,viewport.size)))return;
+            visibleActors++;
             EditorGUI.DrawRect(rect,new Color(color.r,color.g,color.b,.2f));
-            var picture=ActorPicture(job);if(picture!=null)GUI.DrawTexture(rect,picture,ScaleMode.ScaleToFit,true);else GUI.Label(rect,"?",centered);
+            var picture=ActorPicture(job);if(picture!=null)DrawActorPicture(rect,picture);else{missingActorPictures++;GUI.Label(rect,"?",centered);}
             Outline(rect,isSelected?Color.white:color,isSelected?2:1);
-            if(labels)
+            if(labels&&(zoom>=.5f||isSelected))
             {
                 string name=int.TryParse(job,out int number)&&jobs.TryGetValue(number,out var info)?info.name:job;
                 var label=new Rect(rect.x,rect.y-15,Mathf.Max(60,rect.width),15);EditorGUI.DrawRect(label,new Color(0,0,0,.7f));GUI.Label(label,id+" "+name,small);

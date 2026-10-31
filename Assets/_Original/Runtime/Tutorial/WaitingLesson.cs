@@ -11,6 +11,34 @@ namespace DarkSaver.Original.Tutorial
     [Serializable] public sealed class WaitingDefinition
     { public TutorialMap map; public WaitingLine[] lines; public WaitingWindowDefinition[] windows; }
     public enum WaitingInputKind { Continue, Move, DoubleSelf, Key, Button, Restore, DragWindow, Equip, HoverDoor }
+    // Saver.exe46A48D..46A52B: window-local origins in native equipment-index order.
+    public static class WaitingEquipmentLayout
+    {
+        public const int Body = 1, LeftHand = 2, RightHand = 3, SlotCount = 7;
+        public static TutorialTile Origin(int slot)
+        {
+            switch (slot)
+            {
+                case 0: return new TutorialTile(63, 42);
+                case Body: return new TutorialTile(63, 86);
+                case LeftHand: return new TutorialTile(26, 103);
+                case RightHand: return new TutorialTile(100, 103);
+                case 4: return new TutorialTile(26, 51);
+                case 5: return new TutorialTile(63, 144);
+                case 6: return new TutorialTile(100, 51);
+                default: throw new ArgumentOutOfRangeException(nameof(slot));
+            }
+        }
+        public static int SlotAt(int x, int y)
+        {
+            for (int slot = 0; slot < SlotCount; slot++)
+            {
+                var p = Origin(slot);
+                if (x >= p.X && x < p.X + 32 && y >= p.Y && y < p.Y + 32) return slot;
+            }
+            return -1;
+        }
+    }
     public readonly struct WaitingInput
     {
         public readonly WaitingInputKind Kind;
@@ -26,11 +54,11 @@ namespace DarkSaver.Original.Tutorial
     }
     public sealed class WaitingView
     {
-        public int ResourceId, Job, Direction, Sword, Armor, Hand, Body;
+        public int ResourceId, Job, Direction, Sword, Armor, Hand, HandSlot, Body;
         public string Message;
         public double Clock, RenderX, RenderY;
         public TutorialTile Tile;
-        public bool Moving, Completed, SwordOnFloor, ArmorOnFloor, DoorHovered;
+        public bool Moving, MovementAllowed, SwordEquipAllowed, ArmorEquipAllowed, Completed, SwordOnFloor, ArmorOnFloor, DoorHovered;
         public WaitingWindow[] Windows;
     }
     /// <summary>Transient Saver.exe waiting-room lesson; no currency or persistent item grants.</summary>
@@ -42,11 +70,18 @@ namespace DarkSaver.Original.Tutorial
         private readonly Queue<TutorialTile> path = new Queue<TutorialTile>();
         private TutorialTile tile = new TutorialTile(2, 7), from;
         private int index = -1, direction = 1, sword = -1, armor = -1, hand = -1, body = -1;
+        private int handSlot = WaitingEquipmentLayout.LeftHand;
         private double clock, moveClock;
         private bool swordFloor, armorFloor, completed, doorHovered;
         private int dragStartX, dragStartY;
         private int chatNormalY;
         public bool Completed => completed;
+        // Walking is taught at these steps; window and equipment lessons retain the current tile.
+        private bool MovementAllowed => !completed && path.Count == 0
+            && (index == 2 || index == 3 || index == 28 || index == 29 || index == 35);
+        private bool CanEquip(int item) => !completed && path.Count == 0 && windows[20].Visible && !windows[20].Minimized
+            && ((index == 30 && item == 1 && sword == 1)
+                || (index == 31 && item == (job == 103 ? 777 : 762) && armor == item));
         public WaitingLesson(WaitingDefinition definition, int job)
         {
             if (definition?.map == null || !definition.map.IsValid || definition.lines?.Length != 36
@@ -66,9 +101,11 @@ namespace DarkSaver.Original.Tutorial
             double phase = Math.Min(1, Math.Floor(moveClock / 80) * (diagonal ? 10.0 / 32 : .5));
             return new WaitingView { ResourceId = index < 0 ? 0 : 61216 + index, Job = job, Direction = direction,
                 Message = index < 0 || completed ? "" : definition.lines[index].text, Clock = clock, Tile = tile,
-                Moving = path.Count > 0, RenderX = path.Count == 0 ? tile.X : from.X + (path.Peek().X - from.X) * phase,
+                Moving = path.Count > 0, MovementAllowed = MovementAllowed,
+                RenderX = path.Count == 0 ? tile.X : from.X + (path.Peek().X - from.X) * phase,
                 RenderY = path.Count == 0 ? tile.Y : from.Y + (path.Peek().Y - from.Y) * phase,
-                Sword = sword, Armor = armor, Hand = hand, Body = body, SwordOnFloor = swordFloor,
+                Sword = sword, Armor = armor, Hand = hand, HandSlot = handSlot, Body = body, SwordOnFloor = swordFloor,
+                SwordEquipAllowed = CanEquip(1), ArmorEquipAllowed = CanEquip(job == 103 ? 777 : 762),
                 ArmorOnFloor = armorFloor, Completed = completed, DoorHovered = doorHovered,
                 Windows = windows.Values.Select(w => w.Copy()).ToArray() };
         }
@@ -100,7 +137,7 @@ namespace DarkSaver.Original.Tutorial
                     if (index == 27) swordFloor = true; // Native click handler435F2D..435F54: item1 at16,8.
                     Next(); return true;
                 case WaitingInputKind.Move:
-                    if (path.Count > 0) return false;
+                    if (!MovementAllowed) return false;
                     var target = new TutorialTile(input.X, input.Y);
                     if (target == tile) return false;
                     var route = definition.map.Path(tile, target, 10000, new HashSet<TutorialTile> { new TutorialTile(16, 7) });
@@ -130,9 +167,13 @@ namespace DarkSaver.Original.Tutorial
                     if (x == drag.X && y == drag.Y && input.Value != 1) return false;
                     drag.X = x; drag.Y = y; changed = true; break;
                 case WaitingInputKind.Equip:
-                    if (!windows[20].Visible || windows[20].Minimized || path.Count > 0) return false;
-                    if (input.Value == 1 && sword == 1 && input.X == 2) { sword = -1; hand = 1; changed = true; }
-                    else if (input.Value == (job == 103 ? 777 : 762) && armor == input.Value && input.X == 3)
+                    if (!CanEquip(input.Value)) return false;
+                    // Equip carries the release point relative to window20, not an inferred item category.
+                    int slot = WaitingEquipmentLayout.SlotAt(input.X, input.Y);
+                    if (input.Value == 1 && sword == 1
+                        && (slot == WaitingEquipmentLayout.LeftHand || slot == WaitingEquipmentLayout.RightHand))
+                    { sword = -1; hand = 1; handSlot = slot; changed = true; }
+                    else if (input.Value == (job == 103 ? 777 : 762) && armor == input.Value && slot == WaitingEquipmentLayout.Body)
                     { body = armor; armor = -1; changed = true; }
                     else return false;
                     break;
@@ -163,6 +204,9 @@ namespace DarkSaver.Original.Tutorial
         private void Face(TutorialTile next) { direction = TutorialGeometry.FacingRow(next.X - from.X, next.Y - from.Y); }
         private void Next()
         {
+            // A route can cross the objective before its requested endpoint. Stop on that tile
+            // so movement from the previous instruction cannot continue into the next lesson.
+            path.Clear(); from = tile; moveClock = 0;
             do { index++; } while (index < 36 && definition.lines[index].skipped);
             if (index >= 36) { completed = true; return; }
             if (index == 12) { dragStartX = windows[18].X; dragStartY = windows[18].Y; }

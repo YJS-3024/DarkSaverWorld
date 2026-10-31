@@ -43,6 +43,18 @@ def main():
     sys.path.insert(0,str(ROOT/'닥세_리소스/분석도구'))
     from decode_visuals import read_mrc,read_grs,grs_image
     from PIL import Image
+    actor_frames=0
+    for picture in {int(table[j]['직그림'])for j in original_jobs}:
+        raw=next((BASE/'Art/Archives/gameres').glob('**/'+str(picture)+'r.bmp.png'))
+        with Image.open(raw)as original_sheet,Image.open(BASE/'Art/Campaign'/('Picture'+str(picture)+'.png'))as prepared_sheet:
+            assert prepared_sheet.size==original_sheet.size,picture
+            w,h=original_sheet.width//3,original_sheet.height//4;box=(0,h,w,2*h)
+            source_pixels=list(original_sheet.convert('RGB').crop(box).getdata())
+            actual=list(prepared_sheet.convert('RGBA').crop(box).getdata())
+            assert actual==[(*p,0 if p==(0,0,0)else 255)for p in source_pixels],picture
+            assert any(p[3]>0 for p in actual),'Blank native front frame '+str(picture)
+            actor_frames+=1
+    result['nativeActorFrontFramesCompared']=actor_frames
     cache={};pixel_checks=[]
     for key in ['01','02','26','101','201','314','1010']:
         path=BASE/'SourceData/Native/map';m=read_mrc(path/(key+'.mrc.bytes'))

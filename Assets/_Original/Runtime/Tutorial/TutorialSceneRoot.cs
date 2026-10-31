@@ -24,6 +24,7 @@ namespace DarkSaver.Original.Tutorial
         private Button retrySave;
         private readonly Dictionary<int, RawImage> unitImages = new Dictionary<int, RawImage>();
         private readonly Dictionary<int, RawImage> unitEffects = new Dictionary<int, RawImage>();
+        private readonly Dictionary<int, RawImage> unitAttackEffects = new Dictionary<int, RawImage>();
         private readonly Dictionary<int, WindowView> windowViews = new Dictionary<int, WindowView>();
         private readonly List<RawImage> rangeImages = new List<RawImage>();
         private readonly List<(RectTransform rect, int bottom)> decorationOrder = new List<(RectTransform, int)>();
@@ -87,9 +88,6 @@ namespace DarkSaver.Original.Tutorial
                 int tileX = x, tileY = y;
                 Hit(world, "Tile " + x + "," + y, new Rect(x * 32, y * 32, 32, 32), () => Send(new TutorialInput(TutorialInputKind.Tile, x: tileX, y: tileY)));
             }
-            rangesLayer = Group(screen, "Native ranges", new Rect(0, 0, 640, 480));
-            for (int i = 0; i < 300; i++) { var image = Picture(rangesLayer, "Range " + i, new Rect(0, 0, 31, 31), art.ranges[0]); image.gameObject.SetActive(false); rangeImages.Add(image); }
-            displayPosition = Picture(rangesLayer, "DISPLAYPOS", new Rect(0, 0, 31, 31), art.ranges[3]);
             unitsLayer = Group(screen, "Units and native decorations", new Rect(0, 0, 640, 480));
             for (int i = 0; i < definition.decorations.Length; i++)
             {
@@ -104,6 +102,15 @@ namespace DarkSaver.Original.Tutorial
                 unitImages[id] = image;
                 unitEffects[id] = Picture((RectTransform)button.transform, "Native effect", new Rect(0, 0, 31, 31), art.effects);
             }
+            // Range tiles remain visible over units without intercepting their pointer input.
+            rangesLayer = Group(screen, "Native ranges", new Rect(0, 0, 640, 480));
+            for (int i = 0; i < 300; i++) { var image = Picture(rangesLayer, "Range " + i, new Rect(0, 0, 31, 31), art.ranges[0]); image.gameObject.SetActive(false); rangeImages.Add(image); }
+            displayPosition = Picture(rangesLayer, "DISPLAYPOS", new Rect(0, 0, 31, 31), art.ranges[3]);
+            // Contact bursts must not inherit the attacker's Y sorting: a later-drawn
+            // target would otherwise cover them. Death effects stay with their unit.
+            var attackLayer = Group(screen, "Attack contact effects above units", new Rect(0, 0, 640, 480));
+            foreach (int id in unitImages.Keys)
+                unitAttackEffects[id] = Picture(attackLayer, "Attack contact " + id, new Rect(0, 0, 32, 32), art.attackEffects);
             magicFx = Picture(screen, "Pattern2", new Rect(0, 0, 32, 32), art.effects);
             windowsLayer = Group(screen, "Glib windows", new Rect(0, 0, 640, 480));
             BuildWindows();
@@ -208,6 +215,7 @@ namespace DarkSaver.Original.Tutorial
             var lines = view.Message.Split('|');
             for (int i = 0; i < messageLines.Count; i++) messageLines[i].text = i < lines.Length ? lines[i].Trim(' ') : "";
             foreach (var pair in unitImages) pair.Value.transform.parent.gameObject.SetActive(false);
+            foreach (var pair in unitAttackEffects) pair.Value.gameObject.SetActive(false);
             var ordered = new List<(RectTransform rect, double bottom)>();
             ordered.AddRange(decorationOrder.Select(d => (d.rect, (double)d.bottom)));
             foreach (var actor in view.Actors)
@@ -223,13 +231,15 @@ namespace DarkSaver.Original.Tutorial
                 image.enabled = texture != null && row * 32 < texture.height;
                 image.texture = texture;
                 if (image.enabled) image.uvRect = NativeEntryLayout.Uv(texture, new Rect(frame * 32, row * 32, 32, 32));
-                var fx = unitEffects[actor.Id]; fx.gameObject.SetActive(corpse || actor.ShowsAttackEffect);
-                int fxColumn = corpse ? Math.Min(6, actor.DeathCounter / 3) : actor.AttackCounter / 2 % 4;
-                fx.texture = corpse ? art.effects : art.attackEffects;
-                fx.uvRect = NativeEntryLayout.Uv(fx.texture, new Rect(fxColumn * 32, corpse ? 0 : 32, corpse ? 31 : 32, corpse ? 31 : 32));
-                float fxX = !corpse ? (float)(actor.AttackFxX - actor.X) * 32 : 0;
-                float fxY = !corpse ? (float)(actor.AttackFxY - actor.Y) * 32 : 0;
-                Place((RectTransform)fx.transform, new Rect(fxX, fxY, corpse ? 31 : 32, corpse ? 31 : 32));
+                var fx = unitEffects[actor.Id]; fx.gameObject.SetActive(corpse);
+                if (corpse)
+                    fx.uvRect = NativeEntryLayout.Uv(art.effects, new Rect(Math.Min(6, actor.DeathCounter / 3) * 32, 0, 31, 31));
+                var attack = unitAttackEffects[actor.Id]; attack.gameObject.SetActive(actor.ShowsAttackEffect && !corpse);
+                if (actor.ShowsAttackEffect && !corpse)
+                {
+                    attack.uvRect = NativeEntryLayout.Uv(art.attackEffects, new Rect(actor.AttackCounter / 2 % 4 * 32, 32, 32, 32));
+                    Place((RectTransform)attack.transform, new Rect((float)actor.AttackFxX * 32, (float)actor.AttackFxY * 32, 32, 32));
+                }
                 ordered.Add((rt, actor.Y * 32 + 32));
             }
             foreach (var item in ordered.OrderBy(v => v.bottom)) item.rect.SetAsLastSibling();

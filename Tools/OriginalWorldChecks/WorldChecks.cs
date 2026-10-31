@@ -21,10 +21,10 @@ internal static class WorldChecks
     private sealed class Fixture
     {
         public Memory Store=new Memory();public EntryAccountService Server;public EntryClient Client;public WorldDefinition Def;
-        public Fixture(bool known=false,WorldRecord record=null)
+        public Fixture(bool known=false,WorldRecord record=null,int job=100)
         {
             Def=Definition();if(known){Def.rules.bankFeeKnown=true;Def.rules.storageRuleKnown=true;Def.rules.storageSlots=48;Def.rules.reviveRuleKnown=true;Def.rules.reviveHp=200;Def.rules.reviveMp=45;Def.rules.reviveFee=100;Def.rules.hireRuleKnown=true;Def.rules.dismissalRuleKnown=true;}
-            Server=new EntryAccountService(Store);Client=new EntryClient(Server);Require(Client.OpenLocalProfile()&&Client.Create(100,"월드검사"),"fixture identity");
+            Server=new EntryAccountService(Store);Client=new EntryClient(Server);Require(Client.OpenLocalProfile()&&Client.Create(job,"월드검사"),"fixture identity");
             // Synthetic world fixture only. This is not a played/completed tutorial.
             Store.Data.accounts[0].character.tutorialCompleted=true;
             if(record!=null)Store.Data.accounts[0].character.world=record.Copy();
@@ -159,7 +159,75 @@ internal static class WorldChecks
     }
     private static void Main()
     {
-        RoutesAndGuards();Transactions();RecoveryAndPreservation();
+        RoutesAndGuards();Transactions();RecoveryAndPreservation();Retargeting();Equipment();
         Console.WriteLine(JsonSerializer.Serialize(new{assertions,routes,actualUnityPlay=false,policy="Explicit synthetic values only in tests; production unknown policies remain disabled"}));
+    }
+    private static void Retargeting()
+    {
+        var f=new Fixture(true);f.Def.Map(1000).map.attributes=Enumerable.Repeat(0,43*43).ToArray();
+        Check(f.Server.MoveWorld(25,21).Accepted,"first movement accepted");f.Server.AdvanceWorld(80);
+        var moving=f.View;
+        Check(f.Server.MoveWorld(21,24).Accepted&&f.View.moving,"a second map click retargets instead of failing Moving");
+        Check(f.View.renderX==moving.renderX&&f.View.renderY==moving.renderY&&f.View.record.x==moving.record.x,
+            "retarget preserves the current partial tile step without teleporting");
+        Check(f.Server.MoveWorld(-1,24).Failure==WorldFailure.InvalidInput&&f.View.renderX==moving.renderX&&f.View.moving,
+            "unreachable retarget preserves the active route and visual position");
+        f.Server.AdvanceWorld(10000);Check(!f.View.moving&&f.View.record.x==21&&f.View.record.y==24,"retarget arrives at the newest valid destination");
+        var restored=f.Store.Data.accounts[0].character.world;Check(restored.x==21&&restored.y==24,"new movement endpoint persists");
+        var fail=new Fixture(true);fail.Def.Map(1000).map.attributes=Enumerable.Repeat(0,43*43).ToArray();string state=State(fail.View.record);
+        fail.Server.MoveWorld(25,21);fail.Server.AdvanceWorld(160);
+        Require(fail.Server.MoveWorld(21,24).Accepted,"failed-save retarget setup");fail.Store.Fail=true;fail.Server.AdvanceWorld(10000);
+        Check(fail.View.failure==WorldFailure.StorageUnavailable&&State(fail.View.record)==state,"retarget save failure rolls back to the committed start, not an intermediate tile");
+        var stop=new Fixture();stop.Def.Map(1000).map.attributes=Enumerable.Repeat(0,43*43).ToArray();
+        stop.Server.MoveWorld(25,21);stop.Server.AdvanceWorld(80);Check(stop.Server.MoveWorld(22,21).Accepted,"clicking the in-flight next tile requests a grid stop");
+        stop.Server.AdvanceWorld(10000);Check(!stop.View.moving&&stop.View.record.x==22&&stop.View.record.y==21,"grid stop completes the preserved step only");
+    }
+    private static void Equipment()
+    {
+        var ids=Enumerable.Range(0,6).Select(_=>Id()).ToArray();
+        var record=new WorldRecord{healthKnown=true,hp=17,maxHp=200,mp=3,maxMp=45,goldKnown=true,gold=1234,
+            inventory=new[]{1,762,777,100,2,101}.Select((item,slot)=>new WorldOwnedItem{id=ids[slot],item=item,slot=slot}).ToArray()};
+        var f=new Fixture(false,record);string before=State(f.View.record);
+        Check(f.Server.EquipWorldItem(ids[0],0,Id()).Failure==WorldFailure.InvalidInput&&State(f.View.record)==before,"weapon to head rejected without ownership/stat changes");
+        Check(f.Server.EquipWorldItem(ids[2],1,Id()).Failure==WorldFailure.InvalidInput&&State(f.View.record)==before,"native class flags reject mage-only armor for fighter");
+        Check(f.Server.EquipWorldItem(ids[5],3,Id()).Failure==WorldFailure.RulesUnavailable&&State(f.View.record)==before,"positive required level is held when the original server level is unknown");
+        f.Store.Fail=true;Check(f.Server.EquipWorldItem(ids[0],2,Id()).Failure==WorldFailure.StorageUnavailable&&State(f.View.record)==before,"equipment save failure preserves inventory and equipment");f.Store.Fail=false;
+        string request=Id();Check(f.Server.EquipWorldItem(ids[0],2,request).Accepted&&f.View.record.Equipment.Single().id==ids[0]&&f.View.record.Equipment[0].slot==2,"owned dagger equips to native left-hand slot");
+        string equipped=State(f.View.record);Check(f.Server.EquipWorldItem(ids[0],2,request).Failure==WorldFailure.StaleRequest&&State(f.View.record)==equipped,"duplicate equipment request cannot move or duplicate an item");
+        Check(f.Server.EquipWorldItem(ids[4],3,Id()).Failure==WorldFailure.InvalidInput,"native hand rule rejects two one-hand weapons");
+        Check(f.Server.EquipWorldItem(ids[3],3,Id()).Accepted,"native shield category fits the opposite hand");
+        Check(f.Server.EquipWorldItem(ids[4],2,Id()).Accepted&&f.View.record.inventory.Any(i=>i.id==ids[0])&&f.View.record.Equipment.Any(i=>i.id==ids[4]),"equipment replacement returns the previous owned item atomically");
+        Check(f.Server.EquipWorldItem(ids[1],1,Id()).Accepted,"native leather armor fits the body");
+        Check(f.View.record.hp==17&&f.View.record.mp==3&&f.View.record.gold==1234&&!f.View.record.level.HasValue,"equipment does not heal, debit money or invent a server level");
+        string preDrop=State(f.View.record);
+        Check(f.Server.EquipWorldItem(ids[4],-1,Id(),5).Failure==WorldFailure.InvalidInput&&State(f.View.record)==preDrop,"occupied inventory drop is rejected without losing equipment");
+        Check(f.Server.EquipWorldItem(ids[4],-1,Id(),12).Accepted&&f.View.record.inventory.Any(i=>i.id==ids[4]&&i.slot==12),"unequip returns the same identity to the selected empty inventory cell");
+        var ownership=f.View.record.inventory.Concat(f.View.record.Equipment).Select(i=>i.id).ToArray();Check(ownership.Length==6&&ownership.Distinct().Count()==6,"equip/replace/unequip preserve every item exactly once");
+        var snapshot=f.View; snapshot.record.equipment[0].item=999;Check(f.View.record.Equipment.All(i=>i.item!=999),"equipment snapshots cannot mutate authoritative items");
+        string saved=State(f.View.record);f.Client.Logout();Require(f.Client.OpenLocalProfile(),"equipment reconnect identity");Require(f.Server.BeginWorld(f.Def).Accepted,"equipment reconnect world");
+        Check(State(f.View.record)==saved,"equipped identities, positions and unknown values restore on reconnect");
+        string path=Path.Combine(Path.GetTempPath(),"world-equipment-"+Id()+".json");
+        try
+        {
+            var disk=new LocalAccountFileStore(path);Check(disk.TryWrite(f.Store.Data)&&disk.TryRead(out var read)&&read.accounts[0].character.world.Equipment.Length==2,"real DataContract disk roundtrip preserves optional equipment");
+        }
+        finally{if(File.Exists(path))File.Delete(path);}
+        Check(WorldRecord.Valid(new WorldRecord()),"legacy saves without equipment or level remain valid");
+        f.Server.MoveWorld(22,21);var moving=State(f.View.record);
+        Check(f.Server.EquipWorldItem(ids[4],2,Id()).Failure==WorldFailure.Busy&&State(f.View.record)==moving,"movement blocks gear edits without interrupting the route");
+        var worn=new WorldOwnedItem{id=Id(),item=1,slot=2};var staff=new WorldOwnedItem{id=Id(),item=7,slot=0};
+        var mage=new Fixture(false,new WorldRecord{level=6,inventory=new[]{staff},equipment=new[]{worn}},103);
+        Check(mage.Server.EquipWorldItem(staff.id,3,Id()).Accepted&&mage.View.record.Equipment.Single().id==staff.id
+            &&mage.View.record.inventory.Single().id==worn.id,"known-level native mage staff equips to either hand and clears the opposite hand atomically");
+        Check(mage.Server.EquipWorldItem(worn.id,2,Id()).Accepted&&mage.View.record.inventory.Single().id==staff.id,
+            "one-hand weapon replaces an opposite two-hand weapon without losing either identity");
+        var full=new Fixture(false,new WorldRecord{inventory=Enumerable.Range(0,28).Select(slot=>new WorldOwnedItem{id=Id(),item=1,slot=slot}).ToArray(),
+            equipment=new[]{new WorldOwnedItem{id=Id(),item=762,slot=1}}});
+        var fullState=State(full.View.record);Check(full.Server.EquipWorldItem(full.View.record.Equipment[0].id,-1,Id()).Failure==WorldFailure.InventoryFull
+            &&State(full.View.record)==fullState,"full inventory blocks unequip without dropping or duplicating equipment");
+        var herb=new WorldOwnedItem{id=Id(),item=324,slot=0};var usage=new Fixture(false,new WorldRecord{inventory=new[]{herb}});
+        string unused=State(usage.View.record);
+        Check(usage.Server.UseWorldItem(herb.id,Id()).Failure==WorldFailure.RulesUnavailable&&State(usage.View.record)==unused,
+            "native head-drop consumable request is held without consuming items or inventing server effects");
     }
 }

@@ -154,6 +154,16 @@ namespace DarkSaver.Original.Editor.Scenarios
         { var ids = new HashSet<int>(layout.units.Select(u => u.unit)); int id = 400; while (ids.Contains(id)) id++; return id; }
         public static bool SameUnits(ScenarioLayout a, ScenarioLayout b) => a.units.Length == b.units.Length
             && a.units.OrderBy(u => u.unit).Zip(b.units.OrderBy(u => u.unit), (x, y) => x.unit == y.unit && x.job == y.job && x.x == y.x && x.y == y.y).All(v => v);
+        public static ScenarioLayout LoadForPreview(byte[] saved,ScenarioLayout original,ISet<int> jobs,out bool readOnly,out string notice)
+        {
+            readOnly=false;notice="";if(saved==null)return original.Copy();
+            try{var loaded=Decode(saved);Validate(loaded,original,jobs);return loaded;}
+            catch(Exception e)when(e is SerializationException||e is InvalidDataException||e is IOException||e is ArgumentException||e is FormatException)
+            {
+                readOnly=true;notice="사용자 배치 파일을 읽지 못해 원본 배치를 읽기 전용으로 표시합니다. 기존 파일은 보존했습니다. 원본 배치 불러오기 또는 다시 열기를 사용하세요. "+e.Message;
+                return original.Copy();
+            }
+        }
         public static byte[] Encode(ScenarioLayout layout)
         { using (var stream = new MemoryStream()) { new DataContractJsonSerializer(typeof(ScenarioLayout)).WriteObject(stream, layout); return stream.ToArray(); } }
         public static ScenarioLayout Decode(byte[] bytes)

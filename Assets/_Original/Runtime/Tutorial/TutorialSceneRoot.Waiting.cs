@@ -21,6 +21,7 @@ namespace DarkSaver.Original.Tutorial
         private Vector2? waitingDragOffset;
         private int waitingHoverX = int.MinValue, waitingHoverY, waitingHoverResource;
         private readonly Dictionary<int, WaitingPanel> waitingPanels = new Dictionary<int, WaitingPanel>();
+        private readonly List<Button> waitingMoveButtons = new List<Button>();
         private sealed class WaitingPanel
         {
             public RectTransform Root, Full, Mini;
@@ -58,14 +59,16 @@ namespace DarkSaver.Original.Tutorial
                 ownsFont = font != null; if (font == null) font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             }
             Picture(waitingScreen, "Map1500", new Rect(0, 0, 640, 480), art.waitingGround);
+            waitingMoveButtons.Clear();
             for (int y = 0; y < 15; y++) for (int x = 0; x < 20; x++)
             {
                 int tx = x, ty = y;
-                Hit(waitingScreen, "Move " + x + "," + y, new Rect(x * 32, y * 32, 32, 32),
-                    () => WaitingSend(new WaitingInput(WaitingInputKind.Move, x: tx, y: ty)));
+                waitingMoveButtons.Add(Hit(waitingScreen, "Move " + x + "," + y, new Rect(x * 32, y * 32, 32, 32),
+                    () => WaitingSend(new WaitingInput(WaitingInputKind.Move, x: tx, y: ty))));
             }
-            waitingSword = Picture(waitingScreen, "Dropped item1", new Rect(512, 256, 32, 32), art.waitingItems, new Rect(0, 0, 32, 32));
-            waitingArmor = Picture(waitingScreen, "Dropped native armor", new Rect(512, 288, 32, 32), art.waitingItems);
+            // Saver42635F..426408 scales the32px inventory source into a16px floor surface.
+            waitingSword = Picture(waitingScreen, "Dropped item1", new Rect(520, 264, 16, 16), art.waitingItems, new Rect(0, 0, 32, 32));
+            waitingArmor = Picture(waitingScreen, "Dropped native armor", new Rect(520, 296, 16, 16), art.waitingItems);
             var player = Hit(waitingScreen, "Double click commander", new Rect(64, 224, 32, 32), () => { });
             var clicks = player.gameObject.AddComponent<EventTrigger>();
             var click = new EventTrigger.Entry { eventID = EventTriggerType.PointerClick };
@@ -120,32 +123,44 @@ namespace DarkSaver.Original.Tutorial
             Picture((RectTransform)restore.transform, "Native minimized icon", miniRect, minimized);
             if (id == 18)
             {
-                p.Commander = Picture(p.Full, "Portrait cell", new Rect(35, 83, 32, 32), art.Actor(character.job, -1), new Rect(32, 32, 32, 32));
-                p.Name = Label(p.Full, "Name", new Rect(112, 69, 140, 16), character.name); p.Name.color = Color.black;
-                p.Job = Label(p.Full, "Job", new Rect(112, 85, 140, 16), JobName(character.job)); p.Job.color = Color.black;
+                p.Commander = Picture(p.Full, "Portrait cell", new Rect(38, 86, 32, 32), art.Actor(character.job, -1), new Rect(32, 32, 32, 32));
+                p.Name = WaitingField(p.Full, "Name", new Rect(116, 73, 108, 16), character.name);
+                p.Job = WaitingField(p.Full, "Job", new Rect(116, 92, 108, 16), JobName(character.job));
                 for (int row = 0; row < 3; row++) for (int column = 0; column < 3; column++)
-                { var cell = Group(p.Full, "Black character cell", new Rect(36 + column * 38, 140 + row * 50, 32, 32)).gameObject.AddComponent<Image>(); cell.color = Color.black; cell.raycastTarget = false; }
-                Label(p.Full, "Original empty balance", new Rect(82, 299, 68, 16), "0", TextAnchor.MiddleRight);
+                { var cell = Group(p.Full, "Black character cell", new Rect(41 + column * 38, 140 + row * 50, 32, 32)).gameObject.AddComponent<Image>(); cell.color = Color.black; cell.raycastTarget = false; }
+                WaitingField(p.Full, "Original empty balance", new Rect(84, 300, 58, 18), "0", TextAnchor.MiddleRight, Color.white);
             }
             if (id == 21)
             {
-                p.Name = Label(p.Full, "Name", new Rect(146, 39, 170, 16), character.name); p.Name.color = Color.black;
-                p.Job = Label(p.Full, "Job", new Rect(146, 56, 170, 16), JobName(character.job)); p.Job.color = Color.black;
+                p.Name = WaitingField(p.Full, "Name", new Rect(146, 39, 170, 16), character.name);
+                p.Job = WaitingField(p.Full, "Job", new Rect(146, 56, 170, 16), JobName(character.job));
                 var face = character.job == 100 ? art.waitingFighterFace : character.job == 101 ? art.waitingKnightFace : art.waitingMagicianFace;
                 p.Commander = Picture(p.Full, "Native64x64 commander face", new Rect(29, 46, 64, 64), face);
-                var badge = Group(p.Full, "Empty native badge", new Rect(30, 179, 32, 32)).gameObject.AddComponent<Image>(); badge.color = Color.black; badge.raycastTarget = false;
+                var badge = Group(p.Full, "Empty native badge", new Rect(29, 178, 32, 32)).gameObject.AddComponent<Image>(); badge.color = Color.black; badge.raycastTarget = false;
             }
             if (id == 20)
             {
                 for (int row = 0; row < 4; row++) for (int column = 0; column < 7; column++)
                 { var cell = Group(p.Full, "Black inventory cell", new Rect(146 + column * 35, 42 + row * 35, 32, 32)).gameObject.AddComponent<Image>(); cell.color = Color.black; cell.raycastTarget = false; }
-                foreach (var rect in new[] { new Rect(26, 51, 31, 31), new Rect(100, 51, 31, 31), new Rect(63, 87, 31, 31) })
-                { var cell = Group(p.Full, "Black equipment cell", rect).gameObject.AddComponent<Image>(); cell.color = Color.black; cell.raycastTarget = false; }
+                foreach (int slot in new[] { WaitingEquipmentLayout.LeftHand, WaitingEquipmentLayout.RightHand, WaitingEquipmentLayout.Body })
+                { var cell = Group(p.Full, "Black equipment cell", WaitingEquipmentRect(slot)).gameObject.AddComponent<Image>(); cell.color = Color.black; cell.raycastTarget = false; }
                 p.Sword = WaitingItemSlot(p.Full, "Dagger in inventory", new Rect(146, 42, 32, 32), 1);
                 p.Armor = WaitingItemSlot(p.Full, "Armor in inventory", new Rect(181, 42, 32, 32), character.job == 103 ? 777 : 762);
-                p.Hand = Picture(p.Full, "Hand equipment", new Rect(26, 51, 32, 32), art.waitingItems, new Rect(0, 0, 32, 32));
-                p.Body = Picture(p.Full, "Body equipment", new Rect(63, 87, 32, 32), art.waitingItems);
+                p.Hand = Picture(p.Full, "Hand equipment", WaitingEquipmentRect(WaitingEquipmentLayout.LeftHand), art.waitingItems, new Rect(0, 0, 32, 32));
+                p.Body = Picture(p.Full, "Body equipment", WaitingEquipmentRect(WaitingEquipmentLayout.Body), art.waitingItems);
             }
+        }
+        private static Rect WaitingEquipmentRect(int slot)
+        { var p = WaitingEquipmentLayout.Origin(slot); return new Rect(p.X, p.Y, 32, 32); }
+        private Text WaitingField(RectTransform parent, string name, Rect rect, string text,
+            TextAnchor alignment = TextAnchor.MiddleLeft, Color? color = null)
+        {
+            // Bound OS-font glyphs to the native field: long names must not paint labels/borders.
+            var field = Group(parent, name + " bounds", rect); field.gameObject.AddComponent<RectMask2D>();
+            var label = Label(field, name, new Rect(0, 0, rect.width, rect.height), text, alignment, 12);
+            label.horizontalOverflow = HorizontalWrapMode.Overflow;
+            label.verticalOverflow = VerticalWrapMode.Truncate; label.color = color ?? Color.black;
+            return label;
         }
         private string JobName(int job) => definition.map.abilities.First(a => a.job == job).name;
         private RawImage WaitingItemSlot(RectTransform parent, string name, Rect rect, int item)
@@ -158,9 +173,8 @@ namespace DarkSaver.Original.Tutorial
                 Place((RectTransform)waitingGhost.transform, new Rect(point.x - 16, point.y - 16, 32, 32));
                 if (!end) return;
                 var p = server.WaitingSnapshot.Windows.First(w => w.Id == 20); var local = point - new Vector2(p.X, p.Y);
-                int slot = new Rect(20, 46, 42, 42).Contains(local) || new Rect(95, 46, 42, 42).Contains(local) ? 2 : new Rect(58, 82, 42, 42).Contains(local) ? 3 : -1;
-                WaitingSend(new WaitingInput(WaitingInputKind.Equip, value: item, x: slot));
-            }, () => server.WaitingSnapshot != null && (item == 1 ? server.WaitingSnapshot.Sword == item : server.WaitingSnapshot.Armor == item));
+                WaitingSend(new WaitingInput(WaitingInputKind.Equip, value: item, x: Mathf.FloorToInt(local.x), y: Mathf.FloorToInt(local.y)));
+            }, () => server.WaitingSnapshot != null && (item == 1 ? server.WaitingSnapshot.SwordEquipAllowed : server.WaitingSnapshot.ArmorEquipAllowed));
             return image;
         }
         private static Rect WaitingItemSource(int item) => new Rect(item == 1 ? 0 : item == 762 ? 32 : 64, 0, 32, 32);
@@ -205,6 +219,7 @@ namespace DarkSaver.Original.Tutorial
         {
             if (waitingView == null) return;
             var v = waitingView; int frame = new[] { 0, 1, 2, 1 }[(int)(v.Clock / TutorialPresentationTiming.IdleFrameMs) % 4];
+            foreach (var button in waitingMoveButtons) button.interactable = v.MovementAllowed;
             var playerRoot = (RectTransform)waitingPlayer.transform.parent;
             Place(playerRoot, new Rect((float)v.RenderX * 32, (float)v.RenderY * 32, 32, 32));
             waitingPlayer.uvRect = NativeEntryLayout.Uv(waitingPlayer.texture, new Rect(frame * 32, v.Direction * 32, 32, 32));
@@ -237,6 +252,7 @@ namespace DarkSaver.Original.Tutorial
                 {
                     p.Sword.transform.parent.gameObject.SetActive(v.Sword > 0); p.Armor.transform.parent.gameObject.SetActive(v.Armor > 0);
                     p.Hand.gameObject.SetActive(v.Hand > 0); p.Body.gameObject.SetActive(v.Body > 0);
+                    Place((RectTransform)p.Hand.transform, WaitingEquipmentRect(v.HandSlot));
                     p.Body.uvRect = NativeEntryLayout.Uv(art.waitingItems, WaitingItemSource(character.job == 103 ? 777 : 762));
                 }
             }

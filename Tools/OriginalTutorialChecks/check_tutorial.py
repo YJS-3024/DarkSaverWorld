@@ -52,18 +52,41 @@ def main():
  assert waiting_source.read_bytes()==waiting_before,'Waiting native resource audit changed; regenerate art before verification'
  waiting_evidence=json.loads(waiting_before)
  fixtures={
+  # Waiting435F54 ->435FF0 ->42FA80 ->402EDC ->4262F0: floor items use the
+  # inventory picture1 source, a16x16 surface and tile-origin inset8,8.
+  'saver.exe':{0x402edc:'e90f340200',0x42635f:'6a006a106a10',0x42639b:'8b7804',0x4263d9:'b810000000',0x42f7fd:'83c608',0x42f803:'83c708',0x42f806:'8d4e108d4710'},
   'userunit.dll':{0x1000ea34:'b801000000',0x1000ea46:'c78416bc00000065000000',0x1000ea64:'c78416e000000075270000',0x1000ee7b:'b963000000',0x1000eeba:'c746340c000000',0x1000eed7:'c746580a000000',0x1000b221:'89540634',0x1000b22e:'894c1638',0x1000b290:'8b5758',0x1000b293:'8954065c',0x1000ec99:'8b4804'},
   'gamectl.dll':{0x10008a17:'c7460828000000',0x10008a20:'c7460c32000000',0x10008a29:'c7460c2c010000',0x10008a3c:'c7461031020000',0x10008a43:'c7461468000000',0x10005615:'b820000000',0x100056c3:'8d8b8f000000',0x1000571b:'8d8b9c000000',0x100057c7:'8d8ba9000000',0x10005880:'8d8bb6000000',0x10005449:'8d84807c010000',0x10005432:'8d9a48010000',0x1000647a:'83c3f9',0x100064b3:'83c329',0x10006601:'8d4541'}}
  for filename,addresses in fixtures.items():
   row=next(r for r in late['files'] if r['file'].lower()==filename);raw=Path(row['extractedFile']).read_bytes()
   assert hashlib.sha256(raw).hexdigest()==row['sha256']
   pe=struct.unpack_from('<I',raw,60)[0];count=struct.unpack_from('<H',raw,pe+6)[0];sections=pe+24+struct.unpack_from('<H',raw,pe+20)[0]
+  image_base=struct.unpack_from('<I',raw,pe+24+28)[0]
+  def native_at(address,size):
+   for i in range(count):
+    _,rva,length,offset=struct.unpack_from('<IIII',raw,sections+i*40+8)
+    if rva<=address-image_base<rva+length:
+     position=offset+address-image_base-rva;return raw[position:position+size]
+   raise AssertionError((filename,hex(address)))
   for address,value in addresses.items():
    for i in range(count):
     _,rva,length,offset=struct.unpack_from('<IIII',raw,sections+i*40+8)
-    if rva<=address-0x10000000<rva+length:
-     position=offset+address-0x10000000-rva;assert raw[position:position+len(bytes.fromhex(value))]==bytes.fromhex(value),(filename,hex(address));break
+    if rva<=address-image_base<rva+length:
+     position=offset+address-image_base-rva;assert raw[position:position+len(bytes.fromhex(value))]==bytes.fromhex(value),(filename,hex(address));break
    else:raise AssertionError((filename,hex(address)))
+  if filename=='saver.exe':
+   # Read the original constructor's push-y/push-x instructions independently
+   # of the managed hit-test/render layout. Seven32px native slots in record order.
+   pushes=[(0x46a491,0x46a49b),(0x46a4ba,0x46a4c2),(0x46a4c9,0x46a4d1),
+           (0x46a4d8,0x46a4e0),(0x46a4e7,0x46a4ef),(0x46a4f6,0x46a501),(0x46a508,0x46a510)]
+   native_slots=[]
+   for slot,(yp,xp) in enumerate(pushes):
+    yraw=native_at(yp,5);xraw=native_at(xp,2)
+    assert yraw[0] in (0x6a,0x68) and xraw[0]==0x6a
+    y=yraw[1] if yraw[0]==0x6a else struct.unpack_from('<I',yraw,1)[0]
+    native_slots.append(dict(slot=slot,x=xraw[1],y=y))
+   assert result['waitingEquipmentSlots']==native_slots,'Waiting equipment hit/draw slots differ from the native constructor'
+   assert native_at(0x46a51a,4)==bytes.fromhex('6a206a20'),'Native equipment cells are32px'
  assert definition['magicTravelX']==336 and definition['magicTravelFrames']==3 and definition['magicImpactX']==0 and definition['magicImpactFrames']==5
  assert (definition['magicSound1'],definition['magicSound2'])==(0,-1)
  assert not any(w['key']==7 for w in definition['windows'])
@@ -72,7 +95,10 @@ def main():
  assert 'actor.X * 32 - 32' in root and 'menuLayer = Group' in root and root.index('menuLayer = Group')>root.index('windowsLayer = Group')
  assert 'new Rect(40, 50, 562, 104)' in root
  assert 'windowsLayer.SetAsLastSibling()' in root
- assert 'actor.ShowsAttackEffect' in root and 'actor.AttackFxX - actor.X' in root
+ # Attack contacts now use absolute map coordinates in a sibling layer above bodies.
+ # This is a source structure audit; rendered occlusion still requires Unity Play.
+ assert 'actor.ShowsAttackEffect' in root and '(float)actor.AttackFxX * 32' in root
+ assert root.index('unitsLayer = Group') < root.index('rangesLayer = Group') < root.index('var attackLayer = Group(screen,') < root.index('magicFx = Picture') < root.index('windowsLayer = Group')
  assert 'dialogueLayer.gameObject.SetActive(!string.IsNullOrWhiteSpace(view.Message))' in root
  assert 'canvas.sortingOrder = 200' in root and 'typeof(UIDocument)' not in root
  # Native control dimensions/artwork: retain original pixels rather than flat-color substitutes.

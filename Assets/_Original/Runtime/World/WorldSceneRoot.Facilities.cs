@@ -122,20 +122,20 @@ namespace DarkSaver.Original.World
         }
         private void PaintItem(RawImage image,int id)
         {
-            var item=definition.Item(id);image.enabled=item!=null&&item.picture>=0&&item.picture<1000;
-            if(image.enabled)image.uvRect=NativeEntryLayout.Uv(art.items,new Rect(item.picture%100*32,item.picture/100*32,32,32));
+            var item=definition.Item(id);var icon=item==null?null:ItemIcon(item.picture);image.enabled=icon!=null;
+            image.texture=icon;image.uvRect=new Rect(0,0,1,1);
         }
         private RawImage ItemCell(int slot,bool right)
         {
             int columns=right?3:7;var origin=right?new Vector2(278,40):new Vector2(20,40);
             var hit=Hit(panel,(right?"Right":"Owned")+slot,new Rect(origin.x+slot%columns*35,origin.y+slot/columns*35,32,32),()=>InspectItem(right?RightItem(slot):view.facility.inventory.FirstOrDefault(i=>i.slot==slot)?.item??-1));
             hit.GetComponent<Image>().color=Color.black;
-            var image=Picture((RectTransform)hit.transform,"Native item",new Rect(0,0,32,32),art.items);
+            var image=Picture((RectTransform)hit.transform,"Native item",new Rect(0,0,32,32),null);image.enabled=false;
             int dragged=-1;string owned=null;
             hit.gameObject.AddComponent<NativeTutorialDrag>().Configure(screen,(point,end)=>
             {
                 if(dragGhost==null)
-                {dragGhost=Picture(overlay,"Dragged item",new Rect(0,0,32,32),art.items);dragged=right?RightItem(slot):view.facility.inventory.FirstOrDefault(i=>i.slot==slot)?.item??-1;owned=right?view.facility.storage.FirstOrDefault(i=>i.slot==slot+rowOffset*3)?.id:view.facility.inventory.FirstOrDefault(i=>i.slot==slot)?.id;PaintItem(dragGhost,dragged);}
+                {dragGhost=Picture(overlay,"Dragged item",new Rect(0,0,32,32),null);dragged=right?RightItem(slot):view.facility.inventory.FirstOrDefault(i=>i.slot==slot)?.item??-1;owned=right?view.facility.storage.FirstOrDefault(i=>i.slot==slot+rowOffset*3)?.id:view.facility.inventory.FirstOrDefault(i=>i.slot==slot)?.id;PaintItem(dragGhost,dragged);}
                 Place((RectTransform)dragGhost.transform,new Rect(point.x-16,point.y-16,32,32));
                 if(!end)return;
                 Destroy(dragGhost.gameObject);dragGhost=null;
@@ -197,6 +197,7 @@ namespace DarkSaver.Original.World
         {
             if(failure==WorldFailure.None)return;CloseNotice();var root=NoticeBlocker();notice=NativeWindow(29,root,_=>{CloseNotice();if(!running)Begin(character);});
             string message=failure==WorldFailure.TooFar?"직원 옆이나 가판대 앞에서 이용해 주세요.":failure==WorldFailure.RulesUnavailable?"처리에 필요한 정보가 확인되지 않았습니다.":failure==WorldFailure.InsufficientFunds?"돈이 부족합니다.":failure==WorldFailure.StorageUnavailable?"저장하지 못했습니다. 다시 시도해 주세요.":failure==WorldFailure.InventoryFull?"물품을 놓을 공간이 없습니다.":failure==WorldFailure.Moving?"이동을 마친 뒤 이용해 주세요.":failure==WorldFailure.StaleRequest?"요청이 만료되었습니다. 다시 선택해 주세요.":"지금은 이 요청을 처리할 수 없습니다.";
+            RememberMessage(message);
             Label(notice,"Message",new Rect(15,9,498,28),message,TextAnchor.MiddleCenter);
         }
         private void ShowQuit()

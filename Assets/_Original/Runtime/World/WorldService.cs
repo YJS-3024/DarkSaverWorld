@@ -59,9 +59,62 @@ namespace DarkSaver.Original.Entry
         public WorldReply MoveWorld(int x, int y)
         {
             var f = ReadyWorld(); if (f != WorldFailure.None) return WorldResult(f);
-            var before = world.Record.Copy(); f = world.Move(x, y);
-            if (f == WorldFailure.None) worldBeforeMove = before;
+            bool continuing=world.Moving;var before = world.Record.Copy(); f = world.Move(x, y);
+            if (f == WorldFailure.None&&!continuing) worldBeforeMove = before;
             return WorldResult(f);
+        }
+        public WorldReply EquipWorldItem(string owned,int slot,string request,int inventorySlot=-1)
+        {
+            var f=ReadyWorld();if(f!=WorldFailure.None)return WorldResult(f);
+            if(world.Moving||world.Kind!=FacilityKind.None||world.PresentationLocked||world.PendingPortal!=null)return WorldResult(WorldFailure.Busy);
+            if(!Guid.TryParseExact(request,"N",out _)||world.Applied.Contains(request))return WorldResult(WorldFailure.StaleRequest);
+            var next=world.Record.Copy();
+            var equipped=next.Equipment.FirstOrDefault(i=>i.id==owned);
+            if(equipped!=null)
+            {
+                if(slot!=-1)return WorldResult(WorldFailure.InvalidInput);
+                if(inventorySlot>=28||inventorySlot < -1||inventorySlot>=0&&next.inventory.Any(i=>i.slot==inventorySlot))return WorldResult(WorldFailure.InvalidInput);
+                int free=inventorySlot>=0?inventorySlot:Enumerable.Range(0,28).Where(i=>next.inventory.All(v=>v.slot!=i)).DefaultIfEmpty(-1).First();
+                if(free<0)return WorldResult(WorldFailure.InventoryFull);
+                var returned=equipped.Copy();returned.slot=free;
+                next.equipment=next.Equipment.Where(i=>i.id!=owned).ToArray();next.inventory=next.inventory.Concat(new[]{returned}).ToArray();
+            }
+            else
+            {
+                var item=next.inventory.FirstOrDefault(i=>i.id==owned);if(item==null)return WorldResult(WorldFailure.NotOwned);
+                var product=world.Definition.Item(item.item);if(product==null)return WorldResult(WorldFailure.InvalidInput);
+                if(product.jobs==null||product.requiredLevel>0&&!next.level.HasValue)return WorldResult(WorldFailure.RulesUnavailable);
+                if(!product.jobs.Contains(world.CommanderJob)||product.requiredLevel>(next.level??0))return WorldResult(WorldFailure.InvalidInput);
+                int type=product.equipType;
+                bool fits=(type==1||type==2||type==8)&&(slot==2||slot==3)||type==3&&slot==1||type==4&&slot==5
+                    ||type==5&&slot==0||type==6&&(slot==4||slot==6);
+                if(!fits)return WorldResult(WorldFailure.InvalidInput);
+                var opposite=(slot==2||slot==3)?next.Equipment.FirstOrDefault(i=>i.slot==(slot==2?3:2)):null;
+                int oppositeType=opposite==null?-1:world.Definition.Item(opposite.item)?.equipType??-1;
+                if((type==2||type==8)&&oppositeType==type)return WorldResult(WorldFailure.InvalidInput);
+                var replaced=next.Equipment.Where(i=>i.slot==slot||(i==opposite&&(type==1||oppositeType==1))).ToArray();
+                var moved=item.Copy();moved.slot=slot;
+                next.inventory=next.inventory.Where(i=>i.id!=owned).ToArray();
+                foreach(var old in replaced)
+                {
+                    int free=Enumerable.Range(0,28).Where(i=>next.inventory.All(v=>v.slot!=i)).DefaultIfEmpty(-1).First();
+                    if(free<0)return WorldResult(WorldFailure.InventoryFull);
+                    var returned=old.Copy();returned.slot=free;next.inventory=next.inventory.Concat(new[]{returned}).ToArray();
+                }
+                next.equipment=next.Equipment.Except(replaced).Concat(new[]{moved}).ToArray();
+            }
+            return ApplyWorld(next,request);
+        }
+        public WorldReply UseWorldItem(string owned,string request)
+        {
+            var f=ReadyWorld();if(f!=WorldFailure.None)return WorldResult(f);
+            if(world.Moving||world.Kind!=FacilityKind.None||world.PresentationLocked||world.PendingPortal!=null)return WorldResult(WorldFailure.Busy);
+            if(!Guid.TryParseExact(request,"N",out _)||world.Applied.Contains(request))return WorldResult(WorldFailure.StaleRequest);
+            var item=world.Record.inventory.FirstOrDefault(i=>i.id==owned);if(item==null)return WorldResult(WorldFailure.NotOwned);
+            int type=world.Definition.Item(item.item)?.equipType??-1;
+            if(type!=10)return WorldResult(WorldFailure.InvalidInput);
+            // The native head-drop request is connected; unconfirmed server effects must not consume an item.
+            return WorldResult(WorldFailure.RulesUnavailable);
         }
         public void AdvanceWorld(double ms)
         {

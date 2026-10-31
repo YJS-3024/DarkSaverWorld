@@ -105,7 +105,11 @@ def main():
             row['portals']=[dict(id='exit-'+str(map_id),targetMap=1000,spawnX=route[5],spawnY=route[6],returnX=route[5],returnY=route[6],cells=[dict(x=9,y=m['height']-1),dict(x=10,y=m['height']-1)])]
         grounds.append(save('Ground'+str(map_id), im, str(p.relative_to(ROOT))+' base/detail first frames; decorations separate in source order')); maps.append(row)
     rows = list(csv.DictReader(source(BASE/'Data/Tables/items.csv').open(encoding='utf-8-sig')))
-    items=[dict(id=int(r['번호']),picture=number(r['그림1']),name=r['이름'].replace('_',' '),description=r['설명'].replace('_',' '),price=number(r['가격']),sellKnown=False,sellPrice=0) for r in rows]
+    units={int(r['직업']):r for r in csv.DictReader(source(BASE/'Data/Tables/units_all.csv').open(encoding='utf-8-sig'))}
+    job_flags=['보','비','기','수','창','궁','승','신','마','사']
+    items=[dict(id=int(r['번호']),picture=number(r['그림1']),equipType=number(r['장착위']),requiredLevel=number(r['장착렙']),
+                jobs=[job for job,u in units.items() if job in (100,101,103) and 0<=number(u['병종'])<len(job_flags) and number(r[job_flags[number(u['병종'])]])==1],
+                name=r['이름'].replace('_',' '),description=r['설명'].replace('_',' '),price=number(r['가격']),sellKnown=False,sellPrice=0) for r in rows]
     guide = list(csv.DictReader(source(ROOT/'분석/Saver_Late/screenshots/added_kaosia_shop_reference.csv').open(encoding='utf-8-sig')))
     shops=[]
     for map_id, stem, expected in [(2000,'카오시아_무기점',22),(2100,'카오시아방어구점',20),(2300,'카오시아_소모품점',23),(2800,'카오시아마법사의집',6)]:
@@ -145,6 +149,8 @@ def main():
                 if v['kind']=='button':controls.append(dict(id=v['id'],x=v['x'],y=v['y'],sx=a['x'],sy=a['y'],width=a['width'],height=a['height']))
             windows.append(dict(scene=scene,width=d['width'],height=d['height'],buttons=controls));windowpaths.append(save('Window'+str(scene),key(im),f'Wlib/scene{scene} literal source; buttons separate'))
     item_atlas=save('Items',key(Image.open(source(BASE/'Art/Archives/gameres/item.arc/item.bmp.png'))),'Native item.bmp;100 columns of32px')
+    # World UI copies each original32px cell into its own cached icon texture.
+    item_meta=Path(str(item_atlas)+'.meta');item_meta.write_text(item_meta.read_text().replace('isReadable: 0','isReadable: 1'))
     definition=dict(maps=maps,shops=shops,items=items,hires=hires,windows=windows,rules=dict(initialGoldKnown=False,initialBankKnown=False,bankFeeKnown=False,storageRuleKnown=False,reviveRuleKnown=False,hireRuleKnown=False,dismissalRuleKnown=False))
     data=DATA/'KaosiaWorld.json';data.write_bytes((json.dumps(definition,ensure_ascii=False,indent=2)+'\n').encode());output(data,'Source maps/items/hire lists + explicitly classified routing and staff')
     for p in BASE.rglob('*'):

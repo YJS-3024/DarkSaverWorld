@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Text;
 using DarkSaver.Original.Editor.Scenarios;
 
 internal static class EditorChecks
@@ -47,6 +48,18 @@ internal static class EditorChecks
         Check(sources["01"].layout.source=="original-missing"&&sources["101"].layout.units.Length==0,"missing scenario/training roster remains empty");
         Check(new[]{"324","325","326"}.All(k=>sources[k].layout.source=="original-empty"),"literal empty distinguished from missing");
         Check(sources["324"].entries.Length==3&&sources["324"].entries[1].line==2&&sources["324"].entries[2].line==3,"duplicate friendly POS reference lines preserved without inventing a battle unit");
+        var native26=sources["26"].layout;
+        var fresh=ScenarioLayoutData.LoadForPreview(null,native26,jobs,out bool protectedView,out string previewNotice);
+        Check(!protectedView&&fresh.units.Length==65&&!ReferenceEquals(fresh.units[0],native26.units[0]),"first preview uses an independent copy of all native26 units");
+        byte[] corrupt=Encoding.UTF8.GetBytes("not valid json");var unchanged=(byte[])corrupt.Clone();
+        var recovered=ScenarioLayoutData.LoadForPreview(corrupt,native26,jobs,out protectedView,out previewNotice);
+        Check(protectedView&&previewNotice.Length>0&&recovered.units.Length==65&&corrupt.SequenceEqual(unchanged),"corrupt override shows65 native units read-only and preserves saved bytes");
+        var wrongVersion=native26.Copy();wrongVersion.mapHash="old version";
+        recovered=ScenarioLayoutData.LoadForPreview(ScenarioLayoutData.Encode(wrongVersion),native26,jobs,out protectedView,out previewNotice);
+        Check(protectedView&&recovered.units.Length==65&&recovered.mapHash==native26.mapHash,"old map hash does not hide a readable native roster");
+        var deliberatelyEmpty=native26.Copy();deliberatelyEmpty.units=Array.Empty<ScenarioPlacement>();
+        var honored=ScenarioLayoutData.LoadForPreview(ScenarioLayoutData.Encode(deliberatelyEmpty),native26,jobs,out protectedView,out previewNotice);
+        Check(!protectedView&&honored.units.Length==0&&native26.units.Length==65,"valid authored empty layout is preserved until explicit original reload");
         Check(sources["01"].events.Any(m=>m.kind=="chest"&&m.x==5&&m.y==15&&m.file=="01.evt"),"chest anchored to CHANGESPRITE original position");
         Check(sources["01"].events.Any(m=>m.kind=="event"&&m.x==6&&m.y==15),"event condition kept separate from chest image");
         Check(ScenarioLayoutData.ReadEvents("EVENT 1\nGETITEM 398\nEND","test").Length==0,"reward without explicit location is not invented on map");

@@ -307,6 +307,8 @@ internal static class TutorialChecks
             map = JsonSerializer.Deserialize<TutorialMap>(json.RootElement.GetProperty("map").GetRawText(), new JsonSerializerOptions { IncludeFields = true });
         script = new TutorialScript(File.ReadAllText("Assets/_Original/SourceData/Decoded/gameres/tutorial.arc/tutorial.deo.txt"));
         NativeContracts(); DirectFeedbackContracts(); count += WaitingLessonChecks.Contracts(); ServerContracts(); DirectProfileTutorialContracts();
-        Console.WriteLine(JsonSerializer.Serialize(new { assertions = count, fullTutorialRuns = fullRuns, simulatedFrames, acceptedInputs, sourceCommands = 420, sourceSpellings = 44, sourceMessages = sourceMessageCount, observedWaitLocations = sourceWaitCount, testedJobs = new[] { 100, 101, 103 }, actualUnityPlay = false }));
+        var equipmentSlots = Enumerable.Range(0, WaitingEquipmentLayout.SlotCount).Select(slot =>
+        { var p = WaitingEquipmentLayout.Origin(slot); return new { slot, x = p.X, y = p.Y }; }).ToArray();
+        Console.WriteLine(JsonSerializer.Serialize(new { assertions = count, fullTutorialRuns = fullRuns, simulatedFrames, acceptedInputs, sourceCommands = 420, sourceSpellings = 44, sourceMessages = sourceMessageCount, observedWaitLocations = sourceWaitCount, testedJobs = new[] { 100, 101, 103 }, waitingEquipmentSlots = equipmentSlots, actualUnityPlay = false }));
     }
 }

@@ -1,5 +1,5 @@
 """Execute production world/account contracts and audit source-linked assets, not Unity Play."""
-import hashlib,json,subprocess,sys
+import csv,hashlib,json,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];BASE=ROOT/'Assets/_Original';WORK=Path('/tmp/ds-original-world-checks')
 UNITY=Path('/workspace/.tools/unity/6000.5.7f1/Editor/Data')
@@ -32,6 +32,23 @@ def main():
  assert {s['map']:len(s['items'])for s in definition['shops']}=={2000:22,2100:20,2300:23,2800:6,2200:0}
  assert 755 in next(s['items']for s in definition['shops']if s['map']==2100) and 1029 not in next(s['items']for s in definition['shops']if s['map']==2100)
  assert all(not i['sellKnown']for i in definition['items'])
+ # Independent source columns, not Unity's runtime icon cache or its slot resolver.
+ native_items={int(r['번호']):r for r in csv.DictReader((BASE/'Data/Tables/items.csv').open(encoding='utf-8-sig'))}
+ native_jobs={int(r['직업']):r for r in csv.DictReader((BASE/'Data/Tables/units_all.csv').open(encoding='utf-8-sig'))}
+ flags=['보','비','기','수','창','궁','승','신','마','사']
+ for item in definition['items']:
+  row=native_items[item['id']]
+  assert (item['picture'],item['equipType'],item['requiredLevel'])==tuple(int(row[k])for k in ['그림1','장착위','장착렙'])
+  assert item['jobs']==[job for job in (100,101,103)if int(row[flags[int(native_jobs[job]['병종'])]])==1]
+ from PIL import Image
+ with Image.open(BASE/'Art/World/Items.png')as converted,Image.open(BASE/'Art/Archives/gameres/item.arc/item.bmp.png')as original:
+  assert original.size==converted.size==(3200,320)
+  original=original.convert('RGB');converted=converted.convert('RGBA')
+  for picture in {i['picture']for i in definition['items']if 0<=i['picture']<1000}:
+   x=picture%100*32;y=picture//100*32;box=(x,y,x+32,y+32)
+   expected=[(*p,0 if p==(0,0,0)else 255)for p in original.crop(box).getdata()]
+   assert list(converted.crop(box).getdata())==expected,picture
+ assert 'isReadable: 1' in (BASE/'Art/World/Items.png.meta').read_text()
  assert (BASE/'Data/World/KaosiaWorld.json').read_bytes().find(b'\r')<0
  tutorial=json.loads((ROOT/'Tools/OriginalTutorialChecks/tutorial-check.json').read_text())
  result.update(maps=11,staff=evidence['staff'],shopItems=71,sourceLinkedOutputs=len(evidence['outputs']),sourceHashes=len(evidence['sources']),
