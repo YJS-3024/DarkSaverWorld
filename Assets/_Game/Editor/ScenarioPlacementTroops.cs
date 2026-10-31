@@ -22,10 +22,11 @@ namespace DarkSaver.Editor
         public static readonly string[] FormationNames={"대각 네 귀퉁이","상하좌우","좌우 + 아래 2칸","뒤쪽 V형"};
         public static int CommanderId(int id)=>id/10*10;
         public static int Slot(int id)=>id%10;
+        public static int StackedCells(IEnumerable<Scenario01Unit> units)=>units.GroupBy(u=>(u.x,u.y)).Count(g=>g.Skip(1).Any());
         public static Scenario01Unit Commander(IEnumerable<Scenario01Unit> units,Scenario01Unit member)
-            =>units.FirstOrDefault(u=>u.id==CommanderId(member.id) && u.wave==member.wave);
+            =>units.FirstOrDefault(u=>u.id==CommanderId(member.id));
         public static Scenario01Unit[] Members(IEnumerable<Scenario01Unit> units,Scenario01Unit member)
-            =>units.Where(u=>u.wave==member.wave && CommanderId(u.id)==CommanderId(member.id)).OrderBy(u=>u.id).ToArray();
+            =>units.Where(u=>CommanderId(u.id)==CommanderId(member.id)).OrderBy(u=>u.id).ToArray();
         public static Offset[] Formation(int index)
         {
             switch(index)

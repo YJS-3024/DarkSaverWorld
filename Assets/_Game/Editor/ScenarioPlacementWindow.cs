@@ -19,8 +19,19 @@ namespace DarkSaver.Editor
     public sealed class ScenarioPlacementWindow : EditorWindow
     {
         [Serializable] private sealed class UnitList { public Scenario01Unit[] units; }
+        [Serializable] private sealed class OriginalIndex { public OriginalMap[] maps=Array.Empty<OriginalMap>(); }
+        [Serializable] private sealed class OriginalMap { public string key="",title="",mapScene="";public int width=0,height=0; }
+        [Serializable] private sealed class PartyPosition { public int id=0,x=0,y=0; }
+        [Serializable] private sealed class OriginalDetails { public PartyPosition[] partyPositions=Array.Empty<PartyPosition>();public bool placementEdited=false; }
+        [Serializable] private sealed class OriginalUnitList { public OriginalUnit[] units; }
+        [Serializable] private sealed class OriginalUnit
+        {
+            public int id,job,x,y,hp,mp,attack,defense,magicAttack,magicDefense;public uint experience;public string name;
+            public static OriginalUnit From(Scenario01Unit u)=>new OriginalUnit{id=u.id,job=u.job,x=u.x,y=u.y,hp=u.hp,mp=u.mp,
+                attack=u.attack,defense=u.defense,magicAttack=u.magicAttack,magicDefense=u.magicDefense,experience=u.experience,name=u.name};
+        }
         [SerializeField] private int scenarioIndex;
-        private int selected=-1,wave,job=301;
+        private int selected=-1,job=301;
         [SerializeField] private string path,original;
         private string error;
         [SerializeField] private Scenario01Definition data;
@@ -30,7 +41,7 @@ namespace DarkSaver.Editor
         private Tilemap ground;
         private Vector2 scroll;
         [SerializeField] private bool dirty;
-        private bool dragging,showAll,showLocations=true,showLabels,showAi;
+        private bool dragging,showLocations=true,showLabels,showAi;
         private ScenarioPlacementTroops.AiRule[] aiRules=Array.Empty<ScenarioPlacementTroops.AiRule>();
         [SerializeField] private int placementMode; // 0: battle, 1: intro (exclusive)
         private float zoom=1;
@@ -41,7 +52,12 @@ namespace DarkSaver.Editor
         private Rect canvas;
         private string[] names;
         private ScenarioDefinition[] maps;
-        private bool IsBattleLayout => maps!=null && scenarioIndex>=ScenarioCatalog.All.Count;
+        private OriginalMap[] originalMaps=Array.Empty<OriginalMap>();
+        private PartyPosition[] partyPositions=Array.Empty<PartyPosition>();
+        private bool originalEdited;
+        private bool IsOriginalLayout=>maps!=null && maps[scenarioIndex].Key.StartsWith("Original",StringComparison.Ordinal);
+        private bool IsBattleLayout=>maps!=null && (maps[scenarioIndex].Key.StartsWith("Training",StringComparison.Ordinal) || maps[scenarioIndex].Key.StartsWith("Duel",StringComparison.Ordinal));
+        private string SourceKey=>IsOriginalLayout?maps[scenarioIndex].Key.Substring(8):maps[scenarioIndex].Key;
         private GUIStyle headingStyle,sectionStyle;
         private void DrawHeading()
         {
@@ -64,13 +80,19 @@ namespace DarkSaver.Editor
         private void OnEnable()
         {
             minSize=new Vector2(860,560);
+            string indexPath="Assets/_Game/Editor/BattleLayouts/OriginalIndex.json";
+            originalMaps=File.Exists(indexPath)?JsonUtility.FromJson<OriginalIndex>(File.ReadAllText(indexPath))?.maps ?? Array.Empty<OriginalMap>():Array.Empty<OriginalMap>();
             maps=ScenarioCatalog.All.Concat(Enumerable.Range(101,7).Select(id=>new ScenarioDefinition("Training"+id,"수련장 "+id,"Map_"+id+"_;","",20,15,"")))
-                .Concat(Enumerable.Range(201,7).Select(id=>new ScenarioDefinition("Duel"+id,"대련장 "+id,"Map_"+id+"_;","",30,30,""))).ToArray();
-            names=maps.Select((s,i)=>(i<ScenarioCatalog.All.Count?"[시나리오] "+s.Key+" · ":"")+s.Title).ToArray();
+                .Concat(Enumerable.Range(201,7).Select(id=>new ScenarioDefinition("Duel"+id,"대련장 "+id,"Map_"+id+"_;","",30,30,"")))
+                .Concat(originalMaps.Select(m=>new ScenarioDefinition("Original"+m.key,m.title,m.mapScene,"",m.width,m.height,""))).ToArray();
+            names=maps.Select((s,i)=>(s.Key.StartsWith("Original",StringComparison.Ordinal)?"[원본 SET/POS] "+s.Key.Substring(8)+" · ":i<ScenarioCatalog.All.Count?"[기존 콘텐츠] "+s.Key+" · ":"")+s.Title).ToArray();
+            if(data==null && path==null && originalMaps.Length>0)scenarioIndex=ScenarioCatalog.All.Count+14;
+            scenarioIndex=Mathf.Clamp(scenarioIndex,0,names.Length-1);
             if(data!=null)
             {
                 var edited=data;var baseline=original;bool changed=dirty;dirty=false;
-                Load(Mathf.Clamp(scenarioIndex,0,names.Length-1));data=edited;original=baseline;dirty=changed;
+                Load(Mathf.Clamp(scenarioIndex,0,names.Length-1));
+                if(changed){data=edited;original=baseline;dirty=true;}
             }
         }
         public override void SaveChanges(){Save();if(dirty)throw new IOException(error ?? "배치 저장 실패");base.SaveChanges();}
@@ -87,12 +109,13 @@ namespace DarkSaver.Editor
         private void Load(int index)
         {
             if(!Discard())return;
-            Release();data=null;dirty=false;selected=-1;error=null;scenarioIndex=index;aiRules=Array.Empty<ScenarioPlacementTroops.AiRule>();isolatedGroup=null;
+            Release();data=null;dirty=false;selected=-1;error=null;scenarioIndex=index;aiRules=Array.Empty<ScenarioPlacementTroops.AiRule>();isolatedGroup=null;partyPositions=Array.Empty<PartyPosition>();originalEdited=false;
             try
             {
                 var scenario=maps[index];
-                path=IsBattleLayout?"Assets/_Game/Editor/BattleLayouts/"+scenario.Key+".json":"Assets/_Game/Resources/Scenarios/"+scenario.Key+"/Content.json";
+                path=IsBattleLayout || IsOriginalLayout?"Assets/_Game/Editor/BattleLayouts/"+scenario.Key+".json":"Assets/_Game/Resources/Scenarios/"+scenario.Key+"/Content.json";
                 original=File.Exists(path)?File.ReadAllText(path):null;
+                if(IsOriginalLayout && original==null)throw new FileNotFoundException("원본 배치 파일이 없습니다: "+path);
                 data=original!=null?JsonUtility.FromJson<Scenario01Definition>(original):new Scenario01Definition
                 {
                     version=2,scenarioKey=scenario.Key,width=scenario.Width,height=scenario.Height,
@@ -102,9 +125,14 @@ namespace DarkSaver.Editor
                 };
                 if(data==null || data.width<=0 || data.height<=0)throw new InvalidDataException("잘못된 시나리오 크기");
                 if(data.units==null)data.units=Array.Empty<Scenario01Unit>();
+                if(IsOriginalLayout)
+                {
+                    var details=JsonUtility.FromJson<OriginalDetails>(original);
+                    partyPositions=details?.partyPositions ?? Array.Empty<PartyPosition>();originalEdited=details!=null && details.placementEdited;
+                }
                 if(!IsBattleLayout)
                 {
-                    string aiPath="분석/Saver_Late/decoded/map/"+scenario.Key+"set.arc/"+scenario.Key+".ai";
+                    string aiPath="분석/Saver_Late/decoded/map/"+SourceKey+"set.arc/"+SourceKey+".ai";
                     if(File.Exists(aiPath))
                         aiRules=ScenarioPlacementTroops.ParseAi(File.ReadAllText(aiPath));
                 }
@@ -141,6 +169,11 @@ namespace DarkSaver.Editor
         private Sprite SpriteFor(int id)
         {
             if(sprites.TryGetValue(id,out var s))return s;
+            if(IsOriginalLayout)
+            {
+                s=AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_Game/Editor/BattleLayouts/Art/"+id+".png");
+                if(s!=null)sprites[id]=s;return s;
+            }
             string prefix=maps[scenarioIndex].Key=="01"?"Scenarios/01/Characters/":"Scenarios/Shared/Characters/";
             s=Resources.Load<Sprite>(prefix+id+"_Down_0");sprites[id]=s;return s;
         }
@@ -162,9 +195,9 @@ namespace DarkSaver.Editor
         }
         // Code-backed ID relationship. AI movement references never redefine membership.
         private static int GroupAnchor(Scenario01Unit unit)=>ScenarioPlacementTroops.CommanderId(unit.id);
-        private string GroupKey(Scenario01Unit unit)=>unit.wave+":"+GroupAnchor(unit);
-        private bool Visible(Scenario01Unit unit)=>(showAll || unit.wave==wave) && (isolatedGroup==null || GroupKey(unit)==isolatedGroup);
-        private Color GroupColor(Scenario01Unit unit)=>Color.HSVToRGB(Mathf.Repeat(GroupAnchor(unit)*.0618034f+unit.wave*.17f,1),.65f,.95f);
+        private string GroupKey(Scenario01Unit unit)=>GroupAnchor(unit).ToString();
+        private bool Visible(Scenario01Unit unit)=>isolatedGroup==null || GroupKey(unit)==isolatedGroup;
+        private Color GroupColor(Scenario01Unit unit)=>Color.HSVToRGB(Mathf.Repeat(GroupAnchor(unit)*.0618034f,1),.65f,.95f);
         private void DrawGroupLinks()
         {
             foreach(var group in data.units.Where(Visible).GroupBy(GroupKey))
@@ -181,7 +214,7 @@ namespace DarkSaver.Editor
                 {
                     if(leader!=null)DrawLink(Screen(leader.x,leader.y),Screen(member.x,member.y),new Color(color.r,color.g,color.b,.65f));
                 }
-                GUI.Label(new Rect(box.x,box.y-18,310,18),"W"+first.wave+" / 지휘관 "+GroupAnchor(first)+" · "+members.Length+"인 · "+ScenarioPlacementTroops.FormationName(members),EditorStyles.whiteMiniLabel);
+                GUI.Label(new Rect(box.x,box.y-18,310,18),"지휘관 "+GroupAnchor(first)+" · "+members.Length+"인 · "+ScenarioPlacementTroops.FormationName(members),EditorStyles.whiteMiniLabel);
             }
         }
         private static void DrawLink(Vector2 a,Vector2 b,Color color,bool dotted=false)
@@ -205,7 +238,7 @@ namespace DarkSaver.Editor
                 Color tint=new Color(.2f,.8f,.9f,.7f);
                 if(rule.followsUnit)
                 {
-                    var target=data.units.FirstOrDefault(u=>u.id==rule.target && u.wave==unit.wave);
+                    var target=data.units.FirstOrDefault(u=>u.id==rule.target);
                     if(target==null)continue;
                     DrawLink(Screen(unit.x,unit.y),Screen(target.x,target.y),tint,true);
                     Marker(Screen(target.x,target.y),new Color(.2f,.8f,.9f,.25f),"SOILDER "+unit.id+" → "+rule.target+" (현재 좌표를 따르는 이동 기준)",null,false);
@@ -289,12 +322,12 @@ namespace DarkSaver.Editor
                     int index=EditorGUILayout.Popup(scenarioIndex,names,GUILayout.MinWidth(260));
                     if(index!=scenarioIndex || data==null && error==null)Load(index);
                     if(GUILayout.Button("다시 불러오기",EditorStyles.toolbarButton))Load(scenarioIndex);
+                    if(originalMaps.Length>0 && GUILayout.Button("원본 배치 보기",EditorStyles.toolbarButton))Load(ScenarioCatalog.All.Count+14);
                     if(GUILayout.Button(dirty?"저장 *":original==null?"새 배치 저장":"저장",EditorStyles.toolbarButton,GUILayout.Width(90)))Save();
-                    showAll=GUILayout.Toggle(showAll,"모든 웨이브",EditorStyles.toolbarButton);
                     showLocations=GUILayout.Toggle(showLocations,"상자/이벤트",EditorStyles.toolbarButton);
                     showLabels=GUILayout.Toggle(showLabels,"이름",EditorStyles.toolbarButton);
                     if(!IsBattleLayout)showAi=GUILayout.Toggle(showAi,"AI 이동 기준",EditorStyles.toolbarButton);
-                    wave=EditorGUILayout.IntField(wave,GUILayout.Width(45));
+
                 }
                 int mode=GUILayout.Toolbar(placementMode,new[]{"전투 배치","연출 배치"});
                 if(placementMode==0 && data!=null)
@@ -303,21 +336,28 @@ namespace DarkSaver.Editor
                     {
                         showGroups=GUILayout.Toggle(showGroups,"무리 경계",EditorStyles.toolbarButton,GUILayout.Width(75));
                         GUILayout.Label("지휘관 ID / 부하 슬롯 기준",EditorStyles.miniLabel,GUILayout.Width(180));
-                        var keys=data.units.Where(u=>showAll || u.wave==wave).Select(GroupKey).Distinct().OrderBy(k=>k).ToArray();
+                        var keys=data.units.Select(GroupKey).Distinct().OrderBy(k=>k).ToArray();
                         if(isolatedGroup!=null && !keys.Contains(isolatedGroup))isolatedGroup=null;
                         int current=isolatedGroup==null?0:Array.IndexOf(keys,isolatedGroup)+1;
-                        var options=new[]{"모든 부대"}.Concat(keys.Select(k=>"웨이브 / 지휘관 "+k)).ToArray();
+                        var options=new[]{"모든 부대"}.Concat(keys.Select(k=>"지휘관 "+k)).ToArray();
                         int chosen=EditorGUILayout.Popup(Mathf.Max(0,current),options);
                         string nextGroup=chosen==0?null:keys[chosen-1];
                         if(nextGroup!=isolatedGroup){selected=-1;dragging=false;isolatedGroup=nextGroup;}
+                        var visibleUnits=data.units.Where(Visible).ToArray();int stacked=ScenarioPlacementTroops.StackedCells(visibleUnits);
+                        GUILayout.Label(new GUIContent("표시 "+visibleUnits.Length+" / 전체 "+data.units.Length+(stacked>0?" · 겹침 "+stacked+"칸":""),
+                            "표시 수는 필터를 통과한 전체 몬스터 수입니다. 같은 칸의 몬스터는 겹쳐 그려지므로 우측 부대 목록으로 각각 확인하세요."),EditorStyles.miniLabel,GUILayout.Width(200));
+                        if(GUILayout.Button("전체 몬스터 보기",EditorStyles.toolbarButton,GUILayout.Width(120)))
+                        {isolatedGroup=null;selected=-1;dragging=false;}
                     }
+                    if(data.units.Length>0 && !data.units.Any(Visible))EditorGUILayout.HelpBox("배치 데이터는 있지만 현재 표시 필터에 해당하는 몬스터가 없습니다. 전체 몬스터 보기로 필터를 해제할 수 있습니다.",MessageType.Warning);
                     if(SelectedUnit!=null && !Visible(SelectedUnit)){selected=-1;dragging=false;}
                 }
                 if(mode!=placementMode){placementMode=mode;selected=-1;dragging=false;Repaint();}
                 if(error!=null)EditorGUILayout.HelpBox(error,MessageType.Error);
                 if(IsBattleLayout)EditorGUILayout.HelpBox("수련장·대련장은 편집용 배치 데이터입니다. 원작 서버 배치를 추측해서 생성하지 않으며 로컬 서버 통지에는 자동 적용하지 않습니다.",MessageType.Info);
+                if(IsOriginalLayout)EditorGUILayout.HelpBox("원본 SET/POS의 유닛·직업·좌표입니다. "+(dirty?"미저장 편집이 있습니다.":originalEdited?"편집 변경을 저장한 상태입니다.":"원문 배치 그대로입니다.")+" 파란 아군 슬롯은 원본 POS의 위치이며 캐릭터 종류는 미정입니다.",MessageType.Info);
                 if(data==null || cameraView==null)return;
-                EditorGUILayout.HelpBox("빨강: 전투 몬스터 · 파랑: 진입점 · 노랑: 상자 · 보라: 이벤트 · 청록: AI 이동 기준"+(showFormationReference?" · 노랑 윤곽: 대형 참고":"")+". 원본 좌표(좌상단 0,0). "+(IsBattleLayout?"저장: 편집 전용 BattleLayouts JSON":"저장: 실제 Content.json"),MessageType.Info);
+                EditorGUILayout.HelpBox("빨강: 전투 몬스터 · 파랑: 아군/진입 위치 · 노랑: 상자 · 보라: 이벤트 · 청록: AI 이동 기준"+(showFormationReference?" · 노랑 윤곽: 대형 참고":"")+". 원본 좌표(좌상단 0,0). "+(IsBattleLayout || IsOriginalLayout?"저장: 편집 전용 BattleLayouts JSON":"저장: 실제 Content.json"),MessageType.Info);
                 using(new EditorGUILayout.HorizontalScope())
                 {
                     zoom=EditorGUILayout.Slider("확대",zoom,.5f,8);
@@ -365,12 +405,14 @@ namespace DarkSaver.Editor
                 {
                     var u=data.units[i];if(!Visible(u))continue;
                     Marker(Screen(u.x,u.y),showGroups?GroupColor(u):new Color(.8f,.18f,.15f),
-                        (u.id==GroupAnchor(u)?"★ 지휘관 ":"부하 슬롯 "+ScenarioPlacementTroops.Slot(u.id)+" / ")+u.id+" · "+u.name+" [W"+u.wave+"]",SpriteFor(u.job),selected==i);
+                        (u.id==GroupAnchor(u)?"★ 지휘관 ":"부하 슬롯 "+ScenarioPlacementTroops.Slot(u.id)+" / ")+u.id+" · "+u.name,SpriteFor(u.job),selected==i);
                     if(showGroups && u.id==GroupAnchor(u))
                         GUI.Label(new Rect(Screen(u.x,u.y).x-MarkerSize/2,Screen(u.x,u.y).y-MarkerSize/2,20,20),"★",EditorStyles.whiteBoldLabel);
                 }
                 if(placementMode==0)DrawFormationReference();
-                if(placementMode==0)Marker(Screen(data.entryX,data.entryY),new Color(.1f,.4f,.95f),"캐릭터 진입",null,selected==-2);
+                if(placementMode==0 && IsOriginalLayout)
+                    foreach(var slot in partyPositions)Marker(Screen(slot.x,slot.y),new Color(.1f,.4f,.95f),"원본 아군 슬롯 "+slot.id+" (종류 미정, 읽기 전용)",null,false);
+                else if(placementMode==0)Marker(Screen(data.entryX,data.entryY),new Color(.1f,.4f,.95f),"캐릭터 진입",null,selected==-2);
                 else foreach(var command in IntroPlacements())
                 {
                     int.TryParse(command.args[0],out int introJob);
@@ -385,7 +427,7 @@ namespace DarkSaver.Editor
             {
                 selected=-1;float best=MarkerSize*.7f;
                 for(int i=data.units.Length-1;i>=0;i--){var u=data.units[i];if(!Visible(u))continue;float d=Vector2.Distance(e.mousePosition,Screen(u.x,u.y));if(d<best){best=d;selected=i;}}
-                if(Vector2.Distance(e.mousePosition,Screen(data.entryX,data.entryY))<MarkerSize/2)selected=-2;
+                if(!IsOriginalLayout && Vector2.Distance(e.mousePosition,Screen(data.entryX,data.entryY))<MarkerSize/2)selected=-2;
                 dragging=selected!=-1;GUI.FocusControl(null);e.Use();Repaint();
             }
             if(e.type==EventType.MouseDrag && e.button==0 && dragging && Cell(e.mousePosition,out var cell))
@@ -420,38 +462,39 @@ namespace DarkSaver.Editor
             job=EditorGUILayout.IntField("추가할 직업 ID",job);
             int commanderId=ScenarioPlacementTroops.NextCommanderId(data.units);
             using(new EditorGUI.DisabledScope(commanderId<0))
-                if(GUILayout.Button(new GUIContent("새 지휘관 추가","400~790 중 사용하지 않는 ID 10개 구간을 선택합니다.")))AddUnit(commanderId,Math.Max(0,wave),data.entryX,data.entryY);
+                if(GUILayout.Button(new GUIContent("새 지휘관 추가","400~790 중 사용하지 않는 ID 10개 구간을 선택합니다.")))AddUnit(commanderId,data.entryX,data.entryY);
             int memberId=ScenarioPlacementTroops.NextMemberId(data.units,SelectedUnit);
             using(new EditorGUI.DisabledScope(memberId<0))
                 if(GUILayout.Button(new GUIContent("선택 부대에 부하 추가","같은 지휘관의 빈 슬롯 1~9에 추가합니다. 지휘관이 없거나 슬롯이 모두 차면 사용할 수 없습니다.")))
-                {var leader=ScenarioPlacementTroops.Commander(data.units,SelectedUnit);AddUnit(memberId,leader.wave,leader.x,leader.y);}
+                {var leader=ScenarioPlacementTroops.Commander(data.units,SelectedUnit);AddUnit(memberId,leader.x,leader.y);}
             Section("DETAILS  /  선택 배치");
             EditorGUI.BeginChangeCheck();
             if(selected==-2){data.entryX=EditorGUILayout.IntField("진입 X",data.entryX);data.entryY=EditorGUILayout.IntField("진입 Y",data.entryY);}
             else if(selected>=0 && selected<data.units.Length)
             {
                 var u=data.units[selected];u.id=EditorGUILayout.IntField("유닛 ID",u.id);u.name=EditorGUILayout.TextField("이름",u.name);u.job=EditorGUILayout.IntField("직업 ID",u.job);
-                u.x=EditorGUILayout.IntField("X",u.x);u.y=EditorGUILayout.IntField("Y",u.y);u.wave=EditorGUILayout.IntField("웨이브",u.wave);
+                u.x=EditorGUILayout.IntField("X",u.x);u.y=EditorGUILayout.IntField("Y",u.y);
                 u.hp=EditorGUILayout.IntField("HP",u.hp);u.mp=EditorGUILayout.IntField("MP",u.mp);u.attack=EditorGUILayout.IntField("공격",u.attack);u.defense=EditorGUILayout.IntField("방어",u.defense);
                 u.magicAttack=EditorGUILayout.IntField("마법 공격",u.magicAttack);u.magicDefense=EditorGUILayout.IntField("마법 방어",u.magicDefense);
                 if(GUILayout.Button("선택 몬스터 삭제"))Delete();
             }
             if(EditorGUI.EndChangeCheck())dirty=true;
             DrawTroopInspector();
-            if(!IsBattleLayout)EditorGUILayout.HelpBox("저장 시 배치 해시가 변경됩니다. 기존 진행 저장은 콘텐츠 불일치로 거부될 수 있으므로 새 검증 저장을 사용하세요. 삭제한 ID를 참조하는 이벤트/대사는 자동 변경하지 않습니다.",MessageType.Warning);
-            if(!IsBattleLayout)EditorGUILayout.HelpBox("현재 콘텐츠 좌표입니다. 01~17은 보완 배치이며 원작 확정 좌표가 아닙니다. 연출 NPC는 연출 모드에서 확인합니다.",MessageType.Info);
+            if(!IsBattleLayout && !IsOriginalLayout)EditorGUILayout.HelpBox("저장 시 배치 해시가 변경됩니다. 기존 진행 저장은 콘텐츠 불일치로 거부될 수 있으므로 새 검증 저장을 사용하세요. 삭제한 ID를 참조하는 이벤트/대사는 자동 변경하지 않습니다.",MessageType.Warning);
+            if(IsOriginalLayout)EditorGUILayout.HelpBox("원문은 분석 자료에 보존됩니다. 저장은 Editor/BattleLayouts의 편집본만 변경하며 실제 씬·전투 출현은 자동 변경하지 않습니다. 수치는 원본 능력치 표의 기본값입니다.",MessageType.Info);
+            else if(!IsBattleLayout)EditorGUILayout.HelpBox("기존 보완 편성을 보존해 표시합니다. 01~17의 원작 초기 몬스터 종류·수량·좌표를 확정한 자료가 아닙니다. 연출 배치는 별도 모드입니다.",MessageType.Info);
             else EditorGUILayout.LabelField("저장 위치: Editor/BattleLayouts",EditorStyles.miniLabel);
             Section("LAYOUT  /  배치 목록");
             using(new EditorGUILayout.HorizontalScope(EditorStyles.helpBox))
             {
                 EditorGUILayout.LabelField(data.width+" × "+data.height,GUILayout.Width(70));
                 EditorGUILayout.LabelField(data.units.Length+" 유닛",GUILayout.Width(70));
-                EditorGUILayout.LabelField(data.units.Select(u=>u.wave).Distinct().Count()+" 웨이브");
+                EditorGUILayout.LabelField(data.units.Select(GroupKey).Distinct().Count()+" 부대");
             }
             foreach(var group in data.units.Select((u,i)=>(unit:u,index:i)).Where(p=>Visible(p.unit)).GroupBy(p=>GroupKey(p.unit)))
             {
                 var first=group.First().unit;
-                EditorGUILayout.LabelField("W"+first.wave+" / 지휘관 "+GroupAnchor(first),EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("지휘관 "+GroupAnchor(first),EditorStyles.boldLabel);
                 foreach(var entry in group.OrderBy(p=>p.unit.id))
                 {
                     var u=entry.unit;string role=ScenarioPlacementTroops.Slot(u.id)==0?"★":"└ "+ScenarioPlacementTroops.Slot(u.id);
@@ -466,16 +509,16 @@ namespace DarkSaver.Editor
                     {var world=World(marker.x,marker.y);cameraView.transform.position=new Vector3(world.x,world.y,cameraView.transform.position.z);Repaint();}
             }
         }
-        private void AddUnit(int id,int targetWave,int x,int y)
+        private void AddUnit(int id,int x,int y)
         {
             // Free nearby editor cell; no original spawn or formation policy is inferred.
-            var occupied=new HashSet<int>(data.units.Where(u=>u.wave==targetWave).Select(u=>u.y*data.width+u.x));
+            var occupied=new HashSet<int>(data.units.Select(u=>u.y*data.width+u.x));
             var cells=from cy in Enumerable.Range(0,data.height) from cx in Enumerable.Range(0,data.width)
                       where !occupied.Contains(cy*data.width+cx)
                       orderby Math.Abs(cx-x)+Math.Abs(cy-y),cy,cx select new Vector2Int(cx,cy);
-            if(!cells.Any()){error="이 웨이브에 빈 배치 칸이 없습니다.";return;}
+            if(!cells.Any()){error="맵에 빈 배치 칸이 없습니다.";return;}
             var cell=cells.First();
-            var unit=new Scenario01Unit{id=id,job=job,name="새 몬스터",wave=targetWave,x=cell.x,y=cell.y,hp=1};
+            var unit=new Scenario01Unit{id=id,job=job,name="새 몬스터",x=cell.x,y=cell.y,hp=1};
             data.units=data.units.Concat(new[]{unit}).ToArray();selected=data.units.Length-1;isolatedGroup=null;dirty=true;error=null;
         }
         private void DrawTroopInspector()
@@ -486,14 +529,14 @@ namespace DarkSaver.Editor
             EditorGUILayout.LabelField("지휘관 ID",GroupAnchor(unit).ToString());
             EditorGUILayout.LabelField("역할",ScenarioPlacementTroops.Slot(unit.id)==0?"지휘관":"부하 슬롯 "+ScenarioPlacementTroops.Slot(unit.id));
             EditorGUILayout.LabelField("현재 대형",ScenarioPlacementTroops.FormationName(members));
-            if(leader==null)EditorGUILayout.HelpBox("같은 웨이브에 지휘관 "+GroupAnchor(unit)+"이 없습니다. 부하를 지휘관으로 대체 표시하지 않습니다.",MessageType.Warning);
+            if(leader==null)EditorGUILayout.HelpBox("배치에 지휘관 "+GroupAnchor(unit)+"이 없습니다. 부하를 지휘관으로 대체 표시하지 않습니다.",MessageType.Warning);
             else
             {
                 foreach(var member in members)
                     EditorGUILayout.LabelField(member.id+" / 슬롯 "+ScenarioPlacementTroops.Slot(member.id),"Δ("+(member.x-leader.x)+","+(member.y-leader.y)+")");
                 foreach(var rule in aiRules.Where(a=>a.unit==leader.id))
                     if(rule.followsUnit)
-                        EditorGUILayout.LabelField("SOILDER 이동 기준",rule.target+"번"+(data.units.Any(u=>u.id==rule.target && u.wave==leader.wave)?"의 현재 위치":" (같은 웨이브에 없음)"));
+                        EditorGUILayout.LabelField("SOILDER 이동 기준",rule.target+"번"+(data.units.Any(u=>u.id==rule.target)?"의 현재 위치":" (배치에 없음)"));
                     else if(rule.x!=leader.x || rule.y!=leader.y)
                         EditorGUILayout.HelpBox("현재 좌표 ("+leader.x+","+leader.y+")와 AREA 중심 ("+rule.x+","+rule.y+")이 다릅니다. 좌표를 자동 보정하지 않습니다.",MessageType.Info);
                 referenceFormation=EditorGUILayout.Popup("원본 대형 참고",referenceFormation,ScenarioPlacementTroops.FormationNames);
@@ -523,11 +566,13 @@ namespace DarkSaver.Editor
             try
             {
                 bool Inside(int x,int y)=>x>=0 && y>=0 && x<data.width && y<data.height;
-                if(!Inside(data.entryX,data.entryY) || data.units.Any(u=>!Inside(u.x,u.y) || u.id<=0 || u.id>short.MaxValue || u.job<0 || u.wave<0) || data.units.Select(u=>u.id).Distinct().Count()!=data.units.Length)
-                    throw new InvalidDataException("좌표 범위·중복/잘못된 ID·직업·웨이브를 확인하세요.");
+                if(!Inside(data.entryX,data.entryY) || data.units.Any(u=>!Inside(u.x,u.y) || u.id<=0 || u.id>short.MaxValue || u.job<0) || data.units.Select(u=>u.id).Distinct().Count()!=data.units.Length)
+                    throw new InvalidDataException("좌표 범위·중복/잘못된 ID·직업을 확인하세요.");
                 if((original==null && File.Exists(path)) || (original!=null && (!File.Exists(path) || File.ReadAllText(path)!=original)))throw new IOException("외부에서 파일이 변경되었습니다. 다시 불러온 후 편집하세요.");
-                string wrapper=JsonUtility.ToJson(new UnitList{units=data.units},true);string array=wrapper.Substring(wrapper.IndexOf('['));array=array.Substring(0,array.LastIndexOf(']')+1);
+                string wrapper=IsOriginalLayout?JsonUtility.ToJson(new OriginalUnitList{units=data.units.Select(OriginalUnit.From).ToArray()},true):JsonUtility.ToJson(new UnitList{units=data.units},true);
+                string array=wrapper.Substring(wrapper.IndexOf('['));array=array.Substring(0,array.LastIndexOf(']')+1);
                 string updated=ReplaceArray(original ?? JsonUtility.ToJson(data,true),array);
+                if(IsOriginalLayout)updated=Regex.Replace(updated,"\\\"placementEdited\\\"\\s*:\\s*(?:true|false)","\"placementEdited\": true");
                 updated=Regex.Replace(updated,"(\\\"entryX\\\"\\s*:\\s*)-?\\d+",m=>m.Groups[1].Value+data.entryX);
                 updated=Regex.Replace(updated,"(\\\"entryY\\\"\\s*:\\s*)-?\\d+",m=>m.Groups[1].Value+data.entryY);
                 using(var sha=SHA256.Create())
@@ -535,7 +580,7 @@ namespace DarkSaver.Editor
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
                 string temp=path+".placement-tmp";File.WriteAllText(temp,updated,new UTF8Encoding(false));
                 if(File.Exists(path))File.Replace(temp,path,null);else File.Move(temp,path);
-                original=updated;dirty=false;AssetDatabase.ImportAsset(path);error=null;
+                original=updated;dirty=false;if(IsOriginalLayout)originalEdited=true;AssetDatabase.ImportAsset(path);error=null;
             }
             catch(Exception e){error=e.Message;}
         }

@@ -20,3 +20,5 @@ python Tools/InstallerChecks/summarize_versions.py
 `read_split_egg.py`는 제공된 비암호화 EGG3권의 헤더를 제거하고 파일/블록을 이어 읽는다. store/deflate/bzip2 블록을 지원하며 블록 CRC32·압축 전후 길이·완성 파일 길이를 검사한다. 이번 파일에서 사용한 코덱은 store와 deflate다. 임의의 모든 EGG 변형 지원을 뜻하지 않는다. 검사를 생략하는 `python -O`로 실행하지 않는다.
 
 확인된 복호화 실패는 후기본과 동일 EGG에 들어 있는 백업 `ability_bak.at`, `levelabl_bak.a`의 EOF다. 현용 표·튜토리얼·SET/POS와 분리해 기록한다. 정적 파일 비교 결과이며 설치 성공·원작 실제 재생·Unity Play 검증 결과가 아니다.
+
+`python Tools/InstallerChecks/audit_deployment_sources.py`는 추출 인벤토리를 사용해 고유 ARC151종의 모든 항목을 검사한다. 텍스트 확장자 필터에서 제외됐던29.all·내장charview.exe, 코어 파일의 명시적 경로 문자열과 후기 MRC673/GRS77의 EOF 파싱 결과를 `deployment_source_audit.json`에 기록한다. `decoded/<hash>/29.all`은 UTF-8 전사가 아닌 **바이너리 원문**이다. 기존 그래픽 해석기의 Pillow 의존성이 필요하다. 도구 EXE는 실행하지 않으며, 파일명 문자열의 부재를 모든 동적 로딩 경로의 부재로 일반화하지 않는다.

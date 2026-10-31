@@ -24,8 +24,9 @@ internal static class EditorTroopChecks
         Check(ScenarioPlacementTroops.Commander(missing,missing[0])==null,"orphan must not become leader");
         Check(ScenarioPlacementTroops.FormationName(missing)=="지휘관 없음","orphan shape");
         var waveMismatch=new[]{Unit(400,wave:1),Unit(401)};
-        Check(ScenarioPlacementTroops.Commander(waveMismatch,waveMismatch[1])==null,"cross-wave commander");
-        Check(ScenarioPlacementTroops.NextMemberId(waveMismatch,waveMismatch[1])<0,"cannot add to orphan wave");
+        Check(ScenarioPlacementTroops.Commander(waveMismatch,waveMismatch[1])==waveMismatch[0],"legacy cohort does not redefine commander");
+        Check(ScenarioPlacementTroops.NextMemberId(waveMismatch,waveMismatch[1])==402,"member allocation ignores legacy cohort");
+        Check(ScenarioPlacementTroops.Members(waveMismatch,waveMismatch[1]).Length==2,"legacy cohort cannot hide a member");
         Check(ScenarioPlacementTroops.NextMemberId(missing,null)<0,"no selection");
         Check(ScenarioPlacementTroops.NextCommanderId(missing)==410,"skip orphan-occupied group");
         Check(ScenarioPlacementTroops.NextCommanderId(Array.Empty<Scenario01Unit>())==400,"first enemy commander");
@@ -33,6 +34,7 @@ internal static class EditorTroopChecks
         var full=Enumerable.Range(400,10).Select(n=>Unit(n)).ToArray();
         Check(ScenarioPlacementTroops.NextMemberId(full,full[3])<0,"no spill into next commander");
         Check(ScenarioPlacementTroops.NextMemberId(new[]{Unit(400),Unit(402)},Unit(400))==401,"reuse free slot");
+        Check(ScenarioPlacementTroops.StackedCells(new[]{Unit(400),Unit(410)})==1,"overlap remains visible as a count");
         Check(ScenarioPlacementTroops.FormationName(new[]{Unit(400),Unit(401),Unit(402)})=="편집 대형 (3인)","authored trio is not source five");
         for(int i=0;i<4;i++)
         {
@@ -76,7 +78,25 @@ internal static class EditorTroopChecks
             areaCount+=parsed.Count(r=>!r.followsUnit);targetCount+=parsed.Count(r=>r.followsUnit);
         }
         Check(areaCount==1099 && targetCount==22,"complete AI corpus");
-        Console.WriteLine(JsonSerializer.Serialize(new{assertions,nativeUnits,nativeGroups,areaCount,targetCount,shapes=histogram,
+        using var index=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,"Assets/_Game/Editor/BattleLayouts/OriginalIndex.json")));
+        Check(index.RootElement.GetProperty("maps").GetArrayLength()==16,"native editor index");
+        int linkedUnits=0;
+        foreach(var scenario in document.RootElement.GetProperty("scenarios").EnumerateArray())
+        {
+            string key=scenario.GetProperty("scenario").GetString();
+            using var layout=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,"Assets/_Game/Editor/BattleLayouts/Original"+key+".json")));
+            var linked=layout.RootElement.GetProperty("units").EnumerateArray().ToDictionary(u=>u.GetProperty("id").GetInt32());
+            Check(linked.Count==scenario.GetProperty("units").GetArrayLength(),"native editor count "+key);
+            foreach(var unit in scenario.GetProperty("units").EnumerateArray())
+            {
+                int id=unit.GetProperty("unit").GetInt32();var row=linked[id];
+                Check(row.GetProperty("job").GetInt32()==unit.GetProperty("job").GetInt32(),"native editor job "+key+":"+id);
+                Check(row.GetProperty("x").GetInt32()==unit.GetProperty("x").GetInt32() && row.GetProperty("y").GetInt32()==unit.GetProperty("y").GetInt32(),"native editor position "+key+":"+id);
+                Check(!row.TryGetProperty("wave",out _),"no invented cohort in native layout");linkedUnits++;
+            }
+        }
+        Check(linkedUnits==610,"all recovered positions linked to editor");
+        Console.WriteLine(JsonSerializer.Serialize(new{assertions,nativeUnits,nativeGroups,linkedUnits,areaCount,targetCount,shapes=histogram,
             scope="Actual editor helper and runtime unit type; managed checks, not Unity GUI/Play"}));
     }
 }
