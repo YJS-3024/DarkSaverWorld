@@ -34,6 +34,9 @@ namespace DarkSaver.Editor
         private readonly List<(int id,int x,int y,int radius)> aiAreas=new List<(int,int,int,int)>();
         [SerializeField] private int placementMode; // 0: battle, 1: intro (exclusive)
         private float zoom=1;
+        private bool showGroups=true;
+        private int groupingStrategy;
+        private string isolatedGroup;
         private Rect canvas;
         private string[] names;
         private ScenarioDefinition[] maps;
@@ -83,7 +86,7 @@ namespace DarkSaver.Editor
         private void Load(int index)
         {
             if(!Discard())return;
-            Release();data=null;dirty=false;selected=-1;error=null;scenarioIndex=index;aiAreas.Clear();
+            Release();data=null;dirty=false;selected=-1;error=null;scenarioIndex=index;aiAreas.Clear();isolatedGroup=null;
             try
             {
                 var scenario=maps[index];
@@ -157,6 +160,45 @@ namespace DarkSaver.Editor
             GUI.Label(rect,new GUIContent("",label));
             if(showLabels || active)GUI.Label(new Rect(rect.xMax+2,pos.y-10,200,22),label,EditorStyles.whiteMiniLabel);
         }
+        // Two explicit visualization hypotheses; neither writes inferred ownership into content.
+        private int GroupAnchor(Scenario01Unit unit)
+        {
+            if(groupingStrategy==1 && aiAreas.Count>0)
+            {
+                var candidates=aiAreas.Where(a=>data.units.Any(u=>u.id==a.id && u.wave==unit.wave)).ToArray();
+                if(candidates.Length>0)
+                {
+                    var nearest=candidates.OrderBy(a=>(a.x-unit.x)*(a.x-unit.x)+(a.y-unit.y)*(a.y-unit.y)).ThenBy(a=>a.id).First();
+                    return nearest.id;
+                }
+            }
+            return unit.id/10*10;
+        }
+        private string GroupKey(Scenario01Unit unit)=>unit.wave+":"+GroupAnchor(unit);
+        private bool Visible(Scenario01Unit unit)=>(showAll || unit.wave==wave) && (isolatedGroup==null || GroupKey(unit)==isolatedGroup);
+        private Color GroupColor(Scenario01Unit unit)=>Color.HSVToRGB(Mathf.Repeat(GroupAnchor(unit)*.0618034f+unit.wave*.17f,1),.65f,.95f);
+        private void DrawGroupLinks()
+        {
+            foreach(var group in data.units.Where(Visible).GroupBy(GroupKey))
+            {
+                var members=group.OrderBy(u=>u.id).ToArray();var leader=members.FirstOrDefault(u=>u.id==GroupAnchor(u)) ?? members[0];
+                Color color=GroupColor(leader);float half=MarkerSize*.7f;
+                var points=members.Select(u=>Screen(u.x,u.y)).ToArray();
+                var box=Rect.MinMaxRect(points.Min(p=>p.x)-half,points.Min(p=>p.y)-half,points.Max(p=>p.x)+half,points.Max(p=>p.y)+half);
+                EditorGUI.DrawRect(box,new Color(color.r,color.g,color.b,.09f));
+                EditorGUI.DrawRect(new Rect(box.x,box.y,box.width,2),color);EditorGUI.DrawRect(new Rect(box.x,box.yMax-2,box.width,2),color);
+                EditorGUI.DrawRect(new Rect(box.x,box.y,2,box.height),color);EditorGUI.DrawRect(new Rect(box.xMax-2,box.y,2,box.height),color);
+                foreach(var member in members)
+                {
+                    var a=Screen(leader.x,leader.y);var b=Screen(member.x,member.y);var delta=b-a;
+                    if(delta.sqrMagnitude<1)continue;
+                    var matrix=GUI.matrix;
+                    try{GUIUtility.RotateAroundPivot(Mathf.Atan2(delta.y,delta.x)*Mathf.Rad2Deg,a);EditorGUI.DrawRect(new Rect(a.x,a.y,delta.magnitude,1),new Color(color.r,color.g,color.b,.65f));}
+                    finally{GUI.matrix=matrix;}
+                }
+                GUI.Label(new Rect(box.x,box.y-18,210,18),"W"+leader.wave+" / G"+GroupAnchor(leader)+" · "+members.Length+"마리",EditorStyles.whiteMiniLabel);
+            }
+        }
         private float FitSize => Mathf.Max(data.height*Mathf.Abs(ground.cellSize.y),data.width*Mathf.Abs(ground.cellSize.x)/cameraView.aspect)/2+.6f;
         private void ResetView()
         {
@@ -221,6 +263,22 @@ namespace DarkSaver.Editor
                     wave=EditorGUILayout.IntField(wave,GUILayout.Width(45));
                 }
                 int mode=GUILayout.Toolbar(placementMode,new[]{"전투 배치","연출 배치"});
+                if(placementMode==0 && data!=null)
+                {
+                    using(new EditorGUILayout.HorizontalScope(EditorStyles.toolbar))
+                    {
+                        showGroups=GUILayout.Toggle(showGroups,"무리 경계",EditorStyles.toolbarButton,GUILayout.Width(75));
+                        int strategy=EditorGUILayout.Popup(groupingStrategy,new[]{"ID 구간 기준 (비교)","가까운 AI 중심 (가설)"},GUILayout.Width(200));
+                        if(strategy!=groupingStrategy){groupingStrategy=strategy;isolatedGroup=null;selected=-1;}
+                        var keys=data.units.Where(u=>showAll || u.wave==wave).Select(GroupKey).Distinct().OrderBy(k=>k).ToArray();
+                        int current=isolatedGroup==null?0:Array.IndexOf(keys,isolatedGroup)+1;
+                        var options=new[]{"모든 무리"}.Concat(keys.Select(k=>"무리 "+k)).ToArray();
+                        int chosen=EditorGUILayout.Popup(Mathf.Max(0,current),options);
+                        string nextGroup=chosen==0?null:keys[chosen-1];
+                        if(nextGroup!=isolatedGroup){selected=-1;dragging=false;isolatedGroup=nextGroup;}
+                    }
+                    if(groupingStrategy==1)EditorGUILayout.HelpBox("AI 중심과의 거리로 묶은 비교 가설입니다. 실제 서버 편성/생성 좌표가 아니며 저장하지 않습니다. AI 자료가 없으면 ID 구간 기준을 사용합니다.",MessageType.Info);
+                }
                 if(mode!=placementMode){placementMode=mode;selected=-1;dragging=false;Repaint();}
                 if(error!=null)EditorGUILayout.HelpBox(error,MessageType.Error);
                 if(IsBattleLayout)EditorGUILayout.HelpBox("수련장·대련장은 편집용 배치 데이터입니다. 원작 서버 배치를 추측해서 생성하지 않으며 로컬 서버 통지에는 자동 적용하지 않습니다.",MessageType.Info);
@@ -264,6 +322,7 @@ namespace DarkSaver.Editor
                 for(int x=0;x<=data.width;x++)EditorGUI.DrawRect(new Rect(corner.x+dx.x*x,corner.y,1,dy.y*data.height),gridColor);
                 for(int y=0;y<=data.height;y++)EditorGUI.DrawRect(new Rect(corner.x,corner.y+dy.y*y,dx.x*data.width,1),gridColor);
 
+                if(placementMode==0 && showGroups)DrawGroupLinks();
                 if(placementMode==0 && showAi && !IsBattleLayout)
                     foreach(var area in aiAreas)
                     {
@@ -280,8 +339,8 @@ namespace DarkSaver.Editor
                 if(placementMode==0)
                 for(int i=0;i<data.units.Length;i++)
                 {
-                    var u=data.units[i];if(!showAll && u.wave!=wave)continue;
-                    Marker(Screen(u.x,u.y),new Color(.8f,.18f,.15f),u.id+" · "+u.name+" [W"+u.wave+"]",SpriteFor(u.job),selected==i);
+                    var u=data.units[i];if(!Visible(u))continue;
+                    Marker(Screen(u.x,u.y),showGroups?GroupColor(u):new Color(.8f,.18f,.15f),u.id+" · "+u.name+" [W"+u.wave+"]",SpriteFor(u.job),selected==i);
                 }
                 if(placementMode==0)Marker(Screen(data.entryX,data.entryY),new Color(.1f,.4f,.95f),"캐릭터 진입",null,selected==-2);
                 else foreach(var command in IntroPlacements())
@@ -297,7 +356,7 @@ namespace DarkSaver.Editor
             if(e.type==EventType.MouseDown && e.button==0 && canvas.Contains(e.mousePosition))
             {
                 selected=-1;float best=MarkerSize*.7f;
-                for(int i=data.units.Length-1;i>=0;i--){var u=data.units[i];if(!showAll && u.wave!=wave)continue;float d=Vector2.Distance(e.mousePosition,Screen(u.x,u.y));if(d<best){best=d;selected=i;}}
+                for(int i=data.units.Length-1;i>=0;i--){var u=data.units[i];if(!Visible(u))continue;float d=Vector2.Distance(e.mousePosition,Screen(u.x,u.y));if(d<best){best=d;selected=i;}}
                 if(Vector2.Distance(e.mousePosition,Screen(data.entryX,data.entryY))<MarkerSize/2)selected=-2;
                 dragging=selected!=-1;GUI.FocusControl(null);e.Use();Repaint();
             }
@@ -355,7 +414,7 @@ namespace DarkSaver.Editor
                 EditorGUILayout.LabelField(data.units.Select(u=>u.wave).Distinct().Count()+" 웨이브");
             }
             scroll=EditorGUILayout.BeginScrollView(scroll);
-            for(int i=0;i<data.units.Length;i++){var u=data.units[i];if(!showAll && u.wave!=wave)continue;if(GUILayout.Button(u.id+" "+u.name+" ("+u.x+","+u.y+") W"+u.wave))selected=i;}
+            for(int i=0;i<data.units.Length;i++){var u=data.units[i];if(!Visible(u))continue;if(GUILayout.Button(u.id+" "+u.name+" ("+u.x+","+u.y+") W"+u.wave))selected=i;}
             if(showLocations)
             {
                 EditorGUILayout.LabelField("상자 / 퀘스트·이벤트 (읽기 전용)");
