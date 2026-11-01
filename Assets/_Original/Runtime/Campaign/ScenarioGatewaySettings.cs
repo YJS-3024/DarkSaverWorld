@@ -17,11 +17,17 @@ namespace DarkSaver.Original.Campaign
         // Missing trigger/size fields in version 1 files retain the NPC, one-tile behavior.
         [DataMember(EmitDefaultValue=false)] public string trigger, replacesPortal;
         [DataMember(EmitDefaultValue=false)] public int width, height, returnX, returnY;
+        [DataMember(EmitDefaultValue=false)] public int spawnWidth, spawnHeight;
         public bool IsWalk => trigger == "walk";
         public int Width => width == 0 ? 1 : width;
         public int Height => height == 0 ? 1 : height;
-        public bool Contains(int px,int py) => px>=x && py>=y && (long)px<x+(long)Width && (long)py<y+(long)Height;
+        public int SpawnWidth => spawnWidth == 0 ? 1 : spawnWidth;
+        public int SpawnHeight => spawnHeight == 0 ? 1 : spawnHeight;
+        public bool Contains(int px,int py) => x>=0&&y>=0&&px>=x && py>=y && (long)px<x+(long)Width && (long)py<y+(long)Height;
+        public bool SpawnContains(int px,int py) => spawnX>=0&&spawnY>=0&&px>=spawnX && py>=spawnY && (long)px<spawnX+(long)SpawnWidth && (long)py<spawnY+(long)SpawnHeight;
         public WorldPoint[] Cells() => Enumerable.Range(0,Height).SelectMany(dy=>Enumerable.Range(0,Width).Select(dx=>new WorldPoint{x=x+dx,y=y+dy})).ToArray();
+        public WorldPoint[] SpawnCells() => Enumerable.Range(0,SpawnHeight).SelectMany(dy=>Enumerable.Range(0,SpawnWidth).Select(dx=>new WorldPoint{x=spawnX+dx,y=spawnY+dy})).ToArray();
+        public WorldPortal Portal(string portalId) => new WorldPortal{id=portalId,gateway=id,targetMap=targetMap,spawnX=spawnX,spawnY=spawnY,spawnWidth=SpawnWidth,spawnHeight=SpawnHeight,returnX=returnX,returnY=returnY,cells=Cells()};
         public ScenarioGateway Copy() => (ScenarioGateway)MemberwiseClone();
     }
     [Serializable, DataContract] public sealed class ScenarioGatewaySettings
@@ -56,7 +62,8 @@ namespace DarkSaver.Original.Campaign
                     ||(!string.IsNullOrEmpty(g.trigger)&&g.trigger!="npc"&&g.trigger!="walk")
                     ||(!g.IsWalk&&(to.kind!="scenario"||(from.kind!="world"&&from.kind!="town")||!catalog.npcJobs.Contains(g.npcJob)||g.Width!=1||g.Height!=1||!string.IsNullOrEmpty(g.replacesPortal)))
                     ||g.fromHash!=from.hash||g.targetHash!=to.hash||g.Width<=0||g.Height<=0||(g.IsWalk&&(g.width<=0||g.height<=0))
-                    ||g.x<0||g.y<0||(long)g.x+g.Width>from.width||(long)g.y+g.Height>from.height||g.spawnX<0||g.spawnY<0||g.spawnX>=to.width||g.spawnY>=to.height
+                    ||g.x<0||g.y<0||(long)g.x+g.Width>from.width||(long)g.y+g.Height>from.height
+                    ||g.SpawnWidth<=0||g.SpawnHeight<=0||g.spawnX<0||g.spawnY<0||(long)g.spawnX+g.SpawnWidth>to.width||(long)g.spawnY+g.SpawnHeight>to.height
                     ||string.IsNullOrWhiteSpace(g.name))throw new InvalidDataException("입구 방식·영역·도착 좌표·맵 버전을 확인하세요.");
                 if(!string.IsNullOrEmpty(g.replacesPortal)&&!replacements.Add(g.fromMap+":"+g.replacesPortal))throw new InvalidDataException("같은 기존 출입구를 두 번 수정할 수 없습니다.");
                 foreach(var cell in g.Cells())if(!occupied.Add(g.fromMap+":"+cell.x+":"+cell.y))throw new InvalidDataException("입구 영역이 서로 겹칩니다.");
@@ -77,22 +84,22 @@ namespace DarkSaver.Original.Campaign
                 if(!string.IsNullOrEmpty(g.replacesPortal)&&replaced==null)throw new InvalidDataException("수정할 기존 출입구를 찾을 수 없습니다.");
                 if(from.npcs.Any(n=>g.Contains(n.x,n.y))||from.portals.Where(p=>p!=replaced).Any(p=>p.cells.Any(c=>g.Contains(c.x,c.y)))
                     ||world.campaign?.Map(g.fromMap)?.units.Any(u=>g.Contains(u.x,u.y))==true)throw new InvalidDataException("입구 영역이 기존 직원·출입구·원본 몬스터와 겹칩니다.");
-                var tile=new DarkSaver.Original.Tutorial.TutorialTile(g.spawnX,g.spawnY);int cost=target.map.Terrain(tile,2);
-                if(cost<=0||cost==99||cost==-99||world.campaign?.Map(g.targetMap)?.units.Any(u=>u.x==g.spawnX&&u.y==g.spawnY)==true)throw new InvalidDataException("도착 칸이 막혀 있거나 원본 몬스터와 겹칩니다.");
+                foreach(var cell in g.SpawnCells())
+                {int cost=target.map.Terrain(cell.Tile,2);if(cost<=0||cost==99||cost==-99||world.campaign?.Map(g.targetMap)?.units.Any(u=>u.x==cell.x&&u.y==cell.y)==true)throw new InvalidDataException("도착 영역에 막힌 칸이나 원본 몬스터가 있습니다.");}
                 string id="scenario-gateway-"+g.id;
                 if(g.IsWalk)
                 {
                     foreach(var cell in g.Cells())
                     {int terrain=from.map.Terrain(cell.Tile,2);if(terrain<=0||terrain==99||terrain==-99)throw new InvalidDataException("입구 영역에 이동할 수 없는 칸이 있습니다.");}
                     if(target.training&&(from.id!=1000||!from.map.Contains(new DarkSaver.Original.Tutorial.TutorialTile(g.returnX,g.returnY))))throw new InvalidDataException("수련장 입구는 카오시아의 복귀 칸을 지정하세요.");
-                    from.portals=from.portals.Where(p=>p!=replaced).Concat(new[]{new WorldPortal{id=replaced?.id??id,gateway=g.id,targetMap=g.targetMap,spawnX=g.spawnX,spawnY=g.spawnY,returnX=g.returnX,returnY=g.returnY,cells=g.Cells()}}).ToArray();
+                    from.portals=from.portals.Where(p=>p!=replaced).Concat(new[]{g.Portal(replaced?.id??id)}).ToArray();
                 }
                 else from.npcs=from.npcs.Concat(new[]{new WorldNpc{id=id,name=g.name,picture=g.npcJob,x=g.x,y=g.y,kind=(int)FacilityKind.ScenarioGateway,counter=Array.Empty<WorldPoint>(),evidence=Provenance,gateway=g.id}}).ToArray();
             }
             foreach(var g in settings.gates.Where(g=>settings.applyToGame&&g.enabled))
             {
                 var target=maps.First(m=>m.id==g.targetMap);
-                if(target.npcs.Any(n=>n.x==g.spawnX&&n.y==g.spawnY)||target.portals.Any(p=>p.cells.Any(c=>c.x==g.spawnX&&c.y==g.spawnY)))throw new InvalidDataException("도착 칸이 적용 후 직원/출입구와 겹칩니다.");
+                if(target.npcs.Any(n=>g.SpawnContains(n.x,n.y)))throw new InvalidDataException("도착 영역이 적용 후 직원과 겹칩니다.");
                 if(g.IsWalk&&target.training)
                 {
                     var from=maps.First(m=>m.id==g.fromMap);var tile=new DarkSaver.Original.Tutorial.TutorialTile(g.returnX,g.returnY);int terrain=from.map.Terrain(tile,2);

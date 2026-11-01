@@ -11,7 +11,19 @@ namespace DarkSaver.Original.World
     public enum WorldFailure { None, Unauthenticated, InvalidStage, InvalidInput, Moving, TooFar, Busy, StaleRequest, RulesUnavailable, InsufficientFunds, InventoryFull, NotOwned, StorageUnavailable }
     [Serializable] public sealed class WorldPoint { public int x, y; public TutorialTile Tile => new TutorialTile(x, y); }
     [Serializable] public sealed class WorldPortal
-    { public string id, gateway; public int targetMap, spawnX, spawnY, returnX, returnY; public WorldPoint[] cells; }
+    {
+        public string id, gateway; public int targetMap, spawnX, spawnY, spawnWidth, spawnHeight, returnX, returnY; public WorldPoint[] cells;
+        public WorldPoint ArrivalAt(int x,int y)
+        {
+            // Local authoring policy: ordered source cells map proportionally to ordered destination cells.
+            // Old records have a one-cell destination. A single source cell uses its first destination cell.
+            int width=spawnWidth==0?1:spawnWidth,height=spawnHeight==0?1:spawnHeight;
+            int at=Array.FindIndex(cells,c=>c.x==x&&c.y==y),count=checked(width*height);
+            if(at<0||count<=0)throw new InvalidOperationException("Invalid portal arrival.");
+            int slot=cells.Length<=1?0:(int)(((long)at*(count-1)+(cells.Length-1)/2)/(cells.Length-1));
+            return new WorldPoint{x=spawnX+slot%width,y=spawnY+slot/width};
+        }
+    }
     [Serializable] public sealed class WorldNpc
     { public string id, name, evidence, gateway; public int picture, x, y, kind; public WorldPoint[] counter; }
     [Serializable] public sealed class WorldDecoration { public int picture, x, y, width, height; }
@@ -128,9 +140,12 @@ namespace DarkSaver.Original.World
         private TutorialTile from;
         private double movement;
         private bool stopping;
+        private readonly HashSet<string> arrivalPortals = new HashSet<string>();
         public bool Moving => path.Count > 0;
         public WorldSession(WorldDefinition definition, WorldRecord record, int job)
-        { Definition = definition; Record = record.Copy(); CommanderJob = job; from = new TutorialTile(record.x, record.y); BeginPresentation(); }
+        { Definition = definition; Record = record.Copy(); CommanderJob = job; from = new TutorialTile(record.x, record.y); MarkArrivalPortals();BeginPresentation(); }
+        private void MarkArrivalPortals()
+        {arrivalPortals.Clear();foreach(var p in Definition.Map(Record.map).portals.Where(p=>p.cells.Any(c=>c.x==Record.x&&c.y==Record.y)))arrivalPortals.Add(p.id);}
         private void BeginPresentation()
         {
             var map = Definition.campaign?.Map(Record.map); Presentation = null; Effects.Clear(); PhaseSavePending=false;
@@ -153,7 +168,7 @@ namespace DarkSaver.Original.World
             var occupied = new HashSet<TutorialTile>(m.npcs.Select(n => new TutorialTile(n.x, n.y)));
             foreach(var unit in Definition.campaign?.Map(Record.map)?.units ?? Array.Empty<CampaignUnit>()) occupied.Add(new TutorialTile(unit.x,unit.y));
             // Local routes must not cross another facility's entry on the way to a target.
-            foreach (var portal in m.portals)
+            foreach (var portal in m.portals.Where(p=>!arrivalPortals.Contains(p.id)))
                 foreach (var cell in portal.cells)
                     if (cell.Tile != target) occupied.Add(cell.Tile);
             bool continuing=Moving;var start=continuing?path.Peek():new TutorialTile(Record.x,Record.y);
@@ -176,7 +191,9 @@ namespace DarkSaver.Original.World
             while (Moving && movement >= Duration)
             {
                 movement -= Duration; var p = path.Dequeue(); Record.x = p.X; Record.y = p.Y;
-                var portal = Definition.Map(Record.map).portals.FirstOrDefault(g => g.cells.Any(c => c.Tile == p));
+                var portals=Definition.Map(Record.map).portals;
+                arrivalPortals.RemoveWhere(id=>!portals.Any(g=>g.id==id&&g.cells.Any(c=>c.Tile==p)));
+                var portal = portals.FirstOrDefault(g => !arrivalPortals.Contains(g.id)&&g.cells.Any(c => c.Tile == p));
                 if (stopping || portal != null) path.Clear();
                 if (Moving) Face();
                 else
@@ -189,7 +206,7 @@ namespace DarkSaver.Original.World
             return false;
         }
         public void Relocate(WorldRecord record)
-        { bool changed = Record.map != record.map; Record = record.Copy(); path.Clear(); movement = 0; from = new TutorialTile(record.x, record.y); PendingPortal = PendingNpc = null; Close(); if(changed){CampaignSession=Guid.NewGuid().ToString("N");CampaignNotices.Clear();BeginPresentation();} }
+        { bool changed = Record.map != record.map; Record = record.Copy(); path.Clear(); movement = 0; from = new TutorialTile(record.x, record.y); PendingPortal = PendingNpc = null; Close(); if(changed){MarkArrivalPortals();CampaignSession=Guid.NewGuid().ToString("N");CampaignNotices.Clear();BeginPresentation();} }
         public WorldView Snapshot()
         {
             double phase = !Moving ? 0 : Math.Floor(movement / 80) * (Duration == 240 ? 10.0 / 32 : .5);

@@ -18,6 +18,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         private WorldDefinition gatewayWorld;
         private string selectedNativePortal;
         private bool sizingGateway;
+        private bool sizingArrival,dragArrival;
         private int areaStartX,areaStartY;
         private bool pickNpc,pickSpawn,dragGateway,gatewayRemembered;
         private Vector2 gatewayDragStart;
@@ -69,7 +70,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         {
             var map=MapInfo(mapKey);RememberGateway();
             var gate=new ScenarioGateway{id=Guid.NewGuid().ToString("N"),trigger=walk?"walk":"npc",width=walk?3:1,height=1,
-                fromMap=map.id,fromHash=map.hash,targetMap=-1,npcJob=-1,x=-1,y=-1,spawnX=-1,spawnY=-1,
+                fromMap=map.id,fromHash=map.hash,targetMap=-1,npcJob=-1,x=-1,y=-1,spawnX=-1,spawnY=-1,spawnWidth=1,spawnHeight=1,
                 returnX=-1,returnY=-1,name=walk?"새 이동 입구":"새 NPC 입구"};
             gatewayDocument.gates=gatewayDocument.gates.Concat(new[]{gate}).ToArray();selectedGateway=gate.id;selectedNativePortal=null;
             pickNpc=pickSpawn=dragGateway=sizingGateway=false;
@@ -83,7 +84,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             var from=MapInfo(mapKey);var target=gatewayCatalog.maps.First(m=>m.id==portal.targetMap);RememberGateway();
             var gate=new ScenarioGateway{id=Guid.NewGuid().ToString("N"),trigger="walk",replacesPortal=portal.id,
                 fromMap=from.id,fromHash=from.hash,targetMap=target.id,targetHash=target.hash,x=x,y=y,width=w,height=h,
-                spawnX=portal.spawnX,spawnY=portal.spawnY,returnX=portal.returnX,returnY=portal.returnY,name=portal.id,enabled=true};
+                spawnX=portal.spawnX,spawnY=portal.spawnY,spawnWidth=Math.Max(1,portal.spawnWidth),spawnHeight=Math.Max(1,portal.spawnHeight),returnX=portal.returnX,returnY=portal.returnY,name=portal.id,enabled=true};
             gatewayDocument.gates=gatewayDocument.gates.Concat(new[]{gate}).ToArray();selectedGateway=gate.id;selectedNativePortal=null;
         }
         private void PickGatewayMap(ScenarioGateway gate,bool arrival)
@@ -114,7 +115,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             var native=gatewayWorld.Map(map.id).portals.FirstOrDefault(p=>p.id==selectedNativePortal);
             if(native!=null)
             {
-                EditorGUILayout.HelpBox("기존 도착: "+native.targetMap+" / "+native.spawnX+","+native.spawnY+"\n수정본 저장 전까지 원본은 유지됩니다.",MessageType.None);
+                EditorGUILayout.HelpBox("기존 도착: "+native.targetMap+" / "+native.spawnX+","+native.spawnY+" ("+Math.Max(1,native.spawnWidth)+"×"+Math.Max(1,native.spawnHeight)+")\n수정본 저장 전까지 원본은 유지됩니다.",MessageType.None);
                 if(GUILayout.Button("이 출입구를 편집본으로 가져오기"))EditNativePortal(native);
             }
             GUILayout.Label("사용자 입구 목록",EditorStyles.boldLabel);
@@ -136,11 +137,14 @@ namespace DarkSaver.Original.Editor.Scenarios
                 }
                 var targets=gatewayCatalog.maps.Where(m=>m.id!=gate.fromMap&&(gate.IsWalk||m.kind=="scenario")).OrderBy(m=>m.id).ToArray();
                 int at=Array.FindIndex(targets,m=>m.id==gate.targetMap)+1,next=EditorGUILayout.Popup("도착 맵",at,new[]{"도착 맵을 선택하세요"}.Concat(targets.Select(m=>m.key+" "+m.title)).ToArray());
-                if(next!=at){RememberGateway();gate.targetMap=next==0?-1:targets[next-1].id;gate.targetHash=next==0?"":targets[next-1].hash;gate.spawnX=gate.spawnY=-1;}
+                if(next!=at){RememberGateway();gate.targetMap=next==0?-1:targets[next-1].id;gate.targetHash=next==0?"":targets[next-1].hash;gate.spawnX=gate.spawnY=-1;pickNpc=pickSpawn=dragGateway=sizingGateway=false;}
                 EditorGUI.BeginChangeCheck();int x=EditorGUILayout.DelayedIntField("출발 X (좌상단)",gate.x),y=EditorGUILayout.DelayedIntField("출발 Y (좌상단)",gate.y);
                 int width=gate.IsWalk?EditorGUILayout.DelayedIntField("가로 칸 수",gate.Width):1,height=gate.IsWalk?EditorGUILayout.DelayedIntField("세로 칸 수",gate.Height):1;
-                int sx=EditorGUILayout.DelayedIntField("도착 X",gate.spawnX),sy=EditorGUILayout.DelayedIntField("도착 Y",gate.spawnY);
-                if(EditorGUI.EndChangeCheck()){RememberGateway();gate.x=x;gate.y=y;gate.width=width;gate.height=height;gate.spawnX=sx;gate.spawnY=sy;}
+                int sx=EditorGUILayout.DelayedIntField("도착 X (좌상단)",gate.spawnX),sy=EditorGUILayout.DelayedIntField("도착 Y (좌상단)",gate.spawnY);
+                int sw=EditorGUILayout.DelayedIntField("도착 가로 칸 수",gate.SpawnWidth),sh=EditorGUILayout.DelayedIntField("도착 세로 칸 수",gate.SpawnHeight);
+                if(EditorGUI.EndChangeCheck()){RememberGateway();gate.x=x;gate.y=y;gate.width=width;gate.height=height;gate.spawnX=sx;gate.spawnY=sy;gate.spawnWidth=Math.Max(1,sw);gate.spawnHeight=Math.Max(1,sh);}
+                GUILayout.BeginHorizontal();if(GUILayout.Button("도착 2 × 1")){RememberGateway();gate.spawnWidth=2;gate.spawnHeight=1;}if(GUILayout.Button("도착 1 × 2")){RememberGateway();gate.spawnWidth=1;gate.spawnHeight=2;}GUILayout.EndHorizontal();
+                if(gate.SpawnWidth>1||gate.SpawnHeight>1)EditorGUILayout.HelpBox("출발 칸 순서에 비례해 도착 칸을 선택합니다. 도착한 출구는 영역을 벗어난 뒤 다시 진입할 때 작동합니다.",MessageType.None);
                 if(gate.IsWalk)
                 {
                     GUILayout.BeginHorizontal();if(GUILayout.Button("3칸 × 1")){RememberGateway();gate.width=3;gate.height=1;}if(GUILayout.Button("6칸 × 1")){RememberGateway();gate.width=6;gate.height=1;}GUILayout.EndHorizontal();
@@ -152,7 +156,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                 }
                 if(GUILayout.Button(gate.IsWalk?"출발 맵에서 입구 영역 그리기":"출발 맵에서 NPC 위치 찍기"))PickGatewayMap(gate,false);
                 using(new EditorGUI.DisabledScope(gate.targetMap<0))
-                    if(GUILayout.Button("도착 맵에서 도착 칸 찍기"))PickGatewayMap(gate,true);
+                    if(GUILayout.Button("도착 맵에서 출구 영역 그리기"))PickGatewayMap(gate,true);
                 if(GUILayout.Button("출발 지도 보기")){pickNpc=pickSpawn=dragGateway=sizingGateway=false;SelectMap(gatewayCatalog.maps.First(m=>m.id==gate.fromMap).key);}
                 using(new EditorGUI.DisabledScope(gate.targetMap<0))if(GUILayout.Button("도착 지도 보기")){pickNpc=pickSpawn=dragGateway=sizingGateway=false;SelectMap(gatewayCatalog.maps.First(m=>m.id==gate.targetMap).key);}
                 if(GUILayout.Button("선택 입구 삭제")){RememberGateway();gatewayDocument.gates=gatewayDocument.gates.Where(g=>g.id!=selectedGateway).ToArray();selectedGateway=null;pickNpc=pickSpawn=dragGateway=sizingGateway=false;}
@@ -160,7 +164,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             GUILayout.BeginHorizontal();using(new EditorGUI.DisabledScope(gatewayUndo.Count==0))if(GUILayout.Button("되돌리기"))GatewayHistory(true);
             using(new EditorGUI.DisabledScope(gatewayRedo.Count==0))if(GUILayout.Button("다시 실행"))GatewayHistory(false);GUILayout.EndHorizontal();
             if(GUILayout.Button("입구 연결 저장"))SaveGateways();
-            if(pickNpc||pickSpawn||sizingGateway)EditorGUILayout.HelpBox(pickSpawn?"도착 지도입니다. 캐릭터가 도착할 칸을 클릭하세요.":gate?.IsWalk==true?"출발 지도에서 클릭하면 현재 크기로 배치합니다. 드래그하면 사각 영역을 그립니다.":"지도에서 NPC가 설 타일을 클릭하세요.",MessageType.Info);
+            if(pickNpc||pickSpawn||sizingGateway)EditorGUILayout.HelpBox(pickSpawn||sizingGateway&&sizingArrival?"도착 지도입니다. 클릭하면 현재 크기로 놓고, 드래그하면 도착 출구 영역을 그립니다.":gate?.IsWalk==true?"출발 지도에서 클릭하면 현재 크기로 배치합니다. 드래그하면 사각 영역을 그립니다.":"지도에서 NPC가 설 타일을 클릭하세요.",MessageType.Info);
             if(!string.IsNullOrEmpty(message))EditorGUILayout.HelpBox(message,MessageType.None);
             EditorGUILayout.EndScrollView();GUILayout.EndArea();
         }
@@ -172,18 +176,29 @@ namespace DarkSaver.Original.Editor.Scenarios
             if(e.type==EventType.MouseDown&&e.button==0&&inside&&hoverX>=0)
             {
                 if(gate!=null&&((pickNpc&&gate.fromMap==int.Parse(mapKey))||(pickSpawn&&gate.targetMap==int.Parse(mapKey))))
-                {RememberGateway();if(pickNpc){gate.x=areaStartX=hoverX;gate.y=areaStartY=hoverY;sizingGateway=gate.IsWalk;}else{gate.spawnX=hoverX;gate.spawnY=hoverY;}pickNpc=pickSpawn=false;}
+                {RememberGateway();sizingArrival=pickSpawn;areaStartX=hoverX;areaStartY=hoverY;if(pickNpc){gate.x=hoverX;gate.y=hoverY;sizingGateway=gate.IsWalk;}else{gate.spawnX=hoverX;gate.spawnY=hoverY;sizingGateway=true;}pickNpc=pickSpawn=false;}
                 else
-                {gate=gatewayDocument.gates.LastOrDefault(g=>g.fromMap==int.Parse(mapKey)&&g.Contains(hoverX,hoverY));if(gate!=null){selectedGateway=gate.id;selectedNativePortal=null;dragGateway=true;gatewayRemembered=false;gatewayDragStart=local;gatewayStartX=gate.x;gatewayStartY=gate.y;}
-                 else{var portal=gatewayWorld.Map(int.Parse(mapKey)).portals.LastOrDefault(p=>p.cells.Any(c=>c.x==hoverX&&c.y==hoverY));selectedNativePortal=portal?.id;selectedGateway=null;}}
+                {
+                    dragArrival=gate!=null&&gate.targetMap==int.Parse(mapKey)&&gate.SpawnContains(hoverX,hoverY);
+                    if(!dragArrival)gate=gatewayDocument.gates.LastOrDefault(g=>g.fromMap==int.Parse(mapKey)&&g.Contains(hoverX,hoverY));
+                    if(gate==null){gate=gatewayDocument.gates.LastOrDefault(g=>g.targetMap==int.Parse(mapKey)&&g.SpawnContains(hoverX,hoverY));dragArrival=gate!=null;}
+                    if(gate!=null){selectedGateway=gate.id;selectedNativePortal=null;dragGateway=true;gatewayRemembered=false;gatewayDragStart=local;gatewayStartX=dragArrival?gate.spawnX:gate.x;gatewayStartY=dragArrival?gate.spawnY:gate.y;}
+                    else{var portal=gatewayWorld.Map(int.Parse(mapKey)).portals.LastOrDefault(p=>p.cells.Any(c=>c.x==hoverX&&c.y==hoverY));selectedNativePortal=portal?.id;selectedGateway=null;}
+                }
                 e.Use();Repaint();
             }
             if(e.type==EventType.MouseDrag&&e.button==0&&sizingGateway&&gate!=null&&inside&&hoverX>=0)
-            {gate.x=Math.Min(areaStartX,hoverX);gate.y=Math.Min(areaStartY,hoverY);gate.width=Math.Abs(hoverX-areaStartX)+1;gate.height=Math.Abs(hoverY-areaStartY)+1;e.Use();Repaint();}
+            {
+                int left=Math.Min(areaStartX,hoverX),top=Math.Min(areaStartY,hoverY),w=Math.Abs(hoverX-areaStartX)+1,h=Math.Abs(hoverY-areaStartY)+1;
+                if(sizingArrival){gate.spawnX=left;gate.spawnY=top;gate.spawnWidth=w;gate.spawnHeight=h;}
+                else{gate.x=left;gate.y=top;gate.width=w;gate.height=h;}e.Use();Repaint();
+            }
             if(e.type==EventType.MouseDrag&&e.button==0&&dragGateway&&gate!=null)
             {
                 if(!gatewayRemembered){RememberGateway();gatewayRemembered=true;}
-                gate.x=Mathf.Clamp(gatewayStartX+Mathf.RoundToInt((local.x-gatewayDragStart.x)/(32*zoom)),0,Math.Max(0,document.width-gate.Width));gate.y=Mathf.Clamp(gatewayStartY+Mathf.RoundToInt((local.y-gatewayDragStart.y)/(32*zoom)),0,Math.Max(0,document.height-gate.Height));e.Use();Repaint();
+                int x=Mathf.Clamp(gatewayStartX+Mathf.RoundToInt((local.x-gatewayDragStart.x)/(32*zoom)),0,Math.Max(0,document.width-(dragArrival?gate.SpawnWidth:gate.Width)));
+                int y=Mathf.Clamp(gatewayStartY+Mathf.RoundToInt((local.y-gatewayDragStart.y)/(32*zoom)),0,Math.Max(0,document.height-(dragArrival?gate.SpawnHeight:gate.Height)));
+                if(dragArrival){gate.spawnX=x;gate.spawnY=y;}else{gate.x=x;gate.y=y;}e.Use();Repaint();
             }
             if(e.type==EventType.MouseUp){dragGateway=sizingGateway=false;gatewayRemembered=false;}
             if(e.type==EventType.KeyDown&&e.keyCode==KeyCode.Escape){dragGateway=sizingGateway=pickNpc=pickSpawn=false;e.Use();}
@@ -206,7 +221,12 @@ namespace DarkSaver.Original.Editor.Scenarios
                     else{var texture=ActorPicture(gate.npcJob.ToString());if(texture!=null)DrawActorPicture(r,texture);}
                     Outline(r,gate.id==selectedGateway?Color.yellow:gate.enabled?Color.cyan:Color.gray,2);GUI.Label(new Rect(r.x,r.y-15,220,15),gate.name+" → "+gate.targetMap+(gate.IsWalk?" ("+gate.Width+"×"+gate.Height+")":""),small);
                 }
-                if(gate.targetMap==int.Parse(mapKey)&&gate.spawnX>=0&&gate.spawnY>=0)DrawMarker(new ScenarioMarker{x=gate.spawnX,y=gate.spawnY,kind="local",label=gate.name+" 도착 (출발 "+gate.fromMap+")",file=GatewayPath},gate.id==selectedGateway?Color.green:new Color(.3f,.65f,.4f));
+                if(gate.targetMap==int.Parse(mapKey)&&gate.spawnX>=0&&gate.spawnY>=0)
+                {
+                    var r=TileRect(gate.spawnX,gate.spawnY);r.width*=Math.Max(1,gate.SpawnWidth);r.height*=Math.Max(1,gate.SpawnHeight);
+                    var color=gate.id==selectedGateway?Color.green:new Color(.3f,.65f,.4f);EditorGUI.DrawRect(r,new Color(color.r,color.g,color.b,.18f));Outline(r,color,2);
+                    GUI.Label(new Rect(r.x,r.y-15,260,15),gate.name+" 도착 "+gate.SpawnWidth+"×"+gate.SpawnHeight+" (출발 "+gate.fromMap+")",small);
+                }
             }
         }
     }

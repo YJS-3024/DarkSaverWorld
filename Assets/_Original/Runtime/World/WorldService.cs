@@ -139,7 +139,8 @@ namespace DarkSaver.Original.Entry
             var map = world.Definition.Map(world.Record.map); var gate = map.portals.FirstOrDefault(g => g.id == id);
             if (gate == null || world.PendingPortal != id || !gate.cells.Any(c => c.x == world.Record.x && c.y == world.Record.y)
                 || world.Definition.Map(gate.targetMap).training != training) return WorldResult(WorldFailure.InvalidInput);
-            var next = world.Record.Copy(); next.map = gate.targetMap; next.x = gate.spawnX; next.y = gate.spawnY; next.direction = 1;
+            var arrival=gate.ArrivalAt(world.Record.x,world.Record.y);
+            var next = world.Record.Copy(); next.map = gate.targetMap; next.x = arrival.x; next.y = arrival.y; next.direction = 1;
             next.campaignPhase=world.Definition.campaign?.Map(next.map)?.kind=="scenario"?"intro":null;
             next.trainingEntrance=training?gate.id:null;
             f = CommitWorld(next);

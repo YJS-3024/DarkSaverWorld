@@ -71,8 +71,8 @@ internal static class GatewayChecks
             Check(ScenarioGatewayData.Decode(File.ReadAllBytes(path)).gates[0].name=="변경"&&Directory.GetFiles(folder,"*.tmp").Length==0,"valid saved file retained, no temp files");
         }
         finally{if(Directory.Exists(folder))Directory.Delete(folder,true);}
-        CheckAreas(catalog);
-        Console.WriteLine(JsonSerializer.Serialize(new{assertions,defaultNpcCount=0,defaultApplyToGame=false,editorMaps=151,areas=new[]{"3x1","6x1","1x3","2x3"},unityPlay=false,scope="Explicit synthetic NPC/room and multi-cell map transition fixtures; no production positions inserted."}));
+        CheckAreas(catalog);CheckArrivalAreas(catalog);
+        Console.WriteLine(JsonSerializer.Serialize(new{assertions,defaultNpcCount=0,defaultApplyToGame=false,editorMaps=151,areas=new[]{"3x1","6x1","1x3","2x3"},arrivalAreas=new[]{"2x1","1x2","2x2"},unityPlay=false,scope="Explicit synthetic NPC/room and multi-cell map transition fixtures; no production positions inserted."}));
     }
     private static WorldDefinition FlatWorld()
     {
@@ -126,7 +126,8 @@ internal static class GatewayChecks
         var atomic=FlatWorld();atomic.Map(1010).map.attributes[11*atomic.Map(1010).map.width+11]=1;atomic.Map(1010).map.terrain[32]=99;
         var originalMaps=atomic.maps;Reject(()=>ScenarioGatewayData.Apply(Areas(a,b),catalog,atomic),"later invalid entry rejected");
         Check(ReferenceEquals(atomic.maps,originalMaps)&&atomic.Map(1000).portals.Length==0&&atomic.gateways==null,"failed apply does not publish partial edits");
-        invalid=Areas(a.Copy(),Walk(1010,1000,10,10,3,1,21,22));Reject(()=>ScenarioGatewayData.Apply(invalid,catalog,FlatWorld()),"arrival cannot activate another configured entry");
+        invalid=Areas(a.Copy(),Walk(1010,1000,10,10,3,1,21,22));var exitArrival=FlatWorld();ScenarioGatewayData.Apply(invalid,catalog,exitArrival);
+        Check(exitArrival.Map(1010).portals.Length==1,"arrival on another exit is permitted with reentry guard");
         var native=new WorldPortal{id="native-fixture",targetMap=2000,spawnX=10,spawnY=10,cells=a.Cells()};var overridden=FlatWorld();overridden.Map(1000).portals=new[]{native};
         var edit=Walk(1000,1010,23,22,6);edit.replacesPortal=native.id;var edits=Areas(edit);
         ScenarioGatewayData.Apply(edits,catalog,overridden);Check(overridden.Map(1000).portals.Single().targetMap==1010&&overridden.Map(1000).portals.Single().cells.Length==6,"explicit original-door override replaces rather than overlaps");
@@ -144,5 +145,61 @@ internal static class GatewayChecks
         string folder=Path.Combine(Path.GetTempPath(),"area-tests-"+Guid.NewGuid().ToString("N")),path=Path.Combine(folder,"UserGateways.json");
         try{ScenarioGatewayData.Save(path,document,catalog,null);var restored=ScenarioGatewayData.Decode(File.ReadAllBytes(path));Check(restored.gates.Length==3&&restored.gates[1].Width==6,"multiple areas saved to isolated real file");}
         finally{if(Directory.Exists(folder))Directory.Delete(folder,true);}
+    }
+    private static void CheckArrivalAreas(GatewayMapCatalog catalog)
+    {
+        var legacy=ScenarioGatewayData.Decode(ScenarioGatewayData.Encode(Settings())).gates[0];
+        Check(legacy.SpawnWidth==1&&legacy.SpawnHeight==1,"old settings retain one arrival cell");
+        var forward=Walk(1000,1010,22,22,6);forward.spawnWidth=2;forward.spawnHeight=1;
+        var back=Walk(1010,1000,10,10,2,1,22,22);back.spawnWidth=6;back.spawnHeight=1;
+        var settings=Areas(forward,back);var copied=ScenarioGatewayData.Decode(ScenarioGatewayData.Encode(settings));
+        Check(copied.gates[0].SpawnWidth==2&&copied.gates[1].SpawnWidth==6,"arrival areas persist across serialization");
+        int[] expected={10,10,10,11,11,11};
+        for(int i=0;i<6;i++)
+        {
+            var world=FlatWorld();ScenarioGatewayData.Apply(settings,catalog,world);var fixture=Service(world);var server=fixture.server;
+            server.MoveWorld(22+i,22);server.AdvanceWorld(10000);
+            if(i==5)
+            {
+                fixture.store.fail=true;Check(server.EnterCampaignMap(1010).Failure==WorldFailure.StorageUnavailable&&server.WorldSnapshot().record.map==1000&&server.WorldSnapshot().pendingPortal!=null,"multi-cell arrival save failure retains entry for same-cell retry");fixture.store.fail=false;
+            }
+            Check(server.EnterCampaignMap(1010).Accepted&&server.WorldSnapshot().record.x==expected[i]&&server.WorldSnapshot().record.y==10,"6-to-2 source lane maps to expected destination");
+            Check(server.WorldSnapshot().pendingPortal==null,"arrival does not immediately trigger return exit");
+            if(i==0)
+            {
+                server=new EntryAccountService(fixture.store);var client=new EntryClient(server);client.OpenLocalProfile();
+                Check(server.BeginWorld(world).Accepted&&server.WorldSnapshot().record.map==1010,"saved arrival on exit restores same map");
+            }
+            Check(server.MoveWorld(expected[i]==10?11:10,10).Accepted,"can walk between cells inside arrival exit");server.AdvanceWorld(10000);
+            Check(server.WorldSnapshot().pendingPortal==null&&server.WorldSnapshot().record.map==1010,"walking inside arrival exit cannot bounce back");
+            Check(server.EnterWorldPortal("scenario-gateway-"+back.id,false).Failure==WorldFailure.InvalidInput,"arrival exit cannot be requested before leaving and reentering");
+            Check(server.MoveWorld(10,11).Accepted,"can leave arrival exit");server.AdvanceWorld(10000);
+            int lane=i%2;Check(server.MoveWorld(10+lane,10).Accepted,"can deliberately reenter either return lane");server.AdvanceWorld(10000);
+            Check(server.WorldSnapshot().pendingPortal=="scenario-gateway-"+back.id,"exit rearms after leaving its whole area");
+            Check(server.EnterWorldPortal("scenario-gateway-"+back.id,false).Accepted&&server.WorldSnapshot().record.map==1000&&server.WorldSnapshot().record.x==(lane==0?22:27),"two-lane return maps to ends of six-cell arrival area");
+        }
+        for(int row=0;row<2;row++)
+        {
+            var gate=Walk(1000,1010,22,22,1,2);gate.spawnWidth=2;gate.spawnHeight=1;var world=FlatWorld();ScenarioGatewayData.Apply(Areas(gate),catalog,world);var server=Service(world).server;
+            server.MoveWorld(22,22+row);server.AdvanceWorld(10000);Check(server.EnterCampaignMap(1010).Accepted&&server.WorldSnapshot().record.x==10+row&&server.WorldSnapshot().record.y==10,"vertical entrance maps to horizontal arrival");
+        }
+        for(int column=0;column<4;column++)
+        {
+            var gate=Walk(1000,1010,22,22,4);gate.spawnWidth=2;gate.spawnHeight=2;var world=FlatWorld();ScenarioGatewayData.Apply(Areas(gate),catalog,world);var server=Service(world).server;
+            server.MoveWorld(22+column,22);server.AdvanceWorld(10000);Check(server.EnterCampaignMap(1010).Accepted&&server.WorldSnapshot().record.x==10+column%2&&server.WorldSnapshot().record.y==10+column/2,"rectangular arrival preserves documented cell order");
+        }
+        var vertical=forward.Copy();vertical.spawnWidth=1;vertical.spawnHeight=2;var verticalWorld=FlatWorld();ScenarioGatewayData.Apply(Areas(vertical),catalog,verticalWorld);var verticalServer=Service(verticalWorld).server;
+        verticalServer.MoveWorld(27,22);verticalServer.AdvanceWorld(10000);Check(verticalServer.EnterCampaignMap(1010).Accepted&&verticalServer.WorldSnapshot().record.x==10&&verticalServer.WorldSnapshot().record.y==11,"horizontal entrance maps to vertical arrival end");
+        var npc=Settings();npc.gates[0].spawnWidth=2;var npcWorld=FlatWorld();ScenarioGatewayData.Apply(npc,catalog,npcWorld);var n=Service(npcWorld).server;n.OpenWorldFacility(npcWorld.Map(1000).npcs.Single().id);var facility=n.WorldSnapshot().facility;
+        Check(n.JoinScenarioRoom(facility.room,facility.token,Guid.NewGuid().ToString("N")).Accepted&&n.WorldSnapshot().record.x==3&&n.WorldSnapshot().record.y==37,"single NPC source uses first configured arrival cell");
+        var invalid=Areas(forward.Copy());invalid.gates[0].spawnX=159;Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"whole arrival area must fit map bounds");
+        invalid=Areas(forward.Copy());invalid.gates[0].spawnHeight=-1;Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"negative arrival extent rejected");
+        invalid=Areas(forward.Copy());invalid.gates[0].spawnWidth=int.MaxValue;Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"oversized arrival rejected before allocation");
+        var blocked=FlatWorld();blocked.Map(1010).map.attributes[10*blocked.Map(1010).map.width+11]=1;blocked.Map(1010).map.terrain[32]=99;
+        Reject(()=>ScenarioGatewayData.Apply(Areas(forward),catalog,blocked),"second arrival tile cannot be blocked");
+        var occupied=FlatWorld();occupied.Map(1010).npcs=new[]{new WorldNpc{id="fixture",x=11,y=10}};
+        Reject(()=>ScenarioGatewayData.Apply(Areas(forward),catalog,occupied),"second arrival tile cannot contain NPC");
+        var monster=FlatWorld();monster.campaign.Map(1010).units=new[]{new CampaignUnit{unit=400,job=401,x=11,y=10}};
+        Reject(()=>ScenarioGatewayData.Apply(Areas(forward),catalog,monster),"second arrival tile cannot contain original monster");
     }
 }
