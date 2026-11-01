@@ -33,6 +33,8 @@ internal static class EditorTroopChecks
         Check(ScenarioPlacementTroops.NextCommanderId(Enumerable.Range(40,40).Select(n=>Unit(n*10)))<0,"enemy slots exhausted");
         var full=Enumerable.Range(400,10).Select(n=>Unit(n)).ToArray();
         Check(ScenarioPlacementTroops.NextMemberId(full,full[3])<0,"no spill into next commander");
+        var nativeFull=Enumerable.Range(400,5).Select(n=>Unit(n)).ToArray();
+        Check(ScenarioPlacementTroops.NextMemberId(nativeFull,nativeFull[0])<0,"source five-member editor profile is full");
         Check(ScenarioPlacementTroops.NextMemberId(new[]{Unit(400),Unit(402)},Unit(400))==401,"reuse free slot");
         Check(ScenarioPlacementTroops.StackedCells(new[]{Unit(400),Unit(410)})==1,"overlap remains visible as a count");
         Check(ScenarioPlacementTroops.FormationName(new[]{Unit(400),Unit(401),Unit(402)})=="편집 대형 (3인)","authored trio is not source five");
@@ -84,7 +86,19 @@ internal static class EditorTroopChecks
         foreach(var scenario in document.RootElement.GetProperty("scenarios").EnumerateArray())
         {
             string key=scenario.GetProperty("scenario").GetString();
-            using var layout=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,"Assets/_Game/Editor/BattleLayouts/Original"+key+".json")));
+            string file=Path.Combine(root,"Assets/_Game/Resources/Scenarios/Original/"+key+"/Deployment.json");
+            string json=File.ReadAllText(file);
+            using var layout=JsonDocument.Parse(json);
+            var resource=JsonSerializer.Deserialize<OriginalScenarioDeployment>(json,new JsonSerializerOptions{IncludeFields=true});
+            Check(resource.IsValid && resource.sourceScenario==key,"runtime original resource "+key);
+            Check(resource.sourceRows.Length==resource.units.Length && resource.sourceRows.All(r=>r.extra!=null && r.setLine>0 && r.posLine>0),"raw source rows and undecoded flags preserved "+key);
+            Check(OriginalScenarioDeployments.ResourcePath(key)=="Scenarios/Original/"+key+"/Deployment","shared runtime path "+key);
+            if(key=="26")
+            {
+                int x=resource.units[0].x;resource.units[0].x=resource.width;Check(!resource.IsValid,"reject out-of-map original record");resource.units[0].x=x;
+                int id=resource.units[1].id;resource.units[1].id=resource.units[0].id;Check(!resource.IsValid,"reject duplicate original IDs");resource.units[1].id=id;
+                x=resource.partyPositions[0].x;resource.partyPositions[0].x=-1;Check(!resource.IsValid,"reject invalid original party position");resource.partyPositions[0].x=x;
+            }
             var linked=layout.RootElement.GetProperty("units").EnumerateArray().ToDictionary(u=>u.GetProperty("id").GetInt32());
             Check(linked.Count==scenario.GetProperty("units").GetArrayLength(),"native editor count "+key);
             foreach(var unit in scenario.GetProperty("units").EnumerateArray())
@@ -96,7 +110,27 @@ internal static class EditorTroopChecks
             }
         }
         Check(linkedUnits==610,"all recovered positions linked to editor");
-        Console.WriteLine(JsonSerializer.Serialize(new{assertions,nativeUnits,nativeGroups,linkedUnits,areaCount,targetCount,shapes=histogram,
+        Check(OriginalScenarioDeployments.ResourcePath("../26")==null && OriginalScenarioDeployments.ResourcePath("-1")==null,"invalid resource key");
+        int pendingResources=0;
+        foreach(var file in Directory.GetFiles(Path.Combine(root,"Assets/_Game/Resources/Scenarios"),"Content.json",SearchOption.AllDirectories))
+        {
+            string text=File.ReadAllText(file);
+            var content=JsonSerializer.Deserialize<Scenario01Definition>(text,new JsonSerializerOptions{IncludeFields=true});
+            Check(content.IsValid && content.AwaitsOriginalDeployment && !content.HasOriginalDeployment,"explicit missing deployment state "+file);
+            Check(content.units.Length==0,"no authored initial enemies "+file);
+            Check(!text.Contains("placementAdjustments") && !text.Contains("statSentinels"),"no authored placement adapters "+file);
+            bool blocked=false;try{Scenario01Progress.Create(content);}catch(NotSupportedException){blocked=true;}
+            Check(blocked,"empty roster must not create a completed local scenario "+file);
+            var boundary=new DarkSaver.Network.ScenarioServerBoundary(content,null,null,null,null,null,null);
+            Check(!boundary.Handle(new DarkSaver.Network.ScenarioCommandRequest(content.Key,0,DarkSaver.Network.ScenarioOperation.Initialize)).Accepted,"missing roster is not a successful initialization");
+            if(content.Key=="01")
+            {content.units=new[]{Unit(400)};Check(!content.IsValid,"pending source cannot contain an invented fallback");}
+            pendingResources++;
+        }
+        Check(pendingResources==25,"all previous authored contents cleared");
+        bool demoBlocked=false;try{BrugosScenarioSceneGenerator.Generate();}catch(NotSupportedException){demoBlocked=true;}
+        Check(demoBlocked,"retired demo generator cannot recreate an inferred boss");
+        Console.WriteLine(JsonSerializer.Serialize(new{assertions,nativeUnits,nativeGroups,linkedUnits,pendingResources,areaCount,targetCount,shapes=histogram,
             scope="Actual editor helper and runtime unit type; managed checks, not Unity GUI/Play"}));
     }
 }

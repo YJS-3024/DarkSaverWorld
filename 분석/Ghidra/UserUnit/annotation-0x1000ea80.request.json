@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x1000ea80",
+      "name": "SpawnActorFromScriptArguments",
+      "comment": "Original export dmSetChar(char*). Parse scripted actor identity, resolve the ability/picture record, build a temporary unitinfo, and call resetcharacter. This path must not be conflated with initial battle deployment."
+    }
+  },
+  "timeout": 900
+}

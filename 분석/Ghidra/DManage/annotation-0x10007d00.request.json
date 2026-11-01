@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x10007d00",
+      "name": "ResetVisibleSpriteCache",
+      "comment": "Original StartPosAndValidSpriteInit. Set four cached view coordinates to -100, delete the prior visible-sprite index buffer, and allocate a new index buffer of mapSpriteCount*4 bytes. This is map rendering cache initialization, not monster spawn placement."
+    }
+  },
+  "timeout": 900
+}

@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x1000ee60",
+      "name": "BuildScriptUnitSnapshot",
+      "comment": "Build the temporary unitinfo used by dmSetChar. Observed offsets: unit+0x00, job+0x04, native tile X+0x48, Y+0x4c. Other fields retain their original meaning/unknown status."
+    }
+  },
+  "timeout": 900
+}

@@ -1,0 +1,242 @@
+{
+  "scope": "Ghidra MCP annotation refactor of selected original binary functions; PE bytes immutable; no target execution or Unity gameplay changes.",
+  "targets": [
+    {
+      "name": "UserUnit",
+      "path": "/workspace/.tools/ds-ghidra/installed/saver/UserUnit.dll",
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "functions": [
+        {
+          "address": "0x1000b0a0",
+          "name": "ApplyUnitSnapshot",
+          "comment": "Original export resetcharacter(unitinfo*). Apply the supplied unit snapshot into the runtime character array at unit*0x2e0. Copies unit/job/x/y and other fields; this is not a complete replacement implementation. Called by received records and scripted actor creation.",
+          "entryBytes32": "83ec14535556578b7c24288b0da0b3101033c08b2f8944241089442418894424",
+          "entryFileOffset": "0xb0a0"
+        },
+        {
+          "address": "0x1000ea80",
+          "name": "SpawnActorFromScriptArguments",
+          "comment": "Original export dmSetChar(char*). Parse scripted actor identity, resolve the ability/picture record, build a temporary unitinfo, and call resetcharacter. This path must not be conflated with initial battle deployment.",
+          "entryBytes32": "6aff68191f011064a100000000506489250000000081ecd8000000535556578d",
+          "entryFileOffset": "0xea80"
+        },
+        {
+          "address": "0x1000ee60",
+          "name": "BuildScriptUnitSnapshot",
+          "comment": "Build the temporary unitinfo used by dmSetChar. Observed offsets: unit+0x00, job+0x04, native tile X+0x48, Y+0x4c. Other fields retain their original meaning/unknown status.",
+          "entryBytes32": "8b4c240c8b542410568b7424088b44240c894e048b4c2418894e18b963000000",
+          "entryFileOffset": "0xee60"
+        },
+        {
+          "address": "0x1000ef10",
+          "name": "UpdateScriptActorPlacement",
+          "comment": "Original export dmSetChar2. Update an existing unit placement/related state, clear previous occupancy, and register the new native tile. Do not count this as a separate initial monster roster loader.",
+          "entryBytes32": "83ec088b4424108b0da0b3101056578b7c24148d347fc1e6032bf7c1e6053d16",
+          "entryFileOffset": "0xef10"
+        },
+        {
+          "address": "0x10002b40",
+          "name": "LoadScenarioAiRules",
+          "comment": "Original export readai(). Opens Map\\<scenario>set.arc and reads <scenario>.ai. Interpret AI commands separately from a recovered SET/POS battle roster.",
+          "entryBytes32": "6aff682b1d011064a100000000506489250000000083ec50535556578d4c2414",
+          "entryFileOffset": "0x2b40"
+        },
+        {
+          "address": "0x100015a0",
+          "name": "ActivateUnitAndCommanderAi",
+          "comment": "Original export setmonsterai. For the selected active unit and its decimal commander floor(unit/10)*10, write AI state +0x108=2 when the original eligibility fields are nonzero. This activates AI; it does not load a monster roster or determine job/count.",
+          "entryBytes32": "8b4c2404b867666666f7e9c1fa028bc256c1e81f03d08d04928d1449c1e2032b",
+          "entryFileOffset": "0x15a0"
+        },
+        {
+          "address": "0x10002420",
+          "name": "DispatchUnitAiByRole",
+          "comment": "Original export _ai. Branch using unit modulo10: commander slots and soldier slots use different AI execution paths. This selects AI behavior, not initial spawn coordinates.",
+          "entryBytes32": "538b5c240885db7d0cc705e0030e10000000005bc3568b351431011057ffd68b",
+          "entryFileOffset": "0x2420"
+        }
+      ]
+    },
+    {
+      "name": "GameCtl",
+      "path": "/workspace/.tools/ds-ghidra/installed/saver/GameCtl.dll",
+      "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+      "functions": [
+        {
+          "address": "0x10002d30",
+          "name": "ReceiveGamePacket",
+          "comment": "Original export OnPacketReceive. Nonempty packet input is forwarded into the game packet dispatcher; no target execution has been observed.",
+          "entryBytes32": "8b44240885c07e0b8b44240450e8cebd000059c3909090909090909090909090",
+          "entryFileOffset": "0x2d30"
+        },
+        {
+          "address": "0x1000eb10",
+          "name": "DispatchGamePacket",
+          "comment": "Dispatch the game message opcode and, for0x5c, its subtype. Subtypes0x50 and0x51 invoke separate unit snapshot decoders. Do not infer actual historical scenario contents from this capability.",
+          "entryBytes32": "8b44240433c98a0883c1a683f9210f87ec01000033d28a912ced0010ff249514",
+          "entryFileOffset": "0xeb10"
+        },
+        {
+          "address": "0x1000c7d0",
+          "name": "DecodeUnitSnapshot_5C50",
+          "comment": "Decode the5C50 message body (the caller skips the two opcode bytes), construct unitinfo, call UserUnit.resetcharacter. Whole-message placement offsets: unit2, job6, native tileX30,Y32. Other fields are preserved rather than assigned guessed meanings.",
+          "entryBytes32": "6aff681b54011064a100000000506489250000000081ece00000005355568bb4",
+          "entryFileOffset": "0xc7d0"
+        },
+        {
+          "address": "0x1000cb90",
+          "name": "DecodeUnitSnapshot_5C51",
+          "comment": "Decode the extended5C51 body, construct unitinfo and call UserUnit.resetcharacter. Whole-message placement offsets: unit2,job6,native tileX42,Y44. This is a received snapshot, not a file roster parser.",
+          "entryBytes32": "6aff686b54011064a100000000506489250000000081ec240100005355568bb4",
+          "entryFileOffset": "0xcb90"
+        },
+        {
+          "address": "0x100105a0",
+          "name": "ExecuteCharPosCommand",
+          "comment": "Parse the scene CHARPOS arguments, resolve commander aliases and construct the string passed to UserUnit.dmSetChar. Scripted actors must remain separate from an initial battle roster.",
+          "entryBytes32": "6aff68a858011064a100000000506489250000000083ec105356578d4c2414c7",
+          "entryFileOffset": "0x105a0"
+        },
+        {
+          "address": "0x10003da0",
+          "name": "LoadScenarioBriefing",
+          "comment": "Read the scenario .srf resource and parse its briefing/condition text. Do not interpret the existence of a briefing as a complete initial monster roster.",
+          "entryBytes32": "6aff68604e011064a100000000506489250000000083ec24538d4c2404e8d009",
+          "entryFileOffset": "0x3da0"
+        },
+        {
+          "address": "0x10013d60",
+          "name": "LoadScenarioEventActions",
+          "comment": "Read the scenario .evt and populate client event action storage. Numeric-prefixed condition lines are distinguished from executable action lines; this is not an initial unit roster loader.",
+          "entryBytes32": "6aff68385b011064a100000000506489250000000083ec38535556578d4c2410",
+          "entryFileOffset": "0x13d60"
+        }
+      ]
+    },
+    {
+      "name": "SetUnit",
+      "path": "/workspace/.tools/ds-ghidra/installed/saver/setunit.dll",
+      "sha256": "71b6ca3f0d7fc16405f5ea728fc0522982e2eaac169e3a1a6eb74a36e41bfaca",
+      "functions": [
+        {
+          "address": "0x10002550",
+          "name": "LoadCommonGameTables",
+          "comment": "Original export ReadSetFiles(options). Read common tile/item/ability-related tables according to original flags. The name setunit does not establish a scenarioNN.set/NN.pos roster loader.",
+          "entryBytes32": "56576894520010e844ecffff8b7c24108bf05783e601e8b5eeffff5723f0e89d",
+          "entryFileOffset": "0x2550"
+        },
+        {
+          "address": "0x100011a0",
+          "name": "LoadTileAttributeTable",
+          "comment": "Original export ReadTileAttr(char*). Read tile attribute data from common resources; retain original table selection and error propagation.",
+          "entryBytes32": "6aff68f032001064a100000000506489250000000083ec2c5368885000108d4c",
+          "entryFileOffset": "0x11a0"
+        },
+        {
+          "address": "0x10001420",
+          "name": "LoadAbilityDefinitionTables",
+          "comment": "Read ability.atr or ability1.atr from GameRes\\set.arc according to the original selection flag. The file literals and original sscanf record stores establish common ability definitions, not per-scenario initial coordinates.",
+          "entryBytes32": "6aff686333001064a100000000506489250000000081ece0020000535556578d",
+          "entryFileOffset": "0x1420"
+        },
+        {
+          "address": "0x10001a10",
+          "name": "LoadItemDefinitionTables",
+          "comment": "Read itemtbl.atr or itemtbl1.atr from GameRes\\set.arc according to the original selection flag. The table stores common item definitions, not per-scenario monster deployment.",
+          "entryBytes32": "6aff68a733001064a100000000506489250000000081ecc4020000535556578d",
+          "entryFileOffset": "0x1a10"
+        },
+        {
+          "address": "0x10001ed0",
+          "name": "LoadMagicDefinitionTables",
+          "comment": "Read common magic-related definitions using original table filenames and error handling; no synthetic gameplay rules are introduced.",
+          "entryBytes32": "6aff681834001064a100000000506489250000000083ec38535556578d4c2414",
+          "entryFileOffset": "0x1ed0"
+        }
+      ]
+    },
+    {
+      "name": "DManage",
+      "path": "/workspace/.tools/ds-ghidra/installed/saver/DManage.dll",
+      "sha256": "08e34fe7a497439ba65b33f3d9b661cbd20ddf098cf536c301337870b2f776f3",
+      "functions": [
+        {
+          "address": "0x10007e50",
+          "name": "ReplaceAndLoadMapGeometry",
+          "comment": "Original BBDX_MapManager::LoadMap(CString&). Destroy/recreate BB_Map with the existing resource array, decode the selected MRC, report progress and apply TileAttrChange on success. The outer Load routine performs GRS acquisition.",
+          "entryBytes32": "6aff68cbc9001064a100000000506489250000000051568bf1578b4e4c85c974",
+          "entryFileOffset": "0x7e50"
+        },
+        {
+          "address": "0x1000a850",
+          "name": "DecodeMrcMapGeometry",
+          "comment": "Original BB_Map::LoadMap(path,callback). Decode map resource IDs/dimensions, background arrays, tile records and decorative sprites. No unknown trailing bytes are invented as a monster roster.",
+          "entryBytes32": "6aff6828cc001064a100000000506489250000000083ec1453558bd956578d4c",
+          "entryFileOffset": "0xa850"
+        },
+        {
+          "address": "0x10007f00",
+          "name": "LoadMapResourcesAndGeometry",
+          "comment": "Original BBDX_MapManager::Load(CString). Open-check the path; read required GRS indices, reuse/load graphics and surfaces, call LoadMap, and reset visible sprite cache. No UserUnit creation call is present in this function.",
+          "entryBytes32": "6aff68f0c9001064a100000000506489250000000083ec14535556578bf18b46",
+          "entryFileOffset": "0x7f00"
+        },
+        {
+          "address": "0x10007d00",
+          "name": "ResetVisibleSpriteCache",
+          "comment": "Original StartPosAndValidSpriteInit. Set four cached view coordinates to -100, delete the prior visible-sprite index buffer, and allocate a new index buffer of mapSpriteCount*4 bytes. This is map rendering cache initialization, not monster spawn placement.",
+          "entryBytes32": "568bf1b89cffffff8bc88946708946788b466885c0894e74894e7c741050e803",
+          "entryFileOffset": "0x7d00"
+        }
+      ]
+    },
+    {
+      "name": "Saver",
+      "path": "/workspace/.tools/ds-ghidra/installed/saver/Saver.exe",
+      "sha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+      "functions": [
+        {
+          "address": "0x43bc50",
+          "name": "LoadScenarioAiAndEventMembers",
+          "comment": "Read <scenario>.ai and <scenario>.evt from Map\\<scenario>set.arc. Keep member retrieval separate from runtime unit creation.",
+          "entryBytes32": "83ec4453568b7424505756ff15d897490083c4048bf8e827d903008b40040fbf",
+          "entryFileOffset": "0x3bc50"
+        },
+        {
+          "address": "0x4419c0",
+          "name": "RouteReceivedGameMessage",
+          "comment": "Native SEH prologue verified in original bytes. Handle selected outer message cases and forward the game payload into GameCtl.OnPacketReceive at0x441b0a. REA automatic containing-function lookup did not identify this body; boundary is recovered in the separate Ghidra project, not claimed as an MCP annotation.",
+          "mcpAvailable": false,
+          "recoverBoundary": true,
+          "requiredCallSite": "0x441b0a",
+          "entryBytes32": "64a1000000006aff684bdf4700506489250000000081ec10020000558bac2424",
+          "entryFileOffset": "0x419c0"
+        },
+        {
+          "address": "0x42a9a0",
+          "name": "PopulateActorsFromUnitRecords_A",
+          "comment": "Native SEH prologue verified. Iterate stored unit records, call UserUnit.dmSetChar and dmSetChar2 using record identity/job/coordinates. This observation alone does not establish where the record array originated. REA did not identify the containing function; recover only in the separate project.",
+          "mcpAvailable": false,
+          "recoverBoundary": true,
+          "requiredCallSite": "0x42aa7c",
+          "entryBytes32": "64a1000000006aff6848d14700506489250000000083ec1c535556578bf9e88c",
+          "entryFileOffset": "0x2a9a0"
+        },
+        {
+          "address": "0x42def0",
+          "name": "PopulateActorFromUnitRecord_B",
+          "comment": "Process the supplied unit record, update related local structures and create/update its actor via dmSetChar and dmSetChar2. This function is not itself a complete initial monster roster or proof of the record source.",
+          "entryBytes32": "64a1000000006aff68ced24700506489250000000083ec0c535556578bf933ed",
+          "entryFileOffset": "0x2def0"
+        },
+        {
+          "address": "0x42f670",
+          "name": "PopulateActorFromUnitRecord_C",
+          "comment": "Build a scripted-actor string from a stored unit record, call dmSetChar and update its placement with dmSetChar2. Runtime record use is separate from roster file discovery.",
+          "entryBytes32": "64a1000000006aff68f8d247005064892500000000535556578bf9e87f3cfdff",
+          "entryFileOffset": "0x2f670"
+        }
+      ]
+    }
+  ]
+}

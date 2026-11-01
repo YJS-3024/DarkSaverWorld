@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x1000b0a0",
+      "name": "ApplyUnitSnapshot",
+      "comment": "Original export resetcharacter(unitinfo*). Apply the supplied unit snapshot into the runtime character array at unit*0x2e0. Copies unit/job/x/y and other fields; this is not a complete replacement implementation. Called by received records and scripted actor creation."
+    }
+  },
+  "timeout": 900
+}

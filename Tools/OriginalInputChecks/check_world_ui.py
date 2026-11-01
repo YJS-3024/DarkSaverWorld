@@ -30,7 +30,7 @@ for w in windows:
  count=num(raw,cur);cur+=4;check(len(w['controls'])==count,name+' buttons')
  for c in w['controls']:
   item,left,top=struct.unpack_from('<3i',raw,cur);cur+=12;x,y,bw,bhgt=struct.unpack_from('<4i',bh,4+(item-1)*24+4)
-  check(c['nativeId']==item and c['rect']==dict(x=left,y=top,width=bw,height=bhgt),name+' native button coordinates')
+  check(c['nativeId']==item and c['rect']==dict(serializedVersion=2,x=left,y=top,width=bw,height=bhgt),name+' native button coordinates')
   for i,ref in enumerate(c['frames']):check(image(ref).tobytes()==transparent(buttons.crop((x+i*bw,y,x+(i+1)*bw,y+bhgt))).tobytes(),name+' native button frame '+str(i))
  if id in [2,3,42,303]:
   mini=image(w['minimizedBackground']);check(mini.size==(w['minimizedSize']['x'],w['minimizedSize']['y']),name+' compact')

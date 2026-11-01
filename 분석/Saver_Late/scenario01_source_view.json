@@ -1,0 +1,2428 @@
+{
+  "scenario": "01",
+  "name": "브르고스궁",
+  "scope": "원작 파일 확인용 JSON. Unity 실행 배치나 복구된 초기 편성표가 아님.",
+  "archiveSha256": "1195e4a533ccd422d2d07829590f5828ff073d69e589aa1b4adbc0dcb39e235c",
+  "initialBattlePlacement": {
+    "status": "not_recovered",
+    "units": null,
+    "note": "확보한 01set.arc에 SET/POS 멤버 없음. 다른 형식 또는 당시 수신값으로 전체 초기 배치를 확정하지 못함. units=null은 원작 몬스터 0마리라는 뜻이 아님."
+  },
+  "aiRules": [
+    {
+      "file": "01.ai",
+      "line": 1,
+      "unit": 400,
+      "behavior": "ODNORMAL",
+      "selector": "AREA",
+      "area": {
+        "x": 14,
+        "y": 28,
+        "radius": 5
+      },
+      "raw": "400 ODNORMAL AREA(14,28,5)  ATTACK(50),MAGIC_101(20),REST(30)"
+    },
+    {
+      "file": "01.ai",
+      "line": 2,
+      "unit": 410,
+      "behavior": "ODNORMAL",
+      "selector": "AREA",
+      "area": {
+        "x": 26,
+        "y": 28,
+        "radius": 5
+      },
+      "raw": "410 ODNORMAL AREA(26,28,5)  ATTACK(50),MAGIC_101(30),REST(20)"
+    },
+    {
+      "file": "01.ai",
+      "line": 3,
+      "unit": 420,
+      "behavior": "ODNORMAL",
+      "selector": "AREA",
+      "area": {
+        "x": 33,
+        "y": 18,
+        "radius": 5
+      },
+      "raw": "420 ODNORMAL AREA(33,18,5)  ATTACK(50),MAGIC_102(30),REST(20)"
+    },
+    {
+      "file": "01.ai",
+      "line": 4,
+      "unit": 430,
+      "behavior": "ODNORMAL",
+      "selector": "AREA",
+      "area": {
+        "x": 6,
+        "y": 18,
+        "radius": 5
+      },
+      "raw": "430 ODNORMAL AREA(06,18,5)  ATTACK(60),MAGIC_102(20),REST(20)"
+    },
+    {
+      "file": "01.ai",
+      "line": 5,
+      "unit": 440,
+      "behavior": "ODATTACK",
+      "selector": "AREA",
+      "area": {
+        "x": 12,
+        "y": 20,
+        "radius": 7
+      },
+      "raw": "440 ODATTACK AREA(12,20,7)  ATTACK(70),MAGIC_101(10),REST(20)"
+    },
+    {
+      "file": "01.ai",
+      "line": 6,
+      "unit": 450,
+      "behavior": "ODATTACK",
+      "selector": "AREA",
+      "area": {
+        "x": 28,
+        "y": 20,
+        "radius": 7
+      },
+      "raw": "450 ODATTACK AREA(28,20,7)  ATTACK(60),MAGIC_101(20),REST(20)"
+    },
+    {
+      "file": "01.ai",
+      "line": 7,
+      "unit": 460,
+      "behavior": "ODATTACK",
+      "selector": "AREA",
+      "area": {
+        "x": 12,
+        "y": 11,
+        "radius": 7
+      },
+      "raw": "460 ODATTACK AREA(12,11,7)  ATTACK(70),MAGIC_101(20),REST(10)"
+    },
+    {
+      "file": "01.ai",
+      "line": 8,
+      "unit": 470,
+      "behavior": "ODATTACK",
+      "selector": "AREA",
+      "area": {
+        "x": 27,
+        "y": 11,
+        "radius": 7
+      },
+      "raw": "470 ODATTACK AREA(27,11,7)  ATTACK(50),MAGIC_102(30),REST(20)"
+    },
+    {
+      "file": "01.ai",
+      "line": 9,
+      "unit": 480,
+      "behavior": "ODATTACK",
+      "selector": "SOILDER",
+      "referenceUnit": 700,
+      "raw": "480 ODATTACK SOILDER(700)   ATTACK(50),MAGIC_101(20),REST(30)"
+    },
+    {
+      "file": "01.ai",
+      "line": 10,
+      "unit": 490,
+      "behavior": "ODATTACK",
+      "selector": "SOILDER",
+      "referenceUnit": 700,
+      "raw": "490 ODATTACK SOILDER(700)   MAGIC_102(60),REST(40)"
+    },
+    {
+      "file": "01.ai",
+      "line": 11,
+      "unit": 700,
+      "behavior": "ODNORMAL",
+      "selector": "AREA",
+      "area": {
+        "x": 19,
+        "y": 6,
+        "radius": 10
+      },
+      "raw": "700 ODNORMAL AREA(19,06,10) MAGIC_201(30),ATTACK(40),REST(30)"
+    }
+  ],
+  "scriptedSpawns": [
+    {
+      "file": "01.dee",
+      "line": 3,
+      "phase": "ending",
+      "job": 801,
+      "unit": 801,
+      "x": 19,
+      "y": 6,
+      "raw": "CHARPOS 801 801 19 6"
+    },
+    {
+      "file": "01.dee",
+      "line": 4,
+      "phase": "ending",
+      "job": 802,
+      "unit": 803,
+      "x": 22,
+      "y": 6,
+      "raw": "CHARPOS 802 803 22 6"
+    },
+    {
+      "file": "01.dee",
+      "line": 6,
+      "phase": "ending",
+      "job": 805,
+      "unit": 804,
+      "x": 22,
+      "y": 7,
+      "raw": "CHARPOS 805 804 22 7"
+    },
+    {
+      "file": "01.dee",
+      "line": 8,
+      "phase": "ending",
+      "job": 805,
+      "unit": 805,
+      "x": 22,
+      "y": 8,
+      "raw": "CHARPOS 805 805 22 8"
+    },
+    {
+      "file": "01.dee",
+      "line": 10,
+      "phase": "ending",
+      "job": 805,
+      "unit": 806,
+      "x": 17,
+      "y": 6,
+      "raw": "CHARPOS 805 806 17 6"
+    },
+    {
+      "file": "01.dee",
+      "line": 12,
+      "phase": "ending",
+      "job": 805,
+      "unit": 807,
+      "x": 17,
+      "y": 7,
+      "raw": "CHARPOS 805 807 17 7"
+    },
+    {
+      "file": "01.dee",
+      "line": 14,
+      "phase": "ending",
+      "job": 805,
+      "unit": 808,
+      "x": 17,
+      "y": 8,
+      "raw": "CHARPOS 805 808 17 8"
+    },
+    {
+      "file": "01.dee",
+      "line": 16,
+      "phase": "ending",
+      "job": "COM0",
+      "unit": 301,
+      "x": 19,
+      "y": 12,
+      "raw": "CHARPOS COM0 301 19 12"
+    },
+    {
+      "file": "01.deo",
+      "line": 4,
+      "phase": "intro",
+      "job": "COM0",
+      "unit": 301,
+      "x": 14,
+      "y": 32,
+      "raw": "CHARPOS COM0 301 14 32"
+    },
+    {
+      "file": "01.deo",
+      "line": 9,
+      "phase": "intro",
+      "job": 401,
+      "unit": 400,
+      "x": 12,
+      "y": 28,
+      "raw": "CHARPOS 401 400 12 28"
+    },
+    {
+      "file": "01.deo",
+      "line": 10,
+      "phase": "intro",
+      "job": 401,
+      "unit": 401,
+      "x": 16,
+      "y": 28,
+      "raw": "CHARPOS 401 401 16 28"
+    },
+    {
+      "file": "01.deo",
+      "line": 22,
+      "phase": "intro",
+      "job": 801,
+      "unit": 800,
+      "x": 19,
+      "y": 7,
+      "raw": "CHARPOS 801 800 19 7"
+    },
+    {
+      "file": "01.deo",
+      "line": 23,
+      "phase": "intro",
+      "job": 805,
+      "unit": 801,
+      "x": 19,
+      "y": 6,
+      "raw": "CHARPOS 805 801 19 6"
+    },
+    {
+      "file": "01.deo",
+      "line": 24,
+      "phase": "intro",
+      "job": 806,
+      "unit": 802,
+      "x": 18,
+      "y": 7,
+      "raw": "CHARPOS 806 802 18 7"
+    },
+    {
+      "file": "01.deo",
+      "line": 25,
+      "phase": "intro",
+      "job": 805,
+      "unit": 803,
+      "x": 20,
+      "y": 7,
+      "raw": "CHARPOS 805 803 20 7"
+    },
+    {
+      "file": "01.deo",
+      "line": 26,
+      "phase": "intro",
+      "job": 806,
+      "unit": 804,
+      "x": 19,
+      "y": 8,
+      "raw": "CHARPOS 806 804 19 8"
+    },
+    {
+      "file": "01.deo",
+      "line": 27,
+      "phase": "intro",
+      "job": 701,
+      "unit": 700,
+      "x": 19,
+      "y": 10,
+      "raw": "CHARPOS 701 700 19 10"
+    },
+    {
+      "file": "01.deo",
+      "line": 28,
+      "phase": "intro",
+      "job": 301,
+      "unit": 400,
+      "x": 16,
+      "y": 7,
+      "raw": "CHARPOS 301 400 16 7"
+    },
+    {
+      "file": "01.deo",
+      "line": 29,
+      "phase": "intro",
+      "job": 301,
+      "unit": 401,
+      "x": 22,
+      "y": 7,
+      "raw": "CHARPOS 301 401 22 7"
+    },
+    {
+      "file": "01.deo",
+      "line": 30,
+      "phase": "intro",
+      "job": 401,
+      "unit": 402,
+      "x": 17,
+      "y": 9,
+      "raw": "CHARPOS 401 402 17 9"
+    },
+    {
+      "file": "01.deo",
+      "line": 31,
+      "phase": "intro",
+      "job": 401,
+      "unit": 403,
+      "x": 18,
+      "y": 9,
+      "raw": "CHARPOS 401 403 18 9"
+    },
+    {
+      "file": "01.deo",
+      "line": 32,
+      "phase": "intro",
+      "job": 401,
+      "unit": 404,
+      "x": 20,
+      "y": 9,
+      "raw": "CHARPOS 401 404 20 9"
+    },
+    {
+      "file": "01.deo",
+      "line": 33,
+      "phase": "intro",
+      "job": 401,
+      "unit": 405,
+      "x": 21,
+      "y": 9,
+      "raw": "CHARPOS 401 405 21 9"
+    }
+  ],
+  "eventPositionConditions": [
+    {
+      "file": "01.evt",
+      "line": 4,
+      "raw": "1 CHARPOS 6 15"
+    },
+    {
+      "file": "01.evt",
+      "line": 5,
+      "raw": "2 CHARPOS 5 16"
+    },
+    {
+      "file": "01.evt",
+      "line": 6,
+      "raw": "3 CHARPOS 5 15"
+    },
+    {
+      "file": "01.evt",
+      "line": 27,
+      "raw": "1 CHARPOS 34 16"
+    },
+    {
+      "file": "01.evt",
+      "line": 28,
+      "raw": "2 CHARPOS 34 15"
+    },
+    {
+      "file": "01.evt",
+      "line": 49,
+      "raw": "1 CHARPOS 09 28"
+    },
+    {
+      "file": "01.evt",
+      "line": 50,
+      "raw": "2 CHARPOS 10 29"
+    },
+    {
+      "file": "01.evt",
+      "line": 51,
+      "raw": "3 CHARPOS 9 29"
+    },
+    {
+      "file": "01.evt",
+      "line": 72,
+      "raw": "1 CHARPOS 30 29"
+    },
+    {
+      "file": "01.evt",
+      "line": 73,
+      "raw": "2 CHARPOS 29 28"
+    },
+    {
+      "file": "01.evt",
+      "line": 74,
+      "raw": "3 CHARPOS 30 27"
+    },
+    {
+      "file": "01.evt",
+      "line": 75,
+      "raw": "4 CHARPOS 30 28"
+    },
+    {
+      "file": "01.evt",
+      "line": 96,
+      "raw": "1 CHARPOS 08 11"
+    },
+    {
+      "file": "01.evt",
+      "line": 97,
+      "raw": "2 CHARPOS 9 10"
+    },
+    {
+      "file": "01.evt",
+      "line": 98,
+      "raw": "3 CHARPOS 8 10"
+    },
+    {
+      "file": "01.evt",
+      "line": 119,
+      "raw": "1 CHARPOS 31 11"
+    },
+    {
+      "file": "01.evt",
+      "line": 120,
+      "raw": "2 CHARPOS 30 10"
+    },
+    {
+      "file": "01.evt",
+      "line": 121,
+      "raw": "3 CHARPOS 31 10"
+    },
+    {
+      "file": "01.evt",
+      "line": 142,
+      "raw": "1 CHARPOS 22 21"
+    },
+    {
+      "file": "01.evt",
+      "line": 143,
+      "raw": "2 CHARPOS 21 22"
+    },
+    {
+      "file": "01.evt",
+      "line": 144,
+      "raw": "3 CHARPOS 23 22"
+    },
+    {
+      "file": "01.evt",
+      "line": 145,
+      "raw": "4 CHARPOS 22 22"
+    },
+    {
+      "file": "01.evt",
+      "line": 239,
+      "raw": "1 CHARPOS 6 21"
+    },
+    {
+      "file": "01.evt",
+      "line": 251,
+      "raw": "1 CHARPOS 18 22"
+    },
+    {
+      "file": "01.evt",
+      "line": 267,
+      "raw": "1 CHARPOS 30 22"
+    },
+    {
+      "file": "01.evt",
+      "line": 280,
+      "raw": "1 CHARPOS 19 10"
+    },
+    {
+      "file": "01.evt",
+      "line": 293,
+      "raw": "1 CHARPOS 14 5"
+    },
+    {
+      "file": "01.evt",
+      "line": 295,
+      "raw": "2 CHARPOS 15 6"
+    },
+    {
+      "file": "01.evt",
+      "line": 297,
+      "raw": "3 CHARPOS 16 5"
+    },
+    {
+      "file": "01.evt",
+      "line": 309,
+      "raw": "1 CHARPOS 23 5"
+    },
+    {
+      "file": "01.evt",
+      "line": 311,
+      "raw": "2 CHARPOS 24 6"
+    },
+    {
+      "file": "01.evt",
+      "line": 313,
+      "raw": "3 CHARPOS 25 5"
+    }
+  ],
+  "files": [
+    {
+      "name": "01.ai",
+      "path": "분석/Saver_Late/decoded/map/01set.arc/01.ai",
+      "role": "몬스터 행동 설정. AREA는 초기 배치 좌표로 확정하지 않음.",
+      "originalSha256": "691b48424b56824b28779c895e03bd25a498f2e9c67ffa4002199545d49145fd",
+      "lines": [
+        {
+          "line": 1,
+          "text": "400 ODNORMAL AREA(14,28,5)  ATTACK(50),MAGIC_101(20),REST(30)"
+        },
+        {
+          "line": 2,
+          "text": "410 ODNORMAL AREA(26,28,5)  ATTACK(50),MAGIC_101(30),REST(20)"
+        },
+        {
+          "line": 3,
+          "text": "420 ODNORMAL AREA(33,18,5)  ATTACK(50),MAGIC_102(30),REST(20)"
+        },
+        {
+          "line": 4,
+          "text": "430 ODNORMAL AREA(06,18,5)  ATTACK(60),MAGIC_102(20),REST(20)"
+        },
+        {
+          "line": 5,
+          "text": "440 ODATTACK AREA(12,20,7)  ATTACK(70),MAGIC_101(10),REST(20)"
+        },
+        {
+          "line": 6,
+          "text": "450 ODATTACK AREA(28,20,7)  ATTACK(60),MAGIC_101(20),REST(20)"
+        },
+        {
+          "line": 7,
+          "text": "460 ODATTACK AREA(12,11,7)  ATTACK(70),MAGIC_101(20),REST(10)"
+        },
+        {
+          "line": 8,
+          "text": "470 ODATTACK AREA(27,11,7)  ATTACK(50),MAGIC_102(30),REST(20)"
+        },
+        {
+          "line": 9,
+          "text": "480 ODATTACK SOILDER(700)   ATTACK(50),MAGIC_101(20),REST(30)"
+        },
+        {
+          "line": 10,
+          "text": "490 ODATTACK SOILDER(700)   MAGIC_102(60),REST(40)"
+        },
+        {
+          "line": 11,
+          "text": "700 ODNORMAL AREA(19,06,10) MAGIC_201(30),ATTACK(40),REST(30)"
+        },
+        {
+          "line": 12,
+          "text": "999"
+        }
+      ]
+    },
+    {
+      "name": "01.dee",
+      "path": "분석/Saver_Late/decoded/map/01set.arc/01.dee",
+      "role": "종료 연출 대본. 전투 초기 배치와 구별.",
+      "originalSha256": "24c09da92b0e5a8345e368e0ebb3489889504ce6d981dd8fe7a4b7f38119fd55",
+      "lines": [
+        {
+          "line": 1,
+          "text": "LOADSCENE 01"
+        },
+        {
+          "line": 2,
+          "text": "SETPOSITION 20 8"
+        },
+        {
+          "line": 3,
+          "text": "CHARPOS 801 801 19 6"
+        },
+        {
+          "line": 4,
+          "text": "CHARPOS 802 803 22 6"
+        },
+        {
+          "line": 5,
+          "text": "CHARDIR 803 LEFT"
+        },
+        {
+          "line": 6,
+          "text": "CHARPOS 805 804 22 7"
+        },
+        {
+          "line": 7,
+          "text": "CHARDIR 804 LEFT"
+        },
+        {
+          "line": 8,
+          "text": "CHARPOS 805 805 22 8"
+        },
+        {
+          "line": 9,
+          "text": "CHARDIR 805 LEFT"
+        },
+        {
+          "line": 10,
+          "text": "CHARPOS 805 806 17 6"
+        },
+        {
+          "line": 11,
+          "text": "CHARDIR 806 RIGHT"
+        },
+        {
+          "line": 12,
+          "text": "CHARPOS 805 807 17 7"
+        },
+        {
+          "line": 13,
+          "text": "CHARDIR 807 RIGHT"
+        },
+        {
+          "line": 14,
+          "text": "CHARPOS 805 808 17 8"
+        },
+        {
+          "line": 15,
+          "text": "CHARDIR 808 RIGHT"
+        },
+        {
+          "line": 16,
+          "text": "CHARPOS COM0 301 19 12"
+        },
+        {
+          "line": 17,
+          "text": "CHARMOVE 301 19 10"
+        },
+        {
+          "line": 18,
+          "text": "CHARDIR 301 UP"
+        },
+        {
+          "line": 19,
+          "text": "DO 1000"
+        },
+        {
+          "line": 20,
+          "text": "MESSAGE 1 801 801 ID 용사여..  무어라 감사해야 할 지를 모르겠소."
+        },
+        {
+          "line": 21,
+          "text": "MESSAGE 2 COM0 0 COM0 과찬이십니다. 브리힐트국의 백성으로서| 적에게 붙잡힌 국왕을 구하는 것은 당연한| 일입니다."
+        },
+        {
+          "line": 22,
+          "text": "MESSAGE 1 801 801 ID 그대들이 이 나라를 지키는 힘이오. 정말| 고맙소. 그런데 용사여. 적들이 공주와 보검을| 가지고 도망을 쳤으니 이를 어쩌면 좋겠소.| 보검은 브리힐트의 상징이오. 만약 보검이| 없다면 동맹은 깨지고 10개국은 사분 오열이| 될 것이오."
+        },
+        {
+          "line": 23,
+          "text": "MESSAGE 2 COM0 0 COM0 적들이 노리는 것이 바로 그것인데 어찌| 두고만 보고 있을 수가 있겠습니까.. 소신이| 당장 보검부터 구해오겠습니다."
+        },
+        {
+          "line": 24,
+          "text": "MESSAGE 1 802 803 ID 용사여, 그러나 공주님을 구하는 것도 시급한| 일이오."
+        },
+        {
+          "line": 25,
+          "text": "MESSAGE 1 801 801 ID 아니오, 먼저 보검을 구하도록하시오. 어찌| 일국의 왕으로써 나라를 안위를 먼저| 생각해야지 하찮은 개인적 일에 신경을 쓸 수| 있겠소. 무엇보다 브리힐트국의 평화가| 먼저요."
+        },
+        {
+          "line": 26,
+          "text": "MESSAGE 1 802 803 ID 왕이시여..  어떻게 공주님을 저대로... ."
+        },
+        {
+          "line": 27,
+          "text": "MESSAGE 2 COM0 0 COM0 왕이시여!!  제가 성심을 다해 공주님과| 보검을 다 구해오겠습니다."
+        },
+        {
+          "line": 28,
+          "text": "MESSAGE 1 801 801 ID 용사여. 그대만을 믿겠소."
+        },
+        {
+          "line": 29,
+          "text": "CHARMOVE 803 21 6"
+        },
+        {
+          "line": 30,
+          "text": "DO2 803"
+        },
+        {
+          "line": 31,
+          "text": "CHARMOVE 803 20 10"
+        },
+        {
+          "line": 32,
+          "text": "DO2 803"
+        },
+        {
+          "line": 33,
+          "text": "CHARDIR 301 RIGHT"
+        },
+        {
+          "line": 34,
+          "text": "CHARDIR 803 LEFT"
+        },
+        {
+          "line": 35,
+          "text": "MESSAGE 1 802 803 ID 용사여, 이것을 가지고 가시오. 공주님을|구하는데 도움이 될 것이오."
+        },
+        {
+          "line": 36,
+          "text": "MESSAGE 2 COM0 0 COM0 이게 무엇입니까?"
+        },
+        {
+          "line": 37,
+          "text": "MESSAGE 1 802 803 ID 내가 제조한 폭탄이오. 이것을 사용하면 | 적들의 함정을 부술 수 있을 것이요."
+        },
+        {
+          "line": 38,
+          "text": "MESSAGE 2 COM0 0 COM0 고맙습니다. | 반드시 공주님을 구해 오겠습니다."
+        },
+        {
+          "line": 39,
+          "text": "GETITEM 398"
+        },
+        {
+          "line": 40,
+          "text": "MESSAGE 0 0 ID 0 %s님이 폭탄을 얻었습니다."
+        },
+        {
+          "line": 41,
+          "text": "END"
+        }
+      ]
+    },
+    {
+      "name": "01.deo",
+      "path": "분석/Saver_Late/decoded/map/01set.arc/01.deo",
+      "role": "도입 연출 대본. 전투 초기 배치와 구별.",
+      "originalSha256": "7e20eaa30e095a32ed8a96c29cfd6daa1aa67d4ce58f68c6e7519f35063fe1f3",
+      "lines": [
+        {
+          "line": 1,
+          "text": "LOADSCENE 01"
+        },
+        {
+          "line": 2,
+          "text": "PLAYMIDI bgm\\nco01.mid 1"
+        },
+        {
+          "line": 3,
+          "text": "SETPOSITION 9 24"
+        },
+        {
+          "line": 4,
+          "text": "CHARPOS COM0 301 14 32"
+        },
+        {
+          "line": 5,
+          "text": "CHARMOVE 301 14 28"
+        },
+        {
+          "line": 6,
+          "text": "DO2 301"
+        },
+        {
+          "line": 7,
+          "text": "CHARDIR 301 UP"
+        },
+        {
+          "line": 8,
+          "text": "MESSAGE 1 COM0 0 COM0 적의 습격을 받았다는 왕궁이 왜이리 조용한| 건가? 어딘가에 적군이 매복해 있을텐데.."
+        },
+        {
+          "line": 9,
+          "text": "CHARPOS 401 400 12 28"
+        },
+        {
+          "line": 10,
+          "text": "CHARPOS 401 401 16 28"
+        },
+        {
+          "line": 11,
+          "text": "CHARMOVE 400 13 28"
+        },
+        {
+          "line": 12,
+          "text": "CHARMOVE 401 15 28"
+        },
+        {
+          "line": 13,
+          "text": "DO2 400"
+        },
+        {
+          "line": 14,
+          "text": "ATTACK 301 400 1"
+        },
+        {
+          "line": 15,
+          "text": "ATTACK 301 401 1"
+        },
+        {
+          "line": 16,
+          "text": "DO 1000"
+        },
+        {
+          "line": 17,
+          "text": "KILLCHAR2 400"
+        },
+        {
+          "line": 18,
+          "text": "KILLCHAR2 401"
+        },
+        {
+          "line": 19,
+          "text": "DO 500"
+        },
+        {
+          "line": 20,
+          "text": "MESSAGE 1 COM0 0 COM0 이런!"
+        },
+        {
+          "line": 21,
+          "text": "PLAYMIDI bgm\\ncr04.mid 0"
+        },
+        {
+          "line": 22,
+          "text": "CHARPOS 801 800 19 7"
+        },
+        {
+          "line": 23,
+          "text": "CHARPOS 805 801 19 6"
+        },
+        {
+          "line": 24,
+          "text": "CHARPOS 806 802 18 7"
+        },
+        {
+          "line": 25,
+          "text": "CHARPOS 805 803 20 7"
+        },
+        {
+          "line": 26,
+          "text": "CHARPOS 806 804 19 8"
+        },
+        {
+          "line": 27,
+          "text": "CHARPOS 701 700 19 10"
+        },
+        {
+          "line": 28,
+          "text": "CHARPOS 301 400 16 7"
+        },
+        {
+          "line": 29,
+          "text": "CHARPOS 301 401 22 7"
+        },
+        {
+          "line": 30,
+          "text": "CHARPOS 401 402 17 9"
+        },
+        {
+          "line": 31,
+          "text": "CHARPOS 401 403 18 9"
+        },
+        {
+          "line": 32,
+          "text": "CHARPOS 401 404 20 9"
+        },
+        {
+          "line": 33,
+          "text": "CHARPOS 401 405 21 9"
+        },
+        {
+          "line": 34,
+          "text": "MOVEPOSITION 20 8"
+        },
+        {
+          "line": 35,
+          "text": "CHARMOVE 400 17 7"
+        },
+        {
+          "line": 36,
+          "text": "CHARMOVE 401 21 7"
+        },
+        {
+          "line": 37,
+          "text": "DO 1000"
+        },
+        {
+          "line": 38,
+          "text": "CHARDIR 400 RIGHT"
+        },
+        {
+          "line": 39,
+          "text": "CHARDIR 401 LEFT"
+        },
+        {
+          "line": 40,
+          "text": "ATTACK 400 802 0"
+        },
+        {
+          "line": 41,
+          "text": "ATTACK 401 803 0"
+        },
+        {
+          "line": 42,
+          "text": "DO 500"
+        },
+        {
+          "line": 43,
+          "text": "KILLCHAR2 802"
+        },
+        {
+          "line": 44,
+          "text": "KILLCHAR2 803"
+        },
+        {
+          "line": 45,
+          "text": "DO 1500"
+        },
+        {
+          "line": 46,
+          "text": "MAGIC 1 700 -1 -1 801 804"
+        },
+        {
+          "line": 47,
+          "text": "DO 1500"
+        },
+        {
+          "line": 48,
+          "text": "KILLCHAR2 801"
+        },
+        {
+          "line": 49,
+          "text": "KILLCHAR2 804"
+        },
+        {
+          "line": 50,
+          "text": "DO 1500"
+        },
+        {
+          "line": 51,
+          "text": "CHARDIR 800 LEFT"
+        },
+        {
+          "line": 52,
+          "text": "DO 200"
+        },
+        {
+          "line": 53,
+          "text": "CHARDIR 800 RIGHT"
+        },
+        {
+          "line": 54,
+          "text": "DO 200"
+        },
+        {
+          "line": 55,
+          "text": "CHARDIR 800 LEFT"
+        },
+        {
+          "line": 56,
+          "text": "DO 200"
+        },
+        {
+          "line": 57,
+          "text": "CHARDIR 800 RIGHT"
+        },
+        {
+          "line": 58,
+          "text": "DO 200"
+        },
+        {
+          "line": 59,
+          "text": "CHARDIR 800 DOWN"
+        },
+        {
+          "line": 60,
+          "text": "DO 200"
+        },
+        {
+          "line": 61,
+          "text": "PLAYMIDI bgm\\nco01.mid 1"
+        },
+        {
+          "line": 62,
+          "text": "MESSAGE 1 801 800 ID 으으.."
+        },
+        {
+          "line": 63,
+          "text": "MESSAGE 2 701 700 ID 아직도 보름스국에 대항을 할 어리석은 자가| 남아 있긴 한건가? 모두 오합지졸들이라| 싱겁구만. | 이스란트! 그대의 나라에는 용맹한| 기사가 이렇게도 없는가? 하하하!"
+        },
+        {
+          "line": 64,
+          "text": "MESSAGE 1 801 800 ID ......분하다..."
+        },
+        {
+          "line": 65,
+          "text": "SETPOSITION 9 23"
+        },
+        {
+          "line": 66,
+          "text": "DO 100"
+        },
+        {
+          "line": 67,
+          "text": "MESSAGE 1 COM0 0 COM0 가소롭긴. 겨우 피라미 몇을 상대하고| 기고만장하고 있구나. 너의 그 오만방자함이| 언제까지 이어지나보자!"
+        },
+        {
+          "line": 68,
+          "text": "SETPOSITION 20 8"
+        },
+        {
+          "line": 69,
+          "text": "DO 100"
+        },
+        {
+          "line": 70,
+          "text": "MESSAGE 2 701 700 ID 크하하하 하룻강아지 범 무서운줄 모른다더니.| 내 오늘이 네놈 제삿날이 되게 해주마."
+        },
+        {
+          "line": 71,
+          "text": "DO 100"
+        },
+        {
+          "line": 72,
+          "text": "END"
+        }
+      ]
+    },
+    {
+      "name": "01.evt",
+      "path": "분석/Saver_Late/decoded/map/01set.arc/01.evt",
+      "role": "이벤트 대본. 숫자 접두 CHARPOS는 위치 조건.",
+      "originalSha256": "39333ff9d5c794a341fa190bf96c179c4cfeba0c6be2942bd9f136e06b87252b",
+      "lines": [
+        {
+          "line": 1,
+          "text": "EVENT 01"
+        },
+        {
+          "line": 2,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 3,
+          "text": "ONCE"
+        },
+        {
+          "line": 4,
+          "text": "1 CHARPOS 6 15"
+        },
+        {
+          "line": 5,
+          "text": "2 CHARPOS 5 16"
+        },
+        {
+          "line": 6,
+          "text": "3 CHARPOS 5 15"
+        },
+        {
+          "line": 7,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 상자를 열었습니다."
+        },
+        {
+          "line": 8,
+          "text": "RANDOM 50"
+        },
+        {
+          "line": 9,
+          "text": "TEST"
+        },
+        {
+          "line": 10,
+          "text": "("
+        },
+        {
+          "line": 11,
+          "text": "GOLD 100"
+        },
+        {
+          "line": 12,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 100 GOLD를 얻었습니다."
+        },
+        {
+          "line": 13,
+          "text": ")"
+        },
+        {
+          "line": 14,
+          "text": "TESTNOT"
+        },
+        {
+          "line": 15,
+          "text": "("
+        },
+        {
+          "line": 16,
+          "text": "MESSAGE 0 0 ME 0 빈 상자입니다."
+        },
+        {
+          "line": 17,
+          "text": ")"
+        },
+        {
+          "line": 18,
+          "text": "CHANGESPRITE 5 15 0 1 0 22"
+        },
+        {
+          "line": 19,
+          "text": "CHANGETILE CLEAR"
+        },
+        {
+          "line": 20,
+          "text": "CHANGETILE 05 15 0 665 0 "
+        },
+        {
+          "line": 21,
+          "text": "CHANGETILE START1"
+        },
+        {
+          "line": 22,
+          "text": "END"
+        },
+        {
+          "line": 23,
+          "text": ""
+        },
+        {
+          "line": 24,
+          "text": "EVENT 02"
+        },
+        {
+          "line": 25,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 26,
+          "text": "ONCE"
+        },
+        {
+          "line": 27,
+          "text": "1 CHARPOS 34 16"
+        },
+        {
+          "line": 28,
+          "text": "2 CHARPOS 34 15"
+        },
+        {
+          "line": 29,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 상자를 열었습니다."
+        },
+        {
+          "line": 30,
+          "text": "RANDOM 50"
+        },
+        {
+          "line": 31,
+          "text": "TEST"
+        },
+        {
+          "line": 32,
+          "text": "("
+        },
+        {
+          "line": 33,
+          "text": "GOLD 100"
+        },
+        {
+          "line": 34,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 100 GOLD를 얻었습니다."
+        },
+        {
+          "line": 35,
+          "text": ")"
+        },
+        {
+          "line": 36,
+          "text": "TESTNOT"
+        },
+        {
+          "line": 37,
+          "text": "("
+        },
+        {
+          "line": 38,
+          "text": "MESSAGE 0 0 ME 0 빈 상자입니다."
+        },
+        {
+          "line": 39,
+          "text": ")"
+        },
+        {
+          "line": 40,
+          "text": "CHANGESPRITE 34 15 0 1 0 22"
+        },
+        {
+          "line": 41,
+          "text": "CHANGETILE CLEAR"
+        },
+        {
+          "line": 42,
+          "text": "CHANGETILE 34 15 0 665 0 "
+        },
+        {
+          "line": 43,
+          "text": "CHANGETILE START1"
+        },
+        {
+          "line": 44,
+          "text": "END"
+        },
+        {
+          "line": 45,
+          "text": ""
+        },
+        {
+          "line": 46,
+          "text": "EVENT 03"
+        },
+        {
+          "line": 47,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 48,
+          "text": "ONCE"
+        },
+        {
+          "line": 49,
+          "text": "1 CHARPOS 09 28"
+        },
+        {
+          "line": 50,
+          "text": "2 CHARPOS 10 29"
+        },
+        {
+          "line": 51,
+          "text": "3 CHARPOS 9 29"
+        },
+        {
+          "line": 52,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 상자를 열었습니다."
+        },
+        {
+          "line": 53,
+          "text": "RANDOM 50"
+        },
+        {
+          "line": 54,
+          "text": "TEST"
+        },
+        {
+          "line": 55,
+          "text": "("
+        },
+        {
+          "line": 56,
+          "text": "GOLD 100"
+        },
+        {
+          "line": 57,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 100 GOLD를 얻었습니다."
+        },
+        {
+          "line": 58,
+          "text": ")"
+        },
+        {
+          "line": 59,
+          "text": "TESTNOT"
+        },
+        {
+          "line": 60,
+          "text": "("
+        },
+        {
+          "line": 61,
+          "text": "MESSAGE 0 0 ME 0 빈 상자입니다."
+        },
+        {
+          "line": 62,
+          "text": ")"
+        },
+        {
+          "line": 63,
+          "text": "CHANGESPRITE 9 29 0 1 0 22"
+        },
+        {
+          "line": 64,
+          "text": "CHANGETILE CLEAR"
+        },
+        {
+          "line": 65,
+          "text": "CHANGETILE 09 29 0 665 0 "
+        },
+        {
+          "line": 66,
+          "text": "CHANGETILE START1"
+        },
+        {
+          "line": 67,
+          "text": "END"
+        },
+        {
+          "line": 68,
+          "text": ""
+        },
+        {
+          "line": 69,
+          "text": "EVENT 04"
+        },
+        {
+          "line": 70,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 71,
+          "text": "ONCE"
+        },
+        {
+          "line": 72,
+          "text": "1 CHARPOS 30 29"
+        },
+        {
+          "line": 73,
+          "text": "2 CHARPOS 29 28"
+        },
+        {
+          "line": 74,
+          "text": "3 CHARPOS 30 27"
+        },
+        {
+          "line": 75,
+          "text": "4 CHARPOS 30 28"
+        },
+        {
+          "line": 76,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 상자를 열었습니다."
+        },
+        {
+          "line": 77,
+          "text": "RANDOM 50"
+        },
+        {
+          "line": 78,
+          "text": "TEST"
+        },
+        {
+          "line": 79,
+          "text": "("
+        },
+        {
+          "line": 80,
+          "text": "GOLD 100"
+        },
+        {
+          "line": 81,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 100 GOLD를 얻었습니다."
+        },
+        {
+          "line": 82,
+          "text": ")"
+        },
+        {
+          "line": 83,
+          "text": "TESTNOT"
+        },
+        {
+          "line": 84,
+          "text": "("
+        },
+        {
+          "line": 85,
+          "text": "MESSAGE 0 0 ME 0 빈 상자입니다."
+        },
+        {
+          "line": 86,
+          "text": ")"
+        },
+        {
+          "line": 87,
+          "text": "CHANGESPRITE 30 28 0 1 0 22"
+        },
+        {
+          "line": 88,
+          "text": "CHANGETILE CLEAR"
+        },
+        {
+          "line": 89,
+          "text": "CHANGETILE 30 28 0 665 0 "
+        },
+        {
+          "line": 90,
+          "text": "CHANGETILE START1"
+        },
+        {
+          "line": 91,
+          "text": "END"
+        },
+        {
+          "line": 92,
+          "text": ""
+        },
+        {
+          "line": 93,
+          "text": "EVENT 05"
+        },
+        {
+          "line": 94,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 95,
+          "text": "ONCE"
+        },
+        {
+          "line": 96,
+          "text": "1 CHARPOS 08 11"
+        },
+        {
+          "line": 97,
+          "text": "2 CHARPOS 9 10"
+        },
+        {
+          "line": 98,
+          "text": "3 CHARPOS 8 10"
+        },
+        {
+          "line": 99,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 상자를 열었습니다."
+        },
+        {
+          "line": 100,
+          "text": "RANDOM 50"
+        },
+        {
+          "line": 101,
+          "text": "TEST"
+        },
+        {
+          "line": 102,
+          "text": "("
+        },
+        {
+          "line": 103,
+          "text": "GETITEM 300"
+        },
+        {
+          "line": 104,
+          "text": "MESSAGE 0 0 ME 0 %s가 힐포션을 얻었습니다."
+        },
+        {
+          "line": 105,
+          "text": ")"
+        },
+        {
+          "line": 106,
+          "text": "TESTNOT"
+        },
+        {
+          "line": 107,
+          "text": "("
+        },
+        {
+          "line": 108,
+          "text": "MESSAGE 0 0 ME 0 빈 상자입니다."
+        },
+        {
+          "line": 109,
+          "text": ")"
+        },
+        {
+          "line": 110,
+          "text": "CHANGESPRITE 8 10 0 1 0 22"
+        },
+        {
+          "line": 111,
+          "text": "CHANGETILE CLEAR"
+        },
+        {
+          "line": 112,
+          "text": "CHANGETILE 08 10 0 665 0 "
+        },
+        {
+          "line": 113,
+          "text": "CHANGETILE START1"
+        },
+        {
+          "line": 114,
+          "text": "END"
+        },
+        {
+          "line": 115,
+          "text": ""
+        },
+        {
+          "line": 116,
+          "text": "EVENT 07"
+        },
+        {
+          "line": 117,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 118,
+          "text": "ONCE"
+        },
+        {
+          "line": 119,
+          "text": "1 CHARPOS 31 11"
+        },
+        {
+          "line": 120,
+          "text": "2 CHARPOS 30 10"
+        },
+        {
+          "line": 121,
+          "text": "3 CHARPOS 31 10"
+        },
+        {
+          "line": 122,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 상자를 열었습니다."
+        },
+        {
+          "line": 123,
+          "text": "RANDOM 50"
+        },
+        {
+          "line": 124,
+          "text": "TEST"
+        },
+        {
+          "line": 125,
+          "text": "("
+        },
+        {
+          "line": 126,
+          "text": "GETITEM 300"
+        },
+        {
+          "line": 127,
+          "text": "MESSAGE 0 0 ME 0 %s가 힐포션을 얻었습니다."
+        },
+        {
+          "line": 128,
+          "text": ")"
+        },
+        {
+          "line": 129,
+          "text": "TESTNOT"
+        },
+        {
+          "line": 130,
+          "text": "("
+        },
+        {
+          "line": 131,
+          "text": "MESSAGE 0 0 ME 0 빈 상자입니다."
+        },
+        {
+          "line": 132,
+          "text": ")"
+        },
+        {
+          "line": 133,
+          "text": "CHANGESPRITE 31 10 0 1 0 22"
+        },
+        {
+          "line": 134,
+          "text": "CHANGETILE CLEAR"
+        },
+        {
+          "line": 135,
+          "text": "CHANGETILE 31 10 0 665 0 "
+        },
+        {
+          "line": 136,
+          "text": "CHANGETILE START1"
+        },
+        {
+          "line": 137,
+          "text": "END"
+        },
+        {
+          "line": 138,
+          "text": ""
+        },
+        {
+          "line": 139,
+          "text": "EVENT 08"
+        },
+        {
+          "line": 140,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 141,
+          "text": "ONCE"
+        },
+        {
+          "line": 142,
+          "text": "1 CHARPOS 22 21"
+        },
+        {
+          "line": 143,
+          "text": "2 CHARPOS 21 22"
+        },
+        {
+          "line": 144,
+          "text": "3 CHARPOS 23 22"
+        },
+        {
+          "line": 145,
+          "text": "4 CHARPOS 22 22"
+        },
+        {
+          "line": 146,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 상자를 열었습니다."
+        },
+        {
+          "line": 147,
+          "text": "RANDOM 50"
+        },
+        {
+          "line": 148,
+          "text": "TEST"
+        },
+        {
+          "line": 149,
+          "text": "("
+        },
+        {
+          "line": 150,
+          "text": "GETITEM 300"
+        },
+        {
+          "line": 151,
+          "text": "MESSAGE 0 0 ME 0 %s가 힐포션을 얻었습니다."
+        },
+        {
+          "line": 152,
+          "text": ")"
+        },
+        {
+          "line": 153,
+          "text": "TESTNOT"
+        },
+        {
+          "line": 154,
+          "text": "("
+        },
+        {
+          "line": 155,
+          "text": "MESSAGE 0 0 ME 0 빈 상자입니다."
+        },
+        {
+          "line": 156,
+          "text": ")"
+        },
+        {
+          "line": 157,
+          "text": "CHANGESPRITE 22 22 0 1 0 22"
+        },
+        {
+          "line": 158,
+          "text": "CHANGETILE CLEAR"
+        },
+        {
+          "line": 159,
+          "text": "CHANGETILE 22 22 0 665 0 "
+        },
+        {
+          "line": 160,
+          "text": "CHANGETILE START1"
+        },
+        {
+          "line": 161,
+          "text": "END"
+        },
+        {
+          "line": 162,
+          "text": ""
+        },
+        {
+          "line": 163,
+          "text": "EVENT 10"
+        },
+        {
+          "line": 164,
+          "text": "CHAR"
+        },
+        {
+          "line": 165,
+          "text": "1 CHARDEAD 400"
+        },
+        {
+          "line": 166,
+          "text": "1 RANDOM 100"
+        },
+        {
+          "line": 167,
+          "text": "MESSAGE 1 301 0 0 으으.."
+        },
+        {
+          "line": 168,
+          "text": "END"
+        },
+        {
+          "line": 169,
+          "text": ""
+        },
+        {
+          "line": 170,
+          "text": "EVENT 11"
+        },
+        {
+          "line": 171,
+          "text": "CHAR"
+        },
+        {
+          "line": 172,
+          "text": "1 CHARDEAD 410"
+        },
+        {
+          "line": 173,
+          "text": "1 RANDOM 100"
+        },
+        {
+          "line": 174,
+          "text": "MESSAGE 1 301 0 0 크헉!"
+        },
+        {
+          "line": 175,
+          "text": "END"
+        },
+        {
+          "line": 176,
+          "text": ""
+        },
+        {
+          "line": 177,
+          "text": "EVENT 12"
+        },
+        {
+          "line": 178,
+          "text": "CHAR"
+        },
+        {
+          "line": 179,
+          "text": "1 CHARDEAD 420"
+        },
+        {
+          "line": 180,
+          "text": "1 DUTY_STEP_TRUE 2 1"
+        },
+        {
+          "line": 181,
+          "text": "1 DUTY_STEP_FALSE 2 2"
+        },
+        {
+          "line": 182,
+          "text": "MESSAGE 1 301 0 0 으으.."
+        },
+        {
+          "line": 183,
+          "text": "MESSAGE 0 0 ME 0 %s가(이) 타란의 구슬을 얻었습니다."
+        },
+        {
+          "line": 184,
+          "text": "SET_DUTY_STEP 2 2"
+        },
+        {
+          "line": 185,
+          "text": "END"
+        },
+        {
+          "line": 186,
+          "text": ""
+        },
+        {
+          "line": 187,
+          "text": "EVENT 13"
+        },
+        {
+          "line": 188,
+          "text": "CHAR"
+        },
+        {
+          "line": 189,
+          "text": "1 CHARDEAD 430"
+        },
+        {
+          "line": 190,
+          "text": "1 RANDOM 100"
+        },
+        {
+          "line": 191,
+          "text": "MESSAGE 1 301 0 0 분하다.."
+        },
+        {
+          "line": 192,
+          "text": "END"
+        },
+        {
+          "line": 193,
+          "text": ""
+        },
+        {
+          "line": 194,
+          "text": "EVENT 14"
+        },
+        {
+          "line": 195,
+          "text": "CHAR"
+        },
+        {
+          "line": 196,
+          "text": "1 CHARDEAD 440"
+        },
+        {
+          "line": 197,
+          "text": "1 RANDOM 100"
+        },
+        {
+          "line": 198,
+          "text": "MESSAGE 1 302 0 0 으으.."
+        },
+        {
+          "line": 199,
+          "text": "END"
+        },
+        {
+          "line": 200,
+          "text": ""
+        },
+        {
+          "line": 201,
+          "text": "EVENT 15"
+        },
+        {
+          "line": 202,
+          "text": "CHAR"
+        },
+        {
+          "line": 203,
+          "text": "1 CHARDEAD 450"
+        },
+        {
+          "line": 204,
+          "text": "1 RANDOM 100"
+        },
+        {
+          "line": 205,
+          "text": "MESSAGE 1 302 0 0 크악!"
+        },
+        {
+          "line": 206,
+          "text": "END"
+        },
+        {
+          "line": 207,
+          "text": ""
+        },
+        {
+          "line": 208,
+          "text": "EVENT 16"
+        },
+        {
+          "line": 209,
+          "text": "CHAR"
+        },
+        {
+          "line": 210,
+          "text": "1 CHARDEAD 460"
+        },
+        {
+          "line": 211,
+          "text": "1 RANDOM 100"
+        },
+        {
+          "line": 212,
+          "text": "MESSAGE 1 303 0 0 으으.."
+        },
+        {
+          "line": 213,
+          "text": "END"
+        },
+        {
+          "line": 214,
+          "text": ""
+        },
+        {
+          "line": 215,
+          "text": "EVENT 17"
+        },
+        {
+          "line": 216,
+          "text": "CHAR"
+        },
+        {
+          "line": 217,
+          "text": "1 CHARDEAD 470"
+        },
+        {
+          "line": 218,
+          "text": "1 RANDOM 100"
+        },
+        {
+          "line": 219,
+          "text": "MESSAGE 1 303 0 0 으으.. 분하다.."
+        },
+        {
+          "line": 220,
+          "text": "END"
+        },
+        {
+          "line": 221,
+          "text": ""
+        },
+        {
+          "line": 222,
+          "text": "EVENT 18"
+        },
+        {
+          "line": 223,
+          "text": "CHAR"
+        },
+        {
+          "line": 224,
+          "text": "1 CHARDEAD 480"
+        },
+        {
+          "line": 225,
+          "text": "1 RANDOM 100"
+        },
+        {
+          "line": 226,
+          "text": "MESSAGE 1 304 0 0 으으.."
+        },
+        {
+          "line": 227,
+          "text": "END"
+        },
+        {
+          "line": 228,
+          "text": ""
+        },
+        {
+          "line": 229,
+          "text": "EVENT 19"
+        },
+        {
+          "line": 230,
+          "text": "CHAR"
+        },
+        {
+          "line": 231,
+          "text": "1 CHARDEAD 490"
+        },
+        {
+          "line": 232,
+          "text": "1 RANDOM 100"
+        },
+        {
+          "line": 233,
+          "text": "MESSAGE 1 304 0 0 으으.."
+        },
+        {
+          "line": 234,
+          "text": "END"
+        },
+        {
+          "line": 235,
+          "text": ""
+        },
+        {
+          "line": 236,
+          "text": "EVENT 51"
+        },
+        {
+          "line": 237,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 238,
+          "text": "CHARONCE"
+        },
+        {
+          "line": 239,
+          "text": "1 CHARPOS 6 21"
+        },
+        {
+          "line": 240,
+          "text": "MESSAGE 2 ME 0 0 괜찮으시오?"
+        },
+        {
+          "line": 241,
+          "text": "MESSAGE 1 805 0 0 으으.. 당신은?"
+        },
+        {
+          "line": 242,
+          "text": "MESSAGE 2 ME 0 0 폐하를 구하러 온 사람이요."
+        },
+        {
+          "line": 243,
+          "text": "MESSAGE 1 805 0 0 이것을 가지고....|부디.. 폐하를..."
+        },
+        {
+          "line": 244,
+          "text": "GOLD 399"
+        },
+        {
+          "line": 245,
+          "text": "MESSAGE 0 0 ME 0 열쇠를 얻었습니다."
+        },
+        {
+          "line": 246,
+          "text": "END"
+        },
+        {
+          "line": 247,
+          "text": ""
+        },
+        {
+          "line": 248,
+          "text": "EVENT 52"
+        },
+        {
+          "line": 249,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 250,
+          "text": "CHARONCE"
+        },
+        {
+          "line": 251,
+          "text": "1 CHARPOS 18 22"
+        },
+        {
+          "line": 252,
+          "text": "1 DUTY_STEP_TRUE 1 1"
+        },
+        {
+          "line": 253,
+          "text": "1 DUTY_STEP_FALSE 1 2"
+        },
+        {
+          "line": 254,
+          "text": "MESSAGE 2 ME 0 0 당신이 혹시 케인의 아들입니까?"
+        },
+        {
+          "line": 255,
+          "text": "MESSAGE 1 805 0 0 그렇습니다만.. "
+        },
+        {
+          "line": 256,
+          "text": "MESSAGE 2 ME 0 0 케인씨의 부탁을 받고 |당신을 구하러 왔소."
+        },
+        {
+          "line": 257,
+          "text": "MESSAGE 1 805 0 0 고맙소만..커헉..난 이미 틀렸소.|대신 아버님께.. |이것을.. 전해.. 주시오.."
+        },
+        {
+          "line": 258,
+          "text": "MESSAGE 1 805 0 0 아버님께서...| 내가 성으로 오던..날.. |주신 물건이요... 나의.. 유품이라...|생각하시고..허억..."
+        },
+        {
+          "line": 259,
+          "text": "MESSAGE 0 0 ME 0 %s가 케인의 목걸이를 얻었습니다."
+        },
+        {
+          "line": 260,
+          "text": "MESSAGE 2 ME 0 0 이런.. "
+        },
+        {
+          "line": 261,
+          "text": "SET_DUTY_STEP 1 2"
+        },
+        {
+          "line": 262,
+          "text": "END"
+        },
+        {
+          "line": 263,
+          "text": ""
+        },
+        {
+          "line": 264,
+          "text": "EVENT 53"
+        },
+        {
+          "line": 265,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 266,
+          "text": "CHARONCE"
+        },
+        {
+          "line": 267,
+          "text": "1 CHARPOS 30 22"
+        },
+        {
+          "line": 268,
+          "text": "1 RANDOM 70"
+        },
+        {
+          "line": 269,
+          "text": "MESSAGE 2 ME 0 0 괜찮으시오?"
+        },
+        {
+          "line": 270,
+          "text": "MESSAGE 1 805 0 0 으으.. 당신은?"
+        },
+        {
+          "line": 271,
+          "text": "MESSAGE 2 ME 0 0 폐하를 구하러 온 사람이요."
+        },
+        {
+          "line": 272,
+          "text": "MESSAGE 1 805 0 0 으으.. |이것을 가지고 가시오..."
+        },
+        {
+          "line": 273,
+          "text": "GETITEM 399"
+        },
+        {
+          "line": 274,
+          "text": "MESSAGE 0 0 ME 0 %s가 열쇠를 얻었습니다."
+        },
+        {
+          "line": 275,
+          "text": "END"
+        },
+        {
+          "line": 276,
+          "text": ""
+        },
+        {
+          "line": 277,
+          "text": "EVENT 54"
+        },
+        {
+          "line": 278,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 279,
+          "text": "CHARONCE"
+        },
+        {
+          "line": 280,
+          "text": "1 CHARPOS 19 10"
+        },
+        {
+          "line": 281,
+          "text": "1 RANDOM 100"
+        },
+        {
+          "line": 282,
+          "text": "MESSAGE 2 ME 0 0 괜찮으시오?"
+        },
+        {
+          "line": 283,
+          "text": "MESSAGE 1 805 0 0 으으.. 당신은?"
+        },
+        {
+          "line": 284,
+          "text": "MESSAGE 2 ME 0 0 폐하를 구하러 온 사람이요."
+        },
+        {
+          "line": 285,
+          "text": "MESSAGE 1 805 0 0 으으..|당신에게.. 도움이 되고 싶은데..|이건..|내 마지막 힘이요| | |썬더스톰!!"
+        },
+        {
+          "line": 286,
+          "text": "MAGIC 2901 -2 16 9 "
+        },
+        {
+          "line": 287,
+          "text": "MAGIC 2901 -2 23 9 "
+        },
+        {
+          "line": 288,
+          "text": "END"
+        },
+        {
+          "line": 289,
+          "text": ""
+        },
+        {
+          "line": 290,
+          "text": "EVENT 60"
+        },
+        {
+          "line": 291,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 292,
+          "text": "ONCE"
+        },
+        {
+          "line": 293,
+          "text": "1 CHARPOS 14 5"
+        },
+        {
+          "line": 294,
+          "text": "1 ITEM 399"
+        },
+        {
+          "line": 295,
+          "text": "2 CHARPOS 15 6"
+        },
+        {
+          "line": 296,
+          "text": "2 ITEM 399"
+        },
+        {
+          "line": 297,
+          "text": "3 CHARPOS 16 5"
+        },
+        {
+          "line": 298,
+          "text": "3 ITEM 399"
+        },
+        {
+          "line": 299,
+          "text": "USEITEM 399"
+        },
+        {
+          "line": 300,
+          "text": "MESSAGE 1 801 800 ID 고맙소 용사여.."
+        },
+        {
+          "line": 301,
+          "text": "GETITEM 303"
+        },
+        {
+          "line": 302,
+          "text": "MESSAGE 0 0 ME 0 %s가 귀한 약초를 얻었습니다."
+        },
+        {
+          "line": 303,
+          "text": "KILLCHAR1 800"
+        },
+        {
+          "line": 304,
+          "text": "END"
+        },
+        {
+          "line": 305,
+          "text": ""
+        },
+        {
+          "line": 306,
+          "text": "EVENT 61"
+        },
+        {
+          "line": 307,
+          "text": "COMMANDER"
+        },
+        {
+          "line": 308,
+          "text": "ONCE"
+        },
+        {
+          "line": 309,
+          "text": "1 CHARPOS 23 5"
+        },
+        {
+          "line": 310,
+          "text": "1 ITEM 399"
+        },
+        {
+          "line": 311,
+          "text": "2 CHARPOS 24 6"
+        },
+        {
+          "line": 312,
+          "text": "2 ITEM 399"
+        },
+        {
+          "line": 313,
+          "text": "3 CHARPOS 25 5"
+        },
+        {
+          "line": 314,
+          "text": "3 ITEM 399"
+        },
+        {
+          "line": 315,
+          "text": "USEITEM 399"
+        },
+        {
+          "line": 316,
+          "text": "MESSAGE 1 802 810 ID 고맙소.."
+        },
+        {
+          "line": 317,
+          "text": "GETITEM 303"
+        },
+        {
+          "line": 318,
+          "text": "MESSAGE 0 0 ME 0 %s가 귀한 약초를 얻었습니다."
+        },
+        {
+          "line": 319,
+          "text": "KILLCHAR1 810"
+        },
+        {
+          "line": 320,
+          "text": "END"
+        },
+        {
+          "line": 321,
+          "text": ""
+        },
+        {
+          "line": 322,
+          "text": "EVENT 99"
+        },
+        {
+          "line": 323,
+          "text": "CHAR"
+        },
+        {
+          "line": 324,
+          "text": "1 CHARDEAD 700"
+        },
+        {
+          "line": 325,
+          "text": "MESSAGE 1 701 700 A 으.. 분하다.. | 억울하지만.. 여기선 일단 물러나야겠군.."
+        },
+        {
+          "line": 326,
+          "text": "SCENECLEAR"
+        },
+        {
+          "line": 327,
+          "text": "END"
+        }
+      ]
+    },
+    {
+      "name": "01.srf",
+      "path": "분석/Saver_Late/decoded/map/01set.arc/01.srf",
+      "role": "시나리오 소개·승리 조건 안내.",
+      "originalSha256": "0ca22afd06ca4942e237b9ab26da805601085eabe8a04cd3727150c2ad42c70c",
+      "lines": [
+        {
+          "line": 1,
+          "text": "브르고스궁"
+        },
+        {
+          "line": 2,
+          "text": "01"
+        },
+        {
+          "line": 3,
+          "text": "V1 늑대인간(키스라)의 처치"
+        },
+        {
+          "line": 4,
+          "text": "V2"
+        },
+        {
+          "line": 5,
+          "text": " 브린힐트의 본성으로 웅장함을 자랑했으나 지금은"
+        },
+        {
+          "line": 6,
+          "text": "보름스 국의 침투로 폐허처럼 되어 버렸다. 왕은"
+        },
+        {
+          "line": 7,
+          "text": "궁성의 중앙부에서 몬스터들의 포로가 되어 있다."
+        },
+        {
+          "line": 8,
+          "text": ""
+        },
+        {
+          "line": 9,
+          "text": "승리조건 : 늑대인간(키스라)의 처치"
+        }
+      ]
+    }
+  ]
+}

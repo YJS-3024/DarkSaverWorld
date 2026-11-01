@@ -1,0 +1,19 @@
+{
+  "result": {
+    "_meta": {
+      "provenance": {
+        "untrusted_content": true,
+        "source": "analysis_target"
+      }
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"error\":{\"code\":\"evidence_integrity_mismatch\",\"category\":\"integrity_mismatch\",\"message\":\"Analysis snapshots are unavailable because analysis metadata may have changed. Export session observations through export_evidence_bundle if needed. Close the active target without saving a snapshot, then reopen it before importing or saving a snapshot.\",\"retryable\":false,\"remediation\":{\"action\":\"Analysis snapshots are unavailable because analysis metadata may have changed. Export session observations through export_evidence_bundle if needed. Close the active target without saving a snapshot, then reopen it before importing or saving a snapshot.\"},\"details\":{\"reason\":\"Analysis snapshots are unavailable because analysis metadata may have changed\"}}}"
+      }
+    ],
+    "isError": true
+  },
+  "jsonrpc": "2.0",
+  "id": 32
+}

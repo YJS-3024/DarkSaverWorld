@@ -1,0 +1,267 @@
+{
+  "scope": "Selected native analysis refactor, not a complete source recovery or original runtime validation",
+  "ghidraVersion": "12.1.4",
+  "reaVersion": "6.8.0",
+  "targets": [
+    {
+      "target": "UserUnit",
+      "sourceSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "originalUnchanged": true,
+      "functionCount": 7,
+      "functions": [
+        {
+          "address": "0x1000b0a0",
+          "name": "ApplyUnitSnapshot",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_bd6a6b819cc44f428c5134c4eee91fd6eeb34b3d736fd80affb99285de667446",
+          "typedCode": "분석/Ghidra/typed/UserUnit/ApplyUnitSnapshot.c"
+        },
+        {
+          "address": "0x1000ea80",
+          "name": "SpawnActorFromScriptArguments",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_bb7b7a22e13a8bc0e1e86c89d60879fe3d1e1f665d613d49ff3e37c44f7621a5",
+          "typedCode": "분석/Ghidra/typed/UserUnit/SpawnActorFromScriptArguments.c"
+        },
+        {
+          "address": "0x1000ee60",
+          "name": "BuildScriptUnitSnapshot",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_00951825888ae648e62a8fd9a285faed57759b3b87704c7187a786080d880e5d",
+          "typedCode": "분석/Ghidra/typed/UserUnit/BuildScriptUnitSnapshot.c"
+        },
+        {
+          "address": "0x1000ef10",
+          "name": "UpdateScriptActorPlacement",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_9ef6510b45e929699853f7a6a4b54da621d03be10e92208e16ba8abae9c4d433",
+          "typedCode": "분석/Ghidra/typed/UserUnit/UpdateScriptActorPlacement.c"
+        },
+        {
+          "address": "0x10002b40",
+          "name": "LoadScenarioAiRules",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_be3ef83f471bdb31867c3ec5ad6fe91f185cc4dd2f2c8fecd2460c89d9e6638e",
+          "typedCode": "분석/Ghidra/typed/UserUnit/LoadScenarioAiRules.c"
+        },
+        {
+          "address": "0x100015a0",
+          "name": "ActivateUnitAndCommanderAi",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_45f5857423819e88337ff09165ca8072dd6b8f86b574180d7f4aa3dd55a1075a",
+          "typedCode": "분석/Ghidra/typed/UserUnit/ActivateUnitAndCommanderAi.c"
+        },
+        {
+          "address": "0x10002420",
+          "name": "DispatchUnitAiByRole",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_42062843aa9d216e3bb09757eaf78d1839d091660b1c272f97533fcc945e61c3",
+          "typedCode": "분석/Ghidra/typed/UserUnit/DispatchUnitAiByRole.c"
+        }
+      ],
+      "recoveredProjectEntries": []
+    },
+    {
+      "target": "GameCtl",
+      "sourceSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+      "originalUnchanged": true,
+      "functionCount": 7,
+      "functions": [
+        {
+          "address": "0x10002d30",
+          "name": "ReceiveGamePacket",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_d4ebaf147a9933e5a3cc9e24ded28fb4885c58b62941b71cd6afecd7d3ff5d6f",
+          "typedCode": "분석/Ghidra/typed/GameCtl/ReceiveGamePacket.c"
+        },
+        {
+          "address": "0x1000eb10",
+          "name": "DispatchGamePacket",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_67c5aa8f8e3d43b42f3dc36bd42419cff087ff21b0acca06dca307b00bdfcb2e",
+          "typedCode": "분석/Ghidra/typed/GameCtl/DispatchGamePacket.c"
+        },
+        {
+          "address": "0x1000c7d0",
+          "name": "DecodeUnitSnapshot_5C50",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_9b88e8f6beb0e79caf19f544ac8ba6391849d0556a1e3f6771280eebf9d43a7d",
+          "typedCode": "분석/Ghidra/typed/GameCtl/DecodeUnitSnapshot_5C50.c"
+        },
+        {
+          "address": "0x1000cb90",
+          "name": "DecodeUnitSnapshot_5C51",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_1cbab0915b1d8afa82d7308555f19c98258442815215f8e9cf291dbdc300001a",
+          "typedCode": "분석/Ghidra/typed/GameCtl/DecodeUnitSnapshot_5C51.c"
+        },
+        {
+          "address": "0x100105a0",
+          "name": "ExecuteCharPosCommand",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_c0ebc1b7786daa542d19c5ee6919890b85c57ceed838e7d0763b68e214bca774",
+          "typedCode": "분석/Ghidra/typed/GameCtl/ExecuteCharPosCommand.c"
+        },
+        {
+          "address": "0x10003da0",
+          "name": "LoadScenarioBriefing",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_dc38fd728039c4a07dea5997f02e99db408655454826d40996192784b87a9755",
+          "typedCode": "분석/Ghidra/typed/GameCtl/LoadScenarioBriefing.c"
+        },
+        {
+          "address": "0x10013d60",
+          "name": "LoadScenarioEventActions",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_685f13ea3fafde49059a7303568d4292ef8e0805341534074ad4cb178c4ca304",
+          "typedCode": "분석/Ghidra/typed/GameCtl/LoadScenarioEventActions.c"
+        }
+      ],
+      "recoveredProjectEntries": []
+    },
+    {
+      "target": "SetUnit",
+      "sourceSha256": "71b6ca3f0d7fc16405f5ea728fc0522982e2eaac169e3a1a6eb74a36e41bfaca",
+      "originalUnchanged": true,
+      "functionCount": 5,
+      "functions": [
+        {
+          "address": "0x10002550",
+          "name": "LoadCommonGameTables",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_d28615d8e813514642726bc4c6a3bed0dd86e014b7671db15a87e56ce82d2325",
+          "typedCode": "분석/Ghidra/typed/SetUnit/LoadCommonGameTables.c"
+        },
+        {
+          "address": "0x100011a0",
+          "name": "LoadTileAttributeTable",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_0bccafb1de232e08efdedbc88a2a30e96e56a441001d9de7871f3716e8e925db",
+          "typedCode": "분석/Ghidra/typed/SetUnit/LoadTileAttributeTable.c"
+        },
+        {
+          "address": "0x10001420",
+          "name": "LoadAbilityDefinitionTables",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_9914fa128e275c03eababea41d79a906adb910a5e8b5efb7a8705952848d994f",
+          "typedCode": "분석/Ghidra/typed/SetUnit/LoadAbilityDefinitionTables.c"
+        },
+        {
+          "address": "0x10001a10",
+          "name": "LoadItemDefinitionTables",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_ece18855e9c2350c4d7e83d60b475e2d2f24574b345a38edf530ddda9254fdb9",
+          "typedCode": "분석/Ghidra/typed/SetUnit/LoadItemDefinitionTables.c"
+        },
+        {
+          "address": "0x10001ed0",
+          "name": "LoadMagicDefinitionTables",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_659ed41e8620d511f1777c9a0b89699efa2c29622834049dfe553892cc2aaebf",
+          "typedCode": "분석/Ghidra/typed/SetUnit/LoadMagicDefinitionTables.c"
+        }
+      ],
+      "recoveredProjectEntries": []
+    },
+    {
+      "target": "DManage",
+      "sourceSha256": "08e34fe7a497439ba65b33f3d9b661cbd20ddf098cf536c301337870b2f776f3",
+      "originalUnchanged": true,
+      "functionCount": 4,
+      "functions": [
+        {
+          "address": "0x10007e50",
+          "name": "ReplaceAndLoadMapGeometry",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_9321d8a2133e4a484d7d50a47ec9245b9ceeb2bc204bda156fd704c63659e6c4",
+          "typedCode": "분석/Ghidra/typed/DManage/ReplaceAndLoadMapGeometry.c"
+        },
+        {
+          "address": "0x1000a850",
+          "name": "DecodeMrcMapGeometry",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_82a5c74401e0e25eba24d54c1d7af0062bca7bfc164d4ae1648ae3d883a0c77b",
+          "typedCode": "분석/Ghidra/typed/DManage/DecodeMrcMapGeometry.c"
+        },
+        {
+          "address": "0x10007f00",
+          "name": "LoadMapResourcesAndGeometry",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_c820287d716d7e4f2d4fa8d60d4e7ec65b6f9dc8bb9f5cdb30de2e3e08b97f06",
+          "typedCode": "분석/Ghidra/typed/DManage/LoadMapResourcesAndGeometry.c"
+        },
+        {
+          "address": "0x10007d00",
+          "name": "ResetVisibleSpriteCache",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_026ea85466b9c0f3b81a7926348c1536c8f2943e86aaa4702ebb10ff0ae6a0ae",
+          "typedCode": "분석/Ghidra/typed/DManage/ResetVisibleSpriteCache.c"
+        }
+      ],
+      "recoveredProjectEntries": []
+    },
+    {
+      "target": "Saver",
+      "sourceSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+      "originalUnchanged": true,
+      "functionCount": 5,
+      "functions": [
+        {
+          "address": "0x43bc50",
+          "name": "LoadScenarioAiAndEventMembers",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_22778f1215f099994b3be485604719d0ec5e1d50c2524b6f0cc989ac08d37095",
+          "typedCode": "분석/Ghidra/typed/Saver/LoadScenarioAiAndEventMembers.c"
+        },
+        {
+          "address": "0x4419c0",
+          "name": "RouteReceivedGameMessage",
+          "mcpAnnotated": false,
+          "evidenceId": null,
+          "typedCode": "분석/Ghidra/typed/Saver/RouteReceivedGameMessage.c"
+        },
+        {
+          "address": "0x42a9a0",
+          "name": "PopulateActorsFromUnitRecords_A",
+          "mcpAnnotated": false,
+          "evidenceId": null,
+          "typedCode": "분석/Ghidra/typed/Saver/PopulateActorsFromUnitRecords_A.c"
+        },
+        {
+          "address": "0x42def0",
+          "name": "PopulateActorFromUnitRecord_B",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_2a7b5792c242a5ef270817ef3bb13e5045949cb477ae43f159bc34f929ac775a",
+          "typedCode": "분석/Ghidra/typed/Saver/PopulateActorFromUnitRecord_B.c"
+        },
+        {
+          "address": "0x42f670",
+          "name": "PopulateActorFromUnitRecord_C",
+          "mcpAnnotated": true,
+          "evidenceId": "ev_96ef3ed91bbf01e18dcf77f62fbacf886fdda6bbf87fa160a8767b9616b595c3",
+          "typedCode": "분석/Ghidra/typed/Saver/PopulateActorFromUnitRecord_C.c"
+        }
+      ],
+      "recoveredProjectEntries": [
+        "0x4419c0",
+        "0x42a9a0"
+      ]
+    }
+  ],
+  "targetCount": 5,
+  "typedFunctionCount": 28,
+  "mcpAnnotatedFunctionCount": 26,
+  "recoveredHeadlessFunctionCount": 2,
+  "reopenedProject": true,
+  "originalFilesUnchanged": true,
+  "nativeSyntheticCases": 6,
+  "compiledPartialLayouts": true,
+  "project": "분석/Ghidra/projects/DarkSaverOriginal.gpr",
+  "limitations": [
+    "Names/comments and partial struct layouts are analyst annotations, not original source names.",
+    "REA snapshot files contain observations/profile state, not a persistent Ghidra project database.",
+    "MCP did not identify two Saver bodies; the separate project recovered their entries and verified required native call sites.",
+    "Static decompilation and synthetic x86 probes do not establish original Windows playback or Unity Play.",
+    "No additional historical scenario01..25 initial monster roster has been recovered by this refactor."
+  ]
+}

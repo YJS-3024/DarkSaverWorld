@@ -1,0 +1,108 @@
+{
+  "result": {
+    "_meta": {
+      "provenance": {
+        "untrusted_content": true,
+        "source": "analysis_target"
+      }
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"evidence_id\":\"ev_9b88e8f6beb0e79caf19f544ac8ba6391849d0556a1e3f6771280eebf9d43a7d\",\"subject\":{\"name\":\"GameCtl.dll\",\"digest\":{\"sha256\":\"f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0\"},\"local_path\":\"/workspace/.tools/ds-ghidra/installed/saver/GameCtl.dll\",\"format\":\"pe\",\"architecture\":\"x86\"},\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"analysis_profile\":{\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"parameters\":{\"target_kind\":\"executable\",\"target_format\":\"pe\",\"executable_role\":\"shared-library\",\"managed\":false,\"native_aot_metadata\":{\"contract_revision\":\"rtr-9.1-x64-pe-read-only-v7\",\"source_bytes\":134217728,\"work_units\":67108864,\"working_memory_bytes\":67108864,\"report_bytes\":4194304},\"architecture\":\"x86\",\"available_architectures\":[\"x86\"],\"import_mode\":\"ephemeral-source-immutable\",\"pdb_observations\":\"program-info-v5\",\"annotation_policy\":\"atomic-function-entry-metadata-v1\",\"load_image_observations\":\"source-mappings-entry-context-v2\",\"function_body_evidence\":\"complete-inclusive-ranges-v1\",\"function_references\":\"complete-body-and-entry-reference-manager-v2\",\"call_relationship_coverage\":\"function-body-call-coverage-v5\",\"function_dossier_coverage\":\"observed-facets-and-call-relationships-v1\",\"string_inventory_evidence\":\"defined-data-coverage-v1\",\"location_resolution\":\"explicit-address-exact-entry-symbol-first-v3\",\"procedure_file_offset_resolution\":\"address-first-unique-target-source-mapping-v2\",\"instruction_flow_evidence\":\"decoded-return-pcode-v1\",\"instruction_references\":\"exact-address-incoming-without-synthetic-entry-v2\",\"function_boundary_observations\":\"ghidra-function-boundary-limitations-v4\",\"no_return_repair\":\"returning-imports-decoded-return-v2\",\"process_launch\":\"inspected-jvm-launch-support-v1\",\"jump_table_evidence\":\"typed-case-default-blocks-v1\",\"decompiler_jump_loads\":true,\"loader\":\"auto-from-header\",\"language_id\":\"auto-from-header\",\"compiler_spec_id\":\"auto-default\",\"analyzer_preset\":\"ghidra-default\",\"function_coordinate_context\":{\"kind\":\"native-function-coordinate-context-v1\",\"selected_image\":null,\"mapping_sha256\":\"55a7964dc0bcdf067484a281c658e6ca8457a49405e0ea9dbd080366ee4c3198\"}},\"digest\":\"e763201e522a4b123fb330eede09834c44ddf2bb90702e50eea219801be95539\"},\"predicate_type\":\"rea.analysis\",\"operation\":\"procedure_pseudo_code\",\"parameters\":{\"procedure\":\"0x1000c7d0\"},\"raw_result\":null,\"normalized_result\":\"\\nvoid __cdecl DecodeUnitSnapshot_5C50(int param_1)\\n\\n{\\n  byte bVar1;\\n  short *psVar2;\\n  undefined4 *puVar3;\\n  byte *pbVar4;\\n  char *pcVar5;\\n  int iVar6;\\n  int iVar7;\\n  int iVar8;\\n  int local_ec;\\n  short local_e8;\\n  short local_e6;\\n  short local_e4;\\n  short local_e2;\\n  short local_e0;\\n  short local_dc;\\n  short local_da;\\n  short local_d8;\\n  short local_d6;\\n  short local_d4;\\n  short local_d2;\\n  short local_d0;\\n  short local_ce;\\n  short local_cc;\\n  short local_ca;\\n  undefined4 local_c8;\\n  undefined4 local_c4;\\n  byte local_c0;\\n  undefined3 uStack_bf;\\n  int local_bc;\\n  int local_b8;\\n  int local_b4;\\n  undefined4 local_b0;\\n  undefined4 local_ac;\\n  undefined4 local_a8;\\n  int local_a4;\\n  int local_a0;\\n  int local_9c;\\n  undefined4 local_98;\\n  undefined4 local_94;\\n  int local_90;\\n  int local_8c;\\n  int local_88;\\n  undefined4 local_84;\\n  undefined4 local_80;\\n  undefined4 local_7c;\\n  undefined4 local_78;\\n  int local_74;\\n  int local_70;\\n  undefined4 local_6c;\\n  undefined4 local_68;\\n  int local_64;\\n  int local_60;\\n  int local_5c;\\n  undefined4 local_58 [8];\\n  undefined4 local_38 [8];\\n  CString local_18 [4];\\n  CString local_14 [4];\\n  int local_10;\\n  void *local_c;\\n  undefined1 *puStack_8;\\n  undefined4 local_4;\\n  \\n                    /* Decode the5C50 message body (the caller skips the two opcode bytes),\\n                       construct unitinfo, call UserUnit.resetcharacter. Whole-message placement\\n                       offsets: unit2, job6, native tileX30,Y32. Other fields are preserved rather\\n                       than assigned guessed meanings. */\\n  local_4 = 0xffffffff;\\n  puStack_8 = &LAB_1001541b;\\n  local_c = ExceptionList;\\n  local_ec = 0;\\n  ExceptionList = &local_c;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_e8 = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_e6 = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_e4 = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_e2 = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_e0 = *psVar2;\\n  FUN_1000c540(param_1,&local_ec);\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_dc = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_da = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_d8 = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_d6 = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_d4 = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_d2 = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_d0 = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_ce = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_cc = *psVar2;\\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\\n  local_ca = *psVar2;\\n  puVar3 = (undefined4 *)FUN_1000c5c0(param_1,&local_ec);\\n  local_c8 = *puVar3;\\n  puVar3 = (undefined4 *)FUN_1000c5c0(param_1,&local_ec);\\n  local_c4 = *puVar3;\\n  pbVar4 = (byte *)FUN_1000c560(param_1,&local_ec);\\n  bVar1 = *pbVar4;\\n  _local_c0 = CONCAT31(uStack_bf,bVar1);\\n  pcVar5 = operator_new(bVar1 + 1);\\n  FUN_1000c580(param_1,&local_ec,(undefined4 *)pcVar5,(uint)bVar1);\\n  CString::CString(local_18);\\n  local_4 = 0;\\n  CString::CString(local_14);\\n  local_b8 = (int)local_e4;\\n  local_b4 = (int)local_e2;\\n  local_a4 = (int)local_e0;\\n  iVar8 = (int)local_e8;\\n  local_a0 = (int)local_dc;\\n  local_9c = (int)local_da;\\n  local_90 = (int)local_d4;\\n  local_8c = (int)local_d2;\\n  local_4 = 1;\\n  local_b0 = 0;\\n  local_ac = 0;\\n  local_a8 = 0;\\n  local_98 = 0;\\n  local_94 = 0;\\n  local_88 = (int)local_d0;\\n  local_70 = (int)local_ca;\\n  iVar7 = (int)local_cc;\\n  local_68 = local_c4;\\n  local_64 = (int)local_d8;\\n  local_5c = (int)local_e6;\\n  local_6c = local_c8;\\n  local_84 = 0;\\n  local_60 = (int)local_d6;\\n  local_80 = 0;\\n  local_78 = 0;\\n  local_7c = 0x32;\\n  puVar3 = local_58;\\n  for (iVar6 = 8; iVar6 != 0; iVar6 = iVar6 + -1) {\\n    *puVar3 = 0xffffffff;\\n    puVar3 = puVar3 + 1;\\n  }\\n  puVar3 = local_38;\\n  for (iVar6 = 8; iVar6 != 0; iVar6 = iVar6 + -1) {\\n    *puVar3 = 0xffffffff;\\n    puVar3 = puVar3 + 1;\\n  }\\n  local_bc = iVar8;\\n  local_74 = iVar7;\\n  CString::Empty(local_18);\\n  CString::operator=(local_14,pcVar5);\\n  local_10 = (int)local_ce;\\n  resetcharacter((unitinfo *)&local_bc);\\n  operator_delete(pcVar5);\\n  FUN_1000c680(iVar8,iVar7,(int)local_ca);\\n  local_4 = 2;\\n  CString::~CString(local_14);\\n  local_4 = 0xffffffff;\\n  CString::~CString(local_18);\\n  ExceptionList = local_c;\\n  return;\\n}\\n\\n\",\"confidence\":\"observed\",\"authority\":\"shipped-artifact\",\"environment\":null,\"limitations\":[\"The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.\",\"The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.\",\"Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.\",\"Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.\",\"Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.\",\"External functions and functions without an analyzable body return null; other decompiler failures remain explicit.\"],\"relationship_coverage\":null,\"locations\":[],\"evidence_links\":[]}"
+      }
+    ],
+    "structuredContent": {
+      "evidence_id": "ev_9b88e8f6beb0e79caf19f544ac8ba6391849d0556a1e3f6771280eebf9d43a7d",
+      "subject": {
+        "name": "GameCtl.dll",
+        "digest": {
+          "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0"
+        },
+        "local_path": "/workspace/.tools/ds-ghidra/installed/saver/GameCtl.dll",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "shared-library",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v7",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "returning-imports-decoded-return-v2",
+          "process_launch": "inspected-jvm-launch-support-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default",
+          "function_coordinate_context": {
+            "kind": "native-function-coordinate-context-v1",
+            "selected_image": null,
+            "mapping_sha256": "55a7964dc0bcdf067484a281c658e6ca8457a49405e0ea9dbd080366ee4c3198"
+          }
+        },
+        "digest": "e763201e522a4b123fb330eede09834c44ddf2bb90702e50eea219801be95539"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_pseudo_code",
+      "parameters": {
+        "procedure": "0x1000c7d0"
+      },
+      "raw_result": null,
+      "normalized_result": "\nvoid __cdecl DecodeUnitSnapshot_5C50(int param_1)\n\n{\n  byte bVar1;\n  short *psVar2;\n  undefined4 *puVar3;\n  byte *pbVar4;\n  char *pcVar5;\n  int iVar6;\n  int iVar7;\n  int iVar8;\n  int local_ec;\n  short local_e8;\n  short local_e6;\n  short local_e4;\n  short local_e2;\n  short local_e0;\n  short local_dc;\n  short local_da;\n  short local_d8;\n  short local_d6;\n  short local_d4;\n  short local_d2;\n  short local_d0;\n  short local_ce;\n  short local_cc;\n  short local_ca;\n  undefined4 local_c8;\n  undefined4 local_c4;\n  byte local_c0;\n  undefined3 uStack_bf;\n  int local_bc;\n  int local_b8;\n  int local_b4;\n  undefined4 local_b0;\n  undefined4 local_ac;\n  undefined4 local_a8;\n  int local_a4;\n  int local_a0;\n  int local_9c;\n  undefined4 local_98;\n  undefined4 local_94;\n  int local_90;\n  int local_8c;\n  int local_88;\n  undefined4 local_84;\n  undefined4 local_80;\n  undefined4 local_7c;\n  undefined4 local_78;\n  int local_74;\n  int local_70;\n  undefined4 local_6c;\n  undefined4 local_68;\n  int local_64;\n  int local_60;\n  int local_5c;\n  undefined4 local_58 [8];\n  undefined4 local_38 [8];\n  CString local_18 [4];\n  CString local_14 [4];\n  int local_10;\n  void *local_c;\n  undefined1 *puStack_8;\n  undefined4 local_4;\n  \n                    /* Decode the5C50 message body (the caller skips the two opcode bytes),\n                       construct unitinfo, call UserUnit.resetcharacter. Whole-message placement\n                       offsets: unit2, job6, native tileX30,Y32. Other fields are preserved rather\n                       than assigned guessed meanings. */\n  local_4 = 0xffffffff;\n  puStack_8 = &LAB_1001541b;\n  local_c = ExceptionList;\n  local_ec = 0;\n  ExceptionList = &local_c;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_e8 = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_e6 = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_e4 = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_e2 = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_e0 = *psVar2;\n  FUN_1000c540(param_1,&local_ec);\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_dc = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_da = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_d8 = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_d6 = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_d4 = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_d2 = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_d0 = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_ce = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_cc = *psVar2;\n  psVar2 = (short *)FUN_1000c540(param_1,&local_ec);\n  local_ca = *psVar2;\n  puVar3 = (undefined4 *)FUN_1000c5c0(param_1,&local_ec);\n  local_c8 = *puVar3;\n  puVar3 = (undefined4 *)FUN_1000c5c0(param_1,&local_ec);\n  local_c4 = *puVar3;\n  pbVar4 = (byte *)FUN_1000c560(param_1,&local_ec);\n  bVar1 = *pbVar4;\n  _local_c0 = CONCAT31(uStack_bf,bVar1);\n  pcVar5 = operator_new(bVar1 + 1);\n  FUN_1000c580(param_1,&local_ec,(undefined4 *)pcVar5,(uint)bVar1);\n  CString::CString(local_18);\n  local_4 = 0;\n  CString::CString(local_14);\n  local_b8 = (int)local_e4;\n  local_b4 = (int)local_e2;\n  local_a4 = (int)local_e0;\n  iVar8 = (int)local_e8;\n  local_a0 = (int)local_dc;\n  local_9c = (int)local_da;\n  local_90 = (int)local_d4;\n  local_8c = (int)local_d2;\n  local_4 = 1;\n  local_b0 = 0;\n  local_ac = 0;\n  local_a8 = 0;\n  local_98 = 0;\n  local_94 = 0;\n  local_88 = (int)local_d0;\n  local_70 = (int)local_ca;\n  iVar7 = (int)local_cc;\n  local_68 = local_c4;\n  local_64 = (int)local_d8;\n  local_5c = (int)local_e6;\n  local_6c = local_c8;\n  local_84 = 0;\n  local_60 = (int)local_d6;\n  local_80 = 0;\n  local_78 = 0;\n  local_7c = 0x32;\n  puVar3 = local_58;\n  for (iVar6 = 8; iVar6 != 0; iVar6 = iVar6 + -1) {\n    *puVar3 = 0xffffffff;\n    puVar3 = puVar3 + 1;\n  }\n  puVar3 = local_38;\n  for (iVar6 = 8; iVar6 != 0; iVar6 = iVar6 + -1) {\n    *puVar3 = 0xffffffff;\n    puVar3 = puVar3 + 1;\n  }\n  local_bc = iVar8;\n  local_74 = iVar7;\n  CString::Empty(local_18);\n  CString::operator=(local_14,pcVar5);\n  local_10 = (int)local_ce;\n  resetcharacter((unitinfo *)&local_bc);\n  operator_delete(pcVar5);\n  FUN_1000c680(iVar8,iVar7,(int)local_ca);\n  local_4 = 2;\n  CString::~CString(local_14);\n  local_4 = 0xffffffff;\n  CString::~CString(local_18);\n  ExceptionList = local_c;\n  return;\n}\n\n",
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    }
+  },
+  "jsonrpc": "2.0",
+  "id": 63
+}

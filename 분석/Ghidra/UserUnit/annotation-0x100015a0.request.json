@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x100015a0",
+      "name": "ActivateUnitAndCommanderAi",
+      "comment": "Original export setmonsterai. For the selected active unit and its decimal commander floor(unit/10)*10, write AI state +0x108=2 when the original eligibility fields are nonzero. This activates AI; it does not load a monster roster or determine job/count."
+    }
+  },
+  "timeout": 900
+}

@@ -41,6 +41,12 @@ Runtime/Editor/Player API 오류0·경고0과 입구289개·캠페인464개 회�
 
 검사 명령은 `python Tools/OriginalWorldChecks/check_gateways.py`, 결과는 `Tools/OriginalWorldChecks/gateway-check.json`이다. 입구 관리형289개·기존 캠페인464개, Runtime/Editor/Player API 오류0·경고0을 확인했다. 출발3×1·6×1·1×3·2×3과 도착2×1·1×2·2×2, 가로↔세로 연결·왕복·출구 내 보행/재접속·수정본 해제·저장 실패 재시도·그룹/목록 순서 저장을 포함한다. 실제 Unity 창의 마우스 조작/Play 확인은 미실행이다.
 
+## 01~25 다른 파일·생성 경로 재조사 (2026-10-31)
+
+`audit_initial_roster_sources.py`로 설치 페이로드11개·중복 제외ARC151개 내부 목록, 대상 MRC25종·대본/AI·BAK를 검사했다. 01~25 초기 SET/POS 표는 복구하지 못했다. 원본 `5C50/51` 파서와 `resetcharacter` 좌표 복사를 시험 메시지6건으로 확인했지만 당시 전체 배치값을 확보한 것으로 표시하지 않는다. 게임/사용자 배치 변경은 없다. 결과·버전별 함수 주소·검사 한계는 [출처 확인 분석](../../분석/Saver_Late/initial_roster_source_audit.md)에 기록했다.
+
+후속으로 Candid.dat를 원본 전용 해제 코드로 복원/체크섬 대조해 금칙어 표와 동일함을 확인했고, RollingCommon.dat·29.all·직접 생성/위치 설정 호출10곳·기존 추출ARC123개의 목록 포함 여부를 조사했다. 별도01~25 초기 편성은 복구하지 못했다. `otherFiles` JSON과 위 분석의 후보별 상태를 참고한다.
+
 ## ‘원본 전투 편성 미확보’ 문구와 배치 목록 연결 (2026-10-31)
 
 이전 편집툴은 SET/POS 텍스트만 읽었다. 현재는 둘이 모두 있으면 기존대로 사용하고,한쪽 또는둘 다 누락되면 `Assets/_Original/Data/Placements/scenario_monster_placements.json`의 검증된 원본 항목을 읽는다. 해당 맵의 지도 해시와 남은 텍스트의 원본 해시를 검사하며 LF/CRLF 차이는 허용한다. 다른 내용/버전과는 합치지 않는다. 사용한 목록의 해시도 편집 파일에 기록하고 저장 시 다시 확인한다.

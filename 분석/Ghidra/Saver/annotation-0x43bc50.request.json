@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x43bc50",
+      "name": "LoadScenarioAiAndEventMembers",
+      "comment": "Read <scenario>.ai and <scenario>.evt from Map\\<scenario>set.arc. Keep member retrieval separate from runtime unit creation."
+    }
+  },
+  "timeout": 900
+}

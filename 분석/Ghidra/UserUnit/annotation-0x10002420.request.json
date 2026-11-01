@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x10002420",
+      "name": "DispatchUnitAiByRole",
+      "comment": "Original export _ai. Branch using unit modulo10: commander slots and soldier slots use different AI execution paths. This selects AI behavior, not initial spawn coordinates."
+    }
+  },
+  "timeout": 900
+}

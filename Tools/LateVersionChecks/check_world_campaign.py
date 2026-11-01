@@ -68,7 +68,8 @@ def main():
    for direction in ['Up','Down','Left','Right']:
     for frame in range(3):check((scenarios/f"Shared/Characters/{unit['job']}_{direction}_{frame}.png").exists(),('unit artwork',key,unit['job']))
   required={int(c['args'][0]) for e in definition['events'] for c in e['conditions'] if c['name']=='CHARDEAD'}
-  check(required==set(row['requiredDeaths']) and required<={u['id'] for u in definition['units']},('clear targets exist',key))
+  check(required==set(row['requiredDeaths']),('source clear-condition references',key))
+  check(definition['deploymentSource']=='original-missing' and definition['units']==[],('no invented initial roster',key))
   folder=ROOT/f'분석/Saver_Late/decoded/map/{key}set.arc'
   lists=[(definition['intro'],folder/(key+'.deo')),(definition['outro'],folder/(key+'.dee'))]
   for commands,path in lists:
@@ -89,7 +90,7 @@ def main():
    check(sum(s['path']==rel and s['enabled'] for s in build)==1,('enabled scene unique',key,runtime))
    guid=re.search(r'guid: (\w+)',path.with_name(path.name+'.meta').read_text())[1];entry=next(s for s in build if s['path']==rel)
    check(entry['guid']=={f'data[{i}]':int(guid[i*8:i*8+8][::-1],16) for i in range(4)},('scene GUID',key,runtime))
- janus=read(scenarios/'33/Content.json');boss=next(u for u in janus['units'] if u['id']==700);check(boss['job']==767 and boss['hp']==30000,'explicit late Janus identity and base HP')
+ janus=read(scenarios/'33/Content.json');check(janus['deploymentSource']=='original-missing' and janus['units']==[],'Janus initial roster is not inferred from an ending actor')
  resume=read(ROOT/'Assets/_Game/Resources/World/LateLayoutResume.json')
  for area in resume['maps']:
   key={'Kaosia_Map':'Kaosia','Belpueus_Map':'Belpueus','World1010_Map':'WorldField1010'}[area['mapScene']];native,data,component=regions[key];w,h=data['width'],data['height']

@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x10013d60",
+      "name": "LoadScenarioEventActions",
+      "comment": "Read the scenario .evt and populate client event action storage. Numeric-prefixed condition lines are distinguished from executable action lines; this is not an initial unit roster loader."
+    }
+  },
+  "timeout": 900
+}

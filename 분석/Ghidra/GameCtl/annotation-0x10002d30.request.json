@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x10002d30",
+      "name": "ReceiveGamePacket",
+      "comment": "Original export OnPacketReceive. Nonempty packet input is forwarded into the game packet dispatcher; no target execution has been observed."
+    }
+  },
+  "timeout": 900
+}

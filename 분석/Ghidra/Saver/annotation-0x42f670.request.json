@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x42f670",
+      "name": "PopulateActorFromUnitRecord_C",
+      "comment": "Build a scripted-actor string from a stored unit record, call dmSetChar and update its placement with dmSetChar2. Runtime record use is separate from roster file discovery."
+    }
+  },
+  "timeout": 900
+}

@@ -8,7 +8,6 @@ from world_asset_baker import ROOT,load_map,walkable,frame,resource
 def read(path):return json.loads(path.read_text())
 def main():
     base=ROOT/'Assets/_Game/Resources/Scenarios';manifest=read(ROOT/'Tools/MapChecks/scenarios_02_17_resources.json')
-    plan=read(ROOT/'닥세_리소스/분석결과/싱글판_배치보완안.json')
     entrances=read(base/'Shared/Entrances.json')['entries'];assert len(entrances)==17
     build_env=UnityPy.load(str(ROOT/'ProjectSettings/EditorBuildSettings.asset'))
     build=next(o.read_typetree()['m_Scenes'] for o in build_env.objects if o.type.name=='EditorBuildSettings')
@@ -22,15 +21,8 @@ def main():
             row=manifest['scenarios'][n-2];assert row['sourceHash']==data['sourceHash']
             native=load_map(key);w,h=data['width'],data['height'];component=walkable(native,{3,6,9})
             assert component=={(v%w,v//w) for v in data['traversalCells']}
-            source_units={r['unit']:r for r in plan['units'] if r['scenario']==key}
-            assert set(source_units)=={u['id'] for u in data['units']}
-            occupied=set()
-            for u in data['units']:
-                src=source_units[u['id']];assert (u['job'],u['wave'])==(src['ability_id'],src['spawn_wave'])
-                assert (u['x'],u['y']) in component and (u['wave'],u['x'],u['y']) not in occupied
-                occupied.add((u['wave'],u['x'],u['y']));units+=1
-            for s in data['statSentinels']:
-                u=next(u for u in data['units'] if u['id']==s['unit']);assert (u['mp'],u['magicAttack'])==(0,0)
+            assert data['deploymentSource']=='original-missing' and data['units']==[]
+            assert 'placementAdjustments' not in data and 'statSentinels' not in data
             endings=data['endings'];assert [e['tag'] for e in endings]==(['A','B'] if n in (2,8,12) else [])
             if endings:assert data['defaultEnding']=='A' and data['outro']==endings[0]['commands']
             commands=data['intro']+data['outro']+[c for e in endings for c in e['commands']]+[c for e in data['events'] for c in e['actions']]

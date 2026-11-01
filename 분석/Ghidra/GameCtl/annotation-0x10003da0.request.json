@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x10003da0",
+      "name": "LoadScenarioBriefing",
+      "comment": "Read the scenario .srf resource and parse its briefing/condition text. Do not interpret the existence of a briefing as a complete initial monster roster."
+    }
+  },
+  "timeout": 900
+}

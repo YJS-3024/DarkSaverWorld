@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x10007e50",
+      "name": "ReplaceAndLoadMapGeometry",
+      "comment": "Original BBDX_MapManager::LoadMap(CString&). Destroy/recreate BB_Map with the existing resource array, decode the selected MRC, report progress and apply TileAttrChange on success. The outer Load routine performs GRS acquisition."
+    }
+  },
+  "timeout": 900
+}

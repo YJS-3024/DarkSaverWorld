@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x1000eb10",
+      "name": "DispatchGamePacket",
+      "comment": "Dispatch the game message opcode and, for0x5c, its subtype. Subtypes0x50 and0x51 invoke separate unit snapshot decoders. Do not infer actual historical scenario contents from this capability."
+    }
+  },
+  "timeout": 900
+}

@@ -42,7 +42,7 @@ for id,title in names.items():
  if id in [2,3,42,303]:mw,mh,mini,_=compose(3 if id==303 else id,'m')
  yaml.extend([f'  - sceneId: {id}',f'    title: {title}',f'    background: {bg}',f'    size: {{x: {w}, y: {ht}}}',f'    minimizedBackground: {mini}',f'    minimizedSize: {{x: {mw}, y: {mh}}}','    controls:'])
  for n,l,t,cw,ch,frames in cs:
-  yaml.extend([f'    - nativeId: {n}',f'      rect: {{x: {l}, y: {t}, width: {cw}, height: {ch}}}','      frames:']+['      - '+f for f in frames])
+  yaml.extend([f'    - nativeId: {n}',f'      rect: {{serializedVersion: 2, x: {l}, y: {t}, width: {cw}, height: {ch}}}','      frames:']+['      - '+f for f in frames])
 p=OUT/'NativeWorldWindows.asset';put(p,'\n'.join(yaml)+'\n');meta(p,'NativeFormatImporter:\n  externalObjects: {}\n  mainObjectFileID: 11400000\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n')
 helpbytes=(SRC/'decoded/all_arc/gameres/set/help.txt').read_bytes();put(OUT/'NativeWorldHelp.txt',helpbytes.decode('cp949').replace('\r\n','\n'));meta(OUT/'NativeWorldHelp.txt','TextScriptImporter:\n  externalObjects: {}\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n')
 # Menu-description board: original20px cells from etc2/board.bmp (0,300).

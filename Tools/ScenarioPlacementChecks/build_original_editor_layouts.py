@@ -1,5 +1,6 @@
 """Build editor layouts from literal SET/POS joins; never synthesize an absent roster.
-Does not touch runtime Content.json or scene files. Existing edited layouts require --reset.
+Writes the shared original deployment resource, never fabricates a missing roster.
+Existing edited layouts require --reset. Runtime Content and scenes are not regenerated.
 """
 import argparse
 import csv
@@ -15,6 +16,7 @@ import yaml
 
 ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'Assets/_Game/Editor/BattleLayouts'
+RESOURCE=ROOT/'Assets/_Game/Resources/Scenarios/Original'
 SOURCE=ROOT/'분석/Saver_Late'
 
 
@@ -51,7 +53,8 @@ def main():
     if not args.reset:
         for scenario in native['scenarios']:
             protect_existing(OUT/f"Original{scenario['scenario']}.json",source_units(scenario,stats))
-    for folder in [OUT,OUT/'Art']:folder.mkdir(exist_ok=True,parents=True);meta(folder,True)
+            protect_existing(RESOURCE/scenario['scenario']/'Deployment.json',source_units(scenario,stats))
+    for folder in [OUT,OUT/'Art',RESOURCE]:folder.mkdir(exist_ok=True,parents=True);meta(folder,True)
     jobs={u['job']:u['picture'] for s in native['scenarios'] for u in s['units']}
     inventory=json.loads((ROOT/'분석/InstallerVersions/installer_inventory.json').read_text(encoding='utf-8'));late=next(v for v in inventory['payloads'] if 'saver.exe' in v['containers'])
     sys.path.insert(0,str(ROOT/'닥세_리소스/분석도구'))
@@ -96,14 +99,20 @@ def main():
                 if unit<400:positions.append(dict(id=unit,x=x,y=y))
         entry=next(p for p in positions if p['id']==0)
         units=source_units(scenario,stats)
-        target=OUT/f'Original{key}.json';row=dict(version=2,scenarioKey='Original'+key,width=m['width'],height=m['height'],entryX=entry['x'],entryY=entry['y'],
+        folder=RESOURCE/key;folder.mkdir(exist_ok=True);meta(folder,True)
+        target=folder/'Deployment.json';row=dict(version=2,scenarioKey='Original'+key,width=m['width'],height=m['height'],entryX=entry['x'],entryY=entry['y'],
             profileHash=hashlib.sha256(json.dumps(units,ensure_ascii=False,sort_keys=True).encode()).hexdigest(),sourceHash=sha(ROOT/scenario['set']),
-            placementEdited=False,provenance='Literal original SET/POS join; not proof of automatic native runtime loading',
+            placementEdited=False,deploymentSource='original-set-pos',provenance='Literal original SET/POS join; not proof of automatic native runtime loading',
             sourceScenario=key,sourceSet=scenario['set'],sourcePos=pos.relative_to(ROOT).as_posix(),
             sourceRows=[dict(id=u['unit'],setLine=u['setLine'],posLine=u['posLine'],extra=u['extra']) for u in scenario['units']],
             statsBasis='Ability base values for editor inspection; not server final combat values',
             partyPositions=positions,units=units,intro=[],outro=[],events=[],characters=[],traversalCells=[])
-        target.write_text(json.dumps(row,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');meta(target);written+=len(units)
+        target.write_text(json.dumps(row,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        previous=OUT/f'Original{key}.json';previous_meta=previous.with_suffix('.json.meta');target_meta=target.with_suffix('.json.meta')
+        if previous_meta.exists() and not target_meta.exists():previous_meta.rename(target_meta)
+        if previous.exists():previous.unlink()
+        if previous_meta.exists():previous_meta.unlink()
+        meta(target);written+=len(units)
         index.append(dict(key=key,title=title,mapScene=scene.stem,width=m['width'],height=m['height'],path=target.relative_to(ROOT).as_posix()))
     target=OUT/'OriginalIndex.json';target.write_text(json.dumps(dict(maps=index),ensure_ascii=False,indent=2)+'\n',encoding='utf-8');meta(target)
     report=dict(maps=len(index),units=written,artworkJobs=len(art),artworkPictures=len(sheets),artwork=art,

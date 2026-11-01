@@ -1,0 +1,179 @@
+Picked up JAVA_TOOL_OPTIONS: -Duser.home=/workspace/.tools/ds-ghidra/headless-home
+Picked up JAVA_TOOL_OPTIONS: -Duser.home=/workspace/.tools/ds-ghidra/headless-home
+Picked up JAVA_TOOL_OPTIONS: -Duser.home=/workspace/.tools/ds-ghidra/headless-home
+Picked up JAVA_TOOL_OPTIONS: -Duser.home=/workspace/.tools/ds-ghidra/headless-home
+openjdk version "21.0.13" 2026-10-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.13+9 (build 21.0.13+9-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.13+9 (build 21.0.13+9-LTS, mixed mode)
+INFO  Using log config file: jar:file:/workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /workspace/.tools/ds-ghidra/headless-home/.config/ghidra/ghidra_12.1.4_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /workspace/.tools/ds-ghidra/headless-home/.config/ghidra/ghidra_12.1.4_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (945 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Starting cache cleanup: /tmp/agent-ghidra/fscache2 (FileCacheMaintenanceDaemon)  
+INFO  Finished cache cleanup, estimated storage used: 0 (FileCacheMaintenanceDaemon)  
+INFO  Headless startup complete (2085 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 59 extension points (20 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/VersionTracking/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/JVM/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/Atmel/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/BytePatterns/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/PyGhidra/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/8051/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/Base/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/DATA/ghidra_scripts
+    /workspace/DarkSaverWorld/Tools/GhidraChecks
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/Decompiler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/FunctionID/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/PDB/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/BSim/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/FileFormats/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/PIC/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Creating project: /workspace/DarkSaverWorld/분석/Ghidra/projects/DarkSaverOriginal (HeadlessAnalyzer)  
+INFO  Creating project: /workspace/DarkSaverWorld/분석/Ghidra/projects/DarkSaverOriginal (DefaultProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /workspace/DarkSaverWorld/분석/Ghidra/projects/DarkSaverOriginal (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///workspace/.tools/ds-ghidra/installed/saver/UserUnit.dll (HeadlessAnalyzer)  
+INFO  Using Loader: Portable Executable (PE) (ProgramLoader)  
+INFO  Using Language/Compiler: x86:LE:32:default:windows (ProgramLoader)  
+INFO  Using Library Search Path: [., /bin, /lib, /lib64, /lib/x86_64-linux-gnu, /lib/aarch64-linux-gnu, /usr/bin, /usr/lib, /usr/X11R6/bin, /usr/X11R6/lib, /usr/java/packages/lib, /usr/lib64] (ProgramLoader)  
+INFO  Additional info:
+Loading file:///workspace/.tools/ds-ghidra/installed/saver/UserUnit.dll?MD5=057c03bc04978c66a39d3a3ecaf76465...
+------------------------------------------------
+
+Searching 8 paths for library DMANAGE.DLL...
+Loading file:///workspace/.tools/ds-ghidra/installed/saver/DManage.dll?MD5=0c322f261c4828dcda24543a936ebd29...
+Created exports file: /workspace/.tools/ds-ghidra/headless-home/.config/ghidra/ghidra_12.1.4_PUBLIC/symbols/win32/dmanage.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 8 paths for library KERNEL32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library MFC42.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library MSVCRT.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library SETUNIT.DLL...
+Loading file:///workspace/.tools/ds-ghidra/installed/saver/setunit.dll?MD5=934f776c5a737a124d54a66cb8a72074...
+Created exports file: /workspace/.tools/ds-ghidra/headless-home/.config/ghidra/ghidra_12.1.4_PUBLIC/symbols/win32/setunit.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 8 paths for library SOUNDLL.DLL...
+Loading file:///workspace/.tools/ds-ghidra/installed/saver/soundll.dll?MD5=f7b41f2f1cf322d61b946ad081d4103f...
+Created exports file: /workspace/.tools/ds-ghidra/headless-home/.config/ghidra/ghidra_12.1.4_PUBLIC/symbols/win32/soundll.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 8 paths for library USER32.DLL...
+Library not found.
+------------------------------------------------
+
+Applying cached symbols from DMANAGE.DLL
+Applying cached symbols from SOUNDLL.DLL
+Applying cached symbols from SETUNIT.DLL
+Applying /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/Base/data/symbols/win32/mfc42.exports
+Linking the External Programs of 'UserUnit.dll' to imported libraries...
+  [DMANAGE.DLL] -> not found in project
+  [SOUNDLL.DLL] -> not found in project
+  [SETUNIT.DLL] -> not found in project
+  [MFC42.DLL] -> not found in project
+  [MSVCRT.DLL] -> not found in project
+  [KERNEL32.DLL] -> not found in project
+  [USER32.DLL] -> not found in project
+------------------------------------------------
+
+ (ProgramLoader)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: file:///workspace/.tools/ds-ghidra/installed/saver/UserUnit.dll (HeadlessAnalyzer)  
+WARN  Ignoring leading '_' chars on no-return name '___raise_securityfailure' specified in file: /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/Base/data/PEFunctionsThatDoNotReturn (NoReturnFunctionAnalyzer)  
+WARN  Ignoring leading '_' chars on no-return name '___report_rangecheckfailure' specified in file: /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/Base/data/PEFunctionsThatDoNotReturn (NoReturnFunctionAnalyzer)  
+INFO  Skipping PDB processing: missing PDB information in program metadata (PdbUniversalAnalyzer)  
+INFO  Packed database cache: /tmp/agent-ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: windows_vs12_32 (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              0.387 secs
+    Apply Data Archives                        0.055 secs
+    Call Convention ID                         0.002 secs
+    Call-Fixup Installer                       0.007 secs
+    Create Address Tables                      0.024 secs
+    Create Address Tables - One Time           0.131 secs
+    Create Function                            0.080 secs
+    Data Reference                             0.040 secs
+    Decompiler Parameter ID                    1.842 secs
+    Decompiler Switch Analysis                 1.684 secs
+    Demangler Microsoft                        0.112 secs
+    Disassemble                                0.003 secs
+    Disassemble Entry Points                   0.428 secs
+    Disassemble Entry Points - One Time        0.003 secs
+    Embedded Media                             0.021 secs
+    External Entry References                  0.001 secs
+    Function ID                                0.167 secs
+    Function Start Pre Search                  0.007 secs
+    Function Start Search                      0.014 secs
+    Function Start Search After Code           0.003 secs
+    Function Start Search After Data           0.005 secs
+    Non-Returning Functions - Discovered       0.045 secs
+    Non-Returning Functions - Known            0.003 secs
+    PDB Universal                              0.002 secs
+    Reference                                  0.040 secs
+    Scalar Operand References                  0.168 secs
+    Shared Return Calls                        0.038 secs
+    Stack                                      0.784 secs
+    Subroutine References                      0.029 secs
+    Subroutine References - One Time           0.002 secs
+    Windows x86 PE Exception Handling          1.597 secs
+    Windows x86 PE RTTI Analyzer               0.000 secs
+    Windows x86 Thread Environment Block (TEB) Analyzer     0.011 secs
+    WindowsResourceReference                   2.591 secs
+    X86 Function Callee Purge                  0.040 secs
+    x86 Constant Reference Analyzer            0.926 secs
+-----------------------------------------------------
+     Total Time   11 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///workspace/.tools/ds-ghidra/installed/saver/UserUnit.dll (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: ApplyDarkSaverRefactor.java '/workspace/DarkSaverWorld/분석/Ghidra/refactor-plan.json' '/workspace/DarkSaverWorld/분석/Ghidra/typed'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /workspace/DarkSaverWorld/Tools/GhidraChecks/ApplyDarkSaverRefactor.java (HeadlessAnalyzer)  
+INFO  ApplyDarkSaverRefactor.java> DARKSAVER_REFACTOR {
+  "target": "UserUnit.dll",
+  "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "annotatedFunctions": 7,
+  "names": [
+    "ApplyUnitSnapshot",
+    "SpawnActorFromScriptArguments",
+    "BuildScriptUnitSnapshot",
+    "UpdateScriptActorPlacement",
+    "LoadScenarioAiRules",
+    "ActivateUnitAndCommanderAi",
+    "DispatchUnitAiByRole"
+  ],
+  "unitInfoSize": 176,
+  "characterStride": 736,
+  "scope": "Separate persistent Ghidra project metadata/types; no original PE patch or execution"
+} (GhidraScript)  
+INFO  ANALYZING changes made by post scripts: file:///workspace/.tools/ds-ghidra/installed/saver/UserUnit.dll (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: file:///workspace/.tools/ds-ghidra/installed/saver/UserUnit.dll (HeadlessAnalyzer)  
+INFO  /UserUnit.dll: file created (agent) (LocalFileSystem)  
+INFO  REPORT: Save succeeded for: /UserUnit.dll (DarkSaverOriginal:/UserUnit.dll) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  

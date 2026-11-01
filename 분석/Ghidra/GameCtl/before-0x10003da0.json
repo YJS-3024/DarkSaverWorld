@@ -1,0 +1,108 @@
+{
+  "result": {
+    "_meta": {
+      "provenance": {
+        "untrusted_content": true,
+        "source": "analysis_target"
+      }
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"evidence_id\":\"ev_01c092259c6ff0a74c26ac4c35dd3d36c691f94b8ffcbd49a89fdc99c61ca5f4\",\"subject\":{\"name\":\"GameCtl.dll\",\"digest\":{\"sha256\":\"f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0\"},\"local_path\":\"/workspace/.tools/ds-ghidra/installed/saver/GameCtl.dll\",\"format\":\"pe\",\"architecture\":\"x86\"},\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"analysis_profile\":{\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"parameters\":{\"target_kind\":\"executable\",\"target_format\":\"pe\",\"executable_role\":\"shared-library\",\"managed\":false,\"native_aot_metadata\":{\"contract_revision\":\"rtr-9.1-x64-pe-read-only-v7\",\"source_bytes\":134217728,\"work_units\":67108864,\"working_memory_bytes\":67108864,\"report_bytes\":4194304},\"architecture\":\"x86\",\"available_architectures\":[\"x86\"],\"import_mode\":\"ephemeral-source-immutable\",\"pdb_observations\":\"program-info-v5\",\"annotation_policy\":\"atomic-function-entry-metadata-v1\",\"load_image_observations\":\"source-mappings-entry-context-v2\",\"function_body_evidence\":\"complete-inclusive-ranges-v1\",\"function_references\":\"complete-body-and-entry-reference-manager-v2\",\"call_relationship_coverage\":\"function-body-call-coverage-v5\",\"function_dossier_coverage\":\"observed-facets-and-call-relationships-v1\",\"string_inventory_evidence\":\"defined-data-coverage-v1\",\"location_resolution\":\"explicit-address-exact-entry-symbol-first-v3\",\"procedure_file_offset_resolution\":\"address-first-unique-target-source-mapping-v2\",\"instruction_flow_evidence\":\"decoded-return-pcode-v1\",\"instruction_references\":\"exact-address-incoming-without-synthetic-entry-v2\",\"function_boundary_observations\":\"ghidra-function-boundary-limitations-v4\",\"no_return_repair\":\"returning-imports-decoded-return-v2\",\"process_launch\":\"inspected-jvm-launch-support-v1\",\"jump_table_evidence\":\"typed-case-default-blocks-v1\",\"decompiler_jump_loads\":true,\"loader\":\"auto-from-header\",\"language_id\":\"auto-from-header\",\"compiler_spec_id\":\"auto-default\",\"analyzer_preset\":\"ghidra-default\",\"function_coordinate_context\":{\"kind\":\"native-function-coordinate-context-v1\",\"selected_image\":null,\"mapping_sha256\":\"55a7964dc0bcdf067484a281c658e6ca8457a49405e0ea9dbd080366ee4c3198\"}},\"digest\":\"e763201e522a4b123fb330eede09834c44ddf2bb90702e50eea219801be95539\"},\"predicate_type\":\"rea.analysis\",\"operation\":\"procedure_pseudo_code\",\"parameters\":{\"procedure\":\"0x10003da0\"},\"raw_result\":null,\"normalized_result\":\"\\nvoid FUN_10003da0(void)\\n\\n{\\n  byte bVar1;\\n  CString *pCVar2;\\n  int iVar3;\\n  byte *pbVar4;\\n  char *unaff_EBX;\\n  byte *pbVar5;\\n  bool bVar6;\\n  char *pcVar7;\\n  byte *local_30;\\n  CString local_2c [4];\\n  CString local_28 [20];\\n  void *local_14;\\n  void *local_c;\\n  undefined1 *local_8;\\n  undefined4 local_4;\\n  \\n  local_4 = 0xffffffff;\\n  local_8 = &LAB_10014e60;\\n  local_c = ExceptionList;\\n  ExceptionList = &local_c;\\n  CString::CString((CString *)&local_30);\\n  local_4 = 0;\\n  CString::CString(local_28);\\n  local_4 = CONCAT31(local_4._1_3_,1);\\n  if (DAT_1006a738 < 0) {\\n    if (DAT_1006a738 == -99) {\\n      pcVar7 = &DAT_1001a204;\\n    }\\n    else {\\n      pcVar7 = &DAT_1001a200;\\n    }\\n    CString::operator=((CString *)&DAT_1001bdd8,pcVar7);\\n    CString::Empty((CString *)&DAT_1001bddc);\\n  }\\n  else {\\n    CString::operator=((CString *)&DAT_1001bdd8,&DAT_1001a220);\\n    CString::operator=((CString *)&DAT_1001bddc,&DAT_1001a210);\\n  }\\n  if (DAT_1001a8b0 == (BB_CompressDllMng *)0x0) goto LAB_1000401a;\\n  CString::operator=((CString *)&local_30,(CString *)&DAT_1001a8b4);\\n  CString::operator+=((CString *)&local_30,&DAT_1001a1f8);\\n  CString::operator+=((CString *)&local_30,(CString *)&DAT_1006c0e8);\\n  CString::operator+=((CString *)&local_30,s_Set_arc_1001a1f0);\\n  operator+(local_2c,(char *)&DAT_1006c0e8);\\n  local_8 = (undefined1 *)CONCAT31(local_8._1_3_,2);\\n  pCVar2 = (CString *)\\n           BB_CompressDllMng::WriteTmpFile(DAT_1001a8b0,local_28,(CString *)&stack0xffffffcc);\\n  local_c._0_1_ = 3;\\n  CString::operator=((CString *)&stack0xffffffcc,pCVar2);\\n  local_c._0_1_ = 2;\\n  CString::~CString(local_2c);\\n  if (*(int *)(unaff_EBX + -8) == 0) {\\nLAB_10003ffc:\\n    BB_CompressDllMng::DeleteTmpFile(DAT_1001a8b0,(CString *)&stack0xffffffcc);\\n  }\\n  else {\\n    CStdioFile::CStdioFile((CStdioFile *)local_28);\\n    local_c._0_1_ = 4;\\n    iVar3 = CStdioFile::Open((CStdioFile *)local_28,unaff_EBX,0x4000,(CFileException *)0x0);\\n    if (iVar3 != 0) {\\n      iVar3 = CStdioFile::ReadString((CStdioFile *)local_28,(CString *)&stack0xffffffc8);\\n      while (iVar3 != 0) {\\n        pCVar2 = FUN_1000f200(local_2c,(CString *)&stack0xffffffc8);\\n        local_c._0_1_ = 5;\\n        CString::operator=((CString *)&local_30,pCVar2);\\n        local_c._0_1_ = 4;\\n        CString::~CString(local_2c);\\n        pbVar5 = &DAT_1001a1e4;\\n        pbVar4 = local_30;\\n        do {\\n          bVar1 = *pbVar4;\\n          bVar6 = bVar1 < *pbVar5;\\n          if (bVar1 != *pbVar5) {\\nLAB_10003f71:\\n            iVar3 = (1 - (uint)bVar6) - (uint)(bVar6 != 0);\\n            goto LAB_10003f76;\\n          }\\n          if (bVar1 == 0) break;\\n          bVar1 = pbVar4[1];\\n          bVar6 = bVar1 < pbVar5[1];\\n          if (bVar1 != pbVar5[1]) goto LAB_10003f71;\\n          pbVar4 = pbVar4 + 2;\\n          pbVar5 = pbVar5 + 2;\\n        } while (bVar1 != 0);\\n        iVar3 = 0;\\nLAB_10003f76:\\n        if (iVar3 == 0) {\\n          CString::operator=((CString *)&DAT_1001bdd8,(CString *)&stack0xffffffc8);\\n        }\\n        pbVar5 = &DAT_1001a1e0;\\n        pbVar4 = local_30;\\n        do {\\n          bVar1 = *pbVar4;\\n          bVar6 = bVar1 < *pbVar5;\\n          if (bVar1 != *pbVar5) {\\nLAB_10003fb6:\\n            iVar3 = (1 - (uint)bVar6) - (uint)(bVar6 != 0);\\n            goto LAB_10003fbb;\\n          }\\n          if (bVar1 == 0) break;\\n          bVar1 = pbVar4[1];\\n          bVar6 = bVar1 < pbVar5[1];\\n          if (bVar1 != pbVar5[1]) goto LAB_10003fb6;\\n          pbVar4 = pbVar4 + 2;\\n          pbVar5 = pbVar5 + 2;\\n        } while (bVar1 != 0);\\n        iVar3 = 0;\\nLAB_10003fbb:\\n        if (iVar3 == 0) {\\n          CString::operator=((CString *)&DAT_1001bddc,(CString *)&stack0xffffffc8);\\n        }\\n        iVar3 = CStdioFile::ReadString((CStdioFile *)local_28,(CString *)&stack0xffffffc8);\\n      }\\n      CStdioFile::Close((CStdioFile *)local_28);\\n      local_c._0_1_ = 2;\\n      CStdioFile::~CStdioFile((CStdioFile *)local_28);\\n      goto LAB_10003ffc;\\n    }\\n    local_c._0_1_ = 2;\\n    CStdioFile::~CStdioFile((CStdioFile *)local_28);\\n  }\\n  local_c = (void *)CONCAT31(local_c._1_3_,1);\\n  CString::~CString((CString *)&stack0xffffffcc);\\nLAB_1000401a:\\n  local_c = (void *)((uint)local_c & 0xffffff00);\\n  CString::~CString((CString *)&local_30);\\n  local_c = (void *)0xffffffff;\\n  CString::~CString((CString *)&stack0xffffffc8);\\n  ExceptionList = local_14;\\n  return;\\n}\\n\\n\",\"confidence\":\"observed\",\"authority\":\"shipped-artifact\",\"environment\":null,\"limitations\":[\"The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.\",\"The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.\",\"Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.\",\"Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.\",\"Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.\",\"External functions and functions without an analyzable body return null; other decompiler failures remain explicit.\"],\"relationship_coverage\":null,\"locations\":[],\"evidence_links\":[]}"
+      }
+    ],
+    "structuredContent": {
+      "evidence_id": "ev_01c092259c6ff0a74c26ac4c35dd3d36c691f94b8ffcbd49a89fdc99c61ca5f4",
+      "subject": {
+        "name": "GameCtl.dll",
+        "digest": {
+          "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0"
+        },
+        "local_path": "/workspace/.tools/ds-ghidra/installed/saver/GameCtl.dll",
+        "format": "pe",
+        "architecture": "x86"
+      },
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "analysis_profile": {
+        "provider": {
+          "id": "ghidra",
+          "name": "Ghidra",
+          "version": "12.1.4"
+        },
+        "parameters": {
+          "target_kind": "executable",
+          "target_format": "pe",
+          "executable_role": "shared-library",
+          "managed": false,
+          "native_aot_metadata": {
+            "contract_revision": "rtr-9.1-x64-pe-read-only-v7",
+            "source_bytes": 134217728,
+            "work_units": 67108864,
+            "working_memory_bytes": 67108864,
+            "report_bytes": 4194304
+          },
+          "architecture": "x86",
+          "available_architectures": [
+            "x86"
+          ],
+          "import_mode": "ephemeral-source-immutable",
+          "pdb_observations": "program-info-v5",
+          "annotation_policy": "atomic-function-entry-metadata-v1",
+          "load_image_observations": "source-mappings-entry-context-v2",
+          "function_body_evidence": "complete-inclusive-ranges-v1",
+          "function_references": "complete-body-and-entry-reference-manager-v2",
+          "call_relationship_coverage": "function-body-call-coverage-v5",
+          "function_dossier_coverage": "observed-facets-and-call-relationships-v1",
+          "string_inventory_evidence": "defined-data-coverage-v1",
+          "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+          "procedure_file_offset_resolution": "address-first-unique-target-source-mapping-v2",
+          "instruction_flow_evidence": "decoded-return-pcode-v1",
+          "instruction_references": "exact-address-incoming-without-synthetic-entry-v2",
+          "function_boundary_observations": "ghidra-function-boundary-limitations-v4",
+          "no_return_repair": "returning-imports-decoded-return-v2",
+          "process_launch": "inspected-jvm-launch-support-v1",
+          "jump_table_evidence": "typed-case-default-blocks-v1",
+          "decompiler_jump_loads": true,
+          "loader": "auto-from-header",
+          "language_id": "auto-from-header",
+          "compiler_spec_id": "auto-default",
+          "analyzer_preset": "ghidra-default",
+          "function_coordinate_context": {
+            "kind": "native-function-coordinate-context-v1",
+            "selected_image": null,
+            "mapping_sha256": "55a7964dc0bcdf067484a281c658e6ca8457a49405e0ea9dbd080366ee4c3198"
+          }
+        },
+        "digest": "e763201e522a4b123fb330eede09834c44ddf2bb90702e50eea219801be95539"
+      },
+      "predicate_type": "rea.analysis",
+      "operation": "procedure_pseudo_code",
+      "parameters": {
+        "procedure": "0x10003da0"
+      },
+      "raw_result": null,
+      "normalized_result": "\nvoid FUN_10003da0(void)\n\n{\n  byte bVar1;\n  CString *pCVar2;\n  int iVar3;\n  byte *pbVar4;\n  char *unaff_EBX;\n  byte *pbVar5;\n  bool bVar6;\n  char *pcVar7;\n  byte *local_30;\n  CString local_2c [4];\n  CString local_28 [20];\n  void *local_14;\n  void *local_c;\n  undefined1 *local_8;\n  undefined4 local_4;\n  \n  local_4 = 0xffffffff;\n  local_8 = &LAB_10014e60;\n  local_c = ExceptionList;\n  ExceptionList = &local_c;\n  CString::CString((CString *)&local_30);\n  local_4 = 0;\n  CString::CString(local_28);\n  local_4 = CONCAT31(local_4._1_3_,1);\n  if (DAT_1006a738 < 0) {\n    if (DAT_1006a738 == -99) {\n      pcVar7 = &DAT_1001a204;\n    }\n    else {\n      pcVar7 = &DAT_1001a200;\n    }\n    CString::operator=((CString *)&DAT_1001bdd8,pcVar7);\n    CString::Empty((CString *)&DAT_1001bddc);\n  }\n  else {\n    CString::operator=((CString *)&DAT_1001bdd8,&DAT_1001a220);\n    CString::operator=((CString *)&DAT_1001bddc,&DAT_1001a210);\n  }\n  if (DAT_1001a8b0 == (BB_CompressDllMng *)0x0) goto LAB_1000401a;\n  CString::operator=((CString *)&local_30,(CString *)&DAT_1001a8b4);\n  CString::operator+=((CString *)&local_30,&DAT_1001a1f8);\n  CString::operator+=((CString *)&local_30,(CString *)&DAT_1006c0e8);\n  CString::operator+=((CString *)&local_30,s_Set_arc_1001a1f0);\n  operator+(local_2c,(char *)&DAT_1006c0e8);\n  local_8 = (undefined1 *)CONCAT31(local_8._1_3_,2);\n  pCVar2 = (CString *)\n           BB_CompressDllMng::WriteTmpFile(DAT_1001a8b0,local_28,(CString *)&stack0xffffffcc);\n  local_c._0_1_ = 3;\n  CString::operator=((CString *)&stack0xffffffcc,pCVar2);\n  local_c._0_1_ = 2;\n  CString::~CString(local_2c);\n  if (*(int *)(unaff_EBX + -8) == 0) {\nLAB_10003ffc:\n    BB_CompressDllMng::DeleteTmpFile(DAT_1001a8b0,(CString *)&stack0xffffffcc);\n  }\n  else {\n    CStdioFile::CStdioFile((CStdioFile *)local_28);\n    local_c._0_1_ = 4;\n    iVar3 = CStdioFile::Open((CStdioFile *)local_28,unaff_EBX,0x4000,(CFileException *)0x0);\n    if (iVar3 != 0) {\n      iVar3 = CStdioFile::ReadString((CStdioFile *)local_28,(CString *)&stack0xffffffc8);\n      while (iVar3 != 0) {\n        pCVar2 = FUN_1000f200(local_2c,(CString *)&stack0xffffffc8);\n        local_c._0_1_ = 5;\n        CString::operator=((CString *)&local_30,pCVar2);\n        local_c._0_1_ = 4;\n        CString::~CString(local_2c);\n        pbVar5 = &DAT_1001a1e4;\n        pbVar4 = local_30;\n        do {\n          bVar1 = *pbVar4;\n          bVar6 = bVar1 < *pbVar5;\n          if (bVar1 != *pbVar5) {\nLAB_10003f71:\n            iVar3 = (1 - (uint)bVar6) - (uint)(bVar6 != 0);\n            goto LAB_10003f76;\n          }\n          if (bVar1 == 0) break;\n          bVar1 = pbVar4[1];\n          bVar6 = bVar1 < pbVar5[1];\n          if (bVar1 != pbVar5[1]) goto LAB_10003f71;\n          pbVar4 = pbVar4 + 2;\n          pbVar5 = pbVar5 + 2;\n        } while (bVar1 != 0);\n        iVar3 = 0;\nLAB_10003f76:\n        if (iVar3 == 0) {\n          CString::operator=((CString *)&DAT_1001bdd8,(CString *)&stack0xffffffc8);\n        }\n        pbVar5 = &DAT_1001a1e0;\n        pbVar4 = local_30;\n        do {\n          bVar1 = *pbVar4;\n          bVar6 = bVar1 < *pbVar5;\n          if (bVar1 != *pbVar5) {\nLAB_10003fb6:\n            iVar3 = (1 - (uint)bVar6) - (uint)(bVar6 != 0);\n            goto LAB_10003fbb;\n          }\n          if (bVar1 == 0) break;\n          bVar1 = pbVar4[1];\n          bVar6 = bVar1 < pbVar5[1];\n          if (bVar1 != pbVar5[1]) goto LAB_10003fb6;\n          pbVar4 = pbVar4 + 2;\n          pbVar5 = pbVar5 + 2;\n        } while (bVar1 != 0);\n        iVar3 = 0;\nLAB_10003fbb:\n        if (iVar3 == 0) {\n          CString::operator=((CString *)&DAT_1001bddc,(CString *)&stack0xffffffc8);\n        }\n        iVar3 = CStdioFile::ReadString((CStdioFile *)local_28,(CString *)&stack0xffffffc8);\n      }\n      CStdioFile::Close((CStdioFile *)local_28);\n      local_c._0_1_ = 2;\n      CStdioFile::~CStdioFile((CStdioFile *)local_28);\n      goto LAB_10003ffc;\n    }\n    local_c._0_1_ = 2;\n    CStdioFile::~CStdioFile((CStdioFile *)local_28);\n  }\n  local_c = (void *)CONCAT31(local_c._1_3_,1);\n  CString::~CString((CString *)&stack0xffffffcc);\nLAB_1000401a:\n  local_c = (void *)((uint)local_c & 0xffffff00);\n  CString::~CString((CString *)&local_30);\n  local_c = (void *)0xffffffff;\n  CString::~CString((CString *)&stack0xffffffc8);\n  ExceptionList = local_14;\n  return;\n}\n\n",
+      "confidence": "observed",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit."
+      ],
+      "relationship_coverage": null,
+      "locations": [],
+      "evidence_links": []
+    }
+  },
+  "jsonrpc": "2.0",
+  "id": 51
+}

@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x42def0",
+      "name": "PopulateActorFromUnitRecord_B",
+      "comment": "Process the supplied unit record, update related local structures and create/update its actor via dmSetChar and dmSetChar2. This function is not itself a complete initial monster roster or proof of the record source."
+    }
+  },
+  "timeout": 900
+}

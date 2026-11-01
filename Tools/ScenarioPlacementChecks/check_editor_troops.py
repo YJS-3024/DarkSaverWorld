@@ -21,7 +21,8 @@ def main():
     ui=next((args.unity_data/'Resources/PackageManager/ProjectTemplates/libcache').glob('*/ScriptAssemblies/UnityEngine.UI.dll'))
     helper=ROOT/'Assets/_Game/Editor/ScenarioPlacementTroops.cs'
     window=ROOT/'Assets/_Game/Editor/ScenarioPlacementWindow.cs'
-    sources=sorted((ROOT/'Assets/_Game/Runtime').rglob('*.cs'))+[window,helper]
+    demo=ROOT/'Assets/_Game/Editor/BrugosScenarioSceneGenerator.cs'
+    sources=sorted((ROOT/'Assets/_Game/Runtime').rglob('*.cs'))+[window,helper,demo]
     paths=sorted((ROOT/'Assets/_Game/Resources/Scenarios').glob('*/Content.json'))
     snapshot={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
 
@@ -47,9 +48,9 @@ def main():
     if proc.returncode:raise RuntimeError('Managed checks failed: '+str(args.work/'run.log'))
     summary=json.loads(proc.stdout)
     assert all(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()==h for p,h in snapshot.items())
-    summary.update(apiCompileErrors=0,existingApiWarnings=warnings,compiledRuntimeSources=len(sources)-2,
+    summary.update(apiCompileErrors=0,existingApiWarnings=warnings,compiledRuntimeSources=len(sources)-3,
                    contentFilesUnchanged=len(snapshot),unityGuiExecuted=False,
-                   sources={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [helper,window]},
+                   sources={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [helper,window,demo]},
                    logs=str(args.work))
     (OUT/'editor-troop-check.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(summary,ensure_ascii=False))

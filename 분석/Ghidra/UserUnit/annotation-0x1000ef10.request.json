@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x1000ef10",
+      "name": "UpdateScriptActorPlacement",
+      "comment": "Original export dmSetChar2. Update an existing unit placement/related state, clear previous occupancy, and register the new native tile. Do not count this as a separate initial monster roster loader."
+    }
+  },
+  "timeout": 900
+}

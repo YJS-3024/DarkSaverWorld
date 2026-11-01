@@ -1,0 +1,65 @@
+Picked up JAVA_TOOL_OPTIONS: -Duser.home=/workspace/.tools/ds-ghidra/headless-home
+Picked up JAVA_TOOL_OPTIONS: -Duser.home=/workspace/.tools/ds-ghidra/headless-home
+Picked up JAVA_TOOL_OPTIONS: -Duser.home=/workspace/.tools/ds-ghidra/headless-home
+Picked up JAVA_TOOL_OPTIONS: -Duser.home=/workspace/.tools/ds-ghidra/headless-home
+openjdk version "21.0.13" 2026-10-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.13+9 (build 21.0.13+9-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.13+9 (build 21.0.13+9-LTS, mixed mode)
+INFO  Using log config file: jar:file:/workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /workspace/.tools/ds-ghidra/headless-home/.config/ghidra/ghidra_12.1.4_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /workspace/.tools/ds-ghidra/headless-home/.config/ghidra/ghidra_12.1.4_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (897 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Headless startup complete (2045 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 59 extension points (20 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/VersionTracking/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/JVM/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/Atmel/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/BytePatterns/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/PyGhidra/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/8051/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/Base/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/DATA/ghidra_scripts
+    /workspace/DarkSaverWorld/Tools/GhidraChecks
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/Decompiler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/FunctionID/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/PDB/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/BSim/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/FileFormats/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/PIC/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Opening existing project: /workspace/DarkSaverWorld/분석/Ghidra/projects/DarkSaverOriginal (HeadlessAnalyzer)  
+INFO  Opening project: /workspace/DarkSaverWorld/분석/Ghidra/projects/DarkSaverOriginal (HeadlessProject)  
+INFO  REPORT: Processing read-only project file: /DManage.dll (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: VerifyDarkSaverProject.java '/workspace/DarkSaverWorld/분석/Ghidra/refactor-plan.json' '/workspace/DarkSaverWorld/분석/Ghidra/project-verification'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /workspace/DarkSaverWorld/Tools/GhidraChecks/VerifyDarkSaverProject.java (HeadlessAnalyzer)  
+INFO  VerifyDarkSaverProject.java> DARKSAVER_VERIFIED {"target":"DManage","functionsVerified":4,"entryBytesPerFunction":32,"sourceSha256":"08e34fe7a497439ba65b33f3d9b661cbd20ddf098cf536c301337870b2f776f3","sourceUnchanged":true,"reopenedProject":true,"typesVerified":true} (GhidraScript)  
+INFO  REPORT: Processing read-only project file: /UserUnit.dll (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: VerifyDarkSaverProject.java '/workspace/DarkSaverWorld/분석/Ghidra/refactor-plan.json' '/workspace/DarkSaverWorld/분석/Ghidra/project-verification'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /workspace/DarkSaverWorld/Tools/GhidraChecks/VerifyDarkSaverProject.java (HeadlessAnalyzer)  
+INFO  VerifyDarkSaverProject.java> DARKSAVER_VERIFIED {"target":"UserUnit","functionsVerified":7,"entryBytesPerFunction":32,"sourceSha256":"74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b","sourceUnchanged":true,"reopenedProject":true,"typesVerified":true} (GhidraScript)  
+INFO  REPORT: Processing read-only project file: /GameCtl.dll (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: VerifyDarkSaverProject.java '/workspace/DarkSaverWorld/분석/Ghidra/refactor-plan.json' '/workspace/DarkSaverWorld/분석/Ghidra/project-verification'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /workspace/DarkSaverWorld/Tools/GhidraChecks/VerifyDarkSaverProject.java (HeadlessAnalyzer)  
+INFO  VerifyDarkSaverProject.java> DARKSAVER_VERIFIED {"target":"GameCtl","functionsVerified":7,"entryBytesPerFunction":32,"sourceSha256":"f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0","sourceUnchanged":true,"reopenedProject":true,"typesVerified":true} (GhidraScript)  
+INFO  REPORT: Processing read-only project file: /setunit.dll (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: VerifyDarkSaverProject.java '/workspace/DarkSaverWorld/분석/Ghidra/refactor-plan.json' '/workspace/DarkSaverWorld/분석/Ghidra/project-verification'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /workspace/DarkSaverWorld/Tools/GhidraChecks/VerifyDarkSaverProject.java (HeadlessAnalyzer)  
+INFO  VerifyDarkSaverProject.java> DARKSAVER_VERIFIED {"target":"SetUnit","functionsVerified":5,"entryBytesPerFunction":32,"sourceSha256":"71b6ca3f0d7fc16405f5ea728fc0522982e2eaac169e3a1a6eb74a36e41bfaca","sourceUnchanged":true,"reopenedProject":true,"typesVerified":true} (GhidraScript)  
+INFO  REPORT: Processing read-only project file: /Saver.exe (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: VerifyDarkSaverProject.java '/workspace/DarkSaverWorld/분석/Ghidra/refactor-plan.json' '/workspace/DarkSaverWorld/분석/Ghidra/project-verification'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /workspace/DarkSaverWorld/Tools/GhidraChecks/VerifyDarkSaverProject.java (HeadlessAnalyzer)  
+INFO  VerifyDarkSaverProject.java> DARKSAVER_VERIFIED {"target":"Saver","functionsVerified":5,"entryBytesPerFunction":32,"sourceSha256":"dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689","sourceUnchanged":true,"reopenedProject":true,"typesVerified":true} (GhidraScript)  

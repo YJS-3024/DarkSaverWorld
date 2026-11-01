@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x100105a0",
+      "name": "ExecuteCharPosCommand",
+      "comment": "Parse the scene CHARPOS arguments, resolve commander aliases and construct the string passed to UserUnit.dmSetChar. Scripted actors must remain separate from an initial battle roster."
+    }
+  },
+  "timeout": 900
+}

@@ -16,10 +16,9 @@ def main():
     data = json.loads((RESOURCE / 'Content.json').read_text())
     canonical = dict(data); canonical.pop('sourceHash')
     assert hashlib.sha256(json.dumps(canonical, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode()).hexdigest() == data['sourceHash']
-    assert (len(data['intro']), len(data['outro']), len(data['events']), len(data['units'])) == (72, 41, 24, 33)
-    assert len({u['id'] for u in data['units']}) == 33
-    assert all(sum(u['wave'] == wave for u in data['units']) <= 12 for wave in (0, 1, 2))
-    assert all(u['y'] * 40 + u['x'] in data['traversalCells'] for u in data['units'])
+    assert (len(data['intro']), len(data['outro']), len(data['events']), len(data['units'])) == (72, 41, 24, 0)
+    assert data['deploymentSource']=='original-missing'
+    assert 'placementAdjustments' not in data and 'statSentinels' not in data
     frames = 0
     for character in data['characters']:
         job = character['job']
@@ -64,8 +63,8 @@ def main():
     tile = next(o.read_typetree() for o in attribute.objects if o.type.name == 'MonoBehaviour')
     assert tile['m_Name'] == 'Terrain_22' and tile['m_ColliderType'] == 0
     assert len(visuals['chests']) == 7
-    report = dict(source_hash=data['sourceHash'], intro=72, outro=41, events=24, authored_enemies=33,
-        source_character_frames=frames, reachable_deployments=33, placement_adjustments=data['placementAdjustments'],
+    report = dict(source_hash=data['sourceHash'], intro=72, outro=41, events=24, authored_enemies=0,
+        source_character_frames=frames, initial_deployment='original-missing',
         required_build_scenes=6, music_clips=required,
         scope='Offline source pixels, resource bindings, build-list entries and authored deployment checks; not Unity import or PlayMode.',
         source_portraits=len(visuals['portraitIds']), opened_chest_bindings=len(visuals['chests']),

@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x10001420",
+      "name": "LoadAbilityDefinitionTables",
+      "comment": "Read ability.atr or ability1.atr from GameRes\\set.arc according to the original selection flag. The file literals and original sscanf record stores establish common ability definitions, not per-scenario initial coordinates."
+    }
+  },
+  "timeout": 900
+}

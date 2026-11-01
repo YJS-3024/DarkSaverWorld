@@ -1,0 +1,3 @@
+/workspace/DarkSaverWorld/Tools/OriginalInputChecks/build_mercenary_offer_icons.py:11: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  source=ROOT/f'분석/Saver_1.2/decoded/all_arc/gameres/char0/{sheet}r.bmp';im=Image.open(source).convert('RGBA').crop((32,32,64,64));im.putdata([(r,g,b,0 if (r,g,b)==(0,0,0) else 255) for r,g,b,_ in im.getdata()])
+PASS: 92 recruit icons,23 native sheet crops; original200/207 references preserved; no resized artwork.

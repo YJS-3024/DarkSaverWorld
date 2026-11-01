@@ -123,7 +123,7 @@
       368
     ]
   },
-  "remaining": "Exact movement/AP pacing, full native window contents, death and cast animation sequencing and preceding waiting-room lesson require further comparison.",
+  "remaining": "Current source-only coverage and exact pending items: 설계/08_클라이언트_정적_분석.md, 서버 패킷 제외 클라이언트 재대조 (2026-10-30). Historical implementation sections below are not proof of original behavior.",
   "fKeyComparison": "Addresses and relative call operands differ; F-key window IDs and explicit positions match.",
   "killCommands": {
     "KILLCHAR1": "immediate removal",
@@ -383,5 +383,17 @@
         ]
       }
     ]
+  },
+  "sourceAudit20261030": {
+    "commandSequence": "분석/Saver_Late/tutorial_command_sequence.json",
+    "lateDispatch": "분석/Saver_Late/tutorial_dispatch_audit.json",
+    "unsupportedSpellingsInLateInterpreter": [
+      "CHARDIR",
+      "CHARSETSKILL",
+      "SETHP",
+      "SETMP",
+      "WAITFORMOVEEND"
+    ],
+    "note": "Retained earlier implementation notes must not establish original aliases, skill assignment, direction change or waiting behavior for these spellings."
   }
 }

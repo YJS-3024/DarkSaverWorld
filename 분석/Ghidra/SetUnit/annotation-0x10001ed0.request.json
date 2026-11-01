@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x10001ed0",
+      "name": "LoadMagicDefinitionTables",
+      "comment": "Read common magic-related definitions using original table filenames and error handling; no synthetic gameplay rules are introduced."
+    }
+  },
+  "timeout": 900
+}

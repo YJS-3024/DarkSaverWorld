@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x100011a0",
+      "name": "LoadTileAttributeTable",
+      "comment": "Original export ReadTileAttr(char*). Read tile attribute data from common resources; retain original table selection and error propagation."
+    }
+  },
+  "timeout": 900
+}

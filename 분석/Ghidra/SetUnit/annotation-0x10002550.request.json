@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x10002550",
+      "name": "LoadCommonGameTables",
+      "comment": "Original export ReadSetFiles(options). Read common tile/item/ability-related tables according to original flags. The name setunit does not establish a scenarioNN.set/NN.pos roster loader."
+    }
+  },
+  "timeout": 900
+}

@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x10001a10",
+      "name": "LoadItemDefinitionTables",
+      "comment": "Read itemtbl.atr or itemtbl1.atr from GameRes\\set.arc according to the original selection flag. The table stores common item definitions, not per-scenario monster deployment."
+    }
+  },
+  "timeout": 900
+}

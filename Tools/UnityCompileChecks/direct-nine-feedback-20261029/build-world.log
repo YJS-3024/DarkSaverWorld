@@ -1,0 +1,3 @@
+/workspace/DarkSaverWorld/Tools/OriginalInputChecks/build_world_ui.py:17: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  im=im.copy();im.putdata([(r,g,b,0 if r==g==b==0 else 255) for r,g,b,a in im.getdata()]);p=OUT/(name+'.png')
+PASS: 7 native world layouts, 3 minimized layouts, original control frames/help converted; output protected.

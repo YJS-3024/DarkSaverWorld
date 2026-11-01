@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x10007f00",
+      "name": "LoadMapResourcesAndGeometry",
+      "comment": "Original BBDX_MapManager::Load(CString). Open-check the path; read required GRS indices, reuse/load graphics and surfaces, call LoadMap, and reset visible sprite cache. No UserUnit creation call is present in this function."
+    }
+  },
+  "timeout": 900
+}

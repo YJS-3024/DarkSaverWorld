@@ -24,8 +24,8 @@ check(Image.open(folder/'Ground.png').convert('RGBA').tobytes()==canvas.tobytes(
 for actual,original in zip(data['objects'],source['sprites']):
  check((actual['x'],actual['y'])==(original['x'],original['y']),'decoration coordinates')
  check(Image.open(folder/(actual['texture']+'.png')).convert('RGBA').tobytes()==frame(original['resource'],original['index'],original['frame'],True,True).tobytes(),'decoration source pixels')
-staff=json.loads((ROOT/'Assets/_Game/Resources/Town/OriginalInteriorStaff.json').read_text());check(staff['version']==1 and len(staff['entries'])==12,'eleven verified rectangles plus one explicitly local mercenary staff')
-check([(r['nativeMap'],r['appearanceId'],r['pixelX'],r['pixelY']) for r in staff['entries'] if r['evidence']!='local-mercenary-counter']==[('2100',807,128,128),('2100',810,480,128),('2400',810,480,128),('2510',807,128,128),('2600',818,288,160),('2000',807,128,128),('2000',810,480,128),('2200',807,128,128),('2200',810,480,128),('2300',807,128,128),('2300',810,480,128)],'only source-observed and user-confirmed rectangles')
+staff=json.loads((ROOT/'Assets/_Game/Resources/Town/OriginalInteriorStaff.json').read_text());check(staff['version']==1 and len(staff['entries'])==14,'eleven prior verified rectangles, two user-requested mage staff and one local mercenary staff')
+check([(r['nativeMap'],r['appearanceId'],r['pixelX'],r['pixelY']) for r in staff['entries'] if r['evidence']!='local-mercenary-counter' and r['nativeMap']!='2800']==[('2100',807,128,128),('2100',810,480,128),('2400',810,480,128),('2510',807,128,128),('2600',818,288,160),('2000',807,128,128),('2000',810,480,128),('2200',807,128,128),('2200',810,480,128),('2300',807,128,128),('2300',810,480,128)],'only source-observed and user-confirmed rectangles')
 weapon=[(r['appearanceId'],r['frame'],r['pixelX'],r['pixelY'],r['texture']) for r in staff['entries'] if r['nativeMap']=='2000']
 armor=[(r['appearanceId'],r['frame'],r['pixelX'],r['pixelY'],r['texture']) for r in staff['entries'] if r['nativeMap']=='2100']
 check(weapon==armor and all(r['evidence']=='user-confirmed' for r in staff['entries'] if r['nativeMap']=='2000'),'user-confirmed weapon staff match armor exactly')
@@ -36,7 +36,7 @@ check(consumables==armor and all(r['evidence']=='user-confirmed' for r in staff[
 local_mercenary=[r for r in staff['entries'] if r['evidence']=='local-mercenary-counter']
 check(len(local_mercenary)==1 and local_mercenary[0]['nativeMap']=='2900','unverified mercenary placement explicitly classified local')
 mage=[r for r in staff['entries'] if r['nativeMap']=='2800']
-check(not mage,'unverified mage-house placements removed')
+check(len(mage)==2 and all(r['evidence']=='user-confirmed' for r in mage),'restore two explicitly user-requested mage-house staff')
 for row in staff['entries']:
  check((ROOT/row['reference']).exists(),'evidence reference exists')
  source=next(p for p in (ROOT/'분석/Saver_1.2/decoded/all_arc/gameres').rglob('*') if p.name.lower()==str(row['appearanceId'])+'r.bmp')

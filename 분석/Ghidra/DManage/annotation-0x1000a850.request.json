@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x1000a850",
+      "name": "DecodeMrcMapGeometry",
+      "comment": "Original BB_Map::LoadMap(path,callback). Decode map resource IDs/dimensions, background arrays, tile records and decorative sprites. No unknown trailing bytes are invented as a monster roster."
+    }
+  },
+  "timeout": 900
+}

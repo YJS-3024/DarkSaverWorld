@@ -1,0 +1,12 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "annotate_native_function",
+    "arguments": {
+      "procedure": "0x1000c7d0",
+      "name": "DecodeUnitSnapshot_5C50",
+      "comment": "Decode the5C50 message body (the caller skips the two opcode bytes), construct unitinfo, call UserUnit.resetcharacter. Whole-message placement offsets: unit2, job6, native tileX30,Y32. Other fields are preserved rather than assigned guessed meanings."
+    }
+  },
+  "timeout": 900
+}
