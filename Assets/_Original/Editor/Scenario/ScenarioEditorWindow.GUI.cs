@@ -28,8 +28,8 @@ namespace DarkSaver.Original.Editor.Scenarios
             var inspector = new Rect(position.width-right,36,right,position.height-60);
             canvasArea = new Rect(left+1,36,Mathf.Max(200,position.width-left-right-2),position.height-60);
             DrawMaps(list); DrawInspector(inspector);
-            int nextMode = GUI.Toolbar(new Rect(canvasArea.x+8,canvasArea.y+5,330,24),mode,new[]{"전투 배치 편집","연출 배치 보기","NPC 입구 연결"});
-            if (nextMode != mode) { mode = nextMode; selected = -1; adding = false; dragging = false;pickNpc=pickSpawn=dragGateway=false; }
+            int nextMode = GUI.Toolbar(new Rect(canvasArea.x+8,canvasArea.y+5,330,24),mode,new[]{"전투 배치 편집","연출 배치 보기","맵 입구 연결"});
+            if (nextMode != mode) { mode = nextMode; selected = -1; adding = false; dragging = false;pickNpc=pickSpawn=dragGateway=sizingGateway=false; }
             using (new EditorGUI.DisabledScope(mode != 0 || loadError.Length > 0))
             {
                 adding = GUI.Toggle(new Rect(canvasArea.x+350,canvasArea.y+7,100,22),adding,"클릭하여 추가");
@@ -40,7 +40,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             ProcessInput(); DrawMap();
             EditorGUI.DrawRect(new Rect(0,position.height-24,position.width,24),new Color(.12f,.14f,.17f));
             GUI.Label(new Rect(10,position.height-22,position.width-20,20),
-                new[]{"전투 보기","연출 보기","NPC 입구 보기"}[mode]+" | 전투 "+document.units.Length+" · 화면 범위 "+visibleActors+" · 그림 미확보 "+missingActorPictures+" | "+(hoverX >= 0 ? "타일 " + hoverX + "," + hoverY + "  ·  " : "") + Mathf.RoundToInt(zoom*100) + "% | " + message, EditorStyles.miniLabel);
+                new[]{"전투 보기","연출 보기","맵 입구 보기"}[mode]+" | 전투 "+document.units.Length+" · 화면 범위 "+visibleActors+" · 그림 미확보 "+missingActorPictures+" | "+(hoverX >= 0 ? "타일 " + hoverX + "," + hoverY + "  ·  " : "") + Mathf.RoundToInt(zoom*100) + "% | " + message, EditorStyles.miniLabel);
             if (loadError.Length > 0) EditorGUI.HelpBox(new Rect(canvasArea.x+14,canvasArea.y+100,canvasArea.width-28,90),loadError,MessageType.Error);
         }
         private void DrawHeader()

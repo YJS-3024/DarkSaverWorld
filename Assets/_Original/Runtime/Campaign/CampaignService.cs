@@ -34,6 +34,8 @@ namespace DarkSaver.Original.Entry
             var f = ReadyWorld(); if (f != WorldFailure.None) return WorldResult(f);
             var map = world.Definition.campaign?.Map(target); if (map == null) return WorldResult(WorldFailure.InvalidInput);
             if (world.Moving || world.Kind != FacilityKind.None || world.PresentationLocked) return WorldResult(WorldFailure.Busy);
+            var authored=world.Definition.Map(world.Record.map).portals.FirstOrDefault(p=>p.id==world.PendingPortal&&p.targetMap==target&&!string.IsNullOrEmpty(p.gateway));
+            if(authored!=null)return EnterWorldPortal(authored.id,world.Definition.Map(target).training);
             var link = world.Definition.campaign.connections.FirstOrDefault(c => c.fromMap == world.Record.map && c.toMap == target
                 && !string.IsNullOrWhiteSpace(c.evidence) && c.cells.Any(p => p.x == world.Record.x && p.y == world.Record.y));
             if (link == null) return WorldResult(WorldFailure.RulesUnavailable);

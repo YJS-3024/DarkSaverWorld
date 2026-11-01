@@ -31,7 +31,7 @@ namespace DarkSaver.Original.Entry
             var map = definition.Map(record.map);
             if (map == null || !map.map.Contains(new TutorialTile(record.x, record.y)) || map.npcs.Any(n=>n.x==record.x&&n.y==record.y)) return WorldResult(WorldFailure.InvalidStage);
             world = new WorldSession(definition, record, owner.character.job); worldCharacter = owner.character.id;
-            if (map.training) { var exit = definition.Map(1000).portals.First(g => g.targetMap == map.id); record.map = 1000; record.x = exit.returnX; record.y = exit.returnY; world.Relocate(record); }
+            if (map.training) { var exit = TrainingEntrance(record); if(exit==null){ResetWorld();return WorldResult(WorldFailure.InvalidInput);}record.map = 1000; record.x = exit.returnX; record.y = exit.returnY; record.trainingEntrance=null;world.Relocate(record); }
             failure = CommitWorld(world.Record);
             if (failure != WorldFailure.None) { ResetWorld(); return WorldResult(failure); }
             return WorldResult(WorldFailure.None);
@@ -39,6 +39,7 @@ namespace DarkSaver.Original.Entry
         public WorldView WorldSnapshot() => world?.Snapshot();
         private WorldFailure ReadyWorld()
         { var f = WorldOwner(out _); return f != WorldFailure.None ? f : world == null ? WorldFailure.InvalidStage : WorldFailure.None; }
+        private WorldPortal TrainingEntrance(WorldRecord record) => world.Definition.Map(1000).portals.FirstOrDefault(g=>g.targetMap==record.map&&(string.IsNullOrEmpty(record.trainingEntrance)||g.id==record.trainingEntrance));
         private WorldFailure CommitWorld(WorldRecord candidate)
         {
             var f = WorldOwner(out var owner); if (f != WorldFailure.None) return f;
@@ -51,7 +52,7 @@ namespace DarkSaver.Original.Entry
             // User-specified interrupted-training policy: persist the town entrance,
             // not a resumable battle or an invented death/recovery reward.
             if (world.Definition.Map(saved.map).training)
-            { var gate = world.Definition.Map(1000).portals.First(g => g.targetMap == saved.map); saved.map = 1000; saved.x = gate.returnX; saved.y = gate.returnY; }
+            { var gate = TrainingEntrance(saved);if(gate==null)return WorldFailure.InvalidInput;saved.map = 1000; saved.x = gate.returnX; saved.y = gate.returnY;saved.trainingEntrance=null; }
             var documentCandidate = fresh.Copy(); documentCandidate.accounts.First(a => a.id == accountId).character.world = saved;
             if (!store.TryWrite(documentCandidate)) return WorldFailure.StorageUnavailable;
             document = documentCandidate; return WorldFailure.None;
@@ -134,12 +135,14 @@ namespace DarkSaver.Original.Entry
         public WorldReply EnterWorldPortal(string id, bool training)
         {
             var f = ReadyWorld(); if (f != WorldFailure.None) return WorldResult(f);
-            if (world.Moving || world.Kind != FacilityKind.None) return WorldResult(WorldFailure.Busy);
+            if (world.Moving || world.Kind != FacilityKind.None || world.PresentationLocked) return WorldResult(WorldFailure.Busy);
             var map = world.Definition.Map(world.Record.map); var gate = map.portals.FirstOrDefault(g => g.id == id);
             if (gate == null || world.PendingPortal != id || !gate.cells.Any(c => c.x == world.Record.x && c.y == world.Record.y)
                 || world.Definition.Map(gate.targetMap).training != training) return WorldResult(WorldFailure.InvalidInput);
             var next = world.Record.Copy(); next.map = gate.targetMap; next.x = gate.spawnX; next.y = gate.spawnY; next.direction = 1;
-            f = CommitWorld(next); world.PendingPortal = null;
+            next.campaignPhase=world.Definition.campaign?.Map(next.map)?.kind=="scenario"?"intro":null;
+            next.trainingEntrance=training?gate.id:null;
+            f = CommitWorld(next);
             if (f == WorldFailure.None) world.Relocate(next);
             return WorldResult(f);
         }
@@ -147,8 +150,9 @@ namespace DarkSaver.Original.Entry
         {
             var f = ReadyWorld(); if (f != WorldFailure.None) return WorldResult(f);
             if (!world.Definition.Map(world.Record.map).training || world.Moving) return WorldResult(WorldFailure.InvalidStage);
-            var gate = world.Definition.Map(1000).portals.First(g => g.targetMap == world.Record.map);
+            var gate = TrainingEntrance(world.Record);if(gate==null)return WorldResult(WorldFailure.InvalidInput);
             var next = world.Record.Copy(); next.map = 1000; next.x = gate.returnX; next.y = gate.returnY;
+            next.trainingEntrance=null;
             f = CommitWorld(next); if (f == WorldFailure.None) world.Relocate(next); return WorldResult(f);
         }
         public WorldReply OpenWorldFacility(string npcId)

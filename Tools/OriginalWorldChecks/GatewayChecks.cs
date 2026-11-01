@@ -5,6 +5,7 @@ using System.Text.Json;
 using DarkSaver.Original.Campaign;
 using DarkSaver.Original.World;
 using DarkSaver.Original.Entry;
+using DarkSaver.Original.Tutorial;
 
 internal static class GatewayChecks
 {
@@ -37,7 +38,8 @@ internal static class GatewayChecks
         var blockedStore=new Memory();var blockedServer=new EntryAccountService(blockedStore);var blockedClient=new EntryClient(blockedServer);blockedClient.OpenLocalProfile();blockedClient.Create(100,"겹침검사");blockedStore.data.accounts[0].character.tutorialCompleted=true;blockedClient.OpenLocalProfile();
         Check(blockedServer.BeginWorld(blockedWorld).Failure==WorldFailure.InvalidStage&&blockedStore.data.accounts[0].character.world==null,"saved player overlap is rejected instead of teleporting or overwriting profile");
         var invalid=settings.Copy();invalid.gates=new[]{settings.gates[0].Copy(),settings.gates[0].Copy()};invalid.gates[1].id=Guid.NewGuid().ToString("N");
-        Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"at most one NPC per target scenario");
+        Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"overlapping NPC cells rejected");
+        invalid.gates[1].y=22;ScenarioGatewayData.Validate(invalid,catalog);Check(invalid.gates.Length==2,"separate entrances may share a target scenario");
         invalid=settings.Copy();invalid.gates[0].npcJob=401;Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"monsters cannot impersonate entrance NPC artwork");
         invalid=settings.Copy();invalid.gates[0].x=43;Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"legacy map bounds enforced");
         invalid=settings.Copy();invalid.gates[0].spawnX=-1;Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"unselected spawn cannot save");
@@ -69,6 +71,78 @@ internal static class GatewayChecks
             Check(ScenarioGatewayData.Decode(File.ReadAllBytes(path)).gates[0].name=="변경"&&Directory.GetFiles(folder,"*.tmp").Length==0,"valid saved file retained, no temp files");
         }
         finally{if(Directory.Exists(folder))Directory.Delete(folder,true);}
-        Console.WriteLine(JsonSerializer.Serialize(new{assertions,defaultNpcCount=0,defaultApplyToGame=false,editorMaps=151,unityPlay=false,scope="Explicit synthetic NPC/room fixtures only; no production positions inserted."}));
+        CheckAreas(catalog);
+        Console.WriteLine(JsonSerializer.Serialize(new{assertions,defaultNpcCount=0,defaultApplyToGame=false,editorMaps=151,areas=new[]{"3x1","6x1","1x3","2x3"},unityPlay=false,scope="Explicit synthetic NPC/room and multi-cell map transition fixtures; no production positions inserted."}));
+    }
+    private static WorldDefinition FlatWorld()
+    {
+        // Synthetic passable fixtures only. Native source maps/settings/accounts remain untouched.
+        var w=World();var catalog=Catalog();
+        w.maps=new[]{1000,1010,26,101,2000}.Select(id=>{
+            var info=catalog.maps.First(m=>m.id==id);var terrain=new int[27*30];terrain[2]=1;
+            return new WorldMapDefinition{id=id,title="fixture",training=id==101,map=new TutorialMap{width=info.width,height=info.height,attributes=new int[info.width*info.height],terrain=terrain,abilities=Array.Empty<TutorialAbility>()},portals=Array.Empty<WorldPortal>(),npcs=Array.Empty<WorldNpc>(),decorations=Array.Empty<WorldDecoration>()};
+        }).ToArray();
+        w.campaign=new CampaignDefinition{maps=w.maps.Where(m=>m.id!=1000&&m.id!=2000).Select(m=>new CampaignMap{id=m.id,kind=m.id==1010?"world":"scenario",world=m,units=Array.Empty<CampaignUnit>(),intro="",outro=""}).ToArray(),connections=Array.Empty<CampaignConnection>(),jobs=Array.Empty<CampaignJob>()};
+        return w;
+    }
+    private static ScenarioGateway Walk(int from,int to,int x,int y,int width=3,int height=1,int sx=10,int sy=10)
+    {
+        var c=Catalog();return new ScenarioGateway{id=Guid.NewGuid().ToString("N"),trigger="walk",name="fixture area",enabled=true,
+            fromMap=from,targetMap=to,fromHash=c.maps.First(m=>m.id==from).hash,targetHash=c.maps.First(m=>m.id==to).hash,
+            x=x,y=y,width=width,height=height,spawnX=sx,spawnY=sy,returnX=21,returnY=22};
+    }
+    private static ScenarioGatewaySettings Areas(params ScenarioGateway[] gates)=>new ScenarioGatewaySettings{applyToGame=true,gates=gates};
+    private static void CheckAreas(GatewayMapCatalog catalog)
+    {
+        var legacy=ScenarioGatewayData.Decode(ScenarioGatewayData.Encode(Settings())).gates[0];
+        Check(!legacy.IsWalk&&legacy.Width==1&&legacy.Height==1,"version1 missing fields retain single-tile NPC behavior");
+        foreach(var size in new[]{(width:3,height:1),(width:6,height:1),(width:1,height:3),(width:2,height:3)})for(int row=0;row<size.height;row++)for(int column=0;column<size.width;column++)
+        {
+            var gate=Walk(1000,1010,22,22,size.width,size.height);var settings=Areas(gate);var world=FlatWorld();ScenarioGatewayData.Apply(settings,catalog,world);
+            Check(world.Map(1000).portals.Single().cells.Length==size.width*size.height,"area exports all trigger cells");
+            var service=Service(world).server;Check(service.EnterCampaignMap(1010).Failure==WorldFailure.RulesUnavailable,"remote transition denied without reaching entrance");
+            Check(service.MoveWorld(22+column,22+row).Accepted,"each entrance cell reachable");service.AdvanceWorld(10000);
+            Check(service.WorldSnapshot().pendingPortal=="scenario-gateway-"+gate.id,"each entrance column activates same portal");
+            Check(service.EnterCampaignMap(1010).Accepted,"authored route enters campaign field through server");
+            var view=service.WorldSnapshot();Check(view.record.map==1010&&view.record.x==10&&view.record.y==10&&view.pendingPortal==null&&view.record.campaignPhase==null,"different-map destination and phase applied exactly");
+        }
+        var a=Walk(1000,1010,22,22,3);var b=Walk(1000,1010,22,24,6,1,11,11);
+        var back=Walk(1010,1000,10,12,6,1,21,22);var document=Areas(a,b,back);var multi=FlatWorld();ScenarioGatewayData.Apply(document,catalog,multi);
+        Check(multi.Map(1000).portals.Length==2&&multi.Map(1010).portals.Length==1,"multiple entrances and explicit reverse direction applied");
+        var pair=Service(multi);var server=pair.server;server.MoveWorld(22,22);server.AdvanceWorld(10000);pair.store.fail=true;
+        Check(server.EnterCampaignMap(1010).Failure==WorldFailure.StorageUnavailable&&server.WorldSnapshot().record.map==1000&&server.WorldSnapshot().pendingPortal!=null,"failed transition save preserves source and pending entry for retry");
+        pair.store.fail=false;Check(server.EnterCampaignMap(1010).Accepted,"same entry retry succeeds after storage recovery");
+        server.MoveWorld(10,12);server.AdvanceWorld(10000);Check(server.EnterWorldPortal("scenario-gateway-"+back.id,false).Accepted&&server.WorldSnapshot().record.map==1000&&server.WorldSnapshot().record.x==21&&server.WorldSnapshot().record.y==22,"reverse area returns to configured source tile");
+        var roundtrip=ScenarioGatewayData.Decode(ScenarioGatewayData.Encode(document));ScenarioGatewayData.Validate(roundtrip,catalog);
+        Check(roundtrip.gates[1].width==6&&roundtrip.gates[2].fromMap==1010&&roundtrip.gates[2].targetMap==1000,"area dimensions/direction survive JSON roundtrip");
+        var invalid=document.Copy();invalid.gates[1].y=22;Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"partially overlapping rectangles rejected");
+        invalid=Areas(a.Copy());invalid.gates[0].width=int.MaxValue;Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"oversized area rejected before allocation");
+        invalid=Areas(a.Copy());invalid.gates[0].width=0;Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"zero width is invalid for a new walk area");
+        invalid=Areas(a.Copy());invalid.gates[0].height=-1;Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"negative height rejected");
+        invalid=Areas(a.Copy());invalid.gates[0].x=42;Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"whole area must fit source map");
+        invalid=Areas(a.Copy());invalid.gates[0].trigger="unknown";Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"unknown activation type rejected");
+        var blocked=FlatWorld();blocked.Map(1000).map.attributes[22*blocked.Map(1000).map.width+23]=1;blocked.Map(1000).map.terrain[32]=99;
+        Reject(()=>ScenarioGatewayData.Apply(Areas(a),catalog,blocked),"one blocked cell invalidates entire source area");
+        var atomic=FlatWorld();atomic.Map(1010).map.attributes[11*atomic.Map(1010).map.width+11]=1;atomic.Map(1010).map.terrain[32]=99;
+        var originalMaps=atomic.maps;Reject(()=>ScenarioGatewayData.Apply(Areas(a,b),catalog,atomic),"later invalid entry rejected");
+        Check(ReferenceEquals(atomic.maps,originalMaps)&&atomic.Map(1000).portals.Length==0&&atomic.gateways==null,"failed apply does not publish partial edits");
+        invalid=Areas(a.Copy(),Walk(1010,1000,10,10,3,1,21,22));Reject(()=>ScenarioGatewayData.Apply(invalid,catalog,FlatWorld()),"arrival cannot activate another configured entry");
+        var native=new WorldPortal{id="native-fixture",targetMap=2000,spawnX=10,spawnY=10,cells=a.Cells()};var overridden=FlatWorld();overridden.Map(1000).portals=new[]{native};
+        var edit=Walk(1000,1010,23,22,6);edit.replacesPortal=native.id;var edits=Areas(edit);
+        ScenarioGatewayData.Apply(edits,catalog,overridden);Check(overridden.Map(1000).portals.Single().targetMap==1010&&overridden.Map(1000).portals.Single().cells.Length==6,"explicit original-door override replaces rather than overlaps");
+        ScenarioGatewayData.Apply(edits,catalog,overridden);Check(overridden.Map(1000).portals.Length==1,"reapplying override is idempotent");
+        edits.gates[0].enabled=false;ScenarioGatewayData.Apply(edits,catalog,overridden);Check(overridden.Map(1000).portals.Single()==native&&native.cells.Length==3&&native.targetMap==2000,"disabling override restores unmodified original door");
+        edits.gates[0].enabled=true;edits.applyToGame=false;ScenarioGatewayData.Apply(edits,catalog,overridden);Check(overridden.Map(1000).portals.Single()==native,"global off restores native door");
+        invalid=Areas(edit.Copy());invalid.gates[0].replacesPortal="missing";Reject(()=>ScenarioGatewayData.Apply(invalid,catalog,FlatWorld()),"unknown replacement id rejected");
+        var scenario=FlatWorld();var toScenario=Walk(1000,26,22,22);ScenarioGatewayData.Apply(Areas(toScenario),catalog,scenario);server=Service(scenario).server;
+        server.MoveWorld(22,22);server.AdvanceWorld(10000);Check(server.EnterCampaignMap(26).Accepted&&server.WorldSnapshot().record.campaignPhase=="intro","scenario entrance starts intro phase");
+        var training=FlatWorld();training.Map(1000).portals=new[]{new WorldPortal{id="other-training-door",targetMap=101,spawnX=10,spawnY=10,returnX=29,returnY=30,cells=new[]{new WorldPoint{x=30,y=30}}}};
+        var toTraining=Walk(1000,101,22,22);ScenarioGatewayData.Apply(Areas(toTraining),catalog,training);pair=Service(training);server=pair.server;server.MoveWorld(22,22);server.AdvanceWorld(10000);
+        Check(server.EnterCampaignMap(101).Accepted&&server.WorldSnapshot().record.map==101,"second training entrance enters normally");
+        Check(pair.store.data.accounts[0].character.world.map==1000&&pair.store.data.accounts[0].character.world.x==21&&pair.store.data.accounts[0].character.world.y==22,"training interrupted save uses actual entered door return tile");
+        Check(server.EscapeTraining().Accepted&&server.WorldSnapshot().record.x==21&&server.WorldSnapshot().record.y==22,"training escape uses actual door rather than first matching map");
+        string folder=Path.Combine(Path.GetTempPath(),"area-tests-"+Guid.NewGuid().ToString("N")),path=Path.Combine(folder,"UserGateways.json");
+        try{ScenarioGatewayData.Save(path,document,catalog,null);var restored=ScenarioGatewayData.Decode(File.ReadAllBytes(path));Check(restored.gates.Length==3&&restored.gates[1].Width==6,"multiple areas saved to isolated real file");}
+        finally{if(Directory.Exists(folder))Directory.Delete(folder,true);}
     }
 }

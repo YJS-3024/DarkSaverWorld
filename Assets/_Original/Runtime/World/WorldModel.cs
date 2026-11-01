@@ -11,7 +11,7 @@ namespace DarkSaver.Original.World
     public enum WorldFailure { None, Unauthenticated, InvalidStage, InvalidInput, Moving, TooFar, Busy, StaleRequest, RulesUnavailable, InsufficientFunds, InventoryFull, NotOwned, StorageUnavailable }
     [Serializable] public sealed class WorldPoint { public int x, y; public TutorialTile Tile => new TutorialTile(x, y); }
     [Serializable] public sealed class WorldPortal
-    { public string id; public int targetMap, spawnX, spawnY, returnX, returnY; public WorldPoint[] cells; }
+    { public string id, gateway; public int targetMap, spawnX, spawnY, returnX, returnY; public WorldPoint[] cells; }
     [Serializable] public sealed class WorldNpc
     { public string id, name, evidence, gateway; public int picture, x, y, kind; public WorldPoint[] counter; }
     [Serializable] public sealed class WorldDecoration { public int picture, x, y, width, height; }
@@ -40,6 +40,7 @@ namespace DarkSaver.Original.World
         public WorldHireOffer[] hires; public WorldRules rules; public WorldWindowDefinition[] windows;
         public CampaignDefinition campaign;
         public ScenarioGatewaySettings gateways;
+        internal WorldMapDefinition[] gatewayBaseMaps;
         public WorldMapDefinition Map(int id) => maps?.FirstOrDefault(m => m.id == id);
         public WorldItemDefinition Item(int id) => items?.FirstOrDefault(i => i.id == id);
         public bool IsValid => rules != null && Map(1000)?.map?.IsValid == true && shops != null && items != null && hires != null
@@ -60,6 +61,7 @@ namespace DarkSaver.Original.World
         [DataMember] public int hp, maxHp, mp, maxMp, hiredJob = -1, hiredCount;
         [DataMember(EmitDefaultValue=false)] public int? level;
         [DataMember(EmitDefaultValue=false)] public string campaignPhase;
+        [DataMember(EmitDefaultValue=false)] public string trainingEntrance;
         [DataMember] public WorldOwnedItem[] inventory = Array.Empty<WorldOwnedItem>(), storage = Array.Empty<WorldOwnedItem>();
         [DataMember(EmitDefaultValue=false)] public WorldOwnedItem[] equipment;
         public WorldOwnedItem[] Equipment => equipment ?? Array.Empty<WorldOwnedItem>();

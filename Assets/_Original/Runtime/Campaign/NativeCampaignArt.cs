@@ -36,7 +36,7 @@ namespace DarkSaver.Original.Campaign
             if(gatewaySettings!=null)
             {
                 var settings=ScenarioGatewayData.Decode(gatewaySettings.bytes);
-                if(settings.applyToGame&&settings.gates.Any(g=>g.enabled)&&(gatewayWindow==null||GatewayWindow==null))throw new System.IO.InvalidDataException("NPC 방 목록 원본 UI 자료가 없습니다.");
+                if(settings.applyToGame&&settings.gates.Any(g=>g.enabled&&!g.IsWalk)&&(gatewayWindow==null||GatewayWindow==null))throw new System.IO.InvalidDataException("NPC 방 목록 원본 UI 자료가 없습니다.");
                 ScenarioGatewayData.Apply(settings,GatewayMaps,world);
             }
             return world;
