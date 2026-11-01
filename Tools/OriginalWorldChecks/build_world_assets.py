@@ -16,6 +16,8 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 BASE = ROOT / 'Assets/_Original'; OUT = BASE / 'Art/World'; DATA = BASE / 'Data/World'
+ACCESSORY_STOCK = [207,208,201,210,211,209,202,206,928,200,929,203,204,205]
+ACCESSORY_EVIDENCE = 'User-approved 14-item accessory stock; book 200 membership recalled by user; native item IDs/prices; original Kaosia shop membership independently unconfirmed'
 sys.path.insert(0, str(ROOT / '닥세_리소스/분석도구'))
 from decode_visuals import read_mrc, read_grs, grs_image, read_lsc, read_ui_library
 spec = importlib.util.spec_from_file_location('original_meta', ROOT / 'Tools/OriginalRestart/reset_assets.py')
@@ -122,7 +124,7 @@ def main():
             assert len(candidates)==1,row;ids.append(candidates[0])
         assert len(ids)==len(set(ids))==expected,(stem,len(ids))
         shops.append(dict(map=map_id,items=ids,evidence=stem+' guide membership; active native table prices'))
-    shops.append(dict(map=2200,items=[],evidence='Unconfirmed stock; user deferred accessories'))
+    shops.append(dict(map=2200,items=ACCESSORY_STOCK.copy(),evidence=ACCESSORY_EVIDENCE))
     units={int(r['직업']):r for r in csv.DictReader(source(BASE/'Data/Tables/units_all.csv').open(encoding='utf-8-sig'))}
     hires=[]
     for row in csv.DictReader(source(ROOT/'Tools/OriginalInputChecks/mercenary_class_stock.csv').open(encoding='utf-8-sig')):

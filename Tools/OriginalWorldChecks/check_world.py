@@ -29,7 +29,10 @@ def main():
  known={f['sha256'] for p in manifest['payloads'] for f in p.get('files',[]) if 'sha256'in f}
  for p in (BASE/'SourceData/KaosiaLegacy').glob('*.bytes'):assert sha(p)in known,p
  definition=json.loads((BASE/'Data/World/KaosiaWorld.json').read_text());assert definition['rules'] and not any(definition['rules'].values())
- assert {s['map']:len(s['items'])for s in definition['shops']}=={2000:22,2100:20,2300:23,2800:6,2200:0}
+ assert {s['map']:len(s['items'])for s in definition['shops']}=={2000:22,2100:20,2300:23,2800:6,2200:14}
+ accessories=next(s for s in definition['shops']if s['map']==2200)
+ assert set(accessories['items'])=={200,201,202,203,204,205,206,207,208,209,210,211,928,929}
+ assert 'User-approved' in accessories['evidence'] and 'unconfirmed' in accessories['evidence']
  assert 755 in next(s['items']for s in definition['shops']if s['map']==2100) and 1029 not in next(s['items']for s in definition['shops']if s['map']==2100)
  assert all(not i['sellKnown']for i in definition['items'])
  # Independent source columns, not Unity's runtime icon cache or its slot resolver.
@@ -51,7 +54,7 @@ def main():
  assert 'isReadable: 1' in (BASE/'Art/World/Items.png.meta').read_text()
  assert (BASE/'Data/World/KaosiaWorld.json').read_bytes().find(b'\r')<0
  tutorial=json.loads((ROOT/'Tools/OriginalTutorialChecks/tutorial-check.json').read_text())
- result.update(maps=11,staff=evidence['staff'],shopItems=71,sourceLinkedOutputs=len(evidence['outputs']),sourceHashes=len(evidence['sources']),
+ result.update(maps=11,staff=evidence['staff'],shopItems=85,sourceLinkedOutputs=len(evidence['outputs']),sourceHashes=len(evidence['sources']),
    tutorialRegression=tutorial['assertions'],entryRegression=tutorial['entryRegressionAssertions'],runtimeApiErrors=tutorial['runtimeApiErrors'],editorApiErrors=tutorial['editorApiErrors'],playerApiErrors=tutorial['playerApiErrors'],warnings=tutorial['warnings'],sceneScriptsResolved=4,
    scope='Production state/auth/movement/routes/transactions/save tests and API/source audits. Native fields and held policies are distinct; no Unity import, mouse Play, audio or battle validation.',logs=str(WORK))
  Path(__file__).with_name('world-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result,ensure_ascii=False))

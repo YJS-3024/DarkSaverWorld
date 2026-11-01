@@ -72,8 +72,8 @@ internal static class WorldChecks
                 Check(f.Server.MoveWorld(10,10).Failure==WorldFailure.Busy,"facility owns input until close");
                 if((FacilityKind)npc.kind==FacilityKind.Shop)
                 {
-                    int expected=id==2000?22:id==2100?20:id==2300?23:id==2800?6:0;
-                    Check(f.View.facility.offers.Length==expected,"guide-confirmed stock "+id);
+                    int expected=id==2000?22:id==2100?20:id==2300?23:id==2800?6:id==2200?14:0;
+                    Check(f.View.facility.offers.Length==expected,"configured shop stock "+id);
                     if(expected>0){string before=State(f.View.record);Check(f.Server.BuyWorldItem(f.View.facility.offers[0],f.View.facility.token,Id()).Failure==WorldFailure.RulesUnavailable&&State(f.View.record)==before,"unknown wallet holds trade without mutation");}
                 }
                 if((FacilityKind)npc.kind==FacilityKind.Bank)Check(f.Server.BankWorld(true,1,f.View.facility.token,Id()).Failure==WorldFailure.RulesUnavailable,"unknown bank costs remain blocked");
