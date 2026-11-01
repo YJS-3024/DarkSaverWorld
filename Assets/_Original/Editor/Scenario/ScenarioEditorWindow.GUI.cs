@@ -14,6 +14,11 @@ namespace DarkSaver.Original.Editor.Scenarios
         private Rect canvasArea;
         private GUIStyle small, centered;
         private int visibleActors,missingActorPictures;
+        private const float DefaultInspectorWidth=264,MinimumInspectorWidth=240;
+        private const string InspectorWidthPreference="DarkSaver.Original.ScenarioEditor.InspectorWidth";
+        [SerializeField] private float inspectorWidth=DefaultInspectorWidth;
+        private bool inspectorWidthLoaded;
+        private float inspectorResizeMouseX,inspectorResizeWidth,inspectorResizePreviousWidth;
         private void OnGUI()
         {
             if (small == null) small = new GUIStyle(EditorStyles.miniLabel) { normal = { textColor = Color.white } };
@@ -23,18 +28,21 @@ namespace DarkSaver.Original.Editor.Scenarios
             { EditorGUI.HelpBox(new Rect(12,48,position.width-24,90), "원본 자료를 열지 못했습니다. " + loadError, MessageType.Error); return; }
             mode=Mathf.Clamp(mode,0,2);
             if(float.IsNaN(zoom)||float.IsInfinity(zoom)||zoom<.125f||zoom>4||float.IsNaN(pan.x)||float.IsInfinity(pan.x)||float.IsNaN(pan.y)||float.IsInfinity(pan.y))Fit();
-            const float left = 220, right = 264;
+            const float left = 220;
+            float right=ResizeInspector(left);
             var list = new Rect(0,36,left,position.height-60);
             var inspector = new Rect(position.width-right,36,right,position.height-60);
-            canvasArea = new Rect(left+1,36,Mathf.Max(200,position.width-left-right-2),position.height-60);
+            canvasArea = new Rect(left+1,36,Mathf.Max(200,position.width-left-right-8),position.height-60);
             DrawMaps(list); DrawInspector(inspector);
             int nextMode = GUI.Toolbar(new Rect(canvasArea.x+8,canvasArea.y+5,330,24),mode,new[]{"전투 배치 편집","연출 배치 보기","맵 입구 연결"});
             if (nextMode != mode) { mode = nextMode; selected = -1; adding = false; dragging = false;pickNpc=pickSpawn=dragGateway=sizingGateway=false; }
+            bool compactActions=canvasArea.width<466;
             using (new EditorGUI.DisabledScope(mode != 0 || loadError.Length > 0))
             {
-                adding = GUI.Toggle(new Rect(canvasArea.x+350,canvasArea.y+7,100,22),adding,"클릭하여 추가");
+                adding = GUI.Toggle(new Rect(canvasArea.x+(compactActions?8:350),canvasArea.y+(compactActions?34:7),100,22),adding,"클릭하여 추가");
             }
             viewport = new Rect(canvasArea.x+8,canvasArea.y+36,canvasArea.width-16,canvasArea.height-44);
+            if(compactActions){viewport.y+=26;viewport.height-=26;}
             if (mode == 1) { DrawScript(); viewport.y += 58; viewport.height -= 58; }
             if(fitRequested)ApplyFit();
             ProcessInput(); DrawMap();
@@ -42,6 +50,37 @@ namespace DarkSaver.Original.Editor.Scenarios
             GUI.Label(new Rect(10,position.height-22,position.width-20,20),
                 new[]{"전투 보기","연출 보기","맵 입구 보기"}[mode]+" | 전투 "+document.units.Length+" · 화면 범위 "+visibleActors+" · 그림 미확보 "+missingActorPictures+" | "+(hoverX >= 0 ? "타일 " + hoverX + "," + hoverY + "  ·  " : "") + Mathf.RoundToInt(zoom*100) + "% | " + message, EditorStyles.miniLabel);
             if (loadError.Length > 0) EditorGUI.HelpBox(new Rect(canvasArea.x+14,canvasArea.y+100,canvasArea.width-28,90),loadError,MessageType.Error);
+        }
+        private float ResizeInspector(float left)
+        {
+            if(!inspectorWidthLoaded){inspectorWidth=EditorPrefs.GetFloat(InspectorWidthPreference,inspectorWidth);inspectorWidthLoaded=true;}
+            float maximum=Mathf.Max(MinimumInspectorWidth,position.width-left-360-8);
+            if(float.IsNaN(inspectorWidth)||float.IsInfinity(inspectorWidth))inspectorWidth=DefaultInspectorWidth;
+            float width=Mathf.Clamp(inspectorWidth,MinimumInspectorWidth,maximum);
+            int control=GUIUtility.GetControlID(0x44534957,FocusType.Passive);
+            var rect=new Rect(position.width-width-6,36,6,position.height-60);var e=Event.current;
+            EditorGUIUtility.AddCursorRect(rect,MouseCursor.ResizeHorizontal,control);
+            if(e.type==EventType.MouseDown&&e.button==0&&rect.Contains(e.mousePosition))
+            {
+                GUI.FocusControl(null);
+                if(e.clickCount==2){GUIUtility.hotControl=0;inspectorWidth=DefaultInspectorWidth;EditorPrefs.SetFloat(InspectorWidthPreference,inspectorWidth);}
+                else{GUIUtility.hotControl=control;inspectorResizeMouseX=e.mousePosition.x;inspectorResizeWidth=width;inspectorResizePreviousWidth=inspectorWidth;}
+                e.Use();Repaint();
+            }
+            if(GUIUtility.hotControl==control)
+            {
+                if(e.type==EventType.MouseDrag)
+                {inspectorWidth=Mathf.Clamp(inspectorResizeWidth+inspectorResizeMouseX-e.mousePosition.x,MinimumInspectorWidth,maximum);e.Use();Repaint();}
+                else if(e.type==EventType.MouseUp)
+                {GUIUtility.hotControl=0;EditorPrefs.SetFloat(InspectorWidthPreference,inspectorWidth);e.Use();}
+                else if(e.type==EventType.KeyDown&&e.keyCode==KeyCode.Escape)
+                {inspectorWidth=inspectorResizePreviousWidth;GUIUtility.hotControl=0;e.Use();Repaint();}
+            }
+            width=Mathf.Clamp(inspectorWidth,MinimumInspectorWidth,maximum);rect.x=position.width-width-6;
+            EditorGUI.DrawRect(rect,new Color(.18f,.22f,.28f));
+            EditorGUI.DrawRect(new Rect(rect.center.x-1,rect.center.y-16,2,32),GUIUtility.hotControl==control?Color.cyan:new Color(.45f,.55f,.65f));
+            GUI.Label(rect,new GUIContent("","드래그: 오른쪽 메뉴 너비 조절 / 두 번 클릭: 기본 너비 / Esc: 조절 취소"));
+            return width;
         }
         private void DrawHeader()
         {
@@ -143,7 +182,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         }
         private void DrawScript()
         {
-            var rect=new Rect(canvasArea.x+10,canvasArea.y+37,canvasArea.width-20,24);
+            var rect=new Rect(canvasArea.x+10,viewport.y+1,canvasArea.width-20,24);
             if(source.scripts.Length==0){GUI.Label(rect,"연출 대본 없음",EditorStyles.miniLabel);return;}
             int next=EditorGUI.Popup(new Rect(rect.x,rect.y,155,20),scriptIndex,source.scripts.Select(System.IO.Path.GetFileName).ToArray());
             if(next!=scriptIndex){scriptIndex=next;ReadScript();}

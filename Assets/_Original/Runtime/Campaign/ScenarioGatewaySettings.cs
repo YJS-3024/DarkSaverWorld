@@ -18,6 +18,8 @@ namespace DarkSaver.Original.Campaign
         [DataMember(EmitDefaultValue=false)] public string trigger, replacesPortal;
         [DataMember(EmitDefaultValue=false)] public int width, height, returnX, returnY;
         [DataMember(EmitDefaultValue=false)] public int spawnWidth, spawnHeight;
+        [DataMember(EmitDefaultValue=false)] public string group;
+        public string GroupName => (group??"").Trim();
         public bool IsWalk => trigger == "walk";
         public int Width => width == 0 ? 1 : width;
         public int Height => height == 0 ? 1 : height;
@@ -51,6 +53,16 @@ namespace DarkSaver.Original.Campaign
         {using(var s=new MemoryStream()){new DataContractJsonSerializer(typeof(ScenarioGatewaySettings)).WriteObject(s,settings);return s.ToArray();}}
         public static ScenarioGatewaySettings Decode(byte[] bytes)
         {using(var s=new MemoryStream(bytes))return (ScenarioGatewaySettings)new DataContractJsonSerializer(typeof(ScenarioGatewaySettings)).ReadObject(s);}
+        public static bool Move(ScenarioGatewaySettings settings,string id,string anchor,bool after)
+        {
+            if(settings?.gates==null||id==anchor)return false;
+            var moved=settings.gates.FirstOrDefault(g=>g.id==id);
+            if(moved==null||!settings.gates.Any(g=>g.id==anchor))return false;
+            var items=settings.gates.ToList();items.Remove(moved);
+            items.Insert(items.FindIndex(g=>g.id==anchor)+(after?1:0),moved);
+            if(items.SequenceEqual(settings.gates))return false;
+            settings.gates=items.ToArray();return true;
+        }
         public static void Validate(ScenarioGatewaySettings settings,GatewayMapCatalog catalog)
         {
             if(settings==null||settings.version!=1||settings.provenance!=Provenance||settings.gates==null||catalog?.maps==null||catalog.npcJobs==null)throw new InvalidDataException("입구 설정 형식/출처를 확인하세요.");

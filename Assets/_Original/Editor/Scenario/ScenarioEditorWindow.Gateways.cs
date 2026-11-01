@@ -118,16 +118,14 @@ namespace DarkSaver.Original.Editor.Scenarios
                 EditorGUILayout.HelpBox("기존 도착: "+native.targetMap+" / "+native.spawnX+","+native.spawnY+" ("+Math.Max(1,native.spawnWidth)+"×"+Math.Max(1,native.spawnHeight)+")\n수정본 저장 전까지 원본은 유지됩니다.",MessageType.None);
                 if(GUILayout.Button("이 출입구를 편집본으로 가져오기"))EditNativePortal(native);
             }
-            GUILayout.Label("사용자 입구 목록",EditorStyles.boldLabel);
-            foreach(var link in gatewayDocument.gates)
-                if(GUILayout.Button((link.id==selectedGateway?"● ":"")+(link.enabled?"":"[꺼짐] ")+(link.IsWalk?"영역 ":"NPC ")+link.fromMap+" → "+link.targetMap+" "+link.name,EditorStyles.miniButton))
-                {selectedGateway=link.id;selectedNativePortal=null;pickNpc=pickSpawn=dragGateway=sizingGateway=false;}
+            DrawGatewayList();
             var gate=gatewayDocument.gates.FirstOrDefault(g=>g.id==selectedGateway);
             if(gate!=null)
             {
                 GUILayout.Space(7);GUILayout.Label("선택 입구",EditorStyles.boldLabel);
                 EditorGUI.BeginChangeCheck();string name=EditorGUILayout.TextField("입구 이름",gate.name);bool enabled=EditorGUILayout.Toggle("이 연결 사용",gate.enabled);
                 if(EditorGUI.EndChangeCheck()){RememberGateway();gate.name=name;gate.enabled=enabled;}
+                DrawGatewayGroupField(gate);
                 GUILayout.Label(gate.IsWalk?"방식: 영역 진입 (자동 이동)":"방식: NPC 클릭 (방 참가)");
                 GUILayout.Label("출발: "+gate.fromMap+" → 도착: "+gate.targetMap,EditorStyles.boldLabel);
                 if(!string.IsNullOrEmpty(gate.replacesPortal))GUILayout.Label("기존 출입구 수정: "+gate.replacesPortal,EditorStyles.wordWrappedMiniLabel);

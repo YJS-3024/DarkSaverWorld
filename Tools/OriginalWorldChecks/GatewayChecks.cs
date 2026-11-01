@@ -71,7 +71,7 @@ internal static class GatewayChecks
             Check(ScenarioGatewayData.Decode(File.ReadAllBytes(path)).gates[0].name=="변경"&&Directory.GetFiles(folder,"*.tmp").Length==0,"valid saved file retained, no temp files");
         }
         finally{if(Directory.Exists(folder))Directory.Delete(folder,true);}
-        CheckAreas(catalog);CheckArrivalAreas(catalog);
+        CheckAreas(catalog);CheckArrivalAreas(catalog);CheckGatewayOrder(catalog);
         Console.WriteLine(JsonSerializer.Serialize(new{assertions,defaultNpcCount=0,defaultApplyToGame=false,editorMaps=151,areas=new[]{"3x1","6x1","1x3","2x3"},arrivalAreas=new[]{"2x1","1x2","2x2"},unityPlay=false,scope="Explicit synthetic NPC/room and multi-cell map transition fixtures; no production positions inserted."}));
     }
     private static WorldDefinition FlatWorld()
@@ -201,5 +201,32 @@ internal static class GatewayChecks
         Reject(()=>ScenarioGatewayData.Apply(Areas(forward),catalog,occupied),"second arrival tile cannot contain NPC");
         var monster=FlatWorld();monster.campaign.Map(1010).units=new[]{new CampaignUnit{unit=400,job=401,x=11,y=10}};
         Reject(()=>ScenarioGatewayData.Apply(Areas(forward),catalog,monster),"second arrival tile cannot contain original monster");
+    }
+    private static void CheckGatewayOrder(GatewayMapCatalog catalog)
+    {
+        var a=Walk(1000,1010,22,22);var b=Walk(1000,1010,22,24);var c=Walk(1000,1010,22,26);
+        b.group="카오시아 시설";c.group="필드 연결";var settings=Areas(a,b,c);
+        var original=settings.gates.ToDictionary(g=>g.id,g=>Convert.ToBase64String(ScenarioGatewayData.Encode(Areas(g))));
+        Check(a.GroupName==""&&ScenarioGatewayData.Decode(ScenarioGatewayData.Encode(Settings())).gates[0].GroupName=="","old settings have no custom group");
+        var next=settings.Copy();Check(next.gates[1].group==b.group&&next.gates[1]!=b,"group metadata copied independently");
+        Check(ScenarioGatewayData.Move(next,c.id,a.id,false)&&next.gates.Select(g=>g.id).SequenceEqual(new[]{c.id,a.id,b.id}),"arbitrary move before anchor keeps all gateways");
+        Check(ScenarioGatewayData.Move(next,c.id,b.id,true)&&next.gates.Select(g=>g.id).SequenceEqual(new[]{a.id,b.id,c.id}),"move after anchor restores expected order");
+        byte[] before=ScenarioGatewayData.Encode(next);
+        Check(!ScenarioGatewayData.Move(next,a.id,a.id,false)&&!ScenarioGatewayData.Move(next,"missing",b.id,false)&&!ScenarioGatewayData.Move(next,a.id,"missing",false)&&before.SequenceEqual(ScenarioGatewayData.Encode(next)),"invalid moves preserve complete document");
+        foreach(var gate in next.gates)Check(original[gate.id]==Convert.ToBase64String(ScenarioGatewayData.Encode(Areas(gate))),"reordering preserves route dimensions, hashes, id and group");
+        next.gates[0].group="새 그룹";Check(settings.gates[0].group==null,"editing copied group leaves original untouched");
+        ScenarioGatewayData.Move(next,c.id,a.id,false);var world=FlatWorld();ScenarioGatewayData.Apply(next,catalog,world);
+        foreach(var gate in next.gates)
+        {
+            var portal=world.Map(1000).portals.Single(p=>p.gateway==gate.id);
+            Check(portal.targetMap==gate.targetMap&&portal.spawnX==gate.spawnX&&portal.spawnY==gate.spawnY&&portal.cells[0].x==gate.x&&portal.cells[0].y==gate.y,"group/order metadata does not alter runtime connection");
+        }
+        string folder=Path.Combine(Path.GetTempPath(),"gateway-order-tests-"+Guid.NewGuid().ToString("N")),path=Path.Combine(folder,"UserGateways.json");
+        try
+        {
+            ScenarioGatewayData.Save(path,next,catalog,null);var loaded=ScenarioGatewayData.Decode(File.ReadAllBytes(path));
+            Check(loaded.gates.Select(g=>g.id).SequenceEqual(next.gates.Select(g=>g.id))&&loaded.gates.Select(g=>g.group).SequenceEqual(next.gates.Select(g=>g.group)),"custom Unicode groups and arbitrary order survive actual file save/reload");
+        }
+        finally{if(Directory.Exists(folder))Directory.Delete(folder,true);}
     }
 }
