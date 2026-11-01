@@ -6,6 +6,26 @@ ROOT=Path(__file__).resolve().parents[2];BASE=ROOT/'Assets/_Original';DATA=BASE/
 sys.path.insert(0,str(ROOT/'닥세_리소스/분석도구'))
 from decode_visuals import read_mrc
 spec=importlib.util.spec_from_file_location('world_builder',Path(__file__).with_name('build_world_assets.py'));world=importlib.util.module_from_spec(spec);spec.loader.exec_module(world)
+LEGACY_MAPS={'1010'}
+
+def map_path(key):
+ return BASE/('SourceData/KaosiaLegacy'if key in LEGACY_MAPS else 'SourceData/Native/map')/(key+'.mrc.bytes')
+
+def prepare_legacy_maps():
+ old=ROOT/'분석/Saver_1.2/extracted/Saver_Files/Saver/MAP';paths=[]
+ for key in sorted(LEGACY_MAPS):
+  names=[key+'.mrc']+['mdsr'+str(i)+'.grs'for i in read_mrc(old/(key+'.mrc'))['ids']]
+  for name in names:
+   original=old/name;target=BASE/'SourceData/KaosiaLegacy'/(name+'.bytes')
+   target.parent.mkdir(exist_ok=True)
+   if target.exists():assert target.read_bytes()==original.read_bytes(),target
+   else:target.write_bytes(original.read_bytes())
+   meta_path=Path(str(target)+'.meta')
+   if not meta_path.exists():
+    world.metadata.meta(target,ROOT/'Assets')
+    meta_path.write_text('\n'.join(line.rstrip()for line in meta_path.read_text().splitlines())+'\n')
+   paths.append((original,target))
+ return paths
 
 def main():
  DATA.mkdir(exist_ok=True);ART.mkdir(exist_ok=True)
@@ -13,6 +33,8 @@ def main():
  def source(p):report['sources'][p.relative_to(ROOT).as_posix()]=hashlib.sha256(p.read_bytes()).hexdigest();return p
  def output(p,origin):world.metadata.meta(p,ROOT/'Assets');report['outputs'].append(dict(asset=p.relative_to(ROOT).as_posix(),sha256=hashlib.sha256(p.read_bytes()).hexdigest(),source=origin));return p
  def ref(p,kind=4900000):return '{fileID: '+str(kind)+', guid: '+world.guid(p)+', type: 3}'
+ legacy_sources=prepare_legacy_maps()
+ for original,target in legacy_sources:source(original);source(target)
  unit_table=source(BASE/'Data/Tables/units_all.csv');jobs={int(r['직업']):r for r in csv.DictReader(unit_table.open(encoding='utf-8-sig'))}
  literal=json.loads(source(BASE/'Data/Placements/scenario_monster_placements.json').read_text());placements={s['scenario']:s for s in literal['scenarios']}
  nav=json.loads(source(BASE/'Data/Tutorial/Tutorial301.json').read_text())['map']
@@ -23,7 +45,7 @@ def main():
   if not p.exists():return -1
   scripts.append(source(p));return len(scripts)-1
  for key in keys:
-  path=source(BASE/'SourceData/Native/map'/f'{key}.mrc.bytes');m=read_mrc(path);map_paths.append(path)
+  path=source(map_path(key));m=read_mrc(path);map_paths.append(path)
   prefix=BASE/'SourceData/Decoded/map'/f'{key}set.arc'/key
   title_path=prefix.with_suffix('.srf.txt');title=source(title_path).read_text().splitlines()[0].strip()if title_path.exists()else '월드 맵 '+key
   pos=prefix.with_suffix('.pos.txt');entries=[]
@@ -37,11 +59,12 @@ def main():
   kind='world'if int(key)>1000 else 'scenario'
   maps.append(dict(id=int(key),key=key,kind=kind,hash=hashlib.sha256(path.read_bytes()).hexdigest(),nativeIndex=len(map_paths)-1,
     introIndex=script(prefix.with_suffix('.deo.txt')),outroIndex=script(prefix.with_suffix('.dee.txt')),eventIndex=script(prefix.with_suffix('.evt.txt')),
-    world=dict(id=int(key),ground=-1,title=title,sourceVersion='Saver_Late',nativeKey=key,training=False,
+    world=dict(id=int(key),ground=-1,title=title,sourceVersion='Saver_1.2'if key in LEGACY_MAPS else 'Saver_Late',nativeKey=key,training=False,
       map=dict(width=m['width'],height=m['height'],attributes=[0 if(t[3]&127)>27 else t[3]&127 for t in m['tiles']],terrain=nav['terrain'],abilities=nav['abilities']),portals=[],npcs=[],decorations=[]),
     rosterSource='original-set-pos'if units else 'original-empty'if known else 'original-missing',units=units,entries=entries))
  graphics=sorted((BASE/'SourceData/Native/map').glob('mdsr*.grs.bytes'),key=lambda p:int(p.name[4:].split('.')[0]));graphic_ids=[]
  for path in graphics:source(path);graphic_ids.append(int(path.name[4:].split('.')[0]))
+ legacy_graphics=sorted({target for _,target in legacy_sources if target.name.startswith('mdsr')},key=lambda p:int(p.name[4:].split('.')[0]));legacy_ids=[int(p.name[4:].split('.')[0])for p in legacy_graphics]
  pictures=[];picture_ids=[]
  for path in sorted((BASE/'Art/Archives/gameres').glob('**/*r.bmp.png')):
   stem=path.name.split('r')[0]
@@ -56,8 +79,8 @@ def main():
   if(p.is_dir()or p.suffix=='.cs')and not Path(str(p)+'.meta').exists():world.metadata.meta(p,ROOT/'Assets',folder=p.is_dir())
  asset=DATA/'NativeCampaignArt.asset'
  text='%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!114 &11400000\nMonoBehaviour:\n  m_ObjectHideFlags: 0\n  m_Script: {fileID: 11500000, guid: '+world.guid(BASE/'Runtime/Campaign/NativeCampaignArt.cs')+', type: 3}\n  m_Name: NativeCampaignArt\n  catalog: '+ref(catalog)+'\n'
- for field,paths,typ in [('maps',map_paths,4900000),('graphics',graphics,4900000),('scripts',scripts,4900000),('pictures',pictures,2800000),('faces',faces,2800000)]:text+='  '+field+':\n'+''.join('  - '+ref(p,typ)+'\n'for p in paths)
- for field,values in [('graphicIds',graphic_ids),('pictureIds',picture_ids),('faceIds',face_ids)]:text+='  '+field+': '+''.join(i.to_bytes(4,'little',signed=True).hex()for i in values)+'\n'
+ for field,paths,typ in [('maps',map_paths,4900000),('graphics',graphics,4900000),('legacyGraphics',legacy_graphics,4900000),('scripts',scripts,4900000),('pictures',pictures,2800000),('faces',faces,2800000)]:text+='  '+field+':\n'+''.join('  - '+ref(p,typ)+'\n'for p in paths)
+ for field,values in [('graphicIds',graphic_ids),('legacyGraphicIds',legacy_ids),('pictureIds',picture_ids),('faceIds',face_ids)]:text+='  '+field+': '+''.join(i.to_bytes(4,'little',signed=True).hex()for i in values)+'\n'
  asset.write_text(text);world.metadata.meta(asset,ROOT/'Assets');Path(str(asset)+'.meta').write_text('fileFormatVersion: 2\nguid: '+world.guid(asset)+'\nNativeFormatImporter:\n  mainObjectFileID: 11400000\n')
  report.update(maps=len(maps),worldMaps=sum(m['kind']=='world'for m in maps),scenarios=sum(m['kind']=='scenario'for m in maps),originalUnits=sum(len(m['units'])for m in maps),sourceMissing=sum(m['rosterSource']=='original-missing'for m in maps),scripts=[p.relative_to(ROOT).as_posix()for p in scripts],asset=asset.relative_to(ROOT).as_posix())
  Path(__file__).with_name('campaign-assets.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:report[k]for k in ['maps','worldMaps','scenarios','originalUnits']}))

@@ -56,19 +56,22 @@ def main():
             actor_frames+=1
     result['nativeActorFrontFramesCompared']=actor_frames
     cache={};pixel_checks=[]
+    map_infos={m['key']:m for m in json.loads((BASE/'Data/Campaign/GatewayMaps.json').read_text())['maps']}
     for key in ['01','02','26','101','201','314','1010']:
-        path=BASE/'SourceData/Native/map';m=read_mrc(path/(key+'.mrc.bytes'))
+        selected=ROOT/map_infos[key]['nativePath'];path=selected.parent;m=read_mrc(selected);grs={}
         for rid in m['ids']:
-            if rid not in cache:cache[rid]=read_grs(path/f'mdsr{rid}.grs.bytes')
+            cache_key=(path,rid)
+            if cache_key not in cache:cache[cache_key]=read_grs(path/f'mdsr{rid}.grs.bytes')
+            grs[rid]=cache[cache_key]
         image=Image.new('RGBA',(m['width']*32,m['height']*32),(0,0,0,255))
         for i,(rid,group,detail)in enumerate(zip(m['a'],m['b'],m['tiles'])):
-            pos=(i%m['width']*32,i//m['width']*32);g=cache[rid]['groups'][group]
+            pos=(i%m['width']*32,i//m['width']*32);g=grs[rid]['groups'][group]
             image.alpha_composite(grs_image(g['palette'],g['images'][0]),pos)
             if detail[1]!=255:
-                g=cache[detail[0]]['groups'][detail[1]];frame=g['tiles'][detail[2]]['frames'][0]
+                g=grs[detail[0]]['groups'][detail[1]];frame=g['tiles'][detail[2]]['frames'][0]
                 image.alpha_composite(grs_image(g['palette'],g['images'][frame],True),pos)
         for s in m['sprites']:
-            g=cache[s['resource']]['sprites'][s['index']]
+            g=grs[s['resource']]['sprites'][s['index']]
             image.alpha_composite(grs_image(g['palette'],g['images'][s['frame']],True),(s['x']*32,s['y']*32))
         actual=(WORK/(key+'.rgba')).read_bytes();assert actual==image.tobytes(),key
         image.save(WORK/(key+'-native-preview.png'));pixel_checks.append(key)

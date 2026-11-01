@@ -15,7 +15,7 @@ def main():
  jobs=[int(r['직업'])for r in table if r['category']=='npc_or_special'and 800<=int(r['직업'])<900 and int(r['직그림'])in pics]
  infos=[]
  for key in sorted(keys,key=int):
-  legacy=key=='1000';p=source(BASE/('SourceData/KaosiaLegacy'if legacy else 'SourceData/Native/map')/(key+'.mrc.bytes'));m=read_mrc(p);id=int(key)
+  legacy=key=='1000'or key in campaign.LEGACY_MAPS;p=source(BASE/('SourceData/KaosiaLegacy'if legacy else 'SourceData/Native/map')/(key+'.mrc.bytes'));m=read_mrc(p);id=int(key)
   kind=next((v['kind']for v in native['maps']if v['id']==id),'town'if id==1000 else 'interior')
   title=next((v['title']for v in base['maps']if v['id']==id),next((v['world']['title']for v in native['maps']if v['id']==id),key))
   infos.append(dict(id=id,key=key,width=m['width'],height=m['height'],hash=hashlib.sha256(p.read_bytes()).hexdigest(),title=title,kind=kind,legacy=legacy,nativePath=p.relative_to(ROOT).as_posix()))

@@ -17,7 +17,7 @@ namespace DarkSaver.Original.World
         private RawImage campaignFace;
         private string campaignHeld;
         private bool BattleMap() => definition.Map(view.record.map).training || definition.campaign?.Map(view.record.map)?.kind == "scenario";
-        private NativeMapPixels LoadCampaignMap(int id) => NativeMapDecoder.RenderLayers(campaign.MapBytes(id),campaign.Graphic);
+        private NativeMapPixels LoadCampaignMap(int id) => NativeMapDecoder.RenderLayers(campaign.MapBytes(id),graphic=>campaign.Graphic(graphic,id));
         private Texture2D CampaignTexture(byte[] bytes,int width,int height)
         {
             if(campaignTextures.TryGetValue(bytes,out var texture))return texture;

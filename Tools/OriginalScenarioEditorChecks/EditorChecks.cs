@@ -14,9 +14,10 @@ internal static class EditorChecks
     private static void Reject(Action action,string name)
     {bool rejected=false;try{action();}catch(InvalidDataException){rejected=true;}catch(IOException){rejected=true;}Check(rejected,name);}
     private static string Read(string path)=>File.Exists(path)?File.ReadAllText(path):null;
+    private static Dictionary<string,string> nativePaths;
     private static ScenarioSource Source(string root,string key)
     {
-        var map=File.ReadAllBytes(Path.Combine(root,"Assets/_Original/SourceData/"+(key=="1000"?"KaosiaLegacy/":"Native/map/")+key+".mrc.bytes"));var size=NativeMapDecoder.Dimensions(map);
+        var map=File.ReadAllBytes(Path.Combine(root,nativePaths[key]));var size=NativeMapDecoder.Dimensions(map);
         string path=Path.Combine(root,"Assets/_Original/SourceData/Decoded/map/"+key+"set.arc/"+key);
         return ScenarioLayoutData.ReadSource(key,size.width,size.height,map,Read(path+".set.txt"),Read(path+".pos.txt"),Read(path+".evt.txt"),null);
     }
@@ -27,6 +28,7 @@ internal static class EditorChecks
         int jobColumn=Array.IndexOf(rows[0],"직업");var jobs=new HashSet<int>(rows.Skip(1).Select(r=>int.Parse(r[jobColumn])));
         Check(jobs.Count==542,"actual unit catalog parsed including quoted descriptions");
         using var gatewayMaps=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,"Assets/_Original/Data/Campaign/GatewayMaps.json")));
+        nativePaths=gatewayMaps.RootElement.GetProperty("maps").EnumerateArray().ToDictionary(m=>m.GetProperty("key").GetString(),m=>m.GetProperty("nativePath").GetString());
         var keys=gatewayMaps.RootElement.GetProperty("maps").EnumerateArray().Select(m=>m.GetProperty("key").GetString()).OrderBy(int.Parse).ToArray();
         var sources=keys.ToDictionary(k=>k,k=>Source(root,k));
         foreach(var source in sources.Values)ScenarioLayoutData.Validate(source.layout,source.layout,jobs);
@@ -152,8 +154,8 @@ internal static class EditorChecks
         var rendered=new List<object>();var sample=new HashSet<string>(new[]{"01","02","26","101","201","314","1010"});
         foreach(var key in keys)
         {
-            var mapFolder=key=="1000"?Path.Combine(root,"Assets/_Original/SourceData/KaosiaLegacy"):sourceRoot;
-            var map=NativeMapDecoder.Render(File.ReadAllBytes(Path.Combine(mapFolder,key+".mrc.bytes")),id=>File.ReadAllBytes(Path.Combine(mapFolder,"mdsr"+id+".grs.bytes")));
+            var mapPath=Path.Combine(root,nativePaths[key]);var mapFolder=Path.GetDirectoryName(mapPath);
+            var map=NativeMapDecoder.Render(File.ReadAllBytes(mapPath),id=>File.ReadAllBytes(Path.Combine(mapFolder,"mdsr"+id+".grs.bytes")));
             Check(map.width==sources[key].layout.width*32&&map.height==sources[key].layout.height*32,"full native render "+key);
             rendered.Add(new{key,map.width,map.height,sha256=ScenarioLayoutData.Hash(map.rgba)});
             if(sample.Contains(key))File.WriteAllBytes(Path.Combine(work,key+".rgba"),map.rgba);
