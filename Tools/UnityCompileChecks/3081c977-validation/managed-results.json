@@ -1,0 +1,86 @@
+{
+  "sourceCommit": "3081c977",
+  "entry": {
+    "assertions": 102,
+    "jobs": [
+      100,
+      101,
+      103
+    ],
+    "diskRoundTrips": 3,
+    "unityPlayExecuted": false
+  },
+  "tutorial": {
+    "assertions": 758,
+    "fullTutorialRuns": 6,
+    "simulatedFrames": 15210,
+    "acceptedInputs": 576,
+    "sourceCommands": 420,
+    "sourceSpellings": 44,
+    "sourceMessages": 100,
+    "observedWaitLocations": 142,
+    "testedJobs": [
+      100,
+      101,
+      103
+    ],
+    "waitingEquipmentSlots": [
+      {
+        "slot": 0,
+        "x": 63,
+        "y": 42
+      },
+      {
+        "slot": 1,
+        "x": 63,
+        "y": 86
+      },
+      {
+        "slot": 2,
+        "x": 26,
+        "y": 103
+      },
+      {
+        "slot": 3,
+        "x": 100,
+        "y": 103
+      },
+      {
+        "slot": 4,
+        "x": 26,
+        "y": 51
+      },
+      {
+        "slot": 5,
+        "x": 63,
+        "y": 144
+      },
+      {
+        "slot": 6,
+        "x": 100,
+        "y": 51
+      }
+    ],
+    "actualUnityPlay": false
+  },
+  "drag": {
+    "assertions": 25,
+    "unityPlay": false,
+    "scope": "Production drag lifecycle and shared release-clock input with isolated projection, clock source and Mono lifetime; not Unity EventSystem, GameObject destruction or physical input.",
+    "sources": {
+      "Tools/OriginalTutorialChecks/DragLifecycleChecks.cs": "274448c9f3042399a31eea96d581f4e0fe2227a112f27c49b16dd4da91799f53",
+      "Assets/_Original/Runtime/Tutorial/NativeTutorialDrag.cs": "aef0d60f2e29dcc20cbfd5ff54bb4e9be452ed12083eb0600c074fba147ba7dd",
+      "Assets/_Original/Runtime/UI/NativeWindowClickInput.cs": "acf0753d534e694c34c208756e13190bdaf9dcc2dd783406d1243a63c691d470",
+      "Assets/_Original/Runtime/UI/NativeWindowPlacement.cs": "a34c9e7bec068a9b342e19c028bdaeb9aaf6bbedc5876db0c9f1d364f6d1b503",
+      "Tools/OriginalTutorialChecks/check_drag_lifecycle.py": "21ce2e15f66277e9310d9897fda022297d8f7db9d60d8ee57068de8ed72c2b00"
+    }
+  },
+  "apiCompile": {
+    "runtimeErrors": 0,
+    "editorErrors": 0,
+    "playerErrors": 0,
+    "warnings": 0
+  },
+  "actualPlay": true,
+  "physicalInputTested": false
+}
