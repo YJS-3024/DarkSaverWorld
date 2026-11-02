@@ -1,0 +1,42 @@
+{
+  "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/GameCtl.dll",
+  "sha256": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+  "labels": {
+    "승리": {
+      "fileOffset": "0x1a314",
+      "va": "0x1001a314",
+      "references": [
+        "0x10007596"
+      ]
+    },
+    "패배": {
+      "fileOffset": "0x1a304",
+      "va": "0x1001a304",
+      "references": [
+        "0x100075b2"
+      ]
+    },
+    "도망": {
+      "fileOffset": "0x1a30c",
+      "va": "0x1001a30c",
+      "references": [
+        "0x100075a4"
+      ]
+    }
+  },
+  "dispatch": {
+    "start": "0x1000757a",
+    "value": "signed16 at 0x1006a740; subtract 1; bounds 0..3",
+    "table": "0x100079b4",
+    "cases": [
+      "0x1000758e",
+      "0x1000759c",
+      "0x100075aa",
+      "0x100075b8"
+    ]
+  },
+  "nativeMeaning": "Result-report drawing selects victory/retreat/defeat text. This does not prove every escape skips or shows a report; approved notice controls whether a report is supplied.",
+  "ghostPolicy": "User-confirmed 2026-10-30 normal-combat death-on-return rule; not independently recovered server policy.",
+  "wireOpcodesDefined": false,
+  "actualOriginalRun": false
+}

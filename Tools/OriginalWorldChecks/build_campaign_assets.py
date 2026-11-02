@@ -60,7 +60,7 @@ def main():
   maps.append(dict(id=int(key),key=key,kind=kind,hash=hashlib.sha256(path.read_bytes()).hexdigest(),nativeIndex=len(map_paths)-1,
     introIndex=script(prefix.with_suffix('.deo.txt')),outroIndex=script(prefix.with_suffix('.dee.txt')),eventIndex=script(prefix.with_suffix('.evt.txt')),
     world=dict(id=int(key),ground=-1,title=title,sourceVersion='Saver_1.2'if key in LEGACY_MAPS else 'Saver_Late',nativeKey=key,training=False,
-      map=dict(width=m['width'],height=m['height'],attributes=[0 if(t[3]&127)>27 else t[3]&127 for t in m['tiles']],terrain=nav['terrain'],abilities=nav['abilities']),portals=[],npcs=[],decorations=[]),
+      map=dict(width=m['width'],height=m['height'],attributes=[0 if(t[3]&127)>27 else t[3]&127 for t in m['tiles']],renderAttributes=[t[3] for t in m['tiles']],terrain=nav['terrain'],abilities=nav['abilities']),portals=[],npcs=[],decorations=[]),
     rosterSource='original-set-pos'if units else 'original-empty'if known else 'original-missing',units=units,entries=entries))
  graphics=sorted((BASE/'SourceData/Native/map').glob('mdsr*.grs.bytes'),key=lambda p:int(p.name[4:].split('.')[0]));graphic_ids=[]
  for path in graphics:source(path);graphic_ids.append(int(path.name[4:].split('.')[0]))
@@ -70,10 +70,8 @@ def main():
   stem=path.name.split('r')[0]
   if not stem.isdigit():continue
   source(path);target=ART/f'Picture{stem}.png';world.key(Image.open(path)).save(target);output(target,path.relative_to(ROOT).as_posix()+' native sheet; black colorkey');pictures.append(target);picture_ids.append(int(stem))
- faces=[];face_ids=[]
- for path in sorted((BASE/'Art/Archives/gameres/face.arc').glob('*.bmp.png')):
-  stem=path.name.split('.')[0]
-  if stem.isdigit():faces.append(source(path));face_ids.append(int(stem))
+ from build_native_face_assets import face_sources
+ portraits,_,fallback=face_sources();faces=[source(path)for _,_,path in portraits];face_ids=[identifier for identifier,_,_ in portraits];source(fallback)
  catalog=DATA/'CampaignCatalog.json';catalog.write_bytes((json.dumps(dict(maps=maps,jobs=[dict(job=j,picture=int(r['직그림']),name=r['이름'].replace('_',' '))for j,r in jobs.items()],connections=[]),ensure_ascii=False,indent=2)+'\n').encode());output(catalog,'Native MRC/SET/POS/scripts; no inferred connections')
  for p in BASE.rglob('*'):
   if(p.is_dir()or p.suffix=='.cs')and not Path(str(p)+'.meta').exists():world.metadata.meta(p,ROOT/'Assets',folder=p.is_dir())
@@ -81,8 +79,14 @@ def main():
  text='%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!114 &11400000\nMonoBehaviour:\n  m_ObjectHideFlags: 0\n  m_Script: {fileID: 11500000, guid: '+world.guid(BASE/'Runtime/Campaign/NativeCampaignArt.cs')+', type: 3}\n  m_Name: NativeCampaignArt\n  catalog: '+ref(catalog)+'\n'
  for field,paths,typ in [('maps',map_paths,4900000),('graphics',graphics,4900000),('legacyGraphics',legacy_graphics,4900000),('scripts',scripts,4900000),('pictures',pictures,2800000),('faces',faces,2800000)]:text+='  '+field+':\n'+''.join('  - '+ref(p,typ)+'\n'for p in paths)
  for field,values in [('graphicIds',graphic_ids),('legacyGraphicIds',legacy_ids),('pictureIds',picture_ids),('faceIds',face_ids)]:text+='  '+field+': '+''.join(i.to_bytes(4,'little',signed=True).hex()for i in values)+'\n'
+ text+='  noFace: '+ref(fallback,2800000)+'\n'
  asset.write_text(text);world.metadata.meta(asset,ROOT/'Assets');Path(str(asset)+'.meta').write_text('fileFormatVersion: 2\nguid: '+world.guid(asset)+'\nNativeFormatImporter:\n  mainObjectFileID: 11400000\n')
  report.update(maps=len(maps),worldMaps=sum(m['kind']=='world'for m in maps),scenarios=sum(m['kind']=='scenario'for m in maps),originalUnits=sum(len(m['units'])for m in maps),sourceMissing=sum(m['rosterSource']=='original-missing'for m in maps),scripts=[p.relative_to(ROOT).as_posix()for p in scripts],asset=asset.relative_to(ROOT).as_posix())
  Path(__file__).with_name('campaign-assets.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:report[k]for k in ['maps','worldMaps','scenarios','originalUnits']}))
+ from build_scenario_effect_assets import build as build_effects
+ from build_scenario_music_assets import build as build_music
+ build_effects();build_music()
  subprocess.run([sys.executable,str(Path(__file__).with_name('build_gateway_assets.py'))],cwd=ROOT,check=True)
+ from build_native_face_assets import build as build_faces
+ build_faces()
 if __name__=='__main__':main()

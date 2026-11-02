@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DarkSaver.Original.Entry;
+using DarkSaver.Original.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -26,7 +27,8 @@ namespace DarkSaver.Original.Tutorial
         {
             public RectTransform Root, Full, Mini;
             public RawImage Background, Commander, Sword, Armor, Hand, Body;
-            public Text Name, Job;
+            public Text Name, Job, ItemCaption;
+            public readonly NativeWindowClickClock Clicks=new NativeWindowClickClock();
             public readonly Dictionary<int, RectTransform> Controls = new Dictionary<int, RectTransform>();
         }
         private void BeginWaitingLesson()
@@ -53,6 +55,7 @@ namespace DarkSaver.Original.Tutorial
             waitingScreen = Group((RectTransform)canvas.transform, "Native640x480", new Rect(0, 0, 640, 480));
             waitingScreen.anchorMin = waitingScreen.anchorMax = new Vector2(.5f, .5f); waitingScreen.anchoredPosition = new Vector2(-320, 240);
             waitingScreen.gameObject.AddComponent<RectMask2D>();
+            waitingScreen.gameObject.AddComponent<DarkSaver.Original.UI.NativeTextSurface>();
             if (font == null)
             {
                 font = Font.CreateDynamicFontFromOSFont(new[] { "굴림", "Gulim", "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans CJK KR" }, 12);
@@ -97,6 +100,7 @@ namespace DarkSaver.Original.Tutorial
             waitingPanels.Add(id, p);
             p.Full = Group(p.Root, "Full", new Rect(0, 0, spec.width, spec.height));
             var blocker = p.Full.gameObject.AddComponent<Image>(); blocker.color = Color.clear;
+            p.Full.gameObject.AddComponent<NativeWindowClickInput>().Configure(p.Clicks);
             p.Background = Picture(p.Full, "Native scene" + spec.scene, new Rect(0, 0, spec.width, spec.height), art.waitingWindows[index]);
             foreach (var b in spec.buttons)
             {
@@ -108,7 +112,8 @@ namespace DarkSaver.Original.Tutorial
                 // Repeated character-slot buttons share ID48; only header controls need lookup.
                 p.Controls[buttonId] = (RectTransform)button.transform;
             }
-            var header = Hit(p.Full, "Drag native ornament", new Rect(id == 18 ? 100 : 15, id == 18 ? 0 : 3, id == 18 ? 60 : 230, id == 18 ? 40 : 12), () => { });
+            var header = Hit(p.Full, "Drag native ornament", new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight), () => { });header.transform.SetSiblingIndex(1);
+            header.gameObject.AddComponent<NativeWindowClickInput>().Configure(p.Clicks);
             header.gameObject.AddComponent<NativeTutorialDrag>().Configure(waitingScreen, (point, end) =>
             {
                 var w = server.WaitingSnapshot?.Windows.FirstOrDefault(a => a.Id == id); if (w == null) return;
@@ -116,10 +121,17 @@ namespace DarkSaver.Original.Tutorial
                 var pos = point - waitingDragOffset.Value;
                 WaitingSend(new WaitingInput(WaitingInputKind.DragWindow, id, value: end ? 1 : 0, x: Mathf.RoundToInt(pos.x), y: Mathf.RoundToInt(pos.y)));
                 if (end) waitingDragOffset = null;
-            });
+            },onCancel:()=>waitingDragOffset=null);
             var minimized = art.waitingMinimizedWindows[index]; var miniRect = new Rect(0, 0, minimized.width, minimized.height);
             p.Mini = Group(p.Root, "Minimized", miniRect);
-            var restore = Hit(p.Mini, "Restore", miniRect, () => WaitingSend(new WaitingInput(WaitingInputKind.Restore, id)));
+            var restore = Hit(p.Mini, "Restore", miniRect, () => {});
+            restore.gameObject.AddComponent<NativeWindowClickInput>().Configure(p.Clicks,()=>WaitingSend(new WaitingInput(WaitingInputKind.Restore,id)));
+            Vector2? miniOffset=null;restore.gameObject.AddComponent<NativeTutorialDrag>().Configure(waitingScreen,(point,end)=>
+            {
+                var w=server.WaitingSnapshot?.Windows.FirstOrDefault(a=>a.Id==id);if(w==null)return;
+                if(!miniOffset.HasValue)miniOffset=point-new Vector2(w.X,w.Y);var at=point-miniOffset.Value;
+                WaitingSend(new WaitingInput(WaitingInputKind.DragWindow,id,value:end?1:0,x:Mathf.RoundToInt(at.x),y:Mathf.RoundToInt(at.y)));if(end)miniOffset=null;
+            },onCancel:()=>miniOffset=null);
             Picture((RectTransform)restore.transform, "Native minimized icon", miniRect, minimized);
             if (id == 18)
             {
@@ -140,14 +152,17 @@ namespace DarkSaver.Original.Tutorial
             }
             if (id == 20)
             {
+                p.ItemCaption=Label(p.Full,"Native held-item name",new Rect(230,192,640,14),"",TextAnchor.UpperLeft);p.ItemCaption.color=Color.black;p.ItemCaption.horizontalOverflow=HorizontalWrapMode.Overflow;
                 for (int row = 0; row < 4; row++) for (int column = 0; column < 7; column++)
                 { var cell = Group(p.Full, "Black inventory cell", new Rect(146 + column * 35, 42 + row * 35, 32, 32)).gameObject.AddComponent<Image>(); cell.color = Color.black; cell.raycastTarget = false; }
                 foreach (int slot in new[] { WaitingEquipmentLayout.LeftHand, WaitingEquipmentLayout.RightHand, WaitingEquipmentLayout.Body })
                 { var cell = Group(p.Full, "Black equipment cell", WaitingEquipmentRect(slot)).gameObject.AddComponent<Image>(); cell.color = Color.black; cell.raycastTarget = false; }
-                p.Sword = WaitingItemSlot(p.Full, "Dagger in inventory", new Rect(146, 42, 32, 32), 1);
-                p.Armor = WaitingItemSlot(p.Full, "Armor in inventory", new Rect(181, 42, 32, 32), character.job == 103 ? 777 : 762);
+                p.Sword = WaitingItemSlot(p, "Dagger in inventory", new Rect(146, 42, 32, 32), 1);
+                p.Armor = WaitingItemSlot(p, "Armor in inventory", new Rect(181, 42, 32, 32), character.job == 103 ? 777 : 762);
                 p.Hand = Picture(p.Full, "Hand equipment", WaitingEquipmentRect(WaitingEquipmentLayout.LeftHand), art.waitingItems, new Rect(0, 0, 32, 32));
                 p.Body = Picture(p.Full, "Body equipment", WaitingEquipmentRect(WaitingEquipmentLayout.Body), art.waitingItems);
+                p.Hand.raycastTarget=p.Body.raycastTarget=true;
+                ConfigureWaitingItemPress(p,p.Hand.gameObject,()=>server.WaitingSnapshot?.Hand??-1);ConfigureWaitingItemPress(p,p.Body.gameObject,()=>server.WaitingSnapshot?.Body??-1);
             }
         }
         private static Rect WaitingEquipmentRect(int slot)
@@ -163,9 +178,22 @@ namespace DarkSaver.Original.Tutorial
             return label;
         }
         private string JobName(int job) => definition.map.abilities.First(a => a.job == job).name;
-        private RawImage WaitingItemSlot(RectTransform parent, string name, Rect rect, int item)
+        private NativeBitmapFont waitingBitmapFont;
+        private void ConfigureWaitingItemPress(WaitingPanel panel,GameObject target,System.Func<int> item)
         {
-            var button = Hit(parent, name, rect, () => { });
+            target.AddComponent<NativeWindowClickInput>().Configure(panel.Clicks);
+            target.AddComponent<NativeItemPress>().Configure(pressed=>
+            {
+                if(panel.ItemCaption==null)return;if(!pressed){panel.ItemCaption.text="";return;}
+                var name=waitingDefinition.items?.FirstOrDefault(row=>row.id==item())?.name;
+                panel.ItemCaption.text=NativeItemCaption.Format(name,null,4);
+                if(waitingBitmapFont==null)waitingBitmapFont=Resources.Load<NativeBitmapFont>("OriginalBitmapFont");
+                if(waitingBitmapFont?.Ready==true)Place(panel.ItemCaption.rectTransform,new Rect(NativeTextMetrics.LineOriginX(230,NativeTextMetrics.Width(panel.ItemCaption.text,waitingBitmapFont.Mapping),6),192,640,14));
+            });
+        }
+        private RawImage WaitingItemSlot(WaitingPanel panel, string name, Rect rect, int item)
+        {
+            var button = Hit(panel.Full, name, rect, () => { });ConfigureWaitingItemPress(panel,button.gameObject,()=>item);
             var image = Picture((RectTransform)button.transform, "Native item", new Rect(0, 0, 32, 32), art.waitingItems, WaitingItemSource(item));
             button.gameObject.AddComponent<NativeTutorialDrag>().Configure(waitingScreen, (point, end) =>
             {
@@ -174,7 +202,8 @@ namespace DarkSaver.Original.Tutorial
                 if (!end) return;
                 var p = server.WaitingSnapshot.Windows.First(w => w.Id == 20); var local = point - new Vector2(p.X, p.Y);
                 WaitingSend(new WaitingInput(WaitingInputKind.Equip, value: item, x: Mathf.FloorToInt(local.x), y: Mathf.FloorToInt(local.y)));
-            }, () => server.WaitingSnapshot != null && (item == 1 ? server.WaitingSnapshot.SwordEquipAllowed : server.WaitingSnapshot.ArmorEquipAllowed));
+            }, () => server.WaitingSnapshot != null && (item == 1 ? server.WaitingSnapshot.SwordEquipAllowed : server.WaitingSnapshot.ArmorEquipAllowed),
+                ()=>{if(waitingGhost!=null)waitingGhost.gameObject.SetActive(false);});
             return image;
         }
         private static Rect WaitingItemSource(int item) => new Rect(item == 1 ? 0 : item == 762 ? 32 : 64, 0, 32, 32);
@@ -240,7 +269,7 @@ namespace DarkSaver.Original.Tutorial
                 var p = waitingPanels[w.Id]; var spec = waitingDefinition.windows.First(a => a.id == w.Id);
                 p.Root.gameObject.SetActive(w.Visible); p.Full.gameObject.SetActive(!w.Minimized); p.Mini.gameObject.SetActive(w.Minimized);
                 int height = w.Id == 19 && w.Expanded ? 401 : spec.height;
-                Place(p.Root, new Rect(w.X, w.Y, spec.width, height)); Place(p.Full, new Rect(0, 0, spec.width, height));
+                Place(p.Root, new Rect(w.X, w.Y,w.Minimized?spec.minWidth:spec.width,w.Minimized?spec.minHeight:height)); Place(p.Full, new Rect(0, 0, spec.width, height));
                 if (w.Id == 19)
                 {
                     p.Background.texture = w.Expanded ? art.waitingChatExpanded : art.waitingWindows[1];

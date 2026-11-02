@@ -1,0 +1,18 @@
+{
+  "cases": 213,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "sources": {
+    "Assets/_Original/Runtime/Combat/NativeMovement.cs": "27e5303f272d02594c2e3a13b6a7a3e4ec457c6af7626927006fcbf1e8b5349c",
+    "Assets/_Original/Runtime/Combat/RegroupMovement.cs": "2aa3f86c945af5bfe91deec51a7be488812a669003fc53c73a7791d8dfff72bc",
+    "Tools/OriginalWorldChecks/NativeMovementPathDifferential.cs": "04732586bd7dafb9e9b9b70d1973e529abec228f054200e820fea08aa84cf55b",
+    "Tools/OriginalWorldChecks/check_native_movement_paths.py": "61fd5590b63042175a91efcd4c79289bf3ba965d11d212241cbd49341eeb67b4",
+    "Tools/OriginalWorldChecks/check_native_move_hints.py": "7ba1a4539802217c260cbf49f2ebebcfaca215607a6dd00328b2dc5025d89bb9",
+    "Tools/OriginalWorldChecks/check_native_outbound_packets.py": "d9f1e3c82574fc7d727ff0aabd1abdc1cc5eb2ed176cea20f276f0cea0f67358",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2"
+  },
+  "casesSha256": "028b152d5eed4fb2b1e5156663cc894dcde2880d87e863f2b43b6a918caef656",
+  "scope": "Actual original SetArea2/D2E0 full backtracking and D740 compression. Compare complete direction sequence, sentinel9, cardinal step count and independent1001616C axis. Only MFC node storage/free is isolated, not selection/compression. Not rendered Windows game.",
+  "logs": "/tmp/ds-native-movement-path-checks"
+}

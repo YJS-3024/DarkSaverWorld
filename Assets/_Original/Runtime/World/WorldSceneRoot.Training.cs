@@ -9,8 +9,9 @@ namespace DarkSaver.Original.World
     {
         private RectTransform trainingStatus;
         private bool trainingStatusVisible;
-        private RawImage trainingBody, trainingHp, trainingMp;
+        private RawImage trainingBody, trainingHp, trainingMp, trainingAp;
         private RawImage[] trainingHpDigits, trainingMpDigits;
+        private Text trainingClass,trainingName;
         private void ToggleTrainingStatus()
         {
             if(!BattleMap())return;
@@ -18,14 +19,15 @@ namespace DarkSaver.Original.World
             if(trainingStatus==null)
             {
                 var spec=art.battle.Definition.windows.First(w=>w.key==2);
-                trainingStatus=Group(worldWindows,"Original training status",new Rect(spec.x,spec.y,spec.width,spec.height));
+                trainingStatus=Group(worldWindows,"Original battle status",new Rect(spec.x,spec.y,spec.width,spec.height));
                 var blocker=trainingStatus.gameObject.AddComponent<Image>();blocker.color=Color.clear;
                 int index=System.Array.FindIndex(art.battle.Definition.windows,w=>w.key==2);
                 Picture(trainingStatus,"Native battle F2",new Rect(0,0,spec.width,spec.height),art.battle.windows[index]);
-                trainingBody=Picture(trainingStatus,"Front-facing32px body",new Rect(44,79,32,32),art.Picture(character.job),new Rect(32,32,32,32));
-                Label(trainingStatus,"Name",new Rect(9,7,110,17),character.name);
-                Label(trainingStatus,"Class",new Rect(12,26,110,17),definition.Map(1000).map.abilities.First(a=>a.job==character.job).name);
+                trainingBody=Picture(trainingStatus,"Front-facing32px body",new Rect(44,79,32,32),CommanderPicture,new Rect(32,32,32,32));
+                trainingName=Label(trainingStatus,"Name",new Rect(9,7,110,17),CommanderName);
+                trainingClass=Label(trainingStatus,"Class",new Rect(12,26,110,17),CommanderClass);
                 trainingHp=Picture(trainingStatus,"Native HP strip",new Rect(30,156,80,9),art.battle.board,new Rect(2,382,80,9));
+                trainingAp=Picture(trainingStatus,"Native AP strip",new Rect(30,143,80,9),art.battle.board,new Rect(2,370,80,9));
                 trainingMp=Picture(trainingStatus,"Native MP strip",new Rect(30,169,80,9),art.battle.board,new Rect(2,394,80,9));
                 trainingHpDigits=TrainingDigits("HP",34,157);trainingMpDigits=TrainingDigits("MP",34,170);
                 foreach(var b in spec.buttons)
@@ -46,8 +48,11 @@ namespace DarkSaver.Original.World
         {
             if(trainingStatus==null)return;bool visible=BattleMap()&&trainingStatusVisible;
             trainingStatus.gameObject.SetActive(visible);if(!visible)return;
-            trainingStatus.SetAsLastSibling();trainingBody.texture=art.Picture(character.job);trainingBody.uvRect=NativeEntryLayout.Uv(trainingBody.texture,new Rect(32,32,32,32));
+            trainingName.text=CommanderName;trainingStatus.SetAsLastSibling();trainingBody.texture=CommanderPicture;trainingBody.uvRect=NativeEntryLayout.Uv(trainingBody.texture,new Rect(32,32,32,32));trainingClass.text=CommanderClass;
             var r=view.record;trainingHp.gameObject.SetActive(r.healthKnown);trainingMp.gameObject.SetActive(r.healthKnown);
+            var unit=view.battle?.Commander;trainingAp.gameObject.SetActive(unit!=null);
+            if(unit!=null)
+            {float ap=Mathf.Clamp01((float)unit.ap/unit.maxAp);int phase=unit.ap>=unit.maxAp?(int)(view.clock/125)%3*12:0;Place((RectTransform)trainingAp.transform,new Rect(30,143,80*ap,9));trainingAp.uvRect=NativeEntryLayout.Uv(art.battle.board,new Rect(2,370+phase,80*ap,9));}
             float hp=r.maxHp>0?Mathf.Clamp01((float)r.hp/r.maxHp):0,mp=r.maxMp>0?Mathf.Clamp01((float)r.mp/r.maxMp):0;
             Place((RectTransform)trainingHp.transform,new Rect(30,156,80*hp,9));trainingHp.uvRect=NativeEntryLayout.Uv(art.battle.board,new Rect(2,382,80*hp,9));
             Place((RectTransform)trainingMp.transform,new Rect(30,169,80*mp,9));trainingMp.uvRect=NativeEntryLayout.Uv(art.battle.board,new Rect(2,394,80*mp,9));

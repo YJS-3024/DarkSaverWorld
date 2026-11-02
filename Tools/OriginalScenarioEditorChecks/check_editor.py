@@ -24,7 +24,7 @@ def main():
     (WORK/'api.log').write_text(api.stdout+api.stderr)
     if api.returncode:raise RuntimeError((api.stdout+api.stderr)[-1600:])
     sdk=UNITY/'DotNetSdk';dotnet=sdk/'dotnet';csc=next(sdk.glob('sdk/*/Roslyn/bincore/csc.dll'))
-    sources=[BASE/'Editor/Scenario'/name for name in ['ScenarioLayoutModel.cs']]+[BASE/'Runtime/Maps/NativeMapDecoder.cs',Path(__file__).with_name('EditorChecks.cs')]
+    sources=[BASE/'Editor/Scenario'/name for name in ['ScenarioLayoutModel.cs']]+[BASE/'Runtime/Maps/NativeMapDecoder.cs',BASE/'Runtime/Maps/NativeMapAnimation.cs',Path(__file__).with_name('EditorChecks.cs')]
     refs=['-r:'+str(p)for p in sorted(next(sdk.glob('packs/Microsoft.NETCore.App.Ref/*/ref/net8.0')).glob('*.dll'))]
     exe=WORK/'EditorChecks.dll';args=['-nologo','-target:exe','-langversion:latest','-nostdlib+','-out:'+str(exe)]+refs+list(map(str,sources))
     rsp=WORK/'checks.rsp';rsp.write_text('\n'.join('"'+a+'"'for a in args)+'\n')

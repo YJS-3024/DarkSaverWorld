@@ -8,7 +8,7 @@ using DarkSaver.Original.Campaign;
 namespace DarkSaver.Original.World
 {
     public enum FacilityKind { None, Shop, Bank, Warehouse, Mercenary, Temple, ScenarioGateway }
-    public enum WorldFailure { None, Unauthenticated, InvalidStage, InvalidInput, Moving, TooFar, Busy, StaleRequest, RulesUnavailable, InsufficientFunds, InventoryFull, NotOwned, StorageUnavailable }
+    public enum WorldFailure { None, Unauthenticated, InvalidStage, InvalidInput, Moving, TooFar, Busy, StaleRequest, RulesUnavailable, InsufficientFunds, InventoryFull, NotOwned, StorageUnavailable, InsufficientResource }
     [Serializable] public sealed class WorldPoint { public int x, y; public TutorialTile Tile => new TutorialTile(x, y); }
     [Serializable] public sealed class WorldPortal
     {
@@ -34,7 +34,7 @@ namespace DarkSaver.Original.World
         public WorldMapDefinition CopyForPlacement(){var copy=(WorldMapDefinition)MemberwiseClone();copy.portals=(WorldPortal[])portals.Clone();copy.npcs=(WorldNpc[])npcs.Clone();return copy;}
     }
     [Serializable] public sealed class WorldItemDefinition
-    { public int id, picture, equipType, requiredLevel; public int[] jobs; public long price, sellPrice; public string name, description; public bool sellKnown; }
+    { public int id, picture, equipType, requiredLevel; public int[] jobs,jobKinds; public long price, sellPrice; public string name, description; public bool sellKnown; }
     [Serializable] public sealed class WorldShop { public int map; public int[] items; public string evidence; }
     [Serializable] public sealed class WorldHireOffer { public int commander, job, picture, limit; public long price; public string name; }
     [Serializable] public sealed class WorldRules
@@ -48,10 +48,15 @@ namespace DarkSaver.Original.World
     { public int scene, width, height; public WaitingButton[] buttons; }
     [Serializable] public sealed class WorldDefinition
     {
+        public BattleItemCatalog battleItems;
         public WorldMapDefinition[] maps; public WorldShop[] shops; public WorldItemDefinition[] items;
         public WorldHireOffer[] hires; public WorldRules rules; public WorldWindowDefinition[] windows;
         public CampaignDefinition campaign;
         public ScenarioGatewaySettings gateways;
+        public CharacterGrowthCatalog growthCatalog;
+        public MagicMenuCatalog magicMenu;
+        public MagicProjectileCatalog magicProjectiles;
+        public OriginalCombatCatalog combatCatalog;
         internal WorldMapDefinition[] gatewayBaseMaps;
         public WorldMapDefinition Map(int id) => maps?.FirstOrDefault(m => m.id == id);
         public WorldItemDefinition Item(int id) => items?.FirstOrDefault(i => i.id == id);
@@ -63,6 +68,8 @@ namespace DarkSaver.Original.World
     {
         [DataMember] public string id;
         [DataMember] public int item, slot;
+        // Optional local authoritative count, never seeded from native table durability.
+        [DataMember(EmitDefaultValue=false)] public int? remainingUses;
         public WorldOwnedItem Copy() => (WorldOwnedItem)MemberwiseClone();
     }
     [Serializable, DataContract] public sealed class WorldRecord
@@ -74,21 +81,65 @@ namespace DarkSaver.Original.World
         [DataMember(EmitDefaultValue=false)] public int? level;
         [DataMember(EmitDefaultValue=false)] public string campaignPhase;
         [DataMember(EmitDefaultValue=false)] public string trainingEntrance;
+        [DataMember(EmitDefaultValue=false)] public CampaignProgressRecord campaignProgress;
+        [DataMember(EmitDefaultValue=false)] public CampaignDeliveryRecord campaignDelivery;
+        [DataMember(EmitDefaultValue=false)] public int[] clearedScenarios;
+        [DataMember(EmitDefaultValue=false)] public CharacterGrowthRecord growth;
+        [DataMember(EmitDefaultValue=false)] public PlayerIdentityRecord identity;
+        [DataMember(EmitDefaultValue=false)] public CommanderRoster roster;
+        [DataMember(EmitDefaultValue=false)] public CampaignVisitRecord scenarioVisit;
+        [DataMember(EmitDefaultValue=false)] public CampaignResultRecord lastScenarioResult;
+        [DataMember(EmitDefaultValue=false)] public ScenarioBattleRecord scenarioBattle;
+        [DataMember(EmitDefaultValue=false)] public CampaignExitRecord lastScenarioExit;
+        [DataMember(EmitDefaultValue=false)] public RevivalReceipt revival;
+        [DataMember(EmitDefaultValue=false)] public CurrencyReceipt currency;
+        [DataMember(EmitDefaultValue=false)] public BankTransferReceipt lastBankTransfer;
+        [DataMember(EmitDefaultValue=false)] public WarehouseReceipt warehouse;
+        [DataMember(EmitDefaultValue=false)] public MercenaryReceipt mercenary;
+        [DataMember(EmitDefaultValue=false)] public ShopReceipt shop;
+        [DataMember(EmitDefaultValue=false)] public ItemUseReceipt itemUse;
+        [DataMember(EmitDefaultValue=false)] public ClassChangeReceipt classChange;
+        [DataMember(EmitDefaultValue=false)] public StatAllocationRecord statAllocation;
+        [DataMember(EmitDefaultValue=false)] public MagicLoadoutRecord magicLoadout;
         [DataMember] public WorldOwnedItem[] inventory = Array.Empty<WorldOwnedItem>(), storage = Array.Empty<WorldOwnedItem>();
         [DataMember(EmitDefaultValue=false)] public WorldOwnedItem[] equipment;
         public WorldOwnedItem[] Equipment => equipment ?? Array.Empty<WorldOwnedItem>();
         public WorldRecord Copy()
-        { var r = (WorldRecord)MemberwiseClone(); r.inventory = inventory.Select(i => i.Copy()).ToArray(); r.storage = storage.Select(i => i.Copy()).ToArray(); r.equipment = equipment?.Select(i=>i.Copy()).ToArray(); return r; }
+        { var r = (WorldRecord)MemberwiseClone(); r.inventory = inventory.Select(i => i.Copy()).ToArray(); r.storage = storage.Select(i => i.Copy()).ToArray(); r.equipment = equipment?.Select(i=>i.Copy()).ToArray();r.growth=growth?.Copy();r.identity=identity?.Copy();r.roster=roster?.Copy();r.scenarioVisit=scenarioVisit?.Copy();r.lastScenarioResult=lastScenarioResult?.Copy();r.scenarioBattle=scenarioBattle?.Copy();r.lastScenarioExit=lastScenarioExit?.Copy();r.revival=revival?.Copy();r.currency=currency?.Copy();r.lastBankTransfer=lastBankTransfer?.Copy();r.warehouse=warehouse?.Copy();r.mercenary=mercenary?.Copy();r.shop=shop?.Copy();r.itemUse=itemUse?.Copy();r.classChange=classChange?.Copy();r.statAllocation=statAllocation?.Copy();r.magicLoadout=magicLoadout?.Copy();r.campaignProgress=campaignProgress?.Copy();r.campaignDelivery=campaignDelivery?.Copy();r.clearedScenarios=clearedScenarios==null?null:(int[])clearedScenarios.Clone(); return r; }
         public static bool Valid(WorldRecord r)
         {
             if (r == null) return true; // Compatible with pre-world accounts.
+            if(!CommanderRoster.Valid(r.roster))return false;
+            if(!PlayerIdentityRecord.Valid(r.identity))return false;
+            if(!CampaignDeliveryRecord.Valid(r.campaignDelivery))return false;
+            if(!CampaignProgressRecord.Valid(r.campaignProgress)||r.campaignProgress!=null&&(r.campaignPhase==null||r.campaignProgress.visit!=(r.scenarioVisit?.id??"legacy:"+r.map))
+                ||r.clearedScenarios!=null&&(r.clearedScenarios.Any(i=>i<0||i>999)||r.clearedScenarios.Distinct().Count()!=r.clearedScenarios.Length))return false;
+            if(!CharacterGrowthRecord.Valid(r.growth)||r.growth!=null&&r.level!=r.growth.totalLevel)return false;
+            if(!CampaignVisitRecord.Valid(r.scenarioVisit)||!CampaignResultRecord.Valid(r.lastScenarioResult)||r.scenarioVisit!=null&&(r.scenarioVisit.map!=r.map||r.campaignPhase==null))return false;
+            if(r.scenarioVisit?.result!=null&&(r.campaignPhase!="outro"&&r.campaignPhase!="complete"||!r.scenarioVisit.result.victory&&r.campaignPhase!="complete"))return false;
+            if(!ScenarioBattleRecord.Valid(r.scenarioBattle))return false;
+            if(!CampaignExitRecord.Valid(r.lastScenarioExit))return false;
+            if(!RevivalReceipt.Valid(r.revival))return false;
+            if(!CurrencyReceipt.Valid(r.currency))return false;
+            if(!BankTransferReceipt.Valid(r.lastBankTransfer)||r.lastBankTransfer!=null&&r.lastBankTransfer.currencyRevision>(r.currency?.revision??0))return false;
+            if(!MagicLoadoutRecord.Valid(r.magicLoadout)||r.magicLoadout!=null&&r.magicLoadout.growthRevision>(r.growth?.revision??0))return false;
+            if(!StatAllocationRecord.Valid(r.statAllocation)||r.statAllocation!=null&&r.statAllocation.growthRevision>(r.growth?.revision??0))return false;
+            if(!ClassChangeReceipt.Valid(r.classChange)||r.classChange!=null&&r.classChange.growthRevision>(r.growth?.revision??0))return false;
+            if(!WarehouseReceipt.Valid(r.warehouse)||!MercenaryReceipt.Valid(r.mercenary)||!ShopReceipt.Valid(r.shop)||!ItemUseReceipt.Valid(r.itemUse))return false;
+            if(r.scenarioBattle!=null)
+            {
+                var commander=r.scenarioBattle.units.First(u=>u.id==0);
+                if(r.scenarioBattle.map!=r.map||r.campaignPhase!="explore"||!r.healthKnown||commander.x!=r.x||commander.y!=r.y
+                    ||commander.hp!=r.hp||commander.maxHp!=r.maxHp||commander.mp!=r.mp||commander.maxMp!=r.maxMp)return false;
+            }
             if(r.campaignPhase!=null&&r.campaignPhase!="intro"&&r.campaignPhase!="explore"&&r.campaignPhase!="outro"&&r.campaignPhase!="complete")return false;
             if (r.version != 1 || r.map < 0 || r.x < 0 || r.y < 0 || r.direction < 0 || r.direction > 3 || r.level<0
                 || r.inventory == null || r.storage == null || r.hiredCount < 0 || (r.hiredCount == 0 && r.hiredJob != -1) || (r.hiredCount > 0 && r.hiredJob < 0)
                 || (!r.goldKnown && r.gold != 0) || (!r.bankKnown && r.bank != 0)
                 || r.hp < 0 || r.mp < 0 || r.maxHp < r.hp || r.maxMp < r.mp) return false;
-            var all = r.inventory.Concat(r.storage).Concat(r.Equipment).ToArray();
-            return all.All(i => i != null && Guid.TryParseExact(i.id, "N", out _) && i.item >= 0 && i.slot >= 0)
+            var secondary=r.roster?.rows.Skip(1).SelectMany(v=>(v.profile?.inventory??Array.Empty<WorldOwnedItem>()).Concat(v.profile?.equipment??Array.Empty<WorldOwnedItem>()))??Enumerable.Empty<WorldOwnedItem>();
+            var all = r.inventory.Concat(r.storage).Concat(r.Equipment).Concat(secondary).ToArray();
+            return all.All(i => i != null && Guid.TryParseExact(i.id, "N", out _) && i.item >= 0 && i.slot >= 0 && (!i.remainingUses.HasValue || i.remainingUses>=0))
                 && all.Select(i => i.id).Distinct().Count() == all.Length
                 && r.inventory.Select(i => i.slot).Distinct().Count() == r.inventory.Length
                 && r.storage.Select(i => i.slot).Distinct().Count() == r.storage.Length
@@ -100,6 +151,9 @@ namespace DarkSaver.Original.World
     {
         public string token, npc, room; public int scenario; public FacilityKind kind;
         public WorldOwnedItem[] inventory, storage; public int[] offers; public ulong storageFee;
+        public RevivalQuote revivalQuote;
+        public ShopQuote shopQuote;
+        public WarehouseTerms warehouseTerms;public bool storageFeeKnown;public long storageDraftRevision;
     }
     public sealed class WorldView
     {
@@ -109,6 +163,26 @@ namespace DarkSaver.Original.World
         public CampaignUnit[] units;
         public CampaignPresentationView presentation;
         public string campaignSession;
+        public CommanderRoster commanders;public int inspectedCommander;public CommanderRequest commanderRequest;public string commanderSession;
+        public string growthSession,characterId;
+        public TrainingView training;
+        public TrainingView battle;
+        public CampaignRetreatRequest pendingRetreat;
+        public RevivalQuoteRequest revivalQuoteRequest;
+        public RevivalRequest revivalRequest;
+        public string currencySession;
+        public CurrencyRequest currencyRequest;
+        public BankTransferRequest bankTransferRequest;
+        public WarehouseRequest warehouseRequest;
+        public MercenaryRequest mercenaryRequest;
+        public ShopRequest shopQuoteRequest,shopTradeRequest;
+        public ItemUseRequest itemUseRequest;
+        public MagicLoadoutRequest magicLoadoutRequest;public MagicLoadoutView magicLoadout;public int[] battleMagic;
+        public CommanderAdjustmentTarget adjustmentTarget;public CommanderProfile adjustmentProfile;
+        public bool MagicLoadoutNeedsConfirm
+        {get{var state=adjustmentTarget==null?record.magicLoadout:adjustmentProfile?.magicLoadout;var growth=adjustmentTarget==null?record.growth:adjustmentProfile?.growth;return magicLoadout!=null&&(magicLoadout.Dirty||state?.Matches(growth)!=true||!state.selected.SequenceEqual(magicLoadout.selected));}}
+        public StatAdjustmentRequest statAdjustmentRequest;public StatAdjustmentView statAdjustment;
+        public ClassOptionsRequest classOptionsRequest;public ClassChangeRequest classChangeRequest;public ClassOptionsNotice classOptions;
     }
     public sealed class WorldReply
     {
@@ -119,10 +193,54 @@ namespace DarkSaver.Original.World
     }
     // In-process server state. Map routes/NPC placements are explicit configuration,
     // never inferred original network packets or restored single-player gameplay.
-    internal sealed class WorldSession
+    internal sealed partial class WorldSession
     {
+        public string CommanderSession=Guid.NewGuid().ToString("N");
+        public CommanderRequest PendingCommander;
+        public int InspectedCommander;
+        public CommanderRoster CommanderView()
+        {
+            var r=Record.roster?.Copy();if(r==null)return null;
+            r.rows[0].profile=CommanderProfile.Capture(Record);r.rows[0].job=CommanderJob;return r;
+        }
+        public void ResetCommanderContexts()
+        {
+            Close();AdjustmentTarget=null;GrowthSession=Guid.NewGuid().ToString("N");CurrencySession=Guid.NewGuid().ToString("N");CampaignSession=Guid.NewGuid().ToString("N");
+            PendingCurrency=null;CurrencyNotices.Clear();CampaignNotices.Clear();Effects.Clear();PendingCommander=null;
+        }
         public readonly WorldDefinition Definition;
-        public readonly int CommanderJob;
+        private readonly int startingJob;
+        public int CommanderJob=>Record.growth?.job??Record.roster?.rows[0].job??startingJob;
+        public string GrowthSession=Guid.NewGuid().ToString("N");
+        public string CurrencySession=Guid.NewGuid().ToString("N");
+        public readonly HashSet<string> CurrencyNotices=new HashSet<string>();
+        public CurrencyRequest PendingCurrency;
+        public BankTransferRequest PendingBankTransfer;
+        public WorldRecord BankTransferState;
+        public MercenaryRequest PendingMercenary;
+        public WorldRecord MercenaryState;
+        public ShopRequest PendingShopQuote,PendingShopTrade;
+        public WorldRecord ShopQuoteState;
+        public ShopOffer ShopOffer;
+        public ClassOptionsRequest PendingClassOptions;public ClassChangeRequest PendingClassChange;
+        public MagicLoadoutView MagicDraft;public MagicLoadoutRequest PendingMagicLoadout;public WorldRecord MagicBaseline,MagicRequestState;
+        public readonly HashSet<string> MagicNotices=new HashSet<string>();
+        public StatAdjustmentView StatDraft;public StatAdjustmentRequest PendingStatAdjustment;public WorldRecord StatBaseline,StatRequestState;
+        public readonly HashSet<string> StatNotices=new HashSet<string>();
+        public WorldRecord ClassOptionsState;public ClassOffer ClassOffer;
+        public readonly HashSet<string> ClassNotices=new HashSet<string>();
+        public ItemUseRequest PendingItemUse;
+        public WorldRecord ItemUseState;
+        public readonly HashSet<string> ItemUseNotices=new HashSet<string>();
+        public readonly HashSet<string> ShopNotices=new HashSet<string>();
+        public readonly HashSet<string> MercenaryNotices=new HashSet<string>();
+        public WarehouseTerms WarehouseTerms;
+        public WarehouseRequest PendingWarehouse;
+        public WorldRecord WarehouseRequestState;
+        public long StorageDraftRevision;
+        public readonly HashSet<string> WarehouseNotices=new HashSet<string>();
+        public string CharacterId;
+        public TrainingCombatSession Combat;
         public WorldRecord Record, Draft;
         public string Token, Npc, PendingPortal, PendingNpc;
         public FacilityKind Kind;
@@ -134,27 +252,63 @@ namespace DarkSaver.Original.World
         public readonly HashSet<string> CampaignNotices = new HashSet<string>();
         public readonly List<CampaignCommand> Effects = new List<CampaignCommand>();
         public bool PhaseSavePending;
-        public bool PresentationLocked => PhaseSavePending || (Presentation != null && !Presentation.Snapshot().completed);
+        public CampaignRetreatRequest PendingRetreat;
+        public TempleRevivalOffer RevivalOffer;
+        public RevivalQuoteRequest PendingRevivalQuote;
+        public RevivalRequest PendingRevival;
+        public WorldRecord RevivalQuoteState;
+        public bool SceneLocked => PhaseSavePending || Record.campaignProgress?.events.Any(e=>!e.completed)==true || (Presentation != null && !Presentation.Snapshot().completed)
+            || Record.scenarioVisit!=null && Record.campaignPhase=="complete";
+        public bool PresentationLocked=>SceneLocked||PendingRetreat!=null;
         public readonly HashSet<string> Applied = new HashSet<string>();
         private readonly Queue<TutorialTile> path = new Queue<TutorialTile>();
         private TutorialTile from;
         private double movement;
         private bool stopping;
         private readonly HashSet<string> arrivalPortals = new HashSet<string>();
-        public bool Moving => path.Count > 0;
+        public bool Moving => path.Count > 0 || Combat?.Moving==true;
         public WorldSession(WorldDefinition definition, WorldRecord record, int job)
-        { Definition = definition; Record = record.Copy(); CommanderJob = job; from = new TutorialTile(record.x, record.y); MarkArrivalPortals();BeginPresentation(); }
+        { Definition = definition; Record = record.Copy(); startingJob = job; from = new TutorialTile(record.x, record.y); MarkArrivalPortals();BeginPresentation(); }
         private void MarkArrivalPortals()
-        {arrivalPortals.Clear();foreach(var p in Definition.Map(Record.map).portals.Where(p=>p.cells.Any(c=>c.x==Record.x&&c.y==Record.y)))arrivalPortals.Add(p.id);}
+        {arrivalPortals.Clear();foreach(var p in Map(Record.map).portals.Where(p=>p.cells.Any(c=>c.x==Record.x&&c.y==Record.y)))arrivalPortals.Add(p.id);}
+        private readonly Dictionary<int,(long revision,WorldMapDefinition map)> changedMaps=new Dictionary<int,(long,WorldMapDefinition)>();
+        public WorldMapDefinition Map(int id)
+        {
+            var original=Definition.Map(id);var progress=Record.campaignProgress;
+            if(original==null||Definition.campaign?.HasNativeMaps!=true||progress==null||!progress.steps.Any(s=>s.scene==id&&(s.command.StartsWith("CHANGESPRITE ",StringComparison.Ordinal)||s.command.StartsWith("CHANGETILE2 ",StringComparison.Ordinal))))return original;
+            if(changedMaps.TryGetValue(id,out var cached)&&cached.revision==progress.revision)return cached.map;
+            var native=Definition.campaign.ApplyChanges(id,progress.steps);var copy=original.CopyForPlacement();var map=original.map;
+            copy.map=new TutorialMap{width=map.width,height=map.height,attributes=native.attributes,renderAttributes=native.renderAttributes,terrain=map.terrain,abilities=map.abilities};
+            changedMaps[id]=(progress.revision,copy);return copy;
+        }
+        public Func<CampaignCommand,int?> ScriptHandler;
+        public string ActiveCampaignEvent;
+        public void RestartPresentation()=>BeginPresentation();
         private void BeginPresentation()
         {
-            var map = Definition.campaign?.Map(Record.map); Presentation = null; Effects.Clear(); PhaseSavePending=false;
+            var map = Definition.campaign?.Map(Record.map); Presentation = null; ActiveCampaignEvent=null; changedMaps.Clear(); Effects.Clear(); PhaseSavePending=false;
             if (map?.kind == "scenario" && Record.campaignPhase != "explore" && Record.campaignPhase != "complete")
                 SetPresentation(Record.campaignPhase == "outro" ? map.outro : map.intro);
         }
-        public void SetPresentation(string script)
-        { Presentation = new CampaignPresentation(script, CommanderJob, Record.map, id => Definition.Map(id) != null); Presentation.Effect += command => Effects.Add(command); Presentation.Advance(0); }
-        public void Close() { Kind = FacilityKind.None; Token = Npc = null; Draft = null; PendingStorageFee = 0; }
+        public void SetPresentation(string script,string context=null,CampaignActor[] actors=null)
+        {
+            ActiveCampaignEvent=null;
+            Presentation=new CampaignPresentation(script,CommanderJob,Record.map,id=>Map(id)!=null,ScriptHandler,
+                context??Record.map+":"+Record.campaignPhase+":"+OriginalCampaignScript.Fingerprint(script),actors);
+            Presentation.Effect+=command=>Effects.Add(command);Presentation.Advance(0);
+        }
+        public void ClearRevival(){RevivalOffer=null;PendingRevivalQuote=null;PendingRevival=null;RevivalQuoteState=null;}
+        public void ClearMagicRequest(){PendingMagicLoadout=null;MagicRequestState=null;}
+        public void ClearMagicLoadout(){ClearMagicRequest();MagicDraft=null;MagicBaseline=null;}
+        public void ClearStatRequest(){PendingStatAdjustment=null;StatRequestState=null;}
+        public void ClearStatAdjustment(){ClearStatRequest();StatDraft=null;StatBaseline=null;}
+        public void ClearClassChange(){PendingClassOptions=null;PendingClassChange=null;ClassOptionsState=null;ClassOffer=null;}
+        public void ClearItemUse(){PendingItemUse=null;ItemUseState=null;}
+        public void ClearShop(){PendingShopQuote=PendingShopTrade=null;ShopQuoteState=null;ShopOffer=null;}
+        public void ClearMercenary(){PendingMercenary=null;MercenaryState=null;}
+        public void ClearBankTransfer(){PendingBankTransfer=null;BankTransferState=null;}
+        public void ClearWarehouseRequest(){PendingWarehouse=null;WarehouseRequestState=null;}
+        public void Close() { Kind = FacilityKind.None; Token = Npc = null; Draft = null; PendingStorageFee = 0;ClearRevival();ClearBankTransfer();ClearMercenary();ClearShop();ClearItemUse();ClearClassChange();ClearStatAdjustment();ClearMagicLoadout();ClearWarehouseRequest();WarehouseTerms=null;StorageDraftRevision=0; }
         public bool CanInteract(WorldNpc npc)
         {
             var p = new TutorialTile(Record.x, Record.y);
@@ -163,8 +317,8 @@ namespace DarkSaver.Original.World
         }
         public WorldFailure Move(int x, int y)
         {
-            if (Kind != FacilityKind.None || PresentationLocked || PendingPortal!=null) return WorldFailure.Busy;
-            var m = Definition.Map(Record.map); var target = new TutorialTile(x, y);
+            if (Kind != FacilityKind.None || PresentationLocked || PendingPortal!=null || Combat!=null) return WorldFailure.Busy;
+            var m = Map(Record.map); var target = new TutorialTile(x, y);
             var occupied = new HashSet<TutorialTile>(m.npcs.Select(n => new TutorialTile(n.x, n.y)));
             foreach(var unit in Definition.campaign?.Map(Record.map)?.units ?? Array.Empty<CampaignUnit>()) occupied.Add(new TutorialTile(unit.x,unit.y));
             // Local routes must not cross another facility's entry on the way to a target.
@@ -187,11 +341,11 @@ namespace DarkSaver.Original.World
         public bool Advance(double ms)
         {
             if (double.IsNaN(ms) || double.IsInfinity(ms) || ms < 0) return false;
-            Clock += ms; if (!Moving) return false; movement += ms;
-            while (Moving && movement >= Duration)
+            Clock += ms; Combat?.Advance(ms); if (path.Count==0) return false; movement += ms;
+            while (path.Count>0 && movement >= Duration)
             {
                 movement -= Duration; var p = path.Dequeue(); Record.x = p.X; Record.y = p.Y;
-                var portals=Definition.Map(Record.map).portals;
+                var portals=Map(Record.map).portals;
                 arrivalPortals.RemoveWhere(id=>!portals.Any(g=>g.id==id&&g.cells.Any(c=>c.Tile==p)));
                 var portal = portals.FirstOrDefault(g => !arrivalPortals.Contains(g.id)&&g.cells.Any(c => c.Tile == p));
                 if (stopping || portal != null) path.Clear();
@@ -206,18 +360,34 @@ namespace DarkSaver.Original.World
             return false;
         }
         public void Relocate(WorldRecord record)
-        { bool changed = Record.map != record.map; Record = record.Copy(); path.Clear(); movement = 0; from = new TutorialTile(record.x, record.y); PendingPortal = PendingNpc = null; Close(); if(changed){MarkArrivalPortals();CampaignSession=Guid.NewGuid().ToString("N");CampaignNotices.Clear();BeginPresentation();} }
+        { bool changed = Record.map != record.map; Record = record.Copy(); path.Clear(); movement = 0; from = new TutorialTile(record.x, record.y); PendingPortal = PendingNpc = null;PendingRetreat=null; Close(); if(changed){Combat=null;MarkArrivalPortals();CampaignSession=Guid.NewGuid().ToString("N");CampaignNotices.Clear();BeginPresentation();} }
         public WorldView Snapshot()
         {
-            double phase = !Moving ? 0 : Math.Floor(movement / 80) * (Duration == 240 ? 10.0 / 32 : .5);
-            return new WorldView { record = Record.Copy(), moving = Moving, clock = Clock, pendingPortal = PendingPortal, failure = Failure,
-                renderX = !Moving ? Record.x : from.X + (path.Peek().X - from.X) * phase,
-                renderY = !Moving ? Record.y : from.Y + (path.Peek().Y - from.Y) * phase,
+            double phase = path.Count==0 ? 0 : Math.Floor(movement / 80) * (Duration == 240 ? 10.0 / 32 : .5);
+            var record=Record.Copy();if(Combat?.Moving==true)record.direction=Combat.Motion.Direction;
+            return new WorldView { record = record, moving = Moving, clock = Clock, pendingPortal = PendingPortal, failure = Failure,
+                renderX = Combat?.Moving==true?Combat.Motion.X:path.Count==0 ? Record.x : from.X + (path.Peek().X - from.X) * phase,
+                renderY = Combat?.Moving==true?Combat.Motion.Y:path.Count==0 ? Record.y : from.Y + (path.Peek().Y - from.Y) * phase,
                 units = (Definition.campaign?.Map(Record.map)?.units ?? Array.Empty<CampaignUnit>()).Select(u => u.Copy()).ToArray(),
                 presentation = Presentation?.Snapshot(),
-                campaignSession = CampaignSession,
+                campaignSession = CampaignSession,commanders=CommanderView(),inspectedCommander=InspectedCommander,commanderRequest=PendingCommander?.Copy(),commanderSession=CommanderSession,
+                growthSession=GrowthSession,characterId=CharacterId,adjustmentTarget=AdjustmentTarget?.Copy(),adjustmentProfile=AdjustmentProfile?.Copy(),
+                training=Map(Record.map).training?Combat?.Snapshot():null,battle=Combat?.Snapshot(),
+                pendingRetreat=PendingRetreat?.Copy(),
+                revivalQuoteRequest=PendingRevivalQuote?.Copy(),revivalRequest=PendingRevival?.Copy(),
+                currencySession=CurrencySession,currencyRequest=PendingCurrency?.Copy(),
+                bankTransferRequest=PendingBankTransfer?.Copy(),
+                warehouseRequest=PendingWarehouse?.Copy(),mercenaryRequest=PendingMercenary?.Copy(),
+                shopQuoteRequest=PendingShopQuote?.Copy(),shopTradeRequest=PendingShopTrade?.Copy(),itemUseRequest=PendingItemUse?.Copy(),
+                magicLoadoutRequest=PendingMagicLoadout?.Copy(),magicLoadout=MagicDraft?.Copy(),battleMagic=Record.magicLoadout?.Matches(Record.growth)==true?(int[])Record.magicLoadout.selected.Clone():null,
+                statAdjustmentRequest=PendingStatAdjustment?.Copy(),statAdjustment=StatDraft?.Copy(),
+                classOptionsRequest=PendingClassOptions?.Copy(),classChangeRequest=PendingClassChange?.Copy(),classOptions=ClassOffer?.Matches(this)==true?ClassOffer.Options.Copy():null,
                 facility = Kind == FacilityKind.None ? null : new WorldFacilityView { token = Token, npc = Npc, kind = Kind,
-                    room = Kind == FacilityKind.ScenarioGateway ? Token : null, scenario = Kind == FacilityKind.ScenarioGateway ? Definition.gateways.gates.First(g=>g.id==Definition.Map(Record.map).npcs.First(n=>n.id==Npc).gateway).targetMap : 0,
+                    revivalQuote=RevivalOffer?.Matches(this)==true?RevivalOffer.Quote.Copy():null,
+                    shopQuote=ShopOffer?.Matches(this)==true?ShopOffer.Quote.Copy():null,
+                    warehouseTerms=WarehouseTerms?.Copy(),storageDraftRevision=StorageDraftRevision,
+                    storageFeeKnown=WarehouseTerms!=null?WarehouseTerms.fee.HasValue&&WarehouseTerms.feeSource.HasValue:Definition.rules.storageRuleKnown,
+                    room = Kind == FacilityKind.ScenarioGateway ? Token : null, scenario = Kind == FacilityKind.ScenarioGateway ? Definition.gateways.gates.First(g=>g.id==Map(Record.map).npcs.First(n=>n.id==Npc).gateway).targetMap : 0,
                     inventory = (Draft ?? Record).inventory.Select(i => i.Copy()).ToArray(), storage = (Draft ?? Record).storage.Select(i => i.Copy()).ToArray(),
                     storageFee = PendingStorageFee, offers = (int[])(Definition.shops.FirstOrDefault(s => s.map == Record.map)?.items.Clone() ?? Array.Empty<int>()) } };
         }

@@ -1,0 +1,45 @@
+{
+  "assertions": 1658,
+  "scenarioEntries": 103,
+  "sourceOutroCompletions": 97,
+  "approvedResultReturns": 98,
+  "eventBodies": 1241,
+  "mapMutationFixtures": 3,
+  "held": [],
+  "scope": "Source script/event parser, original MRC mutation, isolated managed entry/approved clear/outro/result/return, save/reconnect and refusal. Not 97 combat clears; no fabricated HP/AP, enemy roster or rewards.",
+  "assetChecks": 252,
+  "combineMasks": 8,
+  "literalMidiClips": 14,
+  "totalMidiClips": 32,
+  "mapMusicRows": 47,
+  "missingNativeMidi": [
+    "bgm/nco02.mid"
+  ],
+  "nativeSha256": {
+    "GameCtl.dll": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+    "DManage.dll": "08e34fe7a497439ba65b33f3d9b661cbd20ddf098cf536c301337870b2f776f3"
+  },
+  "logs": "/tmp/ds-scenario-progress-checks",
+  "unityPlay": false,
+  "testCodeSha256": {
+    "check_scenario_progress.py": "961d130023558a239effa6b7953e238b72783408ea3d087f529793986df2bea0",
+    "ScenarioProgressChecks.cs": "30342633f7bad1322ac4b7a3ff27eeec8e8c1f49558189282092701e64202e2a",
+    "ScenarioManagerHost.cs": "1e2e583733c215f749fac40fa8621486c092429c0392e619b649e9b2830a11c0"
+  },
+  "codeSha256": {
+    "Assets/_Original/Runtime/Campaign/WorldSceneRoot.Campaign.cs": "fe065e7339c2b82fb199ed2414152a0cd77b815b7c36195f0ae82ae5ba708763",
+    "Assets/_Original/Runtime/Campaign/NativeCampaignArt.cs": "4c6efeae3275d111454bab297e4a6382a585ad2db622bc4e333e371e5cae79f9",
+    "Assets/_Original/Runtime/Campaign/CampaignExit.cs": "044ca704f5f5f2c6677a2690f3d25061b5280904ff9df596ac7e17f0ae446a27",
+    "Assets/_Original/Runtime/Campaign/CampaignModel.cs": "5c965ec4469d04b5b9117886d7cfb371084a791fdaf2efd200517e93a4a93622",
+    "Assets/_Original/Runtime/Campaign/CampaignExitService.cs": "c9a1843eb0447a3476b8985fc00cd2fa1461e132071333fdf97aa34e663f33d3",
+    "Assets/_Original/Runtime/Campaign/CampaignResultService.cs": "9354929de74cfecb85b1456f389cf6d610fa6a0439b7669d6cb2b4f5548d8566",
+    "Assets/_Original/Runtime/Campaign/ScenarioGatewayService.cs": "04bd79e628f972f0052daf2d0f0152cbd48786317edb53cf27e7ed60f71ec716",
+    "Assets/_Original/Runtime/Campaign/ScenarioGatewaySettings.cs": "495677efaee482250b27481f84db4d0c2f500f32341cf9665385687e2a47311c",
+    "Assets/_Original/Runtime/Campaign/LocalServerManager.Campaign.cs": "dce5546892843ad3487b77a70ab4e43746cad4b225efe53733f4112ab7ab242c",
+    "Assets/_Original/Runtime/Campaign/CampaignResult.cs": "3ab8641f0a4d823933a39156ac7054ea35ed79a858eb933a4d78e9b8b96f7c9e",
+    "Assets/_Original/Runtime/Campaign/CampaignService.cs": "939abb2a44f62a6d73f1850fe65d4d86e30fd459e604ce22f406706e77b9fce6",
+    "Assets/_Original/Runtime/World/WorldModel.cs": "7f0149c4049806e5fac76146b9a7ca15d68f7fcf72c9dde266e920f7038d7fdc",
+    "Assets/_Original/Runtime/World/WorldService.cs": "a0ebf2690e411e04030db6fe89fe5b5166cac8c673ff1fed4eebc689f3e5fbdb",
+    "Assets/_Original/Runtime/Maps/NativeMapDecoder.cs": "24996a7e09bdb84bd7c3dae35d0988e18b40629e328ce50b234eca0900ae4abd"
+  }
+}

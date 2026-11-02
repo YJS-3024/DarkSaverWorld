@@ -61,7 +61,7 @@ internal static class WaitingLessonChecks
         foreach (int job in new[] { 100, 101, 103 })
         foreach (int handSlot in new[] { WaitingEquipmentLayout.LeftHand, WaitingEquipmentLayout.RightHand })
         {
-            var session = new WaitingLesson(Definition(), job);
+            var def=Definition();var session = new WaitingLesson(def, job);
             Check(!session.Input(new WaitingInput(WaitingInputKind.Continue)), "Cannot click past the startup delay");
             session.Advance(double.NaN); session.Advance(double.PositiveInfinity);
             Check(session.Snapshot().Clock == 0, "Invalid timer input leaves original state intact");
@@ -108,6 +108,15 @@ internal static class WaitingLessonChecks
             Run(() => { var v = session.Snapshot(); observed.Add(v.ResourceId); return v; }, input =>
             {
                 var before = session.Snapshot();
+                if(input.Kind==WaitingInputKind.Restore)
+                {
+                    var original=before.Windows.First(w=>w.Id==input.Window);var spec=def.windows.First(w=>w.id==input.Window);
+                    Check(spec.minWidth>0&&spec.minHeight>0&&original.Minimized,"native minimized layout is present");
+                    Check(session.Input(new WaitingInput(WaitingInputKind.DragWindow,input.Window,value:1,x:2000,y:2000)),"minimized native icon can be dragged");
+                    var dragged=session.Snapshot();var window=dragged.Windows.First(w=>w.Id==input.Window);
+                    Check(window.X==640-spec.minWidth&&window.Y==480-spec.minHeight&&window.Minimized&&dragged.ResourceId==before.ResourceId,"mini clamp uses icon size and does not complete restore instruction");
+                    Check(session.Input(new WaitingInput(WaitingInputKind.DragWindow,input.Window,value:1,x:original.X,y:original.Y)),"minimized fixture origin restored before native restore callback");
+                }
                 if (before.ResourceId == 61245)
                 {
                     Check(!before.SwordEquipAllowed && !before.ArmorEquipAllowed

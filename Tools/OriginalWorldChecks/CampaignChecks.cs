@@ -86,15 +86,18 @@ internal static class CampaignChecks
         var sourceBase=Path.Combine(root,"Assets/_Original/SourceData/Native/map");int rendered=0;var intro=new List<object>();
         foreach(var map in catalog.maps)
         {
-            var bytes=File.ReadAllBytes(Path.Combine(sourceBase,map.key+".mrc.bytes"));
-            var layers=NativeMapDecoder.RenderLayers(bytes,id=>File.ReadAllBytes(Path.Combine(sourceBase,"mdsr"+id+".grs.bytes")));
+            var nativeBase=map.world.sourceVersion=="Saver_1.2"?Path.Combine(root,"Assets/_Original/SourceData/KaosiaLegacy"):sourceBase;
+            var bytes=File.ReadAllBytes(Path.Combine(nativeBase,map.key+".mrc.bytes"));
+            var layers=NativeMapDecoder.RenderLayers(bytes,id=>File.ReadAllBytes(Path.Combine(nativeBase,"mdsr"+id+".grs.bytes")));
+            Check(layers.renderAttributes.Select(a=>(int)a).SequenceEqual(map.world.map.renderAttributes),"literal MRC redraw attributes "+map.key);
+            Check(layers.renderAttributes.Select(a=>(a&127)>27?0:a&127).SequenceEqual(map.world.map.attributes),"navigation remains separate from render flags "+map.key);
             Check(layers.width==map.world.map.width*32&&layers.height==map.world.map.height*32,"native render layers "+map.key);rendered++;
             if(map.key=="01"||map.key=="26"||map.key=="1010")
             {
                 var composite=(byte[])layers.rgba.Clone();
                 foreach(var layer in layers.foreground)for(int y=0;y<layer.height;y++)for(int x=0;x<layer.width;x++)
                 {int tx=layer.x+x,ty=layer.y+y,at=(y*layer.width+x)*4;if(tx<0||ty<0||tx>=layers.width||ty>=layers.height||layer.rgba[at+3]==0)continue;Buffer.BlockCopy(layer.rgba,at,composite,(ty*layers.width+tx)*4,4);}
-                var flat=NativeMapDecoder.Render(bytes,id=>File.ReadAllBytes(Path.Combine(sourceBase,"mdsr"+id+".grs.bytes")));
+                var flat=NativeMapDecoder.Render(bytes,id=>File.ReadAllBytes(Path.Combine(nativeBase,"mdsr"+id+".grs.bytes")));
                 Check(composite.SequenceEqual(flat.rgba),"body insertion preserves foreground file order "+map.key);
             }
             if(!string.IsNullOrWhiteSpace(map.intro))

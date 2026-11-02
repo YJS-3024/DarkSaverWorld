@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using DarkSaver.Original.Tutorial;
+
+namespace DarkSaver.Original.World
+{
+    public sealed class SoldierMovementChoice
+    {
+        public BattleRegroupPlan plan;
+        public int hintAfter;
+        public bool unavailable;
+    }
+    public static class OriginalSoldierMovement
+    {
+        public static SoldierMovementChoice Find(WorldMapDefinition definition,OriginalCombatCatalog catalog,TrainingUnit[] units,int member,int hint,Func<int,int> choose)
+        {
+            var result=new SoldierMovementChoice{hintAfter=hint};
+            var actor=units.First(u=>u.id==member);var leader=units.First(u=>u.id==0);var map=definition.map;
+            if(!actor.canMove)return result;
+            int? kind=OriginalMemberCommands.MovementType(actor,catalog);
+            if(!actor.movementBudget.HasValue||!leader.commandRange.HasValue||!kind.HasValue||!OriginalRegroupMovement.ValidMovementType(kind)){result.unavailable=true;return result;}
+            int radius=Math.Max(2,leader.commandRange.Value),mode=OriginalSoldierActions.Mode(leader.troopOrder);
+            var blocked=OriginalMemberCommands.StaticBlocked(definition);
+            var occupied=units.Where(OriginalCommandRange.OccupiesTile).GroupBy(u=>u.Tile).ToDictionary(g=>g.Key,g=>g.FirstOrDefault(u=>u.id/50!=member/50)?.id??g.First().id);
+            var scores=OriginalRegroupMovement.Reachable(map,actor,actor.movementBudget.Value,kind.Value,occupied,blocked);
+            bool attackMove=mode==2||mode==1&&actor.hp>=(long)actor.maxHp*50/100;
+            TutorialTile? target=null;bool useNearest=true;
+            if(attackMove&&OriginalCommandRange.Distance(actor.x,actor.y,leader.x,leader.y)<=radius)
+            {
+                var inRange=OriginalSoldierActions.Candidates(definition,catalog,units,actor);
+                if(inRange==null||!actor.attackRange.HasValue){result.unavailable=true;return result;}
+                if(inRange.Length>0)
+                {
+                    if(choose==null){result.unavailable=true;return result;}
+                    int index=choose(inRange.Length);if(index<0||index>=inRange.Length)result.unavailable=true;
+                    return result; // Already able to attack: native MoveAttack requests no movement.
+                }
+                var danger=Enumerable.Repeat(-1,map.width*map.height).ToArray();int dangerRadius=Math.Min(radius,12);
+                foreach(var enemy in units.Where(u=>actor.attackTargets.Contains(u.id)&&OriginalCommandRange.Living(u)).OrderBy(u=>u.x).ThenBy(u=>u.y))
+                {
+                    if(OriginalCommandRange.Distance(leader.x,leader.y,enemy.x,enemy.y)>(long)actor.attackRange.Value+radius+2)continue;
+                    // SetArea overwrites earlier overlapping areas; it is not a sum/max heatmap.
+                    for(int x=0;x<map.width;x++)for(int y=0;y<map.height;y++)
+                    {long d=OriginalCommandRange.Distance(enemy.x,enemy.y,x,y);if(d<=dangerRadius+1)danger[y*map.width+x]=(int)(dangerRadius+1-d);}
+                }
+                int best=-1;
+                for(int x=0;x<map.width;x++)for(int y=0;y<map.height;y++)
+                {
+                    var tile=new TutorialTile(x,y);int index=y*map.width+x;
+                    if(scores[index]<0||OriginalCommandRange.Distance(leader.x,leader.y,x,y)>radius||blocked.Contains(tile))continue;
+                    if(occupied.TryGetValue(tile,out int occupant)&&occupant!=member)continue;
+                    if(danger[index]>best)best=danger[index];
+                }
+                if(best>=0)
+                {
+                    useNearest=false;int remaining=99;
+                    for(int x=0;x<map.width;x++)for(int y=0;y<map.height;y++)
+                    {
+                        var tile=new TutorialTile(x,y);int index=y*map.width+x;
+                        if(scores[index]<0||OriginalCommandRange.Distance(leader.x,leader.y,x,y)>radius||blocked.Contains(tile)||occupied.ContainsKey(tile)||danger[index]!=best)continue;
+                        if(scores[index]<remaining){remaining=scores[index];target=tile;}
+                    }
+                }
+                else if(actor.hp<actor.maxHp)result.hintAfter=99;
+            }
+            if(useNearest)
+            {
+                long best=-1;int remaining=99;
+                for(int x=0;x<map.width;x++)for(int y=0;y<map.height;y++)
+                {
+                    var tile=new TutorialTile(x,y);int score=scores[y*map.width+x];
+                    if(score<0||occupied.ContainsKey(tile)||blocked.Contains(tile))continue;
+                    long distance=OriginalCommandRange.Distance(leader.x,leader.y,x,y);
+                    long weight=distance<=50?50-distance:distance<=(long)radius+1?(long)radius+1-distance:-1;
+                    if(weight>best){best=weight;remaining=99;target=null;}
+                    if(weight==best&&weight>=0&&score<remaining){remaining=score;target=tile;}
+                }
+            }
+            if(!target.HasValue||target.Value.X<=0||target.Value.Y<=0||target.Value.X>=200||target.Value.Y>=200)return result;
+            var pathBlocked=new HashSet<TutorialTile>(blocked);foreach(var p in occupied)if(p.Value/50!=member/50)pathBlocked.Add(p.Key);
+            var path=map.Path(actor.Tile,target.Value,actor.movementBudget.Value+7,pathBlocked,kind.Value);
+            if(path==null||path.Count==0)return result;
+            result.plan=new BattleRegroupPlan{member=member,commander=0,memberLife=actor.life,commanderLife=leader.life,x=target.Value.X,y=target.Value.Y,movementType=kind.Value,searchRadius=radius,path=path.ToArray()};return result;
+        }
+    }
+}

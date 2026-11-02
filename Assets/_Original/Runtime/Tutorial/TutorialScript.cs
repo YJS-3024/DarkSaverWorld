@@ -81,6 +81,8 @@ namespace DarkSaver.Original.Tutorial
     {
         public int width, height;
         public int[] attributes, terrain;
+        public int[] renderAttributes;
+        public int RenderAttribute(TutorialTile p)=>Contains(p)&&renderAttributes!=null&&renderAttributes.Length==width*height?renderAttributes[p.Y*width+p.X]:Attribute(p);
         public TutorialAbility[] abilities;
         public bool Contains(TutorialTile p) => p.X >= 0 && p.Y >= 0 && p.X < width && p.Y < height;
         public int Attribute(TutorialTile p) => Contains(p) ? attributes[p.Y * width + p.X] : -1;
@@ -92,7 +94,7 @@ namespace DarkSaver.Original.Tutorial
             && terrain != null && terrain.Length == 27 * 30 && abilities != null;
         // Native cardinal score/backtrack, then compress consecutive perpendicular steps.
         // There is deliberately no extra diagonal-corner rejection.
-        public List<TutorialTile> Path(TutorialTile start, TutorialTile end, int budget, HashSet<TutorialTile> occupied)
+        public List<TutorialTile> Path(TutorialTile start, TutorialTile end, int budget, HashSet<TutorialTile> occupied,int movementType=0)
         {
             var cost = new Dictionary<TutorialTile, int> { [start] = 0 };
             var previous = new Dictionary<TutorialTile, TutorialTile>(); var open = new List<TutorialTile> { start };
@@ -105,7 +107,7 @@ namespace DarkSaver.Original.Tutorial
                 {
                     var next = new TutorialTile(here.X + offset.X, here.Y + offset.Y);
                     if (!Contains(next) || occupied.Contains(next)) continue;
-                    int movement = Terrain(next, 2);
+                    int movement = Terrain(next, movementType*3+2);
                     if (movement <= 0 || movement == 99 || movement == -99) continue;
                     int score = cost[here] + movement; if (score > budget || (cost.TryGetValue(next, out int old) && old <= score)) continue;
                     cost[next] = score; previous[next] = here; if (!open.Contains(next)) open.Add(next);

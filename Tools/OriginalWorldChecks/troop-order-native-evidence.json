@@ -1,0 +1,387 @@
+{
+  "sourceInventory": "분석/InstallerVersions/installer_inventory.json",
+  "sources": [
+    {
+      "version": "early",
+      "file": "userunit.dll",
+      "sha256": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711",
+      "fixtures": [
+        {
+          "address": "0x10001390",
+          "bytes": "8b4c2404",
+          "meaning": "unit ID argument",
+          "instruction": "mov ecx, dword ptr [esp + 4]"
+        },
+        {
+          "address": "0x10001394",
+          "bytes": "b867666666",
+          "meaning": "signed division10 constant",
+          "instruction": "mov eax, 0x66666667"
+        },
+        {
+          "address": "0x100013ae",
+          "bytes": "d1e0",
+          "meaning": "commander index times10",
+          "instruction": "shl eax, 1"
+        },
+        {
+          "address": "0x100013d3",
+          "bytes": "c784020801000001000000",
+          "meaning": "direct stores native1",
+          "instruction": "mov dword ptr [edx + eax + 0x108], 1"
+        },
+        {
+          "address": "0x1000140a",
+          "bytes": "c70102000000",
+          "meaning": "attack stores native2",
+          "instruction": "mov dword ptr [ecx], 2"
+        },
+        {
+          "address": "0x10001416",
+          "bytes": "8d4801",
+          "meaning": "attack group begins commander+1",
+          "instruction": "lea ecx, [eax + 1]"
+        },
+        {
+          "address": "0x10001419",
+          "bytes": "83c00a",
+          "meaning": "attack group ends before commander+10",
+          "instruction": "add eax, 0xa"
+        },
+        {
+          "address": "0x10001446",
+          "bytes": "f684060c01000003",
+          "meaning": "native follow flags mask3",
+          "instruction": "test byte ptr [esi + eax + 0x10c], 3"
+        },
+        {
+          "address": "0x10001455",
+          "bytes": "e8d60e0000",
+          "meaning": "native state reset helper, eligibility not inferred",
+          "instruction": "call 0x10002330"
+        },
+        {
+          "address": "0x10001499",
+          "bytes": "c70108000000",
+          "meaning": "defense stores native8",
+          "instruction": "mov dword ptr [ecx], 8"
+        },
+        {
+          "address": "0x100014a5",
+          "bytes": "8d4801",
+          "meaning": "defense group begins commander+1",
+          "instruction": "lea ecx, [eax + 1]"
+        },
+        {
+          "address": "0x100014a8",
+          "bytes": "83c00a",
+          "meaning": "defense group ends before commander+10",
+          "instruction": "add eax, 0xa"
+        },
+        {
+          "address": "0x10001528",
+          "bytes": "c70104000000",
+          "meaning": "internal fourth code stores4, not exposed by menu",
+          "instruction": "mov dword ptr [ecx], 4"
+        }
+      ]
+    },
+    {
+      "version": "early",
+      "file": "GameCtl.dll",
+      "sha256": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+      "fixtures": [
+        {
+          "address": "0x1000c071",
+          "bytes": "68aca40110",
+          "meaning": "native direct-command label",
+          "instruction": "push 0x1001a4ac"
+        },
+        {
+          "address": "0x1000c0a5",
+          "bytes": "68a0a40110",
+          "meaning": "native auto-attack label",
+          "instruction": "push 0x1001a4a0"
+        },
+        {
+          "address": "0x1000c0d9",
+          "bytes": "6894a40110",
+          "meaning": "native auto-defense label",
+          "instruction": "push 0x1001a494"
+        },
+        {
+          "address": "0x1000c167",
+          "bytes": "6a03",
+          "meaning": "native menu three choices",
+          "instruction": "push 3"
+        },
+        {
+          "address": "0x10009ce9",
+          "bytes": "8b84bda8010000",
+          "meaning": "selected menu value",
+          "instruction": "mov eax, dword ptr [ebp + edi*4 + 0x1a8]"
+        },
+        {
+          "address": "0x10009cf3",
+          "bytes": "50",
+          "meaning": "choice argument",
+          "instruction": "push eax"
+        },
+        {
+          "address": "0x10009cf4",
+          "bytes": "51",
+          "meaning": "unit argument",
+          "instruction": "push ecx"
+        },
+        {
+          "address": "0x10009cf5",
+          "bytes": "ff1548620110",
+          "meaning": "setsolai import callback",
+          "instruction": "call dword ptr [0x10016248]"
+        },
+        {
+          "address": "0x1000c055",
+          "bytes": "6a20",
+          "meaning": "direct right32",
+          "instruction": "push 0x20"
+        },
+        {
+          "address": "0x1000c057",
+          "bytes": "6ae0",
+          "meaning": "direct top-32",
+          "instruction": "push -0x20"
+        },
+        {
+          "address": "0x1000c081",
+          "bytes": "6a08",
+          "meaning": "attack right8",
+          "instruction": "push 8"
+        },
+        {
+          "address": "0x1000c089",
+          "bytes": "6ae8",
+          "meaning": "attack left-24",
+          "instruction": "push -0x18"
+        },
+        {
+          "address": "0x1000c0b5",
+          "bytes": "6a38",
+          "meaning": "defense right56",
+          "instruction": "push 0x38"
+        },
+        {
+          "address": "0x1000c0bd",
+          "bytes": "6a18",
+          "meaning": "defense left24",
+          "instruction": "push 0x18"
+        },
+        {
+          "address": "0x1001a4ac",
+          "bytes": "c1f7c1a220b8edb7c900",
+          "meaning": "native label 직접 명령"
+        },
+        {
+          "address": "0x1001a4a0",
+          "bytes": "c0dab5bf20b0f8b0dd00",
+          "meaning": "native label 자동 공격"
+        },
+        {
+          "address": "0x1001a494",
+          "bytes": "c0dab5bf20b9e6beee00",
+          "meaning": "native label 자동 방어"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "userunit.dll",
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "fixtures": [
+        {
+          "address": "0x10001370",
+          "bytes": "8b4c2404",
+          "meaning": "unit ID argument",
+          "instruction": "mov ecx, dword ptr [esp + 4]"
+        },
+        {
+          "address": "0x10001374",
+          "bytes": "b867666666",
+          "meaning": "signed division10 constant",
+          "instruction": "mov eax, 0x66666667"
+        },
+        {
+          "address": "0x1000138e",
+          "bytes": "d1e0",
+          "meaning": "commander index times10",
+          "instruction": "shl eax, 1"
+        },
+        {
+          "address": "0x100013b3",
+          "bytes": "c784020801000001000000",
+          "meaning": "direct stores native1",
+          "instruction": "mov dword ptr [edx + eax + 0x108], 1"
+        },
+        {
+          "address": "0x100013ea",
+          "bytes": "c70102000000",
+          "meaning": "attack stores native2",
+          "instruction": "mov dword ptr [ecx], 2"
+        },
+        {
+          "address": "0x100013f6",
+          "bytes": "8d4801",
+          "meaning": "attack group begins commander+1",
+          "instruction": "lea ecx, [eax + 1]"
+        },
+        {
+          "address": "0x100013f9",
+          "bytes": "83c00a",
+          "meaning": "attack group ends before commander+10",
+          "instruction": "add eax, 0xa"
+        },
+        {
+          "address": "0x10001426",
+          "bytes": "f684060c01000003",
+          "meaning": "native follow flags mask3",
+          "instruction": "test byte ptr [esi + eax + 0x10c], 3"
+        },
+        {
+          "address": "0x10001435",
+          "bytes": "e8d60e0000",
+          "meaning": "native state reset helper, eligibility not inferred",
+          "instruction": "call 0x10002310"
+        },
+        {
+          "address": "0x10001479",
+          "bytes": "c70108000000",
+          "meaning": "defense stores native8",
+          "instruction": "mov dword ptr [ecx], 8"
+        },
+        {
+          "address": "0x10001485",
+          "bytes": "8d4801",
+          "meaning": "defense group begins commander+1",
+          "instruction": "lea ecx, [eax + 1]"
+        },
+        {
+          "address": "0x10001488",
+          "bytes": "83c00a",
+          "meaning": "defense group ends before commander+10",
+          "instruction": "add eax, 0xa"
+        },
+        {
+          "address": "0x10001508",
+          "bytes": "c70104000000",
+          "meaning": "internal fourth code stores4, not exposed by menu",
+          "instruction": "mov dword ptr [ecx], 4"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "gamectl.dll",
+      "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+      "fixtures": [
+        {
+          "address": "0x1000c131",
+          "bytes": "68aca40110",
+          "meaning": "native direct-command label",
+          "instruction": "push 0x1001a4ac"
+        },
+        {
+          "address": "0x1000c165",
+          "bytes": "68a0a40110",
+          "meaning": "native auto-attack label",
+          "instruction": "push 0x1001a4a0"
+        },
+        {
+          "address": "0x1000c199",
+          "bytes": "6894a40110",
+          "meaning": "native auto-defense label",
+          "instruction": "push 0x1001a494"
+        },
+        {
+          "address": "0x1000c227",
+          "bytes": "6a03",
+          "meaning": "native menu three choices",
+          "instruction": "push 3"
+        },
+        {
+          "address": "0x10009da9",
+          "bytes": "8b84bda8010000",
+          "meaning": "selected menu value",
+          "instruction": "mov eax, dword ptr [ebp + edi*4 + 0x1a8]"
+        },
+        {
+          "address": "0x10009db3",
+          "bytes": "50",
+          "meaning": "choice argument",
+          "instruction": "push eax"
+        },
+        {
+          "address": "0x10009db4",
+          "bytes": "51",
+          "meaning": "unit argument",
+          "instruction": "push ecx"
+        },
+        {
+          "address": "0x10009db5",
+          "bytes": "ff1548620110",
+          "meaning": "setsolai import callback",
+          "instruction": "call dword ptr [0x10016248]"
+        },
+        {
+          "address": "0x1000c115",
+          "bytes": "6a20",
+          "meaning": "direct right32",
+          "instruction": "push 0x20"
+        },
+        {
+          "address": "0x1000c117",
+          "bytes": "6ae0",
+          "meaning": "direct top-32",
+          "instruction": "push -0x20"
+        },
+        {
+          "address": "0x1000c141",
+          "bytes": "6a08",
+          "meaning": "attack right8",
+          "instruction": "push 8"
+        },
+        {
+          "address": "0x1000c149",
+          "bytes": "6ae8",
+          "meaning": "attack left-24",
+          "instruction": "push -0x18"
+        },
+        {
+          "address": "0x1000c175",
+          "bytes": "6a38",
+          "meaning": "defense right56",
+          "instruction": "push 0x38"
+        },
+        {
+          "address": "0x1000c17d",
+          "bytes": "6a18",
+          "meaning": "defense left24",
+          "instruction": "push 0x18"
+        },
+        {
+          "address": "0x1001a4ac",
+          "bytes": "c1f7c1a220b8edb7c900",
+          "meaning": "native label 직접 명령"
+        },
+        {
+          "address": "0x1001a4a0",
+          "bytes": "c0dab5bf20b0f8b0dd00",
+          "meaning": "native label 자동 공격"
+        },
+        {
+          "address": "0x1001a494",
+          "bytes": "c0dab5bf20b9e6beee00",
+          "meaning": "native label 자동 방어"
+        }
+      ]
+    }
+  ]
+}

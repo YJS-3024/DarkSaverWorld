@@ -1,0 +1,16 @@
+{
+  "assertions": 111,
+  "mismatches": 0,
+  "unityPlay": false,
+  "nativeCases": 105,
+  "nativeSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "nativeCodeExecuted": true,
+  "logs": "/tmp/ds-native-world-text-checks",
+  "scope": "Original429F70 serialization and empty/modulo256 behavior; allocator/final send isolated. Production F12 local-manager request emits original7A0109 command only; no assumed server warp permission, destination or success.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_world_text.py": "09dbe626c90a66e47d21cd745ab71901290210bd9ed30eca6fe1e21143076f9a",
+    "Tools/OriginalWorldChecks/WorldTextChecks.cs": "fd8fc094b7248d2adb5eb00050ac99b2f6b8c8e8b916185c38e5e23683f338ef",
+    "Assets/_Original/Runtime/UI/NativeWorldTextPackets.cs": "791cdb9730b5a79fa6ecd635212796a7fb85677d7d1bae03d936bc1a9a1b0d5a",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.WorldText.cs": "c2af3ed26c2af2df4fe211566cecbcbc1d638348a18e91fdf1d623c14a46d179"
+  }
+}

@@ -19,5 +19,22 @@
   },
   "finding": "Drag equipment requests confirmed. Dedicated equipment double-click equip/unequip path not established in either examined binary. Not a statement about all historical releases.",
   "nativeExecution": false,
-  "gameCodeChanged": false
+  "gameCodeChanged": false,
+  "followup20261102": {
+    "old": {
+      "vtableSlot": "0x447C84+0x28",
+      "resolved": "0x42D2E0",
+      "bytes": "C2 08 00"
+    },
+    "late": {
+      "vtableSlot": "0x486108+0x28",
+      "resolved": "0x433E20",
+      "bytes": "C2 08 00"
+    },
+    "nativeCommonClickCases": 14,
+    "nativeCaptionCases": 168,
+    "captionManagedChecks": 183,
+    "proof": "Tools/OriginalWorldChecks/native-item-caption-check.json",
+    "scope": "Static old/late inherited callback and executed late common433D00 dispatch only; full equipment mouse-down/up/drop and OS/Unity input not executed."
+  }
 }

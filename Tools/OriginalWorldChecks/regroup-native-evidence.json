@@ -1,0 +1,435 @@
+{
+  "sourceInventory": "분석/InstallerVersions/installer_inventory.json",
+  "sources": [
+    {
+      "version": "early",
+      "file": "userunit.dll",
+      "sha256": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711",
+      "fixtures": [
+        {
+          "address": "0x10002f00",
+          "bytes": "81ec40040000",
+          "meaning": "NearestPosition native branch",
+          "instruction": "sub esp, 0x440"
+        },
+        {
+          "address": "0x10002f1d",
+          "bytes": "6a31",
+          "meaning": "NearestPosition native branch",
+          "instruction": "push 0x31"
+        },
+        {
+          "address": "0x10002f77",
+          "bytes": "3bc7",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp eax, edi"
+        },
+        {
+          "address": "0x10002f8a",
+          "bytes": "3bd8",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp ebx, eax"
+        },
+        {
+          "address": "0x10002f9f",
+          "bytes": "3be9",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp ebp, ecx"
+        },
+        {
+          "address": "0x10002fa7",
+          "bytes": "83ffff",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp edi, -1"
+        },
+        {
+          "address": "0x10002ff3",
+          "bytes": "3901",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp dword ptr [ecx], eax"
+        },
+        {
+          "address": "0x1000301b",
+          "bytes": "3bf8",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp edi, eax"
+        },
+        {
+          "address": "0x10003034",
+          "bytes": "3bd9",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp ebx, ecx"
+        },
+        {
+          "address": "0x1000305f",
+          "bytes": "ba63000000",
+          "meaning": "NearestPosition native branch",
+          "instruction": "mov edx, 0x63"
+        },
+        {
+          "address": "0x10003087",
+          "bytes": "3bca",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp ecx, edx"
+        },
+        {
+          "address": "0x100034a0",
+          "bytes": "83ec28",
+          "meaning": "GetMovePos native branch",
+          "instruction": "sub esp, 0x28"
+        },
+        {
+          "address": "0x1000357f",
+          "bytes": "b81f85eb51",
+          "meaning": "GetMovePos native branch",
+          "instruction": "mov eax, 0x51eb851f"
+        },
+        {
+          "address": "0x100035b2",
+          "bytes": "83f801",
+          "meaning": "GetMovePos native branch",
+          "instruction": "cmp eax, 1"
+        },
+        {
+          "address": "0x10004c40",
+          "bytes": "a1d8a31010",
+          "meaning": "SetArea2 native branch",
+          "instruction": "mov eax, dword ptr [0x1010a3d8]"
+        },
+        {
+          "address": "0x10004cb7",
+          "bytes": "8d5301",
+          "meaning": "SetArea2 native branch",
+          "instruction": "lea edx, [ebx + 1]"
+        },
+        {
+          "address": "0x10004cc2",
+          "bytes": "89548d00",
+          "meaning": "SetArea2 native branch",
+          "instruction": "mov dword ptr [ebp + ecx*4], edx"
+        },
+        {
+          "address": "0x10004ce3",
+          "bytes": "8d4e01",
+          "meaning": "SetArea2 native branch",
+          "instruction": "lea ecx, [esi + 1]"
+        },
+        {
+          "address": "0x10004d30",
+          "bytes": "53",
+          "meaning": "SetArea4 native branch",
+          "instruction": "push ebx"
+        },
+        {
+          "address": "0x10004de9",
+          "bytes": "83f863",
+          "meaning": "SetArea4 native branch",
+          "instruction": "cmp eax, 0x63"
+        },
+        {
+          "address": "0x10004df2",
+          "bytes": "83f89d",
+          "meaning": "SetArea4 native branch",
+          "instruction": "cmp eax, -0x63"
+        },
+        {
+          "address": "0x10004e0b",
+          "bytes": "b81f85eb51",
+          "meaning": "SetArea4 native branch",
+          "instruction": "mov eax, 0x51eb851f"
+        },
+        {
+          "address": "0x10004e1e",
+          "bytes": "b81f85eb51",
+          "meaning": "SetArea4 native branch",
+          "instruction": "mov eax, 0x51eb851f"
+        },
+        {
+          "address": "0x1000e2f0",
+          "bytes": "51",
+          "meaning": "MoveCharPath native branch",
+          "instruction": "push ecx"
+        },
+        {
+          "address": "0x1000e31a",
+          "bytes": "81fdc8000000",
+          "meaning": "MoveCharPath native branch",
+          "instruction": "cmp ebp, 0xc8"
+        },
+        {
+          "address": "0x1000e326",
+          "bytes": "3dc8000000",
+          "meaning": "MoveCharPath native branch",
+          "instruction": "cmp eax, 0xc8"
+        },
+        {
+          "address": "0x1000e35f",
+          "bytes": "83c007",
+          "meaning": "MoveCharPath native branch",
+          "instruction": "add eax, 7"
+        },
+        {
+          "address": "0x10004210",
+          "bytes": "53",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "push ebx"
+        },
+        {
+          "address": "0x10004251",
+          "bytes": "f684060001000010",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "test byte ptr [esi + eax + 0x100], 0x10"
+        },
+        {
+          "address": "0x10004290",
+          "bytes": "f6c120",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "test cl, 0x20"
+        },
+        {
+          "address": "0x100042ae",
+          "bytes": "f6c110",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "test cl, 0x10"
+        },
+        {
+          "address": "0x100042b3",
+          "bytes": "f6c101",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "test cl, 1"
+        },
+        {
+          "address": "0x100042d5",
+          "bytes": "c70710000000",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "mov dword ptr [edi], 0x10"
+        },
+        {
+          "address": "0x100042e8",
+          "bytes": "a801",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "test al, 1"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "userunit.dll",
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "fixtures": [
+        {
+          "address": "0x10002ee0",
+          "bytes": "81ec40040000",
+          "meaning": "NearestPosition native branch",
+          "instruction": "sub esp, 0x440"
+        },
+        {
+          "address": "0x10002efd",
+          "bytes": "6a31",
+          "meaning": "NearestPosition native branch",
+          "instruction": "push 0x31"
+        },
+        {
+          "address": "0x10002f57",
+          "bytes": "3bc7",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp eax, edi"
+        },
+        {
+          "address": "0x10002f6a",
+          "bytes": "3bd8",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp ebx, eax"
+        },
+        {
+          "address": "0x10002f7f",
+          "bytes": "3be9",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp ebp, ecx"
+        },
+        {
+          "address": "0x10002f87",
+          "bytes": "83ffff",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp edi, -1"
+        },
+        {
+          "address": "0x10002fd3",
+          "bytes": "3901",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp dword ptr [ecx], eax"
+        },
+        {
+          "address": "0x10002ffb",
+          "bytes": "3bf8",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp edi, eax"
+        },
+        {
+          "address": "0x10003014",
+          "bytes": "3bd9",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp ebx, ecx"
+        },
+        {
+          "address": "0x1000303f",
+          "bytes": "ba63000000",
+          "meaning": "NearestPosition native branch",
+          "instruction": "mov edx, 0x63"
+        },
+        {
+          "address": "0x10003067",
+          "bytes": "3bca",
+          "meaning": "NearestPosition native branch",
+          "instruction": "cmp ecx, edx"
+        },
+        {
+          "address": "0x10003480",
+          "bytes": "83ec28",
+          "meaning": "GetMovePos native branch",
+          "instruction": "sub esp, 0x28"
+        },
+        {
+          "address": "0x1000355f",
+          "bytes": "b81f85eb51",
+          "meaning": "GetMovePos native branch",
+          "instruction": "mov eax, 0x51eb851f"
+        },
+        {
+          "address": "0x10003592",
+          "bytes": "83f801",
+          "meaning": "GetMovePos native branch",
+          "instruction": "cmp eax, 1"
+        },
+        {
+          "address": "0x10004c20",
+          "bytes": "a1d8b31010",
+          "meaning": "SetArea2 native branch",
+          "instruction": "mov eax, dword ptr [0x1010b3d8]"
+        },
+        {
+          "address": "0x10004c97",
+          "bytes": "8d5301",
+          "meaning": "SetArea2 native branch",
+          "instruction": "lea edx, [ebx + 1]"
+        },
+        {
+          "address": "0x10004ca2",
+          "bytes": "89548d00",
+          "meaning": "SetArea2 native branch",
+          "instruction": "mov dword ptr [ebp + ecx*4], edx"
+        },
+        {
+          "address": "0x10004cc3",
+          "bytes": "8d4e01",
+          "meaning": "SetArea2 native branch",
+          "instruction": "lea ecx, [esi + 1]"
+        },
+        {
+          "address": "0x10004d10",
+          "bytes": "53",
+          "meaning": "SetArea4 native branch",
+          "instruction": "push ebx"
+        },
+        {
+          "address": "0x10004dc9",
+          "bytes": "83f863",
+          "meaning": "SetArea4 native branch",
+          "instruction": "cmp eax, 0x63"
+        },
+        {
+          "address": "0x10004dd2",
+          "bytes": "83f89d",
+          "meaning": "SetArea4 native branch",
+          "instruction": "cmp eax, -0x63"
+        },
+        {
+          "address": "0x10004deb",
+          "bytes": "b81f85eb51",
+          "meaning": "SetArea4 native branch",
+          "instruction": "mov eax, 0x51eb851f"
+        },
+        {
+          "address": "0x10004dfe",
+          "bytes": "b81f85eb51",
+          "meaning": "SetArea4 native branch",
+          "instruction": "mov eax, 0x51eb851f"
+        },
+        {
+          "address": "0x1000e310",
+          "bytes": "51",
+          "meaning": "MoveCharPath native branch",
+          "instruction": "push ecx"
+        },
+        {
+          "address": "0x1000e33a",
+          "bytes": "81fdc8000000",
+          "meaning": "MoveCharPath native branch",
+          "instruction": "cmp ebp, 0xc8"
+        },
+        {
+          "address": "0x1000e346",
+          "bytes": "3dc8000000",
+          "meaning": "MoveCharPath native branch",
+          "instruction": "cmp eax, 0xc8"
+        },
+        {
+          "address": "0x1000e37f",
+          "bytes": "83c007",
+          "meaning": "MoveCharPath native branch",
+          "instruction": "add eax, 7"
+        },
+        {
+          "address": "0x100041f0",
+          "bytes": "53",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "push ebx"
+        },
+        {
+          "address": "0x10004231",
+          "bytes": "f684060001000010",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "test byte ptr [esi + eax + 0x100], 0x10"
+        },
+        {
+          "address": "0x10004270",
+          "bytes": "f6c120",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "test cl, 0x20"
+        },
+        {
+          "address": "0x1000428e",
+          "bytes": "f6c110",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "test cl, 0x10"
+        },
+        {
+          "address": "0x10004293",
+          "bytes": "f6c101",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "test cl, 1"
+        },
+        {
+          "address": "0x100042b5",
+          "bytes": "c70710000000",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "mov dword ptr [edi], 0x10"
+        },
+        {
+          "address": "0x100042c8",
+          "bytes": "a801",
+          "meaning": "SoldierAiEligibility native branch",
+          "instruction": "test al, 1"
+        }
+      ]
+    }
+  ],
+  "semantics": {
+    "nearest": "SetArea(center,49) overlays search area; reachable unoccupied maximum area weight; ties use minimum remaining score <99, first X outer/Y inner. Not minimum movement cost.",
+    "reachability": "SetArea2 start=budget+1, neighbors=budget. SetArea4 stores remaining before subtracting current tile movement cost. Terrain99/-99 blocks; occupied enemy group ID/50 blocks, same group can traverse.",
+    "modes": "Parent2 -> GetMovePos mode1 (HP>=floor(maxHP*50/100):MoveAttack, otherwise nearest); parent4 -> mode2 MoveAttack; parent8 -> mode3 nearest. MoveAttack outside search radius falls back to nearest. Combat-directed branches are not substituted.",
+    "eligibility": "Soldier AI uses state20 or prepares movement at full AP when not state10/1. Current adapter additionally requires existing ownership/canMove/known budget/native flags.",
+    "path": "MoveCharPath requires positive coordinates below200 and uses movement range+7 for path generation. Original recursive backtracker is reused through existing cardinal compressed adapter path, not claimed bit-identical for every original packet.",
+    "limits": "Own commander0 members1..9 only. Existing explicit authority approves final units/AP; no default authority, AP cost or charge period; inside defense timer and enemy targeting are separate."
+  }
+}

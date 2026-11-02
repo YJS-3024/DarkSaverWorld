@@ -1,0 +1,20 @@
+{
+  "cases": 387,
+  "nativeBlits": 1138,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "casesSha256": "944ff3726077a87c262e6f17b16c3d1aef3969d423d2e6b1c8b1a3ed40c0c707",
+  "sources": {
+    "Assets/_Original/Runtime/Combat/BattleFeedback.cs": "e853bf98fa3d934d95a8eb3a988064282d796407e6259bab2b79a0eed4f2e847",
+    "Assets/_Original/Runtime/Combat/BattleFeedbackFrames.cs": "ee05368a90331f03298d140c00c3fdf80cdfef46bc296bcaa22ee6510bf0fa9f",
+    "Assets/_Original/Runtime/Combat/BattleLifecycle.cs": "5d7b01c0b5f7f3742e24716f1f30ce1a3227d93fab880c243f9e7ff1106ad973",
+    "Tools/OriginalWorldChecks/FeedbackFrameDifferential.cs": "9191acee0df3266131df05b2d1742d01a3e7db0d99e1b83e5c2dbecd18fd2a06",
+    "Tools/OriginalWorldChecks/check_native_feedback_frames.py": "aaa52a9d5cd79b8cb39684a3357ad848439c172662753c8733d6801419fbd157",
+    "Tools/OriginalWorldChecks/native_feedback_renderer.py": "e5e6b2b73c1c899545394ed36f4b45f1e9b53fe06516250f95758e4e5322fd06",
+    "Tools/OriginalWorldChecks/check_native_feedback.py": "8a7c93ed8d904d60400e05c2569be83c9f132625758d11901d53979b9791c43f",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2"
+  },
+  "scope": "Actual native1000F970/1000FCD0 and number glyph1000B4E0 execute; capture source sheet/rectangle, destination position and blit order. Empty/format/copy CString and DirectDraw are bounded test boundaries; living body renderer skipped; corpse source rectangles execute with palette index0 and a provided body surface. Not actual Unity rendering, host Windows or frame-rate measurement.",
+  "logs": "/tmp/ds-native-feedback-frame-checks"
+}

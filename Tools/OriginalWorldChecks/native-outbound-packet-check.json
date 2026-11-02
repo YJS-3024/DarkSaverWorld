@@ -1,0 +1,17 @@
+{
+  "cases": 260,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "casesSha256": "c343a150cf62e4eb07cad304dc2f1ec42d2dc096d38f2e677dd7c5cc82663be1",
+  "sources": {
+    "Assets/_Original/Runtime/Combat/NativeBattlePackets.cs": "98b100a4bc1d6308df216536bdc9ed56f6a782661abeecb6e984fa41d858e848",
+    "Tools/OriginalWorldChecks/OutboundPacketDifferential.cs": "5ea01f4997c67166ba3a587219c039d577db35ad866ffa1f39e40f2899151672",
+    "Tools/OriginalWorldChecks/check_native_outbound_packets.py": "d9f1e3c82574fc7d727ff0aabd1abdc1cc5eb2ed176cea20f276f0cea0f67358",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "Tools/OriginalWorldChecks/check_native_feedback.py": "8a7c93ed8d904d60400e05c2569be83c9f132625758d11901d53979b9791c43f",
+    "Assets/_Original/Runtime/Combat/TrainingCombat.cs": "d279b909f7af099375329cda6e654026a472d277f01c2595be901c4c43c02a7d"
+  },
+  "scope": "Actual native10005240/100051E0 and native byte/WORD append functions execute. Allocation/free and final post-message send boundary are isolated; compare complete connected-mode application bytes/length. No host network, socket framing or guessed costs/other action formats.",
+  "logs": "/tmp/ds-native-outbound-packet-checks"
+}

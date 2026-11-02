@@ -1,0 +1,230 @@
+{
+  "request": "남은 작업들 진행",
+  "verifiedAt": "2026-11-02T10:16:45.422092+00:00",
+  "features": [
+    "native5C01/0E movement and correction with atomic save, correct movement-kind terrain and menu recovery",
+    "full D2E0/D740 path and independent axis, redirect at current leg boundary",
+    "native5C89/92/91 outgoing and5C89 incoming with direction-specific lists/fields/echo guards",
+    "local immediate cast effects before outcome without predicting resources, no duplicate restart",
+    "local setsolai menu without external battle authority or invented wire opcode",
+    "wet body/ripple/shadow/readiness/special clock and native palette remap/selection assets"
+  ],
+  "reports": {
+    "native-battle-decoder-check.json": {
+      "cases": 209,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "3c1467f2c1576ac25addda90dc1ad96bc6f0b7d6090274621113c407b57326e1"
+    },
+    "native-battle-packet-check.json": {
+      "assertions": 740,
+      "unityPlayExecuted": false,
+      "sha256": "fe9cbe51650346fbf1fdc1c29df320d0b858da3f5e45e75069c512bee4957d7b"
+    },
+    "native-battle-response-check.json": {
+      "assertions": 530,
+      "unityPlayExecuted": false,
+      "sha256": "f442d52a1c8f412e5cc73a6875989fb12219adafca7220fd312f5af73079ddb3"
+    },
+    "native-battle-tick-check.json": {
+      "cases": 1305,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "15b47a82f3bb56cfe897db00c943bebb203683d8354ed6f38b35aee7af0d56db"
+    },
+    "native-body-check.json": {
+      "cases": 672,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "31a0a9bd2b08457bd349d84aee122562f0ed84184e021b97a5d11f3a8e28744f"
+    },
+    "native-body-palette-check.json": {
+      "cases": 768,
+      "mismatches": 0,
+      "nativePixelLoop": {
+        "sourceSha256": "63bc6cf1e006e6e819f58de85e3fc90fa71ab2a2e4c35456c63e3813f381ad6c",
+        "styles": 6,
+        "pixelCases": 1536,
+        "start": "0x42CFCB",
+        "end": "0x42D029"
+      },
+      "verifiedPaletteAssets": 219,
+      "unityPlayExecuted": false,
+      "sha256": "14fa8cef20b1bf81d0d5349f499618f7a95271ba737ef4474ccf56f843a9754d"
+    },
+    "native-body-scenery-check.json": {
+      "cases": 1000,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "0a2bb0af779aecacb1eb8502b67d955dc2bcf75268e79ef8bd58fc07ed2c7624"
+    },
+    "native-death-check.json": {
+      "cases": 24,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "e7aee2dbf25345f7ef8f81820de30bec433f3b5ec2d4554af50938d41a86c57e"
+    },
+    "native-feedback-check.json": {
+      "cases": 182,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "74427077fae676037f32fa50c5631409c0aa89a8154a29449de28a77f8184efe"
+    },
+    "native-feedback-frame-check.json": {
+      "cases": 387,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "ea0e9fb663e6acb067a3635cb3b050d1de78afb9c8eb7d8d341f1b985fcbc41b"
+    },
+    "native-local-order-check.json": {
+      "assertions": 43,
+      "unityPlayExecuted": false,
+      "sha256": "864180871140cf1c5e73cd7524f1d2d895e1132603072a60d1a860dd30c4ad86"
+    },
+    "native-magic-check.json": {
+      "assertions": 2560,
+      "unityPlayExecuted": false,
+      "sha256": "a3653e42d8155712fee68b4118084f1b7d843875963c719fdd2c83e4df280cae"
+    },
+    "native-magic-packet-check.json": {
+      "cases": 1234,
+      "nativeComparisons": 2120,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "7d619f50943fd8fc51856a0deb2cc000bf8a15c404e83552014ff56cd5ae7869"
+    },
+    "native-move-hint-check.json": {
+      "cases": 213,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "47fd503f2794f6cab26838c8c8a68617a7dc3647beb145bab090302d9b4dfb0c"
+    },
+    "native-movement-check.json": {
+      "assertions": 342,
+      "unityPlayExecuted": false,
+      "sha256": "92c1c06312faba3229a350a5c983c4549742829cb0b5c09bf543a55c640b4f9d"
+    },
+    "native-movement-path-check.json": {
+      "cases": 213,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "d0b39c6dac67ae323137fbf53011b2b431686c0126b36d9cc4e1cb6d861522d9"
+    },
+    "native-outbound-packet-check.json": {
+      "cases": 260,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "b9d1c0136a08bf8a049187bb56ef67359dfbecb6ad5fdbb38d36d0d7e369cda3"
+    },
+    "native-soldier-ai-check.json": {
+      "cases": 993,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "6decbbfcd72bcaf50387e6676324f0a75bf76b63375a0465870948e5217e3f6e"
+    },
+    "move-hint-integration-check.json": {
+      "assertions": 150,
+      "unityPlayExecuted": false,
+      "sha256": "2f24884bd098b2492082f78185ab389d80c7d5b8dcb6860a17167d5ad68626c0"
+    },
+    "battle-feedback-check.json": {
+      "assertions": 6100,
+      "unityPlayExecuted": false,
+      "sha256": "35ca12ab4c98a98058fa91ef5f1e33adcf81cf262245ff4a60c43b1189facdeb"
+    },
+    "battle-lifecycle-check.json": {
+      "assertions": 463,
+      "unityPlayExecuted": false,
+      "sha256": "04f75ad69228944bff79819feabc11a5179fc3f44c066091756643f30afcc96f"
+    },
+    "battle-item-check.json": {
+      "assertions": 899,
+      "unityPlayExecuted": false,
+      "sha256": "92be46caeac73c32addec847bfaee5e6e28245cfbb2a92a7d9eed8a925468977"
+    }
+  },
+  "apiReport": "Tools/OriginalEntryChecks/entry-check.json",
+  "apiReportSha256": "9a1590ab80153e4d5829dda69c888081951107bba9813bd0d2473d8c034d1a15",
+  "apiSourceCount": 150,
+  "currentApiSourceHashesMatched": true,
+  "apiErrors": 0,
+  "apiWarnings": 0,
+  "newRuntimeScripts": {
+    "Assets/_Original/Runtime/Combat/NativeMovement.cs": {
+      "sha256": "27e5303f272d02594c2e3a13b6a7a3e4ec457c6af7626927006fcbf1e8b5349c",
+      "guid": "b80990f984375fdeacd849f64e1cb5a9"
+    },
+    "Assets/_Original/Runtime/Combat/NativeMovementService.cs": {
+      "sha256": "cbba62cfafd69bea3b082a8b3419de3aea294b47a652cafe98a5b099f007bac0",
+      "guid": "8291349d41185dc3ae0884fd93d42a88"
+    },
+    "Assets/_Original/Runtime/Combat/NativeMagicPackets.cs": {
+      "sha256": "6f2d76869460649cb77b9af78c9176922022c80a67aac62f56e5c1b2c542d06c",
+      "guid": "78f490ba4a565685850c36b596820f4c"
+    },
+    "Assets/_Original/Runtime/Combat/NativeMagicService.cs": {
+      "sha256": "f72d3219c6c14615f2c329f4230dfbe8fffc2f03339a1bbb22557b5d38e6a247",
+      "guid": "9beeef020ebd544f8f4eddfffc0ec113"
+    },
+    "Assets/_Original/Runtime/Combat/NativeBodyPalette.cs": {
+      "sha256": "f7fa297ce4a2223540a47f4b88f53b753e520ca9f9e2fabb5d1549a30d1bc574",
+      "guid": "d62245763816593e9c2907ddc7f48ba9"
+    }
+  },
+  "paletteAssetsReport": "Tools/OriginalWorldChecks/body-palette-assets.json",
+  "paletteAssetsReportSha256": "bba875d75f99d2bda070ca711a378b46494d29a989489204c692ab344ae6ded9",
+  "paletteAssetCount": 219,
+  "worldArtSha256": "37011be4b8eca1389d0db8243cd0e5340d2be5ac85f389131af5eecb4e010c9e",
+  "tests": {
+    "Tools/OriginalWorldChecks/NativeMovementChecks.cs": "355dfd442d1982bef60bf2b3a0dbeea2eea1329d0f3acd4ec8d63c931efab408",
+    "Tools/OriginalWorldChecks/NativeMovementPathDifferential.cs": "04732586bd7dafb9e9b9b70d1973e529abec228f054200e820fea08aa84cf55b",
+    "Tools/OriginalWorldChecks/NativeMagicChecks.cs": "6d1bba2e2416f4115fd757cd67ccd7a911f5b58bf88858b8751ef2c978b0681c",
+    "Tools/OriginalWorldChecks/NativeMagicDifferential.cs": "2dd9a08ef630d87f5d8bb6ac2bea5a8be31f14855345699ad043ea588571387f",
+    "Tools/OriginalWorldChecks/NativeLocalOrderChecks.cs": "3e31b7a41b6226f8ab39382ac6391d68d4d935d148e0bb9586d5859ba0bce9a4",
+    "Tools/OriginalWorldChecks/NativeBodySceneryDifferential.cs": "65dd68b0b07c162796269b8d20bfcb5caea40ab7c8586c416346fcd331ac78b2",
+    "Tools/OriginalWorldChecks/BodyPaletteDifferential.cs": "9c8b9a1d2d55f439eb1a4c2b8b7bae54d69f3dff786f0ff894a110a25477fd61",
+    "Tools/OriginalWorldChecks/BattleDecoderDifferential.cs": "d5a00e71df2e5d516ba52531babbb6643f6f0098ec2c4bad0c212fe40e15a75c",
+    "Tools/OriginalWorldChecks/BattleItemChecks.cs": "dceb94784edfeb56d77f08cfba351df30fa23051ce946cba09492523614834b9",
+    "Tools/OriginalWorldChecks/check_native_movement.py": "e34458d2ec7e0f54b71ee0361073c293a833b07e49be9a25d87ab78bfbb822d7",
+    "Tools/OriginalWorldChecks/check_native_movement_paths.py": "61fd5590b63042175a91efcd4c79289bf3ba965d11d212241cbd49341eeb67b4",
+    "Tools/OriginalWorldChecks/check_native_magic.py": "ea188380cbd97281125204f08104c381eb847eee12005f5c7a66386e5d12666d",
+    "Tools/OriginalWorldChecks/check_native_magic_packets.py": "4cf0b62bca6b9074c223c48a3bb8527edf9fd0efe721dbd66b3686b0798cbd0a",
+    "Tools/OriginalWorldChecks/check_native_local_orders.py": "a1b17bde9bc8e433f96e330a57686b89061fa161658031a327b3f6e31b87bc55",
+    "Tools/OriginalWorldChecks/check_native_body_scenery.py": "2e67454ffe4541443a1d55d479995521613ed98e410c6e348a8c31fddd480caf",
+    "Tools/OriginalWorldChecks/check_native_body_palettes.py": "7b2df8d6e6791642c5eed8ec987cf6b5cc823e683814eb1e3b08f5ead64f0760",
+    "Tools/OriginalWorldChecks/check_native_battle_decoder.py": "729a629d81fc4a9d094a71b28fcf909191c7696ad15d0e48ee6509228e6f7fb9",
+    "Tools/OriginalWorldChecks/build_body_palettes.py": "39735f6467a6fa02d570b825b15304367038c07b32a9788adfbac3eee4fa803c",
+    "Tools/OriginalWorldChecks/build_feedback_assets.py": "13b86d90cc16a3b7ad6c7dbd8f6f3b24f5ba8689b266c9da4873190f5e117529"
+  },
+  "documents": {
+    "설계/테스트_검증_계획.md": "6e007f2c932581dc555ae2897871d46a62276ba0a3771a24034440ca1fb10691",
+    "설계/10_분석_적용_진행표.md": "dac49db6c6e4ba40577a1f061afad392bbf628efbef2f6e565a939cddbc3468d",
+    "설계/09_전투_플로우_확인사항.md": "40c3e638c7aeb6cc0d39e7a7d74cc5683bdb84425f173ba38d746fbfb2a0de63",
+    "Assets/_Original/Data/README.md": "fb22a91ab576482d11c5b9ab0924893a8c973c07acda2cd0c175ab8d49bfafd4"
+  },
+  "originalDlls": {
+    "UserUnit": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+    "GameCtl": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+    "Compress": "63bc6cf1e006e6e819f58de85e3fc90fa71ab2a2e4c35456c63e3813f381ad6c"
+  },
+  "boundaries": [
+    "Explicit item token only; local slot/GUID is not a recovered native identifier",
+    "Supplied team/force/ally context is not inferred from unit ID",
+    "Original full-body5-part foreground composition remains outside completed scope",
+    "No original measured real-time speed or whole AI queue equivalence claim",
+    "Generic direct typed cast API retains old postapproval display; manager uses native immediate display"
+  ],
+  "unityPlayExecuted": false,
+  "unityLimitation": "Previously established unavailable Editor license remains; this pass did not run Unity Play/TestRunner, physical input, screenshots or audio.",
+  "userSavesOpenedOrModified": false,
+  "operatingDefaultsGenerated": false,
+  "committed": false,
+  "pushed": false,
+  "allSupportedMagicNoticeRecords": 375,
+  "magicNoticeSourceContexts": [
+    "known active caster",
+    "negative source"
+  ],
+  "lastIsolatedChange": "Native incoming visuals preserve signed coordinates without outgoing selection checks; verified375 records in both source contexts with2,560 managed assertions; movement/order targeted contracts rerun after current API build.",
+  "allSupportedMagicNoticeFramesCalculated": true
+}

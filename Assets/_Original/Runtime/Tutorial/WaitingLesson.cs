@@ -7,9 +7,11 @@ namespace DarkSaver.Original.Tutorial
     [Serializable] public sealed class WaitingLine { public int id; public string text; public bool skipped; }
     [Serializable] public sealed class WaitingButton { public int id, x, y, sx, sy, width, height; }
     [Serializable] public sealed class WaitingWindowDefinition
-    { public int id, scene, x, y, width, height; public WaitingButton[] buttons; }
+    { public int id, scene, x, y, width, height,dragX,dragY,dragWidth,dragHeight;
+      public int minWidth,minHeight,minDragX,minDragY,minDragWidth,minDragHeight;public WaitingButton[] buttons; }
     [Serializable] public sealed class WaitingDefinition
-    { public TutorialMap map; public WaitingLine[] lines; public WaitingWindowDefinition[] windows; }
+    { public TutorialMap map; public WaitingLine[] lines; public WaitingWindowDefinition[] windows; public WaitingItemName[] items; }
+    [Serializable] public sealed class WaitingItemName {public int id;public string name;}
     public enum WaitingInputKind { Continue, Move, DoubleSelf, Key, Button, Restore, DragWindow, Equip, HoverDoor }
     // Saver.exe46A48D..46A52B: window-local origins in native equipment-index order.
     public static class WaitingEquipmentLayout
@@ -159,10 +161,12 @@ namespace DarkSaver.Original.Tutorial
                     if (!windows.TryGetValue(input.Window, out var mini) || !mini.Visible || !mini.Minimized) return false;
                     mini.Minimized = false; changed = true; break;
                 case WaitingInputKind.DragWindow:
-                    if (!windows.TryGetValue(input.Window, out var drag) || !drag.Visible || drag.Minimized) return false;
+                    if (!windows.TryGetValue(input.Window, out var drag) || !drag.Visible) return false;
                     var layout = definition.windows.First(w => w.id == input.Window);
-                    int x = Math.Max(0, Math.Min(640 - layout.width, input.X));
-                    int height = drag.Id == 19 && drag.Expanded ? 401 : layout.height;
+                    if(drag.Minimized&&(layout.minWidth<=0||layout.minHeight<=0))return false;
+                    int width=drag.Minimized?layout.minWidth:layout.width;
+                    int x = Math.Max(0, Math.Min(640 - width, input.X));
+                    int height = drag.Minimized?layout.minHeight:drag.Id == 19 && drag.Expanded ? 401 : layout.height;
                     int y = Math.Max(0, Math.Min(480 - height, input.Y));
                     if (x == drag.X && y == drag.Y && input.Value != 1) return false;
                     drag.X = x; drag.Y = y; changed = true; break;

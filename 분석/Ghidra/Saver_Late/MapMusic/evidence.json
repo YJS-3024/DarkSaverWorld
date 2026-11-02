@@ -1,0 +1,66 @@
+{
+  "source": "Saver.exe",
+  "sha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "mode": "Read-only Ghidra exports and exact PE disassembly. MFC strings/sound device calls are isolated in the independent x86 differential.",
+  "files": [
+    {
+      "path": "분석/Ghidra/Saver_Late/MapMusic/0041f430.c",
+      "entryPoint": "0041f430",
+      "sha256": "1314affe684ae80397b9d365a894954da4d1c260b3fc069238078897139fb778"
+    },
+    {
+      "path": "분석/Ghidra/Saver_Late/MapMusic/0041f820.c",
+      "entryPoint": "0041f820",
+      "sha256": "28e45490021fd7d889fdd9caca7a71b2d98c8def02ff2a13387e1156e1cbdf0e"
+    },
+    {
+      "path": "분석/Ghidra/Saver_Late/MapMusic/0041f310.c",
+      "entryPoint": "0041f310",
+      "sha256": "7564439d425d82dd65867b33b99f21a11d218b416371f2f9f4c4cdc01138f067"
+    },
+    {
+      "path": "분석/Ghidra/Saver_Late/MapMusic/0041f400.c",
+      "entryPoint": "0041f400",
+      "sha256": "6458135f84e846fd1af349570f13ac801a9544164d6edd6bd0bd10372a4e539d"
+    },
+    {
+      "path": "분석/Ghidra/Saver_Late/MapMusic/0041f8f0.c",
+      "entryPoint": "0041f8f0",
+      "sha256": "1afa192a4c2d1bc20024c615fadd5e5abf8c519f7061896cd46c72878be5a320"
+    },
+    {
+      "path": "분석/Ghidra/Saver_Late/MapMusic/0041f2a0.c",
+      "entryPoint": "0041f2a0",
+      "sha256": "41872fab17c6cd7597ab5478ab93a819d090d99c576119530ceb4a7a4b2e2c6f"
+    },
+    {
+      "path": "분석/Ghidra/Saver_Late/MapMusic/0042f600.c",
+      "entryPoint": "0042f600",
+      "sha256": "66ed44b6e0f1839cdccd583d8e461dea040ebbc42cc8c444eabf5febf02ba025"
+    },
+    {
+      "path": "분석/Ghidra/Saver_Late/MapMusic/00412ed0.c",
+      "entryPoint": "00412ed0",
+      "sha256": "ba5611300f04da08aa5cd50b9b3076c3941cdbed624c42c0c6d464e37fd7a752"
+    },
+    {
+      "path": "분석/Ghidra/Saver_Late/MapMusic/host-music.asm.txt",
+      "sha256": "5cc3472431dd9062f18d13821e797b1f44e9a71e8177969dc58e0766c2b963a0"
+    }
+  ],
+  "messageMap": {
+    "590": {
+      "record": "004834C8",
+      "thunk": "00403364",
+      "handler": "00412EA0",
+      "soundStop": "0041F980"
+    },
+    "591": {
+      "record": "004834E0",
+      "thunk": "004016AE",
+      "handler": "00412ED0",
+      "play": "0041F8F0"
+    }
+  },
+  "nativeDifferential": "Tools/OriginalWorldChecks/map-music-check.json"
+}

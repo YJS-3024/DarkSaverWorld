@@ -1,0 +1,18 @@
+{
+  "cases": 672,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "casesSha256": "2144b6f62d8581ad2ef01a186ee761765c0f27e6835114a41be583220829746b",
+  "sources": {
+    "Assets/_Original/Runtime/Combat/NativeBodyFrames.cs": "8e052c605eb7efd362debff7ad2f9012c9cb8b095417f9500f7dcc847945c1fb",
+    "Tools/OriginalWorldChecks/NativeBodyDifferential.cs": "782f20d839e27ba87814c3537e930e0b4c906a5d65e1f2f631c595b13663926f",
+    "Tools/OriginalWorldChecks/check_native_body.py": "c374fd9e1c0f1c90ee0360c40412253b843aa933e43573cbe2b5a7baf4125a8d",
+    "Tools/OriginalWorldChecks/native_feedback_renderer.py": "e5e6b2b73c1c899545394ed36f4b45f1e9b53fe06516250f95758e4e5322fd06",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "Tools/OriginalWorldChecks/check_native_feedback.py": "8a7c93ed8d904d60400e05c2569be83c9f132625758d11901d53979b9791c43f",
+    "Assets/_Original/Runtime/Combat/BattleFeedbackFrames.cs": "ad5169b3ec4e74a8f3016f2bedfbd57d13a5d557d4124407a6fd237b1ad41eee"
+  },
+  "scope": "Actual native1000B5D0 idle and1000BD00 walking body blits for32/64px sheets, eight directions, ordinary dry/full viewport tiles and supplied clock values. Palette0/body surface provided; water/terrain split/partial clipping, shadow markers, special979..998 body cycle and real-time process-clock phase are outside this comparison.",
+  "logs": "/tmp/ds-native-body-checks"
+}

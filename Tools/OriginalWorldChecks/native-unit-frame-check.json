@@ -1,0 +1,27 @@
+{
+  "cases": 666,
+  "planCases": 272,
+  "nativeCallsOrBlits": 6798,
+  "mismatches": 0,
+  "managedGuardAssertions": 12,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "nativeDllSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "sources": {
+    "Assets/_Original/Runtime/Combat/NativeUnitFrames.cs": "0e5092c68d56b2646ba0679dc904cd02d259e46d37d7d91b6f65a21acdc822cb",
+    "Assets/_Original/Runtime/Combat/NativeBodyOrder.cs": "f1860e0ce8670d7c69fc8caf5604c53f3935a3441ec59df3a40224b3ee9abeeb",
+    "Assets/_Original/Runtime/Combat/BattleFeedbackFrames.cs": "ee05368a90331f03298d140c00c3fdf80cdfef46bc296bcaa22ee6510bf0fa9f",
+    "Assets/_Original/Runtime/Combat/NativeBodyFrames.cs": "b02149f3e04a1325b7b01bcec6d9b079934572f0d9838a7b52a5fe3af30647cf",
+    "Tools/OriginalWorldChecks/NativeUnitFramesDifferential.cs": "838bee920d601598e1b8857f9dc700fe299a6cc05995258aeef2771a1c396427",
+    "Tools/OriginalWorldChecks/check_native_unit_frames.py": "da15919716e14e0efe5d371a8cc13eba1629628c82679dc9e3e8405f90fe9331",
+    "Tools/OriginalWorldChecks/check_native_body_order.py": "484617a401768f6461f64094e9d10ed2eb5e26a00a23474f90df6a89ade6b398",
+    "Tools/OriginalWorldChecks/check_native_body_scenery.py": "2e67454ffe4541443a1d55d479995521613ed98e410c6e348a8c31fddd480caf",
+    "Tools/OriginalWorldChecks/check_native_body.py": "c374fd9e1c0f1c90ee0360c40412253b843aa933e43573cbe2b5a7baf4125a8d",
+    "Tools/OriginalWorldChecks/native_feedback_renderer.py": "e5e6b2b73c1c899545394ed36f4b45f1e9b53fe06516250f95758e4e5322fd06",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.BodyLayers.cs": "ac90314d61b014974a6b930b8845daf01359f88dcadcf2a39645dbe54f53445a",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.BattleFeedback.cs": "0eaa09173e76481b6d8a6ffc6639ce93879a9366075fb31f5e51c5632e91c6aa",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Combat.cs": "852e3745cc7026608300c06a33e8b308cf5f67e23ccc13040e45836e466d56a9"
+  },
+  "scope": "Actual10010EE0 first/second unit passes, magic boundary/final number scan and FCD0 with real B5D0/BD00 bodies, attack/numeric/death. Current-life guards and missing corpse texture. Supplied clock/phase, interior viewport/palette0; no actual Unity pixels or original wall-clock claim.",
+  "logs": "/tmp/ds-native-unit-frame-checks"
+}

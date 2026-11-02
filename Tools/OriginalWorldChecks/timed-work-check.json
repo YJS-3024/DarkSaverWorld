@@ -1,0 +1,59 @@
+{
+  "requestedDeadline": "2026-11-02T15:00:00+09:00",
+  "deadlineAssumption": "Asia/Seoul stated during work",
+  "verifiedAt": "2026-11-02T05:55:30.502460+00:00",
+  "features": [
+    "owned member move/attack/rest menu and authority requests",
+    "native automatic target/rest/attack movement/control flags and clock branch",
+    "native movement/attack range and border handling",
+    "native5C04/5C52 counter/menu ingress"
+  ],
+  "reports": {
+    "member-command-check.json": {
+      "assertions": 394,
+      "nativeInstructionFixtures": 42,
+      "runtimeApiErrors": 0,
+      "editorApiErrors": 0,
+      "playerApiErrors": 0,
+      "unityPlayExecuted": false
+    },
+    "soldier-action-check.json": {
+      "assertions": 398,
+      "nativeInstructionFixtures": 48,
+      "runtimeApiErrors": 0,
+      "editorApiErrors": 0,
+      "playerApiErrors": 0,
+      "unityPlayExecuted": false
+    },
+    "battle-tick-check.json": {
+      "assertions": 391,
+      "nativeInstructionFixtures": 48,
+      "runtimeApiErrors": 0,
+      "editorApiErrors": 0,
+      "playerApiErrors": 0,
+      "unityPlayExecuted": false
+    },
+    "native-soldier-ai-check.json": {
+      "cases": 993,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "decodedMapCases": 216
+    },
+    "native-battle-tick-check.json": {
+      "cases": 1305,
+      "mismatches": 0,
+      "unityPlayExecuted": false
+    }
+  },
+  "currentApiSourceHashesMatched": true,
+  "apiReport": "Tools/OriginalEntryChecks/entry-check.json",
+  "unityPlayExecuted": false,
+  "unityBatchImportAttempt": {
+    "exitCode": 198,
+    "reason": "No valid Unity Editor license found; com.unity.editor.headless entitlement missing",
+    "log": "/tmp/ds-timed-unity-import-network.log"
+  },
+  "operatingDefaultsGenerated": false,
+  "committed": false,
+  "pushed": false
+}

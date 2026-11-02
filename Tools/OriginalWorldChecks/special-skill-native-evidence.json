@@ -1,0 +1,537 @@
+{
+  "sourceInventory": "분석/InstallerVersions/installer_inventory.json",
+  "sources": [
+    {
+      "version": "early",
+      "file": "userunit.dll",
+      "sha256": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711",
+      "fixtures": [
+        {
+          "address": "0x100017e3",
+          "bytes": "83ff01",
+          "meaning": "negative perpendicular arm boundary1",
+          "instruction": "cmp edi, 1"
+        },
+        {
+          "address": "0x100019c5",
+          "bytes": "83c8fe",
+          "meaning": "parity signed remainder normalization",
+          "instruction": "or eax, 0xfffffffe"
+        },
+        {
+          "address": "0x10001cbf",
+          "bytes": "f7ff",
+          "meaning": "DDA signed integer X step",
+          "instruction": "idiv edi"
+        },
+        {
+          "address": "0x10001ccd",
+          "bytes": "f7ff",
+          "meaning": "DDA signed integer Y step",
+          "instruction": "idiv edi"
+        },
+        {
+          "address": "0x10001cec",
+          "bytes": "8d4e64",
+          "meaning": "DDA100 fixed-point correction",
+          "instruction": "lea ecx, [esi + 0x64]"
+        },
+        {
+          "address": "0x100068cf",
+          "bytes": "8b4f68",
+          "meaning": "expanding caster sound2",
+          "instruction": "mov ecx, dword ptr [edi + 0x68]"
+        },
+        {
+          "address": "0x100068e5",
+          "bytes": "8b570c",
+          "meaning": "expanding area field",
+          "instruction": "mov edx, dword ptr [edi + 0xc]"
+        },
+        {
+          "address": "0x100068ec",
+          "bytes": "0fafd1",
+          "meaning": "area times source count",
+          "instruction": "imul edx, ecx"
+        },
+        {
+          "address": "0x100068ef",
+          "bytes": "8d545204",
+          "meaning": "expanding lifetime3*area*count+4",
+          "instruction": "lea edx, [edx + edx*2 + 4]"
+        },
+        {
+          "address": "0x100068f3",
+          "bytes": "3bda",
+          "meaning": "expanding counter boundary",
+          "instruction": "cmp ebx, edx"
+        },
+        {
+          "address": "0x10008a72",
+          "bytes": "8b4b68",
+          "meaning": "thrust sound2",
+          "instruction": "mov ecx, dword ptr [ebx + 0x68]"
+        },
+        {
+          "address": "0x10008a8b",
+          "bytes": "8d1489",
+          "meaning": "thrust area*5 lifetime",
+          "instruction": "lea edx, [ecx + ecx*4]"
+        },
+        {
+          "address": "0x10008ac6",
+          "bytes": "8b4368",
+          "meaning": "thrust sound2 stop",
+          "instruction": "mov eax, dword ptr [ebx + 0x68]"
+        },
+        {
+          "address": "0x10008b1e",
+          "bytes": "83fafc",
+          "meaning": "native down sentinel-4",
+          "instruction": "cmp edx, -4"
+        },
+        {
+          "address": "0x10008b23",
+          "bytes": "83fafd",
+          "meaning": "native up sentinel-3",
+          "instruction": "cmp edx, -3"
+        },
+        {
+          "address": "0x10008b29",
+          "bytes": "83fafe",
+          "meaning": "native left sentinel-2",
+          "instruction": "cmp edx, -2"
+        },
+        {
+          "address": "0x10008b30",
+          "bytes": "e8bbfaffff",
+          "meaning": "native default right beam",
+          "instruction": "call 0x100085f0"
+        },
+        {
+          "address": "0x10008b3d",
+          "bytes": "e8aefbffff",
+          "meaning": "native left beam helper",
+          "instruction": "call 0x100086f0"
+        },
+        {
+          "address": "0x1000725e",
+          "bytes": "83fafc",
+          "meaning": "double-arm down sentinel-4",
+          "instruction": "cmp edx, -4"
+        },
+        {
+          "address": "0x10007263",
+          "bytes": "83fafd",
+          "meaning": "double-arm up sentinel-3",
+          "instruction": "cmp edx, -3"
+        },
+        {
+          "address": "0x10007269",
+          "bytes": "83fafe",
+          "meaning": "double-arm left sentinel-2",
+          "instruction": "cmp edx, -2"
+        },
+        {
+          "address": "0x10007270",
+          "bytes": "e8fbf7ffff",
+          "meaning": "double-arm default inverted right helper",
+          "instruction": "call 0x10006a70"
+        },
+        {
+          "address": "0x10010799",
+          "bytes": "e85282ffff",
+          "meaning": "thrust caster dispatch",
+          "instruction": "call 0x100089f0"
+        },
+        {
+          "address": "0x100107a1",
+          "bytes": "e88a69ffff",
+          "meaning": "double-arm caster dispatch",
+          "instruction": "call 0x10007130"
+        },
+        {
+          "address": "0x100107a9",
+          "bytes": "e84278ffff",
+          "meaning": "cross caster dispatch",
+          "instruction": "call 0x10007ff0"
+        },
+        {
+          "address": "0x100107b9",
+          "bytes": "e87274ffff",
+          "meaning": "plasma caster dispatch",
+          "instruction": "call 0x10007c30"
+        },
+        {
+          "address": "0x100107c1",
+          "bytes": "e80a7affff",
+          "meaning": "salamander caster dispatch",
+          "instruction": "call 0x100081d0"
+        },
+        {
+          "address": "0x10010789",
+          "bytes": "e89292ffff",
+          "meaning": "checksmash caster dispatch",
+          "instruction": "call 0x10009a20"
+        },
+        {
+          "address": "0x10010791",
+          "bytes": "e88a60ffff",
+          "meaning": "expanding caster dispatch",
+          "instruction": "call 0x10006820"
+        },
+        {
+          "address": "0x10010913",
+          "bytes": "8b542410",
+          "meaning": "delayed special target arguments",
+          "instruction": "mov edx, dword ptr [esp + 0x10]"
+        },
+        {
+          "address": "0x10010919",
+          "bytes": "e8f28bffff",
+          "meaning": "delayed special target dispatch",
+          "instruction": "call 0x10009510"
+        },
+        {
+          "address": "0x10010933",
+          "bytes": "6a01",
+          "meaning": "linear projectile explicit argument1",
+          "instruction": "push 1"
+        },
+        {
+          "address": "0x10010936",
+          "bytes": "e8e54fffff",
+          "meaning": "linear projectile shared function",
+          "instruction": "call 0x10005920"
+        },
+        {
+          "address": "0x10010948",
+          "bytes": "53",
+          "meaning": "cross target cleanup callback",
+          "instruction": "push ebx"
+        },
+        {
+          "address": "0x1000974a",
+          "bytes": "83f803",
+          "meaning": "common target frame threshold",
+          "instruction": "cmp eax, 3"
+        },
+        {
+          "address": "0x10006531",
+          "bytes": "b905000000",
+          "meaning": "checksmash randomized target start",
+          "instruction": "mov ecx, 5"
+        },
+        {
+          "address": "0x10009abe",
+          "bytes": "b905000000",
+          "meaning": "checksmash caster random5",
+          "instruction": "mov ecx, 5"
+        },
+        {
+          "address": "0x10009adf",
+          "bytes": "8d0c8500000000",
+          "meaning": "checksmash caster limit4*(count+1)",
+          "instruction": "lea ecx, [eax*4]"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "userunit.dll",
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "fixtures": [
+        {
+          "address": "0x100017c3",
+          "bytes": "83ff01",
+          "meaning": "negative perpendicular arm boundary1",
+          "instruction": "cmp edi, 1"
+        },
+        {
+          "address": "0x100019a5",
+          "bytes": "83c8fe",
+          "meaning": "parity signed remainder normalization",
+          "instruction": "or eax, 0xfffffffe"
+        },
+        {
+          "address": "0x10001c9f",
+          "bytes": "f7ff",
+          "meaning": "DDA signed integer X step",
+          "instruction": "idiv edi"
+        },
+        {
+          "address": "0x10001cad",
+          "bytes": "f7ff",
+          "meaning": "DDA signed integer Y step",
+          "instruction": "idiv edi"
+        },
+        {
+          "address": "0x10001ccc",
+          "bytes": "8d4e64",
+          "meaning": "DDA100 fixed-point correction",
+          "instruction": "lea ecx, [esi + 0x64]"
+        },
+        {
+          "address": "0x100068af",
+          "bytes": "8b4f68",
+          "meaning": "expanding caster sound2",
+          "instruction": "mov ecx, dword ptr [edi + 0x68]"
+        },
+        {
+          "address": "0x100068c5",
+          "bytes": "8b570c",
+          "meaning": "expanding area field",
+          "instruction": "mov edx, dword ptr [edi + 0xc]"
+        },
+        {
+          "address": "0x100068cc",
+          "bytes": "0fafd1",
+          "meaning": "area times source count",
+          "instruction": "imul edx, ecx"
+        },
+        {
+          "address": "0x100068cf",
+          "bytes": "8d545204",
+          "meaning": "expanding lifetime3*area*count+4",
+          "instruction": "lea edx, [edx + edx*2 + 4]"
+        },
+        {
+          "address": "0x100068d3",
+          "bytes": "3bda",
+          "meaning": "expanding counter boundary",
+          "instruction": "cmp ebx, edx"
+        },
+        {
+          "address": "0x10008a52",
+          "bytes": "8b4b68",
+          "meaning": "thrust sound2",
+          "instruction": "mov ecx, dword ptr [ebx + 0x68]"
+        },
+        {
+          "address": "0x10008a6b",
+          "bytes": "8d1489",
+          "meaning": "thrust area*5 lifetime",
+          "instruction": "lea edx, [ecx + ecx*4]"
+        },
+        {
+          "address": "0x10008aa6",
+          "bytes": "8b4368",
+          "meaning": "thrust sound2 stop",
+          "instruction": "mov eax, dword ptr [ebx + 0x68]"
+        },
+        {
+          "address": "0x10008afe",
+          "bytes": "83fafc",
+          "meaning": "native down sentinel-4",
+          "instruction": "cmp edx, -4"
+        },
+        {
+          "address": "0x10008b03",
+          "bytes": "83fafd",
+          "meaning": "native up sentinel-3",
+          "instruction": "cmp edx, -3"
+        },
+        {
+          "address": "0x10008b09",
+          "bytes": "83fafe",
+          "meaning": "native left sentinel-2",
+          "instruction": "cmp edx, -2"
+        },
+        {
+          "address": "0x10008b10",
+          "bytes": "e8bbfaffff",
+          "meaning": "native default right beam",
+          "instruction": "call 0x100085d0"
+        },
+        {
+          "address": "0x10008b1d",
+          "bytes": "e8aefbffff",
+          "meaning": "native left beam helper",
+          "instruction": "call 0x100086d0"
+        },
+        {
+          "address": "0x1000723e",
+          "bytes": "83fafc",
+          "meaning": "double-arm down sentinel-4",
+          "instruction": "cmp edx, -4"
+        },
+        {
+          "address": "0x10007243",
+          "bytes": "83fafd",
+          "meaning": "double-arm up sentinel-3",
+          "instruction": "cmp edx, -3"
+        },
+        {
+          "address": "0x10007249",
+          "bytes": "83fafe",
+          "meaning": "double-arm left sentinel-2",
+          "instruction": "cmp edx, -2"
+        },
+        {
+          "address": "0x10007250",
+          "bytes": "e8fbf7ffff",
+          "meaning": "double-arm default inverted right helper",
+          "instruction": "call 0x10006a50"
+        },
+        {
+          "address": "0x100107b9",
+          "bytes": "e81282ffff",
+          "meaning": "thrust caster dispatch",
+          "instruction": "call 0x100089d0"
+        },
+        {
+          "address": "0x100107c1",
+          "bytes": "e84a69ffff",
+          "meaning": "double-arm caster dispatch",
+          "instruction": "call 0x10007110"
+        },
+        {
+          "address": "0x100107c9",
+          "bytes": "e80278ffff",
+          "meaning": "cross caster dispatch",
+          "instruction": "call 0x10007fd0"
+        },
+        {
+          "address": "0x100107d9",
+          "bytes": "e83274ffff",
+          "meaning": "plasma caster dispatch",
+          "instruction": "call 0x10007c10"
+        },
+        {
+          "address": "0x100107e1",
+          "bytes": "e8ca79ffff",
+          "meaning": "salamander caster dispatch",
+          "instruction": "call 0x100081b0"
+        },
+        {
+          "address": "0x100107a9",
+          "bytes": "e85292ffff",
+          "meaning": "checksmash caster dispatch",
+          "instruction": "call 0x10009a00"
+        },
+        {
+          "address": "0x100107b1",
+          "bytes": "e84a60ffff",
+          "meaning": "expanding caster dispatch",
+          "instruction": "call 0x10006800"
+        },
+        {
+          "address": "0x10010933",
+          "bytes": "8b542410",
+          "meaning": "delayed special target arguments",
+          "instruction": "mov edx, dword ptr [esp + 0x10]"
+        },
+        {
+          "address": "0x10010939",
+          "bytes": "e8b28bffff",
+          "meaning": "delayed special target dispatch",
+          "instruction": "call 0x100094f0"
+        },
+        {
+          "address": "0x10010953",
+          "bytes": "6a01",
+          "meaning": "linear projectile explicit argument1",
+          "instruction": "push 1"
+        },
+        {
+          "address": "0x10010956",
+          "bytes": "e8a54fffff",
+          "meaning": "linear projectile shared function",
+          "instruction": "call 0x10005900"
+        },
+        {
+          "address": "0x10010968",
+          "bytes": "53",
+          "meaning": "cross target cleanup callback",
+          "instruction": "push ebx"
+        },
+        {
+          "address": "0x1000972a",
+          "bytes": "83f803",
+          "meaning": "common target frame threshold",
+          "instruction": "cmp eax, 3"
+        },
+        {
+          "address": "0x10006511",
+          "bytes": "b905000000",
+          "meaning": "checksmash randomized target start",
+          "instruction": "mov ecx, 5"
+        },
+        {
+          "address": "0x10009a9e",
+          "bytes": "b905000000",
+          "meaning": "checksmash caster random5",
+          "instruction": "mov ecx, 5"
+        },
+        {
+          "address": "0x10009abf",
+          "bytes": "8d0c8500000000",
+          "meaning": "checksmash caster limit4*(count+1)",
+          "instruction": "lea ecx, [eax*4]"
+        }
+      ]
+    },
+    {
+      "version": "early",
+      "file": "GameCtl.dll",
+      "sha256": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+      "fixtures": [
+        {
+          "address": "0x100096b1",
+          "bytes": "3d204e0000",
+          "meaning": "special menu upper range20000",
+          "instruction": "cmp eax, 0x4e20"
+        },
+        {
+          "address": "0x100096b8",
+          "bytes": "3d10270000",
+          "meaning": "special menu lower range10000",
+          "instruction": "cmp eax, 0x2710"
+        },
+        {
+          "address": "0x100096bf",
+          "bytes": "3d007d0000",
+          "meaning": "second special menu upper range32000",
+          "instruction": "cmp eax, 0x7d00"
+        },
+        {
+          "address": "0x100096ca",
+          "bytes": "3d30750000",
+          "meaning": "second special menu lower range30000",
+          "instruction": "cmp eax, 0x7530"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "gamectl.dll",
+      "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+      "fixtures": [
+        {
+          "address": "0x10009771",
+          "bytes": "3d204e0000",
+          "meaning": "special menu upper range20000",
+          "instruction": "cmp eax, 0x4e20"
+        },
+        {
+          "address": "0x10009778",
+          "bytes": "3d10270000",
+          "meaning": "special menu lower range10000",
+          "instruction": "cmp eax, 0x2710"
+        },
+        {
+          "address": "0x1000977f",
+          "bytes": "3d007d0000",
+          "meaning": "second special menu upper range32000",
+          "instruction": "cmp eax, 0x7d00"
+        },
+        {
+          "address": "0x1000978a",
+          "bytes": "3d30750000",
+          "meaning": "second special menu lower range30000",
+          "instruction": "cmp eax, 0x7530"
+        }
+      ]
+    }
+  ]
+}

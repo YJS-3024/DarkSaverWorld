@@ -13,7 +13,7 @@ def guid(p):return re.search(r'^guid: ([a-f0-9]{32})$',Path(str(p)+'.meta').read
 def key(im):
  im=im.convert('RGBA'); im.putdata([(*p[:3],0 if p[:3]==(0,0,0) else 255) for p in im.getdata()]);return im
 
-def render_music(output):
+def render_music(output,midi=None,seconds=52.5):
  api=C.CDLL(ctypes.util.find_library('fluidsynth'))
  def fn(n,r,a):f=getattr(api,n);f.restype=r;f.argtypes=a;return f
  p,i,s=C.c_void_p,C.c_int,C.c_char_p
@@ -22,7 +22,7 @@ def render_music(output):
  fn('fluid_settings_setint',i,[p,s,i])(settings,b'synth.cpu-cores',1)
  fn('fluid_settings_setstr',i,[p,s,s])(settings,b'player.timing-source',b'sample')
  with tempfile.TemporaryDirectory(prefix='ds-original-tutorial-midi-') as temp:
-  wave=Path(temp)/'music.wav'; mid=Path(temp)/'nco01.mid';mid.write_bytes((NATIVE/'bgm/nco01.mid.bytes').read_bytes())
+  wave=Path(temp)/'music.wav'; mid=Path(temp)/'nco01.mid';mid.write_bytes((midi or NATIVE/'bgm/nco01.mid.bytes').read_bytes())
   fn('fluid_settings_setstr',i,[p,s,s])(settings,b'audio.file.name',str(wave).encode())
   fn('fluid_settings_setstr',i,[p,s,s])(settings,b'audio.file.type',b'wav')
   synth=fn('new_fluid_synth',p,[p])(settings); player=fn('new_fluid_player',p,[p])(synth);renderer=None
@@ -33,12 +33,12 @@ def render_music(output):
    assert fn('fluid_player_play',i,[p])(player)>=0
    status=fn('fluid_player_get_status',i,[p]); render=fn('fluid_file_renderer_process_block',i,[p]);count=0
    while status(player)==1:
-    assert render(renderer)>=0;count+=1; assert count<44100*100/64
-   # Native score ends at52.5s. Do not add a new per-repeat release tail.
+    assert render(renderer)>=0;count+=1; assert count<44100*(seconds+15)/64
+   # Trim to the supplied MIDI score duration; do not append a repeated release tail.
   finally:
    if renderer:fn('delete_fluid_file_renderer',None,[p])(renderer)
    fn('delete_fluid_player',None,[p])(player);fn('delete_fluid_synth',None,[p])(synth);fn('delete_fluid_settings',None,[p])(settings)
-  subprocess.run(['ffmpeg','-v','error','-y','-i',str(wave),'-t','52.5','-c:a','libvorbis','-q:a','4',str(output)],check=True)
+  subprocess.run(['ffmpeg','-v','error','-y','-i',str(wave),'-t',str(seconds),'-c:a','libvorbis','-q:a','4',str(output)],check=True)
 
 def main():
  OUT.mkdir(parents=True,exist_ok=True); DATA.mkdir(parents=True,exist_ok=True)

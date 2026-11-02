@@ -58,8 +58,8 @@ def build(root, native, save, register, key, battle_map):
         for identifier, scene, x, y in [(18, 2, 180, 75), (19, 3, 20, 195), (20, 4, 115, 220), (21, 6, 300, 200)]:
             d, im, buttons = compose('scene' + str(scene))
             panels.append(save('WaitingWindow' + str(identifier), key(im), 'wlib/scene' + str(scene) + ' literal layout; buttons separate'))
-            layouts.append(dict(id=identifier, scene=scene, x=x, y=y, width=d['width'], height=d['height'], buttons=buttons))
-            _, mini, buttons = compose('scene' + str(scene) + 'm')
+            l,t,r,b=d['region'];layout=dict(id=identifier, scene=scene, x=x, y=y, width=d['width'], height=d['height'],dragX=l,dragY=t,dragWidth=r-l,dragHeight=b-t,buttons=buttons);layouts.append(layout)
+            small, mini, buttons = compose('scene' + str(scene) + 'm');l,t,r,b=small['region'];layout.update(minWidth=small['width'],minHeight=small['height'],minDragX=l,minDragY=t,minDragWidth=r-l,minDragHeight=b-t)
             for b in buttons:
                 mini.alpha_composite(libraries['ltn'][1].crop((b['sx'], b['sy'], b['sx'] + b['width'], b['sy'] + b['height'])), (b['x'], b['y']))
             minimized.append(save('WaitingMinimized' + str(identifier), key(mini), 'wlib/scene' + str(scene) + 'm native icon'))
@@ -100,7 +100,8 @@ def build(root, native, save, register, key, battle_map):
     # Masking FF to127 here would turn every indoor floor tile into a wall.
     definition = dict(map=dict(width=m['width'], height=m['height'], attributes=[0 if t[3] == 255 else t[3] & 127 for t in m['tiles']],
                               terrain=battle_map['terrain'], abilities=battle_map['abilities']),
-                      lines=[dict(id=r['id'], text=r['text'], skipped=r['skipped']) for r in source['resources']], windows=layouts)
+                      lines=[dict(id=r['id'], text=r['text'], skipped=r['skipped']) for r in source['resources']], windows=layouts,
+                      items=[dict(id=number,name=item_rows[number]['이름'].replace('_',' '))for number in [1,762,777]])
     p = base / 'Data/Tutorial/Waiting1500.json'
     p.write_bytes((json.dumps(definition, ensure_ascii=False, indent=2) + '\n').encode('utf-8'))
     fields['waitingDefinition'] = register(p, 'Saver_Late RT_STRING61216..61251 +1500.mrc +Wlib; panel origins presentation defaults')

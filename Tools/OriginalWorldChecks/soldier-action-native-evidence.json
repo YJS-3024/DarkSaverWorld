@@ -1,0 +1,314 @@
+{
+  "sourceInventory": "분석/InstallerVersions/installer_inventory.json",
+  "sources": [
+    {
+      "version": "early",
+      "file": "userunit.dll",
+      "sha256": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711",
+      "fixtures": [
+        {
+          "address": "0x10004210",
+          "bytes": "53",
+          "instruction": "push ebx",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x10004247",
+          "bytes": "83bc06fc01000063",
+          "instruction": "cmp dword ptr [esi + eax + 0x1fc], 0x63",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x10004251",
+          "bytes": "f684060001000010",
+          "instruction": "test byte ptr [esi + eax + 0x100], 0x10",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x10004290",
+          "bytes": "f6c120",
+          "instruction": "test cl, 0x20",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x100042ae",
+          "bytes": "f6c110",
+          "instruction": "test cl, 0x10",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x100042d5",
+          "bytes": "c70710000000",
+          "instruction": "mov dword ptr [edi], 0x10",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x10003600",
+          "bytes": "83ec28",
+          "instruction": "sub esp, 0x28",
+          "meaning": "FollowAndDefense"
+        },
+        {
+          "address": "0x100036d5",
+          "bytes": "3db80b0000",
+          "instruction": "cmp eax, 0xbb8",
+          "meaning": "FollowAndDefense"
+        },
+        {
+          "address": "0x10003df0",
+          "bytes": "8b44240c",
+          "instruction": "mov eax, dword ptr [esp + 0xc]",
+          "meaning": "ChooseRestOrAttack"
+        },
+        {
+          "address": "0x10003ecc",
+          "bytes": "83fa63",
+          "instruction": "cmp edx, 0x63",
+          "meaning": "ChooseRestOrAttack"
+        },
+        {
+          "address": "0x10003ed1",
+          "bytes": "c700ffffffff",
+          "instruction": "mov dword ptr [eax], 0xffffffff",
+          "meaning": "ChooseRestOrAttack"
+        },
+        {
+          "address": "0x10003f36",
+          "bytes": "83bc06fc01000063",
+          "instruction": "cmp dword ptr [esi + eax + 0x1fc], 0x63",
+          "meaning": "ChooseRestOrAttack"
+        },
+        {
+          "address": "0x10003f40",
+          "bytes": "c78406fc010000ffffffff",
+          "instruction": "mov dword ptr [esi + eax + 0x1fc], 0xffffffff",
+          "meaning": "ChooseRestOrAttack"
+        },
+        {
+          "address": "0x10003f90",
+          "bytes": "83ec08",
+          "instruction": "sub esp, 8",
+          "meaning": "SendAndResetAP"
+        },
+        {
+          "address": "0x10003fe6",
+          "bytes": "f6c210",
+          "instruction": "test dl, 0x10",
+          "meaning": "SendAndResetAP"
+        },
+        {
+          "address": "0x1000b0c0",
+          "bytes": "148d",
+          "instruction": "adc al, 0x8d",
+          "meaning": "ResetCharacterAiState"
+        },
+        {
+          "address": "0x1000b3c8",
+          "bytes": "b964000000",
+          "instruction": "mov ecx, 0x64",
+          "meaning": "ResetCharacterAiState"
+        },
+        {
+          "address": "0x100030d0",
+          "bytes": "81ec50040000",
+          "instruction": "sub esp, 0x450",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x100031e8",
+          "bytes": "bba0180b10",
+          "instruction": "mov ebx, 0x100b18a0",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x10003298",
+          "bytes": "c744241cffffffff",
+          "instruction": "mov dword ptr [esp + 0x1c], 0xffffffff",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x1000330c",
+          "bytes": "c786a0360610ffffffff",
+          "instruction": "mov dword ptr [esi + 0x100636a0], 0xffffffff",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x1000335b",
+          "bytes": "c78401fc01000063000000",
+          "instruction": "mov dword ptr [ecx + eax + 0x1fc], 0x63",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x100033b2",
+          "bytes": "c7442410a0360610",
+          "instruction": "mov dword ptr [esp + 0x10], 0x100636a0",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x10003440",
+          "bytes": "ba63000000",
+          "instruction": "mov edx, 0x63",
+          "meaning": "MoveAttackRestHint"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "userunit.dll",
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "fixtures": [
+        {
+          "address": "0x100041f0",
+          "bytes": "53",
+          "instruction": "push ebx",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x10004227",
+          "bytes": "83bc06fc01000063",
+          "instruction": "cmp dword ptr [esi + eax + 0x1fc], 0x63",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x10004231",
+          "bytes": "f684060001000010",
+          "instruction": "test byte ptr [esi + eax + 0x100], 0x10",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x10004270",
+          "bytes": "f6c120",
+          "instruction": "test cl, 0x20",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x1000428e",
+          "bytes": "f6c110",
+          "instruction": "test cl, 0x10",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x100042b5",
+          "bytes": "c70710000000",
+          "instruction": "mov dword ptr [edi], 0x10",
+          "meaning": "SoldierAiEntry"
+        },
+        {
+          "address": "0x100035e0",
+          "bytes": "83ec28",
+          "instruction": "sub esp, 0x28",
+          "meaning": "FollowAndDefense"
+        },
+        {
+          "address": "0x100036b5",
+          "bytes": "3db80b0000",
+          "instruction": "cmp eax, 0xbb8",
+          "meaning": "FollowAndDefense"
+        },
+        {
+          "address": "0x10003dd0",
+          "bytes": "8b44240c",
+          "instruction": "mov eax, dword ptr [esp + 0xc]",
+          "meaning": "ChooseRestOrAttack"
+        },
+        {
+          "address": "0x10003eac",
+          "bytes": "83fa63",
+          "instruction": "cmp edx, 0x63",
+          "meaning": "ChooseRestOrAttack"
+        },
+        {
+          "address": "0x10003eb1",
+          "bytes": "c700ffffffff",
+          "instruction": "mov dword ptr [eax], 0xffffffff",
+          "meaning": "ChooseRestOrAttack"
+        },
+        {
+          "address": "0x10003f16",
+          "bytes": "83bc06fc01000063",
+          "instruction": "cmp dword ptr [esi + eax + 0x1fc], 0x63",
+          "meaning": "ChooseRestOrAttack"
+        },
+        {
+          "address": "0x10003f20",
+          "bytes": "c78406fc010000ffffffff",
+          "instruction": "mov dword ptr [esi + eax + 0x1fc], 0xffffffff",
+          "meaning": "ChooseRestOrAttack"
+        },
+        {
+          "address": "0x10003f70",
+          "bytes": "83ec08",
+          "instruction": "sub esp, 8",
+          "meaning": "SendAndResetAP"
+        },
+        {
+          "address": "0x10003fc6",
+          "bytes": "f6c210",
+          "instruction": "test dl, 0x10",
+          "meaning": "SendAndResetAP"
+        },
+        {
+          "address": "0x1000b0a0",
+          "bytes": "83ec14",
+          "instruction": "sub esp, 0x14",
+          "meaning": "ResetCharacterAiState"
+        },
+        {
+          "address": "0x1000b3c8",
+          "bytes": "b964000000",
+          "instruction": "mov ecx, 0x64",
+          "meaning": "ResetCharacterAiState"
+        },
+        {
+          "address": "0x100030b0",
+          "bytes": "81ec50040000",
+          "instruction": "sub esp, 0x450",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x100031c8",
+          "bytes": "bba0280b10",
+          "instruction": "mov ebx, 0x100b28a0",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x10003278",
+          "bytes": "c744241cffffffff",
+          "instruction": "mov dword ptr [esp + 0x1c], 0xffffffff",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x100032ec",
+          "bytes": "c786a0460610ffffffff",
+          "instruction": "mov dword ptr [esi + 0x100646a0], 0xffffffff",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x1000333b",
+          "bytes": "c78401fc01000063000000",
+          "instruction": "mov dword ptr [ecx + eax + 0x1fc], 0x63",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x10003392",
+          "bytes": "c7442410a0460610",
+          "instruction": "mov dword ptr [esp + 0x10], 0x100646a0",
+          "meaning": "MoveAttackRestHint"
+        },
+        {
+          "address": "0x10003420",
+          "bytes": "ba63000000",
+          "instruction": "mov edx, 0x63",
+          "meaning": "MoveAttackRestHint"
+        }
+      ]
+    }
+  ],
+  "semantics": [
+    "Action modes1/2/3 rest below floor(maxHP*60/40/90 /100). Target selection scans X/Y and consumes rand()%count; a movement-phase probe can consume a separate draw before the actual attack.",
+    "Native ExecuteSoldierAI clears timer298 to0 on queued20 entry; the inside defense rest decision compares clock()-0 against3000. It is not a newly invented three-second hold after each target.",
+    "No-packet native ticks prepare30 at full AP or clear local movement/control bits and hint; authoritative HP/AP/positions/XP/items are not changed by those no-packet ticks.",
+    "ResetCharacter zeros100 dwords starting14C, including1FC rest hint. Approved auto action sends then zerosAP60 and clears ready bit10; movement uses explicit server AP outcome.",
+    "Actual native x86 planner differential test is independently recorded in native-soldier-ai-check.json. Path presentation queue/empty MFC strings/I/O are hooked; actual original playback is not claimed."
+  ]
+}

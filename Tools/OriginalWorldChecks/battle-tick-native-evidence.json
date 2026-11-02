@@ -1,0 +1,328 @@
+{
+  "sourceInventory": "분석/InstallerVersions/installer_inventory.json",
+  "sources": [
+    {
+      "version": "early",
+      "file": "userunit.dll",
+      "sha256": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711",
+      "fixtures": [
+        {
+          "address": "0x1000c6b0",
+          "bytes": "8b0da0a31010",
+          "instruction": "mov ecx, dword ptr [0x1010a3a0]",
+          "meaning": "IncTick"
+        },
+        {
+          "address": "0x1000c6f1",
+          "bytes": "05e0020000",
+          "instruction": "add eax, 0x2e0",
+          "meaning": "IncTick"
+        },
+        {
+          "address": "0x1000c6f6",
+          "bytes": "3d00b12100",
+          "instruction": "cmp eax, 0x21b100",
+          "meaning": "IncTick"
+        },
+        {
+          "address": "0x1000c720",
+          "bytes": "53",
+          "instruction": "push ebx",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c75d",
+          "bytes": "f6c201",
+          "instruction": "test dl, 1",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c76e",
+          "bytes": "83cb02",
+          "instruction": "or ebx, 2",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c784",
+          "bytes": "83cb10",
+          "instruction": "or ebx, 0x10",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c7ad",
+          "bytes": "f6c202",
+          "instruction": "test dl, 2",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c7b2",
+          "bytes": "838c010c01000010",
+          "instruction": "or dword ptr [ecx + eax + 0x10c], 0x10",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c7c8",
+          "bytes": "f6c204",
+          "instruction": "test dl, 4",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c7d4",
+          "bytes": "83ce08",
+          "instruction": "or esi, 8",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c7e8",
+          "bytes": "f6c208",
+          "instruction": "test dl, 8",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c80c",
+          "bytes": "f6c210",
+          "instruction": "test dl, 0x10",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c818",
+          "bytes": "83ce01",
+          "instruction": "or esi, 1",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c854",
+          "bytes": "83ce04",
+          "instruction": "or esi, 4",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c868",
+          "bytes": "f6c240",
+          "instruction": "test dl, 0x40",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c874",
+          "bytes": "83ce40",
+          "instruction": "or esi, 0x40",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c888",
+          "bytes": "f6c280",
+          "instruction": "test dl, 0x80",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c894",
+          "bytes": "80ca80",
+          "instruction": "or dl, 0x80",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c909",
+          "bytes": "83f801",
+          "instruction": "cmp eax, 1",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c926",
+          "bytes": "83c404",
+          "instruction": "add esp, 4",
+          "meaning": "SetTickMenu"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "userunit.dll",
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "fixtures": [
+        {
+          "address": "0x1000c6d0",
+          "bytes": "8b0da0b31010",
+          "instruction": "mov ecx, dword ptr [0x1010b3a0]",
+          "meaning": "IncTick"
+        },
+        {
+          "address": "0x1000c711",
+          "bytes": "05e0020000",
+          "instruction": "add eax, 0x2e0",
+          "meaning": "IncTick"
+        },
+        {
+          "address": "0x1000c716",
+          "bytes": "3d00b12100",
+          "instruction": "cmp eax, 0x21b100",
+          "meaning": "IncTick"
+        },
+        {
+          "address": "0x1000c740",
+          "bytes": "53",
+          "instruction": "push ebx",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c77d",
+          "bytes": "f6c201",
+          "instruction": "test dl, 1",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c78e",
+          "bytes": "83cb02",
+          "instruction": "or ebx, 2",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c7a4",
+          "bytes": "83cb10",
+          "instruction": "or ebx, 0x10",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c7cd",
+          "bytes": "f6c202",
+          "instruction": "test dl, 2",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c7d2",
+          "bytes": "838c010c01000010",
+          "instruction": "or dword ptr [ecx + eax + 0x10c], 0x10",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c7e8",
+          "bytes": "f6c204",
+          "instruction": "test dl, 4",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c7f4",
+          "bytes": "83ce08",
+          "instruction": "or esi, 8",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c808",
+          "bytes": "f6c208",
+          "instruction": "test dl, 8",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c82c",
+          "bytes": "f6c210",
+          "instruction": "test dl, 0x10",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c838",
+          "bytes": "83ce01",
+          "instruction": "or esi, 1",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c874",
+          "bytes": "83ce04",
+          "instruction": "or esi, 4",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c888",
+          "bytes": "f6c240",
+          "instruction": "test dl, 0x40",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c894",
+          "bytes": "83ce40",
+          "instruction": "or esi, 0x40",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c8a8",
+          "bytes": "f6c280",
+          "instruction": "test dl, 0x80",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c8b4",
+          "bytes": "80ca80",
+          "instruction": "or dl, 0x80",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c929",
+          "bytes": "83f801",
+          "instruction": "cmp eax, 1",
+          "meaning": "SetTickMenu"
+        },
+        {
+          "address": "0x1000c946",
+          "bytes": "83c404",
+          "instruction": "add esp, 4",
+          "meaning": "SetTickMenu"
+        }
+      ]
+    },
+    {
+      "version": "early",
+      "file": "GameCtl.dll",
+      "sha256": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+      "fixtures": [
+        {
+          "address": "0x1000ea50",
+          "bytes": "87cb",
+          "instruction": "xchg ebx, ecx",
+          "meaning": "game opcode dispatcher"
+        },
+        {
+          "address": "0x1000d340",
+          "bytes": "240c",
+          "instruction": "and al, 0xc",
+          "meaning": "5C52 reads three words"
+        },
+        {
+          "address": "0x1000c480",
+          "bytes": "048d",
+          "instruction": "add al, 0x8d",
+          "meaning": "word cursor advances2"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "gamectl.dll",
+      "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+      "fixtures": [
+        {
+          "address": "0x1000eb10",
+          "bytes": "8b442404",
+          "instruction": "mov eax, dword ptr [esp + 4]",
+          "meaning": "game opcode dispatcher"
+        },
+        {
+          "address": "0x1000d400",
+          "bytes": "83ec0c",
+          "instruction": "sub esp, 0xc",
+          "meaning": "5C52 reads three words"
+        },
+        {
+          "address": "0x1000c540",
+          "bytes": "8b442408",
+          "instruction": "mov eax, dword ptr [esp + 8]",
+          "meaning": "word cursor advances2"
+        }
+      ]
+    }
+  ],
+  "semantics": [
+    "Native5C04 receives a global IncTick pulse; there is no locally inferred recharge period. IncTick scans3000 runtime slots, active+enabled only, increments and caps to each supplied max. Current profile model retains its existing0..999 unit-domain bound.",
+    "Native5C52 decodes unit signed word, AP signed word, menu unsigned word; C540 returns current pointer and advances2. Complete application payload lengths are2/8 respectively, transport framing is outside this decoder.",
+    "SetTickMenu ignores inactive records; clamps absolute AP to0..max, replaces10C via bit permutation and updates action bits10/20 while preserving other100 bits. Menu restrictions do not replace ownership/innate capabilities or override automatic rest logic.",
+    "Native activation/enabled flags are not HP. The adapter requires explicit activation metadata for pulse application and never invents unknown flags from current HP.",
+    "Actual x86 counter/menu behavior is separately differential checked in native-battle-tick-check.json. Local session/revision/lifetime/receipt persistence are adapter contracts, not extra original wire fields."
+  ]
+}

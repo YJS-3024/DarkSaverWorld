@@ -1,0 +1,139 @@
+{
+  "sourceInventory": "분석/InstallerVersions/installer_inventory.json",
+  "sources": [
+    {
+      "version": "early",
+      "file": "GameCtl.dll",
+      "sha256": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+      "fixtures": [
+        {
+          "address": "0x100099b5",
+          "bytes": "8b4730",
+          "meaning": "item lookup reads native item+30 magic ID",
+          "instruction": "mov eax, dword ptr [edi + 0x30]"
+        },
+        {
+          "address": "0x100099b8",
+          "bytes": "85c0",
+          "meaning": "item linked magic must be positive",
+          "instruction": "test eax, eax"
+        },
+        {
+          "address": "0x100099ba",
+          "bytes": "7e7a",
+          "meaning": "nonpositive item magic does not enter target selection",
+          "instruction": "jle 0x10009a36"
+        },
+        {
+          "address": "0x100099f0",
+          "bytes": "8b5730",
+          "meaning": "native item magic passed to target selector",
+          "instruction": "mov edx, dword ptr [edi + 0x30]"
+        },
+        {
+          "address": "0x10009a02",
+          "bytes": "e8791e0000",
+          "meaning": "shared target setup1000B880",
+          "instruction": "call 0x1000b880"
+        },
+        {
+          "address": "0x10009a0d",
+          "bytes": "c782f8010000ff050000",
+          "meaning": "native item selection marker5ff, not a wire opcode",
+          "instruction": "mov dword ptr [edx + 0x1f8], 0x5ff"
+        },
+        {
+          "address": "0x10009a1d",
+          "bytes": "8b84f504020000",
+          "meaning": "selected item record first native value",
+          "instruction": "mov eax, dword ptr [ebp + esi*8 + 0x204]"
+        },
+        {
+          "address": "0x10009a24",
+          "bytes": "894118",
+          "meaning": "forward first native value",
+          "instruction": "mov dword ptr [ecx + 0x18], eax"
+        },
+        {
+          "address": "0x10009a2c",
+          "bytes": "8b94f508020000",
+          "meaning": "selected item record second native value",
+          "instruction": "mov edx, dword ptr [ebp + esi*8 + 0x208]"
+        },
+        {
+          "address": "0x10009a33",
+          "bytes": "89501c",
+          "meaning": "forward second native value",
+          "instruction": "mov dword ptr [eax + 0x1c], edx"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "gamectl.dll",
+      "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+      "fixtures": [
+        {
+          "address": "0x10009a75",
+          "bytes": "8b4730",
+          "meaning": "item lookup reads native item+30 magic ID",
+          "instruction": "mov eax, dword ptr [edi + 0x30]"
+        },
+        {
+          "address": "0x10009a78",
+          "bytes": "85c0",
+          "meaning": "item linked magic must be positive",
+          "instruction": "test eax, eax"
+        },
+        {
+          "address": "0x10009a7a",
+          "bytes": "7e7a",
+          "meaning": "nonpositive item magic does not enter target selection",
+          "instruction": "jle 0x10009af6"
+        },
+        {
+          "address": "0x10009ab0",
+          "bytes": "8b5730",
+          "meaning": "native item magic passed to target selector",
+          "instruction": "mov edx, dword ptr [edi + 0x30]"
+        },
+        {
+          "address": "0x10009ac2",
+          "bytes": "e8791e0000",
+          "meaning": "shared target setup1000B880",
+          "instruction": "call 0x1000b940"
+        },
+        {
+          "address": "0x10009acd",
+          "bytes": "c782f8010000ff050000",
+          "meaning": "native item selection marker5ff, not a wire opcode",
+          "instruction": "mov dword ptr [edx + 0x1f8], 0x5ff"
+        },
+        {
+          "address": "0x10009add",
+          "bytes": "8b84f504020000",
+          "meaning": "selected item record first native value",
+          "instruction": "mov eax, dword ptr [ebp + esi*8 + 0x204]"
+        },
+        {
+          "address": "0x10009ae4",
+          "bytes": "894118",
+          "meaning": "forward first native value",
+          "instruction": "mov dword ptr [ecx + 0x18], eax"
+        },
+        {
+          "address": "0x10009aec",
+          "bytes": "8b94f508020000",
+          "meaning": "selected item record second native value",
+          "instruction": "mov edx, dword ptr [ebp + esi*8 + 0x208]"
+        },
+        {
+          "address": "0x10009af3",
+          "bytes": "89501c",
+          "meaning": "forward second native value",
+          "instruction": "mov dword ptr [eax + 0x1c], edx"
+        }
+      ]
+    }
+  ]
+}

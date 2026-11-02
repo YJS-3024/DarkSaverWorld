@@ -13,6 +13,18 @@ def main():
  sources=[BASE/'Runtime/Entry'/n for n in ['EntryProtocol.cs','EntryAccountService.cs','EntryClient.cs','LocalAccountFileStore.cs']]
  sources += [BASE/'Runtime/Tutorial'/n for n in ['TutorialScript.cs','TutorialSession.cs','TutorialService.cs','WaitingLesson.cs']]
  sources += [BASE/'Runtime/World'/n for n in ['WorldModel.cs','WorldService.cs']] + [BASE/'Runtime/Campaign'/n for n in ['CampaignModel.cs','CampaignService.cs','ScenarioGatewaySettings.cs','ScenarioGatewayService.cs']]+[Path(__file__).with_name('WorldChecks.cs')]
+ sources += sorted((BASE/'Runtime/Growth').glob('*.cs'))
+ sources += sorted((BASE/'Runtime/Combat').glob('*.cs'))
+ sources += sorted((BASE/'Runtime/Campaign').glob('CampaignResult*.cs'))
+ sources += sorted((BASE/'Runtime/Campaign').glob('CampaignExit*.cs'))
+ sources += sorted((BASE/'Runtime/World').glob('TempleRevival*.cs'))
+ sources += sorted((BASE/'Runtime/World').glob('Currency*.cs'))
+ sources += sorted((BASE/'Runtime/World').glob('BankTransfer*.cs'))
+ sources += sorted((BASE/'Runtime/World').glob('WarehouseTransfer*.cs'))
+ sources += sorted((BASE/'Runtime/World').glob('MercenaryTransfer*.cs'))
+ sources += sorted((BASE/'Runtime/World').glob('ShopTrade*.cs'))
+ sources += sorted((BASE/'Runtime/World').glob('ItemUseTransfer*.cs'))
+ sources += sorted((BASE/'Runtime/World').glob('PlayerIdentity*.cs'))
  refs=['-r:'+str(p) for p in sorted(next(sdk.glob('packs/Microsoft.NETCore.App.Ref/*/ref/net8.0')).glob('*.dll'))]
  exe=WORK/'WorldChecks.dll';args=['-nologo','-target:exe','-langversion:latest','-nostdlib+','-out:'+str(exe)]+refs+list(map(str,sources))
  rsp=WORK/'world.rsp';rsp.write_text('\n'.join('"'+a+'"' for a in args)+'\n')
@@ -43,6 +55,7 @@ def main():
   row=native_items[item['id']]
   assert (item['picture'],item['equipType'],item['requiredLevel'])==tuple(int(row[k])for k in ['그림1','장착위','장착렙'])
   assert item['jobs']==[job for job in (100,101,103)if int(row[flags[int(native_jobs[job]['병종'])]])==1]
+  assert item['jobKinds']==[i for i,flag in enumerate(flags)if int(row[flag])==1]
  from PIL import Image
  with Image.open(BASE/'Art/World/Items.png')as converted,Image.open(BASE/'Art/Archives/gameres/item.arc/item.bmp.png')as original:
   assert original.size==converted.size==(3200,320)

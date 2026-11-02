@@ -1,0 +1,41 @@
+{
+  "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe",
+  "sha256": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0",
+  "checked": 7,
+  "fixtures": [
+    {
+      "address": "0x41a1a9",
+      "bytes": "668b506a"
+    },
+    {
+      "address": "0x41a1c2",
+      "bytes": "8d54706c"
+    },
+    {
+      "address": "0x41a1cb",
+      "bytes": "66893a"
+    },
+    {
+      "address": "0x41a1db",
+      "bytes": "66ff486a"
+    },
+    {
+      "address": "0x41a1e9",
+      "bytes": "c781b8000000ffffffff"
+    },
+    {
+      "address": "0x41a200",
+      "bytes": "3bd0"
+    },
+    {
+      "address": "0x41a204",
+      "bytes": "8981b8000000"
+    }
+  ],
+  "interpretations": [
+    "41A1A0 compacts second list+6C only, decrements count+6A and clamps selection (empty=-1). It does not delete list0+42.",
+    "Client format/display: learned list0 has16 cells, battle-use list1 has8 cells. Meaning follows user-confirmed distinction, not new server eligibility discovery.",
+    "419F40 extra caller-supplied word in opcode84 remains unresolved. New contracts do not assign a guessed list/slot value to it.",
+    "This implementation stages approved ordered selected-list edits, preserves learned ownership and commits jointly with attributes when both were edited. It is not exact native optimistic timing or wire serialization."
+  ]
+}

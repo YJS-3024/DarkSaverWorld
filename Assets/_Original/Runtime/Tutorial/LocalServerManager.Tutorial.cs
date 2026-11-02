@@ -50,6 +50,6 @@ namespace DarkSaver.Original.Entry
             Notify_Tutorial?.Invoke(reply); return reply;
         }
         public TutorialView TutorialSnapshot => isActiveAndEnabled ? service?.TutorialSnapshot() : null;
-        private void Update() { service?.AdvanceTutorial(Time.unscaledDeltaTime * 1000.0); service?.AdvanceWorld(Time.unscaledDeltaTime * 1000.0); FlushCampaignEffects(); }
+        private void Update() { service?.AdvanceTutorial(Time.unscaledDeltaTime * 1000.0); service?.AdvanceWorld(Time.unscaledDeltaTime * 1000.0); PumpBattleRegroup(); PumpScenarioFlow(); FlushCampaignEffects(); }
     }
 }

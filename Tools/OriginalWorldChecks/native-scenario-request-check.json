@@ -1,0 +1,13 @@
+{
+  "cases": 35,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlay": false,
+  "nativeSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "logs": "/tmp/ds-native-scenario-request-checks",
+  "scope": "Original GameCtl1000EA30/1000E420/1000E470/1000EAB0 and byte/WORD/DWORD appenders execute. Bounded allocation/free/final send boundary only; no host network/server grants.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_scenario_requests.py": "15cd1428a2f44f21e287365ed0f895f7670f096f5a67e3ea28d73d336011dac2",
+    "Assets/_Original/Runtime/Campaign/CampaignModel.cs": "5c965ec4469d04b5b9117886d7cfb371084a791fdaf2efd200517e93a4a93622"
+  }
+}

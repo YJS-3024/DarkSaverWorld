@@ -1,0 +1,133 @@
+{
+  "sourceInventory": "분석/InstallerVersions/installer_inventory.json",
+  "sources": [
+    {
+      "version": "late",
+      "file": "UserUnit.dll",
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "fixtures": [
+        {
+          "address": "0x1000f000",
+          "bytes": "8b4c2404",
+          "instruction": "mov ecx, dword ptr [esp + 4]",
+          "meaning": "dmKillChar"
+        },
+        {
+          "address": "0x1000f004",
+          "bytes": "85c9",
+          "instruction": "test ecx, ecx",
+          "meaning": "dmKillChar"
+        },
+        {
+          "address": "0x1000f019",
+          "bytes": "f684080001000080",
+          "instruction": "test byte ptr [eax + ecx + 0x100], 0x80",
+          "meaning": "dmKillChar"
+        },
+        {
+          "address": "0x1000f050",
+          "bytes": "8b442404",
+          "instruction": "mov eax, dword ptr [esp + 4]",
+          "meaning": "dmKillChar2"
+        },
+        {
+          "address": "0x1000f054",
+          "bytes": "85c0",
+          "instruction": "test eax, eax",
+          "meaning": "dmKillChar2"
+        },
+        {
+          "address": "0x10010120",
+          "bytes": "8b442404",
+          "instruction": "mov eax, dword ptr [esp + 4]",
+          "meaning": "CorpseUpdate"
+        },
+        {
+          "address": "0x1001014b",
+          "bytes": "83fa07",
+          "instruction": "cmp edx, 7",
+          "meaning": "CorpseUpdate"
+        },
+        {
+          "address": "0x1001016c",
+          "bytes": "c7840e0001000000000000",
+          "instruction": "mov dword ptr [esi + ecx + 0x100], 0",
+          "meaning": "CorpseUpdate"
+        },
+        {
+          "address": "0x1001017c",
+          "bytes": "c744060400000000",
+          "instruction": "mov dword ptr [esi + eax + 4], 0",
+          "meaning": "CorpseUpdate"
+        },
+        {
+          "address": "0x10010186",
+          "bytes": "8b840e64010000",
+          "instruction": "mov eax, dword ptr [esi + ecx + 0x164]",
+          "meaning": "CorpseUpdate"
+        },
+        {
+          "address": "0x1001018d",
+          "bytes": "85c0",
+          "instruction": "test eax, eax",
+          "meaning": "CorpseUpdate"
+        },
+        {
+          "address": "0x100101a2",
+          "bytes": "8b940e64010000",
+          "instruction": "mov edx, dword ptr [esi + ecx + 0x164]",
+          "meaning": "CorpseUpdate"
+        },
+        {
+          "address": "0x100101aa",
+          "bytes": "89940e64010000",
+          "instruction": "mov dword ptr [esi + ecx + 0x164], edx",
+          "meaning": "CorpseUpdate"
+        },
+        {
+          "address": "0x100101b6",
+          "bytes": "83bc066401000012",
+          "instruction": "cmp dword ptr [esi + eax + 0x164], 0x12",
+          "meaning": "CorpseUpdate"
+        },
+        {
+          "address": "0x100101de",
+          "bytes": "c784060001000000000000",
+          "instruction": "mov dword ptr [esi + eax + 0x100], 0",
+          "meaning": "CorpseUpdate"
+        },
+        {
+          "address": "0x100101ef",
+          "bytes": "c744160400000000",
+          "instruction": "mov dword ptr [esi + edx + 4], 0",
+          "meaning": "CorpseUpdate"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "GameCtl.dll",
+      "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+      "fixtures": [
+        {
+          "address": "0x1000d800",
+          "bytes": "51",
+          "instruction": "push ecx",
+          "meaning": "5C03Decode"
+        },
+        {
+          "address": "0x1000d830",
+          "bytes": "51",
+          "instruction": "push ecx",
+          "meaning": "5C07Decode"
+        }
+      ]
+    }
+  ],
+  "semantics": [
+    "5C03 reads one signed unit WORD and calls dmKillChar.5C07 reads two WORDs, ignores the second, calls dmKillChar2.",
+    "dmKillChar clears active and occupancy only if80 is not set. dmKillChar2 sets80 without altering HP/ghost/XP.",
+    "40 numeric flag gates death updates/render. Normal death increments164, plays sound1 on first step, clears100/enabled after18. Job/100==7 retires immediately without death sound.",
+    "Corpse rows32 for counter<8, then counter%4. Spark is31x31 at floor(counter/3)*32. This is a client display/lifecycle rule, not ghost/revival/respawn policy."
+  ]
+}

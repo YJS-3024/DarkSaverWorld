@@ -1,0 +1,140 @@
+{
+  "requestedDeadline": "2026-11-02T17:30:00+09:00",
+  "deadlineAssumption": "Asia/Seoul; continues previous16:30 work window",
+  "verifiedAt": "2026-11-02T08:22:33.168092+00:00",
+  "features": [
+    "atomic explicit native basic attack/rest response sequence through existing authority/validation/save",
+    "synchronous native storage failure retains request for exact redelivery",
+    "commander attack captures native source/target terrain words",
+    "native5C43 destination/reverse five-pair packet and client-local tie axis on four move entry paths"
+  ],
+  "reports": {
+    "native-battle-response-check.json": {
+      "assertions": 530,
+      "unityPlayExecuted": false,
+      "sha256": "f442d52a1c8f412e5cc73a6875989fb12219adafca7220fd312f5af73079ddb3"
+    },
+    "move-hint-integration-check.json": {
+      "assertions": 150,
+      "unityPlayExecuted": false,
+      "sha256": "2f24884bd098b2492082f78185ab389d80c7d5b8dcb6860a17167d5ad68626c0"
+    },
+    "native-battle-packet-check.json": {
+      "assertions": 740,
+      "unityPlayExecuted": false,
+      "sha256": "fe9cbe51650346fbf1fdc1c29df320d0b858da3f5e45e75069c512bee4957d7b"
+    },
+    "battle-feedback-check.json": {
+      "assertions": 6100,
+      "nativeInstructionFixtures": 55,
+      "verifiedFrameCrops": 59,
+      "unityPlayExecuted": false,
+      "sha256": "35ca12ab4c98a98058fa91ef5f1e33adcf81cf262245ff4a60c43b1189facdeb"
+    },
+    "battle-lifecycle-check.json": {
+      "assertions": 463,
+      "nativeInstructionFixtures": 18,
+      "unityPlayExecuted": false,
+      "sha256": "04f75ad69228944bff79819feabc11a5179fc3f44c066091756643f30afcc96f"
+    },
+    "native-move-hint-check.json": {
+      "cases": 213,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "47fd503f2794f6cab26838c8c8a68617a7dc3647beb145bab090302d9b4dfb0c"
+    },
+    "native-soldier-ai-check.json": {
+      "cases": 993,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "6decbbfcd72bcaf50387e6676324f0a75bf76b63375a0465870948e5217e3f6e"
+    },
+    "native-battle-tick-check.json": {
+      "cases": 1305,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "15b47a82f3bb56cfe897db00c943bebb203683d8354ed6f38b35aee7af0d56db"
+    },
+    "native-feedback-check.json": {
+      "cases": 182,
+      "mismatches": 0,
+      "updateSamples": 8628,
+      "unityPlayExecuted": false,
+      "sha256": "74427077fae676037f32fa50c5631409c0aa89a8154a29449de28a77f8184efe"
+    },
+    "native-death-check.json": {
+      "cases": 24,
+      "mismatches": 0,
+      "updateSamples": 1176,
+      "unityPlayExecuted": false,
+      "sha256": "e7aee2dbf25345f7ef8f81820de30bec433f3b5ec2d4554af50938d41a86c57e"
+    },
+    "native-feedback-frame-check.json": {
+      "cases": 387,
+      "mismatches": 0,
+      "nativeBlits": 1138,
+      "unityPlayExecuted": false,
+      "sha256": "ea0e9fb663e6acb067a3635cb3b050d1de78afb9c8eb7d8d341f1b985fcbc41b"
+    },
+    "native-body-check.json": {
+      "cases": 672,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "a9f40b3bdecf7cbb66f3057d2adef16dd4e785f26f66c6eca64b2e8da322c96a"
+    },
+    "native-outbound-packet-check.json": {
+      "cases": 260,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "b0a405bca8d4276e5cc9eacde5d572630c476400b9166fbe389b23f4f7091ece"
+    },
+    "native-battle-decoder-check.json": {
+      "cases": 169,
+      "mismatches": 0,
+      "unityPlayExecuted": false,
+      "sha256": "4a7b044ba9166d4cccd68013318209cff6ddde22269a82519ee5a68c70cdc511"
+    }
+  },
+  "apiReport": "Tools/OriginalEntryChecks/entry-check.json",
+  "apiReportSha256": "9041e849c0f4f1c9538aab6f16ac617a8793394667f3fb18269b5b1f43424c50",
+  "currentApiSourceHashesMatched": true,
+  "apiSourceCount": 145,
+  "apiErrors": 0,
+  "apiWarnings": 0,
+  "generatedAssetReferencesMatched": 575,
+  "newRuntimeScripts": {
+    "Assets/_Original/Runtime/Combat/NativeBattleResponses.cs": "6aaf5222384a5c668d56c61aff6ae77f",
+    "Assets/_Original/Runtime/Combat/NativeBattleResponseService.cs": "32a540a8894f575ab057d31b11bebca5",
+    "Assets/_Original/Runtime/Combat/NativeMoveHints.cs": "309c39c4ac25591999ee3fa6c91b12ad",
+    "Assets/_Original/Runtime/Combat/NativeMoveHintService.cs": "1cad47734f0e523d8ed8a18523023b6b",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBattleResponses.cs": "f6d21d7b7ffe55c1860f238846210708"
+  },
+  "tests": {
+    "Tools/OriginalWorldChecks/NativeBattleResponseChecks.cs": "dea59bd8d4224e5bf5cef5e4032c375f52a4b8b772a5f1f974e6893177170e68",
+    "Tools/OriginalWorldChecks/NativeResponseManagerHost.cs": "c2613d4201c2e9b525d963cb5f1fd287bb5d9bf7b271a4f0ae812347cb5e74cd",
+    "Tools/OriginalWorldChecks/NativeMoveHintChecks.cs": "d5d96bef5be6e16cddf23998cc44a2148685dce329cabaae8ee9d50ca48b93ec",
+    "Tools/OriginalWorldChecks/NativeMoveHintDifferential.cs": "c7b901e674b7e633959367542a064a1a4bfc9b0c622dc16d46db890ec98b9965",
+    "Tools/OriginalWorldChecks/check_native_battle_responses.py": "a300a20db225a6a9c6f9e55630951d03e582609ba772759c17eab1b7b6345bb7",
+    "Tools/OriginalWorldChecks/check_move_hint_integration.py": "7573b9eabeafd55f653aa840191bdb27abc7ae3453e0023cc9501bb140e85755",
+    "Tools/OriginalWorldChecks/check_native_move_hints.py": "7ba1a4539802217c260cbf49f2ebebcfaca215607a6dd00328b2dc5025d89bb9"
+  },
+  "documents": {
+    "설계/테스트_검증_계획.md": "e79dd2898e78d243d1fa3741c08de04dd5d89cede03c18002301672d8d276ba5",
+    "설계/10_분석_적용_진행표.md": "8c487c5a96b4d70edfecc762d5b8f25cb985b4398c734fe46764cdb0a6133f66",
+    "설계/09_전투_플로우_확인사항.md": "cd9b2b082320a6908d0fcc6091e69cf143924492797c55a8c70d2d4ece42a591",
+    "Assets/_Original/Data/README.md": "584735cee70ab9983273ce4cf137eb15434acd7cccccf9037c4a0839f1278cd6"
+  },
+  "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "unityPlayExecuted": false,
+  "unityLimitation": "Existing Editor license absence remains; no Unity Play or device/audio claim in this window.",
+  "boundaries": [
+    "local envelope is not original TCP batching",
+    "native response authority supports basic attack/rest only",
+    "native move hints are not complete client movement replay; incoming5C01/0E not added",
+    "native emulation does not execute Windows game or Unity lifecycle"
+  ],
+  "userSavesOpenedOrModified": false,
+  "operatingDefaultsGenerated": false,
+  "committed": false,
+  "pushed": false
+}

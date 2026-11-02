@@ -1,0 +1,79 @@
+{
+  "source": "분석/Saver_1.2/extracted/Saver_Files/Saver/Saver.exe",
+  "sha256": "9b74f465f4a9c5ab3564fd1b47026aedf7c11e021f09dbf27be81fe47dd5c8f0",
+  "fixtures": [
+    {
+      "address": "0x419d9b",
+      "bytes": "83fe02"
+    },
+    {
+      "address": "0x419db4",
+      "bytes": "0fbf4f16"
+    },
+    {
+      "address": "0x419dee",
+      "bytes": "3bc8"
+    },
+    {
+      "address": "0x419dfc",
+      "bytes": "0fbf4738"
+    },
+    {
+      "address": "0x419e00",
+      "bytes": "3b848d9c010000"
+    },
+    {
+      "address": "0x419e1b",
+      "bytes": "6882000000"
+    },
+    {
+      "address": "0x419e6e",
+      "bytes": "66295738"
+    },
+    {
+      "address": "0x419e80",
+      "bytes": "66014f38"
+    },
+    {
+      "address": "0x419e99",
+      "bytes": "66017716"
+    },
+    {
+      "address": "0x419ea8",
+      "bytes": "6601771c"
+    },
+    {
+      "address": "0x419eb7",
+      "bytes": "66017722"
+    },
+    {
+      "address": "0x419ec6",
+      "bytes": "66017728"
+    },
+    {
+      "address": "0x419ed5",
+      "bytes": "6601772e"
+    },
+    {
+      "address": "0x41a659",
+      "bytes": "6888000000"
+    },
+    {
+      "address": "0x41a6b9",
+      "bytes": "6889000000"
+    },
+    {
+      "address": "0x41a7e2",
+      "bytes": "688a000000"
+    }
+  ],
+  "checked": 16,
+  "interpretations": [
+    "419D80 direction2 compares selected after-word against opening snapshot and returns when not greater.",
+    "419DFC uses signed remaining points at +38 and per-stat received cost at object+19C.",
+    "419E1B writes opcode82 in ability-adjustment context; unrelated battle opcode82 is not reused.",
+    "419E6E/80 subtract/refund cost, then selected words at +16/+1C/+22/+28/+2E/+34 change by +/-1.",
+    "41A640/6A0 send confirm88/cancel89;41A7D0 sends cost-query8A.",
+    "This project stages changes only after explicit local approval and rejects signed overflow; exact native optimistic timing and server formulas are not asserted."
+  ]
+}

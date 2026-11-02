@@ -1,0 +1,276 @@
+{
+  "sourceInventory": "분석/InstallerVersions/installer_inventory.json",
+  "sources": [
+    {
+      "version": "early",
+      "file": "userunit.dll",
+      "sha256": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711",
+      "fixtures": [
+        {
+          "address": "0x10001c00",
+          "bytes": "53",
+          "instruction": "push ebx",
+          "meaning": "SetAreaB"
+        },
+        {
+          "address": "0x10001a20",
+          "bytes": "53",
+          "instruction": "push ebx",
+          "meaning": "GroundAreaPropagation"
+        },
+        {
+          "address": "0x10001aa2",
+          "bytes": "83f863",
+          "instruction": "cmp eax, 0x63",
+          "meaning": "GroundAreaPropagation"
+        },
+        {
+          "address": "0x10001aab",
+          "bytes": "83f89d",
+          "instruction": "cmp eax, -0x63",
+          "meaning": "GroundAreaPropagation"
+        },
+        {
+          "address": "0x10001ba4",
+          "bytes": "6a04",
+          "instruction": "push 4",
+          "meaning": "GroundAreaPropagation"
+        },
+        {
+          "address": "0x10001bb7",
+          "bytes": "6a04",
+          "instruction": "push 4",
+          "meaning": "GroundAreaPropagation"
+        },
+        {
+          "address": "0x10002280",
+          "bytes": "8b442404",
+          "instruction": "mov eax, dword ptr [esp + 4]",
+          "meaning": "AttackTerrainContext"
+        },
+        {
+          "address": "0x10003880",
+          "bytes": "81ec2c020000",
+          "instruction": "sub esp, 0x22c",
+          "meaning": "BowTargetSelection"
+        },
+        {
+          "address": "0x100038cd",
+          "bytes": "e8ce120000",
+          "instruction": "call 0x10004ba0",
+          "meaning": "BowTargetSelection"
+        },
+        {
+          "address": "0x10003a18",
+          "bytes": "e863e8ffff",
+          "instruction": "call 0x10002280",
+          "meaning": "BowTargetSelection"
+        },
+        {
+          "address": "0x10003aaf",
+          "bytes": "e8ec100000",
+          "instruction": "call 0x10004ba0",
+          "meaning": "BowTargetSelection"
+        },
+        {
+          "address": "0x10003c20",
+          "bytes": "81ec2c020000",
+          "instruction": "sub esp, 0x22c",
+          "meaning": "GroundTargetSelection"
+        },
+        {
+          "address": "0x10003c72",
+          "bytes": "e889dfffff",
+          "instruction": "call 0x10001c00",
+          "meaning": "GroundTargetSelection"
+        },
+        {
+          "address": "0x10003db5",
+          "bytes": "e8c6e4ffff",
+          "instruction": "call 0x10002280",
+          "meaning": "GroundTargetSelection"
+        },
+        {
+          "address": "0x10005260",
+          "bytes": "51",
+          "instruction": "push ecx",
+          "meaning": "AttackRequest"
+        },
+        {
+          "address": "0x10005270",
+          "bytes": "6a0a",
+          "instruction": "push 0xa",
+          "meaning": "AttackRequest"
+        },
+        {
+          "address": "0x10005292",
+          "bytes": "6882000000",
+          "instruction": "push 0x82",
+          "meaning": "AttackRequest"
+        },
+        {
+          "address": "0x10005200",
+          "bytes": "51",
+          "instruction": "push ecx",
+          "meaning": "RestRequest"
+        },
+        {
+          "address": "0x1000520b",
+          "bytes": "6a04",
+          "instruction": "push 4",
+          "meaning": "RestRequest"
+        },
+        {
+          "address": "0x1000522d",
+          "bytes": "6a0b",
+          "instruction": "push 0xb",
+          "meaning": "RestRequest"
+        },
+        {
+          "address": "0x10005246",
+          "bytes": "6a04",
+          "instruction": "push 4",
+          "meaning": "RestRequest"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "userunit.dll",
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "fixtures": [
+        {
+          "address": "0x10001be0",
+          "bytes": "53",
+          "instruction": "push ebx",
+          "meaning": "SetAreaB"
+        },
+        {
+          "address": "0x10001a00",
+          "bytes": "53",
+          "instruction": "push ebx",
+          "meaning": "GroundAreaPropagation"
+        },
+        {
+          "address": "0x10001a82",
+          "bytes": "83f863",
+          "instruction": "cmp eax, 0x63",
+          "meaning": "GroundAreaPropagation"
+        },
+        {
+          "address": "0x10001a8b",
+          "bytes": "83f89d",
+          "instruction": "cmp eax, -0x63",
+          "meaning": "GroundAreaPropagation"
+        },
+        {
+          "address": "0x10001b84",
+          "bytes": "6a04",
+          "instruction": "push 4",
+          "meaning": "GroundAreaPropagation"
+        },
+        {
+          "address": "0x10001b97",
+          "bytes": "6a04",
+          "instruction": "push 4",
+          "meaning": "GroundAreaPropagation"
+        },
+        {
+          "address": "0x10002260",
+          "bytes": "8b442404",
+          "instruction": "mov eax, dword ptr [esp + 4]",
+          "meaning": "AttackTerrainContext"
+        },
+        {
+          "address": "0x10003860",
+          "bytes": "81ec2c020000",
+          "instruction": "sub esp, 0x22c",
+          "meaning": "BowTargetSelection"
+        },
+        {
+          "address": "0x100038ad",
+          "bytes": "e8ce120000",
+          "instruction": "call 0x10004b80",
+          "meaning": "BowTargetSelection"
+        },
+        {
+          "address": "0x100039f8",
+          "bytes": "e863e8ffff",
+          "instruction": "call 0x10002260",
+          "meaning": "BowTargetSelection"
+        },
+        {
+          "address": "0x10003a8f",
+          "bytes": "e8ec100000",
+          "instruction": "call 0x10004b80",
+          "meaning": "BowTargetSelection"
+        },
+        {
+          "address": "0x10003c00",
+          "bytes": "81ec2c020000",
+          "instruction": "sub esp, 0x22c",
+          "meaning": "GroundTargetSelection"
+        },
+        {
+          "address": "0x10003c52",
+          "bytes": "e889dfffff",
+          "instruction": "call 0x10001be0",
+          "meaning": "GroundTargetSelection"
+        },
+        {
+          "address": "0x10003d95",
+          "bytes": "e8c6e4ffff",
+          "instruction": "call 0x10002260",
+          "meaning": "GroundTargetSelection"
+        },
+        {
+          "address": "0x10005240",
+          "bytes": "51",
+          "instruction": "push ecx",
+          "meaning": "AttackRequest"
+        },
+        {
+          "address": "0x10005250",
+          "bytes": "6a0a",
+          "instruction": "push 0xa",
+          "meaning": "AttackRequest"
+        },
+        {
+          "address": "0x10005272",
+          "bytes": "6882000000",
+          "instruction": "push 0x82",
+          "meaning": "AttackRequest"
+        },
+        {
+          "address": "0x100051e0",
+          "bytes": "51",
+          "instruction": "push ecx",
+          "meaning": "RestRequest"
+        },
+        {
+          "address": "0x100051eb",
+          "bytes": "6a04",
+          "instruction": "push 4",
+          "meaning": "RestRequest"
+        },
+        {
+          "address": "0x1000520d",
+          "bytes": "6a0b",
+          "instruction": "push 0xb",
+          "meaning": "RestRequest"
+        },
+        {
+          "address": "0x10005226",
+          "bytes": "6a04",
+          "instruction": "push 4",
+          "meaning": "RestRequest"
+        }
+      ]
+    }
+  ],
+  "semantics": [
+    "Native 82 attack request writes actor,target,source terrain attribute,target terrain attribute as four words; 0B rest writes actor word. Local authority DTOs are not original wire opcode encoders.",
+    "Kind5 uses SetArea for attack selection; other kinds use SetAreaB with terrain99/-99 blocking and four directional propagation branches. Self cell is excluded.",
+    "Original ally3 uses GetTeamID and received alliance state; the current adapter requires explicit per-member attackTargets instead of inventing hostility from IDs."
+  ]
+}

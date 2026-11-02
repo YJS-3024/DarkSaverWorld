@@ -15,6 +15,18 @@ def main():
  core=[BASE/'Runtime/Entry'/n for n in ['EntryProtocol.cs','EntryAccountService.cs','EntryClient.cs','LocalAccountFileStore.cs']]
  core += [BASE/'Runtime/Tutorial'/n for n in ['TutorialScript.cs','TutorialSession.cs','TutorialService.cs','WaitingLesson.cs']]
  core += [BASE/'Runtime/World'/n for n in ['WorldModel.cs','WorldService.cs']] + [BASE/'Runtime/Campaign'/n for n in ['CampaignModel.cs','CampaignService.cs','ScenarioGatewaySettings.cs','ScenarioGatewayService.cs']]
+ core += sorted((BASE/'Runtime/Growth').glob('*.cs'))
+ core += sorted((BASE/'Runtime/Combat').glob('*.cs'))
+ core += sorted((BASE/'Runtime/Campaign').glob('CampaignResult*.cs'))
+ core += sorted((BASE/'Runtime/Campaign').glob('CampaignExit*.cs'))
+ core += sorted((BASE/'Runtime/World').glob('TempleRevival*.cs'))
+ core += sorted((BASE/'Runtime/World').glob('Currency*.cs'))
+ core += sorted((BASE/'Runtime/World').glob('BankTransfer*.cs'))
+ core += sorted((BASE/'Runtime/World').glob('WarehouseTransfer*.cs'))
+ core += sorted((BASE/'Runtime/World').glob('MercenaryTransfer*.cs'))
+ core += sorted((BASE/'Runtime/World').glob('ShopTrade*.cs'))
+ core += sorted((BASE/'Runtime/World').glob('ItemUseTransfer*.cs'))
+ core += sorted((BASE/'Runtime/World').glob('PlayerIdentity*.cs'))
  refs=['-r:'+str(p) for p in sorted(next(sdk.glob('packs/Microsoft.NETCore.App.Ref/*/ref/net8.0')).glob('*.dll'))]
  exe=WORK/'TutorialChecks.dll';args=['-nologo','-target:exe','-langversion:latest','-nostdlib+','-out:'+str(exe)]+refs+list(map(str,core))+[str(Path(__file__).with_name(n)) for n in ['TutorialChecks.cs','WaitingLessonChecks.cs']]
  rsp=WORK/'tutorial.rsp';rsp.write_text('\n'.join('"'+str(a)+'"' for a in args)+'\n')
@@ -125,5 +137,6 @@ def main():
   nativeInstructionFixtures=sum(map(len,fixtures.values())),sourceLinkedArtOutputs=len(evidence['outputs']),sourceHashesVerified=len(evidence['sources']),
   waitingNativeInstructionFixtures=len(waiting_evidence['nativeInstructionChecks'])+1,waitingResources=36,waitingShownResources=33,
   scope='Production interpreter/account/disk managed tests plus Unity Runtime/Editor/Player API compilation and source/reference audit. No Unity import, rendered Play, OS input or listening.',logs=str(WORK))
+ result['sources']={p.relative_to(ROOT).as_posix():sha(p)for p in core+[Path(__file__),Path(__file__).with_name('TutorialChecks.cs'),Path(__file__).with_name('WaitingLessonChecks.cs'),BASE/'Data/Tutorial/Waiting1500.json',BASE/'Runtime/Tutorial/TutorialSceneRoot.Waiting.cs',BASE/'Runtime/Tutorial/NativeTutorialDrag.cs']}
  Path(__file__).with_name('tutorial-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result,ensure_ascii=False))
 if __name__=='__main__':main()

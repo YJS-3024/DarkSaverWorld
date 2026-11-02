@@ -1,0 +1,273 @@
+{
+  "sourceInventory": "분석/InstallerVersions/installer_inventory.json",
+  "sources": [
+    {
+      "version": "early",
+      "file": "userunit.dll",
+      "sha256": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711",
+      "fixtures": [
+        {
+          "address": "0x10003660",
+          "bytes": "2b440f74",
+          "meaning": "Y delta",
+          "instruction": "sub eax, dword ptr [edi + ecx + 0x74]"
+        },
+        {
+          "address": "0x1000366f",
+          "bytes": "8b540f70",
+          "meaning": "X delta",
+          "instruction": "mov edx, dword ptr [edi + ecx + 0x70]"
+        },
+        {
+          "address": "0x10003673",
+          "bytes": "2bc2",
+          "meaning": "X subtraction",
+          "instruction": "sub eax, edx"
+        },
+        {
+          "address": "0x10003676",
+          "bytes": "33c2",
+          "meaning": "absolute X",
+          "instruction": "xor eax, edx"
+        },
+        {
+          "address": "0x10003678",
+          "bytes": "2bc2",
+          "meaning": "absolute X sign correction",
+          "instruction": "sub eax, edx"
+        },
+        {
+          "address": "0x1000367a",
+          "bytes": "03d8",
+          "meaning": "sum absolute deltas",
+          "instruction": "add ebx, eax"
+        },
+        {
+          "address": "0x1000367c",
+          "bytes": "8b440e4c",
+          "meaning": "runtime final command radius +4C",
+          "instruction": "mov eax, dword ptr [esi + ecx + 0x4c]"
+        },
+        {
+          "address": "0x10003680",
+          "bytes": "3bd8",
+          "meaning": "distance comparison",
+          "instruction": "cmp ebx, eax"
+        },
+        {
+          "address": "0x10003682",
+          "bytes": "7f79",
+          "meaning": "outside only if strictly greater",
+          "instruction": "jg 0x100036fd"
+        },
+        {
+          "address": "0x1000b26a",
+          "bytes": "8b5744",
+          "meaning": "read snapshot radius +44",
+          "instruction": "mov edx, dword ptr [edi + 0x44]"
+        },
+        {
+          "address": "0x1000b26d",
+          "bytes": "8954064c",
+          "meaning": "write runtime radius +4C",
+          "instruction": "mov dword ptr [esi + eax + 0x4c], edx"
+        },
+        {
+          "address": "0x1000f140",
+          "bytes": "a1aca31010",
+          "meaning": "GetToneSurface returns board surface",
+          "instruction": "mov eax, dword ptr [0x1010a3ac]"
+        },
+        {
+          "address": "0x1000e75d",
+          "bytes": "68a0510110",
+          "meaning": "load board.bmp string",
+          "instruction": "push 0x100151a0"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "userunit.dll",
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "fixtures": [
+        {
+          "address": "0x10003640",
+          "bytes": "2b440f74",
+          "meaning": "Y delta",
+          "instruction": "sub eax, dword ptr [edi + ecx + 0x74]"
+        },
+        {
+          "address": "0x1000364f",
+          "bytes": "8b540f70",
+          "meaning": "X delta",
+          "instruction": "mov edx, dword ptr [edi + ecx + 0x70]"
+        },
+        {
+          "address": "0x10003653",
+          "bytes": "2bc2",
+          "meaning": "X subtraction",
+          "instruction": "sub eax, edx"
+        },
+        {
+          "address": "0x10003656",
+          "bytes": "33c2",
+          "meaning": "absolute X",
+          "instruction": "xor eax, edx"
+        },
+        {
+          "address": "0x10003658",
+          "bytes": "2bc2",
+          "meaning": "absolute X sign correction",
+          "instruction": "sub eax, edx"
+        },
+        {
+          "address": "0x1000365a",
+          "bytes": "03d8",
+          "meaning": "sum absolute deltas",
+          "instruction": "add ebx, eax"
+        },
+        {
+          "address": "0x1000365c",
+          "bytes": "8b440e4c",
+          "meaning": "runtime final command radius +4C",
+          "instruction": "mov eax, dword ptr [esi + ecx + 0x4c]"
+        },
+        {
+          "address": "0x10003660",
+          "bytes": "3bd8",
+          "meaning": "distance comparison",
+          "instruction": "cmp ebx, eax"
+        },
+        {
+          "address": "0x10003662",
+          "bytes": "7f79",
+          "meaning": "outside only if strictly greater",
+          "instruction": "jg 0x100036fd"
+        }
+      ]
+    },
+    {
+      "version": "early",
+      "file": "GameCtl.dll",
+      "sha256": "e798de797d243ea4a50d451f700645b95d0117fdc6d6994efa2db071a5db2d67",
+      "fixtures": [
+        {
+          "address": "0x10003667",
+          "bytes": "b867666666",
+          "meaning": "divide hovered unit ID by10",
+          "instruction": "mov eax, 0x66666667"
+        },
+        {
+          "address": "0x10003680",
+          "bytes": "d1e6",
+          "meaning": "commander group index",
+          "instruction": "shl esi, 1"
+        },
+        {
+          "address": "0x100036a7",
+          "bytes": "f6800001000080",
+          "meaning": "ghost flag excludes command outline",
+          "instruction": "test byte ptr [eax + 0x100], 0x80"
+        },
+        {
+          "address": "0x100036ba",
+          "bytes": "8b404c",
+          "meaning": "read final command radius",
+          "instruction": "mov eax, dword ptr [eax + 0x4c]"
+        },
+        {
+          "address": "0x100036bd",
+          "bytes": "83f801",
+          "meaning": "outline radius minimum1",
+          "instruction": "cmp eax, 1"
+        },
+        {
+          "address": "0x100036c0",
+          "bytes": "0f8cbc000000",
+          "meaning": "hide less than1",
+          "instruction": "jl 0x10003782"
+        },
+        {
+          "address": "0x100036d0",
+          "bytes": "ff15a8620110",
+          "meaning": "SetArea native diamond",
+          "instruction": "call dword ptr [0x100162a8]"
+        },
+        {
+          "address": "0x1000393b",
+          "bytes": "e8d0fcffff",
+          "meaning": "Update display pass7 calls outline",
+          "instruction": "call 0x10003610"
+        },
+        {
+          "address": "0x100091c7",
+          "bytes": "ff1584620110",
+          "meaning": "GetToneSurface used for command boundary",
+          "instruction": "call dword ptr [0x10016284]"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "GameCtl.dll",
+      "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+      "fixtures": [
+        {
+          "address": "0x100036f7",
+          "bytes": "b867666666",
+          "meaning": "divide hovered unit ID by10",
+          "instruction": "mov eax, 0x66666667"
+        },
+        {
+          "address": "0x10003710",
+          "bytes": "d1e6",
+          "meaning": "commander group index",
+          "instruction": "shl esi, 1"
+        },
+        {
+          "address": "0x10003737",
+          "bytes": "f6800001000080",
+          "meaning": "ghost flag excludes command outline",
+          "instruction": "test byte ptr [eax + 0x100], 0x80"
+        },
+        {
+          "address": "0x1000374a",
+          "bytes": "8b404c",
+          "meaning": "read final command radius",
+          "instruction": "mov eax, dword ptr [eax + 0x4c]"
+        },
+        {
+          "address": "0x1000374d",
+          "bytes": "83f801",
+          "meaning": "outline radius minimum1",
+          "instruction": "cmp eax, 1"
+        },
+        {
+          "address": "0x10003750",
+          "bytes": "0f8cbc000000",
+          "meaning": "hide less than1",
+          "instruction": "jl 0x10003782"
+        },
+        {
+          "address": "0x10003760",
+          "bytes": "ff15a8620110",
+          "meaning": "SetArea native diamond",
+          "instruction": "call dword ptr [0x100162a8]"
+        },
+        {
+          "address": "0x10009287",
+          "bytes": "ff1584620110",
+          "meaning": "GetToneSurface used for command boundary",
+          "instruction": "call dword ptr [0x10016284]"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Native final range is snapshot+44 -> character+4C; raw job/item columns do not prove a final equipment formula.",
+    "Display pass7: hovered unit parent ID/10*10; valid living non-ghost parent and radius>=1; SetArea boundary from GetToneSurface board.bmp.",
+    "SoldierAIMove calls SoldierAIAction after outside regroup search; outside is not a blanket attack prohibition.",
+    "Inside automatic defense may regroup after status2/3000ms; this range-only context does not implement the entire AI state machine."
+  ]
+}

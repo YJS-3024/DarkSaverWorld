@@ -1,0 +1,22 @@
+{
+  "assertions": 6186,
+  "mismatches": 0,
+  "nativeGlyphFramebufferCases": 5124,
+  "nativeParagraphCases": 21,
+  "nativeClipCases": 784,
+  "nativeLineAlignmentCases": 240,
+  "atlasPixelChecks": 1016064,
+  "nativeSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "unityPlay": false,
+  "nativeCodeExecuted": true,
+  "logs": "/tmp/ds-native-font-checks",
+  "scope": "Every mapped Unicode/CP949 glyph raster compared over full late Saver8bit framebuffer; both source fonts and every atlas mask. Native width, unsupported fallback and784 complete-glyph viewport predicates across both fonts and8/16bit. Single-line origin240cases derive from actual raster displacement for literal alignment2/6, including odd widths and other ignored flags. Memo opt-in paragraphs21cases. Runtime culls against marked logical surface and dirties geometry when moved. Default bounded uGUI wrapping/alignment, parent masks, transform/GPU output, unbounded newline policy and actual window framebuffers are not equality claims.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_font.py": "1f4c5f6467ce9c6616d7da3cd6906695eeaeb0427bad59ee2092c2ee47635451",
+    "Tools/OriginalWorldChecks/native_font_emulator.py": "fe2170b7f5faf9fe1baa330b2d7d199af69257fa7c9ed7e9714a6099d7205b42",
+    "Tools/OriginalWorldChecks/NativeFontChecks.cs": "c1e5864610bcaf8e1ecc1a91a978300cf3eb8fa88f93b6079f610711b6b3e1a3",
+    "Assets/_Original/Runtime/UI/NativeTextMetrics.cs": "5649f6fcbba653fa00d489b67d3c74fc852dd992fd3f15e856ae17112666f1c0",
+    "Assets/_Original/Runtime/UI/NativeBitmapText.cs": "64125ebabcf6aa0c3ac472e729504def11b7dd93db6ebe2d43da259fc31f52b8",
+    "Assets/_Original/Runtime/UI/NativeTextSurface.cs": "96667d41397574d0375ca65ed74c7705ebed84bd67e57ba911aa82b89302161d"
+  }
+}

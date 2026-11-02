@@ -1,0 +1,23 @@
+{
+  "cases": 768,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "nativePixelLoop": {
+    "sourceSha256": "63bc6cf1e006e6e819f58de85e3fc90fa71ab2a2e4c35456c63e3813f381ad6c",
+    "styles": 6,
+    "pixelCases": 1536,
+    "start": "0x42CFCB",
+    "end": "0x42D029"
+  },
+  "verifiedPaletteAssets": 219,
+  "sources": {
+    "Assets/_Original/Runtime/Combat/NativeBodyPalette.cs": "f7fa297ce4a2223540a47f4b88f53b753e520ca9f9e2fabb5d1549a30d1bc574",
+    "Tools/OriginalWorldChecks/BodyPaletteDifferential.cs": "9c8b9a1d2d55f439eb1a4c2b8b7bae54d69f3dff786f0ff894a110a25477fd61",
+    "Tools/OriginalWorldChecks/check_native_body_palettes.py": "7b2df8d6e6791642c5eed8ec987cf6b5cc823e683814eb1e3b08f5ead64f0760",
+    "Tools/OriginalWorldChecks/build_body_palettes.py": "39735f6467a6fa02d570b825b15304367038c07b32a9788adfbac3eee4fa803c",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2"
+  },
+  "scope": "Actual UserUnit getsnum for supplied team/same-force/ally predicates and original prefs0/3/2, class>299 surface clamp; actual Compress ReadArcBmp2 index-remap loop. Original73 indexed BMPs ->219 variants. Team/ally predicates are inputs, not inferred networking logic.",
+  "logs": "/tmp/ds-native-body-palette-checks"
+}

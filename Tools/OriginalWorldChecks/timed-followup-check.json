@@ -1,0 +1,102 @@
+{
+  "requestedDeadline": "2026-11-02T16:30:00+09:00",
+  "deadlineAssumption": "Asia/Seoul; continues previous15:00 work window",
+  "verifiedAt": "2026-11-02T07:22:17.623059+00:00",
+  "features": [
+    "native HP/MP/MISS shared-slot display and attack pairs",
+    "native death/remove messages, numeric gate, corpse retirement and grid occupancy",
+    "32/64px body geometry and333/125 clock phases, explicit appearance metadata",
+    "native Attack/Rest request bytes and eight-subtype local ingress"
+  ],
+  "reports": {
+    "battle-feedback-check.json": {
+      "assertions": 6100,
+      "verifiedFrameCrops": 59,
+      "nativeInstructionFixtures": 55,
+      "unityPlayExecuted": false
+    },
+    "battle-lifecycle-check.json": {
+      "assertions": 463,
+      "nativeInstructionFixtures": 18,
+      "unityPlayExecuted": false
+    },
+    "native-battle-packet-check.json": {
+      "assertions": 740,
+      "unityPlayExecuted": false
+    },
+    "native-feedback-check.json": {
+      "cases": 182,
+      "mismatches": 0,
+      "updateSamples": 8628,
+      "unityPlayExecuted": false
+    },
+    "native-death-check.json": {
+      "cases": 24,
+      "mismatches": 0,
+      "updateSamples": 1176,
+      "unityPlayExecuted": false
+    },
+    "native-feedback-frame-check.json": {
+      "cases": 387,
+      "mismatches": 0,
+      "nativeBlits": 1138,
+      "unityPlayExecuted": false
+    },
+    "native-body-check.json": {
+      "cases": 672,
+      "mismatches": 0,
+      "unityPlayExecuted": false
+    },
+    "native-outbound-packet-check.json": {
+      "cases": 260,
+      "mismatches": 0,
+      "unityPlayExecuted": false
+    },
+    "native-battle-decoder-check.json": {
+      "cases": 169,
+      "mismatches": 0,
+      "unityPlayExecuted": false
+    },
+    "native-soldier-ai-check.json": {
+      "cases": 993,
+      "mismatches": 0,
+      "unityPlayExecuted": false
+    },
+    "native-battle-tick-check.json": {
+      "cases": 1305,
+      "mismatches": 0,
+      "unityPlayExecuted": false
+    }
+  },
+  "currentApiSourceHashesMatched": true,
+  "apiReport": "Tools/OriginalEntryChecks/entry-check.json",
+  "apiErrors": 0,
+  "apiWarnings": 0,
+  "newRuntimeScripts": {
+    "Assets/_Original/Runtime/Combat/BattleFeedback.cs": "138574ec71f059a5834f86758b4e1f5d",
+    "Assets/_Original/Runtime/Combat/BattleFeedbackFrames.cs": "bcdc0e53fa3554adbecf4c4640a1846d",
+    "Assets/_Original/Runtime/Combat/BattleFeedbackService.cs": "56dd364b03255780a068e6a99a003ce3",
+    "Assets/_Original/Runtime/Combat/BattleLifecycle.cs": "7c900da39c9856a599e91196dad36e9e",
+    "Assets/_Original/Runtime/Combat/BattleLifecycleService.cs": "abfe62c1c91750e1b37a1b1c9581ea64",
+    "Assets/_Original/Runtime/Combat/DeathSoundPlayback.cs": "014446a2c7af598db9be427e77800152",
+    "Assets/_Original/Runtime/Combat/NativeBattlePacketService.cs": "2466e8b92cab5a29adedd87991c5d8b4",
+    "Assets/_Original/Runtime/Combat/NativeBattlePackets.cs": "62a91b6180365eda8f45f94993642682",
+    "Assets/_Original/Runtime/Combat/NativeBodyFrames.cs": "58cf5aca6f245d3191d7479f72c50256",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.BattleFeedback.cs": "14f674379cdd5db8a22b604802146169",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.BattleLifecycle.cs": "336004679e885f3aa63c42f87adacb72",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBattlePackets.cs": "38d1cb4699d85caf876d428b9f83e201",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.BattleFeedback.cs": "4b572bbde4815e8f9bf75cddcd968048"
+  },
+  "documents": {
+    "설계/테스트_검증_계획.md": "1af81b90c72b1aa213d18e27eb1a44b17765dd072928ac21508fb608412e0ced",
+    "설계/10_분석_적용_진행표.md": "df8c76485c92d767dec3d7b4407bf132138801ee178d169bb7b1a4481eb1f165",
+    "설계/09_전투_플로우_확인사항.md": "776fece29c2940b92c7efd97319f0024f6a9fb842015968389a1bc68c3c897ca",
+    "Assets/_Original/Data/README.md": "d96a02b0dc986ad49d8f19474467d7f4c251d711edb90cfa45bf9177c078f5e1"
+  },
+  "unityPlayExecuted": false,
+  "unityLimitation": "No valid Unity Editor license observed in the preceding time window; prior attempt recorded in timed-work-check.json. No Unity Play claim in this window.",
+  "userSavesOpenedOrModified": false,
+  "operatingDefaultsGenerated": false,
+  "committed": false,
+  "pushed": false
+}

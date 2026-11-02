@@ -19,6 +19,30 @@ namespace DarkSaver.Original.World
         private InputField amount;
         private RawImage dragGhost;
         private WorldWindowDefinition panelDefinition;
+        private string revivalQuoteAttempt;
+        private string currencyBankAttempt;
+        private string warehouseStateAttempt;
+        private void MaintainWarehouseState()
+        {
+            var f=view.facility;
+            if(f?.kind!=FacilityKind.Warehouse){warehouseStateAttempt=null;return;}
+            if(server.WarehouseAuthority==null||f.warehouseTerms!=null||view.warehouseRequest!=null||warehouseStateAttempt==f.token)return;
+            warehouseStateAttempt=f.token;Handle(server.Request_WarehouseState(f.token,RequestId()));
+        }
+        private void MaintainCurrencyState()
+        {
+            var f=view.facility;
+            if(f?.kind!=FacilityKind.Bank){currencyBankAttempt=null;return;}
+            if(server.CurrencyAuthority==null||view.currencyRequest!=null||view.bankTransferRequest!=null||currencyBankAttempt==f.token)return;
+            currencyBankAttempt=f.token;Handle(server.Request_CurrencyState());
+        }
+        private void MaintainRevivalQuote()
+        {
+            var f=view.facility;
+            if(f?.kind!=FacilityKind.Temple){revivalQuoteAttempt=null;return;}
+            if(server.RevivalQuoteAuthority==null||!view.record.ghost||f.revivalQuote!=null||view.revivalQuoteRequest!=null||view.revivalRequest!=null||revivalQuoteAttempt==f.token)return;
+            revivalQuoteAttempt=f.token;Handle(server.Request_RevivalQuote(f.token,RequestId()));
+        }
         private static string RequestId() => Guid.NewGuid().ToString("N");
         private void ClearPanel()
         {
@@ -51,7 +75,7 @@ namespace DarkSaver.Original.World
                 panelDefinition=scene==11?campaign.GatewayWindow:definition.windows.First(w=>w.scene==scene);panel=NativeWindow(scene,worldWindows,FacilityControl);
                 if(view.facility.kind==FacilityKind.ScenarioGateway)
                 {
-                    string room=view.facility.room;string title=definition.Map(view.facility.scenario).title;
+                    string room=view.facility.room;string title=DisplayMap(view.facility.scenario).title;
                     Label(panel,"Scenario title",new Rect(105,27,380,26),title);
                     var row=Hit(panel,"Local scenario room",new Rect(20,135,442,24),()=>{selectedRoom=room;details.color=Color.yellow;});
                     details=Label((RectTransform)row.transform,"Room title",new Rect(4,3,434,20),title);details.color=Color.black;
@@ -92,9 +116,9 @@ namespace DarkSaver.Original.World
                 }
             }
             var f=view.facility;string gold=view.record.goldKnown?view.record.gold.ToString():"—";
-            if(balance!=null)balance.text=f.kind==FacilityKind.Temple?(definition.rules.reviveRuleKnown?definition.rules.reviveFee.ToString():"—"):gold;
+            if(balance!=null)balance.text=f.kind==FacilityKind.Temple?(f.revivalQuote?.fee?.ToString()??(server.RevivalQuoteAuthority==null&&server.RevivalAuthority==null&&definition.rules.reviveRuleKnown?definition.rules.reviveFee.ToString():"—")):gold;
             if(bankBalance!=null)bankBalance.text=view.record.bankKnown?view.record.bank.ToString():"—";
-            if(storageFee!=null)storageFee.text=definition.rules.storageRuleKnown?"보관료 : "+f.storageFee:"보관료 : —";
+            if(storageFee!=null)storageFee.text=f.storageFeeKnown?"보관료 : "+f.storageFee:"보관료 : —";
             if(f.kind==FacilityKind.Shop||f.kind==FacilityKind.Warehouse)
             {
                 for(int i=0;i<ownedIcons.Count;i++)PaintItem(ownedIcons[i],f.inventory.FirstOrDefault(v=>v.slot==i)?.item??-1);
@@ -108,7 +132,7 @@ namespace DarkSaver.Original.World
                 hireCount.text=view.record.hiredCount==0?"0":view.record.hiredCount.ToString();
             }
         }
-        private WorldHireOffer[] HireOffers()=>definition.hires.Where(h=>h.commander==character.job).ToArray();
+        private WorldHireOffer[] HireOffers()=>definition.hires.Where(h=>h.commander==CurrentCommanderJob).ToArray();
         private void SelectHire(int cell)
         {
             var offers=HireOffers();int i=cell+rowOffset*3;if(i>=offers.Length)return;
@@ -146,10 +170,10 @@ namespace DarkSaver.Original.World
                 if(view.facility.kind==FacilityKind.Shop)
                 {
                     int item=dragged;string instance=owned;
-                    InspectItem(item);ShowTradeConfirmation(item,right,()=>Handle(right?server.Request_BuyItem(item,token,RequestId()):server.Request_SellItem(instance,token,RequestId())));
+                    InspectItem(item);BeginShopTrade(item,instance,right,token);
                 }
                 else Handle(right?server.Request_RetrieveItem(owned,token,RequestId()):server.Request_StoreItem(owned,token,RequestId()));
-            },()=>view?.facility!=null&&(right?RightItem(slot)>=0:view.facility.inventory.Any(i=>i.slot==slot))&&notice==null);
+            },()=>view?.facility!=null&&(right?RightItem(slot)>=0:view.facility.inventory.Any(i=>i.slot==slot))&&notice==null&&view.warehouseRequest==null&&view.shopQuoteRequest==null&&view.shopTradeRequest==null);
             return image;
         }
         private void InspectItem(int id)
@@ -174,8 +198,18 @@ namespace DarkSaver.Original.World
                 if(!ulong.TryParse(amount.text,out var number)||number==0){ShowFailure(WorldFailure.InvalidInput);return;}
                 Handle(id==24?server.Request_BankDeposit(number,f.token,request):server.Request_BankWithdraw(number,f.token,request));return;
             }
-            if(f.kind==FacilityKind.Warehouse&&id==19){Handle(server.Request_ConfirmStorage(f.token,request));return;}
-            if(f.kind==FacilityKind.Temple&&id==19){Handle(server.Request_Revive(f.token,request));return;}
+            if(f.kind==FacilityKind.Warehouse&&id==19)
+            {
+                if(server.WarehouseAuthority!=null&&(f.warehouseTerms==null||!f.storageFeeKnown))Handle(server.Request_WarehouseState(f.token,request));
+                else Handle(server.Request_ConfirmStorage(f.token,request));
+                return;
+            }
+            if(f.kind==FacilityKind.Temple&&id==19)
+            {
+                if(server.RevivalQuoteAuthority!=null&&f.revivalQuote==null)Handle(server.Request_RevivalQuote(f.token,request));
+                else Handle(server.Request_Revive(f.token,request));
+                return;
+            }
             if(f.kind==FacilityKind.Mercenary)
             {
                 if(id==8){int job=view.record.hiredCount>0?view.record.hiredJob:selectedHire;if(job<0){ShowFailure(WorldFailure.InvalidInput);return;}Handle(server.Request_HireMercenary(job,f.token,request));return;}
@@ -183,11 +217,22 @@ namespace DarkSaver.Original.World
             }
             if(id==19)Handle(server.Request_CloseFacility());
         }
-        private void ShowTradeConfirmation(int item,bool buying,Action confirmed)
+        private void BeginShopTrade(int item,string owned,bool buying,string token)
+        {
+            if(server.UsesShopApproval)
+            {
+                var reply=server.Request_ShopQuote(buying,item,buying?null:owned,token,RequestId());Handle(reply);
+                if(!reply.Accepted)return;
+                var quote=reply.View?.facility?.shopQuote;if(quote==null){ShowFailure(WorldFailure.RulesUnavailable);return;}
+                ShowTradeConfirmation(item,buying,()=>Handle(server.Request_ConfirmShopTrade(quote.id,token,RequestId())),quote.price);return;
+            }
+            ShowTradeConfirmation(item,buying,()=>Handle(buying?server.Request_BuyItem(item,token,RequestId()):server.Request_SellItem(owned,token,RequestId())));
+        }
+        private void ShowTradeConfirmation(int item,bool buying,Action confirmed,ulong? quotedPrice=null)
         {
             CloseNotice();var root=NoticeBlocker();notice=NativeWindow(17,root,id=>{CloseNotice();confirmed();});
             var product=definition.Item(item);Label(notice,"Trade",new Rect(12,9,215,28),(buying?"구매 : ":"판매 : ")+product.name,TextAnchor.MiddleCenter);
-            Label(notice,"Price",new Rect(54,46,94,20),buying?product.price.ToString():product.sellKnown?product.sellPrice.ToString():"—");
+            Label(notice,"Price",new Rect(54,46,94,20),quotedPrice.HasValue?quotedPrice.Value.ToString():buying?product.price.ToString():product.sellKnown?product.sellPrice.ToString():"—");
         }
         private RectTransform NoticeBlocker()
         {var root=Group(overlay,"Modal input",new Rect(0,0,640,480));var image=root.gameObject.AddComponent<Image>();image.color=Color.clear;return root;}
@@ -196,23 +241,24 @@ namespace DarkSaver.Original.World
         private void ShowFailure(WorldFailure failure)
         {
             if(failure==WorldFailure.None)return;CloseNotice();var root=NoticeBlocker();notice=NativeWindow(29,root,_=>{CloseNotice();if(!running)Begin(character);});
-            string message=failure==WorldFailure.TooFar?"직원 옆이나 가판대 앞에서 이용해 주세요.":failure==WorldFailure.RulesUnavailable?"처리에 필요한 정보가 확인되지 않았습니다.":failure==WorldFailure.InsufficientFunds?"돈이 부족합니다.":failure==WorldFailure.StorageUnavailable?"저장하지 못했습니다. 다시 시도해 주세요.":failure==WorldFailure.InventoryFull?"물품을 놓을 공간이 없습니다.":failure==WorldFailure.Moving?"이동을 마친 뒤 이용해 주세요.":failure==WorldFailure.StaleRequest?"요청이 만료되었습니다. 다시 선택해 주세요.":"지금은 이 요청을 처리할 수 없습니다.";
+            string message=failure==WorldFailure.TooFar?"직원 옆이나 가판대 앞에서 이용해 주세요.":failure==WorldFailure.RulesUnavailable?"처리에 필요한 정보가 확인되지 않았습니다.":failure==WorldFailure.InsufficientFunds?"돈이 부족합니다.":failure==WorldFailure.InsufficientResource?"MP 또는 행동력이 부족합니다.":failure==WorldFailure.StorageUnavailable?"저장하지 못했습니다. 다시 시도해 주세요.":failure==WorldFailure.InventoryFull?"물품을 놓을 공간이 없습니다.":failure==WorldFailure.Moving?"이동을 마친 뒤 이용해 주세요.":failure==WorldFailure.StaleRequest?"요청이 만료되었습니다. 다시 선택해 주세요.":"지금은 이 요청을 처리할 수 없습니다.";
             RememberMessage(message);
             Label(notice,"Message",new Rect(15,9,498,28),message,TextAnchor.MiddleCenter);
         }
         private void ShowQuit()
-        {CloseNotice();var root=NoticeBlocker();notice=NativeWindow(27,root,id=>{CloseNotice();if(id!=19)return;
+        {CloseNotice();var root=NoticeBlocker();notice=NativeWindow(27,root,id=>{CloseNotice();if(id!=19)return;DarkSaver.Original.UI.OriginalClientPreferences.Save();
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying=false;
 #else
             Application.Quit();
 #endif
         });}
-        private void ShowTrainingEscape()
+        private void ShowBattleEscape()
         {
-            if(view==null||!definition.Map(view.record.map).training)return;
+            if(view==null||!BattleMap())return;
+            bool training=DisplayMap(view.record.map).training;string visit=view.record.scenarioVisit?.id;
             CloseNotice();var root=NoticeBlocker();var spec=art.battle.Definition.windows.First(w=>w.key==9);
-            notice=BattleWindow(root,spec,id=>{CloseNotice();if(id==19)Handle(server.Request_EscapeTraining());});
+            notice=BattleWindow(root,spec,id=>{CloseNotice();if(id==19)Handle(training?server.Request_EscapeTraining():server.Request_EscapeScenario(visit));});
         }
         private RectTransform BattleWindow(RectTransform root,TutorialNativeWindow spec,Action<int> pressed)
         {
@@ -225,7 +271,7 @@ namespace DarkSaver.Original.World
         private void ShowTrainingOptions()
         {
             CloseNotice();var root=NoticeBlocker();var spec=art.battle.Definition.windows.First(w=>w.key==12);
-            notice=BattleWindow(root,spec,id=>{CloseNotice();if(id==59)ShowTrainingEscape();else if(id==52)ToggleTrainingStatus();else if(id!=38)ShowFailure(WorldFailure.RulesUnavailable);});
+            notice=BattleWindow(root,spec,id=>{CloseNotice();if(id==59)ShowBattleEscape();else if(id==52)ToggleTrainingStatus();else if(id!=38)ShowFailure(WorldFailure.RulesUnavailable);});
         }
     }
 }

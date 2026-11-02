@@ -1,0 +1,355 @@
+{
+  "sourceInventory": "분석/InstallerVersions/installer_inventory.json",
+  "sources": [
+    {
+      "version": "late",
+      "file": "UserUnit.dll",
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "fixtures": [
+        {
+          "address": "0x1000cda0",
+          "bytes": "0fbf4c2404",
+          "instruction": "movsx ecx, word ptr [esp + 4]",
+          "meaning": "SetHpDisplay"
+        },
+        {
+          "address": "0x1000cdb0",
+          "bytes": "c1e003",
+          "instruction": "shl eax, 3",
+          "meaning": "SetHpDisplay"
+        },
+        {
+          "address": "0x1000cdb5",
+          "bytes": "0fbf4c240e",
+          "instruction": "movsx ecx, word ptr [esp + 0xe]",
+          "meaning": "SetHpDisplay"
+        },
+        {
+          "address": "0x1000cdf3",
+          "bytes": "83ce40",
+          "instruction": "or esi, 0x40",
+          "meaning": "SetHpDisplay"
+        },
+        {
+          "address": "0x1000ce80",
+          "bytes": "0fbf4c2404",
+          "instruction": "movsx ecx, word ptr [esp + 4]",
+          "meaning": "SetMpDisplay"
+        },
+        {
+          "address": "0x1000ce90",
+          "bytes": "c1e003",
+          "instruction": "shl eax, 3",
+          "meaning": "SetMpDisplay"
+        },
+        {
+          "address": "0x1000ce95",
+          "bytes": "0fbf4c240e",
+          "instruction": "movsx ecx, word ptr [esp + 0xe]",
+          "meaning": "SetMpDisplay"
+        },
+        {
+          "address": "0x1000ced6",
+          "bytes": "83ca40",
+          "instruction": "or edx, 0x40",
+          "meaning": "SetMpDisplay"
+        },
+        {
+          "address": "0x1000ce30",
+          "bytes": "8b4c2404",
+          "instruction": "mov ecx, dword ptr [esp + 4]",
+          "meaning": "SetFail"
+        },
+        {
+          "address": "0x1000ce37",
+          "bytes": "c1e003",
+          "instruction": "shl eax, 3",
+          "meaning": "SetFail"
+        },
+        {
+          "address": "0x1000ce5d",
+          "bytes": "83ca40",
+          "instruction": "or edx, 0x40",
+          "meaning": "SetFail"
+        },
+        {
+          "address": "0x1000cf00",
+          "bytes": "83ec08",
+          "instruction": "sub esp, 8",
+          "meaning": "AttackChar"
+        },
+        {
+          "address": "0x1000cf0a",
+          "bytes": "0fbf01",
+          "instruction": "movsx eax, word ptr [ecx]",
+          "meaning": "AttackChar"
+        },
+        {
+          "address": "0x1000cf0d",
+          "bytes": "0fbf5102",
+          "instruction": "movsx edx, word ptr [ecx + 2]",
+          "meaning": "AttackChar"
+        },
+        {
+          "address": "0x1000cf11",
+          "bytes": "0fbf4904",
+          "instruction": "movsx ecx, word ptr [ecx + 4]",
+          "meaning": "AttackChar"
+        },
+        {
+          "address": "0x1000cf1c",
+          "bytes": "c1e103",
+          "instruction": "shl ecx, 3",
+          "meaning": "AttackChar"
+        },
+        {
+          "address": "0x1000cf67",
+          "bytes": "c1e603",
+          "instruction": "shl esi, 3",
+          "meaning": "AttackChar"
+        },
+        {
+          "address": "0x1000cfd4",
+          "bytes": "c1e304",
+          "instruction": "shl ebx, 4",
+          "meaning": "AttackChar"
+        },
+        {
+          "address": "0x1000cfd7",
+          "bytes": "c1e704",
+          "instruction": "shl edi, 4",
+          "meaning": "AttackChar"
+        },
+        {
+          "address": "0x1000f970",
+          "bytes": "64a100000000",
+          "instruction": "mov eax, dword ptr fs:[0]",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000f992",
+          "bytes": "c1e603",
+          "instruction": "shl esi, 3",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000f9aa",
+          "bytes": "f684060001000040",
+          "instruction": "test byte ptr [esi + eax + 0x100], 0x40",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000fa9c",
+          "bytes": "83f814",
+          "instruction": "cmp eax, 0x14",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000faa6",
+          "bytes": "83f814",
+          "instruction": "cmp eax, 0x14",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000fb82",
+          "bytes": "83fe0e",
+          "instruction": "cmp esi, 0xe",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000fb93",
+          "bytes": "83fe0e",
+          "instruction": "cmp esi, 0xe",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000fbdc",
+          "bytes": "83fe0e",
+          "instruction": "cmp esi, 0xe",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000fbed",
+          "bytes": "83fe0e",
+          "instruction": "cmp esi, 0xe",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000fc24",
+          "bytes": "83f802",
+          "instruction": "cmp eax, 2",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000fc34",
+          "bytes": "83fe0e",
+          "instruction": "cmp esi, 0xe",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000fc63",
+          "bytes": "83fe0e",
+          "instruction": "cmp esi, 0xe",
+          "meaning": "NumericRender"
+        },
+        {
+          "address": "0x1000fcd0",
+          "bytes": "83ec20",
+          "instruction": "sub esp, 0x20",
+          "meaning": "AttackRender"
+        },
+        {
+          "address": "0x1000fce5",
+          "bytes": "c1e603",
+          "instruction": "shl esi, 3",
+          "meaning": "AttackRender"
+        },
+        {
+          "address": "0x1000fd0e",
+          "bytes": "f6c140",
+          "instruction": "test cl, 0x40",
+          "meaning": "AttackRender"
+        },
+        {
+          "address": "0x1000fd9b",
+          "bytes": "83c8fc",
+          "instruction": "or eax, 0xfffffffc",
+          "meaning": "AttackRender"
+        },
+        {
+          "address": "0x1000fe97",
+          "bytes": "f684060001000001",
+          "instruction": "test byte ptr [esi + eax + 0x100], 1",
+          "meaning": "AttackRender"
+        },
+        {
+          "address": "0x1000ff3c",
+          "bytes": "f684060001000004",
+          "instruction": "test byte ptr [esi + eax + 0x100], 4",
+          "meaning": "AttackRender"
+        },
+        {
+          "address": "0x1000ff91",
+          "bytes": "83c8fe",
+          "instruction": "or eax, 0xfffffffe",
+          "meaning": "AttackRender"
+        },
+        {
+          "address": "0x1000ff95",
+          "bytes": "c1e004",
+          "instruction": "shl eax, 4",
+          "meaning": "AttackRender"
+        },
+        {
+          "address": "0x100105f8",
+          "bytes": "f684060001000004",
+          "instruction": "test byte ptr [esi + eax + 0x100], 4",
+          "meaning": "AttackNumericUpdate"
+        },
+        {
+          "address": "0x10010625",
+          "bytes": "83bc06b002000002",
+          "instruction": "cmp dword ptr [esi + eax + 0x2b0], 2",
+          "meaning": "AttackNumericUpdate"
+        },
+        {
+          "address": "0x1001063d",
+          "bytes": "83e1fb",
+          "instruction": "and ecx, 0xfffffffb",
+          "meaning": "AttackNumericUpdate"
+        },
+        {
+          "address": "0x10010666",
+          "bytes": "83bc065801000030",
+          "instruction": "cmp dword ptr [esi + eax + 0x158], 0x30",
+          "meaning": "AttackNumericUpdate"
+        },
+        {
+          "address": "0x1001067e",
+          "bytes": "83e1fb",
+          "instruction": "and ecx, 0xfffffffb",
+          "meaning": "AttackNumericUpdate"
+        },
+        {
+          "address": "0x100106a3",
+          "bytes": "f6c140",
+          "instruction": "test cl, 0x40",
+          "meaning": "AttackNumericUpdate"
+        },
+        {
+          "address": "0x100106b6",
+          "bytes": "83ff19",
+          "instruction": "cmp edi, 0x19",
+          "meaning": "AttackNumericUpdate"
+        },
+        {
+          "address": "0x100106bb",
+          "bytes": "83e1bf",
+          "instruction": "and ecx, 0xffffffbf",
+          "meaning": "AttackNumericUpdate"
+        },
+        {
+          "address": "0x10016260",
+          "bytes": "00000000fcfffffffbfffffffcffffff0000000001000000040000000a00000004000000010000000000000001000000040000000a000000",
+          "meaning": "14 signed DWORD numeric/MISS bounce offsets"
+        }
+      ]
+    },
+    {
+      "version": "late",
+      "file": "GameCtl.dll",
+      "sha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+      "fixtures": [
+        {
+          "address": "0x1000d760",
+          "bytes": "51",
+          "instruction": "push ecx",
+          "meaning": "5C05Decode"
+        },
+        {
+          "address": "0x1000d7b0",
+          "bytes": "51",
+          "instruction": "push ecx",
+          "meaning": "5C06Decode"
+        },
+        {
+          "address": "0x1000d700",
+          "bytes": "83ec0c",
+          "instruction": "sub esp, 0xc",
+          "meaning": "5C82Decode"
+        },
+        {
+          "address": "0x1000e290",
+          "bytes": "51",
+          "instruction": "push ecx",
+          "meaning": "5C0FDecode"
+        },
+        {
+          "address": "0x1000e2a3",
+          "bytes": "e898e2ffff",
+          "instruction": "call 0x1000c540",
+          "meaning": "5C0FDecode"
+        },
+        {
+          "address": "0x1000e2a8",
+          "bytes": "0fbf10",
+          "instruction": "movsx edx, word ptr [eax]",
+          "meaning": "5C0FDecode"
+        },
+        {
+          "address": "0x1000e2ac",
+          "bytes": "ff15f4610110",
+          "instruction": "call dword ptr [0x100161f4]",
+          "meaning": "5C0FDecode"
+        }
+      ]
+    }
+  ],
+  "semantics": [
+    "5C05/5C06 are signed unit/value WORD absolute HP/MP;5C82 is signed target/source/raw-effect WORD. Raw effect is not damage or a MISS result.",
+    "AttackChar distance<3 sets opposing16px-per-tile offsets; horizontal facing assignment wins. Both actor counters reset0, source280=target and target280=-1; source294 receives raw flag, target294 is preserved.",
+    "Connected attack counter increments to48 and clears on49. Numeric counter displays delta/MISS1..13, HP interpolation/readout1..26, clears on27. HP/MP/MISS share one slot per unit.",
+    "HP delta row0 for negative, row1 for zero/positive; MP row3. Absolute HP interpolates old->new during11..20; color boundaries below30%, above70%.",
+    "CounterMilliseconds40 is the existing configurable Unity presentation mapping; no original wall-clock/frame rate measurement, wire framing/socket or operating damage/cost rule is claimed."
+  ]
+}

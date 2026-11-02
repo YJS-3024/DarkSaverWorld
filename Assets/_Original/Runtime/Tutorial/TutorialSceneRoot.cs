@@ -33,7 +33,8 @@ namespace DarkSaver.Original.Tutorial
         private RawImage magicFx, displayPosition, spellIcon;
         private readonly List<RawImage> orderIcons = new List<RawImage>();
         private AudioSource music;
-        private int musicRepeats, rangeKey = int.MinValue;
+        private readonly DarkSaver.Original.Campaign.NativeScoreRepeat tutorialMusicRepeat=new DarkSaver.Original.Campaign.NativeScoreRepeat();
+        private int rangeKey = int.MinValue;
         private bool active, consumedPress, completionAttempted, delivered;
         private Vector2 previousPointer;
         private EntryCharacter character;
@@ -60,6 +61,7 @@ namespace DarkSaver.Original.Tutorial
             var reply = server.Request_BeginTutorial();
             if (!reply.Accepted) { Debug.LogError("Original tutorial entry rejected: " + reply.Failure, this); return; }
             if (canvasObject == null) Build();
+            tutorialMusicRepeat.Stop();if(music!=null)music.Stop();
             canvasObject.SetActive(true); active = true; consumedPress = true; view = reply.View;
             previousPointer = Input.mousePosition; Paint();
         }
@@ -75,6 +77,7 @@ namespace DarkSaver.Original.Tutorial
             screen = Group((RectTransform)canvas.transform, "Native 640x480", new Rect(0, 0, 640, 480));
             screen.anchorMin = screen.anchorMax = screen.pivot = new Vector2(.5f, .5f); screen.anchoredPosition = Vector2.zero;
             screen.gameObject.AddComponent<RectMask2D>();
+            screen.gameObject.AddComponent<DarkSaver.Original.UI.NativeTextSurface>();
             if (font == null)
             {
                 font = Font.CreateDynamicFontFromOSFont(new[] { "굴림", "Gulim", "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans CJK KR" }, 12);
@@ -152,7 +155,7 @@ namespace DarkSaver.Original.Tutorial
             for (int i = 0; i < 3; i++)
             {
                 int order = i + 1;
-                var button = Hit(orderMenu, "Order " + order, new Rect(i == 0 ? 32 : i == 1 ? 0 : 64, i == 0 ? 0 : 64, 32, 32), () => Send(new TutorialInput(TutorialInputKind.Order, 0, order)));
+                var button = Hit(orderMenu, "Order " + order, new Rect(i == 0 ? 32 : i == 1 ? 8 : 56, i == 0 ? 0 : 64, 32, 32), () => Send(new TutorialInput(TutorialInputKind.Order, 0, order)));
                 // Micon native order column: direct, auto attack, auto defense.
                 orderIcons.Add(Picture((RectTransform)button.transform, "Native order icon", new Rect(0, 0, 32, 32), art.icons, new Rect(i * 32, 64, 32, 32)));
             }
@@ -185,11 +188,21 @@ namespace DarkSaver.Original.Tutorial
         {
             if (waitingActive) { LateWaitingLesson(); return; }
             if (!active) return;
-            view = server.TutorialSnapshot; if (view == null) { active = false; canvasObject.SetActive(false); music.Stop(); return; }
+            view = server.TutorialSnapshot; if (view == null) { active = false; canvasObject.SetActive(false); music.Stop();tutorialMusicRepeat.Stop();return; }
             Paint();
             if (view.Error.Length > 0) { ShowFault(view.Error, false); return; }
             if (view.Completed && !completionAttempted) TryComplete();
-            if (view.MusicStarted && musicRepeats <= 1000 && !music.isPlaying) { music.Stop(); music.Play(); musicRepeats++; }
+            if(!active||!isActiveAndEnabled)return;AdvanceTutorialMusic();
+        }
+        private void AdvanceTutorialMusic()
+        {
+            if(music==null||view==null||!music.isActiveAndEnabled)return;
+            if(!view.MusicStarted||!DarkSaver.Original.UI.OriginalClientPreferences.Current.Music)
+            {if(tutorialMusicRepeat.Starts!=0||music.isPlaying)music.Stop();tutorialMusicRepeat.Stop();return;}
+            var clip=music.clip;if(clip==null||clip.loadState==AudioDataLoadState.Failed){music.Stop();tutorialMusicRepeat.Stop();return;}
+            if(tutorialMusicRepeat.Starts==0){music.Play();tutorialMusicRepeat.Begin();}
+            if(clip.loadState!=AudioDataLoadState.Loaded)return;
+            if(tutorialMusicRepeat.Observe(music.isPlaying))music.Play();
         }
         private void Send(TutorialInput input)
         {
@@ -320,7 +333,7 @@ namespace DarkSaver.Original.Tutorial
         }
         private Text Label(RectTransform parent, string name, Rect rect, string text, TextAnchor alignment = TextAnchor.UpperLeft, int size = 12)
         {
-            var label = Group(parent, name, rect).gameObject.AddComponent<Text>(); label.font = font; label.fontSize = size; label.color = Color.white;
+            var label = Group(parent, name, rect).gameObject.AddComponent<DarkSaver.Original.UI.NativeBitmapText>(); label.font = font; label.fontSize = size; label.color = Color.white;
             label.alignment = alignment; label.horizontalOverflow = HorizontalWrapMode.Wrap; label.verticalOverflow = VerticalWrapMode.Overflow;
             label.supportRichText = false; label.raycastTarget = false; label.text = text; return label;
         }
@@ -334,7 +347,7 @@ namespace DarkSaver.Original.Tutorial
         {
             RestoreWaitingCursor();
             waitingActive = false; if (waitingCanvas != null) waitingCanvas.SetActive(false);
-            active = false; if (canvasObject != null) canvasObject.SetActive(false); if (music != null) music.Stop();
+            active = false; if (canvasObject != null) canvasObject.SetActive(false); if (music != null) music.Stop();tutorialMusicRepeat.Stop();
         }
         private void OnDestroy()
         {

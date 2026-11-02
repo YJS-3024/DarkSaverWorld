@@ -1,0 +1,574 @@
+
+UserUnit.dll [SHA256 74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+1000f180 <.text+0xe180>:
+1000f180:	6a ff                	push   0xffffffff
+1000f182:	68 68 1f 01 10       	push   0x10011f68
+1000f187:	64 a1 00 00 00 00    	mov    eax,fs:0x0
+1000f18d:	50                   	push   eax
+1000f18e:	64 89 25 00 00 00 00 	mov    DWORD PTR fs:0x0,esp
+1000f195:	83 ec 1c             	sub    esp,0x1c
+1000f198:	56                   	push   esi
+1000f199:	57                   	push   edi
+1000f19a:	8d 4c 24 0c          	lea    ecx,[esp+0xc]
+1000f19e:	e8 f9 26 00 00       	call   0x1001189c
+1000f1a3:	8d 4c 24 08          	lea    ecx,[esp+0x8]
+1000f1a7:	c7 44 24 2c 00 00 00 	mov    DWORD PTR [esp+0x2c],0x0
+1000f1ae:	00 
+1000f1af:	e8 e8 26 00 00       	call   0x1001189c
+1000f1b4:	8d 4c 24 10          	lea    ecx,[esp+0x10]
+1000f1b8:	c6 44 24 2c 01       	mov    BYTE PTR [esp+0x2c],0x1
+1000f1bd:	e8 aa 26 00 00       	call   0x1001186c
+1000f1c2:	8b 44 24 38          	mov    eax,DWORD PTR [esp+0x38]
+1000f1c6:	8d 4c 24 0c          	lea    ecx,[esp+0xc]
+1000f1ca:	50                   	push   eax
+1000f1cb:	68 58 62 01 10       	push   0x10016258
+1000f1d0:	51                   	push   ecx
+1000f1d1:	c6 44 24 38 02       	mov    BYTE PTR [esp+0x38],0x2
+1000f1d6:	e8 03 27 00 00       	call   0x100118de
+1000f1db:	83 c4 0c             	add    esp,0xc
+1000f1de:	33 f6                	xor    esi,esi
+1000f1e0:	85 f6                	test   esi,esi
+1000f1e2:	75 10                	jne    0x1000f1f4
+1000f1e4:	68 44 62 01 10       	push   0x10016244
+1000f1e9:	8d 4c 24 0c          	lea    ecx,[esp+0xc]
+1000f1ed:	e8 9e 26 00 00       	call   0x10011890
+1000f1f2:	eb 13                	jmp    0x1000f207
+1000f1f4:	56                   	push   esi
+1000f1f5:	8d 54 24 0c          	lea    edx,[esp+0xc]
+1000f1f9:	68 30 62 01 10       	push   0x10016230
+1000f1fe:	52                   	push   edx
+1000f1ff:	e8 da 26 00 00       	call   0x100118de
+1000f204:	83 c4 0c             	add    esp,0xc
+1000f207:	8b 44 24 08          	mov    eax,DWORD PTR [esp+0x8]
+1000f20b:	8b 0d e0 b3 10 10    	mov    ecx,DWORD PTR ds:0x1010b3e0
+1000f211:	50                   	push   eax
+1000f212:	ff 51 14             	call   DWORD PTR [ecx+0x14]
+1000f215:	83 c4 04             	add    esp,0x4
+1000f218:	85 c0                	test   eax,eax
+1000f21a:	74 14                	je     0x1000f230
+1000f21c:	8b 54 24 0c          	mov    edx,DWORD PTR [esp+0xc]
+1000f220:	a1 e0 b3 10 10       	mov    eax,ds:0x1010b3e0
+1000f225:	52                   	push   edx
+1000f226:	ff 50 0c             	call   DWORD PTR [eax+0xc]
+1000f229:	83 c4 04             	add    esp,0x4
+1000f22c:	85 c0                	test   eax,eax
+1000f22e:	75 22                	jne    0x1000f252
+1000f230:	46                   	inc    esi
+1000f231:	83 fe 04             	cmp    esi,0x4
+1000f234:	7c aa                	jl     0x1000f1e0
+1000f236:	68 08 62 01 10       	push   0x10016208
+1000f23b:	8d 4c 24 0c          	lea    ecx,[esp+0xc]
+1000f23f:	e8 4c 26 00 00       	call   0x10011890
+1000f244:	68 24 62 01 10       	push   0x10016224
+1000f249:	8d 4c 24 10          	lea    ecx,[esp+0x10]
+1000f24d:	e8 3e 26 00 00       	call   0x10011890
+1000f252:	8d 4c 24 0c          	lea    ecx,[esp+0xc]
+1000f256:	8d 54 24 08          	lea    edx,[esp+0x8]
+1000f25a:	51                   	push   ecx
+1000f25b:	8b 0d e0 b3 10 10    	mov    ecx,DWORD PTR ds:0x1010b3e0
+1000f261:	52                   	push   edx
+1000f262:	e8 f9 25 00 00       	call   0x10011860
+1000f267:	8b f8                	mov    edi,eax
+1000f269:	85 ff                	test   edi,edi
+1000f26b:	74 46                	je     0x1000f2b3
+1000f26d:	8b 07                	mov    eax,DWORD PTR [edi]
+1000f26f:	8b cf                	mov    ecx,edi
+1000f271:	ff 50 38             	call   DWORD PTR [eax+0x38]
+1000f274:	8b 0d a4 b3 10 10    	mov    ecx,DWORD PTR ds:0x1010b3a4
+1000f27a:	50                   	push   eax
+1000f27b:	6a 00                	push   0x0
+1000f27d:	57                   	push   edi
+1000f27e:	51                   	push   ecx
+1000f27f:	e8 d6 25 00 00       	call   0x1001185a
+1000f284:	8b 0d e0 b3 10 10    	mov    ecx,DWORD PTR ds:0x1010b3e0
+1000f28a:	83 c4 10             	add    esp,0x10
+1000f28d:	8b f0                	mov    esi,eax
+1000f28f:	57                   	push   edi
+1000f290:	e8 bf 25 00 00       	call   0x10011854
+1000f295:	85 f6                	test   esi,esi
+1000f297:	74 1a                	je     0x1000f2b3
+1000f299:	33 c9                	xor    ecx,ecx
+1000f29b:	33 c0                	xor    eax,eax
+1000f29d:	51                   	push   ecx
+1000f29e:	56                   	push   esi
+1000f29f:	51                   	push   ecx
+1000f2a0:	8b 4c 24 40          	mov    ecx,DWORD PTR [esp+0x40]
+1000f2a4:	50                   	push   eax
+1000f2a5:	e8 bc 25 00 00       	call   0x10011866
+1000f2aa:	8b 16                	mov    edx,DWORD PTR [esi]
+1000f2ac:	6a 01                	push   0x1
+1000f2ae:	8b ce                	mov    ecx,esi
+1000f2b0:	ff 52 04             	call   DWORD PTR [edx+0x4]
+1000f2b3:	a1 e0 b3 10 10       	mov    eax,ds:0x1010b3e0
+1000f2b8:	ff 50 04             	call   DWORD PTR [eax+0x4]
+1000f2bb:	8d 4c 24 10          	lea    ecx,[esp+0x10]
+1000f2bf:	c6 44 24 2c 01       	mov    BYTE PTR [esp+0x2c],0x1
+1000f2c4:	e8 85 25 00 00       	call   0x1001184e
+1000f2c9:	8d 4c 24 08          	lea    ecx,[esp+0x8]
+1000f2cd:	c6 44 24 2c 00       	mov    BYTE PTR [esp+0x2c],0x0
+1000f2d2:	e8 cb 25 00 00       	call   0x100118a2
+1000f2d7:	8d 4c 24 0c          	lea    ecx,[esp+0xc]
+1000f2db:	c7 44 24 2c ff ff ff 	mov    DWORD PTR [esp+0x2c],0xffffffff
+1000f2e2:	ff 
+1000f2e3:	e8 ba 25 00 00       	call   0x100118a2
+1000f2e8:	8b 4c 24 24          	mov    ecx,DWORD PTR [esp+0x24]
+1000f2ec:	5f                   	pop    edi
+1000f2ed:	5e                   	pop    esi
+1000f2ee:	64                   	fs
+1000f2ef:	89                   	.byte 0x89
+
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00434d30 <.text+0x33d30>:
+  434d30:	8b 96 80 00 00 00    	mov    edx,DWORD PTR [esi+0x80]
+  434d36:	8b 46 44             	mov    eax,DWORD PTR [esi+0x44]
+  434d39:	8b 4e 40             	mov    ecx,DWORD PTR [esi+0x40]
+  434d3c:	52                   	push   edx
+  434d3d:	50                   	push   eax
+  434d3e:	51                   	push   ecx
+  434d3f:	8d 54 24 20          	lea    edx,[esp+0x20]
+  434d43:	68 c8 00 49 00       	push   0x4900c8
+  434d48:	52                   	push   edx
+  434d49:	e8 80 48 04 00       	call   0x4795ce
+  434d4e:	83 c4 14             	add    esp,0x14
+  434d51:	8d 4c 24 10          	lea    ecx,[esp+0x10]
+  434d55:	e8 3e 48 04 00       	call   0x479598
+  434d5a:	8b 86 94 00 00 00    	mov    eax,DWORD PTR [esi+0x94]
+  434d60:	c6 44 24 40 01       	mov    BYTE PTR [esp+0x40],0x1
+  434d65:	3b c3                	cmp    eax,ebx
+  434d67:	74 14                	je     0x434d7d
+  434d69:	8b 06                	mov    eax,DWORD PTR [esi]
+  434d6b:	8b ce                	mov    ecx,esi
+  434d6d:	ff 50 04             	call   DWORD PTR [eax+0x4]
+  434d70:	50                   	push   eax
+  434d71:	8d 4c 24 14          	lea    ecx,[esp+0x14]
+  434d75:	68 bc 00 49 00       	push   0x4900bc
+  434d7a:	51                   	push   ecx
+  434d7b:	eb 12                	jmp    0x434d8f
+  434d7d:	8b 16                	mov    edx,DWORD PTR [esi]
+  434d7f:	8b ce                	mov    ecx,esi
+  434d81:	ff 52 04             	call   DWORD PTR [edx+0x4]
+  434d84:	50                   	push   eax
+  434d85:	8d 44 24 14          	lea    eax,[esp+0x14]
+  434d89:	68 ac 00 49 00       	push   0x4900ac
+  434d8e:	50                   	push   eax
+  434d8f:	e8 3a 48 04 00       	call   0x4795ce
+  434d94:	8b 4c 24 20          	mov    ecx,DWORD PTR [esp+0x20]
+  434d98:	8b 54 24 1c          	mov    edx,DWORD PTR [esp+0x1c]
+  434d9c:	83 c4 0c             	add    esp,0xc
+  434d9f:	51                   	push   ecx
+  434da0:	52                   	push   edx
+  434da1:	68 18 45 48 00       	push   0x484518
+  434da6:	8b cd                	mov    ecx,ebp
+  434da8:	e8 87 4b 04 00       	call   0x479934
+  434dad:	8b 06                	mov    eax,DWORD PTR [esi]
+  434daf:	8b ce                	mov    ecx,esi
+  434db1:	ff 50 04             	call   DWORD PTR [eax+0x4]
+  434db4:	83 f8 13             	cmp    eax,0x13
+  434db7:	75 35                	jne    0x434dee
+  434db9:	68 8c 00 49 00       	push   0x49008c
+  434dbe:	8d 4c 24 14          	lea    ecx,[esp+0x14]
+  434dc2:	e8 ef 47 04 00       	call   0x4795b6
+  434dc7:	8b 8e 80 00 00 00    	mov    ecx,DWORD PTR [esi+0x80]
+  434dcd:	8b 86 b4 00 00 00    	mov    eax,DWORD PTR [esi+0xb4]
+  434dd3:	3b cb                	cmp    ecx,ebx
+  434dd5:	74 05                	je     0x434ddc
+  434dd7:	b8 01 00 00 00       	mov    eax,0x1
+  434ddc:	8b 4c 24 10          	mov    ecx,DWORD PTR [esp+0x10]
+  434de0:	50                   	push   eax
+  434de1:	51                   	push   ecx
+  434de2:	68 18 45 48 00       	push   0x484518
+  434de7:	8b cd                	mov    ecx,ebp
+  434de9:	e8 4c 4b 04 00       	call   0x47993a
+
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00476288 <.text+0x75288>:
+  476288:	8b 74 24 30          	mov    esi,DWORD PTR [esp+0x30]
+  47628c:	8d 4c 24 30          	lea    ecx,[esp+0x30]
+  476290:	6a 0c                	push   0xc
+  476292:	b3 01                	mov    bl,0x1
+  476294:	51                   	push   ecx
+  476295:	8b ce                	mov    ecx,esi
+  476297:	88 5c 24 2c          	mov    BYTE PTR [esp+0x2c],bl
+  47629b:	e8 78 37 00 00       	call   0x479a18
+  4762a0:	50                   	push   eax
+  4762a1:	8d 4c 24 14          	lea    ecx,[esp+0x14]
+  4762a5:	c6 44 24 28 02       	mov    BYTE PTR [esp+0x28],0x2
+  4762aa:	e8 2b 33 00 00       	call   0x4795da
+  4762af:	8d 4c 24 30          	lea    ecx,[esp+0x30]
+  4762b3:	88 5c 24 24          	mov    BYTE PTR [esp+0x24],bl
+  4762b7:	e8 ca 32 00 00       	call   0x479586
+  4762bc:	8d 54 24 14          	lea    edx,[esp+0x14]
+  4762c0:	6a 0c                	push   0xc
+  4762c2:	52                   	push   edx
+  4762c3:	8b ce                	mov    ecx,esi
+  4762c5:	e8 fc 37 00 00       	call   0x479ac6
+
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+004537d5 <.text+0x527d5>:
+  4537d5:	a1 e4 0a 49 00       	mov    eax,ds:0x490ae4
+  4537da:	c6 44 24 78 01       	mov    BYTE PTR [esp+0x78],0x1
+  4537df:	85 c0                	test   eax,eax
+  4537e1:	75 07                	jne    0x4537ea
+  4537e3:	8b ce                	mov    ecx,esi
+  4537e5:	e8 1f ed fa ff       	call   0x402509
+  4537ea:	8b 8e d0 00 00 00    	mov    ecx,DWORD PTR [esi+0xd0]
+  4537f0:	6a 02                	push   0x2
+  4537f2:	e8 17 de fa ff       	call   0x40160e
+  4537f7:	50                   	push   eax
+  4537f8:	8d 4c 24 08          	lea    ecx,[esp+0x8]
+  4537fc:	e8 b5 5d 02 00       	call   0x4795b6
+  453801:	8b 44 24 04          	mov    eax,DWORD PTR [esp+0x4]
+  453805:	8b 48 f8             	mov    ecx,DWORD PTR [eax-0x8]
+  453808:	85 c9                	test   ecx,ecx
+  45380a:	75 2f                	jne    0x45383b
+  45380c:	8d 4c 24 04          	lea    ecx,[esp+0x4]
+  453810:	c6 44 24 78 00       	mov    BYTE PTR [esp+0x78],0x0
+  453815:	e8 6c 5d 02 00       	call   0x479586
+  45381a:	8d 4c 24 08          	lea    ecx,[esp+0x8]
+  45381e:	c7 44 24 78 ff ff ff 	mov    DWORD PTR [esp+0x78],0xffffffff
+  453825:	ff 
+  453826:	e8 5b 5d 02 00       	call   0x479586
+  45382b:	5e                   	pop    esi
+  45382c:	8b 4c 24 6c          	mov    ecx,DWORD PTR [esp+0x6c]
+  453830:	64 89 0d 00 00 00 00 	mov    DWORD PTR fs:0x0,ecx
+  453837:	83 c4 78             	add    esp,0x78
+  45383a:	c3                   	ret
+  45383b:	8b 8e d0 00 00 00    	mov    ecx,DWORD PTR [esi+0xd0]
+  453841:	57                   	push   edi
+  453842:	68 60 2a 49 00       	push   0x492a60
+  453847:	e8 2c 62 02 00       	call   0x479a78
+  45384c:	81 c6 b8 00 00 00    	add    esi,0xb8
+  453852:	8d 4c 24 0c          	lea    ecx,[esp+0xc]
+  453856:	56                   	push   esi
+  453857:	e8 7e 5d 02 00       	call   0x4795da
+  45385c:	68 d8 09 49 00       	push   0x4909d8
+  453861:	8d 4c 24 10          	lea    ecx,[esp+0x10]
+  453865:	e8 10 63 02 00       	call   0x479b7a
+  45386a:	8b 44 24 0c          	mov    eax,DWORD PTR [esp+0xc]
+  45386e:	8b 54 24 08          	mov    edx,DWORD PTR [esp+0x8]
+  453872:	52                   	push   edx
+  453873:	50                   	push   eax
+  453874:	8b 48 f8             	mov    ecx,DWORD PTR [eax-0x8]
+  453877:	8d 44 24 18          	lea    eax,[esp+0x18]
+  45387b:	51                   	push   ecx
+  45387c:	6a 09                	push   0x9
+  45387e:	6a 7a                	push   0x7a
+  453880:	68 c8 09 49 00       	push   0x4909c8
+  453885:	50                   	push   eax
+  453886:	ff 15 a4 97 49 00    	call   DWORD PTR ds:0x4997a4
+  45388c:	8d 7c 24 2c          	lea    edi,[esp+0x2c]
+  453890:	83 c9 ff             	or     ecx,0xffffffff
+  453893:	33 c0                	xor    eax,eax
+  453895:	83 c4 1c             	add    esp,0x1c
+  453898:	f2 ae                	repnz scas al,BYTE PTR es:[edi]
+  45389a:	f7 d1                	not    ecx
+  45389c:	8d 54 24 10          	lea    edx,[esp+0x10]
+  4538a0:	49                   	dec    ecx
+  4538a1:	52                   	push   edx
+  4538a2:	51                   	push   ecx
+  4538a3:	8b 0d a0 52 49 00    	mov    ecx,DWORD PTR ds:0x4952a0
+  4538a9:	e8 dc f2 fa ff       	call   0x402b8a
+
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00425cf0 <.text+0x24cf0>:
+  425cf0:	8b 44 24 04          	mov    eax,DWORD PTR [esp+0x4]
+  425cf4:	56                   	push   esi
+  425cf5:	85 c0                	test   eax,eax
+  425cf7:	8b f1                	mov    esi,ecx
+  425cf9:	74 1d                	je     0x425d18
+  425cfb:	6a 00                	push   0x0
+  425cfd:	50                   	push   eax
+  425cfe:	8b 46 20             	mov    eax,DWORD PTR [esi+0x20]
+  425d01:	68 c5 00 00 00       	push   0xc5
+  425d06:	50                   	push   eax
+  425d07:	ff 15 e4 98 49 00    	call   DWORD PTR ds:0x4998e4
+  425d0d:	8b 4c 24 0c          	mov    ecx,DWORD PTR [esp+0xc]
+  425d11:	89 4e 78             	mov    DWORD PTR [esi+0x78],ecx
+  425d14:	5e                   	pop    esi
+  425d15:	c2 08 00             	ret    0x8
+
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+0043b970 <.text+0x3a970>:
+  43b970:	8b 44 24 08          	mov    eax,DWORD PTR [esp+0x8]
+  43b974:	66 8b 54 24 0c       	mov    dx,WORD PTR [esp+0xc]
+  43b979:	56                   	push   esi
+  43b97a:	8b 74 24 08          	mov    esi,DWORD PTR [esp+0x8]
+  43b97e:	8b 08                	mov    ecx,DWORD PTR [eax]
+  43b980:	66 89 14 31          	mov    WORD PTR [ecx+esi*1],dx
+  43b984:	8b 08                	mov    ecx,DWORD PTR [eax]
+  43b986:	83 c1 02             	add    ecx,0x2
+  43b989:	5e                   	pop    esi
+  43b98a:	89 08                	mov    DWORD PTR [eax],ecx
+  43b98c:	c3                   	ret
+  43b98d:	90                   	nop
+  43b98e:	90                   	nop
+  43b98f:	90                   	nop
+  43b990:	cc                   	int3
+  43b991:	cc                   	int3
+  43b992:	cc                   	int3
+  43b993:	cc                   	int3
+  43b994:	cc                   	int3
+  43b995:	cc                   	int3
+  43b996:	cc                   	int3
+  43b997:	cc                   	int3
+  43b998:	cc                   	int3
+  43b999:	cc                   	int3
+  43b99a:	cc                   	int3
+  43b99b:	cc                   	int3
+  43b99c:	cc                   	int3
+  43b99d:	cc                   	int3
+  43b99e:	cc                   	int3
+  43b99f:	cc                   	int3
+  43b9a0:	8b 44 24 08          	mov    eax,DWORD PTR [esp+0x8]
+  43b9a4:	8a 54 24 0c          	mov    dl,BYTE PTR [esp+0xc]
+  43b9a8:	56                   	push   esi
+  43b9a9:	8b 74 24 08          	mov    esi,DWORD PTR [esp+0x8]
+  43b9ad:	8b 08                	mov    ecx,DWORD PTR [eax]
+  43b9af:	88 14 31             	mov    BYTE PTR [ecx+esi*1],dl
+  43b9b2:	8b 08                	mov    ecx,DWORD PTR [eax]
+  43b9b4:	41                   	inc    ecx
+  43b9b5:	5e                   	pop    esi
+  43b9b6:	89 08                	mov    DWORD PTR [eax],ecx
+  43b9b8:	c3                   	ret
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00433d00 <.text+0x32d00>:
+  433d00:	56                   	push   esi
+  433d01:	8b f1                	mov    esi,ecx
+  433d03:	57                   	push   edi
+  433d04:	8b 46 78             	mov    eax,DWORD PTR [esi+0x78]
+  433d07:	85 c0                	test   eax,eax
+  433d09:	0f 84 c1 00 00 00    	je     0x433dd0
+  433d0f:	8b 46 1c             	mov    eax,DWORD PTR [esi+0x1c]
+  433d12:	85 c0                	test   eax,eax
+  433d14:	0f 85 b6 00 00 00    	jne    0x433dd0
+  433d1a:	8b 7c 24 10          	mov    edi,DWORD PTR [esp+0x10]
+  433d1e:	8b 4e 40             	mov    ecx,DWORD PTR [esi+0x40]
+  433d21:	8b 56 44             	mov    edx,DWORD PTR [esi+0x44]
+  433d24:	c7 46 24 00 00 00 00 	mov    DWORD PTR [esi+0x24],0x0
+  433d2b:	8b 07                	mov    eax,DWORD PTR [edi]
+  433d2d:	2b c1                	sub    eax,ecx
+  433d2f:	8b 4f 04             	mov    ecx,DWORD PTR [edi+0x4]
+  433d32:	89 46 10             	mov    DWORD PTR [esi+0x10],eax
+  433d35:	8b 46 18             	mov    eax,DWORD PTR [esi+0x18]
+  433d38:	2b ca                	sub    ecx,edx
+  433d3a:	85 c0                	test   eax,eax
+  433d3c:	89 4e 14             	mov    DWORD PTR [esi+0x14],ecx
+  433d3f:	75 4d                	jne    0x433d8e
+  433d41:	ff 15 f0 97 49 00    	call   DWORD PTR ds:0x4997f0
+  433d47:	8b 96 84 00 00 00    	mov    edx,DWORD PTR [esi+0x84]
+  433d4d:	8b f8                	mov    edi,eax
+  433d4f:	2b c2                	sub    eax,edx
+  433d51:	3d fa 00 00 00       	cmp    eax,0xfa
+  433d56:	7d 11                	jge    0x433d69
+  433d58:	8b 86 80 00 00 00    	mov    eax,DWORD PTR [esi+0x80]
+  433d5e:	85 c0                	test   eax,eax
+  433d60:	74 12                	je     0x433d74
+  433d62:	8b 16                	mov    edx,DWORD PTR [esi]
+  433d64:	8b ce                	mov    ecx,esi
+  433d66:	ff 52 48             	call   DWORD PTR [edx+0x48]
+  433d69:	89 be 84 00 00 00    	mov    DWORD PTR [esi+0x84],edi
+  433d6f:	5f                   	pop    edi
+  433d70:	5e                   	pop    esi
+  433d71:	c2 08 00             	ret    0x8
+  433d74:	8b 4e 14             	mov    ecx,DWORD PTR [esi+0x14]
+  433d77:	8b 56 10             	mov    edx,DWORD PTR [esi+0x10]
+  433d7a:	8b 06                	mov    eax,DWORD PTR [esi]
+  433d7c:	51                   	push   ecx
+  433d7d:	52                   	push   edx
+  433d7e:	8b ce                	mov    ecx,esi
+  433d80:	89 be 84 00 00 00    	mov    DWORD PTR [esi+0x84],edi
+  433d86:	ff 50 28             	call   DWORD PTR [eax+0x28]
+  433d89:	5f                   	pop    edi
+  433d8a:	5e                   	pop    esi
+  433d8b:	c2 08 00             	ret    0x8
+  433d8e:	8b 7e 20             	mov    edi,DWORD PTR [esi+0x20]
+  433d91:	8b 46 54             	mov    eax,DWORD PTR [esi+0x54]
+  433d94:	8b 0c b8             	mov    ecx,DWORD PTR [eax+edi*4]
+  433d97:	c7 41 0c 01 00 00 00 	mov    DWORD PTR [ecx+0xc],0x1
+  433d9e:	8b 4e 14             	mov    ecx,DWORD PTR [esi+0x14]
+  433da1:	c7 46 20 00 00 00 00 	mov    DWORD PTR [esi+0x20],0x0
+  433da8:	c7 46 18 00 00 00 00 	mov    DWORD PTR [esi+0x18],0x0
+  433daf:	8b 56 54             	mov    edx,DWORD PTR [esi+0x54]
+  433db2:	51                   	push   ecx
+  433db3:	8b 04 ba             	mov    eax,DWORD PTR [edx+edi*4]
+  433db6:	8b 56 10             	mov    edx,DWORD PTR [esi+0x10]
+  433db9:	83 c0 20             	add    eax,0x20
+  433dbc:	52                   	push   edx
+  433dbd:	50                   	push   eax
+  433dbe:	ff 15 08 99 49 00    	call   DWORD PTR ds:0x499908
+  433dc4:	85 c0                	test   eax,eax
+  433dc6:	74 08                	je     0x433dd0
+  433dc8:	8b 06                	mov    eax,DWORD PTR [esi]
+  433dca:	57                   	push   edi
+  433dcb:	8b ce                	mov    ecx,esi
+  433dcd:	ff 50 10             	call   DWORD PTR [eax+0x10]
+  433dd0:	5f                   	pop    edi
+  433dd1:	5e                   	pop    esi
+  433dd2:	c2 08 00             	ret    0x8
+  433dd5:	90                   	nop
+  433dd6:	90                   	nop
+  433dd7:	90                   	nop
+  433dd8:	90                   	nop
+  433dd9:	90                   	nop
+  433dda:	90                   	nop
+  433ddb:	90                   	nop
+  433ddc:	90                   	nop
+  433ddd:	90                   	nop
+  433dde:	90                   	nop
+  433ddf:	90                   	nop
+  433de0:	cc                   	int3
+  433de1:	cc                   	int3
+  433de2:	cc                   	int3
+  433de3:	cc                   	int3
+  433de4:	cc                   	int3
+  433de5:	cc                   	int3
+  433de6:	cc                   	int3
+  433de7:	cc                   	int3
+  433de8:	cc                   	int3
+  433de9:	cc                   	int3
+  433dea:	cc                   	int3
+  433deb:	cc                   	int3
+  433dec:	cc                   	int3
+  433ded:	cc                   	int3
+  433dee:	cc                   	int3
+  433def:	cc                   	int3
+  433df0:	cc                   	int3
+  433df1:	cc                   	int3
+  433df2:	cc                   	int3
+  433df3:	cc                   	int3
+  433df4:	cc                   	int3
+  433df5:	cc                   	int3
+  433df6:	cc                   	int3
+  433df7:	cc                   	int3
+  433df8:	cc                   	int3
+  433df9:	cc                   	int3
+  433dfa:	cc                   	int3
+  433dfb:	cc                   	int3
+  433dfc:	cc                   	int3
+  433dfd:	cc                   	int3
+  433dfe:	cc                   	int3
+  433dff:	cc                   	int3
+  433e00:	cc                   	int3
+  433e01:	cc                   	int3
+  433e02:	cc                   	int3
+  433e03:	cc                   	int3
+  433e04:	cc                   	int3
+  433e05:	cc                   	int3
+  433e06:	cc                   	int3
+  433e07:	cc                   	int3
+  433e08:	cc                   	int3
+  433e09:	cc                   	int3
+  433e0a:	cc                   	int3
+  433e0b:	cc                   	int3
+  433e0c:	cc                   	int3
+  433e0d:	cc                   	int3
+  433e0e:	cc                   	int3
+  433e0f:	cc                   	int3
+  433e10:	cc                   	int3
+  433e11:	cc                   	int3
+  433e12:	cc                   	int3
+  433e13:	cc                   	int3
+  433e14:	cc                   	int3
+  433e15:	cc                   	int3
+  433e16:	cc                   	int3
+  433e17:	cc                   	int3
+  433e18:	cc                   	int3
+  433e19:	cc                   	int3
+  433e1a:	cc                   	int3
+  433e1b:	cc                   	int3
+  433e1c:	cc                   	int3
+  433e1d:	cc                   	int3
+  433e1e:	cc                   	int3
+  433e1f:	cc                   	int3
+  433e20:	c2 08 00             	ret    0x8
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+0046bf94 <.text+0x6af94>:
+  46bf94:	8b 85 a0 00 00 00    	mov    eax,DWORD PTR [ebp+0xa0]
+  46bf9a:	8b 48 48             	mov    ecx,DWORD PTR [eax+0x48]
+  46bf9d:	8b 11                	mov    edx,DWORD PTR [ecx]
+  46bf9f:	ff 52 04             	call   DWORD PTR [edx+0x4]
+  46bfa2:	83 f8 01             	cmp    eax,0x1
+  46bfa5:	75 2c                	jne    0x46bfd3
+  46bfa7:	8b 85 f8 02 00 00    	mov    eax,DWORD PTR [ebp+0x2f8]
+  46bfad:	81 c5 24 03 00 00    	add    ebp,0x324
+  46bfb3:	50                   	push   eax
+  46bfb4:	53                   	push   ebx
+  46bfb5:	68 04 0e 49 00       	push   0x490e04
+  46bfba:	55                   	push   ebp
+  46bfbb:	e8 0e d6 00 00       	call   0x4795ce
+  46bfc0:	83 c4 10             	add    esp,0x10
+  46bfc3:	53                   	push   ebx
+  46bfc4:	e8 b7 d5 00 00       	call   0x479580
+  46bfc9:	83 c4 04             	add    esp,0x4
+  46bfcc:	5f                   	pop    edi
+  46bfcd:	5b                   	pop    ebx
+  46bfce:	5e                   	pop    esi
+  46bfcf:	5d                   	pop    ebp
+  46bfd0:	c2 04 00             	ret    0x4
+  46bfd3:	53                   	push   ebx
+  46bfd4:	8d 8d 24 03 00 00    	lea    ecx,[ebp+0x324]
+  46bfda:	e8 d7 d5 00 00       	call   0x4795b6
+  46bfdf:	53                   	push   ebx
+  46bfe0:	e8 9b d5 00 00       	call   0x479580
+  46bfe5:	83 c4 04             	add    esp,0x4
+  46bfe8:	5f                   	pop    edi
+  46bfe9:	5b                   	pop    ebx
+  46bfea:	5e                   	pop    esi
+  46bfeb:	5d                   	pop    ebp
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+0042a5b0 <.text+0x295b0>:
+  42a5b0:	b8 01 00 00 00       	mov    eax,0x1
+  42a5b5:	c3                   	ret
+
+Saver.exe [SHA256 dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689]:     file format pei-i386
+
+
+Disassembly of section .text:
+
+00435130 <.text+0x34130>:
+  435130:	b8 04 00 00 00       	mov    eax,0x4
+  435135:	c3                   	ret

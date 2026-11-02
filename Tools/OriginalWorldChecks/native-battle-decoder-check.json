@@ -1,0 +1,18 @@
+{
+  "cases": 209,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "casesSha256": "ec1a7b77e3e870b312f2516598d6c4fba4e6215af1d3017241284367bf89a47f",
+  "sources": {
+    "Assets/_Original/Runtime/Combat/NativeMovement.cs": "27e5303f272d02594c2e3a13b6a7a3e4ec457c6af7626927006fcbf1e8b5349c",
+    "Assets/_Original/Runtime/Combat/BattleFeedback.cs": "e853bf98fa3d934d95a8eb3a988064282d796407e6259bab2b79a0eed4f2e847",
+    "Assets/_Original/Runtime/Combat/BattleLifecycle.cs": "5d7b01c0b5f7f3742e24716f1f30ce1a3227d93fab880c243f9e7ff1106ad973",
+    "Assets/_Original/Runtime/Combat/BattleTicks.cs": "8b2421cd2835ff77cb2b7898adb213ee8a35320ba48df5add6e05ca7aa507488",
+    "Tools/OriginalWorldChecks/BattleDecoderDifferential.cs": "d5a00e71df2e5d516ba52531babbb6643f6f0098ec2c4bad0c212fe40e15a75c",
+    "Tools/OriginalWorldChecks/check_native_battle_decoder.py": "729a629d81fc4a9d094a71b28fcf909191c7696ad15d0e48ee6509228e6f7fb9",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2"
+  },
+  "scope": "Actual late GameCtl1000EB10 dispatch and1000C540 WORD cursor execute for ten known subtypes. Capture calls to UserUnit imports and number of reads; setters/updates are separately executed by feedback/death/tick checks. Strict malformed-length checks are Unity adapter protections, not claimed native buffer bounds. No socket/Windows UI.",
+  "logs": "/tmp/ds-native-battle-decoder-checks"
+}

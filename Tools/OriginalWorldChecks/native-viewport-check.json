@@ -1,0 +1,25 @@
+{
+  "cases": 2320,
+  "nativeBlits": 12901,
+  "mismatches": 0,
+  "managedGuardAssertions": 12,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "nativeDllSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "sources": {
+    "Assets/_Original/Runtime/Combat/NativeViewport.cs": "f6aabad602a0ddbb080b5bb0eda75e691f9cb3850383dbab857ef107775876da",
+    "Assets/_Original/Runtime/Combat/NativeBodyFrames.cs": "b02149f3e04a1325b7b01bcec6d9b079934572f0d9838a7b52a5fe3af30647cf",
+    "Assets/_Original/Runtime/Combat/NativeUnitFrames.cs": "0e5092c68d56b2646ba0679dc904cd02d259e46d37d7d91b6f65a21acdc822cb",
+    "Assets/_Original/Runtime/Combat/NativeBodyOrder.cs": "f1860e0ce8670d7c69fc8caf5604c53f3935a3441ec59df3a40224b3ee9abeeb",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.BodyLayers.cs": "ac90314d61b014974a6b930b8845daf01359f88dcadcf2a39645dbe54f53445a",
+    "Tools/OriginalWorldChecks/NativeUnitFramesDifferential.cs": "838bee920d601598e1b8857f9dc700fe299a6cc05995258aeef2771a1c396427",
+    "Tools/OriginalWorldChecks/check_native_viewport.py": "44eba890aabf7350f00caff12e645272418f1271da80e6195216a13b9ae059ed",
+    "Tools/OriginalWorldChecks/check_native_unit_frames.py": "da15919716e14e0efe5d371a8cc13eba1629628c82679dc9e3e8405f90fe9331",
+    "Tools/OriginalWorldChecks/check_native_body_scenery.py": "2e67454ffe4541443a1d55d479995521613ed98e410c6e348a8c31fddd480caf",
+    "Tools/OriginalWorldChecks/check_native_body.py": "c374fd9e1c0f1c90ee0360c40412253b843aa933e43573cbe2b5a7baf4125a8d",
+    "Tools/OriginalWorldChecks/native_feedback_renderer.py": "e5e6b2b73c1c899545394ed36f4b45f1e9b53fe06516250f95758e4e5322fd06",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2"
+  },
+  "scope": "Actual SetMainView/F900/F940 and FCD0/B5D0/BD00/F970 with shifted origins, exclusive viewport edges and local row9.32/64px, movement/parts/water/flight/hidden/death/attack/numbers. Captures pre-device DirectDraw calls; actual device clipping, camera centering, Unity screen and wall-clock speed are not measured.",
+  "logs": "/tmp/ds-native-viewport-checks"
+}

@@ -34,6 +34,10 @@ def key(im):
 
 
 def main():
+    from build_growth_assets import build
+    build()
+    from build_combat_assets import build as build_combat
+    build_combat()
     OUT.mkdir(parents=True, exist_ok=True); DATA.mkdir(parents=True, exist_ok=True)
     report = dict(sources={}, outputs=[], sourceScope='User-confirmed43x43 Kaosia exterior; late native interiors; explicit local routing and photo/user staff references.',
                   policy='Unknown starting funds, bank/storage fees, resale, revival and hiring approval remain disabled.', actualUnityPlay=False)
@@ -85,7 +89,7 @@ def main():
             placements.append(dict(picture=decoration_ids[k], x=s['x']*32, y=s['y']*32, width=picture.width, height=picture.height))
         title = '카오시아' if old else next(r[1] for r in routes if r[0] == map_id)
         row = dict(id=map_id, title=title, sourceVersion='Saver_1.2' if old else 'Saver_Late', training=map_id == 101,
-                   ground=len(grounds), map=dict(width=m['width'], height=m['height'], attributes=[0 if (t[3]&127)>27 else t[3]&127 for t in m['tiles']],
+                   ground=len(grounds), map=dict(width=m['width'], height=m['height'], attributes=[0 if (t[3]&127)>27 else t[3]&127 for t in m['tiles']], renderAttributes=[t[3] for t in m['tiles']],
                    terrain=battle_map['terrain'], abilities=battle_map['abilities']), decorations=placements, npcs=[], portals=[])
         # Staff positions are source-canvas origins; customer counter cells are separate.
         if map_id in [2000,2100,2200,2300,2800,2900,2400,2510]:
@@ -111,6 +115,7 @@ def main():
     job_flags=['보','비','기','수','창','궁','승','신','마','사']
     items=[dict(id=int(r['번호']),picture=number(r['그림1']),equipType=number(r['장착위']),requiredLevel=number(r['장착렙']),
                 jobs=[job for job,u in units.items() if job in (100,101,103) and 0<=number(u['병종'])<len(job_flags) and number(r[job_flags[number(u['병종'])]])==1],
+                jobKinds=[i for i,flag in enumerate(job_flags)if number(r[flag])==1],
                 name=r['이름'].replace('_',' '),description=r['설명'].replace('_',' '),price=number(r['가격']),sellKnown=False,sellPrice=0) for r in rows]
     guide = list(csv.DictReader(source(ROOT/'분석/Saver_Late/screenshots/added_kaosia_shop_reference.csv').open(encoding='utf-8-sig')))
     shops=[]
@@ -159,7 +164,7 @@ def main():
         if (p.suffix=='.cs' or p.is_dir()) and not Path(str(p)+'.meta').exists():metadata.meta(p,ROOT/'Assets',folder=p.is_dir())
     def ref(p,kind=2800000):return '{fileID: '+str(kind)+', guid: '+guid(p)+', type: 3}'
     text='%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!114 &11400000\nMonoBehaviour:\n  m_ObjectHideFlags: 0\n  m_Script: {fileID: 11500000, guid: '+guid(BASE/'Runtime/World/NativeWorldArt.cs')+', type: 3}\n  m_Name: NativeWorldArt\n'
-    text+='  definition: '+ref(data,4900000)+'\n  buttons: '+ref(buttons)+'\n  items: '+ref(item_atlas)+'\n  battle: {fileID: 11400000, guid: '+guid(BASE/'Data/Tutorial/NativeTutorialArt.asset')+', type: 2}\n'
+    text+='  definition: '+ref(data,4900000)+'\n  growth: '+ref(BASE/'Data/Growth/CharacterGrowth.json',4900000)+'\n  combat: '+ref(BASE/'Data/Combat/OriginalCombat.json',4900000)+'\n  buttons: '+ref(buttons)+'\n  items: '+ref(item_atlas)+'\n  battle: {fileID: 11400000, guid: '+guid(BASE/'Data/Tutorial/NativeTutorialArt.asset')+', type: 2}\n'
     for field,paths in [('grounds',grounds),('decorations',decorations),('pictures',pictures),('windows',windowpaths)]:text+='  '+field+':\n'+''.join('  - '+ref(p)+'\n' for p in paths)
     text+='  pictureIds: '+''.join(i.to_bytes(4,'little',signed=True).hex() for i in ids)+'\n'
     asset=DATA/'NativeWorldArt.asset';asset.write_text(text);metadata.meta(asset,ROOT/'Assets');Path(str(asset)+'.meta').write_text('fileFormatVersion: 2\nguid: '+guid(asset)+'\nNativeFormatImporter:\n  mainObjectFileID: 11400000\n')
@@ -170,6 +175,20 @@ def main():
         text=text.replace('--- !u!1660057539',component+'--- !u!1660057539',1);scene.write_text(text)
     report.update(maps=len(maps),staff=sum(len(m['npcs']) for m in maps),decorations=len(decorations),shopCounts={s['map']:len(s['items']) for s in shops},hireOffers=len(hires))
     (ROOT/'Tools/OriginalWorldChecks/world-assets.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    from build_result_assets import build as build_result
+    build_result()
+    from build_feedback_assets import build as build_feedback
+    build_feedback()
+    from build_map_animation_assets import build as build_map_animation
+    build_map_animation()
+    from build_commander_assets import build as build_commanders
+    build_commanders()
+    from build_native_font_assets import build as build_fonts
+    build_fonts()
+    from build_utility_assets import build as build_utilities
+    build_utilities()
+    from build_world_chat_assets import build as build_world_chat
+    build_world_chat()
     print(json.dumps({k:report[k] for k in ['maps','staff','decorations','shopCounts','hireOffers']},ensure_ascii=False))
 
 
