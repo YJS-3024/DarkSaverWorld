@@ -46,9 +46,28 @@ namespace DarkSaver.Original.Editor.Scenarios
         public static void Open()
         { var window = GetWindow<ScenarioEditorWindow>(); window.titleContent = new GUIContent("시나리오 편집툴"); window.minSize = new Vector2(1000, 650); window.Show(); }
         private static string ReadOptional(string path) => File.Exists(path) ? File.ReadAllText(path) : null;
-        private static string Category(string key)
-        { int id = int.Parse(key); return id >= 101 && id <= 107 ? "수련장" : id >= 201 && id <= 207 ? "대련장" : id == 301 ? "튜토리얼" : id >= 1000 ? "월드/필드" : "시나리오"; }
-        private static string Title(string key) => Category(key) + " " + key;
+        private string Category(string key)
+        {
+            int id=int.Parse(key);
+            if(id>=101&&id<=107)return "수련장";
+            if(id>=201&&id<=207)return "대련장";
+            if(id==301)return "튜토리얼";
+            var map=gatewayCatalog?.maps?.FirstOrDefault(m=>m.key==key);
+            if(map?.kind=="town")return "마을";
+            if(map?.kind=="interior")return "실내";
+            return id>=1000?"월드/필드":"시나리오";
+        }
+        private string Title(string key)
+        {
+            string label=Category(key)+" "+key;
+            var map=gatewayCatalog?.maps?.FirstOrDefault(m=>m.key==key);
+            return map==null||string.IsNullOrWhiteSpace(map.title)||map.title==key?label:map.title+" ["+label+"]";
+        }
+        private string MapLabel(int id)
+        {
+            var map=gatewayCatalog?.maps?.FirstOrDefault(m=>m.id==id);
+            return map==null?(id<0?"맵 미선택":"맵 "+id):Title(map.key);
+        }
         private void OnEnable()
         {
             titleContent = new GUIContent("시나리오 편집툴"); minSize = new Vector2(1000,650);

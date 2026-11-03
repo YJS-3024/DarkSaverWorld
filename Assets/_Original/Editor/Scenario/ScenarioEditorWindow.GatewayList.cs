@@ -23,8 +23,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         {
             if(gatewayGrouping==3)return gate.GroupName.Length==0?"그룹 미지정":gate.GroupName;
             int id=gatewayGrouping==1?gate.fromMap:gate.targetMap;
-            var info=gatewayCatalog.maps.FirstOrDefault(m=>m.id==id);
-            return id+" "+(info?.title??"맵 미선택");
+            return MapLabel(id);
         }
         private IEnumerable<ScenarioGateway> SortGateways(IEnumerable<ScenarioGateway> items)
         {
@@ -110,7 +109,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                 for(int i=0;i<visible.Length;i++)
                 {
                     var gate=visible[i];GUILayout.BeginHorizontal();GUILayout.Label("≡",GUILayout.Width(16));var handle=GUILayoutUtility.GetLastRect();
-                    string title=(gate.id==selectedGateway?"● ":"")+(gate.enabled?"":"[꺼짐] ")+gate.fromMap+" → "+gate.targetMap+" "+gate.name;
+                    string title=(gate.id==selectedGateway?"● ":"")+(gate.enabled?"":"[꺼짐] ")+gate.name+" · "+MapLabel(gate.fromMap)+" → "+MapLabel(gate.targetMap);
                     if(GUILayout.Button(new GUIContent(title,title),EditorStyles.miniButton))SelectGatewayListItem(gate.id);
                     using(new EditorGUI.DisabledScope(gatewaySorting!=0||i==0))if(GUILayout.Button("↑",GUILayout.Width(22)))MoveGatewayListItem(gate.id,visible[i-1].id,false);
                     using(new EditorGUI.DisabledScope(gatewaySorting!=0||i==visible.Length-1))if(GUILayout.Button("↓",GUILayout.Width(22)))MoveGatewayListItem(gate.id,visible[i+1].id,true);

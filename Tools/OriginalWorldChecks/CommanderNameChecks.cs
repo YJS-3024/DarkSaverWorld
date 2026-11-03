@@ -11,9 +11,9 @@ internal static class CommanderNameChecks
  static string Id()=>Guid.NewGuid().ToString("N");static void Check(bool ok,string label){checks++;if(!ok)throw new Exception(label);}
  static T Read<T>(string p)=>JsonSerializer.Deserialize<T>(File.ReadAllText(Path.Combine(root,"Assets/_Original",p)),Json);
  static string State(object o)=>JsonSerializer.Serialize(o,Json);
- sealed class Store:IEntryAccountStore
+ internal sealed class Store:IEntryAccountStore
  {public LocalAccountDocument data=new LocalAccountDocument();public bool fail;public bool TryRead(out LocalAccountDocument d){d=data.Copy();return true;}public bool TryWrite(LocalAccountDocument d){if(fail)return false;data=d.Copy();return true;}}
- sealed class Fixture
+ internal sealed class Fixture
  {
   public readonly Store store=new Store();public EntryAccountService service;public EntryClient client;public LocalServerManager manager;public WorldDefinition definition;
   public WorldView View=>service.WorldSnapshot();
@@ -26,6 +26,7 @@ internal static class CommanderNameChecks
   public void Push(string name)
   {var v=View;Check(service.ReceiveCommanderRoster(new CommanderRosterPush{id=Id(),approved=true,character=v.characterId,session=v.commanderSession,expectedRevision=v.commanders?.revision??0,state=new CommanderRoster{rows=new[]{new OwnedCommander{id="owner",name=name,job=100,nativeRecord=513,deployment=1},new OwnedCommander{id="other",name="다른캐릭터",job=101,nativeRecord=37,deployment=2}}}}).Accepted,"explicit original record/roster update");}
  }
+ internal static Fixture CreateFixture(string projectRoot){root=projectRoot;return new Fixture();}
  static void Main(string[] args)
  {
   root=args[0];var codec=Read<NativeCodePage949>("Resources/OriginalCodePage949.json");using var fixture=JsonDocument.Parse(File.ReadAllText(args[1]));

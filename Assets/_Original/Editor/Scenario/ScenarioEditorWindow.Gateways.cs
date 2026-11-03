@@ -109,13 +109,13 @@ namespace DarkSaver.Original.Editor.Scenarios
             foreach(var portal in gatewayWorld.Map(map.id).portals)
             {
                 bool overridden=gatewayDocument.gates.Any(g=>g.fromMap==map.id&&g.replacesPortal==portal.id);
-                if(GUILayout.Button((selectedNativePortal==portal.id?"● ":"")+portal.id+" → "+portal.targetMap+" ("+portal.cells.Length+"칸)"+(overridden?" [편집본]":""),EditorStyles.miniButton))
+                if(GUILayout.Button((selectedNativePortal==portal.id?"● ":"")+portal.id+" → "+MapLabel(portal.targetMap)+" ("+portal.cells.Length+"칸)"+(overridden?" [편집본]":""),EditorStyles.miniButton))
                 {selectedNativePortal=portal.id;selectedGateway=null;pickNpc=pickSpawn=dragGateway=sizingGateway=false;}
             }
             var native=gatewayWorld.Map(map.id).portals.FirstOrDefault(p=>p.id==selectedNativePortal);
             if(native!=null)
             {
-                EditorGUILayout.HelpBox("기존 도착: "+native.targetMap+" / "+native.spawnX+","+native.spawnY+" ("+Math.Max(1,native.spawnWidth)+"×"+Math.Max(1,native.spawnHeight)+")\n수정본 저장 전까지 원본은 유지됩니다.",MessageType.None);
+                EditorGUILayout.HelpBox("기존 도착: "+MapLabel(native.targetMap)+" / "+native.spawnX+","+native.spawnY+" ("+Math.Max(1,native.spawnWidth)+"×"+Math.Max(1,native.spawnHeight)+")\n수정본 저장 전까지 원본은 유지됩니다.",MessageType.None);
                 if(GUILayout.Button("이 출입구를 편집본으로 가져오기"))EditNativePortal(native);
             }
             DrawGatewayList();
@@ -127,14 +127,14 @@ namespace DarkSaver.Original.Editor.Scenarios
                 if(EditorGUI.EndChangeCheck()){RememberGateway();gate.name=name;gate.enabled=enabled;}
                 DrawGatewayGroupField(gate);
                 GUILayout.Label(gate.IsWalk?"방식: 영역 진입 (자동 이동)":"방식: NPC 클릭 (방 참가)");
-                GUILayout.Label("출발: "+gate.fromMap+" → 도착: "+gate.targetMap,EditorStyles.boldLabel);
+                GUILayout.Label("출발: "+MapLabel(gate.fromMap)+"\n도착: "+MapLabel(gate.targetMap),EditorStyles.wordWrappedLabel);
                 if(!string.IsNullOrEmpty(gate.replacesPortal))GUILayout.Label("기존 출입구 수정: "+gate.replacesPortal,EditorStyles.wordWrappedMiniLabel);
                 if(!gate.IsWalk){var npcs=gatewayCatalog.npcJobs;var options=new[]{"외형을 선택하세요"}.Concat(npcs.Select(id=>jobs.TryGetValue(id,out var j)?j.ToString():id.ToString())).ToArray();
                 int npcAt=Array.IndexOf(npcs,gate.npcJob)+1,npc=EditorGUILayout.Popup("NPC 외형",npcAt,options);
                 if(npc!=npcAt){RememberGateway();gate.npcJob=npc==0?-1:npcs[npc-1];}
                 }
                 var targets=gatewayCatalog.maps.Where(m=>m.id!=gate.fromMap&&(gate.IsWalk||m.kind=="scenario")).OrderBy(m=>m.id).ToArray();
-                int at=Array.FindIndex(targets,m=>m.id==gate.targetMap)+1,next=EditorGUILayout.Popup("도착 맵",at,new[]{"도착 맵을 선택하세요"}.Concat(targets.Select(m=>m.key+" "+m.title)).ToArray());
+                int at=Array.FindIndex(targets,m=>m.id==gate.targetMap)+1,next=EditorGUILayout.Popup("도착 맵",at,new[]{"도착 맵을 선택하세요"}.Concat(targets.Select(m=>Title(m.key))).ToArray());
                 if(next!=at){RememberGateway();gate.targetMap=next==0?-1:targets[next-1].id;gate.targetHash=next==0?"":targets[next-1].hash;gate.spawnX=gate.spawnY=-1;pickNpc=pickSpawn=dragGateway=sizingGateway=false;}
                 EditorGUI.BeginChangeCheck();int x=EditorGUILayout.DelayedIntField("출발 X (좌상단)",gate.x),y=EditorGUILayout.DelayedIntField("출발 Y (좌상단)",gate.y);
                 int width=gate.IsWalk?EditorGUILayout.DelayedIntField("가로 칸 수",gate.Width):1,height=gate.IsWalk?EditorGUILayout.DelayedIntField("세로 칸 수",gate.Height):1;

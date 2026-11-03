@@ -6,6 +6,7 @@ namespace DarkSaver.Original.World
 {
     public sealed partial class WorldSceneRoot
     {
+        private long commanderNameGeneration;
         private InputField commanderNameInput;private PersonalWindow commanderNameWindow;
         private NativeCommanderNameEdit commanderNameEdit;private GameObject commanderNamePreviousFocus,commanderNameLastTextFocus;
         private void BuildCommanderName(PersonalWindow panel)
@@ -22,8 +23,10 @@ namespace DarkSaver.Original.World
             commanderNameInput=field.gameObject.AddComponent<InputField>();commanderNameInput.targetGraphic=background;commanderNameInput.textComponent=text;
             commanderNameInput.transition=Selectable.Transition.None;commanderNameInput.lineType=InputField.LineType.SingleLine;commanderNameInput.contentType=InputField.ContentType.Standard;
             // No guessed12-byte name rule; the original request's exact byte length is preserved.
-            commanderNameInput.onEndEdit.AddListener(value=>
+            var fieldInput=commanderNameInput;
+            fieldInput.onEndEdit.AddListener(value=>
             {
+                if(!ReferenceEquals(fieldInput,commanderNameInput))return;
                 if(Input.GetKeyDown(KeyCode.Return)||Input.GetKeyDown(KeyCode.KeypadEnter))FinishCommanderName(true);
                 else FinishCommanderName(false);
             });
@@ -31,31 +34,50 @@ namespace DarkSaver.Original.World
         }
         private void BeginCommanderName()
         {
-            if(commanderNameEdit!=null||!PersonalAvailable||BattleMap()||commanderNameWindow==null||!commanderNameWindow.Visible||commanderNameWindow.Minimized)return;
+            if(!isActiveAndEnabled||server==null||commanderNameInput==null||commanderNameEdit!=null||!PersonalAvailable||BattleMap()||commanderNameWindow==null
+                ||commanderNameWindow.Root==null||!commanderNameWindow.Root.gameObject.activeInHierarchy||!commanderNameWindow.Visible||commanderNameWindow.Minimized)return;
             var edit=server.Request_EditCommanderName();if(edit==null)return;
-            commanderNamePreviousFocus=commanderNameLastTextFocus??EventSystem.current?.currentSelectedGameObject;commanderNameEdit=edit;
+            var events=EventSystem.current;
+            var previous=commanderNameLastTextFocus;
+            if(previous==null||!previous.activeInHierarchy)previous=events!=null?events.currentSelectedGameObject:null;
+            commanderNamePreviousFocus=previous!=null&&previous.activeInHierarchy?previous:null;commanderNameEdit=edit;commanderNameGeneration++;
             commanderNameInput.SetTextWithoutNotify(edit.OriginalName);commanderNameInput.gameObject.SetActive(true);
             commanderNameWindow.Root.SetAsLastSibling();commanderNameInput.transform.SetAsLastSibling();commanderNameInput.ActivateInputField();
         }
         private void FinishCommanderName(bool submit)
         {
-            var edit=commanderNameEdit;if(edit==null)return;commanderNameEdit=null;
-            if(submit&&PersonalAvailable&&!BattleMap())server.Request_SetCommanderName(edit,commanderNameInput.text);
-            server.Request_CancelCommanderName(edit);
-            var previous=commanderNamePreviousFocus;commanderNamePreviousFocus=null;
-            commanderNameInput.gameObject.SetActive(false);
-            if(previous!=null&&previous.activeInHierarchy&&previous!=commanderNameInput.gameObject)EventSystem.current?.SetSelectedGameObject(previous);
+            var edit=commanderNameEdit;if(edit==null)return;
+            long generation=commanderNameGeneration;var input=commanderNameInput;var previous=commanderNamePreviousFocus;
+            commanderNameEdit=null;commanderNamePreviousFocus=null;
+            if(submit&&input!=null&&PersonalAvailable&&!BattleMap()&&server!=null)server.Request_SetCommanderName(edit,input.text);
+            if(server!=null)server.Request_CancelCommanderName(edit);
+            // A synchronous request callback may destroy the old field or start a new edit.
+            if(generation!=commanderNameGeneration||commanderNameEdit!=null||!ReferenceEquals(input,commanderNameInput))return;
+            if(input!=null)input.gameObject.SetActive(false);
+            if(generation!=commanderNameGeneration||commanderNameEdit!=null)return;
+            var current=server!=null?server.WorldSnapshot:null;var events=EventSystem.current;
+            if(isActiveAndEnabled&&PersonalAvailable&&current!=null&&current.characterId==edit.Character&&current.commanderSession==edit.Session
+                &&events!=null&&previous!=null&&previous.activeInHierarchy&&(input==null||previous!=input.gameObject))events.SetSelectedGameObject(previous);
         }
         private bool HandleCommanderNameInput()
         {
             if(commanderNameEdit==null)
-            {var selected=EventSystem.current?.currentSelectedGameObject;if(selected?.GetComponent<InputField>()?.isFocused==true)commanderNameLastTextFocus=selected;return false;}
+            {
+                // C# ?. and ?? do not recognize Unity's destroyed-object null state.
+                if(commanderNameLastTextFocus==null||!commanderNameLastTextFocus.activeInHierarchy)commanderNameLastTextFocus=null;
+                var events=EventSystem.current;var selected=events!=null?events.currentSelectedGameObject:null;
+                if(selected!=null&&selected.activeInHierarchy)
+                {var input=selected.GetComponent<InputField>();if(input!=null&&input.isFocused)commanderNameLastTextFocus=selected;}
+                return false;
+            }
+            if(commanderNameInput==null||!commanderNameInput.gameObject.activeInHierarchy||commanderNameWindow==null||commanderNameWindow.Root==null)
+            {FinishCommanderName(false);return false;}
             if(Input.GetKeyDown(KeyCode.Escape)||Input.GetMouseButtonDown(1))FinishCommanderName(false);
             return true;
         }
         private void PaintCommanderName()
         {
-            if(commanderNameEdit!=null&&(!PersonalAvailable||BattleMap()||commanderNameWindow==null||!commanderNameWindow.Visible
+            if(commanderNameEdit!=null&&(commanderNameInput==null||!PersonalAvailable||BattleMap()||commanderNameWindow==null||commanderNameWindow.Root==null||!commanderNameWindow.Visible
                 ||commanderNameWindow.Minimized||!commanderNameEdit.Matches(view)))FinishCommanderName(false);
         }
     }

@@ -18,6 +18,7 @@ namespace UnityEngine
         public override bool Equals(object value)=>ReferenceEquals(this,value);
         public override int GetHashCode()=>base.GetHashCode();
     }
+    public class MissingReferenceException:InvalidOperationException{public MissingReferenceException():base("Destroyed Unity object access") {}}
     public class ScriptableObject:Object{}
     public class Canvas:Component{}
     public class Texture:Object
@@ -42,16 +43,18 @@ namespace UnityEngine
     {
         public RectTransform parent;public Vector2 anchorMin,anchorMax,pivot,anchoredPosition,sizeDelta;
         public void SetParent(RectTransform value,bool worldPositionStays){parent=value;}
+        public void SetAsLastSibling(){}
     }
     public class GameObject:Object
     {
         public bool activeSelf=true;
-        public void SetActive(bool value){activeSelf=value;}
+        public Action<bool> activeChanged;
+        public void SetActive(bool value){if(destroyed)throw new MissingReferenceException();bool changed=activeSelf!=value;activeSelf=value;if(changed)activeChanged?.Invoke(value);}
         public bool activeInHierarchy=>activeSelf&&(!components.TryGetValue(typeof(RectTransform),out var c)||((RectTransform)c).parent==null||((RectTransform)c).parent.gameObject.activeInHierarchy);
         readonly Dictionary<Type,Component> components=new Dictionary<Type,Component>();
         public GameObject(string name,params Type[] types){foreach(var type in types){var c=(Component)Activator.CreateInstance(type);c.gameObject=this;components.Add(type,c);}}
         public T AddComponent<T>()where T:Component,new(){var c=new T{gameObject=this};components.Add(typeof(T),c);return c;}
-        public T GetComponent<T>()where T:Component=>(T)components[typeof(T)];
+        public T GetComponent<T>()where T:Component{if(destroyed)throw new MissingReferenceException();return components.TryGetValue(typeof(T),out var value)?(T)value:null;}
     }
 }
 namespace UnityEngine.UI

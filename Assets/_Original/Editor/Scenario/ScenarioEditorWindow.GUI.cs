@@ -85,7 +85,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         private void DrawHeader()
         {
             EditorGUI.DrawRect(new Rect(0,0,position.width,35),new Color(.14f,.17f,.21f));
-            GUI.Label(new Rect(12,7,245,24),"시나리오 편집툴  /  " + Title(mapKey) + (dirty||dirtyGateways ? " *" : ""), EditorStyles.boldLabel);
+            GUI.Label(new Rect(12,7,Mathf.Max(100,position.width-350),24),"시나리오 편집툴  /  " + Title(mapKey) + (dirty||dirtyGateways ? " *" : ""), EditorStyles.boldLabel);
             using (new EditorGUI.DisabledScope(document == null))
             {
                 if (GUI.Button(new Rect(position.width-325,5,65,24),"화면 맞춤")) Fit();
@@ -100,17 +100,19 @@ namespace DarkSaver.Original.Editor.Scenarios
             GUILayout.BeginArea(rect,EditorStyles.helpBox);
             GUILayout.Label("원본 맵",EditorStyles.boldLabel);
             search=EditorGUILayout.TextField(search,EditorStyles.toolbarSearchField);
-            category=EditorGUILayout.Popup(category,new[]{"전체","시나리오","수련장","대련장","튜토리얼","월드/필드"});
+            var categories=new[]{"전체","시나리오","수련장","대련장","튜토리얼","월드/필드","마을","실내"};
+            category=EditorGUILayout.Popup(category,categories);
             mapScroll=EditorGUILayout.BeginScrollView(mapScroll);
             foreach(var key in keys)
             {
-                if (category > 0 && Category(key) != new[]{"","시나리오","수련장","대련장","튜토리얼","월드/필드"}[category]) continue;
+                if (category > 0 && Category(key) != categories[category]) continue;
                 if (search.Length > 0 && Title(key).IndexOf(search,StringComparison.OrdinalIgnoreCase)<0) continue;
                 var old=GUI.backgroundColor;if(key==mapKey)GUI.backgroundColor=new Color(.35f,.65f,1);
                 bool clicked=GUILayout.Button(Title(key),GUILayout.Height(25));GUI.backgroundColor=old;
                 if(clicked){SelectMap(key);GUIUtility.ExitGUI();}
             }
             EditorGUILayout.EndScrollView();
+            if(GUILayout.Button("맵 이름표 CSV 열기"))AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<TextAsset>(BasePath+"Data/Tables/scene_maps.csv"));
             GUILayout.Label("좌표: 원본 좌상단 (0,0)\nunit: 개체 슬롯 / job: 병종 ID",EditorStyles.wordWrappedMiniLabel);
             GUILayout.EndArea();
         }
