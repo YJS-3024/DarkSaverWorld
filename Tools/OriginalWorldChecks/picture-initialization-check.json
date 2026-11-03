@@ -1,0 +1,33 @@
+{
+  "results": {
+    "baseline": {
+      "assertions": 14,
+      "reproducedNullExceptions": 2,
+      "partialUiLeaks": 6,
+      "unityPlay": false
+    },
+    "current": {
+      "assertions": 50,
+      "reproducedNullExceptions": 0,
+      "partialUiLeaks": 0,
+      "unityPlay": false,
+      "scope": "Production world/tutorial Picture, Group, Place bodies, NativeEntryLayout.Uv, F3 hired-slot fragments and startup construction/first-paint/entry/personal visibility statements. Managed uGUI component, Unity-null and texture boundaries; not a Unity scene/Canvas/import/Play execution."
+    }
+  },
+  "mismatches": 0,
+  "unityPlay": false,
+  "scope": "Actual production method/statement extraction with managed component, texture and Unity-null boundaries. Baseline removes optional-texture and initial visibility guards to reproduce two null-UV failures and six partially visible parent stages. Current F3 creation/refresh, cropped images, construction failure/first-paint publication and real entry stage visibility statements execute. Personal/chat ordering is audited. No complete scene Build, actual Unity import/Canvas/EventSystem or rendered Play claim.",
+  "logs": "/tmp/ds-picture-initialization-checks",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_picture_initialization.py": "a47a03310d47d9f860da3ed46a9393649ad3763acd172d14d31839b8a0939618",
+    "Tools/OriginalWorldChecks/PictureInitializationChecks.cs": "208b21324af004f5081cd44f94c94ef6a6d0685cfdcd2e08fb633ad557dd6ae1",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.cs": "d8c364591d116a06a5794c621f9e4e7c7a683e61557e1202aa2fb3a336d999b7",
+    "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.cs": "9eceeecf41fe67310d00ababee3a0e7fc6974806c92db73d8ce9f1fb9592154f",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Personal.cs": "695bc2e71975ef5482ef3154b4bf3080dc562a4fdf979254142d395c07a534cf",
+    "Assets/_Original/Runtime/Entry/NativeEntryArt.cs": "f572314a14eb3f9dcff7fe0cc922c8b91749871425073d3b29def65715c1068a",
+    "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.Waiting.cs": "9e266e342a288dd0ee3572e11c2cbfd716381b6a15ad98db0be7c9b6d88b25a0",
+    "Assets/_Original/Runtime/Entry/EntrySceneRoot.cs": "78b698a9a016699899a370483bf91576d166e2c0b76fc9738f35056b2fdbb396",
+    "Assets/_Original/Runtime/Entry/EntryProtocol.cs": "715d4c2456c3060d02209d0d81525601b3c3d1b1b8628553198a083d7cc7d4db",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Chat.cs": "262b66954e2f088c5021f921014872330cb04f8c5fe8bf6335d649e119a366e0"
+  }
+}

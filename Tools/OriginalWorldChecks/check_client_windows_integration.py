@@ -17,6 +17,7 @@ def main():
  names+=['native-world-message-check.json']
  names+=['native-shop-details-check.json','native-hire-list-check.json','native-mercenary-check.json','native-window-drag-check.json']
  names+=['native-battle-options-check.json','native-class-adjustments-check.json','native-class-presentation-check.json']
+ names+=['picture-initialization-check.json']
  reports=[];checked={};stale=[]
  for name in names:
   path=OUT/name;report=json.loads(path.read_text());assert report.get('mismatches',0)==0,name

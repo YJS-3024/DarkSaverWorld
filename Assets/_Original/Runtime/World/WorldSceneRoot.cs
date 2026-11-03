@@ -54,18 +54,21 @@ namespace DarkSaver.Original.World
             if(art?.IsConfigured!=true){Debug.LogError("Original world assets are missing.",this);return;}
             character = value.Copy(); definition = art.Definition;
             if (canvasObject == null) Build();
+            canvasObject.SetActive(false);
             try { if(campaign?.IsConfigured==true)definition=campaign.Merge(definition); }
-            catch(System.Exception e){Debug.LogWarning("NPC/map configuration rejected: "+e.Message,this);ShowFailure(WorldFailure.InvalidInput);return;}
+            catch(System.Exception e){Debug.LogWarning("NPC/map configuration rejected: "+e.Message,this);ShowFailure(WorldFailure.InvalidInput);canvasObject.SetActive(true);return;}
             server.ConfigureCampaign(campaign);
             var reply = server.Request_BeginWorld(art);
-            if (!reply.Accepted) { ShowFailure(reply.Failure); return; }
-            tutorial.enabled = false; running = true; canvasObject.SetActive(true); view = reply.View;ResetTransientClientWindows();
+            if (!reply.Accepted) { ShowFailure(reply.Failure); canvasObject.SetActive(true); return; }
+            running = true; view = reply.View;ResetTransientClientWindows();
             if(server.CurrencyAuthority!=null)Handle(server.Request_CurrencyState());
             Paint();
+            tutorial.enabled = false; canvasObject.SetActive(true);
         }
         private void Build()
         {
             canvasObject = new GameObject("Original World Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            canvasObject.SetActive(false);
             var canvas = canvasObject.GetComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 210; canvas.pixelPerfect = true;
             var scaler = canvasObject.GetComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(640,480); scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
@@ -218,7 +221,7 @@ namespace DarkSaver.Original.World
         {var r=new GameObject(name,typeof(RectTransform)).GetComponent<RectTransform>();r.SetParent(parent,false);r.anchorMin=r.anchorMax=r.pivot=new Vector2(0,1);Place(r,rect);return r;}
         private static void Place(RectTransform r,Rect b){r.anchoredPosition=new Vector2(b.x,-b.y);r.sizeDelta=b.size;}
         private static RawImage Picture(RectTransform parent,string name,Rect rect,Texture texture,Rect? source=null)
-        {var i=Group(parent,name,rect).gameObject.AddComponent<RawImage>();i.texture=texture;i.raycastTarget=false;if(source.HasValue)i.uvRect=NativeEntryLayout.Uv(texture,source.Value);return i;}
+        {var i=Group(parent,name,rect).gameObject.AddComponent<RawImage>();i.texture=texture;i.raycastTarget=false;if(texture!=null&&source.HasValue)i.uvRect=NativeEntryLayout.Uv(texture,source.Value);return i;}
         private Text Label(RectTransform parent,string name,Rect rect,string value,TextAnchor alignment=TextAnchor.UpperLeft)
         {var t=Group(parent,name,rect).gameObject.AddComponent<DarkSaver.Original.UI.NativeBitmapText>();t.font=font;t.fontSize=12;t.text=value;t.supportRichText=false;t.color=Color.black;t.alignment=alignment;t.raycastTarget=false;t.horizontalOverflow=HorizontalWrapMode.Wrap;t.verticalOverflow=VerticalWrapMode.Truncate;return t;}
         private Button Hit(RectTransform parent,string name,Rect rect,Action action)

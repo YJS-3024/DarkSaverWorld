@@ -39,13 +39,14 @@ namespace DarkSaver.Original.Tutorial
             if (waitingCanvas != null) { waitingCanvas.SetActive(false); Destroy(waitingCanvas); waitingPanels.Clear(); }
             if (canvasObject != null) canvasObject.SetActive(false); if (music != null) music.Stop();
             waitingDragOffset = null; waitingHoverX = int.MinValue; BuildWaitingLesson();
-            waitingCanvas.SetActive(true); waitingView = reply.View; waitingActive = true; active = false;
+            waitingView = reply.View; waitingActive = true; active = false;
             previousCursorVisible = Cursor.visible; waitingCursorOwned = true;
-            consumedPress = true; PaintWaitingLesson();
+            consumedPress = true; PaintWaitingLesson(); waitingCanvas.SetActive(true);
         }
         private void BuildWaitingLesson()
         {
             waitingCanvas = new GameObject("Original Waiting Lesson Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            waitingCanvas.SetActive(false);
             var canvas = waitingCanvas.GetComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 200; canvas.pixelPerfect = true;
             var scaler = waitingCanvas.GetComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(640, 480); scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;

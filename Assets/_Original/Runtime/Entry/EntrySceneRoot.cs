@@ -104,6 +104,7 @@ namespace DarkSaver.Original.Entry
         private void BuildLogin()
         {
             login = Group(screen, "Login", new Rect(0, 0, 640, 480));
+            login.gameObject.SetActive(false);
             Picture(login, "Panel", NativeEntryLayout.LoginPanel, art.login, new Rect(9, 9, 197, 87));
             idInput = Input(login, "Account ID", NativeEntryLayout.IdHit, new Vector2(-1, -2));
             passwordInput = Input(login, "Password", NativeEntryLayout.PasswordHit, new Vector2(-1, -2), true);
@@ -121,6 +122,7 @@ namespace DarkSaver.Original.Entry
         private void BuildServers()
         {
             servers = Group(screen, "Server selection", new Rect(0, 0, 640, 480));
+            servers.gameObject.SetActive(false);
             Picture(servers, "Native two-row panel", NativeEntryLayout.ServerPanel, art.serverPanel);
             selectedServer = Picture(servers, "Selected row", new Rect(290, 307, 75, 19), art.serverSelected).gameObject;
             Hit(servers, "Local server row", NativeEntryLayout.ServerHit, () => { if (client.Servers.Length > 0) { selectedServerId = client.Servers[0].Id; selectedServer.SetActive(true); } });
@@ -133,6 +135,7 @@ namespace DarkSaver.Original.Entry
         private void BuildCreation()
         {
             creation = Group(screen, "First commander creation", NativeEntryLayout.CreationSize);
+            creation.gameObject.SetActive(false);
             creation.anchoredPosition = new Vector2(NativeEntryLayout.CreationOrigin.x, -NativeEntryLayout.CreationOrigin.y);
             Picture(creation, "Wlib scene24", NativeEntryLayout.CreationSize, art.creation);
             for (int i = 0; i < 3; i++)

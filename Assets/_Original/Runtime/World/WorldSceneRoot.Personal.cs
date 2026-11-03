@@ -47,6 +47,7 @@ namespace DarkSaver.Original.World
             {
                 int id=specs[i].id;var spec=specs[i];
                 var saved=OriginalWindowPreferences.LoadState(spec);var at=saved.Position;bool expanded=saved.Expanded;var p=new PersonalWindow{Spec=spec,Minimized=saved.Minimized,Expanded=expanded,Root=Group(worldWindows,"World native window"+id,new Rect(at.X,at.Y,spec.width,expanded?401:spec.height))};
+                p.Root.gameObject.SetActive(false);
                 personalWindows.Add(id,p);p.Full=Group(p.Root,"Full",new Rect(0,0,spec.width,spec.height));
                 p.Full.gameObject.AddComponent<Image>().color=Color.clear;
                 p.Full.gameObject.AddComponent<NativeWindowClickInput>().Configure(p.Clicks);
@@ -96,7 +97,7 @@ namespace DarkSaver.Original.World
                     p.Age=PersonalText(p.Full,"Received age",new Rect(146,107,60,16),"—");p.Gender=PersonalText(p.Full,"Received sex",new Rect(248,107,72,16),"—");
                     p.Spouse=PersonalText(p.Full,"Received spouse",new Rect(14,145,80,16),"—");p.Spouse.alignment=TextAnchor.MiddleCenter;
                     p.Balance=PersonalText(p.Full,"Shared gold",new Rect(146,124,172,16),"");
-                    p.Hired=Picture(p.Full,"Hired soldier32",new Rect(29,178,32,32),null,new Rect(32,32,32,32));
+                    p.Hired=Picture(p.Full,"Hired soldier32",new Rect(29,178,32,32),null,new Rect(32,32,32,32));p.Hired.enabled=false;
                     p.HiredCount=PersonalText(p.Full,"Hired count",new Rect(73,186,30,16),"");
                     foreach(var label in new[]{p.Name,p.Class,p.Level,p.Experience,p.Age,p.Gender,p.Balance,p.HiredCount})label.alignment=TextAnchor.UpperLeft;
                     p.Spouse.alignment=TextAnchor.UpperCenter;
@@ -121,7 +122,6 @@ namespace DarkSaver.Original.World
                         ((NativeBitmapText)label).NativeParagraphWrap=true;var shadow=label.gameObject.AddComponent<Shadow>();shadow.effectColor=Color.black;shadow.effectDistance=new Vector2(1,-1);p.ChatRows.Add(label);
                     }
                 }
-                p.Root.gameObject.SetActive(false);
             }
         }
         private Text PersonalText(RectTransform parent,string name,Rect rect,string value,bool white=false)

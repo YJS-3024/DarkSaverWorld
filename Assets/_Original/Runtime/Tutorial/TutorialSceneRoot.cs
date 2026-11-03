@@ -62,13 +62,15 @@ namespace DarkSaver.Original.Tutorial
             var reply = server.Request_BeginTutorial();
             if (!reply.Accepted) { Debug.LogError("Original tutorial entry rejected: " + reply.Failure, this); return; }
             if (canvasObject == null) Build();
+            canvasObject.SetActive(false);
             tutorialMusicRepeat.Stop();if(music!=null)music.Stop();
-            canvasObject.SetActive(true); active = true; consumedPress = true; view = reply.View;
-            previousPointer = Input.mousePosition; Paint();
+            active = true; consumedPress = true; view = reply.View;
+            previousPointer = Input.mousePosition; Paint(); canvasObject.SetActive(true);
         }
         private void Build()
         {
             canvasObject = new GameObject("Original Tutorial Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            canvasObject.SetActive(false);
             var canvas = canvasObject.GetComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 200; canvas.pixelPerfect = true;
             var scaler = canvasObject.GetComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(640, 480); scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
@@ -331,7 +333,7 @@ namespace DarkSaver.Original.Tutorial
         private static RawImage Picture(RectTransform parent, string name, Rect rect, Texture texture, Rect? source = null)
         {
             var image = Group(parent, name, rect).gameObject.AddComponent<RawImage>(); image.texture = texture; image.raycastTarget = false;
-            if (source.HasValue) image.uvRect = NativeEntryLayout.Uv(texture, source.Value); return image;
+            if (texture != null && source.HasValue) image.uvRect = NativeEntryLayout.Uv(texture, source.Value); return image;
         }
         private Text Label(RectTransform parent, string name, Rect rect, string text, TextAnchor alignment = TextAnchor.UpperLeft, int size = 12)
         {

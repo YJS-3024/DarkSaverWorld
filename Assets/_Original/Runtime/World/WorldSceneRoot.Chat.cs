@@ -15,6 +15,7 @@ namespace DarkSaver.Original.World
         {
             var spec=art.ChatLayout;if(spec==null||art.chatWindow==null)return;
             chatPanel=Group(worldWindows,"Original world chat input17",new Rect(spec.x,spec.y,spec.width,spec.height));
+            chatPanel.gameObject.SetActive(false);
             chatPanel.gameObject.AddComponent<Image>().color=Color.clear;Picture(chatPanel,"Original scene1 frame",new Rect(0,0,spec.width,spec.height),art.chatWindow);
             var title=Hit(chatPanel,"Original input title",new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>{});
             title.gameObject.AddComponent<NativeWindowDragInput>().Configure(screen,chatPanel,new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>NativeWindowDragAllowed);
