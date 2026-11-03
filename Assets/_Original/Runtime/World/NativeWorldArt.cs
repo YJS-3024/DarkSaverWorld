@@ -55,7 +55,15 @@ namespace DarkSaver.Original.World
         public Texture2D[] palettePictures;
         public NativeTutorialArt battle;
         public WorldDefinition Definition
-        {get{if(definition==null)return null;var world=JsonUtility.FromJson<WorldDefinition>(definition.text);world.growthCatalog=growth==null?null:JsonUtility.FromJson<CharacterGrowthCatalog>(growth.text);world.magicProjectiles=magicProjectiles==null?null:JsonUtility.FromJson<MagicProjectileCatalog>(magicProjectiles.text);world.battleItems=battleItems==null?null:JsonUtility.FromJson<BattleItemCatalog>(battleItems.text);world.magicMenu=magicMenu==null?null:JsonUtility.FromJson<MagicMenuCatalog>(magicMenu.text);world.combatCatalog=combat==null?null:JsonUtility.FromJson<OriginalCombatCatalog>(combat.text);return world;}}
+        {get{
+            if(definition==null)return null;var world=JsonUtility.FromJson<WorldDefinition>(definition.text);
+            world.growthCatalog=growth==null?null:JsonUtility.FromJson<CharacterGrowthCatalog>(growth.text);
+            var hire=Resources.Load<TextAsset>("OriginalMercenarySkills");world.mercenaryCatalog=hire==null?new NativeMercenaryCatalog():JsonUtility.FromJson<NativeMercenaryCatalog>(hire.text);
+            world.magicProjectiles=magicProjectiles==null?null:JsonUtility.FromJson<MagicProjectileCatalog>(magicProjectiles.text);
+            world.battleItems=battleItems==null?null:JsonUtility.FromJson<BattleItemCatalog>(battleItems.text);
+            world.magicMenu=magicMenu==null?null:JsonUtility.FromJson<MagicMenuCatalog>(magicMenu.text);
+            world.combatCatalog=combat==null?null:JsonUtility.FromJson<OriginalCombatCatalog>(combat.text);return world;
+        }}
         public bool IsConfigured => definition != null && grounds?.Length == 11 && decorations != null && pictures != null
             && pictures.Length == pictureIds?.Length && windows?.Length == 7 && buttons != null && items != null && battle != null && battle.WaitingConfigured;
         public Texture2D Picture(int id) { int i = Array.IndexOf(pictureIds, id); return i >= 0 ? pictures[i] : null; }

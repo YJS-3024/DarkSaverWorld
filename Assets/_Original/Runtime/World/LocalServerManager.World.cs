@@ -29,8 +29,6 @@ namespace DarkSaver.Original.Entry
         public WorldReply Request_StoreItem(string item, string token, string id) => SendWarehouseMove(true,item,token,id);
         public WorldReply Request_RetrieveItem(string item, string token, string id) => SendWarehouseMove(false,item,token,id);
         public WorldReply Request_ConfirmStorage(string token, string id) => SendWarehouseConfirm(token,id);
-        public WorldReply Request_HireMercenary(int job, string token, string id) => SendMercenary(true,job,token,id);
-        public WorldReply Request_DismissMercenary(string token, string id) => SendMercenary(false,-1,token,id);
         public WorldReply Request_Revive(string token, string id) => SendRevival(token,id);
     }
 }

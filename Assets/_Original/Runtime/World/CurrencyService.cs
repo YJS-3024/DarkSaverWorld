@@ -35,6 +35,12 @@ namespace DarkSaver.Original.Entry
             world.PendingCurrency=new CurrencyRequest{id=request,character=worldCharacter,session=world.CurrencySession,revision=revision};world.Applied.Add(request);
             return WorldResult(WorldFailure.None);
         }
+        public WorldReply CancelCurrencyStateRequest(string request)
+        {
+            var f=ReadyWorld();if(f!=WorldFailure.None)return WorldResult(f);
+            if(world.PendingCurrency?.id!=request||request==null)return WorldResult(WorldFailure.StaleRequest);
+            world.PendingCurrency=null;return WorldResult(WorldFailure.None);
+        }
         public WorldReply ReceiveCurrencyState(CurrencyNotice notice)
         {
             if(notice==null)return WorldResult(WorldFailure.InvalidInput);
@@ -68,17 +74,22 @@ namespace DarkSaver.Original.Entry
             var f=ReadyWorld();if(f!=WorldFailure.None)return WorldResult(f);
             if(authority==null)return WorldResult(WorldFailure.RulesUnavailable);
             var queued=RequestCurrencyState(request);if(!queued.Accepted)return queued;
+            var captured=queued.View.currencyRequest.Copy();
             try
             {
-                var notice=authority(queued.View.currencyRequest.Copy(),queued.View);
+                var notice=authority(captured.Copy(),queued.View);
+                var context=ReadyWorld();if(context!=WorldFailure.None)return WorldResult(context);
+                if(world.CurrencySession!=captured.session||worldCharacter!=captured.character)return new WorldReply(WorldFailure.StaleRequest,world.Snapshot());
                 if(notice!=null)
                 {
-                    if(notice.request!=request){if(world.PendingCurrency?.id==request)world.PendingCurrency=null;return WorldResult(WorldFailure.StaleRequest);}
+                    if(notice.request!=request){if(world?.CurrencySession==captured.session&&world.PendingCurrency?.id==request)world.PendingCurrency=null;return WorldResult(WorldFailure.StaleRequest);}
                     var result=ReceiveCurrencyState(notice);if(!result.Accepted&&world.PendingCurrency?.id==request)world.PendingCurrency=null;return WorldResult(result.Failure);
                 }
             }
             catch(Exception){/* A failed local state query must not leave subsequent queries locked. */}
-            if(world.PendingCurrency?.id==request)world.PendingCurrency=null;return WorldResult(WorldFailure.RulesUnavailable);
+            var current=ReadyWorld();if(current!=WorldFailure.None)return new WorldReply(current,world?.Snapshot());
+            if(world.CurrencySession!=captured.session||worldCharacter!=captured.character)return new WorldReply(WorldFailure.StaleRequest,world.Snapshot());
+            if(world?.CurrencySession==captured.session&&world.PendingCurrency?.id==request)world.PendingCurrency=null;return WorldResult(WorldFailure.RulesUnavailable);
         }
     }
 }

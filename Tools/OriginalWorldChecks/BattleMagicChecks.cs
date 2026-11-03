@@ -24,7 +24,7 @@ internal static class BattleMagicChecks
     {
         public Memory store=new Memory();public EntryAccountService server;public WorldDefinition definition;public bool scenario;
         public WorldView View=>server.WorldSnapshot();
-        public Fixture(bool scenario=false,bool loadout=true,int[] selected=null)
+        public Fixture(bool scenario=false,bool loadout=true,int[] selected=null,int[] owned=null)
         {
             this.scenario=scenario;definition=Read<WorldDefinition>("Data/World/KaosiaWorld.json");definition.growthCatalog=Read<CharacterGrowthCatalog>("Data/Growth/CharacterGrowth.json");definition.combatCatalog=Read<OriginalCombatCatalog>("Data/Combat/OriginalCombat.json");definition.magicMenu=Read<MagicMenuCatalog>("Data/Combat/MagicMenu.json");definition.magicProjectiles=Read<MagicProjectileCatalog>("Data/Combat/MagicProjectiles.json");
             if(scenario)
@@ -34,7 +34,7 @@ internal static class BattleMagicChecks
                 map.intro=map.introIndex<0?"":File.ReadAllText(Path.Combine(root,scripts[map.introIndex]));map.outro=map.outroIndex<0?"":File.ReadAllText(Path.Combine(root,scripts[map.outroIndex]));campaign.connections=new[]{new CampaignConnection{fromMap=1000,toMap=26,x=spawn.x,y=spawn.y,evidence="isolated cast fixture only",cells=new[]{new WorldPoint{x=21,y=21}}}};definition=campaign.Merge(definition);
             }
             server=new EntryAccountService(store);var client=new EntryClient(server);client.OpenLocalProfile();client.Create(100,"시전검사");var c=store.data.accounts.Single().character;c.tutorialCompleted=true;c.world=new WorldRecord{healthKnown=true,hp=200,maxHp=200,mp=45,maxMp=65};client.OpenLocalProfile();Check(server.BeginWorld(definition).Accepted,"isolated world");string id=Id();
-            Check(server.ReceiveCharacterGrowth(new CharacterGrowthNotice{id=id,approved=true,character=View.characterId,session=View.growthSession,state=new CharacterGrowthRecord{job=100,classLevel=1,totalLevel=1,revision=1,lastNotice=id,experience=123,magic=new[]{101,301},skills=new[]{10101}}}).Accepted,"explicit owned magic");
+            Check(server.ReceiveCharacterGrowth(new CharacterGrowthNotice{id=id,approved=true,character=View.characterId,session=View.growthSession,state=new CharacterGrowthRecord{job=100,classLevel=1,totalLevel=1,revision=1,lastNotice=id,experience=123,magic=owned??new[]{101,301},skills=new[]{10101}}}).Accepted,"explicit owned magic");
             if(loadout)
             {
                 var choices=selected??new[]{101};Check(server.ExecuteMagicLoadout(MagicLoadoutOperation.State,-1,Id(),(r,v)=>new MagicLoadoutNotice{id=Id(),request=r.Copy(),approved=true,learned=new[]{101,301},selected=choices}).Accepted,"explicit editor snapshot");
@@ -68,8 +68,9 @@ internal static class BattleMagicChecks
     {
         root=args[0];var f=new Fixture();var before=State(f.View.record);var battle=State(f.View.battle.units);
         Check(f.server.ExecuteBattleAction(TrainingAction.CastMagic,400,0,0,null,101).Failure==WorldFailure.RulesUnavailable&&f.View.battle.pending==null,"absent authority does not consume or lock");
-        Check(new Fixture(loadout:false).server.RequestBattleMagic(101,400,Id()).Failure==WorldFailure.RulesUnavailable,"no confirmed battle selection means no cast");
-        var unselected=new Fixture(selected:new[]{301});Check(unselected.server.RequestBattleMagic(101,400,Id()).Failure==WorldFailure.NotOwned,"owned but unselected magic cannot cast");
+        Check(new Fixture(loadout:false).server.RequestBattleMagic(101,400,Id()).Accepted,"approved owned magic casts without legacy loadout");
+        var unselected=new Fixture(selected:new[]{301});Check(unselected.server.RequestBattleMagic(101,400,Id()).Accepted,"legacy selected subset cannot exclude an approved owned spell");
+        var unowned=new Fixture(loadout:false,owned:new[]{301});Check(unowned.server.RequestBattleMagic(101,400,Id()).Failure==WorldFailure.NotOwned,"unowned spell is rejected despite explicit usable rule");
         Check(f.server.RequestBattleMagic(10101,400,Id()).Failure==WorldFailure.RulesUnavailable,"unsupported magic never reuses fireball effect");
         Check(f.server.RequestBattleMagic(101,0,Id()).Failure==WorldFailure.InvalidInput&&f.server.RequestBattleMagic(101,999,Id()).Failure==WorldFailure.InvalidInput,"fireball rejects self/absent target");
         f.Queue();var queued=f.View.battle.pending;Check(queued.magic==101&&queued.mpCost==5&&queued.apCost==2&&queued.targetLife==1&&queued.sourceLife==1,"explicit cost, selected spell and target life captured");
@@ -112,13 +113,15 @@ internal static class BattleMagicChecks
             var provider=new Fixture();var state=State(provider.View.record);var reply=provider.server.ExecuteBattleAction(TrainingAction.CastMagic,400,0,0,(r,v)=>{if(mode=="null")return null;if(mode=="throw")throw new Exception("fixture");var n=provider.Result(r);if(mode=="wrong-request")n.request=Id();else n.approved=false;return n;},101);
             Check(!reply.Accepted&&provider.View.battle.pending==null&&State(provider.View.record)==state&&provider.View.battle.magicEffects.Length==0,"authority failure unlocks with no speculative cast: "+mode);
         }
-        var scenario=new Fixture(scenario:true);scenario.Cast();Check(scenario.View.record.scenarioBattle.units[0].mp==40&&scenario.View.record.scenarioBattle.units[0].ap==18&&scenario.View.record.campaignPhase=="explore","scenario approved resources persist without automatic clear");
+        var scenario=new Fixture(scenario:true);var flags=scenario.Notice();flags.units[0].nativeStatusFlags=0x80010001u;
+        Check(scenario.server.ReceiveBattleUnits(flags).Accepted&&scenario.View.battle.Commander.nativeStatusFlags==0x80010001u&&scenario.View.record.hp==200&&scenario.View.record.mp==45,"explicit runtime+104 flags are preserved without deriving damage, cures or costs");
+        var detached=scenario.View.battle.Commander;detached.nativeStatusFlags=0;Check(scenario.View.battle.Commander.nativeStatusFlags==0x80010001u,"condition flag snapshot cannot mutate received state");scenario.Cast();Check(scenario.View.record.scenarioBattle.units[0].mp==40&&scenario.View.record.scenarioBattle.units[0].ap==18&&scenario.View.record.campaignPhase=="explore","scenario approved resources persist without automatic clear");
         var restored=new EntryAccountService(scenario.store);new EntryClient(restored).OpenLocalProfile();Check(restored.BeginWorld(scenario.definition).Accepted,"scenario reconnect");var restoredView=restored.WorldSnapshot();
-        Check(restoredView.battle.Commander.mp==40&&restoredView.battle.Commander.ap==18&&restoredView.battle.Commander.magicRules[0].mpCost==5&&restoredView.battle.magicEffects.Length==0,"approved combat/rules restore; transient effect never replays on login");
+        Check(restoredView.battle.Commander.nativeStatusFlags==0x80010001u&&restoredView.battle.Commander.mp==40&&restoredView.battle.Commander.ap==18&&restoredView.battle.Commander.magicRules[0].mpCost==5&&restoredView.battle.magicEffects.Length==0,"approved combat/rules restore; transient effect never replays on login");
         var path=Path.Combine(Path.GetTempPath(),"ds-battle-magic-"+Id()+".json");
         try
-        {var disk=new LocalAccountFileStore(path);Check(disk.TryWrite(scenario.store.data)&&disk.TryRead(out var document)&&document.accounts[0].character.world.scenarioBattle.units[0].magicRules[0].targets[0]==400,"nested cast rules actual file round trip");}
+        {var disk=new LocalAccountFileStore(path);Check(disk.TryWrite(scenario.store.data)&&disk.TryRead(out var document)&&document.accounts[0].character.world.scenarioBattle.units[0].magicRules[0].targets[0]==400&&document.accounts[0].character.world.scenarioBattle.units[0].nativeStatusFlags==0x80010001u,"nested cast rules actual file round trip");}
         finally{if(File.Exists(path))File.Delete(path);}
-        Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Original fireball101 selected-magic/permission/explicit MP-AP/target-life requests, approved combat persistence and fixed-endpoint presentation; no default damage, casting policy, all-spell renderer or audio/timing measurement claim."}));
+        Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Original fireball101 approved-owned-magic/permission/explicit MP-AP/target-life requests, approved combat persistence and fixed-endpoint presentation; no default damage, casting policy, all-spell renderer or audio/timing measurement claim."}));
     }
 }

@@ -140,6 +140,23 @@ internal static class WarehouseChecks
             var restored=new EntryAccountService(disk);new EntryClient(restored).OpenLocalProfile();Check(restored.BeginWorld(concurrent.definition).Accepted&&restored.WorldSnapshot().record.storage.Length==1&&restored.WorldSnapshot().facility==null,"file-backed login restores confirmed items only and no pending draft");
         }
         finally{if(Directory.Exists(Path.GetDirectoryName(path)))Directory.Delete(Path.GetDirectoryName(path),true);}
+        // Moving an owned item cannot manufacture or clear its approved remaining-use count.
+        foreach(var operation in new[]{WarehouseOperation.State,WarehouseOperation.Move,WarehouseOperation.Confirm})
+        foreach(int? uses in new int?[]{null,0,5})
+        foreach(int? changedUses in new int?[]{null,0,5,-1})
+        {
+            if(uses==changedUses)continue;
+            var usesCase=new Fixture(1);usesCase.store.data.accounts[0].character.world.inventory[0].remainingUses=uses;usesCase.Reload();
+            string owned=usesCase.View.record.inventory[0].id;
+            if(operation!=WarehouseOperation.State)usesCase.Info();
+            if(operation==WarehouseOperation.Confirm)usesCase.Move(true,owned);
+            usesCase.Queue(operation,true,operation==WarehouseOperation.Move?owned:null);
+            var tampered=usesCase.Notice();var row=tampered.inventory.Concat(tampered.storage).Single(i=>i.id==owned);row.remainingUses=changedUses;
+            string unchanged=State(usesCase.View.record),draftBefore=State(usesCase.View.facility.inventory)+State(usesCase.View.facility.storage);
+            Check(!usesCase.server.ReceiveWarehouseOperation(tampered).Accepted&&State(usesCase.View.record)==unchanged
+                &&State(usesCase.View.facility.inventory)+State(usesCase.View.facility.storage)==draftBefore,"warehouse preserves unknown/zero/positive uses, rejects changed count: "+operation+" "+uses+" -> "+changedUses);
+            row.remainingUses=uses;Check(usesCase.server.ReceiveWarehouseOperation(tampered).Accepted,"unchanged owned-use receipt still retries after rejected mutation");
+        }
         Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Actual warehouse terms/staged move/final approval, ownership conservation, fee and persistence contracts with isolated limits/prices; no original wire/order/capacity policy claim."}));
     }
 }

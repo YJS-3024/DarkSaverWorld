@@ -104,29 +104,33 @@ namespace DarkSaver.Original.Entry
         {
             if(authority==null)return WorldResult(WorldFailure.RulesUnavailable);
             var queued=RequestShopQuote(buy,item,owned,token,request);if(!queued.Accepted)return queued;
+            var origin=world;
             try
             {
                 var quote=authority(queued.View.shopQuoteRequest.Copy(),queued.View);
+                if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());
                 if(quote?.request?.id!=request)
                 {if(world.PendingShopQuote?.id==request)world.ClearShop();return WorldResult(quote==null?WorldFailure.RulesUnavailable:WorldFailure.StaleRequest);}
                 var reply=ReceiveShopQuote(quote);
                 if(!reply.Accepted&&world.PendingShopQuote?.id==request)world.ClearShop();return WorldResult(reply.Failure);
             }
-            catch(Exception){if(world.PendingShopQuote?.id==request)world.ClearShop();return WorldResult(WorldFailure.RulesUnavailable);}
+            catch(Exception){if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());if(world.PendingShopQuote?.id==request)world.ClearShop();return WorldResult(WorldFailure.RulesUnavailable);}
         }
         public WorldReply ExecuteShopTrade(string quote,string token,string request,Func<ShopRequest,WorldView,ShopNotice> authority)
         {
             if(authority==null)return WorldResult(WorldFailure.RulesUnavailable);
             var queued=RequestShopTrade(quote,token,request);if(!queued.Accepted)return queued;
+            var origin=world;
             try
             {
                 var notice=authority(queued.View.shopTradeRequest.Copy(),queued.View);
+                if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());
                 if(notice?.request?.id!=request)
                 {if(world.PendingShopTrade?.id==request)world.PendingShopTrade=null;return WorldResult(notice==null?WorldFailure.RulesUnavailable:WorldFailure.StaleRequest);}
                 var reply=ReceiveShopTrade(notice);
                 if(!reply.Accepted&&world.PendingShopTrade?.id==request)world.PendingShopTrade=null;return WorldResult(reply.Failure);
             }
-            catch(Exception){if(world.PendingShopTrade?.id==request)world.PendingShopTrade=null;return WorldResult(WorldFailure.RulesUnavailable);}
+            catch(Exception){if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());if(world.PendingShopTrade?.id==request)world.PendingShopTrade=null;return WorldResult(WorldFailure.RulesUnavailable);}
         }
     }
 }

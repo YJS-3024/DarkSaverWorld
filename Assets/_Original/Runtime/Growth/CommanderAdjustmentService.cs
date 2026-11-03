@@ -29,5 +29,7 @@ namespace DarkSaver.Original.Entry
             var result=CommitWorld(next,world.Record);if(result!=WorldFailure.None)return result;
             world.Record=next;target.rosterRevision=next.roster.revision;return WorldFailure.None;
         }
+        public bool TryNativeClassRecord(out int record)
+        {record=-1;if(ClassReady()!=WorldFailure.None)return false;int? value=world.AdjustmentNativeRecord;if(!value.HasValue||value<0||value>=65535)return false;record=value.Value;return true;}
     }
 }

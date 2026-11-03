@@ -1,0 +1,33 @@
+{
+  "assertions": 1025,
+  "unityPlay": false,
+  "scope": "Production bank/currency/account/manager integration; original packet/defined atoi comparison, ownership/nonce/revision guards, explicit approval/save failure/replay and reentrant logout isolation. Unity component dispatcher and native MFC/CRT/edit/transport boundaries isolated. No initial money, fee, limit, approval or server-policy inference.",
+  "nativeCodeExecuted": true,
+  "nativeQueryCases": 1,
+  "nativeBalanceCases": 8,
+  "nativeAmountCases": 30,
+  "nativeKeyCases": 10,
+  "nativeButtonCases": 144,
+  "nativeBankLabelCases": 200,
+  "nativeBankLabelCalls": 300,
+  "mismatches": 0,
+  "logs": "/tmp/ds-native-bank-checks",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_bank.py": "fb4fb1c7ee86ffdd6e4b814e36794a2141c41c6ab1a77a63300ea7b8c1990ef8",
+    "Tools/OriginalWorldChecks/native_bank_emulator.py": "2d9810b312246e6aca0f98cb53782d0d25707724fe099c5316ca97010f752de0",
+    "Tools/OriginalWorldChecks/native_mercenary_window_emulator.py": "1924fb295c877f74433eea09d4f38e92f37e2ec897f70cecc9da45be6e41184d",
+    "Tools/OriginalWorldChecks/native_shop_details_emulator.py": "9c579fbd474100029a81e8534d62c66356cca9cb6021d5a9b4504bc0f23379d4",
+    "Tools/OriginalWorldChecks/NativeBankChecks.cs": "526ccb184081117019ee76ae1c747dd22fe7aa65655247439a3035384ea5680e",
+    "Tools/OriginalWorldChecks/ClientWindowManagerHost.cs": "91579bb2ee8b37ada7232646183411ef79b8d2c1a1802e376677deab2ff7e652",
+    "Tools/OriginalWorldChecks/IdentityManagerHost.cs": "e85ce79b0f7914162f08c840ed553e9db793d98d09af3547b81a41124af14f9a",
+    "Assets/_Original/Runtime/UI/NativeCurrencyText.cs": "770dde1583173ea6e05c12ff89d48101c0a635d170e4e49c974babfb6d0c0c0e",
+    "Assets/_Original/Runtime/UI/NativeBankClient.cs": "ae67c48ffac231f141808823f56fbf9a5b21a9c9e22dde5eeb41866bcef25e8c",
+    "Assets/_Original/Runtime/World/LocalServerManager.Currency.cs": "09c326385887aa830b8be6843ae7e7cc5babe914b6d0d29efc3761844bd2da69",
+    "Assets/_Original/Runtime/World/LocalServerManager.Bank.cs": "436e03fe2207fb6b444e4239f39f5512ca585ba4c808639f3258adbe3a81d2f7",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBank.cs": "7a3d359c04530ff23ca30e280c74bba99aacb6c7e00bfe8909ce7135f1cc168c",
+    "Assets/_Original/Runtime/World/CurrencyService.cs": "792c0d3a812debe51bccba00e90651892e5c350637996b8a66f071ff411b7dca",
+    "Assets/_Original/Runtime/World/BankTransferService.cs": "53a99a5b69246088b84ffd42440ce123456841462312ceadf2871379af88cbd2",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Bank.cs": "7b533649e27a0be26527bb13cef85b83bb27521f23a32b2e17e6a905cda1969a",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Facilities.cs": "d703e11c772951bc17c1409679f3acdc5c605e5fdc27821e910fc0727636fe62"
+  }
+}

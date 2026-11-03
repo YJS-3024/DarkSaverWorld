@@ -16,9 +16,9 @@ namespace DarkSaver.Original.Entry
             var npc=world.Map(world.Record.map).npcs.FirstOrDefault(n=>n.id==world.Npc&&n.kind==(int)FacilityKind.Warehouse);
             return world.CanInteract(npc)?WorldFailure.None:WorldFailure.TooFar;
         }
-        private static bool SameOwned(WorldOwnedItem[] a,WorldOwnedItem[] b)=>a!=null&&b!=null&&a.Length==b.Length&&a.All(i=>i!=null&&b.Any(j=>j!=null&&i.id==j.id&&i.item==j.item&&i.slot==j.slot))
+        private static bool SameOwned(WorldOwnedItem[] a,WorldOwnedItem[] b)=>a!=null&&b!=null&&a.Length==b.Length&&a.All(i=>i!=null&&b.Any(j=>j!=null&&i.id==j.id&&i.item==j.item&&i.slot==j.slot&&i.remainingUses==j.remainingUses))
             &&a.Select(i=>i.id).Distinct().Count()==a.Length;
-        private static bool ValidOwned(WorldOwnedItem[] items,int capacity)=>items!=null&&items.All(i=>i!=null&&Guid.TryParseExact(i.id,"N",out _)&&i.item>=0&&i.slot>=0&&i.slot<capacity)
+        private static bool ValidOwned(WorldOwnedItem[] items,int capacity)=>items!=null&&items.All(i=>i!=null&&Guid.TryParseExact(i.id,"N",out _)&&i.item>=0&&i.slot>=0&&i.slot<capacity&&(!i.remainingUses.HasValue||i.remainingUses>=0))
             &&items.Select(i=>i.id).Distinct().Count()==items.Length&&items.Select(i=>i.slot).Distinct().Count()==items.Length;
         private bool ValidWarehouseArrays(WorldOwnedItem[] inventory,WorldOwnedItem[] storage,int capacity)
         {
@@ -119,9 +119,11 @@ namespace DarkSaver.Original.Entry
             var f=WarehouseReady(token);if(f!=WorldFailure.None)return WorldResult(f);
             if(authority==null)return WorldResult(WorldFailure.RulesUnavailable);
             var queued=RequestWarehouseOperation(operation,deposit,owned,token,request);if(!queued.Accepted)return queued;
+            var origin=world;
             try
             {
                 var notice=authority(queued.View.warehouseRequest.Copy(),queued.View);
+                if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());
                 if(notice!=null)
                 {
                     if(notice.request!=request){if(world.PendingWarehouse?.id==request)world.ClearWarehouseRequest();return WorldResult(WorldFailure.StaleRequest);}
@@ -129,6 +131,7 @@ namespace DarkSaver.Original.Entry
                 }
             }
             catch(Exception){/* Failed local approval must allow a fresh operation or cancel. */}
+            if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());
             if(world.PendingWarehouse?.id==request)world.ClearWarehouseRequest();return WorldResult(WorldFailure.RulesUnavailable);
         }
     }

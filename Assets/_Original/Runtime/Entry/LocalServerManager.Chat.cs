@@ -24,19 +24,20 @@ namespace DarkSaver.Original.Entry
         {
             if(channel<1||channel>3||string.IsNullOrEmpty(text)||memoCodec==null||!ChatContext(out var character,out var session)||!memoCodec.TryEncode(text,out _))return false;
             string processed=chatFilter.Apply(text);if(!memoCodec.TryEncode(processed,out byte[] encoded))return false;
+            bool Current()=>isActiveAndEnabled&&service.IsWorldClientSession(character,session);
             var packet=NativeWorldTextPackets.Build(encoded,channel);
             if(packet!=null)
             {
                 var request=new WorldClientTextRequest{id=Guid.NewGuid().ToString("N"),character=character,session=session,command=processed,packet=packet};
-                Notify_WorldTextPacket?.Invoke((byte[])packet.Clone());Notify_WorldTextRequested?.Invoke(request.Copy());
+                Notify_WorldTextPacket?.Invoke((byte[])packet.Clone());if(!Current())return false;Notify_WorldTextRequested?.Invoke(request.Copy());if(!Current())return false;
             }
             // 430FA0 examines the full CString even when429F70's low byte wraps to0.
             if(channel==1&&NativeWorldChatComposer.WhisperPrefix(processed,out string recipient))
             {
                 if(WhisperReception==false)Notify_ClientSettingsPacket?.Invoke(OriginalClientSettings.WhisperPacket(true));
-                if(recipient!=null)lastChatRecipient=recipient;
+                if(!Current())return false;if(recipient!=null)lastChatRecipient=recipient;
             }
-            return true;
+            return Current();
         }
     }
 }

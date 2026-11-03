@@ -84,11 +84,13 @@ namespace DarkSaver.Original.Tutorial
             var teacherName = Label(waitingScreen, "사부", new Rect(488, 208, 80, 16), "사부", TextAnchor.MiddleCenter, 12); teacherName.color = Color.yellow;
             waitingLayers = Group(waitingScreen, "Native Wlib windows", new Rect(0, 0, 640, 480));
             for (int i = 0; i < waitingDefinition.windows.Length; i++) BuildWaitingPanel(waitingDefinition.windows[i], i);
-            waitingDialogue = Group(waitingScreen, "Original RT_STRING lesson", new Rect(40, 20, 562, 84));
+            waitingDialogue = Group(waitingScreen, "Original RT_STRING lesson", new Rect(39, 20, 562, 84));
             Picture(waitingDialogue, "Wlib scene38", new Rect(0, 0, 562, 84), art.waitingDialogue);
-            Picture(waitingDialogue, "Teacher portrait", new Rect(14, 9, 64, 64), art.face);
-            waitingMessage = Label(waitingDialogue, "Original lesson text", new Rect(85, 7, 466, 72), "", TextAnchor.UpperLeft, 12);
-            waitingMessage.color = new Color(.72f, .72f, .72f, 1);
+            Picture(waitingDialogue, "Teacher portrait", new Rect(19, 10, 64, 64), art.face);
+            waitingMessage = Label(waitingDialogue, "Original lesson text", new Rect(90, 10, 455, 64), "", TextAnchor.UpperLeft, 12);
+            // Saver472640/472670: centered scene38, opaque face at(+19,+10), native paragraph bounds.
+            waitingMessage.color = Color.white;
+            ((NativeBitmapText)waitingMessage).NativeParagraphWrap = true;
             Hit(waitingDialogue, "Continue where native handler permits", new Rect(0, 0, 562, 84), () => WaitingSend(new WaitingInput(WaitingInputKind.Continue)));
             waitingGhost = Picture(waitingScreen, "Dragged native item", new Rect(0, 0, 32, 32), art.waitingItems); waitingGhost.gameObject.SetActive(false);
             waitingCursor = Picture(waitingScreen, "Native sword or door cursor", new Rect(0, 0, 32, 32), art.waitingCursors);

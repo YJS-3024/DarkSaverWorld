@@ -1,5 +1,5 @@
 {
-  "assertions": 4721,
+  "assertions": 4766,
   "mismatches": 0,
   "unityPlay": false,
   "nativeMouseToggleCases": 1152,
@@ -10,19 +10,20 @@
   "logs": "/tmp/ds-native-chat-composer-checks",
   "scope": "Unmodified470800/470790/433A30/470B00 mouse/mode;425680/416A70 preprocessing;430FA0/429F70/431650/470AD0 request bytes/post-send logic. Standard MFC CString operations and final send are isolated. Approved decoded filter terms, real account/service RPC integration and client-only preservation. Not raw filter delivery envelope, external MFC DLL execution, Win32 IME/caret, Unity input/rendering or server delivery.",
   "sources": {
-    "Tools/OriginalWorldChecks/check_native_chat_composer.py": "31cedbd34725bd58b3ff48d69a276a9ff5b1b1bcc4140c132f0a960f90b047de",
+    "Tools/OriginalWorldChecks/check_native_chat_composer.py": "d5e5fedb54fa2790483e4125deb19ee14e04852149434b8f33ed2a33138e360c",
     "Tools/OriginalWorldChecks/native_chat_composer_emulator.py": "6612830486817a10a63c4bab47f3b012795fc474e5bc00b074fd9c59ca51230b",
-    "Tools/OriginalWorldChecks/ChatComposerChecks.cs": "b16a3cb41c8b8c402f79e8df868d6541d8c599fadeea099b069f9f746b44b451",
+    "Tools/OriginalWorldChecks/ChatComposerChecks.cs": "b92006a5d14e07037c23d7258eb1bda26616bf0b985a42ccccd3b666357d4bc4",
     "Assets/_Original/Runtime/UI/NativeCodePage949.cs": "4cdde807db17dbd1b435d927728d888c60d560ff73a7d5c31b30454f51706324",
     "Assets/_Original/Runtime/UI/NativeMemoInbox.cs": "f19aedc8fba8c985a0aea6a64a7b7ba22b339b46431a102190fd4ca4caab1983",
+    "Assets/_Original/Runtime/UI/NativeMemoTransfer.cs": "5472f2a79ec02bebc675bc6c36e37af24c7b053bc2e7dc829e7df15ba4a61358",
     "Assets/_Original/Runtime/UI/OriginalClientSettings.cs": "db363e0b977a8df7a5cff134199a30ef5324b2b5fdf4f57c346d7676f36c1b0d",
     "Assets/_Original/Runtime/UI/NativeWorldTextPackets.cs": "791cdb9730b5a79fa6ecd635212796a7fb85677d7d1bae03d936bc1a9a1b0d5a",
     "Assets/_Original/Runtime/UI/NativeWorldChatComposer.cs": "cdce3d323422a10998b14d3b6d9cca67fdac5276424be3c4e7246485cd20707d",
     "Assets/_Original/Runtime/UI/NativeWorldChatFilter.cs": "0db3f33314e7163e286f1e9a353f67a5449497134c5bcfe8ceec7ea22fca1430",
-    "Assets/_Original/Runtime/Entry/LocalServerManager.Memos.cs": "c3d8c8bfe8c4e4f589662b3daaacfcbb171bca55bef3d0059381d6d15ae0e71e",
-    "Assets/_Original/Runtime/Entry/LocalServerManager.ClientSettings.cs": "dd08c5cb3a6a81d92798a259ac58e0c6a79d833cf9c9318654b0ffab75e7e74b",
-    "Assets/_Original/Runtime/Entry/LocalServerManager.WorldText.cs": "c2af3ed26c2af2df4fe211566cecbcbc1d638348a18e91fdf1d623c14a46d179",
-    "Assets/_Original/Runtime/Entry/LocalServerManager.Chat.cs": "00f75488f57192a38695b9fec3117ff81e75db0166cae72791aacce64f573dfd",
-    "Assets/_Original/Runtime/World/WorldSceneRoot.Chat.cs": "23d0a344e8e2ab3e11855957fb107ad456fef44edd65997b1d0f08be4b091b01"
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Memos.cs": "1d6762c3f5776a9ea75738ec5336e253f5f2ced063ce8d38b0e1a12f2046aa16",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.ClientSettings.cs": "c554e964a2da5d91d19b0962e0ae4e601186c90b8bf5516535407426663aadf1",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.WorldText.cs": "4a86778bda2acc160b609ac9b47360d46e750ace6f0909ce304ba66423f1a73d",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Chat.cs": "3109b6f4c4f7dd28fcb32971f97cc3fa126018cfcc6257acc9bebee8cb8c9fa4",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Chat.cs": "5da1787a883d2ec62ed9a11fedcf5ecdb086ec1f78ba801168bb082e0f0314e3"
   }
 }

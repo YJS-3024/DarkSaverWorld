@@ -35,13 +35,14 @@ namespace DarkSaver.Original.Entry
         {
             if(!PrivateChatContext(out string character,out string current)||session!=current||memoCodec==null)return false;
             string recipient=privateChats.Recipient(thread);if(recipient==null)return false;
+            bool Current()=>isActiveAndEnabled&&service.IsWorldClientSession(character,current)&&privateChatSession==current&&privateChats.Recipient(thread)==recipient;
             // This request precedes the empty-edit check in original4537A0.
             if(WhisperReception==false)Notify_ClientSettingsPacket?.Invoke(OriginalClientSettings.WhisperPacket(true));
-            if(string.IsNullOrEmpty(text)||!AcceptsPrivateText(text))return false;
+            if(!Current()||string.IsNullOrEmpty(text)||!AcceptsPrivateText(text))return false;
             string processed=chatFilter.Apply(text,false);if(!memoCodec.TryEncode(recipient,out var name)||!memoCodec.TryEncode(processed,out var body))return false;
             var packet=NativePrivateChatInbox.Reply(name,body);if(packet==null)return false;
             var request=new WorldPrivateTextRequest{id=Guid.NewGuid().ToString("N"),character=character,session=current,thread=thread,recipient=recipient.TrimEnd(' '),text=processed,packet=packet};
-            Notify_WorldTextPacket?.Invoke((byte[])packet.Clone());Notify_PrivateTextRequested?.Invoke(request.Copy());return true;
+            Notify_WorldTextPacket?.Invoke((byte[])packet.Clone());if(!Current())return false;Notify_PrivateTextRequested?.Invoke(request.Copy());return Current();
         }
     }
 }

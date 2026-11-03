@@ -27,7 +27,7 @@ class PlacementNative(Native):
    out,fmt=self.args(2);pattern=self.text(fmt);values=self.args(2+pattern.count(b'%d'))[2:];signed=lambda n:n if n<2147483648 else n-4294967296
    assert pattern in [b'Dlg%d',b'%d %d %d'];self.write(out,self.string(pattern%tuple(map(signed,values))));self.ret()
   elif name=='profile':
-   out,section,key,default=self.args(4);self.write(out,self.string(self.profile.encode()));self.ret(out,16)
+   out,section,key,default=self.args(4);self.profile_reads.append(dict(section=self.text(section).decode(),key=self.text(key).decode(),default=self.text(default).decode()if default else None));self.write(out,self.string(self.profile.encode()));self.ret(out,16)
   elif name=='assign-text':
    p=uc.reg_read(UC_X86_REG_ECX);self.write(p,self.string(self.text(self.args(1)[0])));self.ret(p,4)
   elif name=='profile-int':
@@ -60,8 +60,12 @@ class PlacementNative(Native):
    dst,p,q=self.args(3);p=struct.unpack('<4i',uc.mem_read(p,16));q=struct.unpack('<4i',uc.mem_read(q,16));r=(max(p[0],q[0]),max(p[1],q[1]),min(p[2],q[2]),min(p[3],q[3]));ok=r[0]<r[2]and r[1]<r[3];uc.mem_write(dst,struct.pack('<4i',*(r if ok else (0,0,0,0))));self.ret(int(ok),12)
   else:super().hook(uc,a,size,data)
  def resolve(self,case):
-  self.case=case;self.chat_size=case.get('chatSize',1);self.window_id=case['id'];self.profile=f'{case["x"]} {case["y"]} {case.get("minimized",0)}';self.uc.mem_write(self.window,b'\0'*256);vtable=0x0d004000;self.write(self.window,vtable);self.write(vtable+4,0x0e008000);self.write(vtable+0x44,0x0e008010);self.write(vtable+0x50,0x4346d0 if case['center']else 0x434ed0);self.write(self.window+0xb4,1)
+  self.next_string=0x0d060000;self.empty=self.string(b'')
+  self.profile_reads=[];self.case=case;self.chat_size=case.get('chatSize',1);self.window_id=case['id'];self.profile=f'{case["x"]} {case["y"]} {case.get("minimized",0)}';self.uc.mem_write(self.window,b'\0'*256);vtable=0x0d004000;self.write(self.window,vtable);self.write(vtable+4,0x0e008000);self.write(vtable+0x44,0x0e008010);self.write(vtable+0x50,0x4346d0 if case['center']else 0x434ed0);self.write(self.window+0xb4,1)
+  if case.get('nativeVtable'):
+   self.write(self.window,case['nativeVtable']);self.hooks[case['nativeMinimize']]='minimize-layout'
+   if case.get('idField')is not None:self.write(self.window+case['idField'],case['id'])
   self.write(self.window+0x48,case['width']);self.write(self.window+0x4c,case['height']);self.uc.mem_write(self.window+0x30,struct.pack('<4i',*case['region']));self.run(0x4347e0,[],self.window)
   signed=lambda n:n if n<2147483648 else n-4294967296
   result=dict(x=signed(self.read(self.window+0x40)),y=signed(self.read(self.window+0x44)),minimized=bool(self.read(self.window+0x80)),expanded=self.read(self.window+0xb4)==2)
-  self.saved=None;self.saved_chat=None;self.run(0x434c20,[],self.window);result.update(saved=self.saved,savedChat=self.saved_chat);assert self.saved is not None;return result
+  self.saved=None;self.saved_chat=None;self.run(0x434c20,[],self.window);result.update(saved=self.saved,savedChat=self.saved_chat,profileReads=self.profile_reads);assert self.saved is not None;return result

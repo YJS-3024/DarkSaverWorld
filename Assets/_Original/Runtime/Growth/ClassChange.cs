@@ -12,10 +12,11 @@ namespace DarkSaver.Original.World
     }
     public sealed class ClassOptionsRequest
     {
+        public int? nativeRecord;
         public CommanderAdjustmentTarget target;
         public string id,character,session;public int map;public long revision;
         public ClassOptionsRequest Copy(){var r=(ClassOptionsRequest)MemberwiseClone();r.target=target?.Copy();return r;}
-        public static bool Same(ClassOptionsRequest a,ClassOptionsRequest b)=>a!=null&&b!=null&&CommanderAdjustmentTarget.Same(a.target,b.target)&&a.id==b.id&&a.character==b.character&&a.session==b.session&&a.map==b.map&&a.revision==b.revision;
+        public static bool Same(ClassOptionsRequest a,ClassOptionsRequest b)=>a!=null&&b!=null&&CommanderAdjustmentTarget.Same(a.target,b.target)&&a.nativeRecord==b.nativeRecord&&a.id==b.id&&a.character==b.character&&a.session==b.session&&a.map==b.map&&a.revision==b.revision;
     }
     public sealed class ClassOptionsNotice
     {
@@ -27,9 +28,10 @@ namespace DarkSaver.Original.World
     public sealed class ClassChangeRequest
     {
         public CommanderAdjustmentTarget target;
+        public int? nativeRecord;public byte[] NativePacket=>NativeClassAdjustmentPackets.Change(nativeRecord,job);
         public string id,options,character,session;public int map,slot,index,job;public long revision;
         public ClassChangeRequest Copy(){var r=(ClassChangeRequest)MemberwiseClone();r.target=target?.Copy();return r;}
-        public static bool Same(ClassChangeRequest a,ClassChangeRequest b)=>a!=null&&b!=null&&CommanderAdjustmentTarget.Same(a.target,b.target)&&a.id==b.id&&a.options==b.options&&a.character==b.character&&a.session==b.session
+        public static bool Same(ClassChangeRequest a,ClassChangeRequest b)=>a!=null&&b!=null&&CommanderAdjustmentTarget.Same(a.target,b.target)&&a.nativeRecord==b.nativeRecord&&a.id==b.id&&a.options==b.options&&a.character==b.character&&a.session==b.session
             &&a.map==b.map&&a.slot==b.slot&&a.index==b.index&&a.job==b.job&&a.revision==b.revision;
     }
     public sealed class ClassChangeNotice

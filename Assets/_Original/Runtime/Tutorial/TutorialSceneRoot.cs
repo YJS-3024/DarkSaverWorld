@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DarkSaver.Original.Entry;
 using UnityEngine;
+using DarkSaver.Original.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -304,7 +305,8 @@ namespace DarkSaver.Original.Tutorial
             var actor = view.Actors.FirstOrDefault(a => a.Id == view.MenuUnit);
             actionMenu.gameObject.SetActive(actor != null && !view.MagicVisible && !view.OrderVisible);
             magicMenu.gameObject.SetActive(view.MagicVisible); orderMenu.gameObject.SetActive(view.OrderVisible);
-            int iconPhase = (int)(view.Clock / 300) % 2 * 160;
+            double iconClock = Time.unscaledTimeAsDouble * 1000.0;
+            int iconPhase = NativeBattleMenuIcons.NormalY(0, iconClock);
             spellIcon.uvRect = NativeEntryLayout.Uv(art.icons, new Rect(0, 32 + iconPhase, 32, 32));
             for (int i = 0; i < orderIcons.Count; i++) orderIcons[i].uvRect = NativeEntryLayout.Uv(art.icons, new Rect(i * 32, 64 + iconPhase, 32, 32));
             if (actor == null) return;
@@ -316,7 +318,7 @@ namespace DarkSaver.Original.Tutorial
                 bool allowed = TutorialSession.ActionAllowed(actor, item.action);
                 int normal = item.action == TutorialAction.Move ? 0 : item.action == TutorialAction.Attack ? 1 : item.action == TutorialAction.Magic ? 2 : item.action == TutorialAction.Item ? 3 : item.action == TutorialAction.Order ? 4 : item.action == TutorialAction.Options ? 5 : item.action == TutorialAction.Rest ? 8 : 12;
                 int grey = item.action == TutorialAction.Move ? 4 : item.action == TutorialAction.Attack ? 5 : item.action == TutorialAction.Magic ? 6 : item.action == TutorialAction.Item ? 7 : item.action == TutorialAction.Rest ? 8 : item.action == TutorialAction.Special ? 9 : item.action == TutorialAction.Order ? 10 : 11;
-                item.image.uvRect = NativeEntryLayout.Uv(art.icons, new Rect((allowed ? normal : grey) * 32, allowed ? ((int)(view.Clock / 300) % 2) * 160 : 128, 32, 32));
+                item.image.uvRect = NativeEntryLayout.Uv(art.icons, new Rect((allowed ? normal : grey) * 32, NativeBattleMenuIcons.ActionY(allowed, iconClock), 32, 32));
                 item.button.interactable = view.MouseEnabled && allowed;
             }
         }

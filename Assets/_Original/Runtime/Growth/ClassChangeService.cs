@@ -25,7 +25,7 @@ namespace DarkSaver.Original.Entry
             if(world.PendingClassOptions!=null||world.PendingClassChange!=null)return WorldResult(WorldFailure.Busy);
             if(world.AdjustmentRecord.growth.revision==long.MaxValue)return WorldResult(WorldFailure.StaleRequest);
             world.ClearClassChange();world.ClassOptionsState=world.AdjustmentRecord.Copy();
-            world.PendingClassOptions=new ClassOptionsRequest{id=request,character=worldCharacter,session=world.GrowthSession,target=world.AdjustmentTarget?.Copy(),map=world.AdjustmentRecord.map,revision=world.AdjustmentRecord.growth.revision};
+            world.PendingClassOptions=new ClassOptionsRequest{nativeRecord=world.AdjustmentNativeRecord,id=request,character=worldCharacter,session=world.GrowthSession,target=world.AdjustmentTarget?.Copy(),map=world.AdjustmentRecord.map,revision=world.AdjustmentRecord.growth.revision};
             world.Applied.Add(request);return WorldResult(WorldFailure.None);
         }
         public WorldReply ReceiveClassOptions(ClassOptionsNotice notice)
@@ -53,7 +53,7 @@ namespace DarkSaver.Original.Entry
             if(!offer.Matches(world)||!TempleRevivalOffer.SameState(world.AdjustmentRecord,offer.State)){world.ClearClassChange();return WorldResult(WorldFailure.StaleRequest);}
             var candidate=offer.Options.Candidate(slot,index);
             if(offer.Options.classPoints<=0||candidate==null||candidate.job==world.AdjustmentJob)return WorldResult(WorldFailure.InvalidInput);
-            world.PendingClassChange=new ClassChangeRequest{id=request,options=options,character=worldCharacter,session=world.GrowthSession,target=world.AdjustmentTarget?.Copy(),map=world.AdjustmentRecord.map,
+            world.PendingClassChange=new ClassChangeRequest{nativeRecord=world.AdjustmentNativeRecord,id=request,options=options,character=worldCharacter,session=world.GrowthSession,target=world.AdjustmentTarget?.Copy(),map=world.AdjustmentRecord.map,
                 revision=world.AdjustmentRecord.growth.revision,slot=slot,index=index,job=candidate.job};
             world.Applied.Add(request);return WorldResult(WorldFailure.None);
         }
@@ -83,10 +83,10 @@ namespace DarkSaver.Original.Entry
             try
             {
                 var notice=authority(queued.View.classOptionsRequest.Copy(),queued.View);
-                if(notice?.request?.id!=request){if(world.PendingClassOptions?.id==request)world.ClearClassChange();return WorldResult(WorldFailure.StaleRequest);}
-                var result=ReceiveClassOptions(notice);if(!result.Accepted&&world.PendingClassOptions?.id==request)world.ClearClassChange();return WorldResult(result.Failure);
+                if(notice?.request?.id!=request){if(world?.PendingClassOptions?.id==request)world.ClearClassChange();return WorldResult(WorldFailure.StaleRequest);}
+                var result=ReceiveClassOptions(notice);if(!result.Accepted&&world?.PendingClassOptions?.id==request)world.ClearClassChange();return WorldResult(result.Failure);
             }
-            catch(Exception){if(world.PendingClassOptions?.id==request)world.ClearClassChange();return WorldResult(WorldFailure.RulesUnavailable);}
+            catch(Exception){if(world?.PendingClassOptions?.id==request)world.ClearClassChange();return WorldResult(WorldFailure.RulesUnavailable);}
         }
         public WorldReply ExecuteClassChange(int slot,int index,string options,string request,Func<ClassChangeRequest,WorldView,ClassChangeNotice> authority)
         {
@@ -95,10 +95,10 @@ namespace DarkSaver.Original.Entry
             try
             {
                 var notice=authority(queued.View.classChangeRequest.Copy(),queued.View);
-                if(notice?.request?.id!=request){if(world.PendingClassChange?.id==request)world.PendingClassChange=null;return WorldResult(WorldFailure.StaleRequest);}
-                var result=ReceiveClassChange(notice);if(!result.Accepted&&world.PendingClassChange?.id==request)world.PendingClassChange=null;return WorldResult(result.Failure);
+                if(notice?.request?.id!=request){if(world?.PendingClassChange?.id==request)world.PendingClassChange=null;return WorldResult(WorldFailure.StaleRequest);}
+                var result=ReceiveClassChange(notice);if(!result.Accepted&&world?.PendingClassChange?.id==request)world.PendingClassChange=null;return WorldResult(result.Failure);
             }
-            catch(Exception){if(world.PendingClassChange?.id==request)world.PendingClassChange=null;return WorldResult(WorldFailure.RulesUnavailable);}
+            catch(Exception){if(world?.PendingClassChange?.id==request)world.PendingClassChange=null;return WorldResult(WorldFailure.RulesUnavailable);}
         }
     }
 }

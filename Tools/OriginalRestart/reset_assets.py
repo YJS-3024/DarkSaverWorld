@@ -86,7 +86,20 @@ def meta(path, base, folder=False):
   alphaIsTransparency: 0
   textureType: 8
   maxTextureSize: 16384
-  textureCompression: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   userData: Original pixels only; no scaling, alpha key, placement or timing rule.
   assetBundleName:
   assetBundleVariant:

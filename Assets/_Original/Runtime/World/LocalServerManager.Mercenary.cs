@@ -5,6 +5,8 @@ namespace DarkSaver.Original.Entry
 {
     public sealed partial class LocalServerManager
     {
+        public WorldReply Request_HireMercenary(int job,string token,string id)=>SendMercenary(true,job,token,id);
+        public WorldReply Request_DismissMercenary(string token,string id)=>SendMercenary(false,-1,token,id);
         public Func<MercenaryRequest,WorldView,MercenaryNotice> MercenaryAuthority { get; set; }
         public event Action<WorldReply> Notify_MercenaryChanged;
         public WorldReply Notify_Mercenary(MercenaryNotice notice)=>MercenaryResult(s=>s.ReceiveMercenaryTransfer(notice));

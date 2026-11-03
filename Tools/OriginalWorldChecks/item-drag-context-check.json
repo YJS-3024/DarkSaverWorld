@@ -1,0 +1,15 @@
+{
+  "assertions": 48,
+  "unityPlay": false,
+  "scope": "Production pointer-gesture item ownership snapshots: personal/secondary/legacy bags, equipment, shop pages, storage drafts, stale sessions/windows/instances and unrelated-state preservation. No transaction policy, Unity EventSystem or original native packet-token inference.",
+  "mismatches": 0,
+  "logs": "/tmp/ds-item-drag-context",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_item_drag_context.py": "de368f90c3d6995d2a2cb2ca6a626da76401401a511397361e86c26f25c3c12e",
+    "Tools/OriginalWorldChecks/ItemDragContextChecks.cs": "f5f200bb40fbf0955a3a43382be15b5d37f48a81246fe72ad1ecd837800a5551",
+    "Assets/_Original/Runtime/UI/NativeItemDragContext.cs": "a410fae9232364415ddc5b09a2698e0a5522e8affccef35d49d20e7eed808ac7",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Personal.cs": "b2f6a6a3771bbb33a208df5b0eee6be4cbbfe23cc02d422b7cc141291c0f3e92",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Facilities.cs": "d703e11c772951bc17c1409679f3acdc5c605e5fdc27821e910fc0727636fe62",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Commanders.cs": "c5ac5ef7a25cccf4763b49c4c9eae0cc94a80cb823c35294197193034309d00a"
+  }
+}

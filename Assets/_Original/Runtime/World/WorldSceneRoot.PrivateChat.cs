@@ -20,9 +20,8 @@ namespace DarkSaver.Original.World
             var spec=art.PrivateChatLayout;if(spec==null||art.privateChatWindow==null)return null;
             var p=new PrivateWindow{Id=item.id,Session=session,Root=Group(worldWindows,"Original private chat80 "+item.id,new Rect(item.x,item.y,spec.width,spec.height))};
             p.Root.gameObject.AddComponent<Image>().color=Color.clear;Picture(p.Root,"Original scene47 frame",new Rect(0,0,spec.width,spec.height),art.privateChatWindow);
-            var title=Hit(p.Root,"Original private title",new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>p.Root.SetAsLastSibling());Vector2? offset=null;
-            title.gameObject.AddComponent<NativeTutorialDrag>().Configure(screen,(point,end)=>
-            {p.Root.SetAsLastSibling();if(!offset.HasValue)offset=point-new Vector2(p.Root.anchoredPosition.x,-p.Root.anchoredPosition.y);var at=point-offset.Value;Place(p.Root,new Rect(Mathf.Clamp(Mathf.Round(at.x),0,640-spec.width),Mathf.Clamp(Mathf.Round(at.y),0,480-spec.height),spec.width,spec.height));if(end)offset=null;},onCancel:()=>offset=null);
+            var title=Hit(p.Root,"Original private title",new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>p.Root.SetAsLastSibling());
+            title.gameObject.AddComponent<NativeWindowDragInput>().Configure(screen,p.Root,new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>NativeWindowDragAllowed);
             // 453380's16-bit native literal0x1F title, with a one-pixel black shadow.
             var shadow=Label(p.Root,"Original name shadow",new Rect(33,5,80,16),item.sender);shadow.color=Color.black;shadow.alignment=TextAnchor.UpperLeft;((NativeBitmapText)shadow).NativeParagraphWrap=true;
             var name=Label(p.Root,"Original private sender",new Rect(32,4,80,16),item.sender);name.color=Color.blue;name.alignment=TextAnchor.UpperLeft;((NativeBitmapText)name).NativeParagraphWrap=true;

@@ -16,15 +16,16 @@ namespace DarkSaver.Original.World
         public bool CanAdd(int index)=>index>=0&&index<learned.Length&&selected.Length<8&&!selected.Contains(learned[index]);
         public bool CanRemove(int index)=>index>=0&&index<selected.Length;
     }
-    // Local contracts: do not infer the unresolved word in native opcode84 or claim native wire layouts.
+    // Legacy adapter selection contract, retained for old saved records. It is not the original learning window or native83/84/85 wire protocol.
     public sealed class MagicLoadoutRequest
     {
         public CommanderAdjustmentTarget target;
+        public int? nativeRecord;
         public string id,character,session,terms;public int map,index,magic;public long revision,growthRevision,draftRevision;
         public MagicLoadoutOperation operation;public int[] selected;
         public string statTerms;public long statRevision,statDraftRevision;public AttributeTriplet[] attributes;public int? statPoints;
         public MagicLoadoutRequest Copy(){var r=(MagicLoadoutRequest)MemberwiseClone();r.target=target?.Copy();r.selected=selected==null?null:(int[])selected.Clone();r.attributes=attributes?.Select(v=>v.Copy()).ToArray();return r;}
-        public static bool Same(MagicLoadoutRequest a,MagicLoadoutRequest b)=>a!=null&&b!=null&&CommanderAdjustmentTarget.Same(a.target,b.target)&&a.id==b.id&&a.character==b.character&&a.session==b.session&&a.terms==b.terms
+        public static bool Same(MagicLoadoutRequest a,MagicLoadoutRequest b)=>a!=null&&b!=null&&CommanderAdjustmentTarget.Same(a.target,b.target)&&a.nativeRecord==b.nativeRecord&&a.id==b.id&&a.character==b.character&&a.session==b.session&&a.terms==b.terms
             &&a.map==b.map&&a.index==b.index&&a.magic==b.magic&&a.revision==b.revision&&a.growthRevision==b.growthRevision&&a.draftRevision==b.draftRevision&&a.operation==b.operation
             &&(a.selected==null?b.selected==null:b.selected!=null&&a.selected.SequenceEqual(b.selected))&&a.statTerms==b.statTerms&&a.statRevision==b.statRevision&&a.statDraftRevision==b.statDraftRevision&&a.statPoints==b.statPoints
             &&(a.attributes==null?b.attributes==null:AttributeTriplet.Same(a.attributes,b.attributes));

@@ -7,8 +7,8 @@ namespace DarkSaver.Original.Entry
     {
         public event Action<byte[]> Notify_ClientSettingsPacket;
         public event Action<bool> Notify_WhisperReceptionChanged;
-        private string clientSettingsSession;
-        public bool? WhisperReception {get;private set;}
+        private string clientSettingsSession,clientSettingsCharacter;private bool? whisperReception;
+        public bool? WhisperReception=>isActiveAndEnabled&&service!=null&&service.IsWorldClientSession(clientSettingsCharacter,clientSettingsSession)?whisperReception:null;
         private readonly HashSet<string> clientSettingsNotices=new HashSet<string>();
         public bool Notify_ClientSettingsState(ClientWhisperNotice notice)
         {
@@ -16,12 +16,13 @@ namespace DarkSaver.Original.Entry
                 ||!OriginalClientSettings.TryReadWhisper(notice.packet,out bool allowed))return false;
             if(clientSettingsSession!=notice.session){clientSettingsSession=notice.session;clientSettingsNotices.Clear();}
             if(!clientSettingsNotices.Add(notice.id))return false;
-            WhisperReception=allowed;Notify_WhisperReceptionChanged?.Invoke(allowed);return true;
+            clientSettingsCharacter=notice.character;whisperReception=allowed;Notify_WhisperReceptionChanged?.Invoke(allowed);return true;
         }
         public bool Request_WhisperReception(bool allowed)
         {
-            if(!isActiveAndEnabled||service==null||!service.TryWorldClientSession(out _,out _))return false;
-            WhisperReception=allowed;Notify_ClientSettingsPacket?.Invoke(OriginalClientSettings.WhisperPacket(allowed));return true;
+            if(!isActiveAndEnabled||service==null||!service.TryWorldClientSession(out var character,out var session))return false;
+            if(clientSettingsSession!=session){clientSettingsSession=session;clientSettingsNotices.Clear();}
+            clientSettingsCharacter=character;whisperReception=allowed;Notify_ClientSettingsPacket?.Invoke(OriginalClientSettings.WhisperPacket(allowed));return isActiveAndEnabled&&service.IsWorldClientSession(character,session);
         }
     }
 }

@@ -3,10 +3,12 @@
 Only portrait references are changed. Authored map, gateway, placement and script data
 are not regenerated. Existing decoded64px images are reused without duplicate copies.
 """
-import hashlib,json,re
+import hashlib,json,re,sys
 from pathlib import Path
 from PIL import Image
 from build_world_assets import BASE,ROOT
+sys.path.insert(0,str(ROOT/'Tools/OriginalRestart'))
+from pixel_texture_policy import normalize
 def face_sources():
  rows=[];seen=set();archives=[]
  for index in range(4):
@@ -22,7 +24,7 @@ def build():
  # Preserve the original RGB pixels after import too; Unity's default block
  # compression changes these64px UI portraits. Keep existing GUID/sprite data.
  for path in [p for _,_,p in rows]+[fallback]:
-  meta=Path(str(path)+'.meta');contents=meta.read_text();contents=re.sub(r'^(\s*textureCompression:) \d+',r'\g<1> 0',contents,flags=re.M);meta.write_text(contents)
+  meta=Path(str(path)+'.meta');contents=meta.read_text();contents=normalize(contents);meta.write_text(contents)
  for line in [r'^  faces:\n(?:  - .*\n)*',r'^  faceIds:.*\n',r'^  noFace:.*\n']:text=re.sub(line,'',text,flags=re.M)
  text+='  faces:\n'+''.join('  - {fileID: 2800000, guid: '+guid(path)+', type: 3}\n'for _,_,path in rows)
  text+='  faceIds: '+''.join(identifier.to_bytes(4,'little',signed=True).hex()for identifier,_,_ in rows)+'\n  noFace: {fileID: 2800000, guid: '+guid(fallback)+', type: 3}\n';asset.write_text(text)

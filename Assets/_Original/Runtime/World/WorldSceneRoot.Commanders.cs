@@ -17,7 +17,7 @@ namespace DarkSaver.Original.World
         }
         private RawImage commanderDrag;
         private long commanderDragRevision;
-        private string commanderDragIdentity;
+        private string commanderDragIdentity,commanderDragCharacter,commanderDragSession;
         private int commanderDragSlot=-1;
         private OwnedCommander InspectedCommander=>view?.commanders?.rows?.ElementAtOrDefault(view.inspectedCommander);
         private int InspectedJob=>InspectedCommander?.job??CurrentCommanderJob;
@@ -47,16 +47,17 @@ namespace DarkSaver.Original.World
                 var cell=new CommanderCell{Slot=slot,Bounds=bounds,Hit=hit,Body=Picture((RectTransform)hit.transform,"Original body32",new Rect(0,0,32,32),null),Back=hit.GetComponent<Image>()};
                 p.Commanders.Add(cell);
                 hit.gameObject.AddComponent<NativeTutorialDrag>().Configure(screen,(point,end)=>DragCommander(p,cell,point,end),
-                    ()=>PersonalAvailable&&!view.moving&&view.commanderRequest==null&&view.commanders!=null&&index<view.commanders.rows.Length,ClearCommanderDrag);
+                    ()=>PersonalAvailable&&!view.moving&&view.commanderRequest==null&&view.commanders!=null&&index<view.commanders.rows.Length,ClearCommanderDrag,
+                    ()=>CommanderDragCurrent(p));
             }
         }
         private void DragCommander(PersonalWindow panel,CommanderCell cell,Vector2 point,bool end)
         {
             if(commanderDrag==null)
             {
-                var rows=view.commanders?.rows;if(rows==null||cell.Slot>=rows.Length)return;
+                if(end)return;var rows=view.commanders?.rows;if(rows==null||cell.Slot>=rows.Length)return;
                 var inspected=server.Request_InspectCommander(cell.Slot);Handle(inspected);if(!inspected.Accepted)return;
-                CloseClassWindow();panel.Root.SetAsLastSibling();commanderDragRevision=view.commanders.revision;commanderDragIdentity=rows[cell.Slot].id;commanderDragSlot=cell.Slot;
+                CloseClassWindow();panel.Root.SetAsLastSibling();commanderDragRevision=view.commanders.revision;commanderDragIdentity=rows[cell.Slot].id;commanderDragSlot=cell.Slot;commanderDragCharacter=view.characterId;commanderDragSession=view.commanderSession;
                 int job=rows[cell.Slot].job;commanderDrag=Picture(overlay,"Original commander exchange drag32",new Rect(point.x-16,point.y-16,32,32),CommanderIcon(job),new Rect(32,32,32,32));
             }
             Place((RectTransform)commanderDrag.transform,new Rect(point.x-16,point.y-16,32,32));if(!end)return;
@@ -66,8 +67,15 @@ namespace DarkSaver.Original.World
             int source=commanderDragSlot;ClearCommanderDrag();
             if(valid&&target!=null&&target.Slot!=source&&target.Slot<latest.commanders.rows.Length)Handle(server.Request_SwapCommanders(source,target.Slot));
         }
+        private bool CommanderDragCurrent(PersonalWindow panel)
+        {
+            var current=server.WorldSnapshot;
+            return commanderDrag!=null&&panel.Visible&&!panel.Minimized&&PersonalAvailable&&!BattleMap()&&current!=null&&!current.moving&&current.commanderRequest==null
+                &&current.characterId==commanderDragCharacter&&current.commanderSession==commanderDragSession&&current.commanders?.revision==commanderDragRevision
+                &&current.commanders.rows.ElementAtOrDefault(commanderDragSlot)?.id==commanderDragIdentity;
+        }
         private void ClearCommanderDrag()
-        {if(commanderDrag!=null)Destroy(commanderDrag.gameObject);commanderDrag=null;commanderDragIdentity=null;commanderDragSlot=-1;}
+        {if(commanderDrag!=null)Destroy(commanderDrag.gameObject);commanderDrag=null;commanderDragIdentity=null;commanderDragCharacter=commanderDragSession=null;commanderDragSlot=-1;}
         private void PaintCommanderCells(PersonalWindow panel)
         {
             foreach(var cell in panel.Commanders)

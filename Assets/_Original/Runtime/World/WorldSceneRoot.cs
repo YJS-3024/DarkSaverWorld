@@ -37,7 +37,14 @@ namespace DarkSaver.Original.World
         {
             originalMusicEnabled=DarkSaver.Original.UI.OriginalClientPreferences.Current.Music;
             server = GetComponent<LocalServerManager>();
-            var codec=Resources.Load<TextAsset>("OriginalCodePage949");if(codec!=null){worldTextCodec=JsonUtility.FromJson<DarkSaver.Original.UI.NativeCodePage949>(codec.text);server.ConfigureClientText(worldTextCodec);}
+            var codec=Resources.Load<TextAsset>("OriginalCodePage949");if(codec!=null)
+            {
+                worldTextCodec=JsonUtility.FromJson<DarkSaver.Original.UI.NativeCodePage949>(codec.text);server.ConfigureClientText(worldTextCodec);
+                var cache=new DarkSaver.Original.UI.NativeCandidateCacheFile(System.IO.Path.Combine(Application.persistentDataPath,"OriginalClient","Candid.Dat"));
+                server.ConfigureCandidateCacheWriter(cache.TryWrite);
+                byte[] candidate=null;if(cache.Exists)cache.TryRead(out candidate);else candidate=Resources.Load<TextAsset>("OriginalCandidateCache")?.bytes;
+                if(candidate!=null)server.ConfigureCandidateCache(candidate,cache.TryWrite);
+            }
             tutorial = GetComponent<TutorialSceneRoot>();
             tutorial.WorldEntryReady += Begin;server.Notify_ScenarioEffect+=ReceiveCampaignEffect;server.Notify_MapEntered+=HandleMusicMapEntered;server.Notify_WhisperReceptionChanged+=ReceiveWhisperReception;server.Notify_WorldMessageReceived+=ReceiveWorldMessage;
         }
@@ -123,7 +130,7 @@ namespace DarkSaver.Original.World
                 });
                 bool available=TrainingActionAvailable(icon);
                 hit.interactable=available;
-                var image=Picture((RectTransform)hit.transform,"Native action",new Rect(0,0,32,32),art.battle.icons,new Rect((available?icon:s.Item4)*32,available?0:128,32,32));
+                var image=Picture((RectTransform)hit.transform,"Native action",new Rect(0,0,32,32),art.battle.icons,new Rect((available?icon:s.Item4)*32,DarkSaver.Original.UI.NativeBattleMenuIcons.ActionY(available,BattleIconClock),32,32));
                 trainingButtons.Add((icon,s.Item4,hit,image));
             }
         }
@@ -132,13 +139,18 @@ namespace DarkSaver.Original.World
             campaignVisuals.Advance(Time.unscaledDeltaTime*1000.0);
             if(!running)return;
             AdvanceCampaignMusic();
+            if(HandleClientMessageInput()||HandleCommanderNameInput()||HandleBankAmountInput())return;
             if(WaitingScenarioResult)
             {if(notice!=null&&(Input.GetKeyDown(KeyCode.Escape)||Input.GetMouseButtonDown(1)))CloseNotice();return;}
             if(Input.GetKeyDown(KeyCode.Escape)||Input.GetMouseButtonDown(1))
             {trainingMode=null;CancelBattleMagicSelection();if(notice!=null)CloseNotice();else if(panel!=null)Handle(server.Request_CloseFacility());else showingActions=false;}
-            if(Input.GetKeyDown(KeyCode.F9))
-            {if(BattleMap())ShowBattleEscape();else ShowQuit();}
-            if(Input.GetKeyDown(KeyCode.F2)&&BattleMap())ToggleTrainingStatus();
+            if(BattleMap())
+            {
+                if(notice==null&&view.presentation?.completed!=false&&!clientMessageState.Visible)
+                    for(int key=0;key<12;key++)if(Input.GetKeyDown((KeyCode)((int)KeyCode.F1+key)))
+                        DarkSaver.Original.UI.NativeBattleOptions.Key(0x70+key,ActiveBattleCommanders,true,BattleDialogRequest);
+            }
+            else if(Input.GetKeyDown(KeyCode.F9))ShowQuit();
             if(Input.GetKeyDown(KeyCode.F1)&&!BattleMap())ToggleUtility(33);
             if(Input.GetKeyDown(KeyCode.F8)&&!BattleMap())ToggleUtility(27);
             if(Input.GetKeyDown(KeyCode.F6)&&!BattleMap())ToggleUtility(81);
@@ -170,7 +182,9 @@ namespace DarkSaver.Original.World
             float cameraX=presenting&&view.presentation.hasCamera?view.presentation.cameraX:(float)view.renderX;
             float cameraY=presenting&&view.presentation.hasCamera?view.presentation.cameraY:(float)view.renderY;
             float cx=Mathf.Round(Mathf.Clamp(cameraX*32+16-320,0,Mathf.Max(0,m.map.width*32-640)));
+            if(!presenting&&BattleMap()&&battleCameraX.HasValue&&battleDialogMap==view.record.map)cx=Mathf.Clamp(battleCameraX.Value*32,0,Mathf.Max(0,m.map.width*32-640));
             float cy=Mathf.Round(Mathf.Clamp(cameraY*32+16-240,0,Mathf.Max(0,m.map.height*32-480)));
+            if(!presenting&&BattleMap()&&battleCameraY.HasValue&&battleDialogMap==view.record.map)cy=Mathf.Clamp(battleCameraY.Value*32,0,Mathf.Max(0,m.map.height*32-480));
             Place(mapRoot,new Rect(-cx,-cy,m.map.width*32,m.map.height*32));Place(playerHit,new Rect((float)view.renderX*32,(float)view.renderY*32,32,32));
             PaintMapAnimation(cx,cy);
             playerName.text=CommanderName;
@@ -209,7 +223,7 @@ namespace DarkSaver.Original.World
         {var t=Group(parent,name,rect).gameObject.AddComponent<DarkSaver.Original.UI.NativeBitmapText>();t.font=font;t.fontSize=12;t.text=value;t.supportRichText=false;t.color=Color.black;t.alignment=alignment;t.raycastTarget=false;t.horizontalOverflow=HorizontalWrapMode.Wrap;t.verticalOverflow=VerticalWrapMode.Truncate;return t;}
         private Button Hit(RectTransform parent,string name,Rect rect,Action action)
         {var i=Group(parent,name,rect).gameObject.AddComponent<Image>();i.color=Color.clear;var b=i.gameObject.AddComponent<Button>();b.targetGraphic=i;b.transition=Selectable.Transition.None;b.onClick.AddListener(()=>action());return b;}
-        private void OnDisable(){ResetCampaignMusic();StopMagicAudio();running=false;if(canvasObject!=null)canvasObject.SetActive(false);}
-        private void OnDestroy(){SavePersonalPositions();SaveUtilityPositions();ResetCampaignMusic();if(server!=null){server.Notify_ScenarioEffect-=ReceiveCampaignEffect;server.Notify_MapEntered-=HandleMusicMapEntered;server.Notify_WhisperReceptionChanged-=ReceiveWhisperReception;server.Notify_WorldMessageReceived-=ReceiveWorldMessage;}StopMagicAudio();if(tutorial!=null)tutorial.WorldEntryReady-=Begin;ClearCampaignMap();ClearItemIcons();if(canvasObject!=null)Destroy(canvasObject);if(ownsFont&&font!=null)Destroy(font);}
+        private void OnDisable(){ClearClientMessage();FinishCommanderName(false);CancelBankAmount();server?.Request_CancelBankClient(null);server?.Request_CancelWarehouseClient(null);server?.Request_CancelShopClient(null);server?.Request_CancelMercenaryClient(null);server?.Request_CancelClassClient();ResetCampaignMusic();StopMagicAudio();running=false;if(canvasObject!=null)canvasObject.SetActive(false);}
+        private void OnDestroy(){ResetBattleDialogs();if(facilitySelectionTexture!=null)Destroy(facilitySelectionTexture);SaveNativeFacilityFrames();SaveClassWindowPosition();if(clientMessageTexture!=null)Destroy(clientMessageTexture);SavePersonalPositions();SaveUtilityPositions();ResetCampaignMusic();if(server!=null){server.Notify_ScenarioEffect-=ReceiveCampaignEffect;server.Notify_MapEntered-=HandleMusicMapEntered;server.Notify_WhisperReceptionChanged-=ReceiveWhisperReception;server.Notify_WorldMessageReceived-=ReceiveWorldMessage;}StopMagicAudio();if(tutorial!=null)tutorial.WorldEntryReady-=Begin;ClearCampaignMap();ClearItemIcons();if(canvasObject!=null)Destroy(canvasObject);if(ownsFont&&font!=null)Destroy(font);}
     }
 }

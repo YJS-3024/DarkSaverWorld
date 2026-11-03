@@ -1,0 +1,24 @@
+{
+  "results": {
+    "CurrencyChecks": {
+      "assertions": 102,
+      "unityPlayExecuted": false,
+      "scope": "Authoritative absolute wallet/bank receipts, persistence and legacy monetary transaction revisions with isolated values; no starting-fund/fee/reward policy or raw wire claim."
+    },
+    "BankChecks": {
+      "assertions": 371,
+      "unityPlayExecuted": false,
+      "scope": "Actual bank request/approval/audit/persistence with isolated explicit fee sources and BigInteger boundary reference. No recovered bank pricing/limit/shared-account or raw wire claim."
+    }
+  },
+  "unityPlay": false,
+  "mismatches": 0,
+  "scope": "Existing unmodified currency/bank contract harnesses compiled against current production account/service contracts. No inherited historical test count is copied into this report; groups stay separate.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_bank_currency_regressions.py": "751b9183354ac66fb90d055254a4ad1534027591d16f9d56a6a73efd56ffb457",
+    "Tools/OriginalWorldChecks/CurrencyChecks.cs": "19eb0d4d558304e9674bd84ec7572499c142284a43660af0841f9f3cfcbb61d7",
+    "Tools/OriginalWorldChecks/BankChecks.cs": "97153a0323d92713da99a9dead9e4365a256f0628ec9fd85235139f581d6c3a0",
+    "Assets/_Original/Runtime/World/CurrencyService.cs": "792c0d3a812debe51bccba00e90651892e5c350637996b8a66f071ff411b7dca",
+    "Assets/_Original/Runtime/World/BankTransferService.cs": "53a99a5b69246088b84ffd42440ce123456841462312ceadf2871379af88cbd2"
+  }
+}

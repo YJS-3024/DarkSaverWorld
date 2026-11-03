@@ -9,10 +9,10 @@ namespace DarkSaver.Original.Entry
         public Func<ClassChangeRequest,WorldView,ClassChangeNotice> ClassChangeAuthority { get; set; }
         public event Action<WorldReply> Notify_ClassChanged;
         public WorldReply Request_SelectAdjustmentCommander(int index,string identity,long revision)=>WorldRequest(s=>s.SelectAdjustmentCommander(index,identity,revision));
-        public WorldReply Request_ClassOptions()=>WorldRequest(s=>s.ExecuteClassOptions(Guid.NewGuid().ToString("N"),ClassOptionsAuthority));
+        public WorldReply Request_ClassOptions()=>WorldRequest(s=>s.ExecuteClassOptions(Guid.NewGuid().ToString("N"),ClassOptionsAuthorityWithPacket()));
         public WorldReply Notify_ClassOptions(ClassOptionsNotice notice)=>WorldRequest(s=>s.ReceiveClassOptions(notice));
         public WorldReply Request_CloseClassOptions()=>WorldRequest(s=>s.CloseClassOptions());
-        public WorldReply Request_ChangeClass(int slot,int index,string options,string request)=>ClassChangeResult(s=>s.ExecuteClassChange(slot,index,options,request,ClassChangeAuthority));
+        public WorldReply Request_ChangeClass(int slot,int index,string options,string request)=>ClassChangeResult(s=>s.ExecuteClassChange(slot,index,options,request,ClassChangeAuthorityWithPacket()));
         public WorldReply Notify_ClassChange(ClassChangeNotice notice)=>ClassChangeResult(s=>s.ReceiveClassChange(notice));
         private WorldReply ClassChangeResult(Func<EntryAccountService,WorldReply> apply)
         {

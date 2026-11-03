@@ -16,12 +16,8 @@ namespace DarkSaver.Original.World
             var spec=art.ChatLayout;if(spec==null||art.chatWindow==null)return;
             chatPanel=Group(worldWindows,"Original world chat input17",new Rect(spec.x,spec.y,spec.width,spec.height));
             chatPanel.gameObject.AddComponent<Image>().color=Color.clear;Picture(chatPanel,"Original scene1 frame",new Rect(0,0,spec.width,spec.height),art.chatWindow);
-            var title=Hit(chatPanel,"Original input title",new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>{});Vector2? offset=null;
-            title.gameObject.AddComponent<NativeTutorialDrag>().Configure(screen,(point,end)=>
-            {
-                if(!offset.HasValue)offset=point-new Vector2(chatPanel.anchoredPosition.x,-chatPanel.anchoredPosition.y);
-                var at=point-offset.Value;Place(chatPanel,new Rect(Mathf.Clamp(Mathf.Round(at.x),0,640-spec.width),Mathf.Clamp(Mathf.Round(at.y),0,480-spec.height),spec.width,spec.height));if(end)offset=null;
-            },onCancel:()=>offset=null);
+            var title=Hit(chatPanel,"Original input title",new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>{});
+            title.gameObject.AddComponent<NativeWindowDragInput>().Configure(screen,chatPanel,new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>NativeWindowDragAllowed);
             // 470700's source rectangle is18,7..461,26. OS edit/IME/caret rendering is a uGUI adapter.
             var field=Group(chatPanel,"Original shared edit rectangle",new Rect(18,7,443,19));var graphic=field.gameObject.AddComponent<Image>();graphic.color=Color.clear;
             var text=Group(field,"Edit text",new Rect(0,0,443,19)).gameObject.AddComponent<Text>();text.font=font;text.fontSize=14;text.color=Color.white;text.alignment=TextAnchor.MiddleLeft;text.supportRichText=false;text.raycastTarget=false;

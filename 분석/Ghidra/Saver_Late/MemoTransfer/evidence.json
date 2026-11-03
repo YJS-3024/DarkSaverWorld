@@ -1,0 +1,69 @@
+{
+  "readOnly": true,
+  "binaries": {
+    "Saver.exe": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689"
+  },
+  "signatureCorrections": {
+    "00427d30": "thiscall,one body pointer; stack probe causes imperfect decompiler locals, assembly/native execution retained",
+    "00477e10": "cdecl(data,count pointer,previous CRC pointer),DWORD return; inferred void had eliminated CRC calculation"
+  },
+  "scope": "Complete7E body at427D30, transfer reset/allocation/decode/overflow/count/CRC and PKWARE DCL callback/table evidence. Not TCP framing or multipart assembly. Unsafe signed sizes and native stack overwrite are rejected by managed adapter, not reproduced.",
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/00427d30.asm",
+      "sha256": "b1315357111f210727d7e8fc457600762cb2e913bf9d32f2015589d62fdf5512"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/00427d30.c",
+      "sha256": "809a7a0a19333ea857b85e7ddd8a7990d1aad9ba77f993a98d55b2a39860f36b"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/0043b2f0.c",
+      "sha256": "1d6fdf43c94166f22bb4534be2d11163509f92d708f945fd84a0641fe2534be4"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/0043b390.c",
+      "sha256": "6237f176b3c75f994b0c4a84244164bcae2da20a589d49c51e1729aa31909532"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/0043b5b0.c",
+      "sha256": "fe161a43151805bb3d61a741a9e9cb21c208f3c908190b41ef52852a9d33773c"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/0043b6d0.c",
+      "sha256": "48d71a5c54d7ebbc4608691562e931920cdf146945d42150da334c3aab19f295"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/0043b7b0.c",
+      "sha256": "f29f36d2a2cd8574a704059260372c719aebe784c9310b41966d903876dabaee"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/0043b7f0.c",
+      "sha256": "5f4e1642eb0b71417fa3863be652716525c8fbc170a4ec8a70ac5dacf1d22e4a"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/00477e10.asm",
+      "sha256": "3262c69cf49f510db7dddf3519930bd6da5da5e6185d1de954d3fc1f3d4b8cad"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/00477e10.c",
+      "sha256": "bd5085a43bf3f7fde15b56ed04c646b18ea54743bd9457086ca53bc33561293a"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/00478930.c",
+      "sha256": "3fd08fda752acf813fd9a25a8bf78e78e1aca84bbb99ed6b6e95c691a3f46e6e"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/00478ab0.c",
+      "sha256": "e7b33db108ebb6801cfef641459334a979edb56d4c42ebdae31c7fb1ac1f7fa7"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/InspectMemoSignatures.java",
+      "sha256": "a18d0c7a5b9068df908aa387d147ee8d32691cee2295aeea77c4fa2f7358a2da"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MemoTransfer/dcl-tables.json",
+      "sha256": "7ece1ec38eac5b54b81c37bbe3ff7a6094f42376a47872e4f8544a31b1c42d66"
+    }
+  ]
+}

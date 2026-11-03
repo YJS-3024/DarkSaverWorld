@@ -34,13 +34,13 @@ namespace DarkSaver.Original.World
     }
     [Serializable,DataContract] public sealed class CharacterGrowthRecord
     {
-        [DataMember(EmitDefaultValue=false)] public uint? nextExperience;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public uint? nextExperience;
         [DataMember(EmitDefaultValue=false)] public short[] nativeLevels;
         [DataMember] public int version=1,job,classLevel,totalLevel;
         [DataMember] public ulong experience;
         [DataMember] public long revision;
         [DataMember] public string lastNotice;
-        [DataMember(EmitDefaultValue=false)] public int? points,magicLevel;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? points,magicLevel;
         [DataMember] public int[] magic=Array.Empty<int>(),skills=Array.Empty<int>();
         [DataMember(EmitDefaultValue=false)] public CharacterGrowthStats stats;
         public CharacterGrowthRecord Copy()

@@ -11,6 +11,7 @@ namespace DarkSaver.Original.World
     internal sealed partial class WorldSession
     {
         public CommanderAdjustmentTarget AdjustmentTarget;
+        public int? AdjustmentNativeRecord=>Record.roster?.rows!=null&&(AdjustmentTarget?.index??0)>=0&&(AdjustmentTarget?.index??0)<Record.roster.rows.Length?Record.roster.rows[AdjustmentTarget?.index??0].nativeRecord:null;
         public bool AdjustmentTargetMatches=>AdjustmentTarget==null||Record.roster!=null&&AdjustmentTarget.rosterRevision==Record.roster.revision
             &&AdjustmentTarget.index>0&&AdjustmentTarget.index<Record.roster.rows.Length&&Record.roster.rows[AdjustmentTarget.index].id==AdjustmentTarget.identity;
         public CommanderProfile AdjustmentProfile=>AdjustmentTarget!=null&&AdjustmentTargetMatches?Record.roster.rows[AdjustmentTarget.index].profile:null;

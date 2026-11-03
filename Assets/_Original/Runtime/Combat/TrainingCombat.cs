@@ -23,24 +23,26 @@ namespace DarkSaver.Original.World
     {
         [DataMember] public int id,job,x,y,direction=1,hp,maxHp,mp,maxMp,ap,maxAp;
         [DataMember] public long life;
-        [DataMember(EmitDefaultValue=false)] public int? movementBudget,attackRange;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? movementBudget,attackRange;
         [DataMember] public bool canMove,canAttack,canRest;
         [DataMember(EmitDefaultValue=false)] public BattleMagicRule[] magicRules;
         [DataMember(EmitDefaultValue=false)] public BattleItemRule[] itemRules;
-        [DataMember(EmitDefaultValue=false)] public uint? nativeState;
-        [DataMember(EmitDefaultValue=false)] public bool? canCommand;
-        [DataMember(EmitDefaultValue=false)] public int? troopOrder;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public uint? nativeState;
+        // Explicit NativeCharacter+104 status-icon bits; distinct from +100 action/death state.
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public uint? nativeStatusFlags;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public bool? canCommand;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? troopOrder;
         // Final received NativeCharacter+0x4c, not an inferred sum of job and equipment tables.
-        [DataMember(EmitDefaultValue=false)] public int? commandRange;
-        [DataMember(EmitDefaultValue=false)] public int? movementType;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? commandRange;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? movementType;
         // Explicit local authority result of enemy eligibility; not an invented native wire field.
         [DataMember(EmitDefaultValue=false)] public int[] attackTargets;
-        [DataMember(EmitDefaultValue=false)] public bool? nativeActive,nativeEnabled;
-        [DataMember(EmitDefaultValue=false)] public int? nativeMenuMask;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public bool? nativeActive,nativeEnabled;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? nativeMenuMask;
         // Optional resolved runtime+68 appearance key; class/job and movement kind remain separate.
-        [DataMember(EmitDefaultValue=false)] public int? nativeAppearanceJob;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? nativeAppearanceJob;
         // Resolved client palette0..3. Unknown team/ally context is not guessed from ID.
-        [DataMember(EmitDefaultValue=false)] public int? nativePalette;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? nativePalette;
         [DataMember(EmitDefaultValue=false)] public CharacterGrowthStats effectiveStats;
         [DataMember] public bool ghost;
         public TrainingUnit Copy(){var r=(TrainingUnit)MemberwiseClone();r.attackTargets=attackTargets?.ToArray();r.magicRules=magicRules?.Select(v=>v?.Copy()).ToArray();r.itemRules=itemRules?.Select(v=>v?.Copy()).ToArray();r.effectiveStats=effectiveStats?.Copy();return r;}

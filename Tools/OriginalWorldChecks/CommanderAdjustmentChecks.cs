@@ -9,9 +9,9 @@ internal static class CommanderAdjustmentChecks
  static int checks;static string root;static readonly JsonSerializerOptions Json=new JsonSerializerOptions{IncludeFields=true};
  static string Id()=>Guid.NewGuid().ToString("N");static string State(object value)=>JsonSerializer.Serialize(value,Json);
  static void Check(bool value,string label){checks++;if(!value)throw new Exception(label);}
- sealed class Memory:IEntryAccountStore
+ internal sealed class Memory:IEntryAccountStore
  {public LocalAccountDocument data=new LocalAccountDocument();public bool fail;public bool TryRead(out LocalAccountDocument value){value=data.Copy();return true;}public bool TryWrite(LocalAccountDocument value){if(fail)return false;data=value.Copy();return true;}}
- sealed class Fixture
+ internal sealed class Fixture
  {
   public Memory store=new Memory();public EntryAccountService service;public EntryClient client;public WorldDefinition definition;
   public WorldView View=>service.WorldSnapshot();
@@ -40,6 +40,7 @@ internal static class CommanderAdjustmentChecks
   public void Magic(MagicLoadoutOperation op,int index=-1)=>Check(service.ExecuteMagicLoadout(op,index,Id(),(r,v)=>MagicNotice(r)).Accepted,"approved owned magic operation");
   public void Reload(){service=new EntryAccountService(store);client=new EntryClient(service);client.OpenLocalProfile();Check(service.BeginWorld(definition).Accepted,"reconnected approved personal records");}
  }
+ internal static Fixture CreateFixture(string path){root=path;return new Fixture();}
  static void Main(string[] args)
  {
   root=args[0];var f=new Fixture();string primary=CommanderProfile.Capture(f.View.record).Fingerprint(),third=f.View.commanders.rows[2].profile.Fingerprint();
@@ -57,7 +58,7 @@ internal static class CommanderAdjustmentChecks
   Check(f.service.RequestStatAdjustment(StatAdjustmentOperation.Confirm,-1,0,Id()).Accepted,"owned stat confirmation queued");var stat=f.StatNotice(f.View.statAdjustmentRequest);stat.effectiveStats=new CharacterGrowthStats{attack=99,defense=11,magicAttack=6,magicDefense=5};
   stat.health=new CharacterGrowthHealth{hp=21,maxHp=210,mp=9,maxMp=40};Check(f.service.ReceiveStatAdjustment(stat).Accepted&&f.Target.growth.stats.attack==99&&f.Target.hp==21&&f.Target.mp==9,"explicit owned stats and health apply to correct character");
   Check(CommanderProfile.Capture(f.View.record).Fingerprint()==primary&&f.Target.statAllocation.values[0].after==11&&f.Target.statAllocation.points==9,"primary wounds/gear untouched and owned allocation saved");
-  f.Magic(MagicLoadoutOperation.State);Check(f.View.MagicLoadoutNeedsConfirm&&f.View.battleMagic==null,"secondary first selection does not become primary active magic");f.Magic(MagicLoadoutOperation.Confirm);
+  f.Magic(MagicLoadoutOperation.State);Check(f.View.MagicLoadoutNeedsConfirm&&f.View.battleMagic.SequenceEqual(f.View.record.growth.magic),"secondary first selection does not become primary active magic");f.Magic(MagicLoadoutOperation.Confirm);
   Check(f.Target.magicLoadout.selected.SequenceEqual(new[]{301})&&f.Target.growth.magic.SequenceEqual(new[]{101,301})&&f.View.record.magicLoadout==null,"owned selection never unlearns or changes primary spells");
   f.Stats(StatAdjustmentOperation.State);f.Stats(StatAdjustmentOperation.Step);f.Magic(MagicLoadoutOperation.State);f.Magic(MagicLoadoutOperation.Add,0);f.Magic(MagicLoadoutOperation.Confirm);
   Check(f.Target.magicLoadout.selected.SequenceEqual(new[]{301,101})&&f.Target.statAllocation.points==9&&f.View.statAdjustment==null&&f.View.magicLoadout==null,"joint owned stat/magic confirmation saves atomically");

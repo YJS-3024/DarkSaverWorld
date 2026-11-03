@@ -9,8 +9,8 @@ namespace DarkSaver.Original.Campaign
     {
         [DataMember] public int unit,job;
         [DataMember] public string name;
-        [DataMember(EmitDefaultValue=false)] public int? level,classJob;
-        [DataMember(EmitDefaultValue=false)] public ulong? experience;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? level,classJob;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public ulong? experience;
         public CampaignResultUnit Copy()=>(CampaignResultUnit)MemberwiseClone();
         public bool Valid=>unit>=0&&job>=0&&!string.IsNullOrWhiteSpace(name)&&name.Length<=128&&(!level.HasValue||level>=0)&&(!classJob.HasValue||classJob>=0);
     }
@@ -22,8 +22,8 @@ namespace DarkSaver.Original.Campaign
         [DataMember(EmitDefaultValue=false)] public string outcome;
         public bool IsDefeat=>!victory&&outcome=="defeat";
         public bool IsRetreat=>!victory&&outcome=="retreat";
-        [DataMember(EmitDefaultValue=false)] public ulong? experience,spoils;
-        [DataMember(EmitDefaultValue=false)] public int? kills,eventCompleted,eventTotal;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public ulong? experience,spoils;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? kills,eventCompleted,eventTotal;
         [DataMember] public CampaignResultUnit[] allies=Array.Empty<CampaignResultUnit>(),enemies=Array.Empty<CampaignResultUnit>();
         public CampaignResultRecord Copy()
         {var r=(CampaignResultRecord)MemberwiseClone();r.allies=allies?.Select(u=>u?.Copy()).ToArray();r.enemies=enemies?.Select(u=>u?.Copy()).ToArray();return r;}

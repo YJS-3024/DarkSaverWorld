@@ -60,6 +60,16 @@ internal static class PrivateChatChecks
   var inboxGate=new NativePrivateChatInbox();Check(inboxGate.Receive("Hero        >new",0,2500,codec)&&inboxGate.Views().Length==0,"source477520 room2500 prevents new private window");Check(inboxGate.Receive("Hero        >new",0,1000,codec)&&inboxGate.Receive("Hero        >more",0,2500,codec)&&inboxGate.Views().Single().count==2,"existing sender append precedes new-window room gate");
   for(int i=0;i<320;i++)inboxGate.Receive("Hero        >"+i,0,1000,codec);var bounded=inboxGate.Views().Single();Check(bounded.count==300&&bounded.lines.Length==6,"source300row/6visible bounds");Check(inboxGate.Scroll(bounded.id,-1)&&inboxGate.Views().Single().first==293,"private up scroll");Check(inboxGate.Close(bounded.id)&&!inboxGate.Scroll(bounded.id,1),"closed thread scroll blocked");
   client.Logout();Check(guarded.PrivateChats.Length==0&&!guarded.Request_PrivateText(next.id,world.commanderSession,"hello"),"logout hides/blocks previous inbox");client.OpenLocalProfile();service.BeginWorld(definition);Check(guarded.PrivateChats.Length==0&&!guarded.Notify_PrivateMessage(Notice("Hero        >old")),"new session drops old inbox and payload");guarded.isActiveAndEnabled=false;Check(guarded.PrivateChats.Length==0,"disabled component hides inbox");
+  foreach(string phase in new[]{"settings","raw","intent"})foreach(string change in new[]{"logout","reconnect","disable","close"})
+  {
+   client.OpenLocalProfile();service.BeginWorld(definition);var current=service.WorldSnapshot();var m=new LocalServerManager(service);m.ConfigureClientText(codec);
+   Check(m.Notify_PrivateMessage(new WorldPrivateMessageNotice{id=Id(),character=current.characterId,session=current.commanderSession,approved=true,text="Hero        >seed",nativeSuppression=0,nativeRoomNumber=1000}),"private callback fixture");var t=m.PrivateChats.Single();m.Request_WhisperReception(false);int raw=0,typed=0,settings=0;
+   void Change(){if(change=="disable")m.isActiveAndEnabled=false;else if(change=="close")m.Request_ClosePrivateChat(t.id,current.commanderSession);else{client.Logout();if(change=="reconnect"){client.OpenLocalProfile();service.BeginWorld(definition);}}}
+   m.Notify_ClientSettingsPacket+=_=>{settings++;if(phase=="settings")Change();};m.Notify_WorldTextPacket+=_=>{raw++;if(phase=="raw")Change();};m.Notify_PrivateTextRequested+=_=>{typed++;if(phase=="intent")Change();};
+   Check(!m.Request_PrivateText(t.id,current.commanderSession,"reply"),"closed/private or expired-session request stops subsequent callbacks");
+   Check(settings==1&&raw==(phase=="settings"?0:1)&&typed==(phase=="intent"?1:0),"private original7D/send order preserved until context cancellation");
+   Check(m.PrivateChats.Length==0&&JsonSerializer.Serialize(store.data,Json)==baseline,"cancelled private dispatch grants no local echo or saved-state update");
+  }
   Console.WriteLine(JsonSerializer.Serialize(new{assertions=checks,mismatches=0,unityPlay=false}));
  }
 }

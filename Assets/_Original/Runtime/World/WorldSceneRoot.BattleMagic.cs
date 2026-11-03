@@ -4,6 +4,7 @@ using System.Linq;
 using DarkSaver.Original.Entry;
 using DarkSaver.Original.Tutorial;
 using UnityEngine;
+using DarkSaver.Original.UI;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -34,7 +35,7 @@ namespace DarkSaver.Original.World
         {
             var actor=view?.battle?.Commander;var rule=actor?.magicRules?.FirstOrDefault(r=>r.magic==magic);var metadata=definition.magicMenu?.Find(magic);
             return OriginalCommandRange.Living(actor)&&OriginalBattleTicks.Allows(actor,skill?TrainingAction.UseSkill:TrainingAction.CastMagic)&&!view.record.ghost&&view.battle.pending==null&&!view.moving
-                &&(skill?view.record.growth?.skills?.Contains(magic)==true&&definition.magicProjectiles?.SupportsSkill(metadata)==true:view.record.magicLoadout?.Matches(view.record.growth)==true&&view.record.magicLoadout.selected.Contains(magic)&&definition.magicProjectiles?.Supports(metadata)==true)&&rule?.enabled==true&&rule.mpCost.HasValue&&rule.apCost.HasValue&&rule.targets!=null
+                &&(skill?view.record.growth?.skills?.Contains(magic)==true&&definition.magicProjectiles?.SupportsSkill(metadata)==true:view.record.growth?.magic?.Contains(magic)==true&&definition.magicProjectiles?.Supports(metadata)==true)&&rule?.enabled==true&&rule.mpCost.HasValue&&rule.apCost.HasValue&&rule.targets!=null
                 &&actor.mp>=rule.mpCost.Value&&actor.ap>=rule.apCost.Value&&server.HasBattleAuthority(DisplayMap(view.record.map).training);
         }
         private void CancelBattleMagicSelection(){showingBattleSpells=false;showingBattleOrders=false;}
@@ -80,7 +81,7 @@ namespace DarkSaver.Original.World
                     var list=BattleSpellChoices;int magic=list!=null&&button.slot<list.Length?list[button.slot]:-1;
                     button.hit.gameObject.SetActive(magic>=0);button.hit.interactable=magic>=0&&BattleMagicAvailable(magic);var entry=definition.magicMenu?.Find(magic);
                     button.image.enabled=entry!=null&&entry.iconX>=0&&entry.iconX<640&&entry.iconY>=32&&entry.iconY<160;
-                    if(button.image.enabled)button.image.uvRect=NativeEntryLayout.Uv(art.battle.icons,new Rect(entry.iconX,entry.iconY+(int)(view.clock/300)%2*160,32,32));
+                    if(button.image.enabled)button.image.uvRect=NativeEntryLayout.Uv(art.battle.icons,new Rect(entry.iconX,NativeBattleMenuIcons.NormalY(entry.iconY,BattleIconClock),32,32));
                 }
             }
             var effects=view.presentation?.completed==false?CampaignMagic():view.battle?.magicEffects??Array.Empty<BattleMagicEffect>();var frames=BattleMagicPresentation.Frames(effects);var current=new HashSet<string>(frames.Select(f=>f.key));

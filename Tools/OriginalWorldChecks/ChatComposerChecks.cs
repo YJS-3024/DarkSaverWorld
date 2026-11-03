@@ -44,6 +44,16 @@ internal static class ChatComposerChecks
   Check(!guards.Request_WorldText("bad\0input",1)&&!guards.Request_WorldText("😀",1)&&!guards.Request_WorldText("bad",9)&&!guards.Request_WorldText("",1),"unrepresentable input and native-suppressed modes refused");
   Check(guards.Request_WorldText("/to Name hi",1)&&guards.LastChatRecipient=="Name","source recipient cached for current client session");client.Logout();Check(guards.LastChatRecipient==null&&!guards.Request_WorldText("bad",1)&&!guards.Notify_WorldChatTerms(notice),"logout blocks old terms/message/recipient state");
   client.OpenLocalProfile();service.BeginWorld(definition);Check(guards.Request_WorldText("bad",1)&&last[3]==(byte)'b'&&guards.LastChatRecipient==null,"new session has no old account filter or recipient");
+  foreach(string phase in new[]{"raw","intent","settings"})foreach(string change in new[]{"logout","reconnect","disable"})
+  {
+   client.OpenLocalProfile();service.BeginWorld(definition);var current=service.WorldSnapshot();var m=new LocalServerManager(service);m.ConfigureClientText(codec);Check(m.Request_WhisperReception(false),"current-session setting fixture");int raw=0,intents=0,settings=0;
+   void Change(){if(change=="disable")m.isActiveAndEnabled=false;else{client.Logout();if(change=="reconnect"){client.OpenLocalProfile();service.BeginWorld(definition);}}}
+   m.Notify_WorldTextPacket+=_=>{raw++;if(phase=="raw")Change();};m.Notify_WorldTextRequested+=_=>{intents++;if(phase=="intent")Change();};m.Notify_ClientSettingsPacket+=_=>{settings++;if(phase=="settings")Change();};
+   Check(!m.Request_WorldText("/to Other hello",1),"connection changes cancel remaining chat callbacks "+phase+change);
+   Check(raw==1&&intents==(phase=="raw"?0:1)&&settings==(phase=="settings"?1:0),"native packet order retained until its captured context ends");
+   Check(m.LastChatRecipient==null&&m.WhisperReception==null,"recipient and whisper preference from old session never appear in replacement context");
+   Check(JsonSerializer.Serialize(store.data,Json)==saved,"callback cancellation preserves saved player state");
+  }
   Console.WriteLine(JsonSerializer.Serialize(new{assertions=checks,mismatches=0,unityPlay=false}));
  }
 }

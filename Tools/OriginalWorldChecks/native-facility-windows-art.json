@@ -1,0 +1,133 @@
+{
+  "windows": 12,
+  "virtualMethods": [
+    {
+      "id": 24,
+      "vtable": "0x486358",
+      "idGetter": "0x46f390",
+      "idField": null,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x434ed0"
+    },
+    {
+      "id": 29,
+      "vtable": "0x484e10",
+      "idGetter": "0x44bac0",
+      "idField": null,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x434ed0"
+    },
+    {
+      "id": 30,
+      "vtable": "0x484e88",
+      "idGetter": "0x44bbc0",
+      "idField": null,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x434ed0"
+    },
+    {
+      "id": 31,
+      "vtable": "0x484f00",
+      "idGetter": "0x44bcc0",
+      "idField": null,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x434ed0"
+    },
+    {
+      "id": 32,
+      "vtable": "0x484f78",
+      "idGetter": "0x44bdc0",
+      "idField": null,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x434ed0"
+    },
+    {
+      "id": 34,
+      "vtable": "0x484a90",
+      "idGetter": "0x445150",
+      "idField": null,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x4346d0"
+    },
+    {
+      "id": 35,
+      "vtable": "0x4862ec",
+      "idGetter": "0x46eb80",
+      "idField": null,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x4346d0"
+    },
+    {
+      "id": 37,
+      "vtable": "0x486430",
+      "idGetter": "0x470d00",
+      "idField": null,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x434ed0"
+    },
+    {
+      "id": 40,
+      "vtable": "0x485d24",
+      "idGetter": "0x461060",
+      "idField": 408,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x4346d0"
+    },
+    {
+      "id": 43,
+      "vtable": "0x4849b8",
+      "idGetter": "0x4448c0",
+      "idField": null,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x4346d0"
+    },
+    {
+      "id": 48,
+      "vtable": "0x4851b0",
+      "idGetter": "0x44cc50",
+      "idField": null,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x434ed0"
+    },
+    {
+      "id": 67,
+      "vtable": "0x485e14",
+      "idGetter": "0x465f40",
+      "idField": null,
+      "minimize": "0x434290",
+      "restore": "0x4347e0",
+      "afterRestore": "0x434ed0"
+    }
+  ],
+  "nativeSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "resource": "Assets/_Original/Resources/OriginalFacilityWindows.json",
+  "sha256": "a67fbb0b6cc117f361c6577706290a7f471f74bb340af8b67fec708ac05d727b",
+  "resourceGuid": "4ea2b20953314711b9767fdec9a5f85c",
+  "scope": "Factory473E30 IDs, original LSC full/mini title rectangles and PE actual ID getter/restore/+50 post-restore centering slots. Unknown shop identity is not inferred from a local map or product; no original window assets/world routes rewritten.",
+  "sources": {
+    "Tools/OriginalWorldChecks/build_native_facility_windows.py": "ef319ebd3207034885a68da622448ae18d133c74f888db26988f5b3282fb1a91",
+    "분석/Ghidra/Saver_Late/Bank/factory-473E30.c": "7bc8d271d5ab5ecd5661a98d7ccdb5f00188a9f2497a8f56d4074034027f761d",
+    "Assets/_Original/SourceData/Native/wlib/scene9.lsc.bytes": "c1ba80b72f4e6ff279bf503ec371caa0d36583de912b97cd5247d49cf42fa85c",
+    "Assets/_Original/SourceData/Native/wlib/scene10.lsc.bytes": "089e7539df4bb7a109d7d8cf23171b363d9a34d5eb7b4be816220dbc1d8168f2",
+    "Assets/_Original/SourceData/Native/wlib/scene18.lsc.bytes": "4d280ce7cad3d89370cfe9d827b95001aac60e4f763dc4493fd5300e1b93b89a",
+    "Assets/_Original/SourceData/Native/wlib/scene17.lsc.bytes": "0fb830646c276f3052e30b4eea93397ace0300512e4afc4cd2cf1ab0d2bdaf67",
+    "Assets/_Original/SourceData/Native/wlib/scene20.lsc.bytes": "376727510699e5564f1837496d3824f40e5da119cfae6871efb9358a63b467e1",
+    "Assets/_Original/SourceData/Native/wlib/scene23.lsc.bytes": "8d0ccfaf8b3da3c875dfcf860faae185b1512d339d5524f8cfa0e95d418b7a18",
+    "분석/Ghidra/Saver_Late/FacilityWindows/00460c80.c": "6a1aefe4cf2af09976879f8c85c200aed5add6f444da9f26b9ba9cb53763b2c3",
+    "Assets/_Original/SourceData/Native/wlib/scene23m.lsc.bytes": "b06f899cff22dc4c89863c6a1ead77bfeafc971d920d798857d1707d313b5243",
+    "Assets/_Original/SourceData/Native/wlib/scene27.lsc.bytes": "a933b823fabe06c06ebf7e29bf0d1d921423acdb854facbf67c92e9ad391e3df",
+    "Assets/_Original/SourceData/Native/wlib/scene42.lsc.bytes": "9f2c19ae621814be515a54bf56e2139339a28b70f4070fb04cafcff7e5ae0af6",
+    "Assets/_Original/SourceData/Native/wlib/scene42m.lsc.bytes": "2811e267035cc21a0ee964ded0fe419016d50cbf1ecf8350175fd61da92d233a"
+  }
+}

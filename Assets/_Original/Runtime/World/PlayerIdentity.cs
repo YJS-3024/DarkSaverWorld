@@ -7,7 +7,7 @@ namespace DarkSaver.Original.World
     [Serializable,DataContract] public sealed class PlayerIdentityRecord
     {
         [DataMember] public string id;[DataMember] public long revision;
-        [DataMember(EmitDefaultValue=false)] public int? age,gender;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? age,gender;
         [DataMember(EmitDefaultValue=false)] public string spouse;
         public PlayerIdentityRecord Copy()=>(PlayerIdentityRecord)MemberwiseClone();
         public static bool Valid(PlayerIdentityRecord r)=>r==null||r.revision>0&&Guid.TryParseExact(r.id,"N",out _)

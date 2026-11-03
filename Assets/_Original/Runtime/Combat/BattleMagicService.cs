@@ -17,8 +17,8 @@ namespace DarkSaver.Original.Entry
                 if(skill){if(world.Record.growth?.skills?.Contains(magic)!=true)return WorldFailure.NotOwned;}
                 else
                 {
-                    if(world.Record.magicLoadout?.Matches(world.Record.growth)!=true)return WorldFailure.RulesUnavailable;
-                    if(!world.Record.magicLoadout.selected.Contains(magic))return WorldFailure.NotOwned;
+                    if(world.Record.growth?.magic==null)return WorldFailure.RulesUnavailable;
+                    if(!world.Record.growth.magic.Contains(magic))return WorldFailure.NotOwned;
                 }
             }
             var rule=itemRule??actor.magicRules?.FirstOrDefault(r=>r.magic==magic);

@@ -8,7 +8,7 @@ using DarkSaver.Original.Campaign;
 namespace DarkSaver.Original.World
 {
     public enum FacilityKind { None, Shop, Bank, Warehouse, Mercenary, Temple, ScenarioGateway }
-    public enum WorldFailure { None, Unauthenticated, InvalidStage, InvalidInput, Moving, TooFar, Busy, StaleRequest, RulesUnavailable, InsufficientFunds, InventoryFull, NotOwned, StorageUnavailable, InsufficientResource }
+    public enum WorldFailure { None, Unauthenticated, InvalidStage, InvalidInput, Moving, TooFar, Busy, StaleRequest, RulesUnavailable, InsufficientFunds, InventoryFull, NotOwned, StorageUnavailable, InsufficientResource, ShopCategoryMismatch }
     [Serializable] public sealed class WorldPoint { public int x, y; public TutorialTile Tile => new TutorialTile(x, y); }
     [Serializable] public sealed class WorldPortal
     {
@@ -54,6 +54,7 @@ namespace DarkSaver.Original.World
         public CampaignDefinition campaign;
         public ScenarioGatewaySettings gateways;
         public CharacterGrowthCatalog growthCatalog;
+        public NativeMercenaryCatalog mercenaryCatalog;
         public MagicMenuCatalog magicMenu;
         public MagicProjectileCatalog magicProjectiles;
         public OriginalCombatCatalog combatCatalog;
@@ -69,7 +70,9 @@ namespace DarkSaver.Original.World
         [DataMember] public string id;
         [DataMember] public int item, slot;
         // Optional local authoritative count, never seeded from native table durability.
-        [DataMember(EmitDefaultValue=false)] public int? remainingUses;
+        // Nullable DataMembers use the account DataContract serializer. NonSerialized
+        // excludes only Unity's unsupported field serializer, preserving null vs zero.
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? remainingUses;
         public WorldOwnedItem Copy() => (WorldOwnedItem)MemberwiseClone();
     }
     [Serializable, DataContract] public sealed class WorldRecord
@@ -78,7 +81,7 @@ namespace DarkSaver.Original.World
         [DataMember] public bool goldKnown, bankKnown, healthKnown, ghost;
         [DataMember] public ulong gold, bank;
         [DataMember] public int hp, maxHp, mp, maxMp, hiredJob = -1, hiredCount;
-        [DataMember(EmitDefaultValue=false)] public int? level;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? level;
         [DataMember(EmitDefaultValue=false)] public string campaignPhase;
         [DataMember(EmitDefaultValue=false)] public string trainingEntrance;
         [DataMember(EmitDefaultValue=false)] public CampaignProgressRecord campaignProgress;
@@ -211,6 +214,7 @@ namespace DarkSaver.Original.World
         public readonly WorldDefinition Definition;
         private readonly int startingJob;
         public int CommanderJob=>Record.growth?.job??Record.roster?.rows[0].job??startingJob;
+        internal WorldHireOffer[] HireOffers()=>Definition.mercenaryCatalog?.Offers(Record)??Definition.hires.Where(h=>h.commander==CommanderJob).ToArray();
         public string GrowthSession=Guid.NewGuid().ToString("N");
         public string CurrencySession=Guid.NewGuid().ToString("N");
         public readonly HashSet<string> CurrencyNotices=new HashSet<string>();
@@ -379,7 +383,7 @@ namespace DarkSaver.Original.World
                 bankTransferRequest=PendingBankTransfer?.Copy(),
                 warehouseRequest=PendingWarehouse?.Copy(),mercenaryRequest=PendingMercenary?.Copy(),
                 shopQuoteRequest=PendingShopQuote?.Copy(),shopTradeRequest=PendingShopTrade?.Copy(),itemUseRequest=PendingItemUse?.Copy(),
-                magicLoadoutRequest=PendingMagicLoadout?.Copy(),magicLoadout=MagicDraft?.Copy(),battleMagic=Record.magicLoadout?.Matches(Record.growth)==true?(int[])Record.magicLoadout.selected.Clone():null,
+                magicLoadoutRequest=PendingMagicLoadout?.Copy(),magicLoadout=MagicDraft?.Copy(),battleMagic=Record.growth?.magic==null?null:(int[])Record.growth.magic.Clone(),
                 statAdjustmentRequest=PendingStatAdjustment?.Copy(),statAdjustment=StatDraft?.Copy(),
                 classOptionsRequest=PendingClassOptions?.Copy(),classChangeRequest=PendingClassChange?.Copy(),classOptions=ClassOffer?.Matches(this)==true?ClassOffer.Options.Copy():null,
                 facility = Kind == FacilityKind.None ? null : new WorldFacilityView { token = Token, npc = Npc, kind = Kind,

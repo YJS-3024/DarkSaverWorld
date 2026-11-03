@@ -13,9 +13,9 @@ internal static class MemoChecks
  static string Hex(byte[] bytes)=>bytes==null?null:Convert.ToHexString(bytes).ToLowerInvariant();
  static byte[] Batch(params byte[][] packets)=>new[]{(byte)packets.Length}.Concat(packets.SelectMany(p=>p.Skip(1))).ToArray();
  static byte[] Record(int id)=>new byte[]{1,(byte)id}.Concat(new byte[12]).Concat(new byte[4]).ToArray();
- sealed class Store:IEntryAccountStore
+ internal sealed class Store:IEntryAccountStore
  {public LocalAccountDocument data=new LocalAccountDocument();public bool TryRead(out LocalAccountDocument d){d=data.Copy();return true;}public bool TryWrite(LocalAccountDocument d){data=d.Copy();return true;}}
- sealed class Fixture
+ internal sealed class Fixture
  {
   public Store store=new Store();public EntryAccountService service;public EntryClient client;public LocalServerManager manager;public WorldDefinition definition;
   public Fixture()
@@ -26,6 +26,7 @@ internal static class MemoChecks
   }
   public NativeMemoNotice Notice(byte[] payload)=>new NativeMemoNotice{id=Id(),approved=true,character=service.WorldSnapshot().characterId,session=service.WorldSnapshot().commanderSession,payload=payload};
  }
+ internal static Fixture CreateFixture(string project,NativeCodePage949 mapping){root=project;codec=mapping;return new Fixture();}
  static void Main(string[] args)
  {
   root=args[0];codec=JsonSerializer.Deserialize<NativeCodePage949>(File.ReadAllText(Path.Combine(root,"Assets/_Original/Resources/OriginalCodePage949.json")),Json);

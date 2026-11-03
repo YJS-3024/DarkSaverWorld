@@ -46,14 +46,17 @@ namespace DarkSaver.Original.Entry
             var f=TempleReady(token);if(f!=WorldFailure.None)return WorldResult(f);
             if(authority==null)return WorldResult(WorldFailure.RulesUnavailable);
             var queued=RequestRevivalQuote(token,request);if(!queued.Accepted)return queued;
+            var origin=world;
             try
             {
                 var quote=authority(queued.View.revivalQuoteRequest.Copy(),queued.View);
+                if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());
                 if(quote!=null)
                 {if(quote.request!=request){if(world.PendingRevivalQuote?.id==request)world.ClearRevival();return WorldResult(WorldFailure.StaleRequest);}
                     var reply=ReceiveRevivalQuote(quote);if(!reply.Accepted&&world.PendingRevivalQuote?.id==request)world.ClearRevival();return WorldResult(reply.Failure);}
             }
             catch(Exception){/* No permanent input lock after local authority failure. */}
+            if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());
             if(world.PendingRevivalQuote?.id==request)world.ClearRevival();return WorldResult(WorldFailure.RulesUnavailable);
         }
         public WorldReply RequestTempleRevival(string token,string request)
@@ -92,14 +95,17 @@ namespace DarkSaver.Original.Entry
             var f=TempleReady(token);if(f!=WorldFailure.None)return WorldResult(f);
             if(authority==null)return WorldResult(WorldFailure.RulesUnavailable);
             var queued=RequestTempleRevival(token,request);if(!queued.Accepted)return queued;
+            var origin=world;
             try
             {
                 var notice=authority(queued.View.revivalRequest.Copy(),queued.View);
+                if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());
                 if(notice!=null)
                 {if(notice.request!=request){if(world.PendingRevival?.id==request)world.PendingRevival=null;return WorldResult(WorldFailure.StaleRequest);}
                     var reply=ReceiveTempleRevival(notice);if(!reply.Accepted&&world.PendingRevival?.id==request)world.PendingRevival=null;return WorldResult(reply.Failure);}
             }
             catch(Exception){/* A fresh user confirmation may retry after local authority failure. */}
+            if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());
             if(world.PendingRevival?.id==request)world.PendingRevival=null;return WorldResult(WorldFailure.RulesUnavailable);
         }
     }

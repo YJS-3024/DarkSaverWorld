@@ -1,0 +1,52 @@
+{
+  "assertions": 217,
+  "nativeCodeExecuted": true,
+  "nativeBattleTileCalls": 206,
+  "waitingOrigin": [
+    39,
+    20
+  ],
+  "waitingFaceLocal": [
+    19,
+    10,
+    64,
+    64
+  ],
+  "waitingTextLocal": [
+    90,
+    10,
+    455,
+    64
+  ],
+  "alphaPixels": {
+    "WaitingDialogue": {
+      "0": 2355,
+      "255": 44853
+    },
+    "Dialogue": {
+      "255": 33595,
+      "0": 24853
+    }
+  },
+  "rgbaPixelComparisons": 105656,
+  "unityPlay": false,
+  "mismatches": 0,
+  "nativeSha256": {
+    "Saver": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+    "GameCtl": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0"
+  },
+  "scope": "Actual Saver472640/4346D0 centering and472670 face/text operands, GameCtl10008E10 tile operands. DirectDraw/MFC/Win32 rectangle/text calls isolated; actual LSC/library RGBA and all battle frame pixels compared. Not Windows process/GPU/Unity rendering, alpha filtering or input.",
+  "sources": {
+    "Tools/OriginalWorldChecks/../OriginalTutorialChecks/check_dialogue_presentation.py": "0995acc4509c92e55cbae8ca944b57a69486e3134120cc5db74c5bf6949358ae",
+    "Tools/OriginalWorldChecks/../OriginalTutorialChecks/native_dialogue_emulator.py": "4eaa0aa33a8d5cdd37aa3b7df414915eb1a6c43787e8d7981f15d584573dd610",
+    "Tools/OriginalWorldChecks/check_native_commanders.py": "c8e649330c9918b0970a1ffef839753cae15847d7174359e09e7e7f0053598f0",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.Waiting.cs": "2b4dc209c0abd945adef7f76ff6790acccb58149a82b1ef2588e14fbc9eb37fe",
+    "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.cs": "786b654c4a44613d31c05aff0932dd53cef6dc2ad96a1565b365919cbae12d0c",
+    "Assets/_Original/Art/Tutorial/WaitingDialogue.png": "2700f8635f1fb3d60dca173aac8e12a66f06b2f02e2faaad4e56bf8f81ab6bd7",
+    "Assets/_Original/Art/Tutorial/Dialogue.png": "0ded40e372fcad322be62035589106fc7928d20999f964bac23c8459b5779b26",
+    "Assets/_Original/Art/Archives/gameres/etc2.arc/board.bmp.png": "7e48d81c221b580823fdbbec75a82c3e48bcace6646a6acd013891ba35f7f612",
+    "Assets/_Original/SourceData/Native/wlib/scene38.lsc.bytes": "956f3e6d3959487b8ee27c8d946ba7d4cb46f9020c9986f003331affd5d8417d",
+    "Assets/_Original/SourceData/Native/wlib/waitlib.lce.bytes": "5b48a1c36570954d113bb8b5c0b7c56c81c7fcb90ccc0e3217ab578ede32f9cb"
+  }
+}

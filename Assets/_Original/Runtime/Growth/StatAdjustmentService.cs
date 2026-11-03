@@ -35,7 +35,7 @@ namespace DarkSaver.Original.Entry
                 {if(!draft.Dirty)return WorldResult(WorldFailure.InvalidInput);proposed=draft.values.Select(v=>v.Copy()).ToArray();points=draft.points;}
             }
             world.StatRequestState=world.AdjustmentRecord.Copy();
-            world.PendingStatAdjustment=new StatAdjustmentRequest{id=request,character=worldCharacter,session=world.GrowthSession,target=world.AdjustmentTarget?.Copy(),map=world.AdjustmentRecord.map,revision=revision,growthRevision=world.AdjustmentRecord.growth.revision,
+            world.PendingStatAdjustment=new StatAdjustmentRequest{nativeRecord=world.AdjustmentNativeRecord,id=request,character=worldCharacter,session=world.GrowthSession,target=world.AdjustmentTarget?.Copy(),map=world.AdjustmentRecord.map,revision=revision,growthRevision=world.AdjustmentRecord.growth.revision,
                 draftRevision=draft?.draftRevision??0,terms=draft?.terms,operation=operation,stat=stat,direction=direction,values=proposed,points=points};
             world.Applied.Add(request);return WorldResult(WorldFailure.None);
         }
@@ -90,10 +90,10 @@ namespace DarkSaver.Original.Entry
             try
             {
                 var notice=authority(queued.View.statAdjustmentRequest.Copy(),queued.View);
-                if(notice?.request?.id!=request){if(world.PendingStatAdjustment?.id==request)world.ClearStatRequest();return WorldResult(WorldFailure.StaleRequest);}
-                var reply=ReceiveStatAdjustment(notice);if(!reply.Accepted&&world.PendingStatAdjustment?.id==request)world.ClearStatRequest();return WorldResult(reply.Failure);
+                if(notice?.request?.id!=request){if(world?.PendingStatAdjustment?.id==request)world.ClearStatRequest();return WorldResult(WorldFailure.StaleRequest);}
+                var reply=ReceiveStatAdjustment(notice);if(!reply.Accepted&&world?.PendingStatAdjustment?.id==request)world.ClearStatRequest();return WorldResult(reply.Failure);
             }
-            catch(Exception){if(world.PendingStatAdjustment?.id==request)world.ClearStatRequest();return WorldResult(WorldFailure.RulesUnavailable);}
+            catch(Exception){if(world?.PendingStatAdjustment?.id==request)world.ClearStatRequest();return WorldResult(WorldFailure.RulesUnavailable);}
         }
     }
 }

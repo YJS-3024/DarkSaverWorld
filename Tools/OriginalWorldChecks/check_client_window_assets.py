@@ -3,6 +3,8 @@ import hashlib,io,json,re,struct,sys
 from pathlib import Path
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[2];OUT=Path(__file__).parent;BASE=ROOT/'Assets/_Original'
+sys.path.insert(0,str(ROOT/'Tools/OriginalRestart'))
+from pixel_texture_policy import lossless
 def main():
  checks=0
  def check(ok,label):
@@ -14,7 +16,7 @@ def main():
   for path,digest in r['sources'].items():check(hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==digest,path)
   for row in r['outputs']:
    p=ROOT/row['asset'];check(hashlib.sha256(p.read_bytes()).hexdigest()==row['sha256'],row['asset']);meta=Path(str(p)+'.meta').read_text();check(bool(guid(p)),str(p)+'.meta')
-   if p.suffix=='.png':check('    filterMode: 0\n'in meta and '  textureCompression: 0\n'in meta and '  nPOTScale: 0\n'in meta,'literal point/uncompressed font/UI texture')
+   if p.suffix=='.png':check(lossless(meta,*Image.open(p).size),'effective platform point/uncompressed/full-size UI texture')
    if p.suffix=='.json':check('TextScriptImporter:'in meta,'JSON text asset importer')
    if p.suffix=='.asset':check('NativeFormatImporter:'in meta and 'mainObjectFileID: 11400000'in meta,'ScriptableObject resource importer')
  sys.path.insert(0,str(ROOT/'닥세_리소스/분석도구'))
@@ -70,10 +72,11 @@ def main():
   path=ROOT/row['asset'];archive,original=selected[identifier];converted=Image.open(path).convert('RGB');meta=Path(str(path)+'.meta').read_text()
   check(row['id']==identifier and row['archive']==archive,'ID and archive identity');check(row['sha256']==hashlib.sha256(path.read_bytes()).hexdigest(),'portrait output hash')
   check(row['guid']==guid(path) and row['guid']in reference,'portrait reference/GUID');check(original.size==converted.size==(64,64) and original.tobytes()==converted.tobytes(),'original portrait dimensions and all RGB pixels');pixels+=64*64
-  check('    filterMode: 0\n'in meta and re.findall(r'^\s*textureCompression: (\d+)$',meta,re.M) and set(re.findall(r'^\s*textureCompression: (\d+)$',meta,re.M))=={'0'} and '  nPOTScale: 0\n'in meta,'portrait point/uncompressed/no scaling');check(hashlib.sha256(meta.encode()).hexdigest()==row['importerSha256'],'portrait importer hash')
+  check(lossless(meta,*converted.size),'portrait effective platform point/uncompressed/no scaling')
  row=faces['fallback'];path=ROOT/row['asset'];converted=Image.open(path).convert('RGB')
  check(converted.size==fallback.size==(64,64) and converted.tobytes()==fallback.tobytes(),'original noface pixels');pixels+=64*64
- check(hashlib.sha256(path.read_bytes()).hexdigest()==row['sha256'] and row['guid']==guid(path),'fallback hash/GUID');check(hashlib.sha256(Path(str(path)+'.meta').read_bytes()).hexdigest()==row['importerSha256'],'fallback importer hash');check(re.search(r'^  noFace: .*guid: '+row['guid'],campaign,re.M)is not None,'fallback resource reference')
- report=dict(assertions=checks,portraitReferences=len(face_ids),portraitPixelChecks=pixels,unityPlay=False,scope='Source hashes, output hashes, actual importer metadata, resource/script references, literal dimensions and native button ranges. Portrait archive table/checksum/decompression and every RGB pixel/reference are compared, following face/face1/face2/face3 precedence; source GetFace analysis is static, not native execution. Not Unity import, rendered text, physical input or audio.',sources={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()for p in [OUT/'check_client_window_assets.py',BASE/'Data/World/NativeWorldArt.asset',BASE/'Data/Campaign/NativeCampaignArt.asset',BASE/'Resources/OriginalBitmapFont.asset',BASE/'Resources/OriginalBitmapFont.asset.meta',waiting_path,BASE/'Data/Tutorial/NativeTutorialArt.asset',ROOT/'Tools/OriginalTutorialChecks/waiting-window-assets.json']})
+ check(hashlib.sha256(path.read_bytes()).hexdigest()==row['sha256'] and row['guid']==guid(path),'fallback hash/GUID');check(lossless(Path(str(path)+'.meta').read_text(),*converted.size),'fallback effective lossless importer');check(re.search(r'^  noFace: .*guid: '+row['guid'],campaign,re.M)is not None,'fallback resource reference')
+ report=dict(assertions=checks,importerChecks='Effective Unity default/active-platform settings and GUID/pixels, accepting harmless Unity metadata expansion; generation metadata SHA is provenance rather than a cross-import stability rule.',portraitReferences=len(face_ids),portraitPixelChecks=pixels,unityPlay=False,scope='Source hashes, output hashes, actual importer metadata, resource/script references, literal dimensions and native button ranges. Portrait archive table/checksum/decompression and every RGB pixel/reference are compared, following face/face1/face2/face3 precedence; source GetFace analysis is static, not native execution. Not Unity import, rendered text, physical input or audio.',sources={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()for p in [OUT/'check_client_window_assets.py',BASE/'Data/World/NativeWorldArt.asset',BASE/'Data/Campaign/NativeCampaignArt.asset',BASE/'Resources/OriginalBitmapFont.asset',BASE/'Resources/OriginalBitmapFont.asset.meta',waiting_path,BASE/'Data/Tutorial/NativeTutorialArt.asset',ROOT/'Tools/OriginalTutorialChecks/waiting-window-assets.json']})
+ report['sources']['Tools/OriginalRestart/pixel_texture_policy.py']=hashlib.sha256((ROOT/'Tools/OriginalRestart/pixel_texture_policy.py').read_bytes()).hexdigest()
  (OUT/'client-window-assets-check.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in report.items()if k!='sources'}))
 if __name__=='__main__':main()

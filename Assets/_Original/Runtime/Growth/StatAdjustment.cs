@@ -16,10 +16,11 @@ namespace DarkSaver.Original.World
     public sealed class StatAdjustmentRequest
     {
         public CommanderAdjustmentTarget target;
+        public int? nativeRecord;public byte[] NativePacket=>operation==StatAdjustmentOperation.State?NativeClassAdjustmentPackets.Costs(nativeRecord):operation==StatAdjustmentOperation.Step?NativeClassAdjustmentPackets.Stat(nativeRecord,stat,direction):operation==StatAdjustmentOperation.Confirm?NativeClassAdjustmentPackets.Close(nativeRecord,true):null;
         public string id,character,session,terms;public int map,stat,direction;public long revision,growthRevision,draftRevision;
         public StatAdjustmentOperation operation;public AttributeTriplet[] values;public int points;
         public StatAdjustmentRequest Copy(){var r=(StatAdjustmentRequest)MemberwiseClone();r.target=target?.Copy();r.values=values?.Select(v=>v.Copy()).ToArray();return r;}
-        public static bool Same(StatAdjustmentRequest a,StatAdjustmentRequest b)=>a!=null&&b!=null&&CommanderAdjustmentTarget.Same(a.target,b.target)&&a.id==b.id&&a.character==b.character&&a.session==b.session&&a.terms==b.terms
+        public static bool Same(StatAdjustmentRequest a,StatAdjustmentRequest b)=>a!=null&&b!=null&&CommanderAdjustmentTarget.Same(a.target,b.target)&&a.nativeRecord==b.nativeRecord&&a.id==b.id&&a.character==b.character&&a.session==b.session&&a.terms==b.terms
             &&a.map==b.map&&a.stat==b.stat&&a.direction==b.direction&&a.revision==b.revision&&a.growthRevision==b.growthRevision&&a.draftRevision==b.draftRevision
             &&a.operation==b.operation&&a.points==b.points&&(a.values==null?b.values==null:AttributeTriplet.Same(a.values,b.values));
     }

@@ -39,7 +39,7 @@ namespace DarkSaver.Original.Entry
                 else
                 {if(!draft.Dirty&&world.StatDraft?.Dirty!=true&&world.AdjustmentRecord.magicLoadout?.Matches(world.AdjustmentRecord.growth)==true&&world.AdjustmentRecord.magicLoadout.selected.SequenceEqual(draft.selected))return WorldResult(WorldFailure.InvalidInput);selected=(int[])draft.selected.Clone();}
             }
-            var pending=new MagicLoadoutRequest{id=request,character=worldCharacter,session=world.GrowthSession,target=world.AdjustmentTarget?.Copy(),map=world.AdjustmentRecord.map,revision=revision,growthRevision=world.AdjustmentRecord.growth.revision,
+            var pending=new MagicLoadoutRequest{nativeRecord=world.AdjustmentNativeRecord,id=request,character=worldCharacter,session=world.GrowthSession,target=world.AdjustmentTarget?.Copy(),map=world.AdjustmentRecord.map,revision=revision,growthRevision=world.AdjustmentRecord.growth.revision,
                 operation=operation,index=index,magic=magic,terms=draft?.terms,draftRevision=draft?.draftRevision??0,selected=selected};
             if(operation==MagicLoadoutOperation.Confirm&&world.StatDraft?.Dirty==true)
             {
@@ -107,10 +107,10 @@ namespace DarkSaver.Original.Entry
             try
             {
                 var notice=authority(queued.View.magicLoadoutRequest.Copy(),queued.View);
-                if(notice?.request?.id!=request){if(world.PendingMagicLoadout?.id==request)world.ClearMagicRequest();return WorldResult(WorldFailure.StaleRequest);}
-                var result=ReceiveMagicLoadout(notice);if(!result.Accepted&&world.PendingMagicLoadout?.id==request)world.ClearMagicRequest();return WorldResult(result.Failure);
+                if(notice?.request?.id!=request){if(world?.PendingMagicLoadout?.id==request)world.ClearMagicRequest();return WorldResult(WorldFailure.StaleRequest);}
+                var result=ReceiveMagicLoadout(notice);if(!result.Accepted&&world?.PendingMagicLoadout?.id==request)world.ClearMagicRequest();return WorldResult(result.Failure);
             }
-            catch(Exception){if(world.PendingMagicLoadout?.id==request)world.ClearMagicRequest();return WorldResult(WorldFailure.RulesUnavailable);}
+            catch(Exception){if(world?.PendingMagicLoadout?.id==request)world.ClearMagicRequest();return WorldResult(WorldFailure.RulesUnavailable);}
         }
     }
 }

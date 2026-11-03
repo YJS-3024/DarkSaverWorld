@@ -7,7 +7,7 @@ namespace DarkSaver.Original.Tutorial
     [Serializable] public sealed class WaitingLine { public int id; public string text; public bool skipped; }
     [Serializable] public sealed class WaitingButton { public int id, x, y, sx, sy, width, height; }
     [Serializable] public sealed class WaitingWindowDefinition
-    { public int id, scene, x, y, width, height,dragX,dragY,dragWidth,dragHeight;
+    { public int id, scene, x, y, width, height,dragX,dragY,dragWidth,dragHeight;public bool forceCenter;
       public int minWidth,minHeight,minDragX,minDragY,minDragWidth,minDragHeight;public WaitingButton[] buttons; }
     [Serializable] public sealed class WaitingDefinition
     { public TutorialMap map; public WaitingLine[] lines; public WaitingWindowDefinition[] windows; public WaitingItemName[] items; }

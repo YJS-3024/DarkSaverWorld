@@ -25,7 +25,6 @@ namespace DarkSaver.Original.World
             public readonly List<CommanderCell> Commanders=new List<CommanderCell>();
             public readonly List<(int slot,Button hit,RawImage image,WaitingButton spec)> Deployment=new List<(int,Button,RawImage,WaitingButton)>();
             public bool Visible,Minimized,Expanded;
-            public Vector2? DragOffset;
             public readonly List<(WaitingButton spec,RectTransform rect)> Controls=new List<(WaitingButton,RectTransform)>();
             public readonly List<(RawImage image,int slot,bool equipped)> Items=new List<(RawImage,int,bool)>();
             public readonly List<Text> ChatRows=new List<Text>();
@@ -43,7 +42,7 @@ namespace DarkSaver.Original.World
         {
             var native=art.battle;var specs=art.PersonalLayout?.windows?.ToList()??native.WaitingDefinition.windows.ToList();
             if(art.CommanderLayout!=null&&art.commanderWindow!=null&&art.commanderMinimized!=null&&!specs.Any(w=>w.id==67))
-            {var c=art.CommanderLayout;specs.Add(new WaitingWindowDefinition{id=67,scene=42,x=180,y=75,width=c.width,height=c.height,buttons=c.buttons});}
+            {var c=art.CommanderLayout;var layout=NativeFacilitySpec(67,42,c.width,c.height)??new WaitingWindowDefinition{id=67,scene=42,width=c.width,height=c.height};layout.buttons=c.buttons;specs.Add(layout);}
             for(int i=0;i<specs.Count;i++)
             {
                 int id=specs[i].id;var spec=specs[i];
@@ -67,23 +66,12 @@ namespace DarkSaver.Original.World
                 }
                 var header=Hit(p.Full,"Drag native ornament",new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>{});header.transform.SetSiblingIndex(1);
                 header.gameObject.AddComponent<NativeWindowClickInput>().Configure(p.Clicks);
-                header.gameObject.AddComponent<NativeTutorialDrag>().Configure(screen,(point,end)=>
-                {
-                    if(!p.DragOffset.HasValue)p.DragOffset=point-new Vector2(p.Root.anchoredPosition.x,-p.Root.anchoredPosition.y);
-                    Vector2 at=point-p.DragOffset.Value;float height=id==19&&p.Expanded?401:spec.height;
-                    Place(p.Root,new Rect(Mathf.Clamp(Mathf.Round(at.x),0,640-spec.width),Mathf.Clamp(Mathf.Round(at.y),0,480-height),spec.width,height));
-                    if(end)p.DragOffset=null;
-                },onCancel:()=>p.DragOffset=null);
+                header.gameObject.AddComponent<NativeWindowDragInput>().Configure(screen,p.Root,new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>NativeWindowDragAllowed);
                 var miniature=id==67?art.commanderMinimized:native.waitingMinimizedWindows[i];p.Mini=Group(p.Root,"Minimized",new Rect(0,0,miniature.width,miniature.height));
                 var restore=Hit(p.Mini,"Restore",new Rect(0,0,miniature.width,miniature.height),()=>{});
                 restore.gameObject.AddComponent<NativeWindowClickInput>().Configure(p.Clicks,()=>{p.Minimized=false;p.Root.SetAsLastSibling();PaintPersonalWindows();});
                 Picture((RectTransform)restore.transform,"Original minimized icon",new Rect(0,0,miniature.width,miniature.height),miniature);
-                restore.gameObject.AddComponent<NativeTutorialDrag>().Configure(screen,(point,end)=>
-                {
-                    p.Root.SetAsLastSibling();if(!p.DragOffset.HasValue)p.DragOffset=point-new Vector2(p.Root.anchoredPosition.x,-p.Root.anchoredPosition.y);
-                    Vector2 next=point-p.DragOffset.Value;Place(p.Root,new Rect(Mathf.Clamp(Mathf.Round(next.x),0,640-miniature.width),Mathf.Clamp(Mathf.Round(next.y),0,480-miniature.height),miniature.width,miniature.height));
-                    if(end)p.DragOffset=null;
-                },onCancel:()=>p.DragOffset=null);
+                restore.gameObject.AddComponent<NativeWindowDragInput>().Configure(screen,p.Root,new Rect(spec.minDragX,spec.minDragY,spec.minDragWidth,spec.minDragHeight),()=>NativeWindowDragAllowed);
                 if(id==18)
                 {
                     p.Name=PersonalText(p.Full,"Name",new Rect(115,74,111,18),CommanderName);p.Name.alignment=TextAnchor.UpperLeft;
@@ -114,6 +102,7 @@ namespace DarkSaver.Original.World
                     p.Spouse.alignment=TextAnchor.UpperCenter;
                     for(int number=0;number<NativeSelfInformation.Count;number++)
                     {var label=PersonalText(p.Full,"Native numeric field"+number,new Rect(NativeSelfInformation.X(number),NativeSelfInformation.Y(number),NativeSelfInformation.Width(number),14),"");label.alignment=TextAnchor.MiddleCenter;p.Numbers.Add(label);}
+                    BuildCommanderName(p);
                 }
                 if(id==20)
                 {
@@ -177,7 +166,7 @@ namespace DarkSaver.Original.World
             PaintPersonalWindows();
         }
         private WorldOwnedItem PersonalOwned(int slot,bool equipped)
-        {if(view==null)return null;var items=view.inspectedCommander==0?(equipped?view.record.Equipment:view.record.inventory):(equipped?InspectedCommander?.profile?.equipment:InspectedCommander?.profile?.inventory);return items?.FirstOrDefault(i=>i.slot==slot);}
+        {return NativeItemDragContext.PersonalItem(view,slot,equipped);}
         private void PersonalItem(PersonalWindow p,int slot,bool equipped,Rect rect)
         {
             var hit=Hit(p.Full,(equipped?"Equipped":"Inventory")+slot,rect,()=>{});
@@ -191,12 +180,12 @@ namespace DarkSaver.Original.World
                 p.Root.SetAsLastSibling();p.CaptionCommander=view.inspectedCommander;p.CaptionRoster=view.commanders?.revision??0;
                 p.ItemCaption.text=NativeItemCaption.Format(definition.Item(item.item)?.name,item.remainingUses);AnchorPersonalLine(p.ItemCaption,230,192,6);
             });
-            p.Items.Add((image,slot,equipped));string owned=null,identity=null;int inspecting=-1;long revision=0;
+            p.Items.Add((image,slot,equipped));string owned=null,identity=null;int inspecting=-1;long revision=0;NativeItemDragContext dragContext=null;
             hit.gameObject.AddComponent<NativeTutorialDrag>().Configure(screen,(point,end)=>
             {
-                if(personalGhost!=null&&(view.inspectedCommander!=inspecting||(view.commanders?.revision??0)!=revision)){Destroy(personalGhost.gameObject);personalGhost=null;return;}
                 if(personalGhost==null)
                 {
+                    if(end)return;dragContext=NativeItemDragContext.Personal(view,slot,equipped);if(dragContext==null||!dragContext.Matches(server.WorldSnapshot))return;
                     var item=PersonalOwned(slot,equipped);if(item==null)return;
                     owned=item.id;inspecting=view.inspectedCommander;identity=InspectedCommander?.id;revision=view.commanders?.revision??0;p.Root.SetAsLastSibling();personalGhost=Picture(overlay,"Personal item drag32",new Rect(0,0,32,32),null);PaintItem(personalGhost,item.item);
                 }
@@ -216,7 +205,8 @@ namespace DarkSaver.Original.World
                     if(new Rect(146+col*35,42+row*35,32,32).Contains(local))Handle(Equip(-1,row*7+col));
                 }
             },()=>PersonalAvailable&&!view.moving&&view.commanderRequest==null&&view.itemUseRequest==null&&PersonalOwned(slot,equipped)!=null,
-                ()=>{if(personalGhost!=null)Destroy(personalGhost.gameObject);personalGhost=null;});
+                ()=>{if(personalGhost!=null)Destroy(personalGhost.gameObject);personalGhost=null;dragContext=null;},
+                ()=>personalGhost!=null&&p.Visible&&!p.Minimized&&PersonalAvailable&&!BattleMap()&&dragContext?.Matches(server.WorldSnapshot)==true);
         }
         private NativeCodePage949 worldTextCodec;
         private NativeBitmapFont worldBitmapFont;
@@ -239,6 +229,7 @@ namespace DarkSaver.Original.World
         private void PaintPersonalWindows()
         {
             if(view==null)return;
+            PaintCommanderName();
             if(commanderDrag!=null&&(!PersonalAvailable||BattleMap()||!personalWindows.Any(p=>(p.Key==18||p.Key==67)&&p.Value.Visible&&!p.Value.Minimized)))ClearCommanderDrag();
             foreach(var pair in personalWindows)
             {

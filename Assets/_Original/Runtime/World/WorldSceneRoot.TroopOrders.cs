@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DarkSaver.Original.UI;
 using UnityEngine.UI;
 using DarkSaver.Original.Entry;
 
@@ -42,7 +43,7 @@ namespace DarkSaver.Original.World
             foreach(var button in battleOrderButtons)
             {
                 button.hit.interactable=available;
-                button.image.uvRect=NativeEntryLayout.Uv(art.battle.icons,new Rect(OriginalTroopOrders.IconX(button.choice),64+(int)(view.clock/300)%2*160,32,32));
+                button.image.uvRect=NativeEntryLayout.Uv(art.battle.icons,new Rect(OriginalTroopOrders.IconX(button.choice),NativeBattleMenuIcons.NormalY(64,BattleIconClock),32,32));
             }
         }
     }

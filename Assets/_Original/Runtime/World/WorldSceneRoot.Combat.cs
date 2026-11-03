@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using DarkSaver.Original.UI;
 using UnityEngine.UI;
 using DarkSaver.Original.Tutorial;
 using DarkSaver.Original.Entry;
@@ -61,6 +62,7 @@ namespace DarkSaver.Original.World
         }
         private void TrainingGridClick(int x,int y)
         {
+            battleStatusUnit=DarkSaver.Original.UI.NativeBattleStatusSelection.Click(view.battle?.units.FirstOrDefault(u=>u.x==x&&u.y==y&&u.hp>0)?.id??-1);
             showingActions=false;showingBattleSpells=false;showingBattleOrders=false;
             if(CastingSelection){if(SelectedMagicDistance<0||SelectedMagicArea>0&&!SelectedMagicGroup)CastBattleMagicAt(x,y);else{var target=view.battle?.units.FirstOrDefault(u=>CanSelectMagicUnit(u)&&u.x==x&&u.y==y);if(target!=null)TrainingUnitClick(target.id);}return;}
             if(view.battle==null){HandleMove(server.Request_MoveWorld(x,y));return;}
@@ -69,6 +71,7 @@ namespace DarkSaver.Original.World
         }
         private void TrainingUnitClick(int id)
         {
+            battleStatusUnit=DarkSaver.Original.UI.NativeBattleStatusSelection.Click(id);
             if(CastingSelection)
             {
                 if(SelectedMagicDistance<0||SelectedMagicArea>0&&!SelectedMagicGroup){var target=view.battle?.Unit(id);if(target!=null)CastBattleMagicAt(target.x,target.y);return;}
@@ -84,7 +87,7 @@ namespace DarkSaver.Original.World
             foreach(var button in trainingButtons)
             {
                 bool enabled=TrainingActionAvailable(button.icon);button.hit.interactable=enabled;
-                button.image.uvRect=NativeEntryLayout.Uv(art.battle.icons,new Rect((enabled?button.icon:button.gray)*32,enabled?0:128,32,32));
+                button.image.uvRect=NativeEntryLayout.Uv(art.battle.icons,new Rect((enabled?button.icon:button.gray)*32,NativeBattleMenuIcons.ActionY(enabled,BattleIconClock),32,32));
             }
             var combat=view.battle;
             foreach(var pair in trainingImages)pair.Value.hit.gameObject.SetActive(false);

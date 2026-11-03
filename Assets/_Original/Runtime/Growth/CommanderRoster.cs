@@ -12,7 +12,7 @@ namespace DarkSaver.Original.World
     {
         [DataMember] public bool healthKnown,ghost;
         [DataMember] public int hp,maxHp,mp,maxMp,hiredJob=-1,hiredCount;
-        [DataMember(EmitDefaultValue=false)] public int? level;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? level;
         [DataMember(EmitDefaultValue=false)] public CharacterGrowthRecord growth;
         [DataMember(EmitDefaultValue=false)] public WorldOwnedItem[] inventory,equipment;
         [DataMember(EmitDefaultValue=false)] public RevivalReceipt revival;
@@ -50,7 +50,7 @@ namespace DarkSaver.Original.World
         [DataMember] public string id;
         [DataMember(EmitDefaultValue=false)] public string name;
         [DataMember] public int job;
-        [DataMember(EmitDefaultValue=false)] public int? nativeRecord,deployment,nativeStatus;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? nativeRecord,deployment,nativeStatus;
         [DataMember(EmitDefaultValue=false)] public CommanderProfile profile;
         public OwnedCommander Copy()=>new OwnedCommander{id=id,name=name,job=job,nativeRecord=nativeRecord,deployment=deployment,nativeStatus=nativeStatus,profile=profile?.Copy()};
         public static bool Valid(OwnedCommander r)=>r!=null&&!string.IsNullOrWhiteSpace(r.id)&&r.id.Length<=128&&r.id.All(c=>!char.IsControl(c))&&r.job>=0
@@ -64,7 +64,7 @@ namespace DarkSaver.Original.World
         [DataMember] public long revision;
         [DataMember] public string lastNotice;
         // Raw presence gate at native info-manager+18, not an inferred server scenario rule.
-        [DataMember(EmitDefaultValue=false)] public bool? alternateGate;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public bool? alternateGate;
         [DataMember] public OwnedCommander[] rows;
         public bool Extended=>alternateGate==true&&rows?.Length==3;
         public CommanderRoster Copy()=>new CommanderRoster{revision=revision,lastNotice=lastNotice,alternateGate=alternateGate,rows=rows?.Select(r=>r?.Copy()).ToArray()};

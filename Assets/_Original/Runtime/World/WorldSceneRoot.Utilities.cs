@@ -21,12 +21,12 @@ namespace DarkSaver.Original.World
         private readonly Dictionary<int,UtilityWindow> utilities=new Dictionary<int,UtilityWindow>();
         private void ResetTransientClientWindows()
         {
-            SavePersonalPositions();
+            ClearClientMessage();FinishCommanderName(false);commanderNameLastTextFocus=null;SavePersonalPositions();
             foreach(var p in utilities.Values){SaveUtilityPosition(p);p.Root.gameObject.SetActive(false);Destroy(p.Root.gameObject);}utilities.Clear();
             foreach(var p in personalWindows.Values)
             {p.Visible=false;var saved=OriginalWindowPreferences.LoadState(p.Spec);p.Minimized=saved.Minimized;p.Expanded=saved.Expanded;var at=saved.Position;Place(p.Root,new Rect(at.X,at.Y,p.Spec.width,p.Expanded?401:p.Spec.height));}
             worldMessages.Clear();ResetWorldChat();ClearCommanderDrag();if(personalGhost!=null)Destroy(personalGhost.gameObject);personalGhost=null;
-            ForgetClassWindow();trainingStatusVisible=false;showingActions=false;trainingMode=null;trainingActionUnit=0;
+            ForgetClassWindow();ResetBattleDialogs();showingActions=false;trainingMode=null;trainingActionUnit=0;
         }
         private void ReceiveWhisperReception(bool allowed)
         {
@@ -41,9 +41,8 @@ namespace DarkSaver.Original.World
             p.Root.gameObject.AddComponent<Image>().color=Color.clear;Picture(p.Root,"Original wlib scene"+spec.scene,new Rect(0,0,spec.width,spec.height),art.utilityWindows[index]);
             if(spec.dragWidth>0&&spec.dragHeight>0)
             {
-            var drag=Hit(p.Root,"Original window title",new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>p.Root.SetAsLastSibling());Vector2? offset=null;
-            drag.gameObject.AddComponent<NativeTutorialDrag>().Configure(screen,(point,end)=>
-            {p.Root.SetAsLastSibling();if(!offset.HasValue)offset=point-new Vector2(p.Root.anchoredPosition.x,-p.Root.anchoredPosition.y);var at=point-offset.Value;Place(p.Root,new Rect(Mathf.Clamp(Mathf.Round(at.x),0,640-spec.width),Mathf.Clamp(Mathf.Round(at.y),0,480-spec.height),spec.width,spec.height));if(end)offset=null;},onCancel:()=>offset=null);
+            var drag=Hit(p.Root,"Original window title",new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>p.Root.SetAsLastSibling());
+            drag.gameObject.AddComponent<NativeWindowDragInput>().Configure(screen,p.Root,new Rect(spec.dragX,spec.dragY,spec.dragWidth,spec.dragHeight),()=>NativeWindowDragAllowed);
             }
             for(int i=0;i<spec.buttons.Length;i++)
             {

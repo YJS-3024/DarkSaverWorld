@@ -6,6 +6,7 @@ namespace DarkSaver.Original.Entry
     using DarkSaver.Original.World;
     public sealed partial class EntryAccountService
     {
+        internal WorldHireOffer[] WorldMercenaryOffers()=>world?.HireOffers()??Array.Empty<WorldHireOffer>();
         private WorldFailure MercenaryReady(string token)
         {
             var f=ReadyWorld();if(f!=WorldFailure.None)return f;
@@ -28,7 +29,7 @@ namespace DarkSaver.Original.Entry
             {
                 // Native selection uses the currently owned type until its last member is dismissed.
                 if(world.Record.hiredCount>0&&world.Record.hiredJob!=job)return WorldResult(WorldFailure.InvalidInput);
-                var offer=world.Definition.hires.FirstOrDefault(h=>h.commander==world.CommanderJob&&h.job==job);
+                var offer=world.HireOffers().FirstOrDefault(h=>h.job==job);
                 if(offer==null||offer.limit<=0||offer.price<0||world.Record.hiredCount>=offer.limit)return WorldResult(WorldFailure.InvalidInput);
                 limit=offer.limit;price=(ulong)offer.price;
                 if(world.Record.gold<price.Value)return WorldResult(WorldFailure.InsufficientFunds);
@@ -71,9 +72,11 @@ namespace DarkSaver.Original.Entry
             var f=MercenaryReady(token);if(f!=WorldFailure.None)return WorldResult(f);
             if(authority==null)return WorldResult(WorldFailure.RulesUnavailable);
             var queued=RequestMercenaryTransfer(hire,job,token,request);if(!queued.Accepted)return queued;
+            var origin=world;
             try
             {
                 var notice=authority(queued.View.mercenaryRequest.Copy(),queued.View);
+                if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());
                 if(notice!=null)
                 {
                     if(notice.request!=request){if(world.PendingMercenary?.id==request)world.ClearMercenary();return WorldResult(WorldFailure.StaleRequest);}
@@ -81,6 +84,7 @@ namespace DarkSaver.Original.Entry
                 }
             }
             catch(Exception){/* A failed local provider leaves no speculative hire/refund. */}
+            if(!ReferenceEquals(world,origin))return new WorldReply(WorldFailure.StaleRequest,world?.Snapshot());
             if(world.PendingMercenary?.id==request)world.ClearMercenary();return WorldResult(WorldFailure.RulesUnavailable);
         }
     }

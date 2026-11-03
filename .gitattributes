@@ -3,3 +3,21 @@
 /Assets/_Original/Data/Tutorial/Waiting1500.json text eol=lf
 /Assets/_Original/Data/World/KaosiaWorld.json text eol=lf
 /Assets/_Original/Data/Campaign/CampaignCatalog.json text eol=lf
+
+# Original client archives and CRLF CSV catalogs are byte-audited source data.
+/Assets/_Original/SourceData/** -text
+/Assets/_Original/Data/Tables/** -text
+
+# Generated client data and code participate in cross-platform SHA256 audits.
+/Assets/_Original/**/*.cs text eol=lf
+/Assets/_Original/**/*.json text eol=lf
+/Assets/_Original/**/*.asset text eol=lf
+/Assets/_Original/**/*.meta text eol=lf
+/Tools/Original*/**/*.cs text eol=lf
+/Tools/Original*/**/*.py text eol=lf
+/Tools/Original*/**/*.json text eol=lf
+/분석/Ghidra/Saver_Late/**/*.c text eol=lf
+/분석/Ghidra/Saver_Late/**/*.asm text eol=lf
+/분석/Ghidra/Saver_Late/**/*.json text eol=lf
+
+/Assets/_Original/Resources/OriginalWorldNotice.bytes -text

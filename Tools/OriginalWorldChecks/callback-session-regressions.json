@@ -1,0 +1,50 @@
+{
+  "controls": 3,
+  "mismatches": 0,
+  "unityPlay": false,
+  "nativeCodeExecuted": false,
+  "cases": [
+    {
+      "control": "chat",
+      "base": "88587912",
+      "source": "LocalServerManager.Chat.cs",
+      "baseSourceSha256": "00f75488f57192a38695b9fec3117ff81e75db0166cae72791aacce64f573dfd",
+      "compiled": true,
+      "rejectedByCurrentRegression": true,
+      "failure": "Unhandled exception. System.Exception: connection changes cancel remaining chat callbacks rawlogout"
+    },
+    {
+      "control": "private",
+      "base": "88587912",
+      "source": "LocalServerManager.PrivateChat.cs",
+      "baseSourceSha256": "768e74e1f6b0271f8aa8d8594cf9a9e445673bc3a7f646bd8dc69bf53e246cde",
+      "compiled": true,
+      "rejectedByCurrentRegression": true,
+      "failure": "Unhandled exception. System.Exception: closed/private or expired-session request stops subsequent callbacks"
+    },
+    {
+      "control": "space",
+      "base": "88587912",
+      "source": "LocalServerManager.WorldText.cs",
+      "baseSourceSha256": "c2af3ed26c2af2df4fe211566cecbcbc1d638348a18e91fdf1d623c14a46d179",
+      "compiled": true,
+      "rejectedByCurrentRegression": true,
+      "failure": "Unhandled exception. System.Exception: logout/reconnect stops stale space-move callback delivery"
+    }
+  ],
+  "logs": "/tmp/ds-callback-session-controls",
+  "scope": "Three current focused managed fixtures reject the pinned pre-fix callback bodies, each replaced separately. This proves regression sensitivity, not original native behavior, real network timing or Unity EventSystem/Play.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_callback_session_regressions.py": "9649caec80136886e4b0c287fa8c5576285d027349551b6f6c3761bf6ed809bf",
+    "Tools/OriginalWorldChecks/native-chat-composer-check.json": "f5affce5046926fd9be22e4e527778632dc8b6d288e2d673309145f52955e9e4",
+    "Tools/OriginalWorldChecks/ChatComposerChecks.cs": "b92006a5d14e07037c23d7258eb1bda26616bf0b985a42ccccd3b666357d4bc4",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Chat.cs": "3109b6f4c4f7dd28fcb32971f97cc3fa126018cfcc6257acc9bebee8cb8c9fa4",
+    "Tools/OriginalWorldChecks/native-private-chat-check.json": "7e6afe3386cf3a9e7f41b520294f2cffe69f60b5b4cfb6b912ec46bd3dfcd114",
+    "Tools/OriginalWorldChecks/PrivateChatChecks.cs": "465cfc909f4a8b014db2d9d2fdca06808c434d21de4359e6581de0d3adade8f8",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.PrivateChat.cs": "1ecc685eb82d39176458b147b13b3d0a8432b7cff60ef2b5e3595a2cb1543582",
+    "Tools/OriginalWorldChecks/native-world-text-check.json": "0e009934af897f86c69819bb618a80c46d673b8b7931da3fedee80481940fcaf",
+    "Tools/OriginalWorldChecks/WorldTextChecks.cs": "ebda5d58fcf0d7ce73f28a6af5e8d6d25a63d8847a552510bd8b5e54389c20e9",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.WorldText.cs": "4a86778bda2acc160b609ac9b47360d46e750ace6f0909ce304ba66423f1a73d",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.ClientSettings.cs": "c554e964a2da5d91d19b0962e0ae4e601186c90b8bf5516535407426663aadf1"
+  }
+}

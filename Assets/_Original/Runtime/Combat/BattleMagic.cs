@@ -9,9 +9,9 @@ namespace DarkSaver.Original.World
     {
         [DataMember] public int magic;
         [DataMember] public bool enabled;
-        [DataMember(EmitDefaultValue=false)] public int? mpCost,apCost;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public int? mpCost,apCost;
         [DataMember(EmitDefaultValue=false)] public int[] targets;
-        [DataMember(EmitDefaultValue=false)] public bool? allowDeadTargets;
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public bool? allowDeadTargets;
         public BattleMagicRule Copy(){var r=(BattleMagicRule)MemberwiseClone();r.targets=targets==null?null:(int[])targets.Clone();return r;}
         public bool Valid=>magic>0&&(!mpCost.HasValue||mpCost>=0)&&(!apCost.HasValue||apCost>=0)
             &&(targets==null||targets.All(id=>id>=0&&id<=999)&&targets.Distinct().Count()==targets.Length);

@@ -20,6 +20,8 @@ namespace DarkSaver.Original.UI
     }
     public static class NativeWindowPlacement
     {
+        public static string ProfileKey(int id)=>"Dlg"+id.ToString(CultureInfo.InvariantCulture);
+        public static string DefaultProfile(int id)=>id==19?"23 346 0":"0 0 0";
         public static NativeWindowState Restore(WaitingWindowDefinition spec,string profile,int chatSize)
         {
             var fields=(profile??"").Split(new[]{' '},StringSplitOptions.RemoveEmptyEntries);int x=0,y=0,mini=0;
@@ -27,7 +29,7 @@ namespace DarkSaver.Original.UI
             if(fields.Length>1)int.TryParse(fields[1],NumberStyles.Integer,CultureInfo.InvariantCulture,out y);
             if(fields.Length>2)int.TryParse(fields[2],NumberStyles.Integer,CultureInfo.InvariantCulture,out mini);
             bool minimized=mini!=0&&spec.minWidth>0&&spec.minHeight>0,expanded=spec.id==19&&chatSize==2&&!minimized;
-            var position=Geometry(spec,x,y,minimized,expanded,spec.id==33);return new NativeWindowState(position,minimized,expanded);
+            var position=Geometry(spec,x,y,minimized,expanded,spec.id==33||spec.forceCenter);return new NativeWindowState(position,minimized,expanded);
         }
         public static string Save(WaitingWindowDefinition spec,int x,int y,bool minimized,bool expanded)
         {

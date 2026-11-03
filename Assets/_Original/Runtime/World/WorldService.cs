@@ -45,6 +45,8 @@ namespace DarkSaver.Original.Entry
         public bool IsWorldClientSession(string character,string session)=>TryWorldClientSession(out var current,out var connection)&&current==character&&connection==session;
         private WorldFailure ReadyWorld()
         { var f = WorldOwner(out _); return f != WorldFailure.None ? f : world == null ? WorldFailure.InvalidStage : WorldFailure.None; }
+        public bool TryWorldItemIds(out int[] items)
+        {items=null;if(ReadyWorld()!=WorldFailure.None)return false;items=world.Definition.items.Select(item=>item.id).ToArray();return true;}
         private WorldPortal TrainingEntrance(WorldRecord record) => world.Map(1000).portals.FirstOrDefault(g=>g.targetMap==record.map&&(string.IsNullOrEmpty(record.trainingEntrance)||g.id==record.trainingEntrance));
         private WorldFailure CommitWorld(WorldRecord candidate,WorldRecord expectedRevivalState=null,WorldRecord expectedCurrencyState=null)
         {
@@ -318,7 +320,7 @@ namespace DarkSaver.Original.Entry
             var f = Facility(FacilityKind.Mercenary, token, request); if (f != WorldFailure.None) return WorldResult(f);
             if(world.PendingMercenary!=null)return WorldResult(WorldFailure.Busy);
             long revision=world.Record.mercenary?.revision??0;if(revision==long.MaxValue)return WorldResult(WorldFailure.StaleRequest);
-            var r = world.Definition.rules; var offer = world.Definition.hires.FirstOrDefault(h => h.commander == world.CommanderJob && h.job == job);
+            var r = world.Definition.rules; var offer = world.HireOffers().FirstOrDefault(h => h.job == job);
             if (offer == null) return WorldResult(WorldFailure.InvalidInput);
             if (!r.hireRuleKnown || !world.Record.goldKnown) return WorldResult(WorldFailure.RulesUnavailable);
             if ((world.Record.hiredCount > 0 && world.Record.hiredJob != job) || world.Record.hiredCount >= offer.limit) return WorldResult(WorldFailure.InvalidInput);

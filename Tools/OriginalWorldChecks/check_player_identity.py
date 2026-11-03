@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[2];OUT=Path(__file__).parent;WORK=Path('/t
 def main():
  WORK.mkdir(exist_ok=True);old=Path('/tmp/ds-original-entry-checks');exe=WORK/'PlayerIdentityChecks.dll';sdk=ROOT.parent/'.tools/unity/6000.5.7f1/Editor/Data/DotNetSdk'
  args=(old/'contracts.rsp').read_text().replace(str(old/'EntryChecks.dll'),str(exe)).replace(str(ROOT/'Tools/OriginalEntryChecks/EntryChecks.cs'),str(OUT/'PlayerIdentityChecks.cs'))
- for p in [ROOT/'Assets/_Original/Runtime/UI/NativeCodePage949.cs',ROOT/'Assets/_Original/Runtime/UI/NativeMemoInbox.cs',ROOT/'Assets/_Original/Runtime/Entry/LocalServerManager.Memos.cs',ROOT/'Assets/_Original/Runtime/World/LocalServerManager.PlayerIdentity.cs',OUT/'ClientWindowManagerHost.cs',OUT/'IdentityManagerHost.cs']:args+='\n"'+str(p)+'"\n'
+ for p in [ROOT/'Assets/_Original/Runtime/UI/NativeCodePage949.cs',ROOT/'Assets/_Original/Runtime/UI/NativeMemoInbox.cs',ROOT/'Assets/_Original/Runtime/UI/NativeMemoTransfer.cs',ROOT/'Assets/_Original/Runtime/Entry/LocalServerManager.Memos.cs',ROOT/'Assets/_Original/Runtime/World/LocalServerManager.PlayerIdentity.cs',OUT/'ClientWindowManagerHost.cs',OUT/'IdentityManagerHost.cs']:args+='\n"'+str(p)+'"\n'
  rsp=WORK/'checks.rsp';rsp.write_text(args);exe.with_suffix('.runtimeconfig.json').write_bytes((old/'EntryChecks.runtimeconfig.json').read_bytes());env=dict(os.environ,DOTNET_CLI_HOME='/tmp/ds-dotnet')
  for phase,cmd in [('compile',[str(sdk/'dotnet'),str(next(sdk.glob('sdk/*/Roslyn/bincore/csc.dll'))),'@'+str(rsp)]),('run',[str(sdk/'dotnet'),str(exe),str(ROOT)])]:
   p=subprocess.run(cmd,cwd=ROOT,env=env,text=True,capture_output=True);(WORK/(phase+'.log')).write_text(p.stdout+p.stderr)

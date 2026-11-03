@@ -22,6 +22,14 @@ internal static class WorldTextChecks
   Check(manager.Request_SpaceMove()&&packet.SequenceEqual(NativeWorldTextPackets.SpaceMove())&&request.command=="/공간이동"&&request.character==service.WorldSnapshot().characterId&&request.session==service.WorldSnapshot().commanderSession,"authenticated local request has exact source bytes and current connection");
   packet[0]=0;Check(request.packet[0]==0x7a,"packet observer cannot corrupt request metadata");Check(JsonSerializer.Serialize(store.data,json)==before,"outbound command does not invent teleport, cost, reward or save changes");
   client.Logout();Check(!manager.Request_SpaceMove(),"post-logout requests rejected");
+  foreach(bool reconnect in new[]{false,true})foreach(bool atIntent in new[]{false,true})
+  {
+   client.OpenLocalProfile();service.BeginWorld(definition);var m=new LocalServerManager(service);int sent=0,typed=0;
+   void Change(){client.Logout();if(reconnect){client.OpenLocalProfile();service.BeginWorld(definition);}}
+   m.Notify_WorldTextPacket+=_=>{sent++;if(!atIntent)Change();};m.Notify_WorldTextRequested+=_=>{typed++;if(atIntent)Change();};
+   Check(!m.Request_SpaceMove()&&sent==1&&typed==(atIntent?1:0),"logout/reconnect stops stale space-move callback delivery");
+   Check(JsonSerializer.Serialize(store.data,json)==before,"space-move callback cancellation does not change location or save");
+  }
   Console.WriteLine(JsonSerializer.Serialize(new{assertions=checks,mismatches=0,unityPlay=false}));
  }
 }

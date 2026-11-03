@@ -57,22 +57,36 @@ namespace DarkSaver.Original.Entry
             f=CommitWorld(next,baseline);if(f!=WorldFailure.None)return WorldResult(f);
             world.Record=next;world.CurrencyNotices.Add(notice.id);world.ClearBankTransfer();return WorldResult(WorldFailure.None);
         }
+        // Native95/96 is a client send, not a server rejection. Opportunistically
+        // retain a typed receipt correlation without publishing local preflight
+        // failures when no authoritative bank policy is configured.
+        public WorldReply TryQueueNativeBankTransfer(bool deposit,ulong amount,string token,string request)
+        {
+            var origin=world;var failure=world?.Failure;var queued=RequestBankTransfer(deposit,amount,token,request);
+            if(!queued.Accepted&&ReferenceEquals(world,origin)&&world!=null&&failure.HasValue)world.Failure=failure.Value;
+            return new WorldReply(queued.Failure,world?.Snapshot());
+        }
         public WorldReply ExecuteBankTransfer(bool deposit,ulong amount,string token,string request,Func<BankTransferRequest,WorldView,BankTransferNotice> authority)
         {
             var f=BankTransferReady(token);if(f!=WorldFailure.None)return WorldResult(f);
             if(authority==null)return WorldResult(WorldFailure.RulesUnavailable);
             var queued=RequestBankTransfer(deposit,amount,token,request);if(!queued.Accepted)return queued;
+            var captured=queued.View.bankTransferRequest.Copy();
             try
             {
-                var notice=authority(queued.View.bankTransferRequest.Copy(),queued.View);
+                var notice=authority(captured.Copy(),queued.View);
+                var context=ReadyWorld();if(context!=WorldFailure.None)return WorldResult(context);
+                if(world.CurrencySession!=captured.session||worldCharacter!=captured.character)return new WorldReply(WorldFailure.StaleRequest,world.Snapshot());
                 if(notice!=null)
                 {
-                    if(notice.request!=request){if(world.PendingBankTransfer?.id==request)world.ClearBankTransfer();return WorldResult(WorldFailure.StaleRequest);}
+                    if(notice.request!=request){if(world?.CurrencySession==captured.session&&world.PendingBankTransfer?.id==request)world.ClearBankTransfer();return WorldResult(WorldFailure.StaleRequest);}
                     var result=ReceiveBankTransfer(notice);if(!result.Accepted&&world.PendingBankTransfer?.id==request)world.ClearBankTransfer();return WorldResult(result.Failure);
                 }
             }
             catch(Exception){/* A failed local authority must not leave later transfers locked. */}
-            if(world.PendingBankTransfer?.id==request)world.ClearBankTransfer();return WorldResult(WorldFailure.RulesUnavailable);
+            var current=ReadyWorld();if(current!=WorldFailure.None)return new WorldReply(current,world?.Snapshot());
+            if(world.CurrencySession!=captured.session||worldCharacter!=captured.character)return new WorldReply(WorldFailure.StaleRequest,world.Snapshot());
+            if(world?.CurrencySession==captured.session&&world.PendingBankTransfer?.id==request)world.ClearBankTransfer();return WorldResult(WorldFailure.RulesUnavailable);
         }
     }
 }
