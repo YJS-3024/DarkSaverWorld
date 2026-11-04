@@ -55,6 +55,12 @@ namespace DarkSaver.Original.Campaign
     public static class ScenarioGatewayData
     {
         public const string Provenance = "user-authored; NPC interaction recalled by user; not recovered original server placements";
+        public static string GatewayContext(ScenarioGateway g)
+        {
+            return g==null?"[입구 데이터 없음]":"[입구 '"+(g.name??"이름 없음")+"' / ID "+(g.id??"없음")+" / 출발 "+g.fromMap+" ("+g.x+","+g.y+") "+g.Width+"×"+g.Height+" → 도착 "+g.targetMap+" ("+g.spawnX+","+g.spawnY+") "+g.SpawnWidth+"×"+g.SpawnHeight+"]";
+        }
+        public static string EntryContext(ScenarioEntryPoint entry)
+        {return entry==null?"[진입점 데이터 없음]":"[지휘관 진입점 / 맵 "+entry.map+" / 좌표 ("+entry.x+","+entry.y+")]";}
         public static string Hash(byte[] bytes)
         {using(var h=SHA256.Create())return BitConverter.ToString(h.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();}
         public static byte[] Encode(ScenarioGatewaySettings settings)
@@ -81,7 +87,7 @@ namespace DarkSaver.Original.Campaign
                 if(entry==null||map==null||!entryMaps.Add(entry.map)||entry.mapHash!=map.hash
                     ||(map.kind!="scenario"&&(map.id<101||map.id>107))
                     ||entry.x<0||entry.y<0||entry.x>=map.width||entry.y>=map.height)
-                    throw new InvalidDataException("사용자 진입점의 맵·버전·좌표를 확인하세요.");
+                    throw new InvalidDataException(EntryContext(entry)+": 맵·버전·좌표를 확인하세요.");
             }
             var ids=new HashSet<string>();var occupied=new HashSet<string>();var replacements=new HashSet<string>();
             foreach(var g in settings.gates)
@@ -93,9 +99,9 @@ namespace DarkSaver.Original.Campaign
                     ||g.fromHash!=from.hash||g.targetHash!=to.hash||g.Width<=0||g.Height<=0||(g.IsWalk&&(g.width<=0||g.height<=0))
                     ||g.x<0||g.y<0||(long)g.x+g.Width>from.width||(long)g.y+g.Height>from.height
                     ||g.SpawnWidth<=0||g.SpawnHeight<=0||g.spawnX<0||g.spawnY<0||(long)g.spawnX+g.SpawnWidth>to.width||(long)g.spawnY+g.SpawnHeight>to.height
-                    ||string.IsNullOrWhiteSpace(g.name))throw new InvalidDataException("입구 방식·영역·도착 좌표·맵 버전을 확인하세요.");
-                if(!string.IsNullOrEmpty(g.replacesPortal)&&!replacements.Add(g.fromMap+":"+g.replacesPortal))throw new InvalidDataException("같은 기존 출입구를 두 번 수정할 수 없습니다.");
-                foreach(var cell in g.Cells())if(!occupied.Add(g.fromMap+":"+cell.x+":"+cell.y))throw new InvalidDataException("입구 영역이 서로 겹칩니다.");
+                    ||string.IsNullOrWhiteSpace(g.name))throw new InvalidDataException(GatewayContext(g)+": 입구 방식·영역·도착 좌표·맵 버전을 확인하세요.");
+                if(!string.IsNullOrEmpty(g.replacesPortal)&&!replacements.Add(g.fromMap+":"+g.replacesPortal))throw new InvalidDataException(GatewayContext(g)+": 같은 기존 출입구를 두 번 수정할 수 없습니다.");
+                foreach(var cell in g.Cells())if(!occupied.Add(g.fromMap+":"+cell.x+":"+cell.y))throw new InvalidDataException(GatewayContext(g)+": 입구 영역이 서로 겹칩니다.");
             }
         }
         public static bool EntryLocationAllowed(WorldDefinition world,ScenarioEntryPoint entry)
@@ -117,19 +123,20 @@ namespace DarkSaver.Original.Campaign
             foreach(var g in settings.gates.Where(g=>settings.applyToGame&&g.enabled))
             {
                 var from=maps.FirstOrDefault(m=>m.id==g.fromMap);var target=maps.FirstOrDefault(m=>m.id==g.targetMap);
-                if(from==null||target==null)throw new InvalidDataException("출발/도착 맵을 찾을 수 없습니다.");
+                if(from==null)throw new InvalidDataException(GatewayContext(g)+": 출발 맵 "+g.fromMap+"은 게임 이동 대상으로 등록되지 않았습니다.");
+                if(target==null)throw new InvalidDataException(GatewayContext(g)+": 도착 맵 "+g.targetMap+"은 게임 이동 대상으로 등록되지 않았습니다.");
                 var replaced=string.IsNullOrEmpty(g.replacesPortal)?null:from.portals.FirstOrDefault(p=>p.id==g.replacesPortal);
-                if(!string.IsNullOrEmpty(g.replacesPortal)&&replaced==null)throw new InvalidDataException("수정할 기존 출입구를 찾을 수 없습니다.");
+                if(!string.IsNullOrEmpty(g.replacesPortal)&&replaced==null)throw new InvalidDataException(GatewayContext(g)+": 수정할 기존 출입구를 찾을 수 없습니다.");
                 if(from.npcs.Any(n=>g.Contains(n.x,n.y))||from.portals.Where(p=>p!=replaced).Any(p=>p.cells.Any(c=>g.Contains(c.x,c.y)))
-                    ||world.campaign?.Map(g.fromMap)?.units.Any(u=>g.Contains(u.x,u.y))==true)throw new InvalidDataException("입구 영역이 기존 직원·출입구·원본 몬스터와 겹칩니다.");
+                    ||world.campaign?.Map(g.fromMap)?.units.Any(u=>g.Contains(u.x,u.y))==true)throw new InvalidDataException(GatewayContext(g)+": 입구 영역이 기존 직원·출입구·원본 몬스터와 겹칩니다.");
                 foreach(var cell in g.SpawnCells())
-                {int cost=target.map.Terrain(cell.Tile,2);if(cost<=0||cost==99||cost==-99||world.campaign?.Map(g.targetMap)?.units.Any(u=>u.x==cell.x&&u.y==cell.y)==true)throw new InvalidDataException("도착 영역에 막힌 칸이나 원본 몬스터가 있습니다.");}
+                {int cost=target.map.Terrain(cell.Tile,2);if(cost<=0||cost==99||cost==-99||world.campaign?.Map(g.targetMap)?.units.Any(u=>u.x==cell.x&&u.y==cell.y)==true)throw new InvalidDataException(GatewayContext(g)+": 도착 영역에 막힌 칸이나 원본 몬스터가 있습니다.");}
                 string id="scenario-gateway-"+g.id;
                 if(g.IsWalk)
                 {
                     foreach(var cell in g.Cells())
-                    {int terrain=from.map.Terrain(cell.Tile,2);if(terrain<=0||terrain==99||terrain==-99)throw new InvalidDataException("입구 '"+g.name+"' (맵 "+g.fromMap+")의 ("+cell.x+","+cell.y+")는 통행 불가 칸입니다. 입구 영역을 길/문 앞의 통행 가능한 타일로 옮기거나 크기를 줄이세요.");}
-                    if(target.training&&(from.id!=1000||!from.map.Contains(new DarkSaver.Original.Tutorial.TutorialTile(g.returnX,g.returnY))))throw new InvalidDataException("수련장 입구는 카오시아의 복귀 칸을 지정하세요.");
+                    {int terrain=from.map.Terrain(cell.Tile,2);if(terrain<=0||terrain==99||terrain==-99)throw new InvalidDataException(GatewayContext(g)+": 입구 '"+g.name+"' (맵 "+g.fromMap+")의 ("+cell.x+","+cell.y+")는 통행 불가 칸입니다. 입구 영역을 길/문 앞의 통행 가능한 타일로 옮기거나 크기를 줄이세요.");}
+                    if(target.training&&(from.id!=1000||!from.map.Contains(new DarkSaver.Original.Tutorial.TutorialTile(g.returnX,g.returnY))))throw new InvalidDataException(GatewayContext(g)+": 수련장 입구는 카오시아의 복귀 칸을 지정하세요.");
                     from.portals=from.portals.Where(p=>p!=replaced).Concat(new[]{g.Portal(replaced?.id??id)}).ToArray();
                 }
                 else from.npcs=from.npcs.Concat(new[]{new WorldNpc{id=id,name=g.name,picture=g.npcJob,x=g.x,y=g.y,kind=(int)FacilityKind.ScenarioGateway,counter=Array.Empty<WorldPoint>(),evidence=Provenance,gateway=g.id}}).ToArray();
@@ -137,15 +144,15 @@ namespace DarkSaver.Original.Campaign
             foreach(var g in settings.gates.Where(g=>settings.applyToGame&&g.enabled))
             {
                 var target=maps.First(m=>m.id==g.targetMap);
-                if(target.npcs.Any(n=>g.SpawnContains(n.x,n.y)))throw new InvalidDataException("도착 영역이 적용 후 직원과 겹칩니다.");
+                if(target.npcs.Any(n=>g.SpawnContains(n.x,n.y)))throw new InvalidDataException(GatewayContext(g)+": 도착 영역이 적용 후 직원과 겹칩니다.");
                 if(g.IsWalk&&target.training)
                 {
                     var from=maps.First(m=>m.id==g.fromMap);var tile=new DarkSaver.Original.Tutorial.TutorialTile(g.returnX,g.returnY);int terrain=from.map.Terrain(tile,2);
-                    if(terrain<=0||terrain==99||terrain==-99||from.npcs.Any(n=>n.x==g.returnX&&n.y==g.returnY)||from.portals.Any(p=>p.cells.Any(c=>c.x==g.returnX&&c.y==g.returnY)))throw new InvalidDataException("수련장 복귀 칸이 막혀 있거나 직원/입구와 겹칩니다.");
+                    if(terrain<=0||terrain==99||terrain==-99||from.npcs.Any(n=>n.x==g.returnX&&n.y==g.returnY)||from.portals.Any(p=>p.cells.Any(c=>c.x==g.returnX&&c.y==g.returnY)))throw new InvalidDataException(GatewayContext(g)+": 수련장 복귀 칸이 막혀 있거나 직원/입구와 겹칩니다.");
                 }
             }
             foreach(var entry in settings.entryPoints??Array.Empty<ScenarioEntryPoint>())
-                if(entry.enabled&&!EntryLocationAllowed(world,entry))throw new InvalidDataException("진입점은 통행 가능한 칸이며 직원/원본 몬스터와 겹치지 않아야 합니다.");
+                if(entry.enabled&&!EntryLocationAllowed(world,entry))throw new InvalidDataException(EntryContext(entry)+": 진입점은 통행 가능한 칸이며 직원/원본 몬스터와 겹치지 않아야 합니다.");
             world.gatewayBaseMaps=baseline;world.maps=maps;world.gateways=settings.Copy();
         }
         public static string Save(string path,ScenarioGatewaySettings settings,GatewayMapCatalog catalog,string expectedHash)

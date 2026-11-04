@@ -26,11 +26,15 @@ namespace DarkSaver.Original.Editor.Scenarios
         private int gatewayStartX,gatewayStartY;
         private readonly System.Collections.Generic.List<byte[]> gatewayUndo=new System.Collections.Generic.List<byte[]>(),gatewayRedo=new System.Collections.Generic.List<byte[]>();
         private GatewayMapInfo MapInfo(string key)=>gatewayCatalog.maps.First(m=>m.key==key);
+        private WorldDefinition ReadGatewayWorld()
+        {
+            return JsonUtility.FromJson<CampaignDefinition>(File.ReadAllText(BasePath+"Data/Campaign/CampaignCatalog.json")).Merge(
+                JsonUtility.FromJson<WorldDefinition>(File.ReadAllText(BasePath+"Data/World/KaosiaWorld.json")));
+        }
         private void LoadGateways(bool preserve)
         {
             gatewayCatalog=JsonUtility.FromJson<GatewayMapCatalog>(File.ReadAllText(BasePath+"Data/Campaign/GatewayMaps.json"));
-            gatewayWorld=JsonUtility.FromJson<CampaignDefinition>(File.ReadAllText(BasePath+"Data/Campaign/CampaignCatalog.json")).Merge(
-                JsonUtility.FromJson<WorldDefinition>(File.ReadAllText(BasePath+"Data/World/KaosiaWorld.json")));
+            gatewayWorld=ReadGatewayWorld();
             if(preserve)return;
             var bytes=File.ReadAllBytes(GatewayPath);gatewayDocument=ScenarioGatewayData.Decode(bytes);ScenarioGatewayData.Validate(gatewayDocument,gatewayCatalog);
             gatewayHash=ScenarioGatewayData.Hash(bytes);dirtyGateways=false;
@@ -46,22 +50,28 @@ namespace DarkSaver.Original.Editor.Scenarios
             to.Add(ScenarioGatewayData.Encode(gatewayDocument));gatewayDocument=ScenarioGatewayData.Decode(from[from.Count-1]);from.RemoveAt(from.Count-1);
             dirtyGateways=hasUnsavedChanges=true;dragGateway=pickNpc=pickSpawn=sizingGateway=false;Repaint();
         }
+        private void CheckGatewayMapVersion(int id,string context)
+        {
+            try
+            {
+                var info=gatewayCatalog.maps.FirstOrDefault(m=>m.id==id);
+                if(info==null||ScenarioGatewayData.Hash(File.ReadAllBytes(info.nativePath))!=info.hash)
+                    throw new IOException("맵 "+id+"이 변경됐거나 선택되지 않았습니다.");
+            }
+            catch(Exception e)when(e is IOException||e is UnauthorizedAccessException)
+            {throw new IOException(context+": "+e.Message,e);}
+        }
         private bool SaveGateways()
         {
             try
             {
+                ScenarioGatewayData.Validate(gatewayDocument,gatewayCatalog);
                 foreach(var g in gatewayDocument.gates)
-                    foreach(int id in new[]{g.fromMap,g.targetMap})
-                    {var info=gatewayCatalog.maps.FirstOrDefault(m=>m.id==id);if(info==null||ScenarioGatewayData.Hash(File.ReadAllBytes(info.nativePath))!=info.hash)throw new IOException("입구 '"+g.name+"'의 맵 "+id+"이 변경됐거나 선택되지 않았습니다. 입구 설정을 확인하세요.");}
+                    foreach(int id in new[]{g.fromMap,g.targetMap})CheckGatewayMapVersion(id,ScenarioGatewayData.GatewayContext(g));
                 foreach(var point in gatewayDocument.entryPoints??Array.Empty<ScenarioEntryPoint>())
-                {
-                    var info=gatewayCatalog.maps.FirstOrDefault(m=>m.id==point.map);
-                    if(info==null||ScenarioGatewayData.Hash(File.ReadAllBytes(info.nativePath))!=info.hash)throw new IOException("진입점의 지도가 변경되었습니다. 다시 불러온 뒤 저장하세요.");
-                }
+                    CheckGatewayMapVersion(point.map,ScenarioGatewayData.EntryContext(point));
                 // Validate actual runtime placement too, without changing its cached native data.
-                var world=JsonUtility.FromJson<DarkSaver.Original.World.WorldDefinition>(File.ReadAllText(BasePath+"Data/World/KaosiaWorld.json"));
-                var art=AssetDatabase.LoadAssetAtPath<NativeCampaignArt>(BasePath+"Data/Campaign/NativeCampaignArt.asset");
-                ScenarioGatewayData.Apply(gatewayDocument,gatewayCatalog,art.Definition.Merge(world));
+                ScenarioGatewayData.Apply(gatewayDocument,gatewayCatalog,ReadGatewayWorld());
                 string saved=ScenarioGatewayData.Save(GatewayPath,gatewayDocument,gatewayCatalog,string.IsNullOrEmpty(gatewayHash)?null:gatewayHash);
                 if(ScenarioGatewayData.Hash(File.ReadAllBytes(GatewayPath))!=saved)throw new IOException("저장 후 파일이 변경되었거나 확인할 수 없습니다. 파일을 보존하고 다시 확인하세요.");
                 gatewayHash=saved;dirtyGateways=false;hasUnsavedChanges=dirty;gatewaySaveError="";
@@ -135,17 +145,20 @@ namespace DarkSaver.Original.Editor.Scenarios
             if(apply!=gatewayDocument.applyToGame){RememberGateway();gatewayDocument.applyToGame=apply;}
             GUILayout.Label("적용은 다음 Play/프로필 진입부터",EditorStyles.miniLabel);
             var map=MapInfo(mapKey);
-            if(GUILayout.Button("이 맵에 이동 입구 추가"))AddGateway(true);
-            using(new EditorGUI.DisabledScope(map.kind!="world"&&map.kind!="town"))
+            bool runtimeRegistered=gatewayWorld.Map(map.id)!=null;
+            if(!runtimeRegistered)EditorGUILayout.HelpBox("맵 "+map.id+"은 보기/편집 전용이며 게임 이동 대상으로 등록되어 있지 않습니다. 이 맵의 이동 연결은 만들 수 없습니다.",MessageType.Warning);
+            using(new EditorGUI.DisabledScope(!runtimeRegistered))if(GUILayout.Button("이 맵에 이동 입구 추가"))AddGateway(true);
+            using(new EditorGUI.DisabledScope(!runtimeRegistered||map.kind!="world"&&map.kind!="town"))
                 if(GUILayout.Button("이 맵에 NPC 입구 추가"))AddGateway(false);
             GUILayout.Label("기존 출입구 (현재 지도)",EditorStyles.boldLabel);
-            foreach(var portal in gatewayWorld.Map(map.id).portals)
+            var nativePortals=gatewayWorld.Map(map.id)?.portals??Array.Empty<WorldPortal>();
+            foreach(var portal in nativePortals)
             {
                 bool overridden=gatewayDocument.gates.Any(g=>g.fromMap==map.id&&g.replacesPortal==portal.id);
                 if(GUILayout.Button((selectedNativePortal==portal.id?"● ":"")+portal.id+" → "+MapLabel(portal.targetMap)+" ("+portal.cells.Length+"칸)"+(overridden?" [편집본]":""),EditorStyles.miniButton))
                 {selectedNativePortal=portal.id;selectedGateway=null;pickNpc=pickSpawn=dragGateway=sizingGateway=false;}
             }
-            var native=gatewayWorld.Map(map.id).portals.FirstOrDefault(p=>p.id==selectedNativePortal);
+            var native=nativePortals.FirstOrDefault(p=>p.id==selectedNativePortal);
             if(native!=null)
             {
                 EditorGUILayout.HelpBox("기존 도착: "+MapLabel(native.targetMap)+" / "+native.spawnX+","+native.spawnY+" ("+Math.Max(1,native.spawnWidth)+"×"+Math.Max(1,native.spawnHeight)+")\n수정본 저장 전까지 원본은 유지됩니다.",MessageType.None);
@@ -156,6 +169,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             if(gate!=null)
             {
                 GUILayout.Space(7);GUILayout.Label("선택 입구",EditorStyles.boldLabel);
+                EditorGUILayout.SelectableLabel("ID: "+gate.id,EditorStyles.miniLabel,GUILayout.Height(18));
                 EditorGUI.BeginChangeCheck();string name=EditorGUILayout.TextField("입구 이름",gate.name);bool enabled=EditorGUILayout.Toggle("이 연결 사용",gate.enabled);
                 if(EditorGUI.EndChangeCheck()){RememberGateway();gate.name=name;gate.enabled=enabled;}
                 DrawGatewayGroupField(gate);
@@ -166,7 +180,9 @@ namespace DarkSaver.Original.Editor.Scenarios
                 int npcAt=Array.IndexOf(npcs,gate.npcJob)+1,npc=EditorGUILayout.Popup("NPC 외형",npcAt,options.Select(FlatPopupLabel).ToArray());
                 if(npc!=npcAt){RememberGateway();gate.npcJob=npc==0?-1:npcs[npc-1];}
                 }
-                var targets=gatewayCatalog.maps.Where(m=>m.id!=gate.fromMap&&(gate.IsWalk||m.kind=="scenario")).OrderBy(m=>m.id).ToArray();
+                var targets=gatewayCatalog.maps.Where(m=>m.id!=gate.fromMap&&gatewayWorld.Map(m.id)!=null&&(gate.IsWalk||m.kind=="scenario")).OrderBy(m=>m.id).ToArray();
+                if(gate.targetMap>=0&&gatewayWorld.Map(gate.targetMap)==null)EditorGUILayout.HelpBox("현재 도착 맵 "+gate.targetMap+"은 실행 미등록입니다. 등록된 도착 맵으로 다시 선택하세요. 기존 값은 자동 삭제하지 않습니다.",MessageType.Error);
+                if(gatewayWorld.Map(gate.fromMap)==null)EditorGUILayout.HelpBox("현재 출발 맵 "+gate.fromMap+"은 실행 미등록입니다. 이 연결은 실행할 수 없습니다.",MessageType.Error);
                 int at=Array.FindIndex(targets,m=>m.id==gate.targetMap)+1,next=EditorGUILayout.Popup("도착 맵",at,new[]{"도착 맵을 선택하세요"}.Concat(targets.Select(m=>FlatPopupLabel(Title(m.key)))).ToArray());
                 if(next!=at){RememberGateway();gate.targetMap=next==0?-1:targets[next-1].id;gate.targetHash=next==0?"":targets[next-1].hash;gate.spawnX=gate.spawnY=-1;pickNpc=pickSpawn=dragGateway=sizingGateway=false;}
                 EditorGUI.BeginChangeCheck();int x=EditorGUILayout.DelayedIntField("출발 X (좌상단)",gate.x),y=EditorGUILayout.DelayedIntField("출발 Y (좌상단)",gate.y);
@@ -247,7 +263,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         private void DrawGateways()
         {
             foreach(var unit in source.layout.units)DrawActor(unit.unit,unit.job.ToString(),unit.x,unit.y,new Color(.6f,.6f,.6f),false);
-            foreach(var portal in gatewayWorld.Map(int.Parse(mapKey)).portals)
+            foreach(var portal in gatewayWorld.Map(int.Parse(mapKey))?.portals??Array.Empty<WorldPortal>())
             {
                 if(gatewayDocument.gates.Any(g=>g.fromMap==int.Parse(mapKey)&&g.replacesPortal==portal.id))continue;
                 foreach(var cell in portal.cells)Outline(TileRect(cell.x,cell.y),selectedNativePortal==portal.id?Color.yellow:new Color(.4f,.8f,1,.6f),2);

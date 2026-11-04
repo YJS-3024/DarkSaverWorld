@@ -71,7 +71,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         private bool GatewayMatches(ScenarioGateway gate)
         {
             string search=(gatewaySearch??"").Trim();if(search.Length==0)return true;
-            string text=gate.name+" "+gate.GroupName+" "+gate.fromMap+" "+gate.targetMap+" "+
+            string text=gate.id+" "+gate.name+" "+gate.GroupName+" "+gate.fromMap+" "+gate.targetMap+" "+
                 gatewayCatalog.maps.FirstOrDefault(m=>m.id==gate.fromMap)?.title+" "+gatewayCatalog.maps.FirstOrDefault(m=>m.id==gate.targetMap)?.title;
             return text.IndexOf(search,StringComparison.OrdinalIgnoreCase)>=0;
         }

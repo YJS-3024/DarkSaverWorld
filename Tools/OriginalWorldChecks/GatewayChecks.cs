@@ -106,6 +106,28 @@ internal static class GatewayChecks
             Check(service.EnterCampaignMap(1010).Accepted,"authored route enters campaign field through server");
             var view=service.WorldSnapshot();Check(view.record.map==1010&&view.record.x==10&&view.record.y==10&&view.pendingPortal==null&&view.record.campaignPhase==null,"different-map destination and phase applied exactly");
         }
+        var useToggle=Areas(Walk(1000,1010,22,22,1,1,10,10));var staleRegistry=FlatWorld();
+        staleRegistry.maps=staleRegistry.maps.Where(m=>m.id!=1010).ToArray();useToggle.applyToGame=false;
+        ScenarioGatewayData.Apply(useToggle,catalog,staleRegistry);
+        Check(staleRegistry.Map(1000).portals.Length==0,"unchecked drafts do not resolve destination runtime maps");
+        useToggle.applyToGame=true;string toggleError="";
+        try{ScenarioGatewayData.Apply(useToggle,catalog,staleRegistry);}catch(InvalidDataException e){toggleError=e.Message;}
+        Check(toggleError.Contains("도착 맵 1010"),"enabling local application exposes stale registry destination exactly");
+        var freshRegistry=FlatWorld();ScenarioGatewayData.Apply(useToggle,catalog,freshRegistry);
+        Check(freshRegistry.Map(1000).portals.Single().targetMap==1010,"same enabled1000-to1010 connection works against fresh full registry");
+        var duplicateNameGood=Walk(1000,1010,22,24,1,1,10,10);var duplicateNameBad=Walk(1000,201,22,22,1,1,10,10);
+        duplicateNameGood.name=duplicateNameBad.name="같은 입구 이름";string identified="";
+        try{ScenarioGatewayData.Apply(Areas(duplicateNameGood,duplicateNameBad),catalog,FlatWorld());}catch(InvalidDataException e){identified=e.Message;}
+        Check(identified.Contains(duplicateNameBad.id)&&!identified.Contains(duplicateNameGood.id)&&identified.Contains("출발 1000")&&identified.Contains("도착 201"),"error identifies the failing second gateway even when names match");
+        var invalidPoint=new ScenarioEntryPoint{map=3,mapHash=catalog.maps.First(m=>m.id==3).hash,x=-1,y=7,enabled=true};identified="";
+        try{ScenarioGatewayData.Validate(new ScenarioGatewaySettings{entryPoints=new[]{invalidPoint}},catalog);}catch(InvalidDataException e){identified=e.Message;}
+        Check(identified.Contains("진입점")&&identified.Contains("맵 3")&&identified.Contains("(-1,7)"),"manual point validation reports exact map and coordinates");
+        string unregistered="";
+        try{ScenarioGatewayData.Apply(Areas(Walk(1000,201,22,22,1,1,10,10)),catalog,FlatWorld());}catch(InvalidDataException e){unregistered=e.Message;}
+        Check(unregistered.Contains("도착 맵 201"),"editor-only destination reports its exact unregistered ID");
+        unregistered="";
+        try{ScenarioGatewayData.Apply(Areas(Walk(201,1000,10,10,1,1,21,21)),catalog,FlatWorld());}catch(InvalidDataException e){unregistered=e.Message;}
+        Check(unregistered.Contains("출발 맵 201"),"editor-only source reports its exact unregistered ID");
         var a=Walk(1000,1010,22,22,3);var b=Walk(1000,1010,22,24,6,1,11,11);
         var back=Walk(1010,1000,10,12,6,1,21,22);var document=Areas(a,b,back);var multi=FlatWorld();ScenarioGatewayData.Apply(document,catalog,multi);
         Check(multi.Map(1000).portals.Length==2&&multi.Map(1010).portals.Length==1,"multiple entrances and explicit reverse direction applied");
