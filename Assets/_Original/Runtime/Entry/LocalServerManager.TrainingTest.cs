@@ -12,6 +12,8 @@ namespace DarkSaver.Original.Entry
     {
         // Explicit local test policy, not recovered original server combat formulas.
         [SerializeField] private bool trainingCombatTest = true;
+        // Provisional commander values, used only when the corresponding state is unknown.
+        public const int TrainingTestCommanderHp=200,TrainingTestCommanderMp=45,TrainingTestCommanderStat=10;
         #pragma warning disable 0649 // Fields populated by JsonUtility.
         [Serializable] private sealed class TestPlacement { public int unit,job,x,y; }
         [Serializable] private sealed class TestLayout { public int version,width,height; public TestPlacement[] units; }
@@ -35,11 +37,14 @@ namespace DarkSaver.Original.Entry
             var layout=JsonUtility.FromJson<TestLayout>(asset.text);
             if(layout?.version!=1||layout.units==null||layout.units.Length==0||layout.units.Any(u=>u==null||u.unit<400||u.unit>999||u.x<0||u.y<0||u.x>=layout.width||u.y>=layout.height)
                 ||layout.units.Select(u=>u.unit).Distinct().Count()!=layout.units.Length||layout.units.Select(u=>u.x+","+u.y).Distinct().Count()!=layout.units.Length)return;
-            if(!v.record.healthKnown||v.record.hp<=0){Debug.LogWarning("수련장 테스트: 지휘관의 생존 HP/MP 상태가 필요합니다.");return;}
+            if(v.record.ghost||v.record.healthKnown&&v.record.hp<=0){Debug.LogWarning("수련장 테스트: 사망한 지휘관은 먼저 부활해야 합니다.");return;}
             var job=service.TrainingTestCommanderJob;
             if(!job.HasValue)return;
             var commander=new TrainingUnit {id=0,job=job.Value,x=v.record.x,y=v.record.y,direction=v.record.direction,life=1,
-                hp=v.record.hp,maxHp=v.record.maxHp,mp=v.record.mp,maxMp=v.record.maxMp,ap=20,maxAp=20,
+                hp=v.record.healthKnown?v.record.hp:TrainingTestCommanderHp,maxHp=v.record.healthKnown?v.record.maxHp:TrainingTestCommanderHp,
+                mp=v.record.healthKnown?v.record.mp:TrainingTestCommanderMp,maxMp=v.record.healthKnown?v.record.maxMp:TrainingTestCommanderMp,ap=20,maxAp=20,
+                effectiveStats=v.record.growth?.stats?.Copy()??new CharacterGrowthStats {attack=TrainingTestCommanderStat,defense=TrainingTestCommanderStat,
+                    magicAttack=TrainingTestCommanderStat,magicDefense=TrainingTestCommanderStat,nativeValues=Enumerable.Repeat((short)TrainingTestCommanderStat,16).ToArray()},
                 canMove=true,canAttack=true,canRest=true,movementBudget=5,attackRange=1,nativePalette=0};
             var monsters=layout.units.Select(u=>new TrainingUnit {id=u.unit,job=u.job,x=u.x,y=u.y,life=1,
                 hp=1,maxHp=1,mp=1,maxMp=1,ap=1,maxAp=1,canMove=true,canAttack=true,canRest=true,
@@ -50,7 +55,7 @@ namespace DarkSaver.Original.Entry
             trainingTestSpawns=monsters.Select(u=>u.Copy()).ToArray();trainingTestSession=v.campaignSession;trainingTestMap=v.record.map;
             trainingTestDeaths.Clear();trainingTestSeconds=trainingTestPulse=0;
             trainingTestAuthority=ResolveTrainingTest;TrainingAuthority=trainingTestAuthority;
-            Debug.Log("수련장 테스트 전투: 몬스터 능력치 1 / 기본 피해 1 / 사망 후 30초 리스폰 / 경험치·보상 없음");
+            Debug.Log("수련장 테스트 전투: 미확정 지휘관 HP200·MP45·능력치10 / 몬스터 능력치 1 / 기본 피해 1 / 사망 후 30초 리스폰 / 경험치·보상 없음");
         }
         private TrainingUnitsNotice ResolveTrainingTest(TrainingActionRequest request,TrainingView battle)
         {
