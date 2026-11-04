@@ -10,6 +10,7 @@ namespace DarkSaver.Original.Editor.Scenarios
 {
     public sealed partial class ScenarioEditorWindow
     {
+        private string gatewaySaveError="",gatewaySaveNotice="";
         private const string GatewayPath=BasePath+"Data/Campaign/UserGateways.json";
         [SerializeField] private ScenarioGatewaySettings gatewayDocument;
         [SerializeField] private bool dirtyGateways;
@@ -51,7 +52,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             {
                 foreach(var g in gatewayDocument.gates)
                     foreach(int id in new[]{g.fromMap,g.targetMap})
-                    {var info=gatewayCatalog.maps.FirstOrDefault(m=>m.id==id);if(info==null||ScenarioGatewayData.Hash(File.ReadAllBytes(info.nativePath))!=info.hash)throw new IOException("맵이 변경됐거나 선택되지 않았습니다. 입구 설정을 확인하세요.");}
+                    {var info=gatewayCatalog.maps.FirstOrDefault(m=>m.id==id);if(info==null||ScenarioGatewayData.Hash(File.ReadAllBytes(info.nativePath))!=info.hash)throw new IOException("입구 '"+g.name+"'의 맵 "+id+"이 변경됐거나 선택되지 않았습니다. 입구 설정을 확인하세요.");}
                 foreach(var point in gatewayDocument.entryPoints??Array.Empty<ScenarioEntryPoint>())
                 {
                     var info=gatewayCatalog.maps.FirstOrDefault(m=>m.id==point.map);
@@ -61,10 +62,22 @@ namespace DarkSaver.Original.Editor.Scenarios
                 var world=JsonUtility.FromJson<DarkSaver.Original.World.WorldDefinition>(File.ReadAllText(BasePath+"Data/World/KaosiaWorld.json"));
                 var art=AssetDatabase.LoadAssetAtPath<NativeCampaignArt>(BasePath+"Data/Campaign/NativeCampaignArt.asset");
                 ScenarioGatewayData.Apply(gatewayDocument,gatewayCatalog,art.Definition.Merge(world));
-                gatewayHash=ScenarioGatewayData.Save(GatewayPath,gatewayDocument,gatewayCatalog,string.IsNullOrEmpty(gatewayHash)?null:gatewayHash);
-                dirtyGateways=false;hasUnsavedChanges=dirty;AssetDatabase.Refresh();message="입구 저장: "+GatewayPath;return true;
+                string saved=ScenarioGatewayData.Save(GatewayPath,gatewayDocument,gatewayCatalog,string.IsNullOrEmpty(gatewayHash)?null:gatewayHash);
+                if(ScenarioGatewayData.Hash(File.ReadAllBytes(GatewayPath))!=saved)throw new IOException("저장 후 파일이 변경되었거나 확인할 수 없습니다. 파일을 보존하고 다시 확인하세요.");
+                gatewayHash=saved;dirtyGateways=false;hasUnsavedChanges=dirty;gatewaySaveError="";
+                gatewaySaveNotice="입구·진입점 저장 완료: "+GatewayPath;
+                message=gatewaySaveNotice+(dirty?" · 몬스터 배치는 아직 미저장":"");Repaint();
+                try{AssetDatabase.Refresh();}
+                catch(ExitGUIException){throw;}
+                catch(Exception e){Debug.LogWarning("입구 파일은 저장됐지만 AssetDatabase 새로고침에 실패했습니다: "+e.Message);}
+                return true;
             }
-            catch(Exception e){message=e.Message;return false;}
+            catch(ExitGUIException){throw;}
+            catch(Exception e)
+            {
+                gatewaySaveError="입구·진입점 저장 실패: "+e.Message;message=gatewaySaveError;
+                Debug.LogException(new IOException(gatewaySaveError,e));Repaint();return false;
+            }
         }
         private void ReloadGateways()
         {
@@ -102,6 +115,10 @@ namespace DarkSaver.Original.Editor.Scenarios
         {
             GUILayout.BeginArea(rect,EditorStyles.helpBox);inspectorScroll=EditorGUILayout.BeginScrollView(inspectorScroll);
             GUILayout.Label("맵 입구 연결",EditorStyles.boldLabel);
+            GUILayout.Label(queuedSave!=0||saveScheduled?"입력 확정 후 저장 중…":dirtyGateways?"입구·진입점: 미저장":"입구·진입점: 변경 없음",EditorStyles.boldLabel);
+            if(dirty)EditorGUILayout.HelpBox("몬스터 배치에 별도 미저장 변경이 있습니다. 입구 저장은 배치 파일을 저장하지 않습니다.",MessageType.Info);
+            if(gatewaySaveError.Length>0){EditorGUILayout.HelpBox(gatewaySaveError,MessageType.Error);if(GUILayout.Button("저장 오류 복사"))EditorGUIUtility.systemCopyBuffer=gatewaySaveError;}
+            else if(gatewaySaveNotice.Length>0)EditorGUILayout.HelpBox(gatewaySaveNotice,MessageType.Info);
             EditorGUILayout.HelpBox("이동 입구: 영역을 밟아 맵 이동\nNPC 입구: 클릭 → 방 목록 → 참가\n한 맵에 여러 입구를 설정합니다.\n돌아오는 방향은 별도 입구로 추가하세요.",MessageType.Info);
             bool apply=EditorGUILayout.ToggleLeft("저장한 연결을 로컬 서버에서 사용",gatewayDocument.applyToGame);
             if(apply!=gatewayDocument.applyToGame){RememberGateway();gatewayDocument.applyToGame=apply;}
@@ -166,7 +183,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             }
             GUILayout.BeginHorizontal();using(new EditorGUI.DisabledScope(gatewayUndo.Count==0))if(GUILayout.Button("되돌리기"))GatewayHistory(true);
             using(new EditorGUI.DisabledScope(gatewayRedo.Count==0))if(GUILayout.Button("다시 실행"))GatewayHistory(false);GUILayout.EndHorizontal();
-            if(GUILayout.Button("입구 연결 저장"))SaveGateways();
+            if(GUILayout.Button("입구 연결 저장"))QueueEditorSave(true);
             if(pickNpc||pickSpawn||sizingGateway)EditorGUILayout.HelpBox(pickSpawn||sizingGateway&&sizingArrival?"도착 지도입니다. 클릭하면 현재 크기로 놓고, 드래그하면 도착 출구 영역을 그립니다.":gate?.IsWalk==true?"출발 지도에서 클릭하면 현재 크기로 배치합니다. 드래그하면 사각 영역을 그립니다.":"지도에서 NPC가 설 타일을 클릭하세요.",MessageType.Info);
             if(!string.IsNullOrEmpty(message))EditorGUILayout.HelpBox(message,MessageType.None);
             EditorGUILayout.EndScrollView();GUILayout.EndArea();

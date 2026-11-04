@@ -17,7 +17,7 @@ def main():
  names+=['native-world-message-check.json']
  names+=['native-shop-details-check.json','native-hire-list-check.json','native-mercenary-check.json','native-window-drag-check.json']
  names+=['native-battle-options-check.json','native-class-adjustments-check.json','native-class-presentation-check.json']
- names+=['picture-initialization-check.json','legacy-maps-check.json']
+ names+=['picture-initialization-check.json','legacy-maps-check.json','../OriginalScenarioEditorChecks/save-queue-check.json']
  names+=['character-reset-check.json','map-pointer-check.json','native-temple-alignment-check.json','temple-alignment-check.json','training-tier-check.json','native-tile-attribute-check.json','native-body-order-check.json']
  reports=[];checked={};stale=[]
  for name in names:

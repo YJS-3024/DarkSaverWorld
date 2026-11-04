@@ -1,0 +1,15 @@
+{
+  "checks": 11,
+  "unityGuiExecuted": false,
+  "scope": "Exact production queue methods with isolated GUI focus/repaint/scheduler and storage boundaries. Full Unity control/event dispatch and disk implementation are separate checks.",
+  "mismatches": 0,
+  "sources": {
+    "Tools/OriginalScenarioEditorChecks/check_save_queue.py": "387c80bc177b4c7f53e672073728afd6c950a423e0904fb1e1f6303e47f8333d",
+    "Tools/OriginalScenarioEditorChecks/SaveQueueChecks.cs": "16957049c880c68bf18decb162ed5dc960d81e72c13faa23f49cf7cd1f3c4d7a",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "85c2ce9efd1e41ad4a20726dc94320671adaa92ae26f82069255c3a45d80fb83",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "bfc3ab459be4a83ae8ab5d44bee57f0ad5ce1a8103f4c8c354aef59e552a8a4d",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "14aeb00885adbad470f6e8ea77d37e41465c10cb1032e3f3cd20bcadcbe390b6",
+    "Tools/OriginalWorldChecks/check_picture_initialization.py": "a47a03310d47d9f860da3ed46a9393649ad3763acd172d14d31839b8a0939618"
+  },
+  "logs": "/tmp/ds-portable-validation/ds-editor-save-queue"
+}

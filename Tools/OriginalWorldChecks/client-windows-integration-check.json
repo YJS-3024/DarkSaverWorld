@@ -1,5 +1,5 @@
 {
-  "checkedAtUtc": "2026-11-04T11:31:35.983071+00:00",
+  "checkedAtUtc": "2026-11-04T11:49:17.386688+00:00",
   "unityPlay": false,
   "unityEditorTestRunner": false,
   "physicalInput": false,
@@ -624,6 +624,16 @@
       "scope": "Preserved1.2 bytes/navigation/version bindings and production C# versus independent pixels. No historical portal positions, NPC placement or save coordinate migration."
     },
     {
+      "report": "Tools/OriginalWorldChecks/../OriginalScenarioEditorChecks/save-queue-check.json",
+      "sha256": "ca11635551fc838e628d21bf3085924dc479484803186326be6bbd5371ef548f",
+      "counts": {
+        "checks": 11,
+        "mismatches": 0
+      },
+      "groups": {},
+      "scope": "Exact production queue methods with isolated GUI focus/repaint/scheduler and storage boundaries. Full Unity control/event dispatch and disk implementation are separate checks."
+    },
+    {
       "report": "Tools/OriginalWorldChecks/character-reset-check.json",
       "sha256": "63a3759b53fb528c8d88e3e1442fe25260cd53dce9ebc7cfe61e778166d4f1de",
       "counts": {
@@ -703,7 +713,7 @@
   ],
   "api": {
     "report": "Tools/OriginalEntryChecks/entry-check.json",
-    "sha256": "80d9184f4248bf677067af111170f8b3d64de48da5552aa776ea50866b93cf58",
+    "sha256": "a88c32d5eac23f70b46860771b988c482d78a2fa47637738336840f4553ae437",
     "runtimeSources": 226,
     "editorSources": 10,
     "errors": 0,
@@ -940,15 +950,15 @@
       "Assets/_Original/Editor/LocalGrowthTestWindow.cs": "d93ffded6e28f998f0f9d1e96ba758d4d1f5191f579ac9ef7a1c8fd59590fc35",
       "Assets/_Original/Editor/OriginalFoundationSetup.cs": "cdfb7002e9a350fe3f29b6de07e7b586f49e003bfd389e1c8d73b77e12d8c61c",
       "Assets/_Original/Editor/OriginalPixelTextureImporter.cs": "031d0920c325655155ed304fad594160d28efb75987486298b571ff913584497",
-      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "00dc2d494bbbe58b9b45befb3fb05fd292d2f0fabbe5d542d61477bcb007dad2",
+      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "bfc3ab459be4a83ae8ab5d44bee57f0ad5ce1a8103f4c8c354aef59e552a8a4d",
       "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GatewayList.cs": "b0cd846b300447ce1fe7a82f3553d05a8ae2ecf7dee0138ee3614e74f8cc58b5",
-      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "3af62bd349b609ca0f43d0cf14714a3b9677a3193e86a7617f425d9d5dc5ce30",
-      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "d9e2d428eaf4796817acb60f80982b97d33a0a67a929e3cd596ffe53b8cea086",
+      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "14aeb00885adbad470f6e8ea77d37e41465c10cb1032e3f3cd20bcadcbe390b6",
+      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "85c2ce9efd1e41ad4a20726dc94320671adaa92ae26f82069255c3a45d80fb83",
       "Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs": "98daf67f8dcfc02413c0d2db559a2a2a3fde9c877688f7897bfd127267c68497"
     }
   },
   "sourceAudit": {
-    "declaredSources": 2112,
+    "declaredSources": 2117,
     "scriptGuids": 236,
     "assetCSharpSources": 236,
     "pixelTextures": 1144,
@@ -959,7 +969,7 @@
     "report": "분석/Ghidra/Saver_Late/ClientWindows/evidence.json",
     "sha256": "5046811d8057afc1d7b8b6d64b5cddce063b70d6c1aa5ac94968c830edb0afe1"
   },
-  "toolSha256": "b1b10567d123d73ab59b4d6c09efec93b26675391b9e43c15b04282760644b27",
+  "toolSha256": "8fce17a6d0f20ff65eee4351dfd4317057dbe0bc5da5d1807aa974236bdf9195",
   "resourceArtifacts": [
     {
       "report": "Tools/OriginalWorldChecks/native-shop-details-art.json",

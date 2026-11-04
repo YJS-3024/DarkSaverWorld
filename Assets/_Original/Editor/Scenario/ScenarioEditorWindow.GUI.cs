@@ -31,7 +31,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                 EditorGUI.HelpBox(new Rect(234,48,Mathf.Max(100,position.width-248),150),"원본 자료를 열지 못했습니다. 다른 지도를 선택하거나 오류를 확인하세요.\n"+loadError,MessageType.Error);
                 if(GUI.Button(new Rect(234,205,120,24),"오류 복사"))EditorGUIUtility.systemCopyBuffer=loadError;
                 if(GUI.Button(new Rect(360,205,160,24),"목록/지도 다시 읽기"))OnEnable();
-                return;
+                DispatchQueuedSave();return;
             }
             mode=Mathf.Clamp(mode,0,2);
             if(float.IsNaN(zoom)||float.IsInfinity(zoom)||zoom<.125f||zoom>4||float.IsNaN(pan.x)||float.IsInfinity(pan.x)||float.IsNaN(pan.y)||float.IsInfinity(pan.y))Fit();
@@ -56,6 +56,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             EditorGUI.DrawRect(new Rect(0,position.height-24,position.width,24),new Color(.12f,.14f,.17f));
             GUI.Label(new Rect(10,position.height-22,position.width-20,20),
                 new[]{"전투 보기","연출 보기","맵 입구 보기"}[mode]+" | 전투 "+document.units.Length+" · 화면 범위 "+visibleActors+" · 그림 미확보 "+missingActorPictures+" | "+(hoverX >= 0 ? "타일 " + hoverX + "," + hoverY + "  ·  " : "") + Mathf.RoundToInt(zoom*100) + "% | " + message, EditorStyles.miniLabel);
+            DispatchQueuedSave();
             if (loadError.Length > 0)
             {
                 EditorGUI.HelpBox(new Rect(canvasArea.x+14,canvasArea.y+100,canvasArea.width-28,130),loadError,MessageType.Error);
@@ -97,14 +98,14 @@ namespace DarkSaver.Original.Editor.Scenarios
         private void DrawHeader()
         {
             EditorGUI.DrawRect(new Rect(0,0,position.width,35),new Color(.14f,.17f,.21f));
-            GUI.Label(new Rect(12,7,Mathf.Max(100,position.width-350),24),"시나리오 편집툴  /  " + Title(mapKey) + (dirty||dirtyGateways ? " *" : ""), EditorStyles.boldLabel);
+            GUI.Label(new Rect(12,7,Mathf.Max(100,position.width-350),24),"시나리오 편집툴  /  " + Title(mapKey) + (dirty||dirtyGateways ? " * ["+(dirty?"배치":"")+(dirty&&dirtyGateways?" / ":"")+(dirtyGateways?"입구·진입점":"")+" 미저장]" : ""), EditorStyles.boldLabel);
             using (new EditorGUI.DisabledScope(document == null))
             {
                 if (GUI.Button(new Rect(position.width-325,5,65,24),"화면 맞춤")) Fit();
                 if (GUI.Button(new Rect(position.width-254,5,65,24),"100%")) { zoom=1; CenterMap(); }
                 if (GUI.Button(new Rect(position.width-183,5,78,24),"다시 열기")) {if(mode==2)ReloadGateways();else if(MayLeave())LoadMap(mapKey);}
                 using (new EditorGUI.DisabledScope(loadError.Length > 0||mode!=2&&layoutReadOnly&&dirty&&!dirtyGateways))
-                    if (GUI.Button(new Rect(position.width-99,5,86,24),mode==2?"입구 저장":"배치 저장")) {if(mode==2)SaveGateways();else SaveChanges();}
+                    if (GUI.Button(new Rect(position.width-99,5,86,24),mode==2?"입구 저장":"배치 저장")) {QueueEditorSave(mode==2);}
             }
         }
         private void DrawMaps(Rect rect)
@@ -221,6 +222,8 @@ namespace DarkSaver.Original.Editor.Scenarios
         private void DrawBattleEntry()
         {
             GUILayout.Space(6);GUILayout.Label("지휘관 진입 위치",EditorStyles.boldLabel);
+            if(gatewaySaveError.Length>0)EditorGUILayout.HelpBox(gatewaySaveError,MessageType.Error);
+            else if(gatewaySaveNotice.Length>0)GUILayout.Label(gatewaySaveNotice,EditorStyles.wordWrappedMiniLabel);
             int id=int.Parse(mapKey);var target=gatewayWorld?.Map(id);
             bool supported=target!=null&&(target.training||gatewayWorld.campaign?.Map(id)?.kind=="scenario");
             var entry=gatewayDocument?.entryPoints?.FirstOrDefault(p=>p.map==id);
@@ -236,7 +239,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                     if(GUILayout.Button("사용자 진입점 삭제")){RememberGateway();gatewayDocument.entryPoints=gatewayDocument.entryPoints.Where(p=>p.map!=id).ToArray();pickBattleEntry=false;}
                 }
                 else GUILayout.Label("미설정 · 기존 입구의 도착 좌표 사용",EditorStyles.wordWrappedMiniLabel);
-                using(new EditorGUI.DisabledScope(!dirtyGateways))if(GUILayout.Button("진입점·입구 저장"))SaveGateways();
+                using(new EditorGUI.DisabledScope(!dirtyGateways))if(GUILayout.Button("진입점·입구 저장"))QueueEditorSave(true);
                 GUILayout.BeginHorizontal();
                 using(new EditorGUI.DisabledScope(gatewayUndo.Count==0))if(GUILayout.Button("진입점/입구 되돌리기"))GatewayHistory(true);
                 using(new EditorGUI.DisabledScope(gatewayRedo.Count==0))if(GUILayout.Button("다시 실행"))GatewayHistory(false);
@@ -282,7 +285,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             if(e.type==EventType.MouseDrag&&e.button==2&&inside){pan+=e.delta;e.Use();Repaint();}
             if(e.type==EventType.KeyDown&&GUIUtility.keyboardControl==0)
             {
-                if((e.control||e.command)&&e.keyCode==KeyCode.S){if(mode==2)SaveGateways();else SaveChanges();e.Use();}
+                if((e.control||e.command)&&e.keyCode==KeyCode.S){QueueEditorSave(mode==2);e.Use();}
                 else if(mode==0&&loadError.Length==0&&(e.control||e.command)&&e.keyCode==KeyCode.Z){History(!e.shift);e.Use();}
                 else if(mode==0&&loadError.Length==0&&(e.control||e.command)&&e.keyCode==KeyCode.Y){History(false);e.Use();}
                 else if(e.keyCode==KeyCode.Delete||e.keyCode==KeyCode.Backspace){DeleteSelected();e.Use();}

@@ -43,6 +43,26 @@ namespace DarkSaver.Original.Editor.Scenarios
         [SerializeField] private bool layoutReadOnly;
         private string layoutNotice="";
         private string failedMapKey="",mapLoadStage="",directMapKey="";
+        private int queuedSave;
+        private bool saveScheduled;
+        private void QueueEditorSave(bool gatewaysOnly)
+        {
+            queuedSave=Math.Max(queuedSave,gatewaysOnly?1:2);
+            GUI.FocusControl(null);EditorGUIUtility.editingTextField=false;Repaint();
+        }
+        private void DispatchQueuedSave()
+        {
+            // DelayedIntField/other editors have now seen focus loss during Repaint.
+            if(queuedSave==0||saveScheduled||Event.current.type!=EventType.Repaint)return;
+            int action=queuedSave;queuedSave=0;saveScheduled=true;
+            EditorApplication.delayCall+=()=>
+            {
+                if(this==null)return;
+                try{if(action==1)SaveGateways();else SaveChanges();}
+                finally{saveScheduled=false;Repaint();}
+            };
+        }
+
         private const string MapNamesPath=BasePath+"Data/Tables/scene_maps.csv";
         private Dictionary<string,string> mapNames=new Dictionary<string,string>();
         private long mapNamesStamp=long.MinValue,mapNamesSize=-1;
