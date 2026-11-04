@@ -1,0 +1,1238 @@
+[
+  {
+    "script": "Tools/OriginalEntryChecks/check_entry.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalTutorialChecks/check_dialogue_presentation.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalTutorialChecks/check_tutorial.py",
+    "status": "실패",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_campaign.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_client_window_assets.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "assertions": 1030,
+        "importerChecks": "Effective Unity default/active-platform settings and GUID/pixels, accepting harmless Unity metadata expansion; generation metadata SHA is provenance rather than a cross-import stability rule.",
+        "portraitReferences": 140,
+        "portraitPixelChecks": 577536,
+        "unityPlay": false,
+        "scope": "Source hashes, output hashes, actual importer metadata, resource/script references, literal dimensions and native button ranges. Portrait archive table/checksum/decompression and every RGB pixel/reference are compared, following face/face1/face2/face3 precedence; source GetFace analysis is static, not native execution. Not Unity import, rendered text, physical input or audio."
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_gateways.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_map_animation.py",
+    "status": "실패",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: Assets/_Original/Data/World/NativeWorldArt.asset",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_temple_alignment.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\workspace\\\\.tools\\\\ds-ghidra\\\\installed\\\\saver\\\\Saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_pixel_importers.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "assertions": 10316,
+        "textures": 1144,
+        "nonPolicyMetadataPreserved": 1143,
+        "baseCommit": "88587912edbd1b400c917c77bd28849bdca9154d",
+        "largestSourceDimension": 3200,
+        "unityImport": false,
+        "unityPlay": false,
+        "mismatches": 0,
+        "windowsCheckout": [
+          {
+            "path": "Assets/_Original/Data/World/CommanderRoster3.json",
+            "stable": true
+          },
+          {
+            "path": "Assets/_Original/Runtime/UI/NativeWindowPlacement.cs",
+            "stable": true
+          },
+          {
+            "path": "Assets/_Original/SourceData/Native/map/1500.mrc.bytes",
+            "stable": true
+          },
+          {
+            "path": "Assets/_Original/Data/Tables/items.csv",
+            "stable": true
+          }
+        ],
+        "scope": "Literal PNG/GUID preservation, effective default/active platform compression/format/full source size, idempotence and Git CRLF checkout filters. Editor AssetPostprocessor is API-compiled only, not executed. Original bytes/tables are binary-preserved; no map/gateway/placement/player-save files are rewritten.",
+        "generationReportSha256": "b47b4b8372b13b926cc3737b28b3f34461c4a30bc2933707d45bf691840dc5d3"
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_world.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalScenarioEditorChecks/check_editor.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "assertions": 862,
+        "maps": 151,
+        "originalUnits": 610,
+        "catalogFallbackUnits": 610,
+        "catalogFallbackMaps": 16,
+        "originalRosterMaps": 16,
+        "emptyRosterMaps": 3,
+        "missingRosterMaps": 132,
+        "unityGuiExecuted": false,
+        "nativeActorFrontFramesCompared": 36,
+        "nativePixelComparisons": [
+          "01",
+          "02",
+          "26",
+          "101",
+          "201",
+          "314",
+          "1010"
+        ],
+        "originalSourceFilesUnchanged": 2519,
+        "originalMonsterJobPicturesResolved": 61,
+        "catalogPicturesMissing": [
+          343,
+          351,
+          355,
+          443,
+          451,
+          455,
+          800,
+          819
+        ],
+        "runtimeApiErrors": 0,
+        "editorApiErrors": 0,
+        "playerApiErrors": 0,
+        "warnings": {
+          "runtime": 0,
+          "editor": 0,
+          "player": 0
+        },
+        "entryRegression": 102,
+        "scope": "New editor API compilation; production source/parser/render/file-store contracts; native static pixel comparison. No Unity window, OS input, import or runtime spawn validation."
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalInputChecks/check_alternate_world_font.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\source.local\\\\Assets\\\\_Game\\\\Resources\\\\UI\\\\NativeWorldAlternateFont.png'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalInputChecks/check_kaosia_shop_stock.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\source.local\\\\Assets\\\\_Game\\\\Resources\\\\World\\\\KaosiaShopStock.json'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalInputChecks/check_mercenary_class_stock.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "StopIteration",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalInputChecks/check_world_function_keys.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalInputChecks/check_world_ui.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\source.local\\\\Assets\\\\_Game\\\\Resources\\\\UI\\\\WorldWindows\\\\NativeWorldWindows.asset'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalRestart/check_foundation.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalTutorialChecks/check_drag_lifecycle.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "assertions": 56,
+        "unityPlay": false,
+        "scope": "Production item/window drag lifecycle and shared release-clock input with isolated projection, clock source and Mono lifetime; not Unity EventSystem, GameObject destruction or physical input."
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_bank.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_bank_currency_regressions.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "results": {
+          "CurrencyChecks": {
+            "assertions": 102,
+            "unityPlayExecuted": false,
+            "scope": "Authoritative absolute wallet/bank receipts, persistence and legacy monetary transaction revisions with isolated values; no starting-fund/fee/reward policy or raw wire claim."
+          },
+          "BankChecks": {
+            "assertions": 371,
+            "unityPlayExecuted": false,
+            "scope": "Actual bank request/approval/audit/persistence with isolated explicit fee sources and BigInteger boundary reference. No recovered bank pricing/limit/shared-account or raw wire claim."
+          }
+        },
+        "unityPlay": false,
+        "mismatches": 0,
+        "scope": "Existing unmodified currency/bank contract harnesses compiled against current production account/service contracts. No inherited historical test count is copied into this report; groups stay separate."
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_battle_feedback.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_battle_items.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_battle_lifecycle.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_battle_magic.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_battle_ticks.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_character_reset.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "checks": 13,
+        "unityPlay": false,
+        "scope": "Actual editor reset helper and production file store against isolated temporary accounts; exact backup, credential/other-account preservation, login and bypass reset, missing/corrupt no-op. No real player save modified.",
+        "mismatches": 0
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_class_change.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_command_range.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_commander_adjustments.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "results": {
+          "CommanderAdjustmentChecks": {
+            "assertions": 68,
+            "unityPlay": false,
+            "scope": "Production received-state class/stat/magic flows for explicitly owned secondary characters, guarded target/revision, save retry, primary isolation, reconnect and file serialization. No native raw wire/eligibility/cost derivation."
+          },
+          "ClassChangeChecks": {
+            "assertions": 253,
+            "unityPlayExecuted": false,
+            "scope": "Actual received-candidate class selection, explicit approved growth/optional health and isolated persistence contracts; no inferred eligibility/cost, stat/magic editor or recovered native wire claim."
+          },
+          "StatAdjustmentChecks": {
+            "assertions": 279,
+            "unityPlayExecuted": false,
+            "scope": "Actual six native attribute triplets/costs, staged approvals/undo/cancel/final persistence and optional explicit effective stats/health; no default costs, growth-point alias or combat formula claim."
+          },
+          "MagicLoadoutChecks": {
+            "assertions": 304,
+            "unityPlayExecuted": false,
+            "scope": "Legacy selected-list adapter persistence compatibility and atomic joint stat persistence; approved growth.magic remains the casting list. This adapter is not original scene23 learning/ownership UI and emits no native learning packets."
+          },
+          "CommanderChecks": {
+            "assertions": 91,
+            "unityPlay": false,
+            "scope": "Approved isolated roster snapshots; proven local inspect/toggle/exchange, durable storage, no operating defaults or real account saves."
+          },
+          "BattleMagicChecks": {
+            "assertions": 310,
+            "unityPlayExecuted": false,
+            "scope": "Original fireball101 approved-owned-magic/permission/explicit MP-AP/target-life requests, approved combat persistence and fixed-endpoint presentation; no default damage, casting policy, all-spell renderer or audio/timing measurement claim."
+          }
+        },
+        "unityPlay": false
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_commander_name.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_commanders.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "assertions": 91,
+        "unityPlay": false,
+        "scope": "Approved isolated roster snapshots; proven local inspect/toggle/exchange, durable storage, no operating defaults or real account saves."
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_currency.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_exit.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_facility_callbacks.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "assertions": 528,
+        "scenarios": 64,
+        "unityPlay": false,
+        "scope": "Current production services, eight facility operations with logout/reconnect/window replacement/null/exception inside approval callbacks. Same-ID new-session requests must survive old callbacks. Fresh in-memory interior fixtures; no player saves, source fees/limits, native packet or physical doorway claims.",
+        "mismatches": 0
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_facility_contract_regressions.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "ShopChecks": {
+          "assertions": 520,
+          "unityPlayExecuted": false
+        },
+        "MercenaryChecks": {
+          "assertions": 354,
+          "unityPlayExecuted": false
+        },
+        "RevivalChecks": {
+          "assertions": 427,
+          "unityPlayExecuted": false
+        },
+        "WarehouseChecks": {
+          "assertions": 736,
+          "unityPlayExecuted": false
+        }
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_growth.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_item_drag_context.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "assertions": 48,
+        "unityPlay": false,
+        "scope": "Production pointer-gesture item ownership snapshots: personal/secondary/legacy bags, equipment, shop pages, storage drafts, stale sessions/windows/instances and unrelated-state preservation. No transaction policy, Unity EventSystem or original native packet-token inference.",
+        "mismatches": 0
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_item_use.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_legacy_field.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "assertions": 182,
+        "map": 1010,
+        "version": "Saver_1.2",
+        "nativeSprites": 734,
+        "legacyGrs": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12,
+          13,
+          16,
+          24
+        ],
+        "renderedSha256": "2a9412ecc80fc0774c5aa2bf80282e3df2a4bbc393436c5d7036073b7fe9727e",
+        "editorMaps": 151,
+        "unityPlay": false,
+        "scope": "Original bytes, navigation, per-version asset bindings and managed C# versus Python pixels; no Unity Play or historical timing validation."
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_magic_loadout.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_magic_projectiles.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_map_pointer.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "checks": 20,
+        "unityPlay": false,
+        "scope": "Actual production NativeMapPointer callbacks with managed input/projection/raycast/component boundaries; no Unity EventSystem dispatch or physical input.",
+        "mismatches": 0
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_member_commands.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_mercenary.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_move_hint_integration.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_bank.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_battle_decoder.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_battle_options.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\workspace\\\\.tools\\\\ds-ghidra\\\\installed\\\\saver\\\\GameCtl.dll'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_battle_packets.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_battle_responses.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_battle_ticks.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_body.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_body_order.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_body_palettes.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_body_scenery.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_candidate_data.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_chat.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_chat_composer.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_class_adjustments.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_class_presentation.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_commanders.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_death.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_feedback.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_feedback_frames.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_font.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_hire_list.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\workspace\\\\.tools\\\\ds-ghidra\\\\installed\\\\saver\\\\setunit.dll'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_item_caption.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_local_orders.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_magic.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_magic_packets.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_map_music.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_memo_transfer.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_memos.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_mercenary.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_move_hints.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_movement.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_movement_paths.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_outbound_packets.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_private_chat.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_scenario_requests.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\gamectl.dll'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_self_info.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_settings.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_shop.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_shop_details.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_soldier_ai.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_tile_attribute.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\.tools\\\\ds-ghidra\\\\installed\\\\saver\\\\UserUnit.dll'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_unit_frames.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_viewport.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-npc-gateway-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_warehouse.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_window_drag.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_window_placement.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_world_message.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_native_world_text.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: '\\\\tmp\\\\ds-installers\\\\payloads\\\\a6f518676a553098\\\\saver_files\\\\saver\\\\saver.exe'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_nullable_contracts.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "baseline": {
+          "assertions": 421,
+          "contractTypes": 38,
+          "nullableFields": 40,
+          "roundtripCases": 210,
+          "serializedCasesSha256": "4f155603f3b5cc79b59438144cd5c58f5aa36c86a73de5b44273584616b1acef",
+          "unityPlay": false
+        },
+        "current": {
+          "assertions": 461,
+          "contractTypes": 38,
+          "nullableFields": 40,
+          "roundtripCases": 210,
+          "serializedCasesSha256": "4f155603f3b5cc79b59438144cd5c58f5aa36c86a73de5b44273584616b1acef",
+          "unityPlay": false
+        }
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_nullable_serialization_analyzer.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "results": {
+          "baseline": {
+            "errors": 0,
+            "warnings": 40,
+            "uac1001": 40,
+            "otherRules": []
+          },
+          "current": {
+            "errors": 0,
+            "warnings": 0,
+            "uac1001": 0,
+            "otherRules": []
+          }
+        },
+        "runtimeSources": 226,
+        "mismatches": 0,
+        "unityEditorImport": false,
+        "unityPlay": false,
+        "scope": "Actual Unity6000.5.7f1 Unity.Analyzers.Common.dll used by Roslyn against all current runtime Unity API sources. Paired baseline removes only NonSerialized from DCS nullable fields; current compilation must have no diagnostics. Actual Editor import/plugin warnings/Play are separate and were not run."
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_picture_initialization.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "results": {
+          "baseline": {
+            "assertions": 14,
+            "reproducedNullExceptions": 2,
+            "partialUiLeaks": 6,
+            "unityPlay": false
+          },
+          "current": {
+            "assertions": 50,
+            "reproducedNullExceptions": 0,
+            "partialUiLeaks": 0,
+            "unityPlay": false,
+            "scope": "Production world/tutorial Picture, Group, Place bodies, NativeEntryLayout.Uv, F3 hired-slot fragments and startup construction/first-paint/entry/personal visibility statements. Managed uGUI component, Unity-null and texture boundaries; not a Unity scene/Canvas/import/Play execution."
+          }
+        },
+        "mismatches": 0,
+        "unityPlay": false,
+        "scope": "Actual production method/statement extraction with managed component, texture and Unity-null boundaries. Baseline removes optional-texture and initial visibility guards to reproduce two null-UV failures and six partially visible parent stages. Current F3 creation/refresh, cropped images, construction failure/first-paint publication and real entry stage visibility statements execute. Personal/chat ordering is audited. No complete scene Build, actual Unity import/Canvas/EventSystem or rendered Play claim."
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_player_identity.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "assertions": 37,
+        "unityPlay": false,
+        "scope": "Approved partial shared info-manager header; source gender table used by UI. Production account/service and manager partial with isolated component dispatcher; session/revision/replay, concurrency/save failure and actual temporary file checks. No age/marriage defaults or native wire layout."
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_regroup.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_result.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_revival.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_runtime_resource_bindings.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "assertions": 967,
+        "mismatches": 0,
+        "literalCalls": 17,
+        "resourceKeys": 12,
+        "resourceAssets": 219,
+        "resourceInventoryKeys": 13,
+        "assetMetaInventory": 3960,
+        "inventorySha256": "30b22910da137148f29982e4a56c142aa02e6553dc2407685df26f52d1b05691",
+        "unityEditorImport": false,
+        "unityPlay": false,
+        "scope": "Roslyn syntax extraction of all current runtime Resources.Load calls: literal name/type lookup, duplicate/missing mutation controls, requested ScriptableObject MonoScript/class compatibility, recursive serialized GUID graph, JSON syntax and referenced GUID uniqueness. Asset/GUID inventory fingerprint excludes irrelevant importer formatting. No Unity import/deserialization, missing components, actual rendering/input/audio or Player Resources.Load execution."
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_scenario_battle.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_scenario_progress.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-original-campaign-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_shop.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_soldier_actions.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_special_skills.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_stat_adjustment.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_training.py",
+    "status": "실패",
+    "exitCode": 1,
+    "diagnostic": "   at TrainingChecks.Main(String[] args)",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_troop_orders.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_warehouse.py",
+    "status": "근거 부족",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_callback_session_regressions.py",
+    "status": "미실행",
+    "exitCode": 1,
+    "diagnostic": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Project\\\\DarkSaverWorld\\\\Tools\\\\UnityCompileChecks\\\\f206c672-validation\\\\temp.local\\\\ds-native-chat-composer-checks\\\\checks.rsp'",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_temple_alignment.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "checks": 18,
+        "packets": 1,
+        "queries": 1,
+        "unityPlay": false,
+        "scope": "Actual offer/manager/record contracts with memory store and component boundary. No original incoming quote format, Unity UI or server policy.",
+        "mismatches": 0
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_training_tiers.py",
+    "status": "통과",
+    "exitCode": 0,
+    "diagnostic": "",
+    "results": [
+      {
+        "checks": 100,
+        "classes": 11,
+        "unityPlay": false,
+        "scope": "Actual account/service tier entry, battle-wait movement rejection, escape and reconnect with isolated flat source entrance and explicit class snapshots. Native training map geometry retained; no monster/AP/HP authority invented.",
+        "mismatches": 0
+      }
+    ],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  },
+  {
+    "script": "Tools/OriginalWorldChecks/check_client_windows_integration.py",
+    "status": "실패",
+    "exitCode": 1,
+    "diagnostic": "AssertionError: Stale verification sources; rerun the relevant check: [{\"report\": \"native-battle-options-check.json\", \"source\": \"Tools/OriginalWorldChecks/pixel-import-check.json\"}, {\"report\": \"native-class-presentation-check.json\", \"source\": \"Tools/OriginalWorldChecks/pixel-import-check.json\"}]",
+    "results": [],
+    "scope": "Windows SDK/임시경로 대응. 하위 entry 의존 호출은 관리형/API만; 공통 원본 정적 감사는 별도 실패/미실행. 실제 Play 아님"
+  }
+]

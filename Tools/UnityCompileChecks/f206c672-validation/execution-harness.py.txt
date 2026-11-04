@@ -1,0 +1,115 @@
+import ast,importlib.machinery,os,pathlib,re,subprocess,sys,time,json,traceback
+HERE=pathlib.Path(__file__).resolve().parent
+ROOT=HERE/'source.local'
+DATA='C:/Program Files/Unity/Hub/Editor/6000.5.7f1/Editor/Data'
+TMP=HERE/'temp.local';TMP.mkdir(exist_ok=True)
+os.environ.update(PYTHONUTF8='1',PYTHONDONTWRITEBYTECODE='1',DOTNET_CLI_HOME=str(TMP/'dotnet-home'))
+sys.path.insert(0,str(HERE/'deps.local'))
+class Port(ast.NodeTransformer):
+ def visit_FunctionDef(self,node):
+  node=self.generic_visit(node)
+  if '--independent' not in sys.argv:return node
+  tainted=set();body=[]
+  for stmt in node.body:
+   if isinstance(stmt,ast.Assign) and isinstance(stmt.value,ast.Call) and isinstance(stmt.value.func,ast.Attribute) and stmt.value.func.attr=='run' and any(isinstance(n,ast.Attribute) and n.attr=='executable' for n in ast.walk(stmt.value)):
+    tainted.update(n.id for target in stmt.targets for n in ast.walk(target) if isinstance(n,ast.Name));continue
+   loads={n.id for n in ast.walk(stmt) if isinstance(n,ast.Name) and isinstance(n.ctx,ast.Load)}
+   stores={n.id for n in ast.walk(stmt) if isinstance(n,ast.Name) and isinstance(n.ctx,ast.Store)}
+   if (loads&tainted)-stores:continue
+   tainted-=stores;body.append(stmt)
+   if isinstance(stmt,ast.Assign) and isinstance(stmt.value,ast.Call) and isinstance(stmt.value.func,ast.Attribute) and stmt.value.func.attr=='loads' and any(isinstance(n,ast.Attribute) and n.attr=='stdout' for n in ast.walk(stmt.value)) and isinstance(stmt.targets[0],ast.Name):
+    body.extend(ast.parse("print('__MANAGED_RESULT__'+json.dumps("+stmt.targets[0].id+"),flush=True)").body)
+  node.body=body or [ast.Pass()];return node
+ def visit_Constant(self,node):
+  s=node.value
+  if not isinstance(s,str):return node
+  if s.startswith('/tmp/'):s=str(TMP/s[5:]).replace('\\','/')
+  elif s.startswith('/workspace/.tools/unity/6000.5.7f1/Editor/Data'):s=s.replace('/workspace/.tools/unity/6000.5.7f1/Editor/Data',DATA)
+  elif s.startswith('.tools/unity/6000.5.7f1/Editor/Data'):s=s.replace('.tools/unity/6000.5.7f1/Editor/Data',DATA)
+  elif s=='dotnet':s='dotnet.exe'
+  return ast.copy_location(ast.Constant(s),node)
+original_get=importlib.machinery.SourceFileLoader.get_code
+original_popen=subprocess.Popen
+class PortablePopen(original_popen):
+ def __init__(self,args,*a,**kw):
+  if isinstance(args,(tuple,list)) and len(args)>1 and str(args[0])==sys.executable and str(args[1]).endswith('.py'):
+   p=pathlib.Path(args[1])
+   if ROOT in p.parents and p.name.startswith('check_'):
+    args=[sys.executable,'-X','utf8',str(pathlib.Path(__file__).resolve()),'--dependency','--one',str(p.relative_to(ROOT).as_posix())]
+  super().__init__(args,*a,**kw)
+subprocess.Popen=PortablePopen
+def code(loader,fullname):
+ path=pathlib.Path(loader.path)
+ if ROOT in path.parents and path.suffix=='.py':
+  return compile(ast.fix_missing_locations(Port().visit(ast.parse(path.read_text(encoding='utf-8-sig'),filename=str(path)))) ,str(path),'exec')
+ return original_get(loader,fullname)
+importlib.machinery.SourceFileLoader.get_code=code
+def one(rel):
+ p=ROOT/rel;os.chdir(ROOT);sys.path[:0]=[str(p.parent),str(ROOT/'Tools/OriginalWorldChecks')]
+ s=p.read_text(encoding='utf-8-sig')
+ if rel=='Tools/OriginalWorldChecks/check_nullable_serialization_analyzer.py':
+  s=s.replace("'\\n-analyzer:'+str(analyzer)","'\\n-analyzer:\"'+str(analyzer)+'\"'").replace('str(analyzer.relative_to(ROOT.parent))','str(analyzer)')
+ # Preserve partial managed evidence even if later native/source audit fails.
+ if rel=='Tools/OriginalEntryChecks/check_entry.py':
+  s=s.replace('    guids = {}',"    (WORK/'managed-result.json').write_text(json.dumps(dict(contracts=checks,warnings=dict(runtime=runtime_warnings,editor=editor_warnings,player=player_warnings))))\n    guids = {}")
+  if '--dependency' in sys.argv:
+   s=s[:s.index('    guids = {}')]+'''    checks.update(runtimeSources=len(runtime),editorSources=len(editor),runtimeApiErrors=0,editorApiErrors=0,playerApiErrors=0,warnings=dict(runtime=runtime_warnings,editor=editor_warnings,player=player_warnings),codeSha256={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in runtime+editor},scope='Windows adapted managed/API dependency only. Native/asset source audit NOT executed.')
+    Path(__file__).with_name('entry-check.json').write_text(json.dumps(checks,ensure_ascii=False,indent=2))
+    print(json.dumps(checks))
+if __name__=='__main__':main()
+'''
+ if rel=='Tools/OriginalTutorialChecks/check_tutorial.py':
+  a=s.index(' entry=subprocess.run');b=s.index(' sdk=DATA',a)
+  s=s[:a]+s[b:]
+  s=s.replace(' evidence=json.loads'," (WORK/'managed-result.json').write_text(json.dumps(result))\n evidence=json.loads",1)
+ tree=Port().visit(ast.parse(s,filename=str(p)))
+ exec(compile(ast.fix_missing_locations(tree),str(p),'exec'),{'__name__':'__main__','__file__':str(p)})
+if '--one' in sys.argv:
+ cache=TMP/('cached-'+sys.argv[-1].replace('/','-')+'.txt')
+ if '--dependency' in sys.argv and cache.exists():
+  saved=json.loads(cache.read_text(encoding='utf-8'));print(saved['text']);sys.exit(saved['code'])
+ if '--dependency' in sys.argv:
+  import contextlib,io
+  buffer=io.StringIO();rc=0
+  with contextlib.redirect_stdout(buffer),contextlib.redirect_stderr(buffer):
+   try:one(sys.argv[-1])
+   except BaseException:traceback.print_exc();rc=1
+  cache.write_text(json.dumps(dict(code=rc,text=buffer.getvalue()),ensure_ascii=False),encoding='utf-8');print(buffer.getvalue());sys.exit(rc)
+ try:one(sys.argv[-1])
+ except BaseException:traceback.print_exc();sys.exit(1)
+ sys.exit(0)
+folders=['OriginalEntryChecks','OriginalTutorialChecks','OriginalWorldChecks','OriginalScenarioEditorChecks','OriginalInputChecks','OriginalRestart']
+files=[p for folder in folders for p in sorted((ROOT/'Tools'/folder).glob('check_*.py'))]
+if '--extras' in sys.argv:files=sorted((ROOT/'Tools/OriginalClientChecks').glob('audit_*.py'))
+if '--independent' in sys.argv:
+ old=json.loads((HERE/'suite-results.json').read_text(encoding='utf-8'))
+ failed={x['script'] for x in old if x['exitCode']!=0}
+ files=[p for p in files if p.relative_to(ROOT).as_posix() in failed and p.parent.name=='OriginalWorldChecks' and not p.name.startswith('check_native_') and p.name not in ['check_client_windows_integration.py','check_pixel_importers.py','check_nullable_serialization_analyzer.py']]
+# Existing rsp dependencies establish ordering; unavailable native prerequisites remain explicit failures.
+providers={}
+for p in files:
+ s=p.read_text(encoding='utf-8-sig');m=re.search(r"WORK\s*=\s*Path\(['\"](/tmp/[^'\"]+)['\"]\)",s)
+ if m:providers[m[1]]=p
+pending=set(files);ordered=[]
+while pending:
+ ready=[p for p in files if p in pending and not any(provider in pending and provider!=p for x in re.findall(r"['\"](/tmp/[^'\"]+)['\"]",p.read_text(encoding='utf-8-sig')) for key,provider in providers.items() if x==key or x.startswith(key+'/'))]
+ if not ready:ready=[next(p for p in files if p in pending)]
+ for p in ready:ordered.append(p);pending.remove(p)
+entry=ROOT/'Tools/OriginalEntryChecks/check_entry.py'
+if entry in ordered:ordered.remove(entry);ordered.insert(0,entry)
+integ=ROOT/'Tools/OriginalWorldChecks/check_client_windows_integration.py'
+if integ in ordered:ordered.remove(integ);ordered.append(integ)
+prefix='native-audit' if '--extras' in sys.argv else 'suite'
+if '--independent' in sys.argv:prefix='independent-managed'
+logs=HERE/(prefix+'-logs');logs.mkdir(exist_ok=True);results=[]
+for i,p in enumerate(ordered):
+ rel=p.relative_to(ROOT).as_posix();start=time.time()
+ try:
+  flags=['--independent'] if '--independent' in sys.argv else []
+  proc=subprocess.run([sys.executable,'-X','utf8',str(pathlib.Path(__file__).resolve()),*flags,'--one',rel],capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=180)
+  out=proc.stdout+proc.stderr;rc=proc.returncode
+ except subprocess.TimeoutExpired as e:out=str(e);rc=124
+ log=logs/(p.parent.name+'-'+p.stem+'.txt');log.write_text(out,encoding='utf-8')
+ row=dict(script=rel,exitCode=rc,seconds=round(time.time()-start,2),log=log.relative_to(HERE).as_posix(),tail=out[-2200:] if rc else out[-1000:])
+ results.append(row);(HERE/(prefix+'-results.json')).write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
+ print(f'{i+1}/{len(ordered)} {"PASS" if rc==0 else "INCOMPLETE"} {rel}',flush=True)

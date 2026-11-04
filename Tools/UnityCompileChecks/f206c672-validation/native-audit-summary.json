@@ -1,0 +1,24 @@
+{
+  "attemptedScripts": [
+    "Tools/OriginalClientChecks/audit_client_sources.py",
+    "Tools/OriginalClientChecks/audit_embedded_resources.py",
+    "Tools/OriginalClientChecks/audit_late_world_keys.py",
+    "Tools/OriginalClientChecks/audit_native_control_flow.py",
+    "Tools/OriginalClientChecks/audit_native_ui_timing.py",
+    "Tools/OriginalClientChecks/audit_tutorial_archives.py",
+    "Tools/OriginalClientChecks/audit_tutorial_branches.py",
+    "Tools/OriginalClientChecks/audit_tutorial_dependencies.py",
+    "Tools/OriginalClientChecks/audit_tutorial_dispatch.py",
+    "Tools/OriginalClientChecks/audit_tutorial_midi.py"
+  ],
+  "midi": {
+    "status": "통과",
+    "source": "Assets/_Original/SourceData/Native/bgm/nco01.mid.bytes",
+    "nominalSeconds": 52.5,
+    "physicalPlayback": false
+  },
+  "otherNine": {
+    "status": "미실행",
+    "reason": "Required late native-root/Saver/GameCtl/NetGame files unavailable; initial CLI invocation only produced usage or missing-path errors. No native assertions certified."
+  }
+}

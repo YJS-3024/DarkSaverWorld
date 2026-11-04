@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "[evidence]\run-suite.local.py", line 78, in <module>
+    try:one(sys.argv[-1])
+        ^^^^^^^^^^^^^^^^^
+  File "[evidence]\run-suite.local.py", line 66, in one
+    exec(compile(ast.fix_missing_locations(tree),str(p),'exec'),{'__name__':'__main__','__file__':str(p)})
+  File "[isolated]\Tools\OriginalWorldChecks\check_client_windows_integration.py", line 69, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "[isolated]\Tools\OriginalWorldChecks\check_client_windows_integration.py", line 33, in main
+    assert not stale,'Stale verification sources; rerun the relevant check: '+json.dumps(stale,ensure_ascii=False)
+           ^^^^^^^^^
+AssertionError: Stale verification sources; rerun the relevant check: [{"report": "native-battle-options-check.json", "source": "Tools/OriginalWorldChecks/pixel-import-check.json"}, {"report": "native-class-presentation-check.json", "source": "Tools/OriginalWorldChecks/pixel-import-check.json"}]

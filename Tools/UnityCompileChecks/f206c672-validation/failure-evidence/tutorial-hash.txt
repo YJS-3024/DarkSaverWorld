@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "[evidence]\run-suite.local.py", line 52, in <module>
+    try:one(sys.argv[-1])
+        ^^^^^^^^^^^^^^^^^
+  File "[evidence]\run-suite.local.py", line 50, in one
+    exec(compile(ast.fix_missing_locations(tree),str(p),'exec'),{'__name__':'__main__','__file__':str(p)})
+  File "[isolated]\Tools\OriginalTutorialChecks\check_tutorial.py", line 140, in <module>
+    result['sources']={p.relative_to(ROOT).as_posix():sha(p)for p in core+[Path(__file__),Path(__file__).with_name('TutorialChecks.cs'),Path(__file__).with_name('WaitingLessonChecks.cs'),BASE/'Data/Tutorial/Waiting1500.json',BASE/'Runtime/Tutorial/TutorialSceneRoot.Waiting.cs',BASE/'Runtime/Tutorial/NativeTutorialDrag.cs']}
+                           ^^^^^^
+  File "[isolated]\Tools\OriginalTutorialChecks\check_tutorial.py", line 42, in main
+    evidence=json.loads((ROOT/'Tools/OriginalTutorialChecks/tutorial-assets.json').read_text())
+                                                          ~~~~~~~~~~^~~~~~~~~~~~
+AssertionError: 분석/Saver_Late/waiting_tutorial_resources.json

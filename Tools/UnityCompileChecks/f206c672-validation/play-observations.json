@@ -1,0 +1,68 @@
+{
+  "isolated": true,
+  "profile": "DarkSaverWorld-Validation-f206c672",
+  "input": "InputField.text + actual create Button.onClick; no physical input",
+  "initial": {
+    "stage": "FirstCharacterCreation",
+    "objects": 58,
+    "missingScripts": 0
+  },
+  "creation": {
+    "name": "Verify1104",
+    "job": 100,
+    "stage": "CharacterReady",
+    "resourceId": 61216,
+    "visibleWaitingWindows": 0,
+    "objects": 523,
+    "missingScripts": 0
+  },
+  "reentry": {
+    "stage": "CharacterReady",
+    "resourceId": 61216,
+    "visibleWaitingWindows": 0,
+    "scope": "No progression before exit; mid-tutorial restart not exercised"
+  },
+  "candidate": {
+    "bytes": 789,
+    "exactMatch": true
+  },
+  "screenshots": [
+    {
+      "path": "screenshots/01-new-profile-start.png",
+      "pixels": [
+        773,
+        580
+      ],
+      "sha256": "70bb320eef22071d7c80f0d526b8af360624a79225c4ac17c953020d1b9df0a2",
+      "source": "Actual Unity Game view ScreenCapture; visually inspected"
+    },
+    {
+      "path": "screenshots/02-new-character-waiting.png",
+      "pixels": [
+        773,
+        580
+      ],
+      "sha256": "d7deb9def28888957d24b365a678c65243545544e78312f61127ef610c59f7f9",
+      "source": "Actual Unity Game view ScreenCapture; visually inspected"
+    },
+    {
+      "path": "screenshots/03-incomplete-tutorial-reentry.png",
+      "pixels": [
+        773,
+        580
+      ],
+      "sha256": "9eabb93fee81234e3a9fd660c2eaa1cab1b92ec3bec98fb40d7210a7c8247c09",
+      "source": "Actual Unity Game view ScreenCapture; visually inspected"
+    }
+  ],
+  "existingSaveJsonBefore": 9,
+  "existingSaveJsonAfter": 9,
+  "existingSaveChanges": 0,
+  "gameplayErrors": {
+    "compileErrors": 0,
+    "nullReferences": 0,
+    "crashes": 0
+  },
+  "editorSearchExceptionOccurrences": 2,
+  "unityAiNoSubscriptionOccurrences": 15
+}

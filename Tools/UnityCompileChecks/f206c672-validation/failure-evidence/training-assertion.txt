@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "[evidence]\run-suite.local.py", line 76, in <module>
+    try:one(sys.argv[-1])
+        ^^^^^^^^^^^^^^^^^
+  File "[evidence]\run-suite.local.py", line 64, in one
+    exec(compile(ast.fix_missing_locations(tree),str(p),'exec'),{'__name__':'__main__','__file__':str(p)})
+  File "[isolated]\Tools\OriginalWorldChecks\check_training.py", line 27, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "[isolated]\Tools\OriginalWorldChecks\check_training.py", line 19, in main
+    if run.returncode:raise RuntimeError((run.stdout+run.stderr)[-2000:])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Unhandled exception. System.Exception: ordinary walk cannot bypass battle action requests
+   at TrainingChecks.Check(Boolean ok, String text)
+   at TrainingChecks.Main(String[] args)

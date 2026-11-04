@@ -1,0 +1,28 @@
+{
+  "assetFindings": [
+    {
+      "report": "Tools/OriginalTutorialChecks/tutorial-assets.json",
+      "source": "분석/Saver_Late/waiting_tutorial_resources.json",
+      "expected": "51970520b36e19cc862766f1ce3996b3df9867efacf74f29d700efc8241f31fd",
+      "actual": "a12e91a36b0878f4552cd8dd80d88e75aa1acadca97f2280589cb9a5c57ae7c3",
+      "crlfOnly": true
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/map-animation-assets.json",
+      "source": "Assets/_Original/Data/World/NativeWorldArt.asset",
+      "expected": "21c9fdfe4b848cf75ade42d11d62d8bef246f6927306ec28538129e066de6119",
+      "actual": "ccde35eb90cae65a969592eff83b1437ba3951234d92666d9d5af42bf2156e98",
+      "crlfOnly": false
+    }
+  ],
+  "integrationStale": [
+    {
+      "report": "native-battle-options-check.json",
+      "source": "Tools/OriginalWorldChecks/pixel-import-check.json"
+    },
+    {
+      "report": "native-class-presentation-check.json",
+      "source": "Tools/OriginalWorldChecks/pixel-import-check.json"
+    }
+  ]
+}
