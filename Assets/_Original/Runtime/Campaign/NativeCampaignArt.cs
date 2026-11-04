@@ -48,6 +48,8 @@ namespace DarkSaver.Original.Campaign
         public WorldWindowDefinition GatewayWindow => gatewayWindowDefinition==null?null:JsonUtility.FromJson<WorldWindowDefinition>(gatewayWindowDefinition.text);
         public WorldDefinition Merge(WorldDefinition world)
         {
+            if(Definition?.maps==null||Definition.maps.Length==0||Definition.connections==null)throw new System.IO.InvalidDataException("맵 카탈로그가 연결되지 않았습니다.");
+            if(gatewaySettings==null||GatewayMaps==null)throw new System.IO.InvalidDataException("UserGateways/GatewayMaps 입구 설정이 연결되지 않았습니다.");
             world=Definition.Merge(world);
             if(gatewaySettings!=null)
             {

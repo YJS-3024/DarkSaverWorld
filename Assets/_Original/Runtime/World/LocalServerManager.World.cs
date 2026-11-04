@@ -13,7 +13,7 @@ namespace DarkSaver.Original.Entry
             Notify_World?.Invoke(reply); if (entered && reply.Accepted) Notify_MapEntered?.Invoke(reply); return reply;
         }
         public WorldView WorldSnapshot => isActiveAndEnabled ? service?.WorldSnapshot() : null;
-        public WorldReply Request_BeginWorld(NativeWorldArt art) => WorldRequest(s => art?.IsConfigured == true ? s.BeginWorld(campaignArt?.IsConfigured == true ? campaignArt.Merge(art.Definition) : art.Definition) : new WorldReply(WorldFailure.InvalidStage), true);
+        public WorldReply Request_BeginWorld(NativeWorldArt art) => WorldRequest(s => art?.IsConfigured == true ? s.BeginWorld(campaignArt != null ? campaignArt.Merge(art.Definition) : art.Definition) : new WorldReply(WorldFailure.InvalidStage), true);
         public WorldReply Request_MoveWorld(int x, int y) => WorldRequest(s => s.MoveWorld(x, y));
         public WorldReply Request_EquipWorldItem(string owned,int slot,string id,int inventorySlot=-1) => WorldRequest(s=>s.EquipWorldItem(owned,slot,id,inventorySlot));
         public WorldReply Request_UseWorldItem(string owned,string id) => SendItemUse(owned,id);
@@ -24,7 +24,10 @@ namespace DarkSaver.Original.Entry
             var current=WorldSnapshot;
             if(reply.Accepted&&current!=null&&current.training==null&&current.characterId==reply.View.characterId
                 &&current.commanderSession==reply.View.commanderSession&&current.record.map==reply.View.record.map)
-                Notify_TrainingInitialRequested?.Invoke(current);
+            {
+                BeginTrainingTest(current);
+                Notify_TrainingInitialRequested?.Invoke(WorldSnapshot);
+            }
             return reply;
         }
         public WorldReply Request_EscapeTraining() => WorldRequest(s => s.EscapeTraining(), true);

@@ -204,7 +204,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                 if(GUILayout.Button(unit.unit+" · "+(jobs.TryGetValue(unit.job,out var j)?j.name:unit.job.ToString())+" ("+unit.x+","+unit.y+")",EditorStyles.miniButton))
                 {selected=unit.unit;mode=0;FocusTile(unit.x,unit.y);}
             EditorGUILayout.EndScrollView();
-            EditorGUILayout.HelpBox("몬스터 저장은 Editor/ScenarioLayouts만 변경합니다. 진입점은 별도 UserGateways.json에 저장하며 실제 입장에 적용합니다. 원본 SET/POS·씬·몬스터 스폰은 변경하지 않습니다.\n연출은 명령행별 위치 참고이며 대본 실행/분기 판정이 아닙니다.",MessageType.None);
+            EditorGUILayout.HelpBox("몬스터 저장은 Editor/ScenarioLayouts를 변경합니다. 수련장 101~107은 테스트 전투용 Resources에도 함께 내보냅니다. 진입점은 별도 UserGateways.json에 저장하며 실제 입장에 적용합니다. 원본 SET/POS·씬은 변경하지 않습니다. 시나리오 몬스터 스폰은 변경하지 않습니다.\n연출은 명령행별 위치 참고이며 대본 실행/분기 판정이 아닙니다.",MessageType.None);
             EditorGUILayout.EndScrollView();GUILayout.EndArea();
         }
         private void SetBattleEntry(int x,int y,bool enabled)

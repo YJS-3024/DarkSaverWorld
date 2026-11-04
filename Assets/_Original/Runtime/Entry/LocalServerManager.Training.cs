@@ -5,6 +5,11 @@ namespace DarkSaver.Original.Entry
 {
     public sealed partial class LocalServerManager
     {
+        // User-approved local training test policy; not a recovered original server value.
+        // Delay starts at confirmed monster death, not at corpse animation retirement.
+        // Initial health/AP and authoritative respawn results still require a configured authority.
+        public const double TrainingMonsterRespawnDelaySeconds = 30d;
+
         // No fallback damage/AP/spawn rules: a configured local authority supplies the complete result.
         public Func<TrainingActionRequest,TrainingView,TrainingUnitsNotice> TrainingAuthority { get; set; }
         public Func<TrainingActionRequest,TrainingView,TrainingUnitsNotice> BattleAuthority { get; set; }

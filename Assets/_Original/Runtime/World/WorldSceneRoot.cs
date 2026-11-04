@@ -55,12 +55,18 @@ namespace DarkSaver.Original.World
             character = value.Copy(); definition = art.Definition;
             if (canvasObject == null) Build();
             canvasObject.SetActive(false);
-            try { if(campaign?.IsConfigured==true)definition=campaign.Merge(definition); }
+            try
+            {
+                if(campaign==null)throw new System.IO.InvalidDataException("맵/입구 설정 자산이 연결되지 않았습니다.");
+                definition=campaign.Merge(definition);
+            }
             catch(System.Exception e){Debug.LogWarning("NPC/map configuration rejected: "+e.Message,this);ShowFailure(WorldFailure.InvalidInput);canvasObject.SetActive(true);return;}
             server.ConfigureCampaign(campaign);
             var reply = server.Request_BeginWorld(art);
             if (!reply.Accepted) { ShowFailure(reply.Failure); canvasObject.SetActive(true); return; }
             running = true; view = reply.View;ResetTransientClientWindows();
+            var gateways=definition.gateways;
+            Debug.Log("로컬 입구 설정: "+(gateways?.applyToGame==true?"사용":"미사용")+" / 적용 연결 "+(gateways?.applyToGame==true?gateways.gates.Count(g=>g.enabled):0)+"개 / 카오시아 입구 "+definition.Map(1000).portals.Length+"개",this);
             if(server.CurrencyAuthority!=null)Handle(server.Request_CurrencyState());
             Paint();
             tutorial.enabled = false; canvasObject.SetActive(true);

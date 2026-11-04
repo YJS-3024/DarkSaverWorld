@@ -26,8 +26,15 @@ internal static class GatewayChecks
     private static void Main(string[] args)
     {
         root=args[0];var catalog=Catalog();Check(catalog.maps.Length==151&&catalog.maps.First(m=>m.id==1000).width==43,"editor/runtime share legacy Kaosia43 rather than late61");
-        var defaults=ScenarioGatewayData.Decode(File.ReadAllBytes(Path.Combine(Base,"Data/Campaign/UserGateways.json")));ScenarioGatewayData.Validate(defaults,catalog);
-        Check(!defaults.applyToGame&&defaults.gates.Length==0,"no automatically invented entrances or NPCs");
+        var authored=ScenarioGatewayData.Decode(File.ReadAllBytes(Path.Combine(Base,"Data/Campaign/UserGateways.json")));ScenarioGatewayData.Validate(authored,catalog);
+        var defaults=ScenarioGatewayData.Decode(ScenarioGatewayData.Encode(new ScenarioGatewaySettings()));
+        Check(!defaults.applyToGame&&defaults.gates.Length==0,"empty contract does not invent entrances or NPCs; authored file may legitimately be enabled");
+        var authoredWorld=World();ScenarioGatewayData.Apply(authored,catalog,authoredWorld);
+        foreach(var gate in authored.gates.Where(g=>authored.applyToGame&&g.enabled&&g.IsWalk))
+        {
+            var portal=authoredWorld.Map(gate.fromMap).portals.Single(p=>p.gateway==gate.id);
+            Check(portal.targetMap==gate.targetMap&&portal.cells.Select(c=>(c.x,c.y)).SequenceEqual(gate.Cells().Select(c=>(c.x,c.y))),"actual authored portal shape/target applied "+gate.name);
+        }
         var settings=Settings();var world=World();int before=world.maps.Sum(m=>m.npcs.Length);
         ScenarioGatewayData.Apply(settings,catalog,world);Check(world.maps.Sum(m=>m.npcs.Length)==before+1&&world.Map(1000).npcs.Length==1,"one manually authored NPC appended");
         ScenarioGatewayData.Apply(settings,catalog,world);Check(world.Map(1000).npcs.Length==1,"reapplying does not duplicate NPC");

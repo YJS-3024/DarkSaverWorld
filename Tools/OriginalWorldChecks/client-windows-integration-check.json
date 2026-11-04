@@ -1,5 +1,5 @@
 {
-  "checkedAtUtc": "2026-11-04T12:44:59.319068+00:00",
+  "checkedAtUtc": "2026-11-04T13:10:29.714251+00:00",
   "unityPlay": false,
   "unityEditorTestRunner": false,
   "physicalInput": false,
@@ -60,7 +60,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-candidate-data-check.json",
-      "sha256": "ef2104ea2a8fb91663ff7689a62f0dbed2e2bf792d81571a65aca1698ac691c7",
+      "sha256": "ba7a3ddec9c9660f26dd33bdd748bbd95ab2de9565a0fb40538b46ed00530293",
       "counts": {
         "assertions": 1035,
         "mismatches": 0,
@@ -74,7 +74,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/runtime-resource-bindings-check.json",
-      "sha256": "6b36cfe0c27b1d3d2b9868ce7c4c01c55b146aa04158fa7549cf56b6f3122327",
+      "sha256": "dc69cf6c04859602e40b28b2ea58d76551f5a963b308a012457f6a8c4f269b6a",
       "counts": {
         "assertions": 967,
         "mismatches": 0,
@@ -82,7 +82,7 @@
         "resourceKeys": 12,
         "resourceAssets": 219,
         "resourceInventoryKeys": 13,
-        "assetMetaInventory": 3983
+        "assetMetaInventory": 3986
       },
       "groups": {},
       "scope": "Roslyn syntax extraction of all current runtime Resources.Load calls: literal name/type lookup, duplicate/missing mutation controls, requested ScriptableObject MonoScript/class compatibility, recursive serialized GUID graph, JSON syntax and referenced GUID uniqueness. Asset/GUID inventory fingerprint excludes irrelevant importer formatting. No Unity import/deserialization, missing components, actual rendering/input/audio or Player Resources.Load execution."
@@ -293,7 +293,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/commander-name-check.json",
-      "sha256": "c993511320bb4d7ab5c739b218940dba0529d6067a2d2654186483a9f4b20fcb",
+      "sha256": "49c25975c1e5844b482be6837a7e81aa0f9815af476d5fb1612ae4d0e99324fc",
       "counts": {
         "assertions": 101,
         "nativePacketCases": 56,
@@ -417,7 +417,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-warehouse-check.json",
-      "sha256": "a6b0e5234a95df2d40bc7b1fc617f35ef7acb16f550de64a6c7e08003f9c8b4b",
+      "sha256": "1c6d44544fdfee81b3cd91b9768f04dcfbd5e37e245e2c570dec1486a7470309",
       "counts": {
         "assertions": 312,
         "nativeQueries": 5,
@@ -433,7 +433,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/nullable-serialization-analyzer.json",
-      "sha256": "a548546d7fbbb10384fa174f37789fefea9768cd68ecfed4df7c627221b87574",
+      "sha256": "713ed6dd402048fb121cf28d46960f6971a9742c486dc6602e5121956bc203d7",
       "counts": {
         "runtimeSources": 226,
         "mismatches": 0
@@ -462,7 +462,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-shop-check.json",
-      "sha256": "43d875f42cd7d72f4efc232950b47e7fbdf4e7465a4776b4a4c7a583bc1d6229",
+      "sha256": "4487edd981cf188f064865b46994d4680167df8fb010138b3c9cd48ef1e63545",
       "counts": {
         "assertions": 161,
         "nativeBuyCases": 11,
@@ -477,7 +477,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-world-message-check.json",
-      "sha256": "997e1623e82a52fdd60bf1b7b9c23354d6f86b157a03d6ec22d3c6df61866637",
+      "sha256": "0b5392aa213ba18301ebc48ca9273e8f115e89f1e90337a9fd47b731c59b891c",
       "counts": {
         "assertions": 205,
         "nativeDrawCases": 48,
@@ -518,7 +518,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-mercenary-check.json",
-      "sha256": "2f53d41aedee1212f552b8fe1e1aafd9991ca0d7415077b599205d06ae13d4c9",
+      "sha256": "22218fc19370dad98a205efe277902770107c3cfd5670795cec68d6836a8a952",
       "counts": {
         "assertions": 6791,
         "mismatches": 0,
@@ -543,7 +543,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-battle-options-check.json",
-      "sha256": "84c58de7500c0d7a68a8a7ff002599c6d9d01c03167a473a97336590cb1720fc",
+      "sha256": "ad58cedbb5f7ec9ee96d47e00ebb8bddf8c4478aeed1ed88c2f2638c01426c63",
       "counts": {
         "assertions": 16217,
         "mismatches": 0,
@@ -597,7 +597,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/picture-initialization-check.json",
-      "sha256": "60ca6d3a7364f7a156f74c27d6b46365154e02ec6bba46b292cee449faef6981",
+      "sha256": "cd7b086d6628bc3a497845586a9e66b2241fc8b7348a093f32acbc93135a86d2",
       "counts": {
         "mismatches": 0
       },
@@ -632,6 +632,24 @@
       },
       "groups": {},
       "scope": "Exact production queue methods with isolated GUI focus/repaint/scheduler and storage boundaries. Full Unity control/event dispatch and disk implementation are separate checks."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/authored-world-startup-check.json",
+      "sha256": "0a3d0df7bd4e7dd2ec7dc12069c6bf911460a312741c5a87035e9ba0eb13746b",
+      "counts": {
+        "mismatches": 0
+      },
+      "groups": {
+        "baseline": {
+          "assertions": null,
+          "scope": "Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."
+        },
+        "current": {
+          "assertions": null,
+          "scope": "Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."
+        }
+      },
+      "scope": "Focused owned-adjustment regression groups; see the source report."
     },
     {
       "report": "Tools/OriginalWorldChecks/character-reset-check.json",
@@ -679,7 +697,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/training-tier-check.json",
-      "sha256": "45734c26667705956ec8b2c35ef9d5baf7aa4fcbe89021ffb2f5d736848a6d20",
+      "sha256": "5e7316aaddae923d38eebf9e64bc7e81692bf4b791c37d16e75ebb9feb10bc07",
       "counts": {
         "checks": 100,
         "classes": 11,
@@ -713,7 +731,7 @@
   ],
   "api": {
     "report": "Tools/OriginalEntryChecks/entry-check.json",
-    "sha256": "ae633f3ceaf7c3e6cc32a98e900b71355e5a87e9d7a2367540a3993a4f9e6a3f",
+    "sha256": "c4fba3e588e6056a00c9a5c595c13bb05d0017acffe0c5b142f6c5296dd112dc",
     "runtimeSources": 226,
     "editorSources": 10,
     "errors": 0,
@@ -726,7 +744,7 @@
       "Assets/_Original/Runtime/Campaign/CampaignResultService.cs": "2cebc1c600e17882409ce756c3e48e462b77377c29cc297cac29e13ce2be7b1f",
       "Assets/_Original/Runtime/Campaign/CampaignService.cs": "939abb2a44f62a6d73f1850fe65d4d86e30fd459e604ce22f406706e77b9fce6",
       "Assets/_Original/Runtime/Campaign/LocalServerManager.Campaign.cs": "864748612d11cc4af29d3e191f962fbf08f6a71bff46d5d68006e24eb8983c55",
-      "Assets/_Original/Runtime/Campaign/NativeCampaignArt.cs": "1e43d79cabb90a8e2c4eb4df440c646b6326afa3e51700b17609e0fa44bfcb4a",
+      "Assets/_Original/Runtime/Campaign/NativeCampaignArt.cs": "da795748b8e4a7b2021b927f71c9411736133946d5f2063fc646943ad4a9d6da",
       "Assets/_Original/Runtime/Campaign/ScenarioGatewayService.cs": "04bd79e628f972f0052daf2d0f0152cbd48786317edb53cf27e7ed60f71ec716",
       "Assets/_Original/Runtime/Campaign/ScenarioGatewaySettings.cs": "7b77a6949b61556d5f6bd609e6bcbfb60fadf831b84e77a9f8d09aa9d014561a",
       "Assets/_Original/Runtime/Campaign/WorldSceneRoot.Campaign.cs": "fe065e7339c2b82fb199ed2414152a0cd77b815b7c36195f0ae82ae5ba708763",
@@ -903,7 +921,7 @@
       "Assets/_Original/Runtime/World/LocalServerManager.Shop.cs": "41288760d13c40e93e7258067fe224b61dfe3e9cf4fff5d2f52f817e3757797d",
       "Assets/_Original/Runtime/World/LocalServerManager.TempleAlignment.cs": "f6292020b9eba9d3cf9ebd99697b137c89d78605df34c535b89e70d63d06bca6",
       "Assets/_Original/Runtime/World/LocalServerManager.Warehouse.cs": "a62b4800289da2c947a5987477f6a12e2305b778914f93fcc4f09949da46719b",
-      "Assets/_Original/Runtime/World/LocalServerManager.World.cs": "3d486442be8bb3453b40df97acbd7b0f53fc4cc512b254bf70c8d258878dffc0",
+      "Assets/_Original/Runtime/World/LocalServerManager.World.cs": "6097b2ff970f1ee6fa2f388deebad11649b52f86f1e7fb57e179275a4ac15287",
       "Assets/_Original/Runtime/World/MercenaryTransfer.cs": "24ddcf4e1eeb3dd5f590fd4af4da5bc2b5ad25926998f76ecb853c5383afac12",
       "Assets/_Original/Runtime/World/MercenaryTransferService.cs": "0da9884a6b7f11354034d5b63921c26e5965f846e42560173181a067aff663b1",
       "Assets/_Original/Runtime/World/NativeWorldArt.cs": "fed19a7596139069c59986ad76c59a2f30a62205426b9f2095de9e5bdf9807c4",
@@ -943,7 +961,7 @@
       "Assets/_Original/Runtime/World/WorldSceneRoot.Training.cs": "e9422b47c0c9421dd69bbde73356ba266ae71bb91b24c990109ddb25637d61a4",
       "Assets/_Original/Runtime/World/WorldSceneRoot.TroopOrders.cs": "fbf51a3903f90871d8c9ead99d80a47d610baab8dc39f15d638e59cbd41e3944",
       "Assets/_Original/Runtime/World/WorldSceneRoot.Utilities.cs": "568c6a947fbe32a8adf7a49134886d302e59757433a88699205012799439cdd5",
-      "Assets/_Original/Runtime/World/WorldSceneRoot.cs": "887fa3f25b89866a953b43bc7128754b131e69cf00a5ce1096a1dd3d54386091",
+      "Assets/_Original/Runtime/World/WorldSceneRoot.cs": "1033900589edb8c76ba0b3d95b7c7398044b971491ebba4f5cd772e64c3b2038",
       "Assets/_Original/Runtime/World/WorldService.cs": "ab5a1b667afd69efeb988e4e2eaff1b66838023973aacf01833f303bd801865b",
       "Assets/_Original/Editor/LocalCharacterReset.cs": "6e1f76229aead06d9bd4f8a354a9eb15461eeae8466126ed05a3b589f732903f",
       "Assets/_Original/Editor/LocalEntryAccountWindow.cs": "0017da1e4ac3bd6cefca0bc83c151410fc6d1fe60232b0a5ea1f73b3d86307f0",
@@ -958,7 +976,7 @@
     }
   },
   "sourceAudit": {
-    "declaredSources": 2117,
+    "declaredSources": 2121,
     "scriptGuids": 236,
     "assetCSharpSources": 236,
     "pixelTextures": 1144,
@@ -969,7 +987,7 @@
     "report": "분석/Ghidra/Saver_Late/ClientWindows/evidence.json",
     "sha256": "5046811d8057afc1d7b8b6d64b5cddce063b70d6c1aa5ac94968c830edb0afe1"
   },
-  "toolSha256": "8fce17a6d0f20ff65eee4351dfd4317057dbe0bc5da5d1807aa974236bdf9195",
+  "toolSha256": "148152343ec8523dfa05e6b49a25af362d2aefd7f3e4f136df55881d52408b2c",
   "resourceArtifacts": [
     {
       "report": "Tools/OriginalWorldChecks/native-shop-details-art.json",

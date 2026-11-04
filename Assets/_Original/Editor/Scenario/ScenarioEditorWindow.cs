@@ -239,6 +239,12 @@ namespace DarkSaver.Original.Editor.Scenarios
                     throw new IOException("원본 배치 목록이 변경되었습니다. 다시 불러온 뒤 편집하세요.");
                 savedHash = ScenarioLayoutData.Save(LayoutFolder, document, source.layout, new HashSet<int>(jobs.Keys), string.IsNullOrEmpty(savedHash) ? null : savedHash);
                 document.edited = !ScenarioLayoutData.SameUnits(document, source.layout); dirty = false; hasUnsavedChanges = dirtyGateways;
+                if(int.TryParse(mapKey,out int trainingMap)&&trainingMap>=101&&trainingMap<=107)
+                {
+                    string testFolder=BasePath+"Resources/TrainingTestLayouts";
+                    Directory.CreateDirectory(testFolder);
+                    File.Copy(LayoutFolder+"/"+mapKey+".json",testFolder+"/"+mapKey+".json",true);
+                }
                 AssetDatabase.Refresh(); message = "저장: " + LayoutFolder + "/" + mapKey + ".json"; return true;
             }
             catch (Exception e) { message = e.Message; return false; }

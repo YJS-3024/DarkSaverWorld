@@ -1,0 +1,32 @@
+{
+  "results": {
+    "baseline": {
+      "checks": 3,
+      "applied": 0,
+      "kaosiaPortals": 10,
+      "unityPlay": false,
+      "scope": "Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."
+    },
+    "current": {
+      "checks": 63,
+      "applied": 22,
+      "kaosiaPortals": 14,
+      "unityPlay": false,
+      "scope": "Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."
+    }
+  },
+  "mismatches": 0,
+  "unityPlay": false,
+  "sources": {
+    "Tools/OriginalWorldChecks/check_authored_world_startup.py": "cc52a5c944718402fdbc3d1d36f197ca590cc98117471ca9a7109913a542addf",
+    "Tools/OriginalWorldChecks/AuthoredWorldStartupChecks.cs": "b3ddb568acab30e9930d12ee2462dfb3abd08b768b8ed0ef4c69348ef48ae534",
+    "Assets/_Original/Runtime/World/LocalServerManager.World.cs": "6097b2ff970f1ee6fa2f388deebad11649b52f86f1e7fb57e179275a4ac15287",
+    "Assets/_Original/Runtime/Campaign/NativeCampaignArt.cs": "da795748b8e4a7b2021b927f71c9411736133946d5f2063fc646943ad4a9d6da",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.cs": "1033900589edb8c76ba0b3d95b7c7398044b971491ebba4f5cd772e64c3b2038",
+    "Tools/OriginalWorldChecks/check_picture_initialization.py": "a47a03310d47d9f860da3ed46a9393649ad3763acd172d14d31839b8a0939618",
+    "Assets/_Original/Data/Campaign/UserGateways.json": "521cdcfc51b6b3185ff85d2957cdc4ad44d05f0a89de3fd5f81777e18525bc08",
+    "Assets/_Original/Data/Campaign/CampaignCatalog.json": "1d0ea0778a4d5c0545844dd3c72596c2ae2478b913f0a4ad7ede999a951feb24",
+    "Assets/_Original/Data/World/KaosiaWorld.json": "a363946fa1d691f045c4edbc628ac5cc20fe911d858e6791b8df77f567374e0f"
+  },
+  "logs": "/tmp/ds-portable-validation/ds-authored-world-startup"
+}
