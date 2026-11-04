@@ -111,6 +111,8 @@ namespace DarkSaver.Original.Editor.Scenarios
             string title=mapNames.TryGetValue(key,out var custom)?custom:map?.title;
             return string.IsNullOrWhiteSpace(title)||title==key?label:title+" ["+label+"]";
         }
+        // Unity Popup treats ASCII '/' as a submenu delimiter, even in map titles.
+        private static string FlatPopupLabel(string value) => (value??"").Replace("/"," · ");
         private string MapLabel(int id)
         {
             var map=gatewayCatalog?.maps?.FirstOrDefault(m=>m.id==id);

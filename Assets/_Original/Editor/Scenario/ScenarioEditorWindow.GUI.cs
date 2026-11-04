@@ -122,7 +122,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             }
             GUILayout.EndHorizontal();
             var categories=new[]{"전체","시나리오","수련장","대련장","튜토리얼","월드/필드","마을","실내"};
-            category=EditorGUILayout.Popup(category,categories);
+            category=EditorGUILayout.Popup(category,categories.Select(FlatPopupLabel).ToArray());
             mapScroll=EditorGUILayout.BeginScrollView(mapScroll);
             foreach(var key in keys)
             {
@@ -166,7 +166,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                 if(choices.Length>0)
                 {
                     int at=Array.FindIndex(choices,j=>j.id==addJob);if(at<0)at=0;
-                    int next=EditorGUILayout.Popup(at,choices.Select(j=>j.ToString()).ToArray());addJob=choices[next].id;
+                    int next=EditorGUILayout.Popup(at,choices.Select(j=>FlatPopupLabel(j.ToString())).ToArray());addJob=choices[next].id;
                     if(!picturePaths.ContainsKey(choices[next].picture))EditorGUILayout.HelpBox("이 병종의 원본 그림이 없어 ?와 ID로 표시합니다.",MessageType.Warning);
                     if(GUILayout.Button("뷰 중앙에 추가")){var center=viewport.size*.5f;AddAt(NativeMapDecoder.Grid(center.x,pan.x,zoom,document.width),NativeMapDecoder.Grid(center.y,pan.y,zoom,document.height));}
                 }

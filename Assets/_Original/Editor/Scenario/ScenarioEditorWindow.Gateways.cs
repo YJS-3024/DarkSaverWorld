@@ -152,11 +152,11 @@ namespace DarkSaver.Original.Editor.Scenarios
                 GUILayout.Label("출발: "+MapLabel(gate.fromMap)+"\n도착: "+MapLabel(gate.targetMap),EditorStyles.wordWrappedLabel);
                 if(!string.IsNullOrEmpty(gate.replacesPortal))GUILayout.Label("기존 출입구 수정: "+gate.replacesPortal,EditorStyles.wordWrappedMiniLabel);
                 if(!gate.IsWalk){var npcs=gatewayCatalog.npcJobs;var options=new[]{"외형을 선택하세요"}.Concat(npcs.Select(id=>jobs.TryGetValue(id,out var j)?j.ToString():id.ToString())).ToArray();
-                int npcAt=Array.IndexOf(npcs,gate.npcJob)+1,npc=EditorGUILayout.Popup("NPC 외형",npcAt,options);
+                int npcAt=Array.IndexOf(npcs,gate.npcJob)+1,npc=EditorGUILayout.Popup("NPC 외형",npcAt,options.Select(FlatPopupLabel).ToArray());
                 if(npc!=npcAt){RememberGateway();gate.npcJob=npc==0?-1:npcs[npc-1];}
                 }
                 var targets=gatewayCatalog.maps.Where(m=>m.id!=gate.fromMap&&(gate.IsWalk||m.kind=="scenario")).OrderBy(m=>m.id).ToArray();
-                int at=Array.FindIndex(targets,m=>m.id==gate.targetMap)+1,next=EditorGUILayout.Popup("도착 맵",at,new[]{"도착 맵을 선택하세요"}.Concat(targets.Select(m=>Title(m.key))).ToArray());
+                int at=Array.FindIndex(targets,m=>m.id==gate.targetMap)+1,next=EditorGUILayout.Popup("도착 맵",at,new[]{"도착 맵을 선택하세요"}.Concat(targets.Select(m=>FlatPopupLabel(Title(m.key)))).ToArray());
                 if(next!=at){RememberGateway();gate.targetMap=next==0?-1:targets[next-1].id;gate.targetHash=next==0?"":targets[next-1].hash;gate.spawnX=gate.spawnY=-1;pickNpc=pickSpawn=dragGateway=sizingGateway=false;}
                 EditorGUI.BeginChangeCheck();int x=EditorGUILayout.DelayedIntField("출발 X (좌상단)",gate.x),y=EditorGUILayout.DelayedIntField("출발 Y (좌상단)",gate.y);
                 int width=gate.IsWalk?EditorGUILayout.DelayedIntField("가로 칸 수",gate.Width):1,height=gate.IsWalk?EditorGUILayout.DelayedIntField("세로 칸 수",gate.Height):1;
