@@ -61,6 +61,12 @@ namespace DarkSaver.Original.Entry
         public WorldReply Notify_ScenarioExit(CampaignExitNotice notice)=>ScenarioExitResult(s=>s.ReceiveScenarioExit(notice));
         private WorldReply ScenarioExitResult(Func<EntryAccountService,WorldReply> apply)
         {var result=WorldRequest(apply);if(result.Accepted&&result.View?.record.scenarioVisit==null)Notify_ScenarioExited?.Invoke(result);return result;}
+        private bool CampaignContextCurrent(WorldView expected)
+        {
+            var current=WorldSnapshot;
+            return isActiveAndEnabled&&current!=null&&current.characterId==expected.characterId
+                &&current.campaignSession==expected.campaignSession&&current.record.map==expected.record.map;
+        }
         private void PumpScenarioFlow()
         {
             if(pumpingCampaign||!isActiveAndEnabled||service==null)return;
@@ -68,6 +74,7 @@ namespace DarkSaver.Original.Entry
             if(view==null)return;
             bool scenario=campaignArt?.Definition.Map(view.record.map)?.kind=="scenario";
             if(campaignDispatchSession!=view.campaignSession){campaignDispatchSession=view.campaignSession;campaignDispatch.Clear();}
+            var dispatchContext=view;
             pumpingCampaign=true;
             try
             {
@@ -75,34 +82,49 @@ namespace DarkSaver.Original.Entry
                 if(scenario&&idle&&view.record.campaignPhase=="explore"&&view.battle==null)
                 {
                     if(ScenarioInitialAuthority!=null&&campaignDispatch.Add("initial"))
-                    {var notice=ScenarioInitialAuthority(view);if(notice!=null)Notify_BattleUnits(notice);}
+                    {var notice=ScenarioInitialAuthority(view);if(!CampaignContextCurrent(dispatchContext))return;if(notice!=null)Notify_BattleUnits(notice);}
+                    if(!CampaignContextCurrent(dispatchContext))return;
                     if(campaignDispatch.Add("initial-notify"))Notify_ScenarioInitialRequested?.Invoke(view);
                 }
+                if(!CampaignContextCurrent(dispatchContext))return;
                 foreach(var request in service.PendingCampaignRequests())
                 {
                     if(!campaignDispatch.Add("command:"+request.id))continue;
                     Notify_ScenarioScriptRequest?.Invoke(request.Copy());
+                    if(!CampaignContextCurrent(dispatchContext))return;
                     view=WorldSnapshot;
-                    if(view==null||view.campaignSession!=request.session)break;
+                    if(view.campaignSession!=request.session)break;
                     bool handled=false;
                     if(request.packet.SequenceEqual(new byte[]{0x5c,0x20,1})||request.packet.SequenceEqual(new byte[]{0x5c,0x20,2}))
                     {
                         if(request.visit==view.record.scenarioVisit?.id&&ScenarioClearAuthority!=null&&view.record.campaignPhase=="explore"&&(view.presentation==null||view.presentation.completed))
-                        {var clear=ScenarioClearAuthority(view);if(clear!=null)handled=Receive_ScenarioClear(clear).Accepted;}
+                        {var clear=ScenarioClearAuthority(view);if(!CampaignContextCurrent(dispatchContext))return;if(clear!=null)handled=Receive_ScenarioClear(clear).Accepted;}
                         else if(request.visit==view.record.scenarioVisit?.id&&(view.record.campaignPhase=="outro"||view.record.campaignPhase=="complete")||request.visit==view.record.lastScenarioResult?.visit)handled=true;
                         // A clear request emitted inside an event waits until that event has ended.
                         else if(view.presentation!=null&&!view.presentation.completed)campaignDispatch.Remove("command:"+request.id);
                     }
                     else if(ScenarioScriptAuthority!=null)handled=ScenarioScriptAuthority(request.Copy(),view);
+                    if(!CampaignContextCurrent(dispatchContext))return;
                     if(handled)Notify_ScenarioScriptHandled(request);
+                    if(!CampaignContextCurrent(dispatchContext))return;
                 }
+                if(!CampaignContextCurrent(dispatchContext))return;
                 view=WorldSnapshot;
                 if(view!=null&&scenario&&view.record.campaignPhase=="complete"&&view.record.scenarioVisit?.result==null&&ScenarioResultAuthority!=null&&campaignDispatch.Add("result"))
-                {var result=ScenarioResultAuthority(view);if(result!=null)Notify_ScenarioResult(result);}
+                {var result=ScenarioResultAuthority(view);if(!CampaignContextCurrent(dispatchContext))return;if(result!=null)Notify_ScenarioResult(result);}
             }
-            finally{pumpingCampaign=false;}
+            finally{if(!CampaignContextCurrent(dispatchContext))campaignDispatch.Clear();pumpingCampaign=false;}
         }
         private void FlushCampaignEffects()
-        { if (service != null) foreach (var command in service.DrainCampaignEffects()) PublishScenarioEffect(command); }
+        {
+            if(service==null)return;
+            var commands=service.DrainCampaignEffects();var context=WorldSnapshot;
+            if(context==null||!isActiveAndEnabled)return;
+            foreach(var command in commands)
+            {
+                if(!CampaignContextCurrent(context))break;
+                PublishScenarioEffect(command);
+            }
+        }
     }
 }

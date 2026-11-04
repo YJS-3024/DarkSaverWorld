@@ -34,7 +34,7 @@ namespace DarkSaver.Original.World
         {
             var map=DisplayMap(mapId).map;var tile=new TutorialTile(x,y);
             if(!map.Contains(tile))return -1;
-            return nativeBodyAttributes!=null&&nativeBodyAttributes.Length==map.width*map.height?nativeBodyAttributes[y*map.width+x]:map.RenderAttribute(tile);
+            return NativeBodyOrder.Attribute(nativeBodyAttributes!=null&&nativeBodyAttributes.Length==map.width*map.height?nativeBodyAttributes[y*map.width+x]:map.RenderAttribute(tile));
         }
         private TrainingUnit NativeSourceUnit(BodySource source)
             =>BattleMap()&&view.presentation?.completed!=false?view.battle?.Unit(source.occupant.id):null;

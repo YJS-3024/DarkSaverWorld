@@ -67,7 +67,8 @@ def main():
  assert 'isReadable: 1' in (BASE/'Art/World/Items.png.meta').read_text()
  assert (BASE/'Data/World/KaosiaWorld.json').read_bytes().find(b'\r')<0
  tutorial=json.loads((ROOT/'Tools/OriginalTutorialChecks/tutorial-check.json').read_text())
- result.update(maps=11,staff=evidence['staff'],shopItems=85,sourceLinkedOutputs=len(evidence['outputs']),sourceHashes=len(evidence['sources']),
+ world=json.loads((BASE/'Data/World/KaosiaWorld.json').read_text())
+ result.update(maps=len(world['maps']),staff=sum(len(m['npcs'])for m in world['maps']),shopItems=sum(len(s['items'])for s in world['shops']),sourceLinkedOutputs=len(evidence['outputs']),sourceHashes=len(evidence['sources']),
    tutorialRegression=tutorial['assertions'],entryRegression=tutorial['entryRegressionAssertions'],runtimeApiErrors=tutorial['runtimeApiErrors'],editorApiErrors=tutorial['editorApiErrors'],playerApiErrors=tutorial['playerApiErrors'],warnings=tutorial['warnings'],sceneScriptsResolved=4,
    scope='Production state/auth/movement/routes/transactions/save tests and API/source audits. Native fields and held policies are distinct; no Unity import, mouse Play, audio or battle validation.',logs=str(WORK))
  Path(__file__).with_name('world-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result,ensure_ascii=False))

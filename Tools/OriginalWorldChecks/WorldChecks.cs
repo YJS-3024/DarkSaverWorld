@@ -56,14 +56,14 @@ internal static class WorldChecks
         Check(!f.View.record.goldKnown&&!f.View.record.bankKnown&&!f.Def.rules.bankFeeKnown&&!f.Def.rules.storageRuleKnown&&!f.Def.rules.reviveRuleKnown,"no invented starting funds/free services");
         Check(f.Def.Map(1000).map.width==43&&f.Def.Map(1000).decorations.Length==225,"user-confirmed43x43 native town");
         Check(f.Server.EnterWorldPortal("enter-2000",false).Failure==WorldFailure.InvalidInput,"entry requires actual door arrival");
-        var ids=f.Def.maps.Where(m=>m.id!=1000).Select(m=>m.id).ToArray();
+        var ids=f.Def.Map(1000).portals.Select(p=>p.targetMap).Distinct().ToArray();
         foreach(int id in ids)
         {
             f.Enter(id);routes++;var map=f.Def.Map(id);
             Check(f.View.record.map==id&&f.View.record.x==10&&f.View.record.y==(id==101?7:map.map.height-2),"entry at interior door/training center "+id);
             if(id==101)
             {
-                Check(f.Store.Data.accounts[0].character.world.map==1000,"training stores town return instead of battle");f.Walk(10,8);var before=State(f.View.record);f.Leave();Check(f.View.record.map==1000&&f.View.record.x==8&&f.View.record.y==21,"flee returns to training entrance");continue;
+                Check(f.Store.Data.accounts[0].character.world.map==1000,"training stores town return instead of battle");var before=State(f.View.record);Check(f.Server.MoveWorld(10,8).Failure==WorldFailure.InvalidStage&&State(f.View.record)==before,"training roster wait rejects town walking without mutation");f.Leave();Check(f.View.record.map==1000&&f.View.record.x==8&&f.View.record.y==21,"flee returns to training entrance");continue;
             }
             foreach(var npc in map.npcs)
             {
@@ -136,7 +136,7 @@ internal static class WorldChecks
         Check(f.Server.ReviveWorld(token,Id()).Failure==WorldFailure.StorageUnavailable&&State(f.View.record)==state,"failed revival does not remove ghost/debit");f.Store.Fail=false;
         Check(f.Server.ReviveWorld(token,Id()).Accepted&&!f.View.record.ghost&&f.View.record.hp==200&&f.View.record.mp==45&&f.View.record.gold==400,"only explicit synthetic revival policy changes health");
         Check(f.Server.ReviveWorld(token,Id()).Failure==WorldFailure.InvalidStage&&f.View.record.gold==400,"repeat revival not charged");
-        var training=new Fixture();training.Enter(101);training.Walk(10,8);training.Client.Logout();training.Client.OpenLocalProfile();
+        var training=new Fixture();training.Enter(101);Check(training.Server.MoveWorld(10,8).Failure==WorldFailure.InvalidStage,"training waiting input is not town movement");training.Client.Logout();training.Client.OpenLocalProfile();
         Check(training.Server.BeginWorld(training.Def).Accepted&&training.View.record.map==1000&&training.View.record.x==8&&training.View.record.y==21,"interrupted training reconnects at town entrance");
         var movement=new Fixture();state=State(movement.View.record);movement.Server.MoveWorld(22,21);movement.Store.Fail=true;
         for(int i=0;i<10&&movement.View.moving;i++)movement.Server.AdvanceWorld(80);
@@ -147,12 +147,12 @@ internal static class WorldChecks
         var copy=f.View;copy.record.gold=0;Check(f.View.record.gold==400,"world replies cannot mutate authoritative wallet");
         var large=new Fixture(true,new WorldRecord{goldKnown=true,gold=ulong.MaxValue-1,bankKnown=true,bank=10});token=large.Open(2400);large.Def.rules.bankFee=1;
         Check(large.Server.BankWorld(false,2,token,Id()).Accepted&&large.View.record.gold==ulong.MaxValue&&large.View.record.bank==8,"unsigned balance arithmetic subtracts quoted fee before addition");
-        var crossing=new Fixture();crossing.Enter(101);
-        crossing.Def.Map(101).portals=new[]{new WorldPortal{id="fixture-crossed-door",targetMap=1000,spawnX=8,spawnY=21,cells=new[]{new WorldPoint{x=10,y=8}}}};
-        Require(crossing.Server.MoveWorld(10,9).Accepted,"route beyond fixture door");crossing.Server.AdvanceWorld(2000);
-        Check(!crossing.View.moving&&crossing.View.record.y==9&&crossing.View.pendingPortal==null,"unselected door is avoided in transit instead of entering a different facility");
-        Require(crossing.Server.MoveWorld(10,8).Accepted,"explicit fixture door target");crossing.Server.AdvanceWorld(2000);
-        Check(!crossing.View.moving&&crossing.View.record.y==8&&crossing.View.pendingPortal=="fixture-crossed-door","explicit door target stops on the entry grid cell");
+        var crossing=new Fixture();crossing.Enter(2000);
+        crossing.Def.Map(2000).portals=new[]{new WorldPortal{id="fixture-crossed-door",targetMap=1000,spawnX=8,spawnY=21,cells=new[]{new WorldPoint{x=10,y=12}}}};
+        Require(crossing.Server.MoveWorld(10,11).Accepted,"route beyond fixture door");crossing.Server.AdvanceWorld(2000);
+        Check(!crossing.View.moving&&crossing.View.record.y==11&&crossing.View.pendingPortal==null,"unselected door is avoided in transit instead of entering a different facility");
+        Require(crossing.Server.MoveWorld(10,12).Accepted,"explicit fixture door target");crossing.Server.AdvanceWorld(2000);
+        Check(!crossing.View.moving&&crossing.View.record.y==12&&crossing.View.pendingPortal=="fixture-crossed-door","explicit door target stops on the entry grid cell");
         string path=Path.Combine(Path.GetTempPath(),"world-schema-"+Id()+".json");
         try{var disk=new LocalAccountFileStore(path);Check(disk.TryWrite(f.Store.Data)&&disk.TryRead(out var read)&&read.accounts[0].character.world.hp==200,"real file roundtrip preserves optional world schema");}
         finally{if(File.Exists(path))File.Delete(path);}

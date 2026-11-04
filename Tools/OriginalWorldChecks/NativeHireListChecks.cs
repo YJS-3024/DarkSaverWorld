@@ -26,6 +26,11 @@ internal static class NativeHireListChecks
         Require(offers.First(o=>o.job==200).limit==4,"duplicate unit maximum not summed");Require(offers.First(o=>o.job==201).limit==2,"different hire family maximum");
         foreach(var row in offers){var unit=source.units.Single(u=>u.job==row.job);Require(row.name==unit.name&&row.picture==unit.picture&&row.price==unit.price&&row.commander==100,"unit table/selected commander projection");}
         Require(source.Offers(new WorldRecord()).Length==0,"missing learned skills cannot grant class stock");Require(source.Offers(null).Length==0,"missing record");
+        var growth=JsonSerializer.Deserialize<CharacterGrowthCatalog>(File.ReadAllText(Path.Combine(args[0],"Assets/_Original/Data/Growth/CharacterGrowth.json")),Json);
+        var mage=growth.Row(103,1);
+        var mageOffers=source.Offers(new WorldRecord{growth=new CharacterGrowthRecord{job=103,skills=mage.skills}});
+        Require(mage.skills.Contains(21701)&&mageOffers.Select(o=>o.job).SequenceEqual(new[]{200,201,202}),"explicit original first mage skills expose Soldier D/C/B");
+        Require(mageOffers.All(o=>o.limit==4),"first mage hire maximum four, not sum of families");
         record.growth.skills=new[]{20101,20101,20101,20101,20101,20101,20101,20101,21707};Require(source.Offers(record).All(o=>o.job!=291),"ninth skill slot excluded by original loop");
         Console.WriteLine(JsonSerializer.Serialize(new{assertions=count,mismatches=0,unityPlay=false}));
     }

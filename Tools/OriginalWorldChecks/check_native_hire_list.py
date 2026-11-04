@@ -30,6 +30,7 @@ def main():
   p=subprocess.run(cmd,cwd=ROOT,env=env,text=True,capture_output=True);(WORK/(phase+'.log')).write_text(p.stdout+p.stderr)
   if p.returncode:raise RuntimeError((p.stdout+p.stderr)[-2000:])
  result=json.loads(p.stdout);paths=[Path(__file__),OUT/'native_hire_list_emulator.py',OUT/'NativeHireListChecks.cs',OUT/'build_native_mercenary_catalog.py',OUT/'native-mercenary-catalog-art.json',ROOT/'Assets/_Original/Resources/OriginalMercenarySkills.json',ROOT/'Assets/_Original/Runtime/Growth/NativeMercenaryCatalog.cs',ROOT/'Assets/_Original/Runtime/World/NativeWorldArt.cs',ROOT/'Assets/_Original/Runtime/World/WorldModel.cs',ROOT/'Assets/_Original/Runtime/World/WorldService.cs',ROOT/'Assets/_Original/Runtime/World/MercenaryTransferService.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.Facilities.cs']
+ paths.append(ROOT/'Assets/_Original/Data/Growth/CharacterGrowth.json')
  evidence=ROOT/'분석/Ghidra/Saver_Late/Mercenary/evidence.json';paths.append(evidence)
  for row in json.loads(evidence.read_text())['files']:
   path=ROOT/row['asset'];assert hashlib.sha256(path.read_bytes()).hexdigest()==row['sha256'];paths.append(path)

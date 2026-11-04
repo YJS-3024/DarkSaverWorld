@@ -129,7 +129,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             else if(source.layout.units.Length>0&&document.units.Length==0)EditorGUILayout.HelpBox("원본에는 몬스터가 있으나 현재 사용자 편집 배치가 비어 있습니다. 원본 배치 불러오기로 복원할 수 있습니다.",MessageType.Warning);
             GUILayout.Label("아군 POS "+source.entries.Length+" · 상자 "+source.events.Count(m=>m.kind=="chest")+" · 조건 "+source.events.Count(m=>m.kind=="event"),EditorStyles.miniLabel);
             grid=EditorGUILayout.ToggleLeft("격자 표시",grid);labels=EditorGUILayout.ToggleLeft("ID / 이름 표시",labels);
-            groups=EditorGUILayout.ToggleLeft("unit 10단위 묶음 테두리",groups);
+            groups=EditorGUILayout.ToggleLeft("unit 5슬롯 묶음 테두리",groups);
             entries=EditorGUILayout.ToggleLeft("아군 POS 슬롯 / 로컬 진입점",entries);
             chests=EditorGUILayout.ToggleLeft("상자 위치",chests);quests=EditorGUILayout.ToggleLeft("이벤트 조건 위치",quests);
             GUILayout.Space(6);
@@ -241,7 +241,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             }
             if(e.type==EventType.MouseUp&&e.button==0){dragging=false;dragRemembered=false;}
         }
-        private Color GroupColor(int id) => Color.HSVToRGB(Mathf.Repeat(id/10*.618034f,1),.55f,1);
+        private Color GroupColor(int id) => Color.HSVToRGB(Mathf.Repeat(id/5*.618034f,1),.55f,1);
         private Rect TileRect(int x,int y) => new Rect(pan.x+x*32*zoom,pan.y+y*32*zoom,32*zoom,32*zoom);
         private void DrawMap()
         {
@@ -258,11 +258,11 @@ namespace DarkSaver.Original.Editor.Scenarios
             {
                 if(groups)
                 {
-                    foreach(var group in document.units.GroupBy(u=>u.unit/10))
+                    foreach(var group in document.units.GroupBy(u=>u.unit/5))
                     {
-                        var leader=group.FirstOrDefault(u=>u.unit%10==0);if(leader==null)continue;
+                        var anchor=group.OrderBy(u=>u.unit).First();
                         var low=TileRect(group.Min(u=>u.x),group.Min(u=>u.y));var high=TileRect(group.Max(u=>u.x),group.Max(u=>u.y));
-                        var color=GroupColor(leader.unit);color.a=.55f;Outline(Rect.MinMaxRect(low.x-2,low.y-2,high.xMax+2,high.yMax+2),color,1);
+                        var color=GroupColor(anchor.unit);color.a=.55f;Outline(Rect.MinMaxRect(low.x-2,low.y-2,high.xMax+2,high.yMax+2),color,1);
                     }
                 }
                 foreach(var unit in document.units)DrawActor(unit.unit,unit.job.ToString(),unit.x,unit.y,GroupColor(unit.unit),unit.unit==selected);

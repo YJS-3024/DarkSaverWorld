@@ -30,7 +30,14 @@ def main():
   p=subprocess.run(cmd,cwd=ROOT,env=env,text=True,capture_output=True);(WORK/(phase+'.log')).write_text(p.stdout+p.stderr)
   if p.returncode:raise RuntimeError((p.stdout+p.stderr)[-1900:])
  result=json.loads(p.stdout);paths=[Path(__file__),OUT/'native_class_presentation_emulator.py',OUT/'native_class_adjustments_emulator.py',OUT/'ClassPresentationChecks.cs',catalog,ROOT/'Assets/_Original/Runtime/UI/NativeClassPresentation.cs',ROOT/'Assets/_Original/Runtime/Growth/NativeClassMagicClient.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.StatAdjustment.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.MagicLoadout.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.ClassChange.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.Facilities.cs',OUT/'native-class-presentation-art.json'];art=json.loads(paths[-1].read_text());assert sha(ROOT/art['resource'])==art['sha256'];paths.extend(ROOT/name for name in art['sources']);paths.append(ROOT/art['resource'])
- for row in art['outputs']:assert sha(ROOT/row['asset'])==row['sha256'];paths.append(ROOT/row['asset'])
+ from metadata_provenance import verify_output
+ reconciled=[]
+ for row in art['outputs']:
+  observed=verify_output(ROOT,row)
+  if observed:reconciled.append(observed)
+  paths.append(ROOT/row['asset'])
+ result['metadataReconciliations']=reconciled
+ paths.extend([OUT/'metadata_provenance.py',OUT/'pixel-import-policy.json',OUT/'pixel-import-check.json'])
  assert art['embeddedBitmap']['id']==154 and art['embeddedBitmap']['dibSha256']=='6e840a0dfab43f2ae17abf51c27cbc081ff74fdc93c745e13a65556a9469b0e4'
  from PIL import Image
  image=Image.open(ROOT/art['outputs'][0]['asset']).convert('RGBA');assert image.size==(32,32)and hashlib.sha256(image.tobytes()).hexdigest()==art['embeddedBitmap']['rgbaSha256'];assert all(a==(0 if r==g==b==0 else 255)for r,g,b,a in image.get_flattened_data())

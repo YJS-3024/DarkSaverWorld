@@ -189,6 +189,8 @@ def main():
     build_utilities()
     from build_world_chat_assets import build as build_world_chat
     build_world_chat()
+    from register_training_maps import main as register_training
+    register_training()
     print(json.dumps({k:report[k] for k in ['maps','staff','decorations','shopCounts','hireOffers']},ensure_ascii=False))
 
 

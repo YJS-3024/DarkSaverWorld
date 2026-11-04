@@ -176,6 +176,24 @@ internal static class ScenarioProgressChecks
         Check(managerFixture.server.PendingCampaignRequests().Length==0&&dispatches==2,"manager acknowledges both native clear and general requests");
         Check(manager.Request_ConfirmScenarioResult(managerFixture.View.record.scenarioVisit.result.id,Id()).Accepted,"manager result confirm returns");
         manager.TestAdvance(0);Check(managerFixture.View.record.map==1000&&results==1&&clears==1,"town update cannot repeat scenario authority");
+        var interrupted=new Fixture(3,"END","END");interrupted.Finish();
+        var interruptedManager=new LocalServerManager(interrupted.server);interruptedManager.ConfigureCampaign(new NativeCampaignArt{Definition=interrupted.catalog});
+        int staleInitial=0;interruptedManager.ScenarioInitialAuthority=v=>{interruptedManager.isActiveAndEnabled=false;return null;};
+        interruptedManager.Notify_ScenarioInitialRequested+=v=>staleInitial++;interruptedManager.TestAdvance(0);
+        Check(staleInitial==0,"initial provider disabling manager stops downstream initial notification");
+        var interruptedScript=new Fixture(3,"GETGENERAL 100\nEND","END");interruptedScript.Finish();
+        var scriptManager=new LocalServerManager(interruptedScript.server);scriptManager.ConfigureCampaign(new NativeCampaignArt{Definition=interruptedScript.catalog});
+        int staleAuthority=0;scriptManager.Notify_ScenarioScriptRequest+=r=>scriptManager.isActiveAndEnabled=false;
+        scriptManager.ScenarioScriptAuthority=(r,v)=>{staleAuthority++;return true;};scriptManager.TestAdvance(0);
+        Check(staleAuthority==0&&interruptedScript.server.PendingCampaignRequests().Length==1,"disabled script callback cannot run authority or acknowledge pending command");
+        interruptedManager.isActiveAndEnabled=true;interruptedManager.ScenarioInitialAuthority=v=>null;interruptedManager.TestAdvance(0);
+        Check(staleInitial==1,"re-enabled initial request can retry after interrupted dispatch");
+
+        var interruptedEffects=new Fixture(3,"CHARPOS 401 400 2 3\nCHARPOS COM0 0 2 4\nATTACK 400 0 1\nMAGIC 101 0 -1 -1 400\nEND","END");interruptedEffects.Finish();
+        var effectManager=new LocalServerManager(interruptedEffects.server);effectManager.ConfigureCampaign(new NativeCampaignArt{Definition=interruptedEffects.catalog});
+        int staleEffects=0;effectManager.Notify_ScenarioEffect+=c=>{staleEffects++;effectManager.isActiveAndEnabled=false;};effectManager.TestAdvance(0);
+        Check(staleEffects==1,"effect callback disabling manager discards remaining old-context audiovisual commands");
+        effectManager.isActiveAndEnabled=true;effectManager.TestAdvance(0);Check(staleEffects==1,"discarded old effects do not replay after re-enable");
         Console.WriteLine(JsonSerializer.Serialize(new{assertions,scenarioEntries=entries,sourceOutroCompletions=endings,approvedResultReturns=returns,eventBodies=events,mapMutationFixtures=mutations,held,scope="Approved-clear fixtures only; no actual combat policy or Unity playback."}));
     }
 }

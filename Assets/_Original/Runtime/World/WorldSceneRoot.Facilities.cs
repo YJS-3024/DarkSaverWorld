@@ -105,6 +105,7 @@ namespace DarkSaver.Original.World
         private void PaintFacility()
         {
             if(view.facility==null){if(panel!=null)ClearPanel();return;}
+            if(view.facility.kind==FacilityKind.Temple&&!view.record.ghost){PaintTempleAlignment();return;}
             if(panelToken!=view.facility.token)
             {
                 ClearPanel();panelToken=view.facility.token;
@@ -295,6 +296,7 @@ namespace DarkSaver.Original.World
             }
             if(f.kind==FacilityKind.Temple&&id==19)
             {
+                if(!view.record.ghost){Handle(server.Request_CloseFacility());return;}
                 if(server.RevivalQuoteAuthority!=null&&f.revivalQuote==null)Handle(server.Request_RevivalQuote(f.token,request));
                 else Handle(server.Request_Revive(f.token,request));
                 return;

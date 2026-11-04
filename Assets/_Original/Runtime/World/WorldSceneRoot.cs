@@ -96,7 +96,9 @@ namespace DarkSaver.Original.World
             Picture(mapRoot,"Ground without atlas seams",new Rect(0,0,m.map.width*32,m.map.height*32),native == null ? art.grounds[m.ground] : CampaignTexture(native.rgba,native.width,native.height));
             BuildMapAnimation(native);
             var hitPlane=Group(mapRoot,"Native grid input",new Rect(0,0,m.map.width*32,m.map.height*32));hitPlane.gameObject.AddComponent<Image>().color=Color.clear;
-            hitPlane.gameObject.AddComponent<NativeMapPointer>().Configure(TrainingGridClick);
+            var mapPointer=hitPlane.gameObject.AddComponent<NativeMapPointer>();mapPointer.Configure(TrainingGridClick);
+            mapPointer.ConfigureContinuous(()=>running&&view!=null&&!BattleMap()&&view.facility==null&&view.pendingPortal==null
+                &&notice==null&&!clientMessageState.Visible&&(view.presentation==null||view.presentation.completed));
             nativeBodyBack=Group(mapRoot,"Native first body pass",new Rect(0,0,0,0));
             nativeBodyAttributes=native?.renderAttributes;
             playerHit=(RectTransform)Hit(mapRoot,"Commander",new Rect(0,0,32,32),()=>{if(BattleMap()&&view.facility==null&&!view.moving){if(CastingSelection){TrainingUnitClick(0);return;}OpenTrainingActions(0);}}).transform;
@@ -112,7 +114,7 @@ namespace DarkSaver.Original.World
             // Native passes: ground/detail -> bodies -> MRC sprites in file order -> labels.
             for(int i=0;i<m.decorations.Length;i++)
             {var d=m.decorations[i];Picture(mapRoot,"MRC sprite"+i,new Rect(d.x,d.y,d.width,d.height),art.decorations[d.picture]);}
-            if(native!=null&&m.ground<0)foreach(var d in native.foreground)Picture(mapRoot,"Native foreground",new Rect(d.x,d.y,d.width,d.height),CampaignTexture(d.rgba,d.width,d.height));
+            if(native!=null&&(m.ground<0||m.decorations.Length==0))foreach(var d in native.foreground)Picture(mapRoot,"Native foreground",new Rect(d.x,d.y,d.width,d.height),CampaignTexture(d.rgba,d.width,d.height));
             nativeBodyFront=Group(mapRoot,"Native foreground body parts",new Rect(0,0,0,0));
             foreach(var npc in m.npcs){var name=Label(mapRoot,"NPC name",new Rect(npc.x*32-40,npc.y*32-16,112,16),npc.name,TextAnchor.MiddleCenter);name.color=Color.yellow;}
             playerName=Label(mapRoot,"Commander name after native foreground",new Rect(0,0,112,16),character.name,TextAnchor.MiddleCenter);playerName.color=Color.yellow;
@@ -146,7 +148,7 @@ namespace DarkSaver.Original.World
             if(WaitingScenarioResult)
             {if(notice!=null&&(Input.GetKeyDown(KeyCode.Escape)||Input.GetMouseButtonDown(1)))CloseNotice();return;}
             if(Input.GetKeyDown(KeyCode.Escape)||Input.GetMouseButtonDown(1))
-            {trainingMode=null;CancelBattleMagicSelection();if(notice!=null)CloseNotice();else if(panel!=null)Handle(server.Request_CloseFacility());else showingActions=false;}
+            {trainingMode=null;CancelBattleMagicSelection();if(notice!=null)CloseNotice();else if(view?.facility!=null)Handle(server.Request_CloseFacility());else showingActions=false;}
             if(BattleMap())
             {
                 if(notice==null&&view.presentation?.completed!=false&&!clientMessageState.Visible)

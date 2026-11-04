@@ -82,7 +82,7 @@ namespace DarkSaver.Original.Tutorial
         public int width, height;
         public int[] attributes, terrain;
         public int[] renderAttributes;
-        public int RenderAttribute(TutorialTile p)=>Contains(p)&&renderAttributes!=null&&renderAttributes.Length==width*height?renderAttributes[p.Y*width+p.X]:Attribute(p);
+        public int RenderAttribute(TutorialTile p)=>DarkSaver.Original.World.NativeBodyOrder.Attribute(Contains(p)&&renderAttributes!=null&&renderAttributes.Length==width*height?renderAttributes[p.Y*width+p.X]:Attribute(p));
         public TutorialAbility[] abilities;
         public bool Contains(TutorialTile p) => p.X >= 0 && p.Y >= 0 && p.X < width && p.Y < height;
         public int Attribute(TutorialTile p) => Contains(p) ? attributes[p.Y * width + p.X] : -1;

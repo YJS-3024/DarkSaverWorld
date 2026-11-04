@@ -56,10 +56,10 @@ def check_map_attributes():
             attributes=list(raw[offset+12+cells*2:offset+12+cells*7][3::5])
             assert current['map']['renderAttributes']==attributes,(key,'literal attributes')
             assert current['map']['attributes']==[0 if(a&127)>27 else a&127 for a in attributes],(key,'navigation changed')
-            totals.append(dict(map=key,group=group,cells=cells,flagged=sum(a>=128 for a in attributes)))
+            totals.append(dict(map=key,group=group,cells=cells,flagged=sum(128<=a<255 for a in attributes),missingDetails=attributes.count(255),rawHighBitCells=sum(a>=128 for a in attributes)))
             sources[path.relative_to(ROOT).as_posix()]=hashlib.sha256(raw).hexdigest()
     (WORK/'map-attributes.json').write_text(json.dumps(totals,indent=2))
-    return dict(maps=len(totals),cells=sum(t['cells']for t in totals),flagged=sum(t['flagged']for t in totals),navigationPreserved=True),sources
+    return dict(maps=len(totals),cells=sum(t['cells']for t in totals),flagged=sum(t['flagged']for t in totals),missingDetails=sum(t['missingDetails']for t in totals),rawHighBitCells=sum(t['rawHighBitCells']for t in totals),navigationPreserved=True),sources
 def main():
     WORK.mkdir(exist_ok=True);cases=vectors();input=WORK/'cases.json';output=WORK/'managed.json';input.write_text(json.dumps(cases,separators=(',',':')))
     old=Path('/tmp/ds-npc-gateway-checks');sdk=magic.UNITY/'DotNetSdk';dotnet=sdk/'dotnet';csc=next(sdk.glob('sdk/*/Roslyn/bincore/csc.dll'));exe=WORK/'NativeBodyOrderDifferential.dll'

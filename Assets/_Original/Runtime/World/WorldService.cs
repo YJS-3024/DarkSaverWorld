@@ -47,7 +47,7 @@ namespace DarkSaver.Original.Entry
         { var f = WorldOwner(out _); return f != WorldFailure.None ? f : world == null ? WorldFailure.InvalidStage : WorldFailure.None; }
         public bool TryWorldItemIds(out int[] items)
         {items=null;if(ReadyWorld()!=WorldFailure.None)return false;items=world.Definition.items.Select(item=>item.id).ToArray();return true;}
-        private WorldPortal TrainingEntrance(WorldRecord record) => world.Map(1000).portals.FirstOrDefault(g=>g.targetMap==record.map&&(string.IsNullOrEmpty(record.trainingEntrance)||g.id==record.trainingEntrance));
+        private WorldPortal TrainingEntrance(WorldRecord record) => world.Map(1000).portals.FirstOrDefault(g=>(g.targetMap==record.map||record.map>=101&&record.map<=107&&g.targetMap>=101&&g.targetMap<=107)&&(string.IsNullOrEmpty(record.trainingEntrance)||g.id==record.trainingEntrance));
         private WorldFailure CommitWorld(WorldRecord candidate,WorldRecord expectedRevivalState=null,WorldRecord expectedCurrencyState=null)
         {
             var f = WorldOwner(out var owner); if (f != WorldFailure.None) return f;
@@ -99,6 +99,7 @@ namespace DarkSaver.Original.Entry
         public WorldReply MoveWorld(int x, int y)
         {
             var f = ReadyWorld(); if (f != WorldFailure.None) return WorldResult(f);
+            if(world.Map(world.Record.map).training)return WorldResult(WorldFailure.InvalidStage);
             bool continuing=world.Moving;var before = world.Record.Copy(); f = world.Move(x, y);
             if(f==WorldFailure.None){world.ClearItemUse();world.ClearClassChange();world.ClearStatAdjustment();world.ClearMagicLoadout();if(!continuing)worldBeforeMove=before;}
             return WorldResult(f);
@@ -186,8 +187,16 @@ namespace DarkSaver.Original.Entry
             var map = world.Map(world.Record.map); var gate = map.portals.FirstOrDefault(g => g.id == id);
             if (gate == null || world.PendingPortal != id || !gate.cells.Any(c => c.x == world.Record.x && c.y == world.Record.y)
                 || world.Map(gate.targetMap).training != training) return WorldResult(WorldFailure.InvalidInput);
+            int target=gate.targetMap;
+            if(training&&target>=101&&target<=107)
+            {
+                int job=world.CommanderJob;
+                int tier=job>=100&&job<=103?1:job>=104&&job<=114?2:job>=115&&job<=163?(job-115)/10+3:0;
+                if(tier<1||tier>7||world.Definition.Map(100+tier)?.training!=true)return WorldResult(WorldFailure.RulesUnavailable);
+                target=100+tier;
+            }
             var arrival=gate.ArrivalAt(world.Record.x,world.Record.y);
-            var next = world.Record.Copy(); next.map = gate.targetMap; next.x = arrival.x; next.y = arrival.y; next.direction = 1;
+            var next = world.Record.Copy(); next.map = target; next.x = arrival.x; next.y = arrival.y; next.direction = 1;
             next.campaignPhase=world.Definition.campaign?.Map(next.map)?.kind=="scenario"?"intro":null;
             next.trainingEntrance=training?gate.id:null;
             f=PrepareScenarioVisit(next);if(f!=WorldFailure.None)return WorldResult(f);

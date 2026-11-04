@@ -52,7 +52,14 @@ def main():
  result=json.loads(p.stdout);paths=[*briefing_inputs,Path(__file__),OUT/'native_battle_briefing_emulator.py',OUT/'native_battle_status_emulator.py',OUT/'native_battle_menu_emulator.py',OUT/'native_battle_options_emulator.py',OUT/'BattleOptionsChecks.cs',ROOT/'Assets/_Original/Runtime/UI/NativeBattleOptions.cs',ROOT/'Assets/_Original/Runtime/UI/NativeBattleWindowArt.cs',ROOT/'Assets/_Original/Runtime/UI/NativeBattleWindowPointer.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.BattleWindows.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.Training.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.Combat.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.BattleMagic.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.TroopOrders.cs',ROOT/'Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.cs',ROOT/'Assets/_Original/Runtime/Combat/TrainingCombat.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.Facilities.cs',ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.cs']
  art=json.loads((OUT/'native-battle-window-assets.json').read_text());assets=0
  for path,digest in art['sources'].items():assert sha(ROOT/path)==digest,path;assets+=1
- for row in art['outputs']:assert sha(ROOT/row['asset'])==row['sha256'];assets+=1
+ from metadata_provenance import verify_output
+ reconciled=[]
+ for row in art['outputs']:
+  observed=verify_output(ROOT,row)
+  if observed:reconciled.append(observed)
+  assets+=1
+ result['metadataReconciliations']=reconciled
+ paths.extend([OUT/'metadata_provenance.py',OUT/'pixel-import-policy.json',OUT/'pixel-import-check.json'])
  # Resolve every serialized reference including pre-existing source textures/TextAssets.
  asset=ROOT/'Assets/_Original/Resources/OriginalBattleWindows.asset';guid_paths={}
  for meta in (ROOT/'Assets/_Original').rglob('*.meta'):

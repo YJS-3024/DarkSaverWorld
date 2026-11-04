@@ -52,16 +52,37 @@ def main():
  check(lossless(re.sub(r'^(    textureFormat:) [^\n]+',r'\1 4',sample,flags=re.M),3200,32),'explicit uncompressed RGBA32 is lossless too')
  inactive=sample+'''  unusedTestField: ignored
 ''';check(lossless(inactive,3200,32),'harmless unknown serialized fields do not break provenance')
- inactive=sample.replace('  userData:', '''  - serializedVersion: 4
+ # Build the synthetic override inside platformSettings even when Unity has
+ # inserted spriteSheet/other metadata before userData. Do not mutate real files.
+ synthetic="""  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     textureFormat: -1
     textureCompression: 1
     overridden: 0
-  userData:''');check(lossless(inactive,3200,32),'inactive generated platform compression is not the effective policy');check(not lossless(inactive.replace('    overridden: 0\n  userData:','    overridden: 1\n  userData:'),3200,32),'active platform compression is rejected')
+"""
+ match=re.search(r'^  platformSettings:\n(?:(?:  -|    )[^\n]*\n)*',sample,re.M)
+ blocks=re.split(r'(?=^  - serializedVersion:)',match[0].split('\n',1)[1],flags=re.M)
+ existing=next((block for block in blocks if re.search(r'^    buildTarget: Standalone$',block,re.M)),None)
+ altered=match[0].replace(existing,synthetic)if existing else match[0]+synthetic
+ inactive=sample[:match.start()]+altered+sample[match.end():]
+ check(lossless(inactive,3200,32),'inactive generated platform compression is not the effective policy')
+ active=inactive.replace(synthetic,synthetic.replace('    overridden: 0','    overridden: 1'),1)
+ check(not lossless(active,3200,32),'active platform compression is rejected')
  check(normalize(inactive)==inactive,'Unity-created inactive defaults need no normalization')
  semantic=yaml.safe_load(other_metadata(sample));added=yaml.safe_load(other_metadata(sample+'  newlySerializedDefault: 0\n'));check(retained(semantic,added),'Unity additive metadata is not destructive')
  changed=yaml.safe_load(other_metadata(sample));changed['TextureImporter']['isReadable']=1-int(changed['TextureImporter']['isReadable']);check(not retained(semantic,changed),'readability changes are not hidden by formatting normalization')
+ # Cross-check the shared historical-output validator against actual pre-import
+ # metadata and explicit non-policy corruption, without changing any .meta file.
+ from metadata_provenance import nonpolicy as imported_nonpolicy,retained as imported_retained
+ inputs.append(OUT/'metadata_provenance.py')
+ historical_path='Assets/_Original/Art/World/BattleScene9.png.meta'
+ before=subprocess.check_output(['git','show','491e8535:'+historical_path],cwd=ROOT,text=True)
+ after=(ROOT/historical_path).read_text()
+ check(imported_retained(imported_nonpolicy(before),imported_nonpolicy(after)),'historical minimal metadata permits retained fields plus Unity defaults')
+ for key,value in [('isReadable','1'),('spriteMode','0'),('spritePixelsToUnits','16'),('alphaIsTransparency','1')]:
+  bad=re.sub(r'^(  '+key+r':) [^\n]+',lambda m:m[1]+' '+value,after,flags=re.M)
+  check(bad!=after and not imported_retained(imported_nonpolicy(before),imported_nonpolicy(bad)),'historical import check rejects non-policy mutation '+key)
  # Windows CRLF simulation runs Git's actual checkout filters, without touching index/files.
  cases=['Assets/_Original/Data/World/CommanderRoster3.json','Assets/_Original/Runtime/UI/NativeWindowPlacement.cs','Assets/_Original/SourceData/Native/map/1500.mrc.bytes','Assets/_Original/Data/Tables/items.csv'];checkout=[]
  for path in cases:

@@ -18,7 +18,15 @@ namespace DarkSaver.Original.Entry
         public WorldReply Request_EquipWorldItem(string owned,int slot,string id,int inventorySlot=-1) => WorldRequest(s=>s.EquipWorldItem(owned,slot,id,inventorySlot));
         public WorldReply Request_UseWorldItem(string owned,string id) => SendItemUse(owned,id);
         public WorldReply Request_EnterInterior(string portal) => WorldRequest(s => s.EnterWorldPortal(portal, false), true);
-        public WorldReply Request_EnterTraining(string portal) => WorldRequest(s => s.EnterWorldPortal(portal, true), true);
+        public WorldReply Request_EnterTraining(string portal)
+        {
+            var reply=WorldRequest(s=>s.EnterWorldPortal(portal,true),true);
+            var current=WorldSnapshot;
+            if(reply.Accepted&&current!=null&&current.training==null&&current.characterId==reply.View.characterId
+                &&current.commanderSession==reply.View.commanderSession&&current.record.map==reply.View.record.map)
+                Notify_TrainingInitialRequested?.Invoke(current);
+            return reply;
+        }
         public WorldReply Request_EscapeTraining() => WorldRequest(s => s.EscapeTraining(), true);
         public WorldReply Request_InteractNpc(string npc) => WorldRequest(s => s.OpenWorldFacility(npc));
         public WorldReply Request_CloseFacility() => WorldRequest(s => s.CloseWorldFacility());

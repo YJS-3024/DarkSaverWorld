@@ -9,6 +9,7 @@ namespace DarkSaver.Original.Entry
         public Func<TrainingActionRequest,TrainingView,TrainingUnitsNotice> TrainingAuthority { get; set; }
         public Func<TrainingActionRequest,TrainingView,TrainingUnitsNotice> BattleAuthority { get; set; }
         public event Action<WorldReply> Notify_TrainingChanged;
+        public event Action<WorldView> Notify_TrainingInitialRequested;
         public event Action<WorldReply> Notify_BattleChanged;
         public bool HasBattleAuthority(bool training)=>training?TrainingAuthority!=null||BattleAuthority!=null:BattleAuthority!=null;
         public WorldReply Notify_BattleUnits(TrainingUnitsNotice notice)=>BattleResult(s=>s.ReceiveBattleUnits(notice));

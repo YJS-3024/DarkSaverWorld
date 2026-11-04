@@ -1,0 +1,188 @@
+{
+  "nativeSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "window": 63,
+  "scene": 29,
+  "cases": 18,
+  "mismatches": 0,
+  "opcode": "AC",
+  "payload": "original +B4 DWORD, little-endian; no target-direction byte",
+  "text": {
+    "feeZero": "당신의 성향을 악으로 바꾸시겠습니까?",
+    "feeNonzero": "당신의 성향을 %s으로 바꾸시겠습니까?\n 바꾸는데는 %ld원이 듭니다.",
+    "good": "선",
+    "evil": "악"
+  },
+  "vectors": [
+    {
+      "feeBits": 0,
+      "confirm": false,
+      "packets": [],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 0,
+      "confirm": true,
+      "packets": [
+        "ac00000000"
+      ],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 1,
+      "confirm": false,
+      "packets": [],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 1,
+      "confirm": true,
+      "packets": [
+        "ac01000000"
+      ],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 255,
+      "confirm": false,
+      "packets": [],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 255,
+      "confirm": true,
+      "packets": [
+        "acff000000"
+      ],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 256,
+      "confirm": false,
+      "packets": [],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 256,
+      "confirm": true,
+      "packets": [
+        "ac00010000"
+      ],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 65535,
+      "confirm": false,
+      "packets": [],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 65535,
+      "confirm": true,
+      "packets": [
+        "acffff0000"
+      ],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 65536,
+      "confirm": false,
+      "packets": [],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 65536,
+      "confirm": true,
+      "packets": [
+        "ac00000100"
+      ],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 2147483647,
+      "confirm": false,
+      "packets": [],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 2147483647,
+      "confirm": true,
+      "packets": [
+        "acffffff7f"
+      ],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 2147483648,
+      "confirm": false,
+      "packets": [],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 2147483648,
+      "confirm": true,
+      "packets": [
+        "ac00000080"
+      ],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 4294967295,
+      "confirm": false,
+      "packets": [],
+      "closed": [
+        63
+      ]
+    },
+    {
+      "feeBits": 4294967295,
+      "confirm": true,
+      "packets": [
+        "acffffffff"
+      ],
+      "closed": [
+        63
+      ]
+    }
+  ],
+  "nativeCodeExecuted": true,
+  "unityPlay": false,
+  "scope": "Actual 452970 confirm/cancel and452BC0 serializers execute; window-id/manager removal/final network send are isolated boundaries. Factory63/scene29 and draw strings/fee branch are static evidence. NPC dispatch, incoming quote format, operating fee/current alignment, approval and money persistence remain unverified.",
+  "logs": "/tmp/ds-native-temple-alignment",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_temple_alignment.py": "3ee73c5e40f470c0dc755ea1a1c8f489c0d028a3384b940c56b86e0ca3b163aa",
+    "분석/Ghidra/Saver_Late/Bank/factory-473E30.c": "7bc8d271d5ab5ecd5661a98d7ccdb5f00188a9f2497a8f56d4074034027f761d",
+    "Tools/OriginalWorldChecks/check_native_commanders.py": "c8e649330c9918b0970a1ffef839753cae15847d7174359e09e7e7f0053598f0"
+  }
+}

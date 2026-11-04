@@ -39,7 +39,8 @@ internal static class CampaignChecks
     {
         root=args[0];var catalog=Catalog();var world=catalog.Merge(World());
         Check(catalog.maps.Length==126&&catalog.maps.Count(m=>m.kind=="scenario")==97&&catalog.maps.Count(m=>m.kind=="world")==29,"all original campaign/world resources");
-        Check(world.IsValid&&world.maps.Length==137,"town/interiors plus source maps share valid navigation");
+        Check(world.IsValid&&world.maps.Length==World().maps.Select(m=>m.id).Concat(catalog.maps.Select(m=>m.id)).Distinct().Count(),"town/interiors/training plus source maps share valid navigation");
+        Check(Enumerable.Range(101,7).All(id=>world.Map(id)?.training==true),"all seven original training maps remain battle maps after campaign merge");
         Check(catalog.connections.Length==0&&world.Map(1000).portals.Length==10,"no invented field/scenario entrances");
         Check(catalog.maps.Sum(m=>m.units.Length)==610&&catalog.maps.Count(m=>m.units.Length>0)==16,"no fallback rosters");
         var identity=Identity();Check(identity.server.BeginWorld(world).Accepted,"authenticated completed profile enters merged world");

@@ -1,0 +1,15 @@
+{
+  "checks": 13,
+  "unityPlay": false,
+  "scope": "Actual editor reset helper and production file store against isolated temporary accounts; exact backup, credential/other-account preservation, login and bypass reset, missing/corrupt no-op. No real player save modified.",
+  "mismatches": 0,
+  "sources": {
+    "Tools/OriginalWorldChecks/CharacterResetChecks.cs": "5e031bcb988a1ae8f061c5ced8c9cc4ce8a434f833af450d201921fd5240971b",
+    "Assets/_Original/Editor/LocalCharacterReset.cs": "6e1f76229aead06d9bd4f8a354a9eb15461eeae8466126ed05a3b589f732903f",
+    "Tools/OriginalWorldChecks/check_character_reset.py": "4e5ca5f8a08cb737cef9f0f5af4fc065712adfea3286a276f6fff470918ca526",
+    "Assets/_Original/Runtime/Entry/LocalAccountFileStore.cs": "e318c9e8b181fa59e828a8946071a293ff0986b3def32ccf0b535bfc6a0e9f2f",
+    "Assets/_Original/Runtime/Entry/EntryAccountService.cs": "35785f78c35b0922de65c6ffcd6a786e443a5c40155ca80a8db869f71698fd72",
+    "Assets/_Original/Editor/LocalEntryAccountWindow.cs": "0017da1e4ac3bd6cefca0bc83c151410fc6d1fe60232b0a5ea1f73b3d86307f0"
+  },
+  "logs": "/tmp/ds-character-reset-checks"
+}

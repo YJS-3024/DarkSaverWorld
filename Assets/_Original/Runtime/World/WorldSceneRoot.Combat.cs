@@ -33,7 +33,7 @@ namespace DarkSaver.Original.World
         {
             if(trainingActionUnit!=0)return MemberActionAvailable(icon);
             if(icon==5)return view?.battle?.Commander==null||OriginalBattleTicks.AllowsIcon(view.battle.Commander,icon);
-            if(view?.battle==null)return icon==0; // Preserve pre-roster walking; no invented combat roster.
+            if(view?.battle==null)return false; // Wait for the received combat roster; no town movement fallback.
             var unit=view.battle.Commander;
             if(!OriginalBattleTicks.AllowsIcon(unit,icon))return false;
             bool training=DisplayMap(view.record.map).training;
@@ -65,7 +65,7 @@ namespace DarkSaver.Original.World
             battleStatusUnit=DarkSaver.Original.UI.NativeBattleStatusSelection.Click(view.battle?.units.FirstOrDefault(u=>u.x==x&&u.y==y&&u.hp>0)?.id??-1);
             showingActions=false;showingBattleSpells=false;showingBattleOrders=false;
             if(CastingSelection){if(SelectedMagicDistance<0||SelectedMagicArea>0&&!SelectedMagicGroup)CastBattleMagicAt(x,y);else{var target=view.battle?.units.FirstOrDefault(u=>CanSelectMagicUnit(u)&&u.x==x&&u.y==y);if(target!=null)TrainingUnitClick(target.id);}return;}
-            if(view.battle==null){HandleMove(server.Request_MoveWorld(x,y));return;}
+            if(view.battle==null){if(!BattleMap())HandleMove(server.Request_MoveWorld(x,y));return;}
             if(trainingMode==TrainingAction.Move)
             {bool training=DisplayMap(view.record.map).training;var reply=trainingActionUnit==0?(training?server.Request_TrainingMove(x,y):server.Request_BattleMove(x,y)):(training?server.Request_TrainingMemberMove(trainingActionUnit,x,y):server.Request_BattleMemberMove(trainingActionUnit,x,y));HandleMove(reply);if(reply.Accepted)trainingMode=null;}
         }

@@ -15,6 +15,8 @@ namespace DarkSaver.Original.World
     // Raw MRC attribute bit128 is a redraw flag, independent of navigation terrain.
     public static class NativeBodyOrder
     {
+        // UserUnit GetTileAttribute returns zero for the missing-detail sentinel FF.
+        public static int Attribute(int raw)=>raw==255?0:raw;
         public static bool Foreground(int attribute)=>attribute%256/128==1;
         public static NativeBodyDraw[] Plan(int width,int height,Func<int,int,int> attribute,IEnumerable<NativeBodyOccupant> bodies,int left=0,int top=0,int columns=int.MaxValue,int rows=int.MaxValue,bool includePostPasses=false)
         {
