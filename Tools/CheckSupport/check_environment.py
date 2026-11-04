@@ -24,7 +24,7 @@ child = subprocess.run([sys.executable, '-c', "assert False, 'negative assertion
 check(child.returncode != 0 and 'negative assertion control' in child.stderr)
 with tempfile.TemporaryDirectory(dir=work) as temp:
     response = Path(temp)/'argument file.rsp'
-    response.write_text('-r:C:/Program Files/Unity/test.dll\n"already quoted"\n')
+    response.write_text('-r:C:/Program Files/Unity/test.dll\n"already quoted"\n-r:"C:/Already Quoted/Code.dll"\n')
     child = subprocess.run([sys.executable, '-c', 'pass', 'csc.dll', '@'+str(response)])
-    check(child.returncode == 0 and response.read_text().splitlines() == ['"-r:C:/Program Files/Unity/test.dll"','"already quoted"'])
+    check(child.returncode == 0 and response.read_text().splitlines() == ['"-r:C:/Program Files/Unity/test.dll"','"already quoted"','-r:"C:/Already Quoted/Code.dll"'])
 print(json.dumps(dict(checks=checks, unityPlay=False, scope='Opt-in Python path/child/compiler-argument adapter. Windows execution not implied.')))

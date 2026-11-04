@@ -1,5 +1,5 @@
 {
-  "checkedAtUtc": "2026-11-04T10:06:36.357111+00:00",
+  "checkedAtUtc": "2026-11-04T10:53:11.895090+00:00",
   "unityPlay": false,
   "unityEditorTestRunner": false,
   "physicalInput": false,
@@ -74,7 +74,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/runtime-resource-bindings-check.json",
-      "sha256": "15353ada3b9ebae78f9c6838c53e7602728b992535d60418c7a1b60708c105ab",
+      "sha256": "048c66317802eb644d2d8a1112d4a5c47331393a9c18f1b5c2b0155ccfb1f6bf",
       "counts": {
         "assertions": 967,
         "mismatches": 0,
@@ -82,7 +82,7 @@
         "resourceKeys": 12,
         "resourceAssets": 219,
         "resourceInventoryKeys": 13,
-        "assetMetaInventory": 3960
+        "assetMetaInventory": 3983
       },
       "groups": {},
       "scope": "Roslyn syntax extraction of all current runtime Resources.Load calls: literal name/type lookup, duplicate/missing mutation controls, requested ScriptableObject MonoScript/class compatibility, recursive serialized GUID graph, JSON syntax and referenced GUID uniqueness. Asset/GUID inventory fingerprint excludes irrelevant importer formatting. No Unity import/deserialization, missing components, actual rendering/input/audio or Player Resources.Load execution."
@@ -234,7 +234,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/client-window-assets-check.json",
-      "sha256": "816901ccc6ab9c60259c1af68bc3f0944762aeb2c8b4ce3e0a16864b1fc4aa41",
+      "sha256": "b5c52a715c3693c86997fb852ede33bbabb320faaf9a3f09fc4ade758c5615c8",
       "counts": {
         "assertions": 1030,
         "portraitReferences": 140,
@@ -614,6 +614,16 @@
       "scope": "Actual production method/statement extraction with managed component, texture and Unity-null boundaries. Baseline removes optional-texture and initial visibility guards to reproduce two null-UV failures and six partially visible parent stages. Current F3 creation/refresh, cropped images, construction failure/first-paint publication and real entry stage visibility statements execute. Personal/chat ordering is audited. No complete scene Build, actual Unity import/Canvas/EventSystem or rendered Play claim."
     },
     {
+      "report": "Tools/OriginalWorldChecks/legacy-maps-check.json",
+      "sha256": "b09cc4ef3be3a23e716bde26082ed9712a0f6c2d22d2a765910a5ca2ce429b1c",
+      "counts": {
+        "assertions": 533,
+        "mapsAudited": 151
+      },
+      "groups": {},
+      "scope": "Preserved1.2 bytes/navigation/version bindings and production C# versus independent pixels. No historical portal positions, NPC placement or save coordinate migration."
+    },
+    {
       "report": "Tools/OriginalWorldChecks/character-reset-check.json",
       "sha256": "63a3759b53fb528c8d88e3e1442fe25260cd53dce9ebc7cfe61e778166d4f1de",
       "counts": {
@@ -693,7 +703,7 @@
   ],
   "api": {
     "report": "Tools/OriginalEntryChecks/entry-check.json",
-    "sha256": "73f1d2f570e3191c29937acfd85ae84b78bed44158c6336fbf4f7f728fdcc315",
+    "sha256": "09bd112dfba9e6e6051ff0cd95b8e3c8965ee62b21e2e4cea626b785a4e29122",
     "runtimeSources": 226,
     "editorSources": 10,
     "errors": 0,
@@ -930,15 +940,15 @@
       "Assets/_Original/Editor/LocalGrowthTestWindow.cs": "d93ffded6e28f998f0f9d1e96ba758d4d1f5191f579ac9ef7a1c8fd59590fc35",
       "Assets/_Original/Editor/OriginalFoundationSetup.cs": "cdfb7002e9a350fe3f29b6de07e7b586f49e003bfd389e1c8d73b77e12d8c61c",
       "Assets/_Original/Editor/OriginalPixelTextureImporter.cs": "031d0920c325655155ed304fad594160d28efb75987486298b571ff913584497",
-      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "a07f0f8c02fc3b6051ca3f7b71bafa782c5fcfcb636ab897c6f0984b27f9868d",
+      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "a0af14944127c84f41433af13de868a085d7b46e9d52089fa8bc67d9ad4a610e",
       "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GatewayList.cs": "b0cd846b300447ce1fe7a82f3553d05a8ae2ecf7dee0138ee3614e74f8cc58b5",
       "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "3d59f9d62f40fc5b43b13b417c7df370458cfd39ff07889a62057a5b33ccc938",
-      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "bd44c504d91afac70cf134e30f1efb904160177055ff453bb74576a9d2f64d7d",
-      "Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs": "07884806adb56855e5cf75ca05c1493e17d9f7a7c4d3c797cbb845d2e8c771bc"
+      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "f1a396c14c7a7ce4199f19e2ac49c941a6db26b6169e0fa02e90700079c2469e",
+      "Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs": "98daf67f8dcfc02413c0d2db559a2a2a3fde9c877688f7897bfd127267c68497"
     }
   },
   "sourceAudit": {
-    "declaredSources": 2109,
+    "declaredSources": 2112,
     "scriptGuids": 236,
     "assetCSharpSources": 236,
     "pixelTextures": 1144,
@@ -949,7 +959,7 @@
     "report": "분석/Ghidra/Saver_Late/ClientWindows/evidence.json",
     "sha256": "5046811d8057afc1d7b8b6d64b5cddce063b70d6c1aa5ac94968c830edb0afe1"
   },
-  "toolSha256": "3363eede230f0f68111b324a49c4ae596c7f23342619aec0a8c9d351c08e782e",
+  "toolSha256": "b1b10567d123d73ab59b4d6c09efec93b26675391b9e43c15b04282760644b27",
   "resourceArtifacts": [
     {
       "report": "Tools/OriginalWorldChecks/native-shop-details-art.json",

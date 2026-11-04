@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[2];BASE=ROOT/'Assets/_Original';DATA=BASE/
 sys.path.insert(0,str(ROOT/'닥세_리소스/분석도구'))
 from decode_visuals import read_mrc
 spec=importlib.util.spec_from_file_location('world_builder',Path(__file__).with_name('build_world_assets.py'));world=importlib.util.module_from_spec(spec);spec.loader.exec_module(world)
-LEGACY_MAPS={'1010'}
+LEGACY_MAPS={'1001','1002','1004','1008','1009','1010','1011','1012','1030','1060','1110','1111'}
 
 def map_path(key):
  return BASE/('SourceData/KaosiaLegacy'if key in LEGACY_MAPS else 'SourceData/Native/map')/(key+'.mrc.bytes')

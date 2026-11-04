@@ -5,6 +5,7 @@ Native PE checks still need the exact original binaries and retain their SHA che
 import argparse
 import ast
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -87,6 +88,8 @@ def main():
                 names += ast.literal_eval(node.value)
             elif isinstance(node, ast.AugAssign) and isinstance(node.target, ast.Name) and node.target.id == 'names':
                 names += ast.literal_eval(node.value)
+        spec=importlib.util.spec_from_file_location('validation_resource_inventory',folder/'check_runtime_resource_bindings.py')
+        resource_inventory=importlib.util.module_from_spec(spec);spec.loader.exec_module(resource_inventory)
         # Reevaluate after each successful producer; regenerated dependencies can
         # invalidate reports that were previously current. Never rewrite hashes here.
         for attempt in range(128):
@@ -97,6 +100,9 @@ def main():
                 if any(not (ROOT/source).is_file() or hashlib.sha256((ROOT/source).read_bytes()).hexdigest() != digest
                        for source,digest in data.get('sources', {}).items()):
                     stale.append(report)
+            resource_report=folder/'runtime-resource-bindings-check.json'
+            if json.loads(resource_report.read_text(encoding='utf-8'))['inventorySha256']!=resource_inventory.inventory()[2] and resource_report not in stale:
+                stale.insert(0,resource_report)
             if not stale:
                 run_check(integration.relative_to(ROOT).as_posix()); break
             report = stale[0]

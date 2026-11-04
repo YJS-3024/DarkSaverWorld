@@ -39,7 +39,8 @@ def main():
     raw=bytes.fromhex(re.search(r'^  legacyGraphicIds: ([0-9a-f]+)$',asset,re.M)[1])
     ids=[int.from_bytes(raw[i:i+4],'little')for i in range(0,len(raw),4)]
     bindings=refs(asset,'legacyGraphics')
-    check(ids==sorted(set(native['ids']))and len(ids)==len(bindings)==14,'all old GRS dependencies bound')
+    expected=sorted({rid for key in builder.LEGACY_MAPS for rid in builder.read_mrc(original/(key+'.mrc'))['ids']})
+    check(ids==expected and len(ids)==len(bindings),'all selected old GRS dependencies bound')
     inventory=read(ROOT/'분석/InstallerVersions/installer_inventory.json')
     known={f['sha256']for p in inventory['payloads']for f in p.get('files',[])if 'sha256'in f}
     for index,rid in enumerate(ids):
@@ -53,7 +54,7 @@ def main():
     original_catalog=json.loads(subprocess.check_output(['git','show','HEAD:Assets/_Original/Data/Campaign/CampaignCatalog.json'],cwd=ROOT))
     old={m['id']:m for m in original_catalog['maps']}
     for m in catalog['maps']:
-        if m['id']!=1010:check(m==old[m['id']],'other map retained '+str(m['id']))
+        if m['key']not in builder.LEGACY_MAPS:check(m==old[m['id']],'other map retained '+str(m['id']))
     gateway_path=BASE/'Data/Campaign/UserGateways.json'
     check(gateway_path.read_bytes()==subprocess.check_output(['git','show','HEAD:'+gateway_path.relative_to(ROOT).as_posix()],cwd=ROOT),'user connections not migrated or replaced')
     editor=read(ROOT/'Tools/OriginalScenarioEditorChecks/editor-check.json')

@@ -57,7 +57,7 @@ def main():
     result['nativeActorFrontFramesCompared']=actor_frames
     cache={};pixel_checks=[]
     map_infos={m['key']:m for m in json.loads((BASE/'Data/Campaign/GatewayMaps.json').read_text())['maps']}
-    for key in ['01','02','26','101','201','314','1010']:
+    for key in ['01','02','26','101','201','314','1001','1002','1004','1008','1009','1010','1011','1012','1030','1060','1110','1111']:
         selected=ROOT/map_infos[key]['nativePath'];path=selected.parent;m=read_mrc(selected);grs={}
         for rid in m['ids']:
             cache_key=(path,rid)

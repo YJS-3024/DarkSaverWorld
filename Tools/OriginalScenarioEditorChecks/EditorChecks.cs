@@ -24,6 +24,14 @@ internal static class EditorChecks
     private static void Main(string[] args)
     {
         string root=args[0],work=args[1];var sourceRoot=Path.Combine(root,"Assets/_Original/SourceData/Native/map");
+        var names=ScenarioLayoutData.ReadMapNames("\uFEFFmap_key,display_name\r\n1002,테스트 마을\r\n01,\"이름, 쉼표\"\r\n02,   \r\n");
+        Check(names["1002"]=="테스트 마을"&&names["01"]=="이름, 쉼표"&&!names.ContainsKey("02"),"CSV BOM/CRLF/quoted names and blank fallback");
+        Check(ScenarioLayoutData.ReadMapNames("display_name,map_key\n새 이름,1002")["1002"]=="새 이름","name header order independent");
+        ScenarioLayoutData.ReadMapNames(File.ReadAllText(Path.Combine(root,"Assets/_Original/Data/Tables/scene_maps.csv")));
+        Reject(()=>ScenarioLayoutData.ReadMapNames("map_key,display_name\n01,one\n01,two"),"duplicate name keys rejected");
+        Reject(()=>ScenarioLayoutData.ReadMapNames("map_key,display_name\n01,one,extra"),"partial malformed save rejected");
+        Reject(()=>ScenarioLayoutData.ReadMapNames("map_key,wrong\n01,one"),"missing name header rejected");
+        Reject(()=>ScenarioLayoutData.ReadMapNames("map_key,display_name\n01,\"unfinished"),"unfinished quoted name rejected");
         var rows=ScenarioLayoutData.Csv(File.ReadAllText(Path.Combine(root,"Assets/_Original/Data/Tables/units_all.csv"))).ToArray();
         int jobColumn=Array.IndexOf(rows[0],"직업");var jobs=new HashSet<int>(rows.Skip(1).Select(r=>int.Parse(r[jobColumn])));
         Check(jobs.Count==542,"actual unit catalog parsed including quoted descriptions");
@@ -151,7 +159,7 @@ internal static class EditorChecks
         Check(NativeMapDecoder.Grid(99,3,1.5,40)==2,"pixel/pan/zoom conversion uses native32px tiles");
         Check(NativeMapDecoder.Zoom(4,-30)==4&&NativeMapDecoder.Zoom(.125,30)==.125,"wheel zoom limits");
         Check(ScenarioLayoutData.NextUnit(sources["26"].layout)==405,"added slot fills free id without rearranging original groups");
-        var rendered=new List<object>();var sample=new HashSet<string>(new[]{"01","02","26","101","201","314","1010"});
+        var rendered=new List<object>();var sample=new HashSet<string>(new[]{"01","02","26","101","201","314","1001","1002","1004","1008","1009","1010","1011","1012","1030","1060","1110","1111"});
         foreach(var key in keys)
         {
             var mapPath=Path.Combine(root,nativePaths[key]);var mapFolder=Path.GetDirectoryName(mapPath);

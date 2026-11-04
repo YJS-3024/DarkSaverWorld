@@ -113,6 +113,9 @@ namespace DarkSaver.Original.Editor.Scenarios
             }
             EditorGUILayout.EndScrollView();
             if(GUILayout.Button("맵 이름표 CSV 열기"))AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<TextAsset>(BasePath+"Data/Tables/scene_maps.csv"));
+            if(GUILayout.Button("맵 이름 새로고침"))RefreshMapNames(true);
+            if(mapNamesError.Length>0)EditorGUILayout.HelpBox(mapNamesError,MessageType.Warning);
+            GUILayout.Label("CSV display_name 저장 후 자동 반영",EditorStyles.wordWrappedMiniLabel);
             GUILayout.Label("좌표: 원본 좌상단 (0,0)\nunit: 개체 슬롯 / job: 병종 ID",EditorStyles.wordWrappedMiniLabel);
             GUILayout.EndArea();
         }

@@ -62,7 +62,7 @@ if os.environ.get('DARKSAVER_CHECK_PATHS'):
                         if isinstance(a, str) and a.startswith('@'):
                             path = pathlib.Path(a[1:])
                             lines = path.read_text().splitlines()
-                            fixed = ['"' + line + '"' if line and not line.startswith('"') else line for line in lines]
+                            fixed = ['"' + line + '"' if line and '"' not in line else line for line in lines]
                             path.write_text('\n'.join(fixed) + '\n')
             super().__init__(args, *positional, **kwargs)
     subprocess.Popen = CheckPopen

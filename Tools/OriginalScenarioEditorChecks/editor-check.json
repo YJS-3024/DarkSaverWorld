@@ -1,5 +1,5 @@
 {
-  "assertions": 862,
+  "assertions": 868,
   "maps": 151,
   "originalUnits": 610,
   "catalogFallbackUnits": 610,
@@ -688,15 +688,15 @@
     },
     {
       "key": "1001",
-      "width": 1952,
-      "height": 1952,
-      "sha256": "d979003ee68d9652875dc556008f9ad2413af86a84b7b5519394c750bb5f5a02"
+      "width": 1376,
+      "height": 1376,
+      "sha256": "bafa569f021888e64ed8b14b2b13534146f00733b51d6e93dd7e7374ef5e9af8"
     },
     {
       "key": "1002",
-      "width": 2080,
-      "height": 2080,
-      "sha256": "cf841276bed89318660a329a726f8c574d33d0e8e37b0cbbbff2858a98916d5b"
+      "width": 1280,
+      "height": 1280,
+      "sha256": "2b01d6e20ce9e99d5842891a137ee1fbc8057d74b645573afe3979542dde3a1a"
     },
     {
       "key": "1003",
@@ -756,7 +756,7 @@
       "key": "1012",
       "width": 1280,
       "height": 1280,
-      "sha256": "b6c9a22f876625139ca94a22b8af86d9fe12ade1c7e3233422f10922549848eb"
+      "sha256": "9c5c5e83a113b616ddc2c511fc1285d1dfe304c74ba1f1d34878553b6ae952a4"
     },
     {
       "key": "1013",
@@ -774,7 +774,7 @@
       "key": "1030",
       "width": 3200,
       "height": 3200,
-      "sha256": "3018d3f495a67a8f51c06890f22bbaaed814da5569f6bef569aae1dd49155329"
+      "sha256": "9b5b5bd64ddc3fa1919501644ee8c7fb91fe4de4c3049f47d35dc8cc6168ed6e"
     },
     {
       "key": "1040",
@@ -792,7 +792,7 @@
       "key": "1060",
       "width": 2560,
       "height": 2560,
-      "sha256": "c9bed280add6560bcbd2004653c5eb7c2c725615c8234e32f12554d06f3a6a3d"
+      "sha256": "eb202b3171557b75b39fdbb3ada4e0f722ad55ae01c23d2c526c03f646c06df3"
     },
     {
       "key": "1070",
@@ -828,7 +828,7 @@
       "key": "1111",
       "width": 1600,
       "height": 1600,
-      "sha256": "ea0b2dd473e557bb6af8d531a324b3e626f5754bcca41c4c0cff93b9f7468d3e"
+      "sha256": "f6508dd9bf01a995cb4fa7799b791be14b04222b26e0789c004428b194ece006"
     },
     {
       "key": "1112",
@@ -924,7 +924,18 @@
     "101",
     "201",
     "314",
-    "1010"
+    "1001",
+    "1002",
+    "1004",
+    "1008",
+    "1009",
+    "1010",
+    "1011",
+    "1012",
+    "1030",
+    "1060",
+    "1110",
+    "1111"
   ],
   "originalSourceFilesUnchanged": 2519,
   "originalMonsterJobPicturesResolved": 61,
@@ -949,10 +960,10 @@
   "entryRegression": 102,
   "editorSources": {
     "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "3d59f9d62f40fc5b43b13b417c7df370458cfd39ff07889a62057a5b33ccc938",
-    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "a07f0f8c02fc3b6051ca3f7b71bafa782c5fcfcb636ab897c6f0984b27f9868d",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "a0af14944127c84f41433af13de868a085d7b46e9d52089fa8bc67d9ad4a610e",
     "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GatewayList.cs": "b0cd846b300447ce1fe7a82f3553d05a8ae2ecf7dee0138ee3614e74f8cc58b5",
-    "Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs": "07884806adb56855e5cf75ca05c1493e17d9f7a7c4d3c797cbb845d2e8c771bc",
-    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "bd44c504d91afac70cf134e30f1efb904160177055ff453bb74576a9d2f64d7d"
+    "Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs": "98daf67f8dcfc02413c0d2db559a2a2a3fde9c877688f7897bfd127267c68497",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "f1a396c14c7a7ce4199f19e2ac49c941a6db26b6169e0fa02e90700079c2469e"
   },
   "scope": "New editor API compilation; production source/parser/render/file-store contracts; native static pixel comparison. No Unity window, OS input, import or runtime spawn validation.",
   "logs": "/tmp/ds-original-scenario-editor-checks"

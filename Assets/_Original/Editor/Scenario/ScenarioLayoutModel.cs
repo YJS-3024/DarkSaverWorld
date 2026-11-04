@@ -238,6 +238,24 @@ namespace DarkSaver.Original.Editor.Scenarios
             finally { if (File.Exists(temp)) File.Delete(temp); }
             return Hash(bytes);
         }
+        public static Dictionary<string,string> ReadMapNames(string text)
+        {
+            var rows=Csv((text??"").TrimStart('\uFEFF')).Where(r=>r.Any(v=>!string.IsNullOrWhiteSpace(v))).ToArray();
+            if(rows.Length==0)throw new InvalidDataException("맵 이름표 CSV 헤더가 없습니다.");
+            var header=rows[0].Select(v=>v.Trim()).ToArray();
+            if(header.Distinct().Count()!=header.Length)throw new InvalidDataException("맵 이름표 CSV 열이 중복되었습니다.");
+            int key=Array.IndexOf(header,"map_key"),name=Array.IndexOf(header,"display_name");
+            if(key<0||name<0)throw new InvalidDataException("map_key/display_name 열이 필요합니다.");
+            var result=new Dictionary<string,string>();var seen=new HashSet<string>();
+            foreach(var row in rows.Skip(1))
+            {
+                if(row.Length!=header.Length)throw new InvalidDataException("맵 이름표 CSV 열 수가 맞지 않습니다.");
+                string id=row[key].Trim();
+                if(!IsKey(id)||!seen.Add(id))throw new InvalidDataException("맵 이름표 map_key가 잘못되었거나 중복되었습니다: "+id);
+                string title=row[name].Trim();if(title.Length>0)result.Add(id,title);
+            }
+            return result;
+        }
         public static IEnumerable<string[]> Csv(string text)
         {
             var fields = new List<string>(); var value = new StringBuilder(); bool quote = false;

@@ -41,6 +41,31 @@ namespace DarkSaver.Original.Editor.Scenarios
         private bool fitRequested;
         [SerializeField] private bool layoutReadOnly;
         private string layoutNotice="";
+        private const string MapNamesPath=BasePath+"Data/Tables/scene_maps.csv";
+        private Dictionary<string,string> mapNames=new Dictionary<string,string>();
+        private long mapNamesStamp=long.MinValue,mapNamesSize=-1;
+        private double mapNamesNextPoll;
+        private string mapNamesError="";
+        private void RefreshMapNames(bool force=false)
+        {
+            try
+            {
+                var file=new FileInfo(MapNamesPath);long stamp=file.Exists?file.LastWriteTimeUtc.Ticks:0,size=file.Exists?file.Length:0;
+                if(!force&&stamp==mapNamesStamp&&size==mapNamesSize)return;
+                mapNamesStamp=stamp;mapNamesSize=size;
+                mapNames=file.Exists?ScenarioLayoutData.ReadMapNames(File.ReadAllText(MapNamesPath)):new Dictionary<string,string>();
+                mapNamesError="";
+            }
+            catch(Exception e)when(e is IOException||e is UnauthorizedAccessException||e is ArgumentException)
+            {mapNamesError="맵 이름표를 읽지 못해 이전 이름을 유지합니다. "+e.Message;}
+            Repaint();
+        }
+        private void OnInspectorUpdate()
+        {
+            if(EditorApplication.timeSinceStartup<mapNamesNextPoll)return;
+            mapNamesNextPoll=EditorApplication.timeSinceStartup+.5;RefreshMapNames();
+        }
+
 
         [MenuItem("DarkSaver/원작 도구/시나리오 편집툴")]
         public static void Open()
@@ -61,7 +86,8 @@ namespace DarkSaver.Original.Editor.Scenarios
         {
             string label=Category(key)+" "+key;
             var map=gatewayCatalog?.maps?.FirstOrDefault(m=>m.key==key);
-            return map==null||string.IsNullOrWhiteSpace(map.title)||map.title==key?label:map.title+" ["+label+"]";
+            string title=mapNames.TryGetValue(key,out var custom)?custom:map?.title;
+            return string.IsNullOrWhiteSpace(title)||title==key?label:title+" ["+label+"]";
         }
         private string MapLabel(int id)
         {
@@ -71,6 +97,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         private void OnEnable()
         {
             titleContent = new GUIContent("시나리오 편집툴"); minSize = new Vector2(1000,650);
+            RefreshMapNames(true);
             try
             {
                 LoadGateways(dirtyGateways && gatewayDocument != null);
