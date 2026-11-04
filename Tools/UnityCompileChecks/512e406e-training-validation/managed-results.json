@@ -1,0 +1,86 @@
+{
+  "TrainingChecks": {
+    "status": "통과",
+    "result": {
+      "assertions": 82,
+      "originalJobs": 542,
+      "unityPlayExecuted": false,
+      "scope": "Production service contracts with isolated synthetic authority, not original spawn/AI/damage/AP/XP-distribution policy or rendered Play."
+    },
+    "scope": "Existing unmodified C# fixture; synthetic managed store/authority and Unity boundaries. Not Play."
+  },
+  "TrainingTestAuthorityChecks": {
+    "status": "통과",
+    "result": {
+      "checks": 16,
+      "unityPlay": false
+    },
+    "scope": "Existing unmodified C# fixture; synthetic managed store/authority and Unity boundaries. Not Play."
+  },
+  "TrainingTierChecks": {
+    "status": "통과",
+    "result": {
+      "checks": 100,
+      "classes": 11,
+      "unityPlay": false,
+      "scope": "Actual account/service tier entry, battle-wait movement rejection, escape and reconnect with isolated flat source entrance and explicit class snapshots. Native training map geometry retained; no monster/AP/HP authority invented."
+    },
+    "scope": "Existing unmodified C# fixture; synthetic managed store/authority and Unity boundaries. Not Play."
+  },
+  "apiEntry": {
+    "contracts": {
+      "assertions": 102,
+      "jobs": [
+        100,
+        101,
+        103
+      ],
+      "diskRoundTrips": 3,
+      "unityPlayExecuted": false
+    },
+    "warnings": {
+      "runtime": 0,
+      "editor": 0,
+      "player": 0
+    }
+  },
+  "placementExports": {
+    "101": {
+      "sourceUnits": 10,
+      "byteIdentical": true
+    },
+    "102": {
+      "sourceUnits": 10,
+      "byteIdentical": true
+    }
+  },
+  "preservation": {
+    "Assets/_Original/Data/Campaign/UserGateways.json": {
+      "before": "521cdcfc51b6b3185ff85d2957cdc4ad44d05f0a89de3fd5f81777e18525bc08",
+      "after": "521cdcfc51b6b3185ff85d2957cdc4ad44d05f0a89de3fd5f81777e18525bc08",
+      "unchanged": true
+    },
+    "Assets/_Original/Editor/ScenarioLayouts/101.json": {
+      "before": "e6f73cbea433be5e88785b6f602c09510b27be04149d570739f7dda8942e4f0a",
+      "after": "e6f73cbea433be5e88785b6f602c09510b27be04149d570739f7dda8942e4f0a",
+      "unchanged": true
+    },
+    "Assets/_Original/Editor/ScenarioLayouts/102.json": {
+      "before": "cf42cc93bb63e9eb0c746f5d65bc17c569a6886a78e194b3c099ad0d1dad1b96",
+      "after": "cf42cc93bb63e9eb0c746f5d65bc17c569a6886a78e194b3c099ad0d1dad1b96",
+      "unchanged": true
+    },
+    "Assets/_Original/Resources/TrainingTestLayouts/101.json": {
+      "before": "e6f73cbea433be5e88785b6f602c09510b27be04149d570739f7dda8942e4f0a",
+      "after": "e6f73cbea433be5e88785b6f602c09510b27be04149d570739f7dda8942e4f0a",
+      "unchanged": true
+    },
+    "Assets/_Original/Resources/TrainingTestLayouts/102.json": {
+      "before": "cf42cc93bb63e9eb0c746f5d65bc17c569a6886a78e194b3c099ad0d1dad1b96",
+      "after": "cf42cc93bb63e9eb0c746f5d65bc17c569a6886a78e194b3c099ad0d1dad1b96",
+      "unchanged": true
+    }
+  },
+  "commit": "512e406e",
+  "unityPlay": false
+}
