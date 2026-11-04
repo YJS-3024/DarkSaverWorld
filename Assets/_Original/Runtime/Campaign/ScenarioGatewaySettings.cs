@@ -32,14 +32,22 @@ namespace DarkSaver.Original.Campaign
         public WorldPortal Portal(string portalId) => new WorldPortal{id=portalId,gateway=id,targetMap=targetMap,spawnX=spawnX,spawnY=spawnY,spawnWidth=SpawnWidth,spawnHeight=SpawnHeight,returnX=returnX,returnY=returnY,cells=Cells()};
         public ScenarioGateway Copy() => (ScenarioGateway)MemberwiseClone();
     }
+    [Serializable, DataContract] public sealed class ScenarioEntryPoint
+    {
+        [DataMember] public int map,x,y;
+        [DataMember] public string mapHash;
+        [DataMember] public bool enabled;
+        public ScenarioEntryPoint Copy() => (ScenarioEntryPoint)MemberwiseClone();
+    }
     [Serializable, DataContract] public sealed class ScenarioGatewaySettings
     {
         [DataMember] public int version = 1;
         [DataMember] public bool applyToGame;
         [DataMember] public string provenance = "user-authored; NPC interaction recalled by user; not recovered original server placements";
         [DataMember] public ScenarioGateway[] gates = Array.Empty<ScenarioGateway>();
+        [DataMember(EmitDefaultValue=false)] public ScenarioEntryPoint[] entryPoints;
         public ScenarioGatewaySettings Copy()
-        {var copy=(ScenarioGatewaySettings)MemberwiseClone();copy.gates=gates.Select(g=>g.Copy()).ToArray();return copy;}
+        {var copy=(ScenarioGatewaySettings)MemberwiseClone();copy.gates=gates.Select(g=>g.Copy()).ToArray();copy.entryPoints=entryPoints?.Select(e=>e.Copy()).ToArray();return copy;}
     }
     [Serializable] public sealed class GatewayMapInfo
     { public int id,width,height; public string key,title,kind,hash,nativePath; public bool legacy; }
@@ -66,6 +74,15 @@ namespace DarkSaver.Original.Campaign
         public static void Validate(ScenarioGatewaySettings settings,GatewayMapCatalog catalog)
         {
             if(settings==null||settings.version!=1||settings.provenance!=Provenance||settings.gates==null||catalog?.maps==null||catalog.npcJobs==null)throw new InvalidDataException("입구 설정 형식/출처를 확인하세요.");
+            var entryMaps=new HashSet<int>();
+            foreach(var entry in settings.entryPoints??Array.Empty<ScenarioEntryPoint>())
+            {
+                var map=catalog.maps.FirstOrDefault(m=>m.id==entry?.map);
+                if(entry==null||map==null||!entryMaps.Add(entry.map)||entry.mapHash!=map.hash
+                    ||(map.kind!="scenario"&&(map.id<101||map.id>107))
+                    ||entry.x<0||entry.y<0||entry.x>=map.width||entry.y>=map.height)
+                    throw new InvalidDataException("사용자 진입점의 맵·버전·좌표를 확인하세요.");
+            }
             var ids=new HashSet<string>();var occupied=new HashSet<string>();var replacements=new HashSet<string>();
             foreach(var g in settings.gates)
             {
@@ -80,6 +97,15 @@ namespace DarkSaver.Original.Campaign
                 if(!string.IsNullOrEmpty(g.replacesPortal)&&!replacements.Add(g.fromMap+":"+g.replacesPortal))throw new InvalidDataException("같은 기존 출입구를 두 번 수정할 수 없습니다.");
                 foreach(var cell in g.Cells())if(!occupied.Add(g.fromMap+":"+cell.x+":"+cell.y))throw new InvalidDataException("입구 영역이 서로 겹칩니다.");
             }
+        }
+        public static bool EntryLocationAllowed(WorldDefinition world,ScenarioEntryPoint entry)
+        {
+            if(entry==null)return false;
+            var target=world?.Map(entry.map);var campaign=world?.campaign?.Map(entry.map);
+            if(target==null||!target.training&&campaign?.kind!="scenario"||campaign!=null&&campaign.hash!=entry.mapHash)return false;
+            int cost=target.map.Terrain(new DarkSaver.Original.Tutorial.TutorialTile(entry.x,entry.y),2);
+            return cost>0&&cost!=99&&cost!=-99&&!target.npcs.Any(n=>n.x==entry.x&&n.y==entry.y)
+                &&campaign?.units.Any(u=>u.x==entry.x&&u.y==entry.y)!=true;
         }
         public static void Apply(ScenarioGatewaySettings settings,GatewayMapCatalog catalog,WorldDefinition world)
         {
@@ -118,6 +144,8 @@ namespace DarkSaver.Original.Campaign
                     if(terrain<=0||terrain==99||terrain==-99||from.npcs.Any(n=>n.x==g.returnX&&n.y==g.returnY)||from.portals.Any(p=>p.cells.Any(c=>c.x==g.returnX&&c.y==g.returnY)))throw new InvalidDataException("수련장 복귀 칸이 막혀 있거나 직원/입구와 겹칩니다.");
                 }
             }
+            foreach(var entry in settings.entryPoints??Array.Empty<ScenarioEntryPoint>())
+                if(entry.enabled&&!EntryLocationAllowed(world,entry))throw new InvalidDataException("진입점은 통행 가능한 칸이며 직원/원본 몬스터와 겹치지 않아야 합니다.");
             world.gatewayBaseMaps=baseline;world.maps=maps;world.gateways=settings.Copy();
         }
         public static string Save(string path,ScenarioGatewaySettings settings,GatewayMapCatalog catalog,string expectedHash)

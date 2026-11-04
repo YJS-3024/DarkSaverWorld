@@ -37,6 +37,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         private bool grid = true, labels = true, entries = true, chests = true, quests = true, groups = true, allJobs;
         private ScenarioActor[] actors = Array.Empty<ScenarioActor>();
         private ScenarioMarker localEntry;
+        private bool pickBattleEntry;
         private Rect viewport;
         private bool fitRequested;
         [SerializeField] private bool layoutReadOnly;
@@ -141,7 +142,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                 for (int y = 0; y < pixels.height; y++) Buffer.BlockCopy(pixels.rgba, y * stride, flipped, (pixels.height - 1 - y) * stride, stride);
                 texture.LoadRawTextureData(flipped); texture.Apply(false, true);
                 if (mapTexture != null) DestroyImmediate(mapTexture); mapTexture = texture;
-                source = nextSource; document = next; mapKey = key; dragging = false;
+                source = nextSource; document = next; mapKey = key; dragging = false;pickBattleEntry=false;
                 if (!preserve) { savedHash = bytes == null ? null : ScenarioLayoutData.Hash(bytes); dirty = false; layoutReadOnly=readOnly;layoutNotice=notice;undo.Clear(); redo.Clear(); selected = -1; Fit(); }
                 localEntry = null;
                 if (key == "101")

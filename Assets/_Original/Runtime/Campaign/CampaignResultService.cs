@@ -12,6 +12,12 @@ namespace DarkSaver.Original.Entry
         {
             next.scenarioBattle=null;next.campaignProgress=null;
             if(world.Record.ghost&&(world.Map(next.map).training||world.Definition.campaign?.Map(next.map)?.kind=="scenario"))return WorldFailure.InvalidStage;
+            var entry=world.Definition.gateways?.entryPoints?.FirstOrDefault(e=>e.map==next.map&&e.enabled);
+            if(entry!=null)
+            {
+                if(!ScenarioGatewayData.EntryLocationAllowed(world.Definition,entry))return WorldFailure.InvalidInput;
+                next.x=entry.x;next.y=entry.y;next.direction=1;
+            }
             if(world.Map(next.map).training||world.Definition.campaign?.Map(next.map)?.kind!="scenario")
             {next.scenarioVisit=null;return WorldFailure.None;}
             // Nested scenario visits require a separate source-evidenced transition policy.

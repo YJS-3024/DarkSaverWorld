@@ -194,6 +194,31 @@ internal static class ScenarioProgressChecks
         int staleEffects=0;effectManager.Notify_ScenarioEffect+=c=>{staleEffects++;effectManager.isActiveAndEnabled=false;};effectManager.TestAdvance(0);
         Check(staleEffects==1,"effect callback disabling manager discards remaining old-context audiovisual commands");
         effectManager.isActiveAndEnabled=true;effectManager.TestAdvance(0);Check(staleEffects==1,"discarded old effects do not replay after re-enable");
+        var manualEntry=new Fixture(3,"END","END");manualEntry.Finish();manualEntry.Clear();manualEntry.Finish();manualEntry.Return();
+        var entryMap=manualEntry.catalog.Map(3);var originalArrival=manualEntry.catalog.connections.First(c=>c.toMap==3);var sourceEntry=new CampaignEntry{x=originalArrival.x,y=originalArrival.y};
+        var authored=new ScenarioEntryPoint{map=3,mapHash=entryMap.hash,enabled=true};
+        var free=Enumerable.Range(0,entryMap.world.map.width*entryMap.world.map.height).Select(n=>new ScenarioEntryPoint{map=3,mapHash=entryMap.hash,x=n%entryMap.world.map.width,y=n/entryMap.world.map.width,enabled=true})
+            .First(p=>(p.x!=sourceEntry.x||p.y!=sourceEntry.y)&&ScenarioGatewayData.EntryLocationAllowed(manualEntry.definition,p));authored.x=free.x;authored.y=free.y;
+        var userEntries=new ScenarioGatewaySettings{entryPoints=new[]{authored}};var editorMaps=Read<GatewayMapCatalog>("Assets/_Original/Data/Campaign/GatewayMaps.json");
+        ScenarioGatewayData.Apply(userEntries,editorMaps,manualEntry.definition);
+        authored.x=-10;Check(manualEntry.definition.gateways.entryPoints[0].x==free.x,"entry point config is copied on publication");
+        var encodedEntries=ScenarioGatewayData.Encode(manualEntry.definition.gateways);var decodedEntries=ScenarioGatewayData.Decode(encodedEntries);
+        Check(decodedEntries.entryPoints.Length==1&&decodedEntries.entryPoints[0].x==free.x,"manual entry survives actual settings serialization");
+        var badEntry=decodedEntries.Copy();badEntry.entryPoints[0].mapHash="old-version";
+        bool badVersion=false;try{ScenarioGatewayData.Validate(badEntry,editorMaps);}catch(InvalidDataException){badVersion=true;}Check(badVersion,"manual point stale map version rejected");
+        badEntry=decodedEntries.Copy();badEntry.entryPoints[0].x=entryMap.world.map.width;
+        bool badBounds=false;try{ScenarioGatewayData.Validate(badEntry,editorMaps);}catch(InvalidDataException){badBounds=true;}Check(badBounds,"manual point out of bounds rejected");
+        badEntry=decodedEntries.Copy();badEntry.entryPoints=new[]{badEntry.entryPoints[0],badEntry.entryPoints[0].Copy()};
+        bool badDuplicate=false;try{ScenarioGatewayData.Validate(badEntry,editorMaps);}catch(InvalidDataException){badDuplicate=true;}Check(badDuplicate,"duplicate manual map entries rejected");
+        int cellIndex=free.y*entryMap.world.map.width+free.x,oldAttribute=entryMap.world.map.attributes[cellIndex];entryMap.world.map.attributes[cellIndex]=27;
+        Check(!ScenarioGatewayData.EntryLocationAllowed(manualEntry.definition,free),"blocked manual entry location rejected");entryMap.world.map.attributes[cellIndex]=oldAttribute;
+        var beforeEntry=Snapshot(manualEntry.View.record);manualEntry.store.fail=true;
+        Check(manualEntry.server.EnterCampaignMap(3).Failure==WorldFailure.StorageUnavailable&&Snapshot(manualEntry.View.record)==beforeEntry,"manual point entry save failure preserves source record");manualEntry.store.fail=false;
+        Check(manualEntry.server.EnterCampaignMap(3).Accepted&&manualEntry.View.record.x==free.x&&manualEntry.View.record.y==free.y,"actual scenario entry uses manual point before presentation");
+        Check(manualEntry.View.record.scenarioVisit.x==21&&manualEntry.View.record.scenarioVisit.y==21,"manual destination never changes return origin");
+        manualEntry.Finish();manualEntry.Clear();manualEntry.Finish();manualEntry.Return();
+        decodedEntries.entryPoints[0].enabled=false;ScenarioGatewayData.Apply(decodedEntries,editorMaps,manualEntry.definition);
+        Check(manualEntry.server.EnterCampaignMap(3).Accepted&&manualEntry.View.record.x==sourceEntry.x&&manualEntry.View.record.y==sourceEntry.y,"disabled manual point restores original connection arrival");
         Console.WriteLine(JsonSerializer.Serialize(new{assertions,scenarioEntries=entries,sourceOutroCompletions=endings,approvedResultReturns=returns,eventBodies=events,mapMutationFixtures=mutations,held,scope="Approved-clear fixtures only; no actual combat policy or Unity playback."}));
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using DarkSaver.Original.Maps;
+using DarkSaver.Original.Campaign;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -35,11 +36,11 @@ namespace DarkSaver.Original.Editor.Scenarios
             canvasArea = new Rect(left+1,36,Mathf.Max(200,position.width-left-right-8),position.height-60);
             DrawMaps(list); DrawInspector(inspector);
             int nextMode = GUI.Toolbar(new Rect(canvasArea.x+8,canvasArea.y+5,330,24),mode,new[]{"전투 배치 편집","연출 배치 보기","맵 입구 연결"});
-            if (nextMode != mode) { mode = nextMode; selected = -1; adding = false; dragging = false;pickNpc=pickSpawn=dragGateway=sizingGateway=false; }
+            if (nextMode != mode) { mode = nextMode; selected = -1; adding = false; dragging = false;pickNpc=pickSpawn=dragGateway=sizingGateway=pickBattleEntry=false; }
             bool compactActions=canvasArea.width<466;
             using (new EditorGUI.DisabledScope(mode != 0 || loadError.Length > 0))
             {
-                adding = GUI.Toggle(new Rect(canvasArea.x+(compactActions?8:350),canvasArea.y+(compactActions?34:7),100,22),adding,"클릭하여 추가");
+                adding = GUI.Toggle(new Rect(canvasArea.x+(compactActions?8:350),canvasArea.y+(compactActions?34:7),100,22),adding,"클릭하여 추가");if(adding)pickBattleEntry=false;
             }
             viewport = new Rect(canvasArea.x+8,canvasArea.y+36,canvasArea.width-16,canvasArea.height-44);
             if(compactActions){viewport.y+=26;viewport.height-=26;}
@@ -91,8 +92,8 @@ namespace DarkSaver.Original.Editor.Scenarios
                 if (GUI.Button(new Rect(position.width-325,5,65,24),"화면 맞춤")) Fit();
                 if (GUI.Button(new Rect(position.width-254,5,65,24),"100%")) { zoom=1; CenterMap(); }
                 if (GUI.Button(new Rect(position.width-183,5,78,24),"다시 열기")) {if(mode==2)ReloadGateways();else if(MayLeave())LoadMap(mapKey);}
-                using (new EditorGUI.DisabledScope(loadError.Length > 0||mode!=2&&layoutReadOnly))
-                    if (GUI.Button(new Rect(position.width-99,5,86,24),mode==2?"입구 저장":"배치 저장")) {if(mode==2)SaveGateways();else Save();}
+                using (new EditorGUI.DisabledScope(loadError.Length > 0||mode!=2&&layoutReadOnly&&dirty&&!dirtyGateways))
+                    if (GUI.Button(new Rect(position.width-99,5,86,24),mode==2?"입구 저장":"배치 저장")) {if(mode==2)SaveGateways();else SaveChanges();}
             }
         }
         private void DrawMaps(Rect rect)
@@ -135,6 +136,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             groups=EditorGUILayout.ToggleLeft("unit 5슬롯 묶음 테두리",groups);
             entries=EditorGUILayout.ToggleLeft("아군 POS 슬롯 / 로컬 진입점",entries);
             chests=EditorGUILayout.ToggleLeft("상자 위치",chests);quests=EditorGUILayout.ToggleLeft("이벤트 조건 위치",quests);
+            DrawBattleEntry();
             GUILayout.Space(6);
             using(new EditorGUI.DisabledScope(mode!=0||loadError.Length>0||layoutReadOnly))
             {
@@ -182,8 +184,47 @@ namespace DarkSaver.Original.Editor.Scenarios
                 if(GUILayout.Button(unit.unit+" · "+(jobs.TryGetValue(unit.job,out var j)?j.name:unit.job.ToString())+" ("+unit.x+","+unit.y+")",EditorStyles.miniButton))
                 {selected=unit.unit;mode=0;FocusTile(unit.x,unit.y);}
             EditorGUILayout.EndScrollView();
-            EditorGUILayout.HelpBox("저장은 Editor/ScenarioLayouts의 사용자 배치만 변경합니다. 원본 SET/POS·씬·로컬 서버 스폰은 변경하지 않습니다.\n연출은 명령행별 위치 참고이며 대본 실행/분기 판정이 아닙니다.",MessageType.None);
+            EditorGUILayout.HelpBox("몬스터 저장은 Editor/ScenarioLayouts만 변경합니다. 진입점은 별도 UserGateways.json에 저장하며 실제 입장에 적용합니다. 원본 SET/POS·씬·몬스터 스폰은 변경하지 않습니다.\n연출은 명령행별 위치 참고이며 대본 실행/분기 판정이 아닙니다.",MessageType.None);
             EditorGUILayout.EndScrollView();GUILayout.EndArea();
+        }
+        private void SetBattleEntry(int x,int y,bool enabled)
+        {
+            try
+            {
+                var entry=new ScenarioEntryPoint{map=int.Parse(mapKey),mapHash=MapInfo(mapKey).hash,x=x,y=y,enabled=enabled};
+                var candidate=gatewayDocument.Copy();candidate.entryPoints=(candidate.entryPoints??Array.Empty<ScenarioEntryPoint>()).Where(p=>p.map!=entry.map).Concat(new[]{entry}).ToArray();
+                ScenarioGatewayData.Validate(candidate,gatewayCatalog);
+                if(enabled&&!ScenarioGatewayData.EntryLocationAllowed(gatewayWorld,entry))throw new System.IO.InvalidDataException("통행 가능한 빈 칸을 선택하세요. 직원/원본 몬스터와 겹칠 수 없습니다.");
+                RememberGateway();gatewayDocument=candidate;entries=true;message="지휘관 진입 위치 변경 · 진입점 저장 필요";Repaint();
+            }
+            catch(Exception e){message=e.Message;}
+        }
+        private void DrawBattleEntry()
+        {
+            GUILayout.Space(6);GUILayout.Label("지휘관 진입 위치",EditorStyles.boldLabel);
+            int id=int.Parse(mapKey);var target=gatewayWorld?.Map(id);
+            bool supported=target!=null&&(target.training||gatewayWorld.campaign?.Map(id)?.kind=="scenario");
+            var entry=gatewayDocument?.entryPoints?.FirstOrDefault(p=>p.map==id);
+            using(new EditorGUI.DisabledScope(mode!=0||!supported||loadError.Length>0))
+            {
+                if(GUILayout.Button(pickBattleEntry?"지도에서 칸을 클릭하세요 (취소)":"지도에서 진입 위치 지정")){pickBattleEntry=!pickBattleEntry;adding=dragging=false;}
+                if(entry!=null)
+                {
+                    EditorGUI.BeginChangeCheck();bool enabled=EditorGUILayout.Toggle("사용자 진입점 사용",entry.enabled);
+                    int x=EditorGUILayout.DelayedIntField("진입 X",entry.x),y=EditorGUILayout.DelayedIntField("진입 Y",entry.y);
+                    if(EditorGUI.EndChangeCheck())SetBattleEntry(x,y,enabled);
+                    if(GUILayout.Button("진입 위치 보기")){entries=true;FocusTile(entry.x,entry.y);}
+                    if(GUILayout.Button("사용자 진입점 삭제")){RememberGateway();gatewayDocument.entryPoints=gatewayDocument.entryPoints.Where(p=>p.map!=id).ToArray();pickBattleEntry=false;}
+                }
+                else GUILayout.Label("미설정 · 기존 입구의 도착 좌표 사용",EditorStyles.wordWrappedMiniLabel);
+                using(new EditorGUI.DisabledScope(!dirtyGateways))if(GUILayout.Button("진입점·입구 저장"))SaveGateways();
+                GUILayout.BeginHorizontal();
+                using(new EditorGUI.DisabledScope(gatewayUndo.Count==0))if(GUILayout.Button("진입점/입구 되돌리기"))GatewayHistory(true);
+                using(new EditorGUI.DisabledScope(gatewayRedo.Count==0))if(GUILayout.Button("다시 실행"))GatewayHistory(false);
+                GUILayout.EndHorizontal();
+            }
+            if(!supported)GUILayout.Label("현재 실행 가능한 시나리오·수련장에서 설정합니다.",EditorStyles.wordWrappedMiniLabel);
+            GUILayout.Label("원본 POS는 보존합니다. 저장한 사용 중 진입점은 실제 입장 시 기존 도착 좌표보다 우선하며, 기존 저장 위치/서버 유닛 좌표는 변경하지 않습니다.",EditorStyles.wordWrappedMiniLabel);
         }
         private void DrawScript()
         {
@@ -210,7 +251,8 @@ namespace DarkSaver.Original.Editor.Scenarios
         private void FocusTile(int x,int y){pan=viewport.size*.5f-new Vector2((x+.5f)*32*zoom,(y+.5f)*32*zoom);Repaint();}
         private void ProcessInput()
         {
-            var e=Event.current;bool inside=viewport.Contains(e.mousePosition);var local=e.mousePosition-viewport.position;
+            var e=Event.current;if(e.type==EventType.KeyDown&&e.keyCode==KeyCode.Escape&&pickBattleEntry){pickBattleEntry=false;e.Use();Repaint();}
+            bool inside=viewport.Contains(e.mousePosition);var local=e.mousePosition-viewport.position;
             if(inside)
             {hoverX=(int)Math.Floor((local.x-pan.x)/(32*zoom));hoverY=(int)Math.Floor((local.y-pan.y)/(32*zoom));if(hoverX<0||hoverX>=document.width||hoverY<0||hoverY>=document.height)hoverX=hoverY=-1;}
             else hoverX=hoverY=-1;
@@ -221,17 +263,18 @@ namespace DarkSaver.Original.Editor.Scenarios
             if(e.type==EventType.MouseDrag&&e.button==2&&inside){pan+=e.delta;e.Use();Repaint();}
             if(e.type==EventType.KeyDown&&GUIUtility.keyboardControl==0)
             {
-                if((e.control||e.command)&&e.keyCode==KeyCode.S){if(mode==2)SaveGateways();else Save();e.Use();}
+                if((e.control||e.command)&&e.keyCode==KeyCode.S){if(mode==2)SaveGateways();else SaveChanges();e.Use();}
                 else if(mode==0&&loadError.Length==0&&(e.control||e.command)&&e.keyCode==KeyCode.Z){History(!e.shift);e.Use();}
                 else if(mode==0&&loadError.Length==0&&(e.control||e.command)&&e.keyCode==KeyCode.Y){History(false);e.Use();}
                 else if(e.keyCode==KeyCode.Delete||e.keyCode==KeyCode.Backspace){DeleteSelected();e.Use();}
             }
-            if(loadError.Length>0||layoutReadOnly&&mode!=2)return;
+            if(loadError.Length>0||layoutReadOnly&&mode!=2&&!pickBattleEntry)return;
             if(mode==2){ProcessGatewayInput(e,inside,local);return;}
             if(mode!=0){dragging=false;return;}
             if(e.type==EventType.MouseDown&&e.button==0&&inside&&hoverX>=0)
             {
                 GUI.FocusControl(null);
+                if(pickBattleEntry){SetBattleEntry(hoverX,hoverY,true);pickBattleEntry=false;e.Use();return;}
                 if(adding){AddAt(hoverX,hoverY);e.Use();return;}
                 var hit=document.units.Reverse().FirstOrDefault(u=>u.x==hoverX&&u.y==hoverY);selected=hit?.unit??-1;
                 dragging=hit!=null;dragRemembered=false;dragStart=local;if(hit!=null){dragX=hit.x;dragY=hit.y;}e.Use();Repaint();
@@ -269,6 +312,8 @@ namespace DarkSaver.Original.Editor.Scenarios
                     }
                 }
                 foreach(var unit in document.units)DrawActor(unit.unit,unit.job.ToString(),unit.x,unit.y,GroupColor(unit.unit),unit.unit==selected);
+                var manual=gatewayDocument?.entryPoints?.FirstOrDefault(p=>p.map==int.Parse(mapKey));
+                if(entries&&manual!=null)DrawMarker(new ScenarioMarker{x=manual.x,y=manual.y,kind="local",label="사용자 지휘관 진입점"+(manual.enabled?"":" (미사용)"),file=GatewayPath},manual.enabled?new Color(.2f,1,.9f):Color.gray);
                 if(entries)
                 {foreach(var entry in source.entries)DrawMarker(entry,new Color(.25f,.8f,1));if(localEntry!=null)DrawMarker(localEntry,new Color(.25f,.8f,1));}
             }

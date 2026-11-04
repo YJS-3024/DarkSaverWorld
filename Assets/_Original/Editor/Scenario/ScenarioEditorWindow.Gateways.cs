@@ -52,6 +52,11 @@ namespace DarkSaver.Original.Editor.Scenarios
                 foreach(var g in gatewayDocument.gates)
                     foreach(int id in new[]{g.fromMap,g.targetMap})
                     {var info=gatewayCatalog.maps.FirstOrDefault(m=>m.id==id);if(info==null||ScenarioGatewayData.Hash(File.ReadAllBytes(info.nativePath))!=info.hash)throw new IOException("맵이 변경됐거나 선택되지 않았습니다. 입구 설정을 확인하세요.");}
+                foreach(var point in gatewayDocument.entryPoints??Array.Empty<ScenarioEntryPoint>())
+                {
+                    var info=gatewayCatalog.maps.FirstOrDefault(m=>m.id==point.map);
+                    if(info==null||ScenarioGatewayData.Hash(File.ReadAllBytes(info.nativePath))!=info.hash)throw new IOException("진입점의 지도가 변경되었습니다. 다시 불러온 뒤 저장하세요.");
+                }
                 // Validate actual runtime placement too, without changing its cached native data.
                 var world=JsonUtility.FromJson<DarkSaver.Original.World.WorldDefinition>(File.ReadAllText(BasePath+"Data/World/KaosiaWorld.json"));
                 var art=AssetDatabase.LoadAssetAtPath<NativeCampaignArt>(BasePath+"Data/Campaign/NativeCampaignArt.asset");

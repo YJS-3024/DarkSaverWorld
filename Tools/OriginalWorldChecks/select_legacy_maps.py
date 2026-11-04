@@ -56,6 +56,9 @@ def main():
             assert 0<=x and 0<=y and w>0 and h>0 and x+w<=info['width'] and y+h<=info['height'],('Authored gateway outside old geometry; edit before switching',g['id'])
             assert version==info['hash'],('Authored gateway targets another map version; preserve and review manually',g['id'])
 
+    for point in settings.get('entryPoints')or []:
+        info=infos.get(point['map'])
+        assert info is not None and point['mapHash']==info['hash'] and 0<=point['x']<info['width'] and 0<=point['y']<info['height'],('Authored battle entry targets another map version; preserve and review manually',point['map'])
     write(catalog_path,catalog);write(gate_path,gate);asset.write_text(text)
     table=BASE/'Data/Tables/scene_maps.csv'
     rows=list(csv.DictReader(io.StringIO(table.read_text(encoding='utf-8-sig'))));columns=list(rows[0])
