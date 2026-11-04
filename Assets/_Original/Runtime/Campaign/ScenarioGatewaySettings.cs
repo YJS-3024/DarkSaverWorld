@@ -128,7 +128,7 @@ namespace DarkSaver.Original.Campaign
                 if(g.IsWalk)
                 {
                     foreach(var cell in g.Cells())
-                    {int terrain=from.map.Terrain(cell.Tile,2);if(terrain<=0||terrain==99||terrain==-99)throw new InvalidDataException("입구 영역에 이동할 수 없는 칸이 있습니다.");}
+                    {int terrain=from.map.Terrain(cell.Tile,2);if(terrain<=0||terrain==99||terrain==-99)throw new InvalidDataException("입구 '"+g.name+"' (맵 "+g.fromMap+")의 ("+cell.x+","+cell.y+")는 통행 불가 칸입니다. 입구 영역을 길/문 앞의 통행 가능한 타일로 옮기거나 크기를 줄이세요.");}
                     if(target.training&&(from.id!=1000||!from.map.Contains(new DarkSaver.Original.Tutorial.TutorialTile(g.returnX,g.returnY))))throw new InvalidDataException("수련장 입구는 카오시아의 복귀 칸을 지정하세요.");
                     from.portals=from.portals.Where(p=>p!=replaced).Concat(new[]{g.Portal(replaced?.id??id)}).ToArray();
                 }

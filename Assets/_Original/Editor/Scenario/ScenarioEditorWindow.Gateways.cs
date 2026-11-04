@@ -111,6 +111,17 @@ namespace DarkSaver.Original.Editor.Scenarios
             if(int.Parse(mapKey)!=id)return;
             pickSpawn=arrival;pickNpc=!arrival;dragGateway=sizingGateway=false;
         }
+        private System.Collections.Generic.IEnumerable<WorldPoint> BlockedEntranceCells(ScenarioGateway gate)
+        {
+            var map=gatewayWorld.Map(gate.fromMap)?.map;
+            if(!gate.IsWalk||map==null||gate.x<0||gate.y<0||gate.Width<=0||gate.Height<=0
+                ||(long)gate.x+gate.Width>map.width||(long)gate.y+gate.Height>map.height)yield break;
+            for(int y=gate.y;y<gate.y+gate.Height;y++)for(int x=gate.x;x<gate.x+gate.Width;x++)
+            {
+                int cost=map.Terrain(new DarkSaver.Original.Tutorial.TutorialTile(x,y),2);
+                if(cost<=0||cost==99||cost==-99)yield return new WorldPoint{x=x,y=y};
+            }
+        }
         private void DrawGatewayInspector(Rect rect)
         {
             GUILayout.BeginArea(rect,EditorStyles.helpBox);inspectorScroll=EditorGUILayout.BeginScrollView(inspectorScroll);
@@ -163,6 +174,16 @@ namespace DarkSaver.Original.Editor.Scenarios
                 int sx=EditorGUILayout.DelayedIntField("도착 X (좌상단)",gate.spawnX),sy=EditorGUILayout.DelayedIntField("도착 Y (좌상단)",gate.spawnY);
                 int sw=EditorGUILayout.DelayedIntField("도착 가로 칸 수",gate.SpawnWidth),sh=EditorGUILayout.DelayedIntField("도착 세로 칸 수",gate.SpawnHeight);
                 if(EditorGUI.EndChangeCheck()){RememberGateway();gate.x=x;gate.y=y;gate.width=width;gate.height=height;gate.spawnX=sx;gate.spawnY=sy;gate.spawnWidth=Math.Max(1,sw);gate.spawnHeight=Math.Max(1,sh);}
+                var blocked=BlockedEntranceCells(gate).Take(8).ToArray();
+                if(blocked.Length>0)
+                {
+                    EditorGUILayout.HelpBox("입구 영역의 통행 불가 칸: "+string.Join(" · ",blocked.Select(c=>"("+c.x+","+c.y+")"))+(blocked.Length==8?" 외 추가 가능":"")+"\n빨간 칸을 제외하도록 입구 위치/크기를 바꾸세요.",MessageType.Error);
+                    if(GUILayout.Button("첫 통행 불가 칸 보기"))
+                    {
+                        string key=gatewayCatalog.maps.First(m=>m.id==gate.fromMap).key;SelectMap(key);
+                        if(mapKey==key)FocusTile(blocked[0].x,blocked[0].y);GUIUtility.ExitGUI();
+                    }
+                }
                 GUILayout.BeginHorizontal();if(GUILayout.Button("도착 2 × 1")){RememberGateway();gate.spawnWidth=2;gate.spawnHeight=1;}if(GUILayout.Button("도착 1 × 2")){RememberGateway();gate.spawnWidth=1;gate.spawnHeight=2;}GUILayout.EndHorizontal();
                 if(gate.SpawnWidth>1||gate.SpawnHeight>1)EditorGUILayout.HelpBox("출발 칸 순서에 비례해 도착 칸을 선택합니다. 도착한 출구는 영역을 벗어난 뒤 다시 진입할 때 작동합니다.",MessageType.None);
                 if(gate.IsWalk)
@@ -239,6 +260,12 @@ namespace DarkSaver.Original.Editor.Scenarios
                     var r=TileRect(gate.x,gate.y);
                     if(gate.IsWalk){r.width*=Math.Max(1,gate.Width);r.height*=Math.Max(1,gate.Height);EditorGUI.DrawRect(r,new Color(0,.8f,1,.18f));}
                     else{var texture=ActorPicture(gate.npcJob.ToString());if(texture!=null)DrawActorPicture(r,texture);}
+                    if(gate.IsWalk&&gate.id==selectedGateway)
+                        foreach(var bad in BlockedEntranceCells(gate))
+                        {
+                            var cell=TileRect(bad.x,bad.y);if(!cell.Overlaps(new Rect(Vector2.zero,viewport.size)))continue;
+                            EditorGUI.DrawRect(cell,new Color(1,.1f,.1f,.6f));Outline(cell,Color.red,1);
+                        }
                     Outline(r,gate.id==selectedGateway?Color.yellow:gate.enabled?Color.cyan:Color.gray,2);GUI.Label(new Rect(r.x,r.y-15,220,15),gate.name+" → "+gate.targetMap+(gate.IsWalk?" ("+gate.Width+"×"+gate.Height+")":""),small);
                 }
                 if(gate.targetMap==int.Parse(mapKey)&&gate.spawnX>=0&&gate.spawnY>=0)

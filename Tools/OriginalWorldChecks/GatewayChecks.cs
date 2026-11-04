@@ -123,6 +123,8 @@ internal static class GatewayChecks
         invalid=Areas(a.Copy());invalid.gates[0].trigger="unknown";Reject(()=>ScenarioGatewayData.Validate(invalid,catalog),"unknown activation type rejected");
         var blocked=FlatWorld();blocked.Map(1000).map.attributes[22*blocked.Map(1000).map.width+23]=1;blocked.Map(1000).map.terrain[32]=99;
         Reject(()=>ScenarioGatewayData.Apply(Areas(a),catalog,blocked),"one blocked cell invalidates entire source area");
+        string terrainError="";try{ScenarioGatewayData.Apply(Areas(a),catalog,blocked);}catch(InvalidDataException e){terrainError=e.Message;}
+        Check(terrainError.Contains(a.name)&&terrainError.Contains("1000")&&terrainError.Contains("(23,22)"),"blocked entrance diagnostic identifies exact gate/map/cell");
         var atomic=FlatWorld();atomic.Map(1010).map.attributes[11*atomic.Map(1010).map.width+11]=1;atomic.Map(1010).map.terrain[32]=99;
         var originalMaps=atomic.maps;Reject(()=>ScenarioGatewayData.Apply(Areas(a,b),catalog,atomic),"later invalid entry rejected");
         Check(ReferenceEquals(atomic.maps,originalMaps)&&atomic.Map(1000).portals.Length==0&&atomic.gateways==null,"failed apply does not publish partial edits");
