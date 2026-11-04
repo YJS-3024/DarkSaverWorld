@@ -26,7 +26,13 @@ namespace DarkSaver.Original.Editor.Scenarios
             if (centered == null) centered = new GUIStyle(EditorStyles.boldLabel) { alignment = TextAnchor.MiddleCenter, normal = { textColor = Color.white }, fontSize = 10 };
             DrawHeader();
             if (source == null || document == null)
-            { EditorGUI.HelpBox(new Rect(12,48,position.width-24,90), "원본 자료를 열지 못했습니다. " + loadError, MessageType.Error); return; }
+            {
+                DrawMaps(new Rect(0,36,220,position.height-60));
+                EditorGUI.HelpBox(new Rect(234,48,Mathf.Max(100,position.width-248),150),"원본 자료를 열지 못했습니다. 다른 지도를 선택하거나 오류를 확인하세요.\n"+loadError,MessageType.Error);
+                if(GUI.Button(new Rect(234,205,120,24),"오류 복사"))EditorGUIUtility.systemCopyBuffer=loadError;
+                if(GUI.Button(new Rect(360,205,160,24),"목록/지도 다시 읽기"))OnEnable();
+                return;
+            }
             mode=Mathf.Clamp(mode,0,2);
             if(float.IsNaN(zoom)||float.IsInfinity(zoom)||zoom<.125f||zoom>4||float.IsNaN(pan.x)||float.IsInfinity(pan.x)||float.IsNaN(pan.y)||float.IsInfinity(pan.y))Fit();
             const float left = 220;
@@ -50,7 +56,12 @@ namespace DarkSaver.Original.Editor.Scenarios
             EditorGUI.DrawRect(new Rect(0,position.height-24,position.width,24),new Color(.12f,.14f,.17f));
             GUI.Label(new Rect(10,position.height-22,position.width-20,20),
                 new[]{"전투 보기","연출 보기","맵 입구 보기"}[mode]+" | 전투 "+document.units.Length+" · 화면 범위 "+visibleActors+" · 그림 미확보 "+missingActorPictures+" | "+(hoverX >= 0 ? "타일 " + hoverX + "," + hoverY + "  ·  " : "") + Mathf.RoundToInt(zoom*100) + "% | " + message, EditorStyles.miniLabel);
-            if (loadError.Length > 0) EditorGUI.HelpBox(new Rect(canvasArea.x+14,canvasArea.y+100,canvasArea.width-28,90),loadError,MessageType.Error);
+            if (loadError.Length > 0)
+            {
+                EditorGUI.HelpBox(new Rect(canvasArea.x+14,canvasArea.y+100,canvasArea.width-28,130),loadError,MessageType.Error);
+                if(GUI.Button(new Rect(canvasArea.x+14,canvasArea.y+234,110,24),"오류 복사"))EditorGUIUtility.systemCopyBuffer=loadError;
+                if(failedMapKey.Length>0&&GUI.Button(new Rect(canvasArea.x+130,canvasArea.y+234,160,24),"실패한 지도 다시 시도"))LoadMap(failedMapKey);
+            }
         }
         private float ResizeInspector(float left)
         {
@@ -101,6 +112,14 @@ namespace DarkSaver.Original.Editor.Scenarios
             GUILayout.BeginArea(rect,EditorStyles.helpBox);
             GUILayout.Label("원본 맵",EditorStyles.boldLabel);
             search=EditorGUILayout.TextField(search,EditorStyles.toolbarSearchField);
+            GUILayout.BeginHorizontal();directMapKey=EditorGUILayout.TextField(directMapKey);
+            if(GUILayout.Button("번호로 열기",GUILayout.Width(82)))
+            {
+                string requested=int.TryParse(directMapKey,out var number)?keys.FirstOrDefault(k=>int.Parse(k)==number):null;
+                if(requested==null)message="목록에 있는 맵 번호를 입력하세요.";
+                else{SelectMap(requested);GUIUtility.ExitGUI();}
+            }
+            GUILayout.EndHorizontal();
             var categories=new[]{"전체","시나리오","수련장","대련장","튜토리얼","월드/필드","마을","실내"};
             category=EditorGUILayout.Popup(category,categories);
             mapScroll=EditorGUILayout.BeginScrollView(mapScroll);
@@ -109,7 +128,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                 if (category > 0 && Category(key) != categories[category]) continue;
                 if (search.Length > 0 && Title(key).IndexOf(search,StringComparison.OrdinalIgnoreCase)<0) continue;
                 var old=GUI.backgroundColor;if(key==mapKey)GUI.backgroundColor=new Color(.35f,.65f,1);
-                bool clicked=GUILayout.Button(Title(key),GUILayout.Height(25));GUI.backgroundColor=old;
+                bool clicked=GUILayout.Button(new GUIContent(Title(key),Title(key)),GUILayout.Height(25),GUILayout.Width(Mathf.Max(60,rect.width-26)));GUI.backgroundColor=old;
                 if(clicked){SelectMap(key);GUIUtility.ExitGUI();}
             }
             EditorGUILayout.EndScrollView();

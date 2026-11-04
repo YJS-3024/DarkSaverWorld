@@ -42,6 +42,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         private bool fitRequested;
         [SerializeField] private bool layoutReadOnly;
         private string layoutNotice="";
+        private string failedMapKey="",mapLoadStage="",directMapKey="";
         private const string MapNamesPath=BasePath+"Data/Tables/scene_maps.csv";
         private Dictionary<string,string> mapNames=new Dictionary<string,string>();
         private long mapNamesStamp=long.MinValue,mapNamesSize=-1;
@@ -128,16 +129,28 @@ namespace DarkSaver.Original.Editor.Scenarios
         }
         private void LoadMap(string key, bool preserve = false)
         {
+            Texture2D pendingTexture=null;
             try
             {
+                mapLoadStage="지도 파일: "+MapInfo(key).nativePath;
                 var map = File.ReadAllBytes(MapInfo(key).nativePath); var size = NativeMapDecoder.Dimensions(map);
+                mapLoadStage="원본 배치/지도 해시 확인";
                 var nextSource = ReadMapSource(key,map,size.width,size.height);
                 string path = LayoutFolder + "/" + key + ".json"; var bytes = File.Exists(path) ? File.ReadAllBytes(path) : null;
+                mapLoadStage="사용자 배치 읽기: "+path;
                 bool readOnly=false;string notice="";
                 var next = preserve ? document : ScenarioLayoutData.LoadForPreview(bytes,nextSource.layout,new HashSet<int>(jobs.Keys),out readOnly,out notice);
                 ScenarioLayoutData.Validate(next, nextSource.layout, new HashSet<int>(jobs.Keys));
-                var pixels = NativeMapDecoder.Render(map, id => File.ReadAllBytes((MapInfo(key).legacy ? BasePath+"SourceData/KaosiaLegacy/" : NativeFolder) + "mdsr" + id + ".grs.bytes"));
+                mapLoadStage="타일/장식 렌더";
+                var pixels = NativeMapDecoder.Render(map, id =>
+                {
+                    string graphics=(MapInfo(key).legacy?BasePath+"SourceData/KaosiaLegacy/":NativeFolder)+"mdsr"+id+".grs.bytes";
+                    mapLoadStage="타일/장식 파일: "+graphics;return File.ReadAllBytes(graphics);
+                });
+                mapLoadStage="미리보기 텍스처 "+pixels.width+"×"+pixels.height+" (GPU 최대 "+SystemInfo.maxTextureSize+")";
+                if(pixels.width>SystemInfo.maxTextureSize||pixels.height>SystemInfo.maxTextureSize)throw new IOException("지도 크기가 현재 GPU의 최대 텍스처 크기를 초과합니다.");
                 var texture = new Texture2D(pixels.width, pixels.height, TextureFormat.RGBA32, false) { filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp, hideFlags = HideFlags.HideAndDontSave };
+                pendingTexture=texture;
                 var flipped = new byte[pixels.rgba.Length]; int stride = pixels.width * 4;
                 for (int y = 0; y < pixels.height; y++) Buffer.BlockCopy(pixels.rgba, y * stride, flipped, (pixels.height - 1 - y) * stride, stride);
                 texture.LoadRawTextureData(flipped); texture.Apply(false, true);
@@ -151,11 +164,19 @@ namespace DarkSaver.Original.Editor.Scenarios
                     var gate = world.Map(1000).portals.FirstOrDefault(p => p.targetMap == 101);
                     if (gate != null) localEntry = new ScenarioMarker { x = gate.spawnX, y = gate.spawnY, kind = "local", label = "현재 로컬 수련장 진입점", file = "KaosiaWorld.json" };
                 }
-                scriptIndex = 0; ReadScript(); loadError = ""; message = layoutNotice; hasUnsavedChanges = dirty || dirtyGateways;
+                mapLoadStage="연출 대본 읽기";
+                scriptIndex = 0; ReadScript(); loadError = failedMapKey = ""; message = layoutNotice; hasUnsavedChanges = dirty || dirtyGateways;
                 saveChangesMessage = "시나리오 " + mapKey + "의 편집 배치를 저장할까요? 원본 SET/POS는 변경하지 않습니다.";
                 Repaint();
             }
-            catch (Exception e) { loadError = e.Message; Repaint(); }
+            catch(ExitGUIException){throw;}
+            catch (Exception e)
+            {
+                if(pendingTexture!=null&&pendingTexture!=mapTexture)DestroyImmediate(pendingTexture);
+                failedMapKey=key;
+                loadError="맵 "+key+" 선택 실패\n단계: "+mapLoadStage+"\n"+e.GetType().Name+": "+e.Message;
+                message=loadError;Debug.LogException(new IOException(loadError,e));Repaint();
+            }
         }
         private void ReadScript()
         {
@@ -171,7 +192,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             int choice = EditorUtility.DisplayDialogComplex("저장하지 않은 배치", "시나리오 " + mapKey + "의 편집을 저장할까요?", "저장", "취소", "저장하지 않음");
             return choice == 0 ? Save() : choice == 2;
         }
-        private void SelectMap(string key) { if (key != mapKey && MayLeave()) LoadMap(key); }
+        private void SelectMap(string key) { if ((key != mapKey || loadError.Length>0) && MayLeave()) LoadMap(key); }
         private void Remember()
         { undo.Add(ScenarioLayoutData.Encode(document)); if (undo.Count > 100) undo.RemoveAt(0); redo.Clear(); MarkDirty(); }
         private void MarkDirty() { dirty = hasUnsavedChanges = true; message = "저장하지 않은 변경"; Repaint(); }
