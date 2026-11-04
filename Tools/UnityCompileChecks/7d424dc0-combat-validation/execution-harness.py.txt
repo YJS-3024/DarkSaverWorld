@@ -1,0 +1,49 @@
+import pathlib,subprocess,json,hashlib,re,os
+B=pathlib.Path(__file__).resolve().parent;ROOT=B.parents[2]
+OLD=ROOT/'Tools/UnityCompileChecks/f206c672-validation';OLDROOT=OLD/'source.local'
+DATA=pathlib.Path('C:/Program Files/Unity/Hub/Editor/6000.5.7f1/Editor/Data');SDK=DATA/'DotNetSdk';DOTNET=SDK/'dotnet.exe';CSC=next(SDK.glob('sdk/*/Roslyn/bincore/csc.dll'))
+ENV=dict(os.environ,DOTNET_CLI_HOME=str(B/'dotnet-home.local'),PYTHONDONTWRITEBYTECODE='1')
+W=B/'managed.local';W.mkdir(exist_ok=True)
+paths=['Assets/_Original/Data/Campaign/UserGateways.json','Assets/_Original/Editor/ScenarioLayouts/101.json','Assets/_Original/Editor/ScenarioLayouts/102.json','Assets/_Original/Resources/TrainingTestLayouts/101.json','Assets/_Original/Resources/TrainingTestLayouts/102.json']
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+before={p:sha(ROOT/p)for p in paths}
+# Execute existing API/entry body only, without modifying source or running native preconditions.
+p=ROOT/'Tools/OriginalEntryChecks/check_entry.py';s=p.read_text(encoding='utf-8');s=s[:s.index('    guids = {}')]
+s+="    (WORK/'managed-result.json').write_text(json.dumps(dict(contracts=checks,warnings=dict(runtime=runtime_warnings,editor=editor_warnings,player=player_warnings))))\n"
+s=s.replace("sdk/'dotnet'","sdk/'dotnet.exe'")
+g=dict(__file__=str(p),__name__='validation_api');exec(compile(s,str(p),'exec'),g);g['DATA']=DATA;g['WORK']=W/'entry';g['main']();print('API and entry completed',flush=True)
+results={};manifests={}
+def run(name,args):
+ exe=W/(name+'.dll');rsp=W/(name+'.rsp');rsp.write_text(args,encoding='utf-8');exe.with_suffix('.runtimeconfig.json').write_bytes((W/'entry/EntryChecks.runtimeconfig.json').read_bytes())
+ for phase,cmd in [('compile',[str(DOTNET),str(CSC),'@'+str(rsp)]),('run',[str(DOTNET),str(exe),str(ROOT)])]:
+  q=subprocess.run(cmd,cwd=ROOT,env=ENV,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=120);(W/(name+'-'+phase+'.txt')).write_text(q.stdout+q.stderr,encoding='utf-8')
+  if q.returncode:results[name]=dict(status='실패',phase=phase,exitCode=q.returncode,error=(q.stdout+q.stderr)[-2500:]);print(name,'failed',flush=True);return
+ results[name]=dict(status='통과',result=json.loads(q.stdout),scope='Existing unmodified C# fixture; synthetic managed store/authority and Unity boundaries. Not Play.')
+ manifests[name]={str(path.relative_to(ROOT)):sha(path)for path in [pathlib.Path(line.strip().strip('"'))for line in args.splitlines()] if path.is_file() and path.suffix=='.cs' and ROOT in path.parents}
+ print(name,json.dumps(results[name]['result']),flush=True)
+def template(folder,file):
+ old=OLD/'temp.local'/folder
+ return (old/file).read_text(encoding='utf-8').replace(str(OLDROOT),str(ROOT))
+base=template('ds-npc-gateway-checks','checks.rsp')
+oldexe=OLD/'temp.local/ds-npc-gateway-checks/GatewayChecks.dll'
+runtime=ROOT/'Assets/_Original/Runtime';out=ROOT/'Tools/OriginalWorldChecks'
+args=base.replace(str(oldexe),str(W/'TrainingChecks.dll')).replace(str(out/'GatewayChecks.cs'),str(out/'TrainingChecks.cs'))
+run('TrainingChecks',args)
+policy=runtime/'Entry/LocalServerManager.Training.cs';constant=next(line.strip()for line in policy.read_text().splitlines()if line.strip().startswith('public const double TrainingMonsterRespawnDelaySeconds'))
+host=W/'Policy.cs';host.write_text('namespace DarkSaver.Original.Entry {public sealed partial class LocalServerManager {'+constant+'}}')
+args=base.replace(str(oldexe),str(W/'TrainingTestAuthorityChecks.dll'))+'\n-main:TrainingTestAuthorityChecks\n'
+for p in [out/'TrainingTestAuthorityChecks.cs',runtime/'Entry/LocalServerManager.TrainingTest.cs',host]:args+='"'+str(p)+'"\n'
+run('TrainingTestAuthorityChecks',args)
+args=template('ds-commander-name-checks','checks.rsp').replace(str(OLD/'temp.local/ds-commander-name-checks/CommanderNameChecks.dll'),str(W/'TrainingTierChecks.dll'))+'\n-main:TrainingTierChecks\n"'+str(out/'TrainingTierChecks.cs')+'"\n'
+run('TrainingTierChecks',args)
+for folder,name in [('ds-battle-feedback-checks','BattleFeedbackChecks'),('ds-battle-lifecycle-checks','BattleLifecycleChecks'),('ds-battle-item-checks','BattleItemChecks'),('ds-battle-magic-checks','BattleMagicChecks'),('ds-battle-tick-checks','BattleTickChecks')]:
+ args=template(folder,'checks.rsp')
+ # Replace the existing response file's output, retaining every source and main selector.
+ args=re.sub(r'-out:[^\r\n\"]+',lambda m:'-out:'+str(W/(name+'.dll')),args)
+ run(name,args)
+results['apiEntry']=json.loads((W/'entry/managed-result.json').read_text())
+results['placementExports']={str(n):dict(sourceUnits=len(json.loads((ROOT/f'Assets/_Original/Editor/ScenarioLayouts/{n}.json').read_text())['units']),byteIdentical=(ROOT/f'Assets/_Original/Editor/ScenarioLayouts/{n}.json').read_bytes()==(ROOT/f'Assets/_Original/Resources/TrainingTestLayouts/{n}.json').read_bytes())for n in [101,102]}
+results['preservation']={p:dict(before=d,after=sha(ROOT/p),unchanged=d==sha(ROOT/p))for p,d in before.items()}
+results['commit']='7d424dc0';results['unityPlay']=False
+(B/'managed-results.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
+(B/'source-manifest.json').write_text(json.dumps(manifests,ensure_ascii=False,indent=2),encoding='utf-8')
