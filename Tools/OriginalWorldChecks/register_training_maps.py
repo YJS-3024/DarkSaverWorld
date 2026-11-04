@@ -26,16 +26,22 @@ def main():
     report_path=Path(__file__).with_name('training-map-registration.json');report_path.write_text(json.dumps(report,indent=2)+'\n')
     # These generation manifests consume the transformed world/art. Record this actual
     # postprocess rather than leaving their old base-generation hashes as current.
-    for name in ['world-assets.json','gateway-assets.json','campaign-assets.json']:
+    for name in ['world-assets.json','gateway-assets.json','campaign-assets.json','map-animation-assets.json']:
      manifest=Path(__file__).with_name(name)
      if not manifest.exists():continue
      data=json.loads(manifest.read_text())
      for key,digest in outputs.items():
       if key in data.get('sources',{}):data['sources'][key]=digest
-      for row in data.get('outputs',[]):
-       if row['asset']==key:row['sha256']=digest
+      declared=data.get('outputs',[])
+      if isinstance(declared,dict):
+       if key in declared:declared[key]=digest
+      else:
+       for row in declared:
+        if row['asset']==key:row['sha256']=digest
+     if name=='map-animation-assets.json':
+      data['sources'].update({str(file.relative_to(ROOT)):sha(file)for file in sources if file.suffix=='.bytes'})
      data['trainingGeometryPostprocess']=str(report_path.relative_to(ROOT))
-     if name=='world-assets.json':data['maps']=len(d['maps'])
+     if name in ['world-assets.json','map-animation-assets.json']:data['maps']=len(d['maps'])
      manifest.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
 
 if __name__=='__main__':main()

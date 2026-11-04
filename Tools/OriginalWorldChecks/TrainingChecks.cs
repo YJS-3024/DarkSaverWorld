@@ -61,7 +61,7 @@ internal static class TrainingChecks
         var f=new Fixture();var before=State(f.View.record);var initial=f.View.training;
         f.server.AdvanceWorld(30000);Check(f.View.training.Commander.ap==20&&State(f.View.record)==before,"elapsed time cannot invent AP regeneration, XP or AI damage");
         var exposed=f.View.training;exposed.units[0].hp=1;Check(f.View.training.Commander.hp==200,"public snapshot does not alias live actors");
-        Check(f.server.MoveWorld(10,8).Failure==WorldFailure.Busy,"ordinary walk cannot bypass battle action requests");
+        Check(f.server.MoveWorld(10,8).Failure==WorldFailure.InvalidStage&&State(f.View.record)==before,"ordinary walk cannot bypass battle action requests or change record");
         Check(!f.server.RequestTrainingAction(TrainingAction.Attack,0,0,0,Id()).Accepted,"self attack rejected");
         Check(!f.server.RequestTrainingAction(TrainingAction.Move,-1,10,7,Id()).Accepted,"own tile excluded from movement");
         Check(!f.server.RequestTrainingAction(TrainingAction.Move,-1,11,7,Id()).Accepted,"occupied enemy tile excluded");

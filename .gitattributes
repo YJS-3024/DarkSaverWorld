@@ -25,3 +25,8 @@
 # Keep audit rules and Ghidra helper sources stable on Windows checkout.
 /.gitattributes text eol=lf
 /분석/Ghidra/Saver_Late/**/*.java text eol=lf
+
+# Generated analysis evidence is SHA-audited on Windows as well as Linux.
+/분석/Saver_Late/**/*.json text eol=lf
+/Tools/CheckSupport/*.py text eol=lf
+/Tools/run_original_checks.py text eol=lf
