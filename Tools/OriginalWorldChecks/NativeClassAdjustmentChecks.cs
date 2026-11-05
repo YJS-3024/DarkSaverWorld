@@ -121,6 +121,30 @@ internal static class NativeClassAdjustmentChecks
             bridge.Notify_ClassAdjustmentPacket+=_=>{if(action=="logout")fixture.client.Logout();else if(action=="disable")bridge.isActiveAndEnabled=false;else bridge.Request_CancelClassClient();};
             Check(!bridge.Request_ClassMagicButton(2,0,0,v.token,v.magicRevision,Id()).Accepted&&typed==0&&State(fixture.store.data)==saved,"synchronous "+action+" blocks later typed callback and never grants magic");
         }
+        foreach(string phase in new[]{"world","class","growth"})foreach(string change in new[]{"none","logout","target","xp"})
+        {
+            var fixture=CommanderAdjustmentChecks.CreateFixture(root);fixture.Bind(1);var bridge=new LocalServerManager(fixture.service);int queries=0,classEvents=0,growthEvents=0;bool changed=false;
+            bridge.ClassOptionsAuthority=(r,v)=>{queries++;return new ClassOptionsNotice{id=Id(),approved=true,request=r.Copy(),classPoints=1,right=new ClassCandidate{job=120},options=Array.Empty<ClassCandidate>()};};
+            bridge.ClassChangeAuthority=(r,v)=>fixture.ClassNotice();Check(bridge.Request_ClassOptions().Accepted&&queries==1,"manual class fixture receives candidates");
+            void Change()
+            {
+                if(changed)return;changed=true;
+                if(change=="logout")fixture.client.Logout();
+                else if(change=="target")fixture.Bind(0);
+                else if(change=="xp")
+                {
+                    var current=fixture.View;Check(fixture.service.ReceiveCharacterExperience(new CharacterExperienceNotice{approved=true,id=Id(),character=current.characterId,session=current.growthSession,expectedRevision=current.record.growth.revision,experience=999}).Accepted,"class observer receives newer owner XP");
+                }
+            }
+            bridge.Notify_World+=r=>{if(phase=="world"&&r.Accepted&&r.View.adjustmentProfile?.growth?.job==120)Change();};
+            bridge.Notify_ClassChanged+=r=>{classEvents++;if(phase=="class")Change();};
+            bridge.Notify_GrowthChanged+=r=>{growthEvents++;if(phase=="growth")Change();};
+            var result=bridge.Request_ChangeClass(1,0,fixture.View.classOptions.id,Id());
+            Check(result.Accepted&&result.View?.record.roster.rows[1].profile.growth.job==120,"caller retains committed manual class result "+phase+change);
+            if(change=="none")Check(classEvents==1&&growthEvents==1&&queries==2,"current manual class notifies then refreshes once "+phase);
+            else Check(classEvents==(phase=="world"?0:1)&&growthEvents==(phase=="growth"?1:0)&&queries==1,"stale manual class followups cannot notify or refresh "+phase+change);
+            Check(fixture.store.data.accounts[0].character.world.roster.rows[1].profile.growth.job==120,"callback cannot roll back approved class persistence");
+        }
         var dropped=CommanderAdjustmentChecks.CreateFixture(root);dropped.Bind(1);var control=new LocalServerManager(dropped.service);control.ClassOptionsAuthority=(r,v)=>new ClassOptionsNotice{id=Id(),request=r.Copy(),approved=true,classPoints=1,right=new ClassCandidate{job=120},options=Array.Empty<ClassCandidate>()};before=State(dropped.store.data);Check(control.Request_OpenClassClient().Accepted,"explicit window before invalidated86");control.Notify_ClassAdjustmentPacket+=_=>dropped.client.Logout();Check(!control.Request_ClassOptions().Accepted&&State(dropped.store.data)==before,"logout on86 after typed bootstrap cannot apply stale options or throw");
     }
 }

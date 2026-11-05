@@ -10,7 +10,13 @@ namespace DarkSaver.Original.Entry
         private WorldReply WorldRequest(Func<EntryAccountService, WorldReply> operation, bool entered = false)
         {
             var reply = isActiveAndEnabled && service != null ? operation(service) : new WorldReply(WorldFailure.Unauthenticated);
-            Notify_World?.Invoke(reply); if (entered && reply.Accepted) Notify_MapEntered?.Invoke(reply); return reply;
+            Notify_World?.Invoke(reply); if (entered && IsCurrentWorldReply(reply)) Notify_MapEntered?.Invoke(reply); return reply;
+        }
+        private bool IsCurrentWorldReply(WorldReply reply)
+        {
+            var current=WorldSnapshot;var expected=reply?.View;
+            return reply?.Accepted==true&&current!=null&&expected!=null&&current.characterId==expected.characterId
+                &&current.commanderSession==expected.commanderSession&&current.campaignSession==expected.campaignSession&&current.record.map==expected.record.map;
         }
         public WorldView WorldSnapshot => isActiveAndEnabled ? service?.WorldSnapshot() : null;
         public WorldReply Request_BeginWorld(NativeWorldArt art) => WorldRequest(s => art?.IsConfigured == true ? s.BeginWorld(campaignArt != null ? campaignArt.Merge(art.Definition) : art.Definition) : new WorldReply(WorldFailure.InvalidStage), true);
@@ -23,10 +29,12 @@ namespace DarkSaver.Original.Entry
             var reply=WorldRequest(s=>s.EnterWorldPortal(portal,true),true);
             var current=WorldSnapshot;
             if(reply.Accepted&&current!=null&&current.training==null&&current.characterId==reply.View.characterId
-                &&current.commanderSession==reply.View.commanderSession&&current.record.map==reply.View.record.map)
+                &&current.commanderSession==reply.View.commanderSession&&current.campaignSession==reply.View.campaignSession&&current.record.map==reply.View.record.map)
             {
                 BeginTrainingTest(current);
-                Notify_TrainingInitialRequested?.Invoke(WorldSnapshot);
+                var after=WorldSnapshot;
+                if(after!=null&&after.training==null&&after.characterId==current.characterId&&after.campaignSession==current.campaignSession
+                    &&after.record.map==current.record.map)Notify_TrainingInitialRequested?.Invoke(after);
             }
             return reply;
         }

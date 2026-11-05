@@ -56,6 +56,41 @@ namespace DarkSaver.Original.Entry
             var prepared=PrepareNativeMagic(world.Combat,notice);
             return prepared==null?WorldResult(WorldFailure.InvalidInput):ReceiveBattleUnits(prepared);
         }
+        private WorldReply ReceiveBattleLevelEffectPacket(NativeBattleNotice notice,out byte[] request)
+        {
+            request=null;var ready=ReadyBattle(true);if(ready!=WorldFailure.None)return WorldResult(ready);
+            var combat=world.Combat;
+            if(combat==null||notice?.approved!=true||!OriginalNativeMagic.TryLevelEffectNotice(notice.packet,out int unit))return WorldResult(WorldFailure.InvalidInput);
+            if(notice.character!=worldCharacter||notice.session!=world.CampaignSession||!Guid.TryParseExact(notice.id,"N",out _)
+                ||notice.expectedRevision!=combat.Revision||combat.Notices.Contains(notice.id))return WorldResult(WorldFailure.StaleRequest);
+            NativeMagicPacket cast=null;
+            if(unit>=0)
+            {
+                var positions=combat.Units.Select(u=>u.Copy()).ToArray();
+                foreach(var moving in positions)
+                {var motion=Movement(combat,moving.id);if(motion?.Moving==true){moving.x=motion.CurrentTile.X;moving.y=motion.CurrentTile.Y;}}
+                var actor=positions.FirstOrDefault(u=>u.id==unit);
+                if(actor==null||actor.life!=notice.unitLife)return WorldResult(WorldFailure.StaleRequest);
+                var metadata=world.Definition.magicMenu?.Find(4001);
+                var rule=actor.magicRules?.FirstOrDefault(r=>r.magic==4001);
+                if(world.Definition.magicProjectiles?.SupportsEffect(metadata)!=true||metadata.distance!=0||metadata.range!=8||metadata.unit!=3
+                    ||rule?.enabled!=true||rule.targets==null)return WorldResult(WorldFailure.RulesUnavailable);
+                // An absent native enable/active flag is unknown, not a dead unit.
+                if(combat.Units.Any(u=>rule.targets.Contains(u.id)&&(!u.nativeActive.HasValue||!u.nativeEnabled.HasValue)))return WorldResult(WorldFailure.RulesUnavailable);
+                cast=OriginalNativeMagic.LevelEffectRequest(unit,metadata,positions,rule.targets);
+                if(positions.Count(u=>rule.targets.Contains(u.id)&&u.nativeActive==true&&u.nativeEnabled==true
+                    &&BattleMagicArea.Weight(actor.x,actor.y,u.x,u.y,metadata.range)>0)>255)return WorldResult(WorldFailure.InvalidInput);
+                if(cast!=null&&(notice.targetLives==null||notice.targetLives.Length!=cast.targets.Length
+                    ||notice.targetLives.Any(t=>t==null)||notice.targetLives.Select(t=>t.id).Distinct().Count()!=cast.targets.Length
+                    ||cast.targets.Any(id=>!notice.targetLives.Any(t=>t.id==id&&combat.Units.Any(u=>u.id==id&&u.life==t.life)))))return WorldResult(WorldFailure.StaleRequest);
+            }
+            else if(notice.unitLife!=0)return WorldResult(WorldFailure.InvalidInput);
+            // This is an original client control command, not a changed unit
+            // snapshot. It must not save resources, advance the battle revision,
+            // or cancel a pending action merely to emit its followup bytes.
+            combat.Notices.Add(notice.id);if(cast!=null)request=OriginalNativeMagic.Request(cast);
+            return WorldResult(WorldFailure.None);
+        }
         public WorldReply ReceiveTrainingMagicPacket(NativeBattleNotice notice)
         {var ready=ReadyTraining(true);return ready==WorldFailure.None?ReceiveBattleMagicPacket(notice):WorldResult(ready);}
         private WorldFailure ValidateNativeMagic(TrainingCombatSession combat,TrainingUnitsNotice notice)

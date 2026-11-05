@@ -29,6 +29,6 @@ namespace DarkSaver.Original.Entry
         public EntryReply Request_ServerList() => Request(EntryRequest.Servers());
         public EntryReply Request_SelectServer(int id) => Request(EntryRequest.SelectServer(id));
         public EntryReply Request_CreateFirstCharacter(int job, string name) => Request(EntryRequest.Create(job, name));
-        private void OnDisable() { service?.Request(EntryRequest.Logout()); service = null; }
+        private void OnDisable() { ClearTrainingTest(); service?.Request(EntryRequest.Logout()); service = null; }
     }
 }

@@ -295,7 +295,7 @@ def script_audit(texts):
     return result
 
 
-def packet_probe(pe, unit_pe, subtype, unit, job, x, y):
+def packet_probe(pe, unit_pe, subtype, unit, job, x, y, body=None, details=False, runtime_seed=None):
     from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
     from unicorn.x86_const import UC_X86_REG_ESP, UC_X86_REG_EAX, UC_X86_REG_EIP, UC_X86_REG_ECX
     machine = Uc(UC_ARCH_X86, UC_MODE_32)
@@ -304,7 +304,7 @@ def packet_probe(pe, unit_pe, subtype, unit, job, x, y):
         machine.mem_map(address, size)
     for section in pe.sections:
         machine.mem_write(pe.base + section['rva'], pe.data[section['raw']:section['raw'] + section['rawSize']])
-    body = bytearray(512)
+    body = bytearray(512) if body is None else bytearray(body)
     coord = 28 if subtype == 0x50 else 40
     for offset, value in ((0, unit), (4, job), (coord, x), (coord + 2, y)):
         struct.pack_into('<h', body, offset, value)
@@ -314,6 +314,7 @@ def packet_probe(pe, unit_pe, subtype, unit, job, x, y):
     machine.reg_write(UC_X86_REG_ESP, 0x20080000)
     machine.mem_write(0x1001621c, struct.pack('<I', 0x300f0000))
     captured, raw_structs, read_offsets = [], [], []
+    last_cursor = None
     heap = 0x30010000
 
     def get(address):
@@ -326,9 +327,10 @@ def packet_probe(pe, unit_pe, subtype, unit, job, x, y):
         machine.reg_write(UC_X86_REG_EIP, get(stack))
 
     def hook(uc, address, size, _):
-        nonlocal heap
+        nonlocal heap, last_cursor
         stack = uc.reg_read(UC_X86_REG_ESP)
         if address in (0x1000c540, 0x1000c560, 0x1000c5c0):
+            last_cursor = get(stack + 8)
             read_offsets.append(dict(helper=hex(address), bodyOffset=get(get(stack + 8))))
         if address == 0x300f0000:
             ptr = get(stack + 4)
@@ -360,13 +362,24 @@ def packet_probe(pe, unit_pe, subtype, unit, job, x, y):
     for section in unit_pe.sections:
         state.mem_write(unit_pe.base + section['rva'], unit_pe.data[section['raw']:section['raw'] + section['rawSize']])
     state.mem_write(0x1010b3a0, struct.pack('<I', 0x30000000))
+    if runtime_seed is not None:
+        state.mem_write(0x1010b3d8,struct.pack('<I',1))  # Battle runtime branch; default probes retain zero context.
+        for offset,value in runtime_seed.items():
+            state.mem_write(0x30000000+unit*0x2e0+offset,struct.pack('<I',value&0xffffffff))
     state.mem_write(0x300f0000, raw_structs[0])
     state.mem_write(0x20080000, struct.pack('<2I', 0x300ff000, 0x300f0000))
     state.reg_write(UC_X86_REG_ESP, 0x20080000)
 
+    state_stop = 0x1000b43f if details else 0x1000b28b
     def state_hook(uc, address, size, _):
-        if address == 0x1000b28b:
+        if address == state_stop:
             uc.emu_stop()
+        elif details and address == 0x10011884:
+            # Native CString assignment is outside the integer snapshot contract.
+            stack = uc.reg_read(UC_X86_REG_ESP)
+            uc.reg_write(UC_X86_REG_EAX, uc.reg_read(UC_X86_REG_ECX))
+            uc.reg_write(UC_X86_REG_ESP, stack + 8)
+            uc.reg_write(UC_X86_REG_EIP, struct.unpack('<I', uc.mem_read(stack, 4))[0])
         elif address == 0x100118fc:
             stack = uc.reg_read(UC_X86_REG_ESP)
             uc.reg_write(UC_X86_REG_ESP, stack + 4)
@@ -374,14 +387,35 @@ def packet_probe(pe, unit_pe, subtype, unit, job, x, y):
 
     state.hook_add(UC_HOOK_CODE, state_hook)
     state.emu_start(0x1000b0a0, 0, count=30000)
-    assert state.reg_read(UC_X86_REG_EIP) == 0x1000b28b
+    assert state.reg_read(UC_X86_REG_EIP) == state_stop
     live = {name: struct.unpack('<I', state.mem_read(0x30000000 + unit * 0x2e0 + offset, 4))[0]
             for name, offset in (('unit', 0x10), ('job', 0x18), ('x', 0x70), ('y', 0x74))}
     assert live == expected, live
-    return dict(opcode='5C ' + format(subtype, '02X'), input=expected,
+    result = dict(opcode='5C ' + format(subtype, '02X'), input=expected,
                 resetcharacterArgument=captured[0], reads=read_offsets,
                 liveCharacterFields=live,
                 packetOffsets=dict(unit=2, job=6, x=coord + 2, y=coord + 4))
+    if details:
+        result['bodyLength'] = len(body)
+        result['bodyConsumed'] = get(last_cursor)
+        # Preserve all 42 integer values except the two modeled CString handles.
+        result['unitInfoDwords'] = {hex(at): struct.unpack_from('<I', raw_structs[0], at)[0]
+                                    for at in range(0, 0xb0, 4) if at not in (0xa4, 0xa8)}
+        fields = dict(active=0, enabled=4, experience=8, nextExperience=12, unit=0x10, level=0x14,
+                      job=0x18, movementType=0x1c, hp=0x20, maxHp=0x24, mp=0x28, maxMp=0x2c,
+                      attackRange=0x30, movementBudget=0x3c, commandRange=0x4c,
+                      maxAp=0x5c, ap=0x60, team=0x64, appearance=0x68, x=0x70, y=0x74)
+        target = 0x30000000 + unit * 0x2e0
+        result['runtimeFields'] = {name: struct.unpack('<I', state.mem_read(target + at, 4))[0]
+                                   for name, at in fields.items()}
+        if runtime_seed is not None:
+            result['resetFlags']={name:struct.unpack('<I',state.mem_read(target+offset,4))[0] for name,offset in [('active',0),('enabled',4),('state',0x100),('order',0x108)]}
+            result['clearedEffectFields']={hex(offset):struct.unpack('<I',state.mem_read(target+offset,4))[0] for offset in runtime_seed if 0x14c<=offset<=0x2dc}
+        for name, count_at, first_at in [('magic', 0xb8, 0xbc), ('skills', 0xdc, 0xe0)]:
+            count = struct.unpack('<I', state.mem_read(target + count_at, 4))[0]
+            assert count <= 8
+            result[name] = list(struct.unpack('<' + 'i' * count, state.mem_read(target + first_at, 4 * count))) if count else []
+    return result
 
 
 def native_audit(base):

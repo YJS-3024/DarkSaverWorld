@@ -1,15 +1,19 @@
 {
   "checks": 11,
+  "layoutSaveChecks": 24,
   "unityGuiExecuted": false,
-  "scope": "Exact production queue methods with isolated GUI focus/repaint/scheduler and storage boundaries. Full Unity control/event dispatch and disk implementation are separate checks.",
+  "scope": "Exact production queue and Save methods; actual isolated atomic editor/export file store and content-hash equality, with GUI/AssetDatabase boundaries stubbed. No Unity Editor event/import execution.",
   "mismatches": 0,
   "sources": {
-    "Tools/OriginalScenarioEditorChecks/check_save_queue.py": "387c80bc177b4c7f53e672073728afd6c950a423e0904fb1e1f6303e47f8333d",
-    "Tools/OriginalScenarioEditorChecks/SaveQueueChecks.cs": "16957049c880c68bf18decb162ed5dc960d81e72c13faa23f49cf7cd1f3c4d7a",
-    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "ee1018b184b1d82a6e77be258ffa9112d75cb91db41ca63c0b19a068ad8e465a",
-    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "c2f74510d3a7c3f06ec1272a6b052f79d14e1ae781d649e9cdc878f03b8f17a3",
-    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "ee34c5dfa5458e246e28055064b6830c73de6349c9537bcda911942f6b03abe9",
-    "Tools/OriginalWorldChecks/check_picture_initialization.py": "a47a03310d47d9f860da3ed46a9393649ad3763acd172d14d31839b8a0939618"
+    "Tools/OriginalScenarioEditorChecks/check_save_queue.py": "2b27b24c996dcbe66a8415ee24497d2fda132f8b09b05a7bd022bbc29d00123b",
+    "Tools/OriginalScenarioEditorChecks/SaveQueueChecks.cs": "c525a40066db71db047c78ab1f58f4e9b3093838eec51b0ee32a457ae2c29aa2",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "0178baa5ad9e32374dfb8416b8e92c8a0bd1edd33c2058b425c9bcdc5c8af7aa",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "a9b9a71925cef8ecac3980b64c01aeaeeca548478305b9a85184b506bc3ceefd",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "781a6150110dd419f76657443b9e6254c97741b8de8a1d2a38bcd2b0a8fdfcc4",
+    "Tools/OriginalWorldChecks/check_picture_initialization.py": "a47a03310d47d9f860da3ed46a9393649ad3763acd172d14d31839b8a0939618",
+    "Tools/OriginalScenarioEditorChecks/LayoutSaveChecks.cs": "4a0e0dac30b91e17c5ac9863ef9810b908f9456d01691af6c486cc6cb78b67de",
+    "Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs": "98daf67f8dcfc02413c0d2db559a2a2a3fde9c877688f7897bfd127267c68497",
+    "Assets/_Original/Runtime/Entry/TrainingTestLayoutCatalog.cs": "e2ebc9ecc572e1badb3cbc81392a60a8494dd332f47eb976ac616c1429a0f2a8"
   },
-  "logs": "/tmp/ds-portable-validation/ds-editor-save-queue"
+  "logs": "/tmp/ds-night-checks/ds-editor-save-queue"
 }

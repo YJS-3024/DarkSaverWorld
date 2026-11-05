@@ -13,7 +13,7 @@ namespace DarkSaver.Original.World
         public bool abilitiesResolved;
     }
     [Serializable] public sealed class CharacterGrowthJob
-    {public int id,picture,kind;public string name;}
+    {public int id,picture,kind,stage;public string name;}
     [Serializable] public sealed class CharacterGrowthCatalog
     {
         public int version;public string sourceHash;
@@ -65,5 +65,35 @@ namespace DarkSaver.Original.World
     {
         public string character,session,id;public bool approved;public long expectedRevision;
         public ulong experience;
+    }
+    // Explicit local policy input. Unspecified must not silently choose a server XP interpretation.
+    public enum LocalExperienceBasis { Unspecified, SpendPerLevel, Cumulative }
+    public static class LocalLevelProgression
+    {
+        // Pure projection only: callers must explicitly configure a basis and commit the result.
+        // It never selects nextJob, heals, grants money/points/abilities or writes an account.
+        public static bool TryGrant(CharacterGrowthCatalog catalog,CharacterGrowthRecord current,ulong award,LocalExperienceBasis basis,out CharacterGrowthRecord next)
+        {
+            next=null;
+            if(basis!=LocalExperienceBasis.SpendPerLevel&&basis!=LocalExperienceBasis.Cumulative||award==0
+                ||catalog?.jobs==null||catalog.rows==null||catalog.jobs.Any(j=>j==null)||catalog.rows.Any(r=>r==null)
+                ||!catalog.Accepts(current)||ulong.MaxValue-current.experience<award)return false;
+            var rows=catalog.rows.Where(r=>r.job==current.job).OrderBy(r=>r.classLevel).ToArray();
+            if(rows.Length==0||rows.Where((r,i)=>r.classLevel!=i+1||r.requiredExperience<=0).Any())return false;
+            if(basis==LocalExperienceBasis.Cumulative&&rows.Zip(rows.Skip(1),(a,b)=>a.requiredExperience>=b.requiredExperience).Any(v=>v))return false;
+            var projected=current.Copy();projected.experience+=award;int gained=0;
+            while(projected.classLevel<rows.Length)
+            {
+                ulong required=(ulong)rows[projected.classLevel-1].requiredExperience;
+                if(projected.experience<required)break;
+                if(projected.totalLevel==int.MaxValue)return false;
+                if(basis==LocalExperienceBasis.SpendPerLevel)projected.experience-=required;
+                projected.classLevel++;projected.totalLevel++;gained++;
+            }
+            long nextThreshold=rows[projected.classLevel-1].requiredExperience;
+            projected.nextExperience=nextThreshold<=uint.MaxValue?(uint?)nextThreshold:null;
+            if(gained>0)projected.nativeLevels=null; // Do not retain a stale received pair or invent its wire encoding.
+            next=projected;return true;
+        }
     }
 }

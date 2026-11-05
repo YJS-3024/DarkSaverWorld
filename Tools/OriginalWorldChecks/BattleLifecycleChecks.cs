@@ -6,8 +6,8 @@ using DarkSaver.Original.World;
 internal static class BattleLifecycleEntry {public static void Main(string[] args)=>MagicProjectileChecks.RunBattleLifecycleChecks(args[0]);}
 internal static partial class MagicProjectileChecks
 {
-    private static Fixture LifecycleFixture(bool scenario=false)
-    {var f=Members(scenario);var n=f.Notice();foreach(var u in n.units){u.nativeState=16;u.nativeActive=true;u.nativeEnabled=true;}Check(f.server.ReceiveBattleUnits(n).Accepted,"explicit native lifecycle metadata");return f;}
+    private static Fixture LifecycleFixture(bool scenario=false,bool near=false)
+    {var f=Members(scenario,near);var n=f.Notice();foreach(var u in n.units){u.nativeState=16;u.nativeActive=true;u.nativeEnabled=true;}Check(f.server.ReceiveBattleUnits(n).Accepted,"explicit native lifecycle metadata");return f;}
     private static BattleLifecycleNotice LifecycleNotice(Fixture f,BattleLifecycleKind kind,int unit=1,int unused=0)
         =>new BattleLifecycleNotice{id=Id(),character=f.View.characterId,session=f.View.campaignSession,expectedRevision=f.View.battle.revision,unitLife=f.View.battle.Unit(unit)?.life??0,approved=true,packet=OriginalBattleLifecycle.Packet(kind,unit,unused)};
     private static void CheckLifecycleCodec()

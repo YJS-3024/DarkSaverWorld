@@ -1,11 +1,11 @@
 {
   "results": {
     "baseline": {
-      "assertions": 421,
-      "contractTypes": 38,
-      "nullableFields": 40,
-      "roundtripCases": 210,
-      "serializedCasesSha256": "4f155603f3b5cc79b59438144cd5c58f5aa36c86a73de5b44273584616b1acef",
+      "assertions": 429,
+      "contractTypes": 44,
+      "nullableFields": 41,
+      "roundtripCases": 214,
+      "serializedCasesSha256": "442c22d607ebc928bb677c7e19448ca0018c2db31e0f79749d9650fe8f6b1c30",
       "fields": [
         "DarkSaver.Original.Campaign.CampaignResultRecord.eventCompleted",
         "DarkSaver.Original.Campaign.CampaignResultRecord.eventTotal",
@@ -40,6 +40,7 @@
         "DarkSaver.Original.World.TrainingUnit.nativeActive",
         "DarkSaver.Original.World.TrainingUnit.nativeAppearanceJob",
         "DarkSaver.Original.World.TrainingUnit.nativeEnabled",
+        "DarkSaver.Original.World.TrainingUnit.nativeExperience",
         "DarkSaver.Original.World.TrainingUnit.nativeMenuMask",
         "DarkSaver.Original.World.TrainingUnit.nativePalette",
         "DarkSaver.Original.World.TrainingUnit.nativeState",
@@ -52,11 +53,11 @@
       "scope": "Actual production DataContract nullable fields: unknown/null, explicit zero/false, nonzero and signed/unsigned extrema. Isolated serializer values are schema tests, not approved gameplay records. Baseline variant removes only NonSerialized; emitted save JSON must be byte-identical."
     },
     "current": {
-      "assertions": 461,
-      "contractTypes": 38,
-      "nullableFields": 40,
-      "roundtripCases": 210,
-      "serializedCasesSha256": "4f155603f3b5cc79b59438144cd5c58f5aa36c86a73de5b44273584616b1acef",
+      "assertions": 470,
+      "contractTypes": 44,
+      "nullableFields": 41,
+      "roundtripCases": 214,
+      "serializedCasesSha256": "442c22d607ebc928bb677c7e19448ca0018c2db31e0f79749d9650fe8f6b1c30",
       "fields": [
         "DarkSaver.Original.Campaign.CampaignResultRecord.eventCompleted",
         "DarkSaver.Original.Campaign.CampaignResultRecord.eventTotal",
@@ -91,6 +92,7 @@
         "DarkSaver.Original.World.TrainingUnit.nativeActive",
         "DarkSaver.Original.World.TrainingUnit.nativeAppearanceJob",
         "DarkSaver.Original.World.TrainingUnit.nativeEnabled",
+        "DarkSaver.Original.World.TrainingUnit.nativeExperience",
         "DarkSaver.Original.World.TrainingUnit.nativeMenuMask",
         "DarkSaver.Original.World.TrainingUnit.nativePalette",
         "DarkSaver.Original.World.TrainingUnit.nativeState",
@@ -110,13 +112,13 @@
   "sources": {
     "Tools/OriginalWorldChecks/check_nullable_contracts.py": "9418d828cc9aa63a370386a28e6a1c27485dee1f7de476c2c0a847720b19693c",
     "Tools/OriginalWorldChecks/NullableContractChecks.cs": "bc064bbd5e4c85e664f1624ceace95275bb67c0d065f6c468043953b90b0d4c5",
-    "Assets/_Original/Runtime/Campaign/CampaignResult.cs": "eaf2f44780010d57b0eb266cd478005e31597c9a51e23d191a50c1b59abeb5bb",
+    "Assets/_Original/Runtime/Campaign/CampaignResult.cs": "f52698c999d6d3ffa47ee4ef0f52ae824aae255e7b1e438d19f59f2822cea50b",
     "Assets/_Original/Runtime/Combat/BattleItems.cs": "f40bca2ec924d39a8f0ead85ddedda777a77674fd5991276b289f3a30bc50034",
-    "Assets/_Original/Runtime/Combat/TrainingCombat.cs": "c705043b5af57f44da0d54a24a0a9a83422f2f78aaa01c553403f6ecf12efdc2",
+    "Assets/_Original/Runtime/Combat/TrainingCombat.cs": "22f134737bc78277ba821be780782a36ea43585e2ea52127753407949e5496a1",
     "Assets/_Original/Runtime/Combat/BattleMagic.cs": "afff0bc3a8158f740c1f97741ba8a113ae60a4e9f36197a145c02eae1f51c0ba",
     "Assets/_Original/Runtime/Growth/CommanderRoster.cs": "65f9b00e862801a3ae5c22447281a3f7687231f46ae1364767a42f8d90d4921a",
-    "Assets/_Original/Runtime/Growth/CharacterGrowth.cs": "39a622ebb8e17f2c862f6081edaf0e296b95798acbdd5ed170af5618f976866f",
-    "Assets/_Original/Runtime/World/WorldModel.cs": "496fcfaf78aba29684e5e4b0e3d8da844c8ed06449c97bf4fa2b8596646f4fdf",
+    "Assets/_Original/Runtime/Growth/CharacterGrowth.cs": "6a2f6220c97dccc9f32567380c65c2a3a310ebfb5494c57bc3f82a7c31ec535d",
+    "Assets/_Original/Runtime/World/WorldModel.cs": "37594ff246e9ec4bc7de4dcec7abe006274cee9eef19ae771668b171442cf809",
     "Assets/_Original/Runtime/World/PlayerIdentity.cs": "3c660eaa80f130b2c9930c4e80da324712ae10018ae8532a69825a317ff12f9e"
   }
 }

@@ -46,7 +46,11 @@ def build():
             assert {k:v for k,v in rows[key].items()if k!='sourceLines'}=={k:v for k,v in r.items()if k!='sourceLines'},key
             rows[key]['sourceLines'].append(line)
         else:rows[key]=r
-    data=dict(version=1,sourceHash=sha(level),jobs=[dict(id=j,picture=int(units[j]['직그림']),kind=int(units[j]['병종']),name=units[j]['이름'].replace('_',' '))for j in sorted(jobs)],
+    def class_stage(job):
+        match=re.search(r'(?:제\s*)?(\d+)\s*단계',units[job]['설명'].replace('_',' '))
+        if not match:raise ValueError('Missing source class stage: '+str(job))
+        return int(match.group(1))
+    data=dict(version=1,sourceHash=sha(level),jobs=[dict(id=j,picture=int(units[j]['직그림']),kind=int(units[j]['병종']),stage=class_stage(j),name=units[j]['이름'].replace('_',' '))for j in sorted(jobs)],
         rows=list(rows.values()),magicIds=sorted(magic_ids),skillIds=sorted(skill_ids))
     TARGET.parent.mkdir(exist_ok=True);meta(TARGET.parent);TARGET.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n');meta(TARGET)
     asset=BASE/'Data/World/NativeWorldArt.asset'
@@ -57,8 +61,11 @@ def build():
         world_path.write_text(json.dumps(world,ensure_ascii=False,indent=2)+'\n')
     if asset.exists():
         guid=re.search(r'^guid: ([0-9a-f]{32})$',Path(str(TARGET)+'.meta').read_text(),re.M)[1]
-        text='\n'.join(s for s in asset.read_text().splitlines()if not s.startswith('  growth:'))+'\n'
-        asset.write_text(text+'  growth: {fileID: 4900000, guid: '+guid+', type: 3}\n')
+        reference='  growth: {fileID: 4900000, guid: '+guid+', type: 3}'
+        text=asset.read_text()
+        if re.search(r'^  growth:.*$',text,re.M):text=re.sub(r'^  growth:.*$',reference,text,flags=re.M)
+        else:text=text.rstrip('\n')+'\n'+reference+'\n'
+        asset.write_text(text)
     for name in ['world-assets.json','gateway-assets.json','campaign-assets.json']:
         p=Path(__file__).with_name(name)
         if not p.exists():continue

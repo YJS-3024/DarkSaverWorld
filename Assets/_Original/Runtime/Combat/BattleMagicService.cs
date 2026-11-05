@@ -14,7 +14,9 @@ namespace DarkSaver.Original.Entry
             if(itemRule!=null?world.Definition.magicProjectiles?.SupportsEffect(metadata)!=true:skill?world.Definition.magicProjectiles?.SupportsSkill(metadata)!=true:world.Definition.magicProjectiles?.Supports(metadata)!=true)return WorldFailure.RulesUnavailable;
             if(itemRule==null)
             {
-                if(skill){if(world.Record.growth?.skills?.Contains(magic)!=true)return WorldFailure.NotOwned;}
+                var received=actor.nativeInfo?.Slots(skill);
+                if(received!=null){if(!received.Contains(magic))return WorldFailure.NotOwned;}
+                else if(skill){if(world.Record.growth?.skills?.Contains(magic)!=true)return WorldFailure.NotOwned;}
                 else
                 {
                     if(world.Record.growth?.magic==null)return WorldFailure.RulesUnavailable;

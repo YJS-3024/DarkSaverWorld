@@ -1,5 +1,6 @@
 using System;
 using DarkSaver.Original.Maps;
+using DarkSaver.Original.World;
 using DarkSaver.Original.Campaign;
 using System.Linq;
 using UnityEditor;
@@ -211,8 +212,8 @@ namespace DarkSaver.Original.Editor.Scenarios
         {
             try
             {
-                var entry=new ScenarioEntryPoint{map=int.Parse(mapKey),mapHash=MapInfo(mapKey).hash,x=x,y=y,enabled=enabled};
-                var candidate=gatewayDocument.Copy();candidate.entryPoints=(candidate.entryPoints??Array.Empty<ScenarioEntryPoint>()).Where(p=>p.map!=entry.map).Concat(new[]{entry}).ToArray();
+                var entry=new ScenarioEntryPoint{map=int.Parse(mapKey),mapHash=MapInfo(mapKey).hash,x=x,y=y,enabled=enabled,useJob=entryJob!=0,job=entryJob};
+                var candidate=gatewayDocument.Copy();candidate.entryPoints=(candidate.entryPoints??Array.Empty<ScenarioEntryPoint>()).Where(p=>p.map!=entry.map||p.useJob!=entry.useJob||entry.useJob&&p.job!=entry.job).Concat(new[]{entry}).ToArray();
                 ScenarioGatewayData.Validate(candidate,gatewayCatalog);
                 if(enabled&&!ScenarioGatewayData.EntryLocationAllowed(gatewayWorld,entry))throw new System.IO.InvalidDataException("통행 가능한 빈 칸을 선택하세요. 직원/원본 몬스터와 겹칠 수 없습니다.");
                 RememberGateway();gatewayDocument=candidate;entries=true;message="지휘관 진입 위치 변경 · 진입점 저장 필요";Repaint();
@@ -226,7 +227,14 @@ namespace DarkSaver.Original.Editor.Scenarios
             else if(gatewaySaveNotice.Length>0)GUILayout.Label(gatewaySaveNotice,EditorStyles.wordWrappedMiniLabel);
             int id=int.Parse(mapKey);var target=gatewayWorld?.Map(id);
             bool supported=target!=null&&(target.training||gatewayWorld.campaign?.Map(id)?.kind=="scenario");
-            var entry=gatewayDocument?.entryPoints?.FirstOrDefault(p=>p.map==id);
+            var options=(gatewayWorld?.combatCatalog?.jobs??Array.Empty<OriginalCombatJob>()).Where(j=>j.job>=100&&j.job<200).OrderBy(j=>j.job).ToArray();
+            var ids=new[]{0}.Concat(options.Select(j=>j.job)).ToArray();
+            var names=new[]{"공통 진입점"}.Concat(options.Select(j=>j.name+" ["+j.job+"] 전용")).ToArray();
+            EditorGUI.BeginChangeCheck();int choice=EditorGUILayout.Popup("적용 직업",Math.Max(0,Array.IndexOf(ids,entryJob)),names);
+            if(EditorGUI.EndChangeCheck()){entryJob=ids[choice];pickBattleEntry=false;}
+            var entry=ScenarioGatewayData.EditingEntry(gatewayDocument,id,entryJob);
+            if(entryJob!=0&&!ScenarioGatewayData.HasEntryTerrain(gatewayWorld,id,entryJob))
+                EditorGUILayout.HelpBox("현재 맵 데이터에 이 직업의 원본 병종이 통행할 지형이 없습니다. 좌표만 바꾸어 해결할 수 없습니다.",MessageType.Warning);
             using(new EditorGUI.DisabledScope(mode!=0||!supported||loadError.Length>0))
             {
                 if(GUILayout.Button(pickBattleEntry?"지도에서 칸을 클릭하세요 (취소)":"지도에서 진입 위치 지정")){pickBattleEntry=!pickBattleEntry;adding=dragging=false;}
@@ -236,9 +244,10 @@ namespace DarkSaver.Original.Editor.Scenarios
                     int x=EditorGUILayout.DelayedIntField("진입 X",entry.x),y=EditorGUILayout.DelayedIntField("진입 Y",entry.y);
                     if(EditorGUI.EndChangeCheck())SetBattleEntry(x,y,enabled);
                     if(GUILayout.Button("진입 위치 보기")){entries=true;FocusTile(entry.x,entry.y);}
-                    if(GUILayout.Button("사용자 진입점 삭제")){RememberGateway();gatewayDocument.entryPoints=gatewayDocument.entryPoints.Where(p=>p.map!=id).ToArray();pickBattleEntry=false;}
+                    if(GUILayout.Button("사용자 진입점 삭제")){RememberGateway();gatewayDocument.entryPoints=gatewayDocument.entryPoints.Where(p=>p.map!=id||p.useJob!=(entryJob!=0)||entryJob!=0&&p.job!=entryJob).ToArray();pickBattleEntry=false;}
                 }
-                else GUILayout.Label("미설정 · 기존 입구의 도착 좌표 사용",EditorStyles.wordWrappedMiniLabel);
+                else GUILayout.Label(entryJob!=0&&ScenarioGatewayData.SelectEntry(gatewayDocument,id,entryJob)!=null?"전용 진입점 미설정 · 공통 진입점 사용":"미설정 · 기존 입구의 도착 좌표 사용",EditorStyles.wordWrappedMiniLabel);
+                if(entryJob!=0)EditorGUILayout.HelpBox("이 직업의 원본 병종으로 통행 가능한 칸을 직접 지정합니다. 공통/다른 직업의 진입점은 유지됩니다.",MessageType.None);
                 using(new EditorGUI.DisabledScope(!dirtyGateways))if(GUILayout.Button("진입점·입구 저장"))QueueEditorSave(true);
                 GUILayout.BeginHorizontal();
                 using(new EditorGUI.DisabledScope(gatewayUndo.Count==0))if(GUILayout.Button("진입점/입구 되돌리기"))GatewayHistory(true);
@@ -334,8 +343,8 @@ namespace DarkSaver.Original.Editor.Scenarios
                     }
                 }
                 foreach(var unit in document.units)DrawActor(unit.unit,unit.job.ToString(),unit.x,unit.y,GroupColor(unit.unit),unit.unit==selected);
-                var manual=gatewayDocument?.entryPoints?.FirstOrDefault(p=>p.map==int.Parse(mapKey));
-                if(entries&&manual!=null)DrawMarker(new ScenarioMarker{x=manual.x,y=manual.y,kind="local",label="사용자 지휘관 진입점"+(manual.enabled?"":" (미사용)"),file=GatewayPath},manual.enabled?new Color(.2f,1,.9f):Color.gray);
+                var manual=ScenarioGatewayData.EditingEntry(gatewayDocument,int.Parse(mapKey),entryJob)??ScenarioGatewayData.SelectEntry(gatewayDocument,int.Parse(mapKey),entryJob);
+                if(entries&&manual!=null)DrawMarker(new ScenarioMarker{x=manual.x,y=manual.y,kind="local",label="사용자 지휘관 진입점"+(manual.useJob?" [직업 "+manual.job+"]":" [공통]")+(manual.enabled?"":" (미사용)"),file=GatewayPath},manual.enabled?new Color(.2f,1,.9f):Color.gray);
                 if(entries)
                 {foreach(var entry in source.entries)DrawMarker(entry,new Color(.25f,.8f,1));if(localEntry!=null)DrawMarker(localEntry,new Color(.25f,.8f,1));}
             }

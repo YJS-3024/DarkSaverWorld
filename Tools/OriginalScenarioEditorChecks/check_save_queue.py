@@ -10,8 +10,10 @@ def main():
     source=ROOT/'Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs'
     text=source.read_text();methods='\n'.join(block(text,'private void '+name+'(')for name in ['QueueEditorSave','DispatchQueuedSave'])
     host=WORK/'ProductionQueue.cs';host.write_text('using System;using UnityEngine;using UnityEditor;\ninternal sealed partial class QueueHost{\n'+methods+'\n}\n')
+    layout_host=WORK/'ProductionLayoutSave.cs';layout_host.write_text('using System;using System.IO;using System.Text;using System.Collections.Generic;using DarkSaver.Original.Editor.Scenarios;using UnityEngine;using UnityEditor;\ninternal sealed partial class LayoutSaveHost{'+block(text,'private bool Save(')+'}\n')
     sdk=ROOT.parent/'.tools/unity/6000.5.7f1/Editor/Data/DotNetSdk';dotnet=sdk/'dotnet';csc=next(sdk.glob('sdk/*/Roslyn/bincore/csc.dll'));exe=WORK/'SaveQueueChecks.dll'
     args=['-nologo','-target:exe','-langversion:latest','-nostdlib+','-out:'+str(exe)]+['-r:'+str(p)for p in sorted(next(sdk.glob('packs/Microsoft.NETCore.App.Ref/*/ref/net8.0')).glob('*.dll'))]+[str(host),str(OUT/'SaveQueueChecks.cs')]
+    args.extend(map(str,[layout_host,OUT/'LayoutSaveChecks.cs',ROOT/'Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs',ROOT/'Assets/_Original/Runtime/Entry/TrainingTestLayoutCatalog.cs']))
     rsp=WORK/'checks.rsp';rsp.write_text('\n'.join('"'+a+'"'for a in args)+'\n')
     version=next((sdk/'shared/Microsoft.NETCore.App').iterdir()).name
     exe.with_suffix('.runtimeconfig.json').write_text(json.dumps({'runtimeOptions':{'tfm':'net8.0','framework':{'name':'Microsoft.NETCore.App','version':version}}}))
@@ -20,6 +22,7 @@ def main():
         if proc.returncode:raise RuntimeError((proc.stdout+proc.stderr)[-2000:])
     result=json.loads(proc.stdout)
     sources=[Path(__file__),OUT/'SaveQueueChecks.cs',source,ROOT/'Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs',ROOT/'Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs',ROOT/'Tools/OriginalWorldChecks/check_picture_initialization.py']
+    sources.extend([OUT/'LayoutSaveChecks.cs',ROOT/'Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs',ROOT/'Assets/_Original/Runtime/Entry/TrainingTestLayoutCatalog.cs'])
     result.update(mismatches=0,sources={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()for p in sources},logs=str(WORK))
     (OUT/'save-queue-check.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items()if k!='sources'}))
 if __name__=='__main__':main()

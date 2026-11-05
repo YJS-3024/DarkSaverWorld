@@ -7,6 +7,7 @@ namespace DarkSaver.Original.Entry
     {
         private readonly EntryAccountService testService;
         public LocalServerManager(EntryAccountService service){testService=service;}
+        public WorldView WorldSnapshot=>testService.WorldSnapshot();
         private WorldReply WorldRequest(Func<EntryAccountService,WorldReply> apply)=>apply(testService);
     }
 }

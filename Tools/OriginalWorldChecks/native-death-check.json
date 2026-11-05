@@ -1,20 +1,20 @@
 {
-  "cases": 24,
-  "updateSamples": 1176,
+  "cases": 168,
+  "updateSamples": 8232,
   "mismatches": 0,
   "nativeCodeExecuted": true,
   "unityPlayExecuted": false,
-  "casesSha256": "b5e3dd89237690bd7150be2552f7dcde515b176acccbc726a928c54416f8fed4",
+  "casesSha256": "95596c2ff90db9d48656d7d4edc486c97ccf63eed048e18a38cf8cfa3f603a48",
   "sources": {
     "Assets/_Original/Runtime/Combat/CommandRange.cs": "e685b7063abe8830a3827b2572e98a83b1d8959223e68684eb774947a373f13f",
     "Assets/_Original/Runtime/Combat/BattleLifecycle.cs": "5d7b01c0b5f7f3742e24716f1f30ce1a3227d93fab880c243f9e7ff1106ad973",
     "Assets/_Original/Runtime/Combat/DeathSoundPlayback.cs": "551ac20ce0caad0eb7194d31b617409f3e4dad2968094fec93cc1f8118698702",
     "Tools/OriginalWorldChecks/DeathDifferential.cs": "a66c9bb449ca903547b8dd6b04c0c4edb48fdcf2b96e5c99662b21df821fe4d6",
-    "Tools/OriginalWorldChecks/check_native_death.py": "eb88c19c1691b30af6aab92b0e8fb0db85a11af834c476aeac52a21d6f7d30d3",
+    "Tools/OriginalWorldChecks/check_native_death.py": "1d6a8cf7be15e6ff54486a8c02ccbfd6093f0699fa9f3c3b8f2d80c3361d116d",
     "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
     "Tools/OriginalWorldChecks/check_native_feedback.py": "8a7c93ed8d904d60400e05c2569be83c9f132625758d11901d53979b9791c43f",
     "Assets/_Original/Runtime/Combat/BattleFeedback.cs": "e853bf98fa3d934d95a8eb3a988064282d796407e6259bab2b79a0eed4f2e847"
   },
   "scope": "Actual dmKillChar/dmKillChar2 and10010210/10010120 death/update code, normal/7xx jobs, numeric gate and captured sound1 calls. DirectDraw, original real-time speed, ghost/HP/XP/respawn policy are not inferred.",
-  "logs": "/tmp/ds-native-death-checks"
+  "logs": "/tmp/ds-portable-validation/ds-native-death-checks"
 }

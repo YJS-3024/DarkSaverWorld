@@ -42,6 +42,111 @@ internal static class GrowthChecks
         {Check(server.MoveWorld(x,y).Accepted,"fixture walking request");for(int i=0;i<10000&&View.moving;i++)server.AdvanceWorld(80);Check(!View.moving&&View.record.x==x&&View.record.y==y,"fixture walking arrival");}
         public void Reconnect()
         {server=new EntryAccountService(store);new EntryClient(server).OpenLocalProfile();Check(server.BeginWorld(definition).Accepted,"real service/profile reload");}
+        public void Train()
+        {
+            definition.combatCatalog=Read<OriginalCombatCatalog>("Data/Combat/OriginalCombat.json");
+            Check(server.ReceiveCharacterGrowth(Notice()).Accepted,"battle fixture received initial growth");
+            var gate=definition.Map(1000).portals.First(p=>p.targetMap==101);Walk(gate.cells[0].x,gate.cells[0].y);Check(server.EnterWorldPortal(gate.id,true).Accepted,"battle fixture enters training");
+            var actor=new TrainingUnit{id=0,job=100,x=10,y=7,life=1,hp=17,maxHp=200,mp=3,maxMp=65,ap=7,maxAp=20,canMove=true,canAttack=true,canRest=true,movementBudget=5,attackRange=1,effectiveStats=View.record.growth.stats.Copy()};
+            var enemy=new TrainingUnit{id=400,job=401,x=11,y=7,life=1,hp=100,maxHp=100,mp=0,maxMp=0,ap=20,maxAp=20};
+            Check(server.ReceiveTrainingUnits(new TrainingUnitsNotice{approved=true,id=Id(),character=View.characterId,session=View.campaignSession,expectedRevision=0,units=new[]{actor,enemy}}).Accepted,"battle fixture receives explicit units");
+        }
+    }
+    private static void BattleLevelResults()
+    {
+        var f=new Fixture();f.Train();string enemy=JsonSerializer.Serialize(f.View.training.Unit(400),Options);
+        var level=f.Notice(100,2,2,CharacterGrowthOperation.LevelChanged);level.state.nextExperience=1000;level.state.stats.attack=75;level.state.nativeLevels=new short[]{2,2};
+        Check(f.server.ReceiveCharacterGrowth(level).Accepted,"received same-class level result applies during training");
+        Check(f.View.record.level==2&&f.View.record.growth.classLevel==2&&f.View.record.growth.nativeLevels.SequenceEqual(new short[]{2,2})&&f.View.training.Commander.effectiveStats.attack==75,"record and active commander update together");
+        Check(f.View.record.hp==17&&f.View.record.mp==3&&f.View.training.Commander.ap==7&&JsonSerializer.Serialize(f.View.training.Unit(400),Options)==enemy,"level result without health cannot heal or change enemies/AP");
+        string before=State(f.View.record);long battleRevision=f.View.training.revision;
+        Check(!f.server.ReceiveCharacterGrowth(level).Accepted&&State(f.View.record)==before&&f.View.training.revision==battleRevision,"duplicate level result cannot replay");
+        var next=f.Notice(100,3,3,CharacterGrowthOperation.LevelChanged);next.health=new CharacterGrowthHealth{hp=19,maxHp=210,mp=4,maxMp=70};next.state.stats.attack=80;
+        f.store.fail=true;Check(f.server.ReceiveCharacterGrowth(next).Failure==WorldFailure.StorageUnavailable,"battle level save failure reported");f.store.fail=false;
+        Check(State(f.View.record)==before&&f.View.training.revision==battleRevision&&f.View.training.Commander.effectiveStats.attack==75&&f.View.training.Commander.hp==17,"failed level save preserves active stats/health and record atomically");
+        Check(f.server.ReceiveCharacterGrowth(next).Accepted&&f.View.record.level==3&&f.View.training.Commander.hp==19&&f.View.training.Commander.effectiveStats.attack==80,"same explicit level result can retry after storage recovers");
+        Check(f.server.EscapeTraining().Accepted,"leveled fixture escapes");f.Reconnect();Check(f.View.record.level==3&&f.View.record.growth.stats.attack==80&&f.View.record.hp==19,"received battle level survives return and reload");
+        foreach(string problem in new[]{"class-change","snapshot","pending","stale","session","dead-revive"})
+        {
+            var bad=new Fixture();bad.Train();
+            if(problem=="dead-revive")
+            {
+                var current=bad.View;var dead=current.training.units.Select(u=>u.Copy()).ToArray();dead[0].hp=0;
+                Check(bad.server.ReceiveTrainingUnits(new TrainingUnitsNotice{approved=true,id=Id(),character=current.characterId,session=current.campaignSession,expectedRevision=current.training.revision,units=dead}).Accepted,"dead commander fixture");
+            }
+            var notice=bad.Notice(100,2,2,CharacterGrowthOperation.LevelChanged);
+            if(problem=="class-change"){notice.operation=CharacterGrowthOperation.ClassChanged;notice.state.job=105;notice.state.classLevel=1;}
+            if(problem=="snapshot")notice.operation=CharacterGrowthOperation.Snapshot;
+            if(problem=="pending")Check(bad.server.RequestTrainingAction(TrainingAction.Rest,-1,0,0,Id()).Accepted,"pending battle action fixture");
+            if(problem=="stale")notice.expectedRevision--;
+            if(problem=="session")notice.session=Id();
+            if(problem=="dead-revive")notice.health=new CharacterGrowthHealth{hp=200,maxHp=200,mp=65,maxMp=65};
+            string old=State(bad.View.record);string unitsBefore=JsonSerializer.Serialize(bad.View.training.units,Options);long revision=bad.View.training.revision;
+            Check(!bad.server.ReceiveCharacterGrowth(notice).Accepted&&State(bad.View.record)==old&&JsonSerializer.Serialize(bad.View.training.units,Options)==unitsBefore&&bad.View.training.revision==revision,"battle growth rejection preserves state "+problem);
+        }
+        foreach(string problem in new[]{"none","missing-xp","xp-mismatch","stats-mismatch","job","level"})
+        {
+            var combined=new Fixture();combined.Train();Check(combined.server.RequestTrainingAction(TrainingAction.Attack,400,0,0,Id()).Accepted,"combined kill request");
+            var current=combined.View;string id=Id();var units=current.training.units.Select(u=>u.Copy()).ToArray();units.Single(u=>u.id==400).hp=0;
+            var state=current.record.growth.Copy();state.classLevel=2;state.totalLevel=2;state.experience=23;state.revision++;state.lastNotice=id;
+            var notice=new TrainingUnitsNotice{approved=true,id=id,character=current.characterId,session=current.campaignSession,expectedRevision=current.training.revision,request=current.training.pending.id,units=units,experience=23,expectedGrowthRevision=current.record.growth.revision,growthState=state};
+            if(problem=="missing-xp")notice.experience=null;
+            if(problem=="xp-mismatch")state.experience=24;
+            if(problem=="stats-mismatch")state.stats.attack=999;
+            if(problem=="job"){state.job=105;state.classLevel=1;}
+            if(problem=="level"){state.classLevel=1;state.totalLevel=1;}
+            string old=State(combined.View.record);long revision=combined.View.training.revision;var result=combined.server.ReceiveTrainingUnits(notice);
+            if(problem=="none")Check(result.Accepted&&combined.View.training.Unit(400).hp==0&&combined.View.record.growth.experience==23&&combined.View.record.level==2,"death XP and explicit level commit in one battle result");
+            else Check(!result.Accepted&&State(combined.View.record)==old&&combined.View.training.revision==revision&&combined.View.training.Unit(400).hp==100&&combined.View.training.pending?.id==notice.request,"inconsistent combined growth cannot partly kill or level "+problem);
+        }
+    }
+    private static void MovingBattleGrowth()
+    {
+        var f=new Fixture();f.Train();
+        Check(f.server.ExecuteTrainingAction(TrainingAction.Move,-1,9,7,(request,view)=>
+        {
+            var units=view.units.Select(u=>u.Copy()).ToArray();var commander=units.First(u=>u.id==0);commander.x=request.x;commander.y=request.y;
+            return new TrainingUnitsNotice{approved=true,id=Id(),request=request.id,character=request.character,session=request.session,expectedRevision=request.revision,units=units};
+        }).Accepted&&f.View.moving&&f.View.training.commanderMotion!=null,"explicit movement approval starts an actual combat motion");
+        var motion=f.View.training.commanderMotion;
+        Check(f.server.ReceiveCharacterExperience(f.Experience(456)).Accepted&&f.View.moving&&f.View.training.Commander.nativeExperience==456,"absolute XP can arrive during combat motion without cancelling it");
+        var current=f.View;
+        Check(f.server.ReceiveBattlePacket(new NativeBattleNotice{approved=true,id=Id(),character=current.characterId,session=current.campaignSession,
+            expectedRevision=current.training.revision,expectedGrowthRevision=current.record.growth.revision,unitLife=current.training.Commander.life,
+            packet=OriginalBattleExperience.Packet(0,789)}).Accepted&&f.View.moving&&f.View.training.Commander.nativeExperience==789,"native5C53 XP update also preserves a running combat motion");
+        var level=f.Notice(100,2,2,CharacterGrowthOperation.LevelChanged);level.state.experience=789;level.state.stats.attack=75;
+        f.store.fail=true;Check(f.server.ReceiveCharacterGrowth(level).Failure==WorldFailure.StorageUnavailable&&f.View.moving&&f.View.record.growth.classLevel==1,"failed moving level save preserves motion and old growth");
+        f.store.fail=false;Check(f.server.ReceiveCharacterGrowth(level).Accepted&&f.View.moving&&f.View.record.growth.classLevel==2&&f.View.training.Commander.effectiveStats.attack==75,"approved same-class level result applies without interrupting movement");
+        var after=f.View.training.commanderMotion;
+        Check(after!=null&&after.x==motion.x&&after.y==motion.y&&after.direction==motion.direction&&f.View.record.hp==17&&f.View.record.mp==3&&f.View.training.Commander.ap==7,"growth preserves current rendered path position, direction and HP/MP/AP");
+        f.server.AdvanceWorld(100000);
+        Check(!f.View.moving&&f.View.record.x==9&&f.View.record.y==7&&f.View.record.growth.experience==789&&f.View.record.growth.classLevel==2,"same accepted route completes at its original destination with received growth intact");
+    }
+    private static void LocalProjectionChecks(CharacterGrowthCatalog catalog)
+    {
+        var current=new CharacterGrowthRecord{job=100,classLevel=1,totalLevel=1,revision=1,lastNotice=Id(),points=7,magicLevel=2,magic=new[]{101},skills=new[]{10101},nativeLevels=new short[]{1,1},stats=new CharacterGrowthStats{attack=65,defense=45}};
+        string before=JsonSerializer.Serialize(current,Options);
+        Check(!LocalLevelProgression.TryGrant(catalog,current,500,LocalExperienceBasis.Unspecified,out var unknown)&&unknown==null,"missing XP basis never defaults to an inferred server rule");
+        foreach(var basis in new[]{LocalExperienceBasis.SpendPerLevel,LocalExperienceBasis.Cumulative})
+        {
+            Check(LocalLevelProgression.TryGrant(catalog,current,499,basis,out var below)&&below.classLevel==1&&below.experience==499,"threshold minus one stays at same level "+basis);
+            Check(LocalLevelProgression.TryGrant(catalog,current,500,basis,out var edge)&&edge.classLevel==2&&edge.totalLevel==2&&edge.experience==(basis==LocalExperienceBasis.SpendPerLevel?0ul:500ul)&&edge.nextExperience==1000,"exact first threshold uses explicit basis "+basis);
+            Check(LocalLevelProgression.TryGrant(catalog,current,1500,basis,out var multi)&&multi.classLevel==(basis==LocalExperienceBasis.SpendPerLevel?3:4)&&multi.experience==(basis==LocalExperienceBasis.SpendPerLevel?0ul:1500ul),"multi-level grant follows selected basis "+basis);
+            Check(multi.job==100&&multi.points==7&&multi.magicLevel==2&&multi.magic.SequenceEqual(current.magic)&&multi.skills.SequenceEqual(current.skills)&&multi.stats.attack==65&&multi.nativeLevels==null,"projection cannot promote, reward or change stats/abilities "+basis);
+            Check(LocalLevelProgression.TryGrant(catalog,current,100000,basis,out var capped)&&capped.job==100&&capped.classLevel==5&&capped.totalLevel==5,"huge grant stops at class cap instead of following nextJob "+basis);
+            Check(capped.revision==current.revision&&capped.lastNotice==current.lastNotice&&JsonSerializer.Serialize(current,Options)==before,"projection is detached and does not publish/save revisions "+basis);
+            capped.magic[0]=999;Check(current.magic[0]==101,"projected arrays cannot mutate current ownership");
+        }
+        foreach(var job in catalog.jobs)
+        {
+            var state=current.Copy();state.job=job.id;state.magic=Array.Empty<int>();state.skills=Array.Empty<int>();
+            Check(LocalLevelProgression.TryGrant(catalog,state,1,LocalExperienceBasis.SpendPerLevel,out var a)&&a.job==job.id&&a.classLevel==1,"all source class tables support explicit per-level projection "+job.id);
+            Check(LocalLevelProgression.TryGrant(catalog,state,1,LocalExperienceBasis.Cumulative,out var b)&&b.job==job.id&&b.classLevel==1,"all source class tables support explicit cumulative projection "+job.id);
+        }
+        var overflow=current.Copy();overflow.experience=ulong.MaxValue;Check(!LocalLevelProgression.TryGrant(catalog,overflow,1,LocalExperienceBasis.SpendPerLevel,out _),"XP overflow rejected without partial projection");
+        overflow=current.Copy();overflow.totalLevel=int.MaxValue;Check(!LocalLevelProgression.TryGrant(catalog,overflow,500,LocalExperienceBasis.Cumulative,out _),"level overflow rejected without partial projection");
+        var malformed=new CharacterGrowthCatalog{jobs=catalog.jobs,magicIds=catalog.magicIds,skillIds=catalog.skillIds,rows=catalog.rows.Where(r=>r.job!=100||r.classLevel!=2).ToArray()};
+        Check(!LocalLevelProgression.TryGrant(malformed,current,500,LocalExperienceBasis.SpendPerLevel,out _),"missing middle source row is not mistaken for a class cap");
     }
     private static void Main(string[] args)
     {
@@ -103,6 +208,7 @@ internal static class GrowthChecks
         var npc=warehouse.definition.Map(2510).npcs.Single();warehouse.Walk(npc.counter[0].x,npc.counter[0].y);warehouse.server.OpenWorldFacility(npc.id);
         var token=warehouse.View.facility.token;Check(warehouse.server.ReceiveCharacterExperience(warehouse.Experience(999)).Accepted,"XP can update during warehouse draft");
         Check(warehouse.server.ConfirmWorldStorage(token,Id()).Accepted&&warehouse.View.record.growth.experience==999,"confirming warehouse draft cannot roll growth back");
+        BattleLevelResults();MovingBattleGrowth();LocalProjectionChecks(catalog);
         string folder=Path.Combine(Path.GetTempPath(),"growth-disk-"+Id()),path=Path.Combine(folder,"accounts.json");
         try
         {

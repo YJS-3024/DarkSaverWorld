@@ -57,6 +57,8 @@ internal static partial class MagicProjectileChecks
         Check(durable.server.ReceiveBattlePacket(n).Failure==WorldFailure.StorageUnavailable&&State(durable.View.record)==state&&durable.View.battle.magicEffects.Length==0,"failed magic notice save applies no effects");durable.store.fail=false;Check(durable.server.ReceiveBattlePacket(n).Accepted,"same magic event can retry after durable failure");
         var restore=new DarkSaver.Original.Entry.EntryAccountService(durable.store);new DarkSaver.Original.Entry.EntryClient(restore).OpenLocalProfile();Check(restore.BeginWorld(durable.definition).Accepted&&restore.WorldSnapshot().battle.magicEffects.Length==0,"reconnect does not replay old cast");
         var forged=LifecycleFixture();var notice=forged.Notice();notice.nativeMagic=MagicPacket(forged,400,101,1);notice.units[0].hp--;Check(!forged.server.ReceiveBattleUnits(notice).Accepted,"raw magic proof cannot authorize damage in the final snapshot");
+        var forgedXp=LifecycleFixture();var xpNotice=forgedXp.Notice();xpNotice.nativeMagic=MagicPacket(forgedXp,400,101,1);xpNotice.units.First(u=>u.id==400).nativeExperience=500;
+        Check(!forgedXp.server.ReceiveBattleUnits(xpNotice).Accepted&&!forgedXp.View.battle.Unit(400).nativeExperience.HasValue,"visual magic proof cannot smuggle a per-unit XP update");
         var queued=new Fixture();Check(queued.server.RequestBattleAction(TrainingAction.CastMagic,400,0,0,Id(),101).Accepted,"existing cast queue captures original validation signature");
         var pending=queued.View.battle.pending;var raw=pending.NativeMagicPacket(2);
         Check(OriginalNativeMagic.TryRequest(raw,out var decoded)&&decoded.signature==OriginalNativeMagic.Signature(queued.definition.magicMenu.Find(101))&&decoded.source==0&&decoded.targets.SequenceEqual(pending.magicTargets.Select(t=>t.id)),"explicit native mode builds exact captured spell and candidate list without guessing server result");
@@ -104,9 +106,97 @@ internal static partial class MagicProjectileChecks
             }
         }
     }
+    private static Fixture LevelEffectFixture(bool scenario=false,int source=0,bool targets=true)
+    {
+        var f=LifecycleFixture(scenario,near:true);var n=f.Notice();var actor=n.units.First(u=>u.id==source);
+        actor.magicRules=(actor.magicRules??Array.Empty<BattleMagicRule>()).Concat(new[]{new BattleMagicRule{magic=4001,enabled=true,targets=targets?new[]{source==0?400:0}:Array.Empty<int>()}}).ToArray();
+        Check(f.server.ReceiveBattleUnits(n).Accepted,"explicit original relation eligibility for level-effect request; no spell grant");return f;
+    }
+    private static NativeBattleNotice LevelEffectNotice(Fixture f,int opcode=0x64,int source=0)
+    {
+        var actor=f.View.battle.Unit(source);var targets=actor?.magicRules?.FirstOrDefault(r=>r.magic==4001)?.targets??Array.Empty<int>();
+        return new NativeBattleNotice{id=Id(),character=f.View.characterId,session=f.View.campaignSession,expectedRevision=f.View.battle.revision,unitLife=actor?.life??0,approved=true,
+            targetLives=targets.Select(id=>new BattleLifeRecord{id=id,life=f.View.battle.Unit(id).life}).ToArray(),packet=new[]{(byte)0x5c,(byte)opcode,(byte)source,(byte)(source>>8)}};
+    }
+    private static void CheckNativeLevelEffects()
+    {
+        foreach(bool scenario in new[]{false,true})foreach(int source in new[]{0,400})foreach(int opcode in new[]{0x64,0x65})
+        {
+            var f=LevelEffectFixture(scenario,source);var n=LevelEffectNotice(f,opcode,source);var before=f.View.record.Copy();var commander=f.View.battle.Commander.Copy();
+            var reply=f.server.ReceiveBattlePacket(n,out var packet);
+            Check(reply.Accepted&&OriginalNativeMagic.TryRequest(packet,out var cast)&&cast.magic==4001&&cast.mode==1&&cast.source==source
+                &&cast.targets.SequenceEqual(n.targetLives.Select(t=>t.id))&&cast.signature==OriginalNativeMagic.Signature(f.definition.magicMenu.Find(4001)),"5C64/65 produces original 4001 mode1 request in training/scenario "+scenario+" source"+source+" result="+reply.Failure+" packet="+(packet==null?"null":Convert.ToHexString(packet)));
+            before.scenarioBattle=f.View.record.scenarioBattle?.Copy(); // Only durable delivery/revision bookkeeping may change.
+            Check(State(f.View.record)==State(before)&&f.View.battle.magicEffects.Length==0&&f.View.battle.Commander.ap==commander.ap&&f.View.battle.Commander.mp==commander.mp,"level-effect command itself never awards levels/XP, starts visuals, or predicts costs/damage");
+            Check(!f.server.ReceiveBattlePacket(n,out var duplicate).Accepted&&duplicate==null,"duplicate level-effect delivery does not resend followup");
+        }
+        foreach(string failure in new[]{"length","life","target-life","session","revision","approval","rules","flags","metadata"})
+        {
+            var f=LevelEffectFixture();var n=LevelEffectNotice(f);string before=State(f.View.record);long revision=f.View.battle.revision;
+            if(failure=="length")n.packet=n.packet.Concat(new byte[]{0}).ToArray();if(failure=="life")n.unitLife++;if(failure=="target-life")n.targetLives[0].life++;
+            if(failure=="session")n.session=Id();if(failure=="revision")n.expectedRevision++;if(failure=="approval")n.approved=false;
+            if(failure=="rules"||failure=="flags")
+            {var update=f.Notice();if(failure=="rules")update.units.First(u=>u.id==0).magicRules=null;else update.units.First(u=>u.id==400).nativeEnabled=null;Check(f.server.ReceiveBattleUnits(update).Accepted,"isolated unknown eligibility fixture");n.expectedRevision=revision=f.View.battle.revision;before=State(f.View.record);}
+            if(failure=="metadata")f.definition.magicMenu.Find(4001).range=7;
+            Check(!f.server.ReceiveBattlePacket(n,out var packet).Accepted&&packet==null&&State(f.View.record)==before&&f.View.battle.revision==revision,"invalid/unknown level-effect request has no partial save or outbound packet "+failure);
+        }
+        var durable=LevelEffectFixture(true);var notice=LevelEffectNotice(durable);string saved=State(durable.View.record);durable.store.fail=true;
+        Check(durable.server.ReceiveBattlePacket(notice,out var delivered).Accepted&&delivered!=null&&State(durable.View.record)==saved,"pure original client control command needs no profile save, even if storage is unavailable");
+        durable.store.fail=false;Check(!durable.server.ReceiveBattlePacket(notice,out var retried).Accepted&&retried==null,"repeated client command does not resend after storage recovers");
+        var pending=LevelEffectFixture();pending.Queue();string request=pending.View.battle.pending.id;
+        long pendingRevision=pending.View.battle.revision;
+        Check(pending.server.ReceiveBattlePacket(LevelEffectNotice(pending),out _).Accepted&&pending.View.battle.pending?.id==request&&pending.View.battle.revision==pendingRevision,"level-effect receipt preserves an unrelated outstanding action and battle revision");
+        var empty=LevelEffectFixture(targets:false);
+        Check(empty.server.ReceiveBattlePacket(LevelEffectNotice(empty),out var none).Accepted&&none==null,"no eligible target means original CheckMagicTarget produces no magic request");
+        var negative=LevelEffectFixture();
+        Check(negative.server.ReceiveBattlePacket(LevelEffectNotice(negative,source:-1),out var ignored).Accepted&&ignored==null,"signed negative original unit ignores level-effect request");
+        foreach(string callback in new[]{"none","logout","escape","new-revision","focus-logout","focus-revision","mutate-delivery"})
+        {
+            var f=LevelEffectFixture();var manager=new LocalServerManager(f.server);int sent=0,focused=0;
+            var delivery=LevelEffectNotice(f);
+            manager.Notify_BattlePacketRequested+=bytes=>{sent++;Check(OriginalNativeMagic.TryRequest(bytes,out var cast)&&cast.magic==4001,"manager emits original application bytes");};
+            manager.Notify_BattleFocusRequested+=focus=>
+            {
+                focused++;Check(focus.unit==0&&focus.Matches(f.View)&&focus.x==f.View.battle.Commander.x&&focus.y==f.View.battle.Commander.y&&sent==0,"source focus precedes the 4001 request and owns immutable context");
+                if(callback=="focus-logout")new EntryClient(f.server).Logout();else if(callback=="focus-revision")f.server.ReceiveBattleUnits(f.Notice());
+            };
+            manager.Notify_BattleChanged+=reply=>
+            {if(callback=="logout")new EntryClient(f.server).Logout();else if(callback=="escape")f.server.EscapeTraining();else if(callback=="new-revision")f.server.ReceiveBattleUnits(f.Notice());
+                else if(callback=="mutate-delivery"){delivery.packet[2]=1;delivery.packet[1]=0;reply.View.battle.Commander.x++;reply.View.characterId="mutated view";}};
+            bool emits=callback=="none"||callback=="mutate-delivery";
+            Check(manager.Notify_TrainingPacket(delivery).Accepted&&sent==(emits?1:0)
+                &&focused==(emits||callback.StartsWith("focus-")?1:0),"stale battle/focus callback suppresses old level-effect followup; external DTO mutation cannot change accepted input "+callback);
+        }
+        foreach(var packet in new[]{Array.Empty<byte>(),new byte[]{0x5c,0x64},new byte[]{0x5c,0x65,0},new byte[]{0x5c,0x63,0,0},new byte[]{0x5c,0x64,0,0,0}})
+            Check(!OriginalNativeMagic.TryLevelEffectNotice(packet,out _),"strict level-effect application length/opcode guard");
+        var scenarioUi=LifecycleFixture(scenario:true);var setup=scenarioUi.Notice();
+        foreach(var actor in setup.units.Where(u=>u.id==0||u.id==400))actor.magicRules=(actor.magicRules??Array.Empty<BattleMagicRule>()).Concat(new[]{new BattleMagicRule{magic=4001,enabled=true,targets=Array.Empty<int>()}}).ToArray();
+        Check(scenarioUi.server.ReceiveBattleUnits(setup).Accepted,"isolated original scenario map/intro and explicit no-target relation fixture");
+        var sceneManager=new LocalServerManager(scenarioUi.server);var sceneReceiver=new BattleFocusCheckHost(sceneManager,scenarioUi.definition);int packets=0;
+        sceneManager.Notify_BattleFocusRequested+=sceneReceiver.Accept;sceneManager.Notify_BattlePacketRequested+=_=>packets++;
+        var map=scenarioUi.definition.Map(scenarioUi.View.record.map).map;var actor0=scenarioUi.View.battle.Commander;var actor400=scenarioUi.View.battle.Unit(400);
+        var ownViewport=NativeViewport.Centered(actor0.x,actor0.y,map.width,map.height);var enemyViewport=NativeViewport.Centered(actor400.x,actor400.y,map.width,map.height);
+        Check(ownViewport.left!=enemyViewport.left||ownViewport.top!=enemyViewport.top,"large scenario fixture distinguishes commander and enemy camera origins");
+        string scenarioState=State(scenarioUi.View.record);
+        Check(sceneManager.Notify_BattlePacket(LevelEffectNotice(scenarioUi,source:400)).Accepted&&sceneReceiver.Paints==1&&sceneReceiver.Left==enemyViewport.left&&sceneReceiver.Top==enemyViewport.top&&packets==0,"production manager and UI receiver focus the announced enemy even when CheckMagicTarget has no targets");
+        Check(sceneManager.Notify_BattlePacket(LevelEffectNotice(scenarioUi,source:0)).Accepted&&sceneReceiver.Paints==2&&sceneReceiver.Resets==1&&sceneReceiver.Left==ownViewport.left&&sceneReceiver.Top==ownViewport.top&&packets==0,"next commander focus updates viewport while retaining the same scenario dialog session");
+        Check(State(scenarioUi.View.record)==scenarioState,"pure source camera/control path leaves the scenario save unchanged");
+        var moving=LevelEffectFixture();
+        Check(moving.server.ExecuteTrainingAction(TrainingAction.Move,-1,10,8,(request,view)=>
+        {
+            var result=moving.Notice();result.request=request.id;var actor=result.units.First(u=>u.id==0);actor.x=request.x;actor.y=request.y;return result;
+        }).Accepted&&moving.View.moving,"moving control fixture starts a real approved path");
+        moving.server.AdvanceWorld(40);var currentMotion=moving.View.battle.commanderMotion;
+        var movingManager=new LocalServerManager(moving.server);NativeBattleFocus? announced=null;NativeMagicPacket movingCast=null;
+        movingManager.Notify_BattleFocusRequested+=focus=>announced=focus;
+        movingManager.Notify_BattlePacketRequested+=packet=>{Check(OriginalNativeMagic.TryRequest(packet,out movingCast),"moving control emits valid original magic bytes");};
+        Check(movingManager.Notify_TrainingPacket(LevelEffectNotice(moving)).Accepted&&announced.HasValue&&announced.Value.x==currentMotion.tileX&&announced.Value.y==currentMotion.tileY
+            &&movingCast!=null&&movingCast.x==currentMotion.tileX&&movingCast.y==currentMotion.tileY&&movingCast.y!=moving.View.battle.Commander.y&&moving.View.moving,"control camera and target calculation use the current native grid tile, not the approved destination or fractional rendering position");
+        moving.server.AdvanceWorld(100000);Check(!announced.Value.Matches(moving.View),"tile crossing invalidates an old focus even if no new server revision arrived");
+    }
     internal static void RunNativeMagicChecks(string path)
     {
-        root=path;CheckNativeMagicInput(false);CheckNativeMagicInput(true);CheckNativeMagicGuards();CheckNativeClientCastTiming();CheckAllNativeMagicNotices();
+        root=path;CheckNativeMagicInput(false);CheckNativeMagicInput(true);CheckNativeMagicGuards();CheckNativeClientCastTiming();CheckAllNativeMagicNotices();CheckNativeLevelEffects();
         Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Native magic direction-specific wire formats, explicit outgoing mode/signature, incoming same-team echo/zero/negative guards, target lives, environmental source, no guessed resource result and durable replay/reconnect contracts."}));
     }
 }

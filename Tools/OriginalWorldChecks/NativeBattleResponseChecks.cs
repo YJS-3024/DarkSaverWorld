@@ -53,7 +53,7 @@ internal static partial class MagicProjectileChecks
     }
     private static void CheckNativeResponseFailures()
     {
-        foreach(string problem in new[]{"empty","unknown","truncated","outgoing","pulse","remove","other-unit","wrong-target","double-hp","double-menu","hp-over-max","bad-session-proof","changed-units","changed-events","unrequested-xp","missing-proof-pending"})
+        foreach(string problem in new[]{"empty","unknown","truncated","outgoing","pulse","remove","other-unit","wrong-target","double-hp","double-menu","hp-over-max","bad-session-proof","changed-units","changed-events","changed-unit-xp","unrequested-xp","missing-proof-pending"})
         {
             var f=LifecycleFixture();QueueNative(f,TrainingAction.Attack);var response=PacketResponse(f,Hp(400,40),Ap(1));
             switch(problem)
@@ -71,6 +71,7 @@ internal static partial class MagicProjectileChecks
                 var notice=OriginalBattleResponses.Prepare(f.View.battle.pending,f.View.battle,response);
                 if(problem=="changed-units")notice.units.Single(u=>u.id==400).hp=1;
                 if(problem=="changed-events")notice.feedbackEvents[0].value=1;
+                if(problem=="changed-unit-xp")notice.units.Single(u=>u.id==400).nativeExperience=500;
                 if(problem=="unrequested-xp"){notice.experience=900;notice.expectedGrowthRevision=f.View.record.growth.revision;}
                 if(problem=="bad-session-proof")notice.session="bad";
                 if(problem=="missing-proof-pending")notice.request=null;

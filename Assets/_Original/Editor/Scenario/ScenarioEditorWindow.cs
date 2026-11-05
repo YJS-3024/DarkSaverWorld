@@ -38,6 +38,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         private ScenarioActor[] actors = Array.Empty<ScenarioActor>();
         private ScenarioMarker localEntry;
         private bool pickBattleEntry;
+        private int entryJob;
         private Rect viewport;
         private bool fitRequested;
         [SerializeField] private bool layoutReadOnly;
@@ -228,6 +229,7 @@ namespace DarkSaver.Original.Editor.Scenarios
         {
             if (source == null || loadError.Length > 0) return false;
             if(layoutReadOnly){message="기존 사용자 배치 파일을 보호하고 있습니다. 원본 배치 불러오기 후 저장하세요.";return false;}
+            bool layoutSaved=false;
             try
             {
                 if (ScenarioLayoutData.Hash(File.ReadAllBytes(MapInfo(mapKey).nativePath)) != source.layout.mapHash)
@@ -238,16 +240,35 @@ namespace DarkSaver.Original.Editor.Scenarios
                 if(source.layout.catalogHash!=null&&(!File.Exists(OriginalRosterPath)||ScenarioLayoutData.Hash(File.ReadAllBytes(OriginalRosterPath))!=source.layout.catalogHash))
                     throw new IOException("원본 배치 목록이 변경되었습니다. 다시 불러온 뒤 편집하세요.");
                 savedHash = ScenarioLayoutData.Save(LayoutFolder, document, source.layout, new HashSet<int>(jobs.Keys), string.IsNullOrEmpty(savedHash) ? null : savedHash);
-                document.edited = !ScenarioLayoutData.SameUnits(document, source.layout); dirty = false; hasUnsavedChanges = dirtyGateways;
+                layoutSaved=true;
+                document.edited = !ScenarioLayoutData.SameUnits(document, source.layout);
                 if(int.TryParse(mapKey,out int trainingMap)&&trainingMap>=101&&trainingMap<=107)
                 {
                     string testFolder=BasePath+"Resources/TrainingTestLayouts";
                     Directory.CreateDirectory(testFolder);
-                    File.Copy(LayoutFolder+"/"+mapKey+".json",testFolder+"/"+mapKey+".json",true);
+                    string exportPath=testFolder+"/"+mapKey+".json";
+                    string previousExport=File.Exists(exportPath)?ScenarioLayoutData.Hash(File.ReadAllBytes(exportPath)):null;
+                    string exportedHash=ScenarioLayoutData.Save(testFolder,document,source.layout,new HashSet<int>(jobs.Keys),previousExport);
+                    if(exportedHash!=savedHash)throw new IOException("편집 배치와 실행용 배치의 저장 내용이 다릅니다.");
+                    AssetDatabase.ImportAsset(exportPath,ImportAssetOptions.ForceUpdate);
+                    string catalogPath=BasePath+"Resources/TrainingTestLayoutCatalog.asset";
+                    var catalog=AssetDatabase.LoadAssetAtPath<DarkSaver.Original.Entry.TrainingTestLayoutCatalog>(catalogPath);
+                    if(catalog==null){catalog=ScriptableObject.CreateInstance<DarkSaver.Original.Entry.TrainingTestLayoutCatalog>();AssetDatabase.CreateAsset(catalog,catalogPath);}
+                    catalog.Set(trainingMap,AssetDatabase.LoadAssetAtPath<TextAsset>(exportPath));
+                    EditorUtility.SetDirty(catalog);AssetDatabase.SaveAssets();
                 }
-                AssetDatabase.Refresh(); message = "저장: " + LayoutFolder + "/" + mapKey + ".json"; return true;
+                dirty = false; hasUnsavedChanges = dirtyGateways;
+                message = "저장: " + LayoutFolder + "/" + mapKey + ".json";
+                try {AssetDatabase.Refresh();}
+                catch(Exception e){message+=" / 파일 저장 완료, 에셋 새로고침 경고: "+e.Message;}
+                return true;
             }
-            catch (Exception e) { message = e.Message; return false; }
+            catch (Exception e)
+            {
+                if(layoutSaved){dirty=hasUnsavedChanges=true;message="편집 배치는 저장했지만 실행용 배치 내보내기에 실패했습니다. 다시 저장하세요: "+e.Message;}
+                else message=e.Message;
+                return false;
+            }
         }
         public override void SaveChanges() { if(dirty&&!Save())return;if(dirtyGateways&&!SaveGateways())return;base.SaveChanges(); }
         public override void DiscardChanges() { dirty = dirtyGateways = false; base.DiscardChanges(); }

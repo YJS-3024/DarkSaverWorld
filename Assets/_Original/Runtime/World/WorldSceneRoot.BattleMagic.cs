@@ -16,7 +16,7 @@ namespace DarkSaver.Original.World
         private bool showingBattleSpells,skillMode,itemMode;
         private string selectedBattleItem;
         private bool CastingSelection=>trainingMode==TrainingAction.CastMagic||trainingMode==TrainingAction.UseSkill||trainingMode==TrainingAction.UseItem;
-        private int[] BattleSpellChoices=>skillMode?view?.record?.growth?.skills?.Where(id=>definition.magicProjectiles?.SupportsSkill(definition.magicMenu?.Find(id))==true).ToArray():view?.battleMagic;
+        private int[] BattleSpellChoices=>skillMode?view?.battleSkills?.Where(id=>definition.magicProjectiles?.SupportsSkill(definition.magicMenu?.Find(id))==true).ToArray():view?.battleMagic;
         private int selectedBattleMagic=-1;
         private readonly List<(Button hit,RawImage image,int slot)> battleSpellButtons=new List<(Button,RawImage,int)>();
         private readonly Dictionary<string,RawImage> battleSpellImages=new Dictionary<string,RawImage>();
@@ -29,13 +29,13 @@ namespace DarkSaver.Original.World
         private bool SelectedAllowsSelf=>SelectedMagicDistance==0||SelectedMagicRule?.targets?.Contains(0)==true;
         private bool CanSelectMagicUnit(TrainingUnit unit)=>(unit.hp>0||SelectedMagicRule?.allowDeadTargets==true)&&SelectedMagicRule?.targets?.Contains(unit.id)==true;
         private bool AnyBattleMagicAvailable()=>view?.battleMagic?.Any(m=>BattleSpellAvailable(m,false))==true;
-        private bool AnyBattleSkillAvailable()=>view?.record?.growth?.skills?.Any(m=>BattleSpellAvailable(m,true))==true;
+        private bool AnyBattleSkillAvailable()=>view?.battleSkills?.Any(m=>BattleSpellAvailable(m,true))==true;
         private bool BattleMagicAvailable(int magic)=>itemMode?BattleItemAvailable(view?.record?.inventory?.FirstOrDefault(i=>i.id==selectedBattleItem)):BattleSpellAvailable(magic,skillMode);
         private bool BattleSpellAvailable(int magic,bool skill)
         {
             var actor=view?.battle?.Commander;var rule=actor?.magicRules?.FirstOrDefault(r=>r.magic==magic);var metadata=definition.magicMenu?.Find(magic);
             return OriginalCommandRange.Living(actor)&&OriginalBattleTicks.Allows(actor,skill?TrainingAction.UseSkill:TrainingAction.CastMagic)&&!view.record.ghost&&view.battle.pending==null&&!view.moving
-                &&(skill?view.record.growth?.skills?.Contains(magic)==true&&definition.magicProjectiles?.SupportsSkill(metadata)==true:view.record.growth?.magic?.Contains(magic)==true&&definition.magicProjectiles?.Supports(metadata)==true)&&rule?.enabled==true&&rule.mpCost.HasValue&&rule.apCost.HasValue&&rule.targets!=null
+                &&(skill?view.battleSkills?.Contains(magic)==true&&definition.magicProjectiles?.SupportsSkill(metadata)==true:view.battleMagic?.Contains(magic)==true&&definition.magicProjectiles?.Supports(metadata)==true)&&rule?.enabled==true&&rule.mpCost.HasValue&&rule.apCost.HasValue&&rule.targets!=null
                 &&actor.mp>=rule.mpCost.Value&&actor.ap>=rule.apCost.Value&&server.HasBattleAuthority(DisplayMap(view.record.map).training);
         }
         private void CancelBattleMagicSelection(){showingBattleSpells=false;showingBattleOrders=false;}

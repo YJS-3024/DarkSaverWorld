@@ -7,7 +7,7 @@ ROOT=magic.ROOT;OUT=magic.OUT;WORK=Path('/tmp/ds-soldier-action-checks')
 def check_assets():
     base=ROOT/'Assets/_Original';catalog=json.loads((base/'Data/Combat/OriginalCombat.json').read_text())
     rows=list(csv.DictReader((base/'Data/Tables/units_all.csv').open(encoding='utf-8-sig')))
-    assert catalog['version']==3
+    assert catalog['version']==4 # Added source base stats; preserve original movement-field assertions below.
     assert {j['job']:j['rawMovementType']for j in catalog['jobs']}=={int(r['직업']):int(r['병종'])for r in rows}
     return dict(jobMovementTypes=len(rows))
 

@@ -4,7 +4,7 @@ using DarkSaver.Original.World;
 
 namespace DarkSaver.Original.Campaign
 {
-    public enum CampaignExitKind { Retreat, Defeat }
+    public enum CampaignExitKind { Retreat, Defeat, Terminated }
     public sealed class CampaignRetreatRequest
     {
         public string character,session,visit,id;
@@ -15,6 +15,9 @@ namespace DarkSaver.Original.Campaign
     {
         public string character,session,visit,id,request;
         public bool approved;
+        // Explicit local authority contract, not a field of54: end first, then
+        // await its display report. Default keeps existing immediate-return behavior.
+        public bool awaitResult;
         public CampaignExitKind kind;
         public long expectedBattleRevision;
         public CharacterGrowthHealth health;

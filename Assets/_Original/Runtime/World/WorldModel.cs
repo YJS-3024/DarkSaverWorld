@@ -170,6 +170,8 @@ namespace DarkSaver.Original.World
         public string growthSession,characterId;
         public TrainingView training;
         public TrainingView battle;
+        public NativeBattleTeamName[] battleTeams;public long battleTeamRevision;
+        public NativeResultKills resultKills;public long resultKillRevision;
         public CampaignRetreatRequest pendingRetreat;
         public RevivalQuoteRequest revivalQuoteRequest;
         public RevivalRequest revivalRequest;
@@ -180,7 +182,7 @@ namespace DarkSaver.Original.World
         public MercenaryRequest mercenaryRequest;
         public ShopRequest shopQuoteRequest,shopTradeRequest;
         public ItemUseRequest itemUseRequest;
-        public MagicLoadoutRequest magicLoadoutRequest;public MagicLoadoutView magicLoadout;public int[] battleMagic;
+        public MagicLoadoutRequest magicLoadoutRequest;public MagicLoadoutView magicLoadout;public int[] battleMagic,battleSkills;
         public CommanderAdjustmentTarget adjustmentTarget;public CommanderProfile adjustmentProfile;
         public bool MagicLoadoutNeedsConfirm
         {get{var state=adjustmentTarget==null?record.magicLoadout:adjustmentProfile?.magicLoadout;var growth=adjustmentTarget==null?record.growth:adjustmentProfile?.growth;return magicLoadout!=null&&(magicLoadout.Dirty||state?.Matches(growth)!=true||!state.selected.SequenceEqual(magicLoadout.selected));}}
@@ -254,6 +256,11 @@ namespace DarkSaver.Original.World
         public CampaignPresentation Presentation;
         public string CampaignSession = Guid.NewGuid().ToString("N");
         public readonly HashSet<string> CampaignNotices = new HashSet<string>();
+        public string NativeKillSession;
+        public NativeResultKills NativeKills;
+        public readonly HashSet<string> NativeKillNotices=new HashSet<string>();
+        public long CurrentNativeKillRevision=>NativeKillSession==CampaignSession?NativeKills?.revision??0:Record.scenarioVisit?.result?.nativeKills?.revision??0;
+        public NativeResultKills NativeKillView()=>(NativeKillSession==CampaignSession?NativeKills:Record.scenarioVisit?.result?.nativeKills)?.Copy();
         public readonly List<CampaignCommand> Effects = new List<CampaignCommand>();
         public bool PhaseSavePending;
         public CampaignRetreatRequest PendingRetreat;
@@ -376,14 +383,16 @@ namespace DarkSaver.Original.World
                 presentation = Presentation?.Snapshot(),
                 campaignSession = CampaignSession,commanders=CommanderView(),inspectedCommander=InspectedCommander,commanderRequest=PendingCommander?.Copy(),commanderSession=CommanderSession,
                 growthSession=GrowthSession,characterId=CharacterId,adjustmentTarget=AdjustmentTarget?.Copy(),adjustmentProfile=AdjustmentProfile?.Copy(),
-                training=Map(Record.map).training?Combat?.Snapshot():null,battle=Combat?.Snapshot(),
+                training=Map(Record.map).training?Combat?.Snapshot():null,battle=Combat?.Snapshot(),battleTeams=NativeTeamView(),battleTeamRevision=CurrentNativeTeamRevision,
+                resultKills=NativeKillView(),resultKillRevision=CurrentNativeKillRevision,
                 pendingRetreat=PendingRetreat?.Copy(),
                 revivalQuoteRequest=PendingRevivalQuote?.Copy(),revivalRequest=PendingRevival?.Copy(),
                 currencySession=CurrencySession,currencyRequest=PendingCurrency?.Copy(),
                 bankTransferRequest=PendingBankTransfer?.Copy(),
                 warehouseRequest=PendingWarehouse?.Copy(),mercenaryRequest=PendingMercenary?.Copy(),
                 shopQuoteRequest=PendingShopQuote?.Copy(),shopTradeRequest=PendingShopTrade?.Copy(),itemUseRequest=PendingItemUse?.Copy(),
-                magicLoadoutRequest=PendingMagicLoadout?.Copy(),magicLoadout=MagicDraft?.Copy(),battleMagic=Record.growth?.magic==null?null:(int[])Record.growth.magic.Clone(),
+                magicLoadoutRequest=PendingMagicLoadout?.Copy(),magicLoadout=MagicDraft?.Copy(),battleMagic=Combat?.Units.FirstOrDefault(u=>u.id==0)?.nativeInfo?.Slots(false)??Record.growth?.magic?.ToArray(),
+                battleSkills=Combat?.Units.FirstOrDefault(u=>u.id==0)?.nativeInfo?.Slots(true)??Record.growth?.skills?.ToArray(),
                 statAdjustmentRequest=PendingStatAdjustment?.Copy(),statAdjustment=StatDraft?.Copy(),
                 classOptionsRequest=PendingClassOptions?.Copy(),classChangeRequest=PendingClassChange?.Copy(),classOptions=ClassOffer?.Matches(this)==true?ClassOffer.Options.Copy():null,
                 facility = Kind == FacilityKind.None ? null : new WorldFacilityView { token = Token, npc = Npc, kind = Kind,

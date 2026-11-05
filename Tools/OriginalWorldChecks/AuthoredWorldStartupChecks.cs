@@ -32,15 +32,15 @@ namespace DarkSaver.Original.Entry
         private WorldReply WorldRequest(Func<EntryAccountService,WorldReply> apply,bool entered=false)=>apply(service);
     }
 }
-internal static class AuthoredWorldStartupChecks
+internal static partial class AuthoredWorldStartupChecks
 {
     private static int checks;
     private static void Check(bool value,string label){checks++;if(!value)throw new Exception(label);}
     private sealed class Memory:IEntryAccountStore
     {
-        public LocalAccountDocument data=new LocalAccountDocument();
+        public LocalAccountDocument data=new LocalAccountDocument();public bool fail;
         public bool TryRead(out LocalAccountDocument d){d=data.Copy();return true;}
-        public bool TryWrite(LocalAccountDocument d){data=d.Copy();return true;}
+        public bool TryWrite(LocalAccountDocument d){if(fail)return false;data=d.Copy();return true;}
     }
     public static void Main(string[] args)
     {
@@ -86,8 +86,10 @@ internal static class AuthoredWorldStartupChecks
         }
         var missing=new NativeCampaignArt{Definition=campaign.Definition,GatewayMaps=campaign.GatewayMaps};bool rejected=false;
         try{missing.Merge(worldArt.Factory());}catch(InvalidDataException){rejected=true;}Check(rejected,"missing user settings are explicit failures, not silent old-door fallback");
+        CheckFieldTravel(settings,campaign,worldArt);
+        CheckAuthoredReturnDrafts(settings,campaign,worldArt);
 #endif
         Check(bytes.SequenceEqual(File.ReadAllBytes(settingsPath)),"real authored settings file preserved");
-        Console.WriteLine(JsonSerializer.Serialize(new{checks,applied,kaosiaPortals=actual.Length,unityPlay=false,scope="Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."}));
+        Console.WriteLine(JsonSerializer.Serialize(new{checks,applied,kaosiaPortals=actual.Length,fieldTravel,returnDraftTravel,unityPlay=false,scope="Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Current variant also walks every authored1000-to1010 entrance cell, retries failed entry saves, checks resource preservation and reconnects with real disk accounts. Reverse trips explicitly enable new drafts in isolated settings only. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."}));
     }
 }

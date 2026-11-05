@@ -46,7 +46,7 @@ namespace DarkSaver.Original.World
                 if(candidate!=null)server.ConfigureCandidateCache(candidate,cache.TryWrite);
             }
             tutorial = GetComponent<TutorialSceneRoot>();
-            tutorial.WorldEntryReady += Begin;server.Notify_ScenarioEffect+=ReceiveCampaignEffect;server.Notify_MapEntered+=HandleMusicMapEntered;server.Notify_WhisperReceptionChanged+=ReceiveWhisperReception;server.Notify_WorldMessageReceived+=ReceiveWorldMessage;
+            tutorial.WorldEntryReady += Begin;server.Notify_ScenarioEffect+=ReceiveCampaignEffect;server.Notify_MapEntered+=HandleMusicMapEntered;server.Notify_WhisperReceptionChanged+=ReceiveWhisperReception;server.Notify_WorldMessageReceived+=ReceiveWorldMessage;server.Notify_BattleFocusRequested+=ReceiveBattleFocus;
         }
         private void Begin(EntryCharacter value)
         {
@@ -168,15 +168,22 @@ namespace DarkSaver.Original.World
             if(Input.GetKeyDown(KeyCode.F12)&&!BattleMap()&&PersonalAvailable)server.Request_SpaceMove();
             if(!BattleMap())for(int key=2;key<=5;key++)if(Input.GetKeyDown((KeyCode)((int)KeyCode.F1+key-1)))TogglePersonal(key==2?18:key==3?21:key==4?20:19);
         }
+        private bool TryRefreshWorldView()
+        {
+            if(!running)return false;
+            var current=server!=null?server.WorldSnapshot:null;
+            if(current==null||character==null||current.characterId!=character.id)
+            {running=false;view=null;if(canvasObject!=null)canvasObject.SetActive(false);return false;}
+            view=current;return true;
+        }
         private void LateUpdate()
         {
-            if(!running)return;
-            view=server.WorldSnapshot;if(view==null){running=false;canvasObject.SetActive(false);return;}
+            if(!TryRefreshWorldView())return;
             if(view.pendingPortal!=null&&view.pendingPortal!=portalInFlight)
             {
                 portalInFlight=view.pendingPortal;var gate=DisplayMap(view.record.map).portals.First(g=>g.id==portalInFlight);
                 var reply=definition.campaign?.Map(gate.targetMap)!=null?server.Request_EnterMap(gate.targetMap):DisplayMap(gate.targetMap).training?server.Request_EnterTraining(portalInFlight):server.Request_EnterInterior(portalInFlight);
-                Handle(reply);view=server.WorldSnapshot;
+                Handle(reply);if(!TryRefreshWorldView())return;
             }
             if(view.pendingPortal==null)portalInFlight=null;
             MaintainCurrencyState();MaintainRevivalQuote();MaintainWarehouseState();
@@ -235,6 +242,6 @@ namespace DarkSaver.Original.World
         private Button Hit(RectTransform parent,string name,Rect rect,Action action)
         {var i=Group(parent,name,rect).gameObject.AddComponent<Image>();i.color=Color.clear;var b=i.gameObject.AddComponent<Button>();b.targetGraphic=i;b.transition=Selectable.Transition.None;b.onClick.AddListener(()=>action());return b;}
         private void OnDisable(){ClearClientMessage();FinishCommanderName(false);commanderNamePreviousFocus=commanderNameLastTextFocus=null;CancelBankAmount();server?.Request_CancelBankClient(null);server?.Request_CancelWarehouseClient(null);server?.Request_CancelShopClient(null);server?.Request_CancelMercenaryClient(null);server?.Request_CancelClassClient();ResetCampaignMusic();StopMagicAudio();running=false;if(canvasObject!=null)canvasObject.SetActive(false);}
-        private void OnDestroy(){ResetBattleDialogs();if(facilitySelectionTexture!=null)Destroy(facilitySelectionTexture);SaveNativeFacilityFrames();SaveClassWindowPosition();if(clientMessageTexture!=null)Destroy(clientMessageTexture);SavePersonalPositions();SaveUtilityPositions();ResetCampaignMusic();if(server!=null){server.Notify_ScenarioEffect-=ReceiveCampaignEffect;server.Notify_MapEntered-=HandleMusicMapEntered;server.Notify_WhisperReceptionChanged-=ReceiveWhisperReception;server.Notify_WorldMessageReceived-=ReceiveWorldMessage;}StopMagicAudio();if(tutorial!=null)tutorial.WorldEntryReady-=Begin;ClearCampaignMap();ClearItemIcons();if(canvasObject!=null)Destroy(canvasObject);if(ownsFont&&font!=null)Destroy(font);}
+        private void OnDestroy(){ResetBattleDialogs();if(facilitySelectionTexture!=null)Destroy(facilitySelectionTexture);SaveNativeFacilityFrames();SaveClassWindowPosition();if(clientMessageTexture!=null)Destroy(clientMessageTexture);SavePersonalPositions();SaveUtilityPositions();ResetCampaignMusic();if(server!=null){server.Notify_ScenarioEffect-=ReceiveCampaignEffect;server.Notify_MapEntered-=HandleMusicMapEntered;server.Notify_WhisperReceptionChanged-=ReceiveWhisperReception;server.Notify_WorldMessageReceived-=ReceiveWorldMessage;server.Notify_BattleFocusRequested-=ReceiveBattleFocus;}StopMagicAudio();if(tutorial!=null)tutorial.WorldEntryReady-=Begin;ClearCampaignMap();ClearItemIcons();if(canvasObject!=null)Destroy(canvasObject);if(ownsFont&&font!=null)Destroy(font);}
     }
 }

@@ -1,5 +1,5 @@
 {
-  "checkedAtUtc": "2026-11-04T13:10:29.714251+00:00",
+  "checkedAtUtc": "2026-11-05T13:08:14.103763+00:00",
   "unityPlay": false,
   "unityEditorTestRunner": false,
   "physicalInput": false,
@@ -60,7 +60,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-candidate-data-check.json",
-      "sha256": "ba7a3ddec9c9660f26dd33bdd748bbd95ab2de9565a0fb40538b46ed00530293",
+      "sha256": "156e4e93d36c07f12d988711bd8b879df408bb2bf89a9e3a3e95d3a7a98536e2",
       "counts": {
         "assertions": 1035,
         "mismatches": 0,
@@ -74,15 +74,15 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/runtime-resource-bindings-check.json",
-      "sha256": "dc69cf6c04859602e40b28b2ea58d76551f5a963b308a012457f6a8c4f269b6a",
+      "sha256": "724016bfac750110a9accba313a4513a925975375b1c524d261125636963ffc2",
       "counts": {
-        "assertions": 967,
+        "assertions": 991,
         "mismatches": 0,
-        "literalCalls": 17,
-        "resourceKeys": 12,
-        "resourceAssets": 219,
-        "resourceInventoryKeys": 13,
-        "assetMetaInventory": 3986
+        "literalCalls": 18,
+        "resourceKeys": 13,
+        "resourceAssets": 223,
+        "resourceInventoryKeys": 16,
+        "assetMetaInventory": 3996
       },
       "groups": {},
       "scope": "Roslyn syntax extraction of all current runtime Resources.Load calls: literal name/type lookup, duplicate/missing mutation controls, requested ScriptableObject MonoScript/class compatibility, recursive serialized GUID graph, JSON syntax and referenced GUID uniqueness. Asset/GUID inventory fingerprint excludes irrelevant importer formatting. No Unity import/deserialization, missing components, actual rendering/input/audio or Player Resources.Load execution."
@@ -169,7 +169,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-self-info-check.json",
-      "sha256": "86a42399322bec01221f1904b75e4ed817777b683f169d25dc94909998c583ec",
+      "sha256": "7a83786a88a0a59c3494cd731d6ab55d8ca77709ae653cff6f8a11b8139b1024",
       "counts": {
         "assertions": 2735,
         "mismatches": 0,
@@ -181,7 +181,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/player-identity-check.json",
-      "sha256": "06099dbedf9e133287a5e69e0d1da1e6b36a7e37db61d3f89ef372aa6ed84753",
+      "sha256": "aac4e898b7e06dbccde2e743ce4a7c50f54c24883a25e68f371d31f071dd5425",
       "counts": {
         "assertions": 37
       },
@@ -202,7 +202,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/commander-adjustments-check.json",
-      "sha256": "af71c9fe4687c4f9eff9681227d0f1ae05f3a2af63cf212f8c954222d193ce9f",
+      "sha256": "c7c91c34615fd96eb9a110ae39a5b8c4c79869cb51e7505eae861311feea61bf",
       "counts": {},
       "groups": {
         "CommanderAdjustmentChecks": {
@@ -254,7 +254,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/../OriginalTutorialChecks/tutorial-check.json",
-      "sha256": "d5259f1f1f74929a970096fbcb6e1100163ac770457a3e5317ffd9710efc1cd3",
+      "sha256": "4aa16cf3ca0c7877896266b265eaf2004d5c72c2cf7e0d9bb124743c9b33b30a",
       "counts": {
         "assertions": 758,
         "fullTutorialRuns": 6,
@@ -293,7 +293,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/commander-name-check.json",
-      "sha256": "49c25975c1e5844b482be6837a7e81aa0f9815af476d5fb1612ae4d0e99324fc",
+      "sha256": "adf6c10913485645ff28c62e6308ebd04bcd2dd2a7720105ed58d6907d160209",
       "counts": {
         "assertions": 101,
         "nativePacketCases": 56,
@@ -362,17 +362,17 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/nullable-contract-check.json",
-      "sha256": "6fd59c1f73302ca948d9e6a3cdd2a32f5c413fbf51ec676831f1d9c175d04869",
+      "sha256": "7a294f3284e487dad0a5367d2643266388f0834e30ef1e2a8067d74357636f54",
       "counts": {
         "mismatches": 0
       },
       "groups": {
         "baseline": {
-          "assertions": 421,
+          "assertions": 429,
           "scope": "Actual production DataContract nullable fields: unknown/null, explicit zero/false, nonzero and signed/unsigned extrema. Isolated serializer values are schema tests, not approved gameplay records. Baseline variant removes only NonSerialized; emitted save JSON must be byte-identical."
         },
         "current": {
-          "assertions": 461,
+          "assertions": 470,
           "scope": "Actual production DataContract nullable fields: unknown/null, explicit zero/false, nonzero and signed/unsigned extrema. Isolated serializer values are schema tests, not approved gameplay records. Baseline variant removes only NonSerialized; emitted save JSON must be byte-identical."
         }
       },
@@ -391,7 +391,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/facility-contract-regressions.json",
-      "sha256": "1d4992ba7e0193c959b711315ae65f0c8360c7d28950d4b1fd538d82362adecb",
+      "sha256": "971e5329d54286a43ccf71c68e1cb25195dd115ef92a7f2b7b4db9eab34a2797",
       "counts": {
         "mismatches": 0
       },
@@ -417,7 +417,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-warehouse-check.json",
-      "sha256": "1c6d44544fdfee81b3cd91b9768f04dcfbd5e37e245e2c570dec1486a7470309",
+      "sha256": "83283e7b5935321cf627ea416ce221d8eed2e01cb1d25aa5cf75fc2fbb1f5346",
       "counts": {
         "assertions": 312,
         "nativeQueries": 5,
@@ -433,9 +433,9 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/nullable-serialization-analyzer.json",
-      "sha256": "713ed6dd402048fb121cf28d46960f6971a9742c486dc6602e5121956bc203d7",
+      "sha256": "6970e9fe0092986cad71f97552f903d7cebe157c4cfc768d4b33049663b3faf3",
       "counts": {
-        "runtimeSources": 226,
+        "runtimeSources": 231,
         "mismatches": 0
       },
       "groups": {
@@ -462,7 +462,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-shop-check.json",
-      "sha256": "4487edd981cf188f064865b46994d4680167df8fb010138b3c9cd48ef1e63545",
+      "sha256": "494bc8e3b4d62c46f6c280b5aa4a5f2ca58c405a1edd2bff6ea477056e3edd8a",
       "counts": {
         "assertions": 161,
         "nativeBuyCases": 11,
@@ -477,7 +477,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-world-message-check.json",
-      "sha256": "0b5392aa213ba18301ebc48ca9273e8f115e89f1e90337a9fd47b731c59b891c",
+      "sha256": "83a7f8dec6138ae132039b7318e0d071e91900cbb16e0f1ad89391f2ad7bf0bd",
       "counts": {
         "assertions": 205,
         "nativeDrawCases": 48,
@@ -506,7 +506,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-hire-list-check.json",
-      "sha256": "1e1cd5586c18fae9507ec28a9c5b65a522645a4c763f2e76232b329a1400bb50",
+      "sha256": "736449210ea544168b66fcec850b1a55f72536147dbb12a98812643d8e3f242b",
       "counts": {
         "assertions": 4793,
         "mismatches": 0,
@@ -518,7 +518,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-mercenary-check.json",
-      "sha256": "22218fc19370dad98a205efe277902770107c3cfd5670795cec68d6836a8a952",
+      "sha256": "e9a97287305874680ded94ea98b8e24382d8e4fddce84c794dedb0a982837ccf",
       "counts": {
         "assertions": 6791,
         "mismatches": 0,
@@ -543,7 +543,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-battle-options-check.json",
-      "sha256": "ad58cedbb5f7ec9ee96d47e00ebb8bddf8c4478aeed1ed88c2f2638c01426c63",
+      "sha256": "93cbff7f334052247b4211ba17c6cdbecbb889d4b442951e16a54ca1564c57f0",
       "counts": {
         "assertions": 16217,
         "mismatches": 0,
@@ -565,9 +565,9 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/native-class-adjustments-check.json",
-      "sha256": "974a82822ab289fd22774e47bd4080dcf581b9a54fe15df45614afbbe95d59ef",
+      "sha256": "d8f56e72f6af071474dca0833b9319f9fb30116fd719cd94a732d53891f97c39",
       "counts": {
-        "assertions": 2078,
+        "assertions": 2129,
         "mismatches": 0,
         "nativeSimpleCases": 96,
         "nativeStatCases": 72,
@@ -597,7 +597,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/picture-initialization-check.json",
-      "sha256": "cd7b086d6628bc3a497845586a9e66b2241fc8b7348a093f32acbc93135a86d2",
+      "sha256": "d8f6a86772cd3db271a29563fc42a0c665c514139ababb8ebf8ef08aab260024",
       "counts": {
         "mismatches": 0
       },
@@ -615,7 +615,7 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/legacy-maps-check.json",
-      "sha256": "0c2f50685ecdda73b81fdad5650bfda48601b710111f4d40764e9f5315011506",
+      "sha256": "499bfa9a737d36e443035208c7656c8e5a0ea0dc6ac53ed0b5680ddce05d2a66",
       "counts": {
         "assertions": 533,
         "mapsAudited": 151
@@ -625,31 +625,278 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/../OriginalScenarioEditorChecks/save-queue-check.json",
-      "sha256": "64fc0573bc1782086194a783fbcb16bf31fe4c11a7c653204784dad0f2df895e",
+      "sha256": "a92823ba77159370382a2f296b53e926123af359e1efc5e5460a0b1a30d0f22d",
       "counts": {
         "checks": 11,
+        "layoutSaveChecks": 24,
         "mismatches": 0
       },
       "groups": {},
-      "scope": "Exact production queue methods with isolated GUI focus/repaint/scheduler and storage boundaries. Full Unity control/event dispatch and disk implementation are separate checks."
+      "scope": "Exact production queue and Save methods; actual isolated atomic editor/export file store and content-hash equality, with GUI/AssetDatabase boundaries stubbed. No Unity Editor event/import execution."
     },
     {
       "report": "Tools/OriginalWorldChecks/authored-world-startup-check.json",
-      "sha256": "0a3d0df7bd4e7dd2ec7dc12069c6bf911460a312741c5a87035e9ba0eb13746b",
+      "sha256": "95263e1d5e072ec9fdeb01324d3b4dedba2cf6846ef4b93099ef16c67a7593a2",
       "counts": {
         "mismatches": 0
       },
       "groups": {
         "baseline": {
           "assertions": null,
-          "scope": "Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."
+          "scope": "Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Current variant also walks every authored1000-to1010 entrance cell, retries failed entry saves, checks resource preservation and reconnects with real disk accounts. Reverse trips explicitly enable new drafts in isolated settings only. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."
         },
         "current": {
           "assertions": null,
-          "scope": "Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."
+          "scope": "Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Current variant also walks every authored1000-to1010 entrance cell, retries failed entry saves, checks resource preservation and reconnects with real disk accounts. Reverse trips explicitly enable new drafts in isolated settings only. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."
         }
       },
       "scope": "Focused owned-adjustment regression groups; see the source report."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/reverse-gateway-check.json",
+      "sha256": "e4c873db88f0ada069bbba5ea73dc8bddf530a9ca4c64cbc1e7cf59c072589a8",
+      "counts": {
+        "assertions": 45
+      },
+      "groups": {},
+      "scope": "Explicit return-draft helper and real account/service travel on isolated flat maps; disabled-by-default authoring, independent areas, validation, anti-bounce and save retry. No production gateways changed, automatic return policy or Unity Editor GUI/Play."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/training-test-authority-check.json",
+      "sha256": "df421604f50c298935ab60d027209c92df61730fb95042ffbf99dc22df520d64",
+      "counts": {
+        "checks": 1190,
+        "isolatedDiskProfiles": 1,
+        "sourceBaseStatRows": 542,
+        "nativeAbilityRows": 542,
+        "sourceClassStages": 73
+      },
+      "groups": {},
+      "scope": "Production local training test adapter and real isolated services; memory storage plus one temporary physical account/profile roundtrip. Actual file store/serialization and source metadata included; Unity/resource APIs stubbed. No Unity Play or tutorial UI execution."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-feedback-check.json",
+      "sha256": "6a337aefe284cf2d5062e1ad5dd4a8a89386aaf1a6d3d8e105ffc9f08e3813f5",
+      "counts": {
+        "cases": 182,
+        "updateSamples": 8628,
+        "mismatches": 0
+      },
+      "groups": {},
+      "scope": "Actual late UserUnit SetHpDisplay/SetMpDisplay/SetFail/AttackChar and10010210 update instructions; signed fields, shared slot, opposed offsets/facing, target flag retention and full expiry traces. No body rendering, host Windows, network, original frame-rate measurement or invented negative-HP policy."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-death-check.json",
+      "sha256": "93c81b98f8ae925e1237128e48e93d20bf247bc332a7b93eca1c66c56809ee45",
+      "counts": {
+        "cases": 168,
+        "updateSamples": 8232,
+        "mismatches": 0
+      },
+      "groups": {},
+      "scope": "Actual dmKillChar/dmKillChar2 and10010210/10010120 death/update code, normal/7xx jobs, numeric gate and captured sound1 calls. DirectDraw, original real-time speed, ghost/HP/XP/respawn policy are not inferred."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-battle-tick-check.json",
+      "sha256": "4a1619a1e26c682b1231f1ab05925fbafb79eb9c8b3f47d7ec724b8255d37f1c",
+      "counts": {
+        "cases": 1305,
+        "mismatches": 0,
+        "observedNativeAiStartRequests": 966
+      },
+      "groups": {},
+      "scope": "Actual x86 IncTick/SetTickMenu counter, native action state and command-mask permutation. Native AIStart attempts are captured for evidence, not claimed to reproduce the entire native enqueue cadence."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-battle-response-check.json",
+      "sha256": "4bdf7081464423e40339ffe7d0d61cab250ab6d4d5bafb7ce8e65718b82e8b6f",
+      "counts": {
+        "assertions": 542,
+        "runtimeApiErrors": 0,
+        "editorApiErrors": 0,
+        "playerApiErrors": 0
+      },
+      "groups": {},
+      "scope": "Actual basic response parser/service and manager partials; compiled source fingerprints include the original context guard. Managed Unity boundary host; no Unity Play or server damage formula."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-magic-check.json",
+      "sha256": "f6a15593420f1ed5e69eb7f56ba9af3e119d13d5bcc7c2e6c6f17d88f8c213eb",
+      "counts": {
+        "assertions": 2968,
+        "runtimeApiErrors": 0,
+        "editorApiErrors": 0,
+        "playerApiErrors": 0
+      },
+      "groups": {},
+      "scope": "Actual native magic/skill/item request-response contracts and manager partials with original context guard; managed component boundary, no Unity Play or server outcome formulas."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-local-order-check.json",
+      "sha256": "daf7e33613e3026d278a4fba7fdfbc5594a4439c1358ac6baf42fe91040754c0",
+      "counts": {
+        "assertions": 43,
+        "runtimeApiErrors": 0,
+        "editorApiErrors": 0,
+        "playerApiErrors": 0
+      },
+      "groups": {},
+      "scope": "Actual native local troop-order menu and manager contracts with original context guard; managed component boundary, no Unity Play."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-battle-packet-check.json",
+      "sha256": "d0bd8dbe173eb3ce6d2b76c95444ffa43ca1c6cb6f9b5088a1c99b45f1e5957a",
+      "counts": {
+        "assertions": 1274,
+        "runtimeApiErrors": 0,
+        "editorApiErrors": 0,
+        "playerApiErrors": 0
+      },
+      "groups": {},
+      "scope": "Verified native Attack/Rest outgoing bytes, independent direction-specific5C82 lengths, one local ingress for eight native subtypes, replay/length/atomic-state guards and32/64px source bounds. Movement hints have a separate comparison; other unprepared actions generate no packet."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-battle-decoder-check.json",
+      "sha256": "8b25eaf907fbdf8b44dd7fbce4fb116aada18fcce2915b516e2f84e452eb6d63",
+      "counts": {
+        "cases": 229,
+        "nativeExperienceSetCases": 20,
+        "mismatches": 0
+      },
+      "groups": {},
+      "scope": "Actual late GameCtl1000EB10 dispatch and WORD/DWORD cursor execute; capture UserUnit import arguments. Experience5C53 also executes original UserUnit.SetExp1000CE10 and compares the full736-byte records: only the target+8 DWORD changes, including uint32 high-bit/max. Other setters/updates have separate feedback/death/tick checks. Strict malformed-length/domain checks are adapter protections, not native buffer bounds. No socket/Windows UI or inferred level calculation."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-magic-packet-check.json",
+      "sha256": "b9bf70b395abb7d4dafa90bb87f91be01cdc814d65f3cc1cd71423863b04da73",
+      "counts": {
+        "cases": 1426,
+        "nativeComparisons": 2312,
+        "outgoing": 1018,
+        "incoming": 216,
+        "levelEffectCases": 192,
+        "mismatches": 0
+      },
+      "groups": {},
+      "scope": "Actual UserUnit10005090 and GameCtl1000E4C0/1000E610 magic builders; GameCtl DA10 decoder/echo suppression. Level-effect cases execute EB10 -> DF10 -> 3D10 integer viewport centering -> original UserUnit CheckMagicTarget (area/team/active/enabled/order), then original E4C0 mode-gated builder. Imported table/allocator/send boundaries are isolated; UserUnit target result is handed unchanged to the GameCtl import boundary. No XP threshold formula, health/cost prediction, Unity Play or socket framing."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-unit-snapshot-check.json",
+      "sha256": "e51e15cd7617a4fc10d2b7b1e0e0b200a17aef754c8fe4c4c7da1f52868d035b",
+      "counts": {
+        "assertions": 2477,
+        "runtimeApiErrors": 0,
+        "editorApiErrors": 0,
+        "playerApiErrors": 0
+      },
+      "groups": {},
+      "scope": "Actual50/51/60 codec, service and manager partials; atomic unit snapshots, profile/presentation separation, session-only team names, rollback and persistence. Managed component boundary; no Unity Play or inferred server roster/growth rules."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-unit-decoder-check.json",
+      "sha256": "f1810d8801ee5151eb23aa97dd83756383bc19ba0dde7d32f0eec45925368b99",
+      "counts": {
+        "cases": 80,
+        "integerFieldComparisons": 3360,
+        "nativeResetFlagCases": 24,
+        "nativeEffectResetCases": 2,
+        "effectResetDwordComparisons": 200,
+        "effectTailPreservationCases": 2,
+        "statusNativeCases": 39,
+        "statusCombinations": 65536,
+        "mismatches": 0
+      },
+      "groups": {},
+      "scope": "Actual late GameCtl dispatch50/51 and UserUnit reset prefix; compare42 integer fields, first-minus-one spell/skill lists and consumed body extent. Reset prefix also executes prior active/enabled/state/order combinations and clears100 DWORDs14C..2D8 while retaining2DC. Original MagicFlagC950 independently executes each incoming bit plus mixed/high-bit values; managed all65536 low-bit combinations compared to native bit basis. CString allocation/assignment modeled; string wire bytes checked only for lossless codec roundtrip. Malformed guards are adapter protections. No Windows/Unity Play or inferred server roster/growth rules."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-team-name-check.json",
+      "sha256": "264d6f5cd051a9f1d434f72dee9d1468eaa1dcf19b8c3671d6176258c0752bc8",
+      "counts": {
+        "cases": 30,
+        "nativeHeaderComparisons": 241,
+        "mismatches": 0
+      },
+      "groups": {},
+      "scope": "Actual GameCtl dispatch5C60/D550 variable team records and100054C0 name selection callback. Verify signed team IDs, empty/CP949/39-byte/embedded-NUL names, first duplicate and first9 search across0/1/2/9/10/21 records. CString/graphics/font callback are host boundaries; uninitialized stack tail and unsafe count/name writes are not reproduced. Parsed team local-name assignment executes but is not treated as permanent account rename. No Windows/Unity Play, pixels or actual server roster."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-unit-reset-check.json",
+      "sha256": "c6bd0c64aec1c21c085edc740e9b9f6791c868cb045e62ec17bf4f525d9c7472",
+      "counts": {
+        "cases": 216,
+        "updateSamples": 11448,
+        "mismatches": 0
+      },
+      "groups": {},
+      "scope": "Actual late UserUnit feedback/death setters, resetcharacter prefix throughB43F, MagicFlag0 and10010210/FCD0 update/draw after already-decoded explicit unit fields. Production reset helper plus production counter/frame models. CString/graphics/audio/path allocation are isolated host boundaries; no bitmap load/SetAIArea/moving-reset continuation, original clock speed, socket/Windows process or Unity Play."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-result-check.json",
+      "sha256": "95eab5b75bf90b657487ad2290d35a31ebddaa2a5bf6c5f7aba26a74f3e90500",
+      "counts": {
+        "cases": 103,
+        "nativeIconComparisons": 5263,
+        "nativeTextComparisons": 712,
+        "mismatches": 0
+      },
+      "groups": {},
+      "scope": "Actual GameCtl54 dispatcher/D280 destination records and10007350 result draw versus production decoder/projection helpers used by uGUI. Four outcomes plus unknown0,0/1/3/5/10 rows, signed row-XP text versus unsigned spoils, fixed positions/spacing/dead markers/item overlays. Ability/item lookup returns fixture picture keys; CString/graphics are host boundaries. Enemy-list animation/count is separate from54 and excluded. No server rewards, account growth, pixels, Windows process or Unity Play."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-result-contract-check.json",
+      "sha256": "87e5a0baca1aeb3028c69cb3c18907354b8d0ee22082e2084d7a8e5a3a230ac0",
+      "counts": {
+        "assertions": 4175,
+        "runtimeApiErrors": 0,
+        "editorApiErrors": 0,
+        "playerApiErrors": 0
+      },
+      "groups": {},
+      "scope": "Actual54 service/manager ingress, explicit source phase/exit contracts, display versus rewards, codec bounds, save failure/retry/deep-copy/reconnect/origin return; no original server awards or real Unity Play."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-result-kills-check.json",
+      "sha256": "b602691b30618c9934162ed8de86a98ac7974717b49ca6c7040edb35c15d8136",
+      "counts": {
+        "cases": 40,
+        "nativeDrawCalls": 4349,
+        "nativeIconComparisons": 18791,
+        "nativeTextComparisons": 1391,
+        "nativeCanaryComparisons": 120,
+        "nativeConfirmCases": 96,
+        "mismatches": 0
+      },
+      "groups": {},
+      "scope": "Actual5C31 dispatcher/DEC0 signed job-list receiver and10007350 kill-list drawing;0..1000 records,11-slot pages, source body/fx rectangles, big picture group7, labels and replacement without resetting source counters. Scene8 confirm-control0 branches vary tutorial/visibility/outcome/remaining count; follow-up script/cleanup/PostMessage are captured host boundaries. Graphic/CString/ability lookup uses explicit fixtures. No death inference, XP/rewards, original wall-clock cadence, pixels, Windows process or Unity Play."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/native-result-kill-contract-check.json",
+      "sha256": "1feba453056df0dbc11bbff5c230fbd44f7f7be5e44c35366a5ee37dd690843f",
+      "counts": {
+        "assertions": 2172,
+        "runtimeApiErrors": 0,
+        "editorApiErrors": 0,
+        "playerApiErrors": 0
+      },
+      "groups": {},
+      "scope": "Actual31 service and manager ingress with original WorldRequest/context guard, pre/post54 state, no rewards/clear, save rollback/retry, file reconnect, stale-service revision and reentrant callback checks. No actual Unity Play."
+    },
+    {
+      "report": "Tools/OriginalWorldChecks/growth-check.json",
+      "sha256": "12b6c71cb24511fbbac9f4b8a39cf830403fea3d3c6bb4974f6134bf38b16446",
+      "counts": {
+        "assertions": 343,
+        "sourceJobs": 73,
+        "sourceRows": 2780,
+        "runtimeApiErrors": 0,
+        "editorApiErrors": 0,
+        "playerApiErrors": 0,
+        "gatewayRegression": 319,
+        "campaignRegression": 717
+      },
+      "groups": {},
+      "scope": "Authoritative growth/absolute XP application, profile persistence and source metadata only. No inferred server XP/stat/promotion formula."
     },
     {
       "report": "Tools/OriginalWorldChecks/character-reset-check.json",
@@ -697,10 +944,10 @@
     },
     {
       "report": "Tools/OriginalWorldChecks/training-tier-check.json",
-      "sha256": "5e7316aaddae923d38eebf9e64bc7e81692bf4b791c37d16e75ebb9feb10bc07",
+      "sha256": "fa0a17814072117baa6926b2597dccce23d1029997b9f41bb20243f68b0b19de",
       "counts": {
-        "checks": 100,
-        "classes": 11,
+        "checks": 136,
+        "classes": 17,
         "mismatches": 0
       },
       "groups": {},
@@ -731,22 +978,22 @@
   ],
   "api": {
     "report": "Tools/OriginalEntryChecks/entry-check.json",
-    "sha256": "c4fba3e588e6056a00c9a5c595c13bb05d0017acffe0c5b142f6c5296dd112dc",
-    "runtimeSources": 226,
-    "editorSources": 10,
+    "sha256": "427d95886f8cb8ad5404319ab97401a8804fb98aa3bfafacb3ad93abee036d27",
+    "runtimeSources": 231,
+    "editorSources": 11,
     "errors": 0,
     "warnings": 0,
     "codeSha256": {
-      "Assets/_Original/Runtime/Campaign/CampaignExit.cs": "044ca704f5f5f2c6677a2690f3d25061b5280904ff9df596ac7e17f0ae446a27",
-      "Assets/_Original/Runtime/Campaign/CampaignExitService.cs": "c9a1843eb0447a3476b8985fc00cd2fa1461e132071333fdf97aa34e663f33d3",
+      "Assets/_Original/Runtime/Campaign/CampaignExit.cs": "7f78c7423f2c1d983e1ef77429f88133ab80d85cf6117ecf19696e6efc0ac50f",
+      "Assets/_Original/Runtime/Campaign/CampaignExitService.cs": "1545d97684120e5edd5cf6bd923f393e51ff9963bf0957e2a748d0e25a68a88c",
       "Assets/_Original/Runtime/Campaign/CampaignModel.cs": "5c965ec4469d04b5b9117886d7cfb371084a791fdaf2efd200517e93a4a93622",
-      "Assets/_Original/Runtime/Campaign/CampaignResult.cs": "eaf2f44780010d57b0eb266cd478005e31597c9a51e23d191a50c1b59abeb5bb",
-      "Assets/_Original/Runtime/Campaign/CampaignResultService.cs": "2cebc1c600e17882409ce756c3e48e462b77377c29cc297cac29e13ce2be7b1f",
+      "Assets/_Original/Runtime/Campaign/CampaignResult.cs": "f52698c999d6d3ffa47ee4ef0f52ae824aae255e7b1e438d19f59f2822cea50b",
+      "Assets/_Original/Runtime/Campaign/CampaignResultService.cs": "1bd63f4754fbdddc1c45899ce991b9b98dec38a32665f042eeb553e1a1937df6",
       "Assets/_Original/Runtime/Campaign/CampaignService.cs": "939abb2a44f62a6d73f1850fe65d4d86e30fd459e604ce22f406706e77b9fce6",
       "Assets/_Original/Runtime/Campaign/LocalServerManager.Campaign.cs": "864748612d11cc4af29d3e191f962fbf08f6a71bff46d5d68006e24eb8983c55",
       "Assets/_Original/Runtime/Campaign/NativeCampaignArt.cs": "da795748b8e4a7b2021b927f71c9411736133946d5f2063fc646943ad4a9d6da",
       "Assets/_Original/Runtime/Campaign/ScenarioGatewayService.cs": "04bd79e628f972f0052daf2d0f0152cbd48786317edb53cf27e7ed60f71ec716",
-      "Assets/_Original/Runtime/Campaign/ScenarioGatewaySettings.cs": "7b77a6949b61556d5f6bd609e6bcbfb60fadf831b84e77a9f8d09aa9d014561a",
+      "Assets/_Original/Runtime/Campaign/ScenarioGatewaySettings.cs": "8a57167a29681b5fd876232a36de34ac2c60ae89eada19c900d30f084e80a95b",
       "Assets/_Original/Runtime/Campaign/WorldSceneRoot.Campaign.cs": "fe065e7339c2b82fb199ed2414152a0cd77b815b7c36195f0ae82ae5ba708763",
       "Assets/_Original/Runtime/Combat/BattleFeedback.cs": "e853bf98fa3d934d95a8eb3a988064282d796407e6259bab2b79a0eed4f2e847",
       "Assets/_Original/Runtime/Combat/BattleFeedbackFrames.cs": "ee05368a90331f03298d140c00c3fdf80cdfef46bc296bcaa22ee6510bf0fa9f",
@@ -759,7 +1006,7 @@
       "Assets/_Original/Runtime/Combat/BattleMagicArea.cs": "17b7474c192a3154218c5be0cf11a38ae05d982fda6a695a03484b55c9a684d9",
       "Assets/_Original/Runtime/Combat/BattleMagicOutcomes.cs": "c387a8ef8e9dd5d3e3fe7b55ffbe9dfa7fcfd44cc3f85056e50c1131f3c5d67f",
       "Assets/_Original/Runtime/Combat/BattleMagicPresentation.cs": "4420bd0171e692f83fca8166123d136e564ed2a57f59d271eece2e7788a5db04",
-      "Assets/_Original/Runtime/Combat/BattleMagicService.cs": "8f92758e22393fbe503ed3d0d3659a3c82c0d5a8a28105620d2580f9bdf6de4d",
+      "Assets/_Original/Runtime/Combat/BattleMagicService.cs": "c8ff4bcfdaef11def6e69c405fca3358dbe2a850e4fc63296519d8055c836f36",
       "Assets/_Original/Runtime/Combat/BattleSkillArea.cs": "4e6b80ab3df5bc52a8e1c5af0434c0f0fdd71a0e19d7b9f7c79620c06382b0ef",
       "Assets/_Original/Runtime/Combat/BattleSkillFrames.cs": "a61aa9058f5ffb10b31e6d3015b94fb33c62d0fe20107e1f5f2d420830d0905f",
       "Assets/_Original/Runtime/Combat/BattleSkillService.cs": "90b99545e46080568a338d0afb73f0ff11826480e7c4e46ebd8e5c2563e4dfd3",
@@ -773,28 +1020,31 @@
       "Assets/_Original/Runtime/Combat/MagicSoundPlayback.cs": "42f3ee39d2992d72441bcd8894c98631fc0849ed070cc8154576406b6e8adad9",
       "Assets/_Original/Runtime/Combat/MemberCommandService.cs": "bcf38237d47328a6ff5b97da0377cf2d484dd56dab96b818b7f37ee796c8b17c",
       "Assets/_Original/Runtime/Combat/MemberCommands.cs": "257695842049066adf0677d328ecabe50cd867bba80479fa68f7a684f3ef536c",
-      "Assets/_Original/Runtime/Combat/NativeBattlePacketService.cs": "018529df0c8ac7a852e910aa601931c18b1b0a54dd3cafaf448c7159df5a0c59",
-      "Assets/_Original/Runtime/Combat/NativeBattlePackets.cs": "98b100a4bc1d6308df216536bdc9ed56f6a782661abeecb6e984fa41d858e848",
+      "Assets/_Original/Runtime/Combat/NativeBattlePacketService.cs": "79581a7514dc999ddc15e69a71925ba84334fc5d53ae251bf9b673138c56c470",
+      "Assets/_Original/Runtime/Combat/NativeBattlePackets.cs": "a963e37b4dfc85f65a98b531245715cf91df91b048f629a0b122618d1e24a7c1",
       "Assets/_Original/Runtime/Combat/NativeBattleResponseService.cs": "078ce80b32490a01d3760c5865bba3fea3dc187f40b70e575d9e3c4dffc7127c",
-      "Assets/_Original/Runtime/Combat/NativeBattleResponses.cs": "6eea7ea690593f6e5a9a0f8210dba7e38f55da6c0a1b3ae6c581f0262017cfb4",
+      "Assets/_Original/Runtime/Combat/NativeBattleResponses.cs": "89f08e603e011ce1c0f4bbd8487c79671fd23348b84b84e0f4c73eac221f212a",
+      "Assets/_Original/Runtime/Combat/NativeBattleTeamNames.cs": "538763046bd5dbc523e51b49a1e0ae73f2d4cb549487379007fa1f6830b04bb4",
       "Assets/_Original/Runtime/Combat/NativeBodyFrames.cs": "b02149f3e04a1325b7b01bcec6d9b079934572f0d9838a7b52a5fe3af30647cf",
       "Assets/_Original/Runtime/Combat/NativeBodyOrder.cs": "9c65dd96aeb56bfa0eff9ac03d0db865c69eccea7ff0c6e7c518b490c1d7d90d",
       "Assets/_Original/Runtime/Combat/NativeBodyPalette.cs": "f7fa297ce4a2223540a47f4b88f53b753e520ca9f9e2fabb5d1549a30d1bc574",
-      "Assets/_Original/Runtime/Combat/NativeMagicPackets.cs": "6f2d76869460649cb77b9af78c9176922022c80a67aac62f56e5c1b2c542d06c",
-      "Assets/_Original/Runtime/Combat/NativeMagicService.cs": "0f8c9f407124ade38727fc64c5e392a7686c908de79bb4a37760dfe20128258d",
+      "Assets/_Original/Runtime/Combat/NativeMagicPackets.cs": "5d4a148b528cff1a1ae2a331984f48e73ac6cb63d01fe09c934dbde05658f48c",
+      "Assets/_Original/Runtime/Combat/NativeMagicService.cs": "077e487fa921669a334aea14c0a2d9de117bb97d660bb32156572a14d770a215",
       "Assets/_Original/Runtime/Combat/NativeMoveHintService.cs": "93788cf4ef96db363be1159f977ffc8411827a63cdf79a8b05b3017e262c0671",
       "Assets/_Original/Runtime/Combat/NativeMoveHints.cs": "981a96b5c91a14d2b0e86bbd10522c9f37bbf171e1d69cd4c8bb1a0423fe33d3",
       "Assets/_Original/Runtime/Combat/NativeMovement.cs": "27e5303f272d02594c2e3a13b6a7a3e4ec457c6af7626927006fcbf1e8b5349c",
       "Assets/_Original/Runtime/Combat/NativeMovementService.cs": "b2572fd8d9ce6d75292d3ca383ec6a181d2f1354325e301b926c195b6bc3c50b",
       "Assets/_Original/Runtime/Combat/NativeUnitFrames.cs": "0e5092c68d56b2646ba0679dc904cd02d259e46d37d7d91b6f65a21acdc822cb",
-      "Assets/_Original/Runtime/Combat/NativeViewport.cs": "f6aabad602a0ddbb080b5bb0eda75e691f9cb3850383dbab857ef107775876da",
+      "Assets/_Original/Runtime/Combat/NativeUnitSnapshotService.cs": "58a1cfaeb8d43868a3bf8c5d886a45c691bdbda0ff9470a37e962be2b29af1dd",
+      "Assets/_Original/Runtime/Combat/NativeUnitSnapshots.cs": "cad707785266d777b86f02e47468fe72b3ed56bbde1c19e010cf15536456e655",
+      "Assets/_Original/Runtime/Combat/NativeViewport.cs": "e4e70f9c8808d7b55991bccd0faf93e7cc3881b4748be39fe687486b4126cc75",
       "Assets/_Original/Runtime/Combat/RegroupMovement.cs": "2aa3f86c945af5bfe91deec51a7be488812a669003fc53c73a7791d8dfff72bc",
       "Assets/_Original/Runtime/Combat/RegroupService.cs": "cc3dc8a9b6b91f688388425df4516ccc2107695835447cb05fdee30c4093bc5c",
       "Assets/_Original/Runtime/Combat/SoldierActionService.cs": "42bd9b04f4fbe360f9c0e26136a321c0940043389a985c0cc2f0af0c4685e35d",
       "Assets/_Original/Runtime/Combat/SoldierActions.cs": "c4295b5cc5e813c19d3edd2f9e7caba5ba837ddb5990a222ca3bb149a377b242",
       "Assets/_Original/Runtime/Combat/SoldierMovement.cs": "0ade70f63fa47f2e5a04fde87f61b7190ef09d2480f30963136ca3e68196be8a",
-      "Assets/_Original/Runtime/Combat/TrainingCombat.cs": "c705043b5af57f44da0d54a24a0a9a83422f2f78aaa01c553403f6ecf12efdc2",
-      "Assets/_Original/Runtime/Combat/TrainingCombatService.cs": "8de5f8f73faa7d036a44d417940cd69e9511df864b770beb1a3694e3612e456e",
+      "Assets/_Original/Runtime/Combat/TrainingCombat.cs": "22f134737bc78277ba821be780782a36ea43585e2ea52127753407949e5496a1",
+      "Assets/_Original/Runtime/Combat/TrainingCombatService.cs": "f54b4650ed9bb100c89dccf1cff2a139ed8ec1ee94fe51280457a88233b42771",
       "Assets/_Original/Runtime/Combat/TroopOrderService.cs": "a29264006eaffd27d8c3ebaa81968ebaef69707fabea5a53c985913b09906ce2",
       "Assets/_Original/Runtime/Combat/TroopOrders.cs": "6e48f4f5e74f94909a9e9a2cec1933f59327a68baf408b0a3e7d40194c020f15",
       "Assets/_Original/Runtime/Entry/EntryAccountService.cs": "35785f78c35b0922de65c6ffcd6a786e443a5c40155ca80a8db869f71698fd72",
@@ -808,17 +1058,17 @@
       "Assets/_Original/Runtime/Entry/LocalServerManager.BattleTicks.cs": "495b0a67529147af4c3355b7cf7de6f340c2bedf1dc74f134f2c93e1c6395be6",
       "Assets/_Original/Runtime/Entry/LocalServerManager.Candidates.cs": "f3c5be6e119834ffb9f5e0b117fc30a55ef88f2eb1577fb235781d58e21d6f9f",
       "Assets/_Original/Runtime/Entry/LocalServerManager.Chat.cs": "3109b6f4c4f7dd28fcb32971f97cc3fa126018cfcc6257acc9bebee8cb8c9fa4",
-      "Assets/_Original/Runtime/Entry/LocalServerManager.ClassChange.cs": "5d7dedcfddaae131b702570eb7efd9edd612acc348fea9bd61dce69c6a1576a8",
+      "Assets/_Original/Runtime/Entry/LocalServerManager.ClassChange.cs": "874a4850d0f1054ad7d51009567acc84f7e6ab55f6dc9c07f9640648a0e968f7",
       "Assets/_Original/Runtime/Entry/LocalServerManager.ClientSettings.cs": "c554e964a2da5d91d19b0962e0ae4e601186c90b8bf5516535407426663aadf1",
       "Assets/_Original/Runtime/Entry/LocalServerManager.CommanderName.cs": "682269fdee6348b336f82d82ecce523d2492cd5694817904e1ef14235378853b",
       "Assets/_Original/Runtime/Entry/LocalServerManager.Commanders.cs": "11b4dec0535e446d2a7584abde6c1ca8b8bc71445a42878cb1c43c6b55637e67",
-      "Assets/_Original/Runtime/Entry/LocalServerManager.Growth.cs": "b50034b56d4155d3c0cc5530b0b31ad8a7799a210e3eea44048ad1542cc34e07",
+      "Assets/_Original/Runtime/Entry/LocalServerManager.Growth.cs": "cef4277ff8955b8cb8a8b8e0a08cebe929927d19b4c1522e1422082611d7b93b",
       "Assets/_Original/Runtime/Entry/LocalServerManager.MagicLoadout.cs": "1116f69939023de95e21f40c43b9239c31aa2bbe539ab4e4ec4744f798222de0",
       "Assets/_Original/Runtime/Entry/LocalServerManager.MemberCommands.cs": "f7bce68a7a9be5d081946b23f20bdc514195c9e4cffe800c0700170b7f70e0d4",
       "Assets/_Original/Runtime/Entry/LocalServerManager.Memos.cs": "1d6762c3f5776a9ea75738ec5336e253f5f2ced063ce8d38b0e1a12f2046aa16",
       "Assets/_Original/Runtime/Entry/LocalServerManager.Messages.cs": "2e0b5f787ac37c54ea5a55280a2550f278e2285439cd3e86384387369484d851",
       "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBank.cs": "7a3d359c04530ff23ca30e280c74bba99aacb6c7e00bfe8909ce7135f1cc168c",
-      "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBattlePackets.cs": "106bdd0a5a261da392a3fc6d0958beb2acefe0572aeb7f7b817b47427a05c58e",
+      "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBattlePackets.cs": "4f11e3f5e13297c7fd8780ca2312092309616588714e68a30f3215ad66223cc3",
       "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBattleResponses.cs": "e680e2927cd8406de975c5de78a99f6a4b8df2000610525a4845b3d20206d712",
       "Assets/_Original/Runtime/Entry/LocalServerManager.NativeClassAdjustments.cs": "428fcf6e0323bcf16a57ecfe4dadcd317a0a3b9f72284d0fa2aa2676f99fe704",
       "Assets/_Original/Runtime/Entry/LocalServerManager.NativeClassMagic.cs": "3df37f71ed7540908da06c91fc6a287d3567b31a502ed7b431720c5b07ac34cc",
@@ -826,19 +1076,21 @@
       "Assets/_Original/Runtime/Entry/LocalServerManager.NativeShop.cs": "9fe113672a76b34171d3851f790833bc7401ee4299a2bb3d21a510a6fd79dc14",
       "Assets/_Original/Runtime/Entry/LocalServerManager.NativeWarehouse.cs": "a83511ddc83c401f2829d56320802650db5b15e239b666d5aa3b2aa82a1423c9",
       "Assets/_Original/Runtime/Entry/LocalServerManager.PrivateChat.cs": "1ecc685eb82d39176458b147b13b3d0a8432b7cff60ef2b5e3595a2cb1543582",
-      "Assets/_Original/Runtime/Entry/LocalServerManager.Regroup.cs": "adaa16052d938608cc2adf18f5d092934e5a16a7635d631d5fb5ade05cf77273",
+      "Assets/_Original/Runtime/Entry/LocalServerManager.Regroup.cs": "0b6b79f778b3b77aae1ab4e7bcafc04cdebf595aa7fb7cbcc44be5bde69fc9a0",
       "Assets/_Original/Runtime/Entry/LocalServerManager.Skills.cs": "d3863a268e336953ccdde68ab6a1be2d547ef714e78439b48b734be52fdd11d2",
       "Assets/_Original/Runtime/Entry/LocalServerManager.SoldierActions.cs": "91bd4e4a0f3be6ed00473799e1e6b07a72ea6c65e0fb0014adbc3907f251b19d",
       "Assets/_Original/Runtime/Entry/LocalServerManager.StatAdjustment.cs": "878bf92d5c1a05df7fad93d776d782514d5f7270c571241781d19be9b1ced328",
-      "Assets/_Original/Runtime/Entry/LocalServerManager.Training.cs": "f693908c69022c0bafdd18f57ec9118604a220115e6419f71e89464a51da72ab",
+      "Assets/_Original/Runtime/Entry/LocalServerManager.Training.cs": "1d20f6f698917e4aaca49ad1cb2b94b147e39da5be2ea22779958f0e09319d95",
+      "Assets/_Original/Runtime/Entry/LocalServerManager.TrainingTest.cs": "3a889dd497310f9f6c826a44fa426b57b4e4998cf4f49eae4a9f23932b155454",
       "Assets/_Original/Runtime/Entry/LocalServerManager.TroopOrders.cs": "8487ad78db6457337715b521ba88c3ae63bee89ae29b1efc7daa46b228067a84",
       "Assets/_Original/Runtime/Entry/LocalServerManager.WorldText.cs": "4a86778bda2acc160b609ac9b47360d46e750ace6f0909ce304ba66423f1a73d",
-      "Assets/_Original/Runtime/Entry/LocalServerManager.cs": "00bd823dd6f0b19895a308db54a4b73086b49ab27028fdd00e9814e9a41b095e",
+      "Assets/_Original/Runtime/Entry/LocalServerManager.cs": "630b98db96f198b7690c0df907b9660a712871f46f680f5052d8a7aba7bbd8df",
       "Assets/_Original/Runtime/Entry/NativeEntryArt.cs": "f572314a14eb3f9dcff7fe0cc922c8b91749871425073d3b29def65715c1068a",
       "Assets/_Original/Runtime/Entry/NativeEntryButton.cs": "647c4657887ea7220cc5d399710804f166824fba5176f688440d5952c06f1215",
       "Assets/_Original/Runtime/Entry/NativeExclusiveHit.cs": "588662514fe2522a1bf40d6b7c6646aaa6a84b3b3fc2c5675daf19eb6bd12dd5",
-      "Assets/_Original/Runtime/Growth/CharacterGrowth.cs": "39a622ebb8e17f2c862f6081edaf0e296b95798acbdd5ed170af5618f976866f",
-      "Assets/_Original/Runtime/Growth/CharacterGrowthService.cs": "518ca2cb5ca353af18e511bdad5fcfd851615e3055dbda8ac82cb94ce858d48d",
+      "Assets/_Original/Runtime/Entry/TrainingTestLayoutCatalog.cs": "e2ebc9ecc572e1badb3cbc81392a60a8494dd332f47eb976ac616c1429a0f2a8",
+      "Assets/_Original/Runtime/Growth/CharacterGrowth.cs": "6a2f6220c97dccc9f32567380c65c2a3a310ebfb5494c57bc3f82a7c31ec535d",
+      "Assets/_Original/Runtime/Growth/CharacterGrowthService.cs": "82304ddf475103a69aaf1fb2c243ad1630294f37df0e8d2d2da4e61db1ffce8e",
       "Assets/_Original/Runtime/Growth/ClassChange.cs": "507de39b0a61b0e0d6a39886e1391856971d5de2b2ef7360c2be2108cb87f4b7",
       "Assets/_Original/Runtime/Growth/ClassChangeService.cs": "21681d7fe867f687cef974455ec96ed4334dc19f98a472fb4a5957ffe0613d12",
       "Assets/_Original/Runtime/Growth/CommanderAdjustment.cs": "8d92cbd6b135a17c6db16dd46faf21d1a9243cbe9c7d4558cff7fc612323a8d0",
@@ -855,7 +1107,7 @@
       "Assets/_Original/Runtime/Maps/NativeMapAnimation.cs": "048aa61410aa1259d04244d26ba9024f2e58eb36b587604dd328e24c64cb3d6b",
       "Assets/_Original/Runtime/Maps/NativeMapDecoder.cs": "24996a7e09bdb84bd7c3dae35d0988e18b40629e328ce50b234eca0900ae4abd",
       "Assets/_Original/Runtime/Maps/NativeMapPointer.cs": "06c9db726791cadf000ae043498f009feb2b5c2b2cbd53638ae91d1114409a40",
-      "Assets/_Original/Runtime/Tutorial/LocalServerManager.Tutorial.cs": "6f2a380817a82e34c22a72ebeae690019a000872fde2c041328b1819b3d03b1d",
+      "Assets/_Original/Runtime/Tutorial/LocalServerManager.Tutorial.cs": "6830b8f7e328611d1c0b872ea9d2a8c3e84e8e88465730f6ba3b6fcde097ba0e",
       "Assets/_Original/Runtime/Tutorial/NativeTutorialArt.cs": "2355652b2a06e89bcd7cea6ff59fdda62ddea4209293ddd9bb6b8037b86fb8dc",
       "Assets/_Original/Runtime/Tutorial/NativeTutorialDrag.cs": "d7f50aae623f79a82daa020dad3f0c09088b8b12a1ff3c10b209c01738ffb719",
       "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.Waiting.cs": "9e266e342a288dd0ee3572e11c2cbfd716381b6a15ad98db0be7c9b6d88b25a0",
@@ -921,7 +1173,7 @@
       "Assets/_Original/Runtime/World/LocalServerManager.Shop.cs": "41288760d13c40e93e7258067fe224b61dfe3e9cf4fff5d2f52f817e3757797d",
       "Assets/_Original/Runtime/World/LocalServerManager.TempleAlignment.cs": "f6292020b9eba9d3cf9ebd99697b137c89d78605df34c535b89e70d63d06bca6",
       "Assets/_Original/Runtime/World/LocalServerManager.Warehouse.cs": "a62b4800289da2c947a5987477f6a12e2305b778914f93fcc4f09949da46719b",
-      "Assets/_Original/Runtime/World/LocalServerManager.World.cs": "6097b2ff970f1ee6fa2f388deebad11649b52f86f1e7fb57e179275a4ac15287",
+      "Assets/_Original/Runtime/World/LocalServerManager.World.cs": "75f7505a2f5604dc75263f70f19a26fd8943557f729833b90054c1a83547ab24",
       "Assets/_Original/Runtime/World/MercenaryTransfer.cs": "24ddcf4e1eeb3dd5f590fd4af4da5bc2b5ad25926998f76ecb853c5383afac12",
       "Assets/_Original/Runtime/World/MercenaryTransferService.cs": "0da9884a6b7f11354034d5b63921c26e5965f846e42560173181a067aff663b1",
       "Assets/_Original/Runtime/World/NativeWorldArt.cs": "fed19a7596139069c59986ad76c59a2f30a62205426b9f2095de9e5bdf9807c4",
@@ -934,11 +1186,11 @@
       "Assets/_Original/Runtime/World/TempleRevivalService.cs": "dc459a22b756d15ad69d837294546e69363979e564e5da316091e2c485a8c9f6",
       "Assets/_Original/Runtime/World/WarehouseTransfer.cs": "014c48381c347c4e65f1b4451aef9042f535dd503d074dcf6d86f4a6497c1c2e",
       "Assets/_Original/Runtime/World/WarehouseTransferService.cs": "ddede297a55eaae36d22bd4dbb77c423334a8dba7af440a4b5b06780d1c22000",
-      "Assets/_Original/Runtime/World/WorldModel.cs": "496fcfaf78aba29684e5e4b0e3d8da844c8ed06449c97bf4fa2b8596646f4fdf",
+      "Assets/_Original/Runtime/World/WorldModel.cs": "37594ff246e9ec4bc7de4dcec7abe006274cee9eef19ae771668b171442cf809",
       "Assets/_Original/Runtime/World/WorldSceneRoot.Bank.cs": "7b533649e27a0be26527bb13cef85b83bb27521f23a32b2e17e6a905cda1969a",
       "Assets/_Original/Runtime/World/WorldSceneRoot.BattleFeedback.cs": "0eaa09173e76481b6d8a6ffc6639ce93879a9366075fb31f5e51c5632e91c6aa",
-      "Assets/_Original/Runtime/World/WorldSceneRoot.BattleMagic.cs": "c0bfb9038cf0161bf4630528d5581b39cbfb3d51f66779ce779deae27250b854",
-      "Assets/_Original/Runtime/World/WorldSceneRoot.BattleWindows.cs": "1d7ceaee2b19f5a7deb6acc35b87d8bdeb1bddac291777a0db358842cad1535e",
+      "Assets/_Original/Runtime/World/WorldSceneRoot.BattleMagic.cs": "9737483f91661745bbc2086b8725a560c86925bd7cec319fe59c60466b747bc4",
+      "Assets/_Original/Runtime/World/WorldSceneRoot.BattleWindows.cs": "26ba7994c9b95cc5d80c3323cd43a54289eacb996b1fb257eba8eedd2e777923",
       "Assets/_Original/Runtime/World/WorldSceneRoot.BodyLayers.cs": "96e2f5140000548e77c4d9da588ff9a425e2fbdb5363b0589b3cffb46820a888",
       "Assets/_Original/Runtime/World/WorldSceneRoot.Chat.cs": "262b66954e2f088c5021f921014872330cb04f8c5fe8bf6335d649e119a366e0",
       "Assets/_Original/Runtime/World/WorldSceneRoot.ClassChange.cs": "01bf80cb641deb7d1e50460a161b0f4ed8a2cfb9d54317f0ad6587103d5b99f4",
@@ -955,39 +1207,40 @@
       "Assets/_Original/Runtime/World/WorldSceneRoot.Message.cs": "825dc7435786f1625243e7a4980b693f04f8837279b84ed742bd5273601ace7e",
       "Assets/_Original/Runtime/World/WorldSceneRoot.Personal.cs": "695bc2e71975ef5482ef3154b4bf3080dc562a4fdf979254142d395c07a534cf",
       "Assets/_Original/Runtime/World/WorldSceneRoot.PrivateChat.cs": "aa7a0e94e672355140296f9b332625660f7b451fbcc60d948dbe2a3c7ea2982b",
-      "Assets/_Original/Runtime/World/WorldSceneRoot.Result.cs": "b55327ebcce3dbb160ddd1d837925f244e0742bbcc92ea88913879dc9a174ce0",
+      "Assets/_Original/Runtime/World/WorldSceneRoot.Result.cs": "2de67b8bc14748d2be66d961b5a2eef52e81791ea7c8f36744202649ba338bb3",
       "Assets/_Original/Runtime/World/WorldSceneRoot.StatAdjustment.cs": "11ffe9c67fedd64b829b78aa6a7f3c9fe85f8e2dd78163a6f2190ecbc16bb3f6",
       "Assets/_Original/Runtime/World/WorldSceneRoot.TempleAlignment.cs": "9d73f0754b970ce0a99e61bfffe2d5b4c578496b99ba5df08ade3af740470df5",
-      "Assets/_Original/Runtime/World/WorldSceneRoot.Training.cs": "e9422b47c0c9421dd69bbde73356ba266ae71bb91b24c990109ddb25637d61a4",
+      "Assets/_Original/Runtime/World/WorldSceneRoot.Training.cs": "459be4fcc2a865eb0dd571c87fb6293b4858c94ddc00eddc776d23220574009c",
       "Assets/_Original/Runtime/World/WorldSceneRoot.TroopOrders.cs": "fbf51a3903f90871d8c9ead99d80a47d610baab8dc39f15d638e59cbd41e3944",
       "Assets/_Original/Runtime/World/WorldSceneRoot.Utilities.cs": "568c6a947fbe32a8adf7a49134886d302e59757433a88699205012799439cdd5",
-      "Assets/_Original/Runtime/World/WorldSceneRoot.cs": "1033900589edb8c76ba0b3d95b7c7398044b971491ebba4f5cd772e64c3b2038",
-      "Assets/_Original/Runtime/World/WorldService.cs": "ab5a1b667afd69efeb988e4e2eaff1b66838023973aacf01833f303bd801865b",
+      "Assets/_Original/Runtime/World/WorldSceneRoot.cs": "54d8db981caea344b1e46b2df6df9ad98fa9eda6cb93697cf87e9da7947c86c8",
+      "Assets/_Original/Runtime/World/WorldService.cs": "403dc22b225309d6e3041ab15feffd97a031631fc78236f87ff79a1bc836c78f",
       "Assets/_Original/Editor/LocalCharacterReset.cs": "6e1f76229aead06d9bd4f8a354a9eb15461eeae8466126ed05a3b589f732903f",
       "Assets/_Original/Editor/LocalEntryAccountWindow.cs": "0017da1e4ac3bd6cefca0bc83c151410fc6d1fe60232b0a5ea1f73b3d86307f0",
-      "Assets/_Original/Editor/LocalGrowthTestWindow.cs": "d93ffded6e28f998f0f9d1e96ba758d4d1f5191f579ac9ef7a1c8fd59590fc35",
+      "Assets/_Original/Editor/LocalGrowthTestWindow.cs": "c41a6446d0c9111cddf84221dffab71fc43c71ef6d91413ae5f1182c38e1104c",
+      "Assets/_Original/Editor/NativeBattlePacketWindow.cs": "04af17144c2e65856d874d3ac78cf9f71780878a3b481c2f62bd1c1071e75ae1",
       "Assets/_Original/Editor/OriginalFoundationSetup.cs": "cdfb7002e9a350fe3f29b6de07e7b586f49e003bfd389e1c8d73b77e12d8c61c",
       "Assets/_Original/Editor/OriginalPixelTextureImporter.cs": "031d0920c325655155ed304fad594160d28efb75987486298b571ff913584497",
-      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "c2f74510d3a7c3f06ec1272a6b052f79d14e1ae781d649e9cdc878f03b8f17a3",
+      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "a9b9a71925cef8ecac3980b64c01aeaeeca548478305b9a85184b506bc3ceefd",
       "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GatewayList.cs": "9d82c163920c9707a4d8b3f0ecd327863ec19f7940e2194e6d1b453d6ccb790e",
-      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "ee34c5dfa5458e246e28055064b6830c73de6349c9537bcda911942f6b03abe9",
-      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "ee1018b184b1d82a6e77be258ffa9112d75cb91db41ca63c0b19a068ad8e465a",
+      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "781a6150110dd419f76657443b9e6254c97741b8de8a1d2a38bcd2b0a8fdfcc4",
+      "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "0178baa5ad9e32374dfb8416b8e92c8a0bd1edd33c2058b425c9bcdc5c8af7aa",
       "Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs": "98daf67f8dcfc02413c0d2db559a2a2a3fde9c877688f7897bfd127267c68497"
     }
   },
   "sourceAudit": {
-    "declaredSources": 2121,
-    "scriptGuids": 236,
-    "assetCSharpSources": 236,
+    "declaredSources": 2214,
+    "scriptGuids": 242,
+    "assetCSharpSources": 242,
     "pixelTextures": 1144,
     "staticFunctions": 28,
-    "whitespaceFiles": 163
+    "whitespaceFiles": 165
   },
   "staticEvidence": {
     "report": "분석/Ghidra/Saver_Late/ClientWindows/evidence.json",
     "sha256": "5046811d8057afc1d7b8b6d64b5cddce063b70d6c1aa5ac94968c830edb0afe1"
   },
-  "toolSha256": "148152343ec8523dfa05e6b49a25af362d2aefd7f3e4f136df55881d52408b2c",
+  "toolSha256": "59f5ca38d82c85fc7b3f90b229581b40e43a18625bbd87e95ac94e2b4ff3eaf4",
   "resourceArtifacts": [
     {
       "report": "Tools/OriginalWorldChecks/native-shop-details-art.json",

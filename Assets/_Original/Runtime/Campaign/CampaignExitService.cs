@@ -68,18 +68,19 @@ namespace DarkSaver.Original.Entry
                 ||!Guid.TryParseExact(notice.id,"N",out _)||notice.expectedBattleRevision!=(world.Record.scenarioBattle?.revision??0)
                 ||world.CampaignNotices.Contains(notice.id)||world.Record.lastScenarioExit?.id==notice.id)return WorldResult(WorldFailure.StaleRequest);
             if(!Enum.IsDefined(typeof(CampaignExitKind),notice.kind))return WorldResult(WorldFailure.InvalidInput);
+            if(notice.awaitResult&&notice.result!=null)return WorldResult(WorldFailure.InvalidInput);
             if(notice.kind==CampaignExitKind.Retreat)
             {
                 if(pending==null||pending.id!=notice.request||pending.battleRevision!=notice.expectedBattleRevision)return WorldResult(WorldFailure.StaleRequest);
                 if(!notice.approved){world.PendingRetreat=null;return WorldResult(WorldFailure.InvalidInput);}
                 if(world.Moving||world.Combat?.Pending!=null)return WorldResult(WorldFailure.InvalidInput);
-                if(notice.result==null){f=ScenarioReturnOrigin(visit);if(f!=WorldFailure.None)return WorldResult(f);}
+                if(notice.result==null){if(!notice.awaitResult){f=ScenarioReturnOrigin(visit);if(f!=WorldFailure.None)return WorldResult(f);}}
                 else if(!notice.result.IsRetreat)return WorldResult(WorldFailure.InvalidInput);
             }
             else
             {
                 if(!notice.approved||!string.IsNullOrEmpty(notice.request))return WorldResult(WorldFailure.StaleRequest);
-                if(notice.result?.IsDefeat!=true)return WorldResult(WorldFailure.InvalidInput);
+                if(!notice.awaitResult&&(notice.kind==CampaignExitKind.Defeat?notice.result?.IsDefeat!=true:notice.result?.IsTerminated!=true))return WorldResult(WorldFailure.InvalidInput);
             }
             var report=notice.result;
             if(report!=null&&(report.id!=notice.id||report.visit!=visit.id||report.map!=world.Record.map||!CampaignResultRecord.Valid(report)
@@ -90,8 +91,8 @@ namespace DarkSaver.Original.Entry
             if(notice.health!=null){next.healthKnown=true;next.hp=notice.health.hp;next.maxHp=notice.health.maxHp;next.mp=notice.health.mp;next.maxMp=notice.health.maxMp;}
             next.lastScenarioExit=new CampaignExitRecord{id=notice.id,visit=visit.id,map=world.Record.map,kind=notice.kind};
             next.scenarioBattle=null;
-            if(notice.kind==CampaignExitKind.Retreat&&report==null)SetScenarioReturn(next,visit);
-            else{next.campaignPhase="complete";next.scenarioVisit.result=notice.result.Copy();}
+            if(notice.kind==CampaignExitKind.Retreat&&report==null&&!notice.awaitResult)SetScenarioReturn(next,visit);
+            else{next.campaignPhase="complete";next.scenarioVisit.result=notice.result?.Copy();}
             f=CommitWorld(next);if(f!=WorldFailure.None)return WorldResult(f);
             world.Relocate(next);world.PendingRetreat=null;world.Combat=null;world.Presentation=null;world.Effects.Clear();world.PhaseSavePending=false;
             world.CampaignNotices.Add(notice.id);return WorldResult(WorldFailure.None);

@@ -28,8 +28,10 @@ namespace DarkSaver.Original.Editor.Scenarios
         private GatewayMapInfo MapInfo(string key)=>gatewayCatalog.maps.First(m=>m.key==key);
         private WorldDefinition ReadGatewayWorld()
         {
-            return JsonUtility.FromJson<CampaignDefinition>(File.ReadAllText(BasePath+"Data/Campaign/CampaignCatalog.json")).Merge(
+            var world=JsonUtility.FromJson<CampaignDefinition>(File.ReadAllText(BasePath+"Data/Campaign/CampaignCatalog.json")).Merge(
                 JsonUtility.FromJson<WorldDefinition>(File.ReadAllText(BasePath+"Data/World/KaosiaWorld.json")));
+            world.combatCatalog=JsonUtility.FromJson<OriginalCombatCatalog>(File.ReadAllText(BasePath+"Data/Combat/OriginalCombat.json"));
+            return world;
         }
         private void LoadGateways(bool preserve)
         {
@@ -121,6 +123,42 @@ namespace DarkSaver.Original.Editor.Scenarios
             if(int.Parse(mapKey)!=id)return;
             pickSpawn=arrival;pickNpc=!arrival;dragGateway=sizingGateway=false;
         }
+        private void CreateGatewayReturnDraft(ScenarioGateway sourceGate)
+        {
+            try
+            {
+                var draft=ScenarioGatewayData.CreateReturnDraft(sourceGate,gatewayCatalog);
+                var candidate=gatewayDocument.Copy();candidate.gates=candidate.gates.Concat(new[]{draft}).ToArray();
+                ScenarioGatewayData.Validate(candidate,gatewayCatalog);
+                string key=gatewayCatalog.maps.First(m=>m.id==draft.fromMap).key;SelectMap(key);
+                if(mapKey!=key||loadError.Length>0)return;
+                RememberGateway();gatewayDocument.gates=gatewayDocument.gates.Concat(new[]{draft}).ToArray();
+                selectedGateway=draft.id;selectedNativePortal=null;pickNpc=pickSpawn=dragGateway=sizingGateway=false;
+                message="귀환 입구 초안: 위치/크기를 확인한 뒤 사용을 켜고 저장하세요. 원래 연결은 유지됩니다.";
+                GUIUtility.ExitGUI();
+            }
+            catch(ExitGUIException){throw;}
+            catch(Exception e){message="귀환 입구 초안 생성 실패: "+e.Message;Repaint();}
+        }
+        private void DrawGatewayReturn(ScenarioGateway gate)
+        {
+            if(!ScenarioGatewayData.CanDraftReturn(gate,gatewayCatalog))return;
+            var native=gatewayWorld.Map(gate.targetMap)?.portals.Where(p=>p.targetMap==gate.fromMap
+                &&!gatewayDocument.gates.Any(g=>gatewayDocument.applyToGame&&g.enabled&&g.fromMap==gate.targetMap&&g.replacesPortal==p.id)).Select(p=>p.id).ToArray()??Array.Empty<string>();
+            var authored=gatewayDocument.gates.Where(g=>g.fromMap==gate.targetMap&&g.targetMap==gate.fromMap&&g.IsWalk).ToArray();
+            int active=native.Length+(gatewayDocument.applyToGame?authored.Count(g=>g.enabled):0);
+            EditorGUILayout.HelpBox(active==0?"도착 맵에 현재 맵으로 돌아오는 이동 입구가 없습니다. 귀환을 원하면 별도 입구를 설정하세요.":"도착 맵의 귀환 연결: "+active+"개. 출발/도착 영역은 각 연결에서 확인하세요.",active==0?MessageType.Warning:MessageType.None);
+            foreach(var back in authored)
+                if(GUILayout.Button("귀환 연결 보기: "+back.name+(back.enabled?"":" (미사용)")))
+                {
+                    string key=gatewayCatalog.maps.First(m=>m.id==back.fromMap).key;SelectMap(key);
+                    if(mapKey==key&&loadError.Length==0){selectedGateway=back.id;selectedNativePortal=null;pickNpc=pickSpawn=dragGateway=sizingGateway=false;}
+                    GUIUtility.ExitGUI();
+                }
+            using(new EditorGUI.DisabledScope(gatewayWorld.Map(gate.fromMap)==null||gatewayWorld.Map(gate.targetMap)==null))
+                if(GUILayout.Button("귀환 입구 초안 만들기"))CreateGatewayReturnDraft(gate);
+            EditorGUILayout.HelpBox("초안은 출발/도착 영역을 맞바꾸며 사용이 꺼진 상태로 추가됩니다. 기존 귀환 입구와 겹치면 새로 만들지 말고 해당 연결을 편집하세요.",MessageType.None);
+        }
         private System.Collections.Generic.IEnumerable<WorldPoint> BlockedEntranceCells(ScenarioGateway gate)
         {
             var map=gatewayWorld.Map(gate.fromMap)?.map;
@@ -140,7 +178,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             if(dirty)EditorGUILayout.HelpBox("몬스터 배치에 별도 미저장 변경이 있습니다. 입구 저장은 배치 파일을 저장하지 않습니다.",MessageType.Info);
             if(gatewaySaveError.Length>0){EditorGUILayout.HelpBox(gatewaySaveError,MessageType.Error);if(GUILayout.Button("저장 오류 복사"))EditorGUIUtility.systemCopyBuffer=gatewaySaveError;}
             else if(gatewaySaveNotice.Length>0)EditorGUILayout.HelpBox(gatewaySaveNotice,MessageType.Info);
-            EditorGUILayout.HelpBox("이동 입구: 영역을 밟아 맵 이동\nNPC 입구: 클릭 → 방 목록 → 참가\n한 맵에 여러 입구를 설정합니다.\n돌아오는 방향은 별도 입구로 추가하세요.",MessageType.Info);
+            EditorGUILayout.HelpBox("이동 입구: 영역을 밟아 맵 이동\nNPC 입구: 클릭 → 방 목록 → 참가\n일반 맵의 귀환은 별도 입구로 설정합니다.\n시나리오·수련장은 전용 결과/도망 흐름을 사용합니다.",MessageType.Info);
             bool apply=EditorGUILayout.ToggleLeft("저장한 연결을 로컬 서버에서 사용",gatewayDocument.applyToGame);
             if(apply!=gatewayDocument.applyToGame){RememberGateway();gatewayDocument.applyToGame=apply;}
             GUILayout.Label("적용은 다음 Play/프로필 진입부터",EditorStyles.miniLabel);
@@ -216,6 +254,7 @@ namespace DarkSaver.Original.Editor.Scenarios
                     if(GUILayout.Button("도착 맵에서 출구 영역 그리기"))PickGatewayMap(gate,true);
                 if(GUILayout.Button("출발 지도 보기")){pickNpc=pickSpawn=dragGateway=sizingGateway=false;SelectMap(gatewayCatalog.maps.First(m=>m.id==gate.fromMap).key);}
                 using(new EditorGUI.DisabledScope(gate.targetMap<0))if(GUILayout.Button("도착 지도 보기")){pickNpc=pickSpawn=dragGateway=sizingGateway=false;SelectMap(gatewayCatalog.maps.First(m=>m.id==gate.targetMap).key);}
+                DrawGatewayReturn(gate);
                 if(GUILayout.Button("선택 입구 삭제")){RememberGateway();gatewayDocument.gates=gatewayDocument.gates.Where(g=>g.id!=selectedGateway).ToArray();selectedGateway=null;pickNpc=pickSpawn=dragGateway=sizingGateway=false;}
             }
             GUILayout.BeginHorizontal();using(new EditorGUI.DisabledScope(gatewayUndo.Count==0))if(GUILayout.Button("되돌리기"))GatewayHistory(true);

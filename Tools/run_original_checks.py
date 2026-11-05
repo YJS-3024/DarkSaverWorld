@@ -15,6 +15,35 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 
+def writes_report(path, name):
+    """Conservative AST check for report writers, excluding read-only consumers."""
+    tree=ast.parse(path.read_text(encoding='utf-8'));aliases=set()
+    def contains(node):
+        if isinstance(node,ast.Constant):return node.value==name
+        if isinstance(node,ast.Name):return node.id in aliases
+        if isinstance(node,ast.BinOp)and isinstance(node.op,(ast.Div,ast.Add)):return contains(node.left)or contains(node.right)
+        if isinstance(node,ast.Call):
+            if isinstance(node.func,ast.Name)and node.func.id in ('Path','PurePath'):return any(contains(arg)for arg in node.args)
+            if isinstance(node.func,ast.Attribute)and node.func.attr in ('with_name','joinpath'):return any(contains(arg)for arg in node.args)
+            if isinstance(node.func,ast.Attribute)and node.func.attr in ('resolve','absolute')and not node.args:return contains(node.func.value)
+        # A read_text/json.loads result is report data, never a report path alias.
+        return False
+    # A producer may bind OUT/'report.json' to a local path before writing it.
+    assignments=[node for node in ast.walk(tree)if isinstance(node,ast.Assign)]
+    for _ in range(len(assignments)+1):
+        previous=len(aliases)
+        for node in assignments:
+            if contains(node.value):
+                aliases.update(target.id for target in node.targets if isinstance(target,ast.Name))
+        if len(aliases)==previous:break
+    for node in ast.walk(tree):
+        if not isinstance(node,ast.Call)or not isinstance(node.func,ast.Attribute)or not contains(node.func.value):continue
+        if node.func.attr in ('write_text','write_bytes'):return True
+        if node.func.attr=='open':
+            mode=next((kw.value for kw in node.keywords if kw.arg=='mode'),node.args[0]if node.args else None)
+            if isinstance(mode,ast.Constant)and isinstance(mode.value,str)and any(c in mode.value for c in 'wax+'):return True
+    return False
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--unity-data', type=Path, required=True, help='Unity Editor/Data (Windows) or Editor/Data equivalent')
@@ -108,6 +137,7 @@ def main():
             report = stale[0]
             candidates = [p for p in report.parent.glob('check_*.py')
                 if p != integration and (repr(report.name) in p.read_text(encoding="utf-8") or '"'+report.name+'"' in p.read_text(encoding="utf-8"))]
+            candidates=[p for p in candidates if writes_report(p,report.name)]
             if len(candidates) != 1:
                 raise RuntimeError('Cannot identify unique producer for '+str(report)+': '+str(candidates))
             if run_check(candidates[0].relative_to(ROOT).as_posix()): break

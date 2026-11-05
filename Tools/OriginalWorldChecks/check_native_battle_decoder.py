@@ -1,7 +1,7 @@
 """Execute actual GameCtl dispatch/readers to the UserUnit import boundary; compare codecs."""
 import hashlib,json,struct,subprocess
 from pathlib import Path
-from native_ai_emulator import pefile,Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_X86_REG_ESP,UC_X86_REG_EAX,UC_X86_REG_EIP
+from native_ai_emulator import NativeAi,pefile,Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_X86_REG_ESP,UC_X86_REG_EAX,UC_X86_REG_EIP
 import check_magic_projectiles as magic
 ROOT=magic.ROOT;OUT=magic.OUT;WORK=Path('/tmp/ds-native-battle-decoder-checks')
 class NativeDecoder:
@@ -22,6 +22,8 @@ class NativeDecoder:
         if address==0x1000c540:self.reads+=1;return # Run actual cursor/read function.
         name=self.hooks.get(address)
         if name and 'IncTick@@'in name:call=dict(kind='pulse',values=[])
+        elif name and 'SetExp@@'in name:
+            packed,value=self.args(2);call=dict(kind='experience',values=[self.signed(packed&65535),value])
         elif name and ('SetHpDisplay@@'in name or 'SetMpDisplay@@'in name):
             v=self.args(1)[0];call=dict(kind='hp'if'SetHp'in name else'mp',values=[self.signed(v&65535),self.signed(v>>16)])
         elif name and 'SetFail@@'in name:call=dict(kind='miss',values=[self.args(1)[0]])
@@ -42,9 +44,23 @@ class NativeDecoder:
         for handle in self.handles:self.uc.hook_del(handle)
         self.handles.clear()
 
+def run_experience_set(unit,value):
+    native=NativeAi(dict(width=12,height=12,units=[dict(id=unit,x=5,y=5),dict(id=2 if unit!=2 else 3,x=6,y=5)]))
+    for id in native.units:native.write(native.RUNTIME+id*0x2e0+8,0x12345678)
+    before={id:bytes(native.uc.mem_read(native.RUNTIME+id*0x2e0,0x2e0))for id in native.units}
+    sp=native.STACK+0xff000;native.uc.mem_write(sp,struct.pack('<III',native.STOP,unit,value));native.uc.reg_write(UC_X86_REG_ESP,sp)
+    native.uc.emu_start(native.exports['SetExp'],native.STOP+1,timeout=5000000,count=100000)
+    assert native.uc.reg_read(UC_X86_REG_EIP)==native.STOP
+    for id,record in before.items():
+        expected=bytearray(record)
+        if id==unit:struct.pack_into('<I',expected,8,value)
+        assert bytes(native.uc.mem_read(native.RUNTIME+id*0x2e0,0x2e0))==bytes(expected),'SetExp changed a field outside the target XP DWORD'
+    result=native.read(native.RUNTIME+unit*0x2e0+8);native.close();return result
+
 def vectors():
     cases=[dict(packet=[0x5c,4])]
     for unit in [0,1,999,2999]:
+        for value in [0,1,0x7fffffff,0x80000000,0xffffffff]:cases.append(dict(packet=[0x5c,0x53,*struct.pack('<hI',unit,value)]))
         for x,y in [(-32768,32767),(-1,-1),(0,0),(1,1),(199,198)]:
             for opcode in [1,14]:cases.append(dict(packet=[0x5c,opcode,*struct.pack('<hhh',unit,x,y)]))
         for opcode in [3,0x0f]:cases.append(dict(packet=[0x5c,opcode,*struct.pack('<h',unit)]))
@@ -65,13 +81,15 @@ def main():
         if name=='run':exe.with_suffix('.runtimeconfig.json').write_bytes((old/'GatewayChecks.runtimeconfig.json').read_bytes())
         r=subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True);(WORK/(name+'.log')).write_text(r.stdout+r.stderr)
         if r.returncode:raise RuntimeError((r.stdout+r.stderr)[-2000:])
-    managed=json.loads(output.read_text());assert len(managed)==len(cases);mismatches=[];native=NativeDecoder()
+    managed=json.loads(output.read_text());assert len(managed)==len(cases);mismatches=[];native=NativeDecoder();experience_sets=0
     for case,current in zip(cases,managed):
         result=native.run(case['packet'])
+        if result['kind']=='experience':
+            unit,value=result['values'];assert run_experience_set(unit,value)==current['values'][1];experience_sets+=1
         if result!=current:mismatches.append(dict(input=case,native=result,managed=current))
     native.close();(WORK/'mismatches.json').write_text(json.dumps(mismatches,indent=2))
-    sources=['Assets/_Original/Runtime/Combat/NativeMovement.cs','Assets/_Original/Runtime/Combat/BattleFeedback.cs','Assets/_Original/Runtime/Combat/BattleLifecycle.cs','Assets/_Original/Runtime/Combat/BattleTicks.cs','Tools/OriginalWorldChecks/BattleDecoderDifferential.cs','Tools/OriginalWorldChecks/check_native_battle_decoder.py','Tools/OriginalWorldChecks/native_ai_emulator.py']
-    result=dict(cases=len(cases),mismatches=len(mismatches),nativeCodeExecuted=True,unityPlayExecuted=False,casesSha256=hashlib.sha256(input.read_bytes()).hexdigest(),sources={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest()for p in sources},scope='Actual late GameCtl1000EB10 dispatch and1000C540 WORD cursor execute for ten known subtypes. Capture calls to UserUnit imports and number of reads; setters/updates are separately executed by feedback/death/tick checks. Strict malformed-length checks are Unity adapter protections, not claimed native buffer bounds. No socket/Windows UI.',logs=str(WORK))
+    sources=['Assets/_Original/Runtime/Combat/NativeMovement.cs','Assets/_Original/Runtime/Combat/NativeBattlePackets.cs','Assets/_Original/Runtime/Combat/BattleFeedback.cs','Assets/_Original/Runtime/Combat/BattleLifecycle.cs','Assets/_Original/Runtime/Combat/BattleTicks.cs','Tools/OriginalWorldChecks/BattleDecoderDifferential.cs','Tools/OriginalWorldChecks/check_native_battle_decoder.py','Tools/OriginalWorldChecks/native_ai_emulator.py','분석/InstallerVersions/installer_inventory.json']
+    result=dict(cases=len(cases),nativeExperienceSetCases=experience_sets,mismatches=len(mismatches),nativeCodeExecuted=True,unityPlayExecuted=False,casesSha256=hashlib.sha256(input.read_bytes()).hexdigest(),sources={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest()for p in sources},scope='Actual late GameCtl1000EB10 dispatch and WORD/DWORD cursor execute; capture UserUnit import arguments. Experience5C53 also executes original UserUnit.SetExp1000CE10 and compares the full736-byte records: only the target+8 DWORD changes, including uint32 high-bit/max. Other setters/updates have separate feedback/death/tick checks. Strict malformed-length/domain checks are adapter protections, not native buffer bounds. No socket/Windows UI or inferred level calculation.',logs=str(WORK))
     (OUT/'native-battle-decoder-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items()if k!='sources'}))
     if mismatches:print(json.dumps(mismatches[0]));raise SystemExit(1)
 if __name__=='__main__':main()

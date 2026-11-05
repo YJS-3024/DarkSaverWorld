@@ -17,11 +17,12 @@ namespace DarkSaver.Original.Entry
         private WorldReply ClassChangeResult(Func<EntryAccountService,WorldReply> apply)
         {
             var reply=WorldRequest(apply);
-            if(reply.Accepted)
+            if(IsCurrentGrowthReply(reply))
             {
-                Notify_ClassChanged?.Invoke(reply);Notify_GrowthChanged?.Invoke(reply);
+                Notify_ClassChanged?.Invoke(reply);if(!IsCurrentGrowthReply(reply))return reply;
+                Notify_GrowthChanged?.Invoke(reply);if(!IsCurrentGrowthReply(reply))return reply;
                 if(ClassOptionsAuthority!=null)Request_ClassOptions();
-                return new WorldReply(reply.Failure,WorldSnapshot);
+                return IsCurrentGrowthReply(reply)?new WorldReply(reply.Failure,WorldSnapshot):reply;
             }
             return reply;
         }

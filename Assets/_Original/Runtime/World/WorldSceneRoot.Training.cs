@@ -65,16 +65,18 @@ namespace DarkSaver.Original.World
         {
             int id=display.FollowsSelection?NativeBattleStatusSelection.Display(battleStatusUnit,0):display.Id;
             var unit=view.battle?.Unit(id);bool own=id==0;
-            var growth=own?view.record.growth:null;var stats=unit?.effectiveStats??(own?growth?.stats:null);
+            var growth=own?view.record.growth:null;var stats=unit?.effectiveStats??(own?growth?.stats:null);var received=unit?.nativeInfo;
             var texture=unit==null?(own?CommanderPicture:null):CombatBodyPicture(unit);display.Body.texture=texture;display.Body.enabled=texture!=null;
             int appearance=unit==null?CurrentCommanderJob:OriginalBattleLifecycle.AppearanceKey(unit);int cell=appearance/100==7?64:32;
             var bodyRect=(RectTransform)display.Body.transform;bodyRect.sizeDelta=new Vector2(display.Width==80&&appearance/100==7?31:32,32);if(texture!=null)display.Body.uvRect=Entry.NativeEntryLayout.Uv(texture,new Rect(cell,cell,cell,cell));
             bool fallen=display.Troop&&unit!=null&&unit.hp==0;
             if(fallen){EnsureBattleWindowArt();display.Body.texture=battleWindowArt?.markers;display.Body.enabled=display.Body.texture!=null;if(display.Body.texture!=null)display.Body.uvRect=Entry.NativeEntryLayout.Uv(display.Body.texture,new Rect(224,0,32,32));}
-            if(display.Name!=null)display.Name.text=own?CommanderName:"";
-            if(display.Class!=null)display.Class.text=own?CommanderClass:definition.growthCatalog?.Job(unit?.job??-1)?.name??"";
-            if(display.Level!=null)display.Level.text=own&&view.record.level.HasValue&&view.record.level!=0?"[ Lv. "+view.record.level.Value+" ]":"";
+            if(display.Name!=null)display.Name.text=received!=null?NativeUnitText(OriginalBattleTeamNames.DisplayName(received,view.battleTeams)):own?CommanderName:"";
+            if(display.Class!=null)display.Class.text=received!=null?NativeUnitText(received.className):own?CommanderClass:definition.combatCatalog?.Job(unit?.job??-1)?.name??definition.growthCatalog?.Job(unit?.job??-1)?.name??"";
+            int? level=received?.Level??(own?view.record.level:null);
+            if(display.Level!=null)display.Level.text=level.HasValue&&level!=0?"[ Lv. "+level.Value+" ]":"";
             bool health=unit!=null||own&&view.record.healthKnown;int hp=unit?.hp??view.record.hp,maxHp=unit?.maxHp??view.record.maxHp,mp=unit?.mp??view.record.mp,maxMp=unit?.maxMp??view.record.maxMp;
+            if(received!=null){hp=received.Hp;maxHp=received.MaxHp;mp=received.Mp;maxMp=received.MaxMp;}
             bool ready=unit!=null&&unit.maxAp!=0&&unit.ap>=unit.maxAp;
             var apRect=(RectTransform)display.Ap.transform;apRect.anchoredPosition=new Vector2(apRect.anchoredPosition.x,-display.ApY-NativeBattleStatusFields.ApOffset(display.Troop,ready));
             PaintBattleGaugeWidth(display.Ap,NativeBattleStatusFields.SignedWidth(fallen?0:unit?.ap??0,unit?.maxAp??0,display.Width),370+(ready?phase*12:0),NativeBattleStatusFields.ApHeight(display.Width==80,ready));
@@ -89,9 +91,11 @@ namespace DarkSaver.Original.World
                     if(active){Place((RectTransform)display.Conditions[i].transform,new Rect(NativeBattleStatusFields.ConditionX(slot),NativeBattleStatusFields.ConditionY(slot),16,16));slot++;}
                 }
             }
-            bool xp=growth?.nextExperience>0;
-            PaintBattleGaugeWidth(display.Experience,xp?NativeBattleStatusFields.ExperienceWidth(growth.experience,growth.nextExperience.Value,display.Width):0,406);
-            BattleNumber(display.ExperienceDigits,xp?NativeBattleStatusFields.Experience(growth.experience,growth.nextExperience.Value):"");
+            uint? next=received!=null?(uint?)received.NextExperience:growth?.nextExperience;ulong value=received!=null?received.Experience:growth?.experience??0;bool xp=next>0;
+            PaintBattleGaugeWidth(display.Experience,xp?NativeBattleStatusFields.ExperienceWidth(value,next.Value,display.Width):0,406);
+            BattleNumber(display.ExperienceDigits,xp?NativeBattleStatusFields.Experience(value,next.Value):"");
         }
+        private string NativeUnitText(byte[] bytes)
+        {if(bytes==null||worldTextCodec==null)return"";return worldTextCodec.TryCString(bytes,0,bytes.Length,out string text)?text:"";}
     }
 }

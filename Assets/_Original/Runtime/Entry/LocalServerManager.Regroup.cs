@@ -14,7 +14,7 @@ namespace DarkSaver.Original.Entry
             var reply=service.AdvanceBattleAutomation(authority,SoldierTargetChoice,UnityEngine.Time.realtimeSinceStartupAsDouble*1000.0);
             if(reply==null)return;
             Notify_World?.Invoke(reply);
-            if(reply.Accepted){Notify_BattleChanged?.Invoke(reply);if(training)Notify_TrainingChanged?.Invoke(reply);}
+            if(IsCurrentBattleReply(reply)){Notify_BattleChanged?.Invoke(reply);if(training&&IsCurrentBattleReply(reply))Notify_TrainingChanged?.Invoke(reply);}
         }
     }
 }

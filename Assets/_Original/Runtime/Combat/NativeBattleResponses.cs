@@ -83,7 +83,7 @@ namespace DarkSaver.Original.World
         {
             if(notice==null||expected==null||notice.id!=expected.id||notice.request!=expected.request||notice.character!=expected.character
                 ||notice.session!=expected.session||notice.expectedRevision!=expected.expectedRevision||notice.approved!=expected.approved
-                ||notice.experience.HasValue||notice.expectedGrowthRevision!=0||notice.magicTargets!=null||!allowMagicEvents&&notice.magicEvents!=null||notice.magicRestoreMp.HasValue
+                ||notice.experience.HasValue||notice.growthState!=null||notice.expectedGrowthRevision!=0||notice.magicTargets!=null||!allowMagicEvents&&notice.magicEvents!=null||notice.magicRestoreMp.HasValue
                 ||notice.revivedTargets!=null||notice.itemConsumed.HasValue||notice.itemRemainingUses.HasValue)return false;
             if(!notice.approved)return true;
             if(allowMagicEvents)

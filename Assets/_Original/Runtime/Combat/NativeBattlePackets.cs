@@ -8,11 +8,49 @@ namespace DarkSaver.Original.World
         // Local delivery context. These fields are not appended to the original packet bytes.
         public string id,character,session;
         public long expectedRevision,unitLife,targetLife;
+        public long? expectedGrowthRevision,expectedTeamRevision,expectedResultKillRevision;
         public bool approved;
         public byte[] packet;
         public int? localTeam,sourceTeam;
         public BattleLifeRecord[] targetLives;
         public NativeBattleNotice Copy(){var r=(NativeBattleNotice)MemberwiseClone();r.packet=packet==null?null:(byte[])packet.Clone();r.targetLives=targetLives==null?null:System.Array.ConvertAll(targetLives,l=>l?.Copy());return r;}
+    }
+    // Immutable local delivery context; never appended to a native packet.
+    public readonly struct NativeBattleFocus
+    {
+        public readonly string character,commanderSession,session;
+        public readonly int map,unit,x,y;
+        public readonly long revision,life;
+        private NativeBattleFocus(WorldView view,TrainingUnit actor)
+        {character=view.characterId;commanderSession=view.commanderSession;session=view.campaignSession;map=view.record.map;revision=view.battle.revision;unit=actor.id;life=actor.life;var tile=Position(view,actor);x=tile.X;y=tile.Y;}
+        private static TutorialTile Position(WorldView view,TrainingUnit actor)
+        {
+            var motion=view.battle.commanderMotion;
+            if(actor.id==0&&motion?.unit==0&&motion.life==actor.life)return new TutorialTile(motion.tileX,motion.tileY);
+            foreach(var member in view.battle.motions??Array.Empty<BattleUnitMotionView>())
+                if(member!=null&&member.unit==actor.id&&member.life==actor.life)return new TutorialTile(member.tileX,member.tileY);
+            return actor.Tile;
+        }
+        public static NativeBattleFocus? Capture(WorldView view,int unit)
+        {var actor=view?.battle?.Unit(unit);return actor==null||view.record==null?(NativeBattleFocus?)null:new NativeBattleFocus(view,actor);}
+        public bool Matches(WorldView view)
+        {
+            var actor=view?.battle?.Unit(unit);
+            return actor!=null&&view.record!=null&&character==view.characterId&&commanderSession==view.commanderSession&&session==view.campaignSession
+                &&map==view.record.map&&revision==view.battle.revision&&life==actor.life&&Position(view,actor)==new TutorialTile(x,y);
+        }
+    }
+    public static class OriginalBattleExperience
+    {
+        public static bool TryDecode(byte[] bytes,out int unit,out uint experience)
+        {
+            unit=-1;experience=0;
+            if(bytes==null||bytes.Length!=8||bytes[0]!=0x5c||bytes[1]!=0x53)return false;
+            int id=(short)(bytes[2]|bytes[3]<<8);if(id<0||id>=3000)return false;
+            unit=id;experience=(uint)(bytes[4]|bytes[5]<<8|bytes[6]<<16|bytes[7]<<24);return true;
+        }
+        public static byte[] Packet(int unit,uint experience)
+            =>unit<0||unit>=3000?null:new[]{(byte)0x5c,(byte)0x53,(byte)unit,(byte)(unit>>8),(byte)experience,(byte)(experience>>8),(byte)(experience>>16),(byte)(experience>>24)};
     }
     public sealed class NativeBattleRequest
     {

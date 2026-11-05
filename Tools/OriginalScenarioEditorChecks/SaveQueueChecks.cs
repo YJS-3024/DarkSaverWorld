@@ -45,6 +45,7 @@ internal static class SaveQueueChecks
         Check(failed.dirtyGateways&&failed.dirty&&failed.saves==0&&!failed.Scheduled,"rejected write keeps dirty state and releases scheduling state");
         failed.fail=false;failed.coordinate=52;failed.Queue(true);failed.Draw(EventType.Repaint);EditorApplication.Drain();
         Check(failed.saves==1&&failed.savedCoordinate==52&&!failed.dirtyGateways,"failure can be corrected and retried");
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(new{checks,unityGuiExecuted=false,scope="Exact production queue methods with isolated GUI focus/repaint/scheduler and storage boundaries. Full Unity control/event dispatch and disk implementation are separate checks."}));
+        int layoutSaveChecks=LayoutSaveChecks.Run();
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(new{checks,layoutSaveChecks,unityGuiExecuted=false,scope="Exact production queue and Save methods; actual isolated atomic editor/export file store and content-hash equality, with GUI/AssetDatabase boundaries stubbed. No Unity Editor event/import execution."}));
     }
 }

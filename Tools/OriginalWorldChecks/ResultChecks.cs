@@ -6,7 +6,7 @@ using DarkSaver.Original.Campaign;
 using DarkSaver.Original.Entry;
 using DarkSaver.Original.World;
 
-internal static class ResultChecks
+internal static partial class ResultChecks
 {
     private static int assertions;private static string root;
     private static readonly JsonSerializerOptions Options=new JsonSerializerOptions{IncludeFields=true};

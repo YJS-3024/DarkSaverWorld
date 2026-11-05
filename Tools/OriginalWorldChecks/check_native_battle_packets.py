@@ -4,6 +4,7 @@ from pathlib import Path
 import check_magic_projectiles as magic
 ROOT=magic.ROOT;OUT=magic.OUT;WORK=Path('/tmp/ds-native-battle-packet-checks')
 def run_contract():
+    from check_native_battle_responses import contract_sources
     WORK.mkdir(exist_ok=True);old=Path('/tmp/ds-npc-gateway-checks');sdk=magic.UNITY/'DotNetSdk';dotnet=sdk/'dotnet';csc=next(sdk.glob('sdk/*/Roslyn/bincore/csc.dll'));exe=WORK/'NativeBattlePacketChecks.dll'
     args=(old/'checks.rsp').read_text().replace(str(old/'GatewayChecks.dll'),str(exe)).replace(str(OUT.resolve()/'GatewayChecks.cs'),str(OUT.resolve()/'MagicProjectileChecks.cs'))
     for p in (ROOT/'Assets/_Original/Runtime/Combat').glob('*.cs'):
@@ -16,7 +17,7 @@ def run_contract():
         if r.returncode:raise RuntimeError((r.stdout+r.stderr)[-2500:])
     result=json.loads(r.stdout);api=json.loads((ROOT/'Tools/OriginalEntryChecks/entry-check.json').read_text())
     for path,digest in api['codeSha256'].items():assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==digest,path
-    result.update(**{k:api[k]for k in ['runtimeApiErrors','editorApiErrors','playerApiErrors','warnings']},apiReport='Tools/OriginalEntryChecks/entry-check.json',currentApiCodeMatched=True,logs=str(WORK))
+    result.update(**{k:api[k]for k in ['runtimeApiErrors','editorApiErrors','playerApiErrors','warnings']},apiReport='Tools/OriginalEntryChecks/entry-check.json',currentApiCodeMatched=True,sources=contract_sources(args,__file__),logs=str(WORK))
     (OUT/'native-battle-packet-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result,ensure_ascii=False))
 def main():
     WORK.mkdir(exist_ok=True);r=subprocess.run([sys.executable,str(OUT/'check_battle_lifecycle.py')],cwd=ROOT,text=True,capture_output=True);(WORK/'regression.log').write_text(r.stdout+r.stderr)

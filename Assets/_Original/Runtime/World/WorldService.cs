@@ -75,6 +75,7 @@ namespace DarkSaver.Original.Entry
             if(expectedCurrencyState!=null&&!CurrencyStoredStateMatches(freshOwner.character.world,expectedCurrencyState))return WorldFailure.StaleRequest;
             var freshWorld=freshOwner.character.world;
             if(freshWorld?.scenarioVisit?.id!=world.Record.scenarioVisit?.id||freshWorld?.scenarioVisit?.result?.id!=world.Record.scenarioVisit?.result?.id
+                ||(freshWorld?.scenarioVisit?.result?.nativeKills?.revision??0)!=(world.Record.scenarioVisit?.result?.nativeKills?.revision??0)
                 ||freshWorld?.lastScenarioResult?.id!=world.Record.lastScenarioResult?.id
                 ||freshWorld?.lastScenarioExit?.id!=world.Record.lastScenarioExit?.id
                 ||(world.Record.scenarioVisit!=null||world.Record.scenarioBattle!=null)&&freshWorld?.campaignPhase!=world.Record.campaignPhase)return WorldFailure.StaleRequest;
@@ -191,7 +192,9 @@ namespace DarkSaver.Original.Entry
             if(training&&target>=101&&target<=107)
             {
                 int job=world.CommanderJob;
-                int tier=job>=100&&job<=103?1:job>=104&&job<=114?2:job>=115&&job<=163?(job-115)/10+3:0;
+                int tier=world.Definition.growthCatalog?.Job(job)?.stage??0;
+                // Legacy definitions may lack stage metadata; only the four original first-stage jobs are unambiguous.
+                if(tier==0&&job>=100&&job<=103)tier=1;
                 if(tier<1||tier>7||world.Definition.Map(100+tier)?.training!=true)return WorldResult(WorldFailure.RulesUnavailable);
                 target=100+tier;
             }

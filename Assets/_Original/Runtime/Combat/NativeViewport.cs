@@ -13,6 +13,13 @@ namespace DarkSaver.Original.World
         }
         public bool Contains(int x,int y)=>x>=left&&y>=top&&(long)x<(long)left+columns&&(long)y<(long)top+rows;
         public int RelativeRow(int y)=>y-top;
+        // GameCtl10003D10: integer tile centering, also used before magic4001.
+        public static NativeViewport Centered(int x,int y,int width,int height,int columns=20,int rows=15)
+        {
+            if(width<0||height<0||columns<0||rows<0)throw new ArgumentOutOfRangeException();
+            return new NativeViewport((int)Math.Min(Math.Max(0L,(long)x-columns/2),Math.Max(0,width-columns)),
+                (int)Math.Min(Math.Max(0L,(long)y-rows/2),Math.Max(0,height-rows)),columns,rows);
+        }
         // Host adapter for the existing pixel-scrolled Unity view. Keep partially
         // visible tiles at both edges; do not change camera centering or movement.
         public static NativeViewport FromPixels(double x,double y,int width,int height)

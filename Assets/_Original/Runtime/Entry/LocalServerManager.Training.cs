@@ -9,6 +9,8 @@ namespace DarkSaver.Original.Entry
         // Delay starts at confirmed monster death, not at corpse animation retirement.
         // Initial health/AP and authoritative respawn results still require a configured authority.
         public const double TrainingMonsterRespawnDelaySeconds = 30d;
+        public const int TrainingApMaximum = 20;
+        public const double TrainingApRecoveryPerSecond = 2d;
 
         // No fallback damage/AP/spawn rules: a configured local authority supplies the complete result.
         public Func<TrainingActionRequest,TrainingView,TrainingUnitsNotice> TrainingAuthority { get; set; }
@@ -30,9 +32,15 @@ namespace DarkSaver.Original.Entry
         public WorldReply Request_TrainingAttack(int unit)=>SendTrainingAction(TrainingAction.Attack,unit,0,0);
         public WorldReply Request_TrainingRest()=>SendTrainingAction(TrainingAction.Rest,-1,0,0);
         private WorldReply TrainingResult(Func<EntryAccountService,WorldReply> apply)
-        {var reply=WorldRequest(apply);if(reply.Accepted){Notify_TrainingChanged?.Invoke(reply);Notify_BattleChanged?.Invoke(reply);}return reply;}
+        {var reply=WorldRequest(apply);if(IsCurrentBattleReply(reply)){Notify_TrainingChanged?.Invoke(reply);if(IsCurrentBattleReply(reply))Notify_BattleChanged?.Invoke(reply);}return reply;}
         private WorldReply BattleResult(Func<EntryAccountService,WorldReply> apply)
-        {var reply=WorldRequest(apply);if(reply.Accepted){Notify_BattleChanged?.Invoke(reply);if(reply.View?.training!=null)Notify_TrainingChanged?.Invoke(reply);}return reply;}
+        {var reply=WorldRequest(apply);if(IsCurrentBattleReply(reply)){Notify_BattleChanged?.Invoke(reply);if(reply.View?.training!=null&&IsCurrentBattleReply(reply))Notify_TrainingChanged?.Invoke(reply);}return reply;}
+        private bool IsCurrentBattleReply(WorldReply reply)
+        {
+            if(!IsCurrentWorldReply(reply))return false;var current=WorldSnapshot;
+            return current!=null&&current.battle?.revision==reply.View.battle?.revision&&current.battleTeamRevision==reply.View.battleTeamRevision
+                &&current.resultKillRevision==reply.View.resultKillRevision;
+        }
         private WorldReply SendBattleAction(TrainingAction action,int target,int x,int y,int magic=-1,string owned=null)
             =>BattleResult(s=>action==TrainingAction.CastMagic||action==TrainingAction.UseSkill||action==TrainingAction.UseItem
                 ?s.ExecuteNativeBattleCast(action,target,x,y,ActionAuthority(false,action),magic,owned):s.ExecuteBattleAction(action,target,x,y,ActionAuthority(false,action),magic,owned));

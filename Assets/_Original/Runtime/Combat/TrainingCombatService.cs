@@ -152,7 +152,7 @@ namespace DarkSaver.Original.Entry
                     ||u.movementBudget>100000||u.attackRange>map.map.width+map.map.height||!map.map.Contains(u.Tile)
                     ||u.id==0&&(!movementType.HasValue||map.map.Terrain(u.Tile,movementType.Value*3+2)<0||map.map.Terrain(u.Tile,movementType.Value*3+2)==99)||world.Definition.combatCatalog.Job(u.job)==null
                     ||u.nativeAppearanceJob.HasValue&&(u.nativeAppearanceJob<0||u.nativeAppearanceJob>999||world.Definition.combatCatalog.Job(u.nativeAppearanceJob.Value)==null)
-                    ||u.nativePalette.HasValue&&(u.nativePalette<0||u.nativePalette>3)
+                    ||u.nativePalette.HasValue&&(u.nativePalette<0||u.nativePalette>3)||u.nativeInfo!=null&&(!u.nativeInfo.Valid||u.nativeInfo.fields[0]!=u.id||u.nativeInfo.fields[1]!=u.job)
                     ||OriginalCommandRange.OccupiesTile(u)&&!alive.Add(u.Tile)||map.npcs.Any(n=>n.x==u.x&&n.y==u.y)
                     ||map.portals.Any(p=>p.cells.Any(c=>c.Tile==u.Tile))&&!(u.id==0&&u.x==world.Record.x&&u.y==world.Record.y))return WorldFailure.InvalidInput;
                 var previous=combat.Units.FirstOrDefault(v=>v.id==u.id);
@@ -173,14 +173,16 @@ namespace DarkSaver.Original.Entry
             foreach(var life in saved.lives)combat.Lives[life.id]=life.life;
             world.Combat=combat;return WorldFailure.None;
         }
-        private ScenarioBattleRecord SaveScenarioBattle(TrainingCombatSession combat,TrainingUnitsNotice notice)
+        private ScenarioBattleRecord SaveScenarioBattle(TrainingCombatSession combat,TrainingUnitsNotice notice,TrainingUnit[] units)
         {
             var lives=combat.Lives.ToDictionary(p=>p.Key,p=>p.Value);
-            foreach(var unit in notice.units)lives[unit.id]=unit.life;
+            foreach(var unit in units)lives[unit.id]=unit.life;
             return new ScenarioBattleRecord{map=world.Record.map,revision=combat.Revision+1,lastNotice=notice.id,
-                units=notice.units.Select(u=>u.Copy()).ToArray(),lives=lives.OrderBy(p=>p.Key).Select(p=>new BattleLifeRecord{id=p.Key,life=p.Value}).ToArray()};
+                units=units.Select(u=>u.Copy()).ToArray(),lives=lives.OrderBy(p=>p.Key).Select(p=>new BattleLifeRecord{id=p.Key,life=p.Value}).ToArray()};
         }
         public WorldReply ReceiveBattleUnits(TrainingUnitsNotice notice)
+            =>ReceiveBattleUnits(notice,false);
+        private WorldReply ReceiveBattleUnits(TrainingUnitsNotice notice,bool nativeSnapshot,int[] resetMotions=null,int[] nativeResetUnits=null)
         {
             if(notice==null)return WorldResult(WorldFailure.InvalidInput);
             var f=ReadyBattle(true);if(f!=WorldFailure.None)return WorldResult(f);
@@ -208,6 +210,7 @@ namespace DarkSaver.Original.Entry
             f=ValidateRegroupOutcome(combat,notice,request);if(f!=WorldFailure.None)return WorldResult(f);
             f=ValidateMemberCommandOutcome(combat,notice,request);if(f!=WorldFailure.None)return WorldResult(f);
             f=ValidateSoldierActionOutcome(combat,notice,request);if(f!=WorldFailure.None)return WorldResult(f);
+            units=units.Select(u=>u.Copy()).ToArray(); // Never normalize the caller's retryable notice in place.
             var commander=units.First(u=>u.id==0);
             if(commander.job!=world.CommanderJob||world.Record.ghost&&commander.hp>0&&notice.revivedTargets?.Contains(0)!=true)return WorldResult(WorldFailure.InvalidInput);
             List<TutorialTile> route=null;
@@ -232,7 +235,7 @@ namespace DarkSaver.Original.Entry
                         ||units.Any(u=>u.id!=0&&OriginalCommandRange.OccupiesTile(u)&&u.x==request.x&&u.y==request.y))return WorldResult(WorldFailure.InvalidInput);
                 }
             }
-            if(route==null&&notice.nativeMovement==null&&(commander.x!=world.Record.x||commander.y!=world.Record.y))return WorldResult(WorldFailure.InvalidInput);
+            if(route==null&&notice.nativeMovement==null&&!nativeSnapshot&&(commander.x!=world.Record.x||commander.y!=world.Record.y))return WorldResult(WorldFailure.InvalidInput);
             f=ValidateBattleItemOutcome(combat,notice,request);if(f!=WorldFailure.None)return WorldResult(f);
             var next=world.Record.Copy();next.healthKnown=true;next.hp=commander.hp;next.maxHp=commander.maxHp;next.mp=commander.mp;next.maxMp=commander.maxMp;
             if(notice.revivedTargets?.Contains(0)==true)next.ghost=false;
@@ -241,15 +244,31 @@ namespace DarkSaver.Original.Entry
             {
                 if(next.growth==null)return WorldResult(WorldFailure.RulesUnavailable);
                 if(next.growth.revision!=notice.expectedGrowthRevision||next.growth.revision==long.MaxValue)return WorldResult(WorldFailure.StaleRequest);
-                next.growth.experience=notice.experience.Value;next.growth.revision++;next.growth.lastNotice=notice.id;
+                if(notice.growthState!=null)
+                {
+                    var state=notice.growthState;var previous=next.growth;
+                    if(world.Definition.growthCatalog?.Accepts(state)!=true||state.job!=previous.job||state.job!=commander.job
+                        ||state.classLevel<=previous.classLevel||state.totalLevel<=previous.totalLevel||state.revision!=previous.revision+1
+                        ||state.lastNotice!=notice.id||state.experience!=notice.experience.Value||state.stats!=null&&!SameGrowthStats(state.stats,commander.effectiveStats))return WorldResult(WorldFailure.InvalidInput);
+                    next.growth=state.Copy();next.level=state.totalLevel;
+                }
+                else {next.growth.experience=notice.experience.Value;next.growth.revision++;next.growth.lastNotice=notice.id;}
             }
+            else if(notice.growthState!=null)return WorldResult(WorldFailure.InvalidInput);
+            if(next.growth!=null)commander.nativeExperience=next.growth.experience<=uint.MaxValue?(uint?)next.growth.experience:null;
+            if(!nativeSnapshot)foreach(var unit in units)SyncNativeUnitState(unit,combat.Units.FirstOrDefault(u=>u.id==unit.id),notice);
+            if(notice.experience.HasValue&&commander.nativeInfo!=null)
+            {if(notice.experience<=uint.MaxValue)commander.nativeInfo.ExperienceSet((uint)notice.experience.Value);else commander.nativeInfo=null;}
             if(!string.IsNullOrEmpty(notice.request)&&request.action==TrainingAction.UseItem)
             {
                 if(notice.itemConsumed.Value)next.inventory=next.inventory.Where(i=>i.id!=request.ownedItem).ToArray();
                 else if(notice.itemRemainingUses.HasValue)next.inventory.First(i=>i.id==request.ownedItem).remainingUses=notice.itemRemainingUses;
             }
-            if(!world.Map(world.Record.map).training)next.scenarioBattle=SaveScenarioBattle(combat,notice);
+            if(!world.Map(world.Record.map).training)next.scenarioBattle=SaveScenarioBattle(combat,notice,units);
             f=CommitGrowth(next,request?.action==TrainingAction.UseItem&&!string.IsNullOrEmpty(notice.request)?BattleItemStoredBaseline(combat.ItemBaseline):null);if(f!=WorldFailure.None)return WorldResult(f);
+            if(nativeSnapshot&&combat.Units.FirstOrDefault(u=>u.id==0)?.life!=commander.life)combat.Motion=null;
+            foreach(int id in resetMotions??Array.Empty<int>()){if(id==0)combat.Motion=null;else combat.MemberMotions.Remove(id);}
+            ResetNativeUnitPresentation(combat,units,nativeResetUnits);
             if(route!=null)combat.Motion=new TrainingMotion(new TutorialTile(world.Combat.Units.First(u=>u.id==0).x,world.Combat.Units.First(u=>u.id==0).y),route);
             UpdateRegroupMotions(combat,notice,request);
             ApplyNativeMovement(combat,notice);

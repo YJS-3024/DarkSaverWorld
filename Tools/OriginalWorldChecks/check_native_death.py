@@ -26,11 +26,12 @@ class NativeDeath(NativeFeedback):
 
 def vectors():
     cases=[]
-    for job in [100,302,700,799]:
+    for job in [100,301,302,401,700,799]:
         for numeric in [False,True]:
-            for op,state in [('death',16),('remove',16),('remove',128)]:
-                units=[dict(id=0,x=5,y=5,life=1,hp=100,maxHp=200,mp=45,maxMp=65,direction=1,nativeState=state,nativeActive=True,nativeEnabled=True)]
-                cases.append(dict(name=f'{op}-{job}-{numeric}-{state}',operation=op,unit=0,job=job,numeric=numeric,ticks=48,width=12,height=12,units=units))
+            for op,state in [('death',0),('death',16),('death',48),('remove',0),('remove',16),('remove',48),('remove',128)]:
+                for hp in [0,100]:
+                    units=[dict(id=0,x=5,y=5,life=1,hp=hp,maxHp=200,mp=45,maxMp=65,direction=1,nativeState=state,nativeActive=True,nativeEnabled=True)]
+                    cases.append(dict(name=f'{op}-{job}-{numeric}-{state}-hp{hp}',operation=op,unit=0,job=job,numeric=numeric,ticks=48,width=12,height=12,units=units))
     return cases
 
 def main():

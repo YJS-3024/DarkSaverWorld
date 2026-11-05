@@ -6,10 +6,21 @@ using DarkSaver.Original.Tutorial;
 
 namespace DarkSaver.Original.World
 {
+    // Source ability.atr base values; limits and server-resolved level/equipment stats are separate.
+    [Serializable,DataContract] public sealed class OriginalUnitBaseStats
+    {
+        [DataMember] public int hp,mp,attack,defense,magicAttack,magicDefense,speed,movement,accuracy,evasion,critical,magicAccuracy,magicEvasion;
+        [DataMember] public int hpLimit,mpLimit,attackLimit,defenseLimit,magicAttackLimit,magicDefenseLimit,commandAttack,commandDefense;
+        // -1 means an unused source field. Keep it here; never use a negative MP or magic attack in combat.
+        public bool Valid=>hp>0&&mp>=-1&&attack>=0&&defense>=0&&magicAttack>=-1&&magicDefense>=0&&movement>=0&&movement<=100000;
+        public CharacterGrowthStats CombatStats()=>new CharacterGrowthStats {attack=attack,defense=defense,magicAttack=Math.Max(0,magicAttack),magicDefense=magicDefense};
+        public OriginalUnitBaseStats Copy()=>(OriginalUnitBaseStats)MemberwiseClone();
+    }
     [Serializable] public sealed class OriginalCombatJob
     {
-        public int job,picture,baseExperience,rawAttackRange,rawMoveTick,rawAttackTick,rawRestTick,rawCommandRange,rawMovementType;
+        public int job,picture,baseExperience,rawAttackRange,rawMoveTick,rawAttackTick,rawRestTick,rawCommandRange,rawMovementType,rawMagicTick,rawSpecialMovementType;
         public string name,category;
+        public OriginalUnitBaseStats baseStats;
     }
     [Serializable] public sealed class OriginalCombatCatalog
     {
@@ -43,9 +54,14 @@ namespace DarkSaver.Original.World
         [NonSerialized,DataMember(EmitDefaultValue=false)] public int? nativeAppearanceJob;
         // Resolved client palette0..3. Unknown team/ally context is not guessed from ID.
         [NonSerialized,DataMember(EmitDefaultValue=false)] public int? nativePalette;
+        // NativeCharacter+8 from 5C53. Commander XP also mirrors the growth record;
+        // other units do not gain inferred levels, thresholds or roster rewards.
+        [NonSerialized,DataMember(EmitDefaultValue=false)] public uint? nativeExperience;
+        [DataMember(EmitDefaultValue=false)] public NativeUnitState nativeInfo;
         [DataMember(EmitDefaultValue=false)] public CharacterGrowthStats effectiveStats;
+        [DataMember(EmitDefaultValue=false)] public OriginalUnitBaseStats baseStats;
         [DataMember] public bool ghost;
-        public TrainingUnit Copy(){var r=(TrainingUnit)MemberwiseClone();r.attackTargets=attackTargets?.ToArray();r.magicRules=magicRules?.Select(v=>v?.Copy()).ToArray();r.itemRules=itemRules?.Select(v=>v?.Copy()).ToArray();r.effectiveStats=effectiveStats?.Copy();return r;}
+        public TrainingUnit Copy(){var r=(TrainingUnit)MemberwiseClone();r.attackTargets=attackTargets?.ToArray();r.magicRules=magicRules?.Select(v=>v?.Copy()).ToArray();r.itemRules=itemRules?.Select(v=>v?.Copy()).ToArray();r.effectiveStats=effectiveStats?.Copy();r.baseStats=baseStats?.Copy();r.nativeInfo=nativeInfo?.Copy();return r;}
         public TutorialTile Tile=>new TutorialTile(x,y);
     }
     [Serializable,DataContract] public sealed class BattleLifeRecord
@@ -74,7 +90,7 @@ namespace DarkSaver.Original.World
             return r.units.All(u=>u.id>=0&&u.id<=999&&u.job>=0&&u.life>0&&u.x>=0&&u.y>=0&&u.direction>=0&&u.direction<4
                 &&u.maxHp>0&&u.hp>=0&&u.hp<=u.maxHp&&u.maxMp>=0&&u.mp>=0&&u.mp<=u.maxMp&&u.maxAp>0&&u.ap>=0&&u.ap<=u.maxAp
                 &&(!u.movementBudget.HasValue||u.movementBudget>=0&&u.movementBudget<=100000)&&(!u.attackRange.HasValue||u.attackRange>0)
-                &&(!u.ghost||u.hp==0)&&(!u.nativeAppearanceJob.HasValue||u.nativeAppearanceJob>=0&&u.nativeAppearanceJob<=999)&&(!u.nativePalette.HasValue||u.nativePalette>=0&&u.nativePalette<4)&&(u.effectiveStats==null||u.effectiveStats.Valid)&&BattleMagicRule.ValidRules(u.magicRules)&&BattleItemRule.ValidRules(u.itemRules)&&OriginalTroopOrders.ValidMode(u.troopOrder)&&OriginalRegroupMovement.ValidMovementType(u.movementType)&&OriginalMemberCommands.ValidTargets(u.attackTargets)&&OriginalBattleTicks.ValidMask(u.nativeMenuMask)&&r.lives.Any(l=>l.id==u.id&&l.life==u.life));
+                &&(!u.ghost||u.hp==0)&&(u.nativeInfo==null||u.nativeInfo.Valid&&u.nativeInfo.fields[0]==u.id&&u.nativeInfo.fields[1]==u.job)&&(!u.nativeAppearanceJob.HasValue||u.nativeAppearanceJob>=0&&u.nativeAppearanceJob<=999)&&(!u.nativePalette.HasValue||u.nativePalette>=0&&u.nativePalette<4)&&(u.effectiveStats==null||u.effectiveStats.Valid)&&BattleMagicRule.ValidRules(u.magicRules)&&BattleItemRule.ValidRules(u.itemRules)&&OriginalTroopOrders.ValidMode(u.troopOrder)&&OriginalRegroupMovement.ValidMovementType(u.movementType)&&OriginalMemberCommands.ValidTargets(u.attackTargets)&&OriginalBattleTicks.ValidMask(u.nativeMenuMask)&&r.lives.Any(l=>l.id==u.id&&l.life==u.life));
         }
     }
     public sealed class TrainingActionRequest
@@ -126,6 +142,9 @@ namespace DarkSaver.Original.World
         public NativeBattleNotice nativeMagic;
         // Absolute owner XP, never a locally inferred per-kill delta or share formula.
         public ulong? experience; public long expectedGrowthRevision;
+        // Optional explicit same-class level result, committed with the battle snapshot/XP.
+        // Local authority contract; never inferred from a native attack/HP packet.
+        public CharacterGrowthRecord growthState;
     }
     public sealed class TrainingView
     {

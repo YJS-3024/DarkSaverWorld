@@ -47,9 +47,66 @@ internal static partial class MagicProjectileChecks
         Check(!NativeBodyFrames.Fits(new BattleFeedbackFrame{atlasX=0,atlasY=1024,width=32,height=32},96,128),"native invalid corpse source rect cannot smear clamped final texture row");
         Check(!NativeBodyFrames.Fits(new BattleFeedbackFrame{atlasX=int.MaxValue,atlasY=0,width=32,height=32},96,128),"crop bounds cannot overflow integer addition");
     }
+    private static NativeBattleNotice ExperienceNotice(Fixture f,int unit,uint value)
+    {
+        var n=NativeNotice(f,OriginalBattleExperience.Packet(unit,value),unit);
+        if(unit==0)n.expectedGrowthRevision=f.View.record.growth?.revision;return n;
+    }
+    private static void CheckNativeExperience(bool scenario)
+    {
+        foreach(int unit in new[]{0,1,400})
+        {
+            var f=LifecycleFixture(scenario);int classLevel=f.View.record.growth.classLevel,totalLevel=f.View.record.growth.totalLevel;int[] magic=f.View.record.growth.magic.ToArray(),skills=f.View.record.growth.skills.ToArray();
+            foreach(uint value in new uint[]{500,5,0,uint.MaxValue,uint.MaxValue})
+            {
+                ulong commanderXp=f.View.record.growth.experience;long growthRevision=f.View.record.growth.revision;var before=f.View.battle.units.Select(u=>u.Copy()).ToArray();
+                var n=ExperienceNotice(f,unit,value);Check(f.server.ReceiveBattlePacket(n).Accepted&&f.View.battle.Unit(unit).nativeExperience==value,"native5C53 replaces target absolute XP including decreases/zero/max in training/scenario "+scenario+" unit"+unit);
+                Check(f.View.record.growth.experience==(unit==0?value:commanderXp)&&f.View.record.growth.revision==growthRevision+(unit==0?1:0),"only commander XP packet updates the global growth record");
+                Check(f.View.record.growth.classLevel==classLevel&&f.View.record.growth.totalLevel==totalLevel&&f.View.record.growth.magic.SequenceEqual(magic)&&f.View.record.growth.skills.SequenceEqual(skills),"absolute XP receipt never calculates a level/class or grants abilities");
+                foreach(var old in before)
+                {
+                    var current=f.View.battle.Unit(old.id).Copy();if(old.id==unit)current.nativeExperience=old.nativeExperience;
+                    Check(OriginalMemberCommands.Same(old,current),"native XP update preserves every other unit value and every other unit");
+                }
+                string saved=State(f.View.record);Check(!f.server.ReceiveBattlePacket(n).Accepted&&State(f.View.record)==saved,"duplicate absolute-XP delivery does not apply twice");
+            }
+            if(scenario)
+            {
+                var reloaded=new EntryAccountService(f.store);new EntryClient(reloaded).OpenLocalProfile();Check(reloaded.BeginWorld(f.definition).Accepted&&reloaded.WorldSnapshot().battle.Unit(unit).nativeExperience==uint.MaxValue,"scenario per-unit XP survives isolated service recreation");
+            }
+        }
+        foreach(string failure in new[]{"life","session","revision","growth-revision","missing-growth-context","length","unknown-unit","approval"})
+        {
+            var f=LifecycleFixture(scenario);var n=ExperienceNotice(f,0,500);string before=State(f.View.record);long revision=f.View.battle.revision;
+            if(failure=="life")n.unitLife++;if(failure=="session")n.session=Id();if(failure=="revision")n.expectedRevision++;
+            if(failure=="growth-revision")n.expectedGrowthRevision++;if(failure=="missing-growth-context")n.expectedGrowthRevision=null;
+            if(failure=="length")n.packet=n.packet.Take(7).ToArray();if(failure=="unknown-unit")n.packet=OriginalBattleExperience.Packet(999,500);if(failure=="approval")n.approved=false;
+            Check(!f.server.ReceiveBattlePacket(n).Accepted&&State(f.View.record)==before&&f.View.battle.revision==revision,"invalid native XP has no partial record/unit update "+failure);
+        }
+        var failed=LifecycleFixture(scenario);var incoming=ExperienceNotice(failed,0,500);string state=State(failed.View.record);var caller=failed.View.battle.Unit(0).Copy();failed.store.fail=true;
+        Check(failed.server.ReceiveBattlePacket(incoming).Failure==WorldFailure.StorageUnavailable&&State(failed.View.record)==state&&OriginalMemberCommands.Same(caller,failed.View.battle.Unit(0)),"failed native XP save rolls back both growth and per-unit XP");
+        failed.store.fail=false;Check(failed.server.ReceiveBattlePacket(incoming).Accepted&&failed.View.record.growth.experience==500,"native absolute XP retries after storage recovery");
+        var interleaved=LifecycleFixture(scenario);var earlierDelivery=ExperienceNotice(interleaved,0,500);long unchangedBattle=interleaved.View.battle.revision;
+        Check(interleaved.server.ReceiveCharacterExperience(new CharacterExperienceNotice{approved=true,id=Id(),character=interleaved.View.characterId,
+            session=interleaved.View.growthSession,expectedRevision=interleaved.View.record.growth.revision,experience=5000}).Accepted,"independent profile XP can arrive without a battle action");
+        Check(interleaved.View.battle.revision==unchangedBattle&&interleaved.View.battle.Commander.nativeExperience==5000
+            &&!interleaved.server.ReceiveBattlePacket(earlierDelivery).Accepted&&interleaved.View.record.growth.experience==5000,"growth revision protects a newer XP value even when battle revision did not change");
+        if(scenario)
+        {
+            var restored=new EntryAccountService(interleaved.store);new EntryClient(restored).OpenLocalProfile();
+            Check(restored.BeginWorld(interleaved.definition).Accepted&&restored.WorldSnapshot().record.growth.experience==5000
+                &&restored.WorldSnapshot().battle.Commander.nativeExperience==5000,"profile XP synchronization also updates the durable scenario commander snapshot");
+        }
+        var supplied=LifecycleFixture(scenario);var external=supplied.Notice();external.experience=500;external.expectedGrowthRevision=supplied.View.record.growth.revision;
+        external.units.First(u=>u.id==0).nativeExperience=null;string payload=State(external.units);supplied.store.fail=true;
+        Check(supplied.server.ReceiveBattleUnits(external).Failure==WorldFailure.StorageUnavailable&&State(external.units)==payload,"failed XP normalization never mutates a caller-owned retry payload");
+        supplied.store.fail=false;Check(supplied.server.ReceiveBattleUnits(external).Accepted&&State(external.units)==payload&&supplied.View.battle.Commander.nativeExperience==500,"accepted XP normalization owns its copied units and leaves the caller snapshot intact");
+        foreach(var bytes in new[]{Array.Empty<byte>(),new byte[]{0x5c,0x53},new byte[]{0x5c,0x53,0,0,0,0,0},new byte[]{0x5c,0x53,0,0,0,0,0,0,0},new byte[]{0x5c,0x53,255,255,0,0,0,0},new byte[]{0x5c,0x53,184,11,0,0,0,0}})
+            Check(!OriginalBattleExperience.TryDecode(bytes,out _,out _),"strict XP packet length/signed unit domain");
+    }
     internal static void RunNativeBattlePacketChecks(string path)
     {
-        root=path;CheckNativeRequestPackets();CheckUnifiedIngress(false);CheckUnifiedIngress(true);CheckBodyBounds();
+        root=path;CheckNativeRequestPackets();CheckUnifiedIngress(false);CheckUnifiedIngress(true);CheckBodyBounds();CheckNativeExperience(false);CheckNativeExperience(true);
         Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Verified native Attack/Rest outgoing bytes, independent direction-specific5C82 lengths, one local ingress for eight native subtypes, replay/length/atomic-state guards and32/64px source bounds. Movement hints have a separate comparison; other unprepared actions generate no packet."}));
     }
 }

@@ -14,6 +14,8 @@ internal static class BattleDecoderDifferential
         foreach(var c in cases)
         {
             var raw=c.packet.Select(i=>(byte)i).ToArray();string kind;int[] values;
+            if(OriginalBattleExperience.TryDecode(raw,out int receiver,out uint experience))
+            {output.Add(new{kind="experience",values=new long[]{receiver,experience},wordReads=1});continue;}
             if(OriginalNativeMovement.TryDecode(raw,out var movement)){kind=movement.failed?"move-fail":"move";values=new[]{movement.unit,movement.x,movement.y};}
             else if(OriginalBattleTicks.TryDecode(raw,out var tick)){kind=tick.pulse?"pulse":"menu";values=tick.pulse?Array.Empty<int>():new[]{tick.unit,tick.ap,tick.menu};}
             else if(OriginalBattleFeedback.TryDecode(raw,out var feedback)){kind=feedback.kind==BattleFeedbackKind.Health?"hp":feedback.kind==BattleFeedbackKind.Mana?"mp":feedback.kind==BattleFeedbackKind.Miss?"miss":"attack";values=kind=="attack"?new[]{feedback.unit,feedback.target,feedback.value}:kind=="miss"?new[]{feedback.unit}:new[]{feedback.unit,feedback.value};}

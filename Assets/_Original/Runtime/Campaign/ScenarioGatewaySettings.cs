@@ -37,6 +37,9 @@ namespace DarkSaver.Original.Campaign
         [DataMember] public int map,x,y;
         [DataMember] public string mapHash;
         [DataMember] public bool enabled;
+        // Optional user-authored class override. Missing fields retain the legacy shared entry.
+        [DataMember(EmitDefaultValue=false)] public bool useJob;
+        [DataMember(EmitDefaultValue=false)] public int job;
         public ScenarioEntryPoint Copy() => (ScenarioEntryPoint)MemberwiseClone();
     }
     [Serializable, DataContract] public sealed class ScenarioGatewaySettings
@@ -60,13 +63,33 @@ namespace DarkSaver.Original.Campaign
             return g==null?"[입구 데이터 없음]":"[입구 '"+(g.name??"이름 없음")+"' / ID "+(g.id??"없음")+" / 출발 "+g.fromMap+" ("+g.x+","+g.y+") "+g.Width+"×"+g.Height+" → 도착 "+g.targetMap+" ("+g.spawnX+","+g.spawnY+") "+g.SpawnWidth+"×"+g.SpawnHeight+"]";
         }
         public static string EntryContext(ScenarioEntryPoint entry)
-        {return entry==null?"[진입점 데이터 없음]":"[지휘관 진입점 / 맵 "+entry.map+" / 좌표 ("+entry.x+","+entry.y+")]";}
+        {return entry==null?"[진입점 데이터 없음]":"[지휘관 진입점 / 맵 "+entry.map+(entry.useJob?" / 직업 "+entry.job:" / 공통")+" / 좌표 ("+entry.x+","+entry.y+")]";}
+        public static ScenarioEntryPoint EditingEntry(ScenarioGatewaySettings settings,int map,int job=0)
+            =>settings?.entryPoints?.FirstOrDefault(e=>e!=null&&e.map==map&&(job==0?!e.useJob:e.useJob&&e.job==job));
+        public static ScenarioEntryPoint SelectEntry(ScenarioGatewaySettings settings,int map,int job)
+            =>settings?.entryPoints?.FirstOrDefault(e=>e!=null&&e.enabled&&e.map==map&&e.useJob&&e.job==job)
+                ??settings?.entryPoints?.FirstOrDefault(e=>e!=null&&e.enabled&&e.map==map&&!e.useJob);
         public static string Hash(byte[] bytes)
         {using(var h=SHA256.Create())return BitConverter.ToString(h.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();}
         public static byte[] Encode(ScenarioGatewaySettings settings)
         {using(var s=new MemoryStream()){new DataContractJsonSerializer(typeof(ScenarioGatewaySettings)).WriteObject(s,settings);return s.ToArray();}}
         public static ScenarioGatewaySettings Decode(byte[] bytes)
         {using(var s=new MemoryStream(bytes))return (ScenarioGatewaySettings)new DataContractJsonSerializer(typeof(ScenarioGatewaySettings)).ReadObject(s);}
+        private static bool OrdinaryTravelMap(GatewayMapInfo map)=>map!=null&&(map.kind=="town"||map.kind=="world"||map.kind=="interior"&&map.id>=1000);
+        public static bool CanDraftReturn(ScenarioGateway source,GatewayMapCatalog catalog)
+            =>source?.IsWalk==true&&source.fromMap!=source.targetMap&&OrdinaryTravelMap(catalog?.maps?.FirstOrDefault(m=>m.id==source.fromMap))
+                &&OrdinaryTravelMap(catalog?.maps?.FirstOrDefault(m=>m.id==source.targetMap));
+        // Explicit authoring convenience. Never called by gameplay and never enabled
+        // or saved automatically; scenario/training return rules are separate.
+        public static ScenarioGateway CreateReturnDraft(ScenarioGateway source,GatewayMapCatalog catalog)
+        {
+            if(!CanDraftReturn(source,catalog))throw new InvalidDataException(GatewayContext(source)+": 귀환 초안은 마을·필드·일반 실내의 이동 입구에서만 만들 수 있습니다.");
+            Validate(new ScenarioGatewaySettings{gates=new[]{source.Copy()}},catalog);
+            return new ScenarioGateway{id=Guid.NewGuid().ToString("N"),name="귀환: "+source.name,group=source.group,enabled=false,trigger="walk",npcJob=-1,
+                fromMap=source.targetMap,fromHash=source.targetHash,targetMap=source.fromMap,targetHash=source.fromHash,
+                x=source.spawnX,y=source.spawnY,width=source.SpawnWidth,height=source.SpawnHeight,
+                spawnX=source.x,spawnY=source.y,spawnWidth=source.Width,spawnHeight=source.Height,returnX=-1,returnY=-1};
+        }
         public static bool Move(ScenarioGatewaySettings settings,string id,string anchor,bool after)
         {
             if(settings?.gates==null||id==anchor)return false;
@@ -80,14 +103,14 @@ namespace DarkSaver.Original.Campaign
         public static void Validate(ScenarioGatewaySettings settings,GatewayMapCatalog catalog)
         {
             if(settings==null||settings.version!=1||settings.provenance!=Provenance||settings.gates==null||catalog?.maps==null||catalog.npcJobs==null)throw new InvalidDataException("입구 설정 형식/출처를 확인하세요.");
-            var entryMaps=new HashSet<int>();
+            var entryMaps=new HashSet<string>();
             foreach(var entry in settings.entryPoints??Array.Empty<ScenarioEntryPoint>())
             {
                 var map=catalog.maps.FirstOrDefault(m=>m.id==entry?.map);
-                if(entry==null||map==null||!entryMaps.Add(entry.map)||entry.mapHash!=map.hash
+                if(entry==null||map==null||!entryMaps.Add(entry.map+":"+(entry.useJob?entry.job:0))||entry.useJob&&(entry.job<100||entry.job>=200)||entry.mapHash!=map.hash
                     ||(map.kind!="scenario"&&(map.id<101||map.id>107))
                     ||entry.x<0||entry.y<0||entry.x>=map.width||entry.y>=map.height)
-                    throw new InvalidDataException(EntryContext(entry)+": 맵·버전·좌표를 확인하세요.");
+                    throw new InvalidDataException(EntryContext(entry)+": 맵·직업 조건·버전·좌표를 확인하세요.");
             }
             var ids=new HashSet<string>();var occupied=new HashSet<string>();var replacements=new HashSet<string>();
             foreach(var g in settings.gates)
@@ -104,13 +127,30 @@ namespace DarkSaver.Original.Campaign
                 foreach(var cell in g.Cells())if(!occupied.Add(g.fromMap+":"+cell.x+":"+cell.y))throw new InvalidDataException(GatewayContext(g)+": 입구 영역이 서로 겹칩니다.");
             }
         }
+        public static bool HasEntryTerrain(WorldDefinition world,int map,int job)
+        {
+            var tilemap=world?.Map(map)?.map;var row=world?.combatCatalog?.version>=3?world.combatCatalog.Job(job):null;
+            if(tilemap?.attributes==null||row==null||!OriginalRegroupMovement.ValidMovementType(row.rawMovementType))return false;
+            return tilemap.attributes.Distinct().Any(attribute=>
+            {
+                long slot=(long)attribute*30+row.rawMovementType*3+2;
+                return slot>=0&&slot<tilemap.terrain.Length&&tilemap.terrain[(int)slot]>=0&&tilemap.terrain[(int)slot]!=99;
+            });
+        }
         public static bool EntryLocationAllowed(WorldDefinition world,ScenarioEntryPoint entry)
         {
             if(entry==null)return false;
             var target=world?.Map(entry.map);var campaign=world?.campaign?.Map(entry.map);
             if(target==null||!target.training&&campaign?.kind!="scenario"||campaign!=null&&campaign.hash!=entry.mapHash)return false;
-            int cost=target.map.Terrain(new DarkSaver.Original.Tutorial.TutorialTile(entry.x,entry.y),2);
-            return cost>0&&cost!=99&&cost!=-99&&!target.npcs.Any(n=>n.x==entry.x&&n.y==entry.y)
+            int type=0;
+            if(entry.useJob)
+            {
+                var job=world.combatCatalog?.version>=3?world.combatCatalog.Job(entry.job):null;
+                if(job==null||!OriginalRegroupMovement.ValidMovementType(job.rawMovementType))return false;
+                type=job.rawMovementType;
+            }
+            int cost=target.map.Terrain(new DarkSaver.Original.Tutorial.TutorialTile(entry.x,entry.y),type*3+2);
+            return (entry.useJob?cost>=0:cost>0)&&cost!=99&&cost!=-99&&!target.npcs.Any(n=>n.x==entry.x&&n.y==entry.y)
                 &&campaign?.units.Any(u=>u.x==entry.x&&u.y==entry.y)!=true;
         }
         public static void Apply(ScenarioGatewaySettings settings,GatewayMapCatalog catalog,WorldDefinition world)

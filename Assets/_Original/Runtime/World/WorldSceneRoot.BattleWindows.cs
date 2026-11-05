@@ -32,6 +32,16 @@ namespace DarkSaver.Original.World
         private string[] battleHelpLines;
         private readonly NativeBattleCompactClickClock battleCompactClock=new NativeBattleCompactClickClock();
         private int? battleCameraX,battleCameraY;private int battleStatusUnit=-1;private Vector2? battleStatusMouse;
+        private void ReceiveBattleFocus(NativeBattleFocus focus)
+        {
+            if(!isActiveAndEnabled||!running||canvasObject==null||definition==null)return;
+            var current=server.WorldSnapshot;if(!focus.Matches(current))return;
+            view=current;if(!BattleMap())return;
+            if(battleDialogMap!=view.record.map||battleDialogSession!=view.campaignSession)
+            {ResetBattleDialogs();battleDialogMap=view.record.map;battleDialogSession=view.campaignSession;}
+            var map=DisplayMap(view.record.map).map;var viewport=NativeViewport.Centered(focus.x,focus.y,map.width,map.height);
+            battleCameraX=viewport.left;battleCameraY=viewport.top;Paint();
+        }
         private readonly List<RawImage> battleTerrainSources=new List<RawImage>();private readonly List<Text> battleTerrainText=new List<Text>();
         private void EnsureBattleWindowArt()
         {if(battleWindowArt==null)battleWindowArt=Resources.Load<NativeBattleWindowArt>("OriginalBattleWindows");}

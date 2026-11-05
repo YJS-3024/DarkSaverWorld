@@ -1,20 +1,24 @@
 {
-  "cases": 1234,
-  "nativeComparisons": 2120,
+  "cases": 1426,
+  "nativeComparisons": 2312,
   "outgoing": 1018,
   "incoming": 216,
+  "levelEffectCases": 192,
   "mismatches": 0,
   "nativeCodeExecuted": true,
   "unityPlayExecuted": false,
   "sources": {
-    "Assets/_Original/Runtime/Combat/NativeMagicPackets.cs": "6f2d76869460649cb77b9af78c9176922022c80a67aac62f56e5c1b2c542d06c",
+    "Assets/_Original/Runtime/Combat/NativeMagicPackets.cs": "5d4a148b528cff1a1ae2a331984f48e73ac6cb63d01fe09c934dbde05658f48c",
+    "Assets/_Original/Runtime/Combat/NativeViewport.cs": "e4e70f9c8808d7b55991bccd0faf93e7cc3881b4748be39fe687486b4126cc75",
     "Assets/_Original/Data/Tables/Magictbl.csv": "c81715eb8b2e4f3b23b885435b9ee5fc920592f1cb5d56765e537ae4d6e599b6",
-    "Tools/OriginalWorldChecks/NativeMagicDifferential.cs": "2dd9a08ef630d87f5d8bb6ac2bea5a8be31f14855345699ad043ea588571387f",
-    "Tools/OriginalWorldChecks/check_native_magic_packets.py": "4cf0b62bca6b9074c223c48a3bb8527edf9fd0efe721dbd66b3686b0798cbd0a",
-    "Tools/OriginalWorldChecks/check_native_battle_decoder.py": "729a629d81fc4a9d094a71b28fcf909191c7696ad15d0e48ee6509228e6f7fb9",
+    "Tools/OriginalWorldChecks/NativeMagicDifferential.cs": "bb253fcebd04de71158f8cd158c84749ffb37ccfb664fed8b1f8fa321d0e4277",
+    "Tools/OriginalWorldChecks/check_native_magic_packets.py": "be7f573ece86853628d57ab479a39a51ed00feabee82179318099a55975679cf",
+    "Tools/OriginalWorldChecks/check_native_battle_decoder.py": "d322cfedd40f52711caa3f90e40eed352532945604d52734a7db7c96280da18c",
+    "Tools/OriginalWorldChecks/check_native_move_hints.py": "7ba1a4539802217c260cbf49f2ebebcfaca215607a6dd00328b2dc5025d89bb9",
     "Tools/OriginalWorldChecks/check_native_outbound_packets.py": "d9f1e3c82574fc7d727ff0aabd1abdc1cc5eb2ed176cea20f276f0cea0f67358",
-    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2"
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "\ubd84\uc11d/InstallerVersions/installer_inventory.json": "ccb25fe9bc77d00ee1061c10fa961663937fdcfd3859deb03e6328aa30f99ddd"
   },
-  "scope": "Actual UserUnit10005090 and GameCtl1000E4C0/1000E610 5C89/92/91 builders/check value; GameCtl1000DA10 WORD/byte decoder, list and own-team echo suppression. Raw table fields and allocation/import/output boundaries isolated. Inventory token mapping and server resource/consumption policies are not guessed.",
-  "logs": "/tmp/ds-native-magic-packet-checks"
+  "scope": "Actual UserUnit10005090 and GameCtl1000E4C0/1000E610 magic builders; GameCtl DA10 decoder/echo suppression. Level-effect cases execute EB10 -> DF10 -> 3D10 integer viewport centering -> original UserUnit CheckMagicTarget (area/team/active/enabled/order), then original E4C0 mode-gated builder. Imported table/allocator/send boundaries are isolated; UserUnit target result is handed unchanged to the GameCtl import boundary. No XP threshold formula, health/cost prediction, Unity Play or socket framing.",
+  "logs": "/tmp/ds-portable-validation/ds-native-magic-packet-checks"
 }

@@ -24,7 +24,7 @@ internal static partial class MagicProjectileChecks
     {
         public Memory store=new Memory();public EntryAccountService server;public WorldDefinition definition;public bool scenario;public int[] spells;
         public WorldView View=>server.WorldSnapshot();
-        public Fixture(int magic=101,bool scenario=false,int[] spells=null,int[] skills=null,WorldOwnedItem[] inventory=null)
+        public Fixture(int magic=101,bool scenario=false,int[] spells=null,int[] skills=null,WorldOwnedItem[] inventory=null,bool seedUnits=true)
         {
             this.scenario=scenario;this.spells=spells??new[]{magic};definition=Read<WorldDefinition>("Data/World/KaosiaWorld.json");definition.growthCatalog=Read<CharacterGrowthCatalog>("Data/Growth/CharacterGrowth.json");definition.combatCatalog=Read<OriginalCombatCatalog>("Data/Combat/OriginalCombat.json");definition.magicMenu=Read<MagicMenuCatalog>("Data/Combat/MagicMenu.json");definition.magicProjectiles=Read<MagicProjectileCatalog>("Data/Combat/MagicProjectiles.json");
             if(scenario)
@@ -49,7 +49,7 @@ internal static partial class MagicProjectileChecks
                 var gate=definition.Map(1000).portals.First(p=>p.targetMap==101);Check(server.MoveWorld(gate.cells[0].x,gate.cells[0].y).Accepted,"training entrance path");server.AdvanceWorld(100000);Check(server.EnterWorldPortal(gate.id,true).Accepted,"actual training entrance");
             }
             int x=View.record.x,y=View.record.y;var targetX=x+1<definition.Map(View.record.map).map.width?x+1:x-1;
-            Check(server.ReceiveBattleUnits(Notice(new[]{Unit(0,100,x,y),Unit(400,302,targetX,y)})).Accepted,"explicit roster/permissions/costs, no default enemies");
+            if(seedUnits)Check(server.ReceiveBattleUnits(Notice(new[]{Unit(0,100,x,y),Unit(400,302,targetX,y)})).Accepted,"explicit roster/permissions/costs, no default enemies");
         }
         public TrainingUnit Unit(int id,int job,int x,int y)=>new TrainingUnit{id=id,job=job,x=x,y=y,life=1,hp=id==0?200:50,maxHp=id==0?200:50,mp=id==0?45:0,maxMp=id==0?65:0,ap=20,maxAp=20,canMove=true,canAttack=true,canRest=true,movementBudget=5,attackRange=1,
             magicRules=id==0?spells.Select(s=>new BattleMagicRule{magic=s,enabled=true,mpCost=5,apCost=2,targets=new[]{400}}).ToArray():null};

@@ -14,6 +14,24 @@ namespace DarkSaver.Original.World
     {
         private static int Word(byte[] b,int at)=>(short)(b[at]|b[at+1]<<8);
         private static bool WordValue(int value)=>value>=short.MinValue&&value<=short.MaxValue;
+        // GameCtl EB10 -> DF10: both commands carry one signed unit WORD and
+        // request magic4001 in mode1. They do not themselves set XP or a level.
+        public static bool TryLevelEffectNotice(byte[] bytes,out int unit)
+        {
+            unit=-1;if(bytes==null||bytes.Length!=4||bytes[0]!=0x5c||(bytes[1]!=0x64&&bytes[1]!=0x65))return false;
+            unit=Word(bytes,2);return true;
+        }
+        public static NativeMagicPacket LevelEffectRequest(int source,MagicMenuEntry metadata,TrainingUnit[] units,int[] permitted)
+        {
+            if(source<0||metadata?.id!=4001||metadata.distance!=0||metadata.range!=8||metadata.unit!=3||units==null||permitted==null)return null;
+            var actor=units.FirstOrDefault(u=>u?.id==source);if(actor==null)return null;
+            // Eligibility is supplied by the authority. ID ranges/palette colors
+            // cannot replace the original alliance/team relation calculation.
+            var targets=units.Where(u=>u!=null&&u.nativeActive==true&&u.nativeEnabled==true&&permitted.Contains(u.id)
+                &&BattleMagicArea.Weight(actor.x,actor.y,u.x,u.y,metadata.range)>0).OrderBy(u=>u.x).ThenBy(u=>u.y).Select(u=>u.id).ToArray();
+            if(targets.Length==0||targets.Length>255)return null;
+            return new NativeMagicPacket{magic=4001,source=source,x=actor.x,y=actor.y,mode=1,signature=Signature(metadata),targets=targets};
+        }
         public static uint Signature(MagicMenuEntry row)=>unchecked((uint)(row.id*(row.pattern+row.unit+row.team+row.range+row.distance)));
         public static bool? Dispatches(NativeMagicPacket packet,int? localTeam,int? sourceTeam)
         {

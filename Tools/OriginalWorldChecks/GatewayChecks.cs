@@ -7,7 +7,7 @@ using DarkSaver.Original.World;
 using DarkSaver.Original.Entry;
 using DarkSaver.Original.Tutorial;
 
-internal static class GatewayChecks
+internal static partial class GatewayChecks
 {
     private static int assertions;private static string root;
     private static readonly JsonSerializerOptions Options=new JsonSerializerOptions{IncludeFields=true};
