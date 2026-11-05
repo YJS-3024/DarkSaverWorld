@@ -1,0 +1,25 @@
+"""Invoke existing independent contract entry points without editing their assertions.
+Full recursive battle regressions remain failed/incomplete in the main ledger.
+"""
+import pathlib,sys,subprocess,json,os,shutil,time,importlib,traceback
+B=pathlib.Path(__file__).resolve().parent;ROOT=B/'source.local';WORK=B/'contracts.local';OLD=B/'checks.local'
+DATA=pathlib.Path('C:/Program Files/Unity/Hub/Editor/6000.5.7f1/Editor/Data');LATE=B/'native.local/ds-installers/payloads/a6f518676a553098/saver_files/saver'
+ROWS=[('check_native_battle_packets','run_contract'),('check_native_battle_responses','run_contract'),('check_native_battle_decoder','main'),('check_native_magic','run_contract'),('check_native_magic_packets','main'),('check_native_class_adjustments','main'),('check_facility_contract_regressions','main')]
+if '--worker' in sys.argv:
+    sys.path.insert(0,str(ROOT/'Tools/OriginalWorldChecks'));module=importlib.import_module(sys.argv[-2]);getattr(module,sys.argv[-1])();sys.exit(0)
+WORK.mkdir(exist_ok=True)
+for folder in ['ds-npc-gateway-checks','ds-original-entry-checks','ds-commander-name-checks']:
+    dest=WORK/folder;dest.mkdir(exist_ok=True)
+    for p in (OLD/folder).glob('*'):
+        if p.suffix=='.rsp':(dest/p.name).write_text(p.read_text(encoding='utf-8').replace(str(OLD),str(WORK)),encoding='utf-8')
+        elif p.name.endswith('.runtimeconfig.json'):shutil.copyfile(p,dest/p.name)
+rules=[('/workspace/DarkSaverWorld',ROOT.as_posix()),('/workspace/.tools/unity/6000.5.7f1/Editor/Data',DATA.as_posix()),('/tmp/ds-installers',(B/'native.local/ds-installers').as_posix()),('/tmp',WORK.as_posix()),((ROOT.parent/'.tools/unity/6000.5.7f1/Editor/Data').as_posix(),DATA.as_posix()),('/workspace/.tools/ds-ghidra/installed/saver',LATE.as_posix()),((ROOT/'.tools/ds-ghidra/installed/saver').as_posix(),LATE.as_posix()),((ROOT.parent/'.tools/ds-ghidra/installed/saver').as_posix(),LATE.as_posix())]
+deps=B.parent/'f206c672-validation/deps.local'
+env=dict(os.environ,DARKSAVER_CHECK_PATHS=json.dumps(rules),PYTHONPATH=os.pathsep.join(map(str,[ROOT/'Tools/CheckSupport',B/'newline-compat.local',deps])),DOTNET_CLI_HOME=str(WORK/'dotnet-home'),TMPDIR=str(WORK),TEMP=str(WORK),TMP=str(WORK),PYTHONDONTWRITEBYTECODE='1',PYTHONUTF8='1',PYTHONIOENCODING='utf-8')
+results=[]
+for module,entry in ROWS:
+    started=time.time();log=WORK/(module+'.log')
+    with log.open('w',encoding='utf-8') as output:
+        p=subprocess.run([sys.executable,'-X','utf8',str(pathlib.Path(__file__).resolve()),'--worker',module,entry],cwd=ROOT,env=env,stdout=output,stderr=subprocess.STDOUT)
+    row=dict(check='Tools/OriginalWorldChecks/'+module+'.py',entry=entry,exitCode=p.returncode,seconds=round(time.time()-started,2),log=log.relative_to(B).as_posix(),scope='Existing independent contract entry only' if entry=='run_contract' else 'Existing main with prepared current prerequisites')
+    results.append(row);(B/'contract-results.local.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8');print(json.dumps(row),flush=True)

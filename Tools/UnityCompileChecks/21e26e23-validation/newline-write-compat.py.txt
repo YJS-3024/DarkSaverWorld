@@ -1,0 +1,24 @@
+"""Validation-only Windows LF output for one SHA-audited generated JSON.
+No source/assertion changes. All other files retain their normal write behavior.
+"""
+import pathlib,hashlib,json
+_base=pathlib.Path(__file__).resolve().parent.parent
+_root=_base/'source.local'
+_target=_root/'분석/Saver_Late/waiting_tutorial_resources.json'
+_write=pathlib.Path.write_text
+def write_text(self,data,*args,**kwargs):
+    if self.absolute()==_target:
+        manifest=json.loads((_root/'Tools/OriginalTutorialChecks/tutorial-assets.json').read_text(encoding='utf-8'))
+        expected=manifest['sources']['분석/Saver_Late/waiting_tutorial_resources.json']
+        normalized=data.replace('\r\n','\n').encode('utf-8')
+        # Fail rather than normalize any content change or different declared SHA.
+        if hashlib.sha256(normalized).hexdigest()!=expected:
+            raise ValueError('Generated waiting JSON changed beyond CRLF; preserving file')
+        kwargs['newline']='\n'
+        result=_write(self,data,*args,**kwargs)
+        assert hashlib.sha256(self.read_bytes()).hexdigest()==expected
+        with (_base/'newline-writes.local.log').open('a',encoding='utf-8') as log:
+            log.write(expected+' LF generated-analysis write verified\n')
+        return result
+    return _write(self,data,*args,**kwargs)
+pathlib.Path.write_text=write_text

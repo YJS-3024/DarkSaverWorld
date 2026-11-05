@@ -1,0 +1,11 @@
+--- original/WarehouseChecks.cs
++++ diagnostic-copy/WarehouseChecks.cs
+@@ -137,7 +137,7 @@
+         try
+         {
+             var disk=new LocalAccountFileStore(path);Check(disk.TryWrite(concurrent.store.data)&&disk.TryRead(out var doc)&&doc.accounts[0].character.world.warehouse.revision==1,"warehouse audit survives actual file serialization");
+-            var restored=new EntryAccountService(disk);new EntryClient(restored).OpenLocalProfile();Check(restored.BeginWorld(concurrent.definition).Accepted&&restored.WorldSnapshot().record.storage.Length==1&&restored.WorldSnapshot().facility==null,"file-backed login restores confirmed items only and no pending draft");
++            var restored=new EntryAccountService(disk);new EntryClient(restored).OpenLocalProfile();var probeBegin=restored.BeginWorld(concurrent.definition);var probeView=restored.WorldSnapshot();Console.Error.WriteLine("WAREHOUSE_PROBE accepted="+probeBegin.Accepted+" failure="+probeBegin.Failure+" storage="+(probeView?.record?.storage?.Length??-1)+" facilityNull="+(probeView?.facility==null));Check(probeBegin.Accepted&&restored.WorldSnapshot().record.storage.Length==1&&restored.WorldSnapshot().facility==null,"file-backed login restores confirmed items only and no pending draft");
+         }
+         finally{if(Directory.Exists(Path.GetDirectoryName(path)))Directory.Delete(Path.GetDirectoryName(path),true);}
+         // Moving an owned item cannot manufacture or clear its approved remaining-use count.

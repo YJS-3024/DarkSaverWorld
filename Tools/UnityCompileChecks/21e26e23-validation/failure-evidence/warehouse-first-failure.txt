@@ -1,0 +1,39 @@
+Traceback (most recent call last):
+  File "[isolated]\Tools\OriginalWorldChecks\check_native_battle_packets.py", line 26, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "[isolated]\Tools\OriginalWorldChecks\check_native_battle_packets.py", line 24, in main
+    if r.returncode:raise RuntimeError((r.stdout+r.stderr)[-2500:])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: derr)[-2400:])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: ectiles.py", line 62, in main
+    if run.returncode:raise RuntimeError((run.stdout+run.stderr)[-2200:])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: validation\source.local\Tools\OriginalWorldChecks\check_item_use.py", line 10, in main
+    if run.returncode:raise RuntimeError((run.stdout+run.stderr)[-2200:])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Traceback (most recent call last):
+  File "[isolated]\Tools\OriginalWorldChecks\check_shop.py", line 29, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "[isolated]\Tools\OriginalWorldChecks\check_shop.py", line 10, in main
+    if run.returncode:raise RuntimeError((run.stdout+run.stderr)[-2200:])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Traceback (most recent call last):
+  File "[isolated]\Tools\OriginalWorldChecks\check_mercenary.py", line 29, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "[isolated]\Tools\OriginalWorldChecks\check_mercenary.py", line 10, in main
+    if run.returncode:raise RuntimeError((run.stdout+run.stderr)[-2200:])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Traceback (most recent call last):
+  File "[isolated]\Tools\OriginalWorldChecks\check_warehouse.py", line 24, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "[isolated]\Tools\OriginalWorldChecks\check_warehouse.py", line 18, in main
+    if run.returncode:raise RuntimeError((run.stdout+run.stderr)[-2200:])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Unhandled exception. System.Exception: file-backed login restores confirmed items only and no pending draft
+   at WarehouseChecks.Check(Boolean ok, String label)
+   at WarehouseChecks.Main(String[] args)

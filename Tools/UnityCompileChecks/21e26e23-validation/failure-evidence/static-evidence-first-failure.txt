@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "[isolated]\Tools\OriginalWorldChecks\check_client_windows_integration.py", line 79, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "[isolated]\Tools\OriginalWorldChecks\check_client_windows_integration.py", line 70, in main
+    for row in original['functions']+[original['assembly']]:assert sha(ROOT/row['asset'])==row['sha256'],'Native static evidence changed: '+row['asset']
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Native static evidence changed: 분석/Ghidra/Saver_Late/ClientWindows/native-boundaries.asm.txt
