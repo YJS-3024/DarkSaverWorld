@@ -5,6 +5,16 @@ from PIL import Image
 ROOT=Path(__file__).resolve().parents[2];OUT=Path(__file__).parent;BASE=ROOT/'Assets/_Original'
 sys.path.insert(0,str(ROOT/'Tools/OriginalRestart'))
 from pixel_texture_policy import lossless
+def campaign_face_bindings_preserved(raw,expected):
+ # Keep the old face-builder output manifest as historical evidence. Only
+ # these two independently bound additions may differ from its exact bytes.
+ from build_native_outro_variants import serialized_field
+ asset=BASE/'Data/Campaign/NativeAiRules.json';meta=Path(str(asset)+'.meta').read_text()
+ guid=re.search(r'^guid: ([a-f0-9]{32})$',meta,re.M)[1]
+ ai='  aiRules: {fileID: 4900000, guid: '+guid+', type: 3}\n';variants=serialized_field();text=raw.decode('utf-8')
+ if text.count(ai)!=1 or text.count(variants)!=1:return False
+ prior=text.replace(ai,'',1).replace(variants,'',1).encode('utf-8')
+ return hashlib.sha256(prior).hexdigest()==expected
 def main():
  checks=0
  def check(ok,label):
@@ -15,7 +25,12 @@ def main():
   r=json.loads((OUT/name).read_text())
   for path,digest in r['sources'].items():check(hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==digest,path)
   for row in r['outputs']:
-   p=ROOT/row['asset'];check(hashlib.sha256(p.read_bytes()).hexdigest()==row['sha256'],row['asset']);meta=Path(str(p)+'.meta').read_text();check(bool(guid(p)),str(p)+'.meta')
+   p=ROOT/row['asset'];raw=p.read_bytes();matches=hashlib.sha256(raw).hexdigest()==row['sha256']
+   if not matches and row['asset']=='Assets/_Original/Data/Campaign/NativeCampaignArt.asset':
+    matches=campaign_face_bindings_preserved(raw,row['sha256'])
+    check(not campaign_face_bindings_preserved(raw.replace(b'  faceIds:',b'  changedFaceIds:',1),row['sha256']),'old native face field mutation remains rejected')
+    check(not campaign_face_bindings_preserved(raw+b'  aiRules: duplicate\n',row['sha256']),'extra serialized field remains rejected')
+   check(matches,row['asset']);meta=Path(str(p)+'.meta').read_text();check(bool(guid(p)),str(p)+'.meta')
    if p.suffix=='.png':check(lossless(meta,*Image.open(p).size),'effective platform point/uncompressed/full-size UI texture')
    if p.suffix=='.json':check('TextScriptImporter:'in meta,'JSON text asset importer')
    if p.suffix=='.asset':check('NativeFormatImporter:'in meta and 'mainObjectFileID: 11400000'in meta,'ScriptableObject resource importer')
@@ -77,6 +92,7 @@ def main():
  check(converted.size==fallback.size==(64,64) and converted.tobytes()==fallback.tobytes(),'original noface pixels');pixels+=64*64
  check(hashlib.sha256(path.read_bytes()).hexdigest()==row['sha256'] and row['guid']==guid(path),'fallback hash/GUID');check(lossless(Path(str(path)+'.meta').read_text(),*converted.size),'fallback effective lossless importer');check(re.search(r'^  noFace: .*guid: '+row['guid'],campaign,re.M)is not None,'fallback resource reference')
  report=dict(assertions=checks,importerChecks='Effective Unity default/active-platform settings and GUID/pixels, accepting harmless Unity metadata expansion; generation metadata SHA is provenance rather than a cross-import stability rule.',portraitReferences=len(face_ids),portraitPixelChecks=pixels,unityPlay=False,scope='Source hashes, output hashes, actual importer metadata, resource/script references, literal dimensions and native button ranges. Portrait archive table/checksum/decompression and every RGB pixel/reference are compared, following face/face1/face2/face3 precedence; source GetFace analysis is static, not native execution. Not Unity import, rendered text, physical input or audio.',sources={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()for p in [OUT/'check_client_window_assets.py',BASE/'Data/World/NativeWorldArt.asset',BASE/'Data/Campaign/NativeCampaignArt.asset',BASE/'Resources/OriginalBitmapFont.asset',BASE/'Resources/OriginalBitmapFont.asset.meta',waiting_path,BASE/'Data/Tutorial/NativeTutorialArt.asset',ROOT/'Tools/OriginalTutorialChecks/waiting-window-assets.json']})
+ for path in [OUT/'build_native_outro_variants.py',BASE/'Data/Campaign/NativeAiRules.json',Path(str(BASE/'Data/Campaign/NativeAiRules.json')+'.meta')]:report['sources'][path.relative_to(ROOT).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
  report['sources']['Tools/OriginalRestart/pixel_texture_policy.py']=hashlib.sha256((ROOT/'Tools/OriginalRestart/pixel_texture_policy.py').read_bytes()).hexdigest()
  (OUT/'client-window-assets-check.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in report.items()if k!='sources'}))
 if __name__=='__main__':main()

@@ -1,0 +1,54 @@
+{
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "originalSaverSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "readOnlyGhidra": true,
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFrameDispatch/DumpDarkSaverAiImports.java",
+      "sha256": "1143f82dd54d55dc940a71a5d65647952cc9622e2e47fa3cf864f6e811a69ce3"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/10002d30.c",
+      "sha256": "6858defce29cc789f8f1aaf58f9180c5ed14f5c68b04d5f3469c763c56312b9b"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/10003840.c",
+      "sha256": "24614125e3e755021efec32966650886d5c0e58c2f4402c8b046746efb574521"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/1000d870.c",
+      "sha256": "26549e7ec453b5b35f1680088457f0fea9a55ec1a5daf507645c413d66291133"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/1000eb10.c",
+      "sha256": "ccc5e939396d8327db989aa79716fe114c9b80ef3b411cf3ea94901ab5e3014f"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/read-only-export.log",
+      "sha256": "4c2f70c228beedd95f290bc7406cb3b81ee63c97c5469bf44fbd065f636232e4"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/references.txt",
+      "sha256": "da74e05fb3372cb19dfe72b173b1486659f90b4bf97aab77c75b42136f41d9cd"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFrameDispatch/Saver/00440ce0.c",
+      "sha256": "a7eab744f613e36fcfd653456df7f82c13c108bc5c10f2de3ad270e471d4e69d"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFrameDispatch/Saver/00440fb0.c",
+      "sha256": "d54baebf04abb2350670d6ae8d4efce1f88e28e48b3cb5dc8eb1b3b851880a39"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFrameDispatch/Saver/read-only-export.log",
+      "sha256": "ad703f921beec37a6f391675003703d6ad7f5c8e9771a9479955c4df6945906a"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFrameDispatch/Saver/references.txt",
+      "sha256": "413d1db5437039f389aa2650830d96cef2a88d7188b574950a283ce171eeab33"
+    }
+  ],
+  "analysisReport": "Tools/OriginalWorldChecks/native-ai-frame-gates-check.json",
+  "runtime0CConnected": false,
+  "scope": "GameCtl Update phase1 imports aiexcute when the valid script object mode differs from2. Map-not-ready mode2 executes the interpreter pump instead of the switch. Saver scene callbacks pass0..9 through and map special stages to200; no background AI thread, fixed FPS, original whole-process timing or runtime0C implementation is inferred."
+}

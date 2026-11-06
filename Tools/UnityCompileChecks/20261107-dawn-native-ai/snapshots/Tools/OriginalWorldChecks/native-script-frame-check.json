@@ -1,0 +1,540 @@
+{
+  "nativeUpdateCases": 8,
+  "mismatches": 0,
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "unityPlay": false,
+  "actualFpsMeasured": false,
+  "managedFrameEquivalenceTested": false,
+  "scope": "Actual GameCtl Update03BBF..03BE4 calls10F20, stops at return1 and continues at return0. Eligible unknown commands yield; skipped owner commands run through in one update; DO uses signed clock; DO2 movement release returns0 so the next command runs in the same update. MFC/graphics/unit/profile/transport boundaries are supplied. This establishes command cadence only, not original FPS, wall-clock playback or current Unity presentation equivalence.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_script_frame.py": "3127ae3c75cf546946a755412637b6fe039ee09de6fd6548be9b3767c10c946c",
+    "Tools/OriginalWorldChecks/native_event_step_emulator.py": "0aaa4ce2613b7e77c432c1004b5ef48b2503e69b86b49a12915dc72a7adb96b0",
+    "Tools/OriginalWorldChecks/native_scenario_end_emulator.py": "7dee0b4f38ba9f8a21112c267a84a97b4ba092701071b32bb727c116a2149686",
+    "Tools/OriginalWorldChecks/native_result_kills_emulator.py": "213076d2143a18fb884ed01e3c3d0f669382a9a94379d8101b6367fa2e94bb25"
+  },
+  "cases": [
+    {
+      "kind": "unknown-token-yields",
+      "subject": -1,
+      "frames": [
+        {
+          "mode": 1,
+          "active": 0,
+          "subject": -1,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 4,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 3
+        },
+        {
+          "mode": 1,
+          "active": 0,
+          "subject": -1,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 4,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 0
+        },
+        {
+          "mode": 1,
+          "active": 0,
+          "subject": -1,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 4,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 0
+        }
+      ]
+    },
+    {
+      "kind": "unknown-token-yields",
+      "subject": 0,
+      "frames": [
+        {
+          "mode": 1,
+          "active": 1,
+          "subject": 0,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 2,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [
+            0
+          ],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 1
+        },
+        {
+          "mode": 1,
+          "active": 1,
+          "subject": 0,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 3,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [
+            0,
+            0
+          ],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 1
+        },
+        {
+          "mode": 1,
+          "active": 0,
+          "subject": 0,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 4,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [
+            0,
+            0,
+            0
+          ],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 1
+        }
+      ]
+    },
+    {
+      "kind": "unknown-token-yields",
+      "subject": 7,
+      "frames": [
+        {
+          "mode": 1,
+          "active": 1,
+          "subject": 7,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 2,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [
+            7
+          ],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 1
+        },
+        {
+          "mode": 1,
+          "active": 1,
+          "subject": 7,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 3,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [
+            7,
+            7
+          ],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 1
+        },
+        {
+          "mode": 1,
+          "active": 0,
+          "subject": 7,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 4,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [
+            7,
+            7,
+            7
+          ],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 1
+        }
+      ]
+    },
+    {
+      "kind": "skip-or-timer",
+      "subject": -1,
+      "first": {
+        "mode": 1,
+        "active": 0,
+        "subject": -1,
+        "team": 0,
+        "waiting": 0,
+        "waitValue": 0,
+        "waitClock": 0,
+        "line": 4,
+        "execution": 1,
+        "testResult": 1,
+        "profile": [],
+        "mutations": [],
+        "unitReads": [],
+        "sent": [],
+        "events": [],
+        "callbacks": [],
+        "scriptCalls": 3
+      }
+    },
+    {
+      "kind": "skip-or-timer",
+      "subject": 0,
+      "first": {
+        "mode": 1,
+        "active": 1,
+        "subject": 0,
+        "team": 0,
+        "waiting": 1,
+        "waitValue": 500,
+        "waitClock": 1000,
+        "line": 2,
+        "execution": 1,
+        "testResult": 1,
+        "profile": [],
+        "mutations": [],
+        "unitReads": [
+          0
+        ],
+        "sent": [],
+        "events": [],
+        "callbacks": [],
+        "scriptCalls": 1
+      }
+    },
+    {
+      "kind": "skip-or-timer",
+      "subject": 7,
+      "first": {
+        "mode": 1,
+        "active": 1,
+        "subject": 7,
+        "team": 0,
+        "waiting": 1,
+        "waitValue": 500,
+        "waitClock": 1000,
+        "line": 2,
+        "execution": 1,
+        "testResult": 1,
+        "profile": [],
+        "mutations": [],
+        "unitReads": [
+          7
+        ],
+        "sent": [],
+        "events": [],
+        "callbacks": [],
+        "scriptCalls": 1
+      }
+    },
+    {
+      "kind": "condition-yield-loop",
+      "frames": [
+        {
+          "mode": 1,
+          "active": 1,
+          "subject": 0,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 2,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [
+            [
+              "FIRSTCLEAR",
+              true
+            ]
+          ],
+          "mutations": [],
+          "unitReads": [
+            0
+          ],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 1
+        },
+        {
+          "mode": 1,
+          "active": 1,
+          "subject": 0,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 5,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [
+            [
+              "FIRSTCLEAR",
+              true
+            ]
+          ],
+          "mutations": [],
+          "unitReads": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "sent": [
+            [
+              58,
+              123,
+              0,
+              0,
+              0
+            ]
+          ],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 3
+        },
+        {
+          "mode": 1,
+          "active": 0,
+          "subject": 0,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 7,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [
+            [
+              "FIRSTCLEAR",
+              true
+            ]
+          ],
+          "mutations": [],
+          "unitReads": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sent": [
+            [
+              58,
+              123,
+              0,
+              0,
+              0
+            ]
+          ],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 2
+        },
+        {
+          "mode": 1,
+          "active": 0,
+          "subject": 0,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": 0,
+          "waitClock": 0,
+          "line": 7,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [
+            [
+              "FIRSTCLEAR",
+              true
+            ]
+          ],
+          "mutations": [],
+          "unitReads": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sent": [
+            [
+              58,
+              123,
+              0,
+              0,
+              0
+            ]
+          ],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 0
+        }
+      ]
+    },
+    {
+      "kind": "movement-release-reenters-same-update",
+      "frames": [
+        {
+          "mode": 1,
+          "active": 1,
+          "subject": 0,
+          "team": 0,
+          "waiting": 1,
+          "waitValue": -2,
+          "waitClock": 1000,
+          "line": 2,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [
+            0
+          ],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 1
+        },
+        {
+          "mode": 1,
+          "active": 1,
+          "subject": 0,
+          "team": 0,
+          "waiting": 1,
+          "waitValue": -2,
+          "waitClock": 1000,
+          "line": 2,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [
+            0,
+            7
+          ],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 1
+        },
+        {
+          "mode": 1,
+          "active": 1,
+          "subject": 0,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": -2,
+          "waitClock": 1000,
+          "line": 3,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [
+            0,
+            7,
+            7,
+            0
+          ],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 2
+        },
+        {
+          "mode": 1,
+          "active": 0,
+          "subject": 0,
+          "team": 0,
+          "waiting": 0,
+          "waitValue": -2,
+          "waitClock": 1000,
+          "line": 4,
+          "execution": 1,
+          "testResult": 1,
+          "profile": [],
+          "mutations": [],
+          "unitReads": [
+            0,
+            7,
+            7,
+            0,
+            0
+          ],
+          "sent": [],
+          "events": [],
+          "callbacks": [],
+          "scriptCalls": 1
+        }
+      ]
+    }
+  ]
+}

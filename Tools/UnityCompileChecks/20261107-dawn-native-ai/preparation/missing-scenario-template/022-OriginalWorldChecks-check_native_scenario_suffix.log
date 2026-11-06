@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_scenario_suffix.py", line 56, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_scenario_suffix.py", line 19, in main
+    args=(old/'checks.rsp').read_text().replace(str(old/'ScenarioProgressChecks.dll'),str(exe))+'\n"'+str(OUT.resolve()/'NativeScenarioSuffixChecks.cs')+'"\n/main:ScenarioSuffixEntry\n'
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/ds-dawn-final-runtime/ds-scenario-progress-checks/checks.rsp'

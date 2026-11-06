@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_soldier_actions.py", line 36, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_soldier_actions.py", line 34, in main
+    run_contract()
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_soldier_actions.py", line 21, in run_contract
+    if r.returncode:raise RuntimeError((r.stdout+r.stderr)[-2400:])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Unhandled exception. System.Exception: explicit native automatic outcome accepted actor-hp0
+   at MagicProjectileChecks.Check(Boolean ok, String label)
+   at MagicProjectileChecks.CheckNativeSoldierControl(Boolean scenario)
+   at MagicProjectileChecks.RunSoldierActionChecks(String path)
+   at SoldierActionEntry.Main(String[] args)
+

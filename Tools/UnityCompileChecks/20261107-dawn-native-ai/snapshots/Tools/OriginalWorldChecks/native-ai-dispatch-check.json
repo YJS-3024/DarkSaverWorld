@@ -1,0 +1,903 @@
+{
+  "roleCases": 56,
+  "workerCases": 30,
+  "wrapAndCursorChains": 1,
+  "equalCursorEmptyCases": 1,
+  "mismatches": 0,
+  "unityPlay": false,
+  "runtime0CConnected": false,
+  "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_ai_dispatch.py": "01fa835dae35e3a65defd3cb7ddc73b5bd7255df3ad82add34c4f789210eed11",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "분석/Ghidra/Saver_Late/MonsterAiDispatch/evidence.json": "994771f49776b77a2fdadf5a19c6cf7106e84c3aecc339cb3e53703e429bc9a5",
+    "분석/Ghidra/Saver_Late/MonsterAiDispatch/100015a0.c": "6412278b62ed9d896eabb3dfdf1c38ccac321ba0afebdf7766a34b3134006e7b",
+    "분석/Ghidra/Saver_Late/MonsterAiDispatch/10002310.c": "5d3a28cd093748f70c9b94a78f57c1c024af4b4f3e7b2f14503c0f74e6309f91",
+    "분석/Ghidra/Saver_Late/MonsterAiDispatch/100023c0.c": "ba519423f248010d2f1d3cddb4cdd2c712dc1dc1df3ef1a85a39eaecaa37d6db",
+    "분석/Ghidra/Saver_Late/MonsterAiDispatch/10002420.c": "e9923bd8df34886fda549dc55603d41d3ec510af4491a67c31bd0f3a6198bfa3",
+    "분석/Ghidra/Saver_Late/MonsterAiDispatch/100041f0.c": "c1ae89179965ffb3f792716dbf1898cff08942f3f94b88ffbf2f56e6afed622d",
+    "분석/Ghidra/Saver_Late/MonsterAiDispatch/10004990.c": "7bc3e94961c72068815373653309fce34db493dc35fe38dcbe3b3542c0194bb2",
+    "분석/Ghidra/Saver_Late/MonsterAiDispatch/100035e0.c": "5bf624569c6a0b0a5c63d05b5adff5bbab71111078f3342a6e4e88bb205465db",
+    "분석/Ghidra/Saver_Late/MonsterAiDispatch/10003f70.c": "7c19b9e79ab12b4eaea4caae01037b0775e2834f4b763d49c57492b1b94af446",
+    "분석/Ghidra/Saver_Late/MonsterAiDispatch/100040a0.c": "ed3472fe8a7d556e87703177464e70c8fced42ce55852c7e50b56bcd67f4375b"
+  },
+  "roles": [
+    {
+      "unit": -32768,
+      "cursor": -7,
+      "calls": []
+    },
+    {
+      "unit": -32768,
+      "cursor": -1,
+      "calls": []
+    },
+    {
+      "unit": -32768,
+      "cursor": 0,
+      "calls": []
+    },
+    {
+      "unit": -32768,
+      "cursor": 123,
+      "calls": []
+    },
+    {
+      "unit": -2,
+      "cursor": -7,
+      "calls": []
+    },
+    {
+      "unit": -2,
+      "cursor": -1,
+      "calls": []
+    },
+    {
+      "unit": -2,
+      "cursor": 0,
+      "calls": []
+    },
+    {
+      "unit": -2,
+      "cursor": 123,
+      "calls": []
+    },
+    {
+      "unit": -1,
+      "cursor": -7,
+      "calls": []
+    },
+    {
+      "unit": -1,
+      "cursor": -1,
+      "calls": []
+    },
+    {
+      "unit": -1,
+      "cursor": 0,
+      "calls": []
+    },
+    {
+      "unit": -1,
+      "cursor": 123,
+      "calls": []
+    },
+    {
+      "unit": 0,
+      "cursor": -7,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 0,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "unit": 0,
+      "cursor": -1,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 0,
+          "cursor": -1
+        }
+      ]
+    },
+    {
+      "unit": 0,
+      "cursor": 0,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 0,
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "unit": 0,
+      "cursor": 123,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 0,
+          "cursor": 123
+        }
+      ]
+    },
+    {
+      "unit": 1,
+      "cursor": -7,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 1,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "unit": 1,
+      "cursor": -1,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 1,
+          "cursor": -1
+        }
+      ]
+    },
+    {
+      "unit": 1,
+      "cursor": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 1,
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "unit": 1,
+      "cursor": 123,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 1,
+          "cursor": 123
+        }
+      ]
+    },
+    {
+      "unit": 9,
+      "cursor": -7,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 9,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "unit": 9,
+      "cursor": -1,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 9,
+          "cursor": -1
+        }
+      ]
+    },
+    {
+      "unit": 9,
+      "cursor": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 9,
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "unit": 9,
+      "cursor": 123,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 9,
+          "cursor": 123
+        }
+      ]
+    },
+    {
+      "unit": 10,
+      "cursor": -7,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 10,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "unit": 10,
+      "cursor": -1,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 10,
+          "cursor": -1
+        }
+      ]
+    },
+    {
+      "unit": 10,
+      "cursor": 0,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 10,
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "unit": 10,
+      "cursor": 123,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 10,
+          "cursor": 123
+        }
+      ]
+    },
+    {
+      "unit": 11,
+      "cursor": -7,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 11,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "unit": 11,
+      "cursor": -1,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 11,
+          "cursor": -1
+        }
+      ]
+    },
+    {
+      "unit": 11,
+      "cursor": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 11,
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "unit": 11,
+      "cursor": 123,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 11,
+          "cursor": 123
+        }
+      ]
+    },
+    {
+      "unit": 399,
+      "cursor": -7,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 399,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "unit": 399,
+      "cursor": -1,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 399,
+          "cursor": -1
+        }
+      ]
+    },
+    {
+      "unit": 399,
+      "cursor": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 399,
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "unit": 399,
+      "cursor": 123,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 399,
+          "cursor": 123
+        }
+      ]
+    },
+    {
+      "unit": 400,
+      "cursor": -7,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 400,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "unit": 400,
+      "cursor": -1,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 400,
+          "cursor": -1
+        }
+      ]
+    },
+    {
+      "unit": 400,
+      "cursor": 0,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 400,
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "unit": 400,
+      "cursor": 123,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 400,
+          "cursor": 123
+        }
+      ]
+    },
+    {
+      "unit": 401,
+      "cursor": -7,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 401,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "unit": 401,
+      "cursor": -1,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 401,
+          "cursor": -1
+        }
+      ]
+    },
+    {
+      "unit": 401,
+      "cursor": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 401,
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "unit": 401,
+      "cursor": 123,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 401,
+          "cursor": 123
+        }
+      ]
+    },
+    {
+      "unit": 799,
+      "cursor": -7,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 799,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "unit": 799,
+      "cursor": -1,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 799,
+          "cursor": -1
+        }
+      ]
+    },
+    {
+      "unit": 799,
+      "cursor": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 799,
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "unit": 799,
+      "cursor": 123,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 799,
+          "cursor": 123
+        }
+      ]
+    },
+    {
+      "unit": 800,
+      "cursor": -7,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 800,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "unit": 800,
+      "cursor": -1,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 800,
+          "cursor": -1
+        }
+      ]
+    },
+    {
+      "unit": 800,
+      "cursor": 0,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 800,
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "unit": 800,
+      "cursor": 123,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 800,
+          "cursor": 123
+        }
+      ]
+    },
+    {
+      "unit": 2999,
+      "cursor": -7,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 2999,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "unit": 2999,
+      "cursor": -1,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 2999,
+          "cursor": -1
+        }
+      ]
+    },
+    {
+      "unit": 2999,
+      "cursor": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 2999,
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "unit": 2999,
+      "cursor": 123,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 2999,
+          "cursor": 123
+        }
+      ]
+    }
+  ],
+  "workers": [
+    {
+      "head": 0,
+      "tail": 0,
+      "unit": -1,
+      "nextHead": 0,
+      "calls": []
+    },
+    {
+      "head": 0,
+      "tail": 0,
+      "unit": 0,
+      "nextHead": 0,
+      "calls": []
+    },
+    {
+      "head": 0,
+      "tail": 0,
+      "unit": 1,
+      "nextHead": 0,
+      "calls": []
+    },
+    {
+      "head": 0,
+      "tail": 0,
+      "unit": 400,
+      "nextHead": 0,
+      "calls": []
+    },
+    {
+      "head": 0,
+      "tail": 0,
+      "unit": 401,
+      "nextHead": 0,
+      "calls": []
+    },
+    {
+      "head": 0,
+      "tail": 0,
+      "unit": 799,
+      "nextHead": 0,
+      "calls": []
+    },
+    {
+      "head": 0,
+      "tail": 1,
+      "unit": -1,
+      "nextHead": 1,
+      "calls": []
+    },
+    {
+      "head": 0,
+      "tail": 1,
+      "unit": 0,
+      "nextHead": 1,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 0,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 0,
+      "tail": 1,
+      "unit": 1,
+      "nextHead": 1,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 1,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 0,
+      "tail": 1,
+      "unit": 400,
+      "nextHead": 1,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 400,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 0,
+      "tail": 1,
+      "unit": 401,
+      "nextHead": 1,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 401,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 0,
+      "tail": 1,
+      "unit": 799,
+      "nextHead": 1,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 799,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 99,
+      "tail": 0,
+      "unit": -1,
+      "nextHead": 0,
+      "calls": []
+    },
+    {
+      "head": 99,
+      "tail": 0,
+      "unit": 0,
+      "nextHead": 0,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 0,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 99,
+      "tail": 0,
+      "unit": 1,
+      "nextHead": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 1,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 99,
+      "tail": 0,
+      "unit": 400,
+      "nextHead": 0,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 400,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 99,
+      "tail": 0,
+      "unit": 401,
+      "nextHead": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 401,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 99,
+      "tail": 0,
+      "unit": 799,
+      "nextHead": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 799,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 99,
+      "tail": 1,
+      "unit": -1,
+      "nextHead": 0,
+      "calls": []
+    },
+    {
+      "head": 99,
+      "tail": 1,
+      "unit": 0,
+      "nextHead": 0,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 0,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 99,
+      "tail": 1,
+      "unit": 1,
+      "nextHead": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 1,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 99,
+      "tail": 1,
+      "unit": 400,
+      "nextHead": 0,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 400,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 99,
+      "tail": 1,
+      "unit": 401,
+      "nextHead": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 401,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 99,
+      "tail": 1,
+      "unit": 799,
+      "nextHead": 0,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 799,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 50,
+      "tail": 99,
+      "unit": -1,
+      "nextHead": 51,
+      "calls": []
+    },
+    {
+      "head": 50,
+      "tail": 99,
+      "unit": 0,
+      "nextHead": 51,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 0,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 50,
+      "tail": 99,
+      "unit": 1,
+      "nextHead": 51,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 1,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 50,
+      "tail": 99,
+      "unit": 400,
+      "nextHead": 51,
+      "calls": [
+        {
+          "kind": "commander",
+          "unit": 400,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 50,
+      "tail": 99,
+      "unit": 401,
+      "nextHead": 51,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 401,
+          "cursor": -7
+        }
+      ]
+    },
+    {
+      "head": 50,
+      "tail": 99,
+      "unit": 799,
+      "nextHead": 51,
+      "calls": [
+        {
+          "kind": "follower",
+          "unit": 799,
+          "cursor": -7
+        }
+      ]
+    }
+  ],
+  "scope": "Actual UserUnit023C0 worker and02420 role dispatch. Consume exactly one100-slot FIFO entry per invocation, including negative sentinel, wrap, equal-cursor no-op, carried return cursor and two supplied clock samples/counters. Commander04990/follower041F0 are captured callees, not executed by this check. Native soldier planner equivalence is a separate report; no full CommanderAI decision, server authorization, new runtime0C, timing/FPS or Unity Play claim."
+}

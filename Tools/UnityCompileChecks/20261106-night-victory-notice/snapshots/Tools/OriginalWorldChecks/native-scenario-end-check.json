@@ -1,0 +1,3323 @@
+{
+  "nativeEndCases": 56,
+  "nativeAcknowledgeCases": 12,
+  "nativeConfirmCases": 16,
+  "nativeTeamToWinNoticeCases": 7,
+  "mismatches": 0,
+  "unityPlay": false,
+  "productionFlowExercised": false,
+  "originalSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "scope": "Exact GameCtlEB10->D150 and08CA0 plus result8 confirm with supplied current result/winner/tutorial globals. CString, dialogue construction, UserUnit status, script load/drain, cleanup and Win32 calls are captured boundaries. Original execution evidence only: production61 flow not exercised; no inferred server send order, rewards or Unity UI equivalence claim.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_scenario_end.py": "cad93b9cb903895b95895ad7fccd9022a616c05dee70abeeb4f6a49abae7622f",
+    "Tools/OriginalWorldChecks/native_scenario_end_emulator.py": "7dee0b4f38ba9f8a21112c267a84a97b4ba092701071b32bb727c116a2149686",
+    "Tools/OriginalWorldChecks/native_result_kills_emulator.py": "213076d2143a18fb884ed01e3c3d0f669382a9a94379d8101b6367fa2e94bb25",
+    "Tools/OriginalWorldChecks/native_result_emulator.py": "414070bc1d9ff879f1c9f0d77f0b6025fd4e684b9f07dfa21e0d6bc575992bbe",
+    "Tools/OriginalWorldChecks/native_battle_briefing_emulator.py": "b0ef4d1c053a2328b211e3b162bd3bdc0102a5c70e62f1a84306e2121cbea8a3",
+    "Tools/OriginalWorldChecks/native_battle_options_emulator.py": "2a54e048fade9942974f4a06ff07f6d183a8d81f41288804f5b468d5a4b06bbd",
+    "Assets/_Original/Runtime/Combat/NativeBattlePacketService.cs": "a93ca0453e5993d6999cf66657af3c0c3a03d06554eac3adaa1872308e723a77"
+  },
+  "endCases": [
+    {
+      "flag": 0,
+      "outcome": -1,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": -1,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 0,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 0,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 1,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "테스트님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 1,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "테스트님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 2,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 2,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 3,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "주지휘관이 죽었습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 0,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 3,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "주지휘관이 죽었습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 0,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 4,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 4,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 32767,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 0,
+      "outcome": 32767,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": -1,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1424,
+              0,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1229,
+              0,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [
+          [
+            "leave-request-builder-boundary"
+          ]
+        ],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": -1,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 0,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1424,
+              0,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1229,
+              0,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [
+          [
+            "leave-request-builder-boundary"
+          ]
+        ],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 0,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 1,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "visual-list-clear-boundary"
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [
+          [
+            "script-boundary",
+            "DEE"
+          ]
+        ],
+        "callbacks": [
+          [
+            1227,
+            0,
+            0,
+            0
+          ],
+          [
+            1227,
+            1,
+            0,
+            0
+          ],
+          [
+            1227,
+            2,
+            0,
+            0
+          ],
+          [
+            1227,
+            3,
+            0,
+            0
+          ],
+          [
+            1227,
+            4,
+            0,
+            0
+          ],
+          [
+            1227,
+            5,
+            0,
+            0
+          ],
+          [
+            1227,
+            6,
+            0,
+            0
+          ],
+          [
+            1227,
+            7,
+            0,
+            0
+          ],
+          [
+            1227,
+            8,
+            0,
+            0
+          ],
+          [
+            1227,
+            9,
+            0,
+            0
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 1,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 2,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1424,
+              0,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1229,
+              0,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [
+          [
+            "leave-request-builder-boundary"
+          ]
+        ],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 2,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 3,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1424,
+              0,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1229,
+              0,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [
+          [
+            "leave-request-builder-boundary"
+          ]
+        ],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 3,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 4,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1424,
+              0,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1229,
+              0,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [
+          [
+            "leave-request-builder-boundary"
+          ]
+        ],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 4,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 32767,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1424,
+              0,
+              0
+            ]
+          ],
+          [
+            "PostMessageA",
+            [
+              0,
+              1229,
+              0,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [
+          [
+            "leave-request-builder-boundary"
+          ]
+        ],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 1,
+      "outcome": 32767,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": -1,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": -1,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 0,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 0,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 1,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "테스트님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 1,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "테스트님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 2,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 2,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 3,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "주지휘관이 죽었습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 0,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 3,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "주지휘관이 죽었습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 0,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 4,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 4,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 32767,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 2,
+      "outcome": 32767,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": -1,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": -1,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 0,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 0,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 1,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "테스트님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 1,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "테스트님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 2,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 2,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 3,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "주지휘관이 죽었습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 0,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 3,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "주지휘관이 죽었습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 0,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 4,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 4,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 32767,
+      "tutorial": 0,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "flag": 255,
+      "outcome": 32767,
+      "tutorial": 1,
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 0,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    }
+  ],
+  "acknowledgeCases": [
+    {
+      "tutorial": 0,
+      "mode": 0,
+      "position": 0,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 0
+      }
+    },
+    {
+      "tutorial": 0,
+      "mode": 0,
+      "position": 3,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 0,
+        "firstLine": 3
+      }
+    },
+    {
+      "tutorial": 0,
+      "mode": 1,
+      "position": 0,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 3
+      }
+    },
+    {
+      "tutorial": 0,
+      "mode": 1,
+      "position": 3,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [
+          [
+            1226,
+            8,
+            0,
+            0
+          ],
+          [
+            1232,
+            8,
+            110,
+            10
+          ]
+        ],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 0,
+        "waiting": 1,
+        "firstLine": 6
+      }
+    },
+    {
+      "tutorial": 0,
+      "mode": 2,
+      "position": 0,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "tutorial": 0,
+      "mode": 2,
+      "position": 3,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 3
+      }
+    },
+    {
+      "tutorial": 1,
+      "mode": 0,
+      "position": 0,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "tutorial": 1,
+      "mode": 0,
+      "position": 3,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 3
+      }
+    },
+    {
+      "tutorial": 1,
+      "mode": 1,
+      "position": 0,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 3
+      }
+    },
+    {
+      "tutorial": 1,
+      "mode": 1,
+      "position": 3,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 1,
+        "waiting": 0,
+        "firstLine": 3
+      }
+    },
+    {
+      "tutorial": 1,
+      "mode": 2,
+      "position": 0,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "tutorial": 1,
+      "mode": 2,
+      "position": 3,
+      "native": {
+        "events": [],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 79225,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 3
+      }
+    }
+  ],
+  "confirmCases": [
+    {
+      "outcome": 1,
+      "tutorial": 0,
+      "control": 0,
+      "native": {
+        "callbacks": [
+          [
+            1227,
+            0,
+            0,
+            0
+          ],
+          [
+            1227,
+            1,
+            0,
+            0
+          ],
+          [
+            1227,
+            2,
+            0,
+            0
+          ],
+          [
+            1227,
+            3,
+            0,
+            0
+          ],
+          [
+            1227,
+            4,
+            0,
+            0
+          ],
+          [
+            1227,
+            5,
+            0,
+            0
+          ],
+          [
+            1227,
+            6,
+            0,
+            0
+          ],
+          [
+            1227,
+            7,
+            0,
+            0
+          ],
+          [
+            1227,
+            8,
+            0,
+            0
+          ],
+          [
+            1227,
+            9,
+            0,
+            0
+          ]
+        ],
+        "actions": [
+          [
+            "script-boundary",
+            "DEE"
+          ]
+        ]
+      }
+    },
+    {
+      "outcome": 1,
+      "tutorial": 0,
+      "control": 1,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    },
+    {
+      "outcome": 1,
+      "tutorial": 1,
+      "control": 0,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    },
+    {
+      "outcome": 1,
+      "tutorial": 1,
+      "control": 1,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    },
+    {
+      "outcome": 2,
+      "tutorial": 0,
+      "control": 0,
+      "native": {
+        "callbacks": [],
+        "actions": [
+          [
+            "leave-request-builder-boundary"
+          ]
+        ]
+      }
+    },
+    {
+      "outcome": 2,
+      "tutorial": 0,
+      "control": 1,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    },
+    {
+      "outcome": 2,
+      "tutorial": 1,
+      "control": 0,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    },
+    {
+      "outcome": 2,
+      "tutorial": 1,
+      "control": 1,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    },
+    {
+      "outcome": 3,
+      "tutorial": 0,
+      "control": 0,
+      "native": {
+        "callbacks": [],
+        "actions": [
+          [
+            "leave-request-builder-boundary"
+          ]
+        ]
+      }
+    },
+    {
+      "outcome": 3,
+      "tutorial": 0,
+      "control": 1,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    },
+    {
+      "outcome": 3,
+      "tutorial": 1,
+      "control": 0,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    },
+    {
+      "outcome": 3,
+      "tutorial": 1,
+      "control": 1,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    },
+    {
+      "outcome": 4,
+      "tutorial": 0,
+      "control": 0,
+      "native": {
+        "callbacks": [],
+        "actions": [
+          [
+            "leave-request-builder-boundary"
+          ]
+        ]
+      }
+    },
+    {
+      "outcome": 4,
+      "tutorial": 0,
+      "control": 1,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    },
+    {
+      "outcome": 4,
+      "tutorial": 1,
+      "control": 0,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    },
+    {
+      "outcome": 4,
+      "tutorial": 1,
+      "control": 1,
+      "native": {
+        "callbacks": [],
+        "actions": []
+      }
+    }
+  ],
+  "teamNoticeCases": [
+    {
+      "rows": [],
+      "localName": "previous",
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "previous님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "rows": [
+        [
+          1,
+          "다른팀"
+        ]
+      ],
+      "localName": "previous",
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "previous님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "rows": [
+        [
+          0,
+          "검사"
+        ]
+      ],
+      "localName": "검사",
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "검사님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "rows": [
+        [
+          0,
+          "첫째"
+        ],
+        [
+          0,
+          "마지막"
+        ]
+      ],
+      "localName": "마지막",
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "마지막님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "rows": [
+        [
+          1,
+          "팀1"
+        ],
+        [
+          2,
+          "팀2"
+        ],
+        [
+          3,
+          "팀3"
+        ],
+        [
+          4,
+          "팀4"
+        ],
+        [
+          5,
+          "팀5"
+        ],
+        [
+          6,
+          "팀6"
+        ],
+        [
+          7,
+          "팀7"
+        ],
+        [
+          8,
+          "팀8"
+        ],
+        [
+          9,
+          "팀9"
+        ],
+        [
+          0,
+          "열째"
+        ]
+      ],
+      "localName": "열째",
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "열째님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "rows": [
+        [
+          1,
+          "팀1"
+        ],
+        [
+          2,
+          "팀2"
+        ],
+        [
+          3,
+          "팀3"
+        ],
+        [
+          4,
+          "팀4"
+        ],
+        [
+          5,
+          "팀5"
+        ],
+        [
+          6,
+          "팀6"
+        ],
+        [
+          7,
+          "팀7"
+        ],
+        [
+          8,
+          "팀8"
+        ],
+        [
+          9,
+          "팀9"
+        ],
+        [
+          10,
+          "팀10"
+        ],
+        [
+          11,
+          "팀11"
+        ],
+        [
+          12,
+          "팀12"
+        ],
+        [
+          13,
+          "팀13"
+        ],
+        [
+          14,
+          "팀14"
+        ],
+        [
+          15,
+          "팀15"
+        ],
+        [
+          16,
+          "팀16"
+        ],
+        [
+          17,
+          "팀17"
+        ],
+        [
+          18,
+          "팀18"
+        ],
+        [
+          19,
+          "팀19"
+        ],
+        [
+          20,
+          "팀20"
+        ],
+        [
+          0,
+          "끝"
+        ]
+      ],
+      "localName": "끝",
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "끝님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    },
+    {
+      "rows": [
+        [
+          0,
+          "A\u0000B"
+        ]
+      ],
+      "localName": "A",
+      "native": {
+        "events": [
+          [
+            "SendMessageA",
+            [
+              0,
+              1244,
+              1,
+              0
+            ]
+          ],
+          [
+            "dialogue",
+            [
+              40,
+              130,
+              561,
+              65
+            ],
+            "A님이 승리하셨습니다."
+          ],
+          [
+            "game-status",
+            0
+          ]
+        ],
+        "actions": [],
+        "callbacks": [],
+        "resultFlag": 1,
+        "noticeMode": 1,
+        "noticeOutcome": 1,
+        "active": 1,
+        "waiting": 1,
+        "firstLine": 0
+      }
+    }
+  ]
+}

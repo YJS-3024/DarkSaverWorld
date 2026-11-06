@@ -22,6 +22,8 @@ class NativeDecoder:
         if address==0x1000c540:self.reads+=1;return # Run actual cursor/read function.
         name=self.hooks.get(address)
         if name and 'IncTick@@'in name:call=dict(kind='pulse',values=[])
+        elif name and 'MagicFlag@@'in name:
+            unit,flags=self.args(2);call=dict(kind='status',values=[unit if unit<0x80000000 else unit-0x100000000,flags])
         elif name and 'SetExp@@'in name:
             packed,value=self.args(2);call=dict(kind='experience',values=[self.signed(packed&65535),value])
         elif name and ('SetHpDisplay@@'in name or 'SetMpDisplay@@'in name):
@@ -68,6 +70,8 @@ def vectors():
             for opcode in [5,6,7]:cases.append(dict(packet=[0x5c,opcode,*struct.pack('<hh',unit,value)]))
             cases.append(dict(packet=[0x5c,0x82,*struct.pack('<hhh',400,unit,value)]))
             for mask in [0,17,32768,65535]:cases.append(dict(packet=[0x5c,0x52,*struct.pack('<hhH',unit,value,mask)]))
+    for unit in [0,1,999,2000,2999]:
+        for flags in [0,1,2,4,0x8000,0xffff,0xffff0000,0x80000001,0xffffffff]:cases.append(dict(packet=[0x5c,0x13,*struct.pack('<hI',unit,flags)]))
     return cases
 
 def main():
@@ -89,7 +93,7 @@ def main():
         if result!=current:mismatches.append(dict(input=case,native=result,managed=current))
     native.close();(WORK/'mismatches.json').write_text(json.dumps(mismatches,indent=2))
     sources=['Assets/_Original/Runtime/Combat/NativeMovement.cs','Assets/_Original/Runtime/Combat/NativeBattlePackets.cs','Assets/_Original/Runtime/Combat/BattleFeedback.cs','Assets/_Original/Runtime/Combat/BattleLifecycle.cs','Assets/_Original/Runtime/Combat/BattleTicks.cs','Tools/OriginalWorldChecks/BattleDecoderDifferential.cs','Tools/OriginalWorldChecks/check_native_battle_decoder.py','Tools/OriginalWorldChecks/native_ai_emulator.py','분석/InstallerVersions/installer_inventory.json']
-    result=dict(cases=len(cases),nativeExperienceSetCases=experience_sets,mismatches=len(mismatches),nativeCodeExecuted=True,unityPlayExecuted=False,casesSha256=hashlib.sha256(input.read_bytes()).hexdigest(),sources={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest()for p in sources},scope='Actual late GameCtl1000EB10 dispatch and WORD/DWORD cursor execute; capture UserUnit import arguments. Experience5C53 also executes original UserUnit.SetExp1000CE10 and compares the full736-byte records: only the target+8 DWORD changes, including uint32 high-bit/max. Other setters/updates have separate feedback/death/tick checks. Strict malformed-length/domain checks are adapter protections, not native buffer bounds. No socket/Windows UI or inferred level calculation.',logs=str(WORK))
+    result=dict(cases=len(cases),nativeExperienceSetCases=experience_sets,mismatches=len(mismatches),nativeCodeExecuted=True,unityPlayExecuted=False,casesSha256=hashlib.sha256(input.read_bytes()).hexdigest(),sources={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest()for p in sources},scope='Actual late GameCtl1000EB10 dispatch and WORD/DWORD cursor execute; capture UserUnit import arguments. Experience5C53 also executes original UserUnit.SetExp1000CE10 and compares the full736-byte records: only the target+8 DWORD changes, including uint32 high-bit/max. Status13 also captures original signed unit/uint32 MagicFlag arguments; the original C950 mutation has a separate full-record comparison. Other setters/updates have separate feedback/death/tick checks. Strict malformed-length/domain checks are adapter protections, not native buffer bounds. No socket/Windows UI or inferred level calculation.',logs=str(WORK))
     (OUT/'native-battle-decoder-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items()if k!='sources'}))
     if mismatches:print(json.dumps(mismatches[0]));raise SystemExit(1)
 if __name__=='__main__':main()

@@ -1,0 +1,52 @@
+{
+  "sourceVersion": "Saver_Late",
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "method": "Read-only Ghidra exports plus original0D queue and event-start branch execution. Full interpreter exported for data-flow references; its entire body is not executed by this check.",
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/EventQueue/1000d8a0.c",
+      "sha256": "ed6a3de267a5b3417f524c8e7e90a03252e8ce5e7f29483d918284e3cd4a1c5d"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/EventQueue/1000f070.c",
+      "sha256": "09b49179c27e15d546725adae4912645731ace55f8d455adb081aadde1ceb21e"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/EventQueue/1000f710.c",
+      "sha256": "8de73e11e2c714017b2220eeaa4092a5333f9f12f4be77e62cf9a8137dd49e01"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/EventQueue/10010f20.c",
+      "sha256": "56f867ccbd8c7ab21364c98128b57e46fa959451b66bbcc5c393862f445a7b78"
+    }
+  ],
+  "nativeExecution": {
+    "report": "Tools/OriginalWorldChecks/native-event-queue-check.json",
+    "sha256": "d96bb8eb348e8398d4d0cf72750ceb05f4f5af077ea16d167ac673b7ad44f916"
+  },
+  "runtime0DConnected": true,
+  "unityPlay": false,
+  "interpreterStepExecution": {
+    "report": "Tools/OriginalWorldChecks/native-event-steps-check.json",
+    "sha256": "649630e22448bf12ff220bd5ce72a2a789055ff0e0e4c66d7594b3eb6c2fd162"
+  },
+  "updateLoopExecution": {
+    "report": "Tools/OriginalWorldChecks/native-script-frame-check.json",
+    "sha256": "9394b6c5de8a2076b5c658bc0d7a67082c044099d943adb2aaa5e85fdb98107d"
+  },
+  "runtime15Connected": true,
+  "runtime15Comparison": {
+    "report": "Tools/OriginalWorldChecks/native-immediate-events-check.json",
+    "sha256": "85c615b3c58052879e9bcefeabd2474cf2c65a562cd23fbdc7de25eaf2183020"
+  },
+  "runtime15Contracts": {
+    "report": "Tools/OriginalWorldChecks/scenario-progress-check.json",
+    "sha256": "6d1efe6d57b859222d686275e8357371a44f67faeda6932087d49ad28f666473"
+  },
+  "runtime15Scope": "Idle scenario15 synchronous map mutation broadcasts. Directed0D mode1 queue is implemented separately; interrupted terminal/end preemption is not claimed.",
+  "interpreterCorpusExecution": {
+    "report": "Tools/OriginalWorldChecks/native-event-corpus-check.json",
+    "sha256": "eb3737a41fac191952ca1979180a88fccd2d7531794044fbd7bdd4efd527d08a"
+  },
+  "runtime0DScope": "Approved raw0D ingress, signed subject/team FIFO and mode1 Update interpreter. Current implementation/tests and explicit boundaries are recorded in ../DirectedEvents/evidence.json; original server triggers and real-time playback are not supplied."
+}

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_client_windows_integration.py", line 83, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_client_windows_integration.py", line 47, in main
+    assert not stale,'Stale verification sources; rerun the relevant check: '+json.dumps(stale,ensure_ascii=False)
+           ^^^^^^^^^
+AssertionError: Stale verification sources; rerun the relevant check: [{"report": "native-class-adjustments-check.json", "source": "Assets/_Original/Runtime/World/LocalServerManager.World.cs"}, {"report": "native-event-loader-check.json", "source": "Assets/_Original/Runtime/World/LocalServerManager.World.cs"}]

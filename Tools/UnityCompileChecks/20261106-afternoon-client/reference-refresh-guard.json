@@ -1,0 +1,24 @@
+{
+  "checkedAtUtc": "2026-11-06T05:29:37.263620+00:00",
+  "staleReportRejected": true,
+  "manifestsUnchanged": true,
+  "changedEvidenceHashRewritten": false,
+  "unityPlay": false,
+  "tool": "Tools/GhidraChecks/refresh_native_evidence_references.py",
+  "toolSha256": "435f5aaa2f187440f6eb0de116ad45757f41ce9df6bf6e7851a759f02f86a877",
+  "staleReport": "Tools/OriginalWorldChecks/native-event-corpus-check.json",
+  "staleReportSha256": "0b98131c21cef84e7222435c205c4d6bd62814e454b20c804bf24e615e9616e6",
+  "manifestHashes": {
+    "분석/Ghidra/Saver_Late/ScenarioEndControl/evidence.json": "9c4b8ae69b4adf762fdb4bf88b38cd51dc960c2a523fb7aff3d2ebbc616675de",
+    "분석/Ghidra/Saver_Late/EventQueue/evidence.json": "f7b035313b99e66f53e27a1a869fec2216030dc0a6c9096c30b35b49b55f4871",
+    "분석/Ghidra/Saver_Late/MagicRedirect/evidence.json": "bc219aa50b3ee83884622d521efd75446a3ad48f4296a2452cbdd8d1152011f1",
+    "분석/Ghidra/Saver_Late/AuxiliaryPackets/evidence.json": "6f7e7b354391096989ae455fb674042b3d41ad126b6655bd61392cd20d7ce966"
+  },
+  "rejection": "Traceback (most recent call last):\n  File \"/workspace/DarkSaverWorld/Tools/GhidraChecks/refresh_native_evidence_references.py\", line 37, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/workspace/DarkSaverWorld/Tools/GhidraChecks/refresh_native_evidence_references.py\", line 33, in main\n    verify_report(report);data[field]=dict(report=previous,sha256=sha(report))\n    ^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/DarkSaverWorld/Tools/GhidraChecks/refresh_native_evidence_references.py\", line 23, in verify_report\n    target=ROOT/source;assert target.is_file()and sha(target)==digest,'Stale report; rerun its real producer: '+path.name+' / '+source\n                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Stale report; rerun its real producer: native-event-corpus-check.json / Tools/OriginalWorldChecks/check_native_event_corpus.py\n",
+  "priorProof": {
+    "staleReportRejected": true,
+    "manifestsUnchanged": true,
+    "changedEvidenceHashRewritten": false,
+    "unityPlay": false
+  }
+}

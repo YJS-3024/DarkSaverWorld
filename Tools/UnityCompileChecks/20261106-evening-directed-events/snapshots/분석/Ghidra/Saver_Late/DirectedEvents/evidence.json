@@ -1,0 +1,79 @@
+{
+  "sourceVersion": "Saver_Late",
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "method": "Read-only native exports and bounded original x86 execution compared with production code. Full original DLL process/OS/Unity rendering is not executed.",
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/DirectedEvents/10002e10.c",
+      "sha256": "4c38696abfda418c4f02137463e4228798581c6d1ea0ffe42f0db8830efcad9d"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/DirectedEvents/10002eb0.c",
+      "sha256": "977767a4aa7ab5a6057548568357cf34561f8c58f8c233227e9772f36814e6cf"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/DirectedEvents/10002ee0.c",
+      "sha256": "92dd6b2a02b3df1e6ff23bfce57016e99494db2dac17baca5087aa712c63198f"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/DirectedEvents/10010810.c",
+      "sha256": "9541e9112fcbe7b96c8615eb386ba0e506d5ff79e7856f4ab761543b4286a4ef"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/DirectedEvents/UserUnit-1000f000.c",
+      "sha256": "1f17464ab17a147e563225b2530a6c8e3bdae1ac48c606685a0442a73a7583cc"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/DirectedEvents/UserUnit-1000f050.c",
+      "sha256": "685c4c981e6a402d2e32a1fa3ddfb95982fb5d44e404471459b62e5e9ee2c6be"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/DirectedEvents/1000f040.c",
+      "sha256": "0703eefed22373623ba1b3c76e1ac6a7ff480e3258ebe14642e2b37b4e0f8f52"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/DirectedEvents/1000f110.c",
+      "sha256": "c9dd5bbdf7306bd2aafac53a92b4db17836a199ce2d01a301b17088635c9c405"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/DirectedEvents/1000f310.c",
+      "sha256": "16dc21b651206cdfadbdcedcb0384e3c28d4dae122032292ab6b3276bf10b1e0"
+    },
+    {
+      "asset": "분석/Ghidra/GameCtl/LoadScenarioEventActions.c",
+      "sha256": "267575947593acf9b1a31b98a70641c9f82ab0c0a37d24ad1257cd38c8f458c5"
+    }
+  ],
+  "runtime0DConnected": true,
+  "unityPlay": false,
+  "scope": "Actual EVT loader output over all112 source files and11 parser controls, then bounded mode1 queue/Update, current subject/team, MAGIC/KILL exports, MESSAGE/MFC C-locale aliases and pointer/page processing. CString/file/archive/allocator and target capsules remain explicit boundaries; no original server trigger/order, unsafe original memory writes, unmeasured FPS/audio, whole UI/OS input, end preemption or damage/reward policy is inferred.",
+  "runtimeContracts": {
+    "report": "Tools/OriginalWorldChecks/native-directed-event-check.json",
+    "sha256": "1190c9147ca4a31bb443173b1a3eac38927c198431f5433ff839bedf04bcdbfb"
+  },
+  "frameComparison": {
+    "report": "Tools/OriginalWorldChecks/native-directed-frame-check.json",
+    "sha256": "cdc62fd2dabf019ca558daaf465f0ae7b8d5880a3b5fdb0c328e49a1f521487f"
+  },
+  "controlExports": {
+    "report": "Tools/OriginalWorldChecks/native-directed-control-check.json",
+    "sha256": "2b89fc5eaf3769bb063a8930fa5f734615399234389c09b2091f534de6438fb1"
+  },
+  "messageFormatting": {
+    "report": "Tools/OriginalWorldChecks/native-campaign-message-check.json",
+    "sha256": "3514bf96a0c99e06cf19d7fa2cb5b6149869136176248817b15d94938a395c55"
+  },
+  "inputComparison": {
+    "report": "Tools/OriginalWorldChecks/native-directed-input-check.json",
+    "sha256": "9adc10d605caf9dac535b4119d3ef50589b01242e769f804a0ed19185e93d4ce"
+  },
+  "substringSemantics": {
+    "report": "Tools/OriginalWorldChecks/native-message-substring-check.json",
+    "sha256": "1c8d3ac95fa9bf2f605a5dfa2689489bcdfb23aa78c39396ed6be9dd985d2a8b"
+  },
+  "fileLoaderComparison": {
+    "report": "Tools/OriginalWorldChecks/native-event-loader-check.json",
+    "sha256": "36b3d26ff6d9afaca4759e9239edb34538e292f0c883e2340fb358d8e1a07da7"
+  }
+}

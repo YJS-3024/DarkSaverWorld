@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_end_stage.py", line 30, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_end_stage.py", line 10, in main
+    for path,digest in original['sources'].items():assert sha(ROOT/path)==digest,path
+                                                          ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tools/OriginalWorldChecks/check_native_scenario_end.py

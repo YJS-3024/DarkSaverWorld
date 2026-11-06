@@ -34,7 +34,9 @@ internal static class NativeUnitResetDifferential
             if(c.directionBeforeReset.HasValue)actor.direction=c.directionBeforeReset.Value;
             var units=combat.Units.Select(u=>u.Copy()).ToArray();var after=units.Single(u=>u.id==actor.id);after.hp=c.newHp;after.maxHp=200;after.mp=3;after.maxMp=65;after.job=c.newJob;after.nativeAppearanceJob=c.newJob;
             if(actor.nativeEnabled!=true){after.nativeState=0x30;after.troopOrder=1;}after.nativeActive=after.nativeEnabled=true;
-            reset.Invoke(null,new object[]{combat,units,new[]{actor.id}});combat.Units=units;
+            combat.AiHints[actor.id]=(actor.life,99);
+            reset.Invoke(null,new object[]{combat,units,new[]{actor.id}});
+            if(combat.AiHints.ContainsKey(actor.id))throw new Exception("B0A0 must clear the1FC AI hint on every native refresh");combat.Units=units;
             var trace=new List<object>();
             for(int step=0;step<=c.ticks;step++)
             {

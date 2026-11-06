@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_alliance_history.py", line 51, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_alliance_history.py", line 29, in main
+    game.uc.mem_write(0x0d040000,bytes([0x5c,opcode])+payload);game.run(0x1000eb10,[0x0d040000])
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/native_battle_options_emulator.py", line 32, in run
+    sp=0x0f0ff000;self.uc.mem_write(sp,struct.pack('<'+'I'*(len(args)+1),self.stop,*args));self.uc.reg_write(UC_X86_REG_ESP,sp);self.uc.emu_start(address,self.stop+1,timeout=1000000,count=100000);assert self.uc.reg_read(UC_X86_REG_EIP)==self.stop
+                                                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/.tools/ds-native-emulation-deps/unicorn/unicorn_py3/unicorn.py", line 769, in emu_start
+    raise self._hook_exception
+  File "/workspace/.tools/ds-native-emulation-deps/unicorn/unicorn_py3/unicorn.py", line 363, in wrapper
+    return func(uc, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/.tools/ds-native-emulation-deps/unicorn/unicorn_py3/unicorn.py", line 1063, in __hook_code_cb
+    callback(uc, address, size, user_data)
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/native_alliance_chain.py", line 39, in hook
+    super().hook(uc,at,size,data)
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/native_scenario_end_emulator.py", line 22, in hook
+    else:super().hook(uc,address,size,data)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/native_result_kills_emulator.py", line 25, in hook
+    else:super().hook(uc,address,size,data)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/native_result_emulator.py", line 18, in hook
+    else:super().hook(uc,address,size,data)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/native_battle_status_emulator.py", line 34, in hook
+    else:super().hook(uc,at,size,data)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/native_battle_briefing_emulator.py", line 19, in hook
+    if name=='brief-empty':self.write(this,self.string(b''));self.ret(this)
+                                           ^^^^^^^^^^^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/native_battle_briefing_emulator.py", line 9, in string
+    p=self.strings+12;self.uc.mem_write(self.strings,struct.pack('<iii',1,len(value),len(value))+value+b'\0');self.strings=(p+len(value)+16)&~15;assert self.strings<0x0d0fe000;return p
+      ^^^^^^^^^^^^
+AttributeError: 'AllianceGame' object has no attribute 'strings'. Did you mean: 'string'?

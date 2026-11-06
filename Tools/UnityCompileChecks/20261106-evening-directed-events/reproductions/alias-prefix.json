@@ -1,0 +1,147 @@
+{
+  "scope": "Original GameCtl alias/MFC C-locale helper versus pre-fix production resolver; no assets changed.",
+  "source": "Assets/_Original/Runtime/Campaign/CampaignModel.cs",
+  "mismatches": 2,
+  "cases": [
+    {
+      "command": "0 0 가ME 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "가ME"
+      },
+      "managed": {
+        "ok": true,
+        "text": "현재팀",
+        "face": 0
+      },
+      "matches": false
+    },
+    {
+      "command": "0 0 A가ME 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "A가ME"
+      },
+      "managed": {
+        "ok": true,
+        "text": "A가ME",
+        "face": 0
+      },
+      "matches": true
+    },
+    {
+      "command": "0 0 ME가 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀"
+      },
+      "managed": {
+        "ok": true,
+        "text": "현재팀",
+        "face": 0
+      },
+      "matches": true
+    },
+    {
+      "command": "0 0 가ID 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "가ID"
+      },
+      "managed": {
+        "ok": true,
+        "text": "현재팀",
+        "face": 0
+      },
+      "matches": false
+    },
+    {
+      "command": "0 0 ID가 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀"
+      },
+      "managed": {
+        "ok": true,
+        "text": "현재팀",
+        "face": 0
+      },
+      "matches": true
+    },
+    {
+      "command": "0 0 AME 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀"
+      },
+      "managed": {
+        "ok": true,
+        "text": "현재팀",
+        "face": 0
+      },
+      "matches": true
+    },
+    {
+      "command": "0 0 COM0 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "지휘관0"
+      },
+      "managed": {
+        "ok": true,
+        "text": "지휘관0",
+        "face": 0
+      },
+      "matches": true
+    }
+  ]
+}

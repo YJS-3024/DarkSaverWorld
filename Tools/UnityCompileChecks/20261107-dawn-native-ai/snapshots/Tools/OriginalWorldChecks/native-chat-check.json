@@ -1,0 +1,22 @@
+{
+  "assertions": 926,
+  "mismatches": 0,
+  "unityPlay": false,
+  "nativeRoutingCases": 24,
+  "nativeSplitCases": 396,
+  "nativeScrollCases": 72,
+  "nativeResizeCases": 20,
+  "nativeColorInitializations": 5,
+  "nativeCodeExecuted": true,
+  "nativeSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "logs": "/tmp/ds-native-chat-checks",
+  "scope": "Original476230 main routing and blocked-kind9 branch,421CD0 COLORREF setup,43FCC0/43FDF0 wrapping,437B80/437BA0 scroll and423060 viewport resize. MFC/base constructor/DDColorMatch and append dispatch boundaries isolated. Production decoded-message bridge/session/replay checked. No raw packet envelope, private-whisper UI, OS typing, GPU framebuffer or server delivery claim.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_chat.py": "a50f9bf86f2c3f37fbc983a07c0c709e90db38e580f6f42b796392b3be15257b",
+    "Tools/OriginalWorldChecks/native_chat_emulator.py": "e3e66167c5da14a2dea95fa1cffd69ffc1238679c18f3dc775174869485bf1ee",
+    "Tools/OriginalWorldChecks/ChatChecks.cs": "0d32d8e338c33e9d72dec4daa06359c8db12f99462938af5fcce4c7d1abd23a4",
+    "Assets/_Original/Runtime/UI/NativeWorldChatLog.cs": "cb674389f69cbd1ce089d7a67b4e6cf0ea79e059d598196b835f65a811076f3b",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Messages.cs": "2e0b5f787ac37c54ea5a55280a2550f278e2285439cd3e86384387369484d851",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Personal.cs": "695bc2e71975ef5482ef3154b4bf3080dc562a4fdf979254142d395c07a534cf"
+  }
+}

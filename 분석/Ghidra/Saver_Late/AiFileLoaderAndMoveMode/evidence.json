@@ -1,0 +1,30 @@
+{
+  "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "readOnlyGhidra": true,
+  "temporaryPrototypeOnly": true,
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFileLoaderAndMoveMode/10003480.c",
+      "sha256": "7360bb8f0799681eef910148afb867b7777f02ee0ca07869202c353bf91e54da"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFileLoaderAndMoveMode/100035e0.c",
+      "sha256": "1a6bd7d9eca75b5a751ad69a1ba252ceb6b5330e112ef1b631e5479ad713d4c6"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFileLoaderAndMoveMode/10004810.c",
+      "sha256": "7a41f6863d1982c2a0f6b8928d4a78e6ba9d8d2b25364624e59f5361b9fff341"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFileLoaderAndMoveMode/FixNativeAiPrototype.java",
+      "sha256": "56b678e726532d1a92f63475c282f061bc1cb1d2c6defbf4c6bf1db251a30b52"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFileLoaderAndMoveMode/ds-ai-corrected-prototype2.log",
+      "sha256": "8af9c85e6998be5a80d43727ef6902af4a44cb9986b60312524a8e462828a3c9"
+    }
+  ],
+  "scope": "Correct actual exported GetMovePos ABI: hidden output pointer plus6 explicit arguments. Capture final mode argument and resulting CommanderAIMove state2/4/8 choice. Read-only project changes discarded; this does not replace the earlier historical pseudo-code evidence or claim runtime0C.",
+  "supersededForMovementAbi": "분석/Ghidra/Saver_Late/AiMovementCompleteAbi/evidence.json",
+  "prototypeLimit": "Historical intermediate decompilation. GetMovePos includes hidden output and final mode; MoveAttack includes hidden output and radius. Consult complete ABI export and native movement comparisons, not omitted decompiler parameters."
+}

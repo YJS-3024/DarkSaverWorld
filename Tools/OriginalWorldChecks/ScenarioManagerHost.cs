@@ -10,11 +10,13 @@ namespace DarkSaver.Original.Entry
     public sealed partial class LocalServerManager
     {
         private readonly EntryAccountService service;
+        public event Action<WorldReply> Notify_World,Notify_MapEntered,Notify_Commanders;
+        public event Action<byte[]> Notify_BattlePacketRequested;
         public bool isActiveAndEnabled=true;
         public LocalServerManager(EntryAccountService value){service=value;}
-        public WorldView WorldSnapshot=>service.WorldSnapshot();
-        private WorldReply WorldRequest(Func<EntryAccountService,WorldReply> apply,bool entered=false)=>apply(service);
+        public WorldView WorldSnapshot=>isActiveAndEnabled?service.WorldSnapshot():null;
         public WorldReply Notify_BattleUnits(TrainingUnitsNotice notice)=>service.ReceiveBattleUnits(notice);
         public void TestAdvance(double ms){service.AdvanceWorld(ms);PumpScenarioFlow();FlushCampaignEffects();}
+        public void TestNativeAdvance(double ms){AdvanceScenarioWorld(ms);PumpScenarioFlow();FlushCampaignEffects();}
     }
 }

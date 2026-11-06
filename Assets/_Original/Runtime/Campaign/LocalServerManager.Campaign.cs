@@ -46,6 +46,25 @@ namespace DarkSaver.Original.Entry
         public WorldReply Request_RetryScenarioPresentation()=>WorldRequest(s=>s.RetryCampaignPresentation());
         public void Request_RetryScenarioFlow(){campaignDispatch.Clear();PumpScenarioFlow();}
         public WorldReply Notify_ScenarioScriptHandled(CampaignScriptRequest request)=>WorldRequest(s=>s.AcknowledgeCampaignRequest(request));
+        public WorldReply Request_ProcessScenarioRecruit(CampaignScriptRequest request)
+        {
+            string character=null,session=null,commanderSession=null;int map=0;long roster=0,delivery=0;
+            var result=WorldRequest(s=>
+            {
+                var reply=s.ProcessLocalScenarioRecruit(request);
+                if(reply.Accepted)
+                {
+                    var v=reply.View;character=v.characterId;session=v.campaignSession;commanderSession=v.commanderSession;map=v.record.map;
+                    roster=v.record.roster?.revision??0;delivery=v.record.campaignDelivery?.revision??0;
+                }
+                return reply;
+            });
+            var current=WorldSnapshot;
+            if(result.Accepted&&current!=null&&isActiveAndEnabled&&current.characterId==character&&current.campaignSession==session
+                &&current.commanderSession==commanderSession&&current.record.map==map&&(current.record.roster?.revision??0)==roster
+                &&(current.record.campaignDelivery?.revision??0)==delivery)Notify_Commanders?.Invoke(new WorldReply(WorldFailure.None,current));
+            return result;
+        }
         public WorldReply Request_CampaignUnitAction(int unit) => WorldRequest(s => s.CampaignUnitAction(unit));
         public WorldReply Request_JoinScenarioRoom(string room,string token,string request)
         {
@@ -56,7 +75,21 @@ namespace DarkSaver.Original.Entry
         public WorldReply Receive_ScenarioClear(CampaignClearNotice notice) => WorldRequest(s => s.ReceiveCampaignClear(notice));
         public WorldReply Notify_ScenarioResult(CampaignResultNotice notice)=>WorldRequest(s=>s.ReceiveScenarioResult(notice));
         public WorldReply Request_ConfirmScenarioResult(string resultId,string request)
-        {var result=WorldRequest(s=>s.ConfirmScenarioResult(resultId,request),true);if(result.Accepted)Notify_ScenarioExited?.Invoke(result);return result;}
+        {
+            bool native=WorldSnapshot?.record.scenarioVisit?.nativeEnd!=null;
+            NativeScenarioReturn? returned=null;
+            var result=WorldRequest(s=>{var reply=s.ConfirmScenarioResult(resultId,request);if(reply.Accepted)returned=NativeScenarioReturn.Capture(reply.View);return reply;});
+            if(returned.HasValue)PublishNativeScenarioReturn(returned.Value,native);
+            return result;
+        }
+        private void AdvanceScenarioWorld(double ms)
+        {
+            var before=WorldSnapshot;service?.AdvanceWorld(ms);var current=WorldSnapshot;
+            if(before?.record.scenarioVisit?.nativeEnd?.stage!=NativeScenarioEndRecord.Outro||current==null||current.record.scenarioVisit!=null
+                ||before.characterId!=current.characterId||before.commanderSession!=current.commanderSession||before.record.map==current.record.map)return;
+            var returned=NativeScenarioReturn.Capture(current);var result=new WorldReply(WorldFailure.None,current);Notify_World?.Invoke(result);
+            if(returned.HasValue)PublishNativeScenarioReturn(returned.Value,true);
+        }
         public WorldReply Request_EscapeScenario(string visit)=>ScenarioExitResult(s=>s.ExecuteScenarioRetreat(visit,ScenarioRetreatAuthority));
         public WorldReply Notify_ScenarioExit(CampaignExitNotice notice)=>ScenarioExitResult(s=>s.ReceiveScenarioExit(notice));
         private WorldReply ScenarioExitResult(Func<EntryAccountService,WorldReply> apply)
@@ -78,7 +111,7 @@ namespace DarkSaver.Original.Entry
             pumpingCampaign=true;
             try
             {
-                bool idle=(view.presentation==null||view.presentation.completed)&&view.record.campaignProgress?.events.Any(e=>!e.completed)!=true;
+                bool idle=view.record.scenarioVisit?.nativeEnd?.Started!=true&&(view.presentation==null||view.presentation.completed)&&view.record.campaignProgress?.events.Any(e=>!e.completed)!=true;
                 if(scenario&&idle&&view.record.campaignPhase=="explore"&&view.battle==null)
                 {
                     if(ScenarioInitialAuthority!=null&&campaignDispatch.Add("initial"))
@@ -89,9 +122,12 @@ namespace DarkSaver.Original.Entry
                 if(!CampaignContextCurrent(dispatchContext))return;
                 foreach(var request in service.PendingCampaignRequests())
                 {
-                    if(!campaignDispatch.Add("command:"+request.id))continue;
+                    bool localRecruit=ScenarioScriptAuthority==null&&request.packet.Length==3&&request.packet[0]==0x3c;
+                    string dispatchKey="command:"+request.id+(localRecruit?":roster:"+(WorldSnapshot?.record.roster?.revision??0):"");
+                    if(!campaignDispatch.Add(dispatchKey))continue;
                     Notify_ScenarioScriptRequest?.Invoke(request.Copy());
                     if(!CampaignContextCurrent(dispatchContext))return;
+                    if(!service.PendingCampaignRequests().Any(r=>r.id==request.id))continue;
                     view=WorldSnapshot;
                     if(view.campaignSession!=request.session)break;
                     bool handled=false;
@@ -101,9 +137,10 @@ namespace DarkSaver.Original.Entry
                         {var clear=ScenarioClearAuthority(view);if(!CampaignContextCurrent(dispatchContext))return;if(clear!=null)handled=Receive_ScenarioClear(clear).Accepted;}
                         else if(request.visit==view.record.scenarioVisit?.id&&(view.record.campaignPhase=="outro"||view.record.campaignPhase=="complete")||request.visit==view.record.lastScenarioResult?.visit)handled=true;
                         // A clear request emitted inside an event waits until that event has ended.
-                        else if(view.presentation!=null&&!view.presentation.completed)campaignDispatch.Remove("command:"+request.id);
+                        else if(view.presentation!=null&&!view.presentation.completed)campaignDispatch.Remove(dispatchKey);
                     }
                     else if(ScenarioScriptAuthority!=null)handled=ScenarioScriptAuthority(request.Copy(),view);
+                    else if(request.packet.Length==3&&request.packet[0]==0x3c)Request_ProcessScenarioRecruit(request);
                     if(!CampaignContextCurrent(dispatchContext))return;
                     if(handled)Notify_ScenarioScriptHandled(request);
                     if(!CampaignContextCurrent(dispatchContext))return;

@@ -1,0 +1,26 @@
+{
+  "selected": [
+    {
+      "check": "Tools/OriginalWorldChecks/check_pixel_importers.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-night-final-audit2/000-OriginalWorldChecks-check_pixel_importers.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_world_message.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-night-final-audit2/001-OriginalWorldChecks-check_native_world_message.log"
+    },
+    {
+      "check": "Tools/CheckSupport/check_evidence_eol.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-night-final-audit2/002-CheckSupport-check_evidence_eol.log"
+    }
+  ],
+  "excludedEarlierHarnessEntries": [
+    "check_client_windows_integration.py"
+  ],
+  "reason": "The selected pixel/world-message/EOL checks passed. The excluded interim integration check correctly refused dependent stale reports; the current complete integration audit is recorded separately."
+}

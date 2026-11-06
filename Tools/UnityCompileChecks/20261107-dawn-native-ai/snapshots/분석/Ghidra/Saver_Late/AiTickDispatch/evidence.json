@@ -1,0 +1,25 @@
+{
+  "program": "UserUnit.dll",
+  "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "readOnly": true,
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiTickDispatch/1000c6d0.c",
+      "sha256": "b050bcb86b69a4f9fb272f69b0ef1e183ae1b1df3f3d8aaa72fef42eb4b7e3b0"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiTickDispatch/1000c740.c",
+      "sha256": "db026f4581255b953c84842b152bb3e8f1c59991e65fdefb567df6500fe213c9"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiTickDispatch/DumpDarkSaverFrame.java",
+      "sha256": "f830f1189414240981936061430c8fad7eb9e0111ff7c288332c3177e5f86517"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiTickDispatch/read-only-export.log",
+      "sha256": "00048f9834faa32f1dc39adc3fddcbc1b1e5fda9dba932e95de9113cee0243a2"
+    }
+  ],
+  "runtime0CConnected": false,
+  "scope": "Actual IncTick only increments/clamps AP of active+enabled units. SetTickMenu updates active records, remaps low8menu bits, clamps AP, queues matching-local-team noncommanders if leader mode!=0/1 and command flags contain move/attack. No periodic cadence, inherited B2 stack or server AP/cost rule inferred."
+}

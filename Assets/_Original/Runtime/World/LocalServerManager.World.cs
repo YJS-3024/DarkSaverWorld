@@ -19,7 +19,15 @@ namespace DarkSaver.Original.Entry
                 &&current.commanderSession==expected.commanderSession&&current.campaignSession==expected.campaignSession&&current.record.map==expected.record.map;
         }
         public WorldView WorldSnapshot => isActiveAndEnabled ? service?.WorldSnapshot() : null;
-        public WorldReply Request_BeginWorld(NativeWorldArt art) => WorldRequest(s => art?.IsConfigured == true ? s.BeginWorld(campaignArt != null ? campaignArt.Merge(art.Definition) : art.Definition) : new WorldReply(WorldFailure.InvalidStage), true);
+        public WorldReply Request_BeginWorld(NativeWorldArt art) => WorldRequest(s => art?.IsConfigured == true ? s.BeginWorld(BindWorldText(campaignArt != null ? campaignArt.Merge(art.Definition) : art.Definition,memoCodec)) : new WorldReply(WorldFailure.InvalidStage), true);
+        private static WorldDefinition BindWorldText(WorldDefinition definition,DarkSaver.Original.UI.NativeCodePage949 codec)
+        {
+            if(definition==null)return null;
+            // NativeWorldArt.Definition creates a fresh object on each access.
+            // Bind the decoder to the actual definition passed to the service.
+            definition.nativeText=bytes=>bytes!=null&&codec!=null&&codec.TryCString(bytes,0,bytes.Length,out string text)?text:null;
+            return definition;
+        }
         public WorldReply Request_MoveWorld(int x, int y) => WorldRequest(s => s.MoveWorld(x, y));
         public WorldReply Request_EquipWorldItem(string owned,int slot,string id,int inventorySlot=-1) => WorldRequest(s=>s.EquipWorldItem(owned,slot,id,inventorySlot));
         public WorldReply Request_UseWorldItem(string owned,string id) => SendItemUse(owned,id);

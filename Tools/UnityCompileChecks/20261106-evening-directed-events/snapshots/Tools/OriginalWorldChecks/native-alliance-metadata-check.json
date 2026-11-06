@@ -1,0 +1,545 @@
+{
+  "nativeB2ReceiptCases": 15,
+  "nativeTeamLookupCases": 28,
+  "nativeAllianceSetterCases": 12,
+  "nativeControlledTailCases": 4,
+  "mismatches": 0,
+  "unityPlay": false,
+  "runtimeB2Connected": false,
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "scope": "Actual GameCtl B2 receiver passes count and WORD pairs as86 bytes padded to88 plus explicit current-team DWORD. Actual UserUnit GetTeamID reads received runtime+64, never unit/50. Actual SetAllyInfo initializes21 relations to1 and maps supplied kind1/2 to2/4. Its count+1 loop also consumes a controlled stale-tail fixture; do not reproduce unknown original stack data or claim safe arbitrary counts. Setter kind names, real other-user UI/server policy and runtimeB2 integration are excluded.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_alliance_metadata.py": "fad37275834d95246894200e42f2d4cb794cfd6aee84826f2c9959ce754a77a9",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "Tools/OriginalWorldChecks/native_scenario_end_emulator.py": "7dee0b4f38ba9f8a21112c267a84a97b4ba092701071b32bb727c116a2149686",
+    "분석/Ghidra/Saver_Late/AuxiliaryPackets/1000d4c0.c": "d3ac1878c846805419b4876216b1247902f25f7fffe30a21421c119f78f75fa5",
+    "분석/Ghidra/Saver_Late/AuxiliaryPackets/UserUnit-10004a40.c": "ab2f0b4bd01df0fbbd4b442db1e61e5510e333e660f11c6c4f8a5615c0c5aae0",
+    "분석/Ghidra/Saver_Late/AuxiliaryPackets/UserUnit-10001580.c": "a9406fc7b71fbb0c3dd7c95351569f1a0d3bef9cb7e443392b2ea3caa8f2f122",
+    "분석/Ghidra/Saver_Late/AuxiliaryPackets/1000d4c0.asm.txt": "c4c26d569cb6da540fc6a78ed518cc9dcbd54df1b0d554111b54066a28d91fa0"
+  },
+  "receipts": [
+    {
+      "count": 0,
+      "localTeam": 0
+    },
+    {
+      "count": 0,
+      "localTeam": 7
+    },
+    {
+      "count": 0,
+      "localTeam": 19
+    },
+    {
+      "count": 1,
+      "localTeam": 0
+    },
+    {
+      "count": 1,
+      "localTeam": 7
+    },
+    {
+      "count": 1,
+      "localTeam": 19
+    },
+    {
+      "count": 5,
+      "localTeam": 0
+    },
+    {
+      "count": 5,
+      "localTeam": 7
+    },
+    {
+      "count": 5,
+      "localTeam": 19
+    },
+    {
+      "count": 20,
+      "localTeam": 0
+    },
+    {
+      "count": 20,
+      "localTeam": 7
+    },
+    {
+      "count": 20,
+      "localTeam": 19
+    },
+    {
+      "count": 21,
+      "localTeam": 0
+    },
+    {
+      "count": 21,
+      "localTeam": 7
+    },
+    {
+      "count": 21,
+      "localTeam": 19
+    }
+  ],
+  "lookups": [
+    {
+      "unit": 0,
+      "receivedTeam": -32768
+    },
+    {
+      "unit": 0,
+      "receivedTeam": -1
+    },
+    {
+      "unit": 0,
+      "receivedTeam": 0
+    },
+    {
+      "unit": 0,
+      "receivedTeam": 7
+    },
+    {
+      "unit": 0,
+      "receivedTeam": 19
+    },
+    {
+      "unit": 0,
+      "receivedTeam": 20
+    },
+    {
+      "unit": 0,
+      "receivedTeam": 32767
+    },
+    {
+      "unit": 7,
+      "receivedTeam": -32768
+    },
+    {
+      "unit": 7,
+      "receivedTeam": -1
+    },
+    {
+      "unit": 7,
+      "receivedTeam": 0
+    },
+    {
+      "unit": 7,
+      "receivedTeam": 7
+    },
+    {
+      "unit": 7,
+      "receivedTeam": 19
+    },
+    {
+      "unit": 7,
+      "receivedTeam": 20
+    },
+    {
+      "unit": 7,
+      "receivedTeam": 32767
+    },
+    {
+      "unit": 400,
+      "receivedTeam": -32768
+    },
+    {
+      "unit": 400,
+      "receivedTeam": -1
+    },
+    {
+      "unit": 400,
+      "receivedTeam": 0
+    },
+    {
+      "unit": 400,
+      "receivedTeam": 7
+    },
+    {
+      "unit": 400,
+      "receivedTeam": 19
+    },
+    {
+      "unit": 400,
+      "receivedTeam": 20
+    },
+    {
+      "unit": 400,
+      "receivedTeam": 32767
+    },
+    {
+      "unit": 2999,
+      "receivedTeam": -32768
+    },
+    {
+      "unit": 2999,
+      "receivedTeam": -1
+    },
+    {
+      "unit": 2999,
+      "receivedTeam": 0
+    },
+    {
+      "unit": 2999,
+      "receivedTeam": 7
+    },
+    {
+      "unit": 2999,
+      "receivedTeam": 19
+    },
+    {
+      "unit": 2999,
+      "receivedTeam": 20
+    },
+    {
+      "unit": 2999,
+      "receivedTeam": 32767
+    }
+  ],
+  "setters": [
+    {
+      "count": 0,
+      "localTeam": 0,
+      "relations": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "count": 0,
+      "localTeam": 7,
+      "relations": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "count": 0,
+      "localTeam": 19,
+      "relations": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "count": 1,
+      "localTeam": 0,
+      "relations": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "count": 1,
+      "localTeam": 7,
+      "relations": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "count": 1,
+      "localTeam": 19,
+      "relations": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "count": 5,
+      "localTeam": 0,
+      "relations": [
+        1,
+        2,
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "count": 5,
+      "localTeam": 7,
+      "relations": [
+        1,
+        2,
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "count": 5,
+      "localTeam": 19,
+      "relations": [
+        1,
+        2,
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "count": 20,
+      "localTeam": 0,
+      "relations": [
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1
+      ]
+    },
+    {
+      "count": 20,
+      "localTeam": 7,
+      "relations": [
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1
+      ]
+    },
+    {
+      "count": 20,
+      "localTeam": 19,
+      "relations": [
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1,
+        2,
+        4,
+        1,
+        1
+      ]
+    }
+  ],
+  "controlledTail": [
+    {
+      "declaredPairs": 0,
+      "controlledTailIndex": 0,
+      "observedRelation": 2
+    },
+    {
+      "declaredPairs": 1,
+      "controlledTailIndex": 1,
+      "observedRelation": 2
+    },
+    {
+      "declaredPairs": 5,
+      "controlledTailIndex": 5,
+      "observedRelation": 2
+    },
+    {
+      "declaredPairs": 20,
+      "controlledTailIndex": 20,
+      "observedRelation": 2
+    }
+  ]
+}

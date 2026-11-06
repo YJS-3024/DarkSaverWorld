@@ -19,6 +19,7 @@ namespace DarkSaver.Original.Entry
             // Native5C60 updates a presentation table, never a permanent account name,
             // party membership, battle action, XP, resource amount or saved profile.
             if(!current){world.NativeTeamNotices.Clear();world.NativeTeamRevision=0;}
+            world.ReceiveNativeWinner(rows,input.localTeam);
             world.NativeTeams=rows.Select(r=>r.Copy()).ToArray();world.NativeTeamSession=world.CampaignSession;
             world.NativeTeamRevision++;world.NativeTeamNotices.Add(input.id);return WorldResult(WorldFailure.None);
         }
@@ -77,6 +78,9 @@ namespace DarkSaver.Original.Entry
             combat.MagicEffects.RemoveAll(e=>ids.Contains(e.role==BattleMagicEffectRole.ChargeOnly?e.sourceUnit:e.targetUnit));
             foreach(int id in ids)
             {
+                // B0A0 clears14C..2D8, including client-local1FC, even
+                // when the same enabled record/life keeps its action flags.
+                combat.AiHints.Remove(id);
                 var before=combat.Units.FirstOrDefault(u=>u.id==id);var after=units.First(u=>u.id==id);
                 bool preserves=before!=null&&before.life==after.life&&before.nativeEnabled==true;
                 uint flags=before?.nativeState??0;

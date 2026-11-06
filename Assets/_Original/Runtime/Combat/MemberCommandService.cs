@@ -14,7 +14,7 @@ namespace DarkSaver.Original.Entry
             var combat=world.Combat;if(combat==null)return WorldResult(WorldFailure.RulesUnavailable);
             if(combat.Pending!=null||combat.MemberMotions.ContainsKey(member))return WorldResult(WorldFailure.Busy);
             if(!Guid.TryParseExact(id,"N",out _)||combat.Requests.Contains(id)||combat.Revision==long.MaxValue)return WorldResult(WorldFailure.StaleRequest);
-            if(action!=TrainingAction.Move&&action!=TrainingAction.Attack&&action!=TrainingAction.Rest||!OriginalMemberCommands.Controlled(combat.Units,member))return WorldResult(WorldFailure.InvalidInput);
+            if(action!=TrainingAction.Move&&action!=TrainingAction.Attack&&action!=TrainingAction.Rest||!(automatic?OriginalSoldierActions.Controlled(combat.Units,member):OriginalMemberCommands.Controlled(combat.Units,member)))return WorldResult(WorldFailure.InvalidInput);
             var actor=combat.Units.First(u=>u.id==member);var map=world.Map(world.Record.map);
             if(!automatic&&!OriginalBattleTicks.Allows(actor,action))return WorldResult(WorldFailure.RulesUnavailable);
             var request=new TrainingActionRequest{character=worldCharacter,session=world.CampaignSession,id=id,revision=combat.Revision,source=member,sourceLife=actor.life,action=action,target=target};
@@ -27,14 +27,14 @@ namespace DarkSaver.Original.Entry
             }
             else if(action==TrainingAction.Attack)
             {
-                if(!actor.canAttack||!actor.attackRange.HasValue||actor.attackTargets==null)return WorldResult(WorldFailure.RulesUnavailable);
-                if(!OriginalMemberCommands.CanAttack(map,world.Definition.combatCatalog,combat.Units,member,target))return WorldResult(WorldFailure.InvalidInput);
+                if(!automatic&&!actor.canAttack||!actor.attackRange.HasValue||OriginalSoldierActions.Enemy(actor,combat.Units.FirstOrDefault(u=>u.id==target))==null)return WorldResult(WorldFailure.RulesUnavailable);
+                if(!OriginalMemberCommands.CanAttack(map,world.Definition.combatCatalog,combat.Units,member,target,automatic))return WorldResult(WorldFailure.InvalidInput);
                 var enemy=combat.Units.First(u=>u.id==target);x=enemy.x;y=enemy.y;request.targetLife=enemy.life;
             }
             else
             {
                 if(target!=-1)return WorldResult(WorldFailure.InvalidInput);
-                if(!actor.canRest)return WorldResult(WorldFailure.RulesUnavailable);x=actor.x;y=actor.y;
+                if(!automatic&&!actor.canRest)return WorldResult(WorldFailure.RulesUnavailable);x=actor.x;y=actor.y;
             }
             request.x=x;request.y=y;request.sourceTerrain=map.map.Attribute(actor.Tile);request.targetTerrain=map.map.Attribute(new DarkSaver.Original.Tutorial.TutorialTile(x,y));
             request.commandRanges=OriginalCommandRange.Evaluate(combat.Units);AttachNativeMoveHint(request);combat.Pending=request;combat.Requests.Add(id);return WorldResult(WorldFailure.None);
@@ -51,7 +51,7 @@ namespace DarkSaver.Original.Entry
         private WorldFailure ValidateMemberCommandOutcome(TrainingCombatSession combat,TrainingUnitsNotice notice,TrainingActionRequest request)
         {
             if(string.IsNullOrEmpty(notice.request)||request==null||request.source==0||request.action==TrainingAction.Regroup||request.action==TrainingAction.SoldierMove)return WorldFailure.None;
-            if(!OriginalMemberCommands.Controlled(combat.Units,request.source)||request.action!=TrainingAction.Move&&request.action!=TrainingAction.Attack&&request.action!=TrainingAction.Rest)return WorldFailure.InvalidInput;
+            if(!(request.automatic?OriginalSoldierActions.Controlled(combat.Units,request.source):OriginalMemberCommands.Controlled(combat.Units,request.source))||request.action!=TrainingAction.Move&&request.action!=TrainingAction.Attack&&request.action!=TrainingAction.Rest)return WorldFailure.InvalidInput;
             var source=combat.Units.First(u=>u.id==request.source);var map=world.Map(world.Record.map);
             if(request.sourceLife!=source.life||request.sourceTerrain!=map.map.Attribute(source.Tile)||request.targetTerrain!=map.map.Attribute(new DarkSaver.Original.Tutorial.TutorialTile(request.x,request.y)))return WorldFailure.StaleRequest;
             if(request.action==TrainingAction.Move)
@@ -59,7 +59,7 @@ namespace DarkSaver.Original.Entry
                 var path=OriginalMemberCommands.Route(map,world.Definition.combatCatalog,combat.Units,request.source,request.x,request.y);
                 if(path==null||request.movePath==null||!path.SequenceEqual(request.movePath))return WorldFailure.StaleRequest;
             }
-            if(request.action==TrainingAction.Attack&&(!OriginalMemberCommands.CanAttack(map,world.Definition.combatCatalog,combat.Units,request.source,request.target)||!combat.Units.Any(u=>u.id==request.target&&u.life==request.targetLife)))return WorldFailure.StaleRequest;
+            if(request.action==TrainingAction.Attack&&(!OriginalMemberCommands.CanAttack(map,world.Definition.combatCatalog,combat.Units,request.source,request.target,request.automatic)||!combat.Units.Any(u=>u.id==request.target&&u.life==request.targetLife)))return WorldFailure.StaleRequest;
             if(notice.units.Length!=combat.Units.Length||notice.magicEvents?.Length>0||notice.revivedTargets?.Length>0||request.action!=TrainingAction.Attack&&notice.experience.HasValue)return WorldFailure.InvalidInput;
             foreach(var before in combat.Units)
             {

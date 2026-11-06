@@ -1,0 +1,43 @@
+{
+  "sourceVersion": "Saver_Late",
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "method": "Read-only Ghidra exports plus original68 decoder, E4C0 request builder and captured Magic continuation. CheckMagicTarget returns explicitly supplied fixtures.",
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/MagicRedirect/1000dfb0.c",
+      "sha256": "cf8ef7dc3c307d21e0cc81022a43285f95f56611bf070c27427c18b8f44658ec"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MagicRedirect/1000e4c0.c",
+      "sha256": "148bb9b45ff52d859525edd04cc1a3f746616a66d039f4039988d1b6873516bc"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MagicRedirect/UserUnit-10001d60.c",
+      "sha256": "d5ad9f15cfadee43d37c4d98c72fc77c458653f5c84c9b5b9a30480e69cde446"
+    }
+  ],
+  "nativeExecution": {
+    "report": "Tools/OriginalWorldChecks/native-magic-redirect-check.json",
+    "sha256": "cde9316232158e1cd169aa5b95308a5da7edc2ff65044f67b8128b998baa1131"
+  },
+  "runtime68Connected": true,
+  "unityPlay": false,
+  "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "targetOracle": {
+    "report": "Tools/OriginalWorldChecks/native-magic-target-catalog-check.json",
+    "sha256": "f9dc9afa89ac3ac9a630ef4055764f8b5c0524fb621921376d22642c9f0c26b8"
+  },
+  "combinedImportBridge": {
+    "report": "Tools/OriginalWorldChecks/native-magic-redirect-catalog-check.json",
+    "sha256": "ef66725a8d18483a5589da710226ba0a692c3a3d7ed14b58d0ff97bca23e1036"
+  },
+  "runtimeSelection": {
+    "report": "Tools/OriginalWorldChecks/native-magic-redirect-selection-check.json",
+    "sha256": "228453af154caffd66fc52b8de943232c848938b6b9db5e3989f51e28d492b9e"
+  },
+  "runtimeContracts": {
+    "report": "Tools/OriginalWorldChecks/native-magic-check.json",
+    "sha256": "f5be5ecf9c5e46b43cfe00b43e37847803b7d3839682ec47322be3635e818d63"
+  },
+  "runtimeScope": "Validated current battle context, supplied native flags/relations/lives and actual grid. No fake costs, stats, damage, ownership or undefined negative-caster coordinates; no actual Unity Play claim."
+}

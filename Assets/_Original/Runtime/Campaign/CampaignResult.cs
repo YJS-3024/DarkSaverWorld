@@ -194,14 +194,41 @@ namespace DarkSaver.Original.Campaign
             return r.native==null||r.allies.Select((u,i)=>u.unit==i&&u.job==r.native.rows[i].Job&&u.experience==r.native.rows[i].experience&&!u.level.HasValue&&!u.classJob.HasValue).All(v=>v);
         }
     }
+    // D280 fills the table; D150 separately requests notice/result/end processing.
+    // This optional journal leaves the earlier typed-result save format intact.
+    [Serializable,DataContract] public sealed class NativeScenarioEndRecord
+    {
+        public const int Prepared=0,Notice=1,Result=2,Outro=3;
+        [DataMember] public int stage,flag;
+        [DataMember] public long revision;
+        [DataMember] public string receipt;
+        [DataMember] public byte[] winner=Array.Empty<byte>();
+        [DataMember] public CampaignResultRecord table;
+        public bool Started=>stage!=Prepared;
+        public NativeScenarioEndRecord Copy()=>new NativeScenarioEndRecord{stage=stage,flag=flag,revision=revision,receipt=receipt,winner=winner?.ToArray(),table=table?.Copy()};
+        public bool Valid=>revision>0&&stage>=Prepared&&stage<=Outro&&flag>=0&&flag<=255&&winner!=null&&winner.Length<=39&&table?.native!=null&&CampaignResultRecord.Valid(table)
+            &&(stage==Prepared?receipt==null&&flag==0:Guid.TryParseExact(receipt,"N",out _))&&(stage!=Notice&&stage!=Result||flag!=1)&&(stage!=Notice||table.victory||table.IsDefeat)&&(stage!=Outro||table.victory);
+    }
+    public static class OriginalScenarioEnd
+    {
+        public static bool TryDecode(byte[] packet,out byte flag)
+        {flag=0;if(packet==null||packet.Length!=3||packet[0]!=0x5c||packet[1]!=0x61)return false;flag=packet[2];return true;}
+        public static byte[] Packet(byte flag)=>new byte[]{0x5c,0x61,flag};
+        public static int Stage(int outcome,byte flag)=>flag==1?NativeScenarioEndRecord.Outro:outcome==1||outcome==3?NativeScenarioEndRecord.Notice:NativeScenarioEndRecord.Result;
+    }
     [Serializable,DataContract] public sealed class CampaignVisitRecord
     {
         [DataMember] public string id;
         [DataMember] public int map,sourceMap,x,y,direction;
         [DataMember(EmitDefaultValue=false)] public CampaignResultRecord result;
-        public CampaignVisitRecord Copy(){var r=(CampaignVisitRecord)MemberwiseClone();r.result=result?.Copy();return r;}
+        [DataMember(EmitDefaultValue=false)] public NativeScenarioEndRecord nativeEnd;
+        // Frozen when the selected DEE starts. Earlier66 notices remain session metadata.
+        [DataMember(EmitDefaultValue=false)] public string nativeOutroSuffix;
+        public CampaignVisitRecord Copy(){var r=(CampaignVisitRecord)MemberwiseClone();r.result=result?.Copy();r.nativeEnd=nativeEnd?.Copy();return r;}
         public static bool Valid(CampaignVisitRecord r)=>r==null||Guid.TryParseExact(r.id,"N",out _)&&r.map>=0&&r.sourceMap>=0&&r.sourceMap!=r.map&&r.x>=0&&r.y>=0&&r.direction>=0&&r.direction<4
-            &&CampaignResultRecord.Valid(r.result)&&(r.result==null||r.result.visit==r.id&&r.result.map==r.map);
+            &&DarkSaver.Original.World.OriginalScenarioScriptSuffix.Valid(r.nativeOutroSuffix)&&CampaignResultRecord.Valid(r.result)&&(r.result==null||r.result.visit==r.id&&r.result.map==r.map)
+            &&(r.nativeEnd==null||r.nativeEnd.Valid&&r.nativeEnd.table.visit==r.id&&r.nativeEnd.table.map==r.map
+                &&(r.nativeEnd.stage==NativeScenarioEndRecord.Outro?r.result?.id==r.nativeEnd.table.id:r.result==null));
     }
     public sealed class CampaignResultNotice
     {

@@ -12,7 +12,7 @@ class NativeResultKills(NativeResult):
             this=uc.reg_read(UC_X86_REG_ECX);self.write(this,self.string(self.text(self.args(1)[0])));self.ret(this,4)
         elif self.confirming and address==0x1000fab0:
             self.confirmActions.append(['script-boundary',self.text(self.args(1)[0]).decode('cp949')]);self.ret(0,4)
-        elif self.confirming and address==0x1000e750:self.confirmActions.append(['cleanup-boundary']);self.ret()
+        elif self.confirming and address==0x1000e750:self.confirmActions.append(['leave-request-builder-boundary']);self.ret()
         elif self.confirming and name=='PostMessageA':self.confirmActions.append(['post']+self.args(4));self.ret(1,16)
         elif name and 'GetCharAbility@@'in name:
             job=self.args(1)[0];p=0x0d010000+(job%1000)*16;self.write(p+4,self.pictures.get(job,job));self.ret(p)

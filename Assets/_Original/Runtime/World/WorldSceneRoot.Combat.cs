@@ -62,6 +62,7 @@ namespace DarkSaver.Original.World
         }
         private void TrainingGridClick(int x,int y)
         {
+            AcknowledgeDirectedPointer();
             battleStatusUnit=DarkSaver.Original.UI.NativeBattleStatusSelection.Click(view.battle?.units.FirstOrDefault(u=>u.x==x&&u.y==y&&u.hp>0)?.id??-1);
             showingActions=false;showingBattleSpells=false;showingBattleOrders=false;
             if(CastingSelection){if(SelectedMagicDistance<0||SelectedMagicArea>0&&!SelectedMagicGroup)CastBattleMagicAt(x,y);else{var target=view.battle?.units.FirstOrDefault(u=>CanSelectMagicUnit(u)&&u.x==x&&u.y==y);if(target!=null)TrainingUnitClick(target.id);}return;}
@@ -71,6 +72,7 @@ namespace DarkSaver.Original.World
         }
         private void TrainingUnitClick(int id)
         {
+            AcknowledgeDirectedPointer();
             battleStatusUnit=DarkSaver.Original.UI.NativeBattleStatusSelection.Click(id);
             if(CastingSelection)
             {
@@ -91,7 +93,7 @@ namespace DarkSaver.Original.World
             }
             var combat=view.battle;
             foreach(var pair in trainingImages)pair.Value.hit.gameObject.SetActive(false);
-            if(combat!=null&&view.presentation?.completed!=false)
+            if(combat!=null&&(view.presentation?.completed!=false||view.presentation.nativeEvent))
             {
                 foreach(var u in combat.units.Where(u=>u.id!=0))
                 {
@@ -137,7 +139,7 @@ namespace DarkSaver.Original.World
                 }
             }
             // Native death sound calls occur in the unit update before magic render calls.
-            PaintDeathAudio(BattleMap()&&view.presentation?.completed!=false?combat?.deaths:null);
+            PaintDeathAudio(BattleMap()&&!CampaignCutscene?combat?.deaths:null);
             PaintBattleMagic();
             PaintCommandRange();
         }

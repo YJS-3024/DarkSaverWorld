@@ -1,0 +1,274 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace DarkSaver.Original.Editor.Scenarios
+{
+    [Serializable, DataContract] public sealed class ScenarioPlacement
+    {
+        [DataMember] public int unit, job, x, y;
+        [DataMember] public int setLine, posLine;
+        public ScenarioPlacement Copy() => (ScenarioPlacement)MemberwiseClone();
+    }
+    [Serializable, DataContract] public sealed class ScenarioLayout
+    {
+        [DataMember] public int version = 1, width, height;
+        [DataMember] public string mapKey, mapHash, setHash, posHash, source;
+        [DataMember(EmitDefaultValue=false)] public string catalogHash;
+        [DataMember] public bool edited;
+        [DataMember] public ScenarioPlacement[] units = Array.Empty<ScenarioPlacement>();
+        public ScenarioLayout Copy()
+        { var copy = (ScenarioLayout)MemberwiseClone(); copy.units = units.Select(u => u.Copy()).ToArray(); return copy; }
+    }
+    public sealed class ScenarioJob
+    { public int id, picture; public string name, category; public override string ToString() => id + "  " + name; }
+    public sealed class ScenarioMarker
+    { public int x, y, line; public string kind, label, file; }
+    public sealed class ScenarioActor
+    { public int unit, x, y, line; public string job, file; }
+    public sealed class ScenarioSource
+    {
+        public ScenarioLayout layout;
+        public ScenarioMarker[] entries, events;
+        public string[] scripts;
+    }
+    [DataContract] public sealed class OriginalRosterReference
+    {
+        [DataMember] public string scenario="";
+        [DataMember] public string setSha256="",posSha256="";
+        [DataMember] public int count=0;
+        [DataMember] public ScenarioPlacement[] units=Array.Empty<ScenarioPlacement>();
+    }
+    [DataContract] public sealed class OriginalRosterIndex
+    {
+        [DataMember] public string scope="";
+        [DataMember] public OriginalRosterReference[] scenarios=Array.Empty<OriginalRosterReference>();
+        [DataMember] public string[] emptyRosters=Array.Empty<string>();
+    }
+
+    // No Unity dependencies: original source joins and editor-owned file transactions.
+    public static class ScenarioLayoutData
+    {
+        public static bool IsKey(string key) => key != null && Regex.IsMatch(key, @"^\d{2,4}$");
+        public static string Hash(byte[] bytes)
+        { using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant(); }
+        public static string[] Lines(string text) => text.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n');
+        public static string[] Tokens(string line) => line.Split(';')[0].Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+        public static bool Number(string token, out int value) => int.TryParse(token, out value);
+        public static ScenarioSource ReadSource(string key, int width, int height, byte[] map, string set, string pos, string evt, string[] scripts)
+        {
+            if (!IsKey(key)) throw new InvalidDataException("Invalid map key.");
+            var jobs = new Dictionary<int, (int job, int line)>();
+            var positions = new Dictionary<int, (int x, int y, int line)>();
+            var entries = new List<ScenarioMarker>();
+            if (set != null)
+            {
+                var lines = Lines(set);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    var t = Tokens(lines[i]);
+                    if (t.Length < 2 || !Number(t[0], out int unit) || !Number(t[1], out int job)) continue;
+                    if (unit < 400) continue;
+                    if (jobs.ContainsKey(unit)) throw new InvalidDataException("Duplicate SET unit " + unit);
+                    jobs.Add(unit, (job, i + 1));
+                }
+            }
+            if (pos != null)
+            {
+                var lines = Lines(pos);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    var t = Tokens(lines[i]);
+                    if (t.Length != 3 || !Number(t[0], out int unit) || !Number(t[1], out int x) || !Number(t[2], out int y)) continue;
+                    if (unit < 400)
+                    { entries.Add(new ScenarioMarker { kind = "entry", label = "아군 슬롯 " + unit, x = x, y = y, line = i + 1, file = key + ".pos" }); continue; }
+                    if (positions.ContainsKey(unit)) throw new InvalidDataException("Duplicate POS unit " + unit);
+                    positions.Add(unit, (x, y, i + 1));
+                }
+            }
+            var units = new List<ScenarioPlacement>();
+            foreach (var pair in jobs.OrderBy(p => p.Key))
+            {
+                if (!positions.TryGetValue(pair.Key, out var at)) throw new InvalidDataException("SET unit has no POS: " + pair.Key);
+                units.Add(new ScenarioPlacement { unit = pair.Key, job = pair.Value.job, x = at.x, y = at.y, setLine = pair.Value.line, posLine = at.line });
+            }
+            return new ScenarioSource {
+                layout = new ScenarioLayout { mapKey = key, width = width, height = height, mapHash = Hash(map),
+                    setHash = set == null ? "" : Hash(Encoding.UTF8.GetBytes(set)), posHash = pos == null ? "" : Hash(Encoding.UTF8.GetBytes(pos)),
+                    source = set == null || pos == null ? "original-missing" : units.Count == 0 ? "original-empty" : "original-set-pos", units = units.ToArray() },
+                entries = entries.ToArray(),
+                events = ReadEvents(evt, key + ".evt"), scripts = scripts ?? Array.Empty<string>()
+            };
+        }
+        public static ScenarioSource ReadSourceWithCatalog(string key,int width,int height,byte[] map,string set,string pos,string evt,string[] scripts,byte[] catalog,ISet<int> knownJobs)
+        {
+            // Raw files remain authoritative and keep existing editor-file hashes compatible.
+            if(set!=null&&pos!=null||catalog==null)return ReadSource(key,width,height,map,set,pos,evt,scripts);
+            OriginalRosterIndex index;
+            using(var stream=new MemoryStream(catalog))index=(OriginalRosterIndex)new DataContractJsonSerializer(typeof(OriginalRosterIndex)).ReadObject(stream);
+            if(index?.scope?.StartsWith("Original SET/POS placement reference only;",StringComparison.Ordinal)!=true
+                ||index.scenarios==null||index.emptyRosters==null||index.scenarios.Any(r=>r==null||!IsKey(r.scenario))
+                ||index.scenarios.Select(r=>r.scenario).Distinct().Count()!=index.scenarios.Length
+                ||index.emptyRosters.Any(k=>!IsKey(k))||index.emptyRosters.Distinct().Count()!=index.emptyRosters.Length)
+                throw new InvalidDataException("원본 배치 목록의 형식/출처를 확인하세요.");
+            var roster=index.scenarios.FirstOrDefault(r=>r.scenario==key);
+            bool empty=index.emptyRosters.Contains(key);
+            if(roster==null&&!empty)return ReadSource(key,width,height,map,set,pos,evt,scripts);
+            if(roster!=null&&(empty||roster.units==null||roster.count!=roster.units.Length||roster.count<=0||roster.units.Any(u=>u==null)
+                ||roster.setSha256==null||roster.posSha256==null||!Regex.IsMatch(roster.setSha256,@"^[0-9a-f]{64}$")||!Regex.IsMatch(roster.posSha256,@"^[0-9a-f]{64}$")))
+                throw new InvalidDataException("원본 배치 목록의 개체 수가 맞지 않습니다.");
+            if(roster!=null&&((set!=null&&!MatchesTextHash(set,roster.setSha256))
+                ||(pos!=null&&!MatchesTextHash(pos,roster.posSha256))))
+                throw new InvalidDataException("남아 있는 SET/POS의 해시가 원본 배치 목록과 다릅니다. 다른 버전을 섞지 않습니다.");
+            var units=roster?.units.Select(u=>u.Copy()).ToArray()??Array.Empty<ScenarioPlacement>();
+            string joinedSet=string.Join("\n",units.Select(u=>u.unit+" "+u.job));
+            string joinedPos=string.Join("\n",units.Select(u=>u.unit+" "+u.x+" "+u.y));
+            var reference=ReadSource(key,width,height,map,joinedSet,joinedPos,evt,scripts);
+            reference.layout.units=units;
+            Validate(reference.layout,reference.layout,knownJobs);
+            // A remaining raw half must agree with the verified reference; do not mix versions.
+            var available=ReadSource(key,width,height,map,set??joinedSet,pos??joinedPos,evt,scripts);
+            if(!SameUnits(available.layout,reference.layout))throw new InvalidDataException("남아 있는 SET/POS와 원본 배치 목록이 다릅니다. 원본 버전을 확인하세요.");
+            reference.entries=available.entries;
+            reference.layout.setHash=set==null?"":Hash(Encoding.UTF8.GetBytes(set));
+            reference.layout.posHash=pos==null?"":Hash(Encoding.UTF8.GetBytes(pos));
+            reference.layout.catalogHash=Hash(catalog);
+            reference.layout.source=empty?"original-catalog-empty":"original-catalog";
+            return reference;
+        }
+        private static bool MatchesTextHash(string text,string expected)
+        {
+            if(Hash(Encoding.UTF8.GetBytes(text))==expected)return true;
+            string lf=text.Replace("\r\n","\n").Replace('\r','\n');
+            return Hash(Encoding.UTF8.GetBytes(lf))==expected||Hash(Encoding.UTF8.GetBytes(lf.Replace("\n","\r\n")))==expected;
+        }
+        public static ScenarioMarker[] ReadEvents(string text, string file)
+        {
+            if (text == null) return Array.Empty<ScenarioMarker>();
+            var result = new List<ScenarioMarker>(); var block = new List<(string[] t, int line)>(); string id = "";
+            Action flush = () => {
+                if (block.Count == 0) return;
+                bool chest = block.Any(v => string.Join(" ", v.t).Contains("상자"));
+                string rewards = string.Join(", ", block.Where(v => v.t.Length > 0 && (v.t[0] == "GETITEM" || v.t[0] == "GOLD")).Select(v => string.Join(" ", v.t)));
+                var anchors = chest ? block.Where(v => v.t.Length >= 3 && v.t[0] == "CHANGESPRITE").ToArray() : Array.Empty<(string[] t, int line)>();
+                foreach (var row in block)
+                {
+                    var t = row.t; int x, y;
+                    bool condition = t.Length == 4 && Number(t[0], out _) && t[1] == "CHARPOS" && Number(t[2], out x) && Number(t[3], out y);
+                    bool anchor = chest && t.Length >= 3 && t[0] == "CHANGESPRITE" && Number(t[1], out x) && Number(t[2], out y);
+                    if (!condition && !anchor) continue;
+                    x = int.Parse(t[anchor ? 1 : 2]); y = int.Parse(t[anchor ? 2 : 3]);
+                    result.Add(new ScenarioMarker { x = x, y = y, line = row.line, file = file, kind = anchor || (chest && anchors.Length == 0) ? "chest" : "event",
+                        label = "EVENT " + id + (anchor ? " 상자 그림" : " 조건 위치") + (rewards.Length == 0 ? "" : " · " + rewards) });
+                }
+                block.Clear();
+            };
+            var lines = Lines(text);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                var t = Tokens(lines[i]);
+                if (t.Length > 0 && t[0] == "EVENT") { flush(); id = t.Length > 1 ? t[1] : "?"; }
+                else if (id.Length > 0 && t.Length > 0) block.Add((t, i + 1));
+            }
+            flush(); return result.ToArray();
+        }
+        public static ScenarioActor[] Cutscene(string text, string file, string key, int throughLine)
+        {
+            var actors = new Dictionary<int, ScenarioActor>(); string scene = key; var lines = Lines(text ?? "");
+            for (int i = 0; i < Math.Min(lines.Length, throughLine); i++)
+            {
+                var t = Tokens(lines[i]); if (t.Length == 0) continue;
+                if (t[0] == "LOADSCENE" && t.Length > 1) { scene = t[1]; actors.Clear(); }
+                if (!int.TryParse(scene, out int current) || !int.TryParse(key, out int expected) || current != expected) continue;
+                if (t[0] == "CHARPOS" && t.Length >= 5 && Number(t[2], out int id) && Number(t[3], out int x) && Number(t[4], out int y))
+                    actors[id] = new ScenarioActor { unit = id, job = t[1], x = x, y = y, line = i + 1, file = file };
+                else if (t[0] == "CHARMOVE" && t.Length >= 4 && Number(t[1], out id) && actors.TryGetValue(id, out var actor) && Number(t[2], out x) && Number(t[3], out y))
+                { actor.x = x; actor.y = y; actor.line = i + 1; }
+                else if ((t[0] == "KILLCHAR" || t[0] == "KILLCHAR2") && t.Length > 1 && Number(t[1], out id)) actors.Remove(id);
+                else if (t[0] == "CLEARALLCHAR") actors.Clear();
+            }
+            return actors.Values.OrderBy(a => a.unit).ToArray();
+        }
+        public static void Validate(ScenarioLayout value, ScenarioLayout source, ISet<int> jobs)
+        {
+            if (value == null || source == null || value.version != 1 || !IsKey(value.mapKey) || value.mapKey != source.mapKey
+                || value.width != source.width || value.height != source.height || value.mapHash != source.mapHash
+                || value.setHash != source.setHash || value.posHash != source.posHash || value.catalogHash!=source.catalogHash || value.source != source.source || value.units == null)
+                throw new InvalidDataException("맵/원본 버전이 다른 편집 파일입니다. 원본을 덮어쓰지 않았습니다.");
+            var ids = new HashSet<int>();
+            foreach (var u in value.units)
+                if (u == null || u.unit < 400 || !ids.Add(u.unit) || !jobs.Contains(u.job) || u.x < 0 || u.x >= value.width || u.y < 0 || u.y >= value.height)
+                    throw new InvalidDataException("중복 unit, 잘못된 job 또는 맵 밖 좌표가 있습니다.");
+        }
+        public static int NextUnit(ScenarioLayout layout)
+        { var ids = new HashSet<int>(layout.units.Select(u => u.unit)); int id = 400; while (ids.Contains(id)) id++; return id; }
+        public static bool SameUnits(ScenarioLayout a, ScenarioLayout b) => a.units.Length == b.units.Length
+            && a.units.OrderBy(u => u.unit).Zip(b.units.OrderBy(u => u.unit), (x, y) => x.unit == y.unit && x.job == y.job && x.x == y.x && x.y == y.y).All(v => v);
+        public static ScenarioLayout LoadForPreview(byte[] saved,ScenarioLayout original,ISet<int> jobs,out bool readOnly,out string notice)
+        {
+            readOnly=false;notice="";if(saved==null)return original.Copy();
+            try{var loaded=Decode(saved);Validate(loaded,original,jobs);return loaded;}
+            catch(Exception e)when(e is SerializationException||e is InvalidDataException||e is IOException||e is ArgumentException||e is FormatException)
+            {
+                readOnly=true;notice="사용자 배치 파일을 읽지 못해 원본 배치를 읽기 전용으로 표시합니다. 기존 파일은 보존했습니다. 원본 배치 불러오기 또는 다시 열기를 사용하세요. "+e.Message;
+                return original.Copy();
+            }
+        }
+        public static byte[] Encode(ScenarioLayout layout)
+        { using (var stream = new MemoryStream()) { new DataContractJsonSerializer(typeof(ScenarioLayout)).WriteObject(stream, layout); return stream.ToArray(); } }
+        public static ScenarioLayout Decode(byte[] bytes)
+        { using (var stream = new MemoryStream(bytes)) return (ScenarioLayout)new DataContractJsonSerializer(typeof(ScenarioLayout)).ReadObject(stream); }
+        public static string Save(string folder, ScenarioLayout layout, ScenarioLayout source, ISet<int> jobs, string expectedFileHash)
+        {
+            Validate(layout, source, jobs); Directory.CreateDirectory(folder);
+            string path = Path.Combine(folder, layout.mapKey + ".json");
+            string actual = File.Exists(path) ? Hash(File.ReadAllBytes(path)) : null;
+            if (actual != expectedFileHash) throw new IOException("편집 파일이 외부에서 변경되었습니다. 다시 불러온 뒤 저장하세요.");
+            var copy = layout.Copy(); copy.edited = !SameUnits(layout, source); var bytes = Encode(copy);
+            // Verify the actual serialized payload before replacing an existing user file.
+            Validate(Decode(bytes), source, jobs);
+            string temp = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
+            try { File.WriteAllBytes(temp, bytes); if (File.Exists(path)) File.Replace(temp, path, null); else File.Move(temp, path); }
+            finally { if (File.Exists(temp)) File.Delete(temp); }
+            return Hash(bytes);
+        }
+        public static Dictionary<string,string> ReadMapNames(string text)
+        {
+            var rows=Csv((text??"").TrimStart('\uFEFF')).Where(r=>r.Any(v=>!string.IsNullOrWhiteSpace(v))).ToArray();
+            if(rows.Length==0)throw new InvalidDataException("맵 이름표 CSV 헤더가 없습니다.");
+            var header=rows[0].Select(v=>v.Trim()).ToArray();
+            if(header.Distinct().Count()!=header.Length)throw new InvalidDataException("맵 이름표 CSV 열이 중복되었습니다.");
+            int key=Array.IndexOf(header,"map_key"),name=Array.IndexOf(header,"display_name");
+            if(key<0||name<0)throw new InvalidDataException("map_key/display_name 열이 필요합니다.");
+            var result=new Dictionary<string,string>();var seen=new HashSet<string>();
+            foreach(var row in rows.Skip(1))
+            {
+                if(row.Length!=header.Length)throw new InvalidDataException("맵 이름표 CSV 열 수가 맞지 않습니다.");
+                string id=row[key].Trim();
+                if(!IsKey(id)||!seen.Add(id))throw new InvalidDataException("맵 이름표 map_key가 잘못되었거나 중복되었습니다: "+id);
+                string title=row[name].Trim();if(title.Length>0)result.Add(id,title);
+            }
+            return result;
+        }
+        public static IEnumerable<string[]> Csv(string text)
+        {
+            var fields = new List<string>(); var value = new StringBuilder(); bool quote = false;
+            for (int i = 0; i < text.Length; i++)
+            {
+                char c = text[i];
+                if (c == '"') { if (quote && i + 1 < text.Length && text[i + 1] == '"') { value.Append('"'); i++; } else quote = !quote; }
+                else if (!quote && (c == ',' || c == '\n'))
+                { fields.Add(value.ToString().TrimEnd('\r')); value.Clear(); if (c == '\n') { yield return fields.ToArray(); fields.Clear(); } }
+                else value.Append(c);
+            }
+            if (quote) throw new InvalidDataException("Invalid CSV quote.");
+            if (value.Length > 0 || fields.Count > 0) { fields.Add(value.ToString().TrimEnd('\r')); yield return fields.ToArray(); }
+        }
+    }
+}

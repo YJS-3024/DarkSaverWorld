@@ -257,6 +257,48 @@ internal static partial class MagicProjectileChecks
             Check(!f.server.ReceiveBattleUnitPackets(notice).Accepted&&JsonSerializer.Serialize(f.View.battle.numberEffects)+JsonSerializer.Serialize(f.View.battle.deaths)==resetState,"duplicate snapshot cannot restart reset effects twice");
         }
     }
+    private static void CheckNativeAiHintRefresh()
+    {
+        foreach(bool scenario in new[]{false,true})
+        {
+            var f=Soldiers(scenario,mode:2,hp:40,state:48);var initial=f.Notice();var actor=initial.units.Single(u=>u.id==1);
+            actor.nativeActive=actor.nativeEnabled=true;actor.attackTargets=Array.Empty<int>();actor.movementBudget=0;
+            Check(f.server.ReceiveBattleUnits(initial).Accepted,"native rest-hint reset setup");
+            Check(f.server.AdvanceBattleAutomation((r,v)=>throw new Exception("no packet"),n=>0,0)==null,"native attack-move derives forced-rest hint without a packet");
+            var world=(WorldSession)typeof(EntryAccountService).GetField("world",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).GetValue(f.server);
+            Check(world.Combat.AiHints[1].hint==99,"source-derived1FC hint is present");
+            Check(f.server.ReceiveBattleUnits(f.Notice()).Accepted&&world.Combat.AiHints[1].hint==99,"ordinary typed notice does not pretend to execute native B0A0");
+            var batch=UnitBatch(f,UnitPacket(f.View.battle.Unit(1)));f.store.fail=true;
+            Check(f.server.ReceiveBattleUnitPackets(batch).Failure==WorldFailure.StorageUnavailable&&world.Combat.AiHints[1].hint==99,"failed native snapshot retains client hint until commit");f.store.fail=false;
+            Check(f.server.ReceiveBattleUnitPackets(batch).Accepted&&!world.Combat.AiHints.ContainsKey(1),"actual51 refresh clears1FC even for the same enabled unit/life");
+        }
+    }
+    private static void CheckReceivedTeamSoldierControl()
+    {
+        foreach(bool scenario in new[]{false,true})foreach(bool contradictory in new[]{false,true})
+        {
+            var f=Soldiers(scenario);var packets=f.View.battle.units.Select(u=>
+            {var p=UnitPacket(u);p.values[3]=OriginalBattleTicks.CommandFlags(0);return p;}).ToArray();
+            Check(f.server.ReceiveBattleUnitPackets(UnitBatch(f,packets)).Accepted,"actual51 supplies AI teams and disabled manual menu bits");
+            var n=f.Notice();n.units.First(u=>u.id==0).troopOrder=2;
+            foreach(var u in n.units)u.attackTargets=contradictory?Array.Empty<int>():null;
+            n.units.First(u=>u.id==1).nativeState=16;
+            Check(f.server.ReceiveBattleUnits(n).Accepted,"explicit original auto mode without a fabricated enemy list");
+            Check(f.View.battle.Unit(1).canAttack==false&&f.View.battle.Unit(0).canCommand==false,"native menu really disables manual buttons");
+            string before=State(f.View.record);
+            Check(f.server.RequestBattleSoldierAction(1,Id(),count=>0,5000).Accepted,"actual51 teams determine enemy when legacy list is missing or contradictory");
+            var request=f.View.battle.pending;
+            Check(request.action==TrainingAction.Attack&&request.target==400&&request.NativePacket[1]==0x82&&State(f.View.record)==before,"received-team AI generates82 without predicting damage or XP");
+            Check(f.server.CancelBattleAction(request.id).Accepted,"cancel received-team probe without changing save");
+            var same=UnitPacket(f.View.battle.Unit(400));same.words[1]=0;same.values[3]=OriginalBattleTicks.CommandFlags(0);
+            Check(f.server.ReceiveBattleUnitPackets(UnitBatch(f,same)).Accepted,"actual51 same-team metadata overrides contradictory enemy IDs");
+            Check(!f.server.RequestBattleSoldierAction(1,Id(),count=>0,5000).Accepted,"same-team target is not an enemy because its ID is400");
+            var peer=UnitPacket(f.View.battle.Unit(400));peer.words[1]=1;peer.values[3]=OriginalBattleTicks.CommandFlags(0);
+            Check(f.server.ReceiveBattleUnitPackets(UnitBatch(f,peer)).Accepted,"actual51 different player team without received alliance context");
+            n=f.Notice();foreach(var u in n.units)u.attackTargets=null;Check(f.server.ReceiveBattleUnits(n).Accepted,"no legacy authority supplies missing peer alliance");before=State(f.View.record);
+            Check(!f.server.RequestBattleSoldierAction(1,Id(),count=>0,5000).Accepted&&State(f.View.record)==before,"missing alliance stays unavailable instead of enemy or forced rest");
+        }
+    }
     internal static void RunNativeUnitChecks(string path)
-    {root=path;CheckUnitCodec();CheckUnitIngress(false);CheckUnitIngress(true);CheckUnitFailures();CheckInitialUnitDelivery(false);CheckInitialUnitDelivery(true);foreach(int source in new[]{0,1,400})CheckMovingUnitSnapshot(source);CheckUnitFilePersistence();CheckRemovedUnitReset();CheckTeamCodec();CheckBattleTeamNames(false);CheckBattleTeamNames(true);CheckUnitMagicReset();CheckUnknownOwnerHealth();CheckFullPresentationReset();Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Actual50/51/60 decoder, atomic unit/service/manager ingress, initial roster, partial versus detailed presentation, profile separation, slots/team names, memory/file persistence, movement/lifetime/numeric/attack/death/effect-slot resets and failure rollback; no original server XP/growth/roster rules."}));}
+    {root=path;CheckReceivedTeamSoldierControl();CheckNativeAiHintRefresh();CheckUnitCodec();CheckUnitIngress(false);CheckUnitIngress(true);CheckUnitFailures();CheckInitialUnitDelivery(false);CheckInitialUnitDelivery(true);foreach(int source in new[]{0,1,400})CheckMovingUnitSnapshot(source);CheckUnitFilePersistence();CheckRemovedUnitReset();CheckTeamCodec();CheckBattleTeamNames(false);CheckBattleTeamNames(true);CheckUnitMagicReset();CheckUnknownOwnerHealth();CheckFullPresentationReset();Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Actual50/51/60 decoder, atomic unit/service/manager ingress, initial roster, partial versus detailed presentation, profile separation, slots/team names, memory/file persistence, movement/lifetime/numeric/attack/death/effect-slot resets and failure rollback; no original server XP/growth/roster rules."}));}
 }

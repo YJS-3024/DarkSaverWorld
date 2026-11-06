@@ -23,7 +23,7 @@ internal static class NativeMagicDifferential
             if(c.packet!=null)
             {
                 if(!OriginalNativeMagic.TryNotice(c.packet.Select(i=>(byte)i).ToArray(),out var p))throw new Exception("Invalid fixture");
-                bool call=OriginalNativeMagic.Dispatches(p,c.localTeam,c.sourceTeam)??throw new Exception("Unknown fixture team");
+                bool call=OriginalNativeMagic.Dispatches(p,c.localTeam,c.sourceTeam,c.packet[1])??throw new Exception("Unknown fixture team");
                 return (object)new{call,magic=call?p.magic:0,source=call?p.source:0,x=call?p.x:0,y=call?p.y:0,targets=call?p.targets:Array.Empty<int>(),wordReads=4+p.targets.Length,byteReads=1};
             }
             return Convert.ToHexString(OriginalNativeMagic.Request(new NativeMagicPacket{item=c.item,itemToken=c.token,magic=c.metadata.id,source=c.source,x=c.x,y=c.y,mode=c.mode,signature=OriginalNativeMagic.Signature(c.metadata),targets=c.targets})).ToLowerInvariant();

@@ -1,0 +1,244 @@
+{
+  "scope": "Completed development runs. Nested checks overlap and are not added together. Historical runs are not all current source proofs; the final audit supplies current digests.",
+  "runs": [
+    {
+      "logName": "ds-morning-current-final.log",
+      "logSha256": "21757e83d53b4d94614f4726a070731edf98c0ff8a8f2a8bde0be215b192903b",
+      "results": [
+        {
+          "check": "Tools/OriginalWorldChecks/check_campaign.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/000-OriginalWorldChecks-check_campaign.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_message_pages.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/001-OriginalWorldChecks-check_native_message_pages.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_scenario_end.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/002-OriginalWorldChecks-check_native_scenario_end.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_runtime_resource_bindings.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/003-OriginalWorldChecks-check_runtime_resource_bindings.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_facility_contract_regressions.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/004-OriginalWorldChecks-check_facility_contract_regressions.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_nullable_serialization_analyzer.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/005-OriginalWorldChecks-check_nullable_serialization_analyzer.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_authored_world_startup.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/006-OriginalWorldChecks-check_authored_world_startup.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_reverse_gateways.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/007-OriginalWorldChecks-check_reverse_gateways.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_warehouse_reconnect_stability.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/008-OriginalWorldChecks-check_warehouse_reconnect_stability.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_training_test_authority.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/009-OriginalWorldChecks-check_training_test_authority.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_battle_responses.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/010-OriginalWorldChecks-check_native_battle_responses.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_magic.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/011-OriginalWorldChecks-check_native_magic.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_local_orders.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/012-OriginalWorldChecks-check_native_local_orders.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_unit_snapshots.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/013-OriginalWorldChecks-check_native_unit_snapshots.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_result_contracts.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/014-OriginalWorldChecks-check_native_result_contracts.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_result_kill_contracts.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/015-OriginalWorldChecks-check_native_result_kill_contracts.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_training_tiers.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/016-OriginalWorldChecks-check_training_tiers.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_client_windows_integration.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/017-OriginalWorldChecks-check_client_windows_integration.log"
+        }
+      ],
+      "allSelectedChecksPassed": true
+    },
+    {
+      "logName": "ds-morning-final-visibility.log",
+      "logSha256": "1b013f9f5079230e06af1014884332d09c55bccb3d38d99e7818e35fa3fb3352",
+      "results": [
+        {
+          "check": "Tools/OriginalTutorialChecks/check_tutorial.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/000-OriginalTutorialChecks-check_tutorial.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_message_pages.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/001-OriginalWorldChecks-check_native_message_pages.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_runtime_resource_bindings.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/002-OriginalWorldChecks-check_runtime_resource_bindings.log"
+        },
+        {
+          "check": "Tools/OriginalTutorialChecks/check_dialogue_presentation.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/003-OriginalTutorialChecks-check_dialogue_presentation.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_nullable_serialization_analyzer.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/004-OriginalWorldChecks-check_nullable_serialization_analyzer.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_battle_options.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/005-OriginalWorldChecks-check_native_battle_options.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_picture_initialization.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/006-OriginalWorldChecks-check_picture_initialization.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_client_windows_integration.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/007-OriginalWorldChecks-check_client_windows_integration.log"
+        }
+      ],
+      "allSelectedChecksPassed": true
+    },
+    {
+      "logName": "ds-morning-final-targets.log",
+      "logSha256": "0211efa3533c0c127e7c3c6a706d60134e239bf75dc8bb11472a1adbf36861a7",
+      "results": [
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_magic_packets.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/000-OriginalWorldChecks-check_native_magic_packets.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_native_magic_redirect.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/001-OriginalWorldChecks-check_native_magic_redirect.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_client_windows_integration.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/002-OriginalWorldChecks-check_client_windows_integration.log"
+        }
+      ],
+      "allSelectedChecksPassed": true
+    },
+    {
+      "logName": "ds-morning-final-scope.log",
+      "logSha256": "a6623b6f3d96ede01439ae06239b3da91e1fb2236ae335778795584a50ae9fd9",
+      "results": [
+        {
+          "check": "Tools/CheckSupport/check_evidence_eol.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/000-CheckSupport-check_evidence_eol.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_warehouse_reconnect_stability.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/001-OriginalWorldChecks-check_warehouse_reconnect_stability.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_client_windows_integration.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/002-OriginalWorldChecks-check_client_windows_integration.log"
+        }
+      ],
+      "allSelectedChecksPassed": true
+    },
+    {
+      "logName": "ds-morning-final-ledger-audit.log",
+      "logSha256": "376334ad98973baffda33b560e24fd2b1debe635dd231e912e7fe83037b80e9c",
+      "results": [
+        {
+          "check": "Tools/CheckSupport/check_runner.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/000-CheckSupport-check_runner.log"
+        },
+        {
+          "check": "Tools/OriginalWorldChecks/check_client_windows_integration.py",
+          "exitCode": 0,
+          "status": "passed",
+          "log": "/tmp/ds-morning-pages-final/001-OriginalWorldChecks-check_client_windows_integration.log"
+        }
+      ],
+      "allSelectedChecksPassed": true
+    }
+  ]
+}

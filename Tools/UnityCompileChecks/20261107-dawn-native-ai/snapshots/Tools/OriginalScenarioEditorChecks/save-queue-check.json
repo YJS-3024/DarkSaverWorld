@@ -1,0 +1,19 @@
+{
+  "checks": 11,
+  "layoutSaveChecks": 24,
+  "unityGuiExecuted": false,
+  "scope": "Exact production queue and Save methods; actual isolated atomic editor/export file store and content-hash equality, with GUI/AssetDatabase boundaries stubbed. No Unity Editor event/import execution.",
+  "mismatches": 0,
+  "sources": {
+    "Tools/OriginalScenarioEditorChecks/check_save_queue.py": "2b27b24c996dcbe66a8415ee24497d2fda132f8b09b05a7bd022bbc29d00123b",
+    "Tools/OriginalScenarioEditorChecks/SaveQueueChecks.cs": "c525a40066db71db047c78ab1f58f4e9b3093838eec51b0ee32a457ae2c29aa2",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "0178baa5ad9e32374dfb8416b8e92c8a0bd1edd33c2058b425c9bcdc5c8af7aa",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "8c9b70e8f766e5b8118111467aa1bc2e4105a49b4f4d2c016fdac7864e56f987",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "781a6150110dd419f76657443b9e6254c97741b8de8a1d2a38bcd2b0a8fdfcc4",
+    "Tools/OriginalWorldChecks/check_picture_initialization.py": "a47a03310d47d9f860da3ed46a9393649ad3763acd172d14d31839b8a0939618",
+    "Tools/OriginalScenarioEditorChecks/LayoutSaveChecks.cs": "4a0e0dac30b91e17c5ac9863ef9810b908f9456d01691af6c486cc6cb78b67de",
+    "Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs": "98daf67f8dcfc02413c0d2db559a2a2a3fde9c877688f7897bfd127267c68497",
+    "Assets/_Original/Runtime/Entry/TrainingTestLayoutCatalog.cs": "e2ebc9ecc572e1badb3cbc81392a60a8494dd332f47eb976ac616c1429a0f2a8"
+  },
+  "logs": "/tmp/ds-dawn-frozen/ds-editor-save-queue"
+}

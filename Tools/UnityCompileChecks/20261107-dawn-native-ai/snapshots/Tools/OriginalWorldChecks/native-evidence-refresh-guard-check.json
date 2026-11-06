@@ -1,0 +1,29 @@
+{
+  "assertions": 42,
+  "manifests": 6,
+  "lateRefusals": [
+    {
+      "mutation": "evidence-hash",
+      "reason": "Changed native evidence; preserve and review: 분석/Ghidra/Saver_Late/DirectedEvents/10002e10.c"
+    },
+    {
+      "mutation": "reference-path",
+      "reason": "('DirectedEvents', 'runtimeContracts', 'unapproved-retarget.json')"
+    }
+  ],
+  "repositoryManifestsUnchanged": true,
+  "forcedEarlierReferenceChange": true,
+  "testsRerunByThisCheck": false,
+  "unityPlay": false,
+  "sources": {
+    "Tools/GhidraChecks/check_evidence_reference_refresh.py": "597be770b457671571c4fc454b27f5e02b3d9308f79ff8ed6b2b1a37a7c5ce28",
+    "Tools/GhidraChecks/refresh_native_evidence_references.py": "dd180a0885e41a94bcf14350b0551497da8c56b557a2837732a0c9cf462ab546",
+    "분석/Ghidra/Saver_Late/ScenarioEndControl/evidence.json": "7f37e54a0a5d9f7312cb4273d445e4e0732bc01ba8b1aaae30bdb6745542b7bc",
+    "분석/Ghidra/Saver_Late/EventQueue/evidence.json": "50e37d18d166c4ba777b8abb2889dcf32dc39399209c386559672462cd7c4838",
+    "분석/Ghidra/Saver_Late/MagicRedirect/evidence.json": "3bf69c25cfe835cc2d8e15c54061a7a0d6a7cf366309924eb8f556bfc0f1dbbc",
+    "분석/Ghidra/Saver_Late/AuxiliaryPackets/evidence.json": "5a9dfd14a5b492cc30075606def8ccc13d6fcb7df57b5fb1489c64704deaaac4",
+    "분석/Ghidra/Saver_Late/RetreatConfirmation/evidence.json": "5fdd252774f7662a50c4cee4242c3a448299af534e500e8ee90ad0d82db71fab",
+    "분석/Ghidra/Saver_Late/DirectedEvents/evidence.json": "3da2f859f285b1806c0450af4e38fe383b45221200e8307d96c0c7330556b470"
+  },
+  "scope": "Actual metadata refresh over isolated manifest copies. Current report/source verification, exact reference-only changes, and no partial writes on late bad evidence/retarget refusal. No game files or original evidence are mutated."
+}

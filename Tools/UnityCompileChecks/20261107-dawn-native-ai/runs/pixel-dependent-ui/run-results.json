@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "check": "Tools/OriginalEntryChecks/check_entry.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-dawn-eol-ui-consumers/000-OriginalEntryChecks-check_entry.log",
+      "preparedFor": "Tools/OriginalWorldChecks/check_native_battle_options.py"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_battle_options.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-dawn-eol-ui-consumers/001-OriginalWorldChecks-check_native_battle_options.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_class_presentation.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-dawn-eol-ui-consumers/002-OriginalWorldChecks-check_native_class_presentation.log"
+    }
+  ],
+  "normalizations": [],
+  "status": "passed",
+  "completed": true,
+  "failure": null,
+  "unityPlay": false,
+  "scope": "Original check entrypoints and subprocesses; only paths/compiler argument quoting adapted. No skipped assertions or inferred native file versions."
+}

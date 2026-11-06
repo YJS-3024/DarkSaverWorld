@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_scenario_progress.py", line 53, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_scenario_progress.py", line 22, in main
+    if r.returncode:raise RuntimeError((r.stdout+r.stderr)[-2500:])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Unhandled exception. System.Exception: new roster ownership invalidates the outstanding old roster query
+   at ScenarioProgressChecks.Check(Boolean value, String label)
+   at ScenarioProgressChecks.LocalScenarioRecruits()
+   at ScenarioProgressChecks.Main(String[] args)
+

@@ -15,6 +15,17 @@ namespace DarkSaver.Original.World
         public BattleLifeRecord[] targetLives;
         public NativeBattleNotice Copy(){var r=(NativeBattleNotice)MemberwiseClone();r.packet=packet==null?null:(byte[])packet.Clone();r.targetLives=targetLives==null?null:System.Array.ConvertAll(targetLives,l=>l?.Copy());return r;}
     }
+    // Captured before public callbacks; mutable reply views cannot retarget a leave notification.
+    internal readonly struct NativeScenarioReturn
+    {
+        private readonly string character,commanderSession,session,result;
+        private readonly int map;
+        private NativeScenarioReturn(WorldView view)
+        {character=view.characterId;commanderSession=view.commanderSession;session=view.campaignSession;map=view.record.map;result=view.record.lastScenarioResult.id;}
+        public static NativeScenarioReturn? Capture(WorldView view)=>view?.record!=null&&view.record.scenarioVisit==null&&view.record.lastScenarioResult?.id!=null?(NativeScenarioReturn?)new NativeScenarioReturn(view):null;
+        public bool Matches(WorldView view)=>view!=null&&view.characterId==character&&view.commanderSession==commanderSession&&view.campaignSession==session
+            &&view.record.map==map&&view.record.scenarioVisit==null&&view.record.lastScenarioResult?.id==result;
+    }
     // Immutable local delivery context; never appended to a native packet.
     public readonly struct NativeBattleFocus
     {
@@ -51,6 +62,19 @@ namespace DarkSaver.Original.World
         }
         public static byte[] Packet(int unit,uint experience)
             =>unit<0||unit>=3000?null:new[]{(byte)0x5c,(byte)0x53,(byte)unit,(byte)(unit>>8),(byte)experience,(byte)(experience>>8),(byte)(experience>>16),(byte)(experience>>24)};
+    }
+    // GameCtl5C13 -> DCB0 -> UserUnit.MagicFlag: only runtime+104 status bits.
+    public static class OriginalBattleStatus
+    {
+        public static bool TryDecode(byte[] bytes,out int unit,out uint flags)
+        {
+            unit=-1;flags=0;
+            if(bytes==null||bytes.Length!=8||bytes[0]!=0x5c||bytes[1]!=0x13)return false;
+            int id=(short)(bytes[2]|bytes[3]<<8);if(id<0||id>=3000)return false;
+            unit=id;flags=(uint)(bytes[4]|bytes[5]<<8|bytes[6]<<16|bytes[7]<<24);return true;
+        }
+        public static byte[] Packet(int unit,uint flags)
+        {var bytes=OriginalBattleExperience.Packet(unit,flags);if(bytes!=null)bytes[1]=0x13;return bytes;}
     }
     public sealed class NativeBattleRequest
     {

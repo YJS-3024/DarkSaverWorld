@@ -1,0 +1,1901 @@
+{
+  "nativeSubstringCases": 143,
+  "mismatches": 0,
+  "unityPlay": false,
+  "additionalNativeLibraries": {
+    "msvcrt.dll": "d7cea69a98579d928e534070f5293e80ed7df38baf611b20717ef55aa1344a18",
+    "mfc42.dll": "2598103e2ce4a5f30772b6a8a5fab26baab098c1fe94b744cf6f5dfb3dea1d37"
+  },
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_message_substrings.py": "2e4ca00080f1ed74d0956fc58b4815a0c162992c55cc6e670e9b6f754baa7ac9",
+    "Tools/OriginalWorldChecks/native_mfc_format_emulator.py": "8c0e85db8af3a247573d28c57bf72cfab5c7699bf0c0c2912dcfdc699c27ac1e",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "분석/InstallerVersions/installer_inventory.json": "ccb25fe9bc77d00ee1061c10fa961663937fdcfd3859deb03e6328aa30f99ddd"
+  },
+  "cases": [
+    {
+      "text": "",
+      "operation": "Left",
+      "args": [
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": []
+    },
+    {
+      "text": "",
+      "operation": "Left",
+      "args": [
+        0
+      ],
+      "resultHex": "",
+      "copyArguments": []
+    },
+    {
+      "text": "",
+      "operation": "Left",
+      "args": [
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": []
+    },
+    {
+      "text": "",
+      "operation": "Left",
+      "args": [
+        2
+      ],
+      "resultHex": "",
+      "copyArguments": []
+    },
+    {
+      "text": "",
+      "operation": "Left",
+      "args": [
+        3
+      ],
+      "resultHex": "",
+      "copyArguments": []
+    },
+    {
+      "text": "",
+      "operation": "Left",
+      "args": [
+        4
+      ],
+      "resultHex": "",
+      "copyArguments": []
+    },
+    {
+      "text": "",
+      "operation": "Left",
+      "args": [
+        20
+      ],
+      "resultHex": "",
+      "copyArguments": []
+    },
+    {
+      "text": "",
+      "operation": "Mid",
+      "args": [
+        3,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "text": "",
+      "operation": "Mid",
+      "args": [
+        -1,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": []
+    },
+    {
+      "text": "",
+      "operation": "Mid",
+      "args": [
+        0,
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": []
+    },
+    {
+      "text": "",
+      "operation": "Mid",
+      "args": [
+        0,
+        20
+      ],
+      "resultHex": "",
+      "copyArguments": []
+    },
+    {
+      "text": "",
+      "operation": "Mid",
+      "args": [
+        20,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    {
+      "text": "",
+      "operation": "Mid",
+      "args": [
+        1,
+        3
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "text": "COM",
+      "operation": "Left",
+      "args": [
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM",
+      "operation": "Left",
+      "args": [
+        0
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM",
+      "operation": "Left",
+      "args": [
+        1
+      ],
+      "resultHex": "43",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM",
+      "operation": "Left",
+      "args": [
+        2
+      ],
+      "resultHex": "434f",
+      "copyArguments": [
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM",
+      "operation": "Left",
+      "args": [
+        3
+      ],
+      "resultHex": "434f4d",
+      "copyArguments": []
+    },
+    {
+      "text": "COM",
+      "operation": "Left",
+      "args": [
+        4
+      ],
+      "resultHex": "434f4d",
+      "copyArguments": []
+    },
+    {
+      "text": "COM",
+      "operation": "Left",
+      "args": [
+        20
+      ],
+      "resultHex": "434f4d",
+      "copyArguments": []
+    },
+    {
+      "text": "COM",
+      "operation": "Mid",
+      "args": [
+        3,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "text": "COM",
+      "operation": "Mid",
+      "args": [
+        -1,
+        1
+      ],
+      "resultHex": "43",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM",
+      "operation": "Mid",
+      "args": [
+        0,
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM",
+      "operation": "Mid",
+      "args": [
+        0,
+        20
+      ],
+      "resultHex": "434f4d",
+      "copyArguments": []
+    },
+    {
+      "text": "COM",
+      "operation": "Mid",
+      "args": [
+        20,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    {
+      "text": "COM",
+      "operation": "Mid",
+      "args": [
+        1,
+        3
+      ],
+      "resultHex": "4f4d",
+      "copyArguments": [
+        [
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "text": "COMX",
+      "operation": "Left",
+      "args": [
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COMX",
+      "operation": "Left",
+      "args": [
+        0
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COMX",
+      "operation": "Left",
+      "args": [
+        1
+      ],
+      "resultHex": "43",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COMX",
+      "operation": "Left",
+      "args": [
+        2
+      ],
+      "resultHex": "434f",
+      "copyArguments": [
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COMX",
+      "operation": "Left",
+      "args": [
+        3
+      ],
+      "resultHex": "434f4d",
+      "copyArguments": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COMX",
+      "operation": "Left",
+      "args": [
+        4
+      ],
+      "resultHex": "434f4d58",
+      "copyArguments": []
+    },
+    {
+      "text": "COMX",
+      "operation": "Left",
+      "args": [
+        20
+      ],
+      "resultHex": "434f4d58",
+      "copyArguments": []
+    },
+    {
+      "text": "COMX",
+      "operation": "Mid",
+      "args": [
+        3,
+        1
+      ],
+      "resultHex": "58",
+      "copyArguments": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "text": "COMX",
+      "operation": "Mid",
+      "args": [
+        -1,
+        1
+      ],
+      "resultHex": "43",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COMX",
+      "operation": "Mid",
+      "args": [
+        0,
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COMX",
+      "operation": "Mid",
+      "args": [
+        0,
+        20
+      ],
+      "resultHex": "434f4d58",
+      "copyArguments": []
+    },
+    {
+      "text": "COMX",
+      "operation": "Mid",
+      "args": [
+        20,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    {
+      "text": "COMX",
+      "operation": "Mid",
+      "args": [
+        1,
+        3
+      ],
+      "resultHex": "4f4d58",
+      "copyArguments": [
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "text": "COM가",
+      "operation": "Left",
+      "args": [
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM가",
+      "operation": "Left",
+      "args": [
+        0
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM가",
+      "operation": "Left",
+      "args": [
+        1
+      ],
+      "resultHex": "43",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM가",
+      "operation": "Left",
+      "args": [
+        2
+      ],
+      "resultHex": "434f",
+      "copyArguments": [
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM가",
+      "operation": "Left",
+      "args": [
+        3
+      ],
+      "resultHex": "434f4d",
+      "copyArguments": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM가",
+      "operation": "Left",
+      "args": [
+        4
+      ],
+      "resultHex": "434f4db0",
+      "copyArguments": [
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM가",
+      "operation": "Left",
+      "args": [
+        20
+      ],
+      "resultHex": "434f4db0a1",
+      "copyArguments": []
+    },
+    {
+      "text": "COM가",
+      "operation": "Mid",
+      "args": [
+        3,
+        1
+      ],
+      "resultHex": "b0",
+      "copyArguments": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "text": "COM가",
+      "operation": "Mid",
+      "args": [
+        -1,
+        1
+      ],
+      "resultHex": "43",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM가",
+      "operation": "Mid",
+      "args": [
+        0,
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM가",
+      "operation": "Mid",
+      "args": [
+        0,
+        20
+      ],
+      "resultHex": "434f4db0a1",
+      "copyArguments": []
+    },
+    {
+      "text": "COM가",
+      "operation": "Mid",
+      "args": [
+        20,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    {
+      "text": "COM가",
+      "operation": "Mid",
+      "args": [
+        1,
+        3
+      ],
+      "resultHex": "4f4db0",
+      "copyArguments": [
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "text": "COM10",
+      "operation": "Left",
+      "args": [
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM10",
+      "operation": "Left",
+      "args": [
+        0
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM10",
+      "operation": "Left",
+      "args": [
+        1
+      ],
+      "resultHex": "43",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM10",
+      "operation": "Left",
+      "args": [
+        2
+      ],
+      "resultHex": "434f",
+      "copyArguments": [
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM10",
+      "operation": "Left",
+      "args": [
+        3
+      ],
+      "resultHex": "434f4d",
+      "copyArguments": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM10",
+      "operation": "Left",
+      "args": [
+        4
+      ],
+      "resultHex": "434f4d31",
+      "copyArguments": [
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM10",
+      "operation": "Left",
+      "args": [
+        20
+      ],
+      "resultHex": "434f4d3130",
+      "copyArguments": []
+    },
+    {
+      "text": "COM10",
+      "operation": "Mid",
+      "args": [
+        3,
+        1
+      ],
+      "resultHex": "31",
+      "copyArguments": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "text": "COM10",
+      "operation": "Mid",
+      "args": [
+        -1,
+        1
+      ],
+      "resultHex": "43",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM10",
+      "operation": "Mid",
+      "args": [
+        0,
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "COM10",
+      "operation": "Mid",
+      "args": [
+        0,
+        20
+      ],
+      "resultHex": "434f4d3130",
+      "copyArguments": []
+    },
+    {
+      "text": "COM10",
+      "operation": "Mid",
+      "args": [
+        20,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    {
+      "text": "COM10",
+      "operation": "Mid",
+      "args": [
+        1,
+        3
+      ],
+      "resultHex": "4f4d31",
+      "copyArguments": [
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "text": "가ME",
+      "operation": "Left",
+      "args": [
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ME",
+      "operation": "Left",
+      "args": [
+        0
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ME",
+      "operation": "Left",
+      "args": [
+        1
+      ],
+      "resultHex": "b0",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ME",
+      "operation": "Left",
+      "args": [
+        2
+      ],
+      "resultHex": "b0a1",
+      "copyArguments": [
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ME",
+      "operation": "Left",
+      "args": [
+        3
+      ],
+      "resultHex": "b0a14d",
+      "copyArguments": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ME",
+      "operation": "Left",
+      "args": [
+        4
+      ],
+      "resultHex": "b0a14d45",
+      "copyArguments": []
+    },
+    {
+      "text": "가ME",
+      "operation": "Left",
+      "args": [
+        20
+      ],
+      "resultHex": "b0a14d45",
+      "copyArguments": []
+    },
+    {
+      "text": "가ME",
+      "operation": "Mid",
+      "args": [
+        3,
+        1
+      ],
+      "resultHex": "45",
+      "copyArguments": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "text": "가ME",
+      "operation": "Mid",
+      "args": [
+        -1,
+        1
+      ],
+      "resultHex": "b0",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ME",
+      "operation": "Mid",
+      "args": [
+        0,
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ME",
+      "operation": "Mid",
+      "args": [
+        0,
+        20
+      ],
+      "resultHex": "b0a14d45",
+      "copyArguments": []
+    },
+    {
+      "text": "가ME",
+      "operation": "Mid",
+      "args": [
+        20,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    {
+      "text": "가ME",
+      "operation": "Mid",
+      "args": [
+        1,
+        3
+      ],
+      "resultHex": "a14d45",
+      "copyArguments": [
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "text": "가ID",
+      "operation": "Left",
+      "args": [
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ID",
+      "operation": "Left",
+      "args": [
+        0
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ID",
+      "operation": "Left",
+      "args": [
+        1
+      ],
+      "resultHex": "b0",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ID",
+      "operation": "Left",
+      "args": [
+        2
+      ],
+      "resultHex": "b0a1",
+      "copyArguments": [
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ID",
+      "operation": "Left",
+      "args": [
+        3
+      ],
+      "resultHex": "b0a149",
+      "copyArguments": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ID",
+      "operation": "Left",
+      "args": [
+        4
+      ],
+      "resultHex": "b0a14944",
+      "copyArguments": []
+    },
+    {
+      "text": "가ID",
+      "operation": "Left",
+      "args": [
+        20
+      ],
+      "resultHex": "b0a14944",
+      "copyArguments": []
+    },
+    {
+      "text": "가ID",
+      "operation": "Mid",
+      "args": [
+        3,
+        1
+      ],
+      "resultHex": "44",
+      "copyArguments": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "text": "가ID",
+      "operation": "Mid",
+      "args": [
+        -1,
+        1
+      ],
+      "resultHex": "b0",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ID",
+      "operation": "Mid",
+      "args": [
+        0,
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가ID",
+      "operation": "Mid",
+      "args": [
+        0,
+        20
+      ],
+      "resultHex": "b0a14944",
+      "copyArguments": []
+    },
+    {
+      "text": "가ID",
+      "operation": "Mid",
+      "args": [
+        20,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    {
+      "text": "가ID",
+      "operation": "Mid",
+      "args": [
+        1,
+        3
+      ],
+      "resultHex": "a14944",
+      "copyArguments": [
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "text": "ME가",
+      "operation": "Left",
+      "args": [
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ME가",
+      "operation": "Left",
+      "args": [
+        0
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ME가",
+      "operation": "Left",
+      "args": [
+        1
+      ],
+      "resultHex": "4d",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ME가",
+      "operation": "Left",
+      "args": [
+        2
+      ],
+      "resultHex": "4d45",
+      "copyArguments": [
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ME가",
+      "operation": "Left",
+      "args": [
+        3
+      ],
+      "resultHex": "4d45b0",
+      "copyArguments": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ME가",
+      "operation": "Left",
+      "args": [
+        4
+      ],
+      "resultHex": "4d45b0a1",
+      "copyArguments": []
+    },
+    {
+      "text": "ME가",
+      "operation": "Left",
+      "args": [
+        20
+      ],
+      "resultHex": "4d45b0a1",
+      "copyArguments": []
+    },
+    {
+      "text": "ME가",
+      "operation": "Mid",
+      "args": [
+        3,
+        1
+      ],
+      "resultHex": "a1",
+      "copyArguments": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "text": "ME가",
+      "operation": "Mid",
+      "args": [
+        -1,
+        1
+      ],
+      "resultHex": "4d",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ME가",
+      "operation": "Mid",
+      "args": [
+        0,
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ME가",
+      "operation": "Mid",
+      "args": [
+        0,
+        20
+      ],
+      "resultHex": "4d45b0a1",
+      "copyArguments": []
+    },
+    {
+      "text": "ME가",
+      "operation": "Mid",
+      "args": [
+        20,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    {
+      "text": "ME가",
+      "operation": "Mid",
+      "args": [
+        1,
+        3
+      ],
+      "resultHex": "45b0a1",
+      "copyArguments": [
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "text": "ID가",
+      "operation": "Left",
+      "args": [
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ID가",
+      "operation": "Left",
+      "args": [
+        0
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ID가",
+      "operation": "Left",
+      "args": [
+        1
+      ],
+      "resultHex": "49",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ID가",
+      "operation": "Left",
+      "args": [
+        2
+      ],
+      "resultHex": "4944",
+      "copyArguments": [
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ID가",
+      "operation": "Left",
+      "args": [
+        3
+      ],
+      "resultHex": "4944b0",
+      "copyArguments": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ID가",
+      "operation": "Left",
+      "args": [
+        4
+      ],
+      "resultHex": "4944b0a1",
+      "copyArguments": []
+    },
+    {
+      "text": "ID가",
+      "operation": "Left",
+      "args": [
+        20
+      ],
+      "resultHex": "4944b0a1",
+      "copyArguments": []
+    },
+    {
+      "text": "ID가",
+      "operation": "Mid",
+      "args": [
+        3,
+        1
+      ],
+      "resultHex": "a1",
+      "copyArguments": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "text": "ID가",
+      "operation": "Mid",
+      "args": [
+        -1,
+        1
+      ],
+      "resultHex": "49",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ID가",
+      "operation": "Mid",
+      "args": [
+        0,
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "ID가",
+      "operation": "Mid",
+      "args": [
+        0,
+        20
+      ],
+      "resultHex": "4944b0a1",
+      "copyArguments": []
+    },
+    {
+      "text": "ID가",
+      "operation": "Mid",
+      "args": [
+        20,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    {
+      "text": "ID가",
+      "operation": "Mid",
+      "args": [
+        1,
+        3
+      ],
+      "resultHex": "44b0a1",
+      "copyArguments": [
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "text": "A가ME",
+      "operation": "Left",
+      "args": [
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "A가ME",
+      "operation": "Left",
+      "args": [
+        0
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "A가ME",
+      "operation": "Left",
+      "args": [
+        1
+      ],
+      "resultHex": "41",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "A가ME",
+      "operation": "Left",
+      "args": [
+        2
+      ],
+      "resultHex": "41b0",
+      "copyArguments": [
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "A가ME",
+      "operation": "Left",
+      "args": [
+        3
+      ],
+      "resultHex": "41b0a1",
+      "copyArguments": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "A가ME",
+      "operation": "Left",
+      "args": [
+        4
+      ],
+      "resultHex": "41b0a14d",
+      "copyArguments": [
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "A가ME",
+      "operation": "Left",
+      "args": [
+        20
+      ],
+      "resultHex": "41b0a14d45",
+      "copyArguments": []
+    },
+    {
+      "text": "A가ME",
+      "operation": "Mid",
+      "args": [
+        3,
+        1
+      ],
+      "resultHex": "4d",
+      "copyArguments": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "text": "A가ME",
+      "operation": "Mid",
+      "args": [
+        -1,
+        1
+      ],
+      "resultHex": "41",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "A가ME",
+      "operation": "Mid",
+      "args": [
+        0,
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "A가ME",
+      "operation": "Mid",
+      "args": [
+        0,
+        20
+      ],
+      "resultHex": "41b0a14d45",
+      "copyArguments": []
+    },
+    {
+      "text": "A가ME",
+      "operation": "Mid",
+      "args": [
+        20,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    {
+      "text": "A가ME",
+      "operation": "Mid",
+      "args": [
+        1,
+        3
+      ],
+      "resultHex": "b0a14d",
+      "copyArguments": [
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "text": "가나다",
+      "operation": "Left",
+      "args": [
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가나다",
+      "operation": "Left",
+      "args": [
+        0
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가나다",
+      "operation": "Left",
+      "args": [
+        1
+      ],
+      "resultHex": "b0",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가나다",
+      "operation": "Left",
+      "args": [
+        2
+      ],
+      "resultHex": "b0a1",
+      "copyArguments": [
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가나다",
+      "operation": "Left",
+      "args": [
+        3
+      ],
+      "resultHex": "b0a1b3",
+      "copyArguments": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가나다",
+      "operation": "Left",
+      "args": [
+        4
+      ],
+      "resultHex": "b0a1b3aa",
+      "copyArguments": [
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가나다",
+      "operation": "Left",
+      "args": [
+        20
+      ],
+      "resultHex": "b0a1b3aab4d9",
+      "copyArguments": []
+    },
+    {
+      "text": "가나다",
+      "operation": "Mid",
+      "args": [
+        3,
+        1
+      ],
+      "resultHex": "aa",
+      "copyArguments": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "text": "가나다",
+      "operation": "Mid",
+      "args": [
+        -1,
+        1
+      ],
+      "resultHex": "b0",
+      "copyArguments": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가나다",
+      "operation": "Mid",
+      "args": [
+        0,
+        -1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "text": "가나다",
+      "operation": "Mid",
+      "args": [
+        0,
+        20
+      ],
+      "resultHex": "b0a1b3aab4d9",
+      "copyArguments": []
+    },
+    {
+      "text": "가나다",
+      "operation": "Mid",
+      "args": [
+        20,
+        1
+      ],
+      "resultHex": "",
+      "copyArguments": [
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    {
+      "text": "가나다",
+      "operation": "Mid",
+      "args": [
+        1,
+        3
+      ],
+      "resultHex": "a1b3aa",
+      "copyArguments": [
+        [
+          3,
+          1
+        ]
+      ]
+    }
+  ],
+  "scope": "Actual exact supplied MFC42 Left4129/Mid4278 count/clamp/offset paths. Mixed CP949/ASCII aliases prove three bytes and one suffix byte, including split multibyte characters. AllocCopy/empty construction and atomic refcounts are supplied boundaries; no DLL startup, real allocator, OS locale initialization or rendered text claim."
+}

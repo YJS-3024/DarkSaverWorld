@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/GhidraChecks/check_native_dispatch_routes.py", line 41, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/GhidraChecks/check_native_dispatch_routes.py", line 29, in main
+    n=Routes();rows=[];ignored=[]
+      ^^^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/GhidraChecks/check_native_dispatch_routes.py", line 13, in __init__
+    super().__init__();self.target=None;self.targets={0x10000000+v for v in HANDLERS.values()}
+    ^^^^^^^^^^^^^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_battle_decoder.py", line 10, in __init__
+    inventory=json.loads((ROOT/'분석/InstallerVersions/installer_inventory.json').read_text());digest='f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0';row=next(f for p in inventory['payloads']for f in p['files']if f.get('sha256')==digest);raw=Path(row['extractedFile']).read_bytes();assert hashlib.sha256(raw).hexdigest()==digest;pe=pefile.PE(data=raw)
+                                                                                                                                                                                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/ds-night-notice-audit/ds-installers/payloads/a6f518676a553098/saver_files/saver/gamectl.dll'

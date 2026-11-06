@@ -3,6 +3,25 @@ using System.Linq;
 
 namespace DarkSaver.Original.World
 {
+    public static class OriginalVictoryAnnouncement
+    {
+        // Incoming20: ignored BYTE, name byte length, ANSI bytes. This is not
+        // the outgoing three-byte SCENECLEAR request with the same subtype.
+        public static bool TryDecode(byte[] bytes,out byte ignored,out byte[] name)
+        {
+            ignored=0;name=null;
+            if(bytes==null||bytes.Length<4||bytes[0]!=0x5c||bytes[1]!=0x20||bytes.Length!=4+bytes[3])return false;
+            ignored=bytes[2];name=bytes.Skip(4).ToArray();return true;
+        }
+        public static byte[] Packet(byte ignored,byte[] name)
+        {
+            if(name==null||name.Length>255)return null;
+            return new[]{(byte)0x5c,(byte)0x20,ignored,(byte)name.Length}.Concat(name).ToArray();
+        }
+        public static byte[] CString(byte[] name)
+        {if(name==null)return null;int end=Array.IndexOf(name,(byte)0);return name.Take(end<0?name.Length:end).ToArray();}
+        public static bool SameName(byte[] left,byte[] right)=>left!=null&&right!=null&&CString(left).SequenceEqual(CString(right));
+    }
     public sealed class NativeBattleTeamName
     {
         public int team;public byte[] name;
@@ -44,6 +63,25 @@ namespace DarkSaver.Original.World
     internal sealed partial class WorldSession
     {
         public string NativeTeamSession;
+        private byte[] nativeWinner=Array.Empty<byte>();
+        private bool nativeWinnerKnown=true;
+        public void ReceiveNativeWinner(NativeBattleTeamName[] rows,int? localTeam)
+        {
+            if(rows.Length==0)return;
+            if(!localTeam.HasValue){nativeWinnerKnown=false;return;}
+            var match=rows.LastOrDefault(r=>r.team==localTeam.Value);
+            if(match!=null){nativeWinner=match.name.ToArray();nativeWinnerKnown=true;}
+        }
+        public bool TryNativeWinner(NativeBattleNotice notice,out byte[] winner)
+        {
+            winner=nativeWinner.ToArray();
+            if(notice.localTeam.HasValue&&notice.expectedTeamRevision==CurrentNativeTeamRevision)
+            {
+                var match=NativeTeamView().LastOrDefault(r=>r.team==notice.localTeam.Value);
+                if(match!=null){winner=match.name.ToArray();return true;}
+            }
+            return nativeWinnerKnown;
+        }
         public long NativeTeamRevision;
         public NativeBattleTeamName[] NativeTeams;
         public readonly System.Collections.Generic.HashSet<string> NativeTeamNotices=new System.Collections.Generic.HashSet<string>();

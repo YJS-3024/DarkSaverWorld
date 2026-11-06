@@ -1,0 +1,177 @@
+{
+  "assertions": 183,
+  "mismatches": 0,
+  "unityPlay": false,
+  "nativeCodeExecuted": true,
+  "nativeSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "nativeCaptionCases": 168,
+  "nativeInheritedClickCases": [
+    {
+      "delta": -1,
+      "minimized": false,
+      "result": {
+        "noop": 1,
+        "restore": 0,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": -1,
+      "minimized": true,
+      "result": {
+        "noop": 0,
+        "restore": 1,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 0,
+      "minimized": false,
+      "result": {
+        "noop": 1,
+        "restore": 0,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 0,
+      "minimized": true,
+      "result": {
+        "noop": 0,
+        "restore": 1,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 1,
+      "minimized": false,
+      "result": {
+        "noop": 1,
+        "restore": 0,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 1,
+      "minimized": true,
+      "result": {
+        "noop": 0,
+        "restore": 1,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 249,
+      "minimized": false,
+      "result": {
+        "noop": 1,
+        "restore": 0,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 249,
+      "minimized": true,
+      "result": {
+        "noop": 0,
+        "restore": 1,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 250,
+      "minimized": false,
+      "result": {
+        "noop": 0,
+        "restore": 0,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 250,
+      "minimized": true,
+      "result": {
+        "noop": 0,
+        "restore": 0,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 251,
+      "minimized": false,
+      "result": {
+        "noop": 0,
+        "restore": 0,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 251,
+      "minimized": true,
+      "result": {
+        "noop": 0,
+        "restore": 0,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 1000,
+      "minimized": false,
+      "result": {
+        "noop": 0,
+        "restore": 0,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    },
+    {
+      "delta": 1000,
+      "minimized": true,
+      "result": {
+        "noop": 0,
+        "restore": 0,
+        "packets": [],
+        "localX": 113,
+        "localY": 25
+      }
+    }
+  ],
+  "logs": "/tmp/ds-native-item-caption-checks",
+  "scope": "Actual46BF20 formatting,433D00 clock dispatch and actual F4+28 inherited433E20 RET8. Shared signed32bit strict<250 clock compared with native14inputs. MFC/clock/allocator and minimized UI restore isolated. Full inventory down/up/drop handlers, Unity pointer/drag clock phase are outside execution scope. Item caption anchor230,192/TA_CENTER6 and gold104,193/TA_RIGHT2 from46B860 static source; unknown uses remain unknown.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_item_caption.py": "a3342ca331616bad77cd9504c59c0b93b6b8cc8d0f07930dd2a66a541ef1f585",
+    "Tools/OriginalWorldChecks/native_item_caption_emulator.py": "16ff85ca4c61436bb02a7974f4cab93ad330f49c879e19e6e7d512891c3fc786",
+    "Tools/OriginalWorldChecks/ItemCaptionChecks.cs": "8cb5ed4aa759da2b1829b2d5174eaf5e90e7a6b75c3f65544e2da4b85b5edc96",
+    "Assets/_Original/Runtime/UI/NativeItemCaption.cs": "6ec944889a8cafc2147c9423f183361acfe7e04a550c40846a4504cdb25b27d8",
+    "Assets/_Original/Runtime/UI/NativeItemPress.cs": "c13f22d0ed156a2e8bc7d81d65717d09f068634273c9e8e772d72ad2befeab5a",
+    "Assets/_Original/Runtime/UI/NativeWindowPlacement.cs": "442c1f1e88dca0e10ce6ae7b9441820b6115e8ad36db09afe6c233753da861dd",
+    "Assets/_Original/Runtime/UI/NativeWindowClickInput.cs": "bb0213451a0d35659a4ad4c730331ebb4a99eaefec68ec741b487e82eb15fa10",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Personal.cs": "695bc2e71975ef5482ef3154b4bf3080dc562a4fdf979254142d395c07a534cf",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Commanders.cs": "c5ac5ef7a25cccf4763b49c4c9eae0cc94a80cb823c35294197193034309d00a"
+  }
+}

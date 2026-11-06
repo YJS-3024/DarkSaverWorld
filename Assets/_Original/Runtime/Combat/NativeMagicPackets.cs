@@ -32,12 +32,14 @@ namespace DarkSaver.Original.World
             if(targets.Length==0||targets.Length>255)return null;
             return new NativeMagicPacket{magic=4001,source=source,x=actor.x,y=actor.y,mode=1,signature=Signature(metadata),targets=targets};
         }
-        public static uint Signature(MagicMenuEntry row)=>unchecked((uint)(row.id*(row.pattern+row.unit+row.team+row.range+row.distance)));
-        public static bool? Dispatches(NativeMagicPacket packet,int? localTeam,int? sourceTeam)
+        // setunit GetMagicTbl copies source 속성 to legacy+170; visual 패턴 is a different field.
+        public static uint Signature(MagicMenuEntry row)=>unchecked((uint)(row.id*(row.attribute+row.unit+row.team+row.range+row.distance)));
+        public static bool? Dispatches(NativeMagicPacket packet,int? localTeam,int? sourceTeam,int opcode=0x89)
         {
-            if(packet==null||packet.targets==null)return null;
+            if(packet==null||packet.targets==null||(opcode!=0x89&&opcode!=0x67))return null;
             if(packet.targets.Length==0||packet.magic<0)return false;
-            if(packet.source<0)return true;
+            // GameCtl DB20 (67) has no DA10 (89) same-team echo check.
+            if(opcode==0x67||packet.source<0)return true;
             return localTeam.HasValue&&sourceTeam.HasValue?(bool?)(localTeam.Value!=sourceTeam.Value):null;
         }
         public static byte[] Request(NativeMagicPacket packet)
@@ -70,13 +72,13 @@ namespace DarkSaver.Original.World
         }
         public static bool TryNotice(byte[] bytes,out NativeMagicPacket packet)
         {
-            packet=null;if(bytes==null||bytes.Length<11||bytes[0]!=0x5c||bytes[1]!=0x89||bytes.Length!=11+2*bytes[10])return false;
+            packet=null;if(bytes==null||bytes.Length<11||bytes[0]!=0x5c||(bytes[1]!=0x89&&bytes[1]!=0x67)||bytes.Length!=11+2*bytes[10])return false;
             packet=new NativeMagicPacket{magic=Word(bytes,2),source=Word(bytes,4),x=Word(bytes,6),y=Word(bytes,8),targets=Enumerable.Range(0,bytes[10]).Select(i=>Word(bytes,11+2*i)).ToArray()};return true;
         }
-        public static byte[] Notice(NativeMagicPacket packet)
+        public static byte[] Notice(NativeMagicPacket packet,int opcode=0x89)
         {
-            if(packet==null||!WordValue(packet.magic)||!WordValue(packet.source)||!WordValue(packet.x)||!WordValue(packet.y)||packet.targets==null||packet.targets.Length>255||packet.targets.Any(t=>!WordValue(t)))return null;
-            var bytes=new byte[11+2*packet.targets.Length];bytes[0]=0x5c;bytes[1]=0x89;Put(bytes,2,packet.magic);Put(bytes,4,packet.source);Put(bytes,6,packet.x);Put(bytes,8,packet.y);bytes[10]=(byte)packet.targets.Length;
+            if((opcode!=0x89&&opcode!=0x67)||packet==null||!WordValue(packet.magic)||!WordValue(packet.source)||!WordValue(packet.x)||!WordValue(packet.y)||packet.targets==null||packet.targets.Length>255||packet.targets.Any(t=>!WordValue(t)))return null;
+            var bytes=new byte[11+2*packet.targets.Length];bytes[0]=0x5c;bytes[1]=(byte)opcode;Put(bytes,2,packet.magic);Put(bytes,4,packet.source);Put(bytes,6,packet.x);Put(bytes,8,packet.y);bytes[10]=(byte)packet.targets.Length;
             for(int i=0;i<packet.targets.Length;i++)Put(bytes,11+2*i,packet.targets[i]);return bytes;
         }
         private static void Put(byte[] b,int at,int value){b[at]=(byte)value;b[at+1]=(byte)(value>>8);}

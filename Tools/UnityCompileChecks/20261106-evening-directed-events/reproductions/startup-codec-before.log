@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_authored_world_startup.py", line 35, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_authored_world_startup.py", line 29, in main
+    if proc.returncode:raise RuntimeError((proc.stdout+proc.stderr)[-2400:])
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Unhandled exception. System.Exception: actual BeginWorld definition retains CP949 decoder for directed MESSAGE
+   at AuthoredWorldStartupChecks.Check(Boolean value, String label)
+   at AuthoredWorldStartupChecks.Main(String[] args)
+

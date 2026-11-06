@@ -1,0 +1,36 @@
+{
+  "program": "setunit.dll",
+  "sha256": "71b6ca3f0d7fc16405f5ea728fc0522982e2eaac169e3a1a6eb74a36e41bfaca",
+  "readOnly": true,
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/MagicTableProjection/10001ed0.c",
+      "sha256": "948da16b0c37cd5fe91f2c6321aca68973b4a38e59b9bf75c9135922a0a74bac"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MagicTableProjection/100025d0.c",
+      "sha256": "58c532a3f8069e49ef1ef1d5654c79d1001811120a87c2d3f963a9fa0e4c746c"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MagicTableProjection/10002610.c",
+      "sha256": "76c96920a481574f5b3f11aa91ef7faaed2b40ba81c9f52dbb2fb7c20a06a182"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MagicTableProjection/DumpDarkSaverFrame.java",
+      "sha256": "f830f1189414240981936061430c8fad7eb9e0111ff7c288332c3177e5f86517"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MagicTableProjection/read-only-loader-export.log",
+      "sha256": "0ab8a7695c13417d1dd5320d465541248b10b9803e3aa990551d981d8f2b3ddf"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MagicTableProjection/read-only-lookup-export.log",
+      "sha256": "6278740f2b2a8fbe0bd4e363cb20ca6242f57a3089961eb3a56ddce91ee2e68c"
+    }
+  ],
+  "scope": "1ED0 sscanf positions place CSV 속성 at newmagicrecord+104 and 패턴 at+134.2610 copies+104 to legacy+170, whose value is part of both request signatures. MagicTbl2 returns null on miss; old getter instead changes shared legacy id to-1 without resetting other fields/cache key. Bounded execution seeds table/file-loaded flag; actual file/archive loader, pattern payload and Windows process are not executed.",
+  "notes": [
+    "430/440 source records have different attribute/pattern. Before correction880 mode cases showed860 production wire mismatches with both original builders agreeing.",
+    "AI81 references80601 and90; absent in current source table. Preserve the source typo/poisoning evidence; do not silently replace with806/906 or invent valid server effects."
+  ]
+}

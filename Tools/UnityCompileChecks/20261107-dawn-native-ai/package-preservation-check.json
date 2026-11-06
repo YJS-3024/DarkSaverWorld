@@ -1,0 +1,53 @@
+{
+  "controlledCases": 10,
+  "refusalCases": 6,
+  "cases": [
+    {
+      "name": "unchanged allowed untracked data",
+      "refused": false
+    },
+    {
+      "name": "unchanged allowed staged data",
+      "refused": false
+    },
+    {
+      "name": "same data committed after recorded baseline",
+      "refused": false
+    },
+    {
+      "name": "protected existing bytes changed",
+      "refused": true
+    },
+    {
+      "name": "unexpected protected untracked file",
+      "refused": true
+    },
+    {
+      "name": "preexisting pycache changed",
+      "refused": true
+    },
+    {
+      "name": "previous package result changed",
+      "refused": true
+    },
+    {
+      "name": "previous inventory changed",
+      "refused": true
+    },
+    {
+      "name": "previous package file count disagrees",
+      "refused": true
+    },
+    {
+      "name": "outside protected scopes is handled by separate source snapshots",
+      "refused": false
+    }
+  ],
+  "realRepositoryMutated": false,
+  "unityPlay": false,
+  "sources": {
+    "check_package_preservation.py": "d59339f20c4e0d99e9ea78e3e4b40a996c73a371a2f7569284cf0581d115fa46",
+    "verify_package.py": "0a9a4e4b0c395e7176b2c8d552872f050071322fec54979e84c0c0c09d391b44"
+  },
+  "scope": "Actual isolated Git baseline/stage/later-commit protection, prior file/inventory/count and preexisting pycache tamper refusals. Does not edit or test failure saves, Unity or the real Git index."
+}

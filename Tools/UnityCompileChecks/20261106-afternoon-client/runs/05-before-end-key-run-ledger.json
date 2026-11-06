@@ -1,0 +1,40 @@
+{
+  "results": [
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_scenario_end.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-afternoon-integration/000-OriginalWorldChecks-check_native_scenario_end.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_end_stage.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-afternoon-integration/001-OriginalWorldChecks-check_native_end_stage.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_end_ui.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-afternoon-integration/002-OriginalWorldChecks-check_native_end_ui.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_training_tiers.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-afternoon-integration/003-OriginalWorldChecks-check_training_tiers.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_client_windows_integration.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-afternoon-integration/004-OriginalWorldChecks-check_client_windows_integration.log"
+    }
+  ],
+  "normalizations": [],
+  "status": "passed",
+  "completed": true,
+  "failure": null,
+  "unityPlay": false,
+  "scope": "Original check entrypoints and subprocesses; only paths/compiler argument quoting adapted. No skipped assertions or inferred native file versions."
+}

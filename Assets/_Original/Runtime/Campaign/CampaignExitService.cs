@@ -87,7 +87,7 @@ namespace DarkSaver.Original.Entry
                 ||report.allies.Concat(report.enemies).Any(u=>world.Definition.campaign.jobs.All(j=>j.job!=u.job)
                     ||u.classJob.HasValue&&world.Definition.campaign.jobs.All(j=>j.job!=u.classJob.Value))))return WorldResult(WorldFailure.InvalidInput);
             if(notice.health!=null&&(!notice.health.Valid||world.Record.ghost&&notice.health.hp>0))return WorldResult(WorldFailure.InvalidInput);
-            var next=world.Record.Copy();
+            var next=world.Record.Copy();if(next.scenarioVisit!=null)next.scenarioVisit.nativeEnd=null;
             if(notice.health!=null){next.healthKnown=true;next.hp=notice.health.hp;next.maxHp=notice.health.maxHp;next.mp=notice.health.mp;next.maxMp=notice.health.maxMp;}
             next.lastScenarioExit=new CampaignExitRecord{id=notice.id,visit=visit.id,map=world.Record.map,kind=notice.kind};
             next.scenarioBattle=null;

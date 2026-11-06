@@ -1,0 +1,3938 @@
+{
+  "nativeRedirectCases": 100,
+  "mismatches": 0,
+  "unityPlay": false,
+  "runtime68Connected": false,
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "scope": "Actual EB10->DFB0 four signed WORD reads and native E4C0 mode2 request builder, then captured Magic import. CheckMagicTarget success and returned target capsule are supplied boundaries; actual table metadata is used. Failed target query stops both paths. Successful zero-target capsule still reaches Magic. Game mode gates outgoing bytes but not the Magic continuation. Reference request is the separately invoked original builder, not a production68 implementation or a general target-policy proof.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_magic_redirect.py": "6e8cdd33c0ecb68be939b23bccba0a7395bfc1dc383bca3b0ae9d613334869ed",
+    "Assets/_Original/Data/Tables/Magictbl.csv": "c81715eb8b2e4f3b23b885435b9ee5fc920592f1cb5d56765e537ae4d6e599b6",
+    "Tools/OriginalWorldChecks/check_native_magic_packets.py": "35b628fdb79014171a8813f1ef9c40299af9a671a006cae14b22f88bb6cbdfb5",
+    "Tools/OriginalWorldChecks/check_native_battle_decoder.py": "3e178e709f0d5aabd612de8aa75e314c03a8ca5de7edf4508ecbb46a91f5e7bb",
+    "Tools/OriginalWorldChecks/check_native_move_hints.py": "7ba1a4539802217c260cbf49f2ebebcfaca215607a6dd00328b2dc5025d89bb9",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2"
+  },
+  "cases": [
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 0,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 512,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 0,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 512,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902650000000a000b002d10000000"
+        ],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902650000000a000b002d10000000"
+        ],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902650000000a000b002d100000019001"
+        ],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902650000000a000b002d100000019001"
+        ],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902650000000a000b002d10000003000001009001"
+        ],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902650000000a000b002d10000003000001009001"
+        ],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 0,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 512,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 0,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 512,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c89022d0100000a000b006231000000"
+        ],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c89022d0100000a000b006231000000"
+        ],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c89022d0100000a000b0062310000019001"
+        ],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c89022d0100000a000b0062310000019001"
+        ],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c89022d0100000a000b006231000003000001009001"
+        ],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c89022d0100000a000b006231000003000001009001"
+        ],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 301,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 2,
+          "pattern": 3
+        }
+      },
+      "native": {
+        "query": [
+          [
+            301,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 301,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 0,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 512,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 0,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 512,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902a10f00000a000b00553c030000"
+        ],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902a10f00000a000b00553c030000"
+        ],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902a10f00000a000b00553c0300019001"
+        ],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902a10f00000a000b00553c0300019001"
+        ],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902a10f00000a000b00553c030003000001009001"
+        ],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c8902a10f00000a000b00553c030003000001009001"
+        ],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 4001,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 4001,
+          "distance": 0,
+          "range": 8,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 45
+        }
+      },
+      "native": {
+        "query": [
+          [
+            4001,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 4001,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 0,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 512,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": false,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 0,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 512,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c9202752700000a000b000617070000"
+        ],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c9202752700000a000b000617070000"
+        ],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": []
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c9202752700000a000b0006170700019001"
+        ],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c9202752700000a000b0006170700019001"
+        ],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 0,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 512,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c9202752700000a000b000617070003000001009001"
+        ],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [
+          "5c9202752700000a000b000617070003000001009001"
+        ],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 10101,
+        "source": 0,
+        "x": 10,
+        "y": 11,
+        "ok": true,
+        "targets": [
+          0,
+          1,
+          400
+        ],
+        "gameMode": 2048,
+        "metadata": {
+          "id": 10101,
+          "distance": -1,
+          "range": 2,
+          "team": 34,
+          "unit": 3,
+          "attribute": 8,
+          "pattern": 14
+        }
+      },
+      "native": {
+        "query": [
+          [
+            10101,
+            0,
+            10,
+            11
+          ]
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 10101,
+            "source": 0,
+            "x": 10,
+            "y": 11,
+            "targets": [
+              0,
+              1,
+              400
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": -32768,
+        "source": -32768,
+        "x": -32768,
+        "y": 32767,
+        "ok": false,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            -32768,
+            -32768,
+            -32768,
+            32767
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": -1,
+        "source": -1,
+        "x": -1,
+        "y": -1,
+        "ok": false,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            -1,
+            -1,
+            -1,
+            -1
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": 2999,
+        "x": 32767,
+        "y": -32768,
+        "ok": false,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            101,
+            2999,
+            32767,
+            -32768
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    },
+    {
+      "input": {
+        "magic": 32767,
+        "source": 32767,
+        "x": 0,
+        "y": 0,
+        "ok": false,
+        "targets": [],
+        "gameMode": 1024,
+        "metadata": {
+          "id": 101,
+          "distance": 3,
+          "range": 0,
+          "team": 34,
+          "unit": 3,
+          "attribute": 1,
+          "pattern": 2
+        }
+      },
+      "native": {
+        "query": [
+          [
+            32767,
+            32767,
+            0,
+            0
+          ]
+        ],
+        "requests": [],
+        "effects": []
+      }
+    }
+  ]
+}

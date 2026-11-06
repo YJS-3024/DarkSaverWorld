@@ -1,0 +1,20 @@
+{
+  "cases": 117,
+  "clockSamples": 2103,
+  "modes": [
+    0,
+    1,
+    1280
+  ],
+  "mismatches": 0,
+  "unityPlay": false,
+  "originalSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "scope": "Actual Saver4119B0 signed32 clock threshold/repeat counter with DirectInput/scene draw/held callback captured; production NativePointerRepeatClock compiled unchanged. Boundary/wrap/backward/delayed/repeated polls, no catch-up; no Windows input, Unity dispatch, wall-time measurement or exact frame cadence claim.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_pointer_repeat.py": "39643cd8fbb4704ae7c9eace64b985d3cd65c5a4edd2d152a73ec0f174b6ecaa",
+    "Tools/OriginalWorldChecks/native_pointer_repeat_emulator.py": "a83b7be2b2a4dde64728d40f66e6f105aefd1be767de14e90469e759a84e54ef",
+    "Tools/OriginalWorldChecks/MapPointerChecks.cs": "5474519d3e1971281653334fe70f0fa14949d204e20a4f6189d718d4e40f332c",
+    "Assets/_Original/Runtime/Maps/NativeMapPointer.cs": "5a9a6151875793c3cb7b5d425b9c6dea495d4368689ad9bcd420a3f6e6db9468"
+  },
+  "logs": "/tmp/ds-morning-checks/ds-native-pointer-repeat-checks"
+}

@@ -1,0 +1,16 @@
+{
+  "cases": 182,
+  "updateSamples": 8628,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "casesSha256": "d3e437ba7bde0955c7da56673b7a4c51ce9dfda360cc2f8c71472c40c4bc0992",
+  "sources": {
+    "Assets/_Original/Runtime/Combat/BattleFeedback.cs": "e853bf98fa3d934d95a8eb3a988064282d796407e6259bab2b79a0eed4f2e847",
+    "Tools/OriginalWorldChecks/FeedbackDifferential.cs": "3bfc6d517715d0193ee178ce4d7658d303e1502c737408004bd952b03b105fb4",
+    "Tools/OriginalWorldChecks/check_native_feedback.py": "8a7c93ed8d904d60400e05c2569be83c9f132625758d11901d53979b9791c43f",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2"
+  },
+  "scope": "Actual late UserUnit SetHpDisplay/SetMpDisplay/SetFail/AttackChar and10010210 update instructions; signed fields, shared slot, opposed offsets/facing, target flag retention and full expiry traces. No body rendering, host Windows, network, original frame-rate measurement or invented negative-HP policy.",
+  "logs": "/tmp/ds-portable-validation/ds-native-feedback-checks"
+}

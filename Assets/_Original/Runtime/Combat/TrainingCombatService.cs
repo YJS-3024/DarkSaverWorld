@@ -30,7 +30,7 @@ namespace DarkSaver.Original.Entry
                 if(world.Definition.campaign?.Map(world.Record.map)?.kind!="scenario")return WorldFailure.InvalidStage;
                 if(world.Record.campaignPhase!="explore")return WorldFailure.Busy;
             }
-            if(world.Moving&&(!receiving||world.Combat==null)||world.Kind!=FacilityKind.None||world.PendingPortal!=null||(receiving?world.SceneLocked:world.PresentationLocked))return WorldFailure.Busy;
+            if(world.Moving&&(!receiving||world.Combat==null)||world.Kind!=FacilityKind.None||world.PendingPortal!=null||(receiving?world.SceneLocked&&!world.NativeEndWaiting&&!world.NativeEventPending:world.PresentationLocked))return WorldFailure.Busy;
             return WorldFailure.None;
         }
         private HashSet<TutorialTile> BattleOccupied()

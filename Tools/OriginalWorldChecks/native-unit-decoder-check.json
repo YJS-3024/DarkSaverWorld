@@ -7,6 +7,7 @@
   "effectTailPreservationCases": 2,
   "statusNativeCases": 39,
   "statusCombinations": 65536,
+  "nativeStatusWholeRecordCases": 96,
   "mismatches": 0,
   "nativeCodeExecuted": true,
   "unityPlayExecuted": false,
@@ -14,7 +15,7 @@
   "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
   "casesSha256": "4f2f7dddb5ef9d93c530b81b7ce63c729cc7a1486244c3b69ad77ec8424adcbf",
   "sources": {
-    "Tools/OriginalWorldChecks/check_native_unit_decoder.py": "c4c7b7edba8f72f92f629c193968179c432c8f6f78c6376f234a46a5933ffdd3",
+    "Tools/OriginalWorldChecks/check_native_unit_decoder.py": "bdb8d7ace45b4ad9470b42aa3824129b29573349a66357388dbe8f60ab51f41f",
     "Tools/OriginalWorldChecks/NativeUnitDifferential.cs": "05c74258465ca56d8fcda7b0e4aed33591092be04f959eedd1fe4d9316fc7a99",
     "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
     "Tools/ScenarioPlacementChecks/audit_initial_roster_sources.py": "de7881f266e947222af8f0a54ab39949b094b38c09678bc6eaf14075d897dd22",
@@ -22,6 +23,6 @@
     "Assets/_Original/Runtime/Combat/BattleTicks.cs": "8b2421cd2835ff77cb2b7898adb213ee8a35320ba48df5add6e05ca7aa507488",
     "분석/InstallerVersions/installer_inventory.json": "ccb25fe9bc77d00ee1061c10fa961663937fdcfd3859deb03e6328aa30f99ddd"
   },
-  "scope": "Actual late GameCtl dispatch50/51 and UserUnit reset prefix; compare42 integer fields, first-minus-one spell/skill lists and consumed body extent. Reset prefix also executes prior active/enabled/state/order combinations and clears100 DWORDs14C..2D8 while retaining2DC. Original MagicFlagC950 independently executes each incoming bit plus mixed/high-bit values; managed all65536 low-bit combinations compared to native bit basis. CString allocation/assignment modeled; string wire bytes checked only for lossless codec roundtrip. Malformed guards are adapter protections. No Windows/Unity Play or inferred server roster/growth rules.",
-  "logs": "/tmp/ds-team-checks/ds-native-unit-decoder-checks"
+  "scope": "Actual late GameCtl dispatch50/51 and UserUnit reset prefix; compare42 integer fields, first-minus-one spell/skill lists and consumed body extent. Reset prefix also executes prior active/enabled/state/order combinations and clears100 DWORDs14C..2D8 while retaining2DC. Original MagicFlagC950 independently executes each incoming bit plus mixed/high-bit values and compares full736-byte target/observer records across active/enabled states and three IDs; managed all65536 low-bit combinations compared to native bit basis. CString allocation/assignment modeled; string wire bytes checked only for lossless codec roundtrip. Malformed guards are adapter protections. No Windows/Unity Play or inferred server roster/growth rules.",
+  "logs": "/tmp/ds-morning-checks/ds-native-unit-decoder-checks"
 }

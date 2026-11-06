@@ -30,6 +30,37 @@ internal static partial class MagicProjectileChecks
             Check(duplicate.server.ReceiveBattlePacket(value).Accepted&&duplicate.View.battle.magicEffects.Length==count,"same-team echo/zero targets/negative magic adds no visual event");
         }
     }
+    private static void CheckDirectNativeMagic(bool scenario)
+    {
+        var f=LifecycleFixture(scenario);var n=MagicPacket(f,0,101,1);n.packet[1]=0x67;n.localTeam=n.sourceTeam=null;
+        var before=f.View.battle.Commander.Copy();var gold=f.View.record.gold;var xp=f.View.record.growth.experience;
+        var manager=new LocalServerManager(f.server);
+        Check(manager.Notify_BattlePacket(n).Accepted,"67 enters common manager without requiring the89 team-echo metadata");
+        Check(f.View.battle.magicEffects.Any(e=>e.magic==101&&e.sourceUnit==0&&e.targetUnit==1),"67 same-team direct effect reaches native visual slots");
+        Check(f.View.battle.Commander.hp==before.hp&&f.View.battle.Commander.mp==before.mp&&f.View.battle.Commander.ap==before.ap&&f.View.record.gold==gold&&f.View.record.growth.experience==xp,"67 visual delivery grants no damage/resources/gold/XP");
+        string oldEffects=State(f.View.battle.magicEffects);
+        var status=new NativeBattleNotice{id=Id(),character=f.View.characterId,session=f.View.campaignSession,expectedRevision=f.View.battle.revision,unitLife=f.View.battle.Commander.life,approved=true,packet=OriginalBattleStatus.Packet(0,0x81)};
+        Check(manager.Notify_BattlePacket(status).Accepted&&f.View.battle.Commander.nativeStatusFlags==0x140&&State(f.View.battle.magicEffects)==oldEffects,"13 through manager changes condition icons without resetting an existing67 effect");
+        int effects=f.View.battle.magicEffects.Length;Check(!manager.Notify_BattlePacket(n).Accepted&&f.View.battle.magicEffects.Length==effects,"67 replay does not recreate effects");
+        var empty=LifecycleFixture(scenario);
+        foreach(var notice in new[]{MagicPacket(empty,0,101),MagicPacket(empty,0,-1,1)})
+        {notice.packet[1]=0x67;notice.localTeam=notice.sourceTeam=null;notice.expectedRevision=empty.View.battle.revision;Check(empty.server.ReceiveBattlePacket(notice).Accepted&&empty.View.battle.magicEffects.Length==0,"67 zero list/negative magic follows DB20 no-effect path");}
+        var missing=LifecycleFixture(scenario);var environmental=MagicPacket(missing,-1,101,1);environmental.packet[1]=0x67;environmental.localTeam=environmental.sourceTeam=null;
+        Check(missing.server.ReceiveBattlePacket(environmental).Accepted&&missing.View.battle.magicEffects.All(e=>e.role==BattleMagicEffectRole.TargetOnly&&e.sourceX==-1&&e.sourceY==-1),"67 negative source creates target-only effect without invented caster");
+        foreach(string invalid in new[]{"approval","owner","session","revision","life","target-life","length","unknown-target"})
+        {
+            var bad=LifecycleFixture(scenario);var proof=MagicPacket(bad,0,101,1);proof.packet[1]=0x67;proof.localTeam=proof.sourceTeam=null;
+            if(invalid=="approval")proof.approved=false;if(invalid=="owner")proof.character=Id();if(invalid=="session")proof.session=Id();if(invalid=="revision")proof.expectedRevision++;
+            if(invalid=="life")proof.unitLife++;if(invalid=="target-life")proof.targetLives[0].life++;if(invalid=="length")proof.packet=proof.packet.Take(5).ToArray();
+            if(invalid=="unknown-target"){proof.packet[11]=0xff;proof.packet[12]=0x7f;}
+            string state=State(bad.View.record);Check(!bad.server.ReceiveBattlePacket(proof).Accepted&&State(bad.View.record)==state&&bad.View.battle.magicEffects.Length==0,"67 rejected proof preserves state and effects: "+invalid);
+        }
+        var failed=LifecycleFixture(scenario);var retry=MagicPacket(failed,0,101,1);retry.packet[1]=0x67;retry.localTeam=retry.sourceTeam=null;
+        string original=State(failed.View.record);failed.store.fail=true;
+        Check(failed.server.ReceiveBattlePacket(retry).Failure==WorldFailure.StorageUnavailable&&State(failed.View.record)==original&&failed.View.battle.magicEffects.Length==0,"67 save refusal leaves no partial presentation");
+        failed.store.fail=false;Check(failed.server.ReceiveBattlePacket(retry).Accepted,"67 same proof retries after save failure");
+        Check(OriginalNativeMagic.Notice(new NativeMagicPacket{magic=101,targets=new[]{1}},0x66)==null,"67 support does not silently alias unrelated opcodes");
+    }
     private static void CheckNativeMagicGuards()
     {
         foreach(int mode in new[]{1,2})foreach(int magic in new[]{101,21101})foreach(int count in new[]{0,1,255})
@@ -194,9 +225,99 @@ internal static partial class MagicProjectileChecks
             &&movingCast!=null&&movingCast.x==currentMotion.tileX&&movingCast.y==currentMotion.tileY&&movingCast.y!=moving.View.battle.Commander.y&&moving.View.moving,"control camera and target calculation use the current native grid tile, not the approved destination or fractional rendering position");
         moving.server.AdvanceWorld(100000);Check(!announced.Value.Matches(moving.View),"tile crossing invalidates an old focus even if no new server revision arrived");
     }
+    private static NativeBattleNotice RedirectNotice(Fixture f,int magic=101,int source=0)
+    {
+        var target=f.View.battle.Unit(400);return new NativeBattleNotice{id=Id(),character=f.View.characterId,session=f.View.campaignSession,expectedRevision=f.View.battle.revision,approved=true,unitLife=source>=0?f.View.battle.Unit(source)?.life??0:0,
+            packet=OriginalMagicRedirect.Packet(magic,source,target.x,target.y),targetLives=f.View.battle.units.Select(u=>new BattleLifeRecord{id=u.id,life=u.life}).ToArray()};
+    }
+    private static void CheckNativeRedirect(bool scenario)
+    {
+        var f=LifecycleFixture(scenario,near:true);var seed=f.Notice();
+        seed.units.First(u=>u.id==0).magicRules=new[]{new BattleMagicRule{magic=101,enabled=true,targets=new[]{400}}};
+        Check(f.server.ReceiveBattleUnits(seed).Accepted,"68 explicit relation rule without spell ownership/cost rules");
+        var notice=RedirectNotice(f);string before=State(f.View.record);long revision=f.View.battle.revision;
+        f.store.fail=true;
+        var received=f.server.ReceiveBattlePacket(notice,out var packet);
+        Check(received.Accepted&&OriginalNativeMagic.TryRequest(packet,out var cast)&&cast.mode==2&&cast.targets.SequenceEqual(new[]{400}),"68 computes original targets and returns mode2 bytes without saving: "+received.Failure+" / "+(packet==null?"null":Convert.ToHexString(packet)));
+        Check(State(f.View.record)==before&&f.View.battle.revision==revision&&f.View.battle.magicEffects.Any(e=>e.targetUnit==400),"68 effect changes no resources, stored record or battle revision");
+        Check(!f.server.ReceiveBattlePacket(notice,out var repeated).Accepted&&repeated==null,"68 duplicate control emits no duplicate request");f.store.fail=false;
+        foreach(string bad in new[]{"approval","owner","session","revision","life","target-life","length","metadata","relation","flags"})
+        {
+            var test=LifecycleFixture(scenario,near:true);var n=RedirectNotice(test);
+            if(bad=="approval")n.approved=false;if(bad=="owner")n.character=Id();if(bad=="session")n.session=Id();if(bad=="revision")n.expectedRevision++;
+            if(bad=="life")n.unitLife++;if(bad=="target-life")n.targetLives.First(t=>t.id==400).life++;if(bad=="length")n.packet=n.packet.Take(9).ToArray();
+            if(bad=="metadata")n.packet=OriginalMagicRedirect.Packet(32767,0,1,1);
+            if(bad=="relation"||bad=="flags"||bad=="overlap")
+            {
+                var update=test.Notice();if(bad=="relation")update.units[0].magicRules=Array.Empty<BattleMagicRule>();
+                if(bad=="flags")update.units.First(u=>u.id==400).nativeActive=null;
+                if(bad=="overlap"){update.units[1].nativeEnabled=false;update.units[1].x=update.units[0].x;update.units[1].y=update.units[0].y;}
+                Check(test.server.ReceiveBattleUnits(update).Accepted,"68 explicit invalid/unknown context fixture "+bad);n.expectedRevision=test.View.battle.revision;
+            }
+            string stored=State(test.View.record);Check(!test.server.ReceiveBattlePacket(n,out var output).Accepted&&output==null&&State(test.View.record)==stored&&test.View.battle.magicEffects.Length==0,"68 rejects and preserves state: "+bad);
+        }
+        var pending=LifecycleFixture(scenario,near:true);pending.Queue();var waiting=pending.View.battle.pending.id;var pendingRevision=pending.View.battle.revision;
+        Check(pending.server.ReceiveBattlePacket(RedirectNotice(pending),out _).Accepted&&pending.View.battle.pending.id==waiting&&pending.View.battle.revision==pendingRevision,"68 preserves an unrelated pending player action");
+        var empty=LifecycleFixture(scenario,near:true);var emptySeed=empty.Notice();emptySeed.units[0].magicRules[0].targets=Array.Empty<int>();Check(empty.server.ReceiveBattleUnits(emptySeed).Accepted,"68 empty relation fixture");
+        Check(empty.server.ReceiveBattlePacket(RedirectNotice(empty),out var none).Accepted&&none==null&&empty.View.battle.magicEffects.Length==0,"68 failed target calculation creates no request or effect");
+        var env=LifecycleFixture(scenario,near:true);Check(env.server.ReceiveBattlePacket(RedirectNotice(env,source:-1),out var environmental).Accepted&&OriginalNativeMagic.TryRequest(environmental,out var ep)&&ep.source==-1&&env.View.battle.magicEffects.Any(e=>e.sourceUnit==-1),"68 source-1 bypasses relation and preserves environmental source");
+        var team=LifecycleFixture(scenario,near:true);var teamNotice=RedirectNotice(team,source:-2);teamNotice.localTeam=0;
+        Check(team.server.ReceiveBattlePacket(teamNotice,out var local).Accepted&&OriginalNativeMagic.TryRequest(local,out var lp)&&lp.source==0,"68 source-2 uses explicitly supplied native local team");
+        var unknown=LifecycleFixture(scenario,near:true);Check(unknown.server.ReceiveBattlePacket(RedirectNotice(unknown,source:-2),out _).Failure==WorldFailure.RulesUnavailable,"68 never guesses a missing native local team");
+        var group=LifecycleFixture(scenario,near:true);int groupMagic=group.definition.magicMenu.entries.First(m=>m.unit==8&&group.definition.magicProjectiles.SupportsEffect(m)).id;
+        var groupSeed=group.Notice();groupSeed.units.First(u=>u.id==400).nativeEnabled=false;var lastSlot=groupSeed.units.First(u=>u.id==400).Copy();lastSlot.id=409;lastSlot.nativeEnabled=true;lastSlot.nativeInfo=null;groupSeed.units=groupSeed.units.Concat(new[]{lastSlot}).ToArray();Check(group.server.ReceiveBattleUnits(groupSeed).Accepted,"68 disabled selected group fixture");
+        Check(group.server.ReceiveBattlePacket(RedirectNotice(group,groupMagic),out var groupBytes).Accepted&&OriginalNativeMagic.TryRequest(groupBytes,out var gp)&&gp.targets.Length==0&&gp.x==-1&&gp.y==-1,"68 Unit8 empty group succeeds with original -1/-1 output coordinates");
+        var retired=LifecycleFixture(scenario,near:true);var retiredSeed=retired.Notice();retiredSeed.units.First(u=>u.id==1).nativeEnabled=false;retiredSeed.units.First(u=>u.id==1).x=retiredSeed.units[0].x;retiredSeed.units.First(u=>u.id==1).y=retiredSeed.units[0].y;
+        Check(retired.server.ReceiveBattleUnits(retiredSeed).Accepted&&retired.server.ReceiveBattlePacket(RedirectNotice(retired),out _).Accepted,"68 retired nonoccupant sharing a live tile does not block target calculation");
+        var absent=LifecycleFixture(scenario,near:true);Check(absent.server.ReceiveBattlePacket(RedirectNotice(absent,source:-3),out _).Failure==WorldFailure.RulesUnavailable,"68 never fabricates the special700 relation owner");
+        var special=LifecycleFixture(scenario,near:true);var specialSeed=special.Notice();var specialMap=special.definition.Map(special.View.record.map);var blocked=OriginalMemberCommands.StaticBlocked(specialMap);
+        var tile=Enumerable.Range(1,specialMap.map.width-2).SelectMany(x=>Enumerable.Range(1,specialMap.map.height-2).Select(y=>new DarkSaver.Original.Tutorial.TutorialTile(x,y))).First(t=>!blocked.Contains(t)&&specialSeed.units.All(u=>u.Tile!=t)&&specialMap.map.Terrain(t,2)!=99);
+        var owner=special.Unit(700,100,tile.X,tile.Y);owner.nativeActive=owner.nativeEnabled=true;owner.magicRules=new[]{new BattleMagicRule{magic=101,enabled=true,targets=new[]{400}}};specialSeed.units=specialSeed.units.Concat(new[]{owner}).ToArray();
+        Check(special.server.ReceiveBattleUnits(specialSeed).Accepted&&special.server.ReceiveBattlePacket(RedirectNotice(special,source:-3),out var specialBytes).Accepted&&OriginalNativeMagic.TryRequest(specialBytes,out var specialCast)&&specialCast.source==700,"68 special-3 uses the explicitly received700 source/rule");
+        var managerFixture=LifecycleFixture(scenario,near:true);var manager=new LocalServerManager(managerFixture.server);int sends=0,focus=0;
+        manager.Notify_BattlePacketRequested+=bytes=>{sends++;Check(OriginalNativeMagic.TryRequest(bytes,out var p)&&p.mode==2,"68 manager sends complete mode2 packet");};manager.Notify_BattleFocusRequested+=_=>focus++;
+        Check(manager.Notify_BattlePacket(RedirectNotice(managerFixture)).Accepted&&sends==1&&focus==0,"68 common manager sends followup without level-effect camera focus");
+        bool nested=false;int nestedSends=0;var nestedFixture=LifecycleFixture(scenario,near:true);var nestedManager=new LocalServerManager(nestedFixture.server);
+        nestedManager.Notify_BattleChanged+=reply=>{if(!nested){nested=true;Check(nestedManager.Notify_BattlePacket(RedirectNotice(nestedFixture)).Accepted,"68 reentrant newer control accepted");}};
+        nestedManager.Notify_BattlePacketRequested+=_=>nestedSends++;
+        Check(nestedManager.Notify_BattlePacket(RedirectNotice(nestedFixture)).Accepted&&nestedSends==1,"68 suppresses older followup after reentrant control without changing revision");
+    }
+    private static Fixture ReceivedMagicTeams(bool scenario=false,bool otherPlayer=false)
+    {
+        var f=LifecycleFixture(scenario,near:true);var packets=f.View.battle.units.Select(u=>
+        {var p=UnitPacket(u);if(otherPlayer&&u.id==1)p.words[1]=1;return new NativeUnitDelivery{life=u.life,packet=OriginalNativeUnits.Packet(p)};}).ToArray();
+        Check(f.server.ReceiveBattleUnitPackets(new NativeBattleUnitsNotice{id=Id(),approved=true,character=f.View.characterId,session=f.View.campaignSession,expectedRevision=f.View.battle.revision,
+            expectedGrowthRevision=f.View.record.growth.revision,packets=packets}).Accepted,"actual51 records provide teams for native client controls");
+        var clear=f.Notice();foreach(var u in clear.units)u.magicRules=null;Check(f.server.ReceiveBattleUnits(clear).Accepted,"no fabricated per-spell rules in received-team fixture");return f;
+    }
+    private static void CheckReceivedTeamMagicControls()
+    {
+        foreach(bool scenario in new[]{false,true})foreach(int source in new[]{0,400})foreach(int opcode in new[]{0x64,0x65})
+        {
+            var f=ReceivedMagicTeams(scenario);var n=LevelEffectNotice(f,opcode,source);
+            int[] ids=source==0?new[]{400}:new[]{0,1};var expected=f.View.battle.units.Where(u=>ids.Contains(u.id)).OrderBy(u=>u.x).ThenBy(u=>u.y).Select(u=>u.id).ToArray();
+            n.targetLives=expected.Select(id=>new BattleLifeRecord{id=id,life=f.View.battle.Unit(id).life}).ToArray();
+            string before=State(f.View.record);long revision=f.View.battle.revision;f.store.fail=true;
+            Check(f.server.ReceiveBattlePacket(n,out var bytes).Accepted&&OriginalNativeMagic.TryRequest(bytes,out var cast)&&cast.magic==4001&&cast.mode==1&&cast.targets.SequenceEqual(expected),"64/65 derives original target masks from51 teams without spell ownership/cost rules");
+            Check(State(f.View.record)==before&&f.View.battle.revision==revision&&f.View.battle.Unit(source).magicRules==null,"received-team control does not invent/save permissions,XP,AP or money");
+        }
+        foreach(bool scenario in new[]{false,true})
+        {
+            var f=ReceivedMagicTeams(scenario);string before=State(f.View.record);var n=RedirectNotice(f);
+            Check(f.server.ReceiveBattlePacket(n,out var bytes).Accepted&&OriginalNativeMagic.TryRequest(bytes,out var cast)&&cast.targets.SequenceEqual(new[]{400}),"68 selects original enemy from51 teams with no typed permission list");
+            Check(State(f.View.record)==before&&f.View.battle.magicEffects.Any(e=>e.targetUnit==400),"68 native-team path only constructs its verified outgoing request/effect");
+            var priority=ReceivedMagicTeams(scenario);var contradictory=priority.Notice();contradictory.units.First(u=>u.id==0).magicRules=new[]{new BattleMagicRule{magic=101,enabled=false,targets=new[]{0}}};
+            Check(priority.server.ReceiveBattleUnits(contradictory).Accepted&&priority.server.ReceiveBattlePacket(RedirectNotice(priority),out var actual).Accepted&&OriginalNativeMagic.TryRequest(actual,out var original)&&original.targets.SequenceEqual(new[]{400}),"known native relation supersedes contradictory legacy policy for server-directed control");
+        }
+        var incomplete=ReceivedMagicTeams();var changed=incomplete.Notice();changed.units.First(u=>u.id==400).nativeInfo=null;Check(incomplete.server.ReceiveBattleUnits(changed).Accepted,"missing actual target team fixture");
+        string state=State(incomplete.View.record);Check(incomplete.server.ReceiveBattlePacket(RedirectNotice(incomplete),out var absent).Failure==WorldFailure.RulesUnavailable&&absent==null&&State(incomplete.View.record)==state,"missing received team is not inferred from monster ID/palette");
+        var mixed=ReceivedMagicTeams(otherPlayer:true);var wave=LevelEffectNotice(mixed);wave.localTeam=0;wave.targetLives=mixed.View.battle.units.Select(u=>new BattleLifeRecord{id=u.id,life=u.life}).ToArray();
+        state=State(mixed.View.record);Check(mixed.server.ReceiveBattlePacket(wave,out var unresolved).Failure==WorldFailure.RulesUnavailable&&unresolved==null&&State(mixed.View.record)==state,"nearby other-player target remains unknown without actual local-player alliance slot");
+        var point=RedirectNotice(mixed);point.localTeam=0;Check(mixed.server.ReceiveBattlePacket(point,out var known).Accepted&&OriginalNativeMagic.TryRequest(known,out var selected)&&selected.targets.SequenceEqual(new[]{400}),"unresolved relation outside actual spell area does not block a known target");
+    }
     internal static void RunNativeMagicChecks(string path)
     {
-        root=path;CheckNativeMagicInput(false);CheckNativeMagicInput(true);CheckNativeMagicGuards();CheckNativeClientCastTiming();CheckAllNativeMagicNotices();CheckNativeLevelEffects();
-        Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Native magic direction-specific wire formats, explicit outgoing mode/signature, incoming same-team echo/zero/negative guards, target lives, environmental source, no guessed resource result and durable replay/reconnect contracts."}));
+        root=path;CheckNativeMagicInput(false);CheckNativeMagicInput(true);CheckDirectNativeMagic(false);CheckDirectNativeMagic(true);CheckNativeMagicGuards();CheckNativeClientCastTiming();CheckAllNativeMagicNotices();CheckNativeLevelEffects();CheckNativeRedirect(false);CheckNativeRedirect(true);CheckReceivedTeamMagicControls();
+        Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Native magic direction-specific wire formats, explicit outgoing mode/signature, incoming89 echo and67 direct-effect/zero/negative guards, target lives, environmental source, no guessed resource result and durable replay/reconnect contracts."}));
     }
 }

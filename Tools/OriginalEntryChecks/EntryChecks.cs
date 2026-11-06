@@ -173,13 +173,25 @@ internal static class EntryChecks
             Check(File.ReadAllText(legacy) == "preserved-old-save", "Do not migrate/overwrite previous saves");
             var changedVersion = saved.Copy(); changedVersion.version = 2;
             Check(!disk.TryWrite(changedVersion) && File.ReadAllText(path) == bytes, "Invalid write preserves file");
-            Check(!new LocalAccountFileStore("\0").TryWrite(saved), "Invalid storage path is a refusal, not a gameplay exception");
+            Check(disk.LastFailure==LocalAccountStoreFailure.InvalidDocument&&disk.LastErrorCode==0,"invalid document diagnosis without synthetic exception code");
+            var badPath=new LocalAccountFileStore("\0");
+            Check(!badPath.TryWrite(saved)&&badPath.LastFailure==LocalAccountStoreFailure.Unsupported&&badPath.LastErrorCode!=0,"invalid path refuses with bounded reason/code");
+            Check(disk.TryRead(out _)&&disk.LastFailure==LocalAccountStoreFailure.None&&disk.LastErrorCode==0,"successful read resets previous diagnostic");
+            var directoryStore=new LocalAccountFileStore(temporary);
+            Check(!directoryStore.TryWrite(saved)&&(directoryStore.LastFailure==LocalAccountStoreFailure.Io||directoryStore.LastFailure==LocalAccountStoreFailure.AccessDenied),"directory destination refuses without corrupting any account file");
+            Check(File.ReadAllText(path)==bytes,"filesystem refusal preserves existing account bytes");
             File.WriteAllText(path, "broken-json");
             var damaged = new EntryAccountService(disk);
             RequireRejected(damaged, EntryRequest.Login("class-100", "class-password-100"), EntryFailure.StorageUnavailable);
             Check(!damaged.ProvisionLocalAccount("new", "new-password") && File.ReadAllText(path) == "broken-json", "Never replace damaged store");
             File.WriteAllText(path, "{\"version\":2,\"accounts\":[]}");
-            Check(!disk.TryRead(out _), "Unsupported format rejected");
+            Check(!disk.TryRead(out _)&&disk.LastFailure==LocalAccountStoreFailure.InvalidDocument&&disk.LastErrorCode==0, "Unsupported format rejected and diagnosed");
+            File.WriteAllBytes(path,new byte[1024*1024+1]);
+            Check(!disk.TryRead(out _)&&disk.LastFailure==LocalAccountStoreFailure.TooLarge,"oversized read is distinct from invalid schema and IO");
+            File.WriteAllText(path,"broken-json");
+            Check(!disk.TryRead(out _)&&disk.LastFailure==LocalAccountStoreFailure.Serialization&&disk.LastErrorCode!=0,"malformed JSON has a bounded serialization diagnosis");
+            File.WriteAllText(path,bytes);
+            Check(disk.TryRead(out _)&&disk.LastFailure==LocalAccountStoreFailure.None&&disk.LastErrorCode==0,"recovered read clears error details");
             Check(!Directory.EnumerateFiles(temporary, "*.tmp-*").Any(), "No leftover transaction files");
         }
         finally { Directory.Delete(temporary, true); }

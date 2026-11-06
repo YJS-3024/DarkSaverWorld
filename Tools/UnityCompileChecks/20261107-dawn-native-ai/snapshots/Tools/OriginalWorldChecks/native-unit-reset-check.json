@@ -1,0 +1,25 @@
+{
+  "cases": 216,
+  "updateSamples": 11448,
+  "aiHintNativeResetCases": 6,
+  "aiHintManagedResetCases": 216,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_unit_reset.py": "c2ff6f8c0b8027194fd05a2e8b50238a6bdeac83518fca65449295d2824087b4",
+    "Tools/OriginalWorldChecks/native_unit_reset_emulator.py": "eff5ec00c83cfb6ddf9b578c5cf296238ede18d18016871254c13ead537665e3",
+    "Tools/OriginalWorldChecks/NativeUnitResetDifferential.cs": "c38d5903d0b7ed928e189100c2d2f8c2f628dbb76548788b4a736636b5bec8db",
+    "Tools/OriginalWorldChecks/native_feedback_renderer.py": "e5e6b2b73c1c899545394ed36f4b45f1e9b53fe06516250f95758e4e5322fd06",
+    "Tools/OriginalWorldChecks/check_native_feedback.py": "8a7c93ed8d904d60400e05c2569be83c9f132625758d11901d53979b9791c43f",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "분석/InstallerVersions/installer_inventory.json": "ccb25fe9bc77d00ee1061c10fa961663937fdcfd3859deb03e6328aa30f99ddd",
+    "Assets/_Original/Runtime/Combat/NativeUnitSnapshotService.cs": "d8937cb02eb630c38cc242077094e85be187f80693d0e94ca8e446fa13c4e3bd",
+    "Assets/_Original/Runtime/Combat/TrainingCombat.cs": "22f134737bc78277ba821be780782a36ea43585e2ea52127753407949e5496a1",
+    "Assets/_Original/Runtime/Combat/BattleFeedback.cs": "e853bf98fa3d934d95a8eb3a988064282d796407e6259bab2b79a0eed4f2e847",
+    "Assets/_Original/Runtime/Combat/BattleFeedbackFrames.cs": "ee05368a90331f03298d140c00c3fdf80cdfef46bc296bcaa22ee6510bf0fa9f",
+    "Assets/_Original/Runtime/Combat/BattleLifecycle.cs": "5d7b01c0b5f7f3742e24716f1f30ce1a3227d93fab880c243f9e7ff1106ad973"
+  },
+  "scope": "Actual late UserUnit feedback/death setters, resetcharacter prefix throughB43F, MagicFlag0 and10010210/FCD0 update/draw after already-decoded explicit unit fields. Production reset helper plus production counter/frame models. CString/graphics/audio/path allocation are isolated host boundaries; no bitmap load/SetAIArea/moving-reset continuation, original clock speed, socket/Windows process or Unity Play.",
+  "logs": "/tmp/ds-morning-hint-final/ds-native-unit-reset-checks"
+}

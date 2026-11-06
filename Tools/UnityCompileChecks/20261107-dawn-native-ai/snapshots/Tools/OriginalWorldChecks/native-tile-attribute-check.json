@@ -1,0 +1,28 @@
+{
+  "nativeCases": 514,
+  "managedCases": 256,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlay": false,
+  "variants": [
+    {
+      "version": "1.2",
+      "sha256": "be05066507947df48d9f7beb25d2c3fb2523c4158519a78102e72021ebe57711",
+      "getter": "0x10004f30",
+      "cases": 257
+    },
+    {
+      "version": "late",
+      "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+      "getter": "0x10004f10",
+      "cases": 257
+    }
+  ],
+  "scope": "Actual old/late tile getter with DManage pointer lookup isolated. All byte values and null tile; actual production attribute normalization. Body scheduling/rendered tree occlusion and historical process/GPU are separate.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_tile_attribute.py": "59da8bcb5da3df5d6256d13b1bb1abe1173f168e2930ce79d7470de9ea74922f",
+    "Assets/_Original/Runtime/Combat/NativeBodyOrder.cs": "9c65dd96aeb56bfa0eff9ac03d0db865c69eccea7ff0c6e7c518b490c1d7d90d",
+    "Assets/_Original/Runtime/Tutorial/TutorialScript.cs": "a17e059fa33111782d682fa81ecad0e85f20a0923185ded8c62b72ee4fc71138",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.BodyLayers.cs": "7d5d530e69195bf9be5a9781b0e5cd6c711e1ba6105ee674ce21f1d581ef62fa"
+  }
+}

@@ -77,6 +77,10 @@ def main():
   if(p.is_dir()or p.suffix=='.cs')and not Path(str(p)+'.meta').exists():world.metadata.meta(p,ROOT/'Assets',folder=p.is_dir())
  asset=DATA/'NativeCampaignArt.asset'
  text='%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!114 &11400000\nMonoBehaviour:\n  m_ObjectHideFlags: 0\n  m_Script: {fileID: 11500000, guid: '+world.guid(BASE/'Runtime/Campaign/NativeCampaignArt.cs')+', type: 3}\n  m_Name: NativeCampaignArt\n  catalog: '+ref(catalog)+'\n'
+ from build_native_outro_variants import serialized_field
+ text+=serialized_field()
+ ai_catalog=DATA/'NativeAiRules.json'
+ if ai_catalog.exists():text+='  aiRules: '+ref(ai_catalog)+'\n'
  for field,paths,typ in [('maps',map_paths,4900000),('graphics',graphics,4900000),('legacyGraphics',legacy_graphics,4900000),('scripts',scripts,4900000),('pictures',pictures,2800000),('faces',faces,2800000)]:text+='  '+field+':\n'+''.join('  - '+ref(p,typ)+'\n'for p in paths)
  for field,values in [('graphicIds',graphic_ids),('legacyGraphicIds',legacy_ids),('pictureIds',picture_ids),('faceIds',face_ids)]:text+='  '+field+': '+''.join(i.to_bytes(4,'little',signed=True).hex()for i in values)+'\n'
  text+='  noFace: '+ref(fallback,2800000)+'\n'

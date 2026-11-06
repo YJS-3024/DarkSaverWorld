@@ -1,0 +1,38 @@
+{
+  "nativeCommanderCases": 1247,
+  "nativeBodyExecutions": 2494,
+  "packetKinds": {
+    "magic": 427,
+    "attack": 811,
+    "rest": 3
+  },
+  "missingAiSpellReferences": [
+    {
+      "map": "81",
+      "line": 3,
+      "magic": 80601
+    },
+    {
+      "map": "81",
+      "line": 15,
+      "magic": 90
+    }
+  ],
+  "mismatches": 0,
+  "unityPlay": false,
+  "runtime0CConnected": false,
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_commander_table_chain.py": "b4cb9030123c6965806820251ef0190cd106d8429337010e3243da23a8292455",
+    "Assets/_Original/Data/Tables/Magictbl.csv": "c81715eb8b2e4f3b23b885435b9ee5fc920592f1cb5d56765e537ae4d6e599b6",
+    "Assets/_Original/Data/Campaign/NativeAiRules.json": "d617ba5e9d7187d70f188b5202a155ee8ad2e31c061d78c4ed9505a461111065",
+    "Tools/OriginalWorldChecks/native_magic_table_emulator.py": "90143cd385a2f6d4cd871d0ed1396a80af7f62bcc5eace1b86cc67c3e9573820",
+    "Tools/OriginalWorldChecks/native_commander_action_corpus.py": "77b20bf0025892bf32ce73f7ddbf6db1136dda4cc101a2d0e98d0d1f15b4ef49",
+    "Tools/OriginalWorldChecks/check_native_magic_packets.py": "35b628fdb79014171a8813f1ef9c40299af9a671a006cae14b22f88bb6cbdfb5",
+    "Tools/OriginalWorldChecks/check_native_magic_target_catalog.py": "2090b914b643c675689fe375d0856eb502e77cbb2fb6cefda0fc0867a5f23302",
+    "Tools/OriginalWorldChecks/check_native_move_hints.py": "7ba1a4539802217c260cbf49f2ebebcfaca215607a6dd00328b2dc5025d89bb9",
+    "Tools/OriginalWorldChecks/check_native_outbound_packets.py": "d9f1e3c82574fc7d727ff0aabd1abdc1cc5eb2ed176cea20f276f0cea0f67358",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2"
+  },
+  "casesSha256": "df8a2fb32103e2639a5dfb631f11b97f46019cdd81da4eba64a89dcee859e2fe",
+  "scope": "Actual UserUnit042E0/targets/CheckMagicTarget/wire with real relocated setunit GetMagicTbl, compared with explicit corrected legacy-field boundary for all440 rows and readiness/status80/MP-short plus12 controls. Compare full packet/constructor inputs/AP/100/108/random/byte mutations. Original CSV320-byte rows and loaded flag supplied; file loader/pattern payload are outside scope. AI81 missing80601/90 audited without replacement or operational effect claim. No production commander scheduling/server rules/Windows/Unity Play."
+}

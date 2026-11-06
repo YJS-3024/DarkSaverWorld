@@ -1,0 +1,58 @@
+{
+  "program": "UserUnit.dll",
+  "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "readOnly": true,
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/AllianceLifecycle/10002500.asm.txt",
+      "sha256": "6e6c7530728799c5e542cad2b4c0740c7775d2de8b7df9c1653a67e5e25309fb"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AllianceLifecycle/10002500.c",
+      "sha256": "c047fca811868ef7b7f103a6cf599e9f918d68f061ce06a9255cca4d8c1285d7"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AllianceLifecycle/100025c0.asm.txt",
+      "sha256": "4f775939251b43b253557cabad7cbd33d6737d77ccbc095947c309d1d2eb5dca"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AllianceLifecycle/100025c0.c",
+      "sha256": "dea169c600163643322668fc16dd00a82b388459c8fc493aced5ef6008d15df2"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AllianceLifecycle/10004a40.asm.txt",
+      "sha256": "a38081e33a970bb40ea435f824f79da5591da932224d33d7d6f072d64c367c07"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AllianceLifecycle/10004a40.c",
+      "sha256": "d5f1980f056189e4b2c6c7846c372362a28e3b2b56a230e9750ff8d26621450a"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AllianceLifecycle/1000ad00.asm.txt",
+      "sha256": "46b08e3f8d4a020cd2f8fe10d0608df77a5130ec9ab5a75985b26e22276d39bc"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AllianceLifecycle/1000ad00.c",
+      "sha256": "bf228ff9f0cad402f548f4a3eb117817c4924b61dc42fa0e9ab8b58c103b4dba"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AllianceLifecycle/DumpDarkSaverAllianceLifecycle.java",
+      "sha256": "dcb21763a23fff5e353e48139a6d05688b695c95cf0d2902b139b4cdc27a8f9e"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AllianceLifecycle/read-only-export.log",
+      "sha256": "5607f2f0239facf382509d84279ebeb24abf812d833a9a3e38db164275793efb"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AllianceLifecycle/references.txt",
+      "sha256": "4f6fae46396cecd5d8c15ce68ce3997fe21abc52e3d5a338d55c8d4d86229ff3"
+    }
+  ],
+  "runtimeB2Connected": false,
+  "scope": "Ghidra references in1003D540..1003D59F and bounded caller closure. Direct relation/current-team stores found in SetAllyInfo; read references include friendly/enemy selection, magic, SetTickMenu and getsnum. Static reference search is not a proof of absence of indirect writes or DLL initialization.",
+  "notes": [
+    "Actual SetAllyInfo receives86-byte struct padded to88 plus current-team DWORD. Its count+1 loop is preserved by the chain checker.",
+    "Complete count21 extra row reads the actual caller return lowWORD D540, which is neither1 nor2. Short count leaves another local pair uninitialized; supplied tail differences are not recovered stack bytes.",
+    "No short B2 receipt, kind-name/server-policy or UI/current-side restoration is synthesized."
+  ]
+}

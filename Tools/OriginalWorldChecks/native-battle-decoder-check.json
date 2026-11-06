@@ -1,21 +1,21 @@
 {
-  "cases": 229,
+  "cases": 274,
   "nativeExperienceSetCases": 20,
   "mismatches": 0,
   "nativeCodeExecuted": true,
   "unityPlayExecuted": false,
-  "casesSha256": "49ea8dd615fd334055f884728dfe8e1cd9cf5b63644f810bad4db7d29ca45970",
+  "casesSha256": "d6d173e49faef58719fe94a96081ace0e75385c0d3b7b5ed0677c013db2a83fd",
   "sources": {
     "Assets/_Original/Runtime/Combat/NativeMovement.cs": "27e5303f272d02594c2e3a13b6a7a3e4ec457c6af7626927006fcbf1e8b5349c",
-    "Assets/_Original/Runtime/Combat/NativeBattlePackets.cs": "a963e37b4dfc85f65a98b531245715cf91df91b048f629a0b122618d1e24a7c1",
+    "Assets/_Original/Runtime/Combat/NativeBattlePackets.cs": "19115cf5bc0ac0f3e63f7ec8e413ab361ea5445f1b2038cd1b2a40cf1480fc64",
     "Assets/_Original/Runtime/Combat/BattleFeedback.cs": "e853bf98fa3d934d95a8eb3a988064282d796407e6259bab2b79a0eed4f2e847",
     "Assets/_Original/Runtime/Combat/BattleLifecycle.cs": "5d7b01c0b5f7f3742e24716f1f30ce1a3227d93fab880c243f9e7ff1106ad973",
     "Assets/_Original/Runtime/Combat/BattleTicks.cs": "8b2421cd2835ff77cb2b7898adb213ee8a35320ba48df5add6e05ca7aa507488",
-    "Tools/OriginalWorldChecks/BattleDecoderDifferential.cs": "0a072139a3eb7129769ebc420d2be5353e0960947c7f72a88e22297ed21ee1d5",
-    "Tools/OriginalWorldChecks/check_native_battle_decoder.py": "d322cfedd40f52711caa3f90e40eed352532945604d52734a7db7c96280da18c",
+    "Tools/OriginalWorldChecks/BattleDecoderDifferential.cs": "1c601fd69a565f5f25d3a30092cb6b85eb0558ede1b8f4551e0408bafbaa0632",
+    "Tools/OriginalWorldChecks/check_native_battle_decoder.py": "3e178e709f0d5aabd612de8aa75e314c03a8ca5de7edf4508ecbb46a91f5e7bb",
     "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
     "분석/InstallerVersions/installer_inventory.json": "ccb25fe9bc77d00ee1061c10fa961663937fdcfd3859deb03e6328aa30f99ddd"
   },
-  "scope": "Actual late GameCtl1000EB10 dispatch and WORD/DWORD cursor execute; capture UserUnit import arguments. Experience5C53 also executes original UserUnit.SetExp1000CE10 and compares the full736-byte records: only the target+8 DWORD changes, including uint32 high-bit/max. Other setters/updates have separate feedback/death/tick checks. Strict malformed-length/domain checks are adapter protections, not native buffer bounds. No socket/Windows UI or inferred level calculation.",
-  "logs": "/tmp/ds-night-checks/ds-native-battle-decoder-checks"
+  "scope": "Actual late GameCtl1000EB10 dispatch and WORD/DWORD cursor execute; capture UserUnit import arguments. Experience5C53 also executes original UserUnit.SetExp1000CE10 and compares the full736-byte records: only the target+8 DWORD changes, including uint32 high-bit/max. Status13 also captures original signed unit/uint32 MagicFlag arguments; the original C950 mutation has a separate full-record comparison. Other setters/updates have separate feedback/death/tick checks. Strict malformed-length/domain checks are adapter protections, not native buffer bounds. No socket/Windows UI or inferred level calculation.",
+  "logs": "/tmp/ds-afternoon-integration/ds-native-battle-decoder-checks"
 }

@@ -1,0 +1,982 @@
+{
+  "files": 195,
+  "totalBytes": 3965126,
+  "scope": "Exact frozen text evidence; no original PE/CAB/SDK/account files.",
+  "entries": [
+    {
+      "path": "README.md",
+      "sha256": "28c74dff14a748142560bbc95406d858df80231badcaba22b173828f211bca37",
+      "bytes": 6011
+    },
+    {
+      "path": "development-verification.json",
+      "sha256": "a271626a7e4a4bb6eefd676d666a758327088e96d1324c025dab05d2da693115",
+      "bytes": 108381
+    },
+    {
+      "path": "reproductions/alias-COM.json",
+      "sha256": "5330e24c862e41d1c248127bf14610788ec6e8e10bafa5ce2726813e4f876d9f",
+      "bytes": 1423
+    },
+    {
+      "path": "reproductions/alias-before.log",
+      "sha256": "c4b15739205d99cac6c43c6581bc2cebe419c25c796bfd9cf0f289f56c52d2bb",
+      "bytes": 882
+    },
+    {
+      "path": "reproductions/alias-prefix.json",
+      "sha256": "b4e051b4132a7fa34755cc884ad257a07b703f0e00e5eeb0ed64e0eb55d18650",
+      "bytes": 2613
+    },
+    {
+      "path": "reproductions/file-loader.json",
+      "sha256": "c1598496adca569e6c6eeb3d366d3c4110d6ceba44c647d335f2ad416b3ef2d3",
+      "bytes": 23269
+    },
+    {
+      "path": "reproductions/startup-codec-before.log",
+      "sha256": "069b8309ec134795d847a00180093d738d1128e649c55971a06312bd1613a433",
+      "bytes": 732
+    },
+    {
+      "path": "reproductions/startup-codec.json",
+      "sha256": "df30491b2a2b11449e51c725d64fd786ccb857e769622a28c309895584d4def7",
+      "bytes": 793
+    },
+    {
+      "path": "runs/audit/000-CheckSupport-check_evidence_eol.log",
+      "sha256": "9fc9df71061f4988140111b6f809935d383453c1965f4ae24f1f22c21b73a404",
+      "bytes": 1131
+    },
+    {
+      "path": "runs/audit/001-OriginalWorldChecks-check_pixel_importers.log",
+      "sha256": "7c676e46a913e7038be3160b582304920c94c169081feedba0a916dad8306eda",
+      "bytes": 973
+    },
+    {
+      "path": "runs/audit/002-OriginalWorldChecks-check_native_world_message.log",
+      "sha256": "ebefa322385c5e9180c2969371c73685e95fcb9206a332fcfc679420248b1ed7",
+      "bytes": 607
+    },
+    {
+      "path": "runs/audit/003-OriginalWorldChecks-check_native_battle_options.log",
+      "sha256": "d443eb74851e4d970a94a8c10e4866349af06838635b96688784304995af069b",
+      "bytes": 5395
+    },
+    {
+      "path": "runs/audit/004-OriginalWorldChecks-check_native_class_presentation.log",
+      "sha256": "0638a8f2886495b3ea8e0dda454951e8839ecc55f76dc71faca57a4f3c8804b4",
+      "bytes": 1558
+    },
+    {
+      "path": "runs/audit/005-OriginalWorldChecks-check_client_windows_integration.log",
+      "sha256": "e88c8bb8bfad9e5f9bdb09a9d490cd17beab236f92bdf2c822f8bdad7112fa1b",
+      "bytes": 454
+    },
+    {
+      "path": "runs/audit/run-results.json",
+      "sha256": "b6c637396b16f5f8210d4a030c36fd57c90e66e13418974396faebaefb2bd4a6",
+      "bytes": 1685
+    },
+    {
+      "path": "runs/earlier-interruption/000-OriginalEntryChecks-check_entry.log",
+      "sha256": "24d0b8f60b4e5dd35b92f8ee0f3d6e1795c4b1ff661a304c1d51b4b26669c2b1",
+      "bytes": 31494
+    },
+    {
+      "path": "runs/earlier-interruption/001-OriginalWorldChecks-check_scenario_progress.log",
+      "sha256": "635215fb525408a441ec6e0790466494dc76e198ba54d484632d5a3e7f855a88",
+      "bytes": 15413
+    },
+    {
+      "path": "runs/earlier-interruption/002-OriginalWorldChecks-check_native_directed_events.log",
+      "sha256": "f3eb80d68afc03456e3f2671a47f5ef6df402e803d605baf17a97a1b435da950",
+      "bytes": 1163
+    },
+    {
+      "path": "runs/earlier-interruption/003-OriginalWorldChecks-check_native_directed_controls.log",
+      "sha256": "6d6d7a2e51ae21caf40effdba17ff34ea1b14bc33e1c9ffd32f8e465fe392d69",
+      "bytes": 857
+    },
+    {
+      "path": "runs/earlier-interruption/004-OriginalWorldChecks-check_native_directed_frames.log",
+      "sha256": "f55dcb50195fcf2db4266ab99d15e31b1af38ceb3f3a0d33cb09acdb6642ff06",
+      "bytes": 1919
+    },
+    {
+      "path": "runs/earlier-interruption/interrupted.json",
+      "sha256": "940806cb839e7954f2f33da3a62e3d528c25bff6e138de06862a25785b98b55e",
+      "bytes": 281
+    },
+    {
+      "path": "runs/earlier-interruption/partial-run-results.json",
+      "sha256": "602ff8a7f53720e4d186f2136486624d8cf24d2c5739ca7af5f3ca77ab50b7b3",
+      "bytes": 1201
+    },
+    {
+      "path": "runs/evidence/000-OriginalWorldChecks-check_native_evidence_manifests.log",
+      "sha256": "4d58b00d473715503a01c13a7f8168ef471a7aa4e620f5c85eeea818dfa11c56",
+      "bytes": 603
+    },
+    {
+      "path": "runs/evidence/001-GhidraChecks-check_evidence_reference_refresh.log",
+      "sha256": "933ae366f6fae5c32264b4fd8e438c6dd792982f8313f14ed4646f0044eb9846",
+      "bytes": 676
+    },
+    {
+      "path": "runs/evidence/auxiliary-direct-references.txt",
+      "sha256": "92fe9e4756f47ce25309da75cd985867fd08a52e92a83ed67217cded4d12f8a3",
+      "bytes": 506
+    },
+    {
+      "path": "runs/evidence/reference-refresh.log",
+      "sha256": "83288859b54f43d0ec4fe4922cea401b582e7fbbc77b0f49999b9ce430501b10",
+      "bytes": 91
+    },
+    {
+      "path": "runs/evidence/run-results.json",
+      "sha256": "3cc55907d7eab88f5957f3f0e5f4e75d6a6152cff0aba1bc30af3225741d8ac1",
+      "bytes": 769
+    },
+    {
+      "path": "runs/native-corpus/004-OriginalWorldChecks-check_native_event_corpus.log",
+      "sha256": "be8dc17f62b81a7420050c20f7038ebf5859f2d92bb5601af82a270cd66fc259",
+      "bytes": 2349
+    },
+    {
+      "path": "runs/native-corpus/selected-run.json",
+      "sha256": "ea55f171ed9ac44d5deab0e1db36125ca2e074a90ba4f2024a810eb962d27441",
+      "bytes": 601
+    },
+    {
+      "path": "runs/preparation/file-loader-cstring-initialization.log",
+      "sha256": "c43e044318d7623052d5d0df3d0edd1cd7b1ea8a4399e830e99999d6967f55d5",
+      "bytes": 888
+    },
+    {
+      "path": "runs/preparation/file-loader-response-file.log",
+      "sha256": "0c0e35085717d2de8b2aadc31722e9d9c74a5da82525e7f6f32636bc404f9d83",
+      "bytes": 1027
+    },
+    {
+      "path": "runs/preparation/stale-source-refusal.log",
+      "sha256": "604daff79a9acbafa4d57ac138c6363b9045e2e437196bb4d4c327c4b3c884b0",
+      "bytes": 787
+    },
+    {
+      "path": "runs/preparation/startup-codec-compile-prerequisite.log",
+      "sha256": "5b61f983d27842ca2c330d84d2206be94fe79004bd184c225cee9034bff7bb7d",
+      "bytes": 909
+    },
+    {
+      "path": "runs/preparation.json",
+      "sha256": "b906ca78415a0ecfd23d98293892491ecf24d60e5751ac4cb69c83b5ad3894e6",
+      "bytes": 1505
+    },
+    {
+      "path": "runs/runtime/000-OriginalWorldChecks-check_gateways.log",
+      "sha256": "b6fc9068ad24b2e040a3f6043088f413e1d8bbbbac9b626abd7922bff6ff3499",
+      "bytes": 513
+    },
+    {
+      "path": "runs/runtime/001-OriginalWorldChecks-check_scenario_progress.log",
+      "sha256": "a641c7a12deffe723f06495de9a5105a0e1c2a3581b136537560ba6448a4a7d9",
+      "bytes": 15414
+    },
+    {
+      "path": "runs/runtime/002-OriginalWorldChecks-check_native_directed_events.log",
+      "sha256": "6f2f1c6b5bb875e0978a1a94685e8305707e84d0f64e9b488b07d85f0069bcdc",
+      "bytes": 1164
+    },
+    {
+      "path": "runs/runtime/003-OriginalWorldChecks-check_native_directed_controls.log",
+      "sha256": "6d6d7a2e51ae21caf40effdba17ff34ea1b14bc33e1c9ffd32f8e465fe392d69",
+      "bytes": 857
+    },
+    {
+      "path": "runs/runtime/004-OriginalWorldChecks-check_native_directed_frames.log",
+      "sha256": "52c2506b42f2ac1e74a03379059fa7211cc519489acd52d8f564862c33f49549",
+      "bytes": 2946
+    },
+    {
+      "path": "runs/runtime/005-OriginalWorldChecks-check_native_campaign_messages.log",
+      "sha256": "3b4cad39cef7ffbc7af9ae4001efce67a19833c3bedc4479033a8b9451c41889",
+      "bytes": 1343
+    },
+    {
+      "path": "runs/runtime/006-OriginalWorldChecks-check_native_directed_input.log",
+      "sha256": "cc4e930593d6fc0d7136053fb618cc68bfa98d9cf9cc1692543fe63e04d28354",
+      "bytes": 446
+    },
+    {
+      "path": "runs/runtime/007-OriginalWorldChecks-check_native_battle_packet_contracts.log",
+      "sha256": "63f5f1d6d7692b955a1b9f6bc6e96f81e6ed05a28c290e272cf06548ded5e13c",
+      "bytes": 14925
+    },
+    {
+      "path": "runs/runtime/008-OriginalWorldChecks-check_native_magic_contracts.log",
+      "sha256": "ef15b8a1a2c92b2c7a655c4377b38d7e327d28d4259fd93ff1eb03b223c79a9f",
+      "bytes": 16114
+    },
+    {
+      "path": "runs/runtime/009-OriginalWorldChecks-check_native_result_contracts.log",
+      "sha256": "8adff8d963930db888ae00e3a62d8a3f36bf7cb8e39724a90525ee27cd19711f",
+      "bytes": 14999
+    },
+    {
+      "path": "runs/runtime/010-OriginalWorldChecks-check_native_end_ui.log",
+      "sha256": "26538622c11d0057d015706a2930e5ecd2d677e1e72369e97e842137a3c85fb9",
+      "bytes": 496
+    },
+    {
+      "path": "runs/runtime/011-OriginalWorldChecks-check_commanders.log",
+      "sha256": "731c1e844e3229fc6f7e75ce7fadbcbfa4d3e961643ecc8ac590a18e4d7853e0",
+      "bytes": 248
+    },
+    {
+      "path": "runs/runtime/012-OriginalWorldChecks-check_native_battle_response_contracts.log",
+      "sha256": "d9fd34fb2f3ded55c96791efe2bc91fc01451dd8dba1808c5442c5f03e0e7598",
+      "bytes": 15374
+    },
+    {
+      "path": "runs/runtime/013-OriginalWorldChecks-check_native_local_order_contracts.log",
+      "sha256": "3a0267eb184c17012e44bb345c31f7d3aa6e0fa332aa429e613862bddebf09a1",
+      "bytes": 14829
+    },
+    {
+      "path": "runs/runtime/014-OriginalWorldChecks-check_native_unit_snapshot_contracts.log",
+      "sha256": "a09fba65791515b1b23679204503df4d6c1d15cb52ca511f81fb0614aacfd727",
+      "bytes": 16557
+    },
+    {
+      "path": "runs/runtime/015-OriginalWorldChecks-check_native_result_kill_contracts.log",
+      "sha256": "9908735b849f33a1ee1133634d4ff48b7b0073bb53eb7be3888acd099b4a58ed",
+      "bytes": 514
+    },
+    {
+      "path": "runs/runtime/016-OriginalWorldChecks-check_native_message_pages.log",
+      "sha256": "a2e2abdce24e7a330fd9054b6c2db8204fb63cafd051f23db1fe9104c2d49d46",
+      "bytes": 632
+    },
+    {
+      "path": "runs/runtime/017-OriginalWorldChecks-check_native_magic_redirect_selection.log",
+      "sha256": "281bf6d6ade1c2b99f94ca1f2d35a044c113b58d3f92e63fcc1d1fcbcbfcd46b",
+      "bytes": 477
+    },
+    {
+      "path": "runs/runtime/018-OriginalWorldChecks-check_native_scenario_end.log",
+      "sha256": "c0b3db6be2ed87a0a09cdd7be6b5b85b71cc58b9d27e2274ad071c31fdfda21c",
+      "bytes": 643
+    },
+    {
+      "path": "runs/runtime/019-OriginalWorldChecks-check_native_immediate_events.log",
+      "sha256": "9bf5095308fe84c39d93962efe8e8eec675ce0a7fb1144f804dbd94c15683641",
+      "bytes": 847
+    },
+    {
+      "path": "runs/runtime/020-OriginalWorldChecks-check_growth.log",
+      "sha256": "3ad29d2593106998dd9217992029bfd814c57025976573f55bc80df6fe74f03b",
+      "bytes": 14908
+    },
+    {
+      "path": "runs/runtime/021-GhidraChecks-check_native_dispatch_routes.log",
+      "sha256": "68f2b672068b4df1debb121c4103fbf2fbe1c14e4a15fc81633ded65c0bb906c",
+      "bytes": 580
+    },
+    {
+      "path": "runs/runtime/022-OriginalWorldChecks-check_native_end_stage.log",
+      "sha256": "b3778eb8b3c781adb07a6272f4347e4f1520f896db37c0198a005b4ef11b4cb0",
+      "bytes": 765
+    },
+    {
+      "path": "runs/runtime/023-OriginalWorldChecks-check_native_event_loader.log",
+      "sha256": "01fbbfbe5d58c1afd1ae90993a9698c100a7842238dd6eed4a8a46d918a050f7",
+      "bytes": 791
+    },
+    {
+      "path": "runs/runtime/run-results.json",
+      "sha256": "c80bed2cbc566d041ccdfcd463106d6537f9ab55ea5b88994fd0fa05b4a15528",
+      "bytes": 5953
+    },
+    {
+      "path": "runs/substring/000-OriginalWorldChecks-check_native_message_substrings.log",
+      "sha256": "5b87a5859b55fa342460249ac1d4b8a83c6e017cd0d01043bb454e4a3ec43788",
+      "bytes": 603
+    },
+    {
+      "path": "runs/substring/run-results.json",
+      "sha256": "3b65135fb5a530007c1c831442d7a442027549e31f7698827bf7af47294b3146",
+      "bytes": 532
+    },
+    {
+      "path": "runs/world/000-OriginalWorldChecks-check_native_candidate_data.log",
+      "sha256": "a345e5237e09a7142c69ad31b33bbbece406e1bc1b083e44d97a6810e59cc0f1",
+      "bytes": 1101
+    },
+    {
+      "path": "runs/world/001-OriginalWorldChecks-check_runtime_resource_bindings.log",
+      "sha256": "41d03591a3a3e44d2e4f5c7e79d57546e523cbbd63eaf0f0b678ab8b3a05b1e8",
+      "bytes": 833
+    },
+    {
+      "path": "runs/world/002-OriginalWorldChecks-check_player_identity.log",
+      "sha256": "90284c12a10d0d5b2a6860e74523a15547ff4c35c1b1d7a700941646651fede0",
+      "bytes": 408
+    },
+    {
+      "path": "runs/world/003-OriginalWorldChecks-check_commander_adjustments.log",
+      "sha256": "86b60ce038aba6e21c6affb6dfe926b5d8a64fc1e24643ce695216fdf7b511db",
+      "bytes": 1828
+    },
+    {
+      "path": "runs/world/004-OriginalWorldChecks-check_commander_name.log",
+      "sha256": "cb3abb1bb77dcd3e7115ba7836f2ebad5e2f304e68a2f89d329c3f1bbe1ef431",
+      "bytes": 1102
+    },
+    {
+      "path": "runs/world/005-OriginalWorldChecks-check_nullable_contracts.log",
+      "sha256": "5c6c19353822c762529fa8714ad630bed3117c4dfcdc80e185fe2fc832d61c1c",
+      "bytes": 424
+    },
+    {
+      "path": "runs/world/006-OriginalWorldChecks-check_facility_contract_regressions.log",
+      "sha256": "84ecb656ab55ea9f67f99937a048f5cc14f46147e179320975e26517e5409ea9",
+      "bytes": 266
+    },
+    {
+      "path": "runs/world/007-OriginalWorldChecks-check_native_warehouse.log",
+      "sha256": "bacbe68c3b773cb2a56cf291ddee7bd840e8bd61b1a0afb17c3096f890ca85a9",
+      "bytes": 672
+    },
+    {
+      "path": "runs/world/008-OriginalWorldChecks-check_nullable_serialization_analyzer.log",
+      "sha256": "0b98fca8b6d7caf429b91eeecc38bb323a29f8d6610d9b05174505e11f9c7f83",
+      "bytes": 857
+    },
+    {
+      "path": "runs/world/009-OriginalWorldChecks-check_native_shop.log",
+      "sha256": "ff71b4f22f257e04de3a3c692c8f7b0f861aad6b1f9d5ed3e2cda03b1f50a88b",
+      "bytes": 579
+    },
+    {
+      "path": "runs/world/010-OriginalWorldChecks-check_native_world_message.log",
+      "sha256": "ef26724c772db7c06311302a8c9f338394770211f31e7175e9bc4febfc3c1945",
+      "bytes": 604
+    },
+    {
+      "path": "runs/world/011-OriginalWorldChecks-check_native_hire_list.log",
+      "sha256": "694119d1f17f6932f7c0da4f9bdb755572f21d7e4da994bdab4d223c919ff869",
+      "bytes": 643
+    },
+    {
+      "path": "runs/world/012-OriginalWorldChecks-check_native_mercenary.log",
+      "sha256": "925266b00b3553edf9b4fe09ad99d7ead77d44c7e182a8e72e9eab0745bb39d8",
+      "bytes": 694
+    },
+    {
+      "path": "runs/world/013-OriginalWorldChecks-check_native_battle_options.log",
+      "sha256": "040e4e21a8c08e046f5c15b9102c2689fde06af7c056645a4a1b3337524e3c96",
+      "bytes": 5392
+    },
+    {
+      "path": "runs/world/014-OriginalWorldChecks-check_picture_initialization.log",
+      "sha256": "23871cd2131b4b7c83f5d7a633bd34cca1e0a63dd707c23296f554b26768ed14",
+      "bytes": 1147
+    },
+    {
+      "path": "runs/world/015-OriginalWorldChecks-check_authored_world_startup.log",
+      "sha256": "6ccc828fe8499789fe7dd8821bbd3899bc2e01eb36d370e5c0bf412e89d4b074",
+      "bytes": 4304
+    },
+    {
+      "path": "runs/world/016-OriginalWorldChecks-check_reverse_gateways.log",
+      "sha256": "928abb8c37c30bfb18ca579705feef3f6a59f8de619129dfcd4ac1f2451b7a29",
+      "bytes": 380
+    },
+    {
+      "path": "runs/world/017-OriginalWorldChecks-check_warehouse_reconnect_stability.log",
+      "sha256": "4a5e0cf9d2d3c071dc7994c183229e575a016abb3807caa866d133c73cf2afda",
+      "bytes": 583
+    },
+    {
+      "path": "runs/world/018-OriginalWorldChecks-check_training_test_authority.log",
+      "sha256": "4a9f4f51bdd1d61fe220d392fd7d6508d3b9181aa1865970bfb1ee92c95cee2c",
+      "bytes": 17138
+    },
+    {
+      "path": "runs/world/019-OriginalWorldChecks-check_temple_alignment.log",
+      "sha256": "8877340cfc6bbe12e0c2a95607103b455034c603bd216abd300cf560668e0b2e",
+      "bytes": 300
+    },
+    {
+      "path": "runs/world/020-OriginalWorldChecks-check_training_tiers.log",
+      "sha256": "c721c712149d38aa95d0de4490d62172d7c15095fe2d31a053a6287c6f3c4e6e",
+      "bytes": 412
+    },
+    {
+      "path": "runs/world/021-OriginalWorldChecks-check_native_tile_attribute.log",
+      "sha256": "66a8aca4aecf22cdbe63f870866b3b4e3ec7ae9808559d680adb31bb5c1cec52",
+      "bytes": 627
+    },
+    {
+      "path": "runs/world/run-results.json",
+      "sha256": "01de43cf72f3779e32fdf9def7f85603ef1cccc2b59142a96dc0c45ffc49d6f2",
+      "bytes": 5389
+    },
+    {
+      "path": "snapshots/Tools/CheckSupport/evidence-eol-check.json",
+      "sha256": "94e8c726f84e517f01acd4075cb10926f5b3e359e7df49daa458583049f424fb",
+      "bytes": 1185
+    },
+    {
+      "path": "snapshots/Tools/CheckSupport/runner-check.json",
+      "sha256": "fa094ef8bbd49cd5260a8fb76e10b12905f45bccaf2d6d074d8af6bb6a1396cf",
+      "bytes": 674
+    },
+    {
+      "path": "snapshots/Tools/OriginalEntryChecks/entry-check.json",
+      "sha256": "45f76e5856b1f1bf6e0997fe6519e8afb8208c56ef4b21d126ce2ae4b8b5602d",
+      "bytes": 32537
+    },
+    {
+      "path": "snapshots/Tools/OriginalScenarioEditorChecks/save-queue-check.json",
+      "sha256": "a92823ba77159370382a2f296b53e926123af359e1efc5e5460a0b1a30d0f22d",
+      "bytes": 1577
+    },
+    {
+      "path": "snapshots/Tools/OriginalTutorialChecks/dialogue-presentation-check.json",
+      "sha256": "83c1f901a2e305a4616a5b5a50306cb9ca63062a208c6b372be939b6eaad4196",
+      "bytes": 2406
+    },
+    {
+      "path": "snapshots/Tools/OriginalTutorialChecks/drag-lifecycle-check.json",
+      "sha256": "6cc9986bc3f89c8eb692b572a215b5ec8a34f1f9e2e7947e85be300fc2d64275",
+      "bytes": 1383
+    },
+    {
+      "path": "snapshots/Tools/OriginalTutorialChecks/tutorial-check.json",
+      "sha256": "aa5f2596e18b198cc2d5e620dbd6d2c23140f9ef97ea362f9786dd7dcbf95784",
+      "bytes": 15416
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/authored-world-startup-check.json",
+      "sha256": "ba7c3eea901de9e1df8bae6df2f8e1d7267bd30ae30ba0914ae9e9dae9101c43",
+      "bytes": 21394
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/bank-currency-regressions.json",
+      "sha256": "f2d39f2f2fb42e6fdb7defa2fa35124f45cb70d987ebe1bd35678f15dc3c074c",
+      "bytes": 1489
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/callback-session-regressions.json",
+      "sha256": "bad9fa64f4025489f0801e319f5531a686c6201d5212dd2d7062c911fc2251d4",
+      "bytes": 3054
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/character-reset-check.json",
+      "sha256": "b75bbb1014625e8a41bcab4230fcb087587bfc4adda4d82287c59d25eb02a6c1",
+      "bytes": 1134
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/client-window-assets-check.json",
+      "sha256": "b5c52a715c3693c86997fb852ede33bbabb320faaf9a3f09fc4ade758c5615c8",
+      "bytes": 1885
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/client-windows-integration-check.json",
+      "sha256": "d96548e3c5bc231930539d40742cc8e3b49eb333ddf3c032c736188fc9990697",
+      "bytes": 106409
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/commander-adjustments-check.json",
+      "sha256": "ea8d7e708328966433a5bd1342257308c66f03803e2d34bf4b389487daa6c52e",
+      "bytes": 5373
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/commander-name-check.json",
+      "sha256": "058e52d44936e5d0c779557efa4e10032430438d0131bdfdd21123d944a4c076",
+      "bytes": 3932
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/facility-callback-check.json",
+      "sha256": "0d1dfbbde2753aabb9277d1214c82eed139bcbe7f16e581d3539ba1f5723674c",
+      "bytes": 1252
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/facility-contract-regressions.json",
+      "sha256": "1a84a4bb6c5412d6cedb29019eb92d9e1ce80e98c3c321b74d9ed90addfc5d80",
+      "bytes": 15768
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/growth-check.json",
+      "sha256": "681c59c3ed2466688d09a481b07b113f909414462f47b08c58cd33340d32b11a",
+      "bytes": 15420
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/item-drag-context-check.json",
+      "sha256": "1c115abc1bfa6db9f676ec3990a5912854a0667201814f50ff4a1248d41db3cb",
+      "bytes": 1221
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/legacy-maps-check.json",
+      "sha256": "499bfa9a737d36e443035208c7656c8e5a0ea0dc6ac53ed0b5680ddce05d2a66",
+      "bytes": 1051
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/map-pointer-check.json",
+      "sha256": "21ba9c8b1c5098716b088013a52cd73beb5466c09b0417b802491d177cd0f2e3",
+      "bytes": 805
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-alliance-metadata-check.json",
+      "sha256": "b1bf811e562deced25aa9d24f1cea73d1d592acb4e37b5e8657c53200d5fbaea",
+      "bytes": 8468
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-auxiliary-packets-check.json",
+      "sha256": "0c979b76b5474cd135b5a729b5dfa1ff4a017f353dd60a22cb0460e1c793535b",
+      "bytes": 16542
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-bank-check.json",
+      "sha256": "f0bcf8ca87b9e262d3c552e6d10125ff6166e19d84571acc43b148d27f75f3c6",
+      "bytes": 2799
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-battle-decoder-check.json",
+      "sha256": "be90a51269a25be05aa46d47f40d0d3f3163b40287adecdc2fa67b9be59d46a9",
+      "bytes": 2074
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-battle-options-check.json",
+      "sha256": "38954389f717e82be07c2ee2b2165f6855a3c901aec1ba20125cbecb04e1f885",
+      "bytes": 71312
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-battle-packet-check.json",
+      "sha256": "f4e14175eb476fccaf727e9432531a63b08819ee732802acf442b8b955f7cfd7",
+      "bytes": 15429
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-battle-response-check.json",
+      "sha256": "a2df356bb749b6af2b084c7fb7fd8938b551aa41d869e60619decc4319ee46df",
+      "bytes": 15894
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-battle-tick-check.json",
+      "sha256": "4a1619a1e26c682b1231f1ab05925fbafb79eb9c8b3f47d7ec724b8255d37f1c",
+      "bytes": 1030
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-body-order-check.json",
+      "sha256": "aaf3f90c9098e942a82d33ff95cd162f71ecab4832fac0858a96ffc4410a1909",
+      "bytes": 20289
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-campaign-message-check.json",
+      "sha256": "3514bf96a0c99e06cf19d7fa2cb5b6149869136176248817b15d94938a395c55",
+      "bytes": 192233
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-candidate-data-check.json",
+      "sha256": "f13546693432a41ce0f353ad93de9ba730542a8928bbdabf6263d206df5b5fcc",
+      "bytes": 6840
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-chat-check.json",
+      "sha256": "49f780823dbd1f6fbb64f093b33f78a74f9067ae77a87b59667185424a525c62",
+      "bytes": 1531
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-chat-composer-check.json",
+      "sha256": "9fd91dfd898ac5b67d80ae5449c9da3fcc2d5800516b16afae464d397970a215",
+      "bytes": 2720
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-class-adjustments-check.json",
+      "sha256": "3c0dc6afacbc5b3d65b791cc7ad811fd8cf495caf6db69ae0312f61f097c518f",
+      "bytes": 9301
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-class-presentation-check.json",
+      "sha256": "60b8ec91de483f46fd9987daa9cf76c09156f717d8e54d8146ca318d0c264605",
+      "bytes": 5047
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-commander-check.json",
+      "sha256": "98e1e9f91ba7bb0bb2f955ed4f002b9aa1e9ec3b39add0018227aff032cf78f9",
+      "bytes": 945
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-death-check.json",
+      "sha256": "93c81b98f8ae925e1237128e48e93d20bf247bc332a7b93eca1c66c56809ee45",
+      "bytes": 1512
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-directed-control-check.json",
+      "sha256": "2b89fc5eaf3769bb063a8930fa5f734615399234389c09b2091f534de6438fb1",
+      "bytes": 51518
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-directed-event-check.json",
+      "sha256": "1190c9147ca4a31bb443173b1a3eac38927c198431f5433ff839bedf04bcdbfb",
+      "bytes": 17401
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-directed-frame-check.json",
+      "sha256": "cdc62fd2dabf019ca558daaf465f0ae7b8d5880a3b5fdb0c328e49a1f521487f",
+      "bytes": 32111
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-directed-input-check.json",
+      "sha256": "9adc10d605caf9dac535b4119d3ef50589b01242e769f804a0ed19185e93d4ce",
+      "bytes": 21171
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-end-stage-check.json",
+      "sha256": "ce1076e534cf03a082b0683b4db6eb4993b43b525a4e2dc03ddffaad345745d7",
+      "bytes": 1321
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-end-ui-check.json",
+      "sha256": "ae34ecf0551811f167d294f0c9d86d5f9db85dc55af1eaa8aa158a5eb16ee21d",
+      "bytes": 14649
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-event-corpus-check.json",
+      "sha256": "e610c978108b2b244d94d9512e27697139b9fdbb99f4202965792259b9f8accd",
+      "bytes": 1089639
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-event-loader-check.json",
+      "sha256": "36b3d26ff6d9afaca4759e9239edb34538e292f0c883e2340fb358d8e1a07da7",
+      "bytes": 49186
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-event-queue-check.json",
+      "sha256": "d96bb8eb348e8398d4d0cf72750ceb05f4f5af077ea16d167ac673b7ad44f916",
+      "bytes": 97880
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-event-steps-check.json",
+      "sha256": "649630e22448bf12ff220bd5ce72a2a789055ff0e0e4c66d7594b3eb6c2fd162",
+      "bytes": 41742
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-evidence-manifest-check.json",
+      "sha256": "9266ac631fee66db0138bae6f90e9cc67fff7270a63df8efc6be60e23e53a488",
+      "bytes": 48372
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-evidence-refresh-guard-check.json",
+      "sha256": "c4c0b1cebfabb552e8f5e10798e04c705fd64b559c36d83ce59aa5e70ea72e50",
+      "bytes": 1669
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-feedback-check.json",
+      "sha256": "6a337aefe284cf2d5062e1ad5dd4a8a89386aaf1a6d3d8e105ffc9f08e3813f5",
+      "bytes": 1110
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-font-check.json",
+      "sha256": "d88222eba283de1ec2a1b5c31e3ff619957429db06081ea5d3fc353d6302e209",
+      "bytes": 1794
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-hire-list-check.json",
+      "sha256": "cfc07277335f3497006fcffc0f1b59c6811b3476741c8e32bd87b38f84ed73b9",
+      "bytes": 4065
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-immediate-events-check.json",
+      "sha256": "37bd8bfaa9198808ebf0961ccef840640c11847464aa4d1d4e24e8fb2326671e",
+      "bytes": 17681
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-item-caption-check.json",
+      "sha256": "c13ee2e7523d3c2ee7db48c03ad4268e5d6842c78010d08404f26584fbf3a5c6",
+      "bytes": 4594
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-local-order-check.json",
+      "sha256": "7609848e498a4d97c6a28168ac3a47374272b625791955b50aa07edbf02fde2a",
+      "bytes": 15333
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-magic-check.json",
+      "sha256": "744a7ce61a6421aa0065f505d053ee5d0b777b2786099ce135ec4c44762a0ea5",
+      "bytes": 16658
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-magic-packet-check.json",
+      "sha256": "8d4d7bc6fa4f5ea9be1734ccb3a59e5b1957465ad01d2fd956f67f34b6c54690",
+      "bytes": 2165
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-magic-redirect-catalog-check.json",
+      "sha256": "ef66725a8d18483a5589da710226ba0a692c3a3d7ed14b58d0ff97bca23e1036",
+      "bytes": 2016
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-magic-redirect-check.json",
+      "sha256": "cde9316232158e1cd169aa5b95308a5da7edc2ff65044f67b8128b998baa1131",
+      "bytes": 68411
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-magic-redirect-selection-check.json",
+      "sha256": "e1c08be8b7ded30966d05094648039237850a5e690d40eb8ada6a85dfe001d3a",
+      "bytes": 14945
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-magic-target-catalog-check.json",
+      "sha256": "f9dc9afa89ac3ac9a630ef4055764f8b5c0524fb621921376d22642c9f0c26b8",
+      "bytes": 636721
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-memo-check.json",
+      "sha256": "8c893abf970fa1889c6ff0e4ae07f8eb74392e2e0ea8ab479e645e9971807489",
+      "bytes": 1647
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-memo-transfer-check.json",
+      "sha256": "b57cab5fd0c34261f2c2f9ec99c515e14fd5f9db6d8b698bf37c14099a7f917d",
+      "bytes": 4556
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-mercenary-check.json",
+      "sha256": "2501ba0934c1da95d2549b5850e749b6d94c1cda042897e5540cdf236b6608d3",
+      "bytes": 4783
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-message-pages-check.json",
+      "sha256": "249ddc4f5e44e93f2b172b9ee03d6bff8fb7d7d6e81111ad5ede0eed1e720ac1",
+      "bytes": 50240
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-message-substring-check.json",
+      "sha256": "1c8d3ac95fa9bf2f605a5dfa2689489bcdfb23aa78c39396ed6be9dd985d2a8b",
+      "bytes": 28892
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-monster-activation-check.json",
+      "sha256": "1531cc536a31534f5ce6c8acc85dc6d823ddd1fa2377b86ed873c92f55b0fbcb",
+      "bytes": 34143
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-pointer-repeat-check.json",
+      "sha256": "1bc2ecb81db1d58213283a608742f77ff8b30619c97b32a5524f4c0d552bf9e7",
+      "bytes": 1140
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-private-chat-check.json",
+      "sha256": "7e6afe3386cf3a9e7f41b520294f2cffe69f60b5b4cfb6b912ec46bd3dfcd114",
+      "bytes": 4660
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-result-check.json",
+      "sha256": "b4270d6e8e02c6049e7f7a7422dd1c943e5476eae2e1d3edc66559e6b23321a7",
+      "bytes": 1985
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-result-contract-check.json",
+      "sha256": "ce9d3c63f67c1fb70719484f868a60ab857fd0eced39c4634a880fac626fa16e",
+      "bytes": 15501
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-result-kill-contract-check.json",
+      "sha256": "b9db3bd0d37e39bbbfbf95da90d30b994a2d570a99b86375d2bdb3ec05db82cd",
+      "bytes": 15543
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-result-kills-check.json",
+      "sha256": "8c6d977340d8fcd8728c65fc8459960eb81b9a9302aed4736a351acd73523257",
+      "bytes": 2241
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-scenario-cleanup-check.json",
+      "sha256": "ea460b4f0a1fe206751de89f4c8325f72482431931e3acf7cce55fb71875258d",
+      "bytes": 4018
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-scenario-end-check.json",
+      "sha256": "f7a15bfc553eebefec54b3cf7f4a3a40a682a5f8421507f025197a65aee44fb7",
+      "bytes": 58587
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-script-frame-check.json",
+      "sha256": "9394b6c5de8a2076b5c658bc0d7a67082c044099d943adb2aaa5e85fdb98107d",
+      "bytes": 12154
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-self-info-check.json",
+      "sha256": "7a83786a88a0a59c3494cd731d6ab55d8ca77709ae653cff6f8a11b8139b1024",
+      "bytes": 1699
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-settings-check.json",
+      "sha256": "59a9a29e0817db36f78858ef33c77f7a5d2b9d8406526eb92e78905f1669cd1e",
+      "bytes": 905
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-shop-check.json",
+      "sha256": "9f441f1ec8b879d892850a345b8070b221b8c46f8c628f8b7ec96ead2eca9e3c",
+      "bytes": 4769
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-shop-details-check.json",
+      "sha256": "ccd73e962020604460022c47c2fc1d428a9a4f8c2778b00956096622d30a2b68",
+      "bytes": 5065
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-team-name-check.json",
+      "sha256": "303c4bd4af618eb2e1f7bf4ba3dd08769c1c3b3ae153b56b8c35895889ff489d",
+      "bytes": 1829
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-temple-alignment-check.json",
+      "sha256": "6828c099f069471ecc9c50988c8c9240e3201f275f94b1cb03de5991d71db675",
+      "bytes": 3726
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-tile-attribute-check.json",
+      "sha256": "989a3bcab6e98d246907d2728df3414763e3a088ce270c67b459d5a95bf3b4eb",
+      "bytes": 1254
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-unit-decoder-check.json",
+      "sha256": "11fe5f2a195b6ee947ee546a8446ee5e9481222d33333fc08ef259e7713e0b48",
+      "bytes": 2358
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-unit-reset-check.json",
+      "sha256": "813e7d0509d3f1a95d105fc5e1800158eaa99a7fa4a6780dad4bebf45d274007",
+      "bytes": 2172
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-unit-snapshot-check.json",
+      "sha256": "1f9f44e9ed17f51f1932b45afd504fda72a920539b6f3d3cdc0bce38b09121f8",
+      "bytes": 17113
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-warehouse-check.json",
+      "sha256": "2013bbe825367255c2cd9a8f4c89b0102dc9c7bf4576e04a031d26d42c918653",
+      "bytes": 4552
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-window-drag-check.json",
+      "sha256": "c5e2e49377600c17fa4dc2b619869e06c16b04f94020b21e85270e77fa965f5f",
+      "bytes": 3520
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-window-placement-check.json",
+      "sha256": "33a6d81c21299ff2554ff53a55594a0344ac4b5ca21536a3a5bda7ac8866e82f",
+      "bytes": 2539
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-world-message-check.json",
+      "sha256": "f6e38b8c9cc68ae50f8a6b523b63f7b823cf4cbfb1483d7b275184ac096a72da",
+      "bytes": 4577
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/native-world-text-check.json",
+      "sha256": "0e009934af897f86c69819bb618a80c46d673b8b7931da3fedee80481940fcaf",
+      "bytes": 1018
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/nullable-contract-check.json",
+      "sha256": "4f11753f411db381fb9f6520fa9987ba0793511094cd955d4d2fe40e494e0fc8",
+      "bytes": 8316
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/nullable-serialization-analyzer.json",
+      "sha256": "1132f7c4e935879e7d160b92fc8a7fed1cfbaeaec9dd077c891bd79b73ecb715",
+      "bytes": 31658
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/picture-initialization-check.json",
+      "sha256": "10d213654bcb6de35bd0c1cfdc1c65b1ed54c4f2a989b3162fbfa34a3a9dff75",
+      "bytes": 2546
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/pixel-import-check.json",
+      "sha256": "0786a3b5149705fd1ccb2358433842c88c416548b7d1874857a8c30bab0f9aa3",
+      "bytes": 147504
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/player-identity-check.json",
+      "sha256": "040a2f97e6e2af798b96f60257606aa8f2a78e5f5f8fe9c11af0ac8141fd5c1f",
+      "bytes": 1452
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/reverse-gateway-check.json",
+      "sha256": "bddd864c38df0585e5ccc3c65cc8f26dadd1bc1870d0aab6af50ab46ab17b7f8",
+      "bytes": 14545
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/runtime-resource-bindings-check.json",
+      "sha256": "a18383ca2955badab81475267002587b7e6edac36eea1525b9af60f9d9f84eaf",
+      "bytes": 94369
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/scenario-progress-check.json",
+      "sha256": "f02e38d3e64e7cd8cdc9df5ddf8c04d93431d925ed55b268a99cad8f4f32bb57",
+      "bytes": 18299
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/temple-alignment-check.json",
+      "sha256": "b38b0cb34e1d9d831cd502905867e23ef71a8d2858402519539158a3f827d3c0",
+      "bytes": 1391
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/training-test-authority-check.json",
+      "sha256": "ec569a5297f63590b5bafda21b8279d15d2bcb3e7eb02ae1e2b374ab6567dc91",
+      "bytes": 17642
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/training-tier-check.json",
+      "sha256": "30dc7bd21108d4a6fc56e3465714d3e26ebe200b952012ba322826f671fad845",
+      "bytes": 15981
+    },
+    {
+      "path": "snapshots/Tools/OriginalWorldChecks/warehouse-reconnect-stability-check.json",
+      "sha256": "b1903903f09b1a0d69dd740a7beda84631aa083bc2a87399923f87352eb43082",
+      "bytes": 15963
+    },
+    {
+      "path": "snapshots/분석/Ghidra/Saver_Late/AuxiliaryPackets/evidence.json",
+      "sha256": "6f7e7b354391096989ae455fb674042b3d41ad126b6655bd61392cd20d7ce966",
+      "bytes": 3399
+    },
+    {
+      "path": "snapshots/분석/Ghidra/Saver_Late/DirectedEvents/evidence.json",
+      "sha256": "d5c4a20b7c275567371d43f0de072a4bfb41d110ec4d7e48fe4ef72f6786ccd7",
+      "bytes": 3897
+    },
+    {
+      "path": "snapshots/분석/Ghidra/Saver_Late/EventQueue/evidence.json",
+      "sha256": "2122750ceeb25da34df760b56dfbf9a3139d0519e83f3d948cf768c8e2990191",
+      "bytes": 2646
+    },
+    {
+      "path": "snapshots/분석/Ghidra/Saver_Late/MagicRedirect/evidence.json",
+      "sha256": "c52d8a6f9e1c169abfa768782969391c5b59d1434d949c57f7d9a8b33e6b0ef2",
+      "bytes": 2135
+    },
+    {
+      "path": "snapshots/분석/Ghidra/Saver_Late/ScenarioEndControl/evidence.json",
+      "sha256": "29bbf5aca55b67f15528702192118b24ca55bfaafc1ec18561a66105df1b0f03",
+      "bytes": 5787
+    },
+    {
+      "path": "snapshots/분석/Saver_Late/gamectl_packet_routes.json",
+      "sha256": "a0391b955c938dc8ab5303eee916769d17b475f4abef327e143f1f829f037336",
+      "bytes": 7696
+    },
+    {
+      "path": "source-eol-check.json",
+      "sha256": "ba3a2d25cec0247ca678ea28fc598c329630894596b7b924417b09de8775f6ac",
+      "bytes": 3132
+    }
+  ]
+}

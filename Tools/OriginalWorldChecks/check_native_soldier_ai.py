@@ -17,6 +17,12 @@ def vectors():
         return dict(name=name,width=12,height=12,member=1,hint=hint,clock=clock,random=[1,0,2],attributes=attrs or [0]*144,terrain=costs or terrain,
             units=[unit(0,5,5,troopOrder=mode),own]+[unit(i,x,y)for i,x,y in enemies])
     cases=[]
+    # Moving bit1 does not guard the entire native041F0 body. Exercise its
+    # distinct AP-full,10 action gate and20 movement branches explicitly.
+    for state,ap in itertools.product([1,17,33,49],[0,19,20]):
+        cases.append(make(f'moving-bit-{state}-{ap}',state,100,2,ap=ap))
+    for state,ap,hp,mode in itertools.product([1,17,33,49],[0,20],[20,100],[2,8]):
+        cases.append(make(f'moving-forced-rest-{state}-{ap}-{hp}-{mode}',state,hp,mode,hint=99,ap=ap))
     for mode,state,hp in itertools.product([2,4,8],[0,16,32,48],[20,39,40,49,50,59,60,89,90,99,100]):cases.append(make(f'base-{mode}-{state}-{hp}',state,hp,mode))
     for clock,hp,state in itertools.product([0,2999,3000,9999],[80,89,90,100],[16,48]):cases.append(make(f'clock-{clock}-{hp}-{state}',state,hp,8,clock))
     for hint,state,hp in itertools.product([99,-1],[0,16,32,48],[20,59,60,99,100]):cases.append(make(f'hint-{hint}-{state}-{hp}',state,hp,2,hint=hint))
@@ -53,12 +59,35 @@ def vectors():
         for state in [16,48]:
             case=make('decoded-map-'+str(world['id'])+'-'+str(state),state,100,2,position=(x+1,y),enemies=((400,x+2,y),))
             case.update(width=w,height=h,attributes=attrs,terrain=costs);case['units'][0].update(x=x,y=y);cases.append(case)
+    for hp,state,ready,point in itertools.product([0,1,100],[0,128],[16,48],[(4,4),(8,5)]):
+        c=make(f'target-lifecycle-{hp}-{state}-{ready}-{point}',ready,99,2,enemies=((400,*point),))
+        c['units'][-1].update(hp=hp,nativeState=state,nativeActive=True,nativeEnabled=True);cases.append(c)
+    for clock,last,state,hp in itertools.product([2999,3000,5000,7800,2147483664,4294967344],[0,100,3000,4900,2147483600],[16,32,48,49],[80,100]):
+        c=make(f'last-move-clock-{clock}-{last}-{state}-{hp}',state,hp,8,clock=clock)
+        c['lastMoveClock']=last;cases.append(c)
+    changes=[('actor-hp0',1,dict(hp=0)),('leader-hp0',0,dict(hp=0)),('leader-no-command',0,dict(canCommand=False)),
+        ('actor-no-attack',1,dict(canAttack=False)),('actor-no-rest',1,dict(canRest=False,hp=20)),('actor-no-move',1,dict(canMove=False)),
+        ('leader-inactive',0,dict(nativeActive=False)),('leader-disabled',0,dict(nativeEnabled=False)),
+        ('actor-inactive',1,dict(nativeActive=False)),('actor-disabled',1,dict(nativeEnabled=False)),('actor-state80',1,dict(nativeState=144))]
+    for label,slot,change in changes:
+        for ready,point in itertools.product([16,32,48],[(4,5),(1,5)]):
+            c=make(f'owner-lifecycle-{label}-{ready}-{point}',ready,100,2,clock=5000,position=point,enemies=((400,4,4),))
+            for u in c['units']:u.update(nativeActive=True,nativeEnabled=True)
+            c['units'][slot].update(change);cases.append(c)
+    for mode,ready,point,permissions in itertools.product([2,4,8],[16,48],[(4,5),(1,5)],[None,[]]):
+        c=make(f'received-team-{mode}-{ready}-{point}-{permissions}',ready,100,mode,clock=5000,position=point,enemies=((400,4,4),))
+        for u in c['units']:
+            fields=[0]*44;fields[0]=u['id'];fields[24]=0 if u['id']<400 else 8
+            u.update(nativeActive=True,nativeEnabled=True,nativeInfo=dict(fields=fields,name='',className=''))
+        c['units'][1]['attackTargets']=permissions;cases.append(c)
     return cases
 
 def compile_and_run(cases):
     WORK.mkdir(exist_ok=True);input=WORK/'cases.json';output=WORK/'managed.json';input.write_text(json.dumps(cases,separators=(',',':')))
     old=Path('/tmp/ds-npc-gateway-checks');sdk=magic.UNITY/'DotNetSdk';dotnet=sdk/'dotnet';csc=next(sdk.glob('sdk/*/Roslyn/bincore/csc.dll'));exe=WORK/'SoldierAiDifferential.dll'
     args=(old/'checks.rsp').read_text().replace(str(old/'GatewayChecks.dll'),str(exe)).replace(str(OUT.resolve()/'GatewayChecks.cs'),str(OUT.resolve()/'SoldierAiDifferential.cs'))
+    for source in sorted((ROOT/'Assets/_Original/Runtime/Combat').glob('*.cs')):
+        if str(source)not in args:args+='\n"'+str(source)+'"\n'
     rsp=WORK/'checks.rsp';rsp.write_text(args)
     for name,cmd in [('compile',[str(dotnet),str(csc),'@'+str(rsp)]),('run',[str(dotnet),str(exe),str(input),str(output)])]:
         if name=='run':exe.with_suffix('.runtimeconfig.json').write_bytes((old/'GatewayChecks.runtimeconfig.json').read_bytes())
@@ -69,14 +98,14 @@ def compile_and_run(cases):
 def main():
     cases=vectors();managed,digest=compile_and_run(cases);mismatches=[];native=[]
     for case,current in zip(cases,managed):
-        expected=NativeAi(case).run()
+        oracle=NativeAi(case);oracle.write(oracle.RUNTIME+case['member']*0x2e0+0x298,case.get('lastMoveClock',0));expected=oracle.run()
         for packet in expected['packets']:packet.pop('nativePoints',None)
         actual={k:current[k]for k in ['packets','state','hint','ap','randomCalls']};native.append(expected)
         if actual!=expected:mismatches.append(dict(name=case['name'],native=expected,managed=actual))
     (WORK/'native.json').write_text(json.dumps(native,indent=2));(WORK/'mismatches.json').write_text(json.dumps(mismatches,indent=2))
-    sources=['Assets/_Original/Runtime/Combat/SoldierActions.cs','Assets/_Original/Runtime/Combat/SoldierMovement.cs','Assets/_Original/Runtime/Combat/RegroupMovement.cs','Assets/_Original/Runtime/Combat/MemberCommands.cs','Assets/_Original/Runtime/Combat/CommandRange.cs','Assets/_Original/Runtime/Tutorial/TutorialScript.cs','Tools/OriginalWorldChecks/native_ai_emulator.py','Tools/OriginalWorldChecks/SoldierAiDifferential.cs','Tools/OriginalWorldChecks/check_native_soldier_ai.py']
-    result=dict(cases=len(cases),mismatches=len(mismatches),sources={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest()for p in sources},decodedMapCases=sum(c['name'].startswith('decoded-map-')for c in cases),casesSha256=digest,unityPlayExecuted=False,
-        nativeCodeExecuted=True,scope='Actual bounded x86 ExecuteSoldierAI/GetMovePos/MoveAttack/target selection/SetArea/pathbacktracker; map attributes/team/clock/rand and empty MFC string/path-presentation queue/send boundaries hooked. Compare purpose/destination/target/flags/hint/AP/random draws, not path packet bytes or gameplay playback.',logs=str(WORK))
+    sources=['Assets/_Original/Runtime/Combat/SoldierActions.cs','Assets/_Original/Runtime/Combat/SoldierMovement.cs','Assets/_Original/Runtime/Combat/RegroupMovement.cs','Assets/_Original/Runtime/Combat/MemberCommands.cs','Assets/_Original/Runtime/Combat/CommandRange.cs','Assets/_Original/Runtime/Combat/NativeBattleRelations.cs','Assets/_Original/Runtime/Combat/NativeUnitSnapshots.cs','Assets/_Original/Runtime/Tutorial/TutorialScript.cs','Tools/OriginalWorldChecks/native_ai_emulator.py','Tools/OriginalWorldChecks/SoldierAiDifferential.cs','Tools/OriginalWorldChecks/check_native_soldier_ai.py']
+    result=dict(cases=len(cases),mismatches=len(mismatches),sources={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest()for p in sources},receivedTeamCases=sum(c['name'].startswith('received-team-')for c in cases),ownerLifecycleCases=sum(c['name'].startswith('owner-lifecycle-')for c in cases),previousClockCases=sum(c['name'].startswith('last-move-clock-')for c in cases),decodedMapCases=sum(c['name'].startswith('decoded-map-')for c in cases),casesSha256=digest,unityPlayExecuted=False,
+        nativeCodeExecuted=True,scope='Actual bounded x86 ExecuteSoldierAI/GetMovePos/MoveAttack/target selection/SetArea/pathbacktracker; map attributes/team/clock/rand and empty MFC string/path-presentation queue/send boundaries hooked. Compare purpose/destination/target/flags/hint/AP/random draws, not path packet bytes or gameplay playback. Previous298 inputs and signed32 clock wrap are included;041F0 clears298 before the movement helper.',logs=str(WORK))
     (OUT/'native-soldier-ai-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items()if k!='sources'}))
     if mismatches:
         print(json.dumps(mismatches[:4],indent=2));raise SystemExit(1)

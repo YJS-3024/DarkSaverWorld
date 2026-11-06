@@ -1,0 +1,20 @@
+{
+  "cases": 30,
+  "nativeHeaderComparisons": 241,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "casesSha256": "9d17722430ad28dae8800084933c6e8cfe25371f766c9d89ec979faae1190804",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_team_names.py": "73cccf050f6740bb980a03b3ea55267714b38d7a07374f9865c337c5f3d4d350",
+    "Tools/OriginalWorldChecks/NativeTeamDifferential.cs": "1a453b983826aa8385b3d87e61ac13ddc1fadda396912b8bdf888caf9aeb8d1c",
+    "Tools/OriginalWorldChecks/native_battle_team_emulator.py": "18b065e59c7e5a998c0c235e396ab555f428302403d4f1d8d7599f1a7aa823bd",
+    "Tools/OriginalWorldChecks/native_battle_status_emulator.py": "dfc2a8b77f9eb440e7df3e720a8b2f3e868999cfa06fc40adfcb5a3b3afce0c2",
+    "Tools/OriginalWorldChecks/native_battle_briefing_emulator.py": "b0ef4d1c053a2328b211e3b162bd3bdc0102a5c70e62f1a84306e2121cbea8a3",
+    "Tools/OriginalWorldChecks/native_battle_options_emulator.py": "2a54e048fade9942974f4a06ff07f6d183a8d81f41288804f5b468d5a4b06bbd",
+    "Assets/_Original/Runtime/Combat/NativeBattleTeamNames.cs": "c3b47dabd0da21014d54464fa15f63be088be1b1ea2ed6b5ef477b6d4c4d9bcf"
+  },
+  "scope": "Actual GameCtl dispatch5C60/D550 variable team records and100054C0 name selection callback. Verify signed team IDs, empty/CP949/39-byte/embedded-NUL names, first duplicate and first9 search across0/1/2/9/10/21 records. CString/graphics/font callback are host boundaries; uninitialized stack tail and unsafe count/name writes are not reproduced. Parsed team local-name assignment executes but is not treated as permanent account rename. No Windows/Unity Play, pixels or actual server roster.",
+  "logs": "/tmp/ds-night-team-final/ds-native-team-name-checks"
+}

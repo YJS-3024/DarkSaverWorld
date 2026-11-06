@@ -1,0 +1,17 @@
+{
+  "nativeContexts": 2886,
+  "nativeHelperCalls": 8658,
+  "derivedMagicMasks": 23088,
+  "missingContextControls": 6,
+  "mismatches": 0,
+  "unityPlay": false,
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_battle_relations.py": "428207fdb345670d436d81a30f6367332f828cf47c5c682e95cc7f02d188d163",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "Assets/_Original/Runtime/Combat/NativeBattleRelations.cs": "c96f3065e20afaad6371528107e9cb4fbf228e4cfeaed6e7f8087ac8a44cdb44",
+    "Tools/OriginalWorldChecks/NativeRelationDifferential.cs": "fc40e7385de9832fbaccc1f39424803ee16d10107ea4ed12ebfeba5f84d5092e",
+    "분석/Ghidra/Saver_Late/AiTargetSelectors/evidence.json": "0cf0ee2c29ac3fbe9d6755738fcf3edfb0a74c025ed4d02759b566d3c1efda49"
+  },
+  "logs": "/tmp/ds-morning-native-relations/ds-native-battle-relations",
+  "scope": "Actual024A0/02500/025C0 and GetTeamID bodies across signed team/current-team/21-slot relation contexts. Magic low-bit eligibility composes these native return values; it is not a full CheckMagicTarget query here. Missing managed contexts deliberately remain unknown; no ID/team guess, B2 stale-tail policy or server alliance operation."
+}

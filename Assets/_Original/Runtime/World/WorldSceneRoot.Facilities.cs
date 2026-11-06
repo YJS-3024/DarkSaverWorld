@@ -315,7 +315,7 @@ namespace DarkSaver.Original.World
         private void ShowFailure(WorldFailure failure)
         {
             if(failure==WorldFailure.None)return;
-            string message=failure==WorldFailure.TooFar?"직원 옆이나 가판대 앞에서 이용해 주세요.":failure==WorldFailure.RulesUnavailable?"처리에 필요한 정보가 확인되지 않았습니다.":failure==WorldFailure.InsufficientFunds?"돈이 부족합니다.":failure==WorldFailure.InsufficientResource?"MP 또는 행동력이 부족합니다.":failure==WorldFailure.StorageUnavailable?"저장하지 못했습니다. 다시 시도해 주세요.":failure==WorldFailure.InventoryFull?"물품을 놓을 공간이 없습니다.":failure==WorldFailure.Moving?"이동을 마친 뒤 이용해 주세요.":failure==WorldFailure.StaleRequest?"요청이 만료되었습니다. 다시 선택해 주세요.":"지금은 이 요청을 처리할 수 없습니다.";
+            string message=failure==WorldFailure.TooFar?"직원 옆이나 가판대 앞에서 이용해 주세요.":failure==WorldFailure.RulesUnavailable?"처리에 필요한 정보가 확인되지 않았습니다.":failure==WorldFailure.InsufficientFunds?"돈이 부족합니다.":failure==WorldFailure.InsufficientResource?"MP 또는 행동력이 부족합니다.":failure==WorldFailure.StorageUnavailable?"저장하지 못했습니다. 다시 시도해 주세요.":failure==WorldFailure.InventoryFull?"물품을 놓을 공간이 없습니다.":failure==WorldFailure.CommanderRosterFull?"캐릭터 보유 칸이 모두 찼습니다.":failure==WorldFailure.Moving?"이동을 마친 뒤 이용해 주세요.":failure==WorldFailure.StaleRequest?"요청이 만료되었습니다. 다시 선택해 주세요.":"지금은 이 요청을 처리할 수 없습니다.";
             ShowClientMessage(message);
         }
         private void ShowQuit()

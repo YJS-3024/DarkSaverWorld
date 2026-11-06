@@ -17,7 +17,9 @@
 /Tools/Original*/**/*.py text eol=lf
 /Tools/Original*/**/*.json text eol=lf
 /분석/Ghidra/Saver_Late/**/*.c text eol=lf
+/분석/Ghidra/GameCtl/LoadScenarioEventActions.c text eol=lf
 /분석/Ghidra/Saver_Late/**/*.asm text eol=lf
+/분석/Ghidra/Saver_Late/**/*.asm.txt text eol=lf
 /분석/Ghidra/Saver_Late/**/*.json text eol=lf
 
 /Assets/_Original/Resources/OriginalWorldNotice.bytes -text
@@ -29,4 +31,25 @@
 # Generated analysis evidence is SHA-audited on Windows as well as Linux.
 /분석/Saver_Late/**/*.json text eol=lf
 /Tools/CheckSupport/*.py text eol=lf
+/Tools/CheckSupport/*.json text eol=lf
 /Tools/run_original_checks.py text eol=lf
+/Tools/GhidraChecks/*.py text eol=lf
+/Tools/ScenarioPlacementChecks/audit_initial_roster_sources.py text eol=lf
+/닥세_리소스/분석도구/analyze_client.py text eol=lf
+/닥세_리소스/분석도구/build_late_saver_catalog.py text eol=lf
+
+# These handoff documents are source-hashed by the frozen verification package.
+/Assets/_Original/README.md text eol=lf
+/Tools/CheckSupport/README.md text eol=lf
+/설계/08_클라이언트_정적_분석.md text eol=lf
+/설계/10_분석_적용_진행표.md text eol=lf
+/설계/테스트_검증_계획.md text eol=lf
+
+# Preserve the exact report/log bytes recorded by this verification snapshot.
+/Tools/UnityCompileChecks/20261106-evening-directed-events/** -text
+/Tools/UnityCompileChecks/20261106-night-victory-notice/** -text
+/Tools/UnityCompileChecks/20261107-dawn-native-ai/** -text
+
+# Keep read-only native export logs and xref inventories byte-identical.
+/분석/Ghidra/Saver_Late/**/*.log -text
+/분석/Ghidra/Saver_Late/**/references.txt -text

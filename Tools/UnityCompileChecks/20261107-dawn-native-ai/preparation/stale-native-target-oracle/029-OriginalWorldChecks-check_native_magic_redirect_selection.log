@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_magic_redirect_selection.py", line 47, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_magic_redirect_selection.py", line 22, in main
+    for name,digest in oracle['sources'].items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,name
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tools/OriginalWorldChecks/check_native_magic_target_catalog.py

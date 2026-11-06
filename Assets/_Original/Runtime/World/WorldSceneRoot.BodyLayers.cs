@@ -37,7 +37,7 @@ namespace DarkSaver.Original.World
             return NativeBodyOrder.Attribute(nativeBodyAttributes!=null&&nativeBodyAttributes.Length==map.width*map.height?nativeBodyAttributes[y*map.width+x]:map.RenderAttribute(tile));
         }
         private TrainingUnit NativeSourceUnit(BodySource source)
-            =>BattleMap()&&view.presentation?.completed!=false?view.battle?.Unit(source.occupant.id):null;
+            =>BattleMap()&&!CampaignCutscene?view.battle?.Unit(source.occupant.id):null;
         private bool VisibleNativeSource(BodySource source)
         {
             if(source.image==null)return false;

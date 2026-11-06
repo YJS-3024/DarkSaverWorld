@@ -8,7 +8,7 @@ using DarkSaver.Original.Campaign;
 namespace DarkSaver.Original.World
 {
     public enum FacilityKind { None, Shop, Bank, Warehouse, Mercenary, Temple, ScenarioGateway }
-    public enum WorldFailure { None, Unauthenticated, InvalidStage, InvalidInput, Moving, TooFar, Busy, StaleRequest, RulesUnavailable, InsufficientFunds, InventoryFull, NotOwned, StorageUnavailable, InsufficientResource, ShopCategoryMismatch }
+    public enum WorldFailure { None, Unauthenticated, InvalidStage, InvalidInput, Moving, TooFar, Busy, StaleRequest, RulesUnavailable, InsufficientFunds, InventoryFull, NotOwned, StorageUnavailable, InsufficientResource, ShopCategoryMismatch, CommanderRosterFull }
     [Serializable] public sealed class WorldPoint { public int x, y; public TutorialTile Tile => new TutorialTile(x, y); }
     [Serializable] public sealed class WorldPortal
     {
@@ -58,6 +58,8 @@ namespace DarkSaver.Original.World
         public MagicMenuCatalog magicMenu;
         public MagicProjectileCatalog magicProjectiles;
         public OriginalCombatCatalog combatCatalog;
+        [NonSerialized] public Func<byte[],string> nativeText;
+        [NonSerialized] public NativeAiTextCatalog nativeAiRules;
         internal WorldMapDefinition[] gatewayBaseMaps;
         public WorldMapDefinition Map(int id) => maps?.FirstOrDefault(m => m.id == id);
         public WorldItemDefinition Item(int id) => items?.FirstOrDefault(i => i.id == id);
@@ -86,6 +88,7 @@ namespace DarkSaver.Original.World
         [DataMember(EmitDefaultValue=false)] public string trainingEntrance;
         [DataMember(EmitDefaultValue=false)] public CampaignProgressRecord campaignProgress;
         [DataMember(EmitDefaultValue=false)] public CampaignDeliveryRecord campaignDelivery;
+        [DataMember(EmitDefaultValue=false)] public CampaignRecruitReceipt[] campaignRecruits;
         [DataMember(EmitDefaultValue=false)] public int[] clearedScenarios;
         [DataMember(EmitDefaultValue=false)] public CharacterGrowthRecord growth;
         [DataMember(EmitDefaultValue=false)] public PlayerIdentityRecord identity;
@@ -108,17 +111,18 @@ namespace DarkSaver.Original.World
         [DataMember(EmitDefaultValue=false)] public WorldOwnedItem[] equipment;
         public WorldOwnedItem[] Equipment => equipment ?? Array.Empty<WorldOwnedItem>();
         public WorldRecord Copy()
-        { var r = (WorldRecord)MemberwiseClone(); r.inventory = inventory.Select(i => i.Copy()).ToArray(); r.storage = storage.Select(i => i.Copy()).ToArray(); r.equipment = equipment?.Select(i=>i.Copy()).ToArray();r.growth=growth?.Copy();r.identity=identity?.Copy();r.roster=roster?.Copy();r.scenarioVisit=scenarioVisit?.Copy();r.lastScenarioResult=lastScenarioResult?.Copy();r.scenarioBattle=scenarioBattle?.Copy();r.lastScenarioExit=lastScenarioExit?.Copy();r.revival=revival?.Copy();r.currency=currency?.Copy();r.lastBankTransfer=lastBankTransfer?.Copy();r.warehouse=warehouse?.Copy();r.mercenary=mercenary?.Copy();r.shop=shop?.Copy();r.itemUse=itemUse?.Copy();r.classChange=classChange?.Copy();r.statAllocation=statAllocation?.Copy();r.magicLoadout=magicLoadout?.Copy();r.campaignProgress=campaignProgress?.Copy();r.campaignDelivery=campaignDelivery?.Copy();r.clearedScenarios=clearedScenarios==null?null:(int[])clearedScenarios.Clone(); return r; }
+        { var r = (WorldRecord)MemberwiseClone(); r.inventory = inventory.Select(i => i.Copy()).ToArray(); r.storage = storage.Select(i => i.Copy()).ToArray(); r.equipment = equipment?.Select(i=>i.Copy()).ToArray();r.growth=growth?.Copy();r.identity=identity?.Copy();r.roster=roster?.Copy();r.scenarioVisit=scenarioVisit?.Copy();r.lastScenarioResult=lastScenarioResult?.Copy();r.scenarioBattle=scenarioBattle?.Copy();r.lastScenarioExit=lastScenarioExit?.Copy();r.revival=revival?.Copy();r.currency=currency?.Copy();r.lastBankTransfer=lastBankTransfer?.Copy();r.warehouse=warehouse?.Copy();r.mercenary=mercenary?.Copy();r.shop=shop?.Copy();r.itemUse=itemUse?.Copy();r.classChange=classChange?.Copy();r.statAllocation=statAllocation?.Copy();r.magicLoadout=magicLoadout?.Copy();r.campaignProgress=campaignProgress?.Copy();r.campaignDelivery=campaignDelivery?.Copy();r.campaignRecruits=campaignRecruits?.Select(v=>v?.Copy()).ToArray();r.clearedScenarios=clearedScenarios==null?null:(int[])clearedScenarios.Clone(); return r; }
         public static bool Valid(WorldRecord r)
         {
             if (r == null) return true; // Compatible with pre-world accounts.
-            if(!CommanderRoster.Valid(r.roster))return false;
+            if(!CommanderRoster.Valid(r.roster)||!CampaignRecruitReceipt.Valid(r.campaignRecruits))return false;
             if(!PlayerIdentityRecord.Valid(r.identity))return false;
             if(!CampaignDeliveryRecord.Valid(r.campaignDelivery))return false;
             if(!CampaignProgressRecord.Valid(r.campaignProgress)||r.campaignProgress!=null&&(r.campaignPhase==null||r.campaignProgress.visit!=(r.scenarioVisit?.id??"legacy:"+r.map))
                 ||r.clearedScenarios!=null&&(r.clearedScenarios.Any(i=>i<0||i>999)||r.clearedScenarios.Distinct().Count()!=r.clearedScenarios.Length))return false;
             if(!CharacterGrowthRecord.Valid(r.growth)||r.growth!=null&&r.level!=r.growth.totalLevel)return false;
             if(!CampaignVisitRecord.Valid(r.scenarioVisit)||!CampaignResultRecord.Valid(r.lastScenarioResult)||r.scenarioVisit!=null&&(r.scenarioVisit.map!=r.map||r.campaignPhase==null))return false;
+            if(r.scenarioVisit?.nativeEnd!=null&&(r.scenarioVisit.nativeEnd.stage==NativeScenarioEndRecord.Prepared?r.campaignPhase!="intro"&&r.campaignPhase!="explore":r.scenarioVisit.nativeEnd.stage==NativeScenarioEndRecord.Outro?r.campaignPhase!="outro":r.campaignPhase!="explore"))return false;
             if(r.scenarioVisit?.result!=null&&(r.campaignPhase!="outro"&&r.campaignPhase!="complete"||!r.scenarioVisit.result.victory&&r.campaignPhase!="complete"))return false;
             if(!ScenarioBattleRecord.Valid(r.scenarioBattle))return false;
             if(!CampaignExitRecord.Valid(r.lastScenarioExit))return false;
@@ -165,6 +169,7 @@ namespace DarkSaver.Original.World
         public WorldFailure failure;
         public CampaignUnit[] units;
         public CampaignPresentationView presentation;
+        public NativeCampaignMessageView nativeMessage;
         public string campaignSession;
         public CommanderRoster commanders;public int inspectedCommander;public CommanderRequest commanderRequest;public string commanderSession;
         public string growthSession,characterId;
@@ -254,13 +259,14 @@ namespace DarkSaver.Original.World
         public WorldFailure Failure;
         public double Clock;
         public CampaignPresentation Presentation;
+        public readonly NativeCampaignDialogue NativeDialogue=new NativeCampaignDialogue();
         public string CampaignSession = Guid.NewGuid().ToString("N");
         public readonly HashSet<string> CampaignNotices = new HashSet<string>();
         public string NativeKillSession;
         public NativeResultKills NativeKills;
         public readonly HashSet<string> NativeKillNotices=new HashSet<string>();
-        public long CurrentNativeKillRevision=>NativeKillSession==CampaignSession?NativeKills?.revision??0:Record.scenarioVisit?.result?.nativeKills?.revision??0;
-        public NativeResultKills NativeKillView()=>(NativeKillSession==CampaignSession?NativeKills:Record.scenarioVisit?.result?.nativeKills)?.Copy();
+        public long CurrentNativeKillRevision=>NativeKillSession==CampaignSession?NativeKills?.revision??0:(Record.scenarioVisit?.nativeEnd?.table??Record.scenarioVisit?.result)?.nativeKills?.revision??0;
+        public NativeResultKills NativeKillView()=>(NativeKillSession==CampaignSession?NativeKills:(Record.scenarioVisit?.nativeEnd?.table??Record.scenarioVisit?.result)?.nativeKills)?.Copy();
         public readonly List<CampaignCommand> Effects = new List<CampaignCommand>();
         public bool PhaseSavePending;
         public CampaignRetreatRequest PendingRetreat;
@@ -268,7 +274,10 @@ namespace DarkSaver.Original.World
         public RevivalQuoteRequest PendingRevivalQuote;
         public RevivalRequest PendingRevival;
         public WorldRecord RevivalQuoteState;
-        public bool SceneLocked => PhaseSavePending || Record.campaignProgress?.events.Any(e=>!e.completed)==true || (Presentation != null && !Presentation.Snapshot().completed)
+        public bool NativeEndWaiting=>Record.scenarioVisit?.nativeEnd?.stage==NativeScenarioEndRecord.Notice||Record.scenarioVisit?.nativeEnd?.stage==NativeScenarioEndRecord.Result;
+        public bool NativeEventPending=>Record.campaignProgress?.events.Any(e=>!e.completed&&e.native!=null)==true;
+        public double NativeEndElapsed;
+        public bool SceneLocked => Record.scenarioVisit?.nativeEnd?.Started==true || PhaseSavePending || Record.campaignProgress?.events.Any(e=>!e.completed&&e.native==null)==true || OriginalCampaignInput.Cutscene(Presentation?.Snapshot())
             || Record.scenarioVisit!=null && Record.campaignPhase=="complete";
         public bool PresentationLocked=>SceneLocked||PendingRetreat!=null;
         public readonly HashSet<string> Applied = new HashSet<string>();
@@ -299,14 +308,14 @@ namespace DarkSaver.Original.World
         {
             var map = Definition.campaign?.Map(Record.map); Presentation = null; ActiveCampaignEvent=null; changedMaps.Clear(); Effects.Clear(); PhaseSavePending=false;
             if (map?.kind == "scenario" && Record.campaignPhase != "explore" && Record.campaignPhase != "complete")
-                SetPresentation(Record.campaignPhase == "outro" ? map.outro : map.intro);
+                SetPresentation(Record.campaignPhase == "outro" ? ScenarioOutro() : map.intro);
         }
-        public void SetPresentation(string script,string context=null,CampaignActor[] actors=null)
+        public void SetPresentation(string script,string context=null,CampaignActor[] actors=null,CampaignNativeExecution native=null)
         {
             ActiveCampaignEvent=null;
             Presentation=new CampaignPresentation(script,CommanderJob,Record.map,id=>Map(id)!=null,ScriptHandler,
-                context??Record.map+":"+Record.campaignPhase+":"+OriginalCampaignScript.Fingerprint(script),actors);
-            Presentation.Effect+=command=>Effects.Add(command);Presentation.Advance(0);
+                context??Record.map+":"+Record.campaignPhase+":"+OriginalCampaignScript.Fingerprint(script),actors,native);
+            Presentation.Effect+=command=>Effects.Add(command);if(native==null)Presentation.Advance(0);
         }
         public void ClearRevival(){RevivalOffer=null;PendingRevivalQuote=null;PendingRevival=null;RevivalQuoteState=null;}
         public void ClearMagicRequest(){PendingMagicLoadout=null;MagicRequestState=null;}
@@ -371,7 +380,7 @@ namespace DarkSaver.Original.World
             return false;
         }
         public void Relocate(WorldRecord record)
-        { bool changed = Record.map != record.map; Record = record.Copy(); path.Clear(); movement = 0; from = new TutorialTile(record.x, record.y); PendingPortal = PendingNpc = null;PendingRetreat=null; Close(); if(changed){Combat=null;MarkArrivalPortals();CampaignSession=Guid.NewGuid().ToString("N");CampaignNotices.Clear();BeginPresentation();} }
+        { bool changed = Record.map != record.map; Record = record.Copy(); path.Clear(); movement = 0; from = new TutorialTile(record.x, record.y); PendingPortal = PendingNpc = null;PendingRetreat=null; Close(); if(changed){Combat=null;NativeDialogue.Clear();MarkArrivalPortals();CampaignSession=Guid.NewGuid().ToString("N");CampaignNotices.Clear();BeginPresentation();} }
         public WorldView Snapshot()
         {
             double phase = path.Count==0 ? 0 : Math.Floor(movement / 80) * (Duration == 240 ? 10.0 / 32 : .5);
@@ -380,7 +389,7 @@ namespace DarkSaver.Original.World
                 renderX = Combat?.Moving==true?Combat.Motion.X:path.Count==0 ? Record.x : from.X + (path.Peek().X - from.X) * phase,
                 renderY = Combat?.Moving==true?Combat.Motion.Y:path.Count==0 ? Record.y : from.Y + (path.Peek().Y - from.Y) * phase,
                 units = (Definition.campaign?.Map(Record.map)?.units ?? Array.Empty<CampaignUnit>()).Select(u => u.Copy()).ToArray(),
-                presentation = Presentation?.Snapshot(),
+                presentation = Presentation?.Snapshot(),nativeMessage=NativeDialogue.Snapshot(),
                 campaignSession = CampaignSession,commanders=CommanderView(),inspectedCommander=InspectedCommander,commanderRequest=PendingCommander?.Copy(),commanderSession=CommanderSession,
                 growthSession=GrowthSession,characterId=CharacterId,adjustmentTarget=AdjustmentTarget?.Copy(),adjustmentProfile=AdjustmentProfile?.Copy(),
                 training=Map(Record.map).training?Combat?.Snapshot():null,battle=Combat?.Snapshot(),battleTeams=NativeTeamView(),battleTeamRevision=CurrentNativeTeamRevision,

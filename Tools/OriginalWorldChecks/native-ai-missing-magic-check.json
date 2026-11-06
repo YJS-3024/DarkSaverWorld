@@ -1,0 +1,265 @@
+{
+  "nativeCases": 6,
+  "originalParsedRules": 2,
+  "invalidMagicRequests": 6,
+  "mismatches": 0,
+  "unityPlay": false,
+  "runtimeMissingMagicAliasAdded": false,
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_ai_missing_magic.py": "6199a5882093a257b23a3b946b4755d8e24ec20384a0e6b6445242c14394e332",
+    "Assets/_Original/Data/Campaign/NativeAiRules.json": "d617ba5e9d7187d70f188b5202a155ee8ad2e31c061d78c4ed9505a461111065",
+    "Assets/_Original/Data/Tables/Magictbl.csv": "c81715eb8b2e4f3b23b885435b9ee5fc920592f1cb5d56765e537ae4d6e599b6",
+    "Tools/OriginalWorldChecks/native_ai_rules_emulator.py": "77391c363b452d09e3cdff16e8aa6a82b838c8d5ac08c6ed8e901d05646c82df",
+    "Tools/OriginalWorldChecks/native_magic_table_emulator.py": "90143cd385a2f6d4cd871d0ed1396a80af7f62bcc5eace1b86cc67c3e9573820",
+    "Tools/OriginalWorldChecks/check_native_commander_table_chain.py": "b4cb9030123c6965806820251ef0190cd106d8429337010e3243da23a8292455",
+    "Tools/OriginalWorldChecks/native_commander_action_corpus.py": "77b20bf0025892bf32ce73f7ddbf6db1136dda4cc101a2d0e98d0d1f15b4ef49",
+    "Tools/OriginalWorldChecks/check_native_magic_packets.py": "35b628fdb79014171a8813f1ef9c40299af9a671a006cae14b22f88bb6cbdfb5",
+    "Tools/OriginalWorldChecks/check_native_magic_target_catalog.py": "2090b914b643c675689fe375d0856eb502e77cbb2fb6cefda0fc0867a5f23302",
+    "Tools/OriginalWorldChecks/check_native_move_hints.py": "7ba1a4539802217c260cbf49f2ebebcfaca215607a6dd00328b2dc5025d89bb9",
+    "Tools/OriginalWorldChecks/check_native_outbound_packets.py": "d9f1e3c82574fc7d727ff0aabd1abdc1cc5eb2ed176cea20f276f0cea0f67358",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2"
+  },
+  "cases": [
+    {
+      "sourceMap": "81",
+      "sourceUnit": 420,
+      "sourceMagic": 80601,
+      "controlledActor": 400,
+      "primedValidMagic": 101,
+      "roll": 51,
+      "result": {
+        "inputs": [
+          {
+            "kind": "magic",
+            "magic": -1,
+            "source": 400,
+            "x": 8,
+            "y": 10,
+            "mode": 1,
+            "targets": [
+              4
+            ]
+          }
+        ],
+        "packets": [
+          "5c8901ffff900108000a00d7ffffff010400"
+        ],
+        "order": 2,
+        "ap": 0,
+        "state": 0,
+        "randomCalls": 2,
+        "unitByteMutations": {
+          "400": [
+            96,
+            256
+          ]
+        }
+      }
+    },
+    {
+      "sourceMap": "81",
+      "sourceUnit": 420,
+      "sourceMagic": 80601,
+      "controlledActor": 400,
+      "primedValidMagic": 806,
+      "roll": 51,
+      "result": {
+        "inputs": [
+          {
+            "kind": "magic",
+            "magic": -1,
+            "source": 400,
+            "x": 8,
+            "y": 10,
+            "mode": 1,
+            "targets": [
+              4,
+              9,
+              3,
+              1,
+              8,
+              2,
+              0
+            ]
+          }
+        ],
+        "packets": [
+          "5c8901ffff900108000a00cbffffff070400090003000100080002000000"
+        ],
+        "order": 2,
+        "ap": 0,
+        "state": 0,
+        "randomCalls": 2,
+        "unitByteMutations": {
+          "400": [
+            96,
+            256
+          ]
+        }
+      }
+    },
+    {
+      "sourceMap": "81",
+      "sourceUnit": 420,
+      "sourceMagic": 80601,
+      "controlledActor": 400,
+      "primedValidMagic": 906,
+      "roll": 51,
+      "result": {
+        "inputs": [
+          {
+            "kind": "magic",
+            "magic": -1,
+            "source": 400,
+            "x": 8,
+            "y": 10,
+            "mode": 1,
+            "targets": [
+              4,
+              9,
+              3,
+              1,
+              8,
+              2,
+              0
+            ]
+          }
+        ],
+        "packets": [
+          "5c8901ffff900108000a00caffffff070400090003000100080002000000"
+        ],
+        "order": 2,
+        "ap": 0,
+        "state": 0,
+        "randomCalls": 2,
+        "unitByteMutations": {
+          "400": [
+            96,
+            256
+          ]
+        }
+      }
+    },
+    {
+      "sourceMap": "81",
+      "sourceUnit": 540,
+      "sourceMagic": 90,
+      "controlledActor": 400,
+      "primedValidMagic": 101,
+      "roll": 61,
+      "result": {
+        "inputs": [
+          {
+            "kind": "magic",
+            "magic": -1,
+            "source": 400,
+            "x": 8,
+            "y": 10,
+            "mode": 1,
+            "targets": [
+              4
+            ]
+          }
+        ],
+        "packets": [
+          "5c8901ffff900108000a00d7ffffff010400"
+        ],
+        "order": 2,
+        "ap": 0,
+        "state": 0,
+        "randomCalls": 2,
+        "unitByteMutations": {
+          "400": [
+            96,
+            256
+          ]
+        }
+      }
+    },
+    {
+      "sourceMap": "81",
+      "sourceUnit": 540,
+      "sourceMagic": 90,
+      "controlledActor": 400,
+      "primedValidMagic": 806,
+      "roll": 61,
+      "result": {
+        "inputs": [
+          {
+            "kind": "magic",
+            "magic": -1,
+            "source": 400,
+            "x": 8,
+            "y": 10,
+            "mode": 1,
+            "targets": [
+              4,
+              9,
+              3,
+              1,
+              8,
+              2,
+              0
+            ]
+          }
+        ],
+        "packets": [
+          "5c8901ffff900108000a00cbffffff070400090003000100080002000000"
+        ],
+        "order": 2,
+        "ap": 0,
+        "state": 0,
+        "randomCalls": 2,
+        "unitByteMutations": {
+          "400": [
+            96,
+            256
+          ]
+        }
+      }
+    },
+    {
+      "sourceMap": "81",
+      "sourceUnit": 540,
+      "sourceMagic": 90,
+      "controlledActor": 400,
+      "primedValidMagic": 906,
+      "roll": 61,
+      "result": {
+        "inputs": [
+          {
+            "kind": "magic",
+            "magic": -1,
+            "source": 400,
+            "x": 8,
+            "y": 10,
+            "mode": 1,
+            "targets": [
+              4,
+              9,
+              3,
+              1,
+              8,
+              2,
+              0
+            ]
+          }
+        ],
+        "packets": [
+          "5c8901ffff900108000a00caffffff070400090003000100080002000000"
+        ],
+        "order": 2,
+        "ap": 0,
+        "state": 0,
+        "randomCalls": 2,
+        "unitByteMutations": {
+          "400": [
+            96,
+            256
+          ]
+        }
+      }
+    }
+  ],
+  "scope": "Actual UserUnit parser reads AI81; source420/540 action rows copied with only test actor key remapped to400. Actual commander/target/CheckMagicTarget/wire and real setunit getter run with explicit prior101/806/906 cache and roll51/61. Each missing spell emits legacy magic-1 with stale prior metadata; this is original invalid-request evidence, not an invented spell alias, actual server approval or map81 spawn/Play. Actor MP100, map/grid/team and file/allocator/send boundaries are supplied controls."
+}

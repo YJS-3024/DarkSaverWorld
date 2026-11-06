@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_end_stage.py", line 30, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_end_stage.py", line 20, in main
+    if r.returncode:raise RuntimeError((r.stdout+r.stderr)[-2200:])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Assets/_Original/Runtime/Campaign/CampaignResult.cs(229,15): error CS0234: The type or namespace name 'World' does not exist in the namespace 'DarkSaver.Original' (are you missing an assembly reference?)
+

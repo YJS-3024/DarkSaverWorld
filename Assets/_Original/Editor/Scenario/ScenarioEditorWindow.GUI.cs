@@ -158,6 +158,7 @@ namespace DarkSaver.Original.Editor.Scenarios
             entries=EditorGUILayout.ToggleLeft("아군 POS 슬롯 / 로컬 진입점",entries);
             chests=EditorGUILayout.ToggleLeft("상자 위치",chests);quests=EditorGUILayout.ToggleLeft("이벤트 조건 위치",quests);
             DrawBattleEntry();
+            if(mode==0)DrawNativeAiRules();
             GUILayout.Space(6);
             using(new EditorGUI.DisabledScope(mode!=0||loadError.Length>0||layoutReadOnly))
             {

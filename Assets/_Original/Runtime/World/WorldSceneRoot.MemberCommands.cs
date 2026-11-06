@@ -28,6 +28,7 @@ namespace DarkSaver.Original.World
         }
         private void OpenTrainingActions(int unit)
         {
+            AcknowledgeDirectedPointer();
             if(view.facility!=null||view.moving||view.battle?.pending!=null||notice!=null)return;
             if(unit!=0&&!OriginalMemberCommands.Controlled(view.battle?.units,unit))return;
             bool wasOpen=showingActions&&trainingActionUnit==unit;

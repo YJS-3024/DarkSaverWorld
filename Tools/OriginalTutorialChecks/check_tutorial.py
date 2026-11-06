@@ -111,7 +111,9 @@ def main():
  # This is a source structure audit; rendered occlusion still requires Unity Play.
  assert 'actor.ShowsAttackEffect' in root and '(float)actor.AttackFxX * 32' in root
  assert root.index('unitsLayer = Group') < root.index('rangesLayer = Group') < root.index('var attackLayer = Group(screen,') < root.index('magicFx = Picture') < root.index('windowsLayer = Group')
- assert 'dialogueLayer.gameObject.SetActive(!string.IsNullOrWhiteSpace(view.Message))' in root
+ # Native089F0 ->08CA0 leaves the tutorial frame active for its empty MESSAGE.
+ # This is a source guard audit; actual UI visibility still needs Unity Play.
+ assert 'dialogueLayer.gameObject.SetActive(view.MessageCount > 0 && !view.Completed)' in root
  assert 'canvas.sortingOrder = 200' in root and 'typeof(UIDocument)' not in root
  # Native control dimensions/artwork: retain original pixels rather than flat-color substitutes.
  from PIL import Image

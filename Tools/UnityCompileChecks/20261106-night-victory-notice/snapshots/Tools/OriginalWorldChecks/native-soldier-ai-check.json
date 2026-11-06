@@ -1,0 +1,21 @@
+{
+  "cases": 1049,
+  "mismatches": 0,
+  "sources": {
+    "Assets/_Original/Runtime/Combat/SoldierActions.cs": "f485924dd9d9ed199d3f91072acbe069f11b3ac0438999b8b20d28188c7eafbc",
+    "Assets/_Original/Runtime/Combat/SoldierMovement.cs": "0ade70f63fa47f2e5a04fde87f61b7190ef09d2480f30963136ca3e68196be8a",
+    "Assets/_Original/Runtime/Combat/RegroupMovement.cs": "2aa3f86c945af5bfe91deec51a7be488812a669003fc53c73a7791d8dfff72bc",
+    "Assets/_Original/Runtime/Combat/MemberCommands.cs": "257695842049066adf0677d328ecabe50cd867bba80479fa68f7a684f3ef536c",
+    "Assets/_Original/Runtime/Combat/CommandRange.cs": "e685b7063abe8830a3827b2572e98a83b1d8959223e68684eb774947a373f13f",
+    "Assets/_Original/Runtime/Tutorial/TutorialScript.cs": "a17e059fa33111782d682fa81ecad0e85f20a0923185ded8c62b72ee4fc71138",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "Tools/OriginalWorldChecks/SoldierAiDifferential.cs": "9cdd2044ec8b3032db75180e1409c37cb42103c9f98ce35c36bc458e936434ab",
+    "Tools/OriginalWorldChecks/check_native_soldier_ai.py": "d043bb37cfa6a784be706401590676ab639bf9fb4f713299de91ee17bbf9d2cc"
+  },
+  "decodedMapCases": 228,
+  "casesSha256": "406e55700aa6da4831c77817b0dc2a4c869f6f321f2c40458f638b18f7c183b8",
+  "unityPlayExecuted": false,
+  "nativeCodeExecuted": true,
+  "scope": "Actual bounded x86 ExecuteSoldierAI/GetMovePos/MoveAttack/target selection/SetArea/pathbacktracker; map attributes/team/clock/rand and empty MFC string/path-presentation queue/send boundaries hooked. Compare purpose/destination/target/flags/hint/AP/random draws, not path packet bytes or gameplay playback.",
+  "logs": "/tmp/ds-moving-ai-final/ds-native-soldier-ai-checks"
+}

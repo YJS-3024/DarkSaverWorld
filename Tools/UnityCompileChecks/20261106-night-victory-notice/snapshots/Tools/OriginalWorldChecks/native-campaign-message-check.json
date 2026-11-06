@@ -1,0 +1,6007 @@
+{
+  "sourceMessageOccurrences": 1474,
+  "uniqueSourceMessages": 561,
+  "safeAliasFormatComparisons": 589,
+  "boundedWideFormatComparisons": 27,
+  "malformedFormatRefusals": 4,
+  "mismatches": 0,
+  "unityPlay": false,
+  "nativeGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "additionalNativeLibraries": {
+    "msvcrt.dll": "d7cea69a98579d928e534070f5293e80ed7df38baf611b20717ef55aa1344a18",
+    "mfc42.dll": "2598103e2ce4a5f30772b6a8a5fab26baab098c1fe94b744cf6f5dfb3dea1d37"
+  },
+  "scope": "Actual GameCtl109E0/10810 parsing/alias calls and actual supplied MFC42/CRT ANSI Format in explicit C-locale image state. All unique source MESSAGE forms plus COM0..9/ME/ID/literal/two-argument/percent controls, mixed CP949/ASCII three-byte prefixes and native one-byte COM suffix atoi-to-zero controls. Roster, current team name and CString allocation/window creation are supplied; subject7 does not select the ME name. Safe %s/%% results and portrait job match production resolver. Source %S uses a wide pointer; production reproduces its bounded C-locale empty/single-ASCII conversion rather than normalize it to %s or read beyond an ANSI allocation. No Windows locale initialization, unsafe overread, original process/page rendering or Unity Play equivalence is claimed.",
+  "sources": {
+    "Assets/_Original/Runtime/Campaign/CampaignExit.cs": "7f78c7423f2c1d983e1ef77429f88133ab80d85cf6117ecf19696e6efc0ac50f",
+    "Assets/_Original/Runtime/Campaign/CampaignExitService.cs": "95d8ff3c74273807839456af484780795cc96a68b8c4fc5f55a35dac48664860",
+    "Assets/_Original/Runtime/Campaign/CampaignModel.cs": "2dfbeea2b6f21962edb12e425bc964e271a512c6237bb79aee5d0532cbec5f0c",
+    "Assets/_Original/Runtime/Campaign/CampaignResult.cs": "e23a450046bc0aff9e7716136ff2069769062c68617fdbc0166c5c44f23bf480",
+    "Assets/_Original/Runtime/Campaign/CampaignResultService.cs": "61593df8a38229d3eaede59e05b06939e57319e2398ce4ca38a7f6209345ff6f",
+    "Assets/_Original/Runtime/Campaign/CampaignService.cs": "1de33665480472888d908cb22f27ad62b6a7b8b5fdf03d26a3c00ecf2b6e0e37",
+    "Assets/_Original/Runtime/Campaign/ScenarioGatewayService.cs": "04bd79e628f972f0052daf2d0f0152cbd48786317edb53cf27e7ed60f71ec716",
+    "Assets/_Original/Runtime/Campaign/ScenarioGatewaySettings.cs": "8a57167a29681b5fd876232a36de34ac2c60ae89eada19c900d30f084e80a95b",
+    "Assets/_Original/Runtime/Combat/BattleFeedback.cs": "e853bf98fa3d934d95a8eb3a988064282d796407e6259bab2b79a0eed4f2e847",
+    "Assets/_Original/Runtime/Combat/BattleFeedbackFrames.cs": "ee05368a90331f03298d140c00c3fdf80cdfef46bc296bcaa22ee6510bf0fa9f",
+    "Assets/_Original/Runtime/Combat/BattleFeedbackService.cs": "c4197b6bc253733e72f82ad33147e61c72a5a2e913bbb47f259d289ff71b340b",
+    "Assets/_Original/Runtime/Combat/BattleItemService.cs": "8575846a62119fe5bf6eeb709fd26ad927f6ab88e80077252deda62a4aec1351",
+    "Assets/_Original/Runtime/Combat/BattleItems.cs": "f40bca2ec924d39a8f0ead85ddedda777a77674fd5991276b289f3a30bc50034",
+    "Assets/_Original/Runtime/Combat/BattleLifecycle.cs": "5d7b01c0b5f7f3742e24716f1f30ce1a3227d93fab880c243f9e7ff1106ad973",
+    "Assets/_Original/Runtime/Combat/BattleLifecycleService.cs": "ddfb007b83f3a2c495f834e3ea8d44389198693705f369b73a7cb4bac7caa1fe",
+    "Assets/_Original/Runtime/Combat/BattleMagic.cs": "afff0bc3a8158f740c1f97741ba8a113ae60a4e9f36197a145c02eae1f51c0ba",
+    "Assets/_Original/Runtime/Combat/BattleMagicArea.cs": "17b7474c192a3154218c5be0cf11a38ae05d982fda6a695a03484b55c9a684d9",
+    "Assets/_Original/Runtime/Combat/BattleMagicOutcomes.cs": "c387a8ef8e9dd5d3e3fe7b55ffbe9dfa7fcfd44cc3f85056e50c1131f3c5d67f",
+    "Assets/_Original/Runtime/Combat/BattleMagicPresentation.cs": "4420bd0171e692f83fca8166123d136e564ed2a57f59d271eece2e7788a5db04",
+    "Assets/_Original/Runtime/Combat/BattleMagicService.cs": "c8ff4bcfdaef11def6e69c405fca3358dbe2a850e4fc63296519d8055c836f36",
+    "Assets/_Original/Runtime/Combat/BattleSkillArea.cs": "4e6b80ab3df5bc52a8e1c5af0434c0f0fdd71a0e19d7b9f7c79620c06382b0ef",
+    "Assets/_Original/Runtime/Combat/BattleSkillFrames.cs": "a61aa9058f5ffb10b31e6d3015b94fb33c62d0fe20107e1f5f2d420830d0905f",
+    "Assets/_Original/Runtime/Combat/BattleSkillService.cs": "90b99545e46080568a338d0afb73f0ff11826480e7c4e46ebd8e5c2563e4dfd3",
+    "Assets/_Original/Runtime/Combat/BattleThunderPlayback.cs": "2b1da69d5ff9504293a4f408a7b62c37b8a332a99e20aca75c777321a111cde3",
+    "Assets/_Original/Runtime/Combat/BattleTickService.cs": "f3292d674451bffc33bc0774be75c9b6a1baafb47e0abf122afe551eb2818807",
+    "Assets/_Original/Runtime/Combat/BattleTicks.cs": "8b2421cd2835ff77cb2b7898adb213ee8a35320ba48df5add6e05ca7aa507488",
+    "Assets/_Original/Runtime/Combat/CommandRange.cs": "e685b7063abe8830a3827b2572e98a83b1d8959223e68684eb774947a373f13f",
+    "Assets/_Original/Runtime/Combat/DeathSoundPlayback.cs": "551ac20ce0caad0eb7194d31b617409f3e4dad2968094fec93cc1f8118698702",
+    "Assets/_Original/Runtime/Combat/GeneralMagicFrames.cs": "642c0a555d9d740d6878ede287b93f1dba7811682dcd3bc0f4f73f9c1102e368",
+    "Assets/_Original/Runtime/Combat/MagicProjectileCatalog.cs": "689c0adf3af32bbd7454ec4fdcfd11753cfb7a6d035a03531262b528c3e91aaf",
+    "Assets/_Original/Runtime/Combat/MagicSoundPlayback.cs": "42f3ee39d2992d72441bcd8894c98631fc0849ed070cc8154576406b6e8adad9",
+    "Assets/_Original/Runtime/Combat/MemberCommandService.cs": "bcf38237d47328a6ff5b97da0377cf2d484dd56dab96b818b7f37ee796c8b17c",
+    "Assets/_Original/Runtime/Combat/MemberCommands.cs": "257695842049066adf0677d328ecabe50cd867bba80479fa68f7a684f3ef536c",
+    "Assets/_Original/Runtime/Combat/NativeBattlePacketService.cs": "a93ca0453e5993d6999cf66657af3c0c3a03d06554eac3adaa1872308e723a77",
+    "Assets/_Original/Runtime/Combat/NativeBattlePackets.cs": "19115cf5bc0ac0f3e63f7ec8e413ab361ea5445f1b2038cd1b2a40cf1480fc64",
+    "Assets/_Original/Runtime/Combat/NativeBattleResponseService.cs": "078ce80b32490a01d3760c5865bba3fea3dc187f40b70e575d9e3c4dffc7127c",
+    "Assets/_Original/Runtime/Combat/NativeBattleResponses.cs": "89f08e603e011ce1c0f4bbd8487c79671fd23348b84b84e0f4c73eac221f212a",
+    "Assets/_Original/Runtime/Combat/NativeBattleTeamNames.cs": "c3b47dabd0da21014d54464fa15f63be088be1b1ea2ed6b5ef477b6d4c4d9bcf",
+    "Assets/_Original/Runtime/Combat/NativeBodyFrames.cs": "b02149f3e04a1325b7b01bcec6d9b079934572f0d9838a7b52a5fe3af30647cf",
+    "Assets/_Original/Runtime/Combat/NativeBodyOrder.cs": "9c65dd96aeb56bfa0eff9ac03d0db865c69eccea7ff0c6e7c518b490c1d7d90d",
+    "Assets/_Original/Runtime/Combat/NativeBodyPalette.cs": "f7fa297ce4a2223540a47f4b88f53b753e520ca9f9e2fabb5d1549a30d1bc574",
+    "Assets/_Original/Runtime/Combat/NativeMagicPackets.cs": "768c3437433a3d220ee9047fa20ffd5757b6f6e834f29208bab472e96a948429",
+    "Assets/_Original/Runtime/Combat/NativeMagicRedirect.cs": "2218ecadb9759f7db1d0a3321ba7faa03fa94d46d81084cfd800354ec9f43c15",
+    "Assets/_Original/Runtime/Combat/NativeMagicService.cs": "39a01e1da95c55e61d7c911a9846f205e6bb10e4e3360a370d34d76905a7dee1",
+    "Assets/_Original/Runtime/Combat/NativeMoveHintService.cs": "93788cf4ef96db363be1159f977ffc8411827a63cdf79a8b05b3017e262c0671",
+    "Assets/_Original/Runtime/Combat/NativeMoveHints.cs": "981a96b5c91a14d2b0e86bbd10522c9f37bbf171e1d69cd4c8bb1a0423fe33d3",
+    "Assets/_Original/Runtime/Combat/NativeMovement.cs": "27e5303f272d02594c2e3a13b6a7a3e4ec457c6af7626927006fcbf1e8b5349c",
+    "Assets/_Original/Runtime/Combat/NativeMovementService.cs": "b2572fd8d9ce6d75292d3ca383ec6a181d2f1354325e301b926c195b6bc3c50b",
+    "Assets/_Original/Runtime/Combat/NativeUnitFrames.cs": "0e5092c68d56b2646ba0679dc904cd02d259e46d37d7d91b6f65a21acdc822cb",
+    "Assets/_Original/Runtime/Combat/NativeUnitSnapshotService.cs": "99a68a63466c76be0ab8eff531433dc60f637b3f290ed038663224f9cb637832",
+    "Assets/_Original/Runtime/Combat/NativeUnitSnapshots.cs": "cad707785266d777b86f02e47468fe72b3ed56bbde1c19e010cf15536456e655",
+    "Assets/_Original/Runtime/Combat/NativeViewport.cs": "e4e70f9c8808d7b55991bccd0faf93e7cc3881b4748be39fe687486b4126cc75",
+    "Assets/_Original/Runtime/Combat/RegroupMovement.cs": "2aa3f86c945af5bfe91deec51a7be488812a669003fc53c73a7791d8dfff72bc",
+    "Assets/_Original/Runtime/Combat/RegroupService.cs": "cc3dc8a9b6b91f688388425df4516ccc2107695835447cb05fdee30c4093bc5c",
+    "Assets/_Original/Runtime/Combat/SoldierActionService.cs": "42bd9b04f4fbe360f9c0e26136a321c0940043389a985c0cc2f0af0c4685e35d",
+    "Assets/_Original/Runtime/Combat/SoldierActions.cs": "f485924dd9d9ed199d3f91072acbe069f11b3ac0438999b8b20d28188c7eafbc",
+    "Assets/_Original/Runtime/Combat/SoldierMovement.cs": "0ade70f63fa47f2e5a04fde87f61b7190ef09d2480f30963136ca3e68196be8a",
+    "Assets/_Original/Runtime/Combat/TrainingCombat.cs": "22f134737bc78277ba821be780782a36ea43585e2ea52127753407949e5496a1",
+    "Assets/_Original/Runtime/Combat/TrainingCombatService.cs": "8274646af04cd0c2f26b22820ccab9179c1818b9246123a963348a4b1a359c7e",
+    "Assets/_Original/Runtime/Combat/TroopOrderService.cs": "a29264006eaffd27d8c3ebaa81968ebaef69707fabea5a53c985913b09906ce2",
+    "Assets/_Original/Runtime/Combat/TroopOrders.cs": "6e48f4f5e74f94909a9e9a2cec1933f59327a68baf408b0a3e7d40194c020f15",
+    "Assets/_Original/Runtime/Entry/EntryAccountService.cs": "35785f78c35b0922de65c6ffcd6a786e443a5c40155ca80a8db869f71698fd72",
+    "Assets/_Original/Runtime/Entry/EntryClient.cs": "e22dfe52df09eae76e72bb9cf7cd4cb9f0c735b8349a961fc7424bba514a8c2a",
+    "Assets/_Original/Runtime/Entry/EntryProtocol.cs": "715d4c2456c3060d02209d0d81525601b3c3d1b1b8628553198a083d7cc7d4db",
+    "Assets/_Original/Runtime/Entry/LocalAccountFileStore.cs": "d7ba58224b0da03697ff04f2f4682cf960671b407353b577b0437ba5a043c289",
+    "Assets/_Original/Runtime/Growth/CharacterGrowth.cs": "6a2f6220c97dccc9f32567380c65c2a3a310ebfb5494c57bc3f82a7c31ec535d",
+    "Assets/_Original/Runtime/Growth/CharacterGrowthService.cs": "82304ddf475103a69aaf1fb2c243ad1630294f37df0e8d2d2da4e61db1ffce8e",
+    "Assets/_Original/Runtime/Growth/ClassChange.cs": "507de39b0a61b0e0d6a39886e1391856971d5de2b2ef7360c2be2108cb87f4b7",
+    "Assets/_Original/Runtime/Growth/ClassChangeService.cs": "21681d7fe867f687cef974455ec96ed4334dc19f98a472fb4a5957ffe0613d12",
+    "Assets/_Original/Runtime/Growth/CommanderAdjustment.cs": "8d92cbd6b135a17c6db16dd46faf21d1a9243cbe9c7d4558cff7fc612323a8d0",
+    "Assets/_Original/Runtime/Growth/CommanderAdjustmentService.cs": "9a540bd4463f95b4dea5e4e157d89bb8016bf783a7610f9e6ccc5c5888a145c7",
+    "Assets/_Original/Runtime/Growth/CommanderRoster.cs": "65f9b00e862801a3ae5c22447281a3f7687231f46ae1364767a42f8d90d4921a",
+    "Assets/_Original/Runtime/Growth/CommanderRosterService.cs": "959c940f1fc2f69a5146505f165fa9c2ba9a6d6d2a90ab0735bd54edbe2648d4",
+    "Assets/_Original/Runtime/Growth/MagicLoadout.cs": "a3d583d059cab6e0d54c2d82dcd1b9701849600d81238a805d2b3a3e56910e95",
+    "Assets/_Original/Runtime/Growth/MagicLoadoutService.cs": "14e3009c708df08dfd2e315fbc5304e903c14c75cac0721c7b107f62b0e332f4",
+    "Assets/_Original/Runtime/Growth/NativeClassAdjustmentPackets.cs": "d3ef237ae434a1e1307da4b7852072f3964aba4dae1faabd87f7b87c55ea65f6",
+    "Assets/_Original/Runtime/Growth/NativeClassMagicClient.cs": "4801cbac0fec7b67f7687ce01143b2779a4cce654d822fb49de62a796c91b55a",
+    "Assets/_Original/Runtime/Growth/NativeMercenaryCatalog.cs": "1f463a8adf9598a8f3efb21c015d8bf28601abf498ebecc190c15add6d5fe78a",
+    "Assets/_Original/Runtime/Growth/StatAdjustment.cs": "4fdf06010a190f72fb69a887ff1d9447e7aff4715d7ff5f7439d1951082609de",
+    "Assets/_Original/Runtime/Growth/StatAdjustmentService.cs": "f09c6686feb58c8410b4bf06175322a14210ecf51558147263bfb19b96b2c966",
+    "Assets/_Original/Runtime/Tutorial/TutorialScript.cs": "a17e059fa33111782d682fa81ecad0e85f20a0923185ded8c62b72ee4fc71138",
+    "Assets/_Original/Runtime/Tutorial/TutorialService.cs": "21c833f135eb6ed97be9608d5fca8174f8a4051987a6133d8ff157f947f2a18a",
+    "Assets/_Original/Runtime/Tutorial/TutorialSession.cs": "f6b46a28dc9c53911fccaf74a9aec25f4073b48df460d4c6004b23947008d203",
+    "Assets/_Original/Runtime/Tutorial/WaitingLesson.cs": "2de1f502c16f6799c01678c94592c601ce3f6de039d7481278f1346d849ae1cc",
+    "Assets/_Original/Runtime/World/BankTransfer.cs": "74fcac7a27ba51053298db333df88ecc54d5c3483a4801b0ec165a36f1a3ec1b",
+    "Assets/_Original/Runtime/World/BankTransferService.cs": "53a99a5b69246088b84ffd42440ce123456841462312ceadf2871379af88cbd2",
+    "Assets/_Original/Runtime/World/CurrencyService.cs": "792c0d3a812debe51bccba00e90651892e5c350637996b8a66f071ff411b7dca",
+    "Assets/_Original/Runtime/World/CurrencyState.cs": "f0c5017108e2b89ba9cc9ed909bd0739667915c710697789ea32f8eadbbf3048",
+    "Assets/_Original/Runtime/World/ItemUseTransfer.cs": "6bb38de38fbd591ae6b71e80d39efcbb68e2c46ba6d40be77c3fa7ac430e56e8",
+    "Assets/_Original/Runtime/World/ItemUseTransferService.cs": "2a5ef4158556851e7a4beb483f80973da8809d21ec41e175c164be19f9f26405",
+    "Assets/_Original/Runtime/World/LocalServerManager.World.cs": "df3f064589c885d6c5a2f4513f87fd007b9e3c05cc6c9cf98ae612a02a635b50",
+    "Assets/_Original/Runtime/World/MercenaryTransfer.cs": "24ddcf4e1eeb3dd5f590fd4af4da5bc2b5ad25926998f76ecb853c5383afac12",
+    "Assets/_Original/Runtime/World/MercenaryTransferService.cs": "0da9884a6b7f11354034d5b63921c26e5965f846e42560173181a067aff663b1",
+    "Assets/_Original/Runtime/World/PlayerIdentity.cs": "3c660eaa80f130b2c9930c4e80da324712ae10018ae8532a69825a317ff12f9e",
+    "Assets/_Original/Runtime/World/PlayerIdentityService.cs": "91b37cb32a52563be00596925e13f1a0c79ab39ce4f21295065261396a7b788f",
+    "Assets/_Original/Runtime/World/ShopTrade.cs": "71a5a9ebec5003b37d7409fb9d2ff3ba1d0e34e0915538bf0c7c494db67df039",
+    "Assets/_Original/Runtime/World/ShopTradeService.cs": "675423ff9d1d206fc83b9a051fd4a0b5aa65b3482b8f98d702a156cd4f8ce385",
+    "Assets/_Original/Runtime/World/TempleRevival.cs": "22defec3be4e976521685c371dbb630763dc90c9028a24bc8f51e83966207487",
+    "Assets/_Original/Runtime/World/TempleRevivalAlignment.cs": "aa89917d9baaba933f2ecadaf81fcf80f9c0ff6051d628ec26c738b8e1f42335",
+    "Assets/_Original/Runtime/World/TempleRevivalService.cs": "dc459a22b756d15ad69d837294546e69363979e564e5da316091e2c485a8c9f6",
+    "Assets/_Original/Runtime/World/WarehouseTransfer.cs": "014c48381c347c4e65f1b4451aef9042f535dd503d074dcf6d86f4a6497c1c2e",
+    "Assets/_Original/Runtime/World/WarehouseTransferService.cs": "ddede297a55eaae36d22bd4dbb77c423334a8dba7af440a4b5b06780d1c22000",
+    "Assets/_Original/Runtime/World/WorldModel.cs": "ab0fdcad8711d1e9a11affb42c5102afbc91cb3044e5c1bbb491c8faa8f26078",
+    "Assets/_Original/Runtime/World/WorldService.cs": "1582026db37fa59c2117bd2eb0ecb8a70dad8195b7fdc0e4823b825821730af1",
+    "Tools/OriginalWorldChecks/NativeCampaignMessageDifferential.cs": "c6343688e92d5f11801536649604dd001fac284a4824f106583832d37e47efde",
+    "Tools/OriginalWorldChecks/check_native_battle_responses.py": "02da55c2e4f7ac56222a6847b8bb7280fb8aea5bf044e5c62f475a21a064c813",
+    "Tools/OriginalWorldChecks/check_native_campaign_messages.py": "ffd53e38385e5689950a918d04f74193bef889bab579510afc3414dc4e9af2f5",
+    "Tools/OriginalWorldChecks/check_picture_initialization.py": "a47a03310d47d9f860da3ed46a9393649ad3763acd172d14d31839b8a0939618",
+    "Tools/OriginalWorldChecks/native_event_evidence.py": "22980cc211506e7e9a06e4ef3ddd739e8b3d184d2c5c7af9f61ae3febefebcdb",
+    "분석/InstallerVersions/installer_inventory.json": "ccb25fe9bc77d00ee1061c10fa961663937fdcfd3859deb03e6328aa30f99ddd",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "Tools/OriginalWorldChecks/native_battle_options_emulator.py": "2a54e048fade9942974f4a06ff07f6d183a8d81f41288804f5b468d5a4b06bbd",
+    "Tools/OriginalWorldChecks/native_battle_briefing_emulator.py": "b0ef4d1c053a2328b211e3b162bd3bdc0102a5c70e62f1a84306e2121cbea8a3",
+    "Tools/OriginalWorldChecks/native_battle_status_emulator.py": "dfc2a8b77f9eb440e7df3e720a8b2f3e868999cfa06fc40adfcb5a3b3afce0c2",
+    "Tools/OriginalWorldChecks/native_result_emulator.py": "414070bc1d9ff879f1c9f0d77f0b6025fd4e684b9f07dfa21e0d6bc575992bbe",
+    "Tools/OriginalWorldChecks/native_result_kills_emulator.py": "213076d2143a18fb884ed01e3c3d0f669382a9a94379d8101b6367fa2e94bb25",
+    "Tools/OriginalWorldChecks/native_scenario_end_emulator.py": "7dee0b4f38ba9f8a21112c267a84a97b4ba092701071b32bb727c116a2149686",
+    "Tools/OriginalWorldChecks/native_event_step_emulator.py": "0aaa4ce2613b7e77c432c1004b5ef48b2503e69b86b49a12915dc72a7adb96b0",
+    "Tools/OriginalWorldChecks/check_native_event_corpus.py": "569bd3eaa11b510966cf9e2b154edf210af2a7b5402d94d8d7074e71f119c8b8",
+    "Tools/OriginalWorldChecks/NativeImmediateEventsDifferential.cs": "ad0977752104f48d1e210b01c06bc5a5ea310558a5ea73186651e0bff49e2238",
+    "Tools/OriginalWorldChecks/NativeEventCorpusRequests.cs": "af5ec6373b0866d4c71cf31a16a579c452c8bc8089f3cc3017e2ec5351bd0059",
+    "Assets/_Original/SourceData/Decoded/map/01set.arc/01.evt.txt": "7714bf3937c09f2bc17405dedf52989d3de5f52f178ae6910ee8464921b29bda",
+    "Assets/_Original/SourceData/Decoded/map/02set.arc/02.evt.txt": "ec77b96c6a32f6811389f6ae92c174ec1f33125abb798e20d31d6e3dffe4bbc2",
+    "Assets/_Original/SourceData/Decoded/map/03set.arc/03.evt.txt": "323b824cdd868fab408b0264f95ae5a412c6b0622875f95c878c4c435ca8a87e",
+    "Assets/_Original/SourceData/Decoded/map/04set.arc/04.evt.txt": "80012f20245c8d879a294bef9d048983d71935bebcc23ab34a619d67b3c336a0",
+    "Assets/_Original/SourceData/Decoded/map/05set.arc/05.evt.txt": "4d462b75c7afa09938785da44a0162699ecccb6976df79658e35e46380323d86",
+    "Assets/_Original/SourceData/Decoded/map/06set.arc/06.evt.txt": "74af229552cb342762eec9d1c5ec9bfc216baf5e4ff33c22ec1134bdc954c046",
+    "Assets/_Original/SourceData/Decoded/map/07set.arc/07.evt.txt": "63a5e9d564347597eec5e46db608545e43f817e704defacca9b15f02948fc6c8",
+    "Assets/_Original/SourceData/Decoded/map/08set.arc/08.evt.txt": "46214f2a49f3591dd235afd4fcb1bffe6174899994abf1d3164a36548f01339a",
+    "Assets/_Original/SourceData/Decoded/map/09set.arc/09.evt.txt": "1d078384a7497df435fed3a9bef474d2cc578c5c7f6ac66ab314e4fcf1d411d0",
+    "Assets/_Original/SourceData/Decoded/map/101set.arc/101.evt.txt": "ad11db6a499a6d7deb680ce2155ff0685c7a460d2f667fc20ed1a4c4a7cb7a14",
+    "Assets/_Original/SourceData/Decoded/map/102set.arc/102.evt.txt": "ad11db6a499a6d7deb680ce2155ff0685c7a460d2f667fc20ed1a4c4a7cb7a14",
+    "Assets/_Original/SourceData/Decoded/map/103set.arc/103.evt.txt": "ad11db6a499a6d7deb680ce2155ff0685c7a460d2f667fc20ed1a4c4a7cb7a14",
+    "Assets/_Original/SourceData/Decoded/map/104set.arc/104.evt.txt": "ad11db6a499a6d7deb680ce2155ff0685c7a460d2f667fc20ed1a4c4a7cb7a14",
+    "Assets/_Original/SourceData/Decoded/map/105set.arc/105.evt.txt": "ad11db6a499a6d7deb680ce2155ff0685c7a460d2f667fc20ed1a4c4a7cb7a14",
+    "Assets/_Original/SourceData/Decoded/map/106set.arc/106.evt.txt": "ad11db6a499a6d7deb680ce2155ff0685c7a460d2f667fc20ed1a4c4a7cb7a14",
+    "Assets/_Original/SourceData/Decoded/map/107set.arc/107.evt.txt": "ad11db6a499a6d7deb680ce2155ff0685c7a460d2f667fc20ed1a4c4a7cb7a14",
+    "Assets/_Original/SourceData/Decoded/map/10set.arc/10.evt.txt": "210fcb57fcbe744887b0079afeb9346a4f2b19b33686c5a9024b8b5a99306d5c",
+    "Assets/_Original/SourceData/Decoded/map/11set.arc/11.evt.txt": "0028522b2cf6dcaddcb243272bb9c1ecefd4b4ef5aac345cf2161d5dc47d9cc9",
+    "Assets/_Original/SourceData/Decoded/map/12set.arc/12.evt.txt": "6b68d16170f66f36537f1437a3bef7d6d9fea9cfd9c66c293f401561d4c84a90",
+    "Assets/_Original/SourceData/Decoded/map/13set.arc/13.evt.txt": "e69587dba9d56264cfe215a018896cde969e7411290fa0693ab5f4739f34a4f7",
+    "Assets/_Original/SourceData/Decoded/map/14set.arc/14.evt.txt": "a2f597007f9b6d2a5adc9abce7c048f7fe5d392554bb34dff2f10b85b152bc60",
+    "Assets/_Original/SourceData/Decoded/map/15set.arc/15.evt.txt": "31449d12a57be773afacaa3fac4c9159217af096a702ee8600e3f77d3572cc00",
+    "Assets/_Original/SourceData/Decoded/map/16set.arc/16.evt.txt": "8cea5bf795053df3edb17761ecc9bd2d3aa0682d24f5ffbb0495cade666e0736",
+    "Assets/_Original/SourceData/Decoded/map/17set.arc/17.evt.txt": "eef550598530d6c587ad714cc7b8b3573b27fb4781e8a1295470db5f6abc24af",
+    "Assets/_Original/SourceData/Decoded/map/18set.arc/18.evt.txt": "a2c79bf73fb6fcbcc0724b0f67f160feed252041a02223190b47e8678209d7e6",
+    "Assets/_Original/SourceData/Decoded/map/19set.arc/19.evt.txt": "f666209709241b011968008d8434a986e60f9ddd3b95d564739c315487f1212e",
+    "Assets/_Original/SourceData/Decoded/map/201set.arc/201.evt.txt": "d1426a572f3750bbc93e1d7fc0d6d5c2e837d11fa6537447d091c0a4251d6375",
+    "Assets/_Original/SourceData/Decoded/map/202set.arc/202.evt.txt": "d1426a572f3750bbc93e1d7fc0d6d5c2e837d11fa6537447d091c0a4251d6375",
+    "Assets/_Original/SourceData/Decoded/map/203set.arc/203.evt.txt": "d1426a572f3750bbc93e1d7fc0d6d5c2e837d11fa6537447d091c0a4251d6375",
+    "Assets/_Original/SourceData/Decoded/map/204set.arc/204.evt.txt": "d1426a572f3750bbc93e1d7fc0d6d5c2e837d11fa6537447d091c0a4251d6375",
+    "Assets/_Original/SourceData/Decoded/map/205set.arc/205.evt.txt": "d1426a572f3750bbc93e1d7fc0d6d5c2e837d11fa6537447d091c0a4251d6375",
+    "Assets/_Original/SourceData/Decoded/map/206set.arc/206.evt.txt": "d1426a572f3750bbc93e1d7fc0d6d5c2e837d11fa6537447d091c0a4251d6375",
+    "Assets/_Original/SourceData/Decoded/map/207set.arc/207.evt.txt": "d1426a572f3750bbc93e1d7fc0d6d5c2e837d11fa6537447d091c0a4251d6375",
+    "Assets/_Original/SourceData/Decoded/map/20set.arc/20.evt.txt": "3b4fc35f0792908438bb439a53b4b5c59ce9b2d6907f63888980ae6bb2c1800a",
+    "Assets/_Original/SourceData/Decoded/map/21set.arc/21.evt.txt": "22f646d02e443b333e37c405387b91cb4fa6b2fd62d3b4f14ed158d70df80e79",
+    "Assets/_Original/SourceData/Decoded/map/22set.arc/22.evt.txt": "67e27a744e726667fcaaac85bfe98130001e4717c3f43a195745c92073d672c2",
+    "Assets/_Original/SourceData/Decoded/map/23set.arc/23.evt.txt": "7c4de0b2e6b8849283e1704f99ba0bf1339d9ac1f28fc13a42a6b332e9fa48ed",
+    "Assets/_Original/SourceData/Decoded/map/24set.arc/24.evt.txt": "52cd547f9079b4acca7d7eb86abfebcc96a989ea242fc50b9ca147cb82ddcaa0",
+    "Assets/_Original/SourceData/Decoded/map/25set.arc/25.evt.txt": "e6ff0191ff3a986850725a3feedc68c2fc527e96f8c14596203f8720580f3d80",
+    "Assets/_Original/SourceData/Decoded/map/26set.arc/26.evt.txt": "5f35e00b572c93057b84eaa2fe5716dfa607230f702832fc7734fe2a36d04710",
+    "Assets/_Original/SourceData/Decoded/map/27set.arc/27.evt.txt": "95789b177ed4ee51704f3e882e9ee443f89a2156df6e196945ea1a1400149461",
+    "Assets/_Original/SourceData/Decoded/map/28set.arc/28.evt.txt": "15cc81a904c342668c1917f63f503a5cb375a5df7759ade3f3e762c1258e75b3",
+    "Assets/_Original/SourceData/Decoded/map/29set.arc/29.evt.txt": "8db4fd25cbb38542a94b667618d3bdd490199c61df2e1e0081cc5dbcfdbdb16a",
+    "Assets/_Original/SourceData/Decoded/map/301set.arc/301.evt.txt": "9e24c1b90bef7b44987713b1dee73f6a1ccf4d48a4fa16f0db6c433f79b78ec4",
+    "Assets/_Original/SourceData/Decoded/map/302set.arc/302.evt.txt": "7d82e7a29d9de832d5e799854b4520755bbdc7bbaf58843ceb5eb26444b6f97d",
+    "Assets/_Original/SourceData/Decoded/map/303set.arc/303.evt.txt": "9e24c1b90bef7b44987713b1dee73f6a1ccf4d48a4fa16f0db6c433f79b78ec4",
+    "Assets/_Original/SourceData/Decoded/map/304set.arc/304.evt.txt": "9e24c1b90bef7b44987713b1dee73f6a1ccf4d48a4fa16f0db6c433f79b78ec4",
+    "Assets/_Original/SourceData/Decoded/map/305set.arc/305.evt.txt": "9e24c1b90bef7b44987713b1dee73f6a1ccf4d48a4fa16f0db6c433f79b78ec4",
+    "Assets/_Original/SourceData/Decoded/map/306set.arc/306.evt.txt": "9e24c1b90bef7b44987713b1dee73f6a1ccf4d48a4fa16f0db6c433f79b78ec4",
+    "Assets/_Original/SourceData/Decoded/map/307set.arc/307.evt.txt": "9e24c1b90bef7b44987713b1dee73f6a1ccf4d48a4fa16f0db6c433f79b78ec4",
+    "Assets/_Original/SourceData/Decoded/map/309set.arc/309.evt.txt": "3014f921e3836634617d5060e58c29c47de6b67e8e6cb3d34027b446c61f33ac",
+    "Assets/_Original/SourceData/Decoded/map/30set.arc/30.evt.txt": "cf4072b1409d91e56473e0717283102dc38b76455674a24e059e3bbdf480388e",
+    "Assets/_Original/SourceData/Decoded/map/310set.arc/310.evt.txt": "3014f921e3836634617d5060e58c29c47de6b67e8e6cb3d34027b446c61f33ac",
+    "Assets/_Original/SourceData/Decoded/map/311set.arc/311.evt.txt": "3014f921e3836634617d5060e58c29c47de6b67e8e6cb3d34027b446c61f33ac",
+    "Assets/_Original/SourceData/Decoded/map/312set.arc/312.evt.txt": "3014f921e3836634617d5060e58c29c47de6b67e8e6cb3d34027b446c61f33ac",
+    "Assets/_Original/SourceData/Decoded/map/313set.arc/313.evt.txt": "bfad85f23b13bc786bf369093ab9769a60d88e95940c45c08e4d4af7d515426c",
+    "Assets/_Original/SourceData/Decoded/map/314set.arc/314.evt.txt": "8335572e48005bf9cb48e9b397be3c3dede520b135dc2207152bbac20f9fdb35",
+    "Assets/_Original/SourceData/Decoded/map/315set.arc/315.evt.txt": "f2a0406c636cecb45e89b13d7bd2686ea4ab9ce520496684554280222893b63e",
+    "Assets/_Original/SourceData/Decoded/map/316set.arc/316.evt.txt": "6d57fbae2f9431ca3f0f3f4bd9f14ddc3655a34b26f23e45b4cbb133a16b2cd9",
+    "Assets/_Original/SourceData/Decoded/map/317set.arc/317.evt.txt": "4d86e7c637ba4f9cc558c1184513f9c89b2462d29aca9c1d7a4e9e7a1e43c567",
+    "Assets/_Original/SourceData/Decoded/map/318set.arc/318.evt.txt": "7652da1c731a8193f418fa6c86a1e44f22c0d49de262e7865ac448f38a0702bb",
+    "Assets/_Original/SourceData/Decoded/map/319set.arc/319.evt.txt": "e9fedb71027a62fc4d6c2b257dca0968cee40c7b703e17a068b1d15c49c06cbc",
+    "Assets/_Original/SourceData/Decoded/map/31set.arc/31.evt.txt": "cc7f6c3a71662d61920936a027f3542883415f60a5d343fea90f7ec9da0ee2b0",
+    "Assets/_Original/SourceData/Decoded/map/320set.arc/320.evt.txt": "90349f3c7d1714966e3f9610ca3b72d4bbaa2483f8b3bd599e1509a27b532696",
+    "Assets/_Original/SourceData/Decoded/map/321set.arc/321.evt.txt": "12c38bf74f12653cdd44a329bc2b47b489c957d962fe82750b47eb7da99a4f81",
+    "Assets/_Original/SourceData/Decoded/map/322set.arc/322.evt.txt": "e81ef66153071b41b38f7d0157f1c1693d7f85f217dcd56ebbc8fc2ee1c8ac96",
+    "Assets/_Original/SourceData/Decoded/map/323set.arc/323.evt.txt": "fded3c09c067e539f815a996fad9afaa529a0b6ed586fd387947707bae06f03c",
+    "Assets/_Original/SourceData/Decoded/map/324set.arc/324.evt.txt": "b6426f9169ed940d003002a5094bd9f46efbda4c51bdf6f8df8eb51b9b448dbc",
+    "Assets/_Original/SourceData/Decoded/map/325set.arc/325.evt.txt": "aa42bc643a1e72f733cb4e9d5439c97489ac4a3a3b3420ce7ad68e418cb3286b",
+    "Assets/_Original/SourceData/Decoded/map/326set.arc/326.evt.txt": "050b00817c67597761498c533b704a61759e27568a06c3dba7c4b2454b102df8",
+    "Assets/_Original/SourceData/Decoded/map/327set.arc/327.evt.txt": "9e24c1b90bef7b44987713b1dee73f6a1ccf4d48a4fa16f0db6c433f79b78ec4",
+    "Assets/_Original/SourceData/Decoded/map/328set.arc/328.evt.txt": "9e24c1b90bef7b44987713b1dee73f6a1ccf4d48a4fa16f0db6c433f79b78ec4",
+    "Assets/_Original/SourceData/Decoded/map/329set.arc/329.evt.txt": "9e24c1b90bef7b44987713b1dee73f6a1ccf4d48a4fa16f0db6c433f79b78ec4",
+    "Assets/_Original/SourceData/Decoded/map/32set.arc/32.evt.txt": "238f0caa4a85c7c6305c5d64a7a13d4646094a11bdca870bcf3b0ef9a7d8f3fa",
+    "Assets/_Original/SourceData/Decoded/map/330set.arc/330.evt.txt": "7d82e7a29d9de832d5e799854b4520755bbdc7bbaf58843ceb5eb26444b6f97d",
+    "Assets/_Original/SourceData/Decoded/map/331set.arc/331.evt.txt": "7d82e7a29d9de832d5e799854b4520755bbdc7bbaf58843ceb5eb26444b6f97d",
+    "Assets/_Original/SourceData/Decoded/map/332set.arc/332.evt.txt": "cd934cc3fcdec9cfe0158b3a437567d53984146c534e1135dc0b62a81d300a4d",
+    "Assets/_Original/SourceData/Decoded/map/333set.arc/333.evt.txt": "a2ab93c45ac91ea0f147c87c48fbfcc42c0c17081fc6258c3e6161a17cd405c7",
+    "Assets/_Original/SourceData/Decoded/map/33set.arc/33.evt.txt": "2f175028ef53c67e2d5f60f113d96ccf192deff1000a11206e3e61b2b033fdf3",
+    "Assets/_Original/SourceData/Decoded/map/401set.arc/401.evt.txt": "af30697eedc8e7862817c6f2319050ecd6ce326641e04b2890aeb5cfc7ab2d48",
+    "Assets/_Original/SourceData/Decoded/map/402set.arc/402.evt.txt": "3014f921e3836634617d5060e58c29c47de6b67e8e6cb3d34027b446c61f33ac",
+    "Assets/_Original/SourceData/Decoded/map/403set.arc/403.evt.txt": "3014f921e3836634617d5060e58c29c47de6b67e8e6cb3d34027b446c61f33ac",
+    "Assets/_Original/SourceData/Decoded/map/404set.arc/404.evt.txt": "a59c461fd89244de384b67a007ad330a6511fa694779bbc077e2ccb8c8b24783",
+    "Assets/_Original/SourceData/Decoded/map/405set.arc/405.evt.txt": "a59c461fd89244de384b67a007ad330a6511fa694779bbc077e2ccb8c8b24783",
+    "Assets/_Original/SourceData/Decoded/map/406set.arc/406.evt.txt": "a59c461fd89244de384b67a007ad330a6511fa694779bbc077e2ccb8c8b24783",
+    "Assets/_Original/SourceData/Decoded/map/51set.arc/51.evt.txt": "59ba9883f1948ae37eb2b2391dfb17b99d250340f39a61c0d655e35999f42312",
+    "Assets/_Original/SourceData/Decoded/map/52set.arc/52.evt.txt": "41169e24788f60509e2906fdcee82e4c80ee242df8e9cf67c8b5ecdf9872c482",
+    "Assets/_Original/SourceData/Decoded/map/53set.arc/53.evt.txt": "48c298b09ea9b31935310b75b3817b69469346ee251a9e5c53e467c6a6389a6d",
+    "Assets/_Original/SourceData/Decoded/map/54set.arc/54.evt.txt": "92c8e1105bc5c161bcb0c7cbaf0c5e37206d3e8346d9d5a42da1023439de5507",
+    "Assets/_Original/SourceData/Decoded/map/55set.arc/55.evt.txt": "11bc6a4f68e2d97f765d873b08f1d77030dd855aa92e1f7cf1a71fb9084ed4f0",
+    "Assets/_Original/SourceData/Decoded/map/56set.arc/56.evt.txt": "3d0cd3f1afb5f38d96db5769649d8b798ff02a558fe42862a8ad00cb21daaaf3",
+    "Assets/_Original/SourceData/Decoded/map/57set.arc/57.evt.txt": "46e54c65b4cbd863753d7d43f1d46156399882aa3971ba65a5b77b20d93a4bfd",
+    "Assets/_Original/SourceData/Decoded/map/58set.arc/58.evt.txt": "be43173e7c7340877a7597fe84e7379dd339170fce9b1e661b851ae0a0290ddc",
+    "Assets/_Original/SourceData/Decoded/map/59set.arc/59.evt.txt": "7831ff5b57497dc3b0fbe0c108a1d9d4b2523e8f6a0477255308e8401e411d6e",
+    "Assets/_Original/SourceData/Decoded/map/60set.arc/60.evt.txt": "9f1bafc7a4ba524f1313936ab7eae2dc7980f698c741d864f51bbcdb353a0522",
+    "Assets/_Original/SourceData/Decoded/map/61set.arc/61.evt.txt": "a4b19854db066c1870b973cc860aa2441a6f41877553409988963dafb2d51410",
+    "Assets/_Original/SourceData/Decoded/map/71set.arc/71.evt.txt": "5918ab5e2fc1cac5b9dae4188bb030d49c11245169f8b42c6ae50b5a25d21757",
+    "Assets/_Original/SourceData/Decoded/map/72set.arc/72.evt.txt": "3fabe847b0a976445f81b13ed5727ca946c8ff49b78de733f08fc6700254350f",
+    "Assets/_Original/SourceData/Decoded/map/73set.arc/73.evt.txt": "87acb7a1924e9965f842bfed28026c08b6c4e7b4a13af6c97b82a440e9030ec1",
+    "Assets/_Original/SourceData/Decoded/map/81set.arc/81.evt.txt": "c631f05773240f4e7904cf4c06b7b7ade5af02f962a71d3282e635cba726c3e1",
+    "Assets/_Original/SourceData/Decoded/map/82set.arc/82.evt.txt": "8161d6c69139754c81b11e029376fdc0eae3350a276154841237b32543be040f",
+    "Assets/_Original/SourceData/Decoded/map/83set.arc/83.evt.txt": "92f68e5fc923ffa4ef0169593c8bf6309bcd7879e8d73af9a3280964c525fd27",
+    "Assets/_Original/SourceData/Decoded/map/84set.arc/84.evt.txt": "4829054363d3025e29d64e3724226be3ff2460e9bcc316a981980c1c90a8c2e5",
+    "Assets/_Original/SourceData/Decoded/map/85set.arc/85.evt.txt": "b7ae47380925688c8fe00f642b31081e6b161978bba4bbe4b56d83dfe86cfd1e",
+    "Assets/_Original/SourceData/Decoded/map/86set.arc/86.evt.txt": "43ddb424be1863090604a10df2de20b29eec45e58415b2619ad685b8727aaee8",
+    "Assets/_Original/SourceData/Decoded/map/91set.arc/91.evt.txt": "433e4324a935e3583525e163ec137505d6ced84d16b0ed242d1400ca6b6cf57d",
+    "Assets/_Original/SourceData/Decoded/map/92set.arc/92.evt.txt": "2858efe745ab817961093c20b2e9789b2dbb2c47b0dc3315f40736b80a4780cb",
+    "Assets/_Original/SourceData/Decoded/map/93set.arc/93.evt.txt": "915954378cff7c2433ca4427ec1da3441b04c98e872d8ecd0bf52df55c8b5ce6",
+    "Assets/_Original/SourceData/Decoded/map/94set.arc/94.evt.txt": "931a27f9036d2bdba398f3a9c2c1c8ff68f031df5a49095e29be856cbd18401b",
+    "Assets/_Original/SourceData/Decoded/map/95set.arc/95.evt.txt": "84b16a3c8583fba681e6254e0efe337f2f96e793e3b3fa621741a20a6476f3af",
+    "Assets/_Original/SourceData/Decoded/map/96set.arc/96.evt.txt": "f3b48c22303fd92fb96f4eefdad9aeaa7af11b2ce6ed5d532dd3d49bd081a1bd",
+    "Assets/_Original/SourceData/Decoded/map/97set.arc/97.evt.txt": "84b16a3c8583fba681e6254e0efe337f2f96e793e3b3fa621741a20a6476f3af",
+    "Tools/OriginalWorldChecks/native_campaign_message_emulator.py": "e98076c5e2ce705e3fa37bf2db9052630983f56bf6dcd8d90cd8b679ab25112e",
+    "Tools/OriginalWorldChecks/native_mfc_format_emulator.py": "8c0e85db8af3a247573d28c57bf72cfab5c7699bf0c0c2912dcfdc699c27ac1e"
+  },
+  "logs": "/tmp/ds-night-ai-final-runtime/ds-native-campaign-messages",
+  "safeCases": [
+    {
+      "command": "0 0 ME 0 %s가(이) 상자를 열었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 상자를 열었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가(이) 100 GOLD를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 100 GOLD를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 빈 상자입니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "빈 상자입니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 힐포션을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 힐포션을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 301 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 301,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 301 0 0 크헉!",
+      "native": {
+        "mode": 1,
+        "face": 301,
+        "text": "크헉!"
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가(이) 타란의 구슬을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 타란의 구슬을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 301 0 0 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 301,
+        "text": "분하다.."
+      }
+    },
+    {
+      "command": "1 302 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 302,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 302 0 0 크악!",
+      "native": {
+        "mode": 1,
+        "face": 302,
+        "text": "크악!"
+      }
+    },
+    {
+      "command": "1 303 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 303,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 303 0 0 으으.. 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 303,
+        "text": "으으.. 분하다.."
+      }
+    },
+    {
+      "command": "1 304 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 304,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "2 ME 0 0 괜찮으시오?",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "괜찮으시오?"
+      }
+    },
+    {
+      "command": "1 805 0 0 으으.. 당신은?",
+      "native": {
+        "mode": 1,
+        "face": 805,
+        "text": "으으.. 당신은?"
+      }
+    },
+    {
+      "command": "2 ME 0 0 폐하를 구하러 온 사람이요.",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "폐하를 구하러 온 사람이요."
+      }
+    },
+    {
+      "command": "1 805 0 0 이것을 가지고....|부디.. 폐하를...",
+      "native": {
+        "mode": 1,
+        "face": 805,
+        "text": "이것을 가지고....|부디.. 폐하를..."
+      }
+    },
+    {
+      "command": "0 0 ME 0 열쇠를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "열쇠를 얻었습니다."
+      }
+    },
+    {
+      "command": "2 ME 0 0 당신이 혹시 케인의 아들입니까?",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "당신이 혹시 케인의 아들입니까?"
+      }
+    },
+    {
+      "command": "1 805 0 0 그렇습니다만..",
+      "native": {
+        "mode": 1,
+        "face": 805,
+        "text": "그렇습니다만.."
+      }
+    },
+    {
+      "command": "2 ME 0 0 케인씨의 부탁을 받고 |당신을 구하러 왔소.",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "케인씨의 부탁을 받고 |당신을 구하러 왔소."
+      }
+    },
+    {
+      "command": "1 805 0 0 고맙소만..커헉..난 이미 틀렸소.|대신 아버님께.. |이것을.. 전해.. 주시오..",
+      "native": {
+        "mode": 1,
+        "face": 805,
+        "text": "고맙소만..커헉..난 이미 틀렸소.|대신 아버님께.. |이것을.. 전해.. 주시오.."
+      }
+    },
+    {
+      "command": "1 805 0 0 아버님께서...| 내가 성으로 오던..날.. |주신 물건이요... 나의.. 유품이라...|생각하시고..허억...",
+      "native": {
+        "mode": 1,
+        "face": 805,
+        "text": "아버님께서...| 내가 성으로 오던..날.. |주신 물건이요... 나의.. 유품이라...|생각하시고..허억..."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 케인의 목걸이를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 케인의 목걸이를 얻었습니다."
+      }
+    },
+    {
+      "command": "2 ME 0 0 이런..",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "이런.."
+      }
+    },
+    {
+      "command": "1 805 0 0 으으.. |이것을 가지고 가시오...",
+      "native": {
+        "mode": 1,
+        "face": 805,
+        "text": "으으.. |이것을 가지고 가시오..."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 열쇠를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 열쇠를 얻었습니다."
+      }
+    },
+    {
+      "command": "1 805 0 0 으으..|당신에게.. 도움이 되고 싶은데..|이건..|내 마지막 힘이요| | |썬더스톰!!",
+      "native": {
+        "mode": 1,
+        "face": 805,
+        "text": "으으..|당신에게.. 도움이 되고 싶은데..|이건..|내 마지막 힘이요| | |썬더스톰!!"
+      }
+    },
+    {
+      "command": "1 801 800 ID 고맙소 용사여..",
+      "native": {
+        "mode": 1,
+        "face": 801,
+        "text": "고맙소 용사여.."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 귀한 약초를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 귀한 약초를 얻었습니다."
+      }
+    },
+    {
+      "command": "1 802 810 ID 고맙소..",
+      "native": {
+        "mode": 1,
+        "face": 802,
+        "text": "고맙소.."
+      }
+    },
+    {
+      "command": "1 701 700 A 으.. 분하다.. | 억울하지만.. 여기선 일단 물러나야겠군..",
+      "native": {
+        "mode": 1,
+        "face": 701,
+        "text": "으.. 분하다.. | 억울하지만.. 여기선 일단 물러나야겠군.."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가(이) 힐포션을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 힐포션을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 305 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 305,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 305 0 0 크헉!",
+      "native": {
+        "mode": 1,
+        "face": 305,
+        "text": "크헉!"
+      }
+    },
+    {
+      "command": "1 305 0 0 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 305,
+        "text": "분하다.."
+      }
+    },
+    {
+      "command": "1 306 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 306,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 306 0 0 크악!",
+      "native": {
+        "mode": 1,
+        "face": 306,
+        "text": "크악!"
+      }
+    },
+    {
+      "command": "1 306 0 0 으으.. 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 306,
+        "text": "으으.. 분하다.."
+      }
+    },
+    {
+      "command": "1 307 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 307,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 307 0 0 크헉!",
+      "native": {
+        "mode": 1,
+        "face": 307,
+        "text": "크헉!"
+      }
+    },
+    {
+      "command": "1 320 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 320,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 320 0 0 크헉!",
+      "native": {
+        "mode": 1,
+        "face": 320,
+        "text": "크헉!"
+      }
+    },
+    {
+      "command": "1 ME 0 0 여기서 하겐이 준 폭탄을 사용해야겠군!",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "여기서 하겐이 준 폭탄을 사용해야겠군!"
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 폭탄을 사용했습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 폭탄을 사용했습니다."
+      }
+    },
+    {
+      "command": "1 702 700 A 분하다.. 인간 따위에게",
+      "native": {
+        "mode": 1,
+        "face": 702,
+        "text": "분하다.. 인간 따위에게"
+      }
+    },
+    {
+      "command": "0 0 0 A 시나리오 클리어",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "시나리오 클리어"
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가(이) 필리아의 반지를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 필리아의 반지를 얻었습니다."
+      }
+    },
+    {
+      "command": "1 308 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 308,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 308 0 0 크헉!",
+      "native": {
+        "mode": 1,
+        "face": 308,
+        "text": "크헉!"
+      }
+    },
+    {
+      "command": "1 308 0 0 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 308,
+        "text": "분하다.."
+      }
+    },
+    {
+      "command": "1 308 0 0 크악!",
+      "native": {
+        "mode": 1,
+        "face": 308,
+        "text": "크악!"
+      }
+    },
+    {
+      "command": "1 308 0 0 으으.. 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 308,
+        "text": "으으.. 분하다.."
+      }
+    },
+    {
+      "command": "1 309 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 309,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 309 0 0 크헉!",
+      "native": {
+        "mode": 1,
+        "face": 309,
+        "text": "크헉!"
+      }
+    },
+    {
+      "command": "0 ME 0 0 박쥐의 시체를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "박쥐의 시체를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 ME 0 0 불에 탄 박쥐의 시체입니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "불에 탄 박쥐의 시체입니다."
+      }
+    },
+    {
+      "command": "2 ME 0 0 이런! 함정이다!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "이런! 함정이다!"
+      }
+    },
+    {
+      "command": "1 703 700 A 분하다.. 보검을 지키지 못하고..| 이렇게 죽게 되다니..",
+      "native": {
+        "mode": 1,
+        "face": 703,
+        "text": "분하다.. 보검을 지키지 못하고..| 이렇게 죽게 되다니.."
+      }
+    },
+    {
+      "command": "1 314 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 314,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 310 0 0 크헉!",
+      "native": {
+        "mode": 1,
+        "face": 310,
+        "text": "크헉!"
+      }
+    },
+    {
+      "command": "1 310 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 310,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 314 0 0 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 314,
+        "text": "분하다.."
+      }
+    },
+    {
+      "command": "1 311 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 311,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 311 0 0 크악!",
+      "native": {
+        "mode": 1,
+        "face": 311,
+        "text": "크악!"
+      }
+    },
+    {
+      "command": "1 312 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 312,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 312 0 0 으으.. 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 312,
+        "text": "으으.. 분하다.."
+      }
+    },
+    {
+      "command": "1 313 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 313,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "0 ME 0 0 에리아의 아이를 구출했습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "에리아의 아이를 구출했습니다."
+      }
+    },
+    {
+      "command": "1 314 0 0 크헉!",
+      "native": {
+        "mode": 1,
+        "face": 314,
+        "text": "크헉!"
+      }
+    },
+    {
+      "command": "0 704 700 A 이대로 끝난다고 생각하지 마라....",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "이대로 끝난다고 생각하지 마라...."
+      }
+    },
+    {
+      "command": "0 314 0 0 드래곤랜스2를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "드래곤랜스2를 얻었습니다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 뭐야? 이건.. 그냥 녹슨 검인데...",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "뭐야? 이건.. 그냥 녹슨 검인데..."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가(이) 녹슨 철검을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 녹슨 철검을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 매직포션을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 매직포션을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 315 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 315,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 315 0 0 크헉!",
+      "native": {
+        "mode": 1,
+        "face": 315,
+        "text": "크헉!"
+      }
+    },
+    {
+      "command": "1 315 0 0 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 315,
+        "text": "분하다.."
+      }
+    },
+    {
+      "command": "1 316 0 0 크악!",
+      "native": {
+        "mode": 1,
+        "face": 316,
+        "text": "크악!"
+      }
+    },
+    {
+      "command": "1 316 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 316,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 316 0 0 으으.. 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 316,
+        "text": "으으.. 분하다.."
+      }
+    },
+    {
+      "command": "1 317 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 317,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 317 0 0 크헉!",
+      "native": {
+        "mode": 1,
+        "face": 317,
+        "text": "크헉!"
+      }
+    },
+    {
+      "command": "1 318 0 0 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 318,
+        "text": "분하다.."
+      }
+    },
+    {
+      "command": "1 318 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 318,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 318 0 0 크악!",
+      "native": {
+        "mode": 1,
+        "face": 318,
+        "text": "크악!"
+      }
+    },
+    {
+      "command": "1 318 0 0 으으.. 분하다..",
+      "native": {
+        "mode": 1,
+        "face": 318,
+        "text": "으으.. 분하다.."
+      }
+    },
+    {
+      "command": "1 319 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 319,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 807 801 0 조심하십시요 용사님,|이것이 도움이 되면 좋겠습니다.",
+      "native": {
+        "mode": 1,
+        "face": 807,
+        "text": "조심하십시요 용사님,|이것이 도움이 되면 좋겠습니다."
+      }
+    },
+    {
+      "command": "0 0 0 0 체력이 회복되었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "체력이 회복되었습니다."
+      }
+    },
+    {
+      "command": "1 808 802 0 조심하십시요 용사님,|이것이 도움이 되면 좋겠습니다.",
+      "native": {
+        "mode": 1,
+        "face": 808,
+        "text": "조심하십시요 용사님,|이것이 도움이 되면 좋겠습니다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 세상에 믿을 놈 없군...",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "세상에 믿을 놈 없군..."
+      }
+    },
+    {
+      "command": "0 0 0 0 독에 중독되었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "독에 중독되었습니다."
+      }
+    },
+    {
+      "command": "1 807 803 0 조심하십시요 용사님,|이것이 도움이 되면 좋겠습니다.",
+      "native": {
+        "mode": 1,
+        "face": 807,
+        "text": "조심하십시요 용사님,|이것이 도움이 되면 좋겠습니다."
+      }
+    },
+    {
+      "command": "1 808 804 0 조심하십시요 용사님,|이것이 도움이 되면 좋겠습니다.",
+      "native": {
+        "mode": 1,
+        "face": 808,
+        "text": "조심하십시요 용사님,|이것이 도움이 되면 좋겠습니다."
+      }
+    },
+    {
+      "command": "1 809 805 0 조심하십시요 용사님,| 별로 도움이 되지 못해 죄송합니다.",
+      "native": {
+        "mode": 1,
+        "face": 809,
+        "text": "조심하십시요 용사님,| 별로 도움이 되지 못해 죄송합니다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 세상에 믿을 사람은 | 결국 자기 혼자인가..",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "세상에 믿을 사람은 | 결국 자기 혼자인가.."
+      }
+    },
+    {
+      "command": "1 706 700 A 우워어~~",
+      "native": {
+        "mode": 1,
+        "face": 706,
+        "text": "우워어~~"
+      }
+    },
+    {
+      "command": "0 ME 0 0 암흑의 뿌리를 제거했습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "암흑의 뿌리를 제거했습니다."
+      }
+    },
+    {
+      "command": "1 707 700 A 으... 강하군....",
+      "native": {
+        "mode": 1,
+        "face": 707,
+        "text": "으... 강하군...."
+      }
+    },
+    {
+      "command": "0 ME 0 0 사그라하스의 경전을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "사그라하스의 경전을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 708 0 0 그렇게 쉽게 건너오진 못한다.",
+      "native": {
+        "mode": 1,
+        "face": 708,
+        "text": "그렇게 쉽게 건너오진 못한다."
+      }
+    },
+    {
+      "command": "1 708 700 A 크흑, 이 내가 지다니...",
+      "native": {
+        "mode": 1,
+        "face": 708,
+        "text": "크흑, 이 내가 지다니..."
+      }
+    },
+    {
+      "command": "1 709 700 A 으... 역시...",
+      "native": {
+        "mode": 1,
+        "face": 709,
+        "text": "으... 역시..."
+      }
+    },
+    {
+      "command": "0 0 0 A 카모라의 아들을 구출했습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "카모라의 아들을 구출했습니다."
+      }
+    },
+    {
+      "command": "0 0 0 A 트리파니의 약혼녀를 구출했습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "트리파니의 약혼녀를 구출했습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가(이) 500 GOLD를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 500 GOLD를 얻었습니다."
+      }
+    },
+    {
+      "command": "1 332 0 0 Oh! My God.......",
+      "native": {
+        "mode": 1,
+        "face": 332,
+        "text": "Oh! My God......."
+      }
+    },
+    {
+      "command": "1 332 0 0 이럴수가 있나.. 천하의 살라만드라가 으흐흐......",
+      "native": {
+        "mode": 1,
+        "face": 332,
+        "text": "이럴수가 있나.. 천하의 살라만드라가 으흐흐......"
+      }
+    },
+    {
+      "command": "1 332 0 0 으악.....",
+      "native": {
+        "mode": 1,
+        "face": 332,
+        "text": "으악....."
+      }
+    },
+    {
+      "command": "1 332 0 0 으흐..분하다",
+      "native": {
+        "mode": 1,
+        "face": 332,
+        "text": "으흐..분하다"
+      }
+    },
+    {
+      "command": "1 332 0 0 대장님 뒤를 부탁합니다..",
+      "native": {
+        "mode": 1,
+        "face": 332,
+        "text": "대장님 뒤를 부탁합니다.."
+      }
+    },
+    {
+      "command": "1 335 0 0 이 놈들을 못죽이고 가다니...",
+      "native": {
+        "mode": 1,
+        "face": 335,
+        "text": "이 놈들을 못죽이고 가다니..."
+      }
+    },
+    {
+      "command": "1 335 0 0 으으..분하다",
+      "native": {
+        "mode": 1,
+        "face": 335,
+        "text": "으으..분하다"
+      }
+    },
+    {
+      "command": "1 335 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 335,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 335 0 0 친구여 내 뒤를 부탁하노라..",
+      "native": {
+        "mode": 1,
+        "face": 335,
+        "text": "친구여 내 뒤를 부탁하노라.."
+      }
+    },
+    {
+      "command": "1 330 0 0 나를 쉽게 죽였을 지는 몰라도 대장님은 쉽진 않을 것이다.",
+      "native": {
+        "mode": 1,
+        "face": 330,
+        "text": "나를 쉽게 죽였을 지는 몰라도 대장님은 쉽진 않을 것이다."
+      }
+    },
+    {
+      "command": "1 330 0 0 으으..분하다",
+      "native": {
+        "mode": 1,
+        "face": 330,
+        "text": "으으..분하다"
+      }
+    },
+    {
+      "command": "1 330 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 330,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 334 0 0 으으..분하다",
+      "native": {
+        "mode": 1,
+        "face": 334,
+        "text": "으으..분하다"
+      }
+    },
+    {
+      "command": "2 ME 0 0 적의 함정이군.",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "적의 함정이군."
+      }
+    },
+    {
+      "command": "2 ME 0 0 앗! 함정.......",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "앗! 함정......."
+      }
+    },
+    {
+      "command": "2 ME 0 0 아야!!!!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "아야!!!!"
+      }
+    },
+    {
+      "command": "2 ME 0 0 적의 함정이군. 제길....",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "적의 함정이군. 제길...."
+      }
+    },
+    {
+      "command": "1 701 0 0 으악 또 당했다..",
+      "native": {
+        "mode": 1,
+        "face": 701,
+        "text": "으악 또 당했다.."
+      }
+    },
+    {
+      "command": "1 702 0 0 나중에 또 나오고 말거야. 힝~",
+      "native": {
+        "mode": 1,
+        "face": 702,
+        "text": "나중에 또 나오고 말거야. 힝~"
+      }
+    },
+    {
+      "command": "1 703 0 0 내 뒤에 있는 놈은 조심해야 할 껄..",
+      "native": {
+        "mode": 1,
+        "face": 703,
+        "text": "내 뒤에 있는 놈은 조심해야 할 껄.."
+      }
+    },
+    {
+      "command": "1 338 0 0 으아악....",
+      "native": {
+        "mode": 1,
+        "face": 338,
+        "text": "으아악...."
+      }
+    },
+    {
+      "command": "1 336 0 0 으아악....",
+      "native": {
+        "mode": 1,
+        "face": 336,
+        "text": "으아악...."
+      }
+    },
+    {
+      "command": "1 339 0 0 으아악....",
+      "native": {
+        "mode": 1,
+        "face": 339,
+        "text": "으아악...."
+      }
+    },
+    {
+      "command": "2 ME 0 0 우와아아......악!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "우와아아......악!"
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가(이) 잭나이프를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 잭나이프를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가(이) 스타나이프를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 스타나이프를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가(이) 매직포션을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 매직포션을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 703 0 0 형님! 뒤를 부탁합니다.",
+      "native": {
+        "mode": 1,
+        "face": 703,
+        "text": "형님! 뒤를 부탁합니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가(이) 스피어를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 스피어를 얻었습니다."
+      }
+    },
+    {
+      "command": "1 707 0 0 우악 내가 죽다니 이럴수가있나!!!!",
+      "native": {
+        "mode": 1,
+        "face": 707,
+        "text": "우악 내가 죽다니 이럴수가있나!!!!"
+      }
+    },
+    {
+      "command": "1 340 0 0 으아악....",
+      "native": {
+        "mode": 1,
+        "face": 340,
+        "text": "으아악...."
+      }
+    },
+    {
+      "command": "1 340 0 0 내가 지다니 믿을수가 없군.....",
+      "native": {
+        "mode": 1,
+        "face": 340,
+        "text": "내가 지다니 믿을수가 없군....."
+      }
+    },
+    {
+      "command": "1 341 0 0 이런....",
+      "native": {
+        "mode": 1,
+        "face": 341,
+        "text": "이런...."
+      }
+    },
+    {
+      "command": "1 341 0 0 으아악..",
+      "native": {
+        "mode": 1,
+        "face": 341,
+        "text": "으아악.."
+      }
+    },
+    {
+      "command": "1 342 0 0 으으 분하다....",
+      "native": {
+        "mode": 1,
+        "face": 342,
+        "text": "으으 분하다...."
+      }
+    },
+    {
+      "command": "1 342 0 0 나를 죽이다니! 역시 택자 답구나...",
+      "native": {
+        "mode": 1,
+        "face": 342,
+        "text": "나를 죽이다니! 역시 택자 답구나..."
+      }
+    },
+    {
+      "command": "1 340 0 0 으아아악 내가 지다니.....",
+      "native": {
+        "mode": 1,
+        "face": 340,
+        "text": "으아아악 내가 지다니....."
+      }
+    },
+    {
+      "command": "1 341 0 0 분하지만 패배는 인정하겠다... | 그러나 앞으로의 일이 쉽지만을 안을 것이다.",
+      "native": {
+        "mode": 1,
+        "face": 341,
+        "text": "분하지만 패배는 인정하겠다... | 그러나 앞으로의 일이 쉽지만을 안을 것이다."
+      }
+    },
+    {
+      "command": "1 342 0 0 으아  분하다...",
+      "native": {
+        "mode": 1,
+        "face": 342,
+        "text": "으아  분하다..."
+      }
+    },
+    {
+      "command": "1 343 0 0 아니, 이렇게 강할수가....",
+      "native": {
+        "mode": 1,
+        "face": 343,
+        "text": "아니, 이렇게 강할수가...."
+      }
+    },
+    {
+      "command": "1 340 0 0 뒤를 부탁한다. 동료들이여.....",
+      "native": {
+        "mode": 1,
+        "face": 340,
+        "text": "뒤를 부탁한다. 동료들이여....."
+      }
+    },
+    {
+      "command": "1 341 0 0 으아아아악...",
+      "native": {
+        "mode": 1,
+        "face": 341,
+        "text": "으아아아악..."
+      }
+    },
+    {
+      "command": "1 342 0 0 분해서 어떻게 죽지.. 으흐흑...",
+      "native": {
+        "mode": 1,
+        "face": 342,
+        "text": "분해서 어떻게 죽지.. 으흐흑..."
+      }
+    },
+    {
+      "command": "1 343 0 0 으악 분하다...",
+      "native": {
+        "mode": 1,
+        "face": 343,
+        "text": "으악 분하다..."
+      }
+    },
+    {
+      "command": "1 340 0 0 내가 지다니.. 인정할수 없다.",
+      "native": {
+        "mode": 1,
+        "face": 340,
+        "text": "내가 지다니.. 인정할수 없다."
+      }
+    },
+    {
+      "command": "1 341 0 0 으으.. 분하다...",
+      "native": {
+        "mode": 1,
+        "face": 341,
+        "text": "으으.. 분하다..."
+      }
+    },
+    {
+      "command": "1 342 0 0 으으......",
+      "native": {
+        "mode": 1,
+        "face": 342,
+        "text": "으으......"
+      }
+    },
+    {
+      "command": "2 ME 0 0 앗 지진이다!  모두들 조심해....",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "앗 지진이다!  모두들 조심해...."
+      }
+    },
+    {
+      "command": "2 ME 0 0 마른 하늘에 왠 지진!!!!....",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "마른 하늘에 왠 지진!!!!...."
+      }
+    },
+    {
+      "command": "2 ME 0 0 으악! 땅이 갈라진다...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "으악! 땅이 갈라진다..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 아니! 이런곳에 반지가! 땡잡았다!!!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "아니! 이런곳에 반지가! 땡잡았다!!!"
+      }
+    },
+    {
+      "command": "2 ME 0 0 오옷! 돈 주웠다!!!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "오옷! 돈 주웠다!!!"
+      }
+    },
+    {
+      "command": "2 ME 0 0 어떤놈이 이런곳에 지팡이를 버리고 갔어? | 내가 가져가야지.....",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "어떤놈이 이런곳에 지팡이를 버리고 갔어? | 내가 가져가야지....."
+      }
+    },
+    {
+      "command": "1 0 0 0 나는 네가 생각한 것처럼 그렇게 쉽게 죽지 않는다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "나는 네가 생각한 것처럼 그렇게 쉽게 죽지 않는다."
+      }
+    },
+    {
+      "command": "0 0 0 0 마을 사람들의 저주가 풀렸습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "마을 사람들의 저주가 풀렸습니다."
+      }
+    },
+    {
+      "command": "1 0 0 0 우리들을 모두 쓰러뜨리다니 정말 대단하군......",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "우리들을 모두 쓰러뜨리다니 정말 대단하군......"
+      }
+    },
+    {
+      "command": "2 815 0 0 안녕하시오. 난 이 마을의 주민이었지..|그런데 어느날부터 마을 사람들이 변해가고 있소|하지만 아직 괜찮은 사람들이 있으니|많이 도움을 줄 것이오.",
+      "native": {
+        "mode": 2,
+        "face": 815,
+        "text": "안녕하시오. 난 이 마을의 주민이었지..|그런데 어느날부터 마을 사람들이 변해가고 있소|하지만 아직 괜찮은 사람들이 있으니|많이 도움을 줄 것이오."
+      }
+    },
+    {
+      "command": "1 ME 0 0 거 이상한 현상이군|난 바빠서 이만 가봐야겠소.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "거 이상한 현상이군|난 바빠서 이만 가봐야겠소."
+      }
+    },
+    {
+      "command": "2 815 0 0 잠깐 한가지 힌트를 드리겠소|마을 곳곳에 피어 있는 꽃은 여러가지|아이템을 만들수 있는 재료입니다.|구하셔서 마을의 주술사에게 가져다주면|아주 귀한 아이템을 줄것이오.|하지만 어떤 꽃은 독이 있으니 조심하시오.",
+      "native": {
+        "mode": 2,
+        "face": 815,
+        "text": "잠깐 한가지 힌트를 드리겠소|마을 곳곳에 피어 있는 꽃은 여러가지|아이템을 만들수 있는 재료입니다.|구하셔서 마을의 주술사에게 가져다주면|아주 귀한 아이템을 줄것이오.|하지만 어떤 꽃은 독이 있으니 조심하시오."
+      }
+    },
+    {
+      "command": "1 ME 0 0 고맙소.. 아참 한가지 물어볼게 있는데|이 마을에 좋은 무기상점이 있다고|들었는데 거기가 어딘지 아시오?",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "고맙소.. 아참 한가지 물어볼게 있는데|이 마을에 좋은 무기상점이 있다고|들었는데 거기가 어딘지 아시오?"
+      }
+    },
+    {
+      "command": "2 815 0 0 마을이 변하면서부터 좋은 무기들도|모두 같이 없어졌다오.",
+      "native": {
+        "mode": 2,
+        "face": 815,
+        "text": "마을이 변하면서부터 좋은 무기들도|모두 같이 없어졌다오."
+      }
+    },
+    {
+      "command": "1 ME 0 0 아무튼 고맙소 몸조심하시오.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "아무튼 고맙소 몸조심하시오."
+      }
+    },
+    {
+      "command": "1 0 0 A 여기는 이름없는 마을입니다.|옛날 전쟁터였던 곳이라|길이 아닌곳에는 지뢰가 있을|수 있습니다. 조심하세요.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "여기는 이름없는 마을입니다.|옛날 전쟁터였던 곳이라|길이 아닌곳에는 지뢰가 있을|수 있습니다. 조심하세요."
+      }
+    },
+    {
+      "command": "1 0 0 A 오른쪽 맨 위에 있는 나무에서 오른쪽으로|8칸에 보물이 묻혀 있습니다. 하지만 주위에 함정이|도사리고 있으니 조심하십시오.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "오른쪽 맨 위에 있는 나무에서 오른쪽으로|8칸에 보물이 묻혀 있습니다. 하지만 주위에 함정이|도사리고 있으니 조심하십시오."
+      }
+    },
+    {
+      "command": "1 ME 0 0 드디어 찾았다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "드디어 찾았다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 아니 비었잖아..| 누가 먼저 가져가 버렸군.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "아니 비었잖아..| 누가 먼저 가져가 버렸군."
+      }
+    },
+    {
+      "command": "1 0 0 A 여기까지 오시느라 수고하셨습니다.|이 표지판은 썰렁~",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "여기까지 오시느라 수고하셨습니다.|이 표지판은 썰렁~"
+      }
+    },
+    {
+      "command": "1 0 0 A 주술사가 있는 곳은|왼쪽 게시판에 써 있습니다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "주술사가 있는 곳은|왼쪽 게시판에 써 있습니다."
+      }
+    },
+    {
+      "command": "1 0 0 A 주술사가 있는 곳은|오른쪽 게시판에 써 있습니다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "주술사가 있는 곳은|오른쪽 게시판에 써 있습니다."
+      }
+    },
+    {
+      "command": "1 802 801 ID 노란꽃을 가져오셨군요. 제가 돌뱀을 만들어드리죠.",
+      "native": {
+        "mode": 1,
+        "face": 802,
+        "text": "노란꽃을 가져오셨군요. 제가 돌뱀을 만들어드리죠."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s님이 돌뱀을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀님이 돌뱀을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 이런곳에 꽃이..",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이런곳에 꽃이.."
+      }
+    },
+    {
+      "command": "1 ME 0 0 아 이것은 아이템의 재료가 되는|노란꽃이네.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "아 이것은 아이템의 재료가 되는|노란꽃이네."
+      }
+    },
+    {
+      "command": "1 ME 0 0 향기도 좋고 아름다운 꽃이다.|||헉 이것은 독....",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "향기도 좋고 아름다운 꽃이다.|||헉 이것은 독...."
+      }
+    },
+    {
+      "command": "1 ME 0 0 노란 꽃이다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "노란 꽃이다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 이렇게 아름다운 꽃에 독이라니..",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이렇게 아름다운 꽃에 독이라니.."
+      }
+    },
+    {
+      "command": "1 ME 0 0 어디서 향긋한 냄새가 풍겨온다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "어디서 향긋한 냄새가 풍겨온다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 아이템의 재료가 될 수 있겠다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "아이템의 재료가 될 수 있겠다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 .....독꽃이다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": ".....독꽃이다."
+      }
+    },
+    {
+      "command": "0 ME 0 0 이런곳에 꽃이..",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "이런곳에 꽃이.."
+      }
+    },
+    {
+      "command": "1 ME 0 0 너무나 아름답다. 유용한 가치가 있겠다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "너무나 아름답다. 유용한 가치가 있겠다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 앗! 속았다. 우욱...",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "앗! 속았다. 우욱..."
+      }
+    },
+    {
+      "command": "1 ME 0 0 노란꽃이다.| 빨리 주술사에게 가져다 주자",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "노란꽃이다.| 빨리 주술사에게 가져다 주자"
+      }
+    },
+    {
+      "command": "1 ME 0 0 줄기에 독이.. 이런....",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "줄기에 독이.. 이런...."
+      }
+    },
+    {
+      "command": "1 ME 0 0 줄기에 독이.. 제길...",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "줄기에 독이.. 제길..."
+      }
+    },
+    {
+      "command": "1 ME 0 0 이런 외진곳에 예쁜 꽃이군.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이런 외진곳에 예쁜 꽃이군."
+      }
+    },
+    {
+      "command": "1 COM2 0 0 이것은 아이템의 재료로 쓰이는 그 꽃..",
+      "native": {
+        "mode": 1,
+        "face": 102,
+        "text": "이것은 아이템의 재료로 쓰이는 그 꽃.."
+      }
+    },
+    {
+      "command": "1 ME 0 0 도도도도.. 독이다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "도도도도.. 독이다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 어디보자 이꽃은..",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "어디보자 이꽃은.."
+      }
+    },
+    {
+      "command": "1 ME 0 0 드디어 찾았군.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "드디어 찾았군."
+      }
+    },
+    {
+      "command": "1 ME 0 0 이속에는.. 독이....",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이속에는.. 독이...."
+      }
+    },
+    {
+      "command": "1 ME 0 0 우리가 찾는 꽃일까?",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "우리가 찾는 꽃일까?"
+      }
+    },
+    {
+      "command": "1 ME 0 0 윽.. 아니다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "윽.. 아니다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 예쁜 꽃이다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "예쁜 꽃이다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 행운이다 노란꽃을 얻었다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "행운이다 노란꽃을 얻었다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 독기운이 온몸에 퍼진다...",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "독기운이 온몸에 퍼진다..."
+      }
+    },
+    {
+      "command": "1 ME 0 0 예쁜꽃이지만 꺾어야겠군.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "예쁜꽃이지만 꺾어야겠군."
+      }
+    },
+    {
+      "command": "1 ME 0 0 역시 우리가 찾던 꽃.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "역시 우리가 찾던 꽃."
+      }
+    },
+    {
+      "command": "1 ME 0 0 우... 도..독이...",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "우... 도..독이..."
+      }
+    },
+    {
+      "command": "1 ME 0 0 이건 무슨 꽃일까?",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이건 무슨 꽃일까?"
+      }
+    },
+    {
+      "command": "1 ME 0 0 혹시 독이..",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "혹시 독이.."
+      }
+    },
+    {
+      "command": "1 ME 0 0 독꽃은 아닐테지 이렇게 예쁜데..",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "독꽃은 아닐테지 이렇게 예쁜데.."
+      }
+    },
+    {
+      "command": "1 ME 0 0 아니.. 속았다.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "아니.. 속았다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 믿은 내가 바보지....",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "믿은 내가 바보지...."
+      }
+    },
+    {
+      "command": "1 ME 0 0 이런곳에 꽃이",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이런곳에 꽃이"
+      }
+    },
+    {
+      "command": "1 ME 0 0 노란꽃! 찾았다!!",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "노란꽃! 찾았다!!"
+      }
+    },
+    {
+      "command": "1 ME 0 0 독이 퍼진다 빨리 해독을..",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "독이 퍼진다 빨리 해독을.."
+      }
+    },
+    {
+      "command": "1 348 0 0 Oh! My God.......",
+      "native": {
+        "mode": 1,
+        "face": 348,
+        "text": "Oh! My God......."
+      }
+    },
+    {
+      "command": "1 348 0 0 후훗...나는 죽지 않았다. | 사라져 갈 뿐...",
+      "native": {
+        "mode": 1,
+        "face": 348,
+        "text": "후훗...나는 죽지 않았다. | 사라져 갈 뿐..."
+      }
+    },
+    {
+      "command": "1 349 0 0 으악.....",
+      "native": {
+        "mode": 1,
+        "face": 349,
+        "text": "으악....."
+      }
+    },
+    {
+      "command": "1 332 0 0 내 죽음을 알리지 마라...",
+      "native": {
+        "mode": 1,
+        "face": 332,
+        "text": "내 죽음을 알리지 마라..."
+      }
+    },
+    {
+      "command": "1 349 0 0 이 놈들을 못죽이고 가다니...",
+      "native": {
+        "mode": 1,
+        "face": 349,
+        "text": "이 놈들을 못죽이고 가다니..."
+      }
+    },
+    {
+      "command": "1 349 0 0 뒤에서 공격을 할 줄이야...",
+      "native": {
+        "mode": 1,
+        "face": 349,
+        "text": "뒤에서 공격을 할 줄이야..."
+      }
+    },
+    {
+      "command": "1 348 0 0 으아악...",
+      "native": {
+        "mode": 1,
+        "face": 348,
+        "text": "으아악..."
+      }
+    },
+    {
+      "command": "1 350 0 0 병사여 내 뒤를 부탁하노라..",
+      "native": {
+        "mode": 1,
+        "face": 350,
+        "text": "병사여 내 뒤를 부탁하노라.."
+      }
+    },
+    {
+      "command": "1 350 0 0 으으..분하다",
+      "native": {
+        "mode": 1,
+        "face": 350,
+        "text": "으으..분하다"
+      }
+    },
+    {
+      "command": "1 348 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 348,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 330 0 0 나를 죽였다고 너무 좋아하지 마라 !",
+      "native": {
+        "mode": 1,
+        "face": 330,
+        "text": "나를 죽였다고 너무 좋아하지 마라 !"
+      }
+    },
+    {
+      "command": "1 351 0 0 으으..분하다",
+      "native": {
+        "mode": 1,
+        "face": 351,
+        "text": "으으..분하다"
+      }
+    },
+    {
+      "command": "1 351 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 351,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 349 0 0 일단은 후퇴다 !",
+      "native": {
+        "mode": 1,
+        "face": 349,
+        "text": "일단은 후퇴다 !"
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가(이) 돌뱀을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가(이) 돌뱀을 얻었습니다."
+      }
+    },
+    {
+      "command": "2 ME 0 0 적의 함정이닷.",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "적의 함정이닷."
+      }
+    },
+    {
+      "command": "2 ME 0 0 함정이 있을 줄이야..",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "함정이 있을 줄이야.."
+      }
+    },
+    {
+      "command": "2 ME 0 0 으악 ! 몸속에 독이...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "으악 ! 몸속에 독이..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 OH!!! 꽃밑에 반지가!!!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "OH!!! 꽃밑에 반지가!!!"
+      }
+    },
+    {
+      "command": "2 ME 0 0 응? 이런곳에 신발이!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "응? 이런곳에 신발이!"
+      }
+    },
+    {
+      "command": "0 0 ME 0 당신은 산속에 떨어진 어새신나이프를 주웠습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "당신은 산속에 떨어진 어새신나이프를 주웠습니다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 이런 곳에 기름통이 있을 줄이야.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이런 곳에 기름통이 있을 줄이야."
+      }
+    },
+    {
+      "command": "0 0 ME 0 기름통을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "기름통을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 드래곤 킬러 6을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "드래곤 킬러 6을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 716 700 A 내가 인간을 너무 얕보았군...",
+      "native": {
+        "mode": 1,
+        "face": 716,
+        "text": "내가 인간을 너무 얕보았군..."
+      }
+    },
+    {
+      "command": "1 332 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 332,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 332 0 0 으으..분하다",
+      "native": {
+        "mode": 1,
+        "face": 332,
+        "text": "으으..분하다"
+      }
+    },
+    {
+      "command": "1 334 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 334,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 702 0 0 아직 멀었다.",
+      "native": {
+        "mode": 1,
+        "face": 702,
+        "text": "아직 멀었다."
+      }
+    },
+    {
+      "command": "1 704 0 0 음 하지만 뒤에도..",
+      "native": {
+        "mode": 1,
+        "face": 704,
+        "text": "음 하지만 뒤에도.."
+      }
+    },
+    {
+      "command": "1 704 0 0 읔. 이럴수가..",
+      "native": {
+        "mode": 1,
+        "face": 704,
+        "text": "읔. 이럴수가.."
+      }
+    },
+    {
+      "command": "1 702 0 0 뒤에서 보복을 당할 것이다..",
+      "native": {
+        "mode": 1,
+        "face": 702,
+        "text": "뒤에서 보복을 당할 것이다.."
+      }
+    },
+    {
+      "command": "1 705 0 0 하지만 최후의 방어선이 남아있다.",
+      "native": {
+        "mode": 1,
+        "face": 705,
+        "text": "하지만 최후의 방어선이 남아있다."
+      }
+    },
+    {
+      "command": "1 707 0 0 하지만 최후의 방어선이 남아있다.",
+      "native": {
+        "mode": 1,
+        "face": 707,
+        "text": "하지만 최후의 방어선이 남아있다."
+      }
+    },
+    {
+      "command": "1 705 0 0 하지만 최후의 방어선이 남았다.",
+      "native": {
+        "mode": 1,
+        "face": 705,
+        "text": "하지만 최후의 방어선이 남았다."
+      }
+    },
+    {
+      "command": "1 709 0 0 이렇게 강할 수가 있단 말인가.",
+      "native": {
+        "mode": 1,
+        "face": 709,
+        "text": "이렇게 강할 수가 있단 말인가."
+      }
+    },
+    {
+      "command": "1 709 0 0 이건 생각 보다 너무 강하군..",
+      "native": {
+        "mode": 1,
+        "face": 709,
+        "text": "이건 생각 보다 너무 강하군.."
+      }
+    },
+    {
+      "command": "1 713 0 0 으.. 최후의 방어선이 뚫렸군.",
+      "native": {
+        "mode": 1,
+        "face": 713,
+        "text": "으.. 최후의 방어선이 뚫렸군."
+      }
+    },
+    {
+      "command": "1 800 0 0 이만 물러 가야 겠다...",
+      "native": {
+        "mode": 1,
+        "face": 800,
+        "text": "이만 물러 가야 겠다..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 이런곳에 옷이?",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "이런곳에 옷이?"
+      }
+    },
+    {
+      "command": "2 ME 0 0 앗! 돈이다!!!!!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "앗! 돈이다!!!!!"
+      }
+    },
+    {
+      "command": "1 ME 0 0 이것이 그가 말하던 등잔인가?",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이것이 그가 말하던 등잔인가?"
+      }
+    },
+    {
+      "command": "0 0 ME 0 등잔을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "등잔을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 드래곤 킬러 7을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "드래곤 킬러 7을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 레지스트아이스링을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "레지스트아이스링을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 COM0 0 0 드디어 비공정에 도착했다. 야호!!!",
+      "native": {
+        "mode": 1,
+        "face": 100,
+        "text": "드디어 비공정에 도착했다. 야호!!!"
+      }
+    },
+    {
+      "command": "0 0 0 0 시나리오 클리어",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "시나리오 클리어"
+      }
+    },
+    {
+      "command": "1 348 0 0 으악.....",
+      "native": {
+        "mode": 1,
+        "face": 348,
+        "text": "으악....."
+      }
+    },
+    {
+      "command": "1 348 0 0 이 놈들을 못죽이고 가다니...",
+      "native": {
+        "mode": 1,
+        "face": 348,
+        "text": "이 놈들을 못죽이고 가다니..."
+      }
+    },
+    {
+      "command": "1 349 0 0 Oh, My God !",
+      "native": {
+        "mode": 1,
+        "face": 349,
+        "text": "Oh, My God !"
+      }
+    },
+    {
+      "command": "1 349 0 0 후훗...나는 죽지 않았다. | 사라져 갈 뿐...",
+      "native": {
+        "mode": 1,
+        "face": 349,
+        "text": "후훗...나는 죽지 않았다. | 사라져 갈 뿐..."
+      }
+    },
+    {
+      "command": "1 350 0 0 내가 상대하기엔 너무나도 ...",
+      "native": {
+        "mode": 1,
+        "face": 350,
+        "text": "내가 상대하기엔 너무나도 ..."
+      }
+    },
+    {
+      "command": "1 351 0 0 으으.. 좋아하긴 아직 이르다.",
+      "native": {
+        "mode": 1,
+        "face": 351,
+        "text": "으으.. 좋아하긴 아직 이르다."
+      }
+    },
+    {
+      "command": "1 349 0 0 내가 당할 줄이야...",
+      "native": {
+        "mode": 1,
+        "face": 349,
+        "text": "내가 당할 줄이야..."
+      }
+    },
+    {
+      "command": "0 0 ME 0 부자의 가보를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "부자의 가보를 얻었습니다."
+      }
+    },
+    {
+      "command": "2 ME 0 0 이얍! 몸이 날아갈 것 같은데...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "이얍! 몸이 날아갈 것 같은데..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 앗! 독이...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "앗! 독이..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 으으... 토네이도가...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "으으... 토네이도가..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 너무 피곤하군. 좀 쉬어야겠다.",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "너무 피곤하군. 좀 쉬어야겠다."
+      }
+    },
+    {
+      "command": "2 ME 0 0 마른 하늘에 웬 날벼락이지?",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "마른 하늘에 웬 날벼락이지?"
+      }
+    },
+    {
+      "command": "1 ME 0 0 이런! 지진이...",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이런! 지진이..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 너무 피곤해서 더이상 마법을 못 쓰겠군...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "너무 피곤해서 더이상 마법을 못 쓰겠군..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 이런곳에도 함정이...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "이런곳에도 함정이..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 오옷! 힘이 나는걸...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "오옷! 힘이 나는걸..."
+      }
+    },
+    {
+      "command": "1 ME 0 0 앗! 이게 뭐지?",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "앗! 이게 뭐지?"
+      }
+    },
+    {
+      "command": "2 ME 0 0 으으... 몸이...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "으으... 몸이..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 으아악 !",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "으아악 !"
+      }
+    },
+    {
+      "command": "2 ME 0 0 으아악 ! 이게 뭐야?",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "으아악 ! 이게 뭐야?"
+      }
+    },
+    {
+      "command": "2 ME 0 0 으아악 ! 주의 했어야 했는데...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "으아악 ! 주의 했어야 했는데..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 그만 쉬고 싶다. 너무 피곤해...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "그만 쉬고 싶다. 너무 피곤해..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 누가 내 체력을...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "누가 내 체력을..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 어? 신발이 떨어져 있네?",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "어? 신발이 떨어져 있네?"
+      }
+    },
+    {
+      "command": "2 ME 0 0 우와앗!!! 돈더미다!!!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "우와앗!!! 돈더미다!!!"
+      }
+    },
+    {
+      "command": "0 0 ME 0 잠비아6을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "잠비아6을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 ME 0 0 드디어 성안으로 들어갈 수 있겠구나!!!",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "드디어 성안으로 들어갈 수 있겠구나!!!"
+      }
+    },
+    {
+      "command": "1 ME 0 0 이런 속았다!! 이것은 문을 가장한 벽이었군.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이런 속았다!! 이것은 문을 가장한 벽이었군."
+      }
+    },
+    {
+      "command": "1 ME 0 0 이런 속았군!! 이것은 문을 가장한 벽이었어.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이런 속았군!! 이것은 문을 가장한 벽이었어."
+      }
+    },
+    {
+      "command": "1 ME 0 0 이런 속았어!! 이것은 문을 가장한 벽이었군.",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이런 속았어!! 이것은 문을 가장한 벽이었군."
+      }
+    },
+    {
+      "command": "1 ME 0 0 드디어 성안으로 들어갈 수 있겠구나!!!!!!",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "드디어 성안으로 들어갈 수 있겠구나!!!!!!"
+      }
+    },
+    {
+      "command": "1 362 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 362,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 362 0 0 으으..분하다",
+      "native": {
+        "mode": 1,
+        "face": 362,
+        "text": "으으..분하다"
+      }
+    },
+    {
+      "command": "1 363 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 363,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 363 0 0 으으..분하다",
+      "native": {
+        "mode": 1,
+        "face": 363,
+        "text": "으으..분하다"
+      }
+    },
+    {
+      "command": "1 360 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 360,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 361 0 0 으으..분하다",
+      "native": {
+        "mode": 1,
+        "face": 361,
+        "text": "으으..분하다"
+      }
+    },
+    {
+      "command": "1 361 0 0 으으..",
+      "native": {
+        "mode": 1,
+        "face": 361,
+        "text": "으으.."
+      }
+    },
+    {
+      "command": "1 360 0 0 으으..분하다",
+      "native": {
+        "mode": 1,
+        "face": 360,
+        "text": "으으..분하다"
+      }
+    },
+    {
+      "command": "1 360 0 0 우 .. 악!!!!!",
+      "native": {
+        "mode": 1,
+        "face": 360,
+        "text": "우 .. 악!!!!!"
+      }
+    },
+    {
+      "command": "1 360 0 0 아니 이렇게 강할수가...",
+      "native": {
+        "mode": 1,
+        "face": 360,
+        "text": "아니 이렇게 강할수가..."
+      }
+    },
+    {
+      "command": "1 360 0 0 나 간다이....",
+      "native": {
+        "mode": 1,
+        "face": 360,
+        "text": "나 간다이...."
+      }
+    },
+    {
+      "command": "2 ME 0 0 앗 모두들 조심해....",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "앗 모두들 조심해...."
+      }
+    },
+    {
+      "command": "2 ME 0 0 그래도 다행이군..",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "그래도 다행이군.."
+      }
+    },
+    {
+      "command": "2 ME 0 0 오오! 뭔가 떨어져 있다!!!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "오오! 뭔가 떨어져 있다!!!"
+      }
+    },
+    {
+      "command": "2 ME 0 0 이...이 방패는.....",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "이...이 방패는....."
+      }
+    },
+    {
+      "command": "0 0 ME 0 잠비아7을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "잠비아7을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 719 700 A 우아악......",
+      "native": {
+        "mode": 1,
+        "face": 719,
+        "text": "우아악......"
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s님이 상자를 열었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀님이 상자를 열었습니다."
+      }
+    },
+    {
+      "command": "1 COM0 0 0 뭐...뭐지? 이 빛은...?",
+      "native": {
+        "mode": 1,
+        "face": 100,
+        "text": "뭐...뭐지? 이 빛은...?"
+      }
+    },
+    {
+      "command": "2 ME 0 0 아니 저것은!!!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "아니 저것은!!!"
+      }
+    },
+    {
+      "command": "2 ME 0 0 으악!",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "으악!"
+      }
+    },
+    {
+      "command": "2 ME 0 0 누가 반지를 흘렸군...",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "누가 반지를 흘렸군..."
+      }
+    },
+    {
+      "command": "2 ME 0 0 앗! 왕관이 이런곳에....",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "앗! 왕관이 이런곳에...."
+      }
+    },
+    {
+      "command": "2 ME 0 0 어? 여기에 신발이 있네?",
+      "native": {
+        "mode": 2,
+        "face": 0,
+        "text": "어? 여기에 신발이 있네?"
+      }
+    },
+    {
+      "command": "0 0 ME 0 플레일세이버7을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "플레일세이버7을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 크리스탈메일7을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "크리스탈메일7을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 0 0 0 이것이 암흑의 검인가?",
+      "native": {
+        "mode": 1,
+        "face": 0,
+        "text": "이것이 암흑의 검인가?"
+      }
+    },
+    {
+      "command": "0 0 0 0 암흑의 검을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "암흑의 검을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 720 700 A 우아악......",
+      "native": {
+        "mode": 1,
+        "face": 720,
+        "text": "우아악......"
+      }
+    },
+    {
+      "command": "0 0 ME 0 롱기누스를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "롱기누스를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 어스아마게돈을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "어스아마게돈을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 발키리를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "발키리를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 베르니움을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "베르니움을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 디스커버리를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "디스커버리를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 엑스컬리버을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "엑스컬리버을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 GR.캐리엄을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "GR.캐리엄을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 아론다이트를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "아론다이트를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 라르시안을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "라르시안을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 다이커스를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "다이커스를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 포세이큰을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "포세이큰을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 가드니스슈즈를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "가드니스슈즈를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 큐피트를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "큐피트를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 피리플레케톤을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "피리플레케톤을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 이제네르를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "이제네르를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 가리우스를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "가리우스를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 마르시어스를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "마르시어스를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 천공제신을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "천공제신을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 세류니어스를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "세류니어스를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 배마의징표를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "배마의징표를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 택마의징표를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "택마의징표를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 매마의징표를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "매마의징표를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 엘디_카이져를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "엘디_카이져를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 MATERIAL_BOW을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "MATERIAL_BOW을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 헬화이언스를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "헬화이언스를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 크림슨크래쉬를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "크림슨크래쉬를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 엘리나를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "엘리나를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 켈미리온을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "켈미리온을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 디키뮈스를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "디키뮈스를 얻었습니다."
+      }
+    },
+    {
+      "command": "1 410 410 A 우아악......",
+      "native": {
+        "mode": 1,
+        "face": 410,
+        "text": "우아악......"
+      }
+    },
+    {
+      "command": "1 815 815 A 우엉~!",
+      "native": {
+        "mode": 1,
+        "face": 815,
+        "text": "우엉~!"
+      }
+    },
+    {
+      "command": "1 714 700 A 이럴.. 수가...",
+      "native": {
+        "mode": 1,
+        "face": 714,
+        "text": "이럴.. 수가..."
+      }
+    },
+    {
+      "command": "0 0 ME 0 세실리온를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "세실리온를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 크라케스을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "크라케스을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 아리노아_로브를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "아리노아_로브를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 헬레디언를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "헬레디언를 얻었습니다."
+      }
+    },
+    {
+      "command": "2 799 0 0 그대는 시험에 통과했다. 여기 증표를 주마",
+      "native": {
+        "mode": 2,
+        "face": 799,
+        "text": "그대는 시험에 통과했다. 여기 증표를 주마"
+      }
+    },
+    {
+      "command": "0 0 ME 0 '보병의 문장'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'보병의 문장'을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 '비병의 문장'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'비병의 문장'을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 '기병의 문장'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'기병의 문장'을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 '수병의 문장'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'수병의 문장'을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 '창병의 문장'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'창병의 문장'을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 '궁병의 문장'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'궁병의 문장'을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 레지넨를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "레지넨를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 아르바겐을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "아르바겐을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 슈타니언를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "슈타니언를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 '승려의 문장'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'승려의 문장'을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 '신관의 문장'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'신관의 문장'을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 '마법사의 문장'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'마법사의 문장'을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 '사교의 문장'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'사교의 문장'을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 708 708 A 으윽~! 이럴수가~!",
+      "native": {
+        "mode": 1,
+        "face": 708,
+        "text": "으윽~! 이럴수가~!"
+      }
+    },
+    {
+      "command": "1 816 816 A 으윽~! 이럴수가~!",
+      "native": {
+        "mode": 1,
+        "face": 816,
+        "text": "으윽~! 이럴수가~!"
+      }
+    },
+    {
+      "command": "1 714 700 A 크윽~!",
+      "native": {
+        "mode": 1,
+        "face": 714,
+        "text": "크윽~!"
+      }
+    },
+    {
+      "command": "0 0 ME 0 파워소드3을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "파워소드3을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 뇌격필살검3을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "뇌격필살검3을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 혈흔모3을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "혈흔모3을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 어스웨이브로브3을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "어스웨이브로브3을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 뇌력필살궁을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "뇌력필살궁을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 파워소드4를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "파워소드4를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 뇌격필살검4를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "뇌격필살검4를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 혈흔모4를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "혈흔모4를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 어스웨이브로브4를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "어스웨이브로브4를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 파워소드5를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "파워소드5를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 뇌격필살검5를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "뇌격필살검5를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 혈흔모5를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "혈흔모5를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 어스웨이브로브5을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "어스웨이브로브5을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 혈마검을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "혈마검을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 영광의랜스를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "영광의랜스를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 혼마궁4를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "혼마궁4를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 혼마궁5를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "혼마궁5를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 태풍의머리띠6을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "태풍의머리띠6을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 혼마궁6를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "혼마궁6를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 태풍의머리띠7을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "태풍의머리띠7을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 142 0 0 1. 부르고스궁에서 이스란트왕 옆에 철장에  잡혀 있는 신하의 | 이름은 무엇일까? 1. 카멜  2.하겐  3. 미카엘 4. 키스라",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "1. 부르고스궁에서 이스란트왕 옆에 철장에  잡혀 있는 신하의 | 이름은 무엇일까? 1. 카멜  2.하겐  3. 미카엘 4. 키스라"
+      }
+    },
+    {
+      "command": "1 336 0 0 틀렸다..메롱",
+      "native": {
+        "mode": 1,
+        "face": 336,
+        "text": "틀렸다..메롱"
+      }
+    },
+    {
+      "command": "1 142 0 0 정답일세...",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "정답일세..."
+      }
+    },
+    {
+      "command": "1 142 0 0 2. 자모라 요새를 장악하고 있는 보스의 이름은 무엇일까? | 1. 그랜디스 2.펜리스 3. 카임 4. 두마",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "2. 자모라 요새를 장악하고 있는 보스의 이름은 무엇일까? | 1. 그랜디스 2.펜리스 3. 카임 4. 두마"
+      }
+    },
+    {
+      "command": "1 142 0 0 3. 에트나 동굴 맨 왼쪽 위에 있는 상자는 들어 있는 물건은 무엇일까? |1. 아무것도 없다 2. 힐포션      3.희귀한_약초 묶음 4.매직포션",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "3. 에트나 동굴 맨 왼쪽 위에 있는 상자는 들어 있는 물건은 무엇일까? |1. 아무것도 없다 2. 힐포션      3.희귀한_약초 묶음 4.매직포션"
+      }
+    },
+    {
+      "command": "1 142 0 0 4. 시나리오 4화의 이름은 무엇인가? | 1. 자모라   2. 카카오라  3. 알카디아  4. 에트나",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "4. 시나리오 4화의 이름은 무엇인가? | 1. 자모라   2. 카카오라  3. 알카디아  4. 에트나"
+      }
+    },
+    {
+      "command": "1 142 0 0 5. 시나리오 5화에서 왕 주위를 보호하고 있는 용병의 이름은 무엇일까? |1. 나퓨라스 2. 퓨라스    3.킨스크     4. 마노",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "5. 시나리오 5화에서 왕 주위를 보호하고 있는 용병의 이름은 무엇일까? |1. 나퓨라스 2. 퓨라스    3.킨스크     4. 마노"
+      }
+    },
+    {
+      "command": "1 142 0 0 6. 전체지도에서 시나리오 6화를 구성하고 있는 집의 겟수는 몇개일까? | 1.5개 2.6개 3. 7개 4. 8개",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "6. 전체지도에서 시나리오 6화를 구성하고 있는 집의 겟수는 몇개일까? | 1.5개 2.6개 3. 7개 4. 8개"
+      }
+    },
+    {
+      "command": "1 142 0 0 7. 다음중 카오시아 무기점에서 판매 하지 않는 아이템은 무엇일까? | 1. 어새신나이프 2.대거 3. 롱소드  4.롱보우",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "7. 다음중 카오시아 무기점에서 판매 하지 않는 아이템은 무엇일까? | 1. 어새신나이프 2.대거 3. 롱소드  4.롱보우"
+      }
+    },
+    {
+      "command": "1 142 0 0 8. 다음중 나이트 레벨로 고용할수 없는 용병은 ? | 1. 트로퍼b  2. 솔져b 3. 라전b",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "8. 다음중 나이트 레벨로 고용할수 없는 용병은 ? | 1. 트로퍼b  2. 솔져b 3. 라전b"
+      }
+    },
+    {
+      "command": "1 142 0 0 9. 다음중 은행에서 판매 하는 물건이 아닌 것은 무엇일까? | 1. 금화 다섯개 2. 금화 열개 3.금화 한무더기 4. 항금 독수리",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "9. 다음중 은행에서 판매 하는 물건이 아닌 것은 무엇일까? | 1. 금화 다섯개 2. 금화 열개 3.금화 한무더기 4. 항금 독수리"
+      }
+    },
+    {
+      "command": "1 142 0 0 10. 홀리 마스터가 8단인 매직 마스터가 되기 위해 얻어야 할 문장은? | 1. 신관의 문장 2. 승려의 문장 3. 마법사의 문장 4. 사교의 문장",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "10. 홀리 마스터가 8단인 매직 마스터가 되기 위해 얻어야 할 문장은? | 1. 신관의 문장 2. 승려의 문장 3. 마법사의 문장 4. 사교의 문장"
+      }
+    },
+    {
+      "command": "1 142 0 0 11.  카카오라 고원의 몬스터 대장 이름은 무엇일까? | 1. 미노타우르스 2.티라노사우르스 3.미로타우루소 4.미노타우루스",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "11.  카카오라 고원의 몬스터 대장 이름은 무엇일까? | 1. 미노타우르스 2.티라노사우르스 3.미로타우루소 4.미노타우루스"
+      }
+    },
+    {
+      "command": "1 142 0 0 12. 다크세이버 아이템 중 죽었을때 바로 회생을 시켜 주는 | 아이템은 무엇일까?1. 닥세 콜라 2. 희귀한약초 3. 매직포션 4.닥세 사이다",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "12. 다크세이버 아이템 중 죽었을때 바로 회생을 시켜 주는 | 아이템은 무엇일까?1. 닥세 콜라 2. 희귀한약초 3. 매직포션 4.닥세 사이다"
+      }
+    },
+    {
+      "command": "1 142 0 0 13. 다음중 던전에서 얻을수 았는 아이템이 아닌것은? |1. 노란꽃  2.엔돌핀 한박스 3.힐포션  4. 팔찌",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "13. 다음중 던전에서 얻을수 았는 아이템이 아닌것은? |1. 노란꽃  2.엔돌핀 한박스 3.힐포션  4. 팔찌"
+      }
+    },
+    {
+      "command": "1 142 0 0 14. 다음중 조각으로 이루어진 아이템이 아닌것은 ? | 1. 천공실드 2. 광선검 3. 힐링 4. 썬더브레이크 스피어",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "14. 다음중 조각으로 이루어진 아이템이 아닌것은 ? | 1. 천공실드 2. 광선검 3. 힐링 4. 썬더브레이크 스피어"
+      }
+    },
+    {
+      "command": "1 142 0 0 15. 다음중 현재 다크세이버에서 활동 하지 않는 가문은? | 1. 켈베로스 2.다크로드 3. 데스페라도 4.루빈스터",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "15. 다음중 현재 다크세이버에서 활동 하지 않는 가문은? | 1. 켈베로스 2.다크로드 3. 데스페라도 4.루빈스터"
+      }
+    },
+    {
+      "command": "1 142 0 0 16. 처음 파이터로 게임을 시작했을때 시나리오 5화를 클리어 | 하고 얻는 부관은?1. 나이트  2. 매지션 3. 클레릭 4.몽크",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "16. 처음 파이터로 게임을 시작했을때 시나리오 5화를 클리어 | 하고 얻는 부관은?1. 나이트  2. 매지션 3. 클레릭 4.몽크"
+      }
+    },
+    {
+      "command": "1 142 0 0 17. 군터의 흉계의 빠져 미노타우르스로 변한 브름스국 보병대장의 | 이름은무엇일까?1. 갈디온  2. 파로마 3. 메디안 4.아후르",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "17. 군터의 흉계의 빠져 미노타우르스로 변한 브름스국 보병대장의 | 이름은무엇일까?1. 갈디온  2. 파로마 3. 메디안 4.아후르"
+      }
+    },
+    {
+      "command": "1 142 0 0 18. 브름스궁에서 구출된 궁중 마법사 하겐이 군터의 흉계를 막기위한 방법을  | 모색하던중 마기의 묘책을 들은 군터왕이 마수들을 시켜 하겐을 납치된  | 신전의 이름은 무엇일까?1. 아멘트  2. 마르시온 3. 사그라하스 4. 사군토",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "18. 브름스궁에서 구출된 궁중 마법사 하겐이 군터의 흉계를 막기위한 방법을  | 모색하던중 마기의 묘책을 들은 군터왕이 마수들을 시켜 하겐을 납치된  | 신전의 이름은 무엇일까?1. 아멘트  2. 마르시온 3. 사그라하스 4. 사군토"
+      }
+    },
+    {
+      "command": "1 142 0 0 19. 다음중 다크세이버 각 가문의 가문장이 아닌 사람은 누구인가?|1.(^^-guy-  2.고은  3. 스타이너  4. 은현지록",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "19. 다음중 다크세이버 각 가문의 가문장이 아닌 사람은 누구인가?|1.(^^-guy-  2.고은  3. 스타이너  4. 은현지록"
+      }
+    },
+    {
+      "command": "1 142 0 0 20. 벨퓌어스 마을의 민가 갯수는 몇개 인가? | 1. 5개  2. 6개  3. 7개  4. 8개",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "20. 벨퓌어스 마을의 민가 갯수는 몇개 인가? | 1. 5개  2. 6개  3. 7개  4. 8개"
+      }
+    },
+    {
+      "command": "1 142 0 0 이제 당신은 진정한 9단이 되었다...",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "이제 당신은 진정한 9단이 되었다..."
+      }
+    },
+    {
+      "command": "1 142 0 0 1. 다음중 벨퓌어스 마을에 없는 건물은 무엇일까? |1.은행  2.교회  3.술집  4.용병의집",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "1. 다음중 벨퓌어스 마을에 없는 건물은 무엇일까? |1.은행  2.교회  3.술집  4.용병의집"
+      }
+    },
+    {
+      "command": "1 142 0 0 2. 전체 시나리오 중 가장 이국적이고 내용과 무관한 시나리오는 | 무엇일까?",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "2. 전체 시나리오 중 가장 이국적이고 내용과 무관한 시나리오는 | 무엇일까?"
+      }
+    },
+    {
+      "command": "1 142 0 0 3. 벨퓌어스 마을 윗쪽으로 나와서 오른쪽에 있는 가문의 이름은  | 무엇일까?",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "3. 벨퓌어스 마을 윗쪽으로 나와서 오른쪽에 있는 가문의 이름은  | 무엇일까?"
+      }
+    },
+    {
+      "command": "1 142 0 0  4. 대련장은 총 몇개의 대련장소로 구성되어 있는가? | 1.  5개      2. 6개 3. 7개    4. 8개",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "4. 대련장은 총 몇개의 대련장소로 구성되어 있는가? | 1.  5개      2. 6개 3. 7개    4. 8개"
+      }
+    },
+    {
+      "command": "1 142 0 0 ME 0  5. 카오시아 마을에서 위로 나와 오른쪽으로 들어가면 갈수 있는 | 대륙의 이름은?1. 앤트리아  2.아모리아  3. 가르시아 4.아르니아",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "ME 0  5. 카오시아 마을에서 위로 나와 오른쪽으로 들어가면 갈수 있는 | 대륙의 이름은?1. 앤트리아  2.아모리아  3. 가르시아 4.아르니아"
+      }
+    },
+    {
+      "command": "1 142 0 0  6. 로스웰 시나리오 보스의 이름은 무엇일까? | 1.프레토른 2.로스웰러 3. 크리케톤 4.벨버기어",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "6. 로스웰 시나리오 보스의 이름은 무엇일까? | 1.프레토른 2.로스웰러 3. 크리케톤 4.벨버기어"
+      }
+    },
+    {
+      "command": "1 142 0 0  7. 아멘트 1층 시나리오에서 기둥위에서 활 쏘는 활병의 이름은 무엇일까? |",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "7. 아멘트 1층 시나리오에서 기둥위에서 활 쏘는 활병의 이름은 무엇일까? |"
+      }
+    },
+    {
+      "command": "1 142 0 0  8. 군터의 의하여 마계의 봉인 풀어 지고 처음 다시 유혹의 | 봉인(2봉인)을 막은 시나리오 이름은 무엇일까 ? | 1. 시시리오섬  2.사군토 항  3.달라이호수 4.아케론",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "8. 군터의 의하여 마계의 봉인 풀어 지고 처음 다시 유혹의 | 봉인(2봉인)을 막은 시나리오 이름은 무엇일까 ? | 1. 시시리오섬  2.사군토 항  3.달라이호수 4.아케론"
+      }
+    },
+    {
+      "command": "1 142 0 0  9. 아케론 호수의 보스인 카론은 백성들의 원혼에 의하여 잠시 | 몬스터로 변했있었다 . 원래 모습은 무엇인가?",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "9. 아케론 호수의 보스인 카론은 백성들의 원혼에 의하여 잠시 | 몬스터로 변했있었다 . 원래 모습은 무엇인가?"
+      }
+    },
+    {
+      "command": "1 142 0 0  10. 시시리오 섬의 보수인 단구 몬스터는 전체 시나리오 중 몇번 등장 할까요?| 1. 1번         2. 2번      3.3번       4.4번",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "10. 시시리오 섬의 보수인 단구 몬스터는 전체 시나리오 중 몇번 등장 할까요?| 1. 1번         2. 2번      3.3번       4.4번"
+      }
+    },
+    {
+      "command": "1 142 0 0  11. 스핑크스 시나리오에 등장 하지 않는 보스의 이름은 누구인가? | 1 . 펜리스   2.키스라   3. 만타코라스  4.크라이언",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "11. 스핑크스 시나리오에 등장 하지 않는 보스의 이름은 누구인가? | 1 . 펜리스   2.키스라   3. 만타코라스  4.크라이언"
+      }
+    },
+    {
+      "command": "1 142 0 0  12. 왕릉 시나리에는 총 보스가 몇명 등장 하는가? | 1. 3명      2. 2명      3. 4명         4. 5명",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "12. 왕릉 시나리에는 총 보스가 몇명 등장 하는가? | 1. 3명      2. 2명      3. 4명         4. 5명"
+      }
+    },
+    {
+      "command": "1 142 0 0  13, 왕릉 시나리오에서 제 3인의 봉인에 다달으면서 택자라는 | 호칭을 자꾸 듣게 된다. 택자는 누구의 후예 인가?| 1. 아베리우스  2 . 아리아니아 3. 아스토로스 4.아리안네스",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "13, 왕릉 시나리오에서 제 3인의 봉인에 다달으면서 택자라는 | 호칭을 자꾸 듣게 된다. 택자는 누구의 후예 인가?| 1. 아베리우스  2 . 아리아니아 3. 아스토로스 4.아리안네스"
+      }
+    },
+    {
+      "command": "1 142 0 0  14.  제 3의 봉인을 막는 시나리오 장소는 어디인가? |1. 왕릉 2.  아케론   3. 달라이호   4. 스케리아",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "14.  제 3의 봉인을 막는 시나리오 장소는 어디인가? |1. 왕릉 2.  아케론   3. 달라이호   4. 스케리아"
+      }
+    },
+    {
+      "command": "1 142 0 0 15.  시시리오 마을에 없는 건물은 무엇인가? |1. 수리점   2. 무기점  3. 소모품점   4. 용병의집",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "15.  시시리오 마을에 없는 건물은 무엇인가? |1. 수리점   2. 무기점  3. 소모품점   4. 용병의집"
+      }
+    },
+    {
+      "command": "1 142 0 0 16.  스케리아2 마을에서 왼쪽 꼭대기 집안의 용사에게 가면 주는 | 아이템의 이름은 무엇인가 ? 1. 레지스트 화이어링  2.레지스트 썬더링 3. 파워링 4.레지스트 아이스링",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "16.  스케리아2 마을에서 왼쪽 꼭대기 집안의 용사에게 가면 주는 | 아이템의 이름은 무엇인가 ? 1. 레지스트 화이어링  2.레지스트 썬더링 3. 파워링 4.레지스트 아이스링"
+      }
+    },
+    {
+      "command": "1 142 0 0 17.  다크세이버 서버가 둘로 나누어 졌는데 새로운 서버의 이름은 무엇인가? |",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "17.  다크세이버 서버가 둘로 나누어 졌는데 새로운 서버의 이름은 무엇인가? |"
+      }
+    },
+    {
+      "command": "1 142 0 0 18 . 발하라 평원의 보스인 바루바트는 원래 인간이지만 원해서 | 악마가 되었다 . 더 잔인한 악마가 될 수 있었는데 방해한자는 | 누구인가?1. 오크리안 2.아스모데우스 3. 오베리우스  4.베르세우스",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "18 . 발하라 평원의 보스인 바루바트는 원래 인간이지만 원해서 | 악마가 되었다 . 더 잔인한 악마가 될 수 있었는데 방해한자는 | 누구인가?1. 오크리안 2.아스모데우스 3. 오베리우스  4.베르세우스"
+      }
+    },
+    {
+      "command": "1 142 0 0 19.  제 4의 봉인이 풀린 것을 막는 시나리오는 몇화 인가? |1. 비공정   2. 아멘트  3. 발하라 평원   4. 아멘트 1층",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "19.  제 4의 봉인이 풀린 것을 막는 시나리오는 몇화 인가? |1. 비공정   2. 아멘트  3. 발하라 평원   4. 아멘트 1층"
+      }
+    },
+    {
+      "command": "1 142 0 0 20. 시나리오 18화에 개설하기 전에 아멘트를 이루고 있는 기둥이 |있다. 총 기둥의 겟 수는 ?1. 13 개  2.14개   3. 15개  4. 18개",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "20. 시나리오 18화에 개설하기 전에 아멘트를 이루고 있는 기둥이 |있다. 총 기둥의 겟 수는 ?1. 13 개  2.14개   3. 15개  4. 18개"
+      }
+    },
+    {
+      "command": "1 142 0 0  1. 아멘트 1층의 시나리오 개설시 한 유저분이 데리고 들어갈수 있는 |지휘관의 최대수는 ?1. 2명  2. 3명  3. 4명  4.1명",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "1. 아멘트 1층의 시나리오 개설시 한 유저분이 데리고 들어갈수 있는 |지휘관의 최대수는 ?1. 2명  2. 3명  3. 4명  4.1명"
+      }
+    },
+    {
+      "command": "1 142 0 0  2. 아멘트 시나리오에서 금 한무더기가 나오는 위치는 가운데 계단의 |어디 일까?1. 왼쪽 아래       2. 왼쪽  위    3. 가운데  4. 오른쪽 위",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "2. 아멘트 시나리오에서 금 한무더기가 나오는 위치는 가운데 계단의 |어디 일까?1. 왼쪽 아래       2. 왼쪽  위    3. 가운데  4. 오른쪽 위"
+      }
+    },
+    {
+      "command": "1 142 0 0  3. 아멘트 시나리오에서 총 출구가 12개가 있습니다. 이중에 몇번이 |클리어를 할 수 있는 출구 일까요?1. 3번째  2. 5번째  3. 4번째  4. 8번째",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "3. 아멘트 시나리오에서 총 출구가 12개가 있습니다. 이중에 몇번이 |클리어를 할 수 있는 출구 일까요?1. 3번째  2. 5번째  3. 4번째  4. 8번째"
+      }
+    },
+    {
+      "command": "1 142 0 0  4. 아멘트 1층 시나리오에서 우래우스가 지키는 북쪽상자를 열면 |얻을수 있는 아이템은?1. 신비한 조각A  2. 신비한 조각B  3. 신비한 조각A  4. 신비한 조각A",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "4. 아멘트 1층 시나리오에서 우래우스가 지키는 북쪽상자를 열면 |얻을수 있는 아이템은?1. 신비한 조각A  2. 신비한 조각B  3. 신비한 조각A  4. 신비한 조각A"
+      }
+    },
+    {
+      "command": "1 142 0 0  5. 아멘트 1층을 지키고 있는 우래우스의 에너지는 얼마인가? |1. 3250   2.3150  3.3500 4.4000",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "5. 아멘트 1층을 지키고 있는 우래우스의 에너지는 얼마인가? |1. 3250   2.3150  3.3500 4.4000"
+      }
+    },
+    {
+      "command": "1 142 0 0  6. 아멘트 2층 시나리오에서 왼쪽 기둥 모서리 부분에서 얻을수| 있는 아이템은?1.일루젼링  2.레비테이션 부츠   3 .힐링  4.레지스트 파이어링",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "6. 아멘트 2층 시나리오에서 왼쪽 기둥 모서리 부분에서 얻을수| 있는 아이템은?1.일루젼링  2.레비테이션 부츠   3 .힐링  4.레지스트 파이어링"
+      }
+    },
+    {
+      "command": "1 142 0 0  7. 아멘트 2층에 용사가 도착하자 이미 군터는 자신을 요괴화 하여 |싸울 태세를 갖추고 있었다. 이 악의 화신의 이름은 무엇인가?|1.메피스토텔리온  2.메피스토텔레스  3.마피스트텔리스  4.메피스토리안",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "7. 아멘트 2층에 용사가 도착하자 이미 군터는 자신을 요괴화 하여 |싸울 태세를 갖추고 있었다. 이 악의 화신의 이름은 무엇인가?|1.메피스토텔리온  2.메피스토텔레스  3.마피스트텔리스  4.메피스토리안"
+      }
+    },
+    {
+      "command": "1 142 0 0  8. 악의 화신으로 변환 군터는 죽기전에 '그 분' 이 직접 너희들에게 |올것이라고 말한다. 여기서 '그 분'은 누구일까?|1. 아흐리우스  2.아흐르만 3.아후르민 4. 아흐르신",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "8. 악의 화신으로 변환 군터는 죽기전에 '그 분' 이 직접 너희들에게 |올것이라고 말한다. 여기서 '그 분'은 누구일까?|1. 아흐리우스  2.아흐르만 3.아후르민 4. 아흐르신"
+      }
+    },
+    {
+      "command": "1 142 0 0  9. 7단 레벨 35에서 8단으로 합체 할때 창병의 문장 모양은 무엇일까?|1. 創  2. 昌  3. 倉  4.  暢",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "9. 7단 레벨 35에서 8단으로 합체 할때 창병의 문장 모양은 무엇일까?|1. 創  2. 昌  3. 倉  4.  暢"
+      }
+    },
+    {
+      "command": "1 142 0 0  10. 7단계 타격계 계열 3명의 캐릭터가 8단으로 합체하면 처음 총렙은?|1. 450 2. 400  3. 500  4. 700",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "10. 7단계 타격계 계열 3명의 캐릭터가 8단으로 합체하면 처음 총렙은?|1. 450 2. 400  3. 500  4. 700"
+      }
+    },
+    {
+      "command": "1 142 0 0  11. 8단존으로 가기 위해서 치는 명령어는 무엇인가?|1. /앤트리아  2./벨퓌어스  3./아모리아 4. /젤다이어",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "11. 8단존으로 가기 위해서 치는 명령어는 무엇인가?|1. /앤트리아  2./벨퓌어스  3./아모리아 4. /젤다이어"
+      }
+    },
+    {
+      "command": "1 142 0 0  12. 스노우 월드 시나리오의 보스 이름은 무엇인가?|1.투렌바크   2.바스레인 3.오스트만 4.일레스튼",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "12. 스노우 월드 시나리오의 보스 이름은 무엇인가?|1.투렌바크   2.바스레인 3.오스트만 4.일레스튼"
+      }
+    },
+    {
+      "command": "1 142 0 0  13. 전설의 보검의 봉인을 풀어 주는 사람은 어디 마을에 있는가?|1. 벨퓌어스  2.젤다이어  3. 아모리아  4.앤트리아",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "13. 전설의 보검의 봉인을 풀어 주는 사람은 어디 마을에 있는가?|1. 벨퓌어스  2.젤다이어  3. 아모리아  4.앤트리아"
+      }
+    },
+    {
+      "command": "1 142 0 0  14. 8단 시나리오 중 아이스 캐슬을 클리어하면 주는 경험치는 ?1. 150만  2. 200만 3.250 만  4. 100만",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "14. 8단 시나리오 중 아이스 캐슬을 클리어하면 주는 경험치는 ?1. 150만  2. 200만 3.250 만  4. 100만"
+      }
+    },
+    {
+      "command": "1 142 0 0  15. 하이위저드가 가지고 있지 않는 마법은 무엇인가?|1. 블리자드  2.썬더  3. 프리즈  4. 썬더스톰",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "15. 하이위저드가 가지고 있지 않는 마법은 무엇인가?|1. 블리자드  2.썬더  3. 프리즈  4. 썬더스톰"
+      }
+    },
+    {
+      "command": "1 142 0 0  16. 하이위저드가 메이지로 클체시 생기는 마법이 아닌 것은?|1. 어스퀘이크  2. 슬로우  3. 썬더스톰 4.MP드레인",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "16. 하이위저드가 메이지로 클체시 생기는 마법이 아닌 것은?|1. 어스퀘이크  2. 슬로우  3. 썬더스톰 4.MP드레인"
+      }
+    },
+    {
+      "command": "1 142 0 0  17. 사천왕 중 2번째 사천왕의 이름은 무엇인가?|1. 네르갈  2. 제이드  3. 군터  4. 메피스토",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "17. 사천왕 중 2번째 사천왕의 이름은 무엇인가?|1. 네르갈  2. 제이드  3. 군터  4. 메피스토"
+      }
+    },
+    {
+      "command": "1 142 0 0  18. 매직마스터의 스킬중에 많은 기력을 소모하면서 MP를 극대화 시킬수 있는 |스킬은 무엇일까?1. 절대마력  2. 우뢰  3.네오우뢰  4. 리제네",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "18. 매직마스터의 스킬중에 많은 기력을 소모하면서 MP를 극대화 시킬수 있는 |스킬은 무엇일까?1. 절대마력  2. 우뢰  3.네오우뢰  4. 리제네"
+      }
+    },
+    {
+      "command": "1 142 0 0  19. 이동력을 올려주면서 마법방어를 4감소시키는 신발은?|1.다이아부츠 2.엘메스의구두 3.라르시안 4.천공제신",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "19. 이동력을 올려주면서 마법방어를 4감소시키는 신발은?|1.다이아부츠 2.엘메스의구두 3.라르시안 4.천공제신"
+      }
+    },
+    {
+      "command": "1 142 0 0  20. 시나리오 21화 아이스 캐슬의 보스는 누구인가?|1. 서큐버스  2. 베라모드  3. 아스토리안 4. 벨제뷔트",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "20. 시나리오 21화 아이스 캐슬의 보스는 누구인가?|1. 서큐버스  2. 베라모드  3. 아스토리안 4. 벨제뷔트"
+      }
+    },
+    {
+      "command": "1 142 0 0  1. 아이스 캐슬 시나리오 바닥에서 부서진 바닥의 갯수는 ?|1.14개  2. 12개 3. 15개 4.16개",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "1. 아이스 캐슬 시나리오 바닥에서 부서진 바닥의 갯수는 ?|1.14개  2. 12개 3. 15개 4.16개"
+      }
+    },
+    {
+      "command": "1 142 0 0  2. 시나리오 25화 캘리퍼 제국 시나리오 내부에서 기둥은 총 몇개 인가? |1.7개  2. 6개   3. 8개  4. 9개",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "2. 시나리오 25화 캘리퍼 제국 시나리오 내부에서 기둥은 총 몇개 인가? |1.7개  2. 6개   3. 8개  4. 9개"
+      }
+    },
+    {
+      "command": "1 142 0 0  3. 60살 선물로 드리는 아이템이 아닌 것은?  |1. 활어신검 2. 홀리_스피어7  3. 홀리_링 4.포이즌_스피어",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "3. 60살 선물로 드리는 아이템이 아닌 것은?  |1. 활어신검 2. 홀리_스피어7  3. 홀리_링 4.포이즌_스피어"
+      }
+    },
+    {
+      "command": "1 142 0 0  4. 다크세이버 이벤트중 예전에 실시 하지 않았던 이벤트는?|1. 달리기  2. 보트경주  3. 러브러브퀴즈  4 .로열럼블",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "4. 다크세이버 이벤트중 예전에 실시 하지 않았던 이벤트는?|1. 달리기  2. 보트경주  3. 러브러브퀴즈  4 .로열럼블"
+      }
+    },
+    {
+      "command": "1 142 0 0  5. 다음중 다크세이버 운영자가 아닌 사람은?|1. GOOD007  2.#아수라다#  3.AIRZONG   4.DARKANGEL",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "5. 다음중 다크세이버 운영자가 아닌 사람은?|1. GOOD007  2.#아수라다#  3.AIRZONG   4.DARKANGEL"
+      }
+    },
+    {
+      "command": "1 142 0 0  6. 다크세이버 정기 채팅 요일과 시간은 언제인가?|1. 목요일 8시  2. 수요일 6시  3. 목요일 7시 4.  수요일 8시",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "6. 다크세이버 정기 채팅 요일과 시간은 언제인가?|1. 목요일 8시  2. 수요일 6시  3. 목요일 7시 4.  수요일 8시"
+      }
+    },
+    {
+      "command": "1 142 0 0  7. 다크세이버에 현재 존재 하는 마을은 몇개 인가?|1. 4개   2. 5개  3. 6개 4. 8개",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "7. 다크세이버에 현재 존재 하는 마을은 몇개 인가?|1. 4개   2. 5개  3. 6개 4. 8개"
+      }
+    },
+    {
+      "command": "1 142 0 0  8. 히어로 에서 킹이 되면서 생기는 마법은 무엇인가?|1. 프리즈  2. 파이어볼  3. 힐 4.어택",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "8. 히어로 에서 킹이 되면서 생기는 마법은 무엇인가?|1. 프리즈  2. 파이어볼  3. 힐 4.어택"
+      }
+    },
+    {
+      "command": "1 142 0 0  9. 택틱스 마스터가 되기 위해서 필요한 캐릭터가 아닌것은?|1.크라켄마스터  2.닌자마스터  3.로열가드  4.듀크",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "9. 택틱스 마스터가 되기 위해서 필요한 캐릭터가 아닌것은?|1.크라켄마스터  2.닌자마스터  3.로열가드  4.듀크"
+      }
+    },
+    {
+      "command": "1 142 0 0  10. 결혼하기 위하여 필요 한 것이 아닌것은 ?|1. 노란꽃 40송이 2. 결혼반지  3. 상대 배우자  4. 결혼목걸이",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "10. 결혼하기 위하여 필요 한 것이 아닌것은 ?|1. 노란꽃 40송이 2. 결혼반지  3. 상대 배우자  4. 결혼목걸이"
+      }
+    },
+    {
+      "command": "1 142 0 0  11. 다쿤던전 1층에서 2층으로 내려 가기 위해서 필요한 열쇠는?|1.청동열쇠  2.황동열쇠  3.구리열쇠  4. 목재열쇠",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "11. 다쿤던전 1층에서 2층으로 내려 가기 위해서 필요한 열쇠는?|1.청동열쇠  2.황동열쇠  3.구리열쇠  4. 목재열쇠"
+      }
+    },
+    {
+      "command": "1 142 0 0  12. 현재 다크세이버에 있는 총 가문의 갯수는 몇개 인가?|1. 10개  2. 11개  3.12개  4.13개",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "12. 현재 다크세이버에 있는 총 가문의 갯수는 몇개 인가?|1. 10개  2. 11개  3.12개  4.13개"
+      }
+    },
+    {
+      "command": "1 142 0 0  13. 던전 1층 수문장인 샌드 고렘의 공격력과 방어력의 차이(공-방)는| 얼마일까?1. 300  2. 200 3. 100 4. 150",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "13. 던전 1층 수문장인 샌드 고렘의 공격력과 방어력의 차이(공-방)는| 얼마일까?1. 300  2. 200 3. 100 4. 150"
+      }
+    },
+    {
+      "command": "1 142 0 0  14. 다크세이버 게임 상에서 플레이를 하다가 굉장히 중대한 버그를 |발견하여 신고 하면 받을수 있는 아이템이 아닌것은?|1.힐링  2. 메르니카 휘장  3.이카루스 휘장 4. 링 오브 마르스",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "14. 다크세이버 게임 상에서 플레이를 하다가 굉장히 중대한 버그를 |발견하여 신고 하면 받을수 있는 아이템이 아닌것은?|1.힐링  2. 메르니카 휘장  3.이카루스 휘장 4. 링 오브 마르스"
+      }
+    },
+    {
+      "command": "1 142 0 0  15. 던전 3층에서 2번째 시나리오 보스의 이름은 무엇인가?|1.데빌끔직이 2. 끔직이데빌  3. 깜직이데빌 4.데빌깜직이",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "15. 던전 3층에서 2번째 시나리오 보스의 이름은 무엇인가?|1.데빌끔직이 2. 끔직이데빌  3. 깜직이데빌 4.데빌깜직이"
+      }
+    },
+    {
+      "command": "1 142 0 0  16. 던전 1층에서 얻을수 있는 아이템이 아닌것은?|1. 노란꽃  2. 파워링 3. 광선검 조각 1 4.힐_링1",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "16. 던전 1층에서 얻을수 있는 아이템이 아닌것은?|1. 노란꽃  2. 파워링 3. 광선검 조각 1 4.힐_링1"
+      }
+    },
+    {
+      "command": "1 142 0 0  17. 성페르세우스 아머_조각2 는 던전 몇층에서 나오는가?|1. 1층  2.2층  3.3층  4.4층",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "17. 성페르세우스 아머_조각2 는 던전 몇층에서 나오는가?|1. 1층  2.2층  3.3층  4.4층"
+      }
+    },
+    {
+      "command": "1 142 0 0  18.마법진에서 순간이동을 하기 위해 지녀야할 아이템은?|1. 수정조각  2. 링 3. 공강의 이동 마석    4. 돌조각",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "18.마법진에서 순간이동을 하기 위해 지녀야할 아이템은?|1. 수정조각  2. 링 3. 공강의 이동 마석    4. 돌조각"
+      }
+    },
+    {
+      "command": "1 142 0 0  19. 카오시아 마을에 있는 교회의 의자 갯수는 총 몇개?|1. 14 개 2. 18개 3. 16개  4. 20개",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "19. 카오시아 마을에 있는 교회의 의자 갯수는 총 몇개?|1. 14 개 2. 18개 3. 16개  4. 20개"
+      }
+    },
+    {
+      "command": "1 142 0 0  20. 젤다이어 마을의 민가는 총 몇개 인가?|1. 12개  2. 14개  3. 16 개 4. 18개",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "20. 젤다이어 마을의 민가는 총 몇개 인가?|1. 12개  2. 14개  3. 16 개 4. 18개"
+      }
+    },
+    {
+      "command": "1 142 0 0  1. 첫번째 임무 중에서 자신의 아들의 생사를 물어 보는|사람의 이름은 무엇입니까?1.캐인   2.카인   3.키인  4. 케인",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "1. 첫번째 임무 중에서 자신의 아들의 생사를 물어 보는|사람의 이름은 무엇입니까?1.캐인   2.카인   3.키인  4. 케인"
+      }
+    },
+    {
+      "command": "1 142 0 0  2. 두번째 임무 중에서 구슬을 얻어다 달라구 합니다.|그 구슬의 위치는 어는 쪽일까여?1.동쪽   2.서쪽   3.남쪽  4.북쪽",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "2. 두번째 임무 중에서 구슬을 얻어다 달라구 합니다.|그 구슬의 위치는 어는 쪽일까여?1.동쪽   2.서쪽   3.남쪽  4.북쪽"
+      }
+    },
+    {
+      "command": "1 142 0 0  3. 세번째 임무를 요청하는 여자애의 이름은 필리아입니다|그아이의 동생의 이름은 무엇일까여?|1.타란   2.디트   3.라일  4.플로라",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "3. 세번째 임무를 요청하는 여자애의 이름은 필리아입니다|그아이의 동생의 이름은 무엇일까여?|1.타란   2.디트   3.라일  4.플로라"
+      }
+    },
+    {
+      "command": "1 142 0 0  4. 네번째 임무 중에서 박쥐를 죽여 달라구 합니다.|그런데 박쥐를 죽일려면 무엇으로 죽여야 하나여?|1. 얼음계열마법 2.번개계열마법3.불계열마법4.바람계열마법",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "4. 네번째 임무 중에서 박쥐를 죽여 달라구 합니다.|그런데 박쥐를 죽일려면 무엇으로 죽여야 하나여?|1. 얼음계열마법 2.번개계열마법3.불계열마법4.바람계열마법"
+      }
+    },
+    {
+      "command": "1 142 0 0  5. 다섯번째 임무의 시나의 이름은?|1. 에트나 2.알카디아 3.국경지대4.마을",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "5. 다섯번째 임무의 시나의 이름은?|1. 에트나 2.알카디아 3.국경지대4.마을"
+      }
+    },
+    {
+      "command": "1 142 0 0  6.여섯번째 임무의 의뢰를 요청하는 사람의 이름은?|1. 카로스 2.고타르 3.라미안 4.에리나",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "6.여섯번째 임무의 의뢰를 요청하는 사람의 이름은?|1. 카로스 2.고타르 3.라미안 4.에리나"
+      }
+    },
+    {
+      "command": "1 142 0 0  7.여섯번째 임무에서 얻는 아이템은 무엇일까여?|1.위저드완드2   2.경험치5000   3.블러디랜스2",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "7.여섯번째 임무에서 얻는 아이템은 무엇일까여?|1.위저드완드2   2.경험치5000   3.블러디랜스2"
+      }
+    },
+    {
+      "command": "1 142 0 0  8.7번째 임무에서 사그하라스경전을 얻어달라구 하는|신관의 이름은 무엇입니까?1. 마아르 2. 마하트 3.마리온 4.마카르",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "8.7번째 임무에서 사그하라스경전을 얻어달라구 하는|신관의 이름은 무엇입니까?1. 마아르 2. 마하트 3.마리온 4.마카르"
+      }
+    },
+    {
+      "command": "1 142 0 0  9.8번째 임무를 클리어하기 위해선 두개의 시나를 클리어 |해야 합니다.몇번째 시나입니까?1. 5와6   2.6과7  3.7과8  4.8과9",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "9.8번째 임무를 클리어하기 위해선 두개의 시나를 클리어 |해야 합니다.몇번째 시나입니까?1. 5와6   2.6과7  3.7과8  4.8과9"
+      }
+    },
+    {
+      "command": "1 142 0 0  10.9번째 임무를 클리어 하기위해선 어떤 마법을 써야할까여?|1. 얼음계열마법 2. 불계열마법 3. 땅계열마법 4.바람계열마법",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "10.9번째 임무를 클리어 하기위해선 어떤 마법을 써야할까여?|1. 얼음계열마법 2. 불계열마법 3. 땅계열마법 4.바람계열마법"
+      }
+    },
+    {
+      "command": "1 142 0 0  11.10번째 임무에서는 무엇을 제거해달라구 합니다|이것은 무엇일까여?",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "11.10번째 임무에서는 무엇을 제거해달라구 합니다|이것은 무엇일까여?"
+      }
+    },
+    {
+      "command": "1 142 0 0  12.11번째 임무에서 얻는 것은 무엇일까여? | 1. 능력치10  2.마법포인트5  3.돈 50만원 4.빛의 로브4",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "12.11번째 임무에서 얻는 것은 무엇일까여? | 1. 능력치10  2.마법포인트5  3.돈 50만원 4.빛의 로브4"
+      }
+    },
+    {
+      "command": "1 142 0 0  13.12번째 임무에서 아케론의 왕인 카론을 죽이려면 어떤마법으로 | 죽여야 합니까?1. 불마법 2.얼음마법 3.바람마법 4.번개마법",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "13.12번째 임무에서 아케론의 왕인 카론을 죽이려면 어떤마법으로 | 죽여야 합니까?1. 불마법 2.얼음마법 3.바람마법 4.번개마법"
+      }
+    },
+    {
+      "command": "1 142 0 0  14.13번째 임무에서는 자신의 아내가 납치되었다고 |합니다.그아내의 이름은?",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "14.13번째 임무에서는 자신의 아내가 납치되었다고 |합니다.그아내의 이름은?"
+      }
+    },
+    {
+      "command": "1 142 0 0  15.14번째 임무에서는 단구를 어떤마법으루 죽여야 합니다. |그마법은 무엇입니까?1.불마법 2.얼음마법 3.바람마법4.번개마법",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "15.14번째 임무에서는 단구를 어떤마법으루 죽여야 합니다. |그마법은 무엇입니까?1.불마법 2.얼음마법 3.바람마법4.번개마법"
+      }
+    },
+    {
+      "command": "1 142 0 0  16.15번째 임무를 클리어 하면 파워링을 얻습니다.파워링은 |어디서 난것일까여?1. 집안가보 2.상점에서 샀다 3.해안에서 주섰다4.길에서 주섰다",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "16.15번째 임무를 클리어 하면 파워링을 얻습니다.파워링은 |어디서 난것일까여?1. 집안가보 2.상점에서 샀다 3.해안에서 주섰다4.길에서 주섰다"
+      }
+    },
+    {
+      "command": "1 142 0 0  17.16번째 임무에서 등잔을 수리하는사람이 있는 곳은?|1. 소모품점 2.장신구점 3.방어구점 4.무기점",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "17.16번째 임무에서 등잔을 수리하는사람이 있는 곳은?|1. 소모품점 2.장신구점 3.방어구점 4.무기점"
+      }
+    },
+    {
+      "command": "1 142 0 0  18.17번째 임무를 요청하는 사람의 이름은?|  1. 신주영 2. 정주양 3.돈주앙 4.#아수라다#",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "18.17번째 임무를 요청하는 사람의 이름은?|  1. 신주영 2. 정주양 3.돈주앙 4.#아수라다#"
+      }
+    },
+    {
+      "command": "1 142 0 0  19.17번째 임무에서 가보를 찾아주면 북한에 어떤 것을 보내준다구| 합니다.그것은 무엇일까여?1. 소1000마리 2.돼지1000마리3.라면1000박스4. 쌀 1000가마",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "19.17번째 임무에서 가보를 찾아주면 북한에 어떤 것을 보내준다구| 합니다.그것은 무엇일까여?1. 소1000마리 2.돼지1000마리3.라면1000박스4. 쌀 1000가마"
+      }
+    },
+    {
+      "command": "1 142 0 0  20.18번째 임무에서 임무를 의뢰하는 사람의 이름은?|1.인디아나존스 2.인디아나존슨 3.인디아남존스 4.인디아나남존슨",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "20.18번째 임무에서 임무를 의뢰하는 사람의 이름은?|1.인디아나존스 2.인디아나존슨 3.인디아남존스 4.인디아나남존슨"
+      }
+    },
+    {
+      "command": "1 142 0 0  1.18번째 임무에서 의뢰인이 쓸려구 하는 책의 이름은 무엇일까여?1. 세계문화유산답사기 2.전세계유물의탐방기2. 나의문화유산답사기 4.유적답사기",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "1.18번째 임무에서 의뢰인이 쓸려구 하는 책의 이름은 무엇일까여?1. 세계문화유산답사기 2.전세계유물의탐방기2. 나의문화유산답사기 4.유적답사기"
+      }
+    },
+    {
+      "command": "1 142 0 0  2.18번째 임무의 의뢰인의 형의 이름은 무엇입니까?1. 인디애나존스 2.인디애너존스 3.인디애나존슨 4. 인디애너존슨",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "2.18번째 임무의 의뢰인의 형의 이름은 무엇입니까?1. 인디애나존스 2.인디애너존스 3.인디애나존슨 4. 인디애너존슨"
+      }
+    },
+    {
+      "command": "1 142 0 0  3.18번째 임무에서 마법책을 훔쳐간 몬스터의 이름은?1. 메피스토텔레스 2.매피스토텔레스 3.메피스토탤레스4. 메피스토텔래스",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "3.18번째 임무에서 마법책을 훔쳐간 몬스터의 이름은?1. 메피스토텔레스 2.매피스토텔레스 3.메피스토탤레스4. 메피스토텔래스"
+      }
+    },
+    {
+      "command": "1 142 0 0  4.18번째 임무에서 신비의조각과 함께 흑자성검이 되기위한 물건은| 무엇일까여?1. 신비한거울 2.암흑검 3.라미엘의눈물 4.빛의검",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "4.18번째 임무에서 신비의조각과 함께 흑자성검이 되기위한 물건은| 무엇일까여?1. 신비한거울 2.암흑검 3.라미엘의눈물 4.빛의검"
+      }
+    },
+    {
+      "command": "1 142 0 0  5.스케리아 1에서 왼쪽위쪽마을 사이에서 나오는 아이템은 무엇입니까?|",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "5.스케리아 1에서 왼쪽위쪽마을 사이에서 나오는 아이템은 무엇입니까?|"
+      }
+    },
+    {
+      "command": "1 142 0 0  6.아이스캐슬에서 나오는 배마용 칼은 무엇일까여?1. 이니그마블레이드 2.이그니마블레이드3. 이니그마블래이드 4.이그니마블래이드",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "6.아이스캐슬에서 나오는 배마용 칼은 무엇일까여?1. 이니그마블레이드 2.이그니마블레이드3. 이니그마블래이드 4.이그니마블래이드"
+      }
+    },
+    {
+      "command": "1 142 0 0  7.이니그마블레이드에 숨어있는 정령은 무엇인가요?|1. 살라만다 2. 운디네 3.애토믹웨이브 4.지니",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "7.이니그마블레이드에 숨어있는 정령은 무엇인가요?|1. 살라만다 2. 운디네 3.애토믹웨이브 4.지니"
+      }
+    },
+    {
+      "command": "1 142 0 0  8.켈베로스의 초기가문장은 누구?|1. 폭풍전황 2.IVY51 3.로엔그람 4.슈나이더",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "8.켈베로스의 초기가문장은 누구?|1. 폭풍전황 2.IVY51 3.로엔그람 4.슈나이더"
+      }
+    },
+    {
+      "command": "1 142 0 0  9.델타벨룬가문은 어떤 만화에서 그이미지가 나왔을까?1. 드래곤볼 2.건담 3.파이브스타스토리4.용의기사단",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "9.델타벨룬가문은 어떤 만화에서 그이미지가 나왔을까?1. 드래곤볼 2.건담 3.파이브스타스토리4.용의기사단"
+      }
+    },
+    {
+      "command": "1 142 0 0  10.팔단시나4에서 나오는 배마용 갑옷의 이름은? |1. 피리플래켑톤 2.프리플레켑톤 3.피리플레켑톤3. 피리플레케톤",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "10.팔단시나4에서 나오는 배마용 갑옷의 이름은? |1. 피리플래켑톤 2.프리플레켑톤 3.피리플레켑톤3. 피리플레케톤"
+      }
+    },
+    {
+      "command": "1 142 0 0 11.매마용 모자인 마르시어스는 어떤 화신이 들어있나여?|1. 사랑의화신 2.전쟁의화신 3.파괴의화신4.불의화신",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "11.매마용 모자인 마르시어스는 어떤 화신이 들어있나여?|1. 사랑의화신 2.전쟁의화신 3.파괴의화신4.불의화신"
+      }
+    },
+    {
+      "command": "1 142 0 0 12.강력한방어막을 생성하여 아군의 체력을 높여주는 지팡이는?|1. 어스아마게돈 2.더블스매쉬 3.디스커버리4.힘의지팡이",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "12.강력한방어막을 생성하여 아군의 체력을 높여주는 지팡이는?|1. 어스아마게돈 2.더블스매쉬 3.디스커버리4.힘의지팡이"
+      }
+    },
+    {
+      "command": "1 142 0 0 13.마력방패막을 지닌 성스러운 실드는?|1. 임패리얼실드 2.배틀카운터 3. 다이아실드 4.다이커스",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "13.마력방패막을 지닌 성스러운 실드는?|1. 임패리얼실드 2.배틀카운터 3. 다이아실드 4.다이커스"
+      }
+    },
+    {
+      "command": "1 142 0 0 14.부르고스성에서 내려오는 전설적인 신궁은?| 1.크리사오르 2.스타더스트 3.포세이큰 4.엘핀크로스보우",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "14.부르고스성에서 내려오는 전설적인 신궁은?| 1.크리사오르 2.스타더스트 3.포세이큰 4.엘핀크로스보우"
+      }
+    },
+    {
+      "command": "1 142 0 0 15.전설의 마법사 게이시론의 마법력이 숨어있는 자켓은?| 1. 이제네르 2.발키리3.오시리스 4.아누비스",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "15.전설의 마법사 게이시론의 마법력이 숨어있는 자켓은?| 1. 이제네르 2.발키리3.오시리스 4.아누비스"
+      }
+    },
+    {
+      "command": "1 142 0 0 16.델타벨룬의 초기가문장은 누구? |1.(^^-GUY-  2.레디오스소프 3.JIN-KAZMA 4.맑은눈빛",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "16.델타벨룬의 초기가문장은 누구? |1.(^^-GUY-  2.레디오스소프 3.JIN-KAZMA 4.맑은눈빛"
+      }
+    },
+    {
+      "command": "1 142 0 0 17.다크세이버 최초의 올7단은 누구일까여?1. 아수라다 2.YUNYUN 3.슈나이더 4.꿈결",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "17.다크세이버 최초의 올7단은 누구일까여?1. 아수라다 2.YUNYUN 3.슈나이더 4.꿈결"
+      }
+    },
+    {
+      "command": "1 142 0 0 18.다크세이버의 엣이름은 무엇일까여?| 1. 어둠의전쟁 2.다크 3.어둠의성전 4.어둠의신",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "18.다크세이버의 엣이름은 무엇일까여?| 1. 어둠의전쟁 2.다크 3.어둠의성전 4.어둠의신"
+      }
+    },
+    {
+      "command": "1 142 0 0 19.마법사제인 라파엘이 입었던 전설의 햇은?|  1. 여신의축복 2.마르시어스 3.마제의모자 4.천상의모자",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "19.마법사제인 라파엘이 입었던 전설의 햇은?|  1. 여신의축복 2.마르시어스 3.마제의모자 4.천상의모자"
+      }
+    },
+    {
+      "command": "1 142 0 0 20.옛 성인 가리디안이 마계를 봉인하기 위해서 사용했던 창은 | 무엇일까여?1.아르마다 2.홀리할버트 3.바리사다 4.켈리어스",
+      "native": {
+        "mode": 1,
+        "face": 142,
+        "text": "20.옛 성인 가리디안이 마계를 봉인하기 위해서 사용했던 창은 | 무엇일까여?1.아르마다 2.홀리할버트 3.바리사다 4.켈리어스"
+      }
+    },
+    {
+      "command": "2 164 0 0 그대는 시험에 통과했다. 여기 증표를 주마",
+      "native": {
+        "mode": 2,
+        "face": 164,
+        "text": "그대는 시험에 통과했다. 여기 증표를 주마"
+      }
+    },
+    {
+      "command": "0 0 ME 0 '신비의_지도조각1'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'신비의_지도조각1'을 얻었습니다."
+      }
+    },
+    {
+      "command": "2 165 0 0 그대는 시험에 통과했다. 여기 증표를 주마",
+      "native": {
+        "mode": 2,
+        "face": 165,
+        "text": "그대는 시험에 통과했다. 여기 증표를 주마"
+      }
+    },
+    {
+      "command": "0 0 ME 0 '신비의_지도조각2'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'신비의_지도조각2'을 얻었습니다."
+      }
+    },
+    {
+      "command": "2 166 0 0 그대는 시험에 통과했다. 여기 증표를 주마",
+      "native": {
+        "mode": 2,
+        "face": 166,
+        "text": "그대는 시험에 통과했다. 여기 증표를 주마"
+      }
+    },
+    {
+      "command": "0 0 ME 0 '신비의_지도조각3'을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "'신비의_지도조각3'을 얻었습니다."
+      }
+    },
+    {
+      "command": "1 714 700 A 으.. 억울하지만.. 여기선 일단 물러나야겠군..",
+      "native": {
+        "mode": 1,
+        "face": 714,
+        "text": "으.. 억울하지만.. 여기선 일단 물러나야겠군.."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 황동열쇠를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 황동열쇠를 얻었습니다."
+      }
+    },
+    {
+      "command": "1 714 700 A 으.. 두고보자...",
+      "native": {
+        "mode": 1,
+        "face": 714,
+        "text": "으.. 두고보자..."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 구리열쇠를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 구리열쇠를 얻었습니다."
+      }
+    },
+    {
+      "command": "1 714 700 A 나의 패배..인가...",
+      "native": {
+        "mode": 1,
+        "face": 714,
+        "text": "나의 패배..인가..."
+      }
+    },
+    {
+      "command": "1 714 700 A 으.. 분하다.. | 억울하지만.. 여기선 일단 물러나야겠군..",
+      "native": {
+        "mode": 1,
+        "face": 714,
+        "text": "으.. 분하다.. | 억울하지만.. 여기선 일단 물러나야겠군.."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 5층열쇠를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 5층열쇠를 얻었습니다."
+      }
+    },
+    {
+      "command": "1 714 700 A 이런.. 내가 지다니....",
+      "native": {
+        "mode": 1,
+        "face": 714,
+        "text": "이런.. 내가 지다니...."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 수정을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 수정을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 텔레포션3를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 텔레포션3를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 텔레포션6를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 텔레포션6를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 텔레포션8를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 텔레포션8를 얻었습니다."
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s가 텔레포션9를 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀가 텔레포션9를 얻었습니다."
+      }
+    },
+    {
+      "command": "2 799 0 0 그대는 카오스닉 던전을 통과했다. 축하한다",
+      "native": {
+        "mode": 2,
+        "face": 799,
+        "text": "그대는 카오스닉 던전을 통과했다. 축하한다"
+      }
+    },
+    {
+      "command": "2 799 0 0 그대는 카오스닉던전을 통과했다. 여기 선물를 주마",
+      "native": {
+        "mode": 2,
+        "face": 799,
+        "text": "그대는 카오스닉던전을 통과했다. 여기 선물를 주마"
+      }
+    },
+    {
+      "command": "0 0 ME 0 빛의검을 얻었습니다.",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "빛의검을 얻었습니다."
+      }
+    },
+    {
+      "command": "0 COM0 COM0 COM1 %s|%s|100%%",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "지휘관0|지휘관1|100%"
+      }
+    },
+    {
+      "command": "0 COM1 COM1 COM2 %s|%s|100%%",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "지휘관1|지휘관2|100%"
+      }
+    },
+    {
+      "command": "0 COM2 COM2 COM3 %s|%s|100%%",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "지휘관2|지휘관3|100%"
+      }
+    },
+    {
+      "command": "0 COM3 COM3 COM4 %s|%s|100%%",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "지휘관3|지휘관4|100%"
+      }
+    },
+    {
+      "command": "0 COM4 COM4 COM5 %s|%s|100%%",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "지휘관4|지휘관5|100%"
+      }
+    },
+    {
+      "command": "0 COM5 COM5 COM6 %s|%s|100%%",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "지휘관5|지휘관6|100%"
+      }
+    },
+    {
+      "command": "0 COM6 COM6 COM7 %s|%s|100%%",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "지휘관6|지휘관7|100%"
+      }
+    },
+    {
+      "command": "0 COM7 COM7 COM8 %s|%s|100%%",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "지휘관7|지휘관8|100%"
+      }
+    },
+    {
+      "command": "0 COM8 COM8 COM9 %s|%s|100%%",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "지휘관8|지휘관9|100%"
+      }
+    },
+    {
+      "command": "0 COM9 COM9 COM0 %s|%s|100%%",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "지휘관9|지휘관0|100%"
+      }
+    },
+    {
+      "command": "1 COM0 COM0 COM1 %s|%s|100%%",
+      "native": {
+        "mode": 1,
+        "face": 100,
+        "text": "지휘관0|지휘관1|100%"
+      }
+    },
+    {
+      "command": "1 COM1 COM1 COM2 %s|%s|100%%",
+      "native": {
+        "mode": 1,
+        "face": 101,
+        "text": "지휘관1|지휘관2|100%"
+      }
+    },
+    {
+      "command": "1 COM2 COM2 COM3 %s|%s|100%%",
+      "native": {
+        "mode": 1,
+        "face": 102,
+        "text": "지휘관2|지휘관3|100%"
+      }
+    },
+    {
+      "command": "1 COM3 COM3 COM4 %s|%s|100%%",
+      "native": {
+        "mode": 1,
+        "face": 103,
+        "text": "지휘관3|지휘관4|100%"
+      }
+    },
+    {
+      "command": "1 COM4 COM4 COM5 %s|%s|100%%",
+      "native": {
+        "mode": 1,
+        "face": 104,
+        "text": "지휘관4|지휘관5|100%"
+      }
+    },
+    {
+      "command": "1 COM5 COM5 COM6 %s|%s|100%%",
+      "native": {
+        "mode": 1,
+        "face": 105,
+        "text": "지휘관5|지휘관6|100%"
+      }
+    },
+    {
+      "command": "1 COM6 COM6 COM7 %s|%s|100%%",
+      "native": {
+        "mode": 1,
+        "face": 106,
+        "text": "지휘관6|지휘관7|100%"
+      }
+    },
+    {
+      "command": "1 COM7 COM7 COM8 %s|%s|100%%",
+      "native": {
+        "mode": 1,
+        "face": 107,
+        "text": "지휘관7|지휘관8|100%"
+      }
+    },
+    {
+      "command": "1 COM8 COM8 COM9 %s|%s|100%%",
+      "native": {
+        "mode": 1,
+        "face": 108,
+        "text": "지휘관8|지휘관9|100%"
+      }
+    },
+    {
+      "command": "1 COM9 COM9 COM0 %s|%s|100%%",
+      "native": {
+        "mode": 1,
+        "face": 109,
+        "text": "지휘관9|지휘관0|100%"
+      }
+    },
+    {
+      "command": "2 COM0 COM0 COM1 %s|%s|100%%",
+      "native": {
+        "mode": 2,
+        "face": 100,
+        "text": "지휘관0|지휘관1|100%"
+      }
+    },
+    {
+      "command": "2 COM1 COM1 COM2 %s|%s|100%%",
+      "native": {
+        "mode": 2,
+        "face": 101,
+        "text": "지휘관1|지휘관2|100%"
+      }
+    },
+    {
+      "command": "2 COM2 COM2 COM3 %s|%s|100%%",
+      "native": {
+        "mode": 2,
+        "face": 102,
+        "text": "지휘관2|지휘관3|100%"
+      }
+    },
+    {
+      "command": "2 COM3 COM3 COM4 %s|%s|100%%",
+      "native": {
+        "mode": 2,
+        "face": 103,
+        "text": "지휘관3|지휘관4|100%"
+      }
+    },
+    {
+      "command": "2 COM4 COM4 COM5 %s|%s|100%%",
+      "native": {
+        "mode": 2,
+        "face": 104,
+        "text": "지휘관4|지휘관5|100%"
+      }
+    },
+    {
+      "command": "2 COM5 COM5 COM6 %s|%s|100%%",
+      "native": {
+        "mode": 2,
+        "face": 105,
+        "text": "지휘관5|지휘관6|100%"
+      }
+    },
+    {
+      "command": "2 COM6 COM6 COM7 %s|%s|100%%",
+      "native": {
+        "mode": 2,
+        "face": 106,
+        "text": "지휘관6|지휘관7|100%"
+      }
+    },
+    {
+      "command": "2 COM7 COM7 COM8 %s|%s|100%%",
+      "native": {
+        "mode": 2,
+        "face": 107,
+        "text": "지휘관7|지휘관8|100%"
+      }
+    },
+    {
+      "command": "2 COM8 COM8 COM9 %s|%s|100%%",
+      "native": {
+        "mode": 2,
+        "face": 108,
+        "text": "지휘관8|지휘관9|100%"
+      }
+    },
+    {
+      "command": "2 COM9 COM9 COM0 %s|%s|100%%",
+      "native": {
+        "mode": 2,
+        "face": 109,
+        "text": "지휘관9|지휘관0|100%"
+      }
+    },
+    {
+      "command": "0 0 ME 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀"
+      }
+    },
+    {
+      "command": "1 709 ID 1 %s",
+      "native": {
+        "mode": 1,
+        "face": 709,
+        "text": "현재팀"
+      }
+    },
+    {
+      "command": "2 709 AME 1 %s",
+      "native": {
+        "mode": 2,
+        "face": 709,
+        "text": "현재팀"
+      }
+    },
+    {
+      "command": "1 COM10 COM10 IDZ %s:%s",
+      "native": {
+        "mode": 1,
+        "face": 101,
+        "text": "지휘관1:현재팀"
+      }
+    },
+    {
+      "command": "1 709 me 0 %s",
+      "native": {
+        "mode": 1,
+        "face": 709,
+        "text": "me"
+      }
+    },
+    {
+      "command": "0 0 가ME 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "가ME"
+      }
+    },
+    {
+      "command": "0 0 가ID 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "가ID"
+      }
+    },
+    {
+      "command": "0 0 A가ME 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "A가ME"
+      }
+    },
+    {
+      "command": "0 0 ME가 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀"
+      }
+    },
+    {
+      "command": "0 0 ID가 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀"
+      }
+    },
+    {
+      "command": "0 0 AME 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀"
+      }
+    },
+    {
+      "command": "0 0 XID 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "현재팀"
+      }
+    },
+    {
+      "command": "0 0 가COM0 0 %s",
+      "native": {
+        "mode": 0,
+        "face": 0,
+        "rect": [
+          40,
+          130,
+          561,
+          65
+        ],
+        "text": "가COM0"
+      }
+    },
+    {
+      "command": "1 COM COM 0 %s",
+      "native": {
+        "mode": 1,
+        "face": 100,
+        "text": "지휘관0"
+      }
+    },
+    {
+      "command": "1 COMX COMX 0 %s",
+      "native": {
+        "mode": 1,
+        "face": 100,
+        "text": "지휘관0"
+      }
+    },
+    {
+      "command": "1 COM-1 COM-1 0 %s",
+      "native": {
+        "mode": 1,
+        "face": 100,
+        "text": "지휘관0"
+      }
+    },
+    {
+      "command": "1 COM가 COM가 0 %s",
+      "native": {
+        "mode": 1,
+        "face": 100,
+        "text": "지휘관0"
+      }
+    },
+    {
+      "command": "1 COM0가 COM0가 0 %s",
+      "native": {
+        "mode": 1,
+        "face": 100,
+        "text": "지휘관0"
+      }
+    },
+    {
+      "command": "1 COM10 COM10 0 %s",
+      "native": {
+        "mode": 1,
+        "face": 101,
+        "text": "지휘관1"
+      }
+    }
+  ],
+  "wideCases": [
+    {
+      "command": "0 0 ME 0 %S님이 전설의 보검'을 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 전설의 보검'을 얻었습니다.",
+      "boundedManagedText": "님이 전설의 보검'을 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '레지스트파이어링'을 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '레지스트파이어링'을 얻었습니다.",
+      "boundedManagedText": "님이 '레지스트파이어링'을 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '금화두개'를 주웠습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '금화두개'를 주웠습니다.",
+      "boundedManagedText": "님이 '금화두개'를 주웠습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '힘의 지팡이'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '힘의 지팡이'를 얻었습니다.",
+      "boundedManagedText": "님이 '힘의 지팡이'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 3000 GOLD를 얻으셨습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 3000 GOLD를 얻으셨습니다.",
+      "boundedManagedText": "님이 3000 GOLD를 얻으셨습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님은 노란꽃을 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님은 노란꽃을 얻었습니다.",
+      "boundedManagedText": "님은 노란꽃을 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '레지스트썬더링'을 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '레지스트썬더링'을 얻었습니다.",
+      "boundedManagedText": "님이 '레지스트썬더링'을 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '엘메스의 구두'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '엘메스의 구두'를 얻었습니다.",
+      "boundedManagedText": "님이 '엘메스의 구두'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '빛의 로브'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '빛의 로브'를 얻었습니다.",
+      "boundedManagedText": "님이 '빛의 로브'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '금화다섯개'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '금화다섯개'를 얻었습니다.",
+      "boundedManagedText": "님이 '금화다섯개'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '바람의 부츠'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '바람의 부츠'를 얻었습니다.",
+      "boundedManagedText": "님이 '바람의 부츠'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '금화한무더기'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '금화한무더기'를 얻었습니다.",
+      "boundedManagedText": "님이 '금화한무더기'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '쇼트보우'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '쇼트보우'를 얻었습니다.",
+      "boundedManagedText": "님이 '쇼트보우'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '아이스 실드'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '아이스 실드'를 얻었습니다.",
+      "boundedManagedText": "님이 '아이스 실드'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '신비의 조각 A'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '신비의 조각 A'를 얻었습니다.",
+      "boundedManagedText": "님이 '신비의 조각 A'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '신비의 조각 B'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '신비의 조각 B'를 얻었습니다.",
+      "boundedManagedText": "님이 '신비의 조각 B'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '신비의 조각 C'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '신비의 조각 C'를 얻었습니다.",
+      "boundedManagedText": "님이 '신비의 조각 C'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '신비의 조각 D'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '신비의 조각 D'를 얻었습니다.",
+      "boundedManagedText": "님이 '신비의 조각 D'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '일루젼 링'을 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '일루젼 링'을 얻었습니다.",
+      "boundedManagedText": "님이 '일루젼 링'을 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '크라운'을 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '크라운'을 얻었습니다.",
+      "boundedManagedText": "님이 '크라운'을 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 %S님이 '레비테이션 부츠'를 얻었습니다.",
+      "ownName": "현재팀",
+      "nativeInCLocale": "님이 '레비테이션 부츠'를 얻었습니다.",
+      "boundedManagedText": "님이 '레비테이션 부츠'를 얻었습니다."
+    },
+    {
+      "command": "0 0 ME 0 before %S after",
+      "ownName": "",
+      "nativeInCLocale": "before  after",
+      "boundedManagedText": "before  after"
+    },
+    {
+      "command": "0 0 ME 0 before %S after",
+      "ownName": "A",
+      "nativeInCLocale": "before A after",
+      "boundedManagedText": "before A after"
+    },
+    {
+      "command": "0 0 ME 0 before %S after",
+      "ownName": "AB",
+      "nativeInCLocale": "before  after",
+      "boundedManagedText": "before  after"
+    },
+    {
+      "command": "0 0 ME 0 before %S after",
+      "ownName": "Hero",
+      "nativeInCLocale": "before  after",
+      "boundedManagedText": "before  after"
+    },
+    {
+      "command": "0 0 ME 0 before %S after",
+      "ownName": "한",
+      "nativeInCLocale": "before  after",
+      "boundedManagedText": "before  after"
+    },
+    {
+      "command": "0 0 ME 0 before %S after",
+      "ownName": "한글",
+      "nativeInCLocale": "before  after",
+      "boundedManagedText": "before  after"
+    }
+  ]
+}

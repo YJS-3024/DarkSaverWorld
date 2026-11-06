@@ -1,0 +1,29 @@
+{
+  "checkedAtUtc": "2026-11-06T05:50:29.252216+00:00",
+  "cases": 3,
+  "mismatches": 0,
+  "unityPlay": false,
+  "windowsExecution": false,
+  "scope": "Linux Git with core.autocrlf=true and checkout-index in an isolated temporary repository: both source-hashed Ghidra Python tools retain exact LF bytes while an unscoped control becomes CRLF. Original repository/index/account files are not staged or rewritten.",
+  "sources": {
+    ".gitattributes": "5e77ede1a0e20b7110a6a14b8e25c5e85fa5d5d58aa5f852424bdf615cf8a1cd",
+    "Tools/GhidraChecks/refresh_native_evidence_references.py": "435f5aaa2f187440f6eb0de116ad45757f41ce9df6bf6e7851a759f02f86a877",
+    "Tools/GhidraChecks/check_native_dispatch_routes.py": "19ec1e11c71948fc93efa4b0ec70bff0229cab9937dcea5cc8095ed205fd9b1b"
+  },
+  "checks": [
+    {
+      "path": "Tools/GhidraChecks/refresh_native_evidence_references.py",
+      "sha256": "435f5aaa2f187440f6eb0de116ad45757f41ce9df6bf6e7851a759f02f86a877",
+      "lfPreserved": true
+    },
+    {
+      "path": "Tools/GhidraChecks/check_native_dispatch_routes.py",
+      "sha256": "19ec1e11c71948fc93efa4b0ec70bff0229cab9937dcea5cc8095ed205fd9b1b",
+      "lfPreserved": true
+    },
+    {
+      "path": "control.txt",
+      "unscopedCrlfConversion": true
+    }
+  ]
+}

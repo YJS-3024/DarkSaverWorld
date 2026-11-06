@@ -1,0 +1,16 @@
+{
+  "cases": 1305,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "casesSha256": "5fa7a764730a026c09d52e6378a3d3894688fa20896351a9dd2f174920f07f65",
+  "sources": {
+    "Assets/_Original/Runtime/Combat/BattleTicks.cs": "8b2421cd2835ff77cb2b7898adb213ee8a35320ba48df5add6e05ca7aa507488",
+    "Tools/OriginalWorldChecks/BattleTickDifferential.cs": "394f8bd190190659c1aa8ab4e77994e93dba3d2d0f206d42515b91a5db919be8",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "Tools/OriginalWorldChecks/check_native_battle_ticks.py": "c4e516e41dbf86a9cb49cdadce24268aac013a37098cb252a71f36efe372e4de"
+  },
+  "observedNativeAiStartRequests": 966,
+  "scope": "Actual x86 IncTick/SetTickMenu counter, native action state and command-mask permutation. Native AIStart attempts are captured for evidence, not claimed to reproduce the entire native enqueue cadence.",
+  "logs": "/tmp/ds-portable-validation/ds-native-battle-tick-checks"
+}

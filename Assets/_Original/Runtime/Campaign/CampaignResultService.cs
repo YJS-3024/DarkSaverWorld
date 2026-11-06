@@ -41,7 +41,14 @@ namespace DarkSaver.Original.Entry
                 ||world.CurrentNativeKillRevision==long.MaxValue||current&&world.NativeKillNotices.Contains(input.id))return WorldResult(WorldFailure.StaleRequest);
             if(report.jobs.Any(job=>world.Definition.campaign.jobs.All(j=>j.job!=job)))return WorldResult(WorldFailure.InvalidInput);
             report.revision=world.CurrentNativeKillRevision+1;
-            if(visit.result!=null)
+            if(visit.nativeEnd!=null)
+            {
+                if(visit.nativeEnd.revision==long.MaxValue)return WorldResult(WorldFailure.StaleRequest);
+                var next=world.Record.Copy();next.scenarioVisit.nativeEnd.revision++;next.scenarioVisit.nativeEnd.table.nativeKills=report.Copy();next.scenarioVisit.nativeEnd.table.kills=report.jobs.Length;
+                if(next.scenarioVisit.result!=null){next.scenarioVisit.result.nativeKills=report.Copy();next.scenarioVisit.result.kills=report.jobs.Length;}
+                ready=CommitWorld(next);if(ready!=WorldFailure.None)return WorldResult(ready);world.Record=next;
+            }
+            else if(visit.result!=null)
             {
                 var next=world.Record.Copy();next.scenarioVisit.result.nativeKills=report.Copy();next.scenarioVisit.result.kills=report.jobs.Length;
                 ready=CommitWorld(next);if(ready!=WorldFailure.None)return WorldResult(ready);world.Record=next;
@@ -90,6 +97,21 @@ namespace DarkSaver.Original.Entry
             var result=new CampaignResultRecord{id=input.id,visit=visit.id,map=world.Record.map,victory=native.outcome==1,
                 outcome=native.outcome==1?"victory":native.outcome==2?"retreat":native.outcome==3?"defeat":"terminated",
                 spoils=native.spoils,eventCompleted=native.eventCompleted,eventTotal=native.eventTotal,allies=rows,native=native};
+            if(world.Record.campaignPhase=="intro"||world.Record.campaignPhase=="explore")
+            {
+                if(!CampaignResultRecord.Valid(result))return WorldResult(WorldFailure.InvalidInput);
+                var end=visit.nativeEnd;
+                if(end?.stage==NativeScenarioEndRecord.Outro||end?.table.id==input.id||world.CampaignNotices.Contains(input.id))return WorldResult(WorldFailure.StaleRequest);
+                // Preserve the decision already made by61:54 may refresh display data,
+                // but cannot change an accepted end outcome or create one by itself.
+                if(end?.Started==true&&end.table.native.outcome!=native.outcome)return WorldResult(WorldFailure.InvalidInput);
+                if(end?.revision==long.MaxValue)return WorldResult(WorldFailure.StaleRequest);
+                var next=world.Record.Copy();var received=next.scenarioVisit.nativeEnd??new NativeScenarioEndRecord();received.revision++;
+                var kills=world.NativeKillView();if(kills!=null){result.nativeKills=kills;result.kills=kills.jobs.Length;}
+                received.table=result.Copy();next.scenarioVisit.nativeEnd=received;
+                ready=CommitWorld(next);if(ready==WorldFailure.None){world.Record=next;world.CampaignNotices.Add(input.id);}
+                return WorldResult(ready);
+            }
             if(native.outcome!=1)
             {
                 var exit=world.Record.lastScenarioExit;
@@ -104,12 +126,73 @@ namespace DarkSaver.Original.Entry
         {
             var f=ReadyWorld();if(f!=WorldFailure.None)return WorldResult(f);
             var visit=world.Record.scenarioVisit;
+            if(visit?.nativeEnd?.stage==NativeScenarioEndRecord.Result)return ConfirmNativeScenarioResult(resultId,request);
             if(!Guid.TryParseExact(request,"N",out _)||visit?.result?.id!=resultId||resultId==null||world.Applied.Contains(request))return WorldResult(WorldFailure.StaleRequest);
             if(world.Record.campaignPhase!="complete"||world.PhaseSavePending||world.Presentation!=null&&!world.Presentation.Snapshot().completed||world.Moving||world.Kind!=FacilityKind.None)
                 return WorldResult(WorldFailure.InvalidStage);
             f=ScenarioReturnOrigin(visit);if(f!=WorldFailure.None)return WorldResult(f);
             var next=world.Record.Copy();next.lastScenarioResult=visit.result.Copy();SetScenarioReturn(next,visit);
             f=CommitWorld(next);if(f==WorldFailure.None){world.Applied.Add(request);world.Relocate(next);}
+            return WorldResult(f);
+        }
+        private WorldReply ReceiveNativeScenarioEnd(NativeBattleNotice notice)
+        {
+            var f=ReadyWorld();if(f!=WorldFailure.None)return WorldResult(f);var input=notice?.Copy();
+            if(input?.approved!=true||!OriginalScenarioEnd.TryDecode(input.packet,out byte flag))return WorldResult(WorldFailure.InvalidInput);
+            var visit=world.Record.scenarioVisit;var end=visit?.nativeEnd;
+            if(input.character!=worldCharacter||input.session!=world.CampaignSession||!Guid.TryParseExact(input.id,"N",out _)
+                ||input.expectedRevision!=(world.Combat?.Revision??0)||world.CampaignNotices.Contains(input.id)||end?.receipt==input.id)return WorldResult(WorldFailure.StaleRequest);
+            if(end==null)return WorldResult(WorldFailure.RulesUnavailable); // The original global result table must first be received.
+            if(end.Started||world.Record.campaignPhase!="explore"||world.Kind!=FacilityKind.None||world.PendingPortal!=null
+                ||world.ActiveCampaignEvent!=null||world.Presentation?.Snapshot().completed==false)return WorldResult(WorldFailure.InvalidStage);
+            if(end.revision==long.MaxValue)return WorldResult(WorldFailure.StaleRequest);
+            var next=world.Record.Copy();var received=next.scenarioVisit.nativeEnd;received.revision++;received.flag=flag;received.receipt=input.id;
+            received.stage=OriginalScenarioEnd.Stage(end.table.native.outcome,flag);
+            if(received.stage==NativeScenarioEndRecord.Notice&&end.table.victory)
+            {
+                if(input.localTeam.HasValue&&!input.expectedTeamRevision.HasValue)return WorldResult(WorldFailure.RulesUnavailable);
+                if(input.localTeam.HasValue&&input.expectedTeamRevision!=world.CurrentNativeTeamRevision)return WorldResult(WorldFailure.StaleRequest);
+                if(!world.TryNativeWinner(input,out var winner))return WorldResult(WorldFailure.RulesUnavailable);
+                received.winner=winner;
+            }
+            if(flag==1&&!end.table.victory)return FinishNativeScenarioEnd(next,input.id);
+            if(received.stage==NativeScenarioEndRecord.Outro)PrepareNativeOutro(next);
+            f=CommitWorld(next);if(f!=WorldFailure.None)return WorldResult(f);
+            world.Record=next;world.CampaignNotices.Add(input.id);world.NativeEndElapsed=0;world.PendingRetreat=null;world.NativeDialogue.Clear();
+            // Saver4DC hides live dialogs. D150 does not stop the background score;
+            // its later cleanup/590 does. Never manufacture a reward or HP/XP outcome.
+            if(received.stage==NativeScenarioEndRecord.Outro)StartNativeOutro();
+            return WorldResult(WorldFailure.None);
+        }
+        private WorldReply CloseNativeScenarioEndNotice()
+        {
+            if(world.Record.scenarioVisit?.nativeEnd?.stage!=NativeScenarioEndRecord.Notice)return WorldResult(WorldFailure.InvalidStage);
+            if(world.Record.scenarioVisit.nativeEnd.revision==long.MaxValue)return WorldResult(WorldFailure.StaleRequest);
+            var next=world.Record.Copy();next.scenarioVisit.nativeEnd.revision++;next.scenarioVisit.nativeEnd.stage=NativeScenarioEndRecord.Result;
+            var f=CommitWorld(next);if(f==WorldFailure.None){world.Record=next;world.NativeEndElapsed=0;}
+            return WorldResult(f);
+        }
+        private WorldReply ConfirmNativeScenarioResult(string resultId,string request)
+        {
+            var visit=world.Record.scenarioVisit;var end=visit.nativeEnd;
+            if(!Guid.TryParseExact(request,"N",out _)||resultId==null||end.table.id!=resultId||world.Applied.Contains(request))return WorldResult(WorldFailure.StaleRequest);
+            var next=world.Record.Copy();
+            if(!end.table.victory)return FinishNativeScenarioEnd(next,request);
+            if(end.revision==long.MaxValue)return WorldResult(WorldFailure.StaleRequest);
+            next.scenarioVisit.nativeEnd.revision++;PrepareNativeOutro(next);var f=CommitWorld(next);
+            if(f==WorldFailure.None){world.Record=next;world.Applied.Add(request);StartNativeOutro();}
+            return WorldResult(f);
+        }
+        private void PrepareNativeOutro(WorldRecord next)
+        {next.scenarioVisit.nativeEnd.stage=NativeScenarioEndRecord.Outro;next.scenarioVisit.nativeOutroSuffix=world.CurrentScenarioScriptSuffix;next.scenarioVisit.result=next.scenarioVisit.nativeEnd.table.Copy();next.scenarioBattle=null;next.campaignPhase="outro";}
+        private void StartNativeOutro()
+        {world.Combat=null;world.PendingRetreat=null;world.SetPresentation(world.ScenarioOutro());}
+        private WorldReply FinishNativeScenarioEnd(WorldRecord next=null,string request=null)
+        {
+            next=next??world.Record.Copy();var visit=next.scenarioVisit;
+            var f=ScenarioReturnOrigin(visit);if(f!=WorldFailure.None)return WorldResult(f);
+            next.lastScenarioResult=visit.nativeEnd.table.Copy();SetScenarioReturn(next,visit);
+            f=CommitWorld(next);if(f==WorldFailure.None){if(request!=null)world.Applied.Add(request);world.Relocate(next);}
             return WorldResult(f);
         }
     }

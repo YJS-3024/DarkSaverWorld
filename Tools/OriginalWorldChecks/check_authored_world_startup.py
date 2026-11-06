@@ -10,17 +10,19 @@ def main():
   prerequisite=subprocess.run([sys.executable,str(OUT/'check_gateways.py')],cwd=ROOT,text=True,capture_output=True);(WORK/'prerequisite.log').write_text(prerequisite.stdout+prerequisite.stderr)
   if prerequisite.returncode:raise RuntimeError((prerequisite.stdout+prerequisite.stderr)[-2400:])
  manager=ROOT/'Assets/_Original/Runtime/World/LocalServerManager.World.cs';art=ROOT/'Assets/_Original/Runtime/Campaign/NativeCampaignArt.cs';ui=ROOT/'Assets/_Original/Runtime/World/WorldSceneRoot.cs'
- line=next(l.strip()for l in manager.read_text().splitlines()if l.strip().startswith('public WorldReply Request_BeginWorld('));merge=block(art.read_text(),'public WorldDefinition Merge(')
+ manager_source=manager.read_text();line=next(l.strip()for l in manager_source.splitlines()if l.strip().startswith('public WorldReply Request_BeginWorld('));merge=block(art.read_text(),'public WorldDefinition Merge(')
+ binding=block(manager_source,'private static WorldDefinition BindWorldText(')if 'private static WorldDefinition BindWorldText('in manager_source else ''
  begin=block(ui.read_text(),'private void Begin(');assert 'campaign?.IsConfigured'not in begin and 'definition=campaign.Merge(definition);'in begin,'UI still drops configured gateways based on presentation readiness'
  results={}
  for variant in ['baseline','current']:
   request=line if variant=='current'else line.replace('campaignArt != null ?','campaignArt?.IsConfigured == true ?')
-  host=WORK/('Host-'+variant+'.cs');host.write_text('using System;using System.Linq;using DarkSaver.Original.World;using DarkSaver.Original.Campaign;\nnamespace DarkSaver.Original.Entry { public sealed partial class LocalServerManager { '+request+' }}\nnamespace DarkSaver.Original.Campaign {public sealed partial class NativeCampaignArt { '+merge+' }}\n')
+  host=WORK/('Host-'+variant+'.cs');host.write_text('using System;using System.Linq;using DarkSaver.Original.World;using DarkSaver.Original.Campaign;\nnamespace DarkSaver.Original.Entry { public sealed partial class LocalServerManager { '+request+binding+' }}\nnamespace DarkSaver.Original.Campaign {public sealed partial class NativeCampaignArt { '+merge+' }}\n')
   exe=WORK/(variant+'.dll');args=(old/'checks.rsp').read_text().replace(str(old/'GatewayChecks.dll'),str(exe))+'\n-main:AuthoredWorldStartupChecks\n'
   for source in sorted((ROOT/'Assets/_Original/Runtime/Combat').glob('*.cs')):
    if str(source)not in args:args+='\n"'+str(source)+'"\n'
   args+='\n"'+str(host)+'"\n"'+str(OUT/'AuthoredWorldStartupChecks.cs')+'"\n'
   args+='\n"'+str(OUT/'AuthoredFieldTravelChecks.cs')+'"\n'
+  args+='\n"'+str(ROOT/'Assets/_Original/Runtime/UI/NativeCodePage949.cs')+'"\n'
   if variant=='baseline':args+='-define:BASELINE\n'
   rsp=WORK/(variant+'.rsp');rsp.write_text(args);exe.with_suffix('.runtimeconfig.json').write_bytes((old/'GatewayChecks.runtimeconfig.json').read_bytes())
   for phase,cmd in [('compile',[str(sdk/'dotnet'),str(next(sdk.glob('sdk/*/Roslyn/bincore/csc.dll'))),'@'+str(rsp)]),('run',[str(sdk/'dotnet'),str(exe),str(ROOT)])]:

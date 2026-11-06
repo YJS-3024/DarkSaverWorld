@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_scenario_progress.py", line 53, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_scenario_progress.py", line 49, in main
+    for path in [native,world]:result['sources'][path.relative_to(ROOT).as_posix()]=hashlib.sha256(path.read_bytes()).hexdigest()
+                                                                                                   ^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'read_bytes'

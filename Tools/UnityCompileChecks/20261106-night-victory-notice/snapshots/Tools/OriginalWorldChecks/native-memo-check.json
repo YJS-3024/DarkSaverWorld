@@ -1,0 +1,21 @@
+{
+  "assertions": 24138,
+  "nativeDeleteComparisons": 410,
+  "unityPlay": false,
+  "scope": "Native43C690 fields/cursor and4673A0 byte packet/index removal. MFC heap/CString/array storage and final send isolated; no host network. Production memo/settings RPCs with real account services and isolated Mono lifetime host. Decompressed memo payload only;7E body decode is tested by native-memo-transfer-check.json; this report exercises inner records/delete and legacy payload/settings paths. Server mailbox persistence excluded.",
+  "nativeRecordCases": 80,
+  "nativeDeleteCases": 520,
+  "nativeSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "nativeCodeExecuted": true,
+  "mismatches": 0,
+  "logs": "/tmp/ds-native-memo-checks",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_memos.py": "6f3a21d552642e717a638134adde3ebb1a69dd3fad6105aa652054c7bfea42f8",
+    "Tools/OriginalWorldChecks/native_memo_emulator.py": "5e7f7c3d2623ee1abcddf7414dd48473871f70353cf1ef1a7e7e72cab5e63d8e",
+    "Tools/OriginalWorldChecks/MemoChecks.cs": "d9e5dc18c089eb1d144c931ad4d74e4d81054adb7a80b5e80bf19957aa56a2a0",
+    "Assets/_Original/Runtime/UI/NativeCodePage949.cs": "4cdde807db17dbd1b435d927728d888c60d560ff73a7d5c31b30454f51706324",
+    "Assets/_Original/Runtime/UI/NativeMemoInbox.cs": "f19aedc8fba8c985a0aea6a64a7b7ba22b339b46431a102190fd4ca4caab1983",
+    "Assets/_Original/Runtime/UI/NativeMemoTransfer.cs": "5472f2a79ec02bebc675bc6c36e37af24c7b053bc2e7dc829e7df15ba4a61358",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Memos.cs": "1d6762c3f5776a9ea75738ec5336e253f5f2ced063ce8d38b0e1a12f2046aa16"
+  }
+}

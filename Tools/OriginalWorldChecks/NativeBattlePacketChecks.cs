@@ -104,9 +104,48 @@ internal static partial class MagicProjectileChecks
         foreach(var bytes in new[]{Array.Empty<byte>(),new byte[]{0x5c,0x53},new byte[]{0x5c,0x53,0,0,0,0,0},new byte[]{0x5c,0x53,0,0,0,0,0,0,0},new byte[]{0x5c,0x53,255,255,0,0,0,0},new byte[]{0x5c,0x53,184,11,0,0,0,0}})
             Check(!OriginalBattleExperience.TryDecode(bytes,out _,out _),"strict XP packet length/signed unit domain");
     }
+    private static void CheckNativeStatus(bool scenario)
+    {
+        foreach(int unit in new[]{0,1,400})foreach(bool active in new[]{false,true})foreach(uint flags in new uint[]{0,1,2,4,0xffff,0x80000000,0xffff0001,uint.MaxValue})
+        {
+            var f=LifecycleFixture(scenario);var setup=f.Notice();var target=setup.units.First(u=>u.id==unit);target.nativeActive=active;target.nativeStatusFlags=0xabcdef01;
+            Check(f.server.ReceiveBattleUnits(setup).Accepted,"explicit status baseline/active flag");
+            var expected=f.View.battle.Unit(unit).Copy();if(active)expected.nativeStatusFlags=OriginalNativeUnits.StatusFlags(flags);
+            var hp=f.View.record.hp;var mp=f.View.record.mp;var xp=f.View.record.growth.experience;var gold=f.View.record.gold;
+            var packet=OriginalBattleStatus.Packet(unit,flags);Check(OriginalBattleStatus.TryDecode(packet,out var id,out var value)&&id==unit&&value==flags,"13 signed unit and uint flags roundtrip");
+            var n=NativeNotice(f,packet,unit);
+            Check(f.server.ReceiveBattlePacket(n).Accepted&&State(f.View.battle.Unit(unit))==State(expected),"13 updates only active runtime104 flags and preserves every other unit field");
+            Check(f.View.record.hp==hp&&f.View.record.mp==mp&&f.View.record.growth.experience==xp&&f.View.record.gold==gold,"13 does not predict duration, HP/MP, damage, XP or currency");
+            string state=State(f.View.record);Check(!f.server.ReceiveBattlePacket(n).Accepted&&State(f.View.record)==state,"13 replay rejected after one application");
+        }
+        foreach(string error in new[]{"approval","owner","session","revision","life","length","unit","active-unknown"})
+        {
+            var f=LifecycleFixture(scenario);var n=NativeNotice(f,OriginalBattleStatus.Packet(1,1),1);
+            if(error=="approval")n.approved=false;if(error=="owner")n.character=Id();if(error=="session")n.session=Id();if(error=="revision")n.expectedRevision++;if(error=="life")n.unitLife++;
+            if(error=="length")n.packet=n.packet.Take(7).ToArray();if(error=="unit")n.packet=OriginalBattleStatus.Packet(2999,1);
+            if(error=="active-unknown"){var setup=f.Notice();setup.units.First(u=>u.id==1).nativeActive=null;Check(f.server.ReceiveBattleUnits(setup).Accepted,"explicit unknown active metadata");n.expectedRevision=f.View.battle.revision;}
+            string state=State(f.View.record);Check(!f.server.ReceiveBattlePacket(n).Accepted&&State(f.View.record)==state,"13 bad metadata/bytes preserve state: "+error);
+        }
+        var ignored=LifecycleFixture(scenario);var retired=ignored.Notice();retired.units.First(u=>u.id==1).nativeActive=false;
+        Check(ignored.server.ReceiveBattleUnits(retired).Accepted,"explicit inactive status target");
+        Check(ignored.server.RequestBattleAction(TrainingAction.Rest,-1,0,0,Id()).Accepted,"unrelated pending action precedes ignored13");
+        var noop=NativeNotice(ignored,OriginalBattleStatus.Packet(1,uint.MaxValue),1);string unchanged=State(ignored.View.record),pending=State(ignored.View.battle);ignored.store.fail=true;
+        Check(ignored.server.ReceiveBattlePacket(noop).Accepted&&State(ignored.View.record)==unchanged&&State(ignored.View.battle)==pending,"inactive13 needs no save and preserves pending action/revision and all presentation state");
+        Check(!ignored.server.ReceiveBattlePacket(noop).Accepted&&State(ignored.View.battle)==pending,"ignored13 is still deduplicated without canceling the pending command");
+        var badIgnored=NativeNotice(ignored,OriginalBattleStatus.Packet(1,0),1);badIgnored.session=Id();
+        Check(ignored.server.ReceiveBattlePacket(badIgnored).Failure==WorldFailure.StaleRequest&&State(ignored.View.battle)==pending,"inactive13 cannot bypass the original adapter session guard");
+        ignored.store.fail=false;
+        var durable=LifecycleFixture(scenario);var update=NativeNotice(durable,OriginalBattleStatus.Packet(0,0x81),0);var before=State(durable.View.record);durable.store.fail=true;
+        Check(durable.server.ReceiveBattlePacket(update).Failure==WorldFailure.StorageUnavailable&&State(durable.View.record)==before,"13 failed durable update is atomic");
+        durable.store.fail=false;Check(durable.server.ReceiveBattlePacket(update).Accepted&&durable.View.battle.Commander.nativeStatusFlags==0x140,"13 retries the same notice after storage recovery");
+        if(scenario)
+        {var reconnect=new EntryAccountService(durable.store);new EntryClient(reconnect).OpenLocalProfile();Check(reconnect.BeginWorld(durable.definition).Accepted&&reconnect.WorldSnapshot().battle.Commander.nativeStatusFlags==0x140,"13 scenario display state restores through account reload");}
+        foreach(var bytes in new[]{Array.Empty<byte>(),new byte[]{0x5c,0x13},new byte[]{0x5c,0x13,0,0,0,0,0},new byte[]{0x5c,0x13,0,0,0,0,0,0,0},new byte[]{0x5c,0x13,255,255,0,0,0,0},new byte[]{0x5c,0x53,0,0,0,0,0,0}})
+            Check(!OriginalBattleStatus.TryDecode(bytes,out _,out _),"13 malformed length/type/negative unit is rejected");
+    }
     internal static void RunNativeBattlePacketChecks(string path)
     {
-        root=path;CheckNativeRequestPackets();CheckUnifiedIngress(false);CheckUnifiedIngress(true);CheckBodyBounds();CheckNativeExperience(false);CheckNativeExperience(true);
-        Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Verified native Attack/Rest outgoing bytes, independent direction-specific5C82 lengths, one local ingress for eight native subtypes, replay/length/atomic-state guards and32/64px source bounds. Movement hints have a separate comparison; other unprepared actions generate no packet."}));
+        root=path;CheckNativeRequestPackets();CheckUnifiedIngress(false);CheckUnifiedIngress(true);CheckBodyBounds();CheckNativeExperience(false);CheckNativeExperience(true);CheckNativeStatus(false);CheckNativeStatus(true);
+        Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Verified native Attack/Rest outgoing bytes, independent direction-specific5C82 lengths, one local ingress including13 status flags, replay/length/atomic-state guards and32/64px source bounds. Movement hints have a separate comparison; other unprepared actions generate no packet."}));
     }
 }

@@ -1,0 +1,29 @@
+{
+  "records": [
+    {
+      "name": "file-loader-response-file",
+      "log": "runs/preparation/file-loader-response-file.log",
+      "reason": "Harness used checks.rsp instead of the existing parser.rsp; corrected without weakening any assertions.",
+      "productFailure": false
+    },
+    {
+      "name": "file-loader-cstring-initialization",
+      "log": "runs/preparation/file-loader-cstring-initialization.log",
+      "reason": "Oracle had not supplied DLL-global CString empty storage for stray END/empty files. Supplied constructor storage; preserved active flags and executed actual loader over all112 files.",
+      "productFailure": false
+    },
+    {
+      "name": "startup-codec-compile-prerequisite",
+      "log": "runs/preparation/startup-codec-compile-prerequisite.log",
+      "reason": "New fixture initially lacked the actual NativeCodePage949.cs compile input. Added the existing production source, then reproduced the real missing-binding assertion.",
+      "productFailure": false
+    },
+    {
+      "name": "stale-source-audit-refusal",
+      "log": "runs/preparation/stale-source-refusal.log",
+      "reason": "Integration rejected source-stale class-adjustment/loader reports after the actual world-codec fix. Their real producers were rerun before final acceptance; source hashes were not overwritten.",
+      "productFailure": false
+    }
+  ],
+  "scope": "Preparation/interruption records are preserved separately from actual product reproductions and final successful runs."
+}

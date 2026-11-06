@@ -15,9 +15,11 @@ def main():
         if str(source)not in args:args+='\n"'+str(source)+'"\n'
     for name in ['NativeResultChecks.cs','NativeResultKillChecks.cs','NativeResultManagerHost.cs']:args+='\n"'+str(OUT.resolve()/name)+'"\n'
     for name in ['LocalServerManager.Training.cs','LocalServerManager.NativeBattlePackets.cs','LocalServerManager.NativeBattleResponses.cs','LocalServerManager.BattleItems.cs']:args+='\n"'+str(ROOT/'Assets/_Original/Runtime/Entry'/name)+'"\n'
-    world=ROOT/'Assets/_Original/Runtime/World/LocalServerManager.World.cs';host=WORK/'ActualWorldRequests.cs'
-    host.write_text('using System;using DarkSaver.Original.World;namespace DarkSaver.Original.Entry {public sealed partial class LocalServerManager {'
-        +block(world.read_text(),'private WorldReply WorldRequest(')+block(world.read_text(),'private bool IsCurrentWorldReply(')+'}}')
+    world=ROOT/'Assets/_Original/Runtime/World/LocalServerManager.World.cs';campaign=ROOT/'Assets/_Original/Runtime/Campaign/LocalServerManager.Campaign.cs';host=WORK/'ActualWorldRequests.cs'
+    host.write_text('using System;using DarkSaver.Original.World;using DarkSaver.Original.Campaign;namespace DarkSaver.Original.Entry {public sealed partial class LocalServerManager {'
+        +block(world.read_text(),'private WorldReply WorldRequest(')+block(world.read_text(),'private bool IsCurrentWorldReply(')
+        +block(campaign.read_text(),'public WorldReply Request_ConfirmScenarioResult(')+block(campaign.read_text(),'private void AdvanceScenarioWorld(')
+        +'public void TestAdvanceWorld(double ms)=>AdvanceScenarioWorld(ms);}}')
     args+='\n"'+str(host)+'"\n-main:NativeResultKillEntry\n';rsp=WORK/'checks.rsp';rsp.write_text(args)
     for phase,cmd in [('compile',[str(sdk/'dotnet'),str(next(sdk.glob('sdk/*/Roslyn/bincore/csc.dll'))),'@'+str(rsp)]),('run',[str(sdk/'dotnet'),str(exe),str(ROOT)])]:
         if phase=='run':exe.with_suffix('.runtimeconfig.json').write_bytes((old/'GatewayChecks.runtimeconfig.json').read_bytes())
@@ -25,6 +27,7 @@ def main():
         if r.returncode:raise RuntimeError((r.stdout+r.stderr)[-2600:])
     result=json.loads(r.stdout);api=json.loads((ROOT/'Tools/OriginalEntryChecks/entry-check.json').read_text())
     for path,digest in api['codeSha256'].items():assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==digest,path
-    result.update(sources=contract_sources(args,__file__),currentApiCodeMatched=True,**{key:api[key]for key in ['runtimeApiErrors','editorApiErrors','playerApiErrors','warnings']},logs=str(WORK))
+    sources=contract_sources(args,__file__);sources[campaign.relative_to(ROOT).as_posix()]=hashlib.sha256(campaign.read_bytes()).hexdigest()
+    result.update(sources=sources,currentApiCodeMatched=True,**{key:api[key]for key in ['runtimeApiErrors','editorApiErrors','playerApiErrors','warnings']},logs=str(WORK))
     (OUT/'native-result-kill-contract-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items()if k!='sources'},ensure_ascii=False))
 if __name__=='__main__':main()

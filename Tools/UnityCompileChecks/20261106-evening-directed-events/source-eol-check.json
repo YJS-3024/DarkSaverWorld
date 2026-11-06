@@ -1,0 +1,73 @@
+{
+  "sourceFilesPreserved": 5,
+  "coreAutocrlf": true,
+  "unscopedControlBecameCrLf": true,
+  "realRepositoryIndexUnchanged": true,
+  "windowsProcess": false,
+  "scope": "Actual Linux Git checkout-index with core.autocrlf=true in an isolated repository. Four byte-hashed source files and one frozen snapshot preserve exact bytes while an unscoped control becomes CRLF. Real repository index untouched; no Windows process.",
+  "sources": {
+    ".gitattributes": "db79353effdeb98a5cd140e9a3c73841c5b4c3c4c0e65fd4bbf40ee082b6abd9",
+    "분석/Ghidra/GameCtl/LoadScenarioEventActions.c": "267575947593acf9b1a31b98a70641c9f82ab0c0a37d24ad1257cd38c8f458c5",
+    "분석/Ghidra/Saver_Late/DirectedEvents/1000f040.c": "0703eefed22373623ba1b3c76e1ac6a7ff480e3258ebe14642e2b37b4e0f8f52",
+    "Tools/GhidraChecks/refresh_native_evidence_references.py": "0c23c0ac57fa2ce95236c7bcb30f7cfa8aec75e242ac16d96013632093a59b35",
+    "Tools/GhidraChecks/check_evidence_reference_refresh.py": "597be770b457671571c4fc454b27f5e02b3d9308f79ff8ed6b2b1a37a7c5ce28",
+    "Tools/UnityCompileChecks/20261106-evening-directed-events/snapshots/Tools/OriginalWorldChecks/native-directed-frame-check.json": "cdc62fd2dabf019ca558daaf465f0ae7b8d5880a3b5fdb0c328e49a1f521487f"
+  },
+  "cases": [
+    {
+      "source": "분석/Ghidra/GameCtl/LoadScenarioEventActions.c",
+      "sourceSha256": "267575947593acf9b1a31b98a70641c9f82ab0c0a37d24ad1257cd38c8f458c5",
+      "checkoutSha256": "267575947593acf9b1a31b98a70641c9f82ab0c0a37d24ad1257cd38c8f458c5",
+      "preserved": true
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/DirectedEvents/1000f040.c",
+      "sourceSha256": "0703eefed22373623ba1b3c76e1ac6a7ff480e3258ebe14642e2b37b4e0f8f52",
+      "checkoutSha256": "0703eefed22373623ba1b3c76e1ac6a7ff480e3258ebe14642e2b37b4e0f8f52",
+      "preserved": true
+    },
+    {
+      "source": "Tools/GhidraChecks/refresh_native_evidence_references.py",
+      "sourceSha256": "0c23c0ac57fa2ce95236c7bcb30f7cfa8aec75e242ac16d96013632093a59b35",
+      "checkoutSha256": "0c23c0ac57fa2ce95236c7bcb30f7cfa8aec75e242ac16d96013632093a59b35",
+      "preserved": true
+    },
+    {
+      "source": "Tools/GhidraChecks/check_evidence_reference_refresh.py",
+      "sourceSha256": "597be770b457671571c4fc454b27f5e02b3d9308f79ff8ed6b2b1a37a7c5ce28",
+      "checkoutSha256": "597be770b457671571c4fc454b27f5e02b3d9308f79ff8ed6b2b1a37a7c5ce28",
+      "preserved": true
+    },
+    {
+      "source": "Tools/UnityCompileChecks/20261106-evening-directed-events/snapshots/Tools/OriginalWorldChecks/native-directed-frame-check.json",
+      "sourceSha256": "cdc62fd2dabf019ca558daaf465f0ae7b8d5880a3b5fdb0c328e49a1f521487f",
+      "checkoutSha256": "cdc62fd2dabf019ca558daaf465f0ae7b8d5880a3b5fdb0c328e49a1f521487f",
+      "preserved": true
+    }
+  ],
+  "commands": [
+    [
+      "git",
+      "init",
+      "-q"
+    ],
+    [
+      "git",
+      "config",
+      "core.autocrlf",
+      "true"
+    ],
+    [
+      "git",
+      "add",
+      "--",
+      "."
+    ],
+    [
+      "git",
+      "checkout-index",
+      "--all",
+      "--prefix=/tmp/ds-evening-eol-frozen-3zlvyf1e/checkout/"
+    ]
+  ]
+}

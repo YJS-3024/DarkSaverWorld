@@ -1,0 +1,24 @@
+{
+  "cases": 1522,
+  "nativeComparisons": 2408,
+  "outgoing": 1018,
+  "incoming": 312,
+  "levelEffectCases": 192,
+  "mismatches": 0,
+  "nativeCodeExecuted": true,
+  "unityPlayExecuted": false,
+  "sources": {
+    "Assets/_Original/Runtime/Combat/NativeMagicPackets.cs": "47f705d3744da0333d623af2d9f8bd5143266ca076fd0004f7033529cda94903",
+    "Assets/_Original/Runtime/Combat/NativeViewport.cs": "e4e70f9c8808d7b55991bccd0faf93e7cc3881b4748be39fe687486b4126cc75",
+    "Assets/_Original/Data/Tables/Magictbl.csv": "c81715eb8b2e4f3b23b885435b9ee5fc920592f1cb5d56765e537ae4d6e599b6",
+    "Tools/OriginalWorldChecks/NativeMagicDifferential.cs": "2350f7ff4da86f37e4b80ab2704895ad82b2cba0f714f69bbabb2f07c72e6c2b",
+    "Tools/OriginalWorldChecks/check_native_magic_packets.py": "35b628fdb79014171a8813f1ef9c40299af9a671a006cae14b22f88bb6cbdfb5",
+    "Tools/OriginalWorldChecks/check_native_battle_decoder.py": "3e178e709f0d5aabd612de8aa75e314c03a8ca5de7edf4508ecbb46a91f5e7bb",
+    "Tools/OriginalWorldChecks/check_native_move_hints.py": "7ba1a4539802217c260cbf49f2ebebcfaca215607a6dd00328b2dc5025d89bb9",
+    "Tools/OriginalWorldChecks/check_native_outbound_packets.py": "d9f1e3c82574fc7d727ff0aabd1abdc1cc5eb2ed176cea20f276f0cea0f67358",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "\ubd84\uc11d/InstallerVersions/installer_inventory.json": "ccb25fe9bc77d00ee1061c10fa961663937fdcfd3859deb03e6328aa30f99ddd"
+  },
+  "scope": "Actual UserUnit10005090 and GameCtl1000E4C0/1000E610 magic builders; GameCtl DA10 decoder/echo suppression and DB20 direct-effect67 without that suppression (unused CString lifetimes captured). Level-effect cases execute EB10 -> DF10 -> 3D10 integer viewport centering -> original UserUnit CheckMagicTarget (area/team/active/enabled/order), then original E4C0 mode-gated builder. Imported table/allocator/send boundaries are isolated; UserUnit target result is handed unchanged to the GameCtl import boundary. No XP threshold formula, health/cost prediction, Unity Play or socket framing.",
+  "logs": "/tmp/ds-dawn-magic-fixed/ds-native-magic-packet-checks"
+}

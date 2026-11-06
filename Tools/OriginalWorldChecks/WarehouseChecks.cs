@@ -137,7 +137,12 @@ internal static class WarehouseChecks
         try
         {
             var disk=new LocalAccountFileStore(path);Check(disk.TryWrite(concurrent.store.data)&&disk.TryRead(out var doc)&&doc.accounts[0].character.world.warehouse.revision==1,"warehouse audit survives actual file serialization");
-            var restored=new EntryAccountService(disk);new EntryClient(restored).OpenLocalProfile();Check(restored.BeginWorld(concurrent.definition).Accepted&&restored.WorldSnapshot().record.storage.Length==1&&restored.WorldSnapshot().facility==null,"file-backed login restores confirmed items only and no pending draft");
+            var restored=new EntryAccountService(disk);var reconnect=new EntryClient(restored);
+            Check(reconnect.OpenLocalProfile(),"file-backed warehouse profile login: "+reconnect.Failure+" store="+disk.LastFailure+" code="+disk.LastErrorCode);
+            var begin=restored.BeginWorld(concurrent.definition);
+            Check(begin.Accepted,"file-backed warehouse BeginWorld: "+begin.Failure+" store="+disk.LastFailure+" code="+disk.LastErrorCode);
+            var restoredView=restored.WorldSnapshot();
+            Check(restoredView!=null&&restoredView.record.storage.Length==1&&restoredView.facility==null,"file-backed login restores confirmed items only and no pending draft");
         }
         finally{if(Directory.Exists(Path.GetDirectoryName(path)))Directory.Delete(Path.GetDirectoryName(path),true);}
         // Moving an owned item cannot manufacture or clear its approved remaining-use count.

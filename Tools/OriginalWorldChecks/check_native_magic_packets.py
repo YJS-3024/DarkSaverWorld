@@ -16,17 +16,23 @@ class NativeMagicOutgoing(NativeMove):
         super()._dispatch(uc,address,size,data)
     def run_cast(self):
         c=self.case;row=c['metadata'];ptr=self.DATA+0x6000;targets=self.DATA+0x6100
-        for at,key in [(0,'id'),(8,'distance'),(12,'range'),(16,'team'),(20,'unit'),(0x170,'pattern')]:self.write(self.DATA+0x8000+at,row[key])
+        for at,key in [(0,'id'),(8,'distance'),(12,'range'),(16,'team'),(20,'unit'),(0x170,'attribute')]:self.write(self.DATA+0x8000+at,row[key])
         if c['targets']:self.uc.mem_write(targets,struct.pack('<'+'h'*len(c['targets']),*c['targets']))
         self.uc.mem_write(ptr,struct.pack('<hhhhIB3xI',row['id'],c['source'],c['x'],c['y'],0,len(c['targets']),targets))
         self.invoke(0x10005090,[ptr,c['mode']-1]);assert len(self.sent)==1;result=self.sent[0];self.close();return result
 class NativeMagicIncoming(NativeDecoder):
     def __init__(self):
-        super().__init__();self.byte_reads=0
+        super().__init__();self.byte_reads=0;self.uc.mem_map(0,4096)
+        for p in [0x100149de,0x1001489a]:self.handles.append(self.uc.hook_add(UC_HOOK_CODE,self.dispatch,begin=p,end=p))
         self.handles.append(self.uc.hook_add(UC_HOOK_CODE,self.dispatch,begin=0x1000c560,end=0x1000c560))
     def dispatch(self,uc,address,size,data):
         if address==0x1000c560:self.byte_reads+=1;return
         name=self.hooks.get(address)
+        # DB20 creates unused CString locals/arrays. Capture only these MFC/CRT
+        # lifetimes; the original packet cursor and Magic call execute unchanged.
+        if address in [0x100149de,0x1001489a]or name in ['#540','#800']:
+            cleanup=20 if address==0x100149de else 16 if address==0x1001489a else 0
+            sp=uc.reg_read(UC_X86_REG_ESP);pc=self.read(sp);uc.reg_write(UC_X86_REG_ESP,sp+4+cleanup);uc.reg_write(UC_X86_REG_EIP,pc);return
         if name and ('??2@'in name or 'operator_new'in name or name=='#823'):value=self.DATA+0x8000
         elif name and ('??3@'in name or 'operator_delete'in name or name=='#825'):value=0
         elif name and 'GetUnitInfoP@@'in name:self.uc.mem_write(self.DATA+0x9000+100,struct.pack('<i',self.source_team));value=self.DATA+0x9000
@@ -52,7 +58,7 @@ class NativeMagicClientOutgoing(NativeMagicIncoming):
         sp=uc.reg_read(UC_X86_REG_ESP);pc=self.read(sp);uc.reg_write(UC_X86_REG_EAX,value);uc.reg_write(UC_X86_REG_ESP,sp+4);uc.reg_write(UC_X86_REG_EIP,pc)
     def run_cast(self,c):
         self.sent=[];row=c['metadata'];ptr=self.DATA+0x6000;targets=self.DATA+0x6100
-        for at,key in [(0,'id'),(8,'distance'),(12,'range'),(16,'team'),(20,'unit'),(0x170,'pattern')]:self.uc.mem_write(self.DATA+0xa000+at,struct.pack('<i',row[key]))
+        for at,key in [(0,'id'),(8,'distance'),(12,'range'),(16,'team'),(20,'unit'),(0x170,'attribute')]:self.uc.mem_write(self.DATA+0xa000+at,struct.pack('<i',row[key]))
         if c['targets']:self.uc.mem_write(targets,struct.pack('<'+'h'*len(c['targets']),*c['targets']))
         if 'item'in c:
             self.uc.mem_write(ptr,struct.pack('<HHhhhhIB3xI',c['item'],c['token'],row['id'],c['source'],c['x'],c['y'],0,len(c['targets']),targets));entry=0x1000e610;args=[ptr]
@@ -66,20 +72,24 @@ class NativeLevelTargets(NativeAi):
         super().__init__(case)
         self.hooks[0x10011896]='level-allocate';self._hook_add(UC_HOOK_CODE,self._dispatch,begin=0x10011896,end=0x10011896)
         row=case['metadata']
-        for at,key in [(0,'id'),(8,'distance'),(12,'range'),(16,'team'),(20,'unit'),(0x170,'pattern')]:self.write(self.DATA+0x20000+at,row[key])
+        for at,key in [(0,'id'),(8,'distance'),(12,'range'),(16,'team'),(20,'unit'),(0x170,'attribute')]:self.write(self.DATA+0x20000+at,row[key])
     def _dispatch(self,uc,address,size,data):
         name=self.hooks.get(address)
         if name=='level-allocate':self.ret(self.DATA+0x30000)
         elif name and 'GetMagicTbl@@'in name:self.ret(self.DATA+0x20000)
         else:super()._dispatch(uc,address,size,data)
-    def targets(self):
+    def targets(self,magic=4001,point=None,details=False):
         c=self.case;actor=next(u for u in c['units']if u['id']==c['source']);ptr=self.DATA+0x1000;sp=self.STACK+0xff000
-        self.uc.mem_write(sp,struct.pack('<6I',self.STOP,ptr,4001,c['source'],actor['x'],actor['y']));self.uc.reg_write(UC_X86_REG_ESP,sp)
+        x,y=point if point is not None else(actor['x'],actor['y'])
+        self.uc.mem_write(sp,struct.pack('<6I',self.STOP,ptr,magic&0xffffffff,c['source']&0xffffffff,x&0xffffffff,y&0xffffffff));self.uc.reg_write(UC_X86_REG_ESP,sp)
         self.uc.emu_start(self.exports['CheckMagicTarget'],self.STOP+1,timeout=5000000,count=5000000)
         assert self.uc.reg_read(UC_X86_REG_EIP)==self.STOP
         ok=self.uc.reg_read(UC_X86_REG_EAX)!=0;count=self.uc.mem_read(ptr+12,1)[0]if ok else 0;target=self.read(ptr+16)if count else 0
         result=list(struct.unpack('<'+'h'*count,self.uc.mem_read(target,2*count)))if count else []
-        self.close();return ok,result
+        output=dict(valid=ok)
+        if ok:
+            words=struct.unpack('<4h',self.uc.mem_read(ptr,8));output.update(magic=words[0],source=words[1],x=words[2],y=words[3],targets=result)
+        self.close();return output if details else(ok,result)
 class NativeLevelEffect(NativeMagicClientOutgoing):
     def dispatch(self,uc,address,size,data):
         name=self.hooks.get(address)
@@ -100,13 +110,14 @@ class NativeLevelEffect(NativeMagicClientOutgoing):
         self.uc.mem_write(self.DATA,bytes(c['packet']));row=c['metadata']
         self.uc.mem_write(0x1001c490,struct.pack('<I',self.DATA+0xb000));self.uc.mem_write(self.DATA+0xb088,struct.pack('<ii',c['width'],c['height']))
         self.uc.mem_write(0x1001a0b8,struct.pack('<ii',20,15))
-        for at,key in [(0,'id'),(8,'distance'),(12,'range'),(16,'team'),(20,'unit'),(0x170,'pattern')]:self.uc.mem_write(self.DATA+0xa000+at,struct.pack('<i',row[key]))
+        for at,key in [(0,'id'),(8,'distance'),(12,'range'),(16,'team'),(20,'unit'),(0x170,'attribute')]:self.uc.mem_write(self.DATA+0xa000+at,struct.pack('<i',row[key]))
         self.uc.mem_write(0x1001a8ec,struct.pack('<i',c['mode']));sp=self.STACK+0xff000;self.uc.mem_write(sp,struct.pack('<II',self.STOP,self.DATA));self.uc.reg_write(UC_X86_REG_ESP,sp)
         self.uc.emu_start(0x1000eb10,self.STOP+1,timeout=5000000,count=100000)
         assert self.uc.reg_read(UC_X86_REG_EIP)==self.STOP and len(self.sent)<=1,(c['source'],c['mode'],c['packet'][1],hex(self.uc.reg_read(UC_X86_REG_EIP)),len(self.sent))
         return dict(unit=c['source'],packet=self.sent[0]if self.sent else None,focusLeft=self.read(0x1001c460)if c['source']>=0 else None,focusTop=self.read(0x1001c464)if c['source']>=0 else None)
 def level_vectors():
-    row=dict(id=4001,distance=0,range=8,team=34,unit=3,pattern=45);cases=[]
+    source=next(r for r in csv.DictReader((ROOT/'Assets/_Original/Data/Tables/Magictbl.csv').open(encoding='utf-8-sig'))if r['번호']=='4001')
+    row={key:int(source[column])for key,column in [('id','번호'),('distance','거리'),('range','범위'),('team','팀'),('unit','유닛'),('attribute','속성'),('pattern','패턴')]};cases=[]
     for opcode in [0x64,0x65]:
         for mode in [0x200,0x400,0,0x800]:
             for source in [-32768,-1,0,400]:
@@ -128,7 +139,7 @@ def vectors():
     cases=[]
     with (ROOT/'Assets/_Original/Data/Tables/Magictbl.csv').open(encoding='utf-8-sig',newline='')as f:rows=list(csv.DictReader(f))
     for i,r in enumerate(rows):
-        row={k:int(r[v])for k,v in dict(id='번호',distance='거리',range='범위',team='팀',unit='유닛',pattern='패턴').items()}
+        row={k:int(r[v])for k,v in dict(id='번호',distance='거리',range='범위',team='팀',unit='유닛',attribute='속성',pattern='패턴').items()}
         for mode in [1,2]:cases.append(dict(metadata=row,source=[0,1,999,2999][i%4],x=-1 if row['unit']==8 else 3,y=-1 if row['unit']==8 else 4,mode=mode,targets=[0,1,400],width=12,height=12,units=[]))
     for count in [0,1,255]:
         for mode in [1,2]:
@@ -143,6 +154,12 @@ def vectors():
             for count in [0,1,3,255]:
                 for team in [0,8]:
                     for x,y in [(-1,4),(-32768,32767),(32767,-32768)]:cases.append(dict(packet=[0x5c,0x89,*struct.pack('<hhhhB',magic_id,source,x,y,count),*struct.pack('<'+'h'*count,*range(count))],localTeam=0,sourceTeam=team))
+    # Compare the direct effect path67 with89, including same-team and signed inputs.
+    for magic_id in [-1,0,101,32767]:
+        for source in [-1,0,400]:
+            for count in [0,1,3,255]:
+                for team in [0,8]:
+                    cases.append(dict(packet=[0x5c,0x67,*struct.pack('<hhhhB',magic_id,source,-32768,32767,count),*struct.pack('<'+'h'*count,*range(count))],localTeam=0,sourceTeam=team))
     return cases+level_vectors()
 def main():
     WORK.mkdir(exist_ok=True);cases=vectors();input=WORK/'cases.json';output=WORK/'managed.json';input.write_text(json.dumps(cases,separators=(',',':')))
@@ -163,7 +180,7 @@ def main():
             if native!=current:mismatches.append(dict(input=case,native=native,managed=current))
     incoming.close();client.close();level.close();(WORK/'mismatches.json').write_text(json.dumps(mismatches,indent=2))
     sources=['Assets/_Original/Runtime/Combat/NativeMagicPackets.cs','Assets/_Original/Runtime/Combat/NativeViewport.cs','Assets/_Original/Data/Tables/Magictbl.csv','Tools/OriginalWorldChecks/NativeMagicDifferential.cs','Tools/OriginalWorldChecks/check_native_magic_packets.py','Tools/OriginalWorldChecks/check_native_battle_decoder.py','Tools/OriginalWorldChecks/check_native_move_hints.py','Tools/OriginalWorldChecks/check_native_outbound_packets.py','Tools/OriginalWorldChecks/native_ai_emulator.py','분석/InstallerVersions/installer_inventory.json']
-    result=dict(cases=len(cases),nativeComparisons=comparisons,outgoing=sum('packet'not in c for c in cases),incoming=sum('packet'in c and not c.get('levelEffect')for c in cases),levelEffectCases=sum(bool(c.get('levelEffect'))for c in cases),mismatches=len(mismatches),nativeCodeExecuted=True,unityPlayExecuted=False,sources={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest()for p in sources},scope='Actual UserUnit10005090 and GameCtl1000E4C0/1000E610 magic builders; GameCtl DA10 decoder/echo suppression. Level-effect cases execute EB10 -> DF10 -> 3D10 integer viewport centering -> original UserUnit CheckMagicTarget (area/team/active/enabled/order), then original E4C0 mode-gated builder. Imported table/allocator/send boundaries are isolated; UserUnit target result is handed unchanged to the GameCtl import boundary. No XP threshold formula, health/cost prediction, Unity Play or socket framing.',logs=str(WORK))
+    result=dict(cases=len(cases),nativeComparisons=comparisons,outgoing=sum('packet'not in c for c in cases),incoming=sum('packet'in c and not c.get('levelEffect')for c in cases),levelEffectCases=sum(bool(c.get('levelEffect'))for c in cases),mismatches=len(mismatches),nativeCodeExecuted=True,unityPlayExecuted=False,sources={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest()for p in sources},scope='Actual UserUnit10005090 and GameCtl1000E4C0/1000E610 magic builders; GameCtl DA10 decoder/echo suppression and DB20 direct-effect67 without that suppression (unused CString lifetimes captured). Level-effect cases execute EB10 -> DF10 -> 3D10 integer viewport centering -> original UserUnit CheckMagicTarget (area/team/active/enabled/order), then original E4C0 mode-gated builder. Imported table/allocator/send boundaries are isolated; UserUnit target result is handed unchanged to the GameCtl import boundary. No XP threshold formula, health/cost prediction, Unity Play or socket framing.',logs=str(WORK))
     (OUT/'native-magic-packet-check.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items()if k!='sources'}))
     if mismatches:print(json.dumps(mismatches[0]));raise SystemExit(1)
 if __name__=='__main__':main()

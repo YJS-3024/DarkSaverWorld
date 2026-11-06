@@ -67,6 +67,72 @@ internal static partial class MagicProjectileChecks
         foreach(int source in new[]{0,10,11,400}){var f=Soldiers();Check(!f.server.RequestBattleSoldierAction(source,Id(),n=>0,0).Accepted,"AI cannot control another commander/player "+source);}
         var generic=Soldiers();Check(generic.server.RequestBattleAction(TrainingAction.SoldierMove,-1,0,0,Id()).Failure==WorldFailure.InvalidInput,"generic actions cannot bypass native AI move planner");
     }
+    private static void CheckSoldierHealthAndDeathPackets()
+    {
+        var f=Soldiers();var state=f.Notice();var enemy=state.units.Single(u=>u.id==400);enemy.nativeActive=enemy.nativeEnabled=true;enemy.nativeState=0;
+        Check(f.server.ReceiveBattleUnits(state).Accepted,"explicit native target flags before health/death sequence");
+        NativeBattleNotice Notice(byte[] bytes)=>new NativeBattleNotice{approved=true,id=Id(),character=f.View.characterId,session=f.View.campaignSession,expectedRevision=f.View.battle.revision,unitLife=f.View.battle.Unit(400).life,packet=bytes};
+        Check(f.server.ReceiveBattlePacket(Notice(OriginalBattleFeedback.Packet(BattleFeedbackKind.Health,400,0))).Accepted,"actual05 HP0 packet received independently");
+        Check(f.View.battle.Unit(400).hp==0&&f.View.battle.Unit(400).nativeState==0,"05 does not invent07 corpse flag");
+        string before=State(f.View.record);
+        Check(!f.server.RequestBattleMemberAction(1,TrainingAction.Attack,400,0,0,Id()).Accepted,"manual member command retains its existing living-target guard");
+        Check(f.server.RequestBattleSoldierAction(1,Id(),count=>0,0).Accepted,"native AI may request target after HP0 while07 is still absent");
+        var pending=f.View.battle.pending;Check(pending.target==400&&pending.NativePacket[1]==0x82&&State(f.View.record)==before,"AI builds the original82 request without predicting damage,XP or saving");
+        Check(f.server.CancelBattleAction(pending.id).Accepted,"cancel isolated request before server outcome");
+        Check(f.server.ReceiveBattlePacket(Notice(OriginalBattleLifecycle.Packet(BattleLifecycleKind.Death,400))).Accepted,"actual07 now sets corpse state");
+        Check((f.View.battle.Unit(400).nativeState.Value&0x80)!=0&&!f.server.RequestBattleSoldierAction(1,Id(),count=>0,0).Accepted,"native AI no longer chooses target after07");
+    }
+    private static void CheckNativeSoldierControl(bool scenario)
+    {
+        foreach(string variant in new[]{"actor-hp0","leader-hp0","leader-no-command","actor-no-attack","actor-no-rest","actor-no-move","leader-inactive","leader-disabled","actor-state80"})
+        {
+            var f=variant=="actor-no-move"?RegroupFixture(scenario):Soldiers(scenario,hp:variant=="actor-no-rest"?20:50);
+            var snapshot=f.Notice();var actor=snapshot.units.Single(u=>u.id==1);var leader=snapshot.units.Single(u=>u.id==0);
+            foreach(var u in snapshot.units){u.nativeActive=u.nativeEnabled=true;if(!u.nativeState.HasValue)u.nativeState=0;}
+            actor.nativeState=variant=="actor-no-move"?32u:16u;leader.troopOrder=2;
+            switch(variant)
+            {
+                case "leader-hp0":leader.hp=0;break;
+                case "leader-no-command":leader.canCommand=false;break;
+                case "actor-no-attack":actor.canAttack=false;break;
+                case "actor-no-rest":actor.canRest=false;break;
+                case "actor-no-move":actor.canMove=false;break;
+                case "leader-inactive":leader.nativeActive=false;actor.hp=25;break;
+                case "leader-disabled":leader.nativeEnabled=false;actor.hp=25;break;
+                case "actor-state80":actor.nativeState=144;break;
+            }
+            Check(f.server.ReceiveBattleUnits(snapshot).Accepted,"received native automatic control context "+variant);
+            if(variant=="actor-hp0")
+            {
+                var health=new NativeBattleNotice{approved=true,id=Id(),character=f.View.characterId,session=f.View.campaignSession,
+                    expectedRevision=f.View.battle.revision,unitLife=f.View.battle.Unit(1).life,packet=OriginalBattleFeedback.Packet(BattleFeedbackKind.Health,1,0)};
+                Check(f.server.ReceiveBattlePacket(health).Accepted,"actual05 HP0 for controlled follower before07");
+            }
+            string before=State(f.View.record);var expected=variant=="actor-hp0"||variant=="actor-no-rest"?TrainingAction.Rest:variant=="actor-no-move"?TrainingAction.SoldierMove:TrainingAction.Attack;
+            if(variant=="actor-hp0"||variant=="leader-hp0"||variant=="leader-no-command"||variant=="actor-no-attack"||variant=="actor-state80")
+                Check(!f.server.RequestBattleMemberAction(1,TrainingAction.Attack,400,0,0,Id()).Accepted,"manual guard remains separate from native AI "+variant);
+            if(variant=="actor-no-rest")Check(!f.server.RequestBattleMemberAction(1,TrainingAction.Rest,-1,0,0,Id()).Accepted,"manual rest button still disabled");
+            Check(f.server.RequestBattleSoldierAction(1,Id(),count=>0,5000).Accepted,"native automatic request ignores manual button/HP gate "+variant);
+            var pending=f.View.battle.pending;Check(pending.automatic&&pending.action==expected&&pending.NativePacket!=null&&State(f.View.record)==before,"native decision queues bytes without predicted resources "+variant);
+            if(variant=="leader-inactive"||variant=="leader-disabled")Check(pending.action==TrainingAction.Attack,"inactive leader uses aggressive40 percent rest threshold");
+            var result=SoldierResult(f);
+            if(variant=="actor-hp0")
+            {
+                Check(f.server.ReceiveBattleUnits(result).Failure==WorldFailure.StaleRequest&&State(f.View.record)==before,"typed approval does not invent an HP0 revival policy from a client rest request");
+                Check(f.server.CancelBattleAction(pending.id).Accepted,"cancel native HP0 rest request without a fabricated recovery outcome");continue;
+            }
+            var accepted=f.server.ReceiveBattleUnits(result);Check(accepted.Accepted,"explicit native automatic outcome accepted "+variant+" / "+accepted.Failure);
+            Check(f.View.battle.pending==null,"native automatic outcome releases pending request "+variant);
+        }
+        var unknown=Soldiers(scenario);var n=unknown.Notice();var source=n.units.Single(u=>u.id==1);var parent=n.units.Single(u=>u.id==0);
+        source.nativeActive=source.nativeEnabled=parent.nativeActive=parent.nativeEnabled=true;parent.nativeActive=false;parent.troopOrder=null;
+        Check(unknown.server.ReceiveBattleUnits(n).Accepted,"unknown inactive leader order fixture");string saved=State(unknown.View.record);
+        Check(!unknown.server.RequestBattleSoldierAction(1,Id(),count=>0,0).Accepted&&unknown.View.battle.pending==null&&State(unknown.View.record)==saved,"missing received leader order is unavailable, never a guessed value or exception");
+        var legacy=Soldiers(scenario);n=legacy.Notice();source=n.units.Single(u=>u.id==1);parent=n.units.Single(u=>u.id==0);
+        source.nativeActive=source.nativeEnabled=parent.nativeActive=parent.nativeEnabled=null;source.canAttack=false;
+        Check(legacy.server.ReceiveBattleUnits(n).Accepted,"legacy unreceived flags remain explicit context");
+        Check(!legacy.server.RequestBattleSoldierAction(1,Id(),count=>0,0).Accepted,"legacy permissions retained without complete native control context");
+    }
     private static void CheckSoldierSave()
     {
         var f=Soldiers(true);Check(f.server.RequestBattleSoldierAction(1,Id(),n=>0,0).Accepted,"scenario auto action");var n=SoldierResult(f);string before=State(f.View.record);f.store.fail=true;
@@ -75,7 +141,7 @@ internal static partial class MagicProjectileChecks
     }
     internal static void RunSoldierActionChecks(string path)
     {
-        root=path;CheckSoldierActions(false);CheckSoldierActions(true);CheckSoldierMovementAndHint();CheckSoldierRejections();CheckSoldierSave();
+        root=path;CheckSoldierActions(false);CheckSoldierActions(true);CheckSoldierMovementAndHint();CheckSoldierRejections();CheckSoldierHealthAndDeathPackets();CheckNativeSoldierControl(false);CheckNativeSoldierControl(true);CheckSoldierSave();
         Console.WriteLine(JsonSerializer.Serialize(new{assertions,unityPlayExecuted=false,scope="Actual automatic source-aware requests/atomic approvals/AI AP and flag postconditions, client-only no-packet state, queued target draws, forced-rest hint and movement, failures and resume; native planner independently differential-checked."}));
     }
 }

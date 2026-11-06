@@ -1,0 +1,930 @@
+[
+  {
+    "name": "actor-hp0-16-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "rest",
+          "source": 1
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "actor-hp0-16-(4, 5)",
+      "packets": [],
+      "state": 16,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-hp0-16-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "rest",
+          "source": 1
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "actor-hp0-16-(1, 5)",
+      "packets": [],
+      "state": 16,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-hp0-32-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 5,
+          "y": 4
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "actor-hp0-32-(4, 5)",
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-hp0-32-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 5,
+          "y": 4
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "actor-hp0-32-(1, 5)",
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-hp0-48-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "rest",
+          "source": 1
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "actor-hp0-48-(4, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-hp0-48-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 5,
+          "y": 4
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "actor-hp0-48-(1, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-hp0-16-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "leader-hp0-16-(4, 5)",
+      "packets": [],
+      "state": 16,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-hp0-32-(4, 5)",
+    "native": {
+      "packets": [],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "leader-hp0-32-(4, 5)",
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-hp0-32-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 5,
+          "y": 4
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "leader-hp0-32-(1, 5)",
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-hp0-48-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 2
+    },
+    "managed": {
+      "name": "leader-hp0-48-(4, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-hp0-48-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 5,
+          "y": 4
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "leader-hp0-48-(1, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-no-command-16-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "leader-no-command-16-(4, 5)",
+      "packets": [],
+      "state": 16,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-no-command-32-(4, 5)",
+    "native": {
+      "packets": [],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "leader-no-command-32-(4, 5)",
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-no-command-32-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 5,
+          "y": 4
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "leader-no-command-32-(1, 5)",
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-no-command-48-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 2
+    },
+    "managed": {
+      "name": "leader-no-command-48-(4, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-no-command-48-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 5,
+          "y": 4
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "leader-no-command-48-(1, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-no-attack-16-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "actor-no-attack-16-(4, 5)",
+      "packets": [],
+      "state": 16,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-no-attack-48-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 2
+    },
+    "managed": {
+      "name": "actor-no-attack-48-(4, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-no-rest-16-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "rest",
+          "source": 1
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "actor-no-rest-16-(4, 5)",
+      "packets": [],
+      "state": 16,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-no-rest-16-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "rest",
+          "source": 1
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "actor-no-rest-16-(1, 5)",
+      "packets": [],
+      "state": 16,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-no-rest-48-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "rest",
+          "source": 1
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "actor-no-rest-48-(4, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-no-move-32-(4, 5)",
+    "native": {
+      "packets": [],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "actor-no-move-32-(4, 5)",
+      "packets": [],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": false
+    }
+  },
+  {
+    "name": "actor-no-move-32-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 5,
+          "y": 4
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "actor-no-move-32-(1, 5)",
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": false
+    }
+  },
+  {
+    "name": "actor-no-move-48-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 5,
+          "y": 4
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "actor-no-move-48-(1, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": false
+    }
+  },
+  {
+    "name": "leader-inactive-16-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "leader-inactive-16-(4, 5)",
+      "packets": [],
+      "state": 16,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-inactive-32-(4, 5)",
+    "native": {
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "leader-inactive-32-(4, 5)",
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-inactive-32-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 4,
+          "y": 3
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "leader-inactive-32-(1, 5)",
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-inactive-48-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 32,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 2
+    },
+    "managed": {
+      "name": "leader-inactive-48-(4, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-inactive-48-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 4,
+          "y": 3
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "leader-inactive-48-(1, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-disabled-16-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "leader-disabled-16-(4, 5)",
+      "packets": [],
+      "state": 16,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-disabled-32-(4, 5)",
+    "native": {
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "leader-disabled-32-(4, 5)",
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-disabled-32-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 4,
+          "y": 3
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "leader-disabled-32-(1, 5)",
+      "packets": [],
+      "state": 32,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-disabled-48-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 32,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 2
+    },
+    "managed": {
+      "name": "leader-disabled-48-(4, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "leader-disabled-48-(1, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "move",
+          "source": 1,
+          "x": 4,
+          "y": 3
+        }
+      ],
+      "state": 0,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0
+    },
+    "managed": {
+      "name": "leader-disabled-48-(1, 5)",
+      "packets": [],
+      "state": 48,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-state80-16-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 128,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "actor-state80-16-(4, 5)",
+      "packets": [],
+      "state": 144,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-state80-32-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 128,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "actor-state80-32-(4, 5)",
+      "packets": [],
+      "state": 144,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  },
+  {
+    "name": "actor-state80-48-(4, 5)",
+    "native": {
+      "packets": [
+        {
+          "kind": "attack",
+          "source": 1,
+          "target": 400,
+          "sourceTerrain": 0,
+          "targetTerrain": 0
+        }
+      ],
+      "state": 128,
+      "hint": 0,
+      "ap": 0,
+      "randomCalls": 1
+    },
+    "managed": {
+      "name": "actor-state80-48-(4, 5)",
+      "packets": [],
+      "state": 144,
+      "hint": 0,
+      "ap": 20,
+      "randomCalls": 0,
+      "unavailable": true
+    }
+  }
+]

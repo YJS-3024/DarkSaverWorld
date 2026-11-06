@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_victory_notice.py", line 65, in main
+    try:n.update_dialogue();n.frame(clock)
+        ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_message_pages.py", line 50, in update_dialogue
+    self.uc.emu_start(0x10003baf,0x10003bbf,timeout=1000000,count=100000)
+  File "/workspace/.tools/ds-native-emulation-deps/unicorn/unicorn_py3/unicorn.py", line 766, in emu_start
+    raise UcError(status)
+unicorn.unicorn_py3.unicorn.UcError: Invalid memory fetch (UC_ERR_FETCH_UNMAPPED)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_victory_notice.py", line 79, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_victory_notice.py", line 66, in main
+    except Exception as error:raise RuntimeError((c['key'],t,n.state()))from error
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: ('before-first-message:0', {'elapsed': 0, 'ignored': 0, 'name': '', 'op': 'frame'}, {'line': 3, 'active': 0, 'visible': True, 'first': 0, 'waiting': False, 'mode': 0, 'packets': [[58, 8, 0, 0, 0]]})

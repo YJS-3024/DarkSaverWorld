@@ -1,0 +1,24 @@
+{
+  "nativeRedirectCases": 3742,
+  "targetOracleCases": 1871,
+  "tableRows": 440,
+  "requests": 898,
+  "magicCalls": 1796,
+  "emptyTargetMagicCalls": 222,
+  "transformedCoordinateCalls": 666,
+  "mismatches": 0,
+  "unityPlay": false,
+  "runtime68Connected": false,
+  "sourceGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "sourceUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "scope": "Source-current actual UserUnit target traces are copied unchanged at the GameCtl CheckMagicTarget import boundary; actual68 decoder and E4C0 execute for connected/disconnected game modes. Compares complete emitted bytes with the separately invoked original builder and captures Magic spell/source/coordinate/target-list arguments, including Unit8 -1/-1 coordinates and valid zero-target results. Pointer addresses and unused/padding words are not equated. Bounded cross-instance import bridge, not one Windows process, production68 routing, target permissions, resource changes or final effect rendering.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_magic_redirect_catalog.py": "3588b31849ec8ff0845522e15f6c52e75d9a7dabbf2c8ae9c4d22b3844a4a3a8",
+    "Tools/OriginalWorldChecks/check_native_magic_redirect.py": "5b8e61e4951444d00be5fed1e4e42284c0fa54a4879566eec03f2c60312c1307",
+    "Tools/OriginalWorldChecks/check_native_magic_packets.py": "10362f966e041efe3f516c4fa7b5004c252e12d02019bd47f27da3365b4f8975",
+    "Tools/OriginalWorldChecks/check_native_battle_decoder.py": "3e178e709f0d5aabd612de8aa75e314c03a8ca5de7edf4508ecbb46a91f5e7bb",
+    "Tools/OriginalWorldChecks/check_native_move_hints.py": "7ba1a4539802217c260cbf49f2ebebcfaca215607a6dd00328b2dc5025d89bb9",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "Tools/OriginalWorldChecks/native-magic-target-catalog-check.json": "f9dc9afa89ac3ac9a630ef4055764f8b5c0524fb621921376d22642c9f0c26b8"
+  }
+}

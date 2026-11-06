@@ -1,0 +1,11 @@
+PROGRAM_SHA256 f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0
+TARGET 1001a4b8
+1000d62b WRITE 1000d610 FUN_1000d610
+TARGET 1006c084
+100080fa WRITE 100080f0 SetCurrentScenario
+1000dfa8 WRITE 1000dfa0 FUN_1000dfa0
+10004fca READ 10004a80 DlgButtonAction
+
+Original SetCurrentScenario disassembly (same GameCtl SHA256):
+100080FA MOV DWORD PTR [1006C084],1
+10004FCA reads the value in window28/confirm0; when F040(currentScenario)<999 and value==1, requests4CA(window8),4D0(window8,0x000A006E).

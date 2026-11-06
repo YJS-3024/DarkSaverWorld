@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_client_windows_integration.py", line 87, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_client_windows_integration.py", line 51, in main
+    assert not stale,'Stale verification sources; rerun the relevant check: '+json.dumps(stale,ensure_ascii=False)
+           ^^^^^^^^^
+AssertionError: Stale verification sources; rerun the relevant check: [{"report": "native-battle-options-check.json", "source": "Tools/OriginalWorldChecks/pixel-import-check.json"}, {"report": "native-class-presentation-check.json", "source": "Tools/OriginalWorldChecks/pixel-import-check.json"}]

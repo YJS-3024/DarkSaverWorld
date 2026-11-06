@@ -1,0 +1,81 @@
+{
+  "nativeVisualClearCases": 5,
+  "nativeLeaveBuilderCases": 1,
+  "nativeEndKeyCases": 4,
+  "mismatches": 0,
+  "unityPlay": false,
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "scope": "Original08D20/091E0 remove linked visual nodes until the tail sentinel and preserve a populated0D FIFO. Destruction/free are captured boundaries; no GPU resource release claim. Actual E750/C600 appends one root5B byte and reaches captured E2C0 transport; mode/socket delivery is excluded. Actual GameCtl OnKeyDown ignores Escape/Enter with an end notice active; recorded Saver key handlers forward keys or close their own input child, not a newly invented end acknowledgement. Saver host restoration/key handling is static evidence only, not full Windows input execution. Do not call08D20 a script instruction drain or E750 the whole map cleanup.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_scenario_cleanup.py": "ce266f8cb54211b75e1f2898a962643980e600f7fa9d49a87112785a2de34c21",
+    "Tools/OriginalWorldChecks/native_scenario_end_emulator.py": "7dee0b4f38ba9f8a21112c267a84a97b4ba092701071b32bb727c116a2149686",
+    "Tools/OriginalWorldChecks/native_result_kills_emulator.py": "213076d2143a18fb884ed01e3c3d0f669382a9a94379d8101b6367fa2e94bb25",
+    "Tools/OriginalWorldChecks/native_result_emulator.py": "414070bc1d9ff879f1c9f0d77f0b6025fd4e684b9f07dfa21e0d6bc575992bbe",
+    "Tools/OriginalWorldChecks/native_battle_status_emulator.py": "dfc2a8b77f9eb440e7df3e720a8b2f3e868999cfa06fc40adfcb5a3b3afce0c2",
+    "Tools/OriginalWorldChecks/native_battle_briefing_emulator.py": "b0ef4d1c053a2328b211e3b162bd3bdc0102a5c70e62f1a84306e2121cbea8a3",
+    "Tools/OriginalWorldChecks/native_battle_options_emulator.py": "2a54e048fade9942974f4a06ff07f6d183a8d81f41288804f5b468d5a4b06bbd",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "분석/Ghidra/Saver_Late/ScenarioEndControl/10008d20.c": "8f880f3281c7c120395cb13201837e16e0e10570ac54c895606fb8eb4775b42d",
+    "분석/Ghidra/Saver_Late/ScenarioEndControl/100091e0.c": "eac15eeca52b2995bb1b8565cb7987622669ee031bcbcd5fcc48addd2456d00d",
+    "분석/Ghidra/Saver_Late/ScenarioEndControl/1000e750.c": "05e94631a7ff504cd50b5e2b3231b924a6c7f7e2a963b0e1f7655bd7358afe8e",
+    "분석/Ghidra/Saver_Late/ScenarioEndControl/Saver-00414640.c": "21518b28739a48707cb027f33f4d8b077655045063d91cdfae05a5a01193a39b",
+    "분석/Ghidra/Saver_Late/ScenarioEndControl/Saver-00412c80-key.c": "1791fa842f41ec4e11638c18628c3776511a7c7f3765feedef1e84d0477a40af",
+    "분석/Ghidra/Saver_Late/ScenarioEndControl/Saver-00423500-key.c": "f01383773bd2f513b97c204b65778609171868fd422a33ffafe91f1d3fd72932",
+    "분석/Ghidra/Saver_Late/ScenarioEndControl/Saver-00424ad0-key.c": "2033def2f683a5f84a6ebd15cd01344bb0c95c03f9c5f80b19127870b3a21d4d",
+    "분석/Ghidra/Saver_Late/BattleWindows/10002fb0.c": "fdeb8a1a1d92d5d724c0394331a36ab4ad525a8b088cacc888512c8224d6024d"
+  },
+  "cases": [
+    {
+      "nodesIncludingSentinel": 1,
+      "deleted": 0,
+      "eventFifoUnchanged": true
+    },
+    {
+      "nodesIncludingSentinel": 2,
+      "deleted": 1,
+      "eventFifoUnchanged": true
+    },
+    {
+      "nodesIncludingSentinel": 3,
+      "deleted": 2,
+      "eventFifoUnchanged": true
+    },
+    {
+      "nodesIncludingSentinel": 10,
+      "deleted": 9,
+      "eventFifoUnchanged": true
+    },
+    {
+      "nodesIncludingSentinel": 100,
+      "deleted": 99,
+      "eventFifoUnchanged": true
+    }
+  ],
+  "keyCases": [
+    {
+      "key": 27,
+      "outcome": 1,
+      "callbacks": [],
+      "noticeUnchanged": true
+    },
+    {
+      "key": 27,
+      "outcome": 3,
+      "callbacks": [],
+      "noticeUnchanged": true
+    },
+    {
+      "key": 13,
+      "outcome": 1,
+      "callbacks": [],
+      "noticeUnchanged": true
+    },
+    {
+      "key": 13,
+      "outcome": 3,
+      "callbacks": [],
+      "noticeUnchanged": true
+    }
+  ],
+  "leavePacketHex": "5b"
+}

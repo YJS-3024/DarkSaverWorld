@@ -1,0 +1,19 @@
+{
+  "cases": 28,
+  "mismatches": 0,
+  "nativeCodeExecutedInOracle": true,
+  "productionPlanExecuted": true,
+  "unityPlayExecuted": false,
+  "originalSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "oracleSha256": "228bb18501dc9baf337eda47fc8ee4b66c00cf74020a3bd39ca84ab232327299",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_end_stage.py": "99757260f3be512e4411ddf6561659eb45b4fa234475d1b0db9d706a18ca51b8",
+    "Tools/OriginalWorldChecks/NativeEndStageDifferential.cs": "865a3d5c55c4a71dbc8a2ede15b66752107d1fc2da52a7eb2fb62a7f35187366",
+    "Assets/_Original/Runtime/Campaign/CampaignResult.cs": "218deb4a4d777aab4ed57d6c1bb0d767b1932abe2d2cd384d13c97d2fab3136d",
+    "Assets/_Original/Runtime/Combat/NativeScenarioScriptSuffix.cs": "a192af6d70302e2cee6201b4cf4880363733355507340c352968251825d53e63",
+    "Tools/OriginalWorldChecks/check_picture_initialization.py": "a47a03310d47d9f860da3ed46a9393649ad3763acd172d14d31839b8a0939618",
+    "Tools/OriginalWorldChecks/native-scenario-end-check.json": "228bb18501dc9baf337eda47fc8ee4b66c00cf74020a3bd39ca84ab232327299"
+  },
+  "scope": "Production61 exact BYTE decoder (unchanged pure suffix class extracted for the result-record dependency; no service stub) and outcome/flag plan versus28 original GameCtl D150 receipt traces with tutorial off. Stage3 denotes direct end control; the full service additionally distinguishes victory DEE from nonvictory cleanup and safely defers unknown tables. Managed ingress/save/UI tests are separate. No server delivery order, rewards, pixels, timing measurement or Unity Play claim.",
+  "logs": "/tmp/ds-dawn-stable/ds-native-end-stage"
+}

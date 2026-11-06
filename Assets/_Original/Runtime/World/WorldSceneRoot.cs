@@ -151,13 +151,19 @@ namespace DarkSaver.Original.World
             if(!running)return;
             AdvanceCampaignMusic();
             if(HandleClientMessageInput()||HandleCommanderNameInput()||HandleBankAmountInput())return;
+            if(WaitingNativeEnd)
+            {
+                if(notice!=null){if(Input.GetKeyDown(KeyCode.Escape)||Input.GetMouseButtonDown(1))CloseNotice();return;}
+                if(view.record.scenarioVisit.nativeEnd.stage==NativeScenarioEndRecord.Notice&&Input.GetMouseButtonDown(1))Handle(server.Request_ContinueScenario());
+                return;
+            }
             if(WaitingScenarioResult)
             {if(notice!=null&&(Input.GetKeyDown(KeyCode.Escape)||Input.GetMouseButtonDown(1)))CloseNotice();return;}
             if(Input.GetKeyDown(KeyCode.Escape)||Input.GetMouseButtonDown(1))
-            {trainingMode=null;CancelBattleMagicSelection();if(notice!=null)CloseNotice();else if(view?.facility!=null)Handle(server.Request_CloseFacility());else showingActions=false;}
+            {if(Input.GetMouseButtonDown(1))AcknowledgeDirectedPointer();trainingMode=null;CancelBattleMagicSelection();if(notice!=null)CloseNotice();else if(view?.facility!=null)Handle(server.Request_CloseFacility());else showingActions=false;}
             if(BattleMap())
             {
-                if(notice==null&&view.presentation?.completed!=false&&!clientMessageState.Visible)
+                if(notice==null&&!CampaignCutscene&&!clientMessageState.Visible)
                     for(int key=0;key<12;key++)if(Input.GetKeyDown((KeyCode)((int)KeyCode.F1+key)))
                         DarkSaver.Original.UI.NativeBattleOptions.Key(0x70+key,ActiveBattleCommanders,true,BattleDialogRequest);
             }
@@ -200,9 +206,9 @@ namespace DarkSaver.Original.World
             float cameraX=presenting&&view.presentation.hasCamera?view.presentation.cameraX:(float)view.renderX;
             float cameraY=presenting&&view.presentation.hasCamera?view.presentation.cameraY:(float)view.renderY;
             float cx=Mathf.Round(Mathf.Clamp(cameraX*32+16-320,0,Mathf.Max(0,m.map.width*32-640)));
-            if(!presenting&&BattleMap()&&battleCameraX.HasValue&&battleDialogMap==view.record.map)cx=Mathf.Clamp(battleCameraX.Value*32,0,Mathf.Max(0,m.map.width*32-640));
+            if((!presenting||view.presentation.nativeEvent)&&BattleMap()&&battleCameraX.HasValue&&battleDialogMap==view.record.map)cx=Mathf.Clamp(battleCameraX.Value*32,0,Mathf.Max(0,m.map.width*32-640));
             float cy=Mathf.Round(Mathf.Clamp(cameraY*32+16-240,0,Mathf.Max(0,m.map.height*32-480)));
-            if(!presenting&&BattleMap()&&battleCameraY.HasValue&&battleDialogMap==view.record.map)cy=Mathf.Clamp(battleCameraY.Value*32,0,Mathf.Max(0,m.map.height*32-480));
+            if((!presenting||view.presentation.nativeEvent)&&BattleMap()&&battleCameraY.HasValue&&battleDialogMap==view.record.map)cy=Mathf.Clamp(battleCameraY.Value*32,0,Mathf.Max(0,m.map.height*32-480));
             Place(mapRoot,new Rect(-cx,-cy,m.map.width*32,m.map.height*32));Place(playerHit,new Rect((float)view.renderX*32,(float)view.renderY*32,32,32));
             PaintMapAnimation(cx,cy);
             playerName.text=CommanderName;
@@ -213,7 +219,7 @@ namespace DarkSaver.Original.World
             PaintNativeBody(player,commander==null?view.record.direction:FeedbackDirection(0,commander.life,view.record.direction),view.moving,appearance,commander==null?definition.combatCatalog?.Job(CurrentCommanderJob)?.rawMovementType:OriginalMemberCommands.MovementType(commander,definition.combatCatalog),view.battle?.commanderMotion?.tileX??view.record.x,view.battle?.commanderMotion?.tileY??view.record.y,commander?.nativeState,0);
             foreach(var n in npcImages)PaintNativeBody(n.image,1,false,n.picture,definition.combatCatalog?.Job(n.picture)?.rawMovementType,n.x,n.y);
             MaintainTrainingSelection();
-            actions.gameObject.SetActive(BattleMap()&&showingActions&&!presenting&&view.facility==null&&notice==null);
+            actions.gameObject.SetActive(BattleMap()&&showingActions&&!CampaignCutscene&&view.facility==null&&notice==null);
             PositionTrainingActions(cx,cy);
             PaintFacility();
             PaintTrainingStatus();

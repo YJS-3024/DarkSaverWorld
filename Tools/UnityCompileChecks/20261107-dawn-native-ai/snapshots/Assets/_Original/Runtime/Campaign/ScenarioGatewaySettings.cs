@@ -1,0 +1,208 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Security.Cryptography;
+using DarkSaver.Original.World;
+
+namespace DarkSaver.Original.Campaign
+{
+    [Serializable, DataContract] public sealed class ScenarioGateway
+    {
+        [DataMember] public string id, fromHash, targetHash, name;
+        [DataMember] public int fromMap, targetMap, npcJob, x, y, spawnX, spawnY;
+        [DataMember] public bool enabled;
+        // Missing trigger/size fields in version 1 files retain the NPC, one-tile behavior.
+        [DataMember(EmitDefaultValue=false)] public string trigger, replacesPortal;
+        [DataMember(EmitDefaultValue=false)] public int width, height, returnX, returnY;
+        [DataMember(EmitDefaultValue=false)] public int spawnWidth, spawnHeight;
+        [DataMember(EmitDefaultValue=false)] public string group;
+        public string GroupName => (group??"").Trim();
+        public bool IsWalk => trigger == "walk";
+        public int Width => width == 0 ? 1 : width;
+        public int Height => height == 0 ? 1 : height;
+        public int SpawnWidth => spawnWidth == 0 ? 1 : spawnWidth;
+        public int SpawnHeight => spawnHeight == 0 ? 1 : spawnHeight;
+        public bool Contains(int px,int py) => x>=0&&y>=0&&px>=x && py>=y && (long)px<x+(long)Width && (long)py<y+(long)Height;
+        public bool SpawnContains(int px,int py) => spawnX>=0&&spawnY>=0&&px>=spawnX && py>=spawnY && (long)px<spawnX+(long)SpawnWidth && (long)py<spawnY+(long)SpawnHeight;
+        public WorldPoint[] Cells() => Enumerable.Range(0,Height).SelectMany(dy=>Enumerable.Range(0,Width).Select(dx=>new WorldPoint{x=x+dx,y=y+dy})).ToArray();
+        public WorldPoint[] SpawnCells() => Enumerable.Range(0,SpawnHeight).SelectMany(dy=>Enumerable.Range(0,SpawnWidth).Select(dx=>new WorldPoint{x=spawnX+dx,y=spawnY+dy})).ToArray();
+        public WorldPortal Portal(string portalId) => new WorldPortal{id=portalId,gateway=id,targetMap=targetMap,spawnX=spawnX,spawnY=spawnY,spawnWidth=SpawnWidth,spawnHeight=SpawnHeight,returnX=returnX,returnY=returnY,cells=Cells()};
+        public ScenarioGateway Copy() => (ScenarioGateway)MemberwiseClone();
+    }
+    [Serializable, DataContract] public sealed class ScenarioEntryPoint
+    {
+        [DataMember] public int map,x,y;
+        [DataMember] public string mapHash;
+        [DataMember] public bool enabled;
+        // Optional user-authored class override. Missing fields retain the legacy shared entry.
+        [DataMember(EmitDefaultValue=false)] public bool useJob;
+        [DataMember(EmitDefaultValue=false)] public int job;
+        public ScenarioEntryPoint Copy() => (ScenarioEntryPoint)MemberwiseClone();
+    }
+    [Serializable, DataContract] public sealed class ScenarioGatewaySettings
+    {
+        [DataMember] public int version = 1;
+        [DataMember] public bool applyToGame;
+        [DataMember] public string provenance = "user-authored; NPC interaction recalled by user; not recovered original server placements";
+        [DataMember] public ScenarioGateway[] gates = Array.Empty<ScenarioGateway>();
+        [DataMember(EmitDefaultValue=false)] public ScenarioEntryPoint[] entryPoints;
+        public ScenarioGatewaySettings Copy()
+        {var copy=(ScenarioGatewaySettings)MemberwiseClone();copy.gates=gates.Select(g=>g.Copy()).ToArray();copy.entryPoints=entryPoints?.Select(e=>e.Copy()).ToArray();return copy;}
+    }
+    [Serializable] public sealed class GatewayMapInfo
+    { public int id,width,height; public string key,title,kind,hash,nativePath; public bool legacy; }
+    [Serializable] public sealed class GatewayMapCatalog { public GatewayMapInfo[] maps; public int[] npcJobs; }
+    public static class ScenarioGatewayData
+    {
+        public const string Provenance = "user-authored; NPC interaction recalled by user; not recovered original server placements";
+        public static string GatewayContext(ScenarioGateway g)
+        {
+            return g==null?"[입구 데이터 없음]":"[입구 '"+(g.name??"이름 없음")+"' / ID "+(g.id??"없음")+" / 출발 "+g.fromMap+" ("+g.x+","+g.y+") "+g.Width+"×"+g.Height+" → 도착 "+g.targetMap+" ("+g.spawnX+","+g.spawnY+") "+g.SpawnWidth+"×"+g.SpawnHeight+"]";
+        }
+        public static string EntryContext(ScenarioEntryPoint entry)
+        {return entry==null?"[진입점 데이터 없음]":"[지휘관 진입점 / 맵 "+entry.map+(entry.useJob?" / 직업 "+entry.job:" / 공통")+" / 좌표 ("+entry.x+","+entry.y+")]";}
+        public static ScenarioEntryPoint EditingEntry(ScenarioGatewaySettings settings,int map,int job=0)
+            =>settings?.entryPoints?.FirstOrDefault(e=>e!=null&&e.map==map&&(job==0?!e.useJob:e.useJob&&e.job==job));
+        public static ScenarioEntryPoint SelectEntry(ScenarioGatewaySettings settings,int map,int job)
+            =>settings?.entryPoints?.FirstOrDefault(e=>e!=null&&e.enabled&&e.map==map&&e.useJob&&e.job==job)
+                ??settings?.entryPoints?.FirstOrDefault(e=>e!=null&&e.enabled&&e.map==map&&!e.useJob);
+        public static string Hash(byte[] bytes)
+        {using(var h=SHA256.Create())return BitConverter.ToString(h.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();}
+        public static byte[] Encode(ScenarioGatewaySettings settings)
+        {using(var s=new MemoryStream()){new DataContractJsonSerializer(typeof(ScenarioGatewaySettings)).WriteObject(s,settings);return s.ToArray();}}
+        public static ScenarioGatewaySettings Decode(byte[] bytes)
+        {using(var s=new MemoryStream(bytes))return (ScenarioGatewaySettings)new DataContractJsonSerializer(typeof(ScenarioGatewaySettings)).ReadObject(s);}
+        private static bool OrdinaryTravelMap(GatewayMapInfo map)=>map!=null&&(map.kind=="town"||map.kind=="world"||map.kind=="interior"&&map.id>=1000);
+        public static bool CanDraftReturn(ScenarioGateway source,GatewayMapCatalog catalog)
+            =>source?.IsWalk==true&&source.fromMap!=source.targetMap&&OrdinaryTravelMap(catalog?.maps?.FirstOrDefault(m=>m.id==source.fromMap))
+                &&OrdinaryTravelMap(catalog?.maps?.FirstOrDefault(m=>m.id==source.targetMap));
+        // Explicit authoring convenience. Never called by gameplay and never enabled
+        // or saved automatically; scenario/training return rules are separate.
+        public static ScenarioGateway CreateReturnDraft(ScenarioGateway source,GatewayMapCatalog catalog)
+        {
+            if(!CanDraftReturn(source,catalog))throw new InvalidDataException(GatewayContext(source)+": 귀환 초안은 마을·필드·일반 실내의 이동 입구에서만 만들 수 있습니다.");
+            Validate(new ScenarioGatewaySettings{gates=new[]{source.Copy()}},catalog);
+            return new ScenarioGateway{id=Guid.NewGuid().ToString("N"),name="귀환: "+source.name,group=source.group,enabled=false,trigger="walk",npcJob=-1,
+                fromMap=source.targetMap,fromHash=source.targetHash,targetMap=source.fromMap,targetHash=source.fromHash,
+                x=source.spawnX,y=source.spawnY,width=source.SpawnWidth,height=source.SpawnHeight,
+                spawnX=source.x,spawnY=source.y,spawnWidth=source.Width,spawnHeight=source.Height,returnX=-1,returnY=-1};
+        }
+        public static bool Move(ScenarioGatewaySettings settings,string id,string anchor,bool after)
+        {
+            if(settings?.gates==null||id==anchor)return false;
+            var moved=settings.gates.FirstOrDefault(g=>g.id==id);
+            if(moved==null||!settings.gates.Any(g=>g.id==anchor))return false;
+            var items=settings.gates.ToList();items.Remove(moved);
+            items.Insert(items.FindIndex(g=>g.id==anchor)+(after?1:0),moved);
+            if(items.SequenceEqual(settings.gates))return false;
+            settings.gates=items.ToArray();return true;
+        }
+        public static void Validate(ScenarioGatewaySettings settings,GatewayMapCatalog catalog)
+        {
+            if(settings==null||settings.version!=1||settings.provenance!=Provenance||settings.gates==null||catalog?.maps==null||catalog.npcJobs==null)throw new InvalidDataException("입구 설정 형식/출처를 확인하세요.");
+            var entryMaps=new HashSet<string>();
+            foreach(var entry in settings.entryPoints??Array.Empty<ScenarioEntryPoint>())
+            {
+                var map=catalog.maps.FirstOrDefault(m=>m.id==entry?.map);
+                if(entry==null||map==null||!entryMaps.Add(entry.map+":"+(entry.useJob?entry.job:0))||entry.useJob&&(entry.job<100||entry.job>=200)||entry.mapHash!=map.hash
+                    ||(map.kind!="scenario"&&(map.id<101||map.id>107))
+                    ||entry.x<0||entry.y<0||entry.x>=map.width||entry.y>=map.height)
+                    throw new InvalidDataException(EntryContext(entry)+": 맵·직업 조건·버전·좌표를 확인하세요.");
+            }
+            var ids=new HashSet<string>();var occupied=new HashSet<string>();var replacements=new HashSet<string>();
+            foreach(var g in settings.gates)
+            {
+                var from=catalog.maps.FirstOrDefault(m=>m.id==g?.fromMap);var to=catalog.maps.FirstOrDefault(m=>m.id==g?.targetMap);
+                if(g==null||!Guid.TryParseExact(g.id,"N",out _)||!ids.Add(g.id)||from==null||to==null||from.id==to.id
+                    ||(!string.IsNullOrEmpty(g.trigger)&&g.trigger!="npc"&&g.trigger!="walk")
+                    ||(!g.IsWalk&&(to.kind!="scenario"||(from.kind!="world"&&from.kind!="town")||!catalog.npcJobs.Contains(g.npcJob)||g.Width!=1||g.Height!=1||!string.IsNullOrEmpty(g.replacesPortal)))
+                    ||g.fromHash!=from.hash||g.targetHash!=to.hash||g.Width<=0||g.Height<=0||(g.IsWalk&&(g.width<=0||g.height<=0))
+                    ||g.x<0||g.y<0||(long)g.x+g.Width>from.width||(long)g.y+g.Height>from.height
+                    ||g.SpawnWidth<=0||g.SpawnHeight<=0||g.spawnX<0||g.spawnY<0||(long)g.spawnX+g.SpawnWidth>to.width||(long)g.spawnY+g.SpawnHeight>to.height
+                    ||string.IsNullOrWhiteSpace(g.name))throw new InvalidDataException(GatewayContext(g)+": 입구 방식·영역·도착 좌표·맵 버전을 확인하세요.");
+                if(!string.IsNullOrEmpty(g.replacesPortal)&&!replacements.Add(g.fromMap+":"+g.replacesPortal))throw new InvalidDataException(GatewayContext(g)+": 같은 기존 출입구를 두 번 수정할 수 없습니다.");
+                foreach(var cell in g.Cells())if(!occupied.Add(g.fromMap+":"+cell.x+":"+cell.y))throw new InvalidDataException(GatewayContext(g)+": 입구 영역이 서로 겹칩니다.");
+            }
+        }
+        public static bool HasEntryTerrain(WorldDefinition world,int map,int job)
+        {
+            var tilemap=world?.Map(map)?.map;var row=world?.combatCatalog?.version>=3?world.combatCatalog.Job(job):null;
+            if(tilemap?.attributes==null||row==null||!OriginalRegroupMovement.ValidMovementType(row.rawMovementType))return false;
+            return tilemap.attributes.Distinct().Any(attribute=>
+            {
+                long slot=(long)attribute*30+row.rawMovementType*3+2;
+                return slot>=0&&slot<tilemap.terrain.Length&&tilemap.terrain[(int)slot]>=0&&tilemap.terrain[(int)slot]!=99;
+            });
+        }
+        public static bool EntryLocationAllowed(WorldDefinition world,ScenarioEntryPoint entry)
+        {
+            if(entry==null)return false;
+            var target=world?.Map(entry.map);var campaign=world?.campaign?.Map(entry.map);
+            if(target==null||!target.training&&campaign?.kind!="scenario"||campaign!=null&&campaign.hash!=entry.mapHash)return false;
+            int type=0;
+            if(entry.useJob)
+            {
+                var job=world.combatCatalog?.version>=3?world.combatCatalog.Job(entry.job):null;
+                if(job==null||!OriginalRegroupMovement.ValidMovementType(job.rawMovementType))return false;
+                type=job.rawMovementType;
+            }
+            int cost=target.map.Terrain(new DarkSaver.Original.Tutorial.TutorialTile(entry.x,entry.y),type*3+2);
+            return (entry.useJob?cost>=0:cost>0)&&cost!=99&&cost!=-99&&!target.npcs.Any(n=>n.x==entry.x&&n.y==entry.y)
+                &&campaign?.units.Any(u=>u.x==entry.x&&u.y==entry.y)!=true;
+        }
+        public static void Apply(ScenarioGatewaySettings settings,GatewayMapCatalog catalog,WorldDefinition world)
+        {
+            Validate(settings,catalog);
+            // Rebuild from a retained baseline so disabling an override restores its original door.
+            // Publish only after all entries pass; rejected authoring cannot partly modify the world.
+            var baseline=world.gatewayBaseMaps??world.maps;
+            var maps=baseline.Select(m=>m.CopyForPlacement()).ToArray();
+            foreach(var g in settings.gates.Where(g=>settings.applyToGame&&g.enabled))
+            {
+                var from=maps.FirstOrDefault(m=>m.id==g.fromMap);var target=maps.FirstOrDefault(m=>m.id==g.targetMap);
+                if(from==null)throw new InvalidDataException(GatewayContext(g)+": 출발 맵 "+g.fromMap+"은 게임 이동 대상으로 등록되지 않았습니다.");
+                if(target==null)throw new InvalidDataException(GatewayContext(g)+": 도착 맵 "+g.targetMap+"은 게임 이동 대상으로 등록되지 않았습니다.");
+                var replaced=string.IsNullOrEmpty(g.replacesPortal)?null:from.portals.FirstOrDefault(p=>p.id==g.replacesPortal);
+                if(!string.IsNullOrEmpty(g.replacesPortal)&&replaced==null)throw new InvalidDataException(GatewayContext(g)+": 수정할 기존 출입구를 찾을 수 없습니다.");
+                if(from.npcs.Any(n=>g.Contains(n.x,n.y))||from.portals.Where(p=>p!=replaced).Any(p=>p.cells.Any(c=>g.Contains(c.x,c.y)))
+                    ||world.campaign?.Map(g.fromMap)?.units.Any(u=>g.Contains(u.x,u.y))==true)throw new InvalidDataException(GatewayContext(g)+": 입구 영역이 기존 직원·출입구·원본 몬스터와 겹칩니다.");
+                foreach(var cell in g.SpawnCells())
+                {int cost=target.map.Terrain(cell.Tile,2);if(cost<=0||cost==99||cost==-99||world.campaign?.Map(g.targetMap)?.units.Any(u=>u.x==cell.x&&u.y==cell.y)==true)throw new InvalidDataException(GatewayContext(g)+": 도착 영역에 막힌 칸이나 원본 몬스터가 있습니다.");}
+                string id="scenario-gateway-"+g.id;
+                if(g.IsWalk)
+                {
+                    foreach(var cell in g.Cells())
+                    {int terrain=from.map.Terrain(cell.Tile,2);if(terrain<=0||terrain==99||terrain==-99)throw new InvalidDataException(GatewayContext(g)+": 입구 '"+g.name+"' (맵 "+g.fromMap+")의 ("+cell.x+","+cell.y+")는 통행 불가 칸입니다. 입구 영역을 길/문 앞의 통행 가능한 타일로 옮기거나 크기를 줄이세요.");}
+                    if(target.training&&(from.id!=1000||!from.map.Contains(new DarkSaver.Original.Tutorial.TutorialTile(g.returnX,g.returnY))))throw new InvalidDataException(GatewayContext(g)+": 수련장 입구는 카오시아의 복귀 칸을 지정하세요.");
+                    from.portals=from.portals.Where(p=>p!=replaced).Concat(new[]{g.Portal(replaced?.id??id)}).ToArray();
+                }
+                else from.npcs=from.npcs.Concat(new[]{new WorldNpc{id=id,name=g.name,picture=g.npcJob,x=g.x,y=g.y,kind=(int)FacilityKind.ScenarioGateway,counter=Array.Empty<WorldPoint>(),evidence=Provenance,gateway=g.id}}).ToArray();
+            }
+            foreach(var g in settings.gates.Where(g=>settings.applyToGame&&g.enabled))
+            {
+                var target=maps.First(m=>m.id==g.targetMap);
+                if(target.npcs.Any(n=>g.SpawnContains(n.x,n.y)))throw new InvalidDataException(GatewayContext(g)+": 도착 영역이 적용 후 직원과 겹칩니다.");
+                if(g.IsWalk&&target.training)
+                {
+                    var from=maps.First(m=>m.id==g.fromMap);var tile=new DarkSaver.Original.Tutorial.TutorialTile(g.returnX,g.returnY);int terrain=from.map.Terrain(tile,2);
+                    if(terrain<=0||terrain==99||terrain==-99||from.npcs.Any(n=>n.x==g.returnX&&n.y==g.returnY)||from.portals.Any(p=>p.cells.Any(c=>c.x==g.returnX&&c.y==g.returnY)))throw new InvalidDataException(GatewayContext(g)+": 수련장 복귀 칸이 막혀 있거나 직원/입구와 겹칩니다.");
+                }
+            }
+            foreach(var entry in settings.entryPoints??Array.Empty<ScenarioEntryPoint>())
+                if(entry.enabled&&!EntryLocationAllowed(world,entry))throw new InvalidDataException(EntryContext(entry)+": 진입점은 통행 가능한 칸이며 직원/원본 몬스터와 겹치지 않아야 합니다.");
+            world.gatewayBaseMaps=baseline;world.maps=maps;world.gateways=settings.Copy();
+        }
+        public static string Save(string path,ScenarioGatewaySettings settings,GatewayMapCatalog catalog,string expectedHash)
+        {
+            Validate(settings,catalog);string current=File.Exists(path)?Hash(File.ReadAllBytes(path)):null;
+            if(current!=expectedHash)throw new IOException("입구 설정이 외부에서 변경됐습니다. 다시 불러오세요.");
+            var bytes=Encode(settings);Validate(Decode(bytes),catalog);Directory.CreateDirectory(Path.GetDirectoryName(path));
+            string temp=path+"."+Guid.NewGuid().ToString("N")+".tmp";
+            try{File.WriteAllBytes(temp,bytes);if(File.Exists(path))File.Replace(temp,path,null);else File.Move(temp,path);}finally{if(File.Exists(temp))File.Delete(temp);}
+            return Hash(bytes);
+        }
+    }
+}

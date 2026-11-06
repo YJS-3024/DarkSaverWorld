@@ -1,0 +1,2995 @@
+{
+  "nativeMagicCases": 32,
+  "nativeKillExportCases": 84,
+  "productionMode1RequestComparisons": 4,
+  "mismatches": 0,
+  "unityPlay": false,
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "scope": "Actual GameCtl mode1 MAGIC dispatcher, CheckMagicTarget supplied capsule, native E4C0 and captured Magic import. Native request bytes compare with four production0D ingress/service fixtures; mode gating and request-before-effect order are observed. Actual UserUnit dmKillChar/dmKillChar2 exports execute over explicit runtime/grid records, including negative IDs, corpse flag and unchanged HP/AP. MFC strings/allocation and grid writes are boundaries. Not a server trigger, damage, XP, death-to-ghost or Unity rendering proof.",
+  "sources": {
+    "Tools/OriginalWorldChecks/native_event_evidence.py": "22980cc211506e7e9a06e4ef3ddd739e8b3d184d2c5c7af9f61ae3febefebcdb",
+    "분석/InstallerVersions/installer_inventory.json": "ccb25fe9bc77d00ee1061c10fa961663937fdcfd3859deb03e6328aa30f99ddd",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "Tools/OriginalWorldChecks/native_battle_options_emulator.py": "2a54e048fade9942974f4a06ff07f6d183a8d81f41288804f5b468d5a4b06bbd",
+    "Tools/OriginalWorldChecks/native_battle_briefing_emulator.py": "b0ef4d1c053a2328b211e3b162bd3bdc0102a5c70e62f1a84306e2121cbea8a3",
+    "Tools/OriginalWorldChecks/native_battle_status_emulator.py": "dfc2a8b77f9eb440e7df3e720a8b2f3e868999cfa06fc40adfcb5a3b3afce0c2",
+    "Tools/OriginalWorldChecks/native_result_emulator.py": "414070bc1d9ff879f1c9f0d77f0b6025fd4e684b9f07dfa21e0d6bc575992bbe",
+    "Tools/OriginalWorldChecks/native_result_kills_emulator.py": "213076d2143a18fb884ed01e3c3d0f669382a9a94379d8101b6367fa2e94bb25",
+    "Tools/OriginalWorldChecks/native_scenario_end_emulator.py": "7dee0b4f38ba9f8a21112c267a84a97b4ba092701071b32bb727c116a2149686",
+    "Tools/OriginalWorldChecks/native_event_step_emulator.py": "0aaa4ce2613b7e77c432c1004b5ef48b2503e69b86b49a12915dc72a7adb96b0",
+    "Tools/OriginalWorldChecks/check_native_directed_controls.py": "4ad89ac8b4a9cb3dff2aabb766dae0e7be8aca18df3df67a7ad44b2ee0c9d427",
+    "Tools/OriginalWorldChecks/native-directed-event-check.json": "1190c9147ca4a31bb443173b1a3eac38927c198431f5433ff839bedf04bcdbfb",
+    "Assets/_Original/Data/Tables/Magictbl.csv": "c81715eb8b2e4f3b23b885435b9ee5fc920592f1cb5d56765e537ae4d6e599b6",
+    "Tools/OriginalWorldChecks/check_native_directed_frames.py": "28cda4298ac4a9fbbec929c9fe501f0d52cbf6fe89f05190db7308fb3872710d",
+    "Tools/OriginalWorldChecks/check_native_event_corpus.py": "569bd3eaa11b510966cf9e2b154edf210af2a7b5402d94d8d7074e71f119c8b8"
+  },
+  "magicCases": [
+    {
+      "input": {
+        "magic": 101,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          101,
+          0,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          146,
+          16,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 0,
+      "native": {
+        "query": [
+          101,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          101,
+          0,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          146,
+          16,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 512,
+      "native": {
+        "query": [
+          101,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          101,
+          0,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          146,
+          16,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 1024,
+      "native": {
+        "query": [
+          101,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          101,
+          0,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          146,
+          16,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 2048,
+      "native": {
+        "query": [
+          101,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          101,
+          0,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          146,
+          16,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 0,
+      "native": {
+        "query": [
+          101,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 101,
+            "source": -1,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          101,
+          0,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          146,
+          16,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 512,
+      "native": {
+        "query": [
+          101,
+          -1,
+          1,
+          1
+        ],
+        "requests": [
+          [
+            92,
+            137,
+            1,
+            101,
+            0,
+            255,
+            255,
+            1,
+            0,
+            1,
+            0,
+            146,
+            16,
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "effects": [
+          {
+            "magic": 101,
+            "source": -1,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "request",
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          101,
+          0,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          146,
+          16,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 1024,
+      "native": {
+        "query": [
+          101,
+          -1,
+          1,
+          1
+        ],
+        "requests": [
+          [
+            92,
+            137,
+            1,
+            101,
+            0,
+            255,
+            255,
+            1,
+            0,
+            1,
+            0,
+            146,
+            16,
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "effects": [
+          {
+            "magic": 101,
+            "source": -1,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "request",
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 101,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          101,
+          0,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          146,
+          16,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 2048,
+      "native": {
+        "query": [
+          101,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 101,
+            "source": -1,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          45,
+          1,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          143,
+          50,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 0,
+      "native": {
+        "query": [
+          301,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          45,
+          1,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          143,
+          50,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 512,
+      "native": {
+        "query": [
+          301,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          45,
+          1,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          143,
+          50,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 1024,
+      "native": {
+        "query": [
+          301,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          45,
+          1,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          143,
+          50,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 2048,
+      "native": {
+        "query": [
+          301,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          45,
+          1,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          143,
+          50,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 0,
+      "native": {
+        "query": [
+          301,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 301,
+            "source": -1,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          45,
+          1,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          143,
+          50,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 512,
+      "native": {
+        "query": [
+          301,
+          -1,
+          1,
+          1
+        ],
+        "requests": [
+          [
+            92,
+            137,
+            1,
+            45,
+            1,
+            255,
+            255,
+            1,
+            0,
+            1,
+            0,
+            143,
+            50,
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "effects": [
+          {
+            "magic": 301,
+            "source": -1,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "request",
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          45,
+          1,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          143,
+          50,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 1024,
+      "native": {
+        "query": [
+          301,
+          -1,
+          1,
+          1
+        ],
+        "requests": [
+          [
+            92,
+            137,
+            1,
+            45,
+            1,
+            255,
+            255,
+            1,
+            0,
+            1,
+            0,
+            143,
+            50,
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "effects": [
+          {
+            "magic": 301,
+            "source": -1,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "request",
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 301,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          45,
+          1,
+          255,
+          255,
+          1,
+          0,
+          1,
+          0,
+          143,
+          50,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 2048,
+      "native": {
+        "query": [
+          301,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 301,
+            "source": -1,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 703,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": -1,
+        "selectedY": -1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          191,
+          2,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          74,
+          148,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 0,
+      "native": {
+        "query": [
+          703,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 703,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": -1,
+        "selectedY": -1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          191,
+          2,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          74,
+          148,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 512,
+      "native": {
+        "query": [
+          703,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 703,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": -1,
+        "selectedY": -1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          191,
+          2,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          74,
+          148,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 1024,
+      "native": {
+        "query": [
+          703,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 703,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": -1,
+        "selectedY": -1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          191,
+          2,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          74,
+          148,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 2048,
+      "native": {
+        "query": [
+          703,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 703,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": -1,
+        "selectedY": -1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          191,
+          2,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          74,
+          148,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 0,
+      "native": {
+        "query": [
+          703,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 703,
+            "source": -1,
+            "x": -1,
+            "y": -1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 703,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": -1,
+        "selectedY": -1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          191,
+          2,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          74,
+          148,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 512,
+      "native": {
+        "query": [
+          703,
+          -1,
+          1,
+          1
+        ],
+        "requests": [
+          [
+            92,
+            137,
+            1,
+            191,
+            2,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            74,
+            148,
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "effects": [
+          {
+            "magic": 703,
+            "source": -1,
+            "x": -1,
+            "y": -1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "request",
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 703,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": -1,
+        "selectedY": -1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          191,
+          2,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          74,
+          148,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 1024,
+      "native": {
+        "query": [
+          703,
+          -1,
+          1,
+          1
+        ],
+        "requests": [
+          [
+            92,
+            137,
+            1,
+            191,
+            2,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            74,
+            148,
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "effects": [
+          {
+            "magic": 703,
+            "source": -1,
+            "x": -1,
+            "y": -1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "request",
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 703,
+        "source": -1,
+        "x": 1,
+        "y": 1,
+        "selectedSource": -1,
+        "selectedX": -1,
+        "selectedY": -1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          191,
+          2,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          74,
+          148,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 2048,
+      "native": {
+        "query": [
+          703,
+          -1,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 703,
+            "source": -1,
+            "x": -1,
+            "y": -1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 3001,
+        "source": -2,
+        "x": 1,
+        "y": 1,
+        "selectedSource": 0,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          185,
+          11,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          120,
+          144,
+          2,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 0,
+      "native": {
+        "query": [
+          3001,
+          -2,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 3001,
+        "source": -2,
+        "x": 1,
+        "y": 1,
+        "selectedSource": 0,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          185,
+          11,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          120,
+          144,
+          2,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 512,
+      "native": {
+        "query": [
+          3001,
+          -2,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 3001,
+        "source": -2,
+        "x": 1,
+        "y": 1,
+        "selectedSource": 0,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          185,
+          11,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          120,
+          144,
+          2,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 1024,
+      "native": {
+        "query": [
+          3001,
+          -2,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 3001,
+        "source": -2,
+        "x": 1,
+        "y": 1,
+        "selectedSource": 0,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          185,
+          11,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          120,
+          144,
+          2,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": false
+      },
+      "gameMode": 2048,
+      "native": {
+        "query": [
+          3001,
+          -2,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [],
+        "order": []
+      }
+    },
+    {
+      "input": {
+        "magic": 3001,
+        "source": -2,
+        "x": 1,
+        "y": 1,
+        "selectedSource": 0,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          185,
+          11,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          120,
+          144,
+          2,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 0,
+      "native": {
+        "query": [
+          3001,
+          -2,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 3001,
+            "source": 0,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 3001,
+        "source": -2,
+        "x": 1,
+        "y": 1,
+        "selectedSource": 0,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          185,
+          11,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          120,
+          144,
+          2,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 512,
+      "native": {
+        "query": [
+          3001,
+          -2,
+          1,
+          1
+        ],
+        "requests": [
+          [
+            92,
+            137,
+            1,
+            185,
+            11,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            120,
+            144,
+            2,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "effects": [
+          {
+            "magic": 3001,
+            "source": 0,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "request",
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 3001,
+        "source": -2,
+        "x": 1,
+        "y": 1,
+        "selectedSource": 0,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          185,
+          11,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          120,
+          144,
+          2,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 1024,
+      "native": {
+        "query": [
+          3001,
+          -2,
+          1,
+          1
+        ],
+        "requests": [
+          [
+            92,
+            137,
+            1,
+            185,
+            11,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            120,
+            144,
+            2,
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        "effects": [
+          {
+            "magic": 3001,
+            "source": 0,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "request",
+          "effect"
+        ]
+      }
+    },
+    {
+      "input": {
+        "magic": 3001,
+        "source": -2,
+        "x": 1,
+        "y": 1,
+        "selectedSource": 0,
+        "selectedX": 1,
+        "selectedY": 1,
+        "targets": [
+          0
+        ],
+        "request": [
+          92,
+          137,
+          1,
+          185,
+          11,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          120,
+          144,
+          2,
+          0,
+          1,
+          0,
+          0
+        ],
+        "ok": true
+      },
+      "gameMode": 2048,
+      "native": {
+        "query": [
+          3001,
+          -2,
+          1,
+          1
+        ],
+        "requests": [],
+        "effects": [
+          {
+            "magic": 3001,
+            "source": 0,
+            "x": 1,
+            "y": 1,
+            "targets": [
+              0
+            ]
+          }
+        ],
+        "order": [
+          "effect"
+        ]
+      }
+    }
+  ],
+  "lifecycleCases": [
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 0,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 0,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 0,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 0,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 1,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 1,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 1,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 1,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 4,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 4,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 4,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 4,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 64,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 64,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 64,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 64,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 128,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 128,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 129,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 129,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 4294967295,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -2,
+      "state": 4294967295,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 0,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 0,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 0,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 0,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 1,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 1,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 1,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 1,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 4,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 4,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 4,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 4,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 64,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 64,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 64,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 64,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 128,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 128,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 129,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 129,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 4294967295,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": -1,
+      "state": 4294967295,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 0,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 0,
+        "hp": 17,
+        "ap": 7,
+        "occupant": -1
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 0,
+      "active": true,
+      "after": {
+        "active": 0,
+        "state": 0,
+        "hp": 17,
+        "ap": 7,
+        "occupant": -1
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 1,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 1,
+        "hp": 17,
+        "ap": 7,
+        "occupant": -1
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 1,
+      "active": true,
+      "after": {
+        "active": 0,
+        "state": 1,
+        "hp": 17,
+        "ap": 7,
+        "occupant": -1
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 4,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 4,
+        "hp": 17,
+        "ap": 7,
+        "occupant": -1
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 4,
+      "active": true,
+      "after": {
+        "active": 0,
+        "state": 4,
+        "hp": 17,
+        "ap": 7,
+        "occupant": -1
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 64,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 64,
+        "hp": 17,
+        "ap": 7,
+        "occupant": -1
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 64,
+      "active": true,
+      "after": {
+        "active": 0,
+        "state": 64,
+        "hp": 17,
+        "ap": 7,
+        "occupant": -1
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 128,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 128,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 129,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 129,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 4294967295,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar",
+      "unit": 0,
+      "state": 4294967295,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 0,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 0,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 0,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 0,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 1,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 1,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 1,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 1,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 4,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 4,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 4,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 4,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 64,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 64,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 64,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 64,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 128,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 128,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 129,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 129,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 4294967295,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -2,
+      "state": 4294967295,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 0,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 0,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 0,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 0,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 1,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 1,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 1,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 1,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 4,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 4,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 4,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 4,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 64,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 64,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 64,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 64,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 128,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 128,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 129,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 129,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 4294967295,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": -1,
+      "state": 4294967295,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 0,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 0,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 1,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 1,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 4,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 132,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 4,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 132,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 64,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 192,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 64,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 192,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 128,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 128,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 128,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 129,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 129,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 129,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 4294967295,
+      "active": false,
+      "after": {
+        "active": 0,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    },
+    {
+      "kind": "dmKillChar2",
+      "unit": 0,
+      "state": 4294967295,
+      "active": true,
+      "after": {
+        "active": 1,
+        "state": 4294967295,
+        "hp": 17,
+        "ap": 7,
+        "occupant": 0
+      }
+    }
+  ]
+}

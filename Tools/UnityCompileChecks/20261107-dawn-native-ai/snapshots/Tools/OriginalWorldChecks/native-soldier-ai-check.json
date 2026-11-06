@@ -1,0 +1,26 @@
+{
+  "cases": 1403,
+  "mismatches": 0,
+  "sources": {
+    "Assets/_Original/Runtime/Combat/SoldierActions.cs": "75b9acef8a5d4485f7fda493111b4904acbc1c84f0d2bafd27821b71d6c39009",
+    "Assets/_Original/Runtime/Combat/SoldierMovement.cs": "c1449c030198ddec65c1f355bfdbcb977b5259205b0280b5ad18af4e12a7a735",
+    "Assets/_Original/Runtime/Combat/RegroupMovement.cs": "2aa3f86c945af5bfe91deec51a7be488812a669003fc53c73a7791d8dfff72bc",
+    "Assets/_Original/Runtime/Combat/MemberCommands.cs": "8bfdbb8944a5edead0cede2c0c7cab3c0b8bcdee77cbccb3ba8774d25e3d2fce",
+    "Assets/_Original/Runtime/Combat/CommandRange.cs": "e685b7063abe8830a3827b2572e98a83b1d8959223e68684eb774947a373f13f",
+    "Assets/_Original/Runtime/Combat/NativeBattleRelations.cs": "c96f3065e20afaad6371528107e9cb4fbf228e4cfeaed6e7f8087ac8a44cdb44",
+    "Assets/_Original/Runtime/Combat/NativeUnitSnapshots.cs": "cad707785266d777b86f02e47468fe72b3ed56bbde1c19e010cf15536456e655",
+    "Assets/_Original/Runtime/Tutorial/TutorialScript.cs": "a17e059fa33111782d682fa81ecad0e85f20a0923185ded8c62b72ee4fc71138",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "Tools/OriginalWorldChecks/SoldierAiDifferential.cs": "9cdd2044ec8b3032db75180e1409c37cb42103c9f98ce35c36bc458e936434ab",
+    "Tools/OriginalWorldChecks/check_native_soldier_ai.py": "e0fe2669f07879abb8cf457481ae5ebe7767779ce3ca19098e56142da216a81d"
+  },
+  "receivedTeamCases": 24,
+  "ownerLifecycleCases": 66,
+  "previousClockCases": 240,
+  "decodedMapCases": 228,
+  "casesSha256": "0d5e259460f998aafa90abd556b41710db727e59dd402c5714918ab3e4bbce5f",
+  "unityPlayExecuted": false,
+  "nativeCodeExecuted": true,
+  "scope": "Actual bounded x86 ExecuteSoldierAI/GetMovePos/MoveAttack/target selection/SetArea/pathbacktracker; map attributes/team/clock/rand and empty MFC string/path-presentation queue/send boundaries hooked. Compare purpose/destination/target/flags/hint/AP/random draws, not path packet bytes or gameplay playback. Previous298 inputs and signed32 clock wrap are included;041F0 clears298 before the movement helper.",
+  "logs": "/tmp/ds-dawn-freeze/ds-native-soldier-ai-checks"
+}

@@ -1,0 +1,1424 @@
+{
+  "generatedAtUtc": "2026-11-06T14:48:27.241959+00:00",
+  "branch": "work",
+  "head": "367e27800cc9b1c102ad8f7df4622157b932acc7",
+  "workingTreeChangesIncluded": true,
+  "committedByThisTask": false,
+  "unityPlay": false,
+  "unityEditorTestRunner": false,
+  "physicalInput": false,
+  "audioListening": false,
+  "scope": "Incoming20 foreign victory notice and source+30 shared0D message tracking. Includes actual08790 constructor/08AD0/08CA0/10F20 state comparison and extracted actual UI paint/pointer bodies; native soldier moving-bit branch correction (initial8 discrepancies,1049 final cases) and AI FIFO/role and commander action/movement gate source analysis, current API and impacted regression source audit. Counts overlap and are not summed.",
+  "integration": {
+    "reports": 93,
+    "api": {
+      "report": "Tools/OriginalEntryChecks/entry-check.json",
+      "sha256": "804b9cbaf4c59709aa8d79e4bd794f70662546e55064fbd7819fff2165ca94cd",
+      "runtimeSources": 232,
+      "editorSources": 11,
+      "errors": 0,
+      "warnings": 0,
+      "codeSha256": {
+        "Assets/_Original/Runtime/Campaign/CampaignExit.cs": "7f78c7423f2c1d983e1ef77429f88133ab80d85cf6117ecf19696e6efc0ac50f",
+        "Assets/_Original/Runtime/Campaign/CampaignExitService.cs": "95d8ff3c74273807839456af484780795cc96a68b8c4fc5f55a35dac48664860",
+        "Assets/_Original/Runtime/Campaign/CampaignModel.cs": "2dfbeea2b6f21962edb12e425bc964e271a512c6237bb79aee5d0532cbec5f0c",
+        "Assets/_Original/Runtime/Campaign/CampaignResult.cs": "e23a450046bc0aff9e7716136ff2069769062c68617fdbc0166c5c44f23bf480",
+        "Assets/_Original/Runtime/Campaign/CampaignResultService.cs": "61593df8a38229d3eaede59e05b06939e57319e2398ce4ca38a7f6209345ff6f",
+        "Assets/_Original/Runtime/Campaign/CampaignService.cs": "1de33665480472888d908cb22f27ad62b6a7b8b5fdf03d26a3c00ecf2b6e0e37",
+        "Assets/_Original/Runtime/Campaign/LocalServerManager.Campaign.cs": "2a25fbb649ee972777a533528a42dbef956d8114b5aca32ae1e350b29354163a",
+        "Assets/_Original/Runtime/Campaign/NativeCampaignArt.cs": "da795748b8e4a7b2021b927f71c9411736133946d5f2063fc646943ad4a9d6da",
+        "Assets/_Original/Runtime/Campaign/ScenarioGatewayService.cs": "04bd79e628f972f0052daf2d0f0152cbd48786317edb53cf27e7ed60f71ec716",
+        "Assets/_Original/Runtime/Campaign/ScenarioGatewaySettings.cs": "8a57167a29681b5fd876232a36de34ac2c60ae89eada19c900d30f084e80a95b",
+        "Assets/_Original/Runtime/Campaign/WorldSceneRoot.Campaign.cs": "ac5ad26c5981708ac18c7ef41029c98a775cd9eeb5e03b2f735ff4c1ed30395b",
+        "Assets/_Original/Runtime/Combat/BattleFeedback.cs": "e853bf98fa3d934d95a8eb3a988064282d796407e6259bab2b79a0eed4f2e847",
+        "Assets/_Original/Runtime/Combat/BattleFeedbackFrames.cs": "ee05368a90331f03298d140c00c3fdf80cdfef46bc296bcaa22ee6510bf0fa9f",
+        "Assets/_Original/Runtime/Combat/BattleFeedbackService.cs": "c4197b6bc253733e72f82ad33147e61c72a5a2e913bbb47f259d289ff71b340b",
+        "Assets/_Original/Runtime/Combat/BattleItemService.cs": "8575846a62119fe5bf6eeb709fd26ad927f6ab88e80077252deda62a4aec1351",
+        "Assets/_Original/Runtime/Combat/BattleItems.cs": "f40bca2ec924d39a8f0ead85ddedda777a77674fd5991276b289f3a30bc50034",
+        "Assets/_Original/Runtime/Combat/BattleLifecycle.cs": "5d7b01c0b5f7f3742e24716f1f30ce1a3227d93fab880c243f9e7ff1106ad973",
+        "Assets/_Original/Runtime/Combat/BattleLifecycleService.cs": "ddfb007b83f3a2c495f834e3ea8d44389198693705f369b73a7cb4bac7caa1fe",
+        "Assets/_Original/Runtime/Combat/BattleMagic.cs": "afff0bc3a8158f740c1f97741ba8a113ae60a4e9f36197a145c02eae1f51c0ba",
+        "Assets/_Original/Runtime/Combat/BattleMagicArea.cs": "17b7474c192a3154218c5be0cf11a38ae05d982fda6a695a03484b55c9a684d9",
+        "Assets/_Original/Runtime/Combat/BattleMagicOutcomes.cs": "c387a8ef8e9dd5d3e3fe7b55ffbe9dfa7fcfd44cc3f85056e50c1131f3c5d67f",
+        "Assets/_Original/Runtime/Combat/BattleMagicPresentation.cs": "4420bd0171e692f83fca8166123d136e564ed2a57f59d271eece2e7788a5db04",
+        "Assets/_Original/Runtime/Combat/BattleMagicService.cs": "c8ff4bcfdaef11def6e69c405fca3358dbe2a850e4fc63296519d8055c836f36",
+        "Assets/_Original/Runtime/Combat/BattleSkillArea.cs": "4e6b80ab3df5bc52a8e1c5af0434c0f0fdd71a0e19d7b9f7c79620c06382b0ef",
+        "Assets/_Original/Runtime/Combat/BattleSkillFrames.cs": "a61aa9058f5ffb10b31e6d3015b94fb33c62d0fe20107e1f5f2d420830d0905f",
+        "Assets/_Original/Runtime/Combat/BattleSkillService.cs": "90b99545e46080568a338d0afb73f0ff11826480e7c4e46ebd8e5c2563e4dfd3",
+        "Assets/_Original/Runtime/Combat/BattleThunderPlayback.cs": "2b1da69d5ff9504293a4f408a7b62c37b8a332a99e20aca75c777321a111cde3",
+        "Assets/_Original/Runtime/Combat/BattleTickService.cs": "f3292d674451bffc33bc0774be75c9b6a1baafb47e0abf122afe551eb2818807",
+        "Assets/_Original/Runtime/Combat/BattleTicks.cs": "8b2421cd2835ff77cb2b7898adb213ee8a35320ba48df5add6e05ca7aa507488",
+        "Assets/_Original/Runtime/Combat/CommandRange.cs": "e685b7063abe8830a3827b2572e98a83b1d8959223e68684eb774947a373f13f",
+        "Assets/_Original/Runtime/Combat/DeathSoundPlayback.cs": "551ac20ce0caad0eb7194d31b617409f3e4dad2968094fec93cc1f8118698702",
+        "Assets/_Original/Runtime/Combat/GeneralMagicFrames.cs": "642c0a555d9d740d6878ede287b93f1dba7811682dcd3bc0f4f73f9c1102e368",
+        "Assets/_Original/Runtime/Combat/MagicProjectileCatalog.cs": "689c0adf3af32bbd7454ec4fdcfd11753cfb7a6d035a03531262b528c3e91aaf",
+        "Assets/_Original/Runtime/Combat/MagicSoundPlayback.cs": "42f3ee39d2992d72441bcd8894c98631fc0849ed070cc8154576406b6e8adad9",
+        "Assets/_Original/Runtime/Combat/MemberCommandService.cs": "bcf38237d47328a6ff5b97da0377cf2d484dd56dab96b818b7f37ee796c8b17c",
+        "Assets/_Original/Runtime/Combat/MemberCommands.cs": "257695842049066adf0677d328ecabe50cd867bba80479fa68f7a684f3ef536c",
+        "Assets/_Original/Runtime/Combat/NativeBattlePacketService.cs": "a93ca0453e5993d6999cf66657af3c0c3a03d06554eac3adaa1872308e723a77",
+        "Assets/_Original/Runtime/Combat/NativeBattlePackets.cs": "19115cf5bc0ac0f3e63f7ec8e413ab361ea5445f1b2038cd1b2a40cf1480fc64",
+        "Assets/_Original/Runtime/Combat/NativeBattleResponseService.cs": "078ce80b32490a01d3760c5865bba3fea3dc187f40b70e575d9e3c4dffc7127c",
+        "Assets/_Original/Runtime/Combat/NativeBattleResponses.cs": "89f08e603e011ce1c0f4bbd8487c79671fd23348b84b84e0f4c73eac221f212a",
+        "Assets/_Original/Runtime/Combat/NativeBattleTeamNames.cs": "c3b47dabd0da21014d54464fa15f63be088be1b1ea2ed6b5ef477b6d4c4d9bcf",
+        "Assets/_Original/Runtime/Combat/NativeBodyFrames.cs": "b02149f3e04a1325b7b01bcec6d9b079934572f0d9838a7b52a5fe3af30647cf",
+        "Assets/_Original/Runtime/Combat/NativeBodyOrder.cs": "9c65dd96aeb56bfa0eff9ac03d0db865c69eccea7ff0c6e7c518b490c1d7d90d",
+        "Assets/_Original/Runtime/Combat/NativeBodyPalette.cs": "f7fa297ce4a2223540a47f4b88f53b753e520ca9f9e2fabb5d1549a30d1bc574",
+        "Assets/_Original/Runtime/Combat/NativeMagicPackets.cs": "768c3437433a3d220ee9047fa20ffd5757b6f6e834f29208bab472e96a948429",
+        "Assets/_Original/Runtime/Combat/NativeMagicRedirect.cs": "2218ecadb9759f7db1d0a3321ba7faa03fa94d46d81084cfd800354ec9f43c15",
+        "Assets/_Original/Runtime/Combat/NativeMagicService.cs": "39a01e1da95c55e61d7c911a9846f205e6bb10e4e3360a370d34d76905a7dee1",
+        "Assets/_Original/Runtime/Combat/NativeMoveHintService.cs": "93788cf4ef96db363be1159f977ffc8411827a63cdf79a8b05b3017e262c0671",
+        "Assets/_Original/Runtime/Combat/NativeMoveHints.cs": "981a96b5c91a14d2b0e86bbd10522c9f37bbf171e1d69cd4c8bb1a0423fe33d3",
+        "Assets/_Original/Runtime/Combat/NativeMovement.cs": "27e5303f272d02594c2e3a13b6a7a3e4ec457c6af7626927006fcbf1e8b5349c",
+        "Assets/_Original/Runtime/Combat/NativeMovementService.cs": "b2572fd8d9ce6d75292d3ca383ec6a181d2f1354325e301b926c195b6bc3c50b",
+        "Assets/_Original/Runtime/Combat/NativeUnitFrames.cs": "0e5092c68d56b2646ba0679dc904cd02d259e46d37d7d91b6f65a21acdc822cb",
+        "Assets/_Original/Runtime/Combat/NativeUnitSnapshotService.cs": "99a68a63466c76be0ab8eff531433dc60f637b3f290ed038663224f9cb637832",
+        "Assets/_Original/Runtime/Combat/NativeUnitSnapshots.cs": "cad707785266d777b86f02e47468fe72b3ed56bbde1c19e010cf15536456e655",
+        "Assets/_Original/Runtime/Combat/NativeViewport.cs": "e4e70f9c8808d7b55991bccd0faf93e7cc3881b4748be39fe687486b4126cc75",
+        "Assets/_Original/Runtime/Combat/RegroupMovement.cs": "2aa3f86c945af5bfe91deec51a7be488812a669003fc53c73a7791d8dfff72bc",
+        "Assets/_Original/Runtime/Combat/RegroupService.cs": "cc3dc8a9b6b91f688388425df4516ccc2107695835447cb05fdee30c4093bc5c",
+        "Assets/_Original/Runtime/Combat/SoldierActionService.cs": "42bd9b04f4fbe360f9c0e26136a321c0940043389a985c0cc2f0af0c4685e35d",
+        "Assets/_Original/Runtime/Combat/SoldierActions.cs": "f485924dd9d9ed199d3f91072acbe069f11b3ac0438999b8b20d28188c7eafbc",
+        "Assets/_Original/Runtime/Combat/SoldierMovement.cs": "0ade70f63fa47f2e5a04fde87f61b7190ef09d2480f30963136ca3e68196be8a",
+        "Assets/_Original/Runtime/Combat/TrainingCombat.cs": "22f134737bc78277ba821be780782a36ea43585e2ea52127753407949e5496a1",
+        "Assets/_Original/Runtime/Combat/TrainingCombatService.cs": "8274646af04cd0c2f26b22820ccab9179c1818b9246123a963348a4b1a359c7e",
+        "Assets/_Original/Runtime/Combat/TroopOrderService.cs": "a29264006eaffd27d8c3ebaa81968ebaef69707fabea5a53c985913b09906ce2",
+        "Assets/_Original/Runtime/Combat/TroopOrders.cs": "6e48f4f5e74f94909a9e9a2cec1933f59327a68baf408b0a3e7d40194c020f15",
+        "Assets/_Original/Runtime/Entry/EntryAccountService.cs": "35785f78c35b0922de65c6ffcd6a786e443a5c40155ca80a8db869f71698fd72",
+        "Assets/_Original/Runtime/Entry/EntryClient.cs": "e22dfe52df09eae76e72bb9cf7cd4cb9f0c735b8349a961fc7424bba514a8c2a",
+        "Assets/_Original/Runtime/Entry/EntryProtocol.cs": "715d4c2456c3060d02209d0d81525601b3c3d1b1b8628553198a083d7cc7d4db",
+        "Assets/_Original/Runtime/Entry/EntrySceneRoot.cs": "78b698a9a016699899a370483bf91576d166e2c0b76fc9738f35056b2fdbb396",
+        "Assets/_Original/Runtime/Entry/LocalAccountFileStore.cs": "d7ba58224b0da03697ff04f2f4682cf960671b407353b577b0437ba5a043c289",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.BattleFeedback.cs": "6053b2d80df27da77828f63a53e2e5e5636a9a88d7c357d84cdc4a27f17b5c77",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.BattleItems.cs": "e13a6a2a882a7a3d8ee66a8a7896f714672eb25f22c133ecfc03dd9ffc19dd05",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.BattleLifecycle.cs": "c47c0a046e1a8c9e71437b228f90c99bdfb0d7f0111ba1c6d4aab8f51d09d1a3",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.BattleTicks.cs": "495b0a67529147af4c3355b7cf7de6f340c2bedf1dc74f134f2c93e1c6395be6",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.Candidates.cs": "f3c5be6e119834ffb9f5e0b117fc30a55ef88f2eb1577fb235781d58e21d6f9f",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.Chat.cs": "3109b6f4c4f7dd28fcb32971f97cc3fa126018cfcc6257acc9bebee8cb8c9fa4",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.ClassChange.cs": "874a4850d0f1054ad7d51009567acc84f7e6ab55f6dc9c07f9640648a0e968f7",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.ClientSettings.cs": "c554e964a2da5d91d19b0962e0ae4e601186c90b8bf5516535407426663aadf1",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.CommanderName.cs": "682269fdee6348b336f82d82ecce523d2492cd5694817904e1ef14235378853b",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.Commanders.cs": "11b4dec0535e446d2a7584abde6c1ca8b8bc71445a42878cb1c43c6b55637e67",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.Growth.cs": "cef4277ff8955b8cb8a8b8e0a08cebe929927d19b4c1522e1422082611d7b93b",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.MagicLoadout.cs": "1116f69939023de95e21f40c43b9239c31aa2bbe539ab4e4ec4744f798222de0",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.MemberCommands.cs": "f7bce68a7a9be5d081946b23f20bdc514195c9e4cffe800c0700170b7f70e0d4",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.Memos.cs": "1d6762c3f5776a9ea75738ec5336e253f5f2ced063ce8d38b0e1a12f2046aa16",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.Messages.cs": "2e0b5f787ac37c54ea5a55280a2550f278e2285439cd3e86384387369484d851",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBank.cs": "7a3d359c04530ff23ca30e280c74bba99aacb6c7e00bfe8909ce7135f1cc168c",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBattlePackets.cs": "8162d4269262896e2ef8dbd3c389bb47f1e5a9b417c7a88eb2b00c7c4e8429ca",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBattleResponses.cs": "e680e2927cd8406de975c5de78a99f6a4b8df2000610525a4845b3d20206d712",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.NativeClassAdjustments.cs": "428fcf6e0323bcf16a57ecfe4dadcd317a0a3b9f72284d0fa2aa2676f99fe704",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.NativeClassMagic.cs": "3df37f71ed7540908da06c91fc6a287d3567b31a502ed7b431720c5b07ac34cc",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.NativeMercenary.cs": "ec6e1a94f6785c53dc43425c1e576d01e0d11dbf268c649fe7827158afde0f49",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.NativeShop.cs": "9fe113672a76b34171d3851f790833bc7401ee4299a2bb3d21a510a6fd79dc14",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.NativeWarehouse.cs": "a83511ddc83c401f2829d56320802650db5b15e239b666d5aa3b2aa82a1423c9",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.PrivateChat.cs": "1ecc685eb82d39176458b147b13b3d0a8432b7cff60ef2b5e3595a2cb1543582",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.Regroup.cs": "0b6b79f778b3b77aae1ab4e7bcafc04cdebf595aa7fb7cbcc44be5bde69fc9a0",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.Skills.cs": "d3863a268e336953ccdde68ab6a1be2d547ef714e78439b48b734be52fdd11d2",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.SoldierActions.cs": "91bd4e4a0f3be6ed00473799e1e6b07a72ea6c65e0fb0014adbc3907f251b19d",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.StatAdjustment.cs": "878bf92d5c1a05df7fad93d776d782514d5f7270c571241781d19be9b1ced328",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.Training.cs": "1d20f6f698917e4aaca49ad1cb2b94b147e39da5be2ea22779958f0e09319d95",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.TrainingTest.cs": "3a889dd497310f9f6c826a44fa426b57b4e4998cf4f49eae4a9f23932b155454",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.TroopOrders.cs": "8487ad78db6457337715b521ba88c3ae63bee89ae29b1efc7daa46b228067a84",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.WorldText.cs": "4a86778bda2acc160b609ac9b47360d46e750ace6f0909ce304ba66423f1a73d",
+        "Assets/_Original/Runtime/Entry/LocalServerManager.cs": "630b98db96f198b7690c0df907b9660a712871f46f680f5052d8a7aba7bbd8df",
+        "Assets/_Original/Runtime/Entry/NativeEntryArt.cs": "f572314a14eb3f9dcff7fe0cc922c8b91749871425073d3b29def65715c1068a",
+        "Assets/_Original/Runtime/Entry/NativeEntryButton.cs": "647c4657887ea7220cc5d399710804f166824fba5176f688440d5952c06f1215",
+        "Assets/_Original/Runtime/Entry/NativeExclusiveHit.cs": "588662514fe2522a1bf40d6b7c6646aaa6a84b3b3fc2c5675daf19eb6bd12dd5",
+        "Assets/_Original/Runtime/Entry/TrainingTestLayoutCatalog.cs": "e2ebc9ecc572e1badb3cbc81392a60a8494dd332f47eb976ac616c1429a0f2a8",
+        "Assets/_Original/Runtime/Growth/CharacterGrowth.cs": "6a2f6220c97dccc9f32567380c65c2a3a310ebfb5494c57bc3f82a7c31ec535d",
+        "Assets/_Original/Runtime/Growth/CharacterGrowthService.cs": "82304ddf475103a69aaf1fb2c243ad1630294f37df0e8d2d2da4e61db1ffce8e",
+        "Assets/_Original/Runtime/Growth/ClassChange.cs": "507de39b0a61b0e0d6a39886e1391856971d5de2b2ef7360c2be2108cb87f4b7",
+        "Assets/_Original/Runtime/Growth/ClassChangeService.cs": "21681d7fe867f687cef974455ec96ed4334dc19f98a472fb4a5957ffe0613d12",
+        "Assets/_Original/Runtime/Growth/CommanderAdjustment.cs": "8d92cbd6b135a17c6db16dd46faf21d1a9243cbe9c7d4558cff7fc612323a8d0",
+        "Assets/_Original/Runtime/Growth/CommanderAdjustmentService.cs": "9a540bd4463f95b4dea5e4e157d89bb8016bf783a7610f9e6ccc5c5888a145c7",
+        "Assets/_Original/Runtime/Growth/CommanderRoster.cs": "65f9b00e862801a3ae5c22447281a3f7687231f46ae1364767a42f8d90d4921a",
+        "Assets/_Original/Runtime/Growth/CommanderRosterService.cs": "959c940f1fc2f69a5146505f165fa9c2ba9a6d6d2a90ab0735bd54edbe2648d4",
+        "Assets/_Original/Runtime/Growth/MagicLoadout.cs": "a3d583d059cab6e0d54c2d82dcd1b9701849600d81238a805d2b3a3e56910e95",
+        "Assets/_Original/Runtime/Growth/MagicLoadoutService.cs": "14e3009c708df08dfd2e315fbc5304e903c14c75cac0721c7b107f62b0e332f4",
+        "Assets/_Original/Runtime/Growth/NativeClassAdjustmentPackets.cs": "d3ef237ae434a1e1307da4b7852072f3964aba4dae1faabd87f7b87c55ea65f6",
+        "Assets/_Original/Runtime/Growth/NativeClassMagicClient.cs": "4801cbac0fec7b67f7687ce01143b2779a4cce654d822fb49de62a796c91b55a",
+        "Assets/_Original/Runtime/Growth/NativeMercenaryCatalog.cs": "1f463a8adf9598a8f3efb21c015d8bf28601abf498ebecc190c15add6d5fe78a",
+        "Assets/_Original/Runtime/Growth/StatAdjustment.cs": "4fdf06010a190f72fb69a887ff1d9447e7aff4715d7ff5f7439d1951082609de",
+        "Assets/_Original/Runtime/Growth/StatAdjustmentService.cs": "f09c6686feb58c8410b4bf06175322a14210ecf51558147263bfb19b96b2c966",
+        "Assets/_Original/Runtime/Maps/NativeMapAnimation.cs": "048aa61410aa1259d04244d26ba9024f2e58eb36b587604dd328e24c64cb3d6b",
+        "Assets/_Original/Runtime/Maps/NativeMapDecoder.cs": "24996a7e09bdb84bd7c3dae35d0988e18b40629e328ce50b234eca0900ae4abd",
+        "Assets/_Original/Runtime/Maps/NativeMapPointer.cs": "5a9a6151875793c3cb7b5d425b9c6dea495d4368689ad9bcd420a3f6e6db9468",
+        "Assets/_Original/Runtime/Tutorial/LocalServerManager.Tutorial.cs": "a789135939b97b140d6c3ed783ec1a4f0926d0ab7467645b17044ad3cf2350df",
+        "Assets/_Original/Runtime/Tutorial/NativeTutorialArt.cs": "2355652b2a06e89bcd7cea6ff59fdda62ddea4209293ddd9bb6b8037b86fb8dc",
+        "Assets/_Original/Runtime/Tutorial/NativeTutorialDrag.cs": "d7f50aae623f79a82daa020dad3f0c09088b8b12a1ff3c10b209c01738ffb719",
+        "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.Waiting.cs": "9e266e342a288dd0ee3572e11c2cbfd716381b6a15ad98db0be7c9b6d88b25a0",
+        "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.Windows.cs": "37d852a45417699f6c2acb8e64795cb96e6b0d7ed6441cf150a8b279324bc6f7",
+        "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.cs": "4ebc5769eafe0031165f5579eb8398e72d06bb79cd230fd6fa26f98fc41215a7",
+        "Assets/_Original/Runtime/Tutorial/TutorialScript.cs": "a17e059fa33111782d682fa81ecad0e85f20a0923185ded8c62b72ee4fc71138",
+        "Assets/_Original/Runtime/Tutorial/TutorialService.cs": "21c833f135eb6ed97be9608d5fca8174f8a4051987a6133d8ff157f947f2a18a",
+        "Assets/_Original/Runtime/Tutorial/TutorialSession.cs": "f6b46a28dc9c53911fccaf74a9aec25f4073b48df460d4c6004b23947008d203",
+        "Assets/_Original/Runtime/Tutorial/WaitingLesson.cs": "2de1f502c16f6799c01678c94592c601ce3f6de039d7481278f1346d849ae1cc",
+        "Assets/_Original/Runtime/UI/NativeBankClient.cs": "ae67c48ffac231f141808823f56fbf9a5b21a9c9e22dde5eeb41866bcef25e8c",
+        "Assets/_Original/Runtime/UI/NativeBattleOptions.cs": "5adaca91872ddaea47e21ebd0789ad8a209f0f8c0189cc03058dfaae1ffa7c99",
+        "Assets/_Original/Runtime/UI/NativeBattleWindowArt.cs": "d2e73ed5d076793a1993f94a95e60da6a24560a5f7b170205a17c6a710ec4158",
+        "Assets/_Original/Runtime/UI/NativeBattleWindowPointer.cs": "b65b581b0093c10e9deb9571c9dba92e46411dd43eb744c51d99c8ad4a405d04",
+        "Assets/_Original/Runtime/UI/NativeBitmapFont.cs": "057290fad48bdd51c2cfbee45c45f8123a234c92ee8211ef885f71180fe0014f",
+        "Assets/_Original/Runtime/UI/NativeBitmapText.cs": "64125ebabcf6aa0c3ac472e729504def11b7dd93db6ebe2d43da259fc31f52b8",
+        "Assets/_Original/Runtime/UI/NativeCandidateCacheFile.cs": "17c9f40c1d82ddd3797a7a003467de9ea3d8cc44f5b36469f45e23338c426ba5",
+        "Assets/_Original/Runtime/UI/NativeCandidateData.cs": "721b74bf691f0ef807c01ea379846eb16c32b58bcd5f0391609b432705070c58",
+        "Assets/_Original/Runtime/UI/NativeClassMagicPointer.cs": "ebcdf4c1a33d4cf39175b7eeee1545c9e9cbf0623413939384244cc6f870c334",
+        "Assets/_Original/Runtime/UI/NativeClassPresentation.cs": "441d59175506848823b530a9e8a5b70a7c222a5b436967e2b5c27b4608307551",
+        "Assets/_Original/Runtime/UI/NativeCodePage949.cs": "4cdde807db17dbd1b435d927728d888c60d560ff73a7d5c31b30454f51706324",
+        "Assets/_Original/Runtime/UI/NativeCommanderName.cs": "e18f2654fe0990596e9c62a813d0900d5d7efdf6c34c9e6a129fb7d958c5b548",
+        "Assets/_Original/Runtime/UI/NativeCurrencyText.cs": "770dde1583173ea6e05c12ff89d48101c0a635d170e4e49c974babfb6d0c0c0e",
+        "Assets/_Original/Runtime/UI/NativeFacilityWindows.cs": "3e4818aac16e439623fd18d93e3a47a003f6f5cd26420c52332b7ca6705d3aea",
+        "Assets/_Original/Runtime/UI/NativeItemCaption.cs": "6ec944889a8cafc2147c9423f183361acfe7e04a550c40846a4504cdb25b27d8",
+        "Assets/_Original/Runtime/UI/NativeItemDragContext.cs": "a410fae9232364415ddc5b09a2698e0a5522e8affccef35d49d20e7eed808ac7",
+        "Assets/_Original/Runtime/UI/NativeItemPress.cs": "c13f22d0ed156a2e8bc7d81d65717d09f068634273c9e8e772d72ad2befeab5a",
+        "Assets/_Original/Runtime/UI/NativeMemoInbox.cs": "f19aedc8fba8c985a0aea6a64a7b7ba22b339b46431a102190fd4ca4caab1983",
+        "Assets/_Original/Runtime/UI/NativeMemoTransfer.cs": "5472f2a79ec02bebc675bc6c36e37af24c7b053bc2e7dc829e7df15ba4a61358",
+        "Assets/_Original/Runtime/UI/NativeMercenaryClient.cs": "4f3f9d30c3cd3dd9b1fec3c48a089afaa7332b4975c3e37a6498591b7fb995eb",
+        "Assets/_Original/Runtime/UI/NativePrivateChat.cs": "751abf3ee2ab2d9a618dd0ad368ab239a3e09331e46e1edfe16b30310fe75ca8",
+        "Assets/_Original/Runtime/UI/NativeRepeatButton.cs": "e0c957ac27c260a7b12f607a20791cd8b967bc6623eb42669015510de85012c3",
+        "Assets/_Original/Runtime/UI/NativeSelfInformation.cs": "38f892095606c8b684c8a76ab149e4562e2fee2843bf2b6aab2e1f1c2e319801",
+        "Assets/_Original/Runtime/UI/NativeShopClient.cs": "1b1a619506e2582211b40ed56674a37d92188972bf06e7f1ee1b6842c210c386",
+        "Assets/_Original/Runtime/UI/NativeShopDetails.cs": "4aead0ee5ee6511a4354ef5b829910350599e0df49348623499c60e3b846437e",
+        "Assets/_Original/Runtime/UI/NativeTextMetrics.cs": "5649f6fcbba653fa00d489b67d3c74fc852dd992fd3f15e856ae17112666f1c0",
+        "Assets/_Original/Runtime/UI/NativeTextSurface.cs": "96667d41397574d0375ca65ed74c7705ebed84bd67e57ba911aa82b89302161d",
+        "Assets/_Original/Runtime/UI/NativeWarehouseClient.cs": "9cf323024066b38f64761bb5da0c6139e0a16f4b493347fb8d49a99be4f40127",
+        "Assets/_Original/Runtime/UI/NativeWindowClickInput.cs": "bb0213451a0d35659a4ad4c730331ebb4a99eaefec68ec741b487e82eb15fa10",
+        "Assets/_Original/Runtime/UI/NativeWindowDrag.cs": "1053f3ef02761d89c6474af599a3e0bba153a6b1d9b92fe3e03fea74eda8893a",
+        "Assets/_Original/Runtime/UI/NativeWindowDragInput.cs": "baa1f72b38eb1d868e9e3dd86d8ceaa209201a28b89610b04067f2dc7d9f1678",
+        "Assets/_Original/Runtime/UI/NativeWindowPlacement.cs": "442c1f1e88dca0e10ce6ae7b9441820b6115e8ad36db09afe6c233753da861dd",
+        "Assets/_Original/Runtime/UI/NativeWorldChatComposer.cs": "cdce3d323422a10998b14d3b6d9cca67fdac5276424be3c4e7246485cd20707d",
+        "Assets/_Original/Runtime/UI/NativeWorldChatFilter.cs": "0db3f33314e7163e286f1e9a353f67a5449497134c5bcfe8ceec7ea22fca1430",
+        "Assets/_Original/Runtime/UI/NativeWorldChatLog.cs": "cb674389f69cbd1ce089d7a67b4e6cf0ea79e059d598196b835f65a811076f3b",
+        "Assets/_Original/Runtime/UI/NativeWorldMessage.cs": "a17b7d9a5c16512847ef39410f679b9aa0f0eb10d31711b9fe685d74a64b182b",
+        "Assets/_Original/Runtime/UI/NativeWorldMessageInput.cs": "257d7f2f5d85cbc17feca582b0f42f9dca82a7d07cde192e6bd9481493329887",
+        "Assets/_Original/Runtime/UI/NativeWorldTextPackets.cs": "791cdb9730b5a79fa6ecd635212796a7fb85677d7d1bae03d936bc1a9a1b0d5a",
+        "Assets/_Original/Runtime/UI/OriginalClientPreferences.cs": "7039acd134d1d27bbe68d6db0c3464f2b80cb83ed12b76cbfe4527a88526625e",
+        "Assets/_Original/Runtime/UI/OriginalClientSettings.cs": "db363e0b977a8df7a5cff134199a30ef5324b2b5fdf4f57c346d7676f36c1b0d",
+        "Assets/_Original/Runtime/UI/OriginalWindowPreferences.cs": "a1300eacc763dfd1fa5596db31a297a5891497dad8f70c0bea2d41ee464c06a9",
+        "Assets/_Original/Runtime/World/BankTransfer.cs": "74fcac7a27ba51053298db333df88ecc54d5c3483a4801b0ec165a36f1a3ec1b",
+        "Assets/_Original/Runtime/World/BankTransferService.cs": "53a99a5b69246088b84ffd42440ce123456841462312ceadf2871379af88cbd2",
+        "Assets/_Original/Runtime/World/CurrencyService.cs": "792c0d3a812debe51bccba00e90651892e5c350637996b8a66f071ff411b7dca",
+        "Assets/_Original/Runtime/World/CurrencyState.cs": "f0c5017108e2b89ba9cc9ed909bd0739667915c710697789ea32f8eadbbf3048",
+        "Assets/_Original/Runtime/World/ItemUseTransfer.cs": "6bb38de38fbd591ae6b71e80d39efcbb68e2c46ba6d40be77c3fa7ac430e56e8",
+        "Assets/_Original/Runtime/World/ItemUseTransferService.cs": "2a5ef4158556851e7a4beb483f80973da8809d21ec41e175c164be19f9f26405",
+        "Assets/_Original/Runtime/World/LocalServerManager.Bank.cs": "436e03fe2207fb6b444e4239f39f5512ca585ba4c808639f3258adbe3a81d2f7",
+        "Assets/_Original/Runtime/World/LocalServerManager.Currency.cs": "09c326385887aa830b8be6843ae7e7cc5babe914b6d0d29efc3761844bd2da69",
+        "Assets/_Original/Runtime/World/LocalServerManager.ItemUse.cs": "ef1a0c806382be4be8fa288bdb6900d4fe59467dd4f53e8d057dc994be38f3e6",
+        "Assets/_Original/Runtime/World/LocalServerManager.Mercenary.cs": "4c65e093727a43c71292b63ae2365e4ffcce01d67172af6ed08c1583e6d17944",
+        "Assets/_Original/Runtime/World/LocalServerManager.PlayerIdentity.cs": "6d92816e1e5e8e079668cb2041d9697920be69cbc1cfbc7237a347f82798e682",
+        "Assets/_Original/Runtime/World/LocalServerManager.Revival.cs": "b80366a64b23ccb8c76b8eba4221da5dd3c1488078cfcaacdcf8aa2fa72cd938",
+        "Assets/_Original/Runtime/World/LocalServerManager.Shop.cs": "41288760d13c40e93e7258067fe224b61dfe3e9cf4fff5d2f52f817e3757797d",
+        "Assets/_Original/Runtime/World/LocalServerManager.TempleAlignment.cs": "f6292020b9eba9d3cf9ebd99697b137c89d78605df34c535b89e70d63d06bca6",
+        "Assets/_Original/Runtime/World/LocalServerManager.Warehouse.cs": "a62b4800289da2c947a5987477f6a12e2305b778914f93fcc4f09949da46719b",
+        "Assets/_Original/Runtime/World/LocalServerManager.World.cs": "df3f064589c885d6c5a2f4513f87fd007b9e3c05cc6c9cf98ae612a02a635b50",
+        "Assets/_Original/Runtime/World/MercenaryTransfer.cs": "24ddcf4e1eeb3dd5f590fd4af4da5bc2b5ad25926998f76ecb853c5383afac12",
+        "Assets/_Original/Runtime/World/MercenaryTransferService.cs": "0da9884a6b7f11354034d5b63921c26e5965f846e42560173181a067aff663b1",
+        "Assets/_Original/Runtime/World/NativeWorldArt.cs": "fed19a7596139069c59986ad76c59a2f30a62205426b9f2095de9e5bdf9807c4",
+        "Assets/_Original/Runtime/World/PlayerIdentity.cs": "3c660eaa80f130b2c9930c4e80da324712ae10018ae8532a69825a317ff12f9e",
+        "Assets/_Original/Runtime/World/PlayerIdentityService.cs": "91b37cb32a52563be00596925e13f1a0c79ab39ce4f21295065261396a7b788f",
+        "Assets/_Original/Runtime/World/ShopTrade.cs": "71a5a9ebec5003b37d7409fb9d2ff3ba1d0e34e0915538bf0c7c494db67df039",
+        "Assets/_Original/Runtime/World/ShopTradeService.cs": "675423ff9d1d206fc83b9a051fd4a0b5aa65b3482b8f98d702a156cd4f8ce385",
+        "Assets/_Original/Runtime/World/TempleRevival.cs": "22defec3be4e976521685c371dbb630763dc90c9028a24bc8f51e83966207487",
+        "Assets/_Original/Runtime/World/TempleRevivalAlignment.cs": "aa89917d9baaba933f2ecadaf81fcf80f9c0ff6051d628ec26c738b8e1f42335",
+        "Assets/_Original/Runtime/World/TempleRevivalService.cs": "dc459a22b756d15ad69d837294546e69363979e564e5da316091e2c485a8c9f6",
+        "Assets/_Original/Runtime/World/WarehouseTransfer.cs": "014c48381c347c4e65f1b4451aef9042f535dd503d074dcf6d86f4a6497c1c2e",
+        "Assets/_Original/Runtime/World/WarehouseTransferService.cs": "ddede297a55eaae36d22bd4dbb77c423334a8dba7af440a4b5b06780d1c22000",
+        "Assets/_Original/Runtime/World/WorldModel.cs": "ab0fdcad8711d1e9a11affb42c5102afbc91cb3044e5c1bbb491c8faa8f26078",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.Bank.cs": "7b533649e27a0be26527bb13cef85b83bb27521f23a32b2e17e6a905cda1969a",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.BattleFeedback.cs": "0eaa09173e76481b6d8a6ffc6639ce93879a9366075fb31f5e51c5632e91c6aa",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.BattleMagic.cs": "3a0f08e202b812be3b0f6ab719f4c3400101adcd6ac8e6fd95ba237c34876866",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.BattleWindows.cs": "a724bb84d2685eb80b8cdd85871a6f71dd084cc01eba46953a32c180d7b41ac3",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.BodyLayers.cs": "7d5d530e69195bf9be5a9781b0e5cd6c711e1ba6105ee674ce21f1d581ef62fa",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.Chat.cs": "262b66954e2f088c5021f921014872330cb04f8c5fe8bf6335d649e119a366e0",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.ClassChange.cs": "01bf80cb641deb7d1e50460a161b0f4ed8a2cfb9d54317f0ad6587103d5b99f4",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.Combat.cs": "fb7ab1bcdf2ed8992654c14355270f4cf5ff6033cea41a960590e1eff75572c3",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.CommandRange.cs": "33914eb5ea8e1be33356940641e89c0dc9331def9c4d52960c6d204bc727146b",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.CommanderName.cs": "da3629b81a7537e11495ade70857b0adc984bdd6f697117e99dc5b8a400ec98e",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.Commanders.cs": "c5ac5ef7a25cccf4763b49c4c9eae0cc94a80cb823c35294197193034309d00a",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.Facilities.cs": "1c7e815d4c712274fe762cdff41c2a8cfcb282f7fa9a378edf664d5ef52aea91",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.Items.cs": "21c934048550968ec33c7cbab848c7fc04d7cae545d6bdde55430cab486b3afd",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.MagicAudio.cs": "a41ca1d05069c06684556985512be99918bff7fa7ae57ff5de5cd1e87f7f195f",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.MagicLoadout.cs": "211e9f32b8029bb20e8fe29b87639c8bec168cd98b6845515651d20f8c358d07",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.MapAnimation.cs": "48f73ea4bb0b2f850b97120e88449749d16b8a0ec07f78672fd5977087e52ed4",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.MemberCommands.cs": "91ce4a0956426b72177348fe295b0e484183a1c4a52bf4380cb6ed4bfe59cabf",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.Message.cs": "825dc7435786f1625243e7a4980b693f04f8837279b84ed742bd5273601ace7e",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.Personal.cs": "695bc2e71975ef5482ef3154b4bf3080dc562a4fdf979254142d395c07a534cf",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.PrivateChat.cs": "aa7a0e94e672355140296f9b332625660f7b451fbcc60d948dbe2a3c7ea2982b",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.Result.cs": "e3e477203b7e01f07ee9b062ef05b6a427e70cbd44bc7a4412fea727b7502c5c",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.StatAdjustment.cs": "11ffe9c67fedd64b829b78aa6a7f3c9fe85f8e2dd78163a6f2190ecbc16bb3f6",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.TempleAlignment.cs": "9d73f0754b970ce0a99e61bfffe2d5b4c578496b99ba5df08ade3af740470df5",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.Training.cs": "52c7f79a1ff7d82583c7a6647964a32eb10a753c8262f986b773b6925b9eaedb",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.TroopOrders.cs": "fbf51a3903f90871d8c9ead99d80a47d610baab8dc39f15d638e59cbd41e3944",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.Utilities.cs": "568c6a947fbe32a8adf7a49134886d302e59757433a88699205012799439cdd5",
+        "Assets/_Original/Runtime/World/WorldSceneRoot.cs": "bc236600db54e424a19b4f5e46545ddac2635125c03094e6256aba94cdd48920",
+        "Assets/_Original/Runtime/World/WorldService.cs": "1582026db37fa59c2117bd2eb0ecb8a70dad8195b7fdc0e4823b825821730af1",
+        "Assets/_Original/Editor/LocalCharacterReset.cs": "6e1f76229aead06d9bd4f8a354a9eb15461eeae8466126ed05a3b589f732903f",
+        "Assets/_Original/Editor/LocalEntryAccountWindow.cs": "0017da1e4ac3bd6cefca0bc83c151410fc6d1fe60232b0a5ea1f73b3d86307f0",
+        "Assets/_Original/Editor/LocalGrowthTestWindow.cs": "c41a6446d0c9111cddf84221dffab71fc43c71ef6d91413ae5f1182c38e1104c",
+        "Assets/_Original/Editor/NativeBattlePacketWindow.cs": "716605fa1575e96bb4db7634c70f31b40c81f8856f7e569c49d45740bf27d4d4",
+        "Assets/_Original/Editor/OriginalFoundationSetup.cs": "cdfb7002e9a350fe3f29b6de07e7b586f49e003bfd389e1c8d73b77e12d8c61c",
+        "Assets/_Original/Editor/OriginalPixelTextureImporter.cs": "031d0920c325655155ed304fad594160d28efb75987486298b571ff913584497",
+        "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "a9b9a71925cef8ecac3980b64c01aeaeeca548478305b9a85184b506bc3ceefd",
+        "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GatewayList.cs": "9d82c163920c9707a4d8b3f0ecd327863ec19f7940e2194e6d1b453d6ccb790e",
+        "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "781a6150110dd419f76657443b9e6254c97741b8de8a1d2a38bcd2b0a8fdfcc4",
+        "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "0178baa5ad9e32374dfb8416b8e92c8a0bd1edd33c2058b425c9bcdc5c8af7aa",
+        "Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs": "98daf67f8dcfc02413c0d2db559a2a2a3fde9c877688f7897bfd127267c68497"
+      }
+    },
+    "sourceAudit": {
+      "declaredSources": 2398,
+      "scriptGuids": 243,
+      "assetCSharpSources": 243,
+      "pixelTextures": 1144,
+      "staticFunctions": 28,
+      "whitespaceFiles": 165
+    }
+  },
+  "focus": {
+    "native-victory-notice": {
+      "report": "Tools/OriginalWorldChecks/native-victory-notice-check.json",
+      "sha256": "07a43e7469ec4a81a9bc9e135d9bebb13d0587e95b808a774b56a31929a807d2",
+      "counts": {
+        "nativeCases": 27,
+        "stateComparisons": 165,
+        "mismatches": 0
+      },
+      "scope": "Actual EB10/D8F0 incoming20, OnLButtonDown08CA0 page acknowledgement, Update08AD0 strict plain timeout and10F20 shared-message tracking compared to production CampaignPresentation/NativeCampaignDialogue. Plain08790 is executed; portrait MESSAGE construction, ANSI CString allocation and graphics callbacks are bounded hosts; no actual Unity UI/OS input/audio or server winner policy claim."
+    },
+    "native-directed-event": {
+      "report": "Tools/OriginalWorldChecks/native-directed-event-check.json",
+      "sha256": "7cbcf644bfd48ad05c62221b03e15ee1a5eb2990e5e2e12c9a313c676a90b95f",
+      "counts": {
+        "assertions": 484,
+        "realRawRewardEvents": 2
+      },
+      "scope": "Production raw5C0D/20 ingress, shared notice replacement, FIFO, script magic/lifecycle and default local-server source-issued recruit processing. Explicit supplied unit/team/eligibility fixtures; no invented server trigger conditions."
+    },
+    "native-directed-input": {
+      "report": "Tools/OriginalWorldChecks/native-directed-input-check.json",
+      "sha256": "fb1d1c0fb36eabae593ea52822008faa8fc425443e6d41a05d70c3fc958193bf",
+      "counts": {
+        "assertions": 27,
+        "nativeInputCases": 32,
+        "mismatches": 0
+      },
+      "scope": "Extracted production message painting, pointer acknowledgement and cutscene predicate with real CampaignPresentation pages, supplied Unity frame clock and transport. Not actual UGUI raycasts, keyboard or OS clicks."
+    },
+    "native-directed-frame": {
+      "report": "Tools/OriginalWorldChecks/native-directed-frame-check.json",
+      "sha256": "45ef0dc8b55e8aa8c58fd8dcbd560f89239dfbc4621cb38a11f10e2dbd39a315",
+      "counts": {
+        "managedNativeCases": 4994,
+        "frameComparisons": 12916,
+        "unsupportedCases": 0,
+        "mismatches": 0
+      },
+      "scope": "Original GameCtl Update/10F20 against production CampaignPresentation native mode for the whitelist-supported EVT bodies, four supplied ownership/random contexts and explicit movement/timer controls. Compare next line, active/execution/test flags, emitted request bytes, map/profile calls and exact MAGIC/KILL export arguments after each Update. MAGIC target query supplies no target; KILL exports are captured boundaries, not executed here. MFC message helper, audio backend, map mutator, profile provider and transport are supplied boundaries. A dismissal acknowledges the whole message; this does not verify page rendering, physical clicks, trigger policy or real FPS."
+    },
+    "scenario-progress": {
+      "report": "Tools/OriginalWorldChecks/scenario-progress-check.json",
+      "sha256": "6d1efe6d57b859222d686275e8357371a44f67faeda6932087d49ad28f666473",
+      "counts": {
+        "assertions": 2101,
+        "recruitEndingCases": 8,
+        "recruitEventCases": 2,
+        "recruitAssertions": 335,
+        "scenarioEntries": 130,
+        "sourceOutroCompletions": 97,
+        "approvedResultReturns": 103,
+        "eventBodies": 1239,
+        "mapMutationFixtures": 3,
+        "assetChecks": 252,
+        "combineMasks": 8,
+        "literalMidiClips": 14,
+        "totalMidiClips": 32,
+        "mapMusicRows": 47
+      },
+      "scope": "Source script/event parser, original MRC mutation, isolated managed entry/approved clear/outro/result/return, save/reconnect and refusal. Includes source-issued local-server commander grants, atomic receipts/acknowledgements and source base/first-level profile fixtures. Not 97 combat clears, original server grant-level policy, or Unity Play."
+    },
+    "native-evidence-manifest": {
+      "report": "Tools/OriginalWorldChecks/native-evidence-manifest-check.json",
+      "sha256": "c646187a1165382b58517cef599b45645580b935aa96598f272176004ed423f0",
+      "counts": {
+        "manifests": 5,
+        "evidenceFiles": 48,
+        "currentReportReferences": 26,
+        "mismatches": 0
+      },
+      "scope": "Declared native exports preserve their recorded bytes; all referenced native/managed reports match current declared source hashes and manifest pointers;0D/15/20/61/68 bridge flags agree with the current common route inventory;B2 remains unconnected. Directed-event tests retain their explicit team, target, formatting and input boundaries. This audits existing successful evidence and does not rerun it or establish whole-client/Unity/Windows equivalence."
+    },
+    "native-evidence-refresh-guard": {
+      "report": "Tools/OriginalWorldChecks/native-evidence-refresh-guard-check.json",
+      "sha256": "5047294acea0f1eef3f43d50b3bf5e2095e41a5b95d7b092bdc71203f8aa4208",
+      "counts": {
+        "assertions": 38,
+        "manifests": 5
+      },
+      "scope": "Actual metadata refresh over isolated manifest copies. Current report/source verification, exact reference-only changes, and no partial writes on late bad evidence/retarget refusal. No game files or original evidence are mutated."
+    },
+    "native-soldier-ai": {
+      "report": "Tools/OriginalWorldChecks/native-soldier-ai-check.json",
+      "sha256": "e75b771db61536faae7f116046e1555fc69c245c6674ab671e47f4fc5cebf4f0",
+      "counts": {
+        "cases": 1049,
+        "mismatches": 0,
+        "decodedMapCases": 228
+      },
+      "scope": "Actual bounded x86 ExecuteSoldierAI/GetMovePos/MoveAttack/target selection/SetArea/pathbacktracker; map attributes/team/clock/rand and empty MFC string/path-presentation queue/send boundaries hooked. Compare purpose/destination/target/flags/hint/AP/random draws, not path packet bytes or gameplay playback."
+    },
+    "native-ai-dispatch": {
+      "report": "Tools/OriginalWorldChecks/native-ai-dispatch-check.json",
+      "sha256": "e3984a995fd1a38f92b4f489fac0b902d04bcb804389d6489a45a107838f061f",
+      "counts": {
+        "roleCases": 56,
+        "workerCases": 30,
+        "wrapAndCursorChains": 1,
+        "equalCursorEmptyCases": 1,
+        "mismatches": 0
+      },
+      "scope": "Actual UserUnit023C0 worker and02420 role dispatch. Consume exactly one100-slot FIFO entry per invocation, including negative sentinel, wrap, equal-cursor no-op, carried return cursor and two supplied clock samples/counters. Commander04990/follower041F0 are captured callees, not executed by this check. Native soldier planner equivalence is a separate report; no full CommanderAI decision, server authorization, new runtime0C, timing/FPS or Unity Play claim."
+    },
+    "native-commander-ai-gates": {
+      "report": "Tools/OriginalWorldChecks/native-commander-ai-gates-check.json",
+      "sha256": "7da6632cb120a8addaccb6c54e17f5d835624d7cda805873b3e9680b7120bc1c",
+      "counts": {
+        "actionGateCases": 48,
+        "weightedBoundaryCases": 8,
+        "invalidMagicFallbackCases": 3,
+        "movementGateCases": 96,
+        "mismatches": 0
+      },
+      "scope": "Actual02EB0 unit-key lookup and042E0/04810 bodies. Source30percent strict low-HP rest, missing AI->order4, rand%100 cumulative <= (including zero weight), invalid negative-magic fallback without reroll; AREA/follow/default20 region and minimum7 follow range; destination/path-failure flag clearing and action-after-movement call. Target selection/path construction, final sends and nested action are explicit hosts. No complete magic/AI policy, damage, spawning, runtime0C or Unity Play claim."
+    }
+  },
+  "codeSources": {
+    "Assets/_Original/Runtime/Campaign/WorldSceneRoot.Campaign.cs": "ac5ad26c5981708ac18c7ef41029c98a775cd9eeb5e03b2f735ff4c1ed30395b",
+    "Assets/_Original/Runtime/Campaign/NativeCampaignArt.cs": "da795748b8e4a7b2021b927f71c9411736133946d5f2063fc646943ad4a9d6da",
+    "Assets/_Original/Runtime/Campaign/CampaignExit.cs": "7f78c7423f2c1d983e1ef77429f88133ab80d85cf6117ecf19696e6efc0ac50f",
+    "Assets/_Original/Runtime/Campaign/CampaignModel.cs": "2dfbeea2b6f21962edb12e425bc964e271a512c6237bb79aee5d0532cbec5f0c",
+    "Assets/_Original/Runtime/Campaign/CampaignExitService.cs": "95d8ff3c74273807839456af484780795cc96a68b8c4fc5f55a35dac48664860",
+    "Assets/_Original/Runtime/Campaign/CampaignResultService.cs": "61593df8a38229d3eaede59e05b06939e57319e2398ce4ca38a7f6209345ff6f",
+    "Assets/_Original/Runtime/Campaign/ScenarioGatewayService.cs": "04bd79e628f972f0052daf2d0f0152cbd48786317edb53cf27e7ed60f71ec716",
+    "Assets/_Original/Runtime/Campaign/ScenarioGatewaySettings.cs": "8a57167a29681b5fd876232a36de34ac2c60ae89eada19c900d30f084e80a95b",
+    "Assets/_Original/Runtime/Campaign/LocalServerManager.Campaign.cs": "2a25fbb649ee972777a533528a42dbef956d8114b5aca32ae1e350b29354163a",
+    "Assets/_Original/Runtime/Campaign/CampaignResult.cs": "e23a450046bc0aff9e7716136ff2069769062c68617fdbc0166c5c44f23bf480",
+    "Assets/_Original/Runtime/Campaign/CampaignService.cs": "1de33665480472888d908cb22f27ad62b6a7b8b5fdf03d26a3c00ecf2b6e0e37",
+    "Assets/_Original/Runtime/Maps/NativeMapDecoder.cs": "24996a7e09bdb84bd7c3dae35d0988e18b40629e328ce50b234eca0900ae4abd",
+    "Assets/_Original/Runtime/Maps/NativeMapAnimation.cs": "048aa61410aa1259d04244d26ba9024f2e58eb36b587604dd328e24c64cb3d6b",
+    "Assets/_Original/Runtime/Maps/NativeMapPointer.cs": "5a9a6151875793c3cb7b5d425b9c6dea495d4368689ad9bcd420a3f6e6db9468",
+    "Assets/_Original/Runtime/Combat/NativeMovementService.cs": "b2572fd8d9ce6d75292d3ca383ec6a181d2f1354325e301b926c195b6bc3c50b",
+    "Assets/_Original/Runtime/Combat/BattleSkillFrames.cs": "a61aa9058f5ffb10b31e6d3015b94fb33c62d0fe20107e1f5f2d420830d0905f",
+    "Assets/_Original/Runtime/Combat/RegroupMovement.cs": "2aa3f86c945af5bfe91deec51a7be488812a669003fc53c73a7791d8dfff72bc",
+    "Assets/_Original/Runtime/Combat/NativeMoveHintService.cs": "93788cf4ef96db363be1159f977ffc8411827a63cdf79a8b05b3017e262c0671",
+    "Assets/_Original/Runtime/Combat/TroopOrders.cs": "6e48f4f5e74f94909a9e9a2cec1933f59327a68baf408b0a3e7d40194c020f15",
+    "Assets/_Original/Runtime/Combat/BattleItems.cs": "f40bca2ec924d39a8f0ead85ddedda777a77674fd5991276b289f3a30bc50034",
+    "Assets/_Original/Runtime/Combat/MagicProjectileCatalog.cs": "689c0adf3af32bbd7454ec4fdcfd11753cfb7a6d035a03531262b528c3e91aaf",
+    "Assets/_Original/Runtime/Combat/BattleSkillService.cs": "90b99545e46080568a338d0afb73f0ff11826480e7c4e46ebd8e5c2563e4dfd3",
+    "Assets/_Original/Runtime/Combat/BattleThunderPlayback.cs": "2b1da69d5ff9504293a4f408a7b62c37b8a332a99e20aca75c777321a111cde3",
+    "Assets/_Original/Runtime/Combat/NativeBodyFrames.cs": "b02149f3e04a1325b7b01bcec6d9b079934572f0d9838a7b52a5fe3af30647cf",
+    "Assets/_Original/Runtime/Combat/BattleMagicOutcomes.cs": "c387a8ef8e9dd5d3e3fe7b55ffbe9dfa7fcfd44cc3f85056e50c1131f3c5d67f",
+    "Assets/_Original/Runtime/Combat/BattleSkillArea.cs": "4e6b80ab3df5bc52a8e1c5af0434c0f0fdd71a0e19d7b9f7c79620c06382b0ef",
+    "Assets/_Original/Runtime/Combat/MemberCommands.cs": "257695842049066adf0677d328ecabe50cd867bba80479fa68f7a684f3ef536c",
+    "Assets/_Original/Runtime/Combat/SoldierActions.cs": "f485924dd9d9ed199d3f91072acbe069f11b3ac0438999b8b20d28188c7eafbc",
+    "Assets/_Original/Runtime/Combat/SoldierActionService.cs": "42bd9b04f4fbe360f9c0e26136a321c0940043389a985c0cc2f0af0c4685e35d",
+    "Assets/_Original/Runtime/Combat/NativeMovement.cs": "27e5303f272d02594c2e3a13b6a7a3e4ec457c6af7626927006fcbf1e8b5349c",
+    "Assets/_Original/Runtime/Combat/TrainingCombat.cs": "22f134737bc78277ba821be780782a36ea43585e2ea52127753407949e5496a1",
+    "Assets/_Original/Runtime/Combat/NativeBattlePackets.cs": "19115cf5bc0ac0f3e63f7ec8e413ab361ea5445f1b2038cd1b2a40cf1480fc64",
+    "Assets/_Original/Runtime/Combat/TroopOrderService.cs": "a29264006eaffd27d8c3ebaa81968ebaef69707fabea5a53c985913b09906ce2",
+    "Assets/_Original/Runtime/Combat/TrainingCombatService.cs": "8274646af04cd0c2f26b22820ccab9179c1818b9246123a963348a4b1a359c7e",
+    "Assets/_Original/Runtime/Combat/NativeBodyOrder.cs": "9c65dd96aeb56bfa0eff9ac03d0db865c69eccea7ff0c6e7c518b490c1d7d90d",
+    "Assets/_Original/Runtime/Combat/BattleFeedback.cs": "e853bf98fa3d934d95a8eb3a988064282d796407e6259bab2b79a0eed4f2e847",
+    "Assets/_Original/Runtime/Combat/BattleMagicService.cs": "c8ff4bcfdaef11def6e69c405fca3358dbe2a850e4fc63296519d8055c836f36",
+    "Assets/_Original/Runtime/Combat/RegroupService.cs": "cc3dc8a9b6b91f688388425df4516ccc2107695835447cb05fdee30c4093bc5c",
+    "Assets/_Original/Runtime/Combat/NativeMagicRedirect.cs": "2218ecadb9759f7db1d0a3321ba7faa03fa94d46d81084cfd800354ec9f43c15",
+    "Assets/_Original/Runtime/Combat/NativeBattleTeamNames.cs": "c3b47dabd0da21014d54464fa15f63be088be1b1ea2ed6b5ef477b6d4c4d9bcf",
+    "Assets/_Original/Runtime/Combat/BattleItemService.cs": "8575846a62119fe5bf6eeb709fd26ad927f6ab88e80077252deda62a4aec1351",
+    "Assets/_Original/Runtime/Combat/NativeUnitSnapshots.cs": "cad707785266d777b86f02e47468fe72b3ed56bbde1c19e010cf15536456e655",
+    "Assets/_Original/Runtime/Combat/BattleMagicArea.cs": "17b7474c192a3154218c5be0cf11a38ae05d982fda6a695a03484b55c9a684d9",
+    "Assets/_Original/Runtime/Combat/MagicSoundPlayback.cs": "42f3ee39d2992d72441bcd8894c98631fc0849ed070cc8154576406b6e8adad9",
+    "Assets/_Original/Runtime/Combat/DeathSoundPlayback.cs": "551ac20ce0caad0eb7194d31b617409f3e4dad2968094fec93cc1f8118698702",
+    "Assets/_Original/Runtime/Combat/BattleMagic.cs": "afff0bc3a8158f740c1f97741ba8a113ae60a4e9f36197a145c02eae1f51c0ba",
+    "Assets/_Original/Runtime/Combat/BattleLifecycleService.cs": "ddfb007b83f3a2c495f834e3ea8d44389198693705f369b73a7cb4bac7caa1fe",
+    "Assets/_Original/Runtime/Combat/NativeMagicPackets.cs": "768c3437433a3d220ee9047fa20ffd5757b6f6e834f29208bab472e96a948429",
+    "Assets/_Original/Runtime/Combat/NativeMoveHints.cs": "981a96b5c91a14d2b0e86bbd10522c9f37bbf171e1d69cd4c8bb1a0423fe33d3",
+    "Assets/_Original/Runtime/Combat/BattleFeedbackService.cs": "c4197b6bc253733e72f82ad33147e61c72a5a2e913bbb47f259d289ff71b340b",
+    "Assets/_Original/Runtime/Combat/NativeUnitSnapshotService.cs": "99a68a63466c76be0ab8eff531433dc60f637b3f290ed038663224f9cb637832",
+    "Assets/_Original/Runtime/Combat/BattleTicks.cs": "8b2421cd2835ff77cb2b7898adb213ee8a35320ba48df5add6e05ca7aa507488",
+    "Assets/_Original/Runtime/Combat/BattleFeedbackFrames.cs": "ee05368a90331f03298d140c00c3fdf80cdfef46bc296bcaa22ee6510bf0fa9f",
+    "Assets/_Original/Runtime/Combat/BattleLifecycle.cs": "5d7b01c0b5f7f3742e24716f1f30ce1a3227d93fab880c243f9e7ff1106ad973",
+    "Assets/_Original/Runtime/Combat/BattleTickService.cs": "f3292d674451bffc33bc0774be75c9b6a1baafb47e0abf122afe551eb2818807",
+    "Assets/_Original/Runtime/Combat/SoldierMovement.cs": "0ade70f63fa47f2e5a04fde87f61b7190ef09d2480f30963136ca3e68196be8a",
+    "Assets/_Original/Runtime/Combat/NativeMagicService.cs": "39a01e1da95c55e61d7c911a9846f205e6bb10e4e3360a370d34d76905a7dee1",
+    "Assets/_Original/Runtime/Combat/MemberCommandService.cs": "bcf38237d47328a6ff5b97da0377cf2d484dd56dab96b818b7f37ee796c8b17c",
+    "Assets/_Original/Runtime/Combat/NativeBodyPalette.cs": "f7fa297ce4a2223540a47f4b88f53b753e520ca9f9e2fabb5d1549a30d1bc574",
+    "Assets/_Original/Runtime/Combat/BattleMagicPresentation.cs": "4420bd0171e692f83fca8166123d136e564ed2a57f59d271eece2e7788a5db04",
+    "Assets/_Original/Runtime/Combat/NativeViewport.cs": "e4e70f9c8808d7b55991bccd0faf93e7cc3881b4748be39fe687486b4126cc75",
+    "Assets/_Original/Runtime/Combat/NativeBattleResponses.cs": "89f08e603e011ce1c0f4bbd8487c79671fd23348b84b84e0f4c73eac221f212a",
+    "Assets/_Original/Runtime/Combat/CommandRange.cs": "e685b7063abe8830a3827b2572e98a83b1d8959223e68684eb774947a373f13f",
+    "Assets/_Original/Runtime/Combat/NativeBattlePacketService.cs": "a93ca0453e5993d6999cf66657af3c0c3a03d06554eac3adaa1872308e723a77",
+    "Assets/_Original/Runtime/Combat/NativeBattleResponseService.cs": "078ce80b32490a01d3760c5865bba3fea3dc187f40b70e575d9e3c4dffc7127c",
+    "Assets/_Original/Runtime/Combat/GeneralMagicFrames.cs": "642c0a555d9d740d6878ede287b93f1dba7811682dcd3bc0f4f73f9c1102e368",
+    "Assets/_Original/Runtime/Combat/NativeUnitFrames.cs": "0e5092c68d56b2646ba0679dc904cd02d259e46d37d7d91b6f65a21acdc822cb",
+    "Assets/_Original/Runtime/Tutorial/TutorialService.cs": "21c833f135eb6ed97be9608d5fca8174f8a4051987a6133d8ff157f947f2a18a",
+    "Assets/_Original/Runtime/Tutorial/LocalServerManager.Tutorial.cs": "a789135939b97b140d6c3ed783ec1a4f0926d0ab7467645b17044ad3cf2350df",
+    "Assets/_Original/Runtime/Tutorial/TutorialScript.cs": "a17e059fa33111782d682fa81ecad0e85f20a0923185ded8c62b72ee4fc71138",
+    "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.Windows.cs": "37d852a45417699f6c2acb8e64795cb96e6b0d7ed6441cf150a8b279324bc6f7",
+    "Assets/_Original/Runtime/Tutorial/NativeTutorialArt.cs": "2355652b2a06e89bcd7cea6ff59fdda62ddea4209293ddd9bb6b8037b86fb8dc",
+    "Assets/_Original/Runtime/Tutorial/WaitingLesson.cs": "2de1f502c16f6799c01678c94592c601ce3f6de039d7481278f1346d849ae1cc",
+    "Assets/_Original/Runtime/Tutorial/TutorialSession.cs": "f6b46a28dc9c53911fccaf74a9aec25f4073b48df460d4c6004b23947008d203",
+    "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.cs": "4ebc5769eafe0031165f5579eb8398e72d06bb79cd230fd6fa26f98fc41215a7",
+    "Assets/_Original/Runtime/Tutorial/NativeTutorialDrag.cs": "d7f50aae623f79a82daa020dad3f0c09088b8b12a1ff3c10b209c01738ffb719",
+    "Assets/_Original/Runtime/Tutorial/TutorialSceneRoot.Waiting.cs": "9e266e342a288dd0ee3572e11c2cbfd716381b6a15ad98db0be7c9b6d88b25a0",
+    "Assets/_Original/Runtime/UI/NativeWarehouseClient.cs": "9cf323024066b38f64761bb5da0c6139e0a16f4b493347fb8d49a99be4f40127",
+    "Assets/_Original/Runtime/UI/NativeBitmapText.cs": "64125ebabcf6aa0c3ac472e729504def11b7dd93db6ebe2d43da259fc31f52b8",
+    "Assets/_Original/Runtime/UI/NativeWorldMessage.cs": "a17b7d9a5c16512847ef39410f679b9aa0f0eb10d31711b9fe685d74a64b182b",
+    "Assets/_Original/Runtime/UI/NativeItemCaption.cs": "6ec944889a8cafc2147c9423f183361acfe7e04a550c40846a4504cdb25b27d8",
+    "Assets/_Original/Runtime/UI/NativeCodePage949.cs": "4cdde807db17dbd1b435d927728d888c60d560ff73a7d5c31b30454f51706324",
+    "Assets/_Original/Runtime/UI/NativeClassMagicPointer.cs": "ebcdf4c1a33d4cf39175b7eeee1545c9e9cbf0623413939384244cc6f870c334",
+    "Assets/_Original/Runtime/UI/NativeItemDragContext.cs": "a410fae9232364415ddc5b09a2698e0a5522e8affccef35d49d20e7eed808ac7",
+    "Assets/_Original/Runtime/UI/NativeSelfInformation.cs": "38f892095606c8b684c8a76ab149e4562e2fee2843bf2b6aab2e1f1c2e319801",
+    "Assets/_Original/Runtime/UI/NativeWorldMessageInput.cs": "257d7f2f5d85cbc17feca582b0f42f9dca82a7d07cde192e6bd9481493329887",
+    "Assets/_Original/Runtime/UI/OriginalWindowPreferences.cs": "a1300eacc763dfd1fa5596db31a297a5891497dad8f70c0bea2d41ee464c06a9",
+    "Assets/_Original/Runtime/UI/NativeShopDetails.cs": "4aead0ee5ee6511a4354ef5b829910350599e0df49348623499c60e3b846437e",
+    "Assets/_Original/Runtime/UI/NativeFacilityWindows.cs": "3e4818aac16e439623fd18d93e3a47a003f6f5cd26420c52332b7ca6705d3aea",
+    "Assets/_Original/Runtime/UI/NativeRepeatButton.cs": "e0c957ac27c260a7b12f607a20791cd8b967bc6623eb42669015510de85012c3",
+    "Assets/_Original/Runtime/UI/NativeMercenaryClient.cs": "4f3f9d30c3cd3dd9b1fec3c48a089afaa7332b4975c3e37a6498591b7fb995eb",
+    "Assets/_Original/Runtime/UI/NativeBitmapFont.cs": "057290fad48bdd51c2cfbee45c45f8123a234c92ee8211ef885f71180fe0014f",
+    "Assets/_Original/Runtime/UI/NativeWindowDrag.cs": "1053f3ef02761d89c6474af599a3e0bba153a6b1d9b92fe3e03fea74eda8893a",
+    "Assets/_Original/Runtime/UI/NativeWindowClickInput.cs": "bb0213451a0d35659a4ad4c730331ebb4a99eaefec68ec741b487e82eb15fa10",
+    "Assets/_Original/Runtime/UI/NativeWindowPlacement.cs": "442c1f1e88dca0e10ce6ae7b9441820b6115e8ad36db09afe6c233753da861dd",
+    "Assets/_Original/Runtime/UI/NativeMemoInbox.cs": "f19aedc8fba8c985a0aea6a64a7b7ba22b339b46431a102190fd4ca4caab1983",
+    "Assets/_Original/Runtime/UI/NativeWindowDragInput.cs": "baa1f72b38eb1d868e9e3dd86d8ceaa209201a28b89610b04067f2dc7d9f1678",
+    "Assets/_Original/Runtime/UI/NativePrivateChat.cs": "751abf3ee2ab2d9a618dd0ad368ab239a3e09331e46e1edfe16b30310fe75ca8",
+    "Assets/_Original/Runtime/UI/NativeCandidateData.cs": "721b74bf691f0ef807c01ea379846eb16c32b58bcd5f0391609b432705070c58",
+    "Assets/_Original/Runtime/UI/NativeBattleWindowPointer.cs": "b65b581b0093c10e9deb9571c9dba92e46411dd43eb744c51d99c8ad4a405d04",
+    "Assets/_Original/Runtime/UI/NativeCommanderName.cs": "e18f2654fe0990596e9c62a813d0900d5d7efdf6c34c9e6a129fb7d958c5b548",
+    "Assets/_Original/Runtime/UI/NativeBattleOptions.cs": "5adaca91872ddaea47e21ebd0789ad8a209f0f8c0189cc03058dfaae1ffa7c99",
+    "Assets/_Original/Runtime/UI/NativeShopClient.cs": "1b1a619506e2582211b40ed56674a37d92188972bf06e7f1ee1b6842c210c386",
+    "Assets/_Original/Runtime/UI/NativeWorldChatFilter.cs": "0db3f33314e7163e286f1e9a353f67a5449497134c5bcfe8ceec7ea22fca1430",
+    "Assets/_Original/Runtime/UI/NativeCurrencyText.cs": "770dde1583173ea6e05c12ff89d48101c0a635d170e4e49c974babfb6d0c0c0e",
+    "Assets/_Original/Runtime/UI/NativeMemoTransfer.cs": "5472f2a79ec02bebc675bc6c36e37af24c7b053bc2e7dc829e7df15ba4a61358",
+    "Assets/_Original/Runtime/UI/NativeClassPresentation.cs": "441d59175506848823b530a9e8a5b70a7c222a5b436967e2b5c27b4608307551",
+    "Assets/_Original/Runtime/UI/NativeItemPress.cs": "c13f22d0ed156a2e8bc7d81d65717d09f068634273c9e8e772d72ad2befeab5a",
+    "Assets/_Original/Runtime/UI/NativeBattleWindowArt.cs": "d2e73ed5d076793a1993f94a95e60da6a24560a5f7b170205a17c6a710ec4158",
+    "Assets/_Original/Runtime/UI/NativeWorldTextPackets.cs": "791cdb9730b5a79fa6ecd635212796a7fb85677d7d1bae03d936bc1a9a1b0d5a",
+    "Assets/_Original/Runtime/UI/NativeWorldChatLog.cs": "cb674389f69cbd1ce089d7a67b4e6cf0ea79e059d598196b835f65a811076f3b",
+    "Assets/_Original/Runtime/UI/NativeWorldChatComposer.cs": "cdce3d323422a10998b14d3b6d9cca67fdac5276424be3c4e7246485cd20707d",
+    "Assets/_Original/Runtime/UI/OriginalClientSettings.cs": "db363e0b977a8df7a5cff134199a30ef5324b2b5fdf4f57c346d7676f36c1b0d",
+    "Assets/_Original/Runtime/UI/NativeTextMetrics.cs": "5649f6fcbba653fa00d489b67d3c74fc852dd992fd3f15e856ae17112666f1c0",
+    "Assets/_Original/Runtime/UI/OriginalClientPreferences.cs": "7039acd134d1d27bbe68d6db0c3464f2b80cb83ed12b76cbfe4527a88526625e",
+    "Assets/_Original/Runtime/UI/NativeBankClient.cs": "ae67c48ffac231f141808823f56fbf9a5b21a9c9e22dde5eeb41866bcef25e8c",
+    "Assets/_Original/Runtime/UI/NativeCandidateCacheFile.cs": "17c9f40c1d82ddd3797a7a003467de9ea3d8cc44f5b36469f45e23338c426ba5",
+    "Assets/_Original/Runtime/UI/NativeTextSurface.cs": "96667d41397574d0375ca65ed74c7705ebed84bd67e57ba911aa82b89302161d",
+    "Assets/_Original/Runtime/Growth/ClassChange.cs": "507de39b0a61b0e0d6a39886e1391856971d5de2b2ef7360c2be2108cb87f4b7",
+    "Assets/_Original/Runtime/Growth/CommanderRoster.cs": "65f9b00e862801a3ae5c22447281a3f7687231f46ae1364767a42f8d90d4921a",
+    "Assets/_Original/Runtime/Growth/CommanderAdjustmentService.cs": "9a540bd4463f95b4dea5e4e157d89bb8016bf783a7610f9e6ccc5c5888a145c7",
+    "Assets/_Original/Runtime/Growth/NativeClassMagicClient.cs": "4801cbac0fec7b67f7687ce01143b2779a4cce654d822fb49de62a796c91b55a",
+    "Assets/_Original/Runtime/Growth/ClassChangeService.cs": "21681d7fe867f687cef974455ec96ed4334dc19f98a472fb4a5957ffe0613d12",
+    "Assets/_Original/Runtime/Growth/StatAdjustment.cs": "4fdf06010a190f72fb69a887ff1d9447e7aff4715d7ff5f7439d1951082609de",
+    "Assets/_Original/Runtime/Growth/MagicLoadout.cs": "a3d583d059cab6e0d54c2d82dcd1b9701849600d81238a805d2b3a3e56910e95",
+    "Assets/_Original/Runtime/Growth/CommanderAdjustment.cs": "8d92cbd6b135a17c6db16dd46faf21d1a9243cbe9c7d4558cff7fc612323a8d0",
+    "Assets/_Original/Runtime/Growth/NativeMercenaryCatalog.cs": "1f463a8adf9598a8f3efb21c015d8bf28601abf498ebecc190c15add6d5fe78a",
+    "Assets/_Original/Runtime/Growth/StatAdjustmentService.cs": "f09c6686feb58c8410b4bf06175322a14210ecf51558147263bfb19b96b2c966",
+    "Assets/_Original/Runtime/Growth/CharacterGrowth.cs": "6a2f6220c97dccc9f32567380c65c2a3a310ebfb5494c57bc3f82a7c31ec535d",
+    "Assets/_Original/Runtime/Growth/CharacterGrowthService.cs": "82304ddf475103a69aaf1fb2c243ad1630294f37df0e8d2d2da4e61db1ffce8e",
+    "Assets/_Original/Runtime/Growth/MagicLoadoutService.cs": "14e3009c708df08dfd2e315fbc5304e903c14c75cac0721c7b107f62b0e332f4",
+    "Assets/_Original/Runtime/Growth/NativeClassAdjustmentPackets.cs": "d3ef237ae434a1e1307da4b7852072f3964aba4dae1faabd87f7b87c55ea65f6",
+    "Assets/_Original/Runtime/Growth/CommanderRosterService.cs": "959c940f1fc2f69a5146505f165fa9c2ba9a6d6d2a90ab0735bd54edbe2648d4",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.WorldText.cs": "4a86778bda2acc160b609ac9b47360d46e750ace6f0909ce304ba66423f1a73d",
+    "Assets/_Original/Runtime/Entry/EntrySceneRoot.cs": "78b698a9a016699899a370483bf91576d166e2c0b76fc9738f35056b2fdbb396",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Memos.cs": "1d6762c3f5776a9ea75738ec5336e253f5f2ced063ce8d38b0e1a12f2046aa16",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.NativeClassMagic.cs": "3df37f71ed7540908da06c91fc6a287d3567b31a502ed7b431720c5b07ac34cc",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.BattleItems.cs": "e13a6a2a882a7a3d8ee66a8a7896f714672eb25f22c133ecfc03dd9ffc19dd05",
+    "Assets/_Original/Runtime/Entry/NativeEntryButton.cs": "647c4657887ea7220cc5d399710804f166824fba5176f688440d5952c06f1215",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.BattleFeedback.cs": "6053b2d80df27da77828f63a53e2e5e5636a9a88d7c357d84cdc4a27f17b5c77",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.BattleTicks.cs": "495b0a67529147af4c3355b7cf7de6f340c2bedf1dc74f134f2c93e1c6395be6",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.NativeClassAdjustments.cs": "428fcf6e0323bcf16a57ecfe4dadcd317a0a3b9f72284d0fa2aa2676f99fe704",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.NativeShop.cs": "9fe113672a76b34171d3851f790833bc7401ee4299a2bb3d21a510a6fd79dc14",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.MagicLoadout.cs": "1116f69939023de95e21f40c43b9239c31aa2bbe539ab4e4ec4744f798222de0",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Training.cs": "1d20f6f698917e4aaca49ad1cb2b94b147e39da5be2ea22779958f0e09319d95",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Candidates.cs": "f3c5be6e119834ffb9f5e0b117fc30a55ef88f2eb1577fb235781d58e21d6f9f",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.ClientSettings.cs": "c554e964a2da5d91d19b0962e0ae4e601186c90b8bf5516535407426663aadf1",
+    "Assets/_Original/Runtime/Entry/NativeEntryArt.cs": "f572314a14eb3f9dcff7fe0cc922c8b91749871425073d3b29def65715c1068a",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.PrivateChat.cs": "1ecc685eb82d39176458b147b13b3d0a8432b7cff60ef2b5e3595a2cb1543582",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.StatAdjustment.cs": "878bf92d5c1a05df7fad93d776d782514d5f7270c571241781d19be9b1ced328",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.NativeMercenary.cs": "ec6e1a94f6785c53dc43425c1e576d01e0d11dbf268c649fe7827158afde0f49",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.ClassChange.cs": "874a4850d0f1054ad7d51009567acc84f7e6ab55f6dc9c07f9640648a0e968f7",
+    "Assets/_Original/Runtime/Entry/LocalAccountFileStore.cs": "d7ba58224b0da03697ff04f2f4682cf960671b407353b577b0437ba5a043c289",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBattlePackets.cs": "8162d4269262896e2ef8dbd3c389bb47f1e5a9b417c7a88eb2b00c7c4e8429ca",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.TroopOrders.cs": "8487ad78db6457337715b521ba88c3ae63bee89ae29b1efc7daa46b228067a84",
+    "Assets/_Original/Runtime/Entry/EntryProtocol.cs": "715d4c2456c3060d02209d0d81525601b3c3d1b1b8628553198a083d7cc7d4db",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.NativeWarehouse.cs": "a83511ddc83c401f2829d56320802650db5b15e239b666d5aa3b2aa82a1423c9",
+    "Assets/_Original/Runtime/Entry/EntryClient.cs": "e22dfe52df09eae76e72bb9cf7cd4cb9f0c735b8349a961fc7424bba514a8c2a",
+    "Assets/_Original/Runtime/Entry/NativeExclusiveHit.cs": "588662514fe2522a1bf40d6b7c6646aaa6a84b3b3fc2c5675daf19eb6bd12dd5",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.cs": "630b98db96f198b7690c0df907b9660a712871f46f680f5052d8a7aba7bbd8df",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.SoldierActions.cs": "91bd4e4a0f3be6ed00473799e1e6b07a72ea6c65e0fb0014adbc3907f251b19d",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.MemberCommands.cs": "f7bce68a7a9be5d081946b23f20bdc514195c9e4cffe800c0700170b7f70e0d4",
+    "Assets/_Original/Runtime/Entry/TrainingTestLayoutCatalog.cs": "e2ebc9ecc572e1badb3cbc81392a60a8494dd332f47eb976ac616c1429a0f2a8",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.BattleLifecycle.cs": "c47c0a046e1a8c9e71437b228f90c99bdfb0d7f0111ba1c6d4aab8f51d09d1a3",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Regroup.cs": "0b6b79f778b3b77aae1ab4e7bcafc04cdebf595aa7fb7cbcc44be5bde69fc9a0",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.CommanderName.cs": "682269fdee6348b336f82d82ecce523d2492cd5694817904e1ef14235378853b",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Messages.cs": "2e0b5f787ac37c54ea5a55280a2550f278e2285439cd3e86384387369484d851",
+    "Assets/_Original/Runtime/Entry/EntryAccountService.cs": "35785f78c35b0922de65c6ffcd6a786e443a5c40155ca80a8db869f71698fd72",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Skills.cs": "d3863a268e336953ccdde68ab6a1be2d547ef714e78439b48b734be52fdd11d2",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Commanders.cs": "11b4dec0535e446d2a7584abde6c1ca8b8bc71445a42878cb1c43c6b55637e67",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Chat.cs": "3109b6f4c4f7dd28fcb32971f97cc3fa126018cfcc6257acc9bebee8cb8c9fa4",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBattleResponses.cs": "e680e2927cd8406de975c5de78a99f6a4b8df2000610525a4845b3d20206d712",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Growth.cs": "cef4277ff8955b8cb8a8b8e0a08cebe929927d19b4c1522e1422082611d7b93b",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.NativeBank.cs": "7a3d359c04530ff23ca30e280c74bba99aacb6c7e00bfe8909ce7135f1cc168c",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.TrainingTest.cs": "3a889dd497310f9f6c826a44fa426b57b4e4998cf4f49eae4a9f23932b155454",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.BattleFeedback.cs": "0eaa09173e76481b6d8a6ffc6639ce93879a9366075fb31f5e51c5632e91c6aa",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.StatAdjustment.cs": "11ffe9c67fedd64b829b78aa6a7f3c9fe85f8e2dd78163a6f2190ecbc16bb3f6",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Items.cs": "21c934048550968ec33c7cbab848c7fc04d7cae545d6bdde55430cab486b3afd",
+    "Assets/_Original/Runtime/World/LocalServerManager.World.cs": "df3f064589c885d6c5a2f4513f87fd007b9e3c05cc6c9cf98ae612a02a635b50",
+    "Assets/_Original/Runtime/World/TempleRevival.cs": "22defec3be4e976521685c371dbb630763dc90c9028a24bc8f51e83966207487",
+    "Assets/_Original/Runtime/World/LocalServerManager.Bank.cs": "436e03fe2207fb6b444e4239f39f5512ca585ba4c808639f3258adbe3a81d2f7",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.MagicLoadout.cs": "211e9f32b8029bb20e8fe29b87639c8bec168cd98b6845515651d20f8c358d07",
+    "Assets/_Original/Runtime/World/BankTransferService.cs": "53a99a5b69246088b84ffd42440ce123456841462312ceadf2871379af88cbd2",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Facilities.cs": "1c7e815d4c712274fe762cdff41c2a8cfcb282f7fa9a378edf664d5ef52aea91",
+    "Assets/_Original/Runtime/World/BankTransfer.cs": "74fcac7a27ba51053298db333df88ecc54d5c3483a4801b0ec165a36f1a3ec1b",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Bank.cs": "7b533649e27a0be26527bb13cef85b83bb27521f23a32b2e17e6a905cda1969a",
+    "Assets/_Original/Runtime/World/MercenaryTransferService.cs": "0da9884a6b7f11354034d5b63921c26e5965f846e42560173181a067aff663b1",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.TempleAlignment.cs": "9d73f0754b970ce0a99e61bfffe2d5b4c578496b99ba5df08ade3af740470df5",
+    "Assets/_Original/Runtime/World/ShopTrade.cs": "71a5a9ebec5003b37d7409fb9d2ff3ba1d0e34e0915538bf0c7c494db67df039",
+    "Assets/_Original/Runtime/World/CurrencyState.cs": "f0c5017108e2b89ba9cc9ed909bd0739667915c710697789ea32f8eadbbf3048",
+    "Assets/_Original/Runtime/World/LocalServerManager.TempleAlignment.cs": "f6292020b9eba9d3cf9ebd99697b137c89d78605df34c535b89e70d63d06bca6",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.MapAnimation.cs": "48f73ea4bb0b2f850b97120e88449749d16b8a0ec07f78672fd5977087e52ed4",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Result.cs": "e3e477203b7e01f07ee9b062ef05b6a427e70cbd44bc7a4412fea727b7502c5c",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.BattleWindows.cs": "a724bb84d2685eb80b8cdd85871a6f71dd084cc01eba46953a32c180d7b41ac3",
+    "Assets/_Original/Runtime/World/ItemUseTransfer.cs": "6bb38de38fbd591ae6b71e80d39efcbb68e2c46ba6d40be77c3fa7ac430e56e8",
+    "Assets/_Original/Runtime/World/LocalServerManager.Warehouse.cs": "a62b4800289da2c947a5987477f6a12e2305b778914f93fcc4f09949da46719b",
+    "Assets/_Original/Runtime/World/MercenaryTransfer.cs": "24ddcf4e1eeb3dd5f590fd4af4da5bc2b5ad25926998f76ecb853c5383afac12",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.TroopOrders.cs": "fbf51a3903f90871d8c9ead99d80a47d610baab8dc39f15d638e59cbd41e3944",
+    "Assets/_Original/Runtime/World/LocalServerManager.Shop.cs": "41288760d13c40e93e7258067fe224b61dfe3e9cf4fff5d2f52f817e3757797d",
+    "Assets/_Original/Runtime/World/WorldModel.cs": "ab0fdcad8711d1e9a11affb42c5102afbc91cb3044e5c1bbb491c8faa8f26078",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.MemberCommands.cs": "91ce4a0956426b72177348fe295b0e484183a1c4a52bf4380cb6ed4bfe59cabf",
+    "Assets/_Original/Runtime/World/LocalServerManager.Mercenary.cs": "4c65e093727a43c71292b63ae2365e4ffcce01d67172af6ed08c1583e6d17944",
+    "Assets/_Original/Runtime/World/LocalServerManager.ItemUse.cs": "ef1a0c806382be4be8fa288bdb6900d4fe59467dd4f53e8d057dc994be38f3e6",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.ClassChange.cs": "01bf80cb641deb7d1e50460a161b0f4ed8a2cfb9d54317f0ad6587103d5b99f4",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Commanders.cs": "c5ac5ef7a25cccf4763b49c4c9eae0cc94a80cb823c35294197193034309d00a",
+    "Assets/_Original/Runtime/World/ShopTradeService.cs": "675423ff9d1d206fc83b9a051fd4a0b5aa65b3482b8f98d702a156cd4f8ce385",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.PrivateChat.cs": "aa7a0e94e672355140296f9b332625660f7b451fbcc60d948dbe2a3c7ea2982b",
+    "Assets/_Original/Runtime/World/PlayerIdentityService.cs": "91b37cb32a52563be00596925e13f1a0c79ab39ce4f21295065261396a7b788f",
+    "Assets/_Original/Runtime/World/WarehouseTransfer.cs": "014c48381c347c4e65f1b4451aef9042f535dd503d074dcf6d86f4a6497c1c2e",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.CommandRange.cs": "33914eb5ea8e1be33356940641e89c0dc9331def9c4d52960c6d204bc727146b",
+    "Assets/_Original/Runtime/World/WarehouseTransferService.cs": "ddede297a55eaae36d22bd4dbb77c423334a8dba7af440a4b5b06780d1c22000",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Personal.cs": "695bc2e71975ef5482ef3154b4bf3080dc562a4fdf979254142d395c07a534cf",
+    "Assets/_Original/Runtime/World/LocalServerManager.PlayerIdentity.cs": "6d92816e1e5e8e079668cb2041d9697920be69cbc1cfbc7237a347f82798e682",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.cs": "bc236600db54e424a19b4f5e46545ddac2635125c03094e6256aba94cdd48920",
+    "Assets/_Original/Runtime/World/NativeWorldArt.cs": "fed19a7596139069c59986ad76c59a2f30a62205426b9f2095de9e5bdf9807c4",
+    "Assets/_Original/Runtime/World/LocalServerManager.Currency.cs": "09c326385887aa830b8be6843ae7e7cc5babe914b6d0d29efc3761844bd2da69",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Message.cs": "825dc7435786f1625243e7a4980b693f04f8837279b84ed742bd5273601ace7e",
+    "Assets/_Original/Runtime/World/TempleRevivalAlignment.cs": "aa89917d9baaba933f2ecadaf81fcf80f9c0ff6051d628ec26c738b8e1f42335",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Chat.cs": "262b66954e2f088c5021f921014872330cb04f8c5fe8bf6335d649e119a366e0",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.MagicAudio.cs": "a41ca1d05069c06684556985512be99918bff7fa7ae57ff5de5cd1e87f7f195f",
+    "Assets/_Original/Runtime/World/TempleRevivalService.cs": "dc459a22b756d15ad69d837294546e69363979e564e5da316091e2c485a8c9f6",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Combat.cs": "fb7ab1bcdf2ed8992654c14355270f4cf5ff6033cea41a960590e1eff75572c3",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Training.cs": "52c7f79a1ff7d82583c7a6647964a32eb10a753c8262f986b773b6925b9eaedb",
+    "Assets/_Original/Runtime/World/CurrencyService.cs": "792c0d3a812debe51bccba00e90651892e5c350637996b8a66f071ff411b7dca",
+    "Assets/_Original/Runtime/World/PlayerIdentity.cs": "3c660eaa80f130b2c9930c4e80da324712ae10018ae8532a69825a317ff12f9e",
+    "Assets/_Original/Runtime/World/LocalServerManager.Revival.cs": "b80366a64b23ccb8c76b8eba4221da5dd3c1488078cfcaacdcf8aa2fa72cd938",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.BodyLayers.cs": "7d5d530e69195bf9be5a9781b0e5cd6c711e1ba6105ee674ce21f1d581ef62fa",
+    "Assets/_Original/Runtime/World/WorldService.cs": "1582026db37fa59c2117bd2eb0ecb8a70dad8195b7fdc0e4823b825821730af1",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.BattleMagic.cs": "3a0f08e202b812be3b0f6ab719f4c3400101adcd6ac8e6fd95ba237c34876866",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Utilities.cs": "568c6a947fbe32a8adf7a49134886d302e59757433a88699205012799439cdd5",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.CommanderName.cs": "da3629b81a7537e11495ade70857b0adc984bdd6f697117e99dc5b8a400ec98e",
+    "Assets/_Original/Runtime/World/ItemUseTransferService.cs": "2a5ef4158556851e7a4beb483f80973da8809d21ec41e175c164be19f9f26405",
+    "Assets/_Original/Editor/LocalCharacterReset.cs": "6e1f76229aead06d9bd4f8a354a9eb15461eeae8466126ed05a3b589f732903f",
+    "Assets/_Original/Editor/OriginalPixelTextureImporter.cs": "031d0920c325655155ed304fad594160d28efb75987486298b571ff913584497",
+    "Assets/_Original/Editor/LocalGrowthTestWindow.cs": "c41a6446d0c9111cddf84221dffab71fc43c71ef6d91413ae5f1182c38e1104c",
+    "Assets/_Original/Editor/LocalEntryAccountWindow.cs": "0017da1e4ac3bd6cefca0bc83c151410fc6d1fe60232b0a5ea1f73b3d86307f0",
+    "Assets/_Original/Editor/OriginalFoundationSetup.cs": "cdfb7002e9a350fe3f29b6de07e7b586f49e003bfd389e1c8d73b77e12d8c61c",
+    "Assets/_Original/Editor/NativeBattlePacketWindow.cs": "716605fa1575e96bb4db7634c70f31b40c81f8856f7e569c49d45740bf27d4d4",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.Gateways.cs": "781a6150110dd419f76657443b9e6254c97741b8de8a1d2a38bcd2b0a8fdfcc4",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GUI.cs": "a9b9a71925cef8ecac3980b64c01aeaeeca548478305b9a85184b506bc3ceefd",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.GatewayList.cs": "9d82c163920c9707a4d8b3f0ecd327863ec19f7940e2194e6d1b453d6ccb790e",
+    "Assets/_Original/Editor/Scenario/ScenarioLayoutModel.cs": "98daf67f8dcfc02413c0d2db559a2a2a3fde9c877688f7897bfd127267c68497",
+    "Assets/_Original/Editor/Scenario/ScenarioEditorWindow.cs": "0178baa5ad9e32374dfb8416b8e92c8a0bd1edd33c2058b425c9bcdc5c8af7aa"
+  },
+  "snapshots": [
+    {
+      "source": "Tools/OriginalEntryChecks/entry-check.json",
+      "snapshot": "snapshots/Tools/OriginalEntryChecks/entry-check.json",
+      "sha256": "804b9cbaf4c59709aa8d79e4bd794f70662546e55064fbd7819fff2165ca94cd"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/../CheckSupport/evidence-eol-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/../CheckSupport/evidence-eol-check.json",
+      "sha256": "f30cdec4157c5a39c0c98b6c70c7fe7ac16ed25f079f73cf28f04d24773068af"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/../CheckSupport/runner-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/../CheckSupport/runner-check.json",
+      "sha256": "fa094ef8bbd49cd5260a8fb76e10b12905f45bccaf2d6d074d8af6bb6a1396cf"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/../OriginalScenarioEditorChecks/save-queue-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/../OriginalScenarioEditorChecks/save-queue-check.json",
+      "sha256": "a92823ba77159370382a2f296b53e926123af359e1efc5e5460a0b1a30d0f22d"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/../OriginalTutorialChecks/dialogue-presentation-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/../OriginalTutorialChecks/dialogue-presentation-check.json",
+      "sha256": "83c1f901a2e305a4616a5b5a50306cb9ca63062a208c6b372be939b6eaad4196"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/../OriginalTutorialChecks/drag-lifecycle-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/../OriginalTutorialChecks/drag-lifecycle-check.json",
+      "sha256": "6cc9986bc3f89c8eb692b572a215b5ec8a34f1f9e2e7947e85be300fc2d64275"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/../OriginalTutorialChecks/tutorial-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/../OriginalTutorialChecks/tutorial-check.json",
+      "sha256": "ef8e21c58c0dbfc83e52e8d48883bf95e7a5d96ec497dd89a0cf87c96ce3409f"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/authored-world-startup-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/authored-world-startup-check.json",
+      "sha256": "eaf9d90d0318a2499f0a554946369ad825783c45b323ec3f818cbc47396a249c"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/bank-currency-regressions.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/bank-currency-regressions.json",
+      "sha256": "f2d39f2f2fb42e6fdb7defa2fa35124f45cb70d987ebe1bd35678f15dc3c074c"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/callback-session-regressions.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/callback-session-regressions.json",
+      "sha256": "bad9fa64f4025489f0801e319f5531a686c6201d5212dd2d7062c911fc2251d4"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/character-reset-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/character-reset-check.json",
+      "sha256": "b75bbb1014625e8a41bcab4230fcb087587bfc4adda4d82287c59d25eb02a6c1"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/client-window-assets-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/client-window-assets-check.json",
+      "sha256": "b5c52a715c3693c86997fb852ede33bbabb320faaf9a3f09fc4ade758c5615c8"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/client-windows-integration-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/client-windows-integration-check.json",
+      "sha256": "bf11274135bdc9539ab738fa161640a8222a9f90da1750a247d1d03a7cd2579c"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/commander-adjustments-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/commander-adjustments-check.json",
+      "sha256": "37b23fc94208a870debe8f4b5c764e531cc24cbf13d7099ac45a804b5b831eba"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/commander-name-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/commander-name-check.json",
+      "sha256": "352dbff30b0bb8fa6403121fd2003a61e1611efc95c67da9ace013b3e219c2a2"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/facility-callback-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/facility-callback-check.json",
+      "sha256": "0d1dfbbde2753aabb9277d1214c82eed139bcbe7f16e581d3539ba1f5723674c"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/facility-contract-regressions.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/facility-contract-regressions.json",
+      "sha256": "f0fe50a6914363085f883db34660030f8af377f7e487667ef9ba413090ccd7f1"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/growth-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/growth-check.json",
+      "sha256": "c166239fb36966b9ed3036430062a1119310053013ca289ff0f6d2956010f0f3"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/item-drag-context-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/item-drag-context-check.json",
+      "sha256": "1c115abc1bfa6db9f676ec3990a5912854a0667201814f50ff4a1248d41db3cb"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/legacy-maps-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/legacy-maps-check.json",
+      "sha256": "499bfa9a737d36e443035208c7656c8e5a0ea0dc6ac53ed0b5680ddce05d2a66"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/map-pointer-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/map-pointer-check.json",
+      "sha256": "21ba9c8b1c5098716b088013a52cd73beb5466c09b0417b802491d177cd0f2e3"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-ai-dispatch-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-ai-dispatch-check.json",
+      "sha256": "e3984a995fd1a38f92b4f489fac0b902d04bcb804389d6489a45a107838f061f"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-alliance-metadata-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-alliance-metadata-check.json",
+      "sha256": "b1bf811e562deced25aa9d24f1cea73d1d592acb4e37b5e8657c53200d5fbaea"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-auxiliary-packets-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-auxiliary-packets-check.json",
+      "sha256": "0c979b76b5474cd135b5a729b5dfa1ff4a017f353dd60a22cb0460e1c793535b"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-bank-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-bank-check.json",
+      "sha256": "f0bcf8ca87b9e262d3c552e6d10125ff6166e19d84571acc43b148d27f75f3c6"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-battle-decoder-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-battle-decoder-check.json",
+      "sha256": "be90a51269a25be05aa46d47f40d0d3f3163b40287adecdc2fa67b9be59d46a9"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-battle-options-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-battle-options-check.json",
+      "sha256": "1f2edeb43b0d7a19765689dd6547d45bae727d72f0b5bd62680878c7f0e9f1ba"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-battle-packet-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-battle-packet-check.json",
+      "sha256": "3599eebd3b2eb3e5d56e9193be0960f9a9e608bb976ef3949b2daaa993d4cb12"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-battle-response-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-battle-response-check.json",
+      "sha256": "9f4bbbc8f073c00b292522d3ad3694a88d9e5b494ed44ca066ea64096b5c3cad"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-battle-tick-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-battle-tick-check.json",
+      "sha256": "4a1619a1e26c682b1231f1ab05925fbafb79eb9c8b3f47d7ec724b8255d37f1c"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-body-order-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-body-order-check.json",
+      "sha256": "aaf3f90c9098e942a82d33ff95cd162f71ecab4832fac0858a96ffc4410a1909"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-campaign-message-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-campaign-message-check.json",
+      "sha256": "38d5ac4c82b2f6ee68bdbcfe52acb91159e759b54ea9eb384550271c176a8638"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-candidate-data-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-candidate-data-check.json",
+      "sha256": "dba560703206b1be55de4c109c1074387d194e4ba1d11eb2d04b9dba77307bcb"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-chat-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-chat-check.json",
+      "sha256": "49f780823dbd1f6fbb64f093b33f78a74f9067ae77a87b59667185424a525c62"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-chat-composer-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-chat-composer-check.json",
+      "sha256": "9fd91dfd898ac5b67d80ae5449c9da3fcc2d5800516b16afae464d397970a215"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-class-adjustments-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-class-adjustments-check.json",
+      "sha256": "3c0dc6afacbc5b3d65b791cc7ad811fd8cf495caf6db69ae0312f61f097c518f"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-class-presentation-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-class-presentation-check.json",
+      "sha256": "7c19fc8633740e8f971088b750929ff338c8da0e963109eb45730879a40db23a"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-commander-ai-gates-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-commander-ai-gates-check.json",
+      "sha256": "7da6632cb120a8addaccb6c54e17f5d835624d7cda805873b3e9680b7120bc1c"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-commander-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-commander-check.json",
+      "sha256": "98e1e9f91ba7bb0bb2f955ed4f002b9aa1e9ec3b39add0018227aff032cf78f9"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-death-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-death-check.json",
+      "sha256": "93c81b98f8ae925e1237128e48e93d20bf247bc332a7b93eca1c66c56809ee45"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-directed-control-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-directed-control-check.json",
+      "sha256": "26cdb0f1d565dd0beca345d75263b5d2205255ae800b4ed8b9c849f40924aa5c"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-directed-event-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-directed-event-check.json",
+      "sha256": "7cbcf644bfd48ad05c62221b03e15ee1a5eb2990e5e2e12c9a313c676a90b95f"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-directed-frame-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-directed-frame-check.json",
+      "sha256": "45ef0dc8b55e8aa8c58fd8dcbd560f89239dfbc4621cb38a11f10e2dbd39a315"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-directed-input-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-directed-input-check.json",
+      "sha256": "fb1d1c0fb36eabae593ea52822008faa8fc425443e6d41a05d70c3fc958193bf"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-end-stage-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-end-stage-check.json",
+      "sha256": "4968c5371f07f081f92ccb578ee0bf354432923b7d335bfeac469f416b61ff27"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-end-ui-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-end-ui-check.json",
+      "sha256": "5ec7317f12ca1e0a27f9fb5ba65c25835ebed024f281b75318148cd9213504eb"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-event-corpus-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-event-corpus-check.json",
+      "sha256": "eb3737a41fac191952ca1979180a88fccd2d7531794044fbd7bdd4efd527d08a"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-event-loader-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-event-loader-check.json",
+      "sha256": "414ddca19489b033bbe2a11408ec5833f2684da68d78bde8922ef1ce8a1477da"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-event-queue-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-event-queue-check.json",
+      "sha256": "d96bb8eb348e8398d4d0cf72750ceb05f4f5af077ea16d167ac673b7ad44f916"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-event-steps-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-event-steps-check.json",
+      "sha256": "649630e22448bf12ff220bd5ce72a2a789055ff0e0e4c66d7594b3eb6c2fd162"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-evidence-manifest-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-evidence-manifest-check.json",
+      "sha256": "c646187a1165382b58517cef599b45645580b935aa96598f272176004ed423f0"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-evidence-refresh-guard-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-evidence-refresh-guard-check.json",
+      "sha256": "5047294acea0f1eef3f43d50b3bf5e2095e41a5b95d7b092bdc71203f8aa4208"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-feedback-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-feedback-check.json",
+      "sha256": "6a337aefe284cf2d5062e1ad5dd4a8a89386aaf1a6d3d8e105ffc9f08e3813f5"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-font-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-font-check.json",
+      "sha256": "d88222eba283de1ec2a1b5c31e3ff619957429db06081ea5d3fc353d6302e209"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-hire-list-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-hire-list-check.json",
+      "sha256": "201ea09218edac09d863ff22b45b323301659e1e9487dc49ec59ba25d30c92f8"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-immediate-events-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-immediate-events-check.json",
+      "sha256": "85c615b3c58052879e9bcefeabd2474cf2c65a562cd23fbdc7de25eaf2183020"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-item-caption-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-item-caption-check.json",
+      "sha256": "c13ee2e7523d3c2ee7db48c03ad4268e5d6842c78010d08404f26584fbf3a5c6"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-local-order-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-local-order-check.json",
+      "sha256": "db43abf3cdade31ee0bbc180049761d53f21a0de2d157037d6453a0f6921b976"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-magic-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-magic-check.json",
+      "sha256": "f5be5ecf9c5e46b43cfe00b43e37847803b7d3839682ec47322be3635e818d63"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-magic-packet-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-magic-packet-check.json",
+      "sha256": "8d4d7bc6fa4f5ea9be1734ccb3a59e5b1957465ad01d2fd956f67f34b6c54690"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-magic-redirect-catalog-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-magic-redirect-catalog-check.json",
+      "sha256": "ef66725a8d18483a5589da710226ba0a692c3a3d7ed14b58d0ff97bca23e1036"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-magic-redirect-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-magic-redirect-check.json",
+      "sha256": "cde9316232158e1cd169aa5b95308a5da7edc2ff65044f67b8128b998baa1131"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-magic-redirect-selection-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-magic-redirect-selection-check.json",
+      "sha256": "228453af154caffd66fc52b8de943232c848938b6b9db5e3989f51e28d492b9e"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-magic-target-catalog-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-magic-target-catalog-check.json",
+      "sha256": "f9dc9afa89ac3ac9a630ef4055764f8b5c0524fb621921376d22642c9f0c26b8"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-memo-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-memo-check.json",
+      "sha256": "8c893abf970fa1889c6ff0e4ae07f8eb74392e2e0ea8ab479e645e9971807489"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-memo-transfer-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-memo-transfer-check.json",
+      "sha256": "b57cab5fd0c34261f2c2f9ec99c515e14fd5f9db6d8b698bf37c14099a7f917d"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-mercenary-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-mercenary-check.json",
+      "sha256": "fb791a415469cc0782b9918d80ed0422a704750d65d5e6434e53254b91214b25"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-message-pages-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-message-pages-check.json",
+      "sha256": "3a94a22859e27789afeda72bc80542c857889c675099c4e4d99697da2a9a190d"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-message-substring-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-message-substring-check.json",
+      "sha256": "1c8d3ac95fa9bf2f605a5dfa2689489bcdfb23aa78c39396ed6be9dd985d2a8b"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-monster-activation-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-monster-activation-check.json",
+      "sha256": "1531cc536a31534f5ce6c8acc85dc6d823ddd1fa2377b86ed873c92f55b0fbcb"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-pointer-repeat-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-pointer-repeat-check.json",
+      "sha256": "1bc2ecb81db1d58213283a608742f77ff8b30619c97b32a5524f4c0d552bf9e7"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-private-chat-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-private-chat-check.json",
+      "sha256": "7e6afe3386cf3a9e7f41b520294f2cffe69f60b5b4cfb6b912ec46bd3dfcd114"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-result-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-result-check.json",
+      "sha256": "b4270d6e8e02c6049e7f7a7422dd1c943e5476eae2e1d3edc66559e6b23321a7"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-result-contract-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-result-contract-check.json",
+      "sha256": "46c7d089a5886d6d179474259f7524b7170b4ac238dd975be03ce9401f21b08a"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-result-kill-contract-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-result-kill-contract-check.json",
+      "sha256": "0b61476cc1e8b762c6a94ce2b432b016b39d23f4a3a185f7ea1dd70eac396883"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-result-kills-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-result-kills-check.json",
+      "sha256": "8c6d977340d8fcd8728c65fc8459960eb81b9a9302aed4736a351acd73523257"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-scenario-cleanup-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-scenario-cleanup-check.json",
+      "sha256": "ea460b4f0a1fe206751de89f4c8325f72482431931e3acf7cce55fb71875258d"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-scenario-end-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-scenario-end-check.json",
+      "sha256": "b41851b97b38526c83f28b1b4576436bebab984f51698e0cee2d9aa157e28966"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-script-frame-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-script-frame-check.json",
+      "sha256": "9394b6c5de8a2076b5c658bc0d7a67082c044099d943adb2aaa5e85fdb98107d"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-self-info-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-self-info-check.json",
+      "sha256": "7a83786a88a0a59c3494cd731d6ab55d8ca77709ae653cff6f8a11b8139b1024"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-settings-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-settings-check.json",
+      "sha256": "59a9a29e0817db36f78858ef33c77f7a5d2b9d8406526eb92e78905f1669cd1e"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-shop-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-shop-check.json",
+      "sha256": "829586d68faf05a85f6ae7269a77525ab14fa9142892e9533a481b88241fb51f"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-shop-details-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-shop-details-check.json",
+      "sha256": "ccd73e962020604460022c47c2fc1d428a9a4f8c2778b00956096622d30a2b68"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-soldier-ai-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-soldier-ai-check.json",
+      "sha256": "e75b771db61536faae7f116046e1555fc69c245c6674ab671e47f4fc5cebf4f0"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-team-name-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-team-name-check.json",
+      "sha256": "7f958c97caac728ce3882f1fc92c3c53212372050a709393417cd035fbf1bfc0"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-temple-alignment-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-temple-alignment-check.json",
+      "sha256": "6828c099f069471ecc9c50988c8c9240e3201f275f94b1cb03de5991d71db675"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-tile-attribute-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-tile-attribute-check.json",
+      "sha256": "989a3bcab6e98d246907d2728df3414763e3a088ce270c67b459d5a95bf3b4eb"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-unit-decoder-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-unit-decoder-check.json",
+      "sha256": "11fe5f2a195b6ee947ee546a8446ee5e9481222d33333fc08ef259e7713e0b48"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-unit-reset-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-unit-reset-check.json",
+      "sha256": "813e7d0509d3f1a95d105fc5e1800158eaa99a7fa4a6780dad4bebf45d274007"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-unit-snapshot-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-unit-snapshot-check.json",
+      "sha256": "37e1d5a27dfc307d4b69e8575b20f293295969101d497abcdf4c8e3d55edac31"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-victory-notice-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-victory-notice-check.json",
+      "sha256": "07a43e7469ec4a81a9bc9e135d9bebb13d0587e95b808a774b56a31929a807d2"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-warehouse-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-warehouse-check.json",
+      "sha256": "48cf1fe2d036291371990b40edd502af98ed516baf2dcd7b97ac953aaea1e0a9"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-window-drag-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-window-drag-check.json",
+      "sha256": "c5e2e49377600c17fa4dc2b619869e06c16b04f94020b21e85270e77fa965f5f"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-window-placement-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-window-placement-check.json",
+      "sha256": "33a6d81c21299ff2554ff53a55594a0344ac4b5ca21536a3a5bda7ac8866e82f"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-world-message-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-world-message-check.json",
+      "sha256": "9b74a26422d3d1d568de7e8e821144bb61d12f8d91f1bd8532f1e05884f5ddde"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/native-world-text-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/native-world-text-check.json",
+      "sha256": "0e009934af897f86c69819bb618a80c46d673b8b7931da3fedee80481940fcaf"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/nullable-contract-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/nullable-contract-check.json",
+      "sha256": "a4a24b9c559250984ce35ce138d61d350d1fc6ac6e62922dd5727ee22d5899b2"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/nullable-serialization-analyzer.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/nullable-serialization-analyzer.json",
+      "sha256": "6be0111f76d9607f565e97ec58fc0f364e3a4323dcde6c2b840ba3e4654fe45f"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/picture-initialization-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/picture-initialization-check.json",
+      "sha256": "4ab57b02fef4568e805617768f2045bcf8cc63ccf77a2723e95cd64b972cdff9"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/pixel-import-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/pixel-import-check.json",
+      "sha256": "34b3fa8f56786d5e15401cf1d55ed3de8571418e1223ea0b86c3c7d4fc74d681"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/player-identity-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/player-identity-check.json",
+      "sha256": "3f98226bfb4d34e806984df666a473240e9f837e579912a9dd10fa9d29d57398"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/reverse-gateway-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/reverse-gateway-check.json",
+      "sha256": "0e527c24386cf299328c937602a6085660fd58113fad94326554d3eaa1cb6c46"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/runtime-resource-bindings-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/runtime-resource-bindings-check.json",
+      "sha256": "7380b451dbb6b165d205473f79cc145722d72a1584dbcc9623db30411f459fd1"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/scenario-progress-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/scenario-progress-check.json",
+      "sha256": "6d1efe6d57b859222d686275e8357371a44f67faeda6932087d49ad28f666473"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/temple-alignment-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/temple-alignment-check.json",
+      "sha256": "b17955aea23bae2a362dbb51b9c36b8981fe49d3c467b7d46e18033f7f37d4bf"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/training-test-authority-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/training-test-authority-check.json",
+      "sha256": "3facb9ca510bf5b84bca49d2b433c1efb80bd5a31ac230ef25545bbf6ff412f8"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/training-tier-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/training-tier-check.json",
+      "sha256": "28ea618365ba1d62630c51e9d54ac89440d93c663ff722bdcc8383db4b88aa0e"
+    },
+    {
+      "source": "Tools/OriginalWorldChecks/warehouse-reconnect-stability-check.json",
+      "snapshot": "snapshots/Tools/OriginalWorldChecks/warehouse-reconnect-stability-check.json",
+      "sha256": "a1f3fbb1fdd6f4ed123f8fb193adea6a38848be736a73a970adbf9b054a9702f"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/AuxiliaryPackets/evidence.json",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/AuxiliaryPackets/evidence.json",
+      "sha256": "a050492f97c451d4391989225c116eddb5c4a26b42e46afc3dab950a452b497a"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/DirectedEvents/evidence.json",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/DirectedEvents/evidence.json",
+      "sha256": "3ff9c04236eb04766b10be0f91f270cb196ca3cc5c921a5a7a5f8fcb12feb6be"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/EventQueue/evidence.json",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/EventQueue/evidence.json",
+      "sha256": "246a44eef1f6a6d4bb427462a7183cd67aa875b2e57a326befd99037add04ea2"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MagicRedirect/evidence.json",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MagicRedirect/evidence.json",
+      "sha256": "ffe6270315ac905367d00c3d2b403ba7c8d7a8f3961ce54ebcc979b7f625720f"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterAiDispatch/100015a0.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterAiDispatch/100015a0.c",
+      "sha256": "6412278b62ed9d896eabb3dfdf1c38ccac321ba0afebdf7766a34b3134006e7b"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterAiDispatch/10002310.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterAiDispatch/10002310.c",
+      "sha256": "5d3a28cd093748f70c9b94a78f57c1c024af4b4f3e7b2f14503c0f74e6309f91"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterAiDispatch/100023c0.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterAiDispatch/100023c0.c",
+      "sha256": "ba519423f248010d2f1d3cddb4cdd2c712dc1dc1df3ef1a85a39eaecaa37d6db"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterAiDispatch/10002420.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterAiDispatch/10002420.c",
+      "sha256": "e9923bd8df34886fda549dc55603d41d3ec510af4491a67c31bd0f3a6198bfa3"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterAiDispatch/100035e0.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterAiDispatch/100035e0.c",
+      "sha256": "5bf624569c6a0b0a5c63d05b5adff5bbab71111078f3342a6e4e88bb205465db"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterAiDispatch/10003f70.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterAiDispatch/10003f70.c",
+      "sha256": "7c19b9e79ab12b4eaea4caae01037b0775e2834f4b763d49c57492b1b94af446"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterAiDispatch/100040a0.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterAiDispatch/100040a0.c",
+      "sha256": "ed3472fe8a7d556e87703177464e70c8fced42ce55852c7e50b56bcd67f4375b"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterAiDispatch/100041f0.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterAiDispatch/100041f0.c",
+      "sha256": "c1ae89179965ffb3f792716dbf1898cff08942f3f94b88ffbf2f56e6afed622d"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterAiDispatch/10004990.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterAiDispatch/10004990.c",
+      "sha256": "7bc3e94961c72068815373653309fce34db493dc35fe38dcbe3b3542c0194bb2"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterAiDispatch/evidence.json",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterAiDispatch/evidence.json",
+      "sha256": "994771f49776b77a2fdadf5a19c6cf7106e84c3aecc339cb3e53703e429bc9a5"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterCommanderAi/10002eb0.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterCommanderAi/10002eb0.c",
+      "sha256": "e5732fa70180b2a37ac12946bce8188f750062e843d930b64f16e473a9ef7ce1"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterCommanderAi/100042e0.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterCommanderAi/100042e0.c",
+      "sha256": "4e129c92e761240aa44b1e8e5c33a2ff0e1b014e1ed64ae7e5671c30cfa0d19d"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterCommanderAi/10004810.c",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterCommanderAi/10004810.c",
+      "sha256": "6cdcd57eb85677279e436bcb74367a069d7e44946b51e8b3e194cddd3604b727"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/MonsterCommanderAi/evidence.json",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/MonsterCommanderAi/evidence.json",
+      "sha256": "32097e42881eca861ea497581ae3025036471dc7f0b2246892b7d30178a35738"
+    },
+    {
+      "source": "분석/Ghidra/Saver_Late/ScenarioEndControl/evidence.json",
+      "snapshot": "snapshots/분석/Ghidra/Saver_Late/ScenarioEndControl/evidence.json",
+      "sha256": "5a752522d321adc7cfe879426a3b441ea1e123d49eb8f51aa4fed36be33d96f7"
+    },
+    {
+      "source": "분석/Saver_Late/gamectl_packet_routes.json",
+      "snapshot": "snapshots/분석/Saver_Late/gamectl_packet_routes.json",
+      "sha256": "2ecd1b1c030237873013eba44a3af528cf63efdb81966be863be01466fe8e8b5"
+    }
+  ],
+  "runLedgers": [
+    {
+      "name": "runtime",
+      "selectedChecks": 26,
+      "ledger": "runs/runtime/selected-results.json"
+    },
+    {
+      "name": "world",
+      "selectedChecks": 22,
+      "ledger": "runs/world/selected-results.json"
+    },
+    {
+      "name": "team",
+      "selectedChecks": 1,
+      "ledger": "runs/team/selected-results.json"
+    },
+    {
+      "name": "soldier-ai",
+      "selectedChecks": 1,
+      "ledger": "runs/soldier-ai/selected-results.json"
+    },
+    {
+      "name": "ai-dispatch",
+      "selectedChecks": 1,
+      "ledger": "runs/ai-dispatch/selected-results.json"
+    },
+    {
+      "name": "evidence",
+      "selectedChecks": 2,
+      "ledger": "runs/evidence/selected-results.json"
+    },
+    {
+      "name": "audit",
+      "selectedChecks": 1,
+      "ledger": "runs/audit/selected-results.json"
+    },
+    {
+      "name": "commander-ai",
+      "selectedChecks": 1,
+      "ledger": "runs/commander-ai/selected-results.json"
+    },
+    {
+      "name": "pixel-audit",
+      "selectedChecks": 3,
+      "ledger": "runs/pixel-audit/selected-results.json"
+    },
+    {
+      "name": "native-corpus",
+      "selectedChecks": 1,
+      "ledger": "runs/native-corpus/selected-results.json"
+    }
+  ],
+  "preparation": [
+    {
+      "log": "preparation/native-oracle-setup/000-OriginalWorldChecks-check_native_victory_notice.log",
+      "reason": "Overlapping Unicorn Update snippets retained translated code past the intended stop. Reused actual08AD0 function entry/return and separately executed10F20 frame; final comparisons passed without changing production.",
+      "productFailure": false
+    },
+    {
+      "log": "preparation/route-installer-path/001-GhidraChecks-check_native_dispatch_routes.log",
+      "reason": "Initial route check lacked the installer-root path map. Final runtime route audit ran with the existing extracted installation.",
+      "productFailure": false
+    },
+    {
+      "log": "preparation/route-installer-path/000-OriginalWorldChecks-check_native_victory_notice.log",
+      "reason": "Initial route check lacked the installer-root path map. Final runtime route audit ran with the existing extracted installation.",
+      "productFailure": false
+    },
+    {
+      "log": "preparation/team-template-path/000-OriginalWorldChecks-check_native_team_names.log",
+      "reason": "Initial team-name check lacked the reusable gateway compiler template. Reused the current completed runtime template for the final check.",
+      "productFailure": false
+    },
+    {
+      "log": "preparation/stale-interim-audit/000-OriginalWorldChecks-check_client_windows_integration.log",
+      "reason": "Interim audit correctly refused reports predating changed production sources; reran the actual team-name producer and finished the pending runtime producers before the final audit.",
+      "productFailure": false
+    }
+  ],
+  "preserved": {
+    "protectedGitScopes": [
+      "Assets/_Original/Data",
+      "Assets/_Original/SourceData",
+      "Assets/_Original/Resources",
+      "Assets/_Original/Scenes",
+      "ProjectSettings",
+      "분석/Ghidra/projects",
+      "Tools/UnityCompileChecks/21e26e23-validation"
+    ],
+    "changedProtectedFiles": [],
+    "preexistingPyc": [
+      {
+        "path": "Tools/CombatApChecks/python-deps/__pycache__/pefile.cpython-312.pyc",
+        "sha256": "fd7a3657c76e4a6d73d9239df316dc71516d3aef6d857b94155dc3bf1e3a5ce3",
+        "mtimeUtc": "2026-10-31T07:51:49.195346+00:00",
+        "preexisting": true
+      },
+      {
+        "path": "Tools/CombatApChecks/python-deps/capstone/__pycache__/__init__.cpython-312.pyc",
+        "sha256": "033cc2a096c02c6d409e85527b50ecedb2f774ecf83e756d100bfaec06b5a6e1",
+        "mtimeUtc": "2026-11-01T07:54:26.440657+00:00",
+        "preexisting": true
+      },
+      {
+        "path": "Tools/CombatApChecks/python-deps/ordlookup/__pycache__/__init__.cpython-312.pyc",
+        "sha256": "16228f63623a3c57d482a5d179ac4eac4a7b9a853b7745705b842a37cb6b3def",
+        "mtimeUtc": "2026-10-31T07:51:49.201659+00:00",
+        "preexisting": true
+      },
+      {
+        "path": "Tools/CombatApChecks/python-deps/ordlookup/__pycache__/oleaut32.cpython-312.pyc",
+        "sha256": "9345bdb82d036de557c6c43ee4dfb5d23d29e8e94992c2bea232fe2ceeefdc02",
+        "mtimeUtc": "2026-10-31T07:51:49.203071+00:00",
+        "preexisting": true
+      },
+      {
+        "path": "Tools/CombatApChecks/python-deps/ordlookup/__pycache__/ws2_32.cpython-312.pyc",
+        "sha256": "af3e5ed61a61bb0277e95b2f315b3eac8b11fdf3d2842ac8ac019a4fc4cf0166",
+        "mtimeUtc": "2026-10-31T07:51:49.203961+00:00",
+        "preexisting": true
+      },
+      {
+        "path": "Tools/CombatApChecks/python-deps/ordlookup/__pycache__/wsock32.cpython-312.pyc",
+        "sha256": "80be93461a141cff1cc08aaec9cfee57399e4fb388c014c712b68018e941831d",
+        "mtimeUtc": "2026-10-31T07:51:49.204535+00:00",
+        "preexisting": true
+      }
+    ],
+    "eveningPackageFiles": 195,
+    "earlierPackagesUnchanged": [
+      "20261106-client-fixes",
+      "20261106-afternoon-client",
+      "20261106-scenario-recruits",
+      "20261106-evening-directed-events",
+      "21e26e23-validation"
+    ]
+  },
+  "limits": [
+    "No Unity Play/Test Runner/physical input/listening.",
+    "Original Windows warehouse first reconnect failure remains unresolved and untouched.",
+    "No server winner, event trigger, cost or reward policy is invented.",
+    "Native61/legacy cutscene preemption and0C/30/40/5C/66/B2 are not implemented by this change.",
+    "Constructor/ANSI allocation/graphics hosts are bounded; no original Windows whole-process/locale/FPS equivalence claim."
+  ]
+}

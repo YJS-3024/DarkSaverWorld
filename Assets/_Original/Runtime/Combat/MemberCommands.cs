@@ -35,11 +35,12 @@ namespace DarkSaver.Original.World
             var occupied=units.Where(OriginalCommandRange.OccupiesTile).GroupBy(u=>u.Tile).ToDictionary(g=>g.Key,g=>g.FirstOrDefault(u=>u.id/50!=member/50)?.id??g.First().id);
             return OriginalRegroupMovement.Reachable(map.map,actor,actor.movementBudget.Value,type.Value,occupied,StaticBlocked(map));
         }
-        public static bool CanAttack(WorldMapDefinition map,OriginalCombatCatalog catalog,TrainingUnit[] units,int member,int target)
+        public static bool CanAttack(WorldMapDefinition map,OriginalCombatCatalog catalog,TrainingUnit[] units,int member,int target,bool nativeAi=false)
         {
             var actor=units?.FirstOrDefault(u=>u.id==member);var enemy=units?.FirstOrDefault(u=>u.id==target);
-            if(actor?.canAttack!=true||!actor.attackRange.HasValue||actor.attackTargets==null||!actor.attackTargets.Contains(target)
-                ||target<10||!OriginalCommandRange.Living(enemy))return false;
+            bool nativeControl=nativeAi&&OriginalSoldierActions.NativeContext(units,member);
+            if(actor==null||!nativeControl&&actor.canAttack!=true||!actor.attackRange.HasValue||OriginalSoldierActions.Enemy(actor,enemy)!=true
+                ||!nativeControl&&target<10||!(nativeAi?OriginalSoldierActions.Targetable(enemy):OriginalCommandRange.Living(enemy)))return false;
             var area=OriginalBasicAttackArea.Weights(map.map,catalog,actor);
             return area!=null&&map.map.Contains(enemy.Tile)&&area[enemy.y*map.map.width+enemy.x]>0;
         }

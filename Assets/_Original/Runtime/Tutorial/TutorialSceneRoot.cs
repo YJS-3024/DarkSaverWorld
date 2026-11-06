@@ -227,7 +227,9 @@ namespace DarkSaver.Original.Tutorial
         { faultText.text = text; faultText.transform.parent.gameObject.SetActive(true); retrySave.gameObject.SetActive(canRetry); }
         private void Paint()
         {
-            dialogueLayer.gameObject.SetActive(!string.IsNullOrWhiteSpace(view.Message));
+            // Native089F0/08CA0 keeps the portrait frame active even for the
+            // empty MESSAGE before DO2000. Update tests its active flag, not text.
+            dialogueLayer.gameObject.SetActive(view.MessageCount > 0 && !view.Completed);
             var lines = view.Message.Split('|');
             for (int i = 0; i < messageLines.Count; i++) messageLines[i].text = i < lines.Length ? lines[i].Trim(' ') : "";
             foreach (var pair in unitImages) pair.Value.transform.parent.gameObject.SetActive(false);

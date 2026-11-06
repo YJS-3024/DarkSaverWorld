@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_campaign_messages.py", line 54, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_campaign_messages.py", line 39, in main
+    assert m==dict(ok=True,text=result['text'],face=result['face']),(c,m,result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ({'command': '0 0 가ME 0 %s', 'ownName': '현재팀', 'names': ['지휘관0', '지휘관1', '지휘관2', '지휘관3', '지휘관4', '지휘관5', '지휘관6', '지휘관7', '지휘관8', '지휘관9'], 'jobs': [100, 101, 102, 103, 104, 105, 106, 107, 108, 109]}, {'ok': True, 'text': '현재팀', 'face': 0}, {'mode': 0, 'face': 0, 'rect': [40, 130, 561, 65], 'text': '가ME'})

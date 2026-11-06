@@ -83,7 +83,7 @@ namespace DarkSaver.Original.Entry
         private WorldFailure ValidateSoldierActionOutcome(TrainingCombatSession combat,TrainingUnitsNotice notice,TrainingActionRequest request)
         {
             if(string.IsNullOrEmpty(notice.request)||request?.automatic!=true)return request?.action==TrainingAction.SoldierMove&&!string.IsNullOrEmpty(notice.request)?WorldFailure.InvalidInput:WorldFailure.None;
-            if(request.source<1||request.source>9||!OriginalMemberCommands.Controlled(combat.Units,request.source)
+            if(request.source<1||request.source>9||!OriginalSoldierActions.Controlled(combat.Units,request.source)
                 ||request.nativeOrder!=combat.Units.First(u=>u.id==0).troopOrder||request.aiHintBefore!=SoldierRestHint(combat,request.source))return WorldFailure.StaleRequest;
             var actor=notice.units.Single(u=>u.id==request.source);
             if(actor.nativeState!=request.aiStateAfter)return WorldFailure.InvalidInput;
@@ -95,7 +95,7 @@ namespace DarkSaver.Original.Entry
                     ||request.movePath==null||!before.movementBudget.HasValue||!kind.HasValue||notice.units.Length!=combat.Units.Length
                     ||notice.experience.HasValue||notice.magicEvents?.Length>0||notice.revivedTargets?.Length>0
                     ||request.sourceTerrain!=map.map.Attribute(before.Tile)||request.targetTerrain!=map.map.Attribute(new TutorialTile(request.x,request.y)))return WorldFailure.InvalidInput;
-                var blocked=OriginalMemberCommands.StaticBlocked(map);foreach(var unit in combat.Units)if(unit.id/50!=request.source/50&&(unit.hp>0||unit.ghost))blocked.Add(unit.Tile);
+                var blocked=OriginalMemberCommands.StaticBlocked(map);foreach(var unit in combat.Units)if(unit.id/50!=request.source/50&&OriginalCommandRange.OccupiesTile(unit))blocked.Add(unit.Tile);
                 var route=map.map.Path(before.Tile,new TutorialTile(request.x,request.y),before.movementBudget.Value+7,blocked,kind.Value);
                 if(route==null||!route.SequenceEqual(request.movePath))return WorldFailure.StaleRequest;
                 foreach(var old in combat.Units)
@@ -109,7 +109,7 @@ namespace DarkSaver.Original.Entry
                 if(actor.ap!=0||(actor.nativeState.Value&0x10)!=0)return WorldFailure.InvalidInput;
                 if(request.action==TrainingAction.Attack)
                 {
-                    var candidates=OriginalSoldierActions.Candidates(world.Map(world.Record.map),world.Definition.combatCatalog,combat.Units,combat.Units.First(u=>u.id==request.source));
+                    var candidates=OriginalSoldierActions.Candidates(world.Map(world.Record.map),world.Definition.combatCatalog,combat.Units,combat.Units.First(u=>u.id==request.source),!OriginalSoldierActions.NativeContext(combat.Units,request.source));
                     if(candidates==null||request.attackCandidates==null||!candidates.Select(c=>(c.id,c.life)).SequenceEqual(request.attackCandidates.Select(c=>(c.id,c.life)))||!candidates.Any(c=>c.id==request.target&&c.life==request.targetLife))return WorldFailure.StaleRequest;
                 }
             }

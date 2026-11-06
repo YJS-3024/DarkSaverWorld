@@ -1,0 +1,34 @@
+{
+  "results": [
+    {
+      "check": "Tools/OriginalWorldChecks/check_pixel_importers.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-night-final-audit2/000-OriginalWorldChecks-check_pixel_importers.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_world_message.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-night-final-audit2/001-OriginalWorldChecks-check_native_world_message.log"
+    },
+    {
+      "check": "Tools/CheckSupport/check_evidence_eol.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "/tmp/ds-night-final-audit2/002-CheckSupport-check_evidence_eol.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_client_windows_integration.py",
+      "exitCode": 1,
+      "status": "failed",
+      "log": "/tmp/ds-night-final-audit2/003-OriginalWorldChecks-check_client_windows_integration.log"
+    }
+  ],
+  "normalizations": [],
+  "status": "failed",
+  "completed": true,
+  "failure": null,
+  "unityPlay": false,
+  "scope": "Original check entrypoints and subprocesses; only paths/compiler argument quoting adapted. No skipped assertions or inferred native file versions."
+}

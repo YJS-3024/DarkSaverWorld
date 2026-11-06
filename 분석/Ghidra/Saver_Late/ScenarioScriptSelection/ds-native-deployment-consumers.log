@@ -1,0 +1,70 @@
+Picked up _JAVA_OPTIONS: -Duser.home=/tmp/ds-ghidra-config
+Picked up _JAVA_OPTIONS: -Duser.home=/tmp/ds-ghidra-config
+Picked up _JAVA_OPTIONS: -Duser.home=/tmp/ds-ghidra-config
+Picked up _JAVA_OPTIONS: -Duser.home=/tmp/ds-ghidra-config
+openjdk version "21.0.13" 2026-10-20 LTS
+OpenJDK Runtime Environment Temurin-21.0.13+9 (build 21.0.13+9-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.13+9 (build 21.0.13+9-LTS, mixed mode)
+INFO  Using log config file: jar:file:/workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /tmp/ds-ghidra-config/.config/ghidra/ghidra_12.1.4_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /tmp/ds-ghidra-config/.config/ghidra/ghidra_12.1.4_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (1028 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Headless startup complete (2588 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 59 extension points (20 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/VersionTracking/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/JVM/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/Atmel/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/BytePatterns/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/PyGhidra/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/8051/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/Base/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/DATA/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/Decompiler/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/FunctionID/ghidra_scripts
+    /tmp
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/PDB/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/BSim/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Features/FileFormats/ghidra_scripts
+    /workspace/.tools/ghidra_12.1.4_PUBLIC/Ghidra/Processors/PIC/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Opening existing project: /workspace/DarkSaverWorld/분석/Ghidra/projects/DarkSaverOriginal (HeadlessAnalyzer)  
+INFO  Opening project: /workspace/DarkSaverWorld/분석/Ghidra/projects/DarkSaverOriginal (HeadlessProject)  
+INFO  REPORT: Processing read-only project file: /GameCtl.dll (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: DumpDarkSaverRange.java '/tmp/ds-native-deployment-consumers' '1006a89c' '1006ad4b' '1006bd0c' '1006bd0f' '1006c084' '1006c087'  (HeadlessAnalyzer)  
+INFO  SCRIPT: /tmp/DumpDarkSaverRange.java (HeadlessAnalyzer)  
+INFO  DumpDarkSaverRange.java> f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0
+RANGE 1006a89c..1006ad4b
+1006a89c <- 1000de7d DATA 1000ddc0 FUN_1000ddc0
+1006a8a0 <- 1000ddf2 WRITE 1000ddc0 FUN_1000ddc0
+1006a8a0 <- 1000de8a DATA 1000ddc0 FUN_1000ddc0
+1006a8a0 <- 1000dde8 DATA 1000ddc0 FUN_1000ddc0
+1006a8a4 <- 1000de92 DATA 1000ddc0 FUN_1000ddc0
+1006a8a4 <- 1000de9e DATA 1000ddc0 FUN_1000ddc0
+1006a8ac <- 1000ddf2 WRITE 1000ddc0 FUN_1000ddc0
+1006a8b8 <- 1000ddf2 WRITE 1000ddc0 FUN_1000ddc0
+RANGE 1006bd0c..1006bd0f
+1006bd0c <- 1000fbab DATA 1000fab0 FUN_1000fab0
+1006bd0c <- 10008388 DATA 10008370 SetTeamId
+1006bd0c <- 1000e081 DATA 1000e060 FUN_1000e060
+1006bd0c <- 1000e08f DATA 1000e060 FUN_1000e060
+1006bd0c <- 1000c4b0 PARAM 1000c4b0 FUN_1000c4b0
+1006bd0c <- 1000c4d0 PARAM none
+RANGE 1006c084..1006c087
+1006c084 <- 100080fa WRITE 100080f0 SetCurrentScenario
+1006c084 <- 1000dfa8 WRITE 1000dfa0 FUN_1000dfa0
+1006c084 <- 10004fca READ 10004a80 DlgButtonAction
+ (GhidraScript)  

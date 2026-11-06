@@ -1,0 +1,164 @@
+{
+  "assertions": 7108,
+  "mismatches": 0,
+  "unityPlay": false,
+  "nativeCodeExecuted": true,
+  "nativeRoutingCases": 135,
+  "nativeFilterCases": 40,
+  "nativeReplyCases": 120,
+  "nativeRenderCases": 500,
+  "nativeCreateCases": 20,
+  "nativeTextDrawCalls": 3393,
+  "uninitializedMarkerInputs": [
+    {
+      "marker": 0,
+      "draws": [
+        {
+          "text": "plain",
+          "color": 0,
+          "rect": [
+            5,
+            28,
+            182,
+            42
+          ]
+        },
+        {
+          "text": "plain",
+          "color": 4,
+          "rect": [
+            4,
+            27,
+            181,
+            41
+          ]
+        },
+        {
+          "text": "continued",
+          "color": 0,
+          "rect": [
+            5,
+            42,
+            182,
+            56
+          ]
+        },
+        {
+          "text": "continued",
+          "color": 4,
+          "rect": [
+            4,
+            41,
+            181,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "marker": 62,
+      "draws": [
+        {
+          "text": "plain",
+          "color": 0,
+          "rect": [
+            5,
+            28,
+            182,
+            42
+          ]
+        },
+        {
+          "text": "plain",
+          "color": 1,
+          "rect": [
+            4,
+            27,
+            181,
+            41
+          ]
+        },
+        {
+          "text": "continued",
+          "color": 0,
+          "rect": [
+            5,
+            42,
+            182,
+            56
+          ]
+        },
+        {
+          "text": "continued",
+          "color": 1,
+          "rect": [
+            4,
+            41,
+            181,
+            55
+          ]
+        }
+      ]
+    },
+    {
+      "marker": 60,
+      "draws": [
+        {
+          "text": "plain",
+          "color": 0,
+          "rect": [
+            5,
+            28,
+            182,
+            42
+          ]
+        },
+        {
+          "text": "plain",
+          "color": 4,
+          "rect": [
+            4,
+            27,
+            181,
+            41
+          ]
+        },
+        {
+          "text": "continued",
+          "color": 0,
+          "rect": [
+            5,
+            42,
+            182,
+            56
+          ]
+        },
+        {
+          "text": "continued",
+          "color": 4,
+          "rect": [
+            4,
+            41,
+            181,
+            55
+          ]
+        }
+      ]
+    }
+  ],
+  "nativeSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "scope": "Actual476230 private routing,477520 new-window gate/array registration/cascade,4537A0/453930 reply/order,425680 mode2 and422500 lookback/row-clip/color/shadow call ordering. MFC/Edit/printf/List/allocator and final surface/font calls isolated; window constructor/init boundary supplies an available UI. Renderer marker stack input explicitly0; when no marker exists in prior2rows, source leaves it uninitialized. Extra0/>/< residue cases demonstrate that difference; managed adapter deliberately chooses cyan for that undefined case. Title16bit literal and EM_LIMITTEXT(60) are static findings. No raw delivery,8bit palette/IME/physical input, UI creation failure equality, complete framebuffer or Unity Play.",
+  "logs": "/tmp/ds-native-private-chat-checks",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_private_chat.py": "d8344bdadc056a1ee9a941611bc29224d8ba5f94772f1b16627f4d85e573119b",
+    "Tools/OriginalWorldChecks/native_private_chat_emulator.py": "dcaa0ed3fed52cf437f16aa31d2dec38eb7fc881abc67cca5f24fddcb18b840b",
+    "Tools/OriginalWorldChecks/native_private_render_emulator.py": "36872d1bd9ac68d78ecaebcf1a31f9d4a6822e2ae1abd61caa7b26acbd757f9e",
+    "Tools/OriginalWorldChecks/native_chat_composer_emulator.py": "6612830486817a10a63c4bab47f3b012795fc474e5bc00b074fd9c59ca51230b",
+    "Tools/OriginalWorldChecks/PrivateChatChecks.cs": "465cfc909f4a8b014db2d9d2fdca06808c434d21de4359e6581de0d3adade8f8",
+    "Assets/_Original/Runtime/UI/NativePrivateChat.cs": "751abf3ee2ab2d9a618dd0ad368ab239a3e09331e46e1edfe16b30310fe75ca8",
+    "Assets/_Original/Runtime/UI/NativeWorldChatLog.cs": "cb674389f69cbd1ce089d7a67b4e6cf0ea79e059d598196b835f65a811076f3b",
+    "Assets/_Original/Runtime/UI/NativeWorldChatFilter.cs": "0db3f33314e7163e286f1e9a353f67a5449497134c5bcfe8ceec7ea22fca1430",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.PrivateChat.cs": "1ecc685eb82d39176458b147b13b3d0a8432b7cff60ef2b5e3595a2cb1543582",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.PrivateChat.cs": "aa7a0e94e672355140296f9b332625660f7b451fbcc60d948dbe2a3c7ea2982b"
+  }
+}

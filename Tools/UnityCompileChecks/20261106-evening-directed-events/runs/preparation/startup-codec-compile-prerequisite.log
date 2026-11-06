@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_authored_world_startup.py", line 34, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_authored_world_startup.py", line 28, in main
+    if proc.returncode:raise RuntimeError((proc.stdout+proc.stderr)[-2400:])
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Tools/OriginalWorldChecks/AuthoredWorldStartupChecks.cs(8,26): error CS0234: The type or namespace name 'UI' does not exist in the namespace 'DarkSaver.Original' (are you missing an assembly reference?)
+Tools/OriginalWorldChecks/AuthoredWorldStartupChecks.cs(32,16): error CS0246: The type or namespace name 'NativeCodePage949' could not be found (are you missing a using directive or an assembly reference?)
+

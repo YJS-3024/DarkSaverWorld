@@ -84,7 +84,7 @@ namespace DarkSaver.Original.World
                     if(button.image.enabled)button.image.uvRect=NativeEntryLayout.Uv(art.battle.icons,new Rect(entry.iconX,NativeBattleMenuIcons.NormalY(entry.iconY,BattleIconClock),32,32));
                 }
             }
-            var effects=view.presentation?.completed==false?CampaignMagic():view.battle?.magicEffects??Array.Empty<BattleMagicEffect>();var frames=BattleMagicPresentation.Frames(effects);var current=new HashSet<string>(frames.Select(f=>f.key));
+            var effects=CampaignCutscene?CampaignMagic():view.battle?.magicEffects??Array.Empty<BattleMagicEffect>();var frames=BattleMagicPresentation.Frames(effects);var current=new HashSet<string>(frames.Select(f=>f.key));
             foreach(var id in battleSpellImages.Keys.Where(id=>!current.Contains(id)).ToArray()){Destroy(battleSpellImages[id].gameObject);battleSpellImages.Remove(id);}
             foreach(var entry in frames)
             {

@@ -10,12 +10,20 @@ namespace DarkSaver.Original.World
 {
     public sealed partial class WorldSceneRoot
     {
+        private bool CampaignCutscene=>OriginalCampaignInput.Cutscene(view?.presentation);
+        private int nativeMessagePointerFrame=-1;
+        private void AcknowledgeDirectedPointer()
+        {
+            if(!OriginalCampaignInput.DirectedMessage(view?.presentation,view?.nativeMessage)||nativeMessagePointerFrame==Time.frameCount)return;
+            nativeMessagePointerFrame=Time.frameCount;Handle(server.Request_ContinueScenario());
+        }
         private AudioSource campaignMusic;
         private readonly NativeScoreRepeat campaignMusicRepeat=new NativeScoreRepeat();
         private NativeMapMusicState nativeMapMusic;
         private bool originalMusicEnabled=true;
         private string musicWorldSession;
         private int musicWorldMap=-1;
+        private string musicCleanupResult;
         private void StopCampaignMusic(){if(campaignMusic!=null)campaignMusic.Stop();campaignMusicRepeat.Stop();}
         private void ResetCampaignMusic(){StopCampaignMusic();nativeMapMusic=null;musicWorldSession=null;musicWorldMap=-1;}
         private void EnsureCampaignMusic()
@@ -25,6 +33,13 @@ namespace DarkSaver.Original.World
         {
             var current=server.WorldSnapshot;if(current==null)return;EnsureCampaignMusic();
             if(nativeMapMusic==null||!entered&&musicWorldSession==current.campaignSession&&musicWorldMap==current.record.map)return;
+            var ended=current.record.lastScenarioResult;
+            if(musicWorldMap!=current.record.map&&ended?.native!=null&&ended.id!=musicCleanupResult)
+            {
+                // Original D0B0/ENDGAME posts590 before4CD restores the map.
+                // D150 itself leaves the score playing through notice/result.
+                nativeMapMusic.Stop();musicCleanupResult=ended.id;
+            }
             musicWorldSession=current.campaignSession;musicWorldMap=current.record.map;nativeMapMusic.EnterMap(musicWorldMap);
         }
         public void SetOriginalMusicEnabled(bool enabled){originalMusicEnabled=enabled;EnsureCampaignMusic();nativeMapMusic?.SetEnabled(enabled);}
@@ -98,7 +113,9 @@ namespace DarkSaver.Original.World
         private readonly Dictionary<int,RawImage> campaignBodies = new Dictionary<int,RawImage>();
         private readonly Dictionary<int,Text> campaignNames = new Dictionary<int,Text>();
         private RectTransform campaignActorLayer,campaignDialogue;
-        private Text campaignMessage;
+        private readonly List<Text> campaignMessageLines = new List<Text>();
+        private RectTransform campaignPortraitMessage, campaignPlainMessage;
+        private Text campaignPlainText;
         private RawImage campaignFace;
         private string campaignHeld,builtCampaignGeometry;
         private string CampaignGeometryKey(int id)=>string.Join("|",(view?.record.campaignProgress?.steps??System.Array.Empty<CampaignScriptStep>())
@@ -147,11 +164,12 @@ namespace DarkSaver.Original.World
             PaintCampaignCombine(presenting);
             if(presenting&&!string.IsNullOrEmpty(view.presentation.heldCommand)&&campaignHeld!=view.presentation.heldCommand)
             {campaignHeld=view.presentation.heldCommand;ShowFailure(WorldFailure.RulesUnavailable);}
-            bool showPlayer=!presenting&&LiveBattleBodyVisible(view.battle?.Commander);
+            bool scriptedActors=presenting&&view.presentation.nativeEvent!=true;
+            bool showPlayer=!scriptedActors&&LiveBattleBodyVisible(view.battle?.Commander);
             playerHit.gameObject.SetActive(showPlayer);playerName.gameObject.SetActive(showPlayer);
             foreach(var image in campaignBodies.Values)image.transform.parent.gameObject.SetActive(false);
             foreach(var name in campaignNames.Values)name.gameObject.SetActive(false);
-            if(presenting)
+            if(scriptedActors)
                 foreach(var actor in view.presentation.actors)DrawCampaignActor(actor.unit,actor.job,actor.renderX,actor.renderY,actor.direction,actor.dead,actor.sourceJob=="COM0"?character.name:campaign.Definition.jobs.FirstOrDefault(j=>j.job==actor.job)?.name??actor.sourceJob,actor.moving,actor.x,actor.y);
             else if(view.battle==null&&view.record.campaignPhase!="outro"&&view.record.campaignPhase!="complete")
                 foreach(var unit in view.units??System.Array.Empty<DarkSaver.Original.Campaign.CampaignUnit>())DrawCampaignActor(unit.unit,unit.job,unit.x,unit.y,unit.direction,false,unit.name);
@@ -159,17 +177,52 @@ namespace DarkSaver.Original.World
             {
                 campaignDialogue=Group(overlay,"Original scenario MESSAGE",new Rect(40,50,562,104));
                 var hit=campaignDialogue.gameObject.AddComponent<Image>();hit.color=Color.clear;
-                campaignDialogue.gameObject.AddComponent<Button>().onClick.AddListener(()=>Handle(server.Request_ContinueScenario()));
-                Picture(campaignDialogue,"Native dialogue frame",new Rect(0,0,562,104),art.battle.dialogue);
-                campaignFace=Picture(campaignDialogue,"Native speaker face",new Rect(20,20,64,64),null);
-                campaignMessage=Label(campaignDialogue,"Native message",new Rect(110,20,437,66),"");campaignMessage.color=Color.white;
+                campaignDialogue.gameObject.AddComponent<Button>().onClick.AddListener(()=>{if(view?.presentation?.nativeEvent!=true)Handle(server.Request_ContinueScenario());});
+                campaignDialogue.gameObject.AddComponent<CanvasGroup>();
+                campaignPortraitMessage=Group(campaignDialogue,"Native portrait message",new Rect(0,0,562,104));
+                Picture(campaignPortraitMessage,"Native dialogue frame",new Rect(0,0,562,104),art.battle.dialogue);
+                campaignFace=Picture(campaignPortraitMessage,"Native speaker face",new Rect(20,20,64,64),null);
+                campaignMessageLines.Clear();
+                for(int line=0;line<3;line++)
+                {
+                    var text=Label(campaignPortraitMessage,"Native message line "+line,new Rect(110,23+line*20,437,18),"",TextAnchor.UpperLeft);
+                    text.fontSize=12;text.color=Color.white;text.horizontalOverflow=HorizontalWrapMode.Overflow;campaignMessageLines.Add(text);
+                }
+                campaignPlainMessage=Group(campaignDialogue,"Native plain notice",new Rect(0,0,562,66));
+                BuildCampaignNoticeFrame(campaignPlainMessage);
+                campaignPlainText=Label(campaignPlainMessage,"Native centered notice",new Rect(0,23,562,18),"");
+                campaignPlainText.color=Color.white;campaignPlainText.horizontalOverflow=HorizontalWrapMode.Overflow;
             }
-            bool visible=presenting&&!string.IsNullOrWhiteSpace(view.presentation.message);campaignDialogue.gameObject.SetActive(visible);
+            var dialogue=presenting?view.presentation:null;
+            if(view.nativeMessage?.visible==true)
+                dialogue=new CampaignPresentationView{message=view.nativeMessage.text,messageMode=view.nativeMessage.mode,face=view.nativeMessage.face,speaker=view.nativeMessage.speaker,
+                    messageFirstLine=view.nativeMessage.firstLine,nativeEvent=true,nativeMessageVisible=true,messageResolved=true};
+            bool visible=dialogue!=null&&(dialogue.nativeEvent?dialogue.nativeMessageVisible:!string.IsNullOrWhiteSpace(dialogue.message));campaignDialogue.gameObject.SetActive(visible);
             if(visible)
             {
-                campaignDialogue.SetAsLastSibling();campaignMessage.text=view.presentation.message.Replace('|','\n').Replace("%S",character.name).Replace("%s",character.name);
-                campaignFace.texture=campaign.Face(view.presentation.face);campaignFace.enabled=campaignFace.texture!=null;
+                var input=campaignDialogue.GetComponent<CanvasGroup>();input.blocksRaycasts=!dialogue.nativeEvent;input.interactable=!dialogue.nativeEvent;
+                campaignDialogue.SetAsLastSibling();
+                bool plain=dialogue.messageMode==0;
+                Place(campaignDialogue,new Rect(40,plain?130:dialogue.messageMode==1?50:300,562,plain?66:104));
+                campaignPlainMessage.gameObject.SetActive(plain);campaignPortraitMessage.gameObject.SetActive(!plain);
+                string message=dialogue.messageResolved?dialogue.message:dialogue.message.Replace("%S",character.name).Replace("%s",character.name);
+                campaignPlainText.text=message;
+                AnchorPersonalLine(campaignPlainText,280,23,6);
+                var lines=CampaignPresentation.MessageLines(message);
+                for(int i=0;i<campaignMessageLines.Count;i++)
+                {int row=dialogue.messageFirstLine+i;campaignMessageLines[i].text=row<lines.Length?lines[row]:"";}
+                campaignFace.texture=campaign.Face(dialogue.face);campaignFace.enabled=campaignFace.texture!=null;
             }
+        }
+        private void BuildCampaignNoticeFrame(RectTransform parent)
+        {
+            //08E10 rounds the odd right/bottom endpoints outward to even pixels.
+            // Preserve its20px board tiles rather than stretching a portrait recess.
+            void Tile(int sx,int sy,int x,int y)=>Picture(parent,"Native notice board tile",new Rect(x,y,20,20),art.battle.board,new Rect(sx,sy,20,20));
+            for(int x=0;x<542;x+=20)for(int y=0;y<46;y+=20)Tile(20,320,x,y);
+            for(int x=20;x<542;x+=20){Tile(20,300,x,0);Tile(20,340,x,46);}
+            for(int y=20;y<46;y+=20){Tile(0,320,0,y);Tile(40,320,542,y);}
+            Tile(0,300,0,0);Tile(0,340,0,46);Tile(40,300,542,0);Tile(40,340,542,46);
         }
         private void DrawCampaignActor(int id,int job,double x,double y,int direction,bool dead,string name,bool moving=false,int tileX=-1,int tileY=-1)
         {

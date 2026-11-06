@@ -48,12 +48,12 @@ namespace DarkSaver.Original.World
         private int ActiveBattleCommanders=>Enumerable.Range(0,4).Count(i=>{var u=view.battle?.Unit(i*10);return u!=null&&u.nativeActive!=false&&u.nativeEnabled!=false;});
         private void ShowTrainingOptions()
         {
-            if(!BattleMap()||view.presentation?.completed==false||notice!=null||clientMessageState.Visible)return;
+            if(!BattleMap()||CampaignCutscene||notice!=null||clientMessageState.Visible)return;
             if(battleDialogs.ContainsKey(4))CloseBattleDialog(4);else OpenBattleDialog(4);
         }
         private int BattleDialogRequest(int message,int scene,int x,int y)
         {
-            if(!BattleMap()||view.presentation?.completed==false)return 0;
+            if(!BattleMap()||CampaignCutscene)return 0;
             if(message==NativeBattleOptions.Exists)return battleDialogs.ContainsKey(scene)?1:0;
             if(message==NativeBattleOptions.Open)OpenBattleDialog(scene);
             else if(message==NativeBattleOptions.Close)CloseBattleDialog(scene);
@@ -165,7 +165,7 @@ namespace DarkSaver.Original.World
         }
         private void UpdateBattleStatusHover()
         {
-            if(!BattleMap()||mapRoot==null||view.battle==null||view.presentation?.completed==false)return;
+            if(!BattleMap()||mapRoot==null||view.battle==null||CampaignCutscene)return;
             Vector2 mouse=Input.mousePosition;if(battleStatusMouse.HasValue&&battleStatusMouse.Value==mouse)return;battleStatusMouse=mouse;
             if(!RectTransformUtility.ScreenPointToLocalPointInRectangle(screen,mouse,null,out var screenPoint)||screenPoint.x<0||screenPoint.x>=640||screenPoint.y>0||screenPoint.y<=-480)return;
             if(!RectTransformUtility.ScreenPointToLocalPointInRectangle(mapRoot,mouse,null,out var point))return;
@@ -176,12 +176,12 @@ namespace DarkSaver.Original.World
         {for(int i=0;i<p.Lines.Length;i++){int row=p.HelpOffset+i;p.Lines[i].text=row>=0&&row<battleHelpLines.Length?battleHelpLines[row]:"";}}
         private void PaintBattleDialogs()
         {
-            bool battle=BattleMap(),visible=battle&&view.presentation?.completed!=false;
+            bool battle=BattleMap(),visible=battle&&(view.presentation?.completed!=false||view.presentation.nativeEvent);
             if(battleDialogMap!=view.record.map||battleDialogSession!=view.campaignSession){ResetBattleDialogs();battleDialogMap=view.record.map;battleDialogSession=view.campaignSession;}
             UpdateBattleStatusHover();
             foreach(var p in battleDialogs.Values)
             {
-                p.Root.gameObject.SetActive(visible);if(!visible||p.Minimized)continue;
+                bool shown=visible&&(!WaitingNativeEnd||p.Spec.scene==28);p.Root.gameObject.SetActive(shown);if(!shown||p.Minimized)continue;
                 p.ReadyPhase=(p.ReadyPhase+1)%3;int row=0;
                 foreach(var unit in p.Units)
                 {

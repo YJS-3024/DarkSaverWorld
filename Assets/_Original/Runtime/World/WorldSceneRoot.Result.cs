@@ -17,10 +17,37 @@ namespace DarkSaver.Original.World
         private int scenarioKillFrame=-1;
         private void ResetResultKillPresentation()
         {scenarioKillLayer=null;scenarioKillCaption=null;scenarioKillImages.Clear();scenarioKillAnimation=null;scenarioKillRevision=-1;scenarioKillFrame=-1;}
-        private bool WaitingScenarioResult=>view?.record.scenarioVisit!=null&&view.record.campaignPhase=="complete";
+        private RectTransform nativeEndNotice;
+        private Text nativeEndNoticeText;
+        private bool WaitingNativeEnd=>view?.record.scenarioVisit?.nativeEnd?.Started==true;
+        private bool WaitingScenarioResult=>view?.record.scenarioVisit?.nativeEnd?.stage==NativeScenarioEndRecord.Result
+            ||view?.record.scenarioVisit!=null&&view.record.scenarioVisit.nativeEnd==null&&view.record.campaignPhase=="complete";
+        private void PaintNativeEndNotice()
+        {
+            var end=view?.record.scenarioVisit?.nativeEnd;
+            bool visible=end?.stage==NativeScenarioEndRecord.Notice;
+            if(visible&&nativeEndNotice==null)
+            {
+                nativeEndNotice=Group(overlay,"Native61 notice input blocker",new Rect(0,0,640,480));
+                nativeEndNotice.gameObject.AddComponent<Image>().color=Color.clear;
+                nativeEndNotice.gameObject.AddComponent<Button>().onClick.AddListener(()=>{if(notice==null)Handle(server.Request_ContinueScenario());});
+                var window=Group(nativeEndNotice,"Native D150 notice",new Rect(40,130,562,66));
+                BuildCampaignNoticeFrame(window);
+                nativeEndNoticeText=Label(window,"Native end message",new Rect(0,23,562,18),"");
+                nativeEndNoticeText.color=Color.white;nativeEndNoticeText.horizontalOverflow=HorizontalWrapMode.Overflow;
+            }
+            if(nativeEndNotice!=null)nativeEndNotice.gameObject.SetActive(visible);
+            if(visible)
+            {
+                nativeEndNoticeText.text=end.table.victory?NativeUnitText(end.winner)+"님이 승리하셨습니다.":"주지휘관이 죽었습니다.";
+                AnchorPersonalLine(nativeEndNoticeText,280,23,6);if(notice==null)nativeEndNotice.SetAsLastSibling();
+                showingActions=false;trainingMode=null;
+            }
+        }
         private void PaintScenarioResult()
         {
-            var result=WaitingScenarioResult?view.record.scenarioVisit.result:null;
+            PaintNativeEndNotice();
+            var result=WaitingScenarioResult?(view.record.scenarioVisit.nativeEnd?.table??view.record.scenarioVisit.result):null;
             if(result==null||scenarioResultId!=result.id)
             {
                 if(scenarioResult!=null){scenarioResult.gameObject.SetActive(false);Destroy(scenarioResult.gameObject);}

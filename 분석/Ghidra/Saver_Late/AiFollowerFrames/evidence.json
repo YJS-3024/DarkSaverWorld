@@ -1,0 +1,29 @@
+{
+  "program": "UserUnit.dll",
+  "sha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "readOnly": true,
+  "runtime0CConnected": false,
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFollowerFrames/10004ff0.c",
+      "sha256": "7288e716576e078424b662a9888c52c09a84471272323ea15444ea61242b1d51"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFollowerFrames/1000ddb4.c",
+      "sha256": "dad2aa03e4e10730f4fc66d514459c99cf65d789cb4c5005626c7e704e8fe62e"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFollowerFrames/1000e310.c",
+      "sha256": "09f0bc0d89f75655c2c7e51b6f82a801b6f672d82e494b00126e3ef1661fe40b"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFollowerFrames/DumpDarkSaverFrame.java",
+      "sha256": "f830f1189414240981936061430c8fad7eb9e0111ff7c288332c3177e5f86517"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AiFollowerFrames/read-only-export.log",
+      "sha256": "118d16c6b7868af23e5c5526f83ecc77b4bc3c8c4bdeda94aabfce6d939bb91d"
+    }
+  ],
+  "scope": "MoveCharPath/E310 -> DD30 atDDB4 clears +11C to-1 and path queue, emits up to5 reverse points;04FF0 serializes24 bytes. Actual caller chain checked separately in native-ai-follower-chain-check.json. Rendered path queue/empty temporary CString/allocation/free/send are explicit host boundaries; no whole process or original FPS."
+}

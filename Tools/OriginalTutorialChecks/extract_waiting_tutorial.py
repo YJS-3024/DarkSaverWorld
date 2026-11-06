@@ -110,7 +110,9 @@ def main():
                           'One user-supplied recreation screenshot inspected; video13-55s not viewed.',
                           'Native wall-clock playback speed and rendered input are not measured by this extractor.'])
     output = ROOT / '분석/Saver_Late/waiting_tutorial_resources.json'
-    output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    # Write canonical bytes: Windows text mode would regenerate CRLF and invalidate
+    # the byte-preservation check on every subsequent tutorial audit.
+    output.write_bytes((json.dumps(report, ensure_ascii=False, indent=2) + '\n').encode('utf-8'))
     print(json.dumps(dict(resources=len(rows), nonSkipped=report['nonSkippedCount'],
                           instructionChecks=len(evidence), output=output.relative_to(ROOT).as_posix()),
                      ensure_ascii=False))

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_event_loader.py", line 91, in <module>
+    main()
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_event_loader.py", line 51, in main
+    actual = native.load(path.read_text(encoding='utf-8'),path.name.split('.')[0] if path in files else '01')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/native_event_loader_emulator.py", line 39, in load
+    self.uc.emu_start(0x10013d60,self.stop+1,timeout=10000000,count=10000000)
+  File "/workspace/.tools/ds-native-emulation-deps/unicorn/unicorn_py3/unicorn.py", line 766, in emu_start
+    raise UcError(status)
+unicorn.unicorn_py3.unicorn.UcError: Invalid memory read (UC_ERR_READ_UNMAPPED)

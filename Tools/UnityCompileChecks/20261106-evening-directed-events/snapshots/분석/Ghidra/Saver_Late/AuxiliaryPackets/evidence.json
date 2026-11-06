@@ -1,0 +1,77 @@
+{
+  "sourceVersion": "Saver_Late",
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "method": "Read-only Ghidra exports and exact receiver-body execution with explicit host/memory/string boundaries.",
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/1000d610.c",
+      "sha256": "bb53e660d50f5147d656a625dbb06f03d33e9d8dcf59e1d0526788946786058e"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/1000d870.c",
+      "sha256": "b8d8cedc08fa027ac623b7ba27cb360b2ef5d72c5d9b67ba266477888e6dfa06"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/1000d8f0.c",
+      "sha256": "b511db57622e526dbdb27bdb6d607b9fd378286c83593284a06df087668c9130"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/1000ddc0.c",
+      "sha256": "b34562b4bc28e56698ae03bdda41ead15c8f9ea3fb715b3b64d9440e5a35c31d"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/1000dfa0.c",
+      "sha256": "0dad461db2ba5f5e7f9d26d3204ba4937a717dddeab3ce7b9aebf648b2267027"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/1000e060.c",
+      "sha256": "eca333b42d6b56e7712164d05fdbad9c220838c6617452c4c58d8edd432014f3"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/1000d4c0.c",
+      "sha256": "d3ac1878c846805419b4876216b1247902f25f7fffe30a21421c119f78f75fa5",
+      "binary": "GameCtl.dll"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/1000d4c0.asm.txt",
+      "sha256": "c4c26d569cb6da540fc6a78ed518cc9dcbd54df1b0d554111b54066a28d91fa0",
+      "binary": "GameCtl.dll"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/UserUnit-10004a40.c",
+      "sha256": "ab2f0b4bd01df0fbbd4b442db1e61e5510e333e660f11c6c4f8a5615c0c5aae0",
+      "binary": "UserUnit.dll"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/UserUnit-10001580.c",
+      "sha256": "a9406fc7b71fbb0c3dd7c95351569f1a0d3bef9cb7e443392b2ea3caa8f2f122",
+      "binary": "UserUnit.dll"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/UserUnit-100015a0.c",
+      "sha256": "6412278b62ed9d896eabb3dfdf1c38ccac321ba0afebdf7766a34b3134006e7b",
+      "binary": "UserUnit.dll"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/AuxiliaryPackets/UserUnit-10002310.c",
+      "sha256": "b13c66bf5057bb29a688bf78b5acad290a3e97de2fd05bbc24bf8b33af1a4cd4",
+      "binary": "UserUnit.dll"
+    }
+  ],
+  "nativeExecution": {
+    "report": "Tools/OriginalWorldChecks/native-auxiliary-packets-check.json",
+    "sha256": "0c979b76b5474cd135b5a729b5dfa1ff4a017f353dd60a22cb0460e1c793535b"
+  },
+  "runtimeAuxiliaryRoutesConnected": false,
+  "unityPlay": false,
+  "allianceMetadataExecution": {
+    "report": "Tools/OriginalWorldChecks/native-alliance-metadata-check.json",
+    "sha256": "b1bf811e562deced25aa9d24f1cea73d1d592acb4e37b5e8657c53200d5fbaea"
+  },
+  "allianceScope": "B2 exact by-value ABI, received runtime+64 team lookup and bounded relation setter. Controlled stale-tail read is not recovered stack data. No runtimeB2 or other-user UI/server policy claim.",
+  "monsterActivationExecution": {
+    "report": "Tools/OriginalWorldChecks/native-monster-activation-check.json",
+    "sha256": "1531cc536a31534f5ce6c8acc85dc6d823ddd1fa2377b86ed873c92f55b0fbcb"
+  },
+  "runtime0CConnected": false
+}

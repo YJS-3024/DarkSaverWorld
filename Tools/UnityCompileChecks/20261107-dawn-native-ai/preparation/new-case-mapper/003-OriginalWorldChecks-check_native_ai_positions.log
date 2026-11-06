@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_ai_positions.py", line 81, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_ai_positions.py", line 63, in main
+    WORK.mkdir(exist_ok=True);cases=vectors();inp=WORK/'cases.json';out=WORK/'managed.json';inp.write_text(json.dumps(cases,separators=(',',':')))
+                                    ^^^^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_ai_positions.py", line 22, in vectors
+    if old==1:u['attackTargets']=[mapping[t]for t in u['attackTargets']]
+                                                     ~^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not iterable

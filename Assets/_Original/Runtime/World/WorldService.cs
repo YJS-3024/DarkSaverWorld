@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DarkSaver.Original.Campaign;
 using DarkSaver.Original.Tutorial;
 using DarkSaver.Original.World;
 
@@ -74,6 +75,7 @@ namespace DarkSaver.Original.Entry
             if(expectedRevivalState!=null&&!TempleRevivalOffer.SameState(freshOwner.character.world,expectedRevivalState))return WorldFailure.StaleRequest;
             if(expectedCurrencyState!=null&&!CurrencyStoredStateMatches(freshOwner.character.world,expectedCurrencyState))return WorldFailure.StaleRequest;
             var freshWorld=freshOwner.character.world;
+            if((freshWorld?.scenarioVisit?.nativeEnd?.revision??0)!=(world.Record.scenarioVisit?.nativeEnd?.revision??0))return WorldFailure.StaleRequest;
             if(freshWorld?.scenarioVisit?.id!=world.Record.scenarioVisit?.id||freshWorld?.scenarioVisit?.result?.id!=world.Record.scenarioVisit?.result?.id
                 ||(freshWorld?.scenarioVisit?.result?.nativeKills?.revision??0)!=(world.Record.scenarioVisit?.result?.nativeKills?.revision??0)
                 ||freshWorld?.lastScenarioResult?.id!=world.Record.lastScenarioResult?.id
@@ -169,7 +171,18 @@ namespace DarkSaver.Original.Entry
         public void AdvanceWorld(double ms)
         {
             if (ReadyWorld() != WorldFailure.None) return;
+            if(double.IsNaN(ms)||double.IsInfinity(ms)||ms<0)return;
+            if(world.NativeEndWaiting)
+            {
+                world.Advance(ms);world.NativeEndElapsed+=ms;
+                if(world.Record.scenarioVisit.nativeEnd.stage==NativeScenarioEndRecord.Notice&&world.NativeEndElapsed>10000)
+                {var closed=CloseNativeScenarioEndNotice();world.Failure=closed.Failure;}
+                return;
+            }
+            world.NativeDialogue.Advance(ms);
             if(!AdvanceCampaignEvents(ms))return;
+            if(world.Record.scenarioVisit?.nativeEnd?.stage==NativeScenarioEndRecord.Outro&&world.Presentation?.Snapshot().completed==true)
+            {var ended=FinishNativeScenarioEnd();world.Failure=ended.Failure;return;}
             if(world.ActiveCampaignEvent==null&&world.Presentation?.Snapshot().completed == true && world.Record.campaignPhase != "explore" && world.Record.campaignPhase != "complete")
             {
                 var phase=world.Record.Copy();phase.campaignPhase=phase.campaignPhase=="outro"?"complete":"explore";

@@ -1,0 +1,79 @@
+{
+  "sourceVersion": "Saver_Late",
+  "saverSha256": "dd512172256cf4795717aed156746fe6588b3434ed1e249ae59146e63d6e4689",
+  "method": "Ghidra12.1.4 readOnly/noanalysis function decompilation; temporary function creation not persisted. Native pointer clock cases executed separately.",
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/004119b0.c",
+      "sha256": "ed83d2b7212061ede113a344e81c9c379cbe0548f8c85d7eb86cfd04f28bdc48"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/004184b0.c",
+      "sha256": "b39cc57cfc563cdade6bdf4dadcccab86f0695a5c523f43365f31599ffa12178"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/004127e0.c",
+      "sha256": "daab37c0723a45592a0267441c265231b463264998c4eba3d55e6e76e7887aa1"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/00441e90.c",
+      "sha256": "a70a221ea676b3b685a4bbfc6eb2c9e1147c8dae42d8997c97a02b23de477edc"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/00442730.c",
+      "sha256": "09d6f5a2da841dbb817979c6c7a767ac6b16c8bd2aa7ad786edcfcabbb965ab3"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/00440e99.c",
+      "sha256": "8e64dd3160b774e3a4a5eff5db250fb67b857388fc50c9b350d213c07b9e98a6"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/00429310.c",
+      "sha256": "901393008ebf14daec5c6b48c3d0777fd177683bab8aaf5a2c415c20a8609989"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/004297e0.c",
+      "sha256": "474276d8cda0b320f7eba6435ecb57063902255295a5a609ad4b1331da0028ce"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/00402437.c",
+      "sha256": "2b164460e3355090e284ab01d08af10f2e672786e4738328de83c0790830614d"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/DumpDarkSaverFrame.java",
+      "sha256": "f830f1189414240981936061430c8fad7eb9e0111ff7c288332c3177e5f86517"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/00402ad1.c",
+      "sha256": "d741320dcf6c3e4aebdea540c7221cbd5bbeaeada74e2cfe424d890d1f6199b9"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/0040169f.c",
+      "sha256": "8b9b199c2b4729ea8952ba6374b654f7cb91eb7dbde31c0a32078739c73e2df4"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/FrameCadence/00402455.c",
+      "sha256": "9b1338028a955f76bfff5b1d30db04b0a26c52849d1c490f4292b258b2f6ea87"
+    }
+  ],
+  "facts": [
+    "4184B0 increments the phase, wraps25 to0, calls4119B0 and decrements phase after a zero return.",
+    "4119B0 has mode-dependent clock branches; held mouse repeat uses signed32 delta>30 in all three examined mode branches.",
+    "440CE0 splits scene work among phase0..24 and only flips at24 after successful final cursor pass.",
+    "WM_TIMER1 in4156B0 checks the KEYPRESS option and posts message466; its10ms creation interval is not proof that result draw or scene flip happens every10ms.",
+    "Result DlgDraw advances kill animation when invoked; this source path does not establish a single measured original FPS.",
+    "Main-frame+128 is the application activation state: WM_ACTIVATEAPP reaches4122F0 and calls DirectDraw/DirectInput.OnActivate with that state. It is not a recovered fixed FPS setting.",
+    "WM466 reaches415200 and posts WM_SYSCOMMAND/SC_CLOSE; the10ms timer KEYPRESS branch is not a render callback.",
+    "DManage Flip invokes COM.Flip(surface,NULL,flags), then IsLost; on SURFACELOST, Restore overwrites the stored HRESULT. A missing COM surface returns success without flipping.",
+    "The examined ErrorHandle cases return0, with one HRESULT posting a402 host message; main scene phase24 retries on a zero result, while OS/driver recovery remains outside this proof."
+  ],
+  "limits": [
+    "Exact original wall-time/FPS, DirectDraw driver/vblank behavior, Windows message scheduling and rendered audio/input remain unmeasured.",
+    "This artifact is source analysis, not full execution of Saver.exe, Unity Play or proof that every downstream scene callback has been interpreted."
+  ],
+  "dmanageFlipExecution": {
+    "report": "Tools/OriginalWorldChecks/native-flip-policy-check.json",
+    "sha256": "69a4703517e711abee232c7d0c9c6a1fd584d5422f6c7293fffaf6eabb3c6f1d"
+  },
+  "dmanageSha256": "08e34fe7a497439ba65b33f3d9b661cbd20ddf098cf536c301337870b2f776f3"
+}

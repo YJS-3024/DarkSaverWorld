@@ -1,0 +1,25 @@
+{
+  "sourceVersion": "Saver_Late",
+  "gameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "userUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "method": "Read-only Ghidra exports; execution comparisons are the native battle decoder/unit decoder/magic packet reports.",
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/BattleStatusUpdates/1000c950.c",
+      "sha256": "d50a6b2a0169a3d5bbdb246cf8aa1292c3471891387389ee5a6f1dc52772b9f7"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/BattleStatusUpdates/1000dcb0.c",
+      "sha256": "50964dc487c7fea2cc4302fa9799514248998e0979f8152cd80f3ef6c9f88298"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/BattleStatusUpdates/1000db20.c",
+      "sha256": "b7ae075059073420b9bb1c18d42c1c33cbcc6902fc159dd4685229d492fb8dda"
+    }
+  ],
+  "limits": [
+    "13 only sets runtime104 condition bits; no inferred duration or damage.",
+    "67 runs DB20 direct Magic without the89 echo check; graphics/memory/CRT imports remain explicit host boundaries.",
+    "Managed source integration and actual Unity/Windows rendering are separate validations."
+  ]
+}

@@ -5,6 +5,7 @@ using System.Text.Json;
 using DarkSaver.Original.Entry;
 using DarkSaver.Original.World;
 using DarkSaver.Original.Campaign;
+using DarkSaver.Original.UI;
 namespace DarkSaver.Original.World
 {
     public sealed class NativeWorldArt
@@ -19,7 +20,7 @@ namespace DarkSaver.Original.Campaign
     public sealed partial class NativeCampaignArt
     {
         public bool IsConfigured=false; // Missing presentation resources, with valid map/settings data.
-        public CampaignDefinition Definition;public TestTextAsset gatewaySettings;
+        public CampaignDefinition Definition;public TestTextAsset gatewaySettings;public NativeAiTextCatalog AiRules;
         public GatewayMapCatalog GatewayMaps;public object gatewayWindow,GatewayWindow;
     }
 }
@@ -28,6 +29,7 @@ namespace DarkSaver.Original.Entry
     public sealed partial class LocalServerManager
     {
         private readonly EntryAccountService service;private readonly NativeCampaignArt campaignArt;
+        public NativeCodePage949 memoCodec;
         public LocalServerManager(EntryAccountService s,NativeCampaignArt c){service=s;campaignArt=c;}
         private WorldReply WorldRequest(Func<EntryAccountService,WorldReply> apply,bool entered=false)=>apply(service);
     }
@@ -49,15 +51,31 @@ internal static partial class AuthoredWorldStartupChecks
         string settingsPath=Path.Combine(root,"Assets/_Original/Data/Campaign/UserGateways.json");byte[] bytes=File.ReadAllBytes(settingsPath);
         var settings=ScenarioGatewayData.Decode(bytes);
         var campaign=new NativeCampaignArt{Definition=Read<CampaignDefinition>("Assets/_Original/Data/Campaign/CampaignCatalog.json"),
+            AiRules=Read<NativeAiTextCatalog>("Assets/_Original/Data/Campaign/NativeAiRules.json"),
             GatewayMaps=Read<GatewayMapCatalog>("Assets/_Original/Data/Campaign/GatewayMaps.json"),gatewaySettings=new TestTextAsset{bytes=bytes},gatewayWindow=new object(),GatewayWindow=new object()};
         var worldArt=new NativeWorldArt{Factory=()=>Read<WorldDefinition>("Assets/_Original/Data/World/KaosiaWorld.json")};
         var store=new Memory();var service=new EntryAccountService(store);var client=new EntryClient(service);client.OpenLocalProfile();client.Create(100,"시작입구검사");
         store.data.accounts[0].character.tutorialCompleted=true;client.OpenLocalProfile();
-        var reply=new LocalServerManager(service,campaign).Request_BeginWorld(worldArt);Check(reply.Accepted,"real account service begins world even with incomplete presentation assets");
+        var codec=Read<NativeCodePage949>("Assets/_Original/Resources/OriginalCodePage949.json");
+        Check(codec.TryEncode("현재팀",out var teamBytes),"source CP949 team-name fixture");
+        var uiDefinition=worldArt.Definition;uiDefinition.nativeText=raw=>codec.TryCString(raw,0,raw.Length,out var text)?text:null;
+        var manager=new LocalServerManager(service,campaign){memoCodec=codec};
+        var reply=manager.Request_BeginWorld(worldArt);Check(reply.Accepted,"real account service begins world even with incomplete presentation assets");
         var actual=worldArt.Last.Map(1000).portals;int applied=0;
 #if BASELINE
         Check(actual.All(p=>string.IsNullOrEmpty(p.gateway)),"old IsConfigured guard silently drops user gateways");
 #else
+        Check(!ReferenceEquals(worldArt.Last,uiDefinition),"world-art getter creates a separate service definition");
+        Check(worldArt.Last.nativeText?.Invoke(teamBytes)=="현재팀","actual BeginWorld definition retains CP949 decoder for directed MESSAGE");
+        var liveWorld=typeof(EntryAccountService).GetField("world",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).GetValue(service);
+        var liveDefinition=(WorldDefinition)liveWorld.GetType().GetField("Definition").GetValue(liveWorld);
+        Check(ReferenceEquals(liveDefinition,worldArt.Last)&&liveDefinition.nativeText(teamBytes)=="현재팀","the service stores the definition that received the decoder");
+        Check(ReferenceEquals(liveDefinition.nativeAiRules,campaign.AiRules)&&campaign.AiRules.entries.Length==112,"actual BeginWorld service retains all112 original AI texts");
+        Check(NativeAiRuleTable.TryLoad(liveDefinition.nativeAiRules.Source("26"),null,out var ai,out _)&&ai.Find(400)>=0,"bound original26 AI rule parses by runtime unit ID without spawning anything");
+        manager.memoCodec=null;
+        Check(worldArt.Last.nativeText?.Invoke(teamBytes)=="현재팀","active world decoder retains the entry codec across manager reconfiguration");
+        Check(worldArt.Last.nativeText(null)==null&&worldArt.Last.nativeText(new byte[]{0xb0})==null,"unknown/truncated message bytes do not invent a team name");
+        Check(worldArt.Last.nativeText(Array.Empty<byte>())=="","known empty native name remains empty");
         foreach(var g in settings.gates.Where(g=>settings.applyToGame&&g.enabled&&g.IsWalk))
         {
             var portal=worldArt.Last.Map(g.fromMap).portals.Single(p=>p.gateway==g.id);
@@ -90,6 +108,6 @@ internal static partial class AuthoredWorldStartupChecks
         CheckAuthoredReturnDrafts(settings,campaign,worldArt);
 #endif
         Check(bytes.SequenceEqual(File.ReadAllBytes(settingsPath)),"real authored settings file preserved");
-        Console.WriteLine(JsonSerializer.Serialize(new{checks,applied,kaosiaPortals=actual.Length,fieldTravel,returnDraftTravel,unityPlay=false,scope="Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Current variant also walks every authored1000-to1010 entrance cell, retries failed entry saves, checks resource preservation and reconnects with real disk accounts. Reverse trips explicitly enable new drafts in isolated settings only. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."}));
+        Console.WriteLine(JsonSerializer.Serialize(new{checks,applied,kaosiaPortals=actual.Length,fieldTravel,returnDraftTravel,unityPlay=false,scope="Production BeginWorld request expression and NativeCampaignArt.Merge with real domain/account/config data. Current variant verifies fresh-definition/frozen CP949 service binding, null/truncated-name refusal and also walks every authored1000-to1010 entrance cell, retries failed entry saves, checks resource preservation and reconnects with real disk accounts. Reverse trips explicitly enable new drafts in isolated settings only. Asset/presentation boundaries isolated; no actual Unity import/Play or combat policy."}));
     }
 }

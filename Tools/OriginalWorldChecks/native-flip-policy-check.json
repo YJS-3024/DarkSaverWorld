@@ -1,0 +1,950 @@
+{
+  "flipCases": 33,
+  "errorCases": 1028,
+  "recoveryPostCodes": [
+    2289435074
+  ],
+  "mismatches": 0,
+  "unityPlay": false,
+  "originalDManageSha256": "08e34fe7a497439ba65b33f3d9b661cbd20ddf098cf536c301337870b2f776f3",
+  "scope": "Exact DManage10006380 COM Flip/IsLost/Restore branching, HRESULT overwrite/BOOL result and10005000 error switch. COM and MFC main-window/PostMessage are supplied boundaries; no real surfaces, driver/vblank, OS recovery, measured FPS or Unity timing equivalence.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_flip_policy.py": "87d8bd49b4012078aa59568e100396a022509183167b4b1263bfcaebdee47c96",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2"
+  },
+  "flips": [
+    {
+      "flip": 0,
+      "lost": 0,
+      "restored": 0,
+      "flags": 0,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 0,
+      "lost": 0,
+      "restored": 0,
+      "flags": 1,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 0,
+      "lost": 0,
+      "restored": 2147500037,
+      "flags": 0,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 0,
+      "lost": 0,
+      "restored": 2147500037,
+      "flags": 1,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 0,
+      "lost": 2289435074,
+      "restored": 0,
+      "flags": 0,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 0,
+      "lost": 2289435074,
+      "restored": 0,
+      "flags": 1,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 0,
+      "lost": 2289435074,
+      "restored": 2147500037,
+      "flags": 0,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 0,
+      "lost": 2289435074,
+      "restored": 2147500037,
+      "flags": 1,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435164,
+      "lost": 0,
+      "restored": 0,
+      "flags": 0,
+      "native": {
+        "success": 0,
+        "lastError": 2289435164,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435164,
+      "lost": 0,
+      "restored": 0,
+      "flags": 1,
+      "native": {
+        "success": 0,
+        "lastError": 2289435164,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435164,
+      "lost": 0,
+      "restored": 2147500037,
+      "flags": 0,
+      "native": {
+        "success": 0,
+        "lastError": 2289435164,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435164,
+      "lost": 0,
+      "restored": 2147500037,
+      "flags": 1,
+      "native": {
+        "success": 0,
+        "lastError": 2289435164,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435164,
+      "lost": 2289435074,
+      "restored": 0,
+      "flags": 0,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435164,
+      "lost": 2289435074,
+      "restored": 0,
+      "flags": 1,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435164,
+      "lost": 2289435074,
+      "restored": 2147500037,
+      "flags": 0,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435164,
+      "lost": 2289435074,
+      "restored": 2147500037,
+      "flags": 1,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435074,
+      "lost": 0,
+      "restored": 0,
+      "flags": 0,
+      "native": {
+        "success": 0,
+        "lastError": 2289435074,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435074,
+      "lost": 0,
+      "restored": 0,
+      "flags": 1,
+      "native": {
+        "success": 0,
+        "lastError": 2289435074,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435074,
+      "lost": 0,
+      "restored": 2147500037,
+      "flags": 0,
+      "native": {
+        "success": 0,
+        "lastError": 2289435074,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435074,
+      "lost": 0,
+      "restored": 2147500037,
+      "flags": 1,
+      "native": {
+        "success": 0,
+        "lastError": 2289435074,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435074,
+      "lost": 2289435074,
+      "restored": 0,
+      "flags": 0,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435074,
+      "lost": 2289435074,
+      "restored": 0,
+      "flags": 1,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435074,
+      "lost": 2289435074,
+      "restored": 2147500037,
+      "flags": 0,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2289435074,
+      "lost": 2289435074,
+      "restored": 2147500037,
+      "flags": 1,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2147500037,
+      "lost": 0,
+      "restored": 0,
+      "flags": 0,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2147500037,
+      "lost": 0,
+      "restored": 0,
+      "flags": 1,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2147500037,
+      "lost": 0,
+      "restored": 2147500037,
+      "flags": 0,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2147500037,
+      "lost": 0,
+      "restored": 2147500037,
+      "flags": 1,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2147500037,
+      "lost": 2289435074,
+      "restored": 0,
+      "flags": 0,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2147500037,
+      "lost": 2289435074,
+      "restored": 0,
+      "flags": 1,
+      "native": {
+        "success": 1,
+        "lastError": 0,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2147500037,
+      "lost": 2289435074,
+      "restored": 2147500037,
+      "flags": 0,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              0
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "flip": 2147500037,
+      "lost": 2289435074,
+      "restored": 2147500037,
+      "flags": 1,
+      "native": {
+        "success": 0,
+        "lastError": 2147500037,
+        "calls": [
+          [
+            "Flip",
+            [
+              201334784,
+              0,
+              1
+            ]
+          ],
+          [
+            "IsLost",
+            [
+              201334784
+            ]
+          ],
+          [
+            "Restore",
+            [
+              201334784
+            ]
+          ]
+        ]
+      }
+    }
+  ],
+  "missingSurface": {
+    "success": 1,
+    "lastError": 2882400001,
+    "calls": []
+  }
+}

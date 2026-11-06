@@ -37,6 +37,29 @@ def status_results():
         results.append((value,native.read(native.RUNTIME+0x104)))
     native.close();return results
 
+def status_mutations(table):
+    count=0
+    for unit in [0,1,2999]:
+        other=2 if unit==1 else 1
+        native=NativeAi(dict(width=12,height=12,units=[dict(id=unit,x=5,y=5),dict(id=other,x=6,y=5)]))
+        pointer=native.RUNTIME+unit*0x2e0;observer=native.RUNTIME+other*0x2e0
+        protected=bytes(native.uc.mem_read(observer,0x2e0))
+        for active in [0,1]:
+            for enabled in [0,1]:
+                for flags in [0,1,2,0x81,0xffff,0x80000000,0xffff0001,0xffffffff]:
+                    before=bytearray(bytes(range(256))*3)[:0x2e0];struct.pack_into('<II',before,0,active,enabled);struct.pack_into('<I',before,0x104,0xabcdef01)
+                    native.uc.mem_write(pointer,bytes(before));sp=native.STACK+0xff000
+                    native.uc.mem_write(sp,struct.pack('<III',native.STOP,unit,flags));native.uc.reg_write(UC_X86_REG_ESP,sp)
+                    native.uc.emu_start(0x1000c950,native.STOP+1,timeout=5000000,count=10000)
+                    assert native.uc.reg_read(UC_X86_REG_EIP)==native.STOP
+                    expected=bytearray(before)
+                    if active:struct.pack_into('<I',expected,0x104,table[flags&65535])
+                    assert bytes(native.uc.mem_read(pointer,0x2e0))==bytes(expected),(unit,active,enabled,hex(flags))
+                    assert bytes(native.uc.mem_read(observer,0x2e0))==protected
+                    count+=1
+        native.close()
+    return count
+
 def main():
     WORK.mkdir(exist_ok=True);cases=vectors();input=WORK/'cases.json';output=WORK/'managed.json';flags=WORK/'flags.bin';input.write_text(json.dumps(cases,separators=(',',':')))
     old=Path('/tmp/ds-npc-gateway-checks');sdk=magic.UNITY/'DotNetSdk';dotnet=sdk/'dotnet';csc=next(sdk.glob('sdk/*/Roslyn/bincore/csc.dll'));exe=WORK/'NativeUnitDifferential.dll'
@@ -83,9 +106,10 @@ def main():
         for bit in range(16):
             if value&(1<<bit):expected|=bits[1<<bit]
         assert actual==expected,(value,actual,expected)
+    full_status_cases=status_mutations(table)
     (WORK/'mismatches.json').write_text(json.dumps(mismatches,indent=2))
     paths=[Path(__file__),OUT/'NativeUnitDifferential.cs',OUT/'native_ai_emulator.py',ROOT/'Tools/ScenarioPlacementChecks/audit_initial_roster_sources.py',ROOT/'Assets/_Original/Runtime/Combat/NativeUnitSnapshots.cs',ROOT/'Assets/_Original/Runtime/Combat/BattleTicks.cs',ROOT/'분석/InstallerVersions/installer_inventory.json']
-    result=dict(cases=len(cases),integerFieldComparisons=len(cases)*42,nativeResetFlagCases=reset_cases,nativeEffectResetCases=effect_cases,effectResetDwordComparisons=effect_cases*100,effectTailPreservationCases=effect_cases,statusNativeCases=len(status),statusCombinations=len(table),mismatches=len(mismatches),nativeCodeExecuted=True,unityPlayExecuted=False,originalGameCtlSha256=ctl.sha256,originalUserUnitSha256=units.sha256,casesSha256=hashlib.sha256(input.read_bytes()).hexdigest(),sources={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()for p in paths},scope='Actual late GameCtl dispatch50/51 and UserUnit reset prefix; compare42 integer fields, first-minus-one spell/skill lists and consumed body extent. Reset prefix also executes prior active/enabled/state/order combinations and clears100 DWORDs14C..2D8 while retaining2DC. Original MagicFlagC950 independently executes each incoming bit plus mixed/high-bit values; managed all65536 low-bit combinations compared to native bit basis. CString allocation/assignment modeled; string wire bytes checked only for lossless codec roundtrip. Malformed guards are adapter protections. No Windows/Unity Play or inferred server roster/growth rules.',logs=str(WORK))
+    result=dict(cases=len(cases),integerFieldComparisons=len(cases)*42,nativeResetFlagCases=reset_cases,nativeEffectResetCases=effect_cases,effectResetDwordComparisons=effect_cases*100,effectTailPreservationCases=effect_cases,statusNativeCases=len(status),statusCombinations=len(table),nativeStatusWholeRecordCases=full_status_cases,mismatches=len(mismatches),nativeCodeExecuted=True,unityPlayExecuted=False,originalGameCtlSha256=ctl.sha256,originalUserUnitSha256=units.sha256,casesSha256=hashlib.sha256(input.read_bytes()).hexdigest(),sources={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()for p in paths},scope='Actual late GameCtl dispatch50/51 and UserUnit reset prefix; compare42 integer fields, first-minus-one spell/skill lists and consumed body extent. Reset prefix also executes prior active/enabled/state/order combinations and clears100 DWORDs14C..2D8 while retaining2DC. Original MagicFlagC950 independently executes each incoming bit plus mixed/high-bit values and compares full736-byte target/observer records across active/enabled states and three IDs; managed all65536 low-bit combinations compared to native bit basis. CString allocation/assignment modeled; string wire bytes checked only for lossless codec roundtrip. Malformed guards are adapter protections. No Windows/Unity Play or inferred server roster/growth rules.',logs=str(WORK))
     (OUT/'native-unit-decoder-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items()if k!='sources'}))
     assert not mismatches
 if __name__=='__main__':main()

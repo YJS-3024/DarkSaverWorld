@@ -8,7 +8,11 @@ namespace DarkSaver.Original.Campaign
     public sealed class NativeCampaignArt : ScriptableObject
     {
         public TextAsset catalog;
+        public TextAsset aiRules;
+        private NativeAiTextCatalog cachedAiRules;
+        public NativeAiTextCatalog AiRules=>cachedAiRules??(cachedAiRules=aiRules==null?null:JsonUtility.FromJson<NativeAiTextCatalog>(aiRules.text));
         public TextAsset[] maps, graphics, scripts;
+        public TextAsset[] outroVariants;
         public TextAsset[] legacyGraphics;
         public int[] legacyGraphicIds;
         public int[] graphicIds, pictureIds;
@@ -36,10 +40,16 @@ namespace DarkSaver.Original.Campaign
                 if (catalog == null) return null;
                 cached = JsonUtility.FromJson<CampaignDefinition>(catalog.text);
                 cached.ConfigureNativeMaps(ApplyChanges);
-                foreach (var map in cached.maps) { map.intro = Script(map.introIndex); map.outro = Script(map.outroIndex); map.events = Script(map.eventIndex); }
+                foreach (var map in cached.maps)
+                {
+                    map.intro=Script(map.introIndex);map.outro=Script(map.outroIndex);map.events=Script(map.eventIndex);
+                    map.outroVariants=(outroVariants??Array.Empty<TextAsset>()).Where(a=>a!=null&&a.name.Length==map.key.Length+5&&a.name.StartsWith(map.key,StringComparison.Ordinal)&&a.name.EndsWith(".dee",StringComparison.Ordinal))
+                        .Select(a=>new CampaignOutroVariant{suffix=a.name.Substring(map.key.Length,1),script=a.text}).ToArray();
+                }
                 return cached;
             }
         }
+        private void OnValidate(){cached=null;cachedAiRules=null;mapMusic=null;}
         public bool IsConfigured => Definition?.maps?.Length > 0 && Definition.connections != null && maps != null && graphics?.Length == graphicIds?.Length
             && pictures?.Length == pictureIds?.Length && scripts != null && faces != null && faces.Length == faceIds?.Length
             &&mapMusicTable!=null&&MapMusic.Count>0&&combineMasks?.Length==8&&combineMasks.All(m=>m!=null)&&musicPaths!=null&&musicClips?.Length==musicPaths.Length&&musicClips.All(m=>m!=null)
@@ -51,6 +61,7 @@ namespace DarkSaver.Original.Campaign
             if(Definition?.maps==null||Definition.maps.Length==0||Definition.connections==null)throw new System.IO.InvalidDataException("맵 카탈로그가 연결되지 않았습니다.");
             if(gatewaySettings==null||GatewayMaps==null)throw new System.IO.InvalidDataException("UserGateways/GatewayMaps 입구 설정이 연결되지 않았습니다.");
             world=Definition.Merge(world);
+            world.nativeAiRules=AiRules;
             if(gatewaySettings!=null)
             {
                 var settings=ScenarioGatewayData.Decode(gatewaySettings.bytes);

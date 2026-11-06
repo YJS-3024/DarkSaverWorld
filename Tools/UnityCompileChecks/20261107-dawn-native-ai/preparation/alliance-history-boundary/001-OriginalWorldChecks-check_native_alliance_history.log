@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_alliance_history.py", line 43, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/DarkSaverWorld/Tools/OriginalWorldChecks/check_native_alliance_history.py", line 33, in main
+    assert 0<=key<21,('unsafe actual stack key is outside this bounded test',key,kind)
+           ^^^^^^^^^
+AssertionError: ('unsafe actual stack key is outside this bounded test', 3855, 2)

@@ -9,7 +9,7 @@ namespace DarkSaver.Original.World
     {
         private void ToggleTrainingStatus()
         {
-            if(!BattleMap()||view.presentation?.completed==false||notice!=null)return;
+            if(!BattleMap()||CampaignCutscene||notice!=null)return;
             if(battleDialogs.ContainsKey(1))CloseBattleDialog(1);else{OpenBattleDialog(1);CloseBattleDialog(9);}
         }
         private void PaintTrainingStatus()=>PaintBattleDialogs();

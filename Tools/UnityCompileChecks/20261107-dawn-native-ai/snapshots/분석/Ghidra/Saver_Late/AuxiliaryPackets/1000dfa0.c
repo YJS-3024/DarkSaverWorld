@@ -1,0 +1,14 @@
+
+void __cdecl FUN_1000dfa0(byte *param_1)
+
+{
+  DAT_1006c084 = (uint)*param_1;
+  return;
+}
+
+
+/* incoming refs
+1000ecd7 UNCONDITIONAL_CALL
+CALLER 1000eb10 DispatchGamePacket
+  10002d3d UNCONDITIONAL_CALL
+*/

@@ -1,0 +1,1569 @@
+{
+  "nativeUpdateCases": 120,
+  "mismatches": 0,
+  "unityPlay": false,
+  "actualFpsMeasured": false,
+  "runtime0CConnected": false,
+  "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_ai_frame_gates.py": "9d047a3f86ac1caff92e36bf868f0390980505c7d77a6b1ce94d8fa83e7f35b4",
+    "Tools/OriginalWorldChecks/native_ai_frame_emulator.py": "79dec1c0c50709a1c3e72045c2b56f5a5df108de15f351dfba9a036d0cf11a7a",
+    "Tools/OriginalWorldChecks/native_battle_options_emulator.py": "2a54e048fade9942974f4a06ff07f6d183a8d81f41288804f5b468d5a4b06bbd",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/evidence.json": "443a8cc20bcf728921a60e74784cc6eef9ac79189d3cc745282af6a142e74cf6",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/DumpDarkSaverAiImports.java": "1143f82dd54d55dc940a71a5d65647952cc9622e2e47fa3cf864f6e811a69ce3",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/10002d30.c": "6858defce29cc789f8f1aaf58f9180c5ed14f5c68b04d5f3469c763c56312b9b",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/10003840.c": "24614125e3e755021efec32966650886d5c0e58c2f4402c8b046746efb574521",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/1000d870.c": "26549e7ec453b5b35f1680088457f0fea9a55ec1a5daf507645c413d66291133",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/1000eb10.c": "ccc5e939396d8327db989aa79716fe114c9b80ef3b411cf3ea94901ab5e3014f",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/read-only-export.log": "4c2f70c228beedd95f290bc7406cb3b81ee63c97c5469bf44fbd065f636232e4",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/GameCtl/references.txt": "da74e05fb3372cb19dfe72b173b1486659f90b4bf97aab77c75b42136f41d9cd",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/Saver/00440ce0.c": "a7eab744f613e36fcfd653456df7f82c13c108bc5c10f2de3ad270e471d4e69d",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/Saver/00440fb0.c": "d54baebf04abb2350670d6ae8d4efce1f88e28e48b3cb5dc8eb1b3b851880a39",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/Saver/read-only-export.log": "ad703f921beec37a6f391675003703d6ad7f5c8e9771a9479955c4df6945906a",
+    "분석/Ghidra/Saver_Late/AiFrameDispatch/Saver/references.txt": "413d1db5437039f389aa2650830d96cef2a88d7188b574950a283ce171eeab33"
+  },
+  "cases": [
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "script",
+          "script",
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "script",
+          "script",
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "script",
+          "script",
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "script",
+          "script",
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "script",
+          "script",
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "script",
+          "script",
+          "script"
+        ],
+        "returned": 1,
+        "counterDelta": 0
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 0,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": -1,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 0,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 1,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 2,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 0,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 0,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 1,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [
+          "ai"
+        ],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 0,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    },
+    {
+      "mapReady": 1,
+      "scriptMode": 3,
+      "scriptActive": 1,
+      "phase": 2,
+      "scriptReturnsZeroBefore": 2,
+      "native": {
+        "calls": [],
+        "returned": 1,
+        "counterDelta": 1
+      }
+    }
+  ],
+  "scope": "Actual GameCtl03840 full entry/return, SEH shell and switch gates. Valid script object and mode/active/map-ready supplied; unused CString lifetimes, aiexcute and thiscall10F20 return sequence are captured boundaries. Compare AI calls, script-pump count, return and global frame-counter delta. Active is not an outer Update gate; supplied zero-return sequences exercise the caller loop, not actual inactive script semantics. No phase3..9 rendering, source-null undefined state, full scheduler/callee execution, Windows/Unity Play or FPS/timing measurement claim."
+}

@@ -1,0 +1,27 @@
+{
+  "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "files": [
+    {
+      "asset": "분석/Ghidra/Saver_Late/MonsterCommanderAi/10002eb0.c",
+      "sha256": "e5732fa70180b2a37ac12946bce8188f750062e843d930b64f16e473a9ef7ce1"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MonsterCommanderAi/100042e0.c",
+      "sha256": "4e129c92e761240aa44b1e8e5c33a2ff0e1b014e1ed64ae7e5671c30cfa0d19d"
+    },
+    {
+      "asset": "분석/Ghidra/Saver_Late/MonsterCommanderAi/10004810.c",
+      "sha256": "6cdcd57eb85677279e436bcb74367a069d7e44946b51e8b3e194cddd3604b727"
+    }
+  ],
+  "readOnlyGhidra": true,
+  "runtime0CConnected": false,
+  "unityPlay": false,
+  "scope": "Historical commander lookup/action/movement exports. Correct full movement ABI is supplemental evidence. Gate/weighted controls and original full action->query->CheckMagicTarget->wire builder corpus are independently source-audited by the listed reports; this metadata does not store cyclic report digests. No runtime0C, full scheduler/path/server/spawn or rendered Play claim.",
+  "movementAbiEvidence": "분석/Ghidra/Saver_Late/AiMovementCompleteAbi/evidence.json",
+  "actionAnalysisReports": [
+    "Tools/OriginalWorldChecks/native-commander-ai-gates-check.json",
+    "Tools/OriginalWorldChecks/native-commander-ai-spells-check.json",
+    "Tools/OriginalWorldChecks/native-commander-action-corpus-check.json"
+  ]
+}

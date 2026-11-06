@@ -8,9 +8,10 @@ using DarkSaver.Original.Campaign;
 using DarkSaver.Original.World;
 using DarkSaver.Original.Maps;
 using DarkSaver.Original.Tutorial;
-internal static class ScenarioProgressChecks
+internal static partial class ScenarioProgressChecks
 {
     static string root;static int assertions,entries,endings,returns,events,mutations;
+    static int recruitEndingCases,recruitEventCases,recruitAssertions;
     static readonly JsonSerializerOptions Json=new JsonSerializerOptions{IncludeFields=true};
     static void Check(bool value,string label){assertions++;if(!value)throw new Exception(label);}
     static string Id()=>Guid.NewGuid().ToString("N");
@@ -42,10 +43,11 @@ internal static class ScenarioProgressChecks
     {
         public Memory store=new Memory();public EntryAccountService server;public EntryClient client;public WorldDefinition definition;public CampaignDefinition catalog;
         public WorldView View=>server.WorldSnapshot();
-        public Fixture(int map,string intro=null,string outro=null,string eventSource=null)
+        public Fixture(int map,string intro=null,string outro=null,string eventSource=null,WorldPoint entryPoint=null)
         {
             catalog=Catalog();var m=catalog.Map(map);if(intro!=null)m.intro=intro;if(outro!=null)m.outro=outro;if(eventSource!=null)m.events=eventSource;
             var entry=m.entries.FirstOrDefault(e=>e.unit==0)??new CampaignEntry{x=0,y=0};
+            if(entryPoint!=null)entry=new CampaignEntry{x=entryPoint.x,y=entryPoint.y};
             catalog.connections=new[]{new CampaignConnection{fromMap=1000,toMap=map,x=entry.x,y=entry.y,evidence="ISOLATED TEST ROUTE",cells=new[]{new WorldPoint{x=21,y=21}}}};
             definition=catalog.Merge(Read<WorldDefinition>("Assets/_Original/Data/World/KaosiaWorld.json"));
             server=new EntryAccountService(store);client=new EntryClient(server);client.OpenLocalProfile();client.Create(100,"진행검사");
@@ -74,16 +76,161 @@ internal static class ScenarioProgressChecks
             Check(!View.record.goldKnown&&View.record.inventory.Length==0,"no invented grants");Reload();Check(View.record.map==1000&&View.record.lastScenarioResult.id==id,"result and origin reconnect");
         }
     }
+    static void NativeImmediateEvents()
+    {
+        const string script="EVENT 1\nDO 500\nMESSAGE 1 COM0 0 COM0 chest\nGOLD 100\nUSEITEM 398\nGETGENERAL 100\nCHANGESPRITE 5 15 0 1 0 22\nEND\nCHANGETILE2 0 0 0 255 0 3 22\nEVENT 2\nCHANGETILE2 0 0 0 255 0 3 22\nEND";
+        var f=new Fixture(1,"END","END",script);f.Finish();
+        NativeBattleNotice Input(params int[] events)=>new NativeBattleNotice{approved=true,id=Id(),character=f.View.characterId,session=f.View.campaignSession,expectedRevision=0,
+            packet=new byte[]{0x5c,0x15,(byte)events.Length,0}.Concat(events.SelectMany(n=>new byte[]{(byte)n,(byte)(n>>8)})).ToArray()};
+        var notice=Input(1,2);string before=Snapshot(f.View.record);f.store.fail=true;
+        Check(f.server.ReceiveBattlePacket(notice).Failure==WorldFailure.StorageUnavailable&&Snapshot(f.View.record)==before,"native15 batch save failure leaves no partial map mutation or event");
+        f.store.fail=false;Check(f.server.ReceiveBattlePacket(notice).Accepted,"native15 common receipt executes a synchronous map broadcast");
+        Check(f.View.record.campaignProgress.events.Length==2&&f.View.record.campaignProgress.events.All(e=>e.completed)&&f.View.presentation.completed,"native15 completes both events without an interactive dialogue or delay");
+        Check(f.server.PendingCampaignRequests().Length==0&&!f.View.record.goldKnown&&f.View.record.inventory.Length==0&&f.View.record.campaignPhase=="explore","native15 subject=-1 never sends owner grant/consume/clear requests");
+        Check(f.View.record.campaignProgress.steps.Count(s=>s.command.StartsWith("CHANGESPRITE"))==1&&f.View.record.campaignProgress.steps.Count(s=>s.command.StartsWith("CHANGETILE2"))==1,"native15 respects END and applies only map mutations before it");
+        var changed=f.catalog.ApplyChanges(1,f.View.record.campaignProgress.steps);Check(changed.attributes[15*f.catalog.Map(1).world.map.width+5]==22&&changed.attributes[0]==22,"source-backed native15 geometry changes are visible together");
+        before=Snapshot(f.View.record);Check(f.server.ReceiveBattlePacket(notice).Failure==WorldFailure.StaleRequest&&Snapshot(f.View.record)==before,"native15 duplicate receipt cannot append/reapply mutations");
+        f.Reload();Check(Snapshot(f.View.record)==before&&f.View.presentation==null,"native15 completed batch and map mutations survive actual service reconnect without starting its dialogue");
+        var unknown=Input(99);Check(f.server.ReceiveBattlePacket(unknown).Accepted&&f.server.PendingCampaignRequests().Length==0,"native15 absent event flag is a safe no-op");
+        foreach(string invalid in new[]{"owner","session","revision","approval","truncated","extra"})
+        {
+            var bad=Input(1);if(invalid=="owner")bad.character=Id();if(invalid=="session")bad.session=Id();if(invalid=="revision")bad.expectedRevision++;
+            if(invalid=="approval")bad.approved=false;if(invalid=="truncated")bad.packet=bad.packet.Take(5).ToArray();if(invalid=="extra")bad.packet=bad.packet.Concat(new byte[]{0}).ToArray();
+            before=Snapshot(f.View.record);Check(!f.server.ReceiveBattlePacket(bad).Accepted&&Snapshot(f.View.record)==before,"native15 bad envelope/length is atomic: "+invalid);
+        }
+        var blocked=new Fixture(1,"END","END","EVENT 1\nCHANGESPRITE 5 15 0 1 0 22\nLOADSCENE 2\nEND");blocked.Finish();
+        var deferred=new NativeBattleNotice{approved=true,id=Id(),character=blocked.View.characterId,session=blocked.View.campaignSession,expectedRevision=0,packet=new byte[]{0x5c,0x15,1,0,1,0}};
+        before=Snapshot(blocked.View.record);Check(blocked.server.ReceiveBattlePacket(deferred).Failure==WorldFailure.RulesUnavailable&&Snapshot(blocked.View.record)==before,"unproved pre-ownership transition defers the entire15 batch, including earlier map commands");
+    }
+    static void RecruitData(Fixture f)
+    {
+        f.definition.growthCatalog=Read<CharacterGrowthCatalog>("Assets/_Original/Data/Growth/CharacterGrowth.json");
+        f.definition.combatCatalog=Read<OriginalCombatCatalog>("Assets/_Original/Data/Combat/OriginalCombat.json");
+    }
+    static Fixture RecruitFixture(string script="GETGENERAL 102\nEND")
+    {var f=new Fixture(2,"END",script);RecruitData(f);f.Finish();f.Clear();f.Finish();return f;}
+    static void LocalScenarioRecruits()
+    {
+        int previousAssertions=assertions;
+        // Default manager, not a provider that merely returns true. Use each
+        // actual ending body with an explicit approved-clear fixture.
+        foreach(var map in Catalog().maps.Where(m=>m.kind=="scenario"&&CampaignCommand.Parse(m.outro).Any(c=>c.name=="GETGENERAL")))
+        {
+            var f=new Fixture(map.id);RecruitData(f);f.Finish();f.Clear();f.Finish();
+            recruitEndingCases++;
+            var pending=f.server.PendingCampaignRequests().Where(r=>r.packet[0]==0x3c).ToArray();
+            Check(pending.Length>0,"actual ending emits a general request "+map.key);
+            var manager=new LocalServerManager(f.server);int notices=0;manager.Notify_Commanders+=_=>notices++;
+            manager.TestAdvance(0);
+            foreach(var request in pending)
+            {
+                int job=request.packet[1]|request.packet[2]<<8;
+                Check(f.View.record.campaignRecruits.Any(r=>r.map==map.id&&r.job==job),"source ending request receives a durable local receipt "+map.key);
+                Check(job==100?f.View.record.roster==null:f.View.record.roster.rows.Any(r=>r.job==job),"source job is owned, with initial fighter excluded "+map.key);
+            }
+            Check(f.server.PendingCampaignRequests().All(r=>r.packet[0]!=0x3c)&&notices>0,"default manager acknowledges source general requests "+map.key);
+        }
+        foreach(var map in Catalog().maps.Where(m=>m.kind=="scenario"&&!CampaignCommand.Parse(m.outro).Any(c=>c.name=="GETGENERAL")))
+        {
+            var evt=OriginalCampaignScript.Events(map.events).FirstOrDefault(e=>e.Value.Any(c=>c.name=="GETGENERAL"));
+            if(evt.Value==null)continue;
+            var f=new Fixture(map.id);RecruitData(f);f.Finish();Check(f.server.ReceiveCampaignEvents(f.Event(evt.Key)).Accepted,"trusted typed event fixture "+map.key);f.Finish();
+            var requests=f.server.PendingCampaignRequests().Where(r=>r.packet[0]==0x3c).ToArray();Check(requests.Length>0,"actual event-only reward emits GETGENERAL "+map.key);
+            new LocalServerManager(f.server).TestAdvance(0);
+            Check(requests.All(r=>f.View.record.campaignRecruits.Any(v=>v.map==map.id&&v.job==(r.packet[1]|r.packet[2]<<8))),"event-only requests receive durable rewards "+map.key);
+            recruitEventCases++;
+        }
+        var earned=RecruitFixture();var req=earned.server.PendingCampaignRequests().Single();string before=Snapshot(earned.View.record);
+        var malformed=req.Copy();malformed.packet[1]=103;Check(!earned.server.ProcessLocalScenarioRecruit(malformed).Accepted&&Snapshot(earned.View.record)==before,"modified packet cannot grant another job");
+        var stale=req.Copy();stale.session=Id();Check(!earned.server.ProcessLocalScenarioRecruit(stale).Accepted&&Snapshot(earned.View.record)==before,"stale recruitment session has no mutation");
+        earned.store.fail=true;Check(earned.server.ProcessLocalScenarioRecruit(req).Failure==WorldFailure.StorageUnavailable&&Snapshot(earned.View.record)==before,"failed save grants neither commander nor receipt nor acknowledgement");
+        earned.store.fail=false;Check(earned.server.ProcessLocalScenarioRecruit(req).Accepted,"same request retries after storage recovery");
+        var state=earned.View.record;var member=state.roster.rows[1];var source=earned.definition.growthCatalog.Row(102,1);var stats=earned.definition.combatCatalog.Job(102).baseStats;
+        Check(state.roster.rows.Length==2&&member.job==102&&member.deployment==2&&member.profile.hp==stats.hp&&member.profile.mp==stats.mp,"new cleric uses source base stats and starts outside the deployment selection");
+        Check(member.profile.growth.magic.SequenceEqual(source.magic.Distinct())&&member.profile.growth.skills.SequenceEqual(source.skills.Distinct()),"new commander receives the source first-level abilities");
+        Check(earned.server.PendingCampaignRequests().Length==0&&state.campaignRecruits.Single().created,"ownership and request acknowledgement commit together");
+        before=Snapshot(state);Check(!earned.server.ProcessLocalScenarioRecruit(req).Accepted&&Snapshot(earned.View.record)==before,"duplicate delivery cannot grant twice");
+        var copy=earned.View;copy.record.campaignRecruits[0].job=103;Check(earned.View.record.campaignRecruits[0].job==102,"receipt snapshots cannot mutate service state");
+        string temp=Path.Combine(Path.GetTempPath(),"ds-recruit-file-"+Id());
+        try
+        {
+            var disk=new LocalAccountFileStore(Path.Combine(temp,"accounts.json"));
+            Check(disk.TryWrite(earned.store.data)&&disk.TryRead(out var restored)&&Snapshot(restored.accounts[0].character.world)==Snapshot(earned.View.record),"DataContract file preserves receipt, secondary profile and abilities");
+        }
+        finally{if(Directory.Exists(temp))Directory.Delete(temp,true);}
+        earned.Reload();Check(earned.View.record.roster.rows.Length==2&&earned.View.record.campaignRecruits.Length==1,"reconnect preserves the earned commander");
+        earned.Return();
+        Check(earned.server.ExecuteCommanderOperation(CommanderOperation.Swap,1,0,Id(),null).Accepted&&earned.View.record.growth.job==102
+            &&earned.View.record.hp==stats.hp&&earned.View.record.growth.magic.SequenceEqual(source.magic.Distinct()),"earned profile can become the playable commander through the existing swap");
+
+        var replay=RecruitFixture("GETGENERAL 102\nGETGENERAL 102\nEND");var pump=new LocalServerManager(replay.server);pump.TestAdvance(0);
+        Check(replay.View.record.roster.rows.Length==2&&replay.View.record.campaignRecruits.Length==1&&replay.server.PendingCampaignRequests().Length==0,"separate requests for the same map/job grant once");
+        var changed=replay.View.record.roster.Copy();changed.rows[1].job=106;changed.rows[1].profile.growth.job=106;
+        Check(replay.server.ReceiveCommanderRoster(new CommanderRosterPush{approved=true,id=Id(),character=replay.View.characterId,session=replay.View.commanderSession,expectedRevision=changed.revision,state=changed}).Accepted,"authoritative class change fixture retains the earned identity");
+        replay.Return();Check(replay.server.EnterCampaignMap(2).Accepted,"reenter the same reward map");replay.Finish();replay.Clear();replay.Finish();
+        pump=new LocalServerManager(replay.server);pump.TestAdvance(0);
+        Check(replay.View.record.roster.rows.Length==2&&replay.View.record.roster.rows[1].job==106&&replay.View.record.campaignRecruits.Length==1,"persistent map/job receipt prevents farming after the earned class changes");
+
+        var initial=RecruitFixture("GETGENERAL 100\nEND");new LocalServerManager(initial.server).TestAdvance(0);
+        Check(initial.View.record.roster==null&&initial.View.record.campaignRecruits.Single().created==false&&initial.server.PendingCampaignRequests().Length==0,"initial character job is acknowledged without duplicating it");
+        var advanced=RecruitFixture("GETGENERAL 100\nEND");var saved=advanced.store.data.accounts[0].character.world;
+        saved.level=1;saved.growth=new CharacterGrowthRecord{job=104,classLevel=1,totalLevel=1,revision=1,lastNotice=Id()};advanced.Reload();
+        new LocalServerManager(advanced.server).TestAdvance(0);
+        Check(advanced.View.record.growth.job==104&&advanced.View.record.roster==null&&!advanced.View.record.campaignRecruits.Single().created,"initial job exclusion survives a later commander class change");
+        var owned=RecruitFixture("GETGENERAL 102\nGETGENERAL 103\nGETGENERAL 102\nEND");new LocalServerManager(owned.server).TestAdvance(0);
+        Check(owned.View.record.roster.rows.Length==3&&owned.View.record.roster.rows.Select(r=>r.job).SequenceEqual(new[]{100,102,103}),"different source jobs can be granted without resetting existing profiles");
+
+        var full=RecruitFixture();var view=full.View;var rows=new[]{100,101,103,104,105,106,107,108,109,110}.Select((job,i)=>new OwnedCommander{id=i==0?view.characterId:Id(),job=job,nativeRecord=i}).ToArray();
+        Check(full.server.ReceiveCommanderRoster(new CommanderRosterPush{approved=true,id=Id(),character=view.characterId,session=view.commanderSession,expectedRevision=0,state=new CommanderRoster{rows=rows}}).Accepted,"explicit full ten-slot roster fixture");
+        req=full.server.PendingCampaignRequests().Single();before=Snapshot(full.View.record);
+        Check(full.server.ProcessLocalScenarioRecruit(req).Failure==WorldFailure.CommanderRosterFull&&Snapshot(full.View.record)==before&&full.server.PendingCampaignRequests().Length==1,"full slots retain an unacknowledged reward without overwriting a commander");
+        var fullManager=new LocalServerManager(full.server);fullManager.TestAdvance(0);Check(full.server.PendingCampaignRequests().Length==1,"manager retains a blocked full-slot reward");
+        var reduced=full.View.record.roster.Copy();reduced.rows=reduced.rows.Take(9).ToArray();
+        Check(full.server.ReceiveCommanderRoster(new CommanderRosterPush{approved=true,id=Id(),character=full.View.characterId,session=full.View.commanderSession,expectedRevision=reduced.revision,state=reduced}).Accepted,"free one slot using a trusted roster update");
+        fullManager.TestAdvance(0);Check(full.View.record.roster.rows.Length==10&&full.View.record.roster.rows.Last().job==102&&full.server.PendingCampaignRequests().Length==0,"manager automatically retries the pending reward when the roster changes");
+
+        var waiting=RecruitFixture();waiting.Return();req=waiting.server.PendingCampaignRequests().Single();
+        Check(waiting.server.RequestCommanderOperation(CommanderOperation.State,0,0,Id()).Accepted&&waiting.View.commanderRequest!=null,"outstanding roster query before a delayed reward fixture");
+        Check(waiting.server.ProcessLocalScenarioRecruit(req).Accepted&&waiting.View.commanderRequest==null,"new roster ownership invalidates the outstanding old roster query");
+        var observed=RecruitFixture();var observerManager=new LocalServerManager(observed.server);int refused=0;
+        observerManager.Notify_World+=r=>{if(!r.Accepted)refused++;};observerManager.Notify_ScenarioScriptRequest+=r=>observerManager.Request_ProcessScenarioRecruit(r);
+        observerManager.TestAdvance(0);Check(observed.View.record.roster.rows.Length==2&&observed.server.PendingCampaignRequests().Length==0&&refused==0,"an observer-handled grant is not processed twice or reported as a stale error");
+
+        var interrupted=RecruitFixture();var manager2=new LocalServerManager(interrupted.server);int late=0;
+        manager2.Notify_World+=_=>interrupted.client.Logout();manager2.Notify_Commanders+=_=>late++;
+        Check(manager2.Request_ProcessScenarioRecruit(interrupted.server.PendingCampaignRequests().Single()).Accepted&&late==0,"logout during world callback suppresses the stale commander notification");
+        interrupted.Reload();Check(interrupted.View.record.roster.rows.Length==2,"callback interruption cannot roll back a committed recruit");
+
+        var native=new Fixture(2,"END","GETGENERAL 102\nEND");RecruitData(native);native.Finish();var nativeView=native.View;
+        Check(native.server.ReceiveBattlePacket(new NativeBattleNotice{approved=true,id=Id(),character=nativeView.characterId,session=nativeView.campaignSession,expectedRevision=0,
+            packet=OriginalResultPackets.Packet(new NativeResultReport{outcome=1,rows=Array.Empty<NativeResultRow>()})}).Accepted,"native victory display table fixture");
+        Check(native.server.ReceiveBattlePacket(new NativeBattleNotice{approved=true,id=Id(),character=nativeView.characterId,session=nativeView.campaignSession,expectedRevision=0,packet=OriginalScenarioEnd.Packet(1)}).Accepted,"native fast end starts the source outro");
+        var nativeManager=new LocalServerManager(native.server);nativeManager.TestNativeAdvance(0);
+        Check(native.View.record.map==1000&&native.View.record.roster.rows[1].job==102&&native.server.PendingCampaignRequests().Length==0,
+            "native outro return before the manager pump still grants and acknowledges the persisted source request");
+        Check(native.View.record.campaignRecruits.Single().map==2,"post-return grant records the source scenario, not the town");
+        var raced=RecruitFixture();var secondService=new EntryAccountService(raced.store);var secondClient=new EntryClient(secondService);secondClient.OpenLocalProfile();
+        Check(secondService.BeginWorld(raced.definition).Accepted,"concurrent service reads the same pending reward");
+        var secondRequest=secondService.PendingCampaignRequests().Single();
+        Check(raced.server.ProcessLocalScenarioRecruit(raced.server.PendingCampaignRequests().Single()).Accepted,"first service commits the reward");
+        Check(secondService.ProcessLocalScenarioRecruit(secondRequest).Failure==WorldFailure.StaleRequest
+            &&raced.store.data.accounts[0].character.world.roster.rows.Length==2&&raced.store.data.accounts[0].character.world.campaignRecruits.Length==1,
+            "stale concurrent service cannot duplicate or overwrite the winning receipt");
+        recruitAssertions=assertions-previousAssertions;
+    }
     static void Main(string[] args)
     {
-        root=args[0];Check(OriginalCampaignScript.Packet(new CampaignCommand("GETGENERAL 101",1)).SequenceEqual(new byte[]{0x3c,101,0}),"native general bytes");
+        root=args[0];NativeImmediateEvents();LocalScenarioRecruits();Check(OriginalCampaignScript.Packet(new CampaignCommand("GETGENERAL 101",1)).SequenceEqual(new byte[]{0x3c,101,0}),"native general bytes");
         Check(OriginalCampaignScript.Packet(new CampaignCommand("GOLD -2",1)).SequenceEqual(new byte[]{0x3a,254,255,255,255}),"native DWORD bytes");
         Check(OriginalCampaignScript.Packet(new CampaignCommand("USEITEM 398",1)).SequenceEqual(new byte[]{0x49,142,1}),"native item bytes");
         Check(OriginalCampaignScript.Packet(new CampaignCommand("SCENECLEAR ALONE",1)).SequenceEqual(new byte[]{0x5c,0x20,2}),"native clear bytes");
         foreach(int threshold in new[]{-1,0,1,50,100,101})foreach(uint seed in new uint[]{0,1,7,2147483647,uint.MaxValue})
         {uint state=unchecked(seed*214013+2531011);Check(OriginalCampaignScript.Random(threshold,seed)==(((state>>16&32767)%101)<threshold?1:0),"native CRT threshold");}
-        var bodies=OriginalCampaignScript.Events("EVENT 0\nCOMMANDER\nONCE\n1 CHARPOS 6 15\n1. skip\nMESSAGE 0 0 ME 0 test\nEND\nEVENT 100\nGOLD 999\nEVENT 99\nEND");
-        Check(bodies.Count==2&&bodies[0].Length==4&&bodies[0].All(c=>!c.raw.StartsWith("1")),"native client body excludes positive conditions");
+        var bodies=OriginalCampaignScript.Events("EVENT 1\nCOMMANDER\nONCE\n1 CHARPOS 6 15\n1. skip\nMESSAGE 0 0 ME 0 test\nEND\nEVENT 100\nGOLD 999\nEVENT 99\nEND");
+        Check(bodies.Count==2&&bodies[1].Length==5&&bodies[1].Any(c=>c.raw=="1. skip")&&bodies[1].All(c=>!c.raw.StartsWith("1 CHARPOS")),"native loader excludes full decimal conditions but keeps numeric-prefix unknown lines");
+        Check(OriginalCampaignScript.Events("EVENT 0\nGOLD 999\nEND")[0].Single().name=="END","native event0 does not collect action lines");
+        Check(!OriginalCampaignScript.Events("EVENT 1\nGOLD 1\n\nEND").ContainsKey(1)&&!OriginalCampaignScript.Events("EVENT 1\nGOLD 1\n999\nEND").ContainsKey(1),"native loader disables unfinished events at blank/999");
+        Check(OriginalCampaignScript.Events("EVENT 1\n"+string.Join("\n",Enumerable.Repeat("ALL",105))+"\nEND")[1].Length==100,"native loader has99 action slots plus END");
         Check(!OriginalCampaignScript.DecodeEvents(new byte[]{0x5c,0x15,1,0,0},out _)&&!OriginalCampaignScript.DecodeEvents(new byte[]{0x5c,0x15,1,0,100,0},out _),"truncated/out-of-range events denied");
         var branch=new CampaignPresentation("TEST\n(\nSETPOSITION 2 3\n)\nRANDOM 50\nTEST\n(\nSETPOSITION 4 5\n)\nTESTNOT\n(\nSETPOSITION 6 7\n)\nEND",100,1,null,c=>0);
         branch.Advance(0);Check(branch.Snapshot().completed&&branch.Snapshot().cameraX==6,"native initial result1 and branch flags");
@@ -219,6 +366,6 @@ internal static class ScenarioProgressChecks
         manualEntry.Finish();manualEntry.Clear();manualEntry.Finish();manualEntry.Return();
         decodedEntries.entryPoints[0].enabled=false;ScenarioGatewayData.Apply(decodedEntries,editorMaps,manualEntry.definition);
         Check(manualEntry.server.EnterCampaignMap(3).Accepted&&manualEntry.View.record.x==sourceEntry.x&&manualEntry.View.record.y==sourceEntry.y,"disabled manual point restores original connection arrival");
-        Console.WriteLine(JsonSerializer.Serialize(new{assertions,scenarioEntries=entries,sourceOutroCompletions=endings,approvedResultReturns=returns,eventBodies=events,mapMutationFixtures=mutations,held,scope="Approved-clear fixtures only; no actual combat policy or Unity playback."}));
+        Console.WriteLine(JsonSerializer.Serialize(new{assertions,recruitEndingCases,recruitEventCases,recruitAssertions,scenarioEntries=entries,sourceOutroCompletions=endings,approvedResultReturns=returns,eventBodies=events,mapMutationFixtures=mutations,held,scope="Approved-clear and typed-event local recruit fixtures; no actual combat policy or Unity playback."}));
     }
 }

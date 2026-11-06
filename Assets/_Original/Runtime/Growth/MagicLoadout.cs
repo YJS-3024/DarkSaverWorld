@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace DarkSaver.Original.World
 {
     public enum MagicLoadoutOperation { State,Add,Remove,Confirm }
-    [Serializable] public sealed class MagicMenuEntry { public int id,iconX,iconY,mp,distance,range,team,pattern,unit;public string name; }
+    [Serializable] public sealed class MagicMenuEntry { public int id,iconX,iconY,mp,distance,range,team,attribute,pattern,unit;public string name; }
     [Serializable] public sealed class MagicMenuCatalog
     {public MagicMenuEntry[] entries;public MagicMenuEntry Find(int id)=>entries?.FirstOrDefault(e=>e.id==id);}
     public sealed class MagicLoadoutView

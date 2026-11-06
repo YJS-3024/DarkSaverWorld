@@ -1,0 +1,1775 @@
+{
+  "actionGateCases": 48,
+  "weightedBoundaryCases": 8,
+  "invalidMagicFallbackCases": 3,
+  "movementGateCases": 96,
+  "mismatches": 0,
+  "unityPlay": false,
+  "runtimeCommanderAiConnected": false,
+  "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_native_commander_ai_gates.py": "3074bd53a3b1284852a472aabec451044f1479ff04369704cbb1d84bad5cac91",
+    "Tools/OriginalWorldChecks/native_ai_emulator.py": "4a3f5e74e629094f5a1e699d2baa5e6ace9429af2dac7a3829abe18d9ddd5cd2",
+    "분석/Ghidra/Saver_Late/MonsterCommanderAi/evidence.json": "32097e42881eca861ea497581ae3025036471dc7f0b2246892b7d30178a35738",
+    "분석/Ghidra/Saver_Late/MonsterCommanderAi/10002eb0.c": "e5732fa70180b2a37ac12946bce8188f750062e843d930b64f16e473a9ef7ce1",
+    "분석/Ghidra/Saver_Late/MonsterCommanderAi/100042e0.c": "4e129c92e761240aa44b1e8e5c33a2ff0e1b014e1ed64ae7e5671c30cfa0d19d",
+    "분석/Ghidra/Saver_Late/MonsterCommanderAi/10004810.c": "6cdcd57eb85677279e436bcb74367a069d7e44946b51e8b3e194cddd3604b727"
+  },
+  "actions": [
+    {
+      "hp": 29,
+      "flags": 0,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 29,
+      "flags": 0,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 29,
+      "flags": 1,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 29,
+      "flags": 1,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 29,
+      "flags": 16,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 29,
+      "flags": 16,
+      "found": true,
+      "rest": true
+    },
+    {
+      "hp": 29,
+      "flags": 17,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 29,
+      "flags": 17,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 29,
+      "flags": 32,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 29,
+      "flags": 32,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 29,
+      "flags": 48,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 29,
+      "flags": 48,
+      "found": true,
+      "rest": true
+    },
+    {
+      "hp": 30,
+      "flags": 0,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 30,
+      "flags": 0,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 30,
+      "flags": 1,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 30,
+      "flags": 1,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 30,
+      "flags": 16,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 30,
+      "flags": 16,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 30,
+      "flags": 17,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 30,
+      "flags": 17,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 30,
+      "flags": 32,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 30,
+      "flags": 32,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 30,
+      "flags": 48,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 30,
+      "flags": 48,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 0,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 0,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 1,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 1,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 16,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 16,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 17,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 17,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 32,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 32,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 48,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 99,
+      "flags": 48,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 0,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 0,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 1,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 1,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 16,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 16,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 17,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 17,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 32,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 32,
+      "found": true,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 48,
+      "found": false,
+      "rest": false
+    },
+    {
+      "hp": 100,
+      "flags": 48,
+      "found": true,
+      "rest": false
+    },
+    {
+      "weightedRoll": 0,
+      "selected": "rest"
+    },
+    {
+      "weightedRoll": 1,
+      "selected": "rest"
+    },
+    {
+      "weightedRoll": 49,
+      "selected": "rest"
+    },
+    {
+      "weightedRoll": 50,
+      "selected": "rest"
+    },
+    {
+      "weightedRoll": 51,
+      "selected": "attack"
+    },
+    {
+      "weightedRoll": 99,
+      "selected": "attack"
+    }
+  ],
+  "moves": [
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": -1,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 0,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        20,
+        21,
+        7
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        20,
+        21,
+        7
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        20,
+        21,
+        7
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        20,
+        21,
+        7
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        20,
+        21,
+        8
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        20,
+        21,
+        8
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        20,
+        21,
+        8
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        20,
+        21,
+        8
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        20,
+        21,
+        12
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        20,
+        21,
+        12
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        20,
+        21,
+        12
+      ]
+    },
+    {
+      "mode": 1,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        20,
+        21,
+        12
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": false,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 3,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 8,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        -1,
+        -1
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        5,
+        6
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": false,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    },
+    {
+      "mode": 2,
+      "targetActive": true,
+      "targetRange": 12,
+      "destination": [
+        7,
+        8
+      ],
+      "pathSuccess": true,
+      "region": [
+        5,
+        6,
+        20
+      ]
+    }
+  ],
+  "scope": "Actual02EB0 unit-key lookup and042E0/04810 bodies. Source30percent strict low-HP rest, missing AI->order4, rand%100 cumulative <= (including zero weight), invalid negative-magic fallback without reroll; AREA/follow/default20 region and minimum7 follow range; destination/path-failure flag clearing and action-after-movement call. Target selection/path construction, final sends and nested action are explicit hosts. No complete magic/AI policy, damage, spawning, runtime0C or Unity Play claim."
+}

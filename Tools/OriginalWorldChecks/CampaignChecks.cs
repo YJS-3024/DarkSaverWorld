@@ -78,6 +78,37 @@ internal static class CampaignChecks
         script.Advance(1000);Check(script.Snapshot().waitingMessage&&script.Snapshot().message=="대사|둘째줄"&&script.Snapshot().face==100,"DO2 waits for move before source dialogue");
         script.Continue();Check(!script.Snapshot().completed&&script.Snapshot().heldCommand=="GETGENERAL 101","server reward command is not skipped/auto-granted");
         script.Continue();Check(!script.Snapshot().completed,"continue cannot bypass held authority command");
+        var pages=new CampaignPresentation("MESSAGE 1 100 0 0  first | second || fourth | fifth | sixth | seventh\nGETGENERAL 101\nEND",100,1);
+        pages.Advance(0);Check(pages.Snapshot().messageFirstLine==0&&pages.Snapshot().waitingMessage,"portrait message starts on first three literal rows");
+        Check(CampaignPresentation.MessageLines(pages.Snapshot().message).SequenceEqual(new[]{"first","second","","fourth","fifth","sixth","seventh"}),"native line trimming preserves an interior blank row");
+        pages.Continue();Check(pages.Snapshot().messageFirstLine==3&&pages.Snapshot().heldCommand==""&&pages.Snapshot().waitingMessage,"first acknowledgement reveals rows3..5 without executing a reward");
+        pages.Continue();Check(pages.Snapshot().messageFirstLine==6&&pages.Snapshot().heldCommand=="","second acknowledgement keeps final partial page");
+        pages.Continue();Check(pages.Snapshot().heldCommand=="GETGENERAL 101"&&pages.Snapshot().message=="","only final acknowledgement reaches authority command");
+        Check(CampaignPresentation.MessageLines("a||").SequenceEqual(new[]{"a",""})&&CampaignPresentation.MessageLines("a| ").SequenceEqual(new[]{"a",""}),"native trailing delimiter and nonempty whitespace remainder differ");
+        int pagedSourceMessages=0;
+        foreach(var path in Directory.EnumerateFiles(Path.Combine(root,"Assets/_Original/SourceData/Decoded"),"*.txt",SearchOption.AllDirectories))
+        foreach(var command in CampaignCommand.Parse(File.ReadAllText(path)).Where(c=>c.name=="MESSAGE"&&CampaignPresentation.MessageLines(c.text).Length>3))
+        {
+            pagedSourceMessages++;var rows=CampaignPresentation.MessageLines(command.text);
+            var playback=new CampaignPresentation(command.raw+"\nMESSAGE 1 100 0 0 next\nEND",100,1);playback.Advance(0);
+            for(int first=0;first<rows.Length;first+=3)
+            {
+                Check(playback.Snapshot().message==command.text&&playback.Snapshot().messageFirstLine==first&&playback.Snapshot().waitingMessage,"source message page retained until acknowledgement: "+Path.GetFileName(path)+":"+command.line+":"+first);
+                playback.Continue();
+            }
+            Check(playback.Snapshot().message=="next"&&playback.Snapshot().messageFirstLine==0,"next source message resets page after last acknowledgement");
+        }
+        Check(pagedSourceMessages==57,"57 source messages contain more than three native rows");
+        var plainMessage=new CampaignPresentation("MESSAGE 0 0 0 0 notice|literal\nGETGENERAL 101\nEND",100,1);plainMessage.Advance(0);
+        Check(plainMessage.Snapshot().messageMode==0&&plainMessage.Snapshot().message=="notice|literal","plain notice retains literal pipes and has no portrait page");
+        plainMessage.Advance(10000);Check(plainMessage.Snapshot().waitingMessage&&plainMessage.Snapshot().heldCommand=="","plain notice stays at exact10000ms");
+        plainMessage.Advance(1);Check(plainMessage.Snapshot().heldCommand=="GETGENERAL 101"&&plainMessage.Snapshot().message=="","plain notice advances strictly after10000ms without granting a reward");
+        plainMessage=new CampaignPresentation("MESSAGE 0 0 0 0 notice|literal\nGETGENERAL 101\nEND",100,1);plainMessage.Advance(0);plainMessage.Continue();
+        Check(plainMessage.Snapshot().heldCommand=="GETGENERAL 101","plain notice click closes the whole notice rather than paging pipe text");
+        var bottomMessage=new CampaignPresentation("MESSAGE 2 815 0 0 bottom\nEND",100,1);bottomMessage.Advance(0);bottomMessage.Advance(100000);
+        Check(bottomMessage.Snapshot().messageMode==2&&bottomMessage.Snapshot().face==815&&bottomMessage.Snapshot().waitingMessage,"mode2 keeps the bottom portrait and has no notice timeout");
+        var unsupportedMessage=new CampaignPresentation("MESSAGE 3 815 0 0 ignored\nEND",100,1);unsupportedMessage.Advance(0);
+        Check(unsupportedMessage.Snapshot().completed&&unsupportedMessage.Snapshot().message=="","native unsupported message mode has no presentation effect");
         var effects=new List<string>();script=new CampaignPresentation("PLAYMIDI bgm/test.mid 1\nCHARPOS 401 400 2 3\nATTACK 400 401 1\nMAGIC 1 400 -1 -1 401\nKILLCHAR2 400\nEND",100,1);script.Effect+=c=>effects.Add(c.name);script.Advance(0);
         Check(effects.SequenceEqual(new[]{"PLAYMIDI","ATTACK","MAGIC"})&&script.Snapshot().completed,"initial presentation calls are delivered in order");
         Check(script.Snapshot().actors.Single().dead,"native death state separate from clear/reward");

@@ -1,0 +1,91 @@
+{
+  "assertions": 101,
+  "unityPlay": false,
+  "scope": "Production account/service/manager request integration with isolated Unity component lifetime. Original serializer comparison, stale identity/session/revision, cancel/replay and unchanged saves. No server name-approval policy or raw response layout.",
+  "uiLifecycle": {
+    "baseline": {
+      "checks": 1,
+      "destroyedReferenceExceptions": 1,
+      "unityPlay": false
+    },
+    "current": {
+      "checks": 19,
+      "destroyedReferenceExceptions": 0,
+      "unityPlay": false,
+      "scope": "Extracted production name-edit methods/listener; real manager/domain with isolated memory store; managed Unity destroyed-object and EventSystem boundaries."
+    }
+  },
+  "nativeEditRect": [
+    144,
+    39,
+    232,
+    55
+  ],
+  "nativeCodeExecuted": true,
+  "nativePacketCases": 56,
+  "nativeKeyCases": [
+    {
+      "key": 0,
+      "packets": [],
+      "hidden": 0,
+      "focus": []
+    },
+    {
+      "key": 13,
+      "packets": [
+        "3e010204c6edc1fd"
+      ],
+      "hidden": 1,
+      "focus": [
+        74565
+      ]
+    },
+    {
+      "key": 27,
+      "packets": [],
+      "hidden": 1,
+      "focus": [
+        74565
+      ]
+    },
+    {
+      "key": 65,
+      "packets": [],
+      "hidden": 0,
+      "focus": []
+    },
+    {
+      "key": 112,
+      "packets": [],
+      "hidden": 0,
+      "focus": []
+    },
+    {
+      "key": 255,
+      "packets": [],
+      "hidden": 0,
+      "focus": []
+    }
+  ],
+  "mismatches": 0,
+  "logs": "/tmp/ds-night-ai-final-world/ds-commander-name-checks",
+  "nativeScope": "Actual4587C0/458750 with isolated MFC CString, edit control, allocator200, final send and focus/hide. Native executed names fit the original200-byte allocation. Larger BYTE-wrap cases are managed/static copy semantics only; no original heap overflow execution.",
+  "sources": {
+    "Tools/OriginalWorldChecks/check_commander_name.py": "d8f2304323dc8fc205920030d561f0efb4fdd238836eabcd86d66ef84f461e4a",
+    "Tools/OriginalWorldChecks/native_commander_name_emulator.py": "c5a68bab54e4012af149c18d48fcfb14f620f9bfe5e88805e6820e3202727122",
+    "Tools/OriginalWorldChecks/CommanderNameChecks.cs": "587f7d1cd60016de1c067ecc46dd6cffa54006c0691f8e8729a2d679726b969a",
+    "Tools/OriginalWorldChecks/CommanderNameUiChecks.cs": "71b362268861c9974dfeb372340e0cb5250111e7e8774269ea172f01821ff351",
+    "Tools/OriginalWorldChecks/PictureInitializationChecks.cs": "21c8c48ec418979fc9f99c56956f0fd5365bf8dff1ca246538555413e2c1be05",
+    "Tools/OriginalWorldChecks/ClientWindowManagerHost.cs": "91579bb2ee8b37ada7232646183411ef79b8d2c1a1802e376677deab2ff7e652",
+    "Assets/_Original/Runtime/UI/NativeCodePage949.cs": "4cdde807db17dbd1b435d927728d888c60d560ff73a7d5c31b30454f51706324",
+    "Assets/_Original/Runtime/UI/NativeMemoInbox.cs": "f19aedc8fba8c985a0aea6a64a7b7ba22b339b46431a102190fd4ca4caab1983",
+    "Assets/_Original/Runtime/UI/NativeMemoTransfer.cs": "5472f2a79ec02bebc675bc6c36e37af24c7b053bc2e7dc829e7df15ba4a61358",
+    "Assets/_Original/Runtime/UI/NativeCommanderName.cs": "e18f2654fe0990596e9c62a813d0900d5d7efdf6c34c9e6a129fb7d958c5b548",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.Memos.cs": "1d6762c3f5776a9ea75738ec5336e253f5f2ced063ce8d38b0e1a12f2046aa16",
+    "Assets/_Original/Runtime/Entry/LocalServerManager.CommanderName.cs": "682269fdee6348b336f82d82ecce523d2492cd5694817904e1ef14235378853b",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.CommanderName.cs": "da3629b81a7537e11495ade70857b0adc984bdd6f697117e99dc5b8a400ec98e",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Personal.cs": "695bc2e71975ef5482ef3154b4bf3080dc562a4fdf979254142d395c07a534cf",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.Utilities.cs": "568c6a947fbe32a8adf7a49134886d302e59757433a88699205012799439cdd5",
+    "Assets/_Original/Runtime/World/WorldSceneRoot.cs": "bc236600db54e424a19b4f5e46545ddac2635125c03094e6256aba94cdd48920"
+  }
+}

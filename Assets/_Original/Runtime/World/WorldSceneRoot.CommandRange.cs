@@ -20,7 +20,7 @@ namespace DarkSaver.Original.World
         private void PaintCommandRange()
         {
             foreach(var line in commandRangeLines)line.gameObject.SetActive(false);
-            if(!BattleMap()||view.battle==null||view.facility!=null||notice!=null||view.presentation?.completed==false||EventSystem.current==null)return;
+            if(!BattleMap()||view.battle==null||view.facility!=null||notice!=null||CampaignCutscene||EventSystem.current==null)return;
             commandRangeHits.Clear();EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current){position=Input.mousePosition},commandRangeHits);
             if(commandRangeHits.Count==0||commandRangeHits[0].gameObject==null||!commandRangeHits[0].gameObject.transform.IsChildOf(mapRoot))return;
             var hit=commandRangeHits[0].gameObject.transform;int hovered=-1;
