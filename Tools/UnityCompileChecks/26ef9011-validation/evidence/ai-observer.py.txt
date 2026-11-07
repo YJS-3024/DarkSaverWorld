@@ -1,0 +1,29 @@
+"""Observation only: original AI parser assertions, timeout and count unchanged."""
+import pathlib,json,sys,os,subprocess,time,traceback,inspect
+B=pathlib.Path(__file__).resolve().parent;ROOT=B/'source.local';OUT=B/'ai-observation.local'
+if '--worker' in sys.argv:
+    OUT.mkdir(exist_ok=True);sys.path.insert(0,str(ROOT/'Tools/OriginalWorldChecks'))
+    import check_native_ai_rules as test
+    from unicorn.x86_const import UC_X86_REG_EIP
+    original=test.AiParserNative.load;events=[]
+    def observed(self,*args,**kwargs):
+        context=inspect.currentframe().f_back.f_locals.get('c',{})
+        started=time.monotonic()
+        try:return original(self,*args,**kwargs)
+        except BaseException:
+            events.append(dict(case=context.get('key'),kind=context.get('kind'),seconds=time.monotonic()-started,row=getattr(self,'row',None),eip=hex(self.uc.reg_read(UC_X86_REG_EIP)),expectedStop=hex(self.STOP),originalTimeout=1000000,originalInstructionLimit=1000000))
+            raise
+    test.AiParserNative.load=observed;test.WORK=OUT
+    write=pathlib.Path.write_text;target=test.OUT/'native-ai-rules-check.json'
+    def isolated_write(self,data,*args,**kwargs):
+        return write(OUT/'native-ai-rules-check.json'if self==target else self,data,*args,**kwargs)
+    pathlib.Path.write_text=isolated_write
+    try:test.main()
+    finally:write(OUT/'observations.json',json.dumps(events,ensure_ascii=False,indent=2),encoding='utf-8')
+    sys.exit(0)
+old=B.parent/'21e26e23-validation/native.local/ds-installers';late=old/'payloads/a6f518676a553098/saver_files/saver';data=pathlib.Path('C:/Program Files/Unity/Hub/Editor/6000.5.7f1/Editor/Data')
+rules=[('/tmp/ds-installers',old.as_posix()),('/tmp',OUT.as_posix()),('/workspace/.tools/ds-ghidra/installed/saver',late.as_posix()),('/workspace/.tools/unity/6000.5.7f1/Editor/Data',data.as_posix()),((ROOT.parent/'.tools/unity/6000.5.7f1/Editor/Data').as_posix(),data.as_posix())]
+deps=B.parent/'f206c672-validation/deps.local';env=dict(os.environ,DARKSAVER_CHECK_PATHS=json.dumps(rules),PYTHONPATH=os.pathsep.join(map(str,[ROOT/'Tools/CheckSupport',deps])),PYTHONDONTWRITEBYTECODE='1',PYTHONPYCACHEPREFIX=str(OUT/'python-cache'),DOTNET_CLI_HOME=str(OUT/'dotnet-home'),PYTHONUTF8='1',PYTHONIOENCODING='utf-8')
+with (B/'ai-observation.local.log').open('w',encoding='utf-8')as log:
+    p=subprocess.run([sys.executable,'-X','utf8',str(pathlib.Path(__file__).resolve()),'--worker'],cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT)
+print('observational AI parser exit',p.returncode)

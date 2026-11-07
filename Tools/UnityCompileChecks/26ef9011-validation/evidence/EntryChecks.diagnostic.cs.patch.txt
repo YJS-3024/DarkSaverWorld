@@ -1,0 +1,13 @@
+--- original/EntryChecks.cs
++++ temporary/EntryChecks.diagnostic.cs
+@@ -59,8 +59,8 @@
+             Check(normal.ProvisionLocalAccount("retained-account", "retained-password"), "Prepare normal accounts for isolation check");
+             byte[] original = File.ReadAllBytes(accounts);
+             Check(!new EntryClient(normal).OpenLocalProfile() && File.ReadAllBytes(accounts).SequenceEqual(original), "Direct request cannot select or overwrite a normal account store");
+-            var local = new EntryClient(new EntryAccountService(new LocalAccountFileStore(profile)));
+-            Check(local.OpenLocalProfile() && local.Create(100, "별도프로필"), "Real dedicated file creates without normal authentication");
++            var probeStore = new LocalAccountFileStore(profile); var local = new EntryClient(new EntryAccountService(probeStore));
++            bool probeOpen=local.OpenLocalProfile();Console.Error.WriteLine("ENTRY_PROBE open="+probeOpen+" failure="+probeStore.LastFailure+" hresult="+probeStore.LastErrorCode);bool probeCreate=probeOpen&&local.Create(100,"별도프로필");Console.Error.WriteLine("ENTRY_PROBE create="+probeCreate+" failure="+probeStore.LastFailure+" hresult="+probeStore.LastErrorCode);Check(probeOpen&&probeCreate,"Real dedicated file creates without normal authentication");
+             string savedId = local.Character.id;
+             var again = new EntryClient(new EntryAccountService(new LocalAccountFileStore(profile)));
+             Check(again.OpenLocalProfile() && again.Character.id == savedId, "Dedicated file restores across real store reopen");

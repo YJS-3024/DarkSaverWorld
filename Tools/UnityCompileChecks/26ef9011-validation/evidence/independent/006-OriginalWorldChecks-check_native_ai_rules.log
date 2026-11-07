@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation\source.local\Tools\OriginalWorldChecks\check_native_ai_rules.py", line 51, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation\source.local\Tools\OriginalWorldChecks\check_native_ai_rules.py", line 40, in main
+    native=n.load(c['text']or'',key=c['key']if c['key'].isdigit()else'04',seed=c['seed'],opened=c['key']!='unavailable:0',extracted=c['key']!='unavailable:1')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation\source.local\Tools\OriginalWorldChecks\native_ai_rules_emulator.py", line 43, in load
+    self.strings=self.DATA+0x300000;self.lines=text.split('\n');self.lines=self.lines[:-1]if text.endswith('\n')else self.lines;self.lines=[]if text==''else self.lines;self.row=0;self.paths=[];self.extracted=extracted;self.opened=opened;self.write(0x100e0408,self.string(key.encode('ascii')));self.write(0x1010b3e0,self.DATA+0x10000);self.uc.mem_write(0x100d99a0,struct.pack('<6800i',*(seed or [0]*6800)));self.call(0x10002b40,[]);return list(struct.unpack('<6800i',self.uc.mem_read(0x100d99a0,27200)))
+                                                                                                                                                                                                                                                                                                                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation\source.local\Tools\OriginalWorldChecks\native_ai_rules_emulator.py", line 40, in call
+    self.uc.emu_start(entry,self.STOP+1,timeout=1000000,count=1000000);assert self.uc.reg_read(UC_X86_REG_EIP)==self.STOP
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

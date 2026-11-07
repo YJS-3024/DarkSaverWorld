@@ -1,0 +1,366 @@
+[
+  {
+    "check": "Tools/CheckSupport/check_environment.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "checks": 8,
+        "unityPlay": false,
+        "scope": "Opt-in Python path/child/compiler-argument adapter. Windows execution not implied."
+      }
+    ]
+  },
+  {
+    "check": "Tools/CheckSupport/check_runner.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "checks": 101,
+        "mismatches": 0,
+        "unityPlay": false,
+        "scope": "Isolated runner controls: declared-SHA two-target EOL repair, semantic-change refusal, failure propagation, unique AST producer selection and fresh-work-dir compiler bootstrap and stale API source coverage refresh before explicit consumers, isolated Python cache prefix rejects stale source pyc; real missing compiler-host producers run before consumers, explicit mapped hosts are reused, missing output/failure/cycles stop dependent execution and recorded failed/interrupted/changed hosts are rebuilt. Original accounts/source data not used; no Windows process or Unity execution."
+      }
+    ]
+  },
+  {
+    "check": "Tools/CheckSupport/check_evidence_eol.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "checks": 7,
+        "mismatches": 0,
+        "unityPlay": false,
+        "baselineReproduced": true,
+        "currentCanonicalLf": true,
+        "outputs": {
+          "baseline": "a12e91a36b0878f4552cd8dd80d88e75aa1acadca97f2280589cb9a5c57ae7c3",
+          "current": "51970520b36e19cc862766f1ce3996b3df9867efacf74f29d700efc8241f31fd"
+        },
+        "scope": "Actual extractor runs against the exact late PE in temp roots; only Path.write_text newline translation simulated. Baseline reproduces CRLF/hash failure, current writes canonical UTF-8 bytes. The PE is read, not launched; no Windows process/Unity Play claim.",
+        "sources": {
+          "Tools/CheckSupport/check_evidence_eol.py": "c455c3b0d0e403910f90a3194e82d69c6d48ddfffbeb29db7b03647fa4e8120a",
+          "Tools/OriginalTutorialChecks/extract_waiting_tutorial.py": "aadf6b005cadae6614eb52f60b4855fe2eb88fc144b98f4fd17c21295fa1b2ee",
+          ".gitattributes": "868a8a5d51fabf3f3152ca863cd79b26c0a85f4f150f39aae8a9b7ef510f504d",
+          "Tools/OriginalTutorialChecks/tutorial-assets.json": "d5a9f497ed0bd613e80bc18a97d5efedf5c6c6cdae758b5584b3488bb2bdded3",
+          "분석/Saver_Late/waiting_tutorial_resources.json": "51970520b36e19cc862766f1ce3996b3df9867efacf74f29d700efc8241f31fd"
+        }
+      }
+    ]
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_magic_table_parser.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "originalLines": 440,
+        "nativeConversions": 7480,
+        "nativeLegacyProjections": 440,
+        "byteIdenticalOracleInputRows": 440,
+        "recordBytes": 320,
+        "canaryControls": 880,
+        "mismatches": 0,
+        "unityPlay": false,
+        "originalSetunitSha256": "71b6ca3f0d7fc16405f5ea728fc0522982e2eaac169e3a1a6eb74a36e41bfaca",
+        "originalRuntimeHashes": {
+          "msvcrt.dll": "d7cea69a98579d928e534070f5293e80ed7df38baf611b20717ef55aa1344a18",
+          "mfc42.dll": "2598103e2ce4a5f30772b6a8a5fab26baab098c1fe94b744cf6f5dfb3dea1d37"
+        },
+        "callerCodeSha256": "6a9e12376df8c2d7cf82236089a9d1bb44fab78b6553b2256c043509a2ce6891",
+        "callerRange": "10001FE6..1000203B",
+        "scope": "Original1ED0 caller argument construction and original MSVCRT sscanf run on all440 decoded original magictbl.atr lines in supplied C-locale image state. Original format string and destination computations parse all17 columns; source names/numeric CSV and320-byte inputs of other table oracles match exactly. Parsed bytes copied to original row array and actual GetMagicTbl projects7 relevant fields for all440 rows. Scratch stack/input/destination, zero padding, record handoff, TLS/locks/heap are controlled; archive/CStdioFile/outer file loop, pattern payload and DLL/OS initialization are not executed. MFC image mapped by reused host but no MFC formatting claim here. No Windows/Unity/server result."
+      }
+    ]
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_commander_table_chain.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "nativeCommanderCases": 1247,
+        "nativeBodyExecutions": 2494,
+        "packetKinds": {
+          "magic": 427,
+          "attack": 811,
+          "rest": 3
+        },
+        "missingAiSpellReferences": [
+          {
+            "map": "81",
+            "line": 3,
+            "magic": 80601
+          },
+          {
+            "map": "81",
+            "line": 15,
+            "magic": 90
+          }
+        ],
+        "mismatches": 0,
+        "unityPlay": false,
+        "runtime0CConnected": false,
+        "casesSha256": "df8a2fb32103e2639a5dfb631f11b97f46019cdd81da4eba64a89dcee859e2fe",
+        "scope": "Actual UserUnit042E0/targets/CheckMagicTarget/wire with real relocated setunit GetMagicTbl, compared with explicit corrected legacy-field boundary for all440 rows and readiness/status80/MP-short plus12 controls. Compare full packet/constructor inputs/AP/100/108/random/byte mutations. Original CSV320-byte rows and loaded flag supplied; file loader/pattern payload are outside scope. AI81 missing80601/90 audited without replacement or operational effect claim. No production commander scheduling/server rules/Windows/Unity Play."
+      }
+    ]
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_effect_table_parser.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "originalPatternRows": 78,
+        "nativeSscanfCalls": 156,
+        "nativeConversions": 1560,
+        "nativeLegacyPatternProjections": 434,
+        "currentCatalogPatternComparisons": 60,
+        "missingPatternTableProjections": 6,
+        "missingPatternIds": [
+          64,
+          65
+        ],
+        "missingPatternMagic": [
+          {
+            "magic": 6601,
+            "pattern": 64
+          },
+          {
+            "magic": 6602,
+            "pattern": 64
+          },
+          {
+            "magic": 6603,
+            "pattern": 64
+          },
+          {
+            "magic": 8101,
+            "pattern": 65
+          },
+          {
+            "magic": 8102,
+            "pattern": 65
+          },
+          {
+            "magic": 8103,
+            "pattern": 65
+          }
+        ],
+        "mismatches": 0,
+        "unityPlay": false,
+        "callerRange": "10002109..10002201",
+        "callerCodeSha256": "419d5dbd338220eac347f63dd2e2577d2be4da35c0ff35f41aa88cacb1752a6f",
+        "scope": "Original1ED0 ID scan, argument construction, real MSVCRT sscanf, zero-buffer/name copy and1160 underscore normalization execute on all78 decoded source patterns. Each ID stays below native150-record capacity. Actual GetMagicTbl projects both six-value strips, two frame counts, type and sound fields for every matching source magic row. Current JSON raw frame strips/type/sounds match. Six magic rows referencing absent64/65 project zero fields from untouched image slots even after a valid pattern; current missingSource/type0 and adapter inert sound-1 are distinguished from literal native sound0. Source lines/stack/temporary buffer/parsed-magic-record handoff and C-locale TLS/locks are supplied; archive/stdio/outer file loop/DLL initialization, missing-pattern visual dispatch, drawing, audio and elapsed playback speed are not claimed. Runtime type11 count8 override/charge branches are outside this raw-field comparison. Separately, actual UserUnit Magic export and actual setunit lookup prepare144 source/target contexts; both whole736-byte records match explicit slot writes. Missing64/65 and defined no-effect11 still prepare live flags/timers; inactive or disabled caster leaves its record unchanged while target preparation continues. HP0/80 are not caster gates here. This linked UserUnit instance uses the independently parser-validated CSV rows and supplied loaded flag; its pattern slots remain zero because this export only uses the projected radius for slot preparation, not effect-type dispatch. Clock/source records are supplied; later visual Update/type dispatch/clearing/drawing, Unity state integration and frame speed are not checked.",
+        "nativeVisualSlotCases": 144,
+        "nativeWholeVisualRecords": 288
+      }
+    ]
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_ai_rules.py",
+    "status": "failed",
+    "reportedResults": []
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_battle_relations.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "nativeContexts": 2886,
+        "nativeHelperCalls": 8658,
+        "derivedMagicMasks": 23088,
+        "missingContextControls": 6,
+        "mismatches": 0,
+        "unityPlay": false,
+        "logs": "C:\\Project\\DarkSaverWorld\\Tools\\UnityCompileChecks\\26ef9011-validation\\independent.local\\ds-native-battle-relations",
+        "scope": "Actual024A0/02500/025C0 and GetTeamID bodies across signed team/current-team/21-slot relation contexts. Magic low-bit eligibility composes these native return values; it is not a full CheckMagicTarget query here. Missing managed contexts deliberately remain unknown; no ID/team guess, B2 stale-tail policy or server alliance operation."
+      }
+    ]
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_magic_target_catalog.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "tableRows": 440,
+        "nativeTargetCases": 1871,
+        "zeroHpTargetOccurrences": 534,
+        "emptyGroupSuccessCases": 111,
+        "mismatches": 0,
+        "unityPlay": false,
+        "runtime68Connected": false,
+        "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+        "scope": "Every actual Magictbl row executes original UserUnit CheckMagicTarget with four controlled target/direction points; Unit8 adds a completely inactive selected group. Native grid, current unit flags/teams and exact table rows are supplied. Allocation, GetMagicTbl/GetTeamID/map access use existing bounded oracle boundaries. Record ordering, output coordinates, active/enabled filtering and valid empty-group success are checked. Not all possible maps/alliance states, operating eligibility, damage/costs, production68 routing, whole client or Unity Play."
+      }
+    ]
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_ai_missing_magic.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "nativeCases": 6,
+        "originalParsedRules": 2,
+        "invalidMagicRequests": 6,
+        "mismatches": 0,
+        "unityPlay": false,
+        "runtimeMissingMagicAliasAdded": false,
+        "scope": "Actual UserUnit parser reads AI81; source420/540 action rows copied with only test actor key remapped to400. Actual commander/target/CheckMagicTarget/wire and real setunit getter run with explicit prior101/806/906 cache and roll51/61. Each missing spell emits legacy magic-1 with stale prior metadata; this is original invalid-request evidence, not an invented spell alias, actual server approval or map81 spawn/Play. Actor MP100, map/grid/team and file/allocator/send boundaries are supplied controls."
+      }
+    ]
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_ai_dispatch.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "roleCases": 56,
+        "workerCases": 30,
+        "wrapAndCursorChains": 1,
+        "equalCursorEmptyCases": 1,
+        "mismatches": 0,
+        "unityPlay": false,
+        "runtime0CConnected": false,
+        "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+        "scope": "Actual UserUnit023C0 worker and02420 role dispatch. Consume exactly one100-slot FIFO entry per invocation, including negative sentinel, wrap, equal-cursor no-op, carried return cursor and two supplied clock samples/counters. Commander04990/follower041F0 are captured callees, not executed by this check. Native soldier planner equivalence is a separate report; no full CommanderAI decision, server authorization, new runtime0C, timing/FPS or Unity Play claim."
+      }
+    ]
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_ai_frame_gates.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "nativeUpdateCases": 120,
+        "mismatches": 0,
+        "unityPlay": false,
+        "actualFpsMeasured": false,
+        "runtime0CConnected": false,
+        "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+        "scope": "Actual GameCtl03840 full entry/return, SEH shell and switch gates. Valid script object and mode/active/map-ready supplied; unused CString lifetimes, aiexcute and thiscall10F20 return sequence are captured boundaries. Compare AI calls, script-pump count, return and global frame-counter delta. Active is not an outer Update gate; supplied zero-return sequences exercise the caller loop, not actual inactive script semantics. No phase3..9 rendering, source-null undefined state, full scheduler/callee execution, Windows/Unity Play or FPS/timing measurement claim."
+      }
+    ]
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_alliance_chain.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "nativeChains": 54,
+        "controlledAmbiguousCountCases": 36,
+        "completeStructCases": 9,
+        "negativeCountCases": 9,
+        "mismatches": 0,
+        "unityPlay": false,
+        "runtimeB2Connected": false,
+        "callerReturnPc": "1000d540",
+        "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+        "originalUserUnitSha256": "74b2e0489b1025b03fceb5ad74163d1f07c139d394abe1ee2554b26ba837559b",
+        "scope": "Actual GameCtl EB10/B2 by-value arguments and actual UserUnit SetAllyInfo linked in separate original instances with literal real caller return PC. Supplied stale local pairs20/0,20/1,20/2 prove count0..20 is not a function of wire bytes alone. Count21 overwrites the full86-byte struct; extra setter kind reads real return lowWORD D540 and does not write. Negative count resets21 relations to1, updates localTeam, preserves lastLoopTeam. No original stack history recovery, arbitrary count/key memory safety, original DLL initialization/Windows process, UI/server alliance policy or runtimeB2 connection."
+      }
+    ]
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_alliance_history.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "nativeHistoryChains": 24,
+        "interveningReceiverChains": 2,
+        "mismatches": 0,
+        "unityPlay": false,
+        "runtimeB2Connected": false,
+        "interleaved": [
+          {
+            "opcode": "5C40",
+            "retainedPair": [
+              3855,
+              2
+            ],
+            "relations": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "outOfRelationTableWrite": {
+              "key": 3855,
+              "address": "10041188",
+              "previousValue": 0,
+              "writtenValue": 4,
+              "actualWriteHookObserved": true
+            }
+          },
+          {
+            "opcode": "5C5C",
+            "retainedPair": [
+              20,
+              1
+            ],
+            "relations": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "outOfRelationTableWrite": null
+          }
+        ],
+        "scope": "Actual GameCtl EB10/B2 and real by-value UserUnit setter preserve the real caller return PC. Full21 receipt followed by shorter0/1/5/20 receipt inherits the original local pair without any B2 prefill on the second call.24 histories and2 intervening40/5C receivers demonstrate current wire alone cannot determine the extra relation write; bounded VM out-of-table writes are recorded rather than suppressed. The attempted66 interleaving is excluded because this host did not prepare its CString allocation boundary; separate66 checks remain independent. Stack entry addresses/initial image/sequence controlled; not original Windows caller history, arbitrary counts/key safety, guessed all-zero tail, server alliance policy or runtimeB2 integration."
+      }
+    ]
+  },
+  {
+    "check": "Tools/OriginalWorldChecks/check_native_auxiliary_packets.py",
+    "status": "passed",
+    "reportedResults": [
+      {
+        "nativeAiReceiptCases": 9,
+        "nativeScalarCases": 12,
+        "nativeDeploymentCases": 6,
+        "nativeNamedNoticeCases": 12,
+        "nativeSuffixCases": 11,
+        "nativeRetreatConfirmationCases": 6152,
+        "nativeRetreatConfirmationSha256": "3d8460c7853d13b69850e74d28fc1733dfa3df4d135edeaf336256b2150fff26",
+        "suffixCStringReadOnly": true,
+        "mismatches": 0,
+        "unityPlay": false,
+        "runtimeAuxiliaryRoutesConnected": false,
+        "originalGameCtlSha256": "f8aca791efc019ac44610077e46521a68223afa8ee5c894dcee4083be0116da0",
+        "scope": "Actual EB10 dispatch and0C/20/30/40/5C/66 receiver bodies; AI imports, bounded allocation, MFC CString and notice construction are captured.0C only verifies call arguments/order,30 table mutation has no X/Y,40 scalar meaning is not inferred,20 notices do not remove units,66 stores a byte suffix. DlgButtonAction28/E780/F040/5C flag: capture request5C61 before close28; exactly1 and strict-numeric/default-1 <999 open8 at110,10. Suffix output here is C-string bytes only; actual CString length including embeddedNUL is independently verified by native-scenario-suffix-check. No new production routes, server rules, actual UI/audio or whole-client completeness claim."
+      }
+    ]
+  }
+]

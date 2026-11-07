@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\20261107-dawn-native-ai\verify_package.py", line 62, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\20261107-dawn-native-ai\verify_package.py", line 33, in main
+    if current:assert sha(ROOT/row['source'])==row['sha256'],'Current source changed: '+row['source']
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Current source changed: Assets/_Original/Editor/OriginalFoundationSetup.cs

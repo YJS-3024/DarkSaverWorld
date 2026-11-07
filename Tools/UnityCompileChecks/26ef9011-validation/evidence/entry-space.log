@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation\source.local\Tools\OriginalEntryChecks\check_entry.py", line 94, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation\source.local\Tools\OriginalEntryChecks\check_entry.py", line 54, in main
+    if result.returncode: raise RuntimeError('Entry contracts failed: '+(result.stdout+result.stderr)[-2500:])
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Entry contracts failed: Unhandled exception. System.Exception: Real dedicated file creates without normal authentication
+   at EntryChecks.Check(Boolean value, String message)
+   at EntryChecks.LocalProfileContracts()
+   at EntryChecks.Main()

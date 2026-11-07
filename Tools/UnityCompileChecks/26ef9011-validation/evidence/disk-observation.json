@@ -1,0 +1,25 @@
+[
+  {
+    "case": "same-space-temp",
+    "exitCode": 3762504530,
+    "diagnostics": [
+      "DISK_PROBE provision job=100 accepted=True store=None hresult=0",
+      "DISK_PROBE create job=100 accepted=False client=StorageUnavailable store=Io hresult=-2147023721",
+      "Unhandled exception. System.Exception: Disk create 100"
+    ]
+  },
+  {
+    "case": "short-temp",
+    "exitCode": 0,
+    "diagnostics": [
+      "DISK_PROBE provision job=100 accepted=True store=None hresult=0",
+      "DISK_PROBE create job=100 accepted=True client=None store=None hresult=0",
+      "DISK_PROBE provision job=101 accepted=True store=None hresult=0",
+      "DISK_PROBE create job=101 accepted=True client=None store=None hresult=0",
+      "DISK_PROBE provision job=103 accepted=True store=None hresult=0",
+      "DISK_PROBE create job=103 accepted=True client=None store=None hresult=0",
+      "ENTRY_PROBE open=True failure=None hresult=0",
+      "ENTRY_PROBE create=True failure=None hresult=0"
+    ]
+  }
+]

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation/source.local/Tools/UnityCompileChecks/20261107-dawn-native-ai/verify_package.py", line 62, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation/source.local/Tools/UnityCompileChecks/20261107-dawn-native-ai/verify_package.py", line 41, in main
+    for source,digest in report.get('sources',{}).items():assert sha(ROOT/source)==digest,'Current declared source changed: '+source
+                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Current declared source changed: 분석/InstallerVersions/installer_inventory.json

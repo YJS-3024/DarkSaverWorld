@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation/source.local/Tools/UnityCompileChecks/20261107-dawn-native-ai/verify_source_eol.py", line 39, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation/source.local/Tools/UnityCompileChecks/20261107-dawn-native-ai/verify_source_eol.py", line 29, in main
+    (target/'control.txt').write_bytes(b'one\ntwo\n');git('add','--',*names,'control.txt')
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation/source.local/Tools/UnityCompileChecks/20261107-dawn-native-ai/verify_source_eol.py", line 25, in git
+    def git(*args):return subprocess.run(['git',*args],cwd=target,env=env,text=True,capture_output=True,check=True)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\skfks\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\skfks\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\skfks\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 206] 파일 이름이나 확장명이 너무 깁니다

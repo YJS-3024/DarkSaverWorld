@@ -1,0 +1,100 @@
+{
+  "results": [
+    {
+      "check": "Tools/CheckSupport/check_environment.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/000-CheckSupport-check_environment.log"
+    },
+    {
+      "check": "Tools/CheckSupport/check_runner.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/001-CheckSupport-check_runner.log"
+    },
+    {
+      "check": "Tools/CheckSupport/check_evidence_eol.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/002-CheckSupport-check_evidence_eol.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_magic_table_parser.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/003-OriginalWorldChecks-check_native_magic_table_parser.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_commander_table_chain.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/004-OriginalWorldChecks-check_native_commander_table_chain.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_effect_table_parser.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/005-OriginalWorldChecks-check_native_effect_table_parser.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_ai_rules.py",
+      "exitCode": 1,
+      "status": "failed",
+      "log": "evidence/independent/006-OriginalWorldChecks-check_native_ai_rules.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_battle_relations.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/007-OriginalWorldChecks-check_native_battle_relations.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_magic_target_catalog.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/008-OriginalWorldChecks-check_native_magic_target_catalog.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_ai_missing_magic.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/009-OriginalWorldChecks-check_native_ai_missing_magic.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_ai_dispatch.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/010-OriginalWorldChecks-check_native_ai_dispatch.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_ai_frame_gates.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/011-OriginalWorldChecks-check_native_ai_frame_gates.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_alliance_chain.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/012-OriginalWorldChecks-check_native_alliance_chain.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_alliance_history.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/013-OriginalWorldChecks-check_native_alliance_history.log"
+    },
+    {
+      "check": "Tools/OriginalWorldChecks/check_native_auxiliary_packets.py",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "evidence/independent/014-OriginalWorldChecks-check_native_auxiliary_packets.log"
+    }
+  ],
+  "normalizations": [],
+  "status": "failed",
+  "completed": true,
+  "failure": null,
+  "unityPlay": false,
+  "scope": "Original check entrypoints and subprocesses; only paths/compiler argument quoting adapted. No skipped assertions or inferred native file versions."
+}

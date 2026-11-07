@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation\source.local\Tools\UnityCompileChecks\20261107-dawn-native-ai\verify_package.py", line 62, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation\source.local\Tools\UnityCompileChecks\20261107-dawn-native-ai\verify_package.py", line 42, in main
+    verify_preserved(ROOT,data)
+  File "C:\Project\DarkSaverWorld\Tools\UnityCompileChecks\26ef9011-validation\source.local\Tools\UnityCompileChecks\20261107-dawn-native-ai\verify_package.py", line 9, in verify_preserved
+    for row in preserved['preexistingPyc']:assert sha(root/row['path'])==row['sha256'],row['path']
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tools/CombatApChecks/python-deps/__pycache__/pefile.cpython-312.pyc
