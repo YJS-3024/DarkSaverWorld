@@ -1,0 +1,25 @@
+$ErrorActionPreference='Stop'
+$editorProcess=Get-Process -Id 708
+$processInfo=Get-CimInstance Win32_Process -Filter 'ProcessId=708'
+if($processInfo.CommandLine -notlike '*26ef9011-validation*source.local*'){throw 'Wrong Editor project'}
+Add-Type -AssemblyName System.Drawing
+Add-Type @'
+using System; using System.Runtime.InteropServices;
+public static class IsolatedWindowCapture {
+ [StructLayout(LayoutKind.Sequential)] public struct RECT {public int Left,Top,Right,Bottom;}
+ [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr h,out RECT r);
+ [DllImport("user32.dll")] public static extern bool PrintWindow(IntPtr h,IntPtr hdc,uint flags);
+}
+'@
+$handle=$editorProcess.MainWindowHandle
+if($handle -eq [IntPtr]::Zero){throw 'No Editor window'}
+$rect=New-Object IsolatedWindowCapture+RECT
+[void][IsolatedWindowCapture]::GetWindowRect($handle,[ref]$rect)
+$bitmap=New-Object System.Drawing.Bitmap(($rect.Right-$rect.Left),($rect.Bottom-$rect.Top))
+$graphics=[System.Drawing.Graphics]::FromImage($bitmap)
+$device=$graphics.GetHdc()
+try {$accepted=[IsolatedWindowCapture]::PrintWindow($handle,$device,2)}
+finally {$graphics.ReleaseHdc($device);$graphics.Dispose()}
+try {if(!$accepted){throw 'PrintWindow failed'}; $bitmap.Save((Join-Path $PSScriptRoot 'screenshots/P21-reconnect-editor-window.png'),[System.Drawing.Imaging.ImageFormat]::Png)}
+finally {$bitmap.Dispose()}
+[pscustomobject]@{Pid=708;ProjectVerified=$true;WindowTitle=$editorProcess.MainWindowTitle;PrintWindow=$accepted;InputSent=$false}|ConvertTo-Json -Compress
