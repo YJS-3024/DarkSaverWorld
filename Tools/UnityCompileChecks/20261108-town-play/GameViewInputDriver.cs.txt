@@ -1,0 +1,113 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using DarkSaver.Original.Entry;
+
+internal class CommandScript : IRunCommand
+{
+    const string Root = "C:/Project/DarkSaverWorld/Tools/UnityCompileChecks/20261108-town-play";
+    static bool oldEnabled, running;
+    static EnterPlayModeOptions oldOptions;
+    static double began, lastObservation;
+    static int lastId, events, captureAfter;
+    static string pendingCapture;
+    [Serializable] public class Request { public int id; public string action, key, capture; public float x,y; public int button, clickCount=1; }
+    [Serializable] public class Element { public string name,text; public float x,y,width,height; public bool interactable; }
+    [Serializable] public class Observation {
+        public double editorTime; public int frame,lastRequest,eventCount; public bool playing,paused;
+        public string stage,mouse,waitingMessage,tutorialMessage,tutorialWait,tutorialError,worldJson,status;
+        public int waitingMap,waitingX,waitingY,tutorialCursor;
+        public bool waitingCompleted,moving,movementAllowed,swordEquipAllowed,armorEquipAllowed;
+        public bool swordOnFloor,armorOnFloor; public int sword,armor,hand;
+        public List<Element> ui = new List<Element>();
+    }
+    public void Execute(ExecutionResult r) {
+        if(!Application.dataPath.EndsWith("/26ef9011-validation/source.local/Assets") ||
+           !Application.persistentDataPath.EndsWith("/DarkSaverWorld-Play-20261108") ||
+           EditorApplication.isPlaying || EditorApplication.isCompiling || EditorUtility.scriptCompilationFailed)
+            throw new Exception("Wrong/busy validation project");
+        oldEnabled=EditorSettings.enterPlayModeOptionsEnabled; oldOptions=EditorSettings.enterPlayModeOptions;
+        File.WriteAllText(Root+"/input-settings-before.json",JsonUtility.ToJson(new Settings {enabled=oldEnabled,options=(int)oldOptions},true));
+        EditorSettings.enterPlayModeOptionsEnabled=true;
+        EditorSettings.enterPlayModeOptions=EnterPlayModeOptions.DisableDomainReload;
+        began=EditorApplication.timeSinceStartup; running=true; lastId=0; events=0;
+        EditorApplication.update+=Tick;
+        EditorApplication.isPlaying=true;
+        r.Log("INPUT_DRIVER_STARTED: isolated Play; Game View input queue only; no service/progression mutation; DisableDomainReload temporary");
+    }
+    [Serializable] public class Settings {public bool enabled;public int options;}
+    static void Tick() {
+        if(!running) return;
+        try {
+            if(!Application.dataPath.EndsWith("/26ef9011-validation/source.local/Assets") ||
+               !Application.persistentDataPath.EndsWith("/DarkSaverWorld-Play-20261108")) throw new Exception("Project/profile changed");
+            if(EditorApplication.timeSinceStartup-began>1800 || events>400) { Stop("bounded driver limit"); return; }
+            string path=Root+"/input-request.local.json";
+            if(File.Exists(path)) {
+                var q=JsonUtility.FromJson<Request>(File.ReadAllText(path));
+                if(q!=null && q.id>lastId) {
+                    if(q.action=="stop") { lastId=q.id; Stop("requested normal stop"); return; }
+                    if(EditorApplication.isPlaying && !EditorApplication.isPaused && !EditorApplication.isCompiling) {
+                        if(q.action=="capture") {
+                            if(string.IsNullOrEmpty(q.capture)||Path.GetFileName(q.capture)!=q.capture||!q.capture.EndsWith(".png")) throw new Exception("Unsafe capture name");
+                            pendingCapture=q.capture; captureAfter=Time.frameCount+2;
+                        } else {
+                            var e=new Event();
+                            if(q.action=="move") e.type=EventType.MouseMove;
+                            else if(q.action=="down") e.type=EventType.MouseDown;
+                            else if(q.action=="up") e.type=EventType.MouseUp;
+                            else if(q.action=="keyDown") e.type=EventType.KeyDown;
+                            else if(q.action=="keyUp") e.type=EventType.KeyUp;
+                            else throw new Exception("Unknown input action");
+                            if(q.x<0||q.y<0||q.x>=Screen.width||q.y>=Screen.height) throw new Exception("Input outside Game View");
+                            e.mousePosition=new Vector2(q.x,q.y); e.button=q.button; e.clickCount=q.clickCount;
+                            if(!string.IsNullOrEmpty(q.key)) e.keyCode=(KeyCode)Enum.Parse(typeof(KeyCode),q.key);
+                            EditorGUIUtility.QueueGameViewInputEvent(e); events++;
+                        }
+                        lastId=q.id;
+                        File.AppendAllText(Root+"/input-events.jsonl",JsonUtility.ToJson(q)+"\n");
+                    }
+                }
+            }
+            if(pendingCapture!=null && EditorApplication.isPlaying && Time.frameCount>=captureAfter) {
+                ScreenCapture.CaptureScreenshot(Root+"/screenshots/"+pendingCapture);
+                File.AppendAllText(Root+"/capture-events.jsonl",pendingCapture+" frame="+Time.frameCount+"\n");
+                pendingCapture=null;
+            }
+            if(EditorApplication.timeSinceStartup-lastObservation>.3) { Observe("running"); lastObservation=EditorApplication.timeSinceStartup; }
+        } catch(Exception e) { File.AppendAllText(Root+"/driver-errors.log",e.ToString()+"\n"); Stop("driver exception"); }
+    }
+    static void Observe(string status) {
+        var o=new Observation {editorTime=EditorApplication.timeSinceStartup,frame=Time.frameCount,lastRequest=lastId,eventCount=events,
+            playing=EditorApplication.isPlaying,paused=EditorApplication.isPaused,mouse=Input.mousePosition.ToString(),status=status};
+        var entry=UnityEngine.Object.FindAnyObjectByType<EntrySceneRoot>(); o.stage=entry==null?"absent":entry.Stage.ToString();
+        var server=UnityEngine.Object.FindAnyObjectByType<LocalServerManager>();
+        if(server!=null) {
+            var w=server.WaitingSnapshot;
+            if(w!=null) {o.waitingMessage=w.Message;o.waitingMap=w.ResourceId;o.waitingX=w.Tile.X;o.waitingY=w.Tile.Y;o.waitingCompleted=w.Completed;
+                o.moving=w.Moving;o.movementAllowed=w.MovementAllowed;o.swordEquipAllowed=w.SwordEquipAllowed;o.armorEquipAllowed=w.ArmorEquipAllowed;
+                o.swordOnFloor=w.SwordOnFloor;o.armorOnFloor=w.ArmorOnFloor;o.sword=w.Sword;o.armor=w.Armor;o.hand=w.Hand;}
+            var t=server.TutorialSnapshot;
+            if(t!=null) {o.tutorialMessage=t.Message;o.tutorialWait=t.Wait;o.tutorialError=t.Error;o.tutorialCursor=t.Cursor;}
+            var world=server.WorldSnapshot; if(world!=null) o.worldJson=JsonUtility.ToJson(world);
+        }
+        foreach(var b in UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Button>()) {
+            if(!b.gameObject.activeInHierarchy || b.name.StartsWith("Move ")) continue;
+            var rect=b.transform as RectTransform; var corners=new Vector3[4];rect.GetWorldCorners(corners);
+            var a=RectTransformUtility.WorldToScreenPoint(null,corners[0]);var z=RectTransformUtility.WorldToScreenPoint(null,corners[2]);
+            o.ui.Add(new Element {name=b.name,x=(a.x+z.x)*.5f,y=Screen.height-(a.y+z.y)*.5f,width=z.x-a.x,height=z.y-a.y,interactable=b.interactable});
+        }
+        foreach(var t in UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Text>()) if(t.gameObject.activeInHierarchy&&!string.IsNullOrEmpty(t.text))
+            o.ui.Add(new Element {name=t.name,text=t.text});
+        File.WriteAllText(Root+"/driver-state.local.json",JsonUtility.ToJson(o,true));
+    }
+    static void Stop(string reason) {
+        running=false; EditorApplication.update-=Tick;
+        Observe(reason);
+        if(EditorApplication.isPlaying) EditorApplication.isPlaying=false;
+        EditorSettings.enterPlayModeOptions=oldOptions;EditorSettings.enterPlayModeOptionsEnabled=oldEnabled;
+        File.WriteAllText(Root+"/input-settings-restored.json",JsonUtility.ToJson(new Settings {enabled=EditorSettings.enterPlayModeOptionsEnabled,options=(int)EditorSettings.enterPlayModeOptions},true));
+    }
+}
