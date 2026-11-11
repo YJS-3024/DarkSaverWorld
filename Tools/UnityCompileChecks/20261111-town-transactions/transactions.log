@@ -1,0 +1,32 @@
+before goldKnown=False gold=0 bankKnown=False bank=0 inventory=0 storage=0 hired=0
+walk 27,9 => map=2300 tile=10,13 request=None final=None
+walk 4,6 => map=2300 tile=4,6 request=None final=None
+open 2300 accepted=True failure=None active=Shop
+01-shop-buy accepted=False failure=RulesUnavailable goldKnown=False gold=0 bankKnown=False bank=0 inventory=0 storage=0 hired=0
+shop sell unavailable: inventory empty
+walk 10,14 => map=1000 tile=29,9 request=None final=None
+walk 36,9 => map=2400 tile=10,13 request=None final=None
+walk 15,6 => map=2400 tile=15,6 request=None final=None
+open 2400 accepted=True failure=None active=Bank
+03-bank-deposit accepted=False failure=RulesUnavailable goldKnown=False gold=0 bankKnown=False bank=0 inventory=0 storage=0 hired=0
+04-bank-withdraw accepted=False failure=RulesUnavailable goldKnown=False gold=0 bankKnown=False bank=0 inventory=0 storage=0 hired=0
+walk 10,14 => map=1000 tile=38,9 request=None final=None
+walk 28,18 => map=2510 tile=10,13 request=None final=None
+walk 4,6 => map=2510 tile=4,6 request=None final=None
+open 2510 accepted=True failure=None active=Warehouse
+warehouse store unavailable: inventory empty
+warehouse retrieve unavailable: storage empty
+07-warehouse-confirm accepted=False failure=RulesUnavailable goldKnown=False gold=0 bankKnown=False bank=0 inventory=0 storage=0 hired=0
+walk 10,14 => map=1000 tile=30,18 request=None final=None
+walk 37,18 => map=2900 tile=10,13 request=None final=None
+walk 4,6 => map=2900 tile=4,6 request=None final=None
+open 2900 accepted=True failure=None active=Mercenary
+08-mercenary-hire accepted=False failure=InvalidInput goldKnown=False gold=0 bankKnown=False bank=0 inventory=0 storage=0 hired=0
+walk 10,14 => map=1000 tile=39,18 request=None final=None
+walk 9,9 => map=2600 tile=10,18 request=None final=None
+walk 9,7 => map=2600 tile=9,7 request=None final=None
+open 2600 accepted=True failure=None active=Temple
+temple requests=1 quote=False window=False
+walk 10,19 => map=1000 tile=11,9 request=None final=None
+after goldKnown=False gold=0 bankKnown=False bank=0 inventory=0 storage=0 hired=0
+done
