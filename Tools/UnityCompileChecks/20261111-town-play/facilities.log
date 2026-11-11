@@ -1,0 +1,97 @@
+case 2000
+walk 39,35 expectedMap=2000 actual=2000 position=10,13 result=None final=None moving=False
+walk 4,6 expectedMap=2000 actual=2000 position=4,6 result=None final=None moving=False
+open 2000 accepted=True reason=None kind=Shop
+text 2000 NPC name=무기점 주인
+text 2000 Gold=—
+text 2000 NPC name=무기점 주인
+text 2000 Commander name after native foreground=테스트파이터
+close 2000 accepted=True cleared=True
+walk 10,14 expectedMap=1000 actual=1000 position=41,35 result=None final=None moving=False
+returned 2000
+case 2100
+walk 33,29 expectedMap=2100 actual=2100 position=10,13 result=None final=None moving=False
+walk 4,6 expectedMap=2100 actual=2100 position=4,6 result=None final=None moving=False
+open 2100 accepted=True reason=None kind=Shop
+text 2100 Commander name after native foreground=테스트파이터
+text 2100 NPC name=방어구점 주인
+text 2100 NPC name=방어구점 주인
+text 2100 Gold=—
+close 2100 accepted=True cleared=True
+walk 10,14 expectedMap=1000 actual=1000 position=35,29 result=None final=None moving=False
+returned 2100
+case 2200
+walk 27,36 expectedMap=2200 actual=2200 position=10,13 result=None final=None moving=False
+walk 4,6 expectedMap=2200 actual=2200 position=4,6 result=None final=None moving=False
+open 2200 accepted=True reason=None kind=Shop
+text 2200 Commander name after native foreground=테스트파이터
+text 2200 Gold=—
+text 2200 NPC name=장신구점 주인
+text 2200 NPC name=장신구점 주인
+close 2200 accepted=True cleared=True
+walk 10,14 expectedMap=1000 actual=1000 position=29,36 result=None final=None moving=False
+returned 2200
+case 2300
+walk 27,9 expectedMap=2300 actual=2300 position=10,13 result=None final=None moving=False
+walk 4,6 expectedMap=2300 actual=2300 position=4,6 result=None final=None moving=False
+open 2300 accepted=True reason=None kind=Shop
+text 2300 NPC name=소모품점 주인
+text 2300 Commander name after native foreground=테스트파이터
+text 2300 Gold=—
+text 2300 NPC name=소모품점 주인
+close 2300 accepted=True cleared=True
+walk 10,14 expectedMap=1000 actual=1000 position=29,9 result=None final=None moving=False
+returned 2300
+case 2400
+walk 36,9 expectedMap=2400 actual=2400 position=10,13 result=None final=None moving=False
+walk 15,6 expectedMap=2400 actual=2400 position=15,6 result=None final=None moving=False
+open 2400 accepted=True reason=None kind=Bank
+text 2400 Commander name after native foreground=테스트파이터
+text 2400 Wallet=—
+text 2400 NPC name=은행 관리인
+close 2400 accepted=True cleared=True
+walk 10,14 expectedMap=1000 actual=1000 position=38,9 result=None final=None moving=False
+returned 2400
+case 2510
+walk 28,18 expectedMap=2510 actual=2510 position=10,13 result=None final=None moving=False
+walk 4,6 expectedMap=2510 actual=2510 position=4,6 result=None final=None moving=False
+open 2510 accepted=True reason=None kind=Warehouse
+text 2510 Storage fee=보관료 : —
+text 2510 NPC name=창고 관리인
+text 2510 Gold=—
+text 2510 Commander name after native foreground=테스트파이터
+close 2510 accepted=True cleared=True
+walk 10,14 expectedMap=1000 actual=1000 position=30,18 result=None final=None moving=False
+returned 2510
+case 2600
+walk 9,9 expectedMap=2600 actual=2600 position=10,18 result=None final=None moving=False
+walk 9,7 expectedMap=2600 actual=2600 position=9,7 result=None final=None moving=False
+open 2600 accepted=True reason=None kind=Temple
+text 2600 NPC name=신전 관리인
+text 2600 Commander name after native foreground=테스트파이터
+close 2600 accepted=True cleared=True
+walk 10,19 expectedMap=1000 actual=1000 position=11,9 result=None final=None moving=False
+returned 2600
+case 2800
+walk 7,34 expectedMap=2800 actual=2800 position=10,18 result=None final=None moving=False
+walk 4,6 expectedMap=2800 actual=2800 position=4,6 result=None final=None moving=False
+open 2800 accepted=True reason=None kind=Shop
+text 2800 NPC name=마법사의 집 주인
+text 2800 Gold=—
+text 2800 NPC name=마법사의 집 주인
+text 2800 Commander name after native foreground=테스트파이터
+close 2800 accepted=True cleared=True
+walk 10,19 expectedMap=1000 actual=1000 position=9,34 result=None final=None moving=False
+returned 2800
+case 2900
+walk 37,18 expectedMap=2900 actual=2900 position=10,13 result=None final=None moving=False
+walk 4,6 expectedMap=2900 actual=2900 position=4,6 result=None final=None moving=False
+open 2900 accepted=True reason=None kind=Mercenary
+text 2900 Owned count=X0
+text 2900 Commander name after native foreground=테스트파이터
+text 2900 NPC name=용병의 집 관리인
+text 2900 Gold=—
+close 2900 accepted=True cleared=True
+walk 10,14 expectedMap=1000 actual=1000 position=39,18 result=None final=None moving=False
+returned 2900
+done
